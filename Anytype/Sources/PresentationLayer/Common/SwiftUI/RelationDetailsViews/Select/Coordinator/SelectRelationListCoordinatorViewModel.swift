@@ -4,22 +4,14 @@ import SwiftUI
 @MainActor
 final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRelationListModuleOutput {
 
-    let style: SelectRelationListStyle
-    let configuration: RelationModuleConfiguration
-    let selectedOptionsIds: [String]
+    let data: SelectRelationListData
 
     @Published var relationData: RelationData?
     @Published var deletionAlertData: DeletionAlertData?
     @Published var dismiss = false
     
-    init(
-        style: SelectRelationListStyle,
-        configuration: RelationModuleConfiguration,
-        selectedOptionsIds: [String]
-    ) {
-        self.style = style
-        self.configuration = configuration
-        self.selectedOptionsIds = selectedOptionsIds
+    init(data: SelectRelationListData) {
+        self.data = data
     }
 
     // MARK: - SelectRelationListModuleOutput
@@ -37,8 +29,8 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
                 ),
                 mode: .create(
                     RelationOptionSettingsMode.CreateData(
-                        relationKey: configuration.relationKey,
-                        spaceId: configuration.spaceId
+                        relationKey: data.configuration.relationKey,
+                        spaceId: data.configuration.spaceId
                     )
                 )
             ),

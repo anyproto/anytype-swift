@@ -13,21 +13,13 @@ protocol NotificationCoordinatorProtocol: AnyObject {
 final class NotificationCoordinator: NotificationCoordinatorProtocol {
     
     private let notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
-    // Common for show notifications without specific logic and buttons
-    private let commonNotificationAssembly: CommonNotificationAssemblyProtocol
-    // Specific View
-    private let galleryNotificationAssembly: GalleryNotificationAssemblyProtocol
     
     private var subscription: AnyCancellable?
     
     init(
-        notificationSubscriptionService: NotificationsSubscriptionServiceProtocol,
-        commonNotificationAssembly: CommonNotificationAssemblyProtocol,
-        galleryNotificationAssembly: GalleryNotificationAssemblyProtocol
+        notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
     ) {
         self.notificationSubscriptionService = notificationSubscriptionService
-        self.commonNotificationAssembly = commonNotificationAssembly
-        self.galleryNotificationAssembly = galleryNotificationAssembly
     }
     
     func startHandle() async {
@@ -60,15 +52,34 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
         case .galleryImport(let data):
-            let view = galleryNotificationAssembly.make(notification: NotificationGalleryImport(common: notification, galleryImport: data))
+            let view = GalleryNotificationView(notification: NotificationGalleryImport(common: notification, galleryImport: data))
             show(view: view)
-        default:
+        case .participantPermissionsChange(let data):
+            let view = PermissionChangeNotificationView(notification: NotificationParticipantPermissionsChange(common: notification, permissionChange: data))
+            show(view: view)
+        case .participantRequestApproved(let data):
+            let view = ParticipantApproveNotificationView(notification: NotificationParticipantRequestApproved(common: notification, requestApprove: data))
+            show(view: view)
+        case .participantRequestDecline(let data):
+            let view = ParticipantDeclineNotificationView(notification: NotificationParticipantRequestDecline(common: notification, requestDecline: data))
+            show(view: view)
+        case .requestToLeave(let data):
+            let view = RequestToLeaveNotificationView(notification: NotificationRequestToLeave(common: notification, requestToLeave: data))
+            show(view: view)
+        case .requestToJoin(let data):
+            let view = RequestToJoinNotificationView(notification: NotificationRequestToJoin(common: notification, requestToJoin: data))
+            show(view: view)
+        case .participantRemove(let data):
+            let view = ParticipantRemoveNotificationView(notification: NotificationParticipantRemove(common: notification, remove: data))
+            show(view: view)
+        case .import, .export, .test, .none:
+            // Ignore
             break
         }
     }
     
     @MainActor
-    func show(view: AnyView) {
+    func show<T: View>(view: T) {
         
         let entryName = UUID().uuidString
         

@@ -4,13 +4,26 @@ import Services
 
 @MainActor
 protocol WorkspacesStorageProtocol: AnyObject {
-    var workspaces: [SpaceView] { get }
-    var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { get }
+    var allWorkspaces: [SpaceView] { get }
+    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { get }
     func startSubscription() async
     func stopSubscription() async
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
     func canCreateNewSpace() -> Bool
+}
+
+extension WorkspacesStorageProtocol {
+    
+    var activeWorkspaces: [SpaceView] {
+        allWorkspaces.filter(\.isActive)
+    }
+    
+    var activeWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> {
+        allWorkspsacesPublisher.map { $0.filter(\.isActive) }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }
 
 @MainActor
@@ -32,8 +45,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     // MARK: - State
     
-    @Published private(set) var workspaces: [SpaceView] = []
-    var workspsacesPublisher: AnyPublisher<[SpaceView], Never> { $workspaces.eraseToAnyPublisher() }
+    @Published private(set) var allWorkspaces: [SpaceView] = []
+    var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.eraseToAnyPublisher() }
     
     nonisolated init() {}
     
@@ -41,7 +54,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         let data = subscriptionBuilder.build()
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
-            workspaces = data.items.map { SpaceView(details: $0) }
+            allWorkspaces = data.items.map { SpaceView(details: $0) }
         }
     }
     
@@ -50,14 +63,14 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     }
     
     func spaceView(spaceViewId: String) -> SpaceView? {
-        return workspaces.first(where: { $0.id == spaceViewId })
+        return allWorkspaces.first(where: { $0.id == spaceViewId })
     }
     
     func spaceView(spaceId: String) -> SpaceView? {
-        return workspaces.first(where: { $0.targetSpaceId == spaceId })
+        return allWorkspaces.first(where: { $0.targetSpaceId == spaceId })
     }
     
     func canCreateNewSpace() -> Bool {
-        return workspaces.count < Constants.maxSpaces
+        return activeWorkspaces.count < Constants.maxSpaces
     }
 }

@@ -72,7 +72,6 @@ struct RelationListContainerView<Content>: View where Content: View {
         }
         .buttonStyle(BorderlessButtonStyle())
         .bounceBehaviorBasedOnSize()
-        .disabled(!isEditable)
     }
     
     private var clearButton: some View {
@@ -107,7 +106,7 @@ struct RelationListContainerView<Content>: View where Content: View {
     private var emptyState: some View {
         Group {
             if !isCreateAvailable || !isEditable {
-                blockedEmptyState
+                RelationListEmptyState()
             } else  {
                 defaultEmptyState
             }
@@ -122,16 +121,6 @@ struct RelationListContainerView<Content>: View where Content: View {
             actionText: Loc.create
         ) {
             onCreate(nil)
-        }
-    }
-    
-    private var blockedEmptyState: some View {
-        VStack(spacing: 0) {
-            Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.Relation.EmptyState.Blocked.title, style: .uxCalloutMedium, color: .Text.primary)
-            Spacer()
         }
     }
 }

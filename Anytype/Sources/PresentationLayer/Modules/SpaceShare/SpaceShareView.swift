@@ -13,7 +13,7 @@ struct SpaceShareView: View {
             ZStack(alignment: .bottom) {
                 ScrollView {
                     VStack(spacing: 0) {
-                        SectionHeaderView(title: Loc.SpaceShare.membersSection)
+                        SectionHeaderView(title: Loc.SpaceShare.members)
                         ForEach(model.rows) { participant in
                             SpaceShareParticipantView(participant: participant)
                         }
@@ -36,15 +36,20 @@ struct SpaceShareView: View {
         .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
             SpaceParticipantRemoveView(model: model)
         }
+        .anytypeSheet(isPresented: $model.showDeleteLinkAlert, onDismiss: { model.deleteSharingLinkAlertOnDismiss() }) {
+            DeleteSharingLinkAlert(spaceId: model.accountSpaceId)
+        }
     }
     
     private var inviteView: some View {
-        InviteLinkView(invite: model.inviteLink, limitTitle: model.limitTitle, activeShareLink: model.allowToAddMembers) {
-            model.onUpdateLink()
-        } onShareInvite: {
+        InviteLinkView(invite: model.inviteLink) {
             model.onShareInvite()
         } onCopyLink: {
             model.onCopyLink()
+        } onDeleteSharingLink: {
+            model.onDeleteSharingLink()
+        } onGenerateInvite: {
+            try await model.onGenerateInvite()
         }
     }
 }

@@ -8,6 +8,7 @@ public struct FileDetails {
     public let sizeInBytes: Int
     public let fileMimeType: String
     public let fileContentType: FileContentType
+    public let type: String
     
     init(objectDetails: ObjectDetails) {
         self.name = objectDetails.name
@@ -16,6 +17,7 @@ public struct FileDetails {
         self.sizeInBytes = objectDetails.sizeInBytes ?? 0
         self.fileMimeType = objectDetails.fileMimeType
         self.fileContentType = objectDetails.layoutValue.fileContentType
+        self.type = objectDetails.type
     }
     
     public var fileName: String {

@@ -8,10 +8,12 @@ import AudioToolbox
 final class AboutViewModel: ObservableObject {
     
     // MARK: - DI
-    
-    private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
-    private let accountManager: AccountManagerProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.middlewareConfigurationProvider)
+    private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private weak var output: AboutModuleOutput?
     
     private var appVersion: String? = MetadataProvider.appVersion
@@ -22,15 +24,7 @@ final class AboutViewModel: ObservableObject {
     @Published var info: String = ""
     @Published var snackBarData = ToastBarData.empty
     
-    init(
-        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
-        accountManager: AccountManagerProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        output: AboutModuleOutput?
-    ) {
-        self.middlewareConfigurationProvider = middlewareConfigurationProvider
-        self.accountManager = accountManager
-        self.activeWorkspaceStorage = activeWorkspaceStorage
+    init(output: AboutModuleOutput?) {
         self.output = output
         setupView()
     }

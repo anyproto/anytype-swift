@@ -6,6 +6,8 @@ final class GallerySpaceSelectionViewModel: ObservableObject {
     
     @Injected(\.workspaceStorage)
     private var workspaceStorage: WorkspacesStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
     private weak var output: GallerySpaceSelectionModuleOutput?
     
     @Published var spaces: [SpaceView] = []
@@ -13,7 +15,7 @@ final class GallerySpaceSelectionViewModel: ObservableObject {
     
     init(output: GallerySpaceSelectionModuleOutput?) {
         self.output = output
-        self.spaces = workspaceStorage.workspaces
+        self.spaces = participantSpacesStorage.activeParticipantSpaces.filter(\.canEdit).map(\.spaceView)
         self.canCreateNewSpace = workspaceStorage.canCreateNewSpace()
     }
     

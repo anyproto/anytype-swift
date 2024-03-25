@@ -7,17 +7,10 @@ protocol ObjectRelationListCoordinatorModuleOutput: AnyObject {
     func onObjectOpen(screenData: EditorScreenData)
 }
 
-enum ObjectRelationListMode {
-    case object(limitedObjectTypes: [String])
-    case file
-}
-
 @MainActor
 final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRelationListModuleOutput {
 
-    let mode: ObjectRelationListMode
-    let configuration: RelationModuleConfiguration
-    let selectedOptionsIds: [String]
+    let data: ObjectRelationListData
     
     private weak var output: ObjectRelationListCoordinatorModuleOutput?
     
@@ -28,14 +21,10 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
     @Published var dismiss = false
     
     init(
-        mode: ObjectRelationListMode,
-        configuration: RelationModuleConfiguration,
-        selectedOptionsIds: [String],
+        data: ObjectRelationListData,
         output: ObjectRelationListCoordinatorModuleOutput?
     ) {
-        self.mode = mode
-        self.configuration = configuration
-        self.selectedOptionsIds = selectedOptionsIds
+        self.data = data
         self.output = output
     }
     

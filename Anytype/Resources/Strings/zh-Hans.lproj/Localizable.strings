@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
 
 // MARK: - Settings
-"Settings.Title" = "个人空间";
 "Settings.SpaceName" = "空间名称";
 
 // MARK: - Object
@@ -118,6 +117,15 @@
 "Relation.Origin.Builtin" = "库已安装";
 "Relation.Origin.Bookmark" = "书签";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
 
@@ -138,6 +146,7 @@
 "Lists" = "分组";
 "Pinned" = "固定";
 "Delete" = "删除";
+"Export" = "Export";
 "Duplicate" = "生成副本";
 "Copy" = "拷贝";
 "Preview" = "预览";
@@ -258,8 +267,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
-"Auth.JoinFlow.Setting.Space.Title" = "设置您的个人空间";
-"Auth.JoinFlow.Personal.Space.Title" = "个人空间";
+"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
@@ -811,7 +819,6 @@
 "ClearCache.Error" = "错误，请稍后重试";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "个人空间";
 "Settings.Title" = "设置";
 "Settings.SpaceName" = "空间名称";
 "Settings.AccountAndAccess" = "账户与访问权限";
@@ -848,11 +855,10 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "共享空间";
 "Spaces.Accessibility.Private" = "私人空间";
-"Spaces.Accessibility.Personal" = "个人空间";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "搜索空间";
 "Spaces.Title" = "空间";
 "Spaces.Info.Network" = "网络:";
-"Spaces.Info.Device" = "设备:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "未知";
@@ -875,27 +881,33 @@
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
 "SpaceSettings.DeleteButton" = "删除空间";
-"SpaceSettings.Sharing" = "分享";
 "SpaceSettings.Share" = "分享";
-"SpaceSettings.LeaveButton" = "离开并取消加入";
-"SpaceSettings.LeaveAlert.Title" = "离开并取消加入空间";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
 "SpaceSettings.LeaveAlert.Message" = "%@ 空间将被从您的设备中删除，您将无法再访问它";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "共享空间";
-"SpaceShare.MembersSection" = "成员和请求";
+"SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "参与的人";
 "SpaceShare.Permissions.Owner" = "所有者";
 "SpaceShare.Permissions.Reader" = "浏览者";
 "SpaceShare.Permissions.Writer" = "编辑";
+"SpaceShare.Permissions.Grand.Edit" = "编辑";
+"SpaceShare.Permissions.Grand.View" = "视图";
 "SpaceShare.Invite.Title" = "邀请链接";
-"SpaceShare.Invite.Description" = "发送此链接来邀请他人。在他们的请求批准时分配访问权限。";
-"SpaceShare.Invite.Button" = "分享邀请链接";
-"SpaceShare.Status.Joining" = "已申请";
-"SpaceShare.Status.Removing" = "Unjoining requested";
-"SpaceShare.Action.ViewRequest" = "查看请求";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
 "SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
@@ -910,10 +922,27 @@
 "SpaceShare.Join.Message" = "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.";
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.ViewRequest" = "View request";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Request";
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.Archive" = "Archive";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
@@ -1010,9 +1039,11 @@
 "Paid by" = "Paid by %@";
 "Myself" = "Myself";
 "Pay by Card" = "Pay by Card";
+"Details upon request" = "Details upon request";
+"Min X characters" = "Min %@ characters";
 
 
-"Membership.Ad.Title" = "Let’s build together";
+"Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
 
 "Membership.Legal.Details" = "Membership levels details";
@@ -1064,7 +1095,6 @@
 "Membership.Builder.Benefit3" = "10 Guest collaborator seats";
 "Membership.Builder.Benefit4" = "Priority support";
 
-
 "Membership.CoCreator.Title" = "Co-Creator";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
 "Membership.CoCreator.Benefit1" = "Unique name (from 5 characters)";
@@ -1072,6 +1102,9 @@
 "Membership.CoCreator.Benefit3" = "25 Guest collaborator seats";
 "Membership.CoCreator.Benefit4" = "Chat with the team";
 "Membership.CoCreator.Benefit5" = "Unique collectible";
+
+"Membership.Custom.Title" = "Custom";
+"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
 // MARK: - Debug

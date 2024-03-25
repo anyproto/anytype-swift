@@ -13,6 +13,9 @@ final class RelationValueCoordinatorViewModel:
     ObjectRelationListCoordinatorModuleOutput,
     TextRelationActionButtonViewModelDelegate
 {
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    
     var mediumDetent: Bool = false
     
     private let relation: Relation
@@ -66,10 +69,16 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = status.values.isNotEmpty || !relation.isEditable
+            let selectedOptionsIds = status.values.compactMap { $0.id }
             return SelectRelationListCoordinatorView(
-                style: .status,
-                configuration: configuration,
-                selectedOptionsIds: status.values.compactMap { $0.id }
+                data: SelectRelationListData(
+                    style: .status,
+                    configuration: configuration,
+                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                        config: configuration,
+                        selectedOptionsIds: selectedOptionsIds
+                    )
+                )
             ).eraseToAnyView()
         }
         
@@ -84,10 +93,16 @@ final class RelationValueCoordinatorViewModel:
                 analyticsType: analyticsType
             )
             mediumDetent = tag.selectedTags.isNotEmpty || !relation.isEditable
+            let selectedOptionsIds = tag.selectedTags.compactMap { $0.id }
             return SelectRelationListCoordinatorView(
-                style: .tag,
-                configuration: configuration,
-                selectedOptionsIds: tag.selectedTags.compactMap { $0.id }
+                data: SelectRelationListData(
+                    style: .tag,
+                    configuration: configuration,
+                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                        config: configuration,
+                        selectedOptionsIds: selectedOptionsIds
+                    )
+                )
             ).eraseToAnyView()
         }
         
@@ -103,9 +118,17 @@ final class RelationValueCoordinatorViewModel:
             )
             mediumDetent = object.selectedObjects.isNotEmpty || !relation.isEditable
             return ObjectRelationListCoordinatorView(
-                mode: .object(limitedObjectTypes: object.limitedObjectTypes),
-                configuration: configuration,
-                selectedOptionsIds: object.selectedObjects.compactMap { $0.id },
+                data: ObjectRelationListData(
+                    configuration: configuration,
+                    interactor: ObjectRelationListInteractor(
+                        spaceId: configuration.spaceId,
+                        limitedObjectTypes: obtainLimitedObjectTypes(with: object.limitedObjectTypes)
+                    ),
+                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                        config: configuration, 
+                        selectedOptionsIds: object.selectedObjects.compactMap { $0.id }
+                    )
+                ),
                 output: self
             ).eraseToAnyView()
         }
@@ -122,9 +145,16 @@ final class RelationValueCoordinatorViewModel:
             )
             mediumDetent = file.files.isNotEmpty || !relation.isEditable
             return ObjectRelationListCoordinatorView(
-                mode: .file,
-                configuration: configuration,
-                selectedOptionsIds: file.files.compactMap { $0.id },
+                data: ObjectRelationListData(
+                    configuration: configuration,
+                    interactor: FileRelationListInteractor(
+                        spaceId: configuration.spaceId
+                    ),
+                    relationSelectedOptionsModel: RelationSelectedOptionsModel(
+                        config: configuration, 
+                        selectedOptionsIds: file.files.compactMap { $0.id }
+                    )
+                ),
                 output: self
             ).eraseToAnyView()
         }
@@ -201,6 +231,13 @@ final class RelationValueCoordinatorViewModel:
             output: self
         )
     }
+    
+    private func obtainLimitedObjectTypes(with typesIds: [String]) -> [ObjectType] {
+        typesIds.compactMap { [weak self] id in
+            self?.objectTypeProvider.objectTypes.first { $0.id == id }
+        }
+    }
+
     
     // MARK: - ObjectRelationListCoordinatorModuleOutput
     

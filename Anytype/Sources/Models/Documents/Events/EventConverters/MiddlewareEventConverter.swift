@@ -212,6 +212,8 @@ final class MiddlewareEventConverter {
                 .notificationUpdate,
                 .payloadBroadcast:
             return nil
+        case .membershipUpdate(_):
+            return nil // TODO: Support membership update
         }
     }
     

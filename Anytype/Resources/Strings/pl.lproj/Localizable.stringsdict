@@ -133,13 +133,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Obiekt plikowy</string>
         <key>few</key>
-        <string>%d File Objects</string>
+        <string>%d File Objects (Obiekty plików)</string>
         <key>many</key>
-        <string>%d File Objects</string>
+        <string>%d File Objects (Obiekty plików)</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d File Objects (Obiekty plików)</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Blok plików</string>
         <key>few</key>
-        <string>%d File Blocks</string>
+        <string>%d bloki plików</string>
         <key>many</key>
-        <string>%d File Blocks</string>
+        <string>%d bloki plików</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d bloki plików</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -173,13 +173,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Obiekt zakładki</string>
         <key>few</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Obiekty zakładek</string>
         <key>many</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Obiekty zakładek</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Obiekty zakładek</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -193,33 +193,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Blok z odnośnikiem</string>
         <key>few</key>
-        <string>Link %d Blocks</string>
+        <string>Bloki %d linków</string>
         <key>many</key>
-        <string>Link %d Blocks</string>
+        <string>Bloki %d linków</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.Invite.Members</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>You can add one more member</string>
-        <key>few</key>
-        <string>You can add %d more members</string>
-        <key>many</key>
-        <string>You can add %d more members</string>
-        <key>other</key>
-        <string>You can add %d more members</string>
+        <string>Bloki %d linków</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
@@ -229,17 +209,37 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
         <key>few</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
         <key>many</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Osiągnąłeś limit %d członków. Nowi członkowie nie będą mogli dołączyć.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d członków</string>
+        <key>one</key>
+        <string>%d użytkownik</string>
+        <key>few</key>
+        <string>%d członków</string>
+        <key>many</key>
+        <string>%d członków</string>
       </dict>
     </dict>
   </dict>

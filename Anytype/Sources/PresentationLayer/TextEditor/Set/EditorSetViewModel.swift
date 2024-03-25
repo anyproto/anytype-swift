@@ -727,13 +727,13 @@ extension EditorSetViewModel {
 extension EditorSetViewModel {
     static let emptyPreview = EditorSetViewModel(
         setDocument: SetDocument(
-            document: MockBaseDocument(),
+            document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
             inlineParameters: nil,
             relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
             objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
         ),
         headerViewModel: ObjectHeaderViewModel(
-            document: MockBaseDocument(),
+            document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
             targetObjectId: "",
             configuration: .init(
                 isOpenedForPreview: false,

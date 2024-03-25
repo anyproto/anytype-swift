@@ -26,6 +26,7 @@ protocol EditorPageViewInput: EditorCollectionReloadable {
         completion: @escaping () -> Void
     )
     func update(syncStatus: SyncStatus)
+    func update(permissions: ObjectPermissions)
     
     func endEditing()
 

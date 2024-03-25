@@ -18,10 +18,11 @@ struct SpaceSettingsView: View {
                     SettingsObjectHeader(name: $model.spaceName, nameTitle: Loc.Settings.spaceName, iconImage: model.spaceIcon, onTap: {
                         model.onChangeIconTap()
                     })
+                    .disabled(!model.allowEditSpace)
                     
                     if FeatureFlags.multiplayer {
                         if model.allowShare {
-                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SectionHeaderView(title: Loc.SpaceShare.title)
                             SettingsSectionItemView(
                                 name: Loc.SpaceSettings.share,
                                 onTap: { model.onShareTap() }
@@ -29,7 +30,7 @@ struct SpaceSettingsView: View {
                         }
                         
                         if model.allowSpaceMembers {
-                            SectionHeaderView(title: Loc.SpaceSettings.sharing)
+                            SectionHeaderView(title: Loc.SpaceSettings.title)
                             SettingsSectionItemView(
                                 name: Loc.SpaceShare.members,
                                 onTap: { model.onMembersTap() }
@@ -43,11 +44,13 @@ struct SpaceSettingsView: View {
                     
                     SectionHeaderView(title: Loc.settings)
                     
-                    SettingsSectionItemView(
-                        name: Loc.SpaceSettings.remoteStorage,
-                        imageAsset: .Settings.fileStorage,
-                        onTap: { model.onStorageTap() }
-                    )
+                    if model.allowRemoteStorage {
+                        SettingsSectionItemView(
+                            name: Loc.SpaceSettings.remoteStorage,
+                            imageAsset: .Settings.fileStorage,
+                            onTap: { model.onStorageTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.personalization,
@@ -92,9 +95,7 @@ struct SpaceSettingsView: View {
             }
         }
         .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
-            SpaceLeaveAlertView(spaceName: model.spaceName) {
-                try await model.onLeaveConfirmationTap()
-            }
+            SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
         }
     }
 }

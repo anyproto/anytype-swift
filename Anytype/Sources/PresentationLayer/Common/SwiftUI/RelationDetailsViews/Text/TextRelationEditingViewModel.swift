@@ -38,6 +38,11 @@ final class TextRelationEditingViewModel: ObservableObject {
         self.handleTextUpdate(text: self.text)
     }
     
+    func onDisappear() {
+        guard config.isEditable else { return }
+        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: text.isEmpty, type: config.analyticsType)
+    }
+    
     func onClear() {
         text = ""
         updateText(with: "")

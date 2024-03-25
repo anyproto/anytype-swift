@@ -8,6 +8,8 @@ extension BaseDocumentProtocol {
     var featuredRelationsForEditorPublisher: AnyPublisher<[Relation], Never> {
         parsedRelationsPublisher
             .map { [weak self] q -> [Relation] in
+                guard let self else { return [] }
+                
                 var enhancedRelations = q.featuredRelations
                 
                 enhancedRelations.reorder(
@@ -18,11 +20,12 @@ extension BaseDocumentProtocol {
                 ) { $0.key }
                 
                 enhancedRelations.removeAll { relation in
-                    relation.key == BundledRelationKey.description.rawValue
+                    relation.key == BundledRelationKey.description.rawValue ||
+                    (relation.links.isNotNil && !relation.hasValue)
                 }
                 
                 let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
-                if !(self?.isLocked ?? true),
+                if permissions.canEditRelationValues,
                    let setOfIndex,
                    let editableRelation = enhancedRelations[setOfIndex].editableRelation
                 {
@@ -50,7 +53,7 @@ extension BaseDocumentProtocol {
         }
         
         let setOfIndex = enhancedRelations.firstIndex { $0.key == BundledRelationKey.setOf.rawValue }
-        if !isLocked,
+        if permissions.canEditRelationValues,
            let setOfIndex,
            let editableRelation = enhancedRelations[setOfIndex].editableRelation
         {

@@ -27,7 +27,8 @@ final class ShareOptionsModuleAssembly: ShareOptionsModuleAssemblyProtocol {
                     objectActionsService: self.serviceLocator.objectActionsService(),
                     fileService: self.serviceLocator.fileService(),
                     documentProvider: self.serviceLocator.documentsProvider,
-                    pasteboardMiddlewareService: self.serviceLocator.pasteboardMiddlewareService()
+                    pasteboardMiddlewareService: self.serviceLocator.pasteboardMiddlewareService(),
+                    objectTypeProvider: self.serviceLocator.objectTypeProvider()
                 ),
                 activeWorkpaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                 output: output

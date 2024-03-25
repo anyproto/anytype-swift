@@ -18,8 +18,30 @@ fileprivate struct AsyncThrowsTaskModifier: ViewModifier {
     }
 }
 
+fileprivate struct AsyncThrowsIdTaskModifier<T: Equatable>: ViewModifier {
+    
+    let id: T
+    let action: @Sendable () async throws -> Void
+    @State private var toast: ToastBarData = .empty
+    
+    func body(content: Content) -> some View {
+        content
+            .task(id: id) {
+                do {
+                    try await action()
+                } catch {
+                    toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+                }
+            }
+    }
+}
+
 extension View {
-    func throwTask(_ action: @escaping @Sendable () async -> Void) -> some View {
+    func throwTask(_ action: @escaping @Sendable () async throws -> Void) -> some View {
         modifier(AsyncThrowsTaskModifier(action: action))
+    }
+    
+    func throwTask<T: Equatable>(id: T, _ action: @escaping @Sendable () async throws -> Void) -> some View {
+        modifier(AsyncThrowsIdTaskModifier(id: id, action: action))
     }
 }

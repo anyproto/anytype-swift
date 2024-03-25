@@ -2,6 +2,7 @@ import Foundation
 import Services
 import UIKit
 import DeepLinks
+import Combine
 
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
@@ -10,43 +11,39 @@ final class SpaceShareViewModel: ObservableObject {
         static let participantLimit = 11 // 10 participants and 1 owner
     }
     
-    private let participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol
+    private let activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     private let workspaceService: WorkspaceServiceProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let deppLinkParser: DeepLinkParserProtocol
     
     private var participants: [Participant] = []
+    private var subscriptions: [AnyCancellable] = []
     
+    @Published var accountSpaceId: String
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
-    @Published var limitTitle: String = ""
     @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestViewModel?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
+    @Published var showDeleteLinkAlert = false
     
     init(
-        participantSubscriptionService: ParticipantsSubscriptionBySpaceServiceProtocol,
+        activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol,
         workspaceService: WorkspaceServiceProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         deppLinkParser: DeepLinkParserProtocol
     ) {
-        self.participantSubscriptionService = participantSubscriptionService
+        self.activeSpaceParticipantStorage = activeSpaceParticipantStorage
         self.workspaceService = workspaceService
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.deppLinkParser = deppLinkParser
+        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
         Task {
-            let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-        }
-    }
-    
-    func onUpdateLink() {
-        Task {
-            let invite = try await workspaceService.generateInvite(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
         }
     }
@@ -60,14 +57,26 @@ final class SpaceShareViewModel: ObservableObject {
         toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
     }
     
+    func onDeleteSharingLink() {
+        showDeleteLinkAlert = true
+    }
+    
+    func onGenerateInvite() async throws {
+        let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
+        inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
+    }
+    
+    func deleteSharingLinkAlertOnDismiss() {
+        inviteLink = nil
+    }
+    
     // MARK: - Private
     
     private func startSubscriptions() {
-        Task {
-            await participantSubscriptionService.startSubscription(mode: .owner) { [weak self] items in
-                self?.updateParticipant(items: items)
-            }
+        activeSpaceParticipantStorage.participantsPublisher.sink { [weak self] items in
+            self?.updateParticipant(items: items)
         }
+        .store(in: &subscriptions)
     }
     
     private func updateParticipant(items: [Participant]) {
@@ -83,9 +92,7 @@ final class SpaceShareViewModel: ObservableObject {
                 contextActions: participantContextActions(participant)
             )
         }
-        let limit = Constants.participantLimit - items.count
         allowToAddMembers = Constants.participantLimit > items.count
-        limitTitle = allowToAddMembers ? Loc.SpaceShare.Invite.members(limit) : Loc.SpaceShare.Invite.maxLimit(Constants.participantLimit)
     }
     
     private func participantStatus(_ participant: Participant) -> SpaceShareParticipantViewModel.Status? {
@@ -93,9 +100,9 @@ final class SpaceShareViewModel: ObservableObject {
         case .active:
             return .active(permission: participant.permission.title)
         case .joining:
-            return .joining
+            return .pending(message: Loc.SpaceShare.joinRequest)
         case .removing:
-            return .removing
+            return .pending(message: Loc.SpaceShare.leaveRequest)
         case .declined, .canceled, .removed, .UNRECOGNIZED:
             return nil
         }

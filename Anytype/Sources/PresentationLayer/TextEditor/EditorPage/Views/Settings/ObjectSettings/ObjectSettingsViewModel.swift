@@ -33,8 +33,7 @@ final class ObjectSettingsViewModel: ObservableObject {
         guard let details = document.details else { return [] }
         return settingsBuilder.build(
             details: details,
-            restrictions: objectActionsViewModel.objectRestrictions,
-            isReadonly: document.isLocked || document.isArchived
+            permissions: document.permissions
         )
     }
     
@@ -141,7 +140,6 @@ final class ObjectSettingsViewModel: ObservableObject {
             objectActionsViewModel.details = details
         }
         objectActionsViewModel.isLocked = document.isLocked
-        objectActionsViewModel.isArchived = document.isArchived
-        objectActionsViewModel.objectRestrictions = document.objectRestrictions
+        objectActionsViewModel.permissions = document.permissions
     }
 }

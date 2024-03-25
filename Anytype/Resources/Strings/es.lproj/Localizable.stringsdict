@@ -163,22 +163,6 @@
         <string>Enlazar %d bloques</string>
       </dict>
     </dict>
-    <key>SpaceShare.Invite.Members</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>Puedes añadir un miembro más</string>
-        <key>other</key>
-        <string>Puedes añadir %d miembros más</string>
-      </dict>
-    </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
@@ -193,6 +177,22 @@
         <string>d</string>
         <key>other</key>
         <string>Has alcanzado el límite de %d miembros. Los nuevos miembros no podrán unirse.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d miembros</string>
+        <key>one</key>
+        <string>%d miembro</string>
       </dict>
     </dict>
   </dict>

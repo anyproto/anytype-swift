@@ -37,7 +37,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     private let notificationCoordinator: NotificationCoordinatorProtocol
-    private let spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol
     private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     
     // MARK: - State
@@ -54,6 +53,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
+    @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
@@ -103,7 +103,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
         notificationCoordinator: NotificationCoordinatorProtocol,
-        spaceJoinModuleAssembly: SpaceJoinModuleAssemblyProtocol,
         typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
@@ -130,7 +129,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
         self.notificationCoordinator = notificationCoordinator
-        self.spaceJoinModuleAssembly = spaceJoinModuleAssembly
         self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
     }
 
@@ -209,10 +207,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         }
     }
     
-    func spaceJoinModule(data: SpaceJoinModuleData) -> AnyView {
-        return spaceJoinModuleAssembly.make(data: data)
-    }
-    
     // MARK: - HomeWidgetsModuleOutput
     
     // MARK: - CommonWidgetModuleOutput
@@ -259,6 +253,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
     func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
         setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make()
         setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+    }
+    
+    func onManageSpacesSelected() {
+        showSpaceManager = true
     }
     
     // MARK: - HomeBottomPanelModuleOutput

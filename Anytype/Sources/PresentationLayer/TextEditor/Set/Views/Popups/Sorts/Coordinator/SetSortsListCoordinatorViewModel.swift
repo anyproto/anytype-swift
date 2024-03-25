@@ -10,34 +10,20 @@ protocol SetSortsListCoordinatorOutput: AnyObject {
 @MainActor
 final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoordinatorOutput {
     @Published var sortsSearchData: SortsSearchData?
-    @Published var sortTypesData: SortTypesData?
+    @Published var sortTypesData: SetSortTypesData?
     
-    private let setDocument: SetDocumentProtocol
-    private let viewId: String
-    private let setSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol
+    let setDocument: SetDocumentProtocol
+    let viewId: String
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let setSortTypesListModuleAssembly: SetSortTypesListModuleAssemblyProtocol
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        setSortsListModuleAssembly: SetSortsListModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        setSortTypesListModuleAssembly: SetSortTypesListModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
-        self.setSortsListModuleAssembly = setSortsListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.setSortTypesListModuleAssembly = setSortTypesListModuleAssembly
-    }
-    
-    func list() -> AnyView {
-        setSortsListModuleAssembly.make(
-            with: setDocument,
-            viewId: viewId,
-            output: self
-        )
     }
     
     // MARK: - SetSortsListCoordinatorOutput
@@ -64,19 +50,12 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     // MARK: - Sort types
     
     func onSetSortTap(_ setSort: SetSort, completion: @escaping (SetSort) -> Void) {
-        sortTypesData = SortTypesData(
+        sortTypesData = SetSortTypesData(
             setSort: setSort,
             completion: { [weak self] setSort in
                 completion(setSort)
                 self?.sortTypesData = nil
             }
-        )
-    }
-
-    func setSortTypesList(data: SortTypesData) -> AnyView {
-        setSortTypesListModuleAssembly.make(
-            with: data.setSort,
-            completion: data.completion
         )
     }
 }
@@ -87,11 +66,5 @@ extension SetSortsListCoordinatorViewModel {
         let id = UUID()
         let relationDetails: [RelationDetails]
         let completion: (RelationDetails) -> Void
-    }
-    
-    struct SortTypesData: Identifiable {
-        var id: String { setSort.id }
-        let setSort: SetSort
-        let completion: (SetSort) -> Void
     }
 }

@@ -6,60 +6,36 @@ import SwiftUI
 @MainActor
 final class SpacesManagerViewModel: ObservableObject {
     
-    private let spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
-    private let participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     
-    private var spaces: [SpaceView] = []
-    private var participants: [Participant] = []
-    
-    @Published var rows: [SpacesManagerRowViewModel] = []
-    
-    init(
-        spacesSubscriptionService: SpaceManagerSpacesSubscriptionServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        participantsSubscriptionByAccountService: ParticipantsSubscriptionByAccountServiceProtocol
-    ) {
-        self.spacesSubscriptionService = spacesSubscriptionService
-        self.workspaceService = workspaceService
-        self.participantsSubscriptionByAccountService = participantsSubscriptionByAccountService
-    }
-    
-    func onAppear() async {
-        await participantsSubscriptionByAccountService.startSubscription { [weak self] items in
-            self?.participants = items
-            self?.updateRows()
-        }
-    }
-    
+    @Published var participantSpaces: [ParticipantSpaceView] = []
+    @Published var spaceForCancelRequestAlert: SpaceView?
+    @Published var spaceForLeaveAlert: SpaceView?
+        
     func startWorkspacesTask() async {
-        await spacesSubscriptionService.startSubscription { [weak self] spaces in
-            guard let self else { return }
-            withAnimation(self.spaces.isEmpty ? nil : .default) {
-                self.spaces = spaces
-                self.updateRows()
+        for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
+            withAnimation(self.participantSpaces.isEmpty ? nil : .default) {
+                self.participantSpaces = participantSpaces
             }
         }
     }
     
-    func onDelete(row: SpacesManagerRowViewModel) async throws {
+    func onDelete(row: ParticipantSpaceView) async throws {
         try await workspaceService.deleteSpace(spaceId: row.spaceView.targetSpaceId)
     }
+    
+    func onLeave(row: ParticipantSpaceView) async throws {
+        spaceForLeaveAlert = row.spaceView
+    }
         
-    func onCancelRequest(row: SpacesManagerRowViewModel) async throws {
-        try await workspaceService.joinCancel(spaceId: row.spaceView.targetSpaceId)
+    func onCancelRequest(row: ParticipantSpaceView) async throws {
+        spaceForCancelRequestAlert = row.spaceView
     }
     
-    func onArchive(row: SpacesManagerRowViewModel) async throws {
+    func onArchive(row: ParticipantSpaceView) async throws {
         // TODO: Implement it
-    }
-    
-    // MARK: - Private
-    
-    private func updateRows() {
-        rows = spaces.map { spaceView in
-            let participant = participants.first { $0.spaceId == spaceView.targetSpaceId }
-            return SpacesManagerRowViewModel(spaceView: spaceView, participant: participant)
-        }
     }
 }

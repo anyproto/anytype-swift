@@ -22,7 +22,7 @@ final class DebugMenuViewModel: ObservableObject {
     private var authService: AuthServiceProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: ApplicationStateServiceProtocol
-    @Injected(\.activeWorkpaceStorage)
+    @Injected(\.activeWorkspaceStorage)
     private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     
     init() {
