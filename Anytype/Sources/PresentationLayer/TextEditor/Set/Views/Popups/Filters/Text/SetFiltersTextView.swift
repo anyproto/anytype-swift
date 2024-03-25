@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct SetFiltersTextView: View {
-    @StateObject var viewModel: SetFiltersTextViewModel
+    @StateObject private var viewModel: SetFiltersTextViewModel
+    
+    init(filter: SetFilter, onApplyText: @escaping (String) -> Void) {
+        _viewModel = StateObject(wrappedValue: SetFiltersTextViewModel(filter: filter, onApplyText: onApplyText))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

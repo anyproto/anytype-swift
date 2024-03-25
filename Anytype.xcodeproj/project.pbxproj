@@ -1086,7 +1086,6 @@
 		2EAA140A2AA63BFF000A712A /* SetRelationsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA14092AA63BFF000A712A /* SetRelationsCoordinatorView.swift */; };
 		2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */; };
 		2EAA140E2AA63C18000A712A /* SetRelationsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA140D2AA63C18000A712A /* SetRelationsCoordinatorAssembly.swift */; };
-		2EB3F0212A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
@@ -2877,7 +2876,6 @@
 		2EAA14092AA63BFF000A712A /* SetRelationsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelationsCoordinatorView.swift; sourceTree = "<group>"; };
 		2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelationsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2EAA140D2AA63C18000A712A /* SetRelationsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelationsCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
@@ -7545,7 +7543,6 @@
 			children = (
 				2E975F03287F00BC004DE574 /* SetFiltersTextView.swift */,
 				2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */,
-				2EB3F0202A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -11075,7 +11072,6 @@
 				2AD276462B6D232F00112215 /* GallerySpaceSelectionModuleOutput.swift in Sources */,
 				125683DE27DF1D0A003A8251 /* FilesSearchInteractor.swift in Sources */,
 				1223C9002726BE1C00C34616 /* FeaturedRelationBlockView.swift in Sources */,
-				2EB3F0212A9D1B5D00B79A3F /* SetFiltersTextViewModuleAssembly.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* NSAttributedString+Markup.swift in Sources */,
 				2AB7AAED2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift in Sources */,
 				2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */,

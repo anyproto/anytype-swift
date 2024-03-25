@@ -39,7 +39,6 @@ protocol ModulesDIProtocol: AnyObject {
     func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol
     func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol
     func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol
-    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol
     func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol
     func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol
