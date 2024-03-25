@@ -30,7 +30,6 @@ final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinat
                 setFilterConditionsModuleAssembly:  self.modulesDI.setFilterConditions(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
                 setFiltersTextViewModuleAssembly: self.modulesDI.setFiltersTextView(),
-                setFiltersCheckboxViewModuleAssembly: self.modulesDI.setFiltersCheckboxView(),
                 completion: completion
             )
         ).eraseToAnyView()

@@ -11,7 +11,6 @@ final class SetFiltersContentViewBuilder {
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
     private let setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
-    private let setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     
     init(
         spaceId: String,
@@ -19,8 +18,7 @@ final class SetFiltersContentViewBuilder {
         setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
-        setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
+        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
     ) {
         self.spaceId = spaceId
         self.filter = filter
@@ -28,7 +26,6 @@ final class SetFiltersContentViewBuilder {
         self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.setFiltersTextViewModuleAssembly = setFiltersTextViewModuleAssembly
-        self.setFiltersCheckboxViewModuleAssembly = setFiltersCheckboxViewModuleAssembly
     }
     
     @MainActor
@@ -166,10 +163,10 @@ final class SetFiltersContentViewBuilder {
     func buildCheckboxView(
         onApplyCheckbox: @escaping (Bool) -> Void
     ) -> AnyView {
-        setFiltersCheckboxViewModuleAssembly.make(
-            with: filter,
+        SetFiltersCheckboxView(
+            filter: filter,
             onApplyCheckbox: onApplyCheckbox
-        )
+        ).eraseToAnyView()
     }
     
     // MARK: - Private methods: Date
