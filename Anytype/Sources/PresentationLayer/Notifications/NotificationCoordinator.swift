@@ -12,6 +12,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
     private var subscription: AnyCancellable?
     
+    @Published var spaceIdForDeleteAlert: StringIdentifiable?
+    
     func onAppear() {
         Task {
             if subscription.isNotNil {
@@ -63,7 +65,12 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             let view = RequestToJoinNotificationView(notification: NotificationRequestToJoin(common: notification, requestToJoin: data))
             show(view: view)
         case .participantRemove(let data):
-            let view = ParticipantRemoveNotificationView(notification: NotificationParticipantRemove(common: notification, remove: data))
+            let view = ParticipantRemoveNotificationView(
+                notification: NotificationParticipantRemove(common: notification, remove: data),
+                onDelete: { [weak self] spaceId in
+                    self?.spaceIdForDeleteAlert = spaceId.identifiable
+                }
+            )
             show(view: view)
         case .import, .export, .test, .none:
             // Ignore
