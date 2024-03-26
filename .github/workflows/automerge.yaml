@@ -12,8 +12,11 @@ jobs:
     if: github.actor == 'any-association'
 
     steps:
+    
+      - uses: hmarr/auto-approve-action@v4
+
       - name: Auto-merge PRs
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge --admin --squash "$PR_URL"
+        run: gh pr merge --auto --squash "$PR_URL"
