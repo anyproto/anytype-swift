@@ -49,8 +49,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func startFlow() {
-        let module = UIHostingController(rootView: SettingsView(output: self))
-        navigationContext.present(module)
+        navigationContext.present(SettingsView(output: self))
     }
     
     // MARK: - SettingsModuleOutput

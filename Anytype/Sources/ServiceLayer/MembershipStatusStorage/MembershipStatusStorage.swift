@@ -5,7 +5,7 @@ import Services
 
 @MainActor
 protocol MembershipStatusStorageProtocol {
-    var status: Published<MembershipStatus>.Publisher { get }
+    var status: AnyPublisher<MembershipStatus, Never> { get }
 }
 
 @MainActor
@@ -13,7 +13,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
     
-    var status: Published<MembershipStatus>.Publisher { $_status }
+    var status: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
     @Published var _status: MembershipStatus = .empty
     
     private var subscription: AnyCancellable?
