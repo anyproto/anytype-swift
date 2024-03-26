@@ -942,7 +942,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Batalkan Permintaan Bergabung";
 "SpaceManager.DoNotCancel" = "Jangan Batalkan";
-"SpaceManager.Archive" = "Arsip";
 "SpaceManager.CancelRequestAlert.Title" = "Kamu akan perlu mengirimkan permintaan bergabung lagi";
 "SpaceManager.CancelRequestAlert.Toast" = "Permintaanmu telah dibatalkan.";
 
