@@ -25,7 +25,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var shareInviteLink: URL?
     @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
-    @Published var requestAlertModel: SpaceRequestViewModel?
+    @Published var requestAlertModel: SpaceRequestAlertData?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     @Published var showDeleteLinkAlert = false
@@ -166,19 +166,11 @@ final class SpaceShareViewModel: ObservableObject {
     private func showRequestAlert(participant: Participant) {
         guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
         
-        requestAlertModel = SpaceRequestViewModel(
-            icon: participant.icon?.icon,
-            title: Loc.SpaceShare.ViewRequest.title(participant.name, spaceView.name),
-            allowToAddMembers: allowToAddMembers,
-            onViewAccess: { [weak self] in
-                try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)
-            },
-            onEditAccess: { [weak self] in
-                try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .writer)
-            },
-            onReject: { [weak self] in
-                try await self?.workspaceService.requestDecline(spaceId: spaceView.targetSpaceId, identity: participant.identity)
-            }
+        requestAlertModel = SpaceRequestAlertData(
+            spaceId: spaceView.targetSpaceId,
+            spaceName: spaceView.name,
+            participantIdentity: participant.identity,
+            participantName: participant.name
         )
     }
     

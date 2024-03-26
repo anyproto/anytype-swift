@@ -30,7 +30,7 @@ struct SpaceShareView: View {
         .anytypeShareView(item: $model.shareInviteLink)
         .snackbar(toastBarData: $model.toastBarData)
         .anytypeSheet(item: $model.requestAlertModel) { model in
-            SpaceRequestView(model: model)
+            SpaceRequestAlert(data: model)
         }
         .anytypeSheet(item: $model.changeAccessAlertModel) { model in
             SpaceChangeAccessView(model: model)

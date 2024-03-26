@@ -6,8 +6,11 @@ struct RequestToJoinNotificationView: View {
     @StateObject private var model: RequestToJoinNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
     
-    init(notification: NotificationRequestToJoin) {
-        _model = StateObject(wrappedValue: RequestToJoinNotificationViewModel(notification: notification))
+    init(
+        notification: NotificationRequestToJoin,
+        onViewRequest: @escaping (_ notification: NotificationRequestToJoin) async -> Void
+    ) {
+        _model = StateObject(wrappedValue: RequestToJoinNotificationViewModel(notification: notification, onViewRequest: onViewRequest))
     }
     
     var body: some View {
@@ -16,7 +19,7 @@ struct RequestToJoinNotificationView: View {
                 try await model.onTapGoToSpace()
             },
             TopNotificationButton(title: Loc.RequestToJoinNotification.viewRequest) {
-                model.onTapViewRequest()
+                await model.onTapViewRequest()
             }
         ])
         .onChange(of: model.dismiss) { _ in dismiss() }
