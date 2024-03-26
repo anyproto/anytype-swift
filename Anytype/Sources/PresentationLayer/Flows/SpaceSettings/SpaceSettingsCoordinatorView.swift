@@ -9,7 +9,7 @@ struct SpaceSettingsCoordinatorView: View {
     var body: some View {
         SpaceSettingsView(output: model)
         .sheet(isPresented: $model.showRemoteStorage) {
-            model.remoteStorageModule()
+            RemoteStorageView(output: model)
         }
         .sheet(isPresented: $model.showPersonalization) {
             model.personalizationModule()

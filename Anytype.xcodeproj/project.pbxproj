@@ -395,7 +395,6 @@
 		2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */; };
 		2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E402A826FFD00EA856B /* RemoteStorageView.swift */; };
 		2A377E432A82700C00EA856B /* RemoteStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */; };
-		2A377E452A82701700EA856B /* RemoteStorageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */; };
 		2A377E472A82703500EA856B /* RemoteStorageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */; };
 		2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4529FBC567003C43A9 /* FileStorageView.swift */; };
 		2A39DC4829FBC57F003C43A9 /* FileStorageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */; };
@@ -2194,7 +2193,6 @@
 		2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeView.swift; sourceTree = "<group>"; };
 		2A377E402A826FFD00EA856B /* RemoteStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageView.swift; sourceTree = "<group>"; };
 		2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageViewModel.swift; sourceTree = "<group>"; };
-		2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageModuleAssembly.swift; sourceTree = "<group>"; };
 		2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageModuleOutput.swift; sourceTree = "<group>"; };
 		2A39DC4529FBC567003C43A9 /* FileStorageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageView.swift; sourceTree = "<group>"; };
 		2A39DC4729FBC57F003C43A9 /* FileStorageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageViewModel.swift; sourceTree = "<group>"; };
@@ -5637,7 +5635,6 @@
 				2A2698282B3C2E3200A9C08D /* Models */,
 				2A377E402A826FFD00EA856B /* RemoteStorageView.swift */,
 				2A377E422A82700C00EA856B /* RemoteStorageViewModel.swift */,
-				2A377E442A82701700EA856B /* RemoteStorageModuleAssembly.swift */,
 				2A377E462A82703500EA856B /* RemoteStorageModuleOutput.swift */,
 				2AB7AAEC2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift */,
 			);
@@ -10953,7 +10950,6 @@
 				8637768A2A66644B0040308E /* SetObjectCreationSettingsInteractor.swift in Sources */,
 				2ACEAE442984016600B467CE /* WidgetTypeView.swift in Sources */,
 				2E412D152847B15C00C973FF /* SetSort.swift in Sources */,
-				2A377E452A82701700EA856B /* RemoteStorageModuleAssembly.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* AnytypeAnalytics+Events.swift in Sources */,
 				2E5E066629943E20004A98CE /* RelationsModuleTarget.swift in Sources */,

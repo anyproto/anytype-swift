@@ -13,12 +13,18 @@ final class RemoteStorageViewModel: ObservableObject {
         static let mailTo = "storage@anytype.io"
     }
     
-    private let accountManager: AccountManagerProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let fileLimitsStorage: FileLimitsStorageProtocol
-    private let documentProvider: DocumentsProviderProtocol
-    private let workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.fileLimitsStorage)
+    private var fileLimitsStorage: FileLimitsStorageProtocol
+    @Injected(\.documentsProvider)
+    private var documentProvider: DocumentsProviderProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
@@ -33,21 +39,7 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var showGetMoreSpaceButton: Bool = false
     @Published var segmentInfo = RemoteStorageSegmentInfo()
     
-    init(
-        accountManager: AccountManagerProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        fileLimitsStorage: FileLimitsStorageProtocol,
-        documentProvider: DocumentsProviderProtocol,
-        workspacesStorage: WorkspacesStorageProtocol,
-        output: RemoteStorageModuleOutput?
-    ) {
-        self.accountManager = accountManager
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.subscriptionService = subscriptionService
-        self.fileLimitsStorage = fileLimitsStorage
-        self.documentProvider = documentProvider
-        self.workspacesStorage = workspacesStorage
+    init(output: RemoteStorageModuleOutput?) {
         self.output = output
         setupPlaceholderState()
         Task {

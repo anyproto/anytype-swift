@@ -33,7 +33,6 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
             model: SpaceSettingsCoordinatorViewModel(
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
-                remoteStorageModuleAssembly: self.modulesDI.remoteStorage(),
                 widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
                 personalizationModuleAssembly: self.modulesDI.personalization(),
                 activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),

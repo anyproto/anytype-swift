@@ -142,10 +142,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }
     
-    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol {
-        return RemoteStorageModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
