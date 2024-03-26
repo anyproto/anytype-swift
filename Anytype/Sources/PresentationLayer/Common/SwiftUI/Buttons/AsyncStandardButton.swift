@@ -9,11 +9,13 @@ struct AsyncStandardButton: View {
     
     @State private var inProgress: Bool = false
     @State private var toast = ToastBarData.empty
+    @Environment(\.standardButtonGroupDisable) @Binding private var groupDisable
     
     var body: some View {
         StandardButton(.text(text), inProgress: inProgress, style: style) {
             // Add delay
             inProgress = true
+            groupDisable = true
             Task {
                 do {
                     UISelectionFeedbackGenerator().selectionChanged()
@@ -23,8 +25,10 @@ struct AsyncStandardButton: View {
                     toast = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
                 }
                 inProgress = false
+                groupDisable = false
             }
         }
+        .disabled(groupDisable && !inProgress)
         .snackbar(toastBarData: $toast)
     }
 }

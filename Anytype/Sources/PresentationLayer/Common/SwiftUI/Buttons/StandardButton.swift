@@ -40,7 +40,9 @@ struct StandardButton: View {
     
     var body: some View {
         Button {
-            action()
+            if !inProgress {
+                action()
+            }
         } label: {
             contentView
         }
@@ -48,7 +50,9 @@ struct StandardButton: View {
         .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity) {
             // Nothing
         } onPressingChanged: { pressing in
-            isPressed = pressing
+            if !inProgress {
+                isPressed = pressing
+            }
         }
     }
     
