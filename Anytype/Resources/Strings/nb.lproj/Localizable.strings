@@ -919,11 +919,15 @@
 "SpaceShare.Join.CommentPlaceholder" = "Legg igjen en privat kommentar til eieren av rommet";
 "SpaceShare.Join.Button" = "Be om å bli med";
 "SpaceShare.Join.Info" = "Når eieren av rommet godkjenner forespørselen din, vil du bli med i rommet med tilgangsrettigheter eieren har satt.";
-"SpaceShare.Join.Message" = "Du har blitt invitert til å bli med i %@ -rommet, opprettet av %@. Send en forespørsel slik at eieren av rommet kan slippe deg inn.";
+"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
 "SpaceShare.JoinConfirmation.Title" = "Forespørsel sendt";
 "SpaceShare.JoinConfirmation.Message" = "Du vil motta et varsel når eieren av rommet godkjenner forespørselen din.";
 "SpaceShare.YouSuffix" = "%@ (du)";
 "SpaceShare.ManageSpaces" = "Administrer rom";
+"SpaceShare.StopSharing.Action" = "Stopp deling";
+"SpaceShare.StopSharing.Title" = "Stop sharing the space";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
