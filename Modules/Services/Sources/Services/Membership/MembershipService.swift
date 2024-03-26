@@ -44,7 +44,8 @@ public extension Anytype_Model_Membership {
             tier: membershipTier,
             status: status,
             dateEnds: Date(timeIntervalSince1970: TimeInterval(dateEnds)),
-            paymentMethod: paymentMethod
+            paymentMethod: paymentMethod,
+            anyName: requestedAnyName
         )
     }
     
