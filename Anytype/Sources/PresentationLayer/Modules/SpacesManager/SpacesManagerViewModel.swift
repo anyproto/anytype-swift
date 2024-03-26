@@ -16,6 +16,7 @@ final class SpacesManagerViewModel: ObservableObject {
     @Published var spaceForStopSharingAlert: SpaceView?
     @Published var spaceForLeaveAlert: SpaceView?
     @Published var spaceViewForDelete: SpaceView?
+    @Published var exportSpaceUrl: URL?
         
     func startWorkspacesTask() async {
         for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
@@ -38,7 +39,9 @@ final class SpacesManagerViewModel: ObservableObject {
     }
     
     func onArchive(row: ParticipantSpaceView) async throws {
-        // TODO: Implement it
+        let tempDir = FileManager.default.createTempDirectory()
+        let path = try await workspaceService.workspaceExport(spaceId: row.spaceView.targetSpaceId, path: tempDir.path)
+        exportSpaceUrl = URL(string: path)
     }
     
     func onStopSharing(row: ParticipantSpaceView) {

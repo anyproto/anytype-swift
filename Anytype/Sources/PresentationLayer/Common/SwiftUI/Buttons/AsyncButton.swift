@@ -27,6 +27,7 @@ struct AsyncButton<Label> : View where Label : View {
         } label: {
             label
         }
+        .snackbar(toastBarData: $toast)
     }
 }
 
