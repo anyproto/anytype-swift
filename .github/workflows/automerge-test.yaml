@@ -1,0 +1,21 @@
+name: Auto-merge-test
+
+on: pull_request
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - uses: hmarr/auto-approve-action@v4
+
+      # - name: Auto-merge PRs
+      #   env:
+      #     PR_URL: ${{ github.event.pull_request.html_url }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: gh pr merge --auto --squash "$PR_URL"
