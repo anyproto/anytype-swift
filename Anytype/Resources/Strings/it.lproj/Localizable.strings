@@ -919,15 +919,15 @@
 "SpaceShare.Join.CommentPlaceholder" = "Lascia un commento privato per il proprietario dello spazio";
 "SpaceShare.Join.Button" = "Richiesta di adesione";
 "SpaceShare.Join.Info" = "Una volta che il proprietario dello spazio approva la tua richiesta, entrerai nello spazio con i diritti di accesso determinati dal proprietario.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.Message" = "Sei stato invitato a unirti allo spazio **%@**, creato da **%@**. Invia una richiesta così il proprietario dello spazio può farti entrare.";
 "SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
 "SpaceShare.YouSuffix" = "%@ (tu)";
 "SpaceShare.ManageSpaces" = "Gestisci Spazi";
 "SpaceShare.StopSharing.Action" = "Stop sharing";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
-"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.StopSharing.Title" = "Smetti di condividere lo spazio";
+"SpaceShare.StopSharing.Message" = "I membri non si sincronizzeranno più con questo spazio e il link di condivisione verrà disattivato.";
+"SpaceShare.StopSharing.Toast" = "Lo spazio non è più condiviso";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "I tuoi diritti di accesso sono stati modificati in **%@** nello spazio **%@**.";
@@ -942,7 +942,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Annulla Richiesta Di Partecipazione";
 "SpaceManager.DoNotCancel" = "Non annullare";
-"SpaceManager.Archive" = "Archivia";
 "SpaceManager.CancelRequestAlert.Title" = "Dovrai inviare nuovamente la richiesta di accesso";
 "SpaceManager.CancelRequestAlert.Toast" = "La richiesta è stata annullata.";
 
