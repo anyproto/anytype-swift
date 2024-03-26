@@ -3,7 +3,7 @@ name: Fastlane test build
 permissions:
   contents: 'write'
   pull-requests: write
-  
+
 on:
   workflow_dispatch:
 
@@ -59,6 +59,7 @@ jobs:
           export LANG=en_US.UTF-8
           bundle exec fastlane test_build
         env:
+          GH_TOKEN: ${{ github.token }}
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
