@@ -2196,8 +2196,6 @@ internal enum Loc {
     internal static let title = Loc.tr("Localizable", "SpaceCreate.Title", fallback: "Create a space")
   }
   internal enum SpaceManager {
-    /// Archive
-    internal static let archive = Loc.tr("Localizable", "SpaceManager.Archive", fallback: "Archive")
     /// Cancel Join Request
     internal static let cancelRequest = Loc.tr("Localizable", "SpaceManager.CancelRequest", fallback: "Cancel Join Request")
     /// Do Not Cancel
