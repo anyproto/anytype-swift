@@ -1,0 +1,19 @@
+name: Auto-merge
+
+on: pull_request_target
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    if: github.actor == 'any-association'
+
+    steps:
+      - name: Auto-merge PRs
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr merge --auto --squash "$PR_URL"
