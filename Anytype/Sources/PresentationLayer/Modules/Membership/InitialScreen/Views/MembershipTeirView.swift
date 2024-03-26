@@ -108,7 +108,8 @@ struct MembershipTeirView: View {
                     tier: nil,
                     status: .unknown,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) {  }
             MembershipTeirView(
@@ -117,7 +118,8 @@ struct MembershipTeirView: View {
                     tier: .explorer,
                     status: .pending,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) {  }
             MembershipTeirView(
@@ -126,7 +128,8 @@ struct MembershipTeirView: View {
                     tier: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) {  }
             MembershipTeirView(
@@ -135,7 +138,8 @@ struct MembershipTeirView: View {
                     tier: .explorer,
                     status: .pending,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) {  }
             MembershipTeirView(
@@ -144,7 +148,8 @@ struct MembershipTeirView: View {
                     tier: .builder,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) {  }
             MembershipTeirView(
@@ -153,7 +158,8 @@ struct MembershipTeirView: View {
                     tier: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) {  }
             MembershipTeirView(
@@ -162,7 +168,8 @@ struct MembershipTeirView: View {
                     tier: .custom(id: 0),
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) {  }
         }

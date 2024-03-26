@@ -21,17 +21,20 @@ public struct MembershipStatus: Equatable {
     public let status: MembershipSubscriptionStatus
     public let dateEnds: Date
     public let paymentMethod: MembershipPaymentMethod
+    public let anyName: String
     
     public init(
         tier: MembershipTier?,
         status: MembershipSubscriptionStatus,
         dateEnds: Date,
-        paymentMethod: MembershipPaymentMethod
+        paymentMethod: MembershipPaymentMethod,
+        anyName: String
     ) {
         self.tier = tier
         self.status = status
         self.dateEnds = dateEnds
         self.paymentMethod = paymentMethod
+        self.anyName = anyName
     }
 }
 

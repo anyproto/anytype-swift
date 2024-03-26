@@ -20,6 +20,7 @@ enum MembershipNameSheetViewState {
 @MainActor
 final class MembershipNameSheetViewModel: ObservableObject {
     @Published var state = MembershipNameSheetViewState.default
+    let anyName: String
     
     // TODO: use middleware api
     var minimumNumberOfCharacters: Int {
@@ -39,8 +40,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
     private let tier: MembershipTier
     private var validationTask: Task<(), any Error>?
     
-    init(tier: MembershipTier) {
+    init(tier: MembershipTier, anyName: String) {
         self.tier = tier
+        self.anyName = anyName
     }
     
     func validateName(name: String) {

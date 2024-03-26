@@ -59,7 +59,8 @@ struct MembershipOwnerInfoSheetView: View {
                     tier: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             )
             MembershipOwnerInfoSheetView(
@@ -67,7 +68,8 @@ struct MembershipOwnerInfoSheetView: View {
                     tier: .builder,
                     status: .pending,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCrypto
+                    paymentMethod: .methodCrypto,
+                    anyName: ""
                 )
             )
             MembershipOwnerInfoSheetView(
@@ -75,7 +77,8 @@ struct MembershipOwnerInfoSheetView: View {
                     tier: .coCreator,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodAppleInapp
+                    paymentMethod: .methodAppleInapp,
+                    anyName: ""
                 )
             )
         }

@@ -8,7 +8,8 @@ public extension MembershipStatus {
             tier: nil,
             status: .unknown,
             dateEnds: .distantFuture,
-            paymentMethod: .methodCard
+            paymentMethod: .methodCard,
+            anyName: ""
         )
     }
     

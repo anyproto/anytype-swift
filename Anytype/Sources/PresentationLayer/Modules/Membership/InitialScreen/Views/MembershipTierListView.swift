@@ -37,7 +37,8 @@ struct MembershipTierListView: View {
                     tier: nil,
                     status: .unknown,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) { _ in }
             
@@ -46,7 +47,8 @@ struct MembershipTierListView: View {
                     tier: .explorer,
                     status: .pending,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) { _ in }
             
@@ -55,7 +57,8 @@ struct MembershipTierListView: View {
                     tier: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) { _ in }
             
@@ -64,7 +67,8 @@ struct MembershipTierListView: View {
                     tier: .custom(id: 0),
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) { _ in }
 
@@ -74,7 +78,8 @@ struct MembershipTierListView: View {
                     tier: .builder,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) { _ in }
             
@@ -83,7 +88,8 @@ struct MembershipTierListView: View {
                     tier: .coCreator,
                     status: .pending,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard
+                    paymentMethod: .methodCard,
+                    anyName: ""
                 )
             ) { _ in }
         }
