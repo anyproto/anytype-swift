@@ -1274,6 +1274,7 @@
 		3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7DC2C02BB1D21F00A4F114 /* ValidateNameErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */; };
+		3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8D0268F636300C76974 /* BlockBookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */; };
 		3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7F7172279F0829003FE893 /* EditorSetPaginationData.swift */; };
@@ -3067,6 +3068,7 @@
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNameErrorExtension.swift; sourceTree = "<group>"; };
+		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7F7172279F0829003FE893 /* EditorSetPaginationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetPaginationData.swift; sourceTree = "<group>"; };
@@ -3652,7 +3654,6 @@
 				EA02611A2625B1DB00AE6D86 /* Restrictions */,
 				0A0965B525BEE7DE00C004BD /* Document */,
 				0A78328424BDEB2A00A1B6F6 /* Parsers */,
-				0A78326B24B8D23F00A1B6F6 /* BlocksModelsIntergration */,
 			);
 			path = Documents;
 			sourceTree = "<group>";
@@ -3825,6 +3826,7 @@
 				12EE02D42840EB2800223EB5 /* DeviceSceneStateListener */,
 				862065512AB1A974006E539B /* DocumentsProvider */,
 				2AB522062A14D08A007DEE53 /* File */,
+				3D7DC2C12BB2D3F100A4F114 /* MembershipStatusStorage */,
 				2AC3F9442A13824D005EFEE9 /* FileLimitsStorage */,
 				12CAF37326D6AAF8001E56B2 /* ImageStorage */,
 				03C5C53522DF6C9900DD91DE /* KeychainStore */,
@@ -4157,13 +4159,6 @@
 				3D07ECD1261B501E00C007E2 /* File */,
 			);
 			path = Block;
-			sourceTree = "<group>";
-		};
-		0A78326B24B8D23F00A1B6F6 /* BlocksModelsIntergration */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BlocksModelsIntergration;
 			sourceTree = "<group>";
 		};
 		0A78328424BDEB2A00A1B6F6 /* Parsers */ = {
@@ -8703,6 +8698,14 @@
 			path = DocumentService;
 			sourceTree = "<group>";
 		};
+		3D7DC2C12BB2D3F100A4F114 /* MembershipStatusStorage */ = {
+			isa = PBXGroup;
+			children = (
+				3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */,
+			);
+			path = MembershipStatusStorage;
+			sourceTree = "<group>";
+		};
 		3D7EA8A7268EF3F500C76974 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -11067,6 +11070,7 @@
 				2A0F40322BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift in Sources */,
 				C9E939D9285390B70089CB98 /* TextBlockActionHandlerProtocol.swift in Sources */,
 				2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */,
+				3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */,
 				2A2B332E2A7BB0AC004BD906 /* SpaceRowView.swift in Sources */,
 				2E975EEC287C23DA004DE574 /* SetSortsSearchInteractor.swift in Sources */,
 				2A590ECD2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift in Sources */,

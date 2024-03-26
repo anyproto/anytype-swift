@@ -11,13 +11,13 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var emailVerificationData: EmailVerificationData?
     @Published var emailUrl: URL?
     
-    @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: AccountManagerProtocol
     
-    func onAppear() {
-        updateStatus()
+    init() {
+        membershipStatusStorage.status.assign(to: &$userMembership)
     }
     
     func onTierSelected(tier: MembershipTier) {
@@ -40,8 +40,6 @@ final class MembershipCoordinatorModel: ObservableObject {
     }
     
     func onSuccessfulValidation() {
-        updateStatus()
-        
         emailVerificationData = nil
         showTier = nil
         
@@ -50,12 +48,6 @@ final class MembershipCoordinatorModel: ObservableObject {
         Task {
             try await Task.sleep(seconds: 0.5)
             showSuccess = .explorer
-        }
-    }
-    
-    private func updateStatus() {
-        Task {
-            userMembership = try await membershipService.getStatus()
         }
     }
 }

@@ -38,7 +38,7 @@ final class MembershipService: MembershipServiceProtocol {
     }
 }
 
-extension Anytype_Model_Membership {
+public extension Anytype_Model_Membership {
     func asModel() -> MembershipStatus {
         MembershipStatus(
             tier: membershipTier,
