@@ -31,10 +31,10 @@ jobs:
         with:
           xcode-version: '15.2'
 
-      - name: Download Middleware
-        run: make setup-middle
-        env:
-          MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
+      # - name: Download Middleware
+      #   run: make setup-middle
+      #   env:
+      #     MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
       # - name: Test comment
       #   run: bundle exec fastlane add_linear_comment from_tag:dev/0.22.0/32 to_tag:dev/0.22.0/33 comment:"Test comment \`0.23\`"
@@ -65,3 +65,5 @@ jobs:
           APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
           FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
+
+      - uses: hmarr/auto-approve-action@v4

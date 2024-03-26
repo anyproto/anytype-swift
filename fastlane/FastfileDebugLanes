@@ -8,18 +8,44 @@ platform :ios do
     setup_ci
     match(readonly: true)
 
-    desc "Runs all the tests"
+    sh("git", "checkout", "-b", "increment")
+
+    xcodeproj = ENV["APP_PROJECT"]
     
-    build_app(
-      scheme: ENV["APP_TARGET"], 
-      configuration: ENV["APP_CONF_DEVELOP"],
-      include_symbols: true,
-      use_system_scm: true,
-      archive_path: "./build/archive",
-      output_directory: "./build/result",
-      xcargs: ENV['BUILD_OPTIONS'],
-      cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+    setup_ci
+    match(readonly: true)
+    
+    ensure_git_status_clean(
+      show_uncommitted_changes: true
     )
+
+    sh("git checkout -b " + temp_branch)
+
+    build_number = increment_build_number(xcodeproj: xcodeproj, skip_info_plist: true)
+    version = get_version_number(xcodeproj: xcodeproj, target: ENV["APP_TARGET"])
+    
+    commit_version_bump(
+      message: "Bump version #{version}(#{build_number})",
+      xcodeproj: xcodeproj,
+      no_verify: true
+    )
+
+    push_to_git_remote(no_verify: true)
+    
+    sh("gh pr create --base develop --title \"Increment build\"")
+
+    # desc "Runs all the tests"
+    
+    # build_app(
+    #   scheme: ENV["APP_TARGET"], 
+    #   configuration: ENV["APP_CONF_DEVELOP"],
+    #   include_symbols: true,
+    #   use_system_scm: true,
+    #   archive_path: "./build/archive",
+    #   output_directory: "./build/result",
+    #   xcargs: ENV['BUILD_OPTIONS'],
+    #   cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
+    # )
 
   end
 
