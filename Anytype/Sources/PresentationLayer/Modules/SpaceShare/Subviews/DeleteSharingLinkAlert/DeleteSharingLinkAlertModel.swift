@@ -8,12 +8,15 @@ final class DeleteSharingLinkAlertModel: ObservableObject {
     private var workspaceService: WorkspaceServiceProtocol
     
     private let spaceId: String
+    private let onDelete: (() -> Void)?
     
-    init(spaceId: String) {
+    init(spaceId: String, onDelete: (() -> Void)?) {
         self.spaceId = spaceId
+        self.onDelete = onDelete
     }
     
     func onTapDeleteLink() async throws {
         try await workspaceService.revokeInvite(spaceId: spaceId)
+        onDelete?()
     }
 }

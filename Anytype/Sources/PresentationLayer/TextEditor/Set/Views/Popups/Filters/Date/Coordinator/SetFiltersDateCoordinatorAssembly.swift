@@ -30,7 +30,6 @@ final class SetFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssembly
                 filter: filter,
                 setSelectionModel: setSelectionModel,
                 setFiltersDateViewModuleAssembly: self.modulesDI.setFiltersDateView(),
-                setTextViewModuleAssembly: self.modulesDI.setTextView(),
                 completion: completion
             )
         ).eraseToAnyView()

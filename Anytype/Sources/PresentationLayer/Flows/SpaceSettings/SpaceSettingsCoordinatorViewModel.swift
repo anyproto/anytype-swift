@@ -6,7 +6,6 @@ import AnytypeCore
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
-    private let spaceSettingsModuleAssembly: SpaceSettingsModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let remoteStorageModuleAssembly: RemoteStorageModuleAssemblyProtocol
@@ -32,7 +31,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private var subscriptions = [AnyCancellable]()
     
     init(
-        spaceSettingsModuleAssembly: SpaceSettingsModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         remoteStorageModuleAssembly: RemoteStorageModuleAssemblyProtocol,
@@ -47,7 +45,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         urlOpener: URLOpenerProtocol,
         documentService: OpenedDocumentsProviderProtocol
     ) {
-        self.spaceSettingsModuleAssembly = spaceSettingsModuleAssembly
         self.navigationContext = navigationContext
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.remoteStorageModuleAssembly = remoteStorageModuleAssembly
@@ -63,10 +60,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.documentService = documentService
         self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
-    }
-    
-    func settingsModule() -> AnyView {
-        return spaceSettingsModuleAssembly.make(output: self)
     }
     
     func remoteStorageModule() -> AnyView {

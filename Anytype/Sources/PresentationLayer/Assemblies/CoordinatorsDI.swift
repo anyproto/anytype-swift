@@ -189,12 +189,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    func notificationCoordinator() -> NotificationCoordinatorProtocol {
-        NotificationCoordinator(
-            notificationSubscriptionService: serviceLocator.notificationSubscriptionService()
-        )
-    }
-    
     func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
         SpaceShareCoordinatorAssembly(modulesDI: modulesDI)
     }

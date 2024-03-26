@@ -90,7 +90,7 @@ final class IconMaker {
                 case .imageId(let imageId):
                     return CircleIconPainter(contentPainter: contentPainter(.imageId(imageId)))
                 case .name(let name):
-                    let painterName = name.isEmpty ? Loc.Object.Title.placeholder : name
+                    let painterName = name.withPlaceholder
                     return CircleIconPainter(contentPainter: contentPainter(.char(painterName)))
                 }
             case .emoji(let emoji):
@@ -100,7 +100,7 @@ final class IconMaker {
             case .space(let space):
                 switch space {
                 case .name(let name):
-                    let painterName = name.isEmpty ? Loc.Object.Title.placeholder : name
+                    let painterName = name.withPlaceholder
                     return SquareIconPainter(contentPainter: contentPainter(.char(painterName)))
                 case .gradient(let gradientId):
                     return SquareGradientIconPainter(gradientId: gradientId.rawValue)

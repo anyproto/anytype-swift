@@ -15,7 +15,7 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     
     init(notification: NotificationRequestToJoin) {
         self.notification = notification
-        message = Loc.RequestToJoinNotification.text(notification.requestToJoin.identityName, notification.requestToJoin.spaceName)
+        message = Loc.RequestToJoinNotification.text(notification.requestToJoin.identityName.withPlaceholder, notification.requestToJoin.spaceName.withPlaceholder)
     }
     
     func onTapGoToSpace() async throws {

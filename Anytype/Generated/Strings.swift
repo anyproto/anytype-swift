@@ -2335,9 +2335,9 @@ internal enum Loc {
       internal static let commentPlaceholder = Loc.tr("Localizable", "SpaceShare.Join.CommentPlaceholder", fallback: "Leave a private comment for a space owner")
       /// Once the space owner approves your request, you'll join the space with the access rights owner determined.
       internal static let info = Loc.tr("Localizable", "SpaceShare.Join.Info", fallback: "Once the space owner approves your request, you'll join the space with the access rights owner determined.")
-      /// You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.
+      /// You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.
       internal static func message(_ p1: Any, _ p2: Any) -> String {
-        return Loc.tr("Localizable", "SpaceShare.Join.Message", String(describing: p1), String(describing: p2), fallback: "You’ve been invited to join %@ space, created by %@. Send a request so space owner can let you in.")
+        return Loc.tr("Localizable", "SpaceShare.Join.Message", String(describing: p1), String(describing: p2), fallback: "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.")
       }
       /// Join a space
       internal static let title = Loc.tr("Localizable", "SpaceShare.Join.Title", fallback: "Join a space")
@@ -2369,6 +2369,16 @@ internal enum Loc {
       }
       /// Remove memeber
       internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove memeber")
+    }
+    internal enum StopSharing {
+      /// Stop sharing
+      internal static let action = Loc.tr("Localizable", "SpaceShare.StopSharing.Action", fallback: "Stop sharing")
+      /// Members will no longer sync to this space and the share link will be deactivated.
+      internal static let message = Loc.tr("Localizable", "SpaceShare.StopSharing.Message", fallback: "Members will no longer sync to this space and the share link will be deactivated.")
+      /// Stop sharing the space
+      internal static let title = Loc.tr("Localizable", "SpaceShare.StopSharing.Title", fallback: "Stop sharing the space")
+      /// The space is no longer shared
+      internal static let toast = Loc.tr("Localizable", "SpaceShare.StopSharing.Toast", fallback: "The space is no longer shared")
     }
     internal enum ViewRequest {
       /// Grand edit access

@@ -7,7 +7,7 @@ extension BlockLinkState {
             return Loc.Object.Deleted.placeholder
         }
 
-        return !title.isEmpty ? title : Loc.Object.Title.placeholder
+        return title.withPlaceholder
     }
 
     var titleColor: UIColor {

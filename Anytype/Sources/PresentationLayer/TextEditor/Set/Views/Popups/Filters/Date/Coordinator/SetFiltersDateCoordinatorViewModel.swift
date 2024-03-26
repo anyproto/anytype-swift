@@ -7,7 +7,7 @@ protocol SetFiltersDateCoordinatorOutput: AnyObject {
 
 @MainActor
 final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDateCoordinatorOutput {
-    @Published var filtersDaysData: FiltersDateData?
+    @Published var filtersDaysData: SetTextViewData?
     
     private let filter: SetFilter
     
@@ -15,20 +15,17 @@ final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDate
     private weak var setSelectionModel: SetFiltersSelectionViewModel?
     
     private let setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol
-    private let setTextViewModuleAssembly: SetTextViewModuleAssemblyProtocol
     private let completion: (SetFiltersDate) -> Void
     
     init(
         filter: SetFilter,
         setSelectionModel: SetFiltersSelectionViewModel?,
         setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol,
-        setTextViewModuleAssembly: SetTextViewModuleAssemblyProtocol,
         completion: @escaping (SetFiltersDate) -> Void
     ) {
         self.filter = filter
         self.setSelectionModel = setSelectionModel
         self.setFiltersDateViewModuleAssembly = setFiltersDateViewModuleAssembly
-        self.setTextViewModuleAssembly = setTextViewModuleAssembly
         self.completion = completion
     }
     
@@ -43,27 +40,10 @@ final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDate
     // MARK: - SetViewSettingsNavigationOutput
     
     func onFiltersDaysTap(title: String, text: String, onTextChanged: @escaping (String) -> Void) {
-        filtersDaysData = FiltersDateData(
+        filtersDaysData = SetTextViewData(
             title: title,
             text: text,
             onTextChanged: onTextChanged
         )
-    }
-    
-    func filtersDaysView(_ data: FiltersDateData) -> AnyView {
-        setTextViewModuleAssembly.make(
-            title: data.title,
-            text: data.text,
-            onTextChanged: data.onTextChanged
-        )
-    }
-}
-
-extension SetFiltersDateCoordinatorViewModel {
-    struct FiltersDateData: Identifiable {
-        let id = UUID()
-        let title: String
-        let text: String
-        let onTextChanged: (String) -> Void
     }
 }

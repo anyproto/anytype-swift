@@ -73,13 +73,14 @@ struct SpaceSwitchView: View {
             dismiss()
         }
         .anytypeSheet(item: $model.spaceViewForDelete) { space in
-            FloaterAlertView.deleteSpaceAlert(spaceName: space.title) {
-                model.onDeleteConfirmationTap(space: space)
-            }
+            SpaceDeleteAlert(spaceId: space.targetSpaceId)
         }
         .anytypeSheet(item: $model.spaceViewForLeave) { space in
             SpaceLeaveAlert(spaceId: space.targetSpaceId)
         }
+        .anytypeSheet(item: $model.spaceViewStopSharing) { space in
+            StopSharingAlert(spaceId: space.targetSpaceId)
+         }
     }
     
     private var content: some View {

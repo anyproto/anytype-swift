@@ -10,25 +10,19 @@ final class SetFiltersContentViewBuilder {
     private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
-    private let setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
-    private let setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     
     init(
         spaceId: String,
         filter: SetFilter,
         setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
         setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
-        setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.spaceId = spaceId
         self.filter = filter
         self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
         self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.setFiltersTextViewModuleAssembly = setFiltersTextViewModuleAssembly
-        self.setFiltersCheckboxViewModuleAssembly = setFiltersCheckboxViewModuleAssembly
     }
     
     @MainActor
@@ -154,10 +148,10 @@ final class SetFiltersContentViewBuilder {
     func buildTextView(
         onApplyText: @escaping (_ text: String) -> Void
     ) -> AnyView {
-        setFiltersTextViewModuleAssembly.make(
-            with: filter,
+        SetFiltersTextView(
+            filter: filter,
             onApplyText: onApplyText
-        )
+        ).eraseToAnyView()
     }
     
     // MARK: - Private methods: Checkbox
@@ -166,10 +160,10 @@ final class SetFiltersContentViewBuilder {
     func buildCheckboxView(
         onApplyCheckbox: @escaping (Bool) -> Void
     ) -> AnyView {
-        setFiltersCheckboxViewModuleAssembly.make(
-            with: filter,
+        SetFiltersCheckboxView(
+            filter: filter,
             onApplyCheckbox: onApplyCheckbox
-        )
+        ).eraseToAnyView()
     }
     
     // MARK: - Private methods: Date

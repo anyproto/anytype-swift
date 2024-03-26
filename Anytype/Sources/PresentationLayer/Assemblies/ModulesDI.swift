@@ -142,20 +142,12 @@ final class ModulesDI: ModulesDIProtocol {
         return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }
     
-    func spaceSettings() -> SpaceSettingsModuleAssemblyProtocol {
-        return SpaceSettingsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func remoteStorage() -> RemoteStorageModuleAssemblyProtocol {
         return RemoteStorageModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func setTextView() -> SetTextViewModuleAssemblyProtocol {
-        SetTextViewModuleAssembly()
     }
     
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol {
@@ -172,14 +164,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol {
         SetFiltersSelectionViewModuleAssembly()
-    }
-    
-    func setFiltersTextView() -> SetFiltersTextViewModuleAssemblyProtocol {
-        SetFiltersTextViewModuleAssembly()
-    }
-    
-    func setFiltersCheckboxView() -> SetFiltersCheckboxViewModuleAssemblyProtocol {
-        SetFiltersCheckboxViewModuleAssembly()
     }
     
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {

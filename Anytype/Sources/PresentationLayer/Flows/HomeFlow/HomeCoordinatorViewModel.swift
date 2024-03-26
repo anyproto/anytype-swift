@@ -36,7 +36,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
-    private let notificationCoordinator: NotificationCoordinatorProtocol
     private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     
     // MARK: - State
@@ -102,7 +101,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
-        notificationCoordinator: NotificationCoordinatorProtocol,
         typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
@@ -128,17 +126,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
-        self.notificationCoordinator = notificationCoordinator
         self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
     }
 
     func onAppear() {
         guard !viewLoaded else { return }
         viewLoaded = true
-        
-        Task {
-            await notificationCoordinator.startHandle()
-        }
         
         activeWorkspaceStorage
             .workspaceInfoPublisher

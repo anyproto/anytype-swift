@@ -9,22 +9,28 @@ struct HomeCoordinatorView: View {
     @Environment(\.keyboardDismiss) var keyboardDismiss
     
     var body: some View {
-        HomeBottomPanelContainer(
-            path: $model.editorPath,
-            content: {
-                AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
-                    builder.appendBuilder(for: AccountInfo.self) { info in
-                        model.homeWidgetsModule(info: info)
+        ZStack {
+            
+            NotificationCoordinatorView()
+            
+            HomeBottomPanelContainer(
+                path: $model.editorPath,
+                content: {
+                    AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
+                        builder.appendBuilder(for: AccountInfo.self) { info in
+                            model.homeWidgetsModule(info: info)
+                        }
+                        builder.appendBuilder(for: EditorScreenData.self) { data in
+                            model.editorModule(data: data)
+                        }
                     }
-                    builder.appendBuilder(for: EditorScreenData.self) { data in
-                        model.editorModule(data: data)
-                    }
+                },
+                bottomPanel: {
+                    model.homeBottomNavigationPanelModule()
                 }
-            },
-            bottomPanel: {
-                model.homeBottomNavigationPanelModule()
-            }
-        )
+            )
+            
+        }
         .onAppear {
             model.onAppear()
         }

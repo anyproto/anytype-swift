@@ -5,50 +5,50 @@ import AnytypeCore
 import SwiftEntryKit
 import SwiftUI
 
-protocol NotificationCoordinatorProtocol: AnyObject {
-    func startHandle() async
-    func stopHandle()
-}
-
-final class NotificationCoordinator: NotificationCoordinatorProtocol {
+@MainActor
+final class NotificationCoordinatorViewModel: ObservableObject {
     
-    private let notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
-    
+    @Injected(\.notificationsSubscriptionService)
+    private var notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
     private var subscription: AnyCancellable?
+    private var dismissAllPresented: DismissAllPresented?
     
-    init(
-        notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
-    ) {
-        self.notificationSubscriptionService = notificationSubscriptionService
+    @Published var spaceIdForDeleteAlert: StringIdentifiable?
+    
+    func onAppear() {
+        Task {
+            if subscription.isNotNil {
+                anytypeAssertionFailure("Try start subscription again")
+            }
+            subscription?.cancel()
+            subscription = await notificationSubscriptionService.addHandler { [weak self] events in
+                await self?.handle(events: events)
+            }
+        }
     }
     
-    func startHandle() async {
-        if subscription.isNotNil {
-            anytypeAssertionFailure("Try start subscription again")
-        }
-        subscription?.cancel()
-        subscription = await notificationSubscriptionService.addHandler { [weak self] events in
-            await self?.handle(events: events)
-        }
-    }
-    
-    func stopHandle() {
+    func onDisappear() {
         subscription?.cancel()
         subscription = nil
     }
+    
+    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
+        self.dismissAllPresented = dismissAllPresented
+    }
+    
+    // MARK: - Private
     
     private func handle(events: [NotificationEvent]) async {
         for event in events {
             switch event {
             case .send(let notification):
-                await handleSend(notification: notification)
+                handleSend(notification: notification)
             case .update:
                 continue
             }
         }
     }
     
-    @MainActor
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
         case .galleryImport(let data):
@@ -70,7 +70,13 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
             let view = RequestToJoinNotificationView(notification: NotificationRequestToJoin(common: notification, requestToJoin: data))
             show(view: view)
         case .participantRemove(let data):
-            let view = ParticipantRemoveNotificationView(notification: NotificationParticipantRemove(common: notification, remove: data))
+            let view = ParticipantRemoveNotificationView(
+                notification: NotificationParticipantRemove(common: notification, remove: data),
+                onDelete: { [weak self] spaceId in
+                    await self?.dismissAllPresented?()
+                    self?.spaceIdForDeleteAlert = spaceId.identifiable
+                }
+            )
             show(view: view)
         case .import, .export, .test, .none:
             // Ignore
@@ -78,8 +84,7 @@ final class NotificationCoordinator: NotificationCoordinatorProtocol {
         }
     }
     
-    @MainActor
-    func show<T: View>(view: T) {
+    private func show<T: View>(view: T) {
         
         let entryName = UUID().uuidString
         

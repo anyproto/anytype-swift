@@ -31,7 +31,6 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
     func make() -> AnyView {
         return SpaceSettingsCoordinatorView(
             model: SpaceSettingsCoordinatorViewModel(
-                spaceSettingsModuleAssembly: self.modulesDI.spaceSettings(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
                 remoteStorageModuleAssembly: self.modulesDI.remoteStorage(),

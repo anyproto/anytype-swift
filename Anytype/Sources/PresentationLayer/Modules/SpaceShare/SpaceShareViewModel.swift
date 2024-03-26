@@ -29,6 +29,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     @Published var showDeleteLinkAlert = false
+    @Published var showStopSharingAlert = false
     
     init(
         activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol,
@@ -66,7 +67,15 @@ final class SpaceShareViewModel: ObservableObject {
         inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
     }
     
-    func deleteSharingLinkAlertOnDismiss() {
+    func onDeleteLinkCompleted() {
+        inviteLink = nil
+    }
+    
+    func onStopSharing() {
+        showStopSharingAlert = true
+    }
+    
+    func onStopSharingCompleted() {
         inviteLink = nil
     }
     
