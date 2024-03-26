@@ -942,7 +942,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Join Request";
 "SpaceManager.DoNotCancel" = "Do Not Cancel";
-"SpaceManager.Archive" = "Archivar";
 "SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
 "SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
 
