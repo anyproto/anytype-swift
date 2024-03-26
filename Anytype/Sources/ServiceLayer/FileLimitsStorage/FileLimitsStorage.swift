@@ -11,7 +11,7 @@ protocol FileLimitsStorageProtocol: AnyObject {
 @MainActor
 final class FileLimitsStorage: FileLimitsStorageProtocol {
     
-    // MAKR: - DI
+    // MARK: - DI
     
     @Injected(\.fileActionsService)
     private var fileService: FileActionsServiceProtocol

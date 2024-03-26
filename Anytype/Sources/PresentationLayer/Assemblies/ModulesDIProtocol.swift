@@ -23,7 +23,6 @@ protocol ModulesDIProtocol: AnyObject {
     func personalization() -> PersonalizationModuleAssemblyProtocol
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
-    func settings() -> SettingsModuleAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
     func login() -> LoginViewModuleAssemblyProtocol
