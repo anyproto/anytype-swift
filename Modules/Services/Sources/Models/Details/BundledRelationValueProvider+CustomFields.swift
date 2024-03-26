@@ -103,4 +103,8 @@ extension BundledRelationsValueProvider {
         guard let participantStatus else { return nil }
         return ParticipantStatus(rawValue: participantStatus)
     }
+    
+    public var restrictionsValue: [ObjectRestriction] {
+        restrictions.compactMap { ObjectRestriction(rawValue: $0) }
+    }
 }

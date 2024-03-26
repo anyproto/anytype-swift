@@ -28,7 +28,7 @@ extension ObjectRelationOption {
         isDeleted = objectDetails.isDeleted
         editorScreenData = objectDetails.editorScreenData()
         
-        let restrictions = objectDetails.restrictionsList
+        let restrictions = objectDetails.restrictionsValue
         disableDeletion = restrictions.contains(.delete)
         disableDuplication = restrictions.contains(.duplicate)
     }
