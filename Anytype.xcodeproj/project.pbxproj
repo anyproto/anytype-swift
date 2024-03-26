@@ -475,7 +475,7 @@
 		2A65E9B62AE1297800D40657 /* InitialCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */; };
 		2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688922A1CCB1100D80CED /* AboutView.swift */; };
 		2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */; };
-		2A668F152BB2BC0200460C68 /* StandardButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A668F142BB2BC0200460C68 /* StandardButtonGroup.swift */; };
+		2A668F152BB2BC0200460C68 /* AsyncStandardButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A668F142BB2BC0200460C68 /* AsyncStandardButtonGroup.swift */; };
 		2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693612A7104EA007747DD /* SpaceIconImageGuideline.swift */; };
 		2A6693722A7104EA007747DD /* BookmarkIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693622A7104EA007747DD /* BookmarkIconImageGuideline.swift */; };
 		2A6693732A7104EA007747DD /* BasicIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693632A7104EA007747DD /* BasicIconImageGuideline.swift */; };
@@ -2270,7 +2270,7 @@
 		2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A6688922A1CCB1100D80CED /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
-		2A668F142BB2BC0200460C68 /* StandardButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButtonGroup.swift; sourceTree = "<group>"; };
+		2A668F142BB2BC0200460C68 /* AsyncStandardButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStandardButtonGroup.swift; sourceTree = "<group>"; };
 		2A6693612A7104EA007747DD /* SpaceIconImageGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceIconImageGuideline.swift; sourceTree = "<group>"; };
 		2A6693622A7104EA007747DD /* BookmarkIconImageGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookmarkIconImageGuideline.swift; sourceTree = "<group>"; };
 		2A6693632A7104EA007747DD /* BasicIconImageGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicIconImageGuideline.swift; sourceTree = "<group>"; };
@@ -8823,7 +8823,7 @@
 				2ACE879629F2859800C2B2A9 /* EmptyNavigationLink.swift */,
 				2ABF8F5E2B7FB982004B8FB8 /* AsyncStandardButton.swift */,
 				2AC6B2102B99C931000C6C88 /* AsyncButton.swift */,
-				2A668F142BB2BC0200460C68 /* StandardButtonGroup.swift */,
+				2A668F142BB2BC0200460C68 /* AsyncStandardButtonGroup.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -11352,7 +11352,7 @@
 				2A785B452AFCDDB30020297E /* EditorCoordinatorView.swift in Sources */,
 				12C2A5982757A6D600311854 /* StatusRelationDetailsView.swift in Sources */,
 				125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */,
-				2A668F152BB2BC0200460C68 /* StandardButtonGroup.swift in Sources */,
+				2A668F152BB2BC0200460C68 /* AsyncStandardButtonGroup.swift in Sources */,
 				12C2A5652754E13D00311854 /* DateRelationDetailsViewModel.swift in Sources */,
 				2AD7412A2993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift in Sources */,
 				2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */,
