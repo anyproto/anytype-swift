@@ -9,6 +9,10 @@ struct MembershipTeirView: View {
     
     @Environment(\.colorScheme) private var colorScheme
     
+    var isPending: Bool {
+        userMembership.tier == tierToDisplay && userMembership.status != .active
+    }
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(16)
@@ -35,7 +39,11 @@ struct MembershipTeirView: View {
             }
         }
         .fixTappableArea()
-        .onTapGesture(perform: onTap)
+        .onTapGesture {
+            if !isPending {
+                onTap()
+            }
+        }
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
         .background(
@@ -51,11 +59,13 @@ struct MembershipTeirView: View {
     }
     
     var actionButton: some View {
-        if case .custom = tierToDisplay {
-            StandardButton(Loc.About.contactUs, style: .primaryMedium, action: onTap)
-        } else {
-            StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
-        }
+        Group {
+            if case .custom = tierToDisplay {
+                StandardButton(Loc.About.contactUs, style: .primaryMedium, action: onTap)
+            } else {
+                StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
+            }
+        }.disabled(isPending)
     }
     
     var info: some View  {
