@@ -19,5 +19,8 @@ struct NotificationCoordinatorView: View {
                 SpaceDeleteAlert(spaceId: $0.value)
             }
             .anytypeShareView(item: $model.exportSpaceUrl)
+            .anytypeSheet(item: $model.spaceRequestAlert) {
+                SpaceRequestAlert(data: $0)
+            }
     }
 }
