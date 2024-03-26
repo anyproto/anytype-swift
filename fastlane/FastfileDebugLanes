@@ -19,7 +19,7 @@ platform :ios do
       show_uncommitted_changes: true
     )
 
-    sh("git checkout -b " + temp_branch)
+    # sh("git checkout -b " + temp_branch)
 
     build_number = increment_build_number(xcodeproj: xcodeproj, skip_info_plist: true)
     version = get_version_number(xcodeproj: xcodeproj, target: ENV["APP_TARGET"])
@@ -31,7 +31,7 @@ platform :ios do
     )
 
     push_to_git_remote(no_verify: true)
-    
+
     sh("gh pr create --base develop --title \"Increment build\"")
 
     # desc "Runs all the tests"
