@@ -5,6 +5,10 @@ struct SettingsView: View {
     
     @ObservedObject var model: SettingsViewModel
     
+    init(output: SettingsModuleOutput) {
+        _model = ObservedObject(initialValue: SettingsViewModel(output: output))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()

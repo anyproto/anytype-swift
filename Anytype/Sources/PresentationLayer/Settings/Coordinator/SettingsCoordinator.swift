@@ -1,4 +1,6 @@
 import Foundation
+import SwiftUI
+
 
 @MainActor
 protocol SettingsCoordinatorProtocol: AnyObject {
@@ -13,7 +15,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
                                     FileStorageModuleOutput {
     
     private let navigationContext: NavigationContextProtocol
-    private let settingsModuleAssembly: SettingsModuleAssemblyProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
     private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
@@ -26,7 +27,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     init(
         navigationContext: NavigationContextProtocol,
-        settingsModuleAssembly: SettingsModuleAssemblyProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
         keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
@@ -37,7 +37,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
-        self.settingsModuleAssembly = settingsModuleAssembly
         self.appearanceModuleAssembly = appearanceModuleAssembly
         self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
@@ -50,7 +49,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     }
     
     func startFlow() {
-        let module = settingsModuleAssembly.make(output: self)
+        let module = UIHostingController(rootView: SettingsView(output: self))
         navigationContext.present(module)
     }
     

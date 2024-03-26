@@ -30,7 +30,6 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
     func make() -> SettingsCoordinatorProtocol {
         return SettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
-            settingsModuleAssembly: modulesDI.settings(),
             appearanceModuleAssembly: modulesDI.settingsAppearance(),
             keychainPhraseModuleAssembly: modulesDI.keychainPhrase(),
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),

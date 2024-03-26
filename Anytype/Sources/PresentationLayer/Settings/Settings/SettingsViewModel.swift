@@ -9,10 +9,15 @@ final class SettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let membershipService: MembershipServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
+    
     private weak var output: SettingsModuleOutput?
     
     // MARK: - State
@@ -25,17 +30,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var profileIcon: Icon?
     @Published var membership: MembershipTier?
     
-    init(
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        membershipService: MembershipServiceProtocol,
-        output: SettingsModuleOutput?
-    ) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.subscriptionService = subscriptionService
-        self.objectActionsService = objectActionsService
-        self.membershipService = membershipService
+    init(output: SettingsModuleOutput) {
         self.output = output
         Task {
             await setupSubscription()
