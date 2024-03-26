@@ -8,7 +8,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
 
     private let navigationContext: NavigationContextProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let remoteStorageModuleAssembly: RemoteStorageModuleAssemblyProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
@@ -33,7 +32,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     init(
         navigationContext: NavigationContextProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        remoteStorageModuleAssembly: RemoteStorageModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
@@ -47,7 +45,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     ) {
         self.navigationContext = navigationContext
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.remoteStorageModuleAssembly = remoteStorageModuleAssembly
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.personalizationModuleAssembly = personalizationModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -60,10 +57,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.documentService = documentService
         self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
-    }
-    
-    func remoteStorageModule() -> AnyView {
-        return remoteStorageModuleAssembly.make(output: self)
     }
     
     func personalizationModule() -> AnyView {
