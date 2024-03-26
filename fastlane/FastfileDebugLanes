@@ -32,7 +32,7 @@ platform :ios do
 
     push_to_git_remote(no_verify: true, force: true)
 
-    sh("gh pr create --base develop --title \"Increment build\"")
+    sh("gh pr create --base develop --fill")
 
     # desc "Runs all the tests"
     
