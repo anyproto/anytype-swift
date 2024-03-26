@@ -942,7 +942,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Anuluj prośbę o dołączenie";
 "SpaceManager.DoNotCancel" = "Nie anuluj";
-"SpaceManager.Archive" = "Archiwum";
 "SpaceManager.CancelRequestAlert.Title" = "Konieczne będzie ponowne wysłanie prośby o dostęp";
 "SpaceManager.CancelRequestAlert.Toast" = "Prośba została anulowana.";
 

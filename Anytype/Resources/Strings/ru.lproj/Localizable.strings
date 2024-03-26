@@ -943,7 +943,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Отклонить запрос о присоединении";
 "SpaceManager.DoNotCancel" = "Не отменять";
-"SpaceManager.Archive" = "Archive";
 "SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
 "SpaceManager.CancelRequestAlert.Toast" = "Запрос был отменен.";
 
