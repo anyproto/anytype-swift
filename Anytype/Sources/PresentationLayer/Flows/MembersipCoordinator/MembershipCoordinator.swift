@@ -26,11 +26,6 @@ struct MembershipCoordinator: View {
         .onChange(of: model.emailUrl) { url in
             showEmail(url: url)
         }
-        
-        
-        .task {
-            model.onAppear()
-        }
     }
     
     func tierSelection(tier: MembershipTier) -> some View {

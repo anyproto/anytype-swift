@@ -210,10 +210,9 @@ final class MiddlewareEventConverter {
                 .fileLocalUsage,
                 .notificationSend,
                 .notificationUpdate,
-                .payloadBroadcast:
+                .payloadBroadcast,
+                .membershipUpdate: // Implemented in `MembershipStatusStorage`
             return nil
-        case .membershipUpdate(_):
-            return nil // TODO: Support membership update
         }
     }
     

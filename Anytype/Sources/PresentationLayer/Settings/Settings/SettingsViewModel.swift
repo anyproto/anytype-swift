@@ -15,8 +15,8 @@ final class SettingsViewModel: ObservableObject {
     private var subscriptionService: SingleObjectSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: ObjectActionsServiceProtocol
-    @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
     
     private weak var output: SettingsModuleOutput?
     
@@ -28,7 +28,7 @@ final class SettingsViewModel: ObservableObject {
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
-    @Published var membership: MembershipTier?
+    @Published var membership: MembershipStatus = .empty
     
     init(output: SettingsModuleOutput) {
         self.output = output
@@ -39,10 +39,6 @@ final class SettingsViewModel: ObservableObject {
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsAccount()
-        
-        Task {
-            membership = try await membershipService.getStatus().tier
-        }
     }
     
     func onAccountDataTap() {
@@ -80,12 +76,14 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupSubscription() async {
-            await subscriptionService.startSubscription(
-                subId: subAccountId,
-                objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
-            ) { [weak self] details in
-                self?.handleProfileDetails(details: details)
-            }
+        membershipStatusStorage.status.assign(to: &$membership)
+        
+        await subscriptionService.startSubscription(
+            subId: subAccountId,
+            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
+        ) { [weak self] details in
+            self?.handleProfileDetails(details: details)
+        }
     }
     
     private func handleProfileDetails(details: ObjectDetails) {
