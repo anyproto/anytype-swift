@@ -14,6 +14,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var spaceIdForDeleteAlert: StringIdentifiable?
+    @Published var exportSpaceUrl: URL?
     
     func onAppear() {
         Task {
@@ -75,6 +76,10 @@ final class NotificationCoordinatorViewModel: ObservableObject {
                 onDelete: { [weak self] spaceId in
                     await self?.dismissAllPresented?()
                     self?.spaceIdForDeleteAlert = spaceId.identifiable
+                },
+                onExport: { [weak self] spaceUrl in
+                    await self?.dismissAllPresented?()
+                    self?.exportSpaceUrl = spaceUrl
                 }
             )
             show(view: view)
