@@ -14,6 +14,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var spaceIdForDeleteAlert: StringIdentifiable?
+    @Published var spaceRequestAlert: SpaceRequestAlertData?
     
     func onAppear() {
         Task {
@@ -67,7 +68,18 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             let view = RequestToLeaveNotificationView(notification: NotificationRequestToLeave(common: notification, requestToLeave: data))
             show(view: view)
         case .requestToJoin(let data):
-            let view = RequestToJoinNotificationView(notification: NotificationRequestToJoin(common: notification, requestToJoin: data))
+            let view = RequestToJoinNotificationView(
+                notification: NotificationRequestToJoin(common: notification, requestToJoin: data),
+                onViewRequest: { [weak self] notification in
+                    await self?.dismissAllPresented?()
+                    self?.spaceRequestAlert = SpaceRequestAlertData(
+                        spaceId: notification.requestToJoin.spaceID,
+                        spaceName: notification.requestToJoin.spaceName,
+                        participantIdentity: notification.requestToJoin.identity,
+                        participantName: notification.requestToJoin.identityName
+                    )
+                }
+            )
             show(view: view)
         case .participantRemove(let data):
             let view = ParticipantRemoveNotificationView(
