@@ -88,7 +88,7 @@ extension ObjectDetails {
             details: self,
             isLocked: false,
             participantCanEdit: participantCanEdit,
-            objectRestrictions: restrictionsList
+            objectRestrictions: restrictionsValue
         )
     }
 }

@@ -22,7 +22,7 @@ public protocol BundledRelationsValueProvider {
     var mediaArtistURL: AnytypeURL? { get }
     var templateIsBundled: Bool { get }
     var dateOfBirth: Date? { get }
-    var restrictions: Int? { get }
+    var restrictions: [Int] { get }
     var readersLimit: Int? { get }
     var writersLimit: Int? { get }
     var isHighlighted: Bool { get }
@@ -233,7 +233,7 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
         return value(for: BundledRelationKey.dateOfBirth.rawValue)
     }
     /// Object restrictions list
-    var restrictions: Int? {
+    var restrictions: [Int] {
         return value(for: BundledRelationKey.restrictions.rawValue)
     }
     /// Readers limit
