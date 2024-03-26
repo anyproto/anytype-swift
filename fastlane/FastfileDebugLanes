@@ -32,7 +32,7 @@ platform :ios do
 
     push_to_git_remote(no_verify: true, force: true)
 
-    sh("gh pr create --base develop --fill")
+    sh("gh pr create --base \"ios-2555-bump-app-from-branch\" --title \"Bump version\" --body \"\"")
 
     # desc "Runs all the tests"
     
