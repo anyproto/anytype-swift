@@ -11,15 +11,18 @@ final class SpaceShareViewModel: ObservableObject {
         static let participantLimit = 11 // 10 participants and 1 owner
     }
     
-    private let activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
-    private let workspaceService: WorkspaceServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let deppLinkParser: DeepLinkParserProtocol
+    @Injected(\.activeSpaceParticipantStorage)
+    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.deepLinkParser)
+    private var deppLinkParser: DeepLinkParserProtocol
     
     private var participants: [Participant] = []
-    private var subscriptions: [AnyCancellable] = []
     
-    @Published var accountSpaceId: String
+    var accountSpaceId: String { activeWorkspaceStorage.workspaceInfo.accountSpaceId }
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
@@ -31,22 +34,19 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     
-    init(
-        activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        deppLinkParser: DeepLinkParserProtocol
-    ) {
-        self.activeSpaceParticipantStorage = activeSpaceParticipantStorage
-        self.workspaceService = workspaceService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.deppLinkParser = deppLinkParser
-        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        startSubscriptions()
-        Task {
+    nonisolated init() {}
+    
+    func startParticipantsTask() async {
+        for await items in activeSpaceParticipantStorage.participantsPublisher.values {
+            updateParticipant(items: items)
+        }
+    }
+    
+    func onAppear() async {
+        do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-        }
+        } catch {}
     }
     
     func onShareInvite() {
@@ -80,13 +80,6 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    
-    private func startSubscriptions() {
-        activeSpaceParticipantStorage.participantsPublisher.sink { [weak self] items in
-            self?.updateParticipant(items: items)
-        }
-        .store(in: &subscriptions)
-    }
     
     private func updateParticipant(items: [Participant]) {
         participants = items.sorted { $0.sortingWeight > $1.sortingWeight }

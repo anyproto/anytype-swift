@@ -18,7 +18,7 @@ struct SpaceSettingsCoordinatorView: View {
                 }
         }
         .sheet(isPresented: $model.showSpaceShare) {
-            model.spaceShareModule()
+            SpaceShareCoordinatorView()
         }
         .sheet(isPresented: $model.showSpaceMembers) {
             SpaceMembersView()

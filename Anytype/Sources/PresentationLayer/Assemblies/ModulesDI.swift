@@ -209,8 +209,4 @@ final class ModulesDI: ModulesDIProtocol {
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
         ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
     }
-    
-    func spareShare() -> SpaceShareModuleAssemblyProtocol {
-        SpaceShareModuleAssembly(serviceLocator: serviceLocator)
-    }
 }

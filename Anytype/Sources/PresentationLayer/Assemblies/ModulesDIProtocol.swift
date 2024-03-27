@@ -49,5 +49,4 @@ protocol ModulesDIProtocol: AnyObject {
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
     func sharingTip() -> SharingTipModuleAssemblyProtocol
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
-    func spareShare() -> SpaceShareModuleAssemblyProtocol
 }

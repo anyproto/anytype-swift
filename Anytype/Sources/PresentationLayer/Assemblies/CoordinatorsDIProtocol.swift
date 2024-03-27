@@ -34,7 +34,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol
-    func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol
     func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol
     
     // Now like a coordinator. Migrate to isolated modules
