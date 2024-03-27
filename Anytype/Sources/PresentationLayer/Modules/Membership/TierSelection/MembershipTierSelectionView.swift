@@ -6,13 +6,13 @@ struct MembershipTierSelectionView: View {
     @StateObject private var model: MembershipTierSelectionViewModel
     
     init(
-        userTier: MembershipTier?,
-        tierToDisplay: MembershipTier,
+        userMembership: MembershipStatus,
+        tierToDisplay: MembershipTierId,
         showEmailVerification: @escaping (EmailVerificationData) -> ()
     ) {
         _model = StateObject(
             wrappedValue: MembershipTierSelectionViewModel(
-                userTier: userTier,
+                userMembership: userMembership,
                 tierToDisplay: tierToDisplay,
                 showEmailVerification: showEmailVerification
             )
@@ -32,8 +32,8 @@ struct MembershipTierSelectionView: View {
     
     var sheet: some View {
         Group {
-            if let userTier = model.userTier, userTier == model.tierToDisplay {
-                MembershipOwnerInfoSheetView(tier: userTier)
+            if model.userMembership.tier == model.tierToDisplay {
+                MembershipOwnerInfoSheetView(membership: model.userMembership)
             } else {
                 switch model.tierToDisplay {
                 case .explorer:
@@ -41,7 +41,7 @@ struct MembershipTierSelectionView: View {
                         try await model.getVerificationEmail(email: email, subscribeToNewsletter: subscribeToNewsletter)
                     }
                 case .builder, .coCreator:
-                    MembershipNameSheetView(tier: model.tierToDisplay)
+                    MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName)
                 case .custom:
                     EmptyView() // TBD in future updates
                 }
@@ -63,11 +63,72 @@ struct MembershipTierSelectionView: View {
 }
 
 #Preview {
-    ScrollView {
+    TabView {
         MembershipTierSelectionView(
-            userTier: .builder,
+            userMembership: MembershipStatus(
+                tier: .explorer,
+                status: .active,
+                dateEnds: .tomorrow,
+                paymentMethod: .methodCard,
+                anyName: ""
+            ),
+            tierToDisplay: .explorer,
+            showEmailVerification: { _ in }
+        )
+        MembershipTierSelectionView(
+            userMembership: MembershipStatus(
+                tier: nil,
+                status: .active,
+                dateEnds: .tomorrow,
+                paymentMethod: .methodCard,
+                anyName: ""
+            ),
+            tierToDisplay: .explorer,
+            showEmailVerification: { _ in }
+        )
+        MembershipTierSelectionView(
+            userMembership: MembershipStatus(
+                tier: .explorer,
+                status: .active,
+                dateEnds: .tomorrow,
+                paymentMethod: .methodCard,
+                anyName: ""
+            ),
             tierToDisplay: .builder,
             showEmailVerification: { _ in }
         )
-    }
+        MembershipTierSelectionView(
+            userMembership: MembershipStatus(
+                tier: .builder,
+                status: .active,
+                dateEnds: .tomorrow,
+                paymentMethod: .methodCard,
+                anyName: "SonyaBlade"
+            ),
+            tierToDisplay: .builder,
+            showEmailVerification: { _ in }
+        )
+        MembershipTierSelectionView(
+            userMembership: MembershipStatus(
+                tier: .builder,
+                status: .active,
+                dateEnds: .tomorrow,
+                paymentMethod: .methodCard,
+                anyName: "SonyaBlade"
+            ),
+            tierToDisplay: .coCreator,
+            showEmailVerification: { _ in }
+        )
+        MembershipTierSelectionView(
+            userMembership: MembershipStatus(
+                tier: .coCreator,
+                status: .active,
+                dateEnds: .tomorrow,
+                paymentMethod: .methodCard,
+                anyName: "SonyaBlade"
+            ),
+            tierToDisplay: .coCreator,
+            showEmailVerification: { _ in }
+        )
+    }.tabViewStyle(.page)
 }

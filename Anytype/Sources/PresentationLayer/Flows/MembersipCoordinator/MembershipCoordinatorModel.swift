@@ -4,30 +4,29 @@ import Services
 
 @MainActor
 final class MembershipCoordinatorModel: ObservableObject {
-    @Published var userTier: MembershipTier?
+    @Published var userMembership: MembershipStatus = .empty
     
-    @Published var showTier: MembershipTier?
-    @Published var showSuccess: MembershipTier?
+    @Published var showTier: MembershipTierId?
+    @Published var showSuccess: MembershipTierId?
     @Published var emailVerificationData: EmailVerificationData?
     @Published var emailUrl: URL?
     
-    @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
     
-    func onAppear() {
-        Task {
-            userTier = try await membershipService.getStatus()
-        }
+    init() {
+        membershipStatusStorage.status.assign(to: &$userMembership)
     }
     
-    func onTierSelected(tier: MembershipTier) {
+    func onTierSelected(tier: MembershipTierId) {
         switch tier {
         case .custom:
-            // TODO
             let mailLink = MailUrl(
-                to: "hello@anytype.io",
-                subject: "Subject",
-                body: "Body"
+                to: "support@anytype.io",
+                subject: Loc.Membership.CustomTierEmail.subject(accountManager.account.id),
+                body: ""
             )
             emailUrl = mailLink.url
             
@@ -43,7 +42,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     func onSuccessfulValidation() {
         emailVerificationData = nil
         showTier = nil
-        userTier = .explorer
+        
         
         // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
         Task {

@@ -102,10 +102,6 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func settings() -> SettingsModuleAssemblyProtocol {
-        return SettingsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authorization() -> AuthModuleAssemblyProtocol {
         return AuthModuleAssembly()
     }

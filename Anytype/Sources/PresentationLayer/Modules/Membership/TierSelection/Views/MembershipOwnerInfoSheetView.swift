@@ -3,7 +3,7 @@ import Services
 
 
 struct MembershipOwnerInfoSheetView: View {
-    let tier: MembershipTier
+    let membership: MembershipStatus
     
     var body: some View {
         VStack(spacing: 0) {
@@ -21,16 +21,14 @@ struct MembershipOwnerInfoSheetView: View {
         VStack(spacing: 0) {
             AnytypeText(Loc.validUntil, style: .relation2Regular, color: .Text.primary)
             Spacer.fixedHeight(4)
-            switch tier {
+            switch membership.tier {
             case .explorer:
                 AnytypeText(Loc.forever, style: .title, color: .Text.primary)
                 Spacer.fixedHeight(55)
             case .builder, .coCreator:
-                AnytypeText("%Date%", style: .title, color: .Text.primary)
-                Spacer.fixedHeight(23)
-                AnytypeText(Loc.paidBy("%Card%"), style: .relation2Regular, color: .Text.secondary)
-                Spacer.fixedHeight(15)
-            case .custom:
+                AnytypeText(membership.formattedDateEnds, style: .title, color: .Text.primary)
+                paymentText
+            case .custom, .none:
                 EmptyView() // TBD in future updates
             }
         }
@@ -39,8 +37,50 @@ struct MembershipOwnerInfoSheetView: View {
         .background(Color.Shape.tertiary)
         .cornerRadius(12, style: .continuous)
     }
+    
+    var paymentText: some View {
+        Group {
+            if let paymentMethod = membership.localizablePaymentMethod {
+                Spacer.fixedHeight(23)
+                AnytypeText(Loc.paidBy(paymentMethod), style: .relation2Regular, color: .Text.secondary)
+                Spacer.fixedHeight(15)
+            } else {
+                Spacer.fixedHeight(55)
+            }
+        }
+    }
 }
 
 #Preview {
-    MembershipOwnerInfoSheetView(tier: .builder)
+    ScrollView(.horizontal) {
+        HStack {
+            MembershipOwnerInfoSheetView(
+                membership: MembershipStatus(
+                    tier: .explorer,
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            )
+            MembershipOwnerInfoSheetView(
+                membership: MembershipStatus(
+                    tier: .builder,
+                    status: .pending,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCrypto,
+                    anyName: ""
+                )
+            )
+            MembershipOwnerInfoSheetView(
+                membership: MembershipStatus(
+                    tier: .coCreator,
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodAppleInapp,
+                    anyName: ""
+                )
+            )
+        }
+    }
 }

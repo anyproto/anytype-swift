@@ -394,6 +394,8 @@ internal enum Loc {
   internal static let pasteProcessing = Loc.tr("Localizable", "Paste processing...", fallback: "Paste processing...")
   /// Pay by Card
   internal static let payByCard = Loc.tr("Localizable", "Pay by Card", fallback: "Pay by Card")
+  /// Pending...
+  internal static let pending = Loc.tr("Localizable", "Pending", fallback: "Pending...")
   /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.
   internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.")
   /// per %@ years
@@ -1491,6 +1493,12 @@ internal enum Loc {
       /// Custom
       internal static let title = Loc.tr("Localizable", "Membership.Custom.Title", fallback: "Custom")
     }
+    internal enum CustomTierEmail {
+      /// Custom membership tier request, Account id: %@
+      internal static func subject(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.CustomTierEmail.Subject", String(describing: p1), fallback: "Custom membership tier request, Account id: %@")
+      }
+    }
     internal enum Email {
       /// Please specify your request:
       /// - highlight if you represent an educational, governmental, or non-profit organization
@@ -1541,6 +1549,28 @@ internal enum Loc {
       internal static let validated = Loc.tr("Localizable", "Membership.NameForm.Validated", fallback: "This name is up for grabs")
       /// Wait a second...
       internal static let validating = Loc.tr("Localizable", "Membership.NameForm.Validating", fallback: "Wait a second...")
+      internal enum Error {
+        /// Name has invalid characters
+        internal static let hasInvalidChars = Loc.tr("Localizable", "Membership.NameForm.Error.HasInvalidChars", fallback: "Name has invalid characters")
+        /// Name is too long
+        internal static let tooLong = Loc.tr("Localizable", "Membership.NameForm.Error.TooLong", fallback: "Name is too long")
+        /// Name is too short
+        internal static let tooShort = Loc.tr("Localizable", "Membership.NameForm.Error.TooShort", fallback: "Name is too short")
+      }
+    }
+    internal enum Payment {
+      /// Apple subscription
+      internal static let appleSubscription = Loc.tr("Localizable", "Membership.Payment.Apple subscription", fallback: "Apple subscription")
+      /// ApplePay
+      internal static let applePay = Loc.tr("Localizable", "Membership.Payment.ApplePay", fallback: "ApplePay")
+      /// Card
+      internal static let card = Loc.tr("Localizable", "Membership.Payment.Card", fallback: "Card")
+      /// Crypto
+      internal static let crypto = Loc.tr("Localizable", "Membership.Payment.Crypto", fallback: "Crypto")
+      /// Google subscription
+      internal static let googleSubscription = Loc.tr("Localizable", "Membership.Payment.Google subscription", fallback: "Google subscription")
+      /// GooglePay
+      internal static let googlePay = Loc.tr("Localizable", "Membership.Payment.GooglePay", fallback: "GooglePay")
     }
     internal enum Success {
       /// Big cheers for your curiosity!

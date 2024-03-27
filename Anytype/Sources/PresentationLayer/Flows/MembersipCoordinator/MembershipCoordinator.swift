@@ -11,10 +11,10 @@ struct MembershipCoordinator: View {
     }
     
     var body: some View {
-        MembershipModuleView(userTierPublisher: model.$userTier.eraseToAnyPublisher()) { tier in
+        MembershipModuleView(userMembershipPublisher: model.$userMembership.eraseToAnyPublisher()) { tier in
             model.onTierSelected(tier: tier)
         }
-        .animation(.default, value: model.userTier)
+        .animation(.default, value: model.userMembership)
         
         
         .sheet(item: $model.showTier) { tier in
@@ -26,15 +26,10 @@ struct MembershipCoordinator: View {
         .onChange(of: model.emailUrl) { url in
             showEmail(url: url)
         }
-        
-        
-        .task {
-            model.onAppear()
-        }
     }
     
-    func tierSelection(tier: MembershipTier) -> some View {
-        MembershipTierSelectionView(userTier: model.userTier, tierToDisplay: tier) { data in
+    func tierSelection(tier: MembershipTierId) -> some View {
+        MembershipTierSelectionView(userMembership: model.userMembership, tierToDisplay: tier) { data in
             model.onEmailDataSubmit(data: data)
         }
         .sheet(item: $model.emailVerificationData) { data in

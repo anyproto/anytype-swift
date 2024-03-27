@@ -5,6 +5,10 @@ struct SettingsView: View {
     
     @ObservedObject var model: SettingsViewModel
     
+    init(output: SettingsModuleOutput) {
+        _model = ObservedObject(initialValue: SettingsViewModel(output: output))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -49,7 +53,7 @@ struct SettingsView: View {
                         SettingsSectionItemView(
                             name: Loc.membership,
                             imageAsset: .Settings.membership,
-                            decoration: model.membership.map { .arrow (text: $0.title) } ?? .button(text: Loc.join),
+                            decoration: model.membership.tier.map { .arrow (text: $0.title) } ?? .button(text: Loc.join),
                             onTap: { model.onMembershipTap() }
                         )
                     }

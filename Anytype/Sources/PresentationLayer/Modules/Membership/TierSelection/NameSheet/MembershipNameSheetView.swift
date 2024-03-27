@@ -6,9 +6,9 @@ struct MembershipNameSheetView: View {
     @StateObject private var model: MembershipNameSheetViewModel
     @State private var name = ""
     
-    init(tier: MembershipTier) {
+    init(tier: MembershipTierId, anyName: String) {
         _model = StateObject(
-            wrappedValue: MembershipNameSheetViewModel(tier: tier)
+            wrappedValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName)
         )
     }
     
@@ -23,16 +23,8 @@ struct MembershipNameSheetView: View {
     var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(26)
-            AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold, color: .Text.primary)
-            Spacer.fixedHeight(6)
-            AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular, color: .Text.primary)
-            Spacer.fixedHeight(10)
-            HStack {
-                TextField(Loc.myself, text: $name)
-                    .textContentType(.username)
-                AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
-            }
-            .padding(.vertical, 12)
+            info
+            nameInput
             .newDivider()
             status
             AnytypeText("$99 ", style: .title, color: .Text.primary) +
@@ -50,7 +42,41 @@ struct MembershipNameSheetView: View {
         .padding(.horizontal, 20)
     }
     
+    var info: some View {
+        Group {
+            if model.anyName.isEmpty {
+                AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold, color: .Text.primary)
+                Spacer.fixedHeight(6)
+                AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular, color: .Text.primary)
+                Spacer.fixedHeight(10)
+            }
+        }
+    }
+    
+    var nameInput: some View {
+        HStack {
+            if model.anyName.isEmpty {
+                TextField(Loc.myself, text: $name)
+                    .textContentType(.username)
+                AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
+            } else {
+                AnytypeText(model.anyName, style: .uxBodyRegular, color: .Text.primary)
+                Spacer()
+                AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
+            }
+        }
+        .padding(.vertical, 12)
+    }
+    
     var status: some View {
+        Group {
+            if model.anyName.isEmpty {
+                nameStatus
+            }
+        }
+    }
+    
+    var nameStatus: some View {
         HStack {
             Spacer()
             Group {
@@ -75,5 +101,8 @@ struct MembershipNameSheetView: View {
 }
 
 #Preview {
-    MembershipNameSheetView(tier: .builder)
+    TabView {
+        MembershipNameSheetView(tier: .builder, anyName: "")
+        MembershipNameSheetView(tier: .coCreator, anyName: "SonyaBlade")
+    }.tabViewStyle(.page)
 }

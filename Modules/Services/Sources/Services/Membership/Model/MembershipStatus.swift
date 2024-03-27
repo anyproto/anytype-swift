@@ -1,4 +1,10 @@
-public enum MembershipTier: Hashable, Identifiable {    
+import ProtobufMessages
+import Foundation
+
+public typealias MembershipSubscriptionStatus = Anytype_Model_Membership.Status
+public typealias MembershipPaymentMethod = Anytype_Model_Membership.PaymentMethod
+
+public enum MembershipTierId: Hashable, Identifiable {
     case explorer
     case builder
     case coCreator
@@ -10,7 +16,25 @@ public enum MembershipTier: Hashable, Identifiable {
     }
 }
 
-public struct MembershipStatus {
-    let tier: MembershipTier?
+public struct MembershipStatus: Equatable {
+    public let tier: MembershipTierId?
+    public let status: MembershipSubscriptionStatus
+    public let dateEnds: Date
+    public let paymentMethod: MembershipPaymentMethod
+    public let anyName: String
+    
+    public init(
+        tier: MembershipTierId?,
+        status: MembershipSubscriptionStatus,
+        dateEnds: Date,
+        paymentMethod: MembershipPaymentMethod,
+        anyName: String
+    ) {
+        self.tier = tier
+        self.status = status
+        self.dateEnds = dateEnds
+        self.paymentMethod = paymentMethod
+        self.anyName = anyName
+    }
 }
 

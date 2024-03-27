@@ -3,11 +3,15 @@ import Services
 
 
 struct MembershipTeirView: View {
-    let tierToDisplay: MembershipTier
-    let userTier: MembershipTier?
+    let tierToDisplay: MembershipTierId
+    let userMembership: MembershipStatus
     let onTap: () -> ()
     
     @Environment(\.colorScheme) private var colorScheme
+    
+    var isPending: Bool {
+        userMembership.tier == tierToDisplay && userMembership.status != .active
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -23,10 +27,10 @@ struct MembershipTeirView: View {
             
             info
             Spacer.fixedHeight(10)
-            StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
+            actionButton
             Spacer.fixedHeight(20)
         }
-        .if(userTier == tierToDisplay) {
+        .if(userMembership.tier == tierToDisplay) {
             $0.overlay(alignment: .topTrailing) {
                 AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
                     .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
@@ -35,7 +39,11 @@ struct MembershipTeirView: View {
             }
         }
         .fixTappableArea()
-        .onTapGesture(perform: onTap)
+        .onTapGesture {
+            if !isPending {
+                onTap()
+            }
+        }
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
         .background(
@@ -50,35 +58,52 @@ struct MembershipTeirView: View {
         .cornerRadius(16, style: .continuous)
     }
     
-    var info: some View {
+    var actionButton: some View {
+        Group {
+            if case .custom = tierToDisplay {
+                StandardButton(Loc.About.contactUs, style: .primaryMedium, action: onTap)
+            } else {
+                StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
+            }
+        }.disabled(isPending)
+    }
+    
+    var info: some View  {
+        Group {
+            if userMembership.tier == tierToDisplay {
+                if userMembership.status == .active {
+                    expirationText
+                } else {
+                    AnytypeText(Loc.pending, style: .caption1Regular, color: .Text.primary)
+                }
+            } else {
+                priceText
+            }
+        }
+    }
+    
+    var priceText: some View {
+        switch tierToDisplay {
+        case .explorer:
+            AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
+        case .builder:
+            AnytypeText("$99 ", style: .bodySemibold, color: .Text.primary) +
+            AnytypeText(Loc.perYear, style: .caption1Regular, color: .Text.primary)
+        case .coCreator:
+            AnytypeText("$299 ", style: .bodySemibold, color: .Text.primary) +
+            AnytypeText(Loc.perXYears(3), style: .caption1Regular, color: .Text.primary)
+        case .custom:
+            AnytypeText(Loc.detailsUponRequest, style: .caption1Regular, color: .Text.primary)
+        }
+    }
+    
+    var expirationText: some View {
         Group {
             switch tierToDisplay {
             case .explorer:
-                if userTier == tierToDisplay {
-                    AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
-                } else {
-                    AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
-                }
-            case .builder:
-                if userTier == tierToDisplay {
-                    AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
-                } else {
-                    AnytypeText("$99 ", style: .bodySemibold, color: .Text.primary) +
-                    AnytypeText(Loc.perYear, style: .caption1Regular, color: .Text.primary)
-                }
-            case .coCreator:
-                if userTier == tierToDisplay {
-                    AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
-                } else {
-                    AnytypeText("$299 ", style: .bodySemibold, color: .Text.primary) +
-                    AnytypeText(Loc.perXYears(3), style: .caption1Regular, color: .Text.primary)
-                }
-            case .custom:
-                if userTier == tierToDisplay {
-                    AnytypeText(Loc.validUntilDate("%Date%"), style: .caption1Regular, color: .Text.primary)
-                } else {
-                    AnytypeText(Loc.detailsUponRequest, style: .caption1Regular, color: .Text.primary)
-                }
+                return AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
+            case .builder, .coCreator, .custom:
+                return AnytypeText(Loc.validUntilDate(userMembership.formattedDateEnds), style: .caption1Regular, color: .Text.primary)
             }
         }
     }
@@ -87,9 +112,76 @@ struct MembershipTeirView: View {
 #Preview {
     ScrollView(.horizontal) {
         HStack {
-            MembershipTeirView(tierToDisplay: .explorer, userTier: .explorer) {  }
-            MembershipTeirView(tierToDisplay: .builder, userTier: .explorer) {  }
-            MembershipTeirView(tierToDisplay: .coCreator, userTier: .explorer) {  }
+            MembershipTeirView(
+                tierToDisplay: .explorer,
+                userMembership: MembershipStatus(
+                    tier: nil,
+                    status: .unknown,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) {  }
+            MembershipTeirView(
+                tierToDisplay: .explorer,
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .pending,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) {  }
+            MembershipTeirView(
+                tierToDisplay: .explorer,
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) {  }
+            MembershipTeirView(
+                tierToDisplay: .builder,
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .pending,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) {  }
+            MembershipTeirView(
+                tierToDisplay: .builder,
+                userMembership: MembershipStatus(
+                    tier: .builder,
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) {  }
+            MembershipTeirView(
+                tierToDisplay: .coCreator,
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) {  }
+            MembershipTeirView(
+                tierToDisplay: .custom(id: 0),
+                userMembership: MembershipStatus(
+                    tier: .custom(id: 0),
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) {  }
         }
     }
 }

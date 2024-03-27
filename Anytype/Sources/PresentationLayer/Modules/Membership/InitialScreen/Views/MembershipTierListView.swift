@@ -3,8 +3,8 @@ import Services
 
 
 struct MembershipTierListView: View {
-    let userTier: MembershipTier?
-    let onTierTap: (MembershipTier) -> ()
+    let userMembership: MembershipStatus
+    let onTierTap: (MembershipTierId) -> ()
     
     var body: some View {
         ScrollViewReader { scrollView in
@@ -12,8 +12,8 @@ struct MembershipTierListView: View {
                 HStack(spacing: 20) {
                     Spacer.fixedWidth(0)
                     
-                    ForEach(userTier.availableTiers) { tier in
-                        MembershipTeirView(tierToDisplay: tier, userTier: userTier) {
+                    ForEach(userMembership.tier.availableTiers) { tier in
+                        MembershipTeirView(tierToDisplay: tier, userMembership: userMembership) {
                             onTierTap(tier)
                         }
                         .id(tier)
@@ -23,7 +23,7 @@ struct MembershipTierListView: View {
                 }
             }
             .onAppear {
-                scrollView.scrollTo(MembershipTier.builder, anchor: .center)
+                scrollView.scrollTo(MembershipTierId.builder, anchor: .center)
             }
         }
     }
@@ -32,10 +32,66 @@ struct MembershipTierListView: View {
 #Preview {
     ScrollView {
         VStack {
-            MembershipTierListView(userTier: nil) { _ in }
-            MembershipTierListView(userTier: .explorer) { _ in }
-            MembershipTierListView(userTier: .builder) { _ in }
-            MembershipTierListView(userTier: .coCreator) { _ in }
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: nil,
+                    status: .unknown,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .pending,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .explorer,
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .custom(id: 0),
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) { _ in }
+
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .builder,
+                    status: .active,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) { _ in }
+            
+            MembershipTierListView(
+                userMembership: MembershipStatus(
+                    tier: .coCreator,
+                    status: .pending,
+                    dateEnds: .tomorrow,
+                    paymentMethod: .methodCard,
+                    anyName: ""
+                )
+            ) { _ in }
         }
     }
 }
