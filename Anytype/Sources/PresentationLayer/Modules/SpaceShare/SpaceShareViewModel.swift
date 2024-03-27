@@ -95,7 +95,7 @@ final class SpaceShareViewModel: ObservableObject {
             return SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon?.icon,
-                name: isYou ? Loc.SpaceShare.youSuffix(participant.name) :  participant.name,
+                name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
                 status: participantStatus(participant),
                 action: participantAction(participant),
                 contextActions: participantContextActions(participant)
@@ -126,7 +126,7 @@ final class SpaceShareViewModel: ObservableObject {
         case .removing:
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
-                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.name), showSnackBar: true)
+                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
         case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
@@ -170,14 +170,14 @@ final class SpaceShareViewModel: ObservableObject {
             spaceId: spaceView.targetSpaceId,
             spaceName: spaceView.title,
             participantIdentity: participant.identity,
-            participantName: participant.name
+            participantName: participant.title
         )
     }
     
     private func showPermissionAlert(participant: Participant, newPermission: ParticipantPermissions) {
         guard participant.permission != newPermission else { return }
         changeAccessAlertModel = SpaceChangeAccessViewModel(
-            participantName: participant.name,
+            participantName: participant.title,
             permissions: newPermission.title,
             onConfirm: { [weak self] in
                 try await self?.workspaceService.participantPermissionsChange(
@@ -191,7 +191,7 @@ final class SpaceShareViewModel: ObservableObject {
     
     private func showRemoveAlert(participant: Participant) {
         removeParticipantAlertModel = SpaceParticipantRemoveViewModel(
-            participantName: participant.name,
+            participantName: participant.title,
             onConfirm: { [weak self] in
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             }

@@ -27,7 +27,7 @@ final class SpaceMembersViewModel: ObservableObject {
             return SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon?.icon,
-                name: isYou ? Loc.SpaceShare.youSuffix(participant.name) :  participant.name,
+                name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
                 status: .active(permission: participant.permission.title),
                 action: nil,
                 contextActions: []
