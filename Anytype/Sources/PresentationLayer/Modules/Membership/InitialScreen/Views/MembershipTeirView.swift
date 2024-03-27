@@ -10,7 +10,7 @@ struct MembershipTeirView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var isPending: Bool {
-        userMembership.tier == tierToDisplay && userMembership.status != .active
+        userMembership.tierId == tierToDisplay && userMembership.status != .active
     }
     
     var body: some View {
@@ -30,7 +30,7 @@ struct MembershipTeirView: View {
             actionButton
             Spacer.fixedHeight(20)
         }
-        .if(userMembership.tier == tierToDisplay) {
+        .if(userMembership.tierId == tierToDisplay) {
             $0.overlay(alignment: .topTrailing) {
                 AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
                     .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
@@ -70,7 +70,7 @@ struct MembershipTeirView: View {
     
     var info: some View  {
         Group {
-            if userMembership.tier == tierToDisplay {
+            if userMembership.tierId == tierToDisplay {
                 if userMembership.status == .active {
                     expirationText
                 } else {
@@ -115,7 +115,7 @@ struct MembershipTeirView: View {
             MembershipTeirView(
                 tierToDisplay: .explorer,
                 userMembership: MembershipStatus(
-                    tier: nil,
+                    tierId: nil,
                     status: .unknown,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -125,7 +125,7 @@ struct MembershipTeirView: View {
             MembershipTeirView(
                 tierToDisplay: .explorer,
                 userMembership: MembershipStatus(
-                    tier: .explorer,
+                    tierId: .explorer,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -135,7 +135,7 @@ struct MembershipTeirView: View {
             MembershipTeirView(
                 tierToDisplay: .explorer,
                 userMembership: MembershipStatus(
-                    tier: .explorer,
+                    tierId: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -145,7 +145,7 @@ struct MembershipTeirView: View {
             MembershipTeirView(
                 tierToDisplay: .builder,
                 userMembership: MembershipStatus(
-                    tier: .explorer,
+                    tierId: .explorer,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -155,7 +155,7 @@ struct MembershipTeirView: View {
             MembershipTeirView(
                 tierToDisplay: .builder,
                 userMembership: MembershipStatus(
-                    tier: .builder,
+                    tierId: .builder,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -165,7 +165,7 @@ struct MembershipTeirView: View {
             MembershipTeirView(
                 tierToDisplay: .coCreator,
                 userMembership: MembershipStatus(
-                    tier: .explorer,
+                    tierId: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -175,7 +175,7 @@ struct MembershipTeirView: View {
             MembershipTeirView(
                 tierToDisplay: .custom(id: 0),
                 userMembership: MembershipStatus(
-                    tier: .custom(id: 0),
+                    tierId: .custom(id: 0),
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,

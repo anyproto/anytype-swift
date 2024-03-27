@@ -32,7 +32,7 @@ struct MembershipTierSelectionView: View {
     
     var sheet: some View {
         Group {
-            if model.userMembership.tier == model.tierToDisplay {
+            if model.userMembership.tierId == model.tierToDisplay {
                 MembershipOwnerInfoSheetView(membership: model.userMembership)
             } else {
                 switch model.tierToDisplay {
@@ -66,7 +66,7 @@ struct MembershipTierSelectionView: View {
     TabView {
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tier: .explorer,
+                tierId: .explorer,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
@@ -77,7 +77,7 @@ struct MembershipTierSelectionView: View {
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tier: nil,
+                tierId: nil,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
@@ -88,7 +88,7 @@ struct MembershipTierSelectionView: View {
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tier: .explorer,
+                tierId: .explorer,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
@@ -99,7 +99,7 @@ struct MembershipTierSelectionView: View {
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tier: .builder,
+                tierId: .builder,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
@@ -110,7 +110,7 @@ struct MembershipTierSelectionView: View {
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tier: .builder,
+                tierId: .builder,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
@@ -121,7 +121,7 @@ struct MembershipTierSelectionView: View {
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tier: .coCreator,
+                tierId: .coCreator,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,

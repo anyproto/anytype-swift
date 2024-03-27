@@ -5,7 +5,7 @@ import Foundation
 public extension MembershipStatus {
     static var empty: MembershipStatus {
         return MembershipStatus(
-            tier: nil,
+            tierId: nil,
             status: .unknown,
             dateEnds: .distantFuture,
             paymentMethod: .methodCard,

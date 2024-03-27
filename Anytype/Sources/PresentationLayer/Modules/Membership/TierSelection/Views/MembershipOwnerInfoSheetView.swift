@@ -21,7 +21,7 @@ struct MembershipOwnerInfoSheetView: View {
         VStack(spacing: 0) {
             AnytypeText(Loc.validUntil, style: .relation2Regular, color: .Text.primary)
             Spacer.fixedHeight(4)
-            switch membership.tier {
+            switch membership.tierId {
             case .explorer:
                 AnytypeText(Loc.forever, style: .title, color: .Text.primary)
                 Spacer.fixedHeight(55)
@@ -56,7 +56,7 @@ struct MembershipOwnerInfoSheetView: View {
         HStack {
             MembershipOwnerInfoSheetView(
                 membership: MembershipStatus(
-                    tier: .explorer,
+                    tierId: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -65,7 +65,7 @@ struct MembershipOwnerInfoSheetView: View {
             )
             MembershipOwnerInfoSheetView(
                 membership: MembershipStatus(
-                    tier: .builder,
+                    tierId: .builder,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCrypto,
@@ -74,7 +74,7 @@ struct MembershipOwnerInfoSheetView: View {
             )
             MembershipOwnerInfoSheetView(
                 membership: MembershipStatus(
-                    tier: .coCreator,
+                    tierId: .coCreator,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodAppleInapp,
