@@ -6,8 +6,8 @@ struct ParticipantRemoveNotificationView: View {
     @StateObject private var model: ParticipantRemoveNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
     
-    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) async -> Void) {
-        _model = StateObject(wrappedValue: ParticipantRemoveNotificationViewModel(notification: notification, onDelete: onDelete))
+    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) async -> Void, onExport: @escaping (_ path: URL) async -> Void) {
+        _model = StateObject(wrappedValue: ParticipantRemoveNotificationViewModel(notification: notification, onDelete: onDelete, onExport: onExport))
     }
     
     var body: some View {
@@ -15,7 +15,7 @@ struct ParticipantRemoveNotificationView: View {
             title: model.message,
             buttons: [
                 TopNotificationButton(title: Loc.export, action: {
-                    model.onTapExport()
+                    await model.onTapExport()
                 }),
                 TopNotificationButton(title: Loc.delete, action: {
                     await model.onTapDelete()

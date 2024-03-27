@@ -25,9 +25,9 @@ final class SlashMenuViewModel: ObservableObject {
         self.itemsBuilder = itemsBuilder
     }
     
-    func update(with restrictions: BlockRestrictions, relations: [Relation]) {
+    func update(with spaceId: String, restrictions: BlockRestrictions, relations: [Relation]) {
         Task {
-            menuItems = try await itemsBuilder.slashMenuItems(spaceId: "", resrictions: restrictions, relations: relations)
+            menuItems = try await itemsBuilder.slashMenuItems(spaceId: spaceId, resrictions: restrictions, relations: relations)
         }
         
     }

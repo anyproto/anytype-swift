@@ -69,7 +69,7 @@ struct SpacesManagerRowView: View {
                     AsyncButton(Loc.SpaceShare.StopSharing.action, role: .destructive, action: onStopSharing)
                 }
                 if model.spaceView.canBeArchive {
-                    AsyncButton(Loc.SpaceManager.archive, action: onArchive)
+                    AsyncButton(Loc.export, action: onArchive)
                 }
             } label: {
                 IconView(icon: .asset(.X24.more))

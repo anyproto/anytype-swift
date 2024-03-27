@@ -3,7 +3,11 @@ import AnytypeCore
 
 struct RemoteStorageView: View {
     
-    @StateObject var model: RemoteStorageViewModel
+    @StateObject private var model: RemoteStorageViewModel
+    
+    init(output: RemoteStorageModuleOutput?) {
+        _model = StateObject(wrappedValue: RemoteStorageViewModel(output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

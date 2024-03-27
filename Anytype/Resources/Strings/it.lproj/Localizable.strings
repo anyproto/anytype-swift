@@ -882,10 +882,10 @@
 "SpaceSettings.DeleteAlert.Message" = "Questo spazio verrà eliminato irrevocabilmente. Non è possibile annullare questa azione.";
 "SpaceSettings.DeleteButton" = "Elimina spazio";
 "SpaceSettings.Share" = "Condividi";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveButton" = "Lascia";
+"SpaceSettings.LeaveAlert.Title" = "Lascia lo spazio";
 "SpaceSettings.LeaveAlert.Message" = "Lo spazio %@ verrà rimosso dai tuoi dispositivi e non avrai più accesso ad esso";
-"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+"SpaceSettings.LeaveAlert.Toast" = "Hai lasciato %@.";
 
 // MARK: - Space Share
 
@@ -919,11 +919,15 @@
 "SpaceShare.Join.CommentPlaceholder" = "Lascia un commento privato per il proprietario dello spazio";
 "SpaceShare.Join.Button" = "Richiesta di adesione";
 "SpaceShare.Join.Info" = "Una volta che il proprietario dello spazio approva la tua richiesta, entrerai nello spazio con i diritti di accesso determinati dal proprietario.";
-"SpaceShare.Join.Message" = "Sei stato invitato a unirti allo spazio %@, creato da %@. Invia una richiesta così il proprietario dello spazio può farti entrare.";
+"SpaceShare.Join.Message" = "Sei stato invitato a unirti allo spazio **%@**, creato da **%@**. Invia una richiesta così il proprietario dello spazio può farti entrare.";
 "SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
 "SpaceShare.YouSuffix" = "%@ (tu)";
 "SpaceShare.ManageSpaces" = "Gestisci Spazi";
+"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Title" = "Smetti di condividere lo spazio";
+"SpaceShare.StopSharing.Message" = "I membri non si sincronizzeranno più con questo spazio e il link di condivisione verrà disattivato.";
+"SpaceShare.StopSharing.Toast" = "Lo spazio non è più condiviso";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "I tuoi diritti di accesso sono stati modificati in **%@** nello spazio **%@**.";
@@ -938,7 +942,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Annulla Richiesta Di Partecipazione";
 "SpaceManager.DoNotCancel" = "Non annullare";
-"SpaceManager.Archive" = "Archivia";
 "SpaceManager.CancelRequestAlert.Title" = "Dovrai inviare nuovamente la richiesta di accesso";
 "SpaceManager.CancelRequestAlert.Toast" = "La richiesta è stata annullata.";
 
@@ -1020,11 +1023,11 @@
 
 // MARK: - Membership
 "Membership" = "Membership";
-"Just e-mail" = "Just e-mail";
+"Just e-mail" = "Solo email";
 "E-mail" = "E-mail";
 "Learn more" = "Per saperne di più";
-"per year" = "per year";
-"per x years" = "per %@ years";
+"per year" = "all'anno";
+"per x years" = "per %@ anni";
 "What’s included" = "Cosa è incluso";
 "Submit" = "Invia";
 "Resend" = "Invia di nuovo";
@@ -1051,11 +1054,11 @@
 "Membership.Legal.WouldYouLike" = "Vorresti utilizzare Anytype per affari, educazione, ecc.?";
 "Membership.Legal.LetUsKnow" = "Per piacere, fatecelo sapere qui.";
 
-"Membership.Email.Subject" = "Special Pricing Request";
-"Membership.Email.Body" = "Please specify your request:
-- highlight if you represent an educational, governmental, or non-profit organization
-- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
-- provide additional details about how your organization uses Anytype";
+"Membership.Email.Subject" = "Richiesta di prezzi speciali";
+"Membership.Email.Body" = "Si prega di specificare la richiesta:
+- evidenziare se si rappresenta un'organizzazione educativa, governativa o senza scopo di lucro
+- fornire maggiori informazioni sulla vostra organizzazione: numero di dipendenti e futuri utenti Anytype, mercati su cui si opera, ecc.,
+- fornire dettagli aggiuntivi su come la vostra organizzazione utilizza Anytype";
 
 "Membership.Banner.Title1" = "Co-crea con noi";
 "Membership.Banner.Subtitle1" = "Rimani strettamente connesso con il nostro team e la nostra comunità. Partecipa alle chiamate con il team, influenzando l'evoluzione di Anytype e dando il tuo parere sulle funzionalità.";
@@ -1094,7 +1097,7 @@
 "Membership.Builder.Benefit3" = "10 posti per collaboratori ospiti";
 "Membership.Builder.Benefit4" = "Supporto prioritario";
 
-"Membership.CoCreator.Title" = "Co-Creator";
+"Membership.CoCreator.Title" = "Co-Creatore";
 "Membership.CoCreator.Subtitle" = "Supporta la nostra avventura e sblocca accessi esclusivi e vantaggi";
 "Membership.CoCreator.Benefit1" = "Nome unico (da 5 caratteri)";
 "Membership.CoCreator.Benefit2" = "256 GB di spazio nella rete";

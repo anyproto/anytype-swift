@@ -920,11 +920,15 @@
 "SpaceShare.Join.CommentPlaceholder" = "Оставить приватный комментарий владельцу пространства";
 "SpaceShare.Join.Button" = "Отправить запрос на вступление";
 "SpaceShare.Join.Info" = "Как только владелец сообщества одобрит ваш запрос, вы присоединитесь к разделу с определенными правами доступа.";
-"SpaceShare.Join.Message" = "Вас пригласили присоединиться к пространству %@, созданному %@. Отправьте запрос, чтобы владелец пространства смог принять вас.";
+"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
 "SpaceShare.YouSuffix" = "%@ (вы)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Title" = "Stop sharing the space";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -939,7 +943,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Отклонить запрос о присоединении";
 "SpaceManager.DoNotCancel" = "Не отменять";
-"SpaceManager.Archive" = "Archive";
 "SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
 "SpaceManager.CancelRequestAlert.Toast" = "Запрос был отменен.";
 

@@ -31,7 +31,6 @@ protocol ModulesDIProtocol: AnyObject {
     func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly
     func authSoul() -> SoulViewModuleAssemblyProtocol
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
-    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol

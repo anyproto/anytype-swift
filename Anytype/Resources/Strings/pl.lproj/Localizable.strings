@@ -924,6 +924,10 @@
 "SpaceShare.JoinConfirmation.Message" = "Otrzymasz powiadomienie, gdy właściciel pokoju zatwierdzi Twoją prośbę.";
 "SpaceShare.YouSuffix" = "%@ (Państwo)";
 "SpaceShare.ManageSpaces" = "Zarządzanie przestrzeniami";
+"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Title" = "Zatrzymywanie udostępniania przestrzeni";
+"SpaceShare.StopSharing.Message" = "Członkowie nie będą już synchronizowani z tą przestrzenią, a łącze udostępniania zostanie dezaktywowane.";
+"SpaceShare.StopSharing.Toast" = "Przestrzeń nie jest już współdzielona";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Twoje prawa dostępu zostały zmienione na **%@** w przestrzeni **%@**.";
@@ -938,7 +942,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Anuluj prośbę o dołączenie";
 "SpaceManager.DoNotCancel" = "Nie anuluj";
-"SpaceManager.Archive" = "Archiwum";
 "SpaceManager.CancelRequestAlert.Title" = "Konieczne będzie ponowne wysłanie prośby o dostęp";
 "SpaceManager.CancelRequestAlert.Toast" = "Prośba została anulowana.";
 

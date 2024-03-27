@@ -34,6 +34,13 @@ struct BottomAlertButtonView: View {
     let buttons: [BottomAlertButton]
     
     var body: some View {
+        AsyncStandardButtonGroup {
+            buttonsView
+        }
+    }
+    
+    @ViewBuilder
+    private var buttonsView: some View {
         if #available(iOS 16.0, *) {
             BottomAlertButttonStack {
                 ForEach(0..<buttons.count, id: \.self) { index in
@@ -59,7 +66,6 @@ struct BottomAlertButtonView: View {
                 }
             }
         }
-        
     }
 }
 

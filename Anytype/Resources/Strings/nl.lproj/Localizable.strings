@@ -920,11 +920,15 @@
 "SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
 "SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
 "SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
-"SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij  %@ ruimte, aangemaakt door %@ Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
+"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 "SpaceShare.YouSuffix" = "%@ (jij)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Title" = "Stop sharing the space";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -939,7 +943,6 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Join Request";
 "SpaceManager.DoNotCancel" = "Do Not Cancel";
-"SpaceManager.Archive" = "Archiveer";
 "SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
 "SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
 

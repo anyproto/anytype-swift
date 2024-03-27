@@ -111,8 +111,12 @@ extension BottomAlertView where Header == ButtomAlertHeaderImageView, Body == Em
     BottomAlertView(
         title: "Title",
         message: "The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog") {
-            BottomAlertButton(text: "Button", style: .secondary, action: {})
-            BottomAlertButton(text: "Button", style: .primary, action: {})
+            BottomAlertButton(text: "Button", style: .secondary, action: {
+                try await Task.sleep(seconds: 10)
+            })
+            BottomAlertButton(text: "Button", style: .primary, action: {
+                try await Task.sleep(seconds: 10)
+            })
         }
 }
 

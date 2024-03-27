@@ -9,6 +9,7 @@ public protocol WorkspaceServiceProtocol {
     func createSpace(name: String, gradient: GradientId, accessType: SpaceAccessType, useCase: UseCase) async throws -> String
     func workspaceOpen(spaceId: String) async throws -> AccountInfo
     func workspaceSetDetails(spaceId: String, details: [WorkspaceSetDetails]) async throws
+    func workspaceExport(spaceId: String, path: String) async throws -> String
     func deleteSpace(spaceId: String) async throws
     func inviteView(cid: String, key: String) async throws -> SpaceInviteView
     func join(spaceId: String, cid: String, key: String) async throws
@@ -69,6 +70,19 @@ final class WorkspaceService: WorkspaceServiceProtocol {
                 $0.details.fields[detail.key] = detail.value
             }
         }).invoke()
+    }
+    
+    func workspaceExport(spaceId: String, path: String) async throws -> String {
+        let result = try await ClientCommands.objectListExport(.with {
+            $0.spaceID = spaceId
+            $0.path = path
+            $0.zip = true
+            $0.includeFiles = true
+            $0.includeArchived = true
+            $0.includeNested = true
+            $0.isJson = false
+        }).invoke()
+        return result.path
     }
     
     public func deleteSpace(spaceId: String) async throws {
