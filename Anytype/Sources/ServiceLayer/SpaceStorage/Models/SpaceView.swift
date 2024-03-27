@@ -4,7 +4,6 @@ import Services
 struct SpaceView: Identifiable, Equatable {
     let id: String
     let name: String
-    let title: String
     let objectIconImage: Icon?
     let targetSpaceId: String
     let createdDate: Date?
@@ -17,7 +16,6 @@ extension SpaceView: DetailsModel {
     init(details: ObjectDetails) {
         self.id = details.id
         self.name = details.name
-        self.title = details.title
         self.objectIconImage = details.objectIconImage
         self.targetSpaceId = details.targetSpaceId
         self.createdDate = details.createdDate
@@ -29,7 +27,6 @@ extension SpaceView: DetailsModel {
     static var subscriptionKeys: [BundledRelationKey] = .builder {
         BundledRelationKey.id
         BundledRelationKey.name
-        BundledRelationKey.titleKeys
         BundledRelationKey.objectIconImageKeys
         BundledRelationKey.targetSpaceId
         BundledRelationKey.createdDate
@@ -40,6 +37,11 @@ extension SpaceView: DetailsModel {
 }
 
 extension SpaceView {
+    
+    var title: String {
+        name.withPlaceholder
+    }
+    
     func canBeShared(isOwner: Bool) -> Bool {
         isOwner && (spaceAccessType == .shared || spaceAccessType == .private)
     }

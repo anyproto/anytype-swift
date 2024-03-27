@@ -115,7 +115,7 @@ final class RemoteStorageViewModel: ObservableObject {
         if let spaceView = activeWorkspaceStorage.spaceView() {
             let spaceBytesUsage = nodeUsage.spaces.first(where: { $0.spaceID == spaceId })?.bytesUsage ?? 0
             segmentInfo.currentUsage = Double(spaceBytesUsage) / Double(bytesLimit)
-            segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.name, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
+            segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.title, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
         }
        
         let otherSpaces = workspacesStorage.activeWorkspaces.filter { $0.targetSpaceId != spaceId }

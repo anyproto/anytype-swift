@@ -35,6 +35,11 @@ extension ParticipantPermissions {
 }
 
 extension Participant {
+    
+    var title: String {
+        name.withPlaceholder
+    }
+    
     var canLeave: Bool {
         (permission == .reader || permission == .writer) && status == .active
     }

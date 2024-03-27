@@ -57,7 +57,7 @@ struct GallerySpaceSelectionView: View {
                 HStack(spacing: 12) {
                     IconView(icon: space.objectIconImage)
                         .frame(width: 48, height: 48)
-                    AnytypeText(space.name, style: .uxTitle2Regular, color: .Text.primary)
+                    AnytypeText(space.title, style: .uxTitle2Regular, color: .Text.primary)
                         .lineLimit(1)
                     Spacer()
                 }

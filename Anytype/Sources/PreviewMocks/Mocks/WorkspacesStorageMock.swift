@@ -12,7 +12,6 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
             SpaceView(
                 id: "1",
                 name: "ABC",
-                title: "ABC",
                 objectIconImage: .object(.space(.gradient(.random))),
                 targetSpaceId: "",
                 createdDate: nil,

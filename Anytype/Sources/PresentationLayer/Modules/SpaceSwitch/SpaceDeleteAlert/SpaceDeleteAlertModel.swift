@@ -15,7 +15,7 @@ final class SpaceDeleteAlertModel: ObservableObject {
     
     init(spaceId: String) {
         self.spaceId = spaceId
-        self.spaceName = workspaceStorage.spaceView(spaceId: spaceId)?.name ?? ""
+        self.spaceName = workspaceStorage.spaceView(spaceId: spaceId)?.title ?? ""
     }
     
     func onTapCancel() {

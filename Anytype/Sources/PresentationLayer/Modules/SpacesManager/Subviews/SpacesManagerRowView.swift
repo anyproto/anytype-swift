@@ -28,7 +28,7 @@ struct SpacesManagerRowView: View {
             IconView(icon: model.spaceView.iconImage)
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(model.spaceView.name, style: .uxTitle2Semibold, color: .Text.primary)
+                AnytypeText(model.spaceView.title, style: .uxTitle2Semibold, color: .Text.primary)
                 AnytypeText(model.participant?.permission.title, style: .relation2Regular, color: .Text.secondary)
             }
             Spacer()
