@@ -152,7 +152,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             for blockId in blockIds {
                 
                 if blockViewModel.blockId == blockId {
-                    guard let newViewModel = blockBuilder.build(id: blockId) else {
+                    guard let newViewModel = blockBuilder.build(blockId: blockId) else {
                         continue
                     }
                     

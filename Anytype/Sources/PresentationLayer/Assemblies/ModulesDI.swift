@@ -53,10 +53,6 @@ final class ModulesDI: ModulesDIProtocol {
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }
-
-    func codeLanguageList() -> CodeLanguageListModuleAssemblyProtocol {
-        return CodeLanguageListModuleAssembly(serviceLocator: serviceLocator)
-    }
     
     func newSearch() -> NewSearchModuleAssemblyProtocol {
         return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)

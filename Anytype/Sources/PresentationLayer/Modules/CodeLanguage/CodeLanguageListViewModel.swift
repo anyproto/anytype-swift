@@ -1,25 +1,36 @@
 import Foundation
 import Services
 
+struct CodeLanguageListData: Identifiable, Hashable {
+    let documentId: String
+    let blockId: String
+    
+    var id: Int { hashValue }
+}
+
 final class CodeLanguageListViewModel: ObservableObject {
     
     // MARK: - DI
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
     
-    private let document: BaseDocumentProtocol
-    private let blockId: String
-    private let blockService: BlockServiceProtocol
-    private let selectedLanguage: CodeLanguage
+    private let data: CodeLanguageListData
+    private lazy var document: BaseDocumentProtocol = {
+        documentsProvider.document(objectId: data.documentId, forPreview: false)
+    }()
+    private var selectedLanguage: CodeLanguage?
     
     // MARK: - State
     
     @Published var rows: [CodeLanguageRowModel] = []
     @Published var dismiss: Bool = false
     
-    init(document: BaseDocumentProtocol, blockId: String, selectedLanguage: CodeLanguage, blockService: BlockServiceProtocol) {
-        self.document = document
-        self.blockId = blockId
-        self.selectedLanguage = selectedLanguage
-        self.blockService = blockService
+    init(data: CodeLanguageListData) {
+        self.data = data
+        let info = document.infoContainer.get(id: data.blockId)
+        selectedLanguage = info?.fields.codeLanguage
         updateRows(searchText: "")
     }
     
@@ -30,7 +41,7 @@ final class CodeLanguageListViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateRows(searchText: String) {
-
+        
         let languages = searchText.isEmpty
             ? CodeLanguage.allCases
             : CodeLanguage.allCases.filter { $0.title.lowercased().contains(searchText.lowercased()) }
@@ -48,10 +59,10 @@ final class CodeLanguageListViewModel: ObservableObject {
     
     private func onTapCodeLanguage(_ language: CodeLanguage) {
         Task { @MainActor in
-            guard let info = document.infoContainer.get(id: blockId) else { return }
+            guard let info = document.infoContainer.get(id: data.blockId) else { return }
             let fields = CodeBlockFields(language: language)
             let newInfo = info.addFields(fields.asMiddleware())
-            try await blockService.setFields(objectId: document.objectId, blockId: blockId, fields: newInfo.fields)
+            try await blockService.setFields(objectId: document.objectId, blockId: data.blockId, fields: newInfo.fields)
             dismiss.toggle()
         }
     }

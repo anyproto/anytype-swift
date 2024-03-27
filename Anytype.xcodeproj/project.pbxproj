@@ -384,6 +384,7 @@
 		2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */; };
 		2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30734828ACEF58003673DF /* AlertOpener.swift */; };
 		2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30735028AD04D7003673DF /* TopAlertView.swift */; };
+		2A30B2022BB40E3400206806 /* BlockFields+Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */; };
 		2A3425AC2A6A8EB3005E61F1 /* SmallImageIdPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */; };
 		2A3425B32A6AD415005E61F1 /* AnytypeText+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */; };
 		2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */; };
@@ -670,7 +671,6 @@
 		2AB7AAEB2AF51D0C00ED3E02 /* View+PresentationBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */; };
 		2AB7AAED2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB7AAEC2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift */; };
 		2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */; };
-		2ABAF2BB2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */; };
 		2ABAF2C1293DED8C003C4730 /* CreateObjectModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2C0293DED8C003C4730 /* CreateObjectModuleAssembly.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
@@ -2182,6 +2182,7 @@
 		2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModelOutput.swift; sourceTree = "<group>"; };
 		2A30734828ACEF58003673DF /* AlertOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpener.swift; sourceTree = "<group>"; };
 		2A30735028AD04D7003673DF /* TopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlertView.swift; sourceTree = "<group>"; };
+		2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockFields+Fields.swift"; sourceTree = "<group>"; };
 		2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallImageIdPainter.swift; sourceTree = "<group>"; };
 		2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnytypeText+Mention.swift"; sourceTree = "<group>"; };
 		2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListView.swift; sourceTree = "<group>"; };
@@ -2464,7 +2465,6 @@
 		2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+PresentationBackground.swift"; sourceTree = "<group>"; };
 		2AB7AAEC2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteStorageSegmentInfo.swift; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObjectsSearchInteractor.swift; sourceTree = "<group>"; };
-		2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageModuleAssembly.swift; sourceTree = "<group>"; };
 		2ABAF2C0293DED8C003C4730 /* CreateObjectModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectModuleAssembly.swift; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
@@ -3851,6 +3851,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */,
 				2AC5B3D02BA30070002584B8 /* ObjectPermissions */,
 				53D4089527ECCE9000495335 /* FieldConverters */,
 				5347854A2743C50C0097CA30 /* Relations */,
@@ -6497,7 +6498,6 @@
 		2ABAF2B72938E548003C4730 /* CodeLanguage */ = {
 			isa = PBXGroup;
 			children = (
-				2ABAF2BA2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift */,
 				2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */,
 				2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */,
 				2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */,
@@ -10713,7 +10713,6 @@
 				2A2B332B2A7BAEBA004BD906 /* SpaceSwitchViewModel.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
 				86C4B3782B246141003B8C51 /* SharingTipCoordinator.swift in Sources */,
-				2ABAF2BB2938E5FA003C4730 /* CodeLanguageModuleAssembly.swift in Sources */,
 				2AA8108029A3D8E8007DD64B /* WidgetObjectListRowModel.swift in Sources */,
 				3D2F00292B6814CC009F3AA5 /* ObjectTypeSearchView.swift in Sources */,
 				2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */,
@@ -11164,6 +11163,7 @@
 				2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */,
 				2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
+				2A30B2022BB40E3400206806 /* BlockFields+Fields.swift in Sources */,
 				2AF205BC2ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				2E22F9EC2B6167B7001EFCF3 /* SelectRelationListCoordinatorViewModel.swift in Sources */,

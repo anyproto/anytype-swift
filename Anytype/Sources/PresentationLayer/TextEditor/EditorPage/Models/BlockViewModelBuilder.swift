@@ -25,6 +25,7 @@ final class BlockViewModelBuilder {
     private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let markupChanger: BlockMarkupChangerProtocol
     private let slashMenuActionHandler: SlashMenuActionHandler
+    private weak var output: EditorPageModuleOutput?
     
     init(
         document: BaseDocumentProtocol,
@@ -47,7 +48,8 @@ final class BlockViewModelBuilder {
         linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         markupChanger: BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
-        editorPageBlocksStateManager: EditorPageBlocksStateManager
+        editorPageBlocksStateManager: EditorPageBlocksStateManager,
+        output: EditorPageModuleOutput?
     ) {
         self.document = document
         self.handler = handler
@@ -70,6 +72,7 @@ final class BlockViewModelBuilder {
         self.markupChanger = markupChanger
         self.slashMenuActionHandler = slashMenuActionHandler
         self.editorPageBlocksStateManager = editorPageBlocksStateManager
+        self.output = output
     }
     
     func buildEditorItems(infos: [String]) -> [EditorItem] {
@@ -96,20 +99,21 @@ final class BlockViewModelBuilder {
     
     private func build(_ ids: [String]) -> [BlockViewModelProtocol] {
         ids.compactMap {
-            let block = build(id: $0)
+            let block = build(blockId: $0)
             return block
         }
     }
     
-    func build(id: String) -> BlockViewModelProtocol? {
-        if let model = modelsHolder.blocksMapping[id] {
+    func build(blockId: String) -> BlockViewModelProtocol? {
+        if let model = modelsHolder.blocksMapping[blockId] {
             return model
         }
         
-        guard let info = infoContainer.get(id: id) else {
+        guard let info = infoContainer.get(id: blockId) else {
             return nil
         }
         
+        let documentId = document.objectId
         let blockInformationProvider = BlockModelInfomationProvider(infoContainer: infoContainer, info: info)
   
         switch info.content {
@@ -122,8 +126,8 @@ final class BlockViewModelBuilder {
                     becomeFirstResponder: { _ in },
                     handler: handler,
                     editorCollectionController: blockCollectionController,
-                    showCodeSelection: { [weak self] info, codeLanguage in
-                        self?.router.showCodeLanguage(blockId: info.id, selectedLanguage: codeLanguage)
+                    showCodeSelection: { [weak self] info in
+                        self?.output?.onSelectCodeLanguage(objectId: documentId, blockId: blockId)
                     }
                 )
             default:
