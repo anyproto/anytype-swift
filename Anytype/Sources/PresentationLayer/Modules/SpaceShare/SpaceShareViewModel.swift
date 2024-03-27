@@ -168,7 +168,7 @@ final class SpaceShareViewModel: ObservableObject {
         
         requestAlertModel = SpaceRequestAlertData(
             spaceId: spaceView.targetSpaceId,
-            spaceName: spaceView.name,
+            spaceName: spaceView.title,
             participantIdentity: participant.identity,
             participantName: participant.name
         )

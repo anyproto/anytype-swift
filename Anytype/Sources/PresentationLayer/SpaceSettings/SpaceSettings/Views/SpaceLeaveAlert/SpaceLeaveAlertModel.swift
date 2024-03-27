@@ -16,7 +16,7 @@ final class SpaceLeaveAlertModel: ObservableObject {
     
     init(spaceId: String) {
         self.spaceId = spaceId
-        self.spaceName = workspaceStorage.spaceView(spaceId: spaceId)?.name ?? ""
+        self.spaceName = workspaceStorage.spaceView(spaceId: spaceId)?.title ?? ""
     }
     
     func onTapLeave() async throws {

@@ -33,7 +33,7 @@ final class SpaceSearchViewModel: SearchViewModelProtocol {
     func search(text: String) {
         let searchSpacesResult: [SpaceView]
         if text.isNotEmpty {
-            searchSpacesResult = spaces.filter { $0.name.contains(text) }
+            searchSpacesResult = spaces.filter { $0.title.contains(text) }
         } else {
             searchSpacesResult = spaces
         }
