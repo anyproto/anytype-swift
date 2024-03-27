@@ -88,7 +88,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
             searchModuleAssembly: modulesDI.search(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
-            codeLanguageListModuleAssembly: modulesDI.codeLanguageList(),
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             textIconPickerModuleAssembly: modulesDI.textIconPicker(),
@@ -256,7 +255,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             markupChanger: BlockMarkupChanger(),
             slashMenuActionHandler: slashMenuActionHandler,
-            editorPageBlocksStateManager: blocksStateManager
+            editorPageBlocksStateManager: blocksStateManager,
+            output: output
         )
         
         blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel

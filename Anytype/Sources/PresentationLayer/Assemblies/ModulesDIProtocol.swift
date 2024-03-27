@@ -11,7 +11,6 @@ protocol ModulesDIProtocol: AnyObject {
     func objectSetting() -> ObjectSettingModuleAssemblyProtocol
     func search() -> SearchModuleAssemblyProtocol
     func createObject() -> CreateObjectModuleAssemblyProtocol
-    func codeLanguageList() -> CodeLanguageListModuleAssemblyProtocol
     func newSearch() -> NewSearchModuleAssemblyProtocol
     func newRelation() -> NewRelationModuleAssemblyProtocol
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol

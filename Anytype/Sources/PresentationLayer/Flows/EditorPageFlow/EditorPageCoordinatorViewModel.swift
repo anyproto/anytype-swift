@@ -18,6 +18,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var dismiss = false
     @Published var relationValueData: RelationValueData?
     @Published var toastBarData: ToastBarData = .empty
+    @Published var codeLanguageData: CodeLanguageListData?
     
     init(
         data: EditorPageObject,
@@ -74,6 +75,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
             analyticsType: .dataview, 
             output: self
         )
+    }
+    
+    func onSelectCodeLanguage(objectId: String, blockId: String) {
+        codeLanguageData = CodeLanguageListData(documentId: objectId, blockId: blockId)
     }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
