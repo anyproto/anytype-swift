@@ -56,6 +56,7 @@ public protocol BundledRelationsValueProvider {
     var linkedContacts: [ObjectId] { get }
     var rottenTomatoesRating: Int? { get }
     var isHidden: Bool { get }
+    var isHiddenDiscovery: Bool { get }
     var additional: String { get }
     var budget: Int? { get }
     var mediaArtistName: String { get }
@@ -176,6 +177,7 @@ public protocol BundledRelationsValueProvider {
     var revision: Int? { get }
     var imageKind: Int? { get }
     var importType: Int? { get }
+    var globalName: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -349,6 +351,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Specify if object is hidden
     var isHidden: Bool {
         return value(for: BundledRelationKey.isHidden.rawValue)
+    }
+    /// Specify if object discovery is hidden
+    var isHiddenDiscovery: Bool {
+        return value(for: BundledRelationKey.isHiddenDiscovery.rawValue)
     }
     var additional: String {
         return value(for: BundledRelationKey.additional.rawValue)
@@ -780,5 +786,9 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Import type, used to create object (notion, md and etc)
     var importType: Int? {
         return value(for: BundledRelationKey.importType.rawValue)
+    }
+    /// Name of profile that the user could be mentioned by
+    var globalName: String {
+        return value(for: BundledRelationKey.globalName.rawValue)
     }
 }

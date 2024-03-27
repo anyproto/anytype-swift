@@ -210,7 +210,8 @@ final class MiddlewareEventConverter {
                 .fileLocalUsage,
                 .notificationSend,
                 .notificationUpdate,
-                .payloadBroadcast:
+                .payloadBroadcast,
+                .membershipUpdate:
             return nil
         }
     }

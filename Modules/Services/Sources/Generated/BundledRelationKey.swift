@@ -129,6 +129,9 @@ public enum BundledRelationKey: String {
     /// Specify if object is hidden
     case isHidden = "isHidden"
 
+    /// Specify if object discovery is hidden
+    case isHiddenDiscovery = "isHiddenDiscovery"
+
     case additional = "additional"
 
     case budget = "budget"
@@ -439,4 +442,7 @@ public enum BundledRelationKey: String {
 
     /// Import type, used to create object (notion, md and etc)
     case importType = "importType"
+
+    /// Name of profile that the user could be mentioned by
+    case globalName = "globalName"
 }
