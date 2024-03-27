@@ -19,7 +19,7 @@ struct RequestToJoinNotificationView: View {
                 try await model.onTapGoToSpace()
             },
             TopNotificationButton(title: Loc.RequestToJoinNotification.viewRequest) {
-                await model.onTapViewRequest()
+                try await model.onTapViewRequest()
             }
         ])
         .onChange(of: model.dismiss) { _ in dismiss() }

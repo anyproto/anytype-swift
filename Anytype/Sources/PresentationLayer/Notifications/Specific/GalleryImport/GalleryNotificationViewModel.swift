@@ -14,6 +14,8 @@ final class GalleryNotificationViewModel: ObservableObject {
     private var workspaceStorage: WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.notificationsService)
+    private var notificationsService: NotificationsServiceProtocol
     
     private var subscription: AnyCancellable?
     
@@ -32,8 +34,11 @@ final class GalleryNotificationViewModel: ObservableObject {
     
     func onTapSpace() async throws {
         try await activeWorkspaceStorage.setActiveSpace(spaceId: notification.galleryImport.spaceID)
+        try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
         dismiss.toggle()
     }
+    
+    // MARK: - Private
     
     private func startHandle() async {
         subscription = await notificationSubscriptionService.handleGalleryImportUpdate(notificationID: notification.common.id) { [weak self] notification in
