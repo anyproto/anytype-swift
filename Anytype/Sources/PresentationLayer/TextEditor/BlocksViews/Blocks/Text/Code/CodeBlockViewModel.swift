@@ -12,7 +12,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     let becomeFirstResponder: (BlockInformation) -> ()
     let handler: BlockActionHandlerProtocol
     let editorCollectionController: EditorBlockCollectionController
-    let showCodeSelection: (BlockInformation, CodeLanguage) -> ()
+    let showCodeSelection: @MainActor (BlockInformation) -> ()
 
     func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
         guard case let .text(content) = info.content else {
@@ -20,9 +20,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
         }
         
         let anytypeText = content.anytypeText(document: document)
-        let codeLanguage = CodeLanguage.create(
-            middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
-        )
+        let codeLanguage = info.fields.codeLanguage
         
         return CodeBlockContentConfiguration(
             content: content,
@@ -35,7 +33,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
                     handler.changeText(textView.attributedText, blockId: info.id)
                     editorCollectionController.reconfigure(items: [.block(self)])
                 },
-                showCodeSelection: { showCodeSelection(info, codeLanguage) }
+                showCodeSelection: { showCodeSelection(info) }
             )
         ).cellBlockConfiguration(
             dragConfiguration: .init(id: info.id),

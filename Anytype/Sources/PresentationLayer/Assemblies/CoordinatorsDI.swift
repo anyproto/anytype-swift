@@ -189,10 +189,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
-        SpaceShareCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol {
         TypeSearchForNewObjectCoordinatorAssembly(
             serviceLocator: serviceLocator,

@@ -177,7 +177,7 @@ final class ShareOptionsViewModel: ObservableObject {
             linkTitle = Loc.Sharing.addTo
         }
         
-        spaceName = spaceDetails?.name ?? ""
+        spaceName = spaceDetails?.title ?? ""
         linkObjectName = linkObjectDetails?.title ?? ""
     }
     

@@ -11,7 +11,6 @@ protocol ModulesDIProtocol: AnyObject {
     func objectSetting() -> ObjectSettingModuleAssemblyProtocol
     func search() -> SearchModuleAssemblyProtocol
     func createObject() -> CreateObjectModuleAssemblyProtocol
-    func codeLanguageList() -> CodeLanguageListModuleAssemblyProtocol
     func newSearch() -> NewSearchModuleAssemblyProtocol
     func newRelation() -> NewRelationModuleAssemblyProtocol
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol
@@ -30,7 +29,6 @@ protocol ModulesDIProtocol: AnyObject {
     func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly
     func authSoul() -> SoulViewModuleAssemblyProtocol
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
-    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
     func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
@@ -50,5 +48,4 @@ protocol ModulesDIProtocol: AnyObject {
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
     func sharingTip() -> SharingTipModuleAssemblyProtocol
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol
-    func spareShare() -> SpaceShareModuleAssemblyProtocol
 }

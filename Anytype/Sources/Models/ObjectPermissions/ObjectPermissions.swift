@@ -83,12 +83,17 @@ struct ObjectPermissions: Equatable {
 }
 
 extension ObjectDetails {
+    
+    func permissions(particioant: Participant?) -> ObjectPermissions {
+        permissions(participantCanEdit: particioant?.canEdit ?? false)
+    }
+    
     func permissions(participantCanEdit: Bool) -> ObjectPermissions {
         ObjectPermissions(
             details: self,
             isLocked: false,
             participantCanEdit: participantCanEdit,
-            objectRestrictions: restrictionsList
+            objectRestrictions: restrictionsValue
         )
     }
 }

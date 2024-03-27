@@ -3,9 +3,9 @@ import SwiftUI
 
 struct SpaceShareCoordinatorView: View {
     
-    @StateObject var model: SpaceShareCoordinatorViewModel
+    @StateObject private var model = SpaceShareCoordinatorViewModel()
     
     var body: some View {
-        model.shareModule()
+        SpaceShareView()
     }
 }

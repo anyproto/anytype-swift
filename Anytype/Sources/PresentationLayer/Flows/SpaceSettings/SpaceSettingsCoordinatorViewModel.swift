@@ -8,14 +8,12 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
 
     private let navigationContext: NavigationContextProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let remoteStorageModuleAssembly: RemoteStorageModuleAssemblyProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
-    private let spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
@@ -33,37 +31,29 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     init(
         navigationContext: NavigationContextProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        remoteStorageModuleAssembly: RemoteStorageModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         personalizationModuleAssembly: PersonalizationModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
-        spaceShareCoordinatorAssembly: SpaceShareCoordinatorAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
         documentService: OpenedDocumentsProviderProtocol
     ) {
         self.navigationContext = navigationContext
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.remoteStorageModuleAssembly = remoteStorageModuleAssembly
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.personalizationModuleAssembly = personalizationModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
-        self.spaceShareCoordinatorAssembly = spaceShareCoordinatorAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
         self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
-    }
-    
-    func remoteStorageModule() -> AnyView {
-        return remoteStorageModuleAssembly.make(output: self)
     }
     
     func personalizationModule() -> AnyView {
@@ -72,10 +62,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func wallpaperModule() -> AnyView {
         return wallpaperPickerModuleAssembly.make(spaceId: accountSpaceId)
-    }
-    
-    func spaceShareModule() -> AnyView {
-        return spaceShareCoordinatorAssembly.make()
     }
     
     // MARK: - SpaceSettingsModuleOutput

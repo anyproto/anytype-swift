@@ -59,7 +59,7 @@ final class GalleryNotificationViewModel: ObservableObject {
             title = Loc.Gallery.Notification.error(notification.galleryImport.name)
         } else {
             let spaceView = workspaceStorage.spaceView(spaceId: notification.galleryImport.spaceID)
-            title = Loc.Gallery.Notification.success(spaceView?.name ?? "")
+            title = Loc.Gallery.Notification.success(spaceView?.title ?? "")
         }
     }
 }

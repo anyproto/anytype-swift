@@ -129,6 +129,9 @@ public enum BundledRelationKey: String {
     /// Specify if object is hidden
     case isHidden = "isHidden"
 
+    /// Specify if object discovery is hidden
+    case isHiddenDiscovery = "isHiddenDiscovery"
+
     case additional = "additional"
 
     case budget = "budget"

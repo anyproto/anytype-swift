@@ -20,7 +20,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
@@ -41,7 +40,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
@@ -62,7 +60,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
         self.toastPresenter = toastPresenter
-        self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
@@ -156,12 +153,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     func saveFile(fileURL: URL, type: FileContentType) {
         fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
-    
-    func showCodeLanguage(blockId: String, selectedLanguage: CodeLanguage) {
-        let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
-        navigationContext.present(module)
-    }
-    
+        
     @MainActor
     func showStyleMenu(
         informations: [BlockInformation],

@@ -107,7 +107,11 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         
         // Slash menu
         let restrictions = BlockRestrictionsBuilder.build(contentType: configuration.contentType)
-        slashMenuViewModel.update(with: restrictions, relations: document.parsedRelations.installed)
+        slashMenuViewModel.update(
+            with: document.spaceId,
+            restrictions: restrictions,
+            relations: document.parsedRelations.installed
+        )
         
         // Markup menu
         markupAccessoryViewModel.update(configuration)
@@ -135,7 +139,11 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         
         // Slash menu
         let restrictions = BlockRestrictionsBuilder.build(contentType: configuration.contentType)
-        slashMenuViewModel.update(with: restrictions, relations: document.parsedRelations.installed)
+        slashMenuViewModel.update(
+            with: document.spaceId,
+            restrictions: restrictions,
+            relations: document.parsedRelations.installed
+        )
         
         // Markup menu
         markupAccessoryViewModel.update(configuration)

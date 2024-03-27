@@ -53,10 +53,6 @@ final class ModulesDI: ModulesDIProtocol {
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }
-
-    func codeLanguageList() -> CodeLanguageListModuleAssemblyProtocol {
-        return CodeLanguageListModuleAssembly(serviceLocator: serviceLocator)
-    }
     
     func newSearch() -> NewSearchModuleAssemblyProtocol {
         return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
@@ -138,10 +134,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }
     
-    func remoteStorage() -> RemoteStorageModuleAssemblyProtocol {
-        return RemoteStorageModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
@@ -212,9 +204,5 @@ final class ModulesDI: ModulesDIProtocol {
     
     func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
         ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func spareShare() -> SpaceShareModuleAssemblyProtocol {
-        SpaceShareModuleAssembly(serviceLocator: serviceLocator)
     }
 }

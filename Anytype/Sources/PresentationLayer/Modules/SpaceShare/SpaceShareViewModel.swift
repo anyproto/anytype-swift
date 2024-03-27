@@ -11,42 +11,42 @@ final class SpaceShareViewModel: ObservableObject {
         static let participantLimit = 11 // 10 participants and 1 owner
     }
     
-    private let activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
-    private let workspaceService: WorkspaceServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let deppLinkParser: DeepLinkParserProtocol
+    @Injected(\.activeSpaceParticipantStorage)
+    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.deepLinkParser)
+    private var deppLinkParser: DeepLinkParserProtocol
     
     private var participants: [Participant] = []
-    private var subscriptions: [AnyCancellable] = []
     
-    @Published var accountSpaceId: String
+    var accountSpaceId: String { activeWorkspaceStorage.workspaceInfo.accountSpaceId }
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
     @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
-    @Published var requestAlertModel: SpaceRequestViewModel?
+    @Published var requestAlertModel: SpaceRequestAlertData?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     
-    init(
-        activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        deppLinkParser: DeepLinkParserProtocol
-    ) {
-        self.activeSpaceParticipantStorage = activeSpaceParticipantStorage
-        self.workspaceService = workspaceService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.deppLinkParser = deppLinkParser
-        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
-        startSubscriptions()
-        Task {
+    nonisolated init() {}
+    
+    func startParticipantsTask() async {
+        for await items in activeSpaceParticipantStorage.participantsPublisher.values {
+            updateParticipant(items: items)
+        }
+    }
+    
+    func onAppear() async {
+        do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-        }
+        } catch {}
     }
     
     func onShareInvite() {
@@ -81,13 +81,6 @@ final class SpaceShareViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func startSubscriptions() {
-        activeSpaceParticipantStorage.participantsPublisher.sink { [weak self] items in
-            self?.updateParticipant(items: items)
-        }
-        .store(in: &subscriptions)
-    }
-    
     private func updateParticipant(items: [Participant]) {
         participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
         rows = participants.map { participant in
@@ -95,7 +88,7 @@ final class SpaceShareViewModel: ObservableObject {
             return SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon?.icon,
-                name: isYou ? Loc.SpaceShare.youSuffix(participant.name) :  participant.name,
+                name: isYou ? Loc.SpaceShare.youSuffix(participant.title) : participant.title,
                 status: participantStatus(participant),
                 action: participantAction(participant),
                 contextActions: participantContextActions(participant)
@@ -126,7 +119,7 @@ final class SpaceShareViewModel: ObservableObject {
         case .removing:
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
-                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.name), showSnackBar: true)
+                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
         case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
             return nil
@@ -166,26 +159,18 @@ final class SpaceShareViewModel: ObservableObject {
     private func showRequestAlert(participant: Participant) {
         guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
         
-        requestAlertModel = SpaceRequestViewModel(
-            icon: participant.icon?.icon,
-            title: Loc.SpaceShare.ViewRequest.title(participant.name, spaceView.name),
-            allowToAddMembers: allowToAddMembers,
-            onViewAccess: { [weak self] in
-                try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .reader)
-            },
-            onEditAccess: { [weak self] in
-                try await self?.workspaceService.requestApprove(spaceId: spaceView.targetSpaceId, identity: participant.identity, permissions: .writer)
-            },
-            onReject: { [weak self] in
-                try await self?.workspaceService.requestDecline(spaceId: spaceView.targetSpaceId, identity: participant.identity)
-            }
+        requestAlertModel = SpaceRequestAlertData(
+            spaceId: spaceView.targetSpaceId,
+            spaceName: spaceView.title,
+            participantIdentity: participant.identity,
+            participantName: participant.title
         )
     }
     
     private func showPermissionAlert(participant: Participant, newPermission: ParticipantPermissions) {
         guard participant.permission != newPermission else { return }
         changeAccessAlertModel = SpaceChangeAccessViewModel(
-            participantName: participant.name,
+            participantName: participant.title,
             permissions: newPermission.title,
             onConfirm: { [weak self] in
                 try await self?.workspaceService.participantPermissionsChange(
@@ -199,7 +184,7 @@ final class SpaceShareViewModel: ObservableObject {
     
     private func showRemoveAlert(participant: Participant) {
         removeParticipantAlertModel = SpaceParticipantRemoveViewModel(
-            participantName: participant.name,
+            participantName: participant.title,
             onConfirm: { [weak self] in
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             }
