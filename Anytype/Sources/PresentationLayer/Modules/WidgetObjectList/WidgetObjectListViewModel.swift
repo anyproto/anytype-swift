@@ -40,6 +40,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
     private var subscriptions = [AnyCancellable]()
+    private var participant: Participant?
     private var selectedRowIds: Set<String> = [] {
         didSet { updateView() }
     }
@@ -86,10 +87,12 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func startParticipantTask() async {
-        for await newCanEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
-            canEdit = newCanEdit
+        for await participant in accountParticipantStorage.participantPublisher(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId).values {
+            self.participant = participant
+            canEdit = participant.canEdit
             editMode = canEdit ? internalModel.editMode : .normal(allowDnd: false)
             viewEditMode = (editMode == .editOnly) ? .active : .inactive
+            updateView()
         }
     }
     
@@ -193,6 +196,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
                         menu: menuBuilder.buildMenuItems(
                             details: details,
                             allowOptions: internalModel.availableMenuItems,
+                            participant: participant,
                             output: self
                         ),
                         onTap: { [weak self] in
@@ -233,7 +237,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     private func updateActions() {
         let selectedDetails = rowDetails.flatMap { $0.details }.filter { selectedRowIds.contains($0.id) }
-        options = menuBuilder.buildOptionsMenu(details: selectedDetails, allowOptions: internalModel.availableMenuItems, output: self)
+        options = menuBuilder.buildOptionsMenu(details: selectedDetails, allowOptions: internalModel.availableMenuItems, participant: participant, output: self)
     }
     
     private func validateSelectedIds() {
