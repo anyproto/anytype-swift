@@ -5,12 +5,14 @@ protocol WidgetObjectListMenuBuilderProtocol: AnyObject {
     func buildOptionsMenu(
         details: [ObjectDetails],
         allowOptions: [WidgetObjectListMenuItem],
+        participant: Participant?,
         output: WidgetObjectListMenuOutput
     ) -> [SelectionOptionsItemViewModel]
     
     func buildMenuItems(
         details: ObjectDetails,
         allowOptions: [WidgetObjectListMenuItem],
+        participant: Participant?,
         output: WidgetObjectListMenuOutput
     ) -> [WidgetObjectListMenuItemModel]
 }
@@ -30,10 +32,11 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
     func buildOptionsMenu(
         details: [ObjectDetails],
         allowOptions: [WidgetObjectListMenuItem],
+        participant: Participant?,
         output: WidgetObjectListMenuOutput
     ) -> [SelectionOptionsItemViewModel] {
         
-        let actions = build(details: details, allowOptions: allowOptions, output: output)
+        let actions = build(details: details, allowOptions: allowOptions, participant: participant, output: output)
         
         return actions.map { action in
             SelectionOptionsItemViewModel(id: UUID().uuidString, title: action.optionTitle, imageAsset: action.optionImage, action: action.action)
@@ -43,10 +46,11 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
     func buildMenuItems(
         details: ObjectDetails,
         allowOptions: [WidgetObjectListMenuItem],
+        participant: Participant?,
         output: WidgetObjectListMenuOutput
     ) -> [WidgetObjectListMenuItemModel] {
         
-        let actions = build(details: [details], allowOptions: allowOptions, output: output)
+        let actions = build(details: [details], allowOptions: allowOptions, participant: participant, output: output)
         
         return actions.map { action in
             WidgetObjectListMenuItemModel(id: UUID().uuidString, title: action.menuTitle, negative: action.negative, onTap: action.action)
@@ -58,14 +62,16 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
     private func build(
         details: [ObjectDetails],
         allowOptions: [WidgetObjectListMenuItem],
+        participant: Participant?,
         output: WidgetObjectListMenuOutput
     ) -> [Action] {
         
+        let permissions = details.map { $0.permissions(particioant: participant) }
         
-        let isFavoriteIds = details.filter { $0.isFavorite }.map(\.id)
-        let isUndavoriteIds = details.filter { !$0.isFavorite }.map(\.id)
-        let notArchivedIds = details.filter { !$0.isArchived }.map(\.id)
-        let isArchivedIds = details.filter { $0.isArchived }.map(\.id)
+        let isFavoriteIds = details.enumerated().filter { $1.isFavorite && permissions[$0].canFavorite }.map { $1.id }
+        let isUndavoriteIds = details.enumerated().filter { !$1.isFavorite && permissions[$0].canFavorite }.map { $1.id }
+        let notArchivedIds = details.enumerated().filter { !$1.isArchived && permissions[$0].canArchive }.map { $1.id }
+        let isArchivedIds = details.enumerated().filter { $1.isArchived && permissions[$0].canArchive }.map { $1.id }
         let allIds = details.map(\.id)
         
         return .builder {
