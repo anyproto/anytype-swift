@@ -686,8 +686,68 @@ extension Anytype_Rpc.Log.Send.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Membership.Finalize.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.Finalize.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.GetStatus.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.GetStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.IsNameValid.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.IsNameValid.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.Tiers.Get.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Metrics.SetParameters.Response: ResultWithError {}
 extension Anytype_Rpc.Metrics.SetParameters.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.NameService.ResolveAnyId.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.NameService.ResolveName.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.ResolveName.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.NameService.UserAccount.Get.Response: ResultWithError {}
+extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
