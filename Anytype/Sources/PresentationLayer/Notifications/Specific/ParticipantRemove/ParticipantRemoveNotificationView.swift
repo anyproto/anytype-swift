@@ -15,10 +15,10 @@ struct ParticipantRemoveNotificationView: View {
             title: model.message,
             buttons: [
                 TopNotificationButton(title: Loc.export, action: {
-                    await model.onTapExport()
+                    try await model.onTapExport()
                 }),
                 TopNotificationButton(title: Loc.delete, action: {
-                    await model.onTapDelete()
+                    try await model.onTapDelete()
                 })
             ]
         )
