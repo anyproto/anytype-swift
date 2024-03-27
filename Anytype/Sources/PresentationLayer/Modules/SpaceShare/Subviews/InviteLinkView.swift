@@ -8,6 +8,7 @@ struct InviteLinkView: View {
     let onCopyLink: () -> Void
     let onDeleteSharingLink: () -> Void
     let onGenerateInvite: () async throws -> Void
+    let onShowQrCode: () -> Void
     
     var body: some View {
         Group {
@@ -55,6 +56,10 @@ struct InviteLinkView: View {
             Spacer.fixedHeight(20)
             StandardButton(Loc.SpaceShare.Invite.share, style: .primaryLarge) {
                 onShareInvite()
+            }
+            Spacer.fixedHeight(10)
+            StandardButton(Loc.SpaceShare.Qr.button, style: .secondaryLarge) {
+                onShowQrCode()
             }
         }
     }

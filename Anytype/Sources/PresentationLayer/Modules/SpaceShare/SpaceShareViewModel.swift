@@ -26,6 +26,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
+    @Published var qrCodeInviteLink: URL?
     @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestAlertData?
@@ -77,6 +78,10 @@ final class SpaceShareViewModel: ObservableObject {
     
     func onStopSharingCompleted() {
         inviteLink = nil
+    }
+    
+    func onShowQrCode() {
+        qrCodeInviteLink = inviteLink
     }
     
     // MARK: - Private

@@ -54,6 +54,9 @@ struct SpaceShareView: View {
                 model.onStopSharingCompleted()
             }
         }
+        .anytypeSheet(item: $model.qrCodeInviteLink) {
+            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString)
+        }
     }
     
     private var inviteView: some View {
@@ -65,6 +68,8 @@ struct SpaceShareView: View {
             model.onDeleteSharingLink()
         } onGenerateInvite: {
             try await model.onGenerateInvite()
+        } onShowQrCode: {
+            model.onShowQrCode()
         }
     }
     

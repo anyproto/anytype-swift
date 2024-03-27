@@ -190,6 +190,7 @@
 "Paste processing..." = "Paste processing...";
 "Anytype Library" = "Anytype Library";
 "Copied" = "Copied";
+"Share" = "Share";
 
 // Home
 "Favorites" = "Favorites";
@@ -928,6 +929,8 @@
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Button" = "Show QR code";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
