@@ -9,7 +9,7 @@ struct MembershipModuleView: View {
     
     init(
         userMembershipPublisher: AnyPublisher<MembershipStatus, Never>,
-        onTierTap: @escaping (MembershipTier) -> ()
+        onTierTap: @escaping (MembershipTierId) -> ()
     ) {
         _model = StateObject(wrappedValue: MembershipModuleViewModel(
             userMembershipPublisher: userMembershipPublisher,

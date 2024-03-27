@@ -3,7 +3,7 @@ import Services
 
 
 struct MembershipTeirView: View {
-    let tierToDisplay: MembershipTier
+    let tierToDisplay: MembershipTierId
     let userMembership: MembershipStatus
     let onTap: () -> ()
     

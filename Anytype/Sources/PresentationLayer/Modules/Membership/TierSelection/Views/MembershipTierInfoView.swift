@@ -3,7 +3,7 @@ import Services
 
 
 struct MembershipTierInfoView: View {
-    let tier: MembershipTier
+    let tier: MembershipTierId
     
     @Environment(\.colorScheme) private var colorScheme
     

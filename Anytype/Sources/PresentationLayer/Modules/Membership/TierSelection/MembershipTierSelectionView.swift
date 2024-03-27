@@ -7,7 +7,7 @@ struct MembershipTierSelectionView: View {
     
     init(
         userMembership: MembershipStatus,
-        tierToDisplay: MembershipTier,
+        tierToDisplay: MembershipTierId,
         showEmailVerification: @escaping (EmailVerificationData) -> ()
     ) {
         _model = StateObject(

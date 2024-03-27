@@ -4,7 +4,7 @@ import Services
 
 struct MembershipTierListView: View {
     let userMembership: MembershipStatus
-    let onTierTap: (MembershipTier) -> ()
+    let onTierTap: (MembershipTierId) -> ()
     
     var body: some View {
         ScrollViewReader { scrollView in
@@ -23,7 +23,7 @@ struct MembershipTierListView: View {
                 }
             }
             .onAppear {
-                scrollView.scrollTo(MembershipTier.builder, anchor: .center)
+                scrollView.scrollTo(MembershipTierId.builder, anchor: .center)
             }
         }
     }

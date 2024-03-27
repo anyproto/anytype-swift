@@ -4,7 +4,7 @@ import Foundation
 public typealias MembershipSubscriptionStatus = Anytype_Model_Membership.Status
 public typealias MembershipPaymentMethod = Anytype_Model_Membership.PaymentMethod
 
-public enum MembershipTier: Hashable, Identifiable {
+public enum MembershipTierId: Hashable, Identifiable {
     case explorer
     case builder
     case coCreator
@@ -17,14 +17,14 @@ public enum MembershipTier: Hashable, Identifiable {
 }
 
 public struct MembershipStatus: Equatable {
-    public let tier: MembershipTier?
+    public let tier: MembershipTierId?
     public let status: MembershipSubscriptionStatus
     public let dateEnds: Date
     public let paymentMethod: MembershipPaymentMethod
     public let anyName: String
     
     public init(
-        tier: MembershipTier?,
+        tier: MembershipTierId?,
         status: MembershipSubscriptionStatus,
         dateEnds: Date,
         paymentMethod: MembershipPaymentMethod,

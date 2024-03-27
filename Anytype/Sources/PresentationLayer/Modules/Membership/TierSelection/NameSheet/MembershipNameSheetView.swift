@@ -6,7 +6,7 @@ struct MembershipNameSheetView: View {
     @StateObject private var model: MembershipNameSheetViewModel
     @State private var name = ""
     
-    init(tier: MembershipTier, anyName: String) {
+    init(tier: MembershipTierId, anyName: String) {
         _model = StateObject(
             wrappedValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName)
         )
