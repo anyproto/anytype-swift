@@ -36,6 +36,6 @@ public struct FileBlockContentData: Hashable {
     
     public init(contentType: FileContentType, fileExt: String = "") {
         self.contentType = contentType
-        self.fileExt = fileExt
+        self.fileExt = fileExt.lowercased()
     }
 }
