@@ -497,6 +497,8 @@ internal enum Loc {
   internal static let settingUpEncryptedStoragePleaseWait = Loc.tr("Localizable", "Setting up encrypted storage\nPlease wait", fallback: "Setting up encrypted storage\nPlease wait")
   /// Settings
   internal static let settings = Loc.tr("Localizable", "Settings", fallback: "Settings")
+  /// Share
+  internal static let share = Loc.tr("Localizable", "Share", fallback: "Share")
   /// Shared
   internal static let shared = Loc.tr("Localizable", "Shared", fallback: "Shared")
   /// Show types
@@ -2329,6 +2331,12 @@ internal enum Loc {
         /// View
         internal static let view = Loc.tr("Localizable", "SpaceShare.Permissions.Grand.View", fallback: "View")
       }
+    }
+    internal enum Qr {
+      /// Show QR code
+      internal static let button = Loc.tr("Localizable", "SpaceShare.QR.Button", fallback: "Show QR code")
+      /// QR code for joing a Space
+      internal static let title = Loc.tr("Localizable", "SpaceShare.QR.Title", fallback: "QR code for joing a Space")
     }
     internal enum RemoveMember {
       /// %@ will be removed from the space.

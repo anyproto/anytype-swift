@@ -69,6 +69,9 @@ internal extension ImageAsset {
     static let inline = ImageAsset.bundle(name: "Preview/Inline")
     static let text = ImageAsset.bundle(name: "Preview/Text")
   }
+  enum QrCode {
+    static let smile = ImageAsset.bundle(name: "QrCode/Smile")
+  }
   enum Settings {
     static let about = ImageAsset.bundle(name: "Settings/About")
     static let appearance = ImageAsset.bundle(name: "Settings/Appearance")
