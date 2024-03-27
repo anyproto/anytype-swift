@@ -37,10 +37,10 @@ final class MembershipNameSheetViewModel: ObservableObject {
     @Injected(\.membershipService)
     private var memberhsipService: MembershipServiceProtocol
     
-    private let tier: MembershipTier
+    private let tier: MembershipTierId
     private var validationTask: Task<(), any Error>?
     
-    init(tier: MembershipTier, anyName: String) {
+    init(tier: MembershipTierId, anyName: String) {
         self.tier = tier
         self.anyName = anyName
     }

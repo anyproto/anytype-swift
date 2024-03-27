@@ -6,7 +6,7 @@ import Services
 final class MembershipTierSelectionViewModel: ObservableObject {
     
     let userMembership: MembershipStatus
-    let tierToDisplay: MembershipTier
+    let tierToDisplay: MembershipTierId
     
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
@@ -14,7 +14,7 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     
     init(
         userMembership: MembershipStatus,
-        tierToDisplay: MembershipTier,
+        tierToDisplay: MembershipTierId,
         showEmailVerification: @escaping (EmailVerificationData) -> ()
     ) {
         self.userMembership = userMembership

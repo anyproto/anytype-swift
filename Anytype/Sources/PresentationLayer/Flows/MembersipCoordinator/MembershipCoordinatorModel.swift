@@ -6,8 +6,8 @@ import Services
 final class MembershipCoordinatorModel: ObservableObject {
     @Published var userMembership: MembershipStatus = .empty
     
-    @Published var showTier: MembershipTier?
-    @Published var showSuccess: MembershipTier?
+    @Published var showTier: MembershipTierId?
+    @Published var showSuccess: MembershipTierId?
     @Published var emailVerificationData: EmailVerificationData?
     @Published var emailUrl: URL?
     
@@ -20,7 +20,7 @@ final class MembershipCoordinatorModel: ObservableObject {
         membershipStatusStorage.status.assign(to: &$userMembership)
     }
     
-    func onTierSelected(tier: MembershipTier) {
+    func onTierSelected(tier: MembershipTierId) {
         switch tier {
         case .custom:
             let mailLink = MailUrl(

@@ -3,8 +3,8 @@ import Services
 import AnytypeCore
 
 
-extension Optional where Wrapped == MembershipTier {
-    var availableTiers: [MembershipTier] {
+extension Optional where Wrapped == MembershipTierId {
+    var availableTiers: [MembershipTierId] {
         switch self {
         case .none:
             [.explorer, .builder, .coCreator ]
@@ -23,7 +23,7 @@ extension Optional where Wrapped == MembershipTier {
     }
 }
 
-extension MembershipTier {
+extension MembershipTierId {
     var title: String {
         switch self {
         case .explorer:
