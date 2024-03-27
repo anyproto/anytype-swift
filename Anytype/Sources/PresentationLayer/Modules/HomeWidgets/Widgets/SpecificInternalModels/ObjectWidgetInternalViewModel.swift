@@ -25,7 +25,7 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
-    var allowCreateObject = true
+    @Published var allowCreateObject = true
     
     init(
         widgetBlockId: String,
@@ -50,6 +50,8 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.name = details.title
+                self?.allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
+                
                 self?.linkedObjectDetails = details
                 Task { await self?.updateLinksSubscriptions() }
             }
