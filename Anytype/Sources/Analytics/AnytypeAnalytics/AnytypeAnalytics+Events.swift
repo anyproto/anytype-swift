@@ -93,7 +93,7 @@ extension AnytypeAnalytics {
     func logShowObject(type: AnalyticsObjectType, layout: DetailsLayout) {
         logEvent(
             AnalyticsEventsName.showObject,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.analyticsId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
                                   AnalyticsEventsPropertiesKey.layout: layout.rawValue]
         )
     }
