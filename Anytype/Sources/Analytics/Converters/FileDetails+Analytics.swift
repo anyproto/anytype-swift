@@ -2,6 +2,6 @@ import Services
 
 extension FileDetails {
     var analyticsType: AnalyticsObjectType {
-        .file(ext: fileExt)
+        .file(fileExt: fileExt)
     }
 }
