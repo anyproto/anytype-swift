@@ -4,6 +4,8 @@ import Foundation
 
 public protocol MembershipServiceProtocol {
     func getStatus() async throws -> MembershipStatus
+    func getTiers(noCache: Bool) async throws -> [MembershipTier]
+    
     func getVerificationEmail(data: EmailVerificationData) async throws
     func verifyEmailCode(code: String) async throws
     
@@ -36,48 +38,12 @@ final class MembershipService: MembershipServiceProtocol {
             $0.requestedTier = tier.middlewareId
         }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
     }
-}
-
-// MARK: - Models
-public extension Anytype_Model_Membership {
-    func asModel() -> MembershipStatus {
-        MembershipStatus(
-            tierId: MembershipTierId,
-            status: status,
-            dateEnds: Date(timeIntervalSince1970: TimeInterval(dateEnds)),
-            paymentMethod: paymentMethod,
-            anyName: requestedAnyName
-        )
-    }
     
-    var MembershipTierId: MembershipTierId? {
-        switch tier {
-        case 0:
-            nil
-        case 1:
-            .explorer
-        case 4:
-            .builder
-        case 5:
-            .coCreator
-        default:
-            .custom(id: tier)
-        }
-    }
-}
-
-// TODO: Use API
-extension MembershipTierId {
-    var middlewareId: Int32 {
-        switch self {
-        case .explorer:
-            1
-        case .builder:
-            4
-        case .coCreator:
-            5
-        case .custom(let id):
-            id
-        }
+    public func getTiers(noCache: Bool) async throws -> [MembershipTier] {
+        return try await ClientCommands.membershipGetTiers(.with {
+            $0.locale = Locale.current.languageCode ?? "en"
+            $0.noCache = noCache
+        })
+        .invoke().tiers.filter { !$0.isTest }.compactMap { $0.asModel() }
     }
 }
