@@ -190,6 +190,7 @@
 "Paste processing..." = "Wklej przetwarzanie...";
 "Anytype Library" = "Biblioteka Anytype";
 "Copied" = "Skopiowano";
+"Share" = "Udostępnij";
 
 // Home
 "Favorites" = "Ulubione";
@@ -928,6 +929,13 @@
 "SpaceShare.StopSharing.Title" = "Zatrzymywanie udostępniania przestrzeni";
 "SpaceShare.StopSharing.Message" = "Członkowie nie będą już synchronizowani z tą przestrzenią, a łącze udostępniania zostanie dezaktywowane.";
 "SpaceShare.StopSharing.Toast" = "Przestrzeń nie jest już współdzielona";
+"SpaceShare.QR.Title" = "Kod QR do wypowiedzenia spacji";
+"SpaceShare.QR.Button" = "Pokaż kod QR";
+"SpaceShare.MoreInfo" = "Dodatkowe informacje";
+"SpaceShare.HowToShare.Title" = "Jak dzielić się przestrzenią?";
+"SpaceShare.HowToShare.Step1" = "Podaj link osobie, z którą chcesz współpracować.";
+"SpaceShare.HowToShare.Step2" = "Klikając na link, osoba prosi o dołączenie do przestrzeni.";
+"SpaceShare.HowToShare.Step3" = "Po zatwierdzeniu wniosku możesz wybrać prawa dostępu dla tej osoby.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Twoje prawa dostępu zostały zmienione na **%@** w przestrzeni **%@**.";
@@ -1043,6 +1051,7 @@
 "Pay by Card" = "Zapłać kartą";
 "Details upon request" = "Szczegóły na życzenie";
 "Min X characters" = "Minimalna liczba znaków %@";
+"Pending" = "Oczekujące...";
 
 
 "Membership.Ad.Title" = "Członkostwo";
@@ -1059,6 +1068,8 @@
 - Podkreśl, czy reprezentujesz organizację edukacyjną, rządową czy non-profit.
 - opowiedz nam więcej o swojej organizacji: liczbie pracowników i przyszłych użytkownikach Anytype, rynkach, na których działasz itp.,
 - podaj dodatkowe szczegóły dotyczące sposobu, w jaki Twoja organizacja korzysta z Anytype";
+"Membership.CustomTierEmail.Subject" = "Niestandardowe żądanie członkostwa, ID konta: %@";
+
 
 "Membership.Banner.Title1" = "Współtwórz z nami";
 "Membership.Banner.Subtitle1" = "Pozostań w bliskim kontakcie z naszym zespołem i społecznością. Dołącz do rozmów z zespołem, wpływaj na ewolucję Anytype i wyraź swoją opinię na temat funkcji.";
@@ -1079,8 +1090,20 @@
 "Membership.NameForm.Validating" = "Zaraz, zaraz...";
 "Membership.NameForm.Validated" = "Ta nazwa jest do zgarnięcia";
 
+"Membership.NameForm.Error.TooShort" = "Za krotka nazwa";
+"Membership.NameForm.Error.TooLong" = "Imię jest zbyt długie";
+"Membership.NameForm.Error.HasInvalidChars" = "Nazwa użytkownika zawiera nieprawidłowe znaki";
+
+
 "Membership.Success.Title" = "Witaj w sieci, %@";
 "Membership.Success.Subitle" = "Wielkie brawa za ciekawość!";
+
+"Membership.Payment.Card" = "Karta";
+"Membership.Payment.Crypto" = "Krypto";
+"Membership.Payment.ApplePay" = "ApplePay";
+"Membership.Payment.GooglePay" = "GooglePay";
+"Membership.Payment.Apple subscription" = "Subskrypcja Apple";
+"Membership.Payment.Google subscription" = "Subskrypcja Google";
 
 
 // MARK: - Membership Tiers

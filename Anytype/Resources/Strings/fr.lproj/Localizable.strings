@@ -190,6 +190,7 @@
 "Paste processing..." = "En train de coller...";
 "Anytype Library" = "Bibliothèque Anytype";
 "Copied" = "Copié";
+"Share" = "Partager";
 
 // Home
 "Favorites" = "Favoris";
@@ -928,6 +929,13 @@
 "SpaceShare.StopSharing.Title" = "Arrêter le partage de l'espace";
 "SpaceShare.StopSharing.Message" = "Les membres ne seront plus synchronisés à cet espace et le lien de partage sera désactivé.";
 "SpaceShare.StopSharing.Toast" = "L'espace n'est plus partagé";
+"SpaceShare.QR.Title" = "QR code pour rejoindre un espace";
+"SpaceShare.QR.Button" = "Afficher le QR code";
+"SpaceShare.MoreInfo" = "More info";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Vos droits d'accès ont été changés en **%@** dans l'espace **%@**.";
@@ -1043,6 +1051,7 @@
 "Pay by Card" = "Payer par carte";
 "Details upon request" = "Détail sur la demande";
 "Min X characters" = "Min %@ caractères";
+"Pending" = "En attente…";
 
 
 "Membership.Ad.Title" = "Adhésion";
@@ -1059,6 +1068,8 @@
 - choisissez si vous représentez une organisation éducative, gouvernementale, ou un organisme à but non-lucratif
 - dites-nous en plus à propos de votre organisme : numbre d'employés et futurs utilisateurs Anytype, marchés sur lesquels vous travaillez, etc.,
 - précisez des détails complémentaires sur la manière dont votre organisme utilise Anytype";
+"Membership.CustomTierEmail.Subject" = "Demande d'adhésion personnalisée, ID de compte : %@";
+
 
 "Membership.Banner.Title1" = "Co-créez avec nous";
 "Membership.Banner.Subtitle1" = "Restez en contact étroit avec notre équipe et notre communauté. Rejoignez les conférences avec l'équipe, influencez l'évolution de Anytype et ayez votre mot à dire sur les fonctionnalités.";
@@ -1079,8 +1090,20 @@
 "Membership.NameForm.Validating" = "Patientez...";
 "Membership.NameForm.Validated" = "Ce nom est disponible";
 
+"Membership.NameForm.Error.TooShort" = "Le nom est trop court";
+"Membership.NameForm.Error.TooLong" = "Le nom est trop long";
+"Membership.NameForm.Error.HasInvalidChars" = "Le nom contient des caractères non valides";
+
+
 "Membership.Success.Title" = "Bienvenue sur le réseau, %@";
 "Membership.Success.Subitle" = "De grands applaudissements pour votre curiosité !";
+
+"Membership.Payment.Card" = "Carte";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.ApplePay" = "ApplePay";
+"Membership.Payment.GooglePay" = "GooglePay";
+"Membership.Payment.Apple subscription" = "Abonnement Apple";
+"Membership.Payment.Google subscription" = "Abonnement Google";
 
 
 // MARK: - Membership Tiers

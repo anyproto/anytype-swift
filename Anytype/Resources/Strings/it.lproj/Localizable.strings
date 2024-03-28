@@ -190,6 +190,7 @@
 "Paste processing..." = "Contenuto in elaborazione...";
 "Anytype Library" = "Libreria di Anytype";
 "Copied" = "Copiato";
+"Share" = "Condividi";
 
 // Home
 "Favorites" = "Preferiti";
@@ -928,6 +929,13 @@
 "SpaceShare.StopSharing.Title" = "Smetti di condividere lo spazio";
 "SpaceShare.StopSharing.Message" = "I membri non si sincronizzeranno più con questo spazio e il link di condivisione verrà disattivato.";
 "SpaceShare.StopSharing.Toast" = "Lo spazio non è più condiviso";
+"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.MoreInfo" = "More info";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "I tuoi diritti di accesso sono stati modificati in **%@** nello spazio **%@**.";
@@ -1043,6 +1051,7 @@
 "Pay by Card" = "Paga con carta";
 "Details upon request" = "Dettagli su richiesta";
 "Min X characters" = "Minimo %@ caratteri";
+"Pending" = "Pending...";
 
 
 "Membership.Ad.Title" = "Membership";
@@ -1059,6 +1068,8 @@
 - evidenziare se si rappresenta un'organizzazione educativa, governativa o senza scopo di lucro
 - fornire maggiori informazioni sulla vostra organizzazione: numero di dipendenti e futuri utenti Anytype, mercati su cui si opera, ecc.,
 - fornire dettagli aggiuntivi su come la vostra organizzazione utilizza Anytype";
+"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
+
 
 "Membership.Banner.Title1" = "Co-crea con noi";
 "Membership.Banner.Subtitle1" = "Rimani strettamente connesso con il nostro team e la nostra comunità. Partecipa alle chiamate con il team, influenzando l'evoluzione di Anytype e dando il tuo parere sulle funzionalità.";
@@ -1079,8 +1090,20 @@
 "Membership.NameForm.Validating" = "Aspetta un secondo...";
 "Membership.NameForm.Validated" = "Questo nome è disponibile";
 
+"Membership.NameForm.Error.TooShort" = "Name is too short";
+"Membership.NameForm.Error.TooLong" = "Name is too long";
+"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+
+
 "Membership.Success.Title" = "Benvenuto/a nella rete, %@";
 "Membership.Success.Subitle" = "Grande applausi per la tua curiosità!";
+
+"Membership.Payment.Card" = "Scheda";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.ApplePay" = "ApplePay";
+"Membership.Payment.GooglePay" = "GooglePay";
+"Membership.Payment.Apple subscription" = "Apple subscription";
+"Membership.Payment.Google subscription" = "Google subscription";
 
 
 // MARK: - Membership Tiers

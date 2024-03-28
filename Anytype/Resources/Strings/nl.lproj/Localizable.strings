@@ -190,6 +190,7 @@
 "Paste processing..." = "Bezig met plakken...";
 "Anytype Library" = "Anytype bibliotheek";
 "Copied" = "Gekopieerd";
+"Share" = "Deel";
 
 // Home
 "Favorites" = "Favorieten";
@@ -929,6 +930,13 @@
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.MoreInfo" = "More info";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -1044,6 +1052,7 @@
 "Pay by Card" = "Betaal met kaart";
 "Details upon request" = "Details op verzoek";
 "Min X characters" = "Min %@ tekens";
+"Pending" = "Pending...";
 
 
 "Membership.Ad.Title" = "Lidmaatschap";
@@ -1060,6 +1069,8 @@
 - markeer als je een onderwijs-, overheids- of non-profit organisatie vertegenwoordigt
 - vertel ons meer over jouw organisatie: aantal medewerkers en toekomstige Anytype gebruikers, markten waar je in werkt, enz.
 - geef aanvulende informatie over hoe jouw organisatie Anytype gebruikt";
+"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
+
 
 "Membership.Banner.Title1" = "Maak samen met ons";
 "Membership.Banner.Subtitle1" = "Blijf nauw verbonden met ons team en onze gemeenschap. Neem deel aan gesprekken met het team, beïnvloed de ontwikkeling van Anytype en geef je mening over functies.";
@@ -1080,8 +1091,20 @@
 "Membership.NameForm.Validating" = "Even geduld...";
 "Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
 
+"Membership.NameForm.Error.TooShort" = "Name is too short";
+"Membership.NameForm.Error.TooLong" = "Name is too long";
+"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+
+
 "Membership.Success.Title" = "Welkom bij het netwerk, %@";
 "Membership.Success.Subitle" = "Hulde voor jouw nieuwsgierigheid!";
+
+"Membership.Payment.Card" = "Kaart";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.ApplePay" = "ApplePay";
+"Membership.Payment.GooglePay" = "GooglePay";
+"Membership.Payment.Apple subscription" = "Apple subscription";
+"Membership.Payment.Google subscription" = "Google subscription";
 
 
 // MARK: - Membership Tiers
