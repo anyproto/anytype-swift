@@ -4,17 +4,11 @@ import Combine
 
 
 @MainActor
-final class MembershipModuleViewModel: ObservableObject {
-    @Published var userMembership: MembershipStatus = .empty
-    
+final class MembershipModuleViewModel: ObservableObject {    
     private let onTierTap: (MembershipTierId) -> ()
     
-    init(
-        userMembershipPublisher: AnyPublisher<MembershipStatus, Never>,
-        onTierTap: @escaping (MembershipTierId) -> ()
-    ) {
+    init(onTierTap: @escaping (MembershipTierId) -> ()) {
         self.onTierTap = onTierTap
-        userMembershipPublisher.assign(to: &$userMembership)
     }
     
     func onTierTap(tier: MembershipTierId) {
