@@ -424,6 +424,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func spaceLeaveApprove(
+        _ request: Anytype_Rpc.Space.LeaveApprove.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.LeaveApprove.Request, Anytype_Rpc.Space.LeaveApprove.Response> {
+        return Invocation(messageName: "SpaceLeaveApprove", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceLeaveApprove(requestData) ?? Data()
+            return try Anytype_Rpc.Space.LeaveApprove.Response(serializedData: responseData)
+        }
+    }
+
     public static func spaceParticipantRemove(
         _ request: Anytype_Rpc.Space.ParticipantRemove.Request = .init()
     ) -> Invocation<Anytype_Rpc.Space.ParticipantRemove.Request, Anytype_Rpc.Space.ParticipantRemove.Response> {

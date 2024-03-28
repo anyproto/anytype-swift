@@ -1111,6 +1111,11 @@ extension Anytype_Rpc.Space.JoinCancel.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Space.LeaveApprove.Response: ResultWithError {}
+extension Anytype_Rpc.Space.LeaveApprove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response: ResultWithError {}
 extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

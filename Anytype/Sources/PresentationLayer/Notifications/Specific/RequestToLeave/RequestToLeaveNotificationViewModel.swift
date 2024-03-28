@@ -20,7 +20,7 @@ final class RequestToLeaveNotificationViewModel: ObservableObject {
     }
     
     func onTapApprove() async throws {
-        try await workspaceService.participantRemove(spaceId: notification.requestToLeave.spaceID, identity: notification.requestToLeave.identity)
+        try await workspaceService.leaveApprove(spaceId: notification.requestToLeave.spaceID, identity: notification.requestToLeave.identity)
         toast = ToastBarData(text: Loc.SpaceShare.Approve.toast(notification.requestToLeave.identityName), showSnackBar: true)
         try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
         dismiss.toggle()

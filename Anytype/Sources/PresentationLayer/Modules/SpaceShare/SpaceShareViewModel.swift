@@ -123,7 +123,7 @@ final class SpaceShareViewModel: ObservableObject {
             })
         case .removing:
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
-                try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
+                try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
                 self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
         case .active, .canceled, .declined, .removed, .UNRECOGNIZED:
