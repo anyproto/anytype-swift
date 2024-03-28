@@ -217,16 +217,17 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         
         guard let content = info.textContent else { return mutableAttributedString }
 
-        let modifier = MarkStyleModifier(
+        let anytypeText = UIKitAnytypeText(
             attributedString: mutableAttributedString,
-            anytypeFont: content.contentType.uiFont
+            style: content.contentType.uiFont,
+            lineBreakModel: .byWordWrapping
         )
         
         if let replacementURL = replacementURL {
-            modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+            anytypeText.apply(.link(replacementURL), range: newRange)
         }
 
-        return NSAttributedString(attributedString: modifier.attributedString)
+        return NSAttributedString(attributedString: anytypeText.attrString)
     }
 
     private func shouldCreateBookmark(
@@ -253,8 +254,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         )
 
         actionHandler.changeText(newTextWithLink, blockId: info.id)
-        textView.attributedText = newTextWithLink
-        textView.typingAttributes = previousTypingAttributes
+        resetSubject.send(newTextWithLink)
 
         let replacementRange = NSRange(location: range.location, length: trimmedText.count)
 
@@ -277,11 +277,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         )
                         safeSendableAttributedString.value.map {
                             self?.actionHandler.changeText($0, blockId: info.id)
-                            if position == .bottom, let originalCaretPosition {
-                                let range = NSRange(location: textView.offsetFromBegining(originalCaretPosition), length: 0)
-                                self?.cursorManager.blockFocus = BlockFocus(id: info.id, position: .at(range))
-                                self?.resetSubject.send($0)
-                            }
+                            self?.resetSubject.send($0)
                         }
                     }
                 case .pasteAsLink:
