@@ -65,6 +65,10 @@ final class SetDocument: SetDocumentProtocol {
         document.objectRestrictions
     }
     
+    var permissions: ObjectPermissions {
+        document.permissions
+    }
+    
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     private let updateSubject = PassthroughSubject<SetDocumentUpdate, Never>()
     
