@@ -6,6 +6,11 @@ struct SpaceShareCoordinatorView: View {
     @StateObject private var model = SpaceShareCoordinatorViewModel()
     
     var body: some View {
-        SpaceShareView()
+        SpaceShareView {
+            model.onMoreInfoSelected()
+        }
+        .sheet(isPresented: $model.showMoreInfo) {
+            SpaceMoreInfoView()
+        }
     }
 }

@@ -20,6 +20,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Injected(\.deepLinkParser)
     private var deppLinkParser: DeepLinkParserProtocol
     
+    private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
     
     var accountSpaceId: String { activeWorkspaceStorage.workspaceInfo.accountSpaceId }
@@ -35,7 +36,9 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     
-    nonisolated init() {}
+    nonisolated init(onMoreInfo: @escaping () -> Void) {
+        self.onMoreInfo = onMoreInfo
+    }
     
     func startParticipantsTask() async {
         for await items in activeSpaceParticipantStorage.participantsPublisher.values {
@@ -82,6 +85,10 @@ final class SpaceShareViewModel: ObservableObject {
     
     func onShowQrCode() {
         qrCodeInviteLink = inviteLink
+    }
+    
+    func onMoreInfoTap() {
+        onMoreInfo()
     }
     
     // MARK: - Private

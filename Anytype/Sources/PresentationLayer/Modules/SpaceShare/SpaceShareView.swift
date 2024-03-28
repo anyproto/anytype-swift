@@ -3,7 +3,11 @@ import SwiftUI
 
 struct SpaceShareView: View {
     
-    @StateObject private var model = SpaceShareViewModel()
+    @StateObject private var model: SpaceShareViewModel
+    
+    init(onMoreInfo: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: SpaceShareViewModel(onMoreInfo: onMoreInfo))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -75,6 +79,9 @@ struct SpaceShareView: View {
     
     private var rightNavigationButton: some View {
         Menu {
+            Button(Loc.SpaceShare.moreInfo) {
+                model.onMoreInfoTap()
+            }
             Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
                 model.onStopSharing()
             }
