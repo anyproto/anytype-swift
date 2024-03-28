@@ -190,6 +190,7 @@
 "Paste processing..." = "Wird eingefügt...";
 "Anytype Library" = "Anytype-Bibliothek";
 "Copied" = "Kopiert";
+"Share" = "Teilen";
 
 // Home
 "Favorites" = "Favoriten";
@@ -929,6 +930,13 @@
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Button" = "QR-Code anzeigen";
+"SpaceShare.MoreInfo" = "More info";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -1044,6 +1052,7 @@
 "Pay by Card" = "Mit Karte bezahlen";
 "Details upon request" = "Details auf Anfrage";
 "Min X characters" = "Min. %@ Zeichen";
+"Pending" = "Ausstehend...";
 
 
 "Membership.Ad.Title" = "Mitgliedschaft";
@@ -1060,6 +1069,8 @@
 - highlight if you represent an educational, governmental, or non-profit organization
 - tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
 - provide additional details about how your organization uses Anytype";
+"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
+
 
 "Membership.Banner.Title1" = "Co-create with us";
 "Membership.Banner.Subtitle1" = "Bleib eng mit unserem Team und unserer Community verbunden. Nimm an Telefonaten mit dem Team teil, beeinflusse die Entwicklung von Anytype und habe ein Mitspracherecht bei Funktionen.";
@@ -1080,8 +1091,20 @@
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
 
+"Membership.NameForm.Error.TooShort" = "Name ist zu kurz";
+"Membership.NameForm.Error.TooLong" = "Name ist zu lang";
+"Membership.NameForm.Error.HasInvalidChars" = "Name enthält ungültige Zeichen";
+
+
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";
 "Membership.Success.Subitle" = "Ein Hoch auf deine Neugierde!";
+
+"Membership.Payment.Card" = "Karte";
+"Membership.Payment.Crypto" = "Krypto";
+"Membership.Payment.ApplePay" = "ApplePay";
+"Membership.Payment.GooglePay" = "GooglePay";
+"Membership.Payment.Apple subscription" = "Apple-Abonnement";
+"Membership.Payment.Google subscription" = "Google-Abonnement";
 
 
 // MARK: - Membership Tiers
