@@ -182,7 +182,7 @@
 "Green background" = "Fondo verde";
 "Create new object" = "Crear un nuevo objeto";
 "Cancel" = "Cancelar";
-"Paste or type URL" = "Pegar o escribir URL";
+"Paste or type URL" = "Pega o escribe una URL";
 "No items match filter" = "Ningún elemento coincide con el filtro";
 "Unsupported block" = "Bloque no soportado";
 "Name" = "Nombre";
@@ -190,6 +190,7 @@
 "Paste processing..." = "Procesando \"pegar\"…";
 "Anytype Library" = "Biblioteca de Anytype";
 "Copied" = "Copiado";
+"Share" = "Compartir";
 
 // Home
 "Favorites" = "Favoritos";
@@ -206,7 +207,7 @@
 // Keychain screen
 "Keychain.Recovery phrase" = "Frase de recuperación";
 "Keychain.Recovery phrase copied to clipboard" = "Frase de recuperación copiada";
-"Keychain.Recovery phrase description" = "La necesitarás para iniciar sesión. Manténgala en un lugar seguro. Si la pierdes, ya no podrás acceder a tu cuenta.";
+"Keychain.Recovery phrase description" = "La necesitarás para iniciar sesión. Mantenla en un lugar seguro. Si la pierdes, ya no podrás acceder a tu cuenta.";
 "Keychain.Save keychain alert part 1" = "Si pierde la frase de recuperación y se cierra la sesión no podrá ";
 "Keychain.Save keychain alert part 2" = "volver a acceder a tus datos";
 "Keychain.Save keychain alert part 3" = "\nGuarde esta frase de recuperación fuera de Anytype. \n Recomendamos usar un alojamiento seguro, gestor de contraseñas o un papel en lugar seguro. ";
@@ -882,14 +883,14 @@
 "SpaceSettings.DeleteAlert.Message" = "Estos objetos se eliminarán de forma irrevocable. No se puede deshacer esta acción.";
 "SpaceSettings.DeleteButton" = "Eliminar '' espacio";
 "SpaceSettings.Share" = "Compartir";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveButton" = "Salir";
+"SpaceSettings.LeaveAlert.Title" = "Abandonar espacio";
 "SpaceSettings.LeaveAlert.Message" = "El espacio %@ será eliminado de tus dispositivos y no volverás a tener acceso a él";
-"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+"SpaceSettings.LeaveAlert.Toast" = "Abandonaste %@.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Sharing";
+"SpaceShare.Title" = "Compartir";
 "SpaceShare.Members" = "Miembros";
 "SpaceShare.Permissions.Owner" = "Propietario";
 "SpaceShare.Permissions.Reader" = "Espectador";
@@ -897,16 +898,16 @@
 "SpaceShare.Permissions.Grand.Edit" = "Editar";
 "SpaceShare.Permissions.Grand.View" = "Ver";
 "SpaceShare.Invite.Title" = "Enlace de invitación";
-"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
-"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
-"SpaceShare.JoinRequest" = "Join request";
-"SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Invite.Description" = "Comparte este enlace de invitación para que otros puedan unirse a tu Espacio. Una vez que hagan clic en tu enlace y soliciten acceso, puedes establecer sus derechos de acceso.";
+"SpaceShare.Invite.Share" = "Compartir enlace de invitación";
+"SpaceShare.Invite.Generate" = "Generar enlace de invitación";
+"SpaceShare.Invite.Empty" = "Crear enlace de invitación para compartir espacio y añadir nuevos miembros";
+"SpaceShare.JoinRequest" = "Solicitud de admisión";
+"SpaceShare.LeaveRequest" = "Retirar solicitud";
+"SpaceShare.Action.ViewRequest" = "Ver solicitud";
 "SpaceShare.Action.Approve" = "Aprobar";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Title" = "Eliminar enlace";
+"SpaceShare.DeleteSharingLink.Message" = "Los nuevos miembros no podrán unirse al espacio. Puedes generar un nuevo enlace Anytype";
 "SpaceShare.Approve.Toast" = "Has aprobado la solicitud de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha solicitado unirse al espacio %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Conceder permiso de lectura";
@@ -919,15 +920,22 @@
 "SpaceShare.Join.CommentPlaceholder" = "Deja un comentario privado al propietario del espacio";
 "SpaceShare.Join.Button" = "Solicitar acceso";
 "SpaceShare.Join.Info" = "Una vez que el propietario del espacio apruebe su solicitud, te unirás al espacio con los derechos de acceso que el propietario haya determinado.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.Message" = "Has sido invitado a unirte al espacio **%@**, creado por **%@**. Envía una solicitud para que el propietario del espacio pueda dejarte entrar.";
 "SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
 "SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
 "SpaceShare.YouSuffix" = "%@ (tú)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
-"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.ManageSpaces" = "Administrar Espacios";
+"SpaceShare.StopSharing.Action" = "Dejar de compartir";
+"SpaceShare.StopSharing.Title" = "Dejar de compartir el espacio";
+"SpaceShare.StopSharing.Message" = "Los miembros ya no se sincronizarán con este espacio y el enlace compartido se desactivará.";
+"SpaceShare.StopSharing.Toast" = "El espacio ya no está compartido";
+"SpaceShare.QR.Title" = "Código QR para unirse a Espacio";
+"SpaceShare.QR.Button" = "Mostrar el código QR";
+"SpaceShare.MoreInfo" = "More info";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Tus derechos de acceso fueron cambiados a **%@** en el espacio **%@**.";
@@ -935,15 +943,15 @@
 "ParticipantRequestDeclineNotification.Text" = "Tu solicitud para unirte al espacio \"%@\" ha sido rechazada.";
 "RequestToLeaveNotification.Text" = "**%@** quiere dejar el espacio **%@**.";
 "ParticipantRemoveNotification.Text" = "Fuiste eliminado del espacio o el espacio ha sido eliminado por el propietario.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"RequestToJoinNotification.Text" = "**%@** ha solicitado unirse al espacio **%@**.";
+"RequestToJoinNotification.GoToSpace" = "Ir al Espacio";
+"RequestToJoinNotification.ViewRequest" = "Ver solicitud";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Join Request";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequest" = "Cancelar Solicitud de Admisión";
+"SpaceManager.DoNotCancel" = "No Cancelar";
+"SpaceManager.CancelRequestAlert.Title" = "Tienes que volver a pedir acceso";
+"SpaceManager.CancelRequestAlert.Toast" = "La solicitud fue cancelada.";
 
 
 
@@ -1043,6 +1051,7 @@
 "Pay by Card" = "Paga con tarjeta";
 "Details upon request" = "Detalles a petición";
 "Min X characters" = "Mín. %@ caracteres";
+"Pending" = "Procesando...";
 
 
 "Membership.Ad.Title" = "Membresía";
@@ -1059,6 +1068,8 @@
 - Marque si representas a un una organización educativa, institucional o sin ánimo de lucro.
 - Cuéntanos sobre tu organización: número de empleados y futuros usuarios de Anytype, mercados en los que trabajas y otros posibles datos.
 - Indíquenos como tu organización va a usar Anytype.";
+"Membership.CustomTierEmail.Subject" = "Solicitud de membresía personalizada, ID de cuenta: %@";
+
 
 "Membership.Banner.Title1" = "Co-construye con nosotr@s.";
 "Membership.Banner.Subtitle1" = "Conéctate con nuestro equipo y nuestra comunidad,
@@ -1080,8 +1091,20 @@
 "Membership.NameForm.Validating" = "Espera un segundo...";
 "Membership.NameForm.Validated" = "El nombre está listo para ser grabado";
 
+"Membership.NameForm.Error.TooShort" = "El nombre es demasiado corto";
+"Membership.NameForm.Error.TooLong" = "Nombre demasiado largo";
+"Membership.NameForm.Error.HasInvalidChars" = "El nombre contiene carácteres no válidos";
+
+
 "Membership.Success.Title" = "Te damos la bienvenida a la red, %@";
 "Membership.Success.Subitle" = "¡Enhorabuena por tu curiosidad!";
+
+"Membership.Payment.Card" = "Tarjeta";
+"Membership.Payment.Crypto" = "Cripto";
+"Membership.Payment.ApplePay" = "ApplePay";
+"Membership.Payment.GooglePay" = "GooglePay";
+"Membership.Payment.Apple subscription" = "Suscripción de Apple";
+"Membership.Payment.Google subscription" = "Suscripción de Google";
 
 
 // MARK: - Membership Tiers
