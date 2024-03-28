@@ -16,12 +16,12 @@ struct MembershipTeirView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(16)
-            Image(asset: tierToDisplay.id.smallIcon)
+            Image(asset: tierToDisplay.smallIcon)
                 .frame(width: 65, height: 64)
             Spacer.fixedHeight(10)
             AnytypeText(tierToDisplay.name, style: .bodySemibold, color: .Text.primary)
             Spacer.fixedHeight(5)
-            AnytypeText(tierToDisplay.id.subtitle, style: .caption1Regular, color: .Text.primary)
+            AnytypeText(tierToDisplay.subtitle, style: .caption1Regular, color: .Text.primary)
                 .minimumScaleFactor(0.8)
             Spacer()
             
@@ -51,7 +51,7 @@ struct MembershipTeirView: View {
                 if colorScheme == .dark {
                     Color.Shape.tertiary
                 } else {
-                    tierToDisplay.id.gradient
+                    tierToDisplay.gradient
                 }
             }
         )

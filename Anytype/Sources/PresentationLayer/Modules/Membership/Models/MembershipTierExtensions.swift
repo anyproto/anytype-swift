@@ -3,9 +3,9 @@ import Services
 import AnytypeCore
 
 
-extension MembershipTierId {    
+extension MembershipTier {
     var subtitle: String {
-        switch self {
+        switch self.id {
         case .explorer:
             return Loc.Membership.Explorer.subtitle
         case .builder:
@@ -18,7 +18,7 @@ extension MembershipTierId {
     }
     
     var benefits: [String] {
-        switch self {
+        switch self.id {
         case .explorer:
             [
                 Loc.Membership.Explorer.benefit1,
@@ -48,7 +48,7 @@ extension MembershipTierId {
     }
     
     var mediumIcon: ImageAsset {
-        switch self {
+        switch self.id {
         case .explorer:
             return .Membership.tierExplorerMedium
         case .builder:
@@ -62,7 +62,7 @@ extension MembershipTierId {
     }
     
     var smallIcon: ImageAsset {
-        switch self {
+        switch self.id {
         case .explorer:
             .Membership.tierExplorerSmall
         case .builder:
@@ -75,7 +75,7 @@ extension MembershipTierId {
     }
     
     var gradient: MembershipTeirGradient {
-        switch self {
+        switch self.id {
         case .explorer:
             .teal
         case .builder:
