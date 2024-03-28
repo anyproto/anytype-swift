@@ -2258,6 +2258,8 @@ internal enum Loc {
     internal static let manageSpaces = Loc.tr("Localizable", "SpaceShare.ManageSpaces", fallback: "Manage Spaces")
     /// Members
     internal static let members = Loc.tr("Localizable", "SpaceShare.Members", fallback: "Members")
+    /// More info
+    internal static let moreInfo = Loc.tr("Localizable", "SpaceShare.MoreInfo", fallback: "More info")
     /// Sharing
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Sharing")
     /// %@ (you)
@@ -2281,6 +2283,16 @@ internal enum Loc {
       internal static let message = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Message", fallback: "New members won’t be able to join the space. You can generate a new link anytype")
       /// Delete link
       internal static let title = Loc.tr("Localizable", "SpaceShare.DeleteSharingLink.Title", fallback: "Delete link")
+    }
+    internal enum HowToShare {
+      /// Please provide the link to the person you'd like to collaborate with.
+      internal static let step1 = Loc.tr("Localizable", "SpaceShare.HowToShare.Step1", fallback: "Please provide the link to the person you'd like to collaborate with.")
+      /// By clicking the link, a person requests to join the space.
+      internal static let step2 = Loc.tr("Localizable", "SpaceShare.HowToShare.Step2", fallback: "By clicking the link, a person requests to join the space.")
+      /// After approving the request, you can choose the access rights for that person.
+      internal static let step3 = Loc.tr("Localizable", "SpaceShare.HowToShare.Step3", fallback: "After approving the request, you can choose the access rights for that person.")
+      /// How to share a space?
+      internal static let title = Loc.tr("Localizable", "SpaceShare.HowToShare.Title", fallback: "How to share a space?")
     }
     internal enum Invite {
       /// Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.
