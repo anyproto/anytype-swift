@@ -190,6 +190,7 @@
 "Paste processing..." = "Memproses penempelan ...";
 "Anytype Library" = "Pustaka Anytype";
 "Copied" = "Disalin";
+"Share" = "Bagikan";
 
 // Home
 "Favorites" = "Favorit";
@@ -928,6 +929,13 @@
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.MoreInfo" = "More info";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Hak aksesmu telah diganti menjadi **%@** di ruang **%@**.";
@@ -1043,6 +1051,7 @@
 "Pay by Card" = "Bayar via kartu";
 "Details upon request" = "Details upon request";
 "Min X characters" = "Minimal %@ karakter";
+"Pending" = "Pending...";
 
 
 "Membership.Ad.Title" = "Langganan";
@@ -1059,6 +1068,8 @@
 - jelaskan jika Anda mewakili organisasi pendidikan, pemerintah, atau nirlaba
 - ceritakan organisasi Anda: jumlah pegawai dan pengguna Anytype dalam waktu mendatang, pasaran yang sedang dikerjakan, dll.
 - jelaskan detail tambahan tentang bagaimana organisasi Anda menggunakan Anytype";
+"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
+
 
 "Membership.Banner.Title1" = "Ciptakan bersama dengan kami";
 "Membership.Banner.Subtitle1" = "Tetap terhubung dengan tim dan komunitas kami. Bergabung dengan panggilan tim kami, buat evolusi Anytype berkembang, dan beri masukan fitur baru.";
@@ -1079,8 +1090,20 @@
 "Membership.NameForm.Validating" = "Tunggu sebentar...";
 "Membership.NameForm.Validated" = "Nama ini boleh dipakai";
 
+"Membership.NameForm.Error.TooShort" = "Name is too short";
+"Membership.NameForm.Error.TooLong" = "Name is too long";
+"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+
+
 "Membership.Success.Title" = "Selamat menjadi anggota, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";
+
+"Membership.Payment.Card" = "Kartu";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.ApplePay" = "ApplePay";
+"Membership.Payment.GooglePay" = "GooglePay";
+"Membership.Payment.Apple subscription" = "Apple subscription";
+"Membership.Payment.Google subscription" = "Google subscription";
 
 
 // MARK: - Membership Tiers
