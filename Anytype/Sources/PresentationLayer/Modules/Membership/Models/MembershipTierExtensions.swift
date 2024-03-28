@@ -5,7 +5,7 @@ import AnytypeCore
 
 extension MembershipTier {
     var subtitle: String {
-        switch self.id {
+        switch self.type {
         case .explorer:
             return Loc.Membership.Explorer.subtitle
         case .builder:
@@ -18,7 +18,7 @@ extension MembershipTier {
     }
     
     var benefits: [String] {
-        switch self.id {
+        switch self.type {
         case .explorer:
             [
                 Loc.Membership.Explorer.benefit1,
@@ -48,7 +48,7 @@ extension MembershipTier {
     }
     
     var mediumIcon: ImageAsset {
-        switch self.id {
+        switch self.type {
         case .explorer:
             return .Membership.tierExplorerMedium
         case .builder:
@@ -62,7 +62,7 @@ extension MembershipTier {
     }
     
     var smallIcon: ImageAsset {
-        switch self.id {
+        switch self.type {
         case .explorer:
             .Membership.tierExplorerSmall
         case .builder:
@@ -75,7 +75,7 @@ extension MembershipTier {
     }
     
     var gradient: MembershipTeirGradient {
-        switch self.id {
+        switch self.type {
         case .explorer:
             .teal
         case .builder:
@@ -91,18 +91,18 @@ extension MembershipTier {
 // MARK: - Mocks
 extension MembershipTier {
     static var mockExplorer: MembershipTier {
-        MembershipTier(id: .explorer, name: "Explorer")
+        MembershipTier(type: .explorer, name: "Explorer")
     }
     
     static var mockBuilder: MembershipTier {
-        MembershipTier(id: .builder, name: "Builder")
+        MembershipTier(type: .builder, name: "Builder")
     }
     
     static var mockCoCreator: MembershipTier {
-        MembershipTier(id: .coCreator, name: "CockCreator")
+        MembershipTier(type: .coCreator, name: "CockCreator")
     }
     
     static var mockCustom: MembershipTier {
-        MembershipTier(id: .custom(id: 228), name: "Na-Baron")
+        MembershipTier(type: .custom(id: 228), name: "Na-Baron")
     }
 }

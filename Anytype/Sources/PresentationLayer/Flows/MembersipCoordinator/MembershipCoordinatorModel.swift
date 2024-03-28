@@ -26,7 +26,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     }
     
     func onTierSelected(tier: MembershipTier) {
-        switch tier.id {
+        switch tier.type {
         case .custom:
             let mailLink = MailUrl(
                 to: "support@anytype.io",

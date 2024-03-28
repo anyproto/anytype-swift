@@ -10,7 +10,7 @@ struct MembershipTeirView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var isPending: Bool {
-        userMembership.tier?.id == tierToDisplay.id && userMembership.status != .active
+        userMembership.tier?.type == tierToDisplay.type && userMembership.status != .active
     }
     
     var body: some View {
@@ -30,7 +30,7 @@ struct MembershipTeirView: View {
             actionButton
             Spacer.fixedHeight(20)
         }
-        .if(userMembership.tier?.id == tierToDisplay.id) {
+        .if(userMembership.tier?.type == tierToDisplay.type) {
             $0.overlay(alignment: .topTrailing) {
                 AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
                     .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
@@ -60,7 +60,7 @@ struct MembershipTeirView: View {
     
     var actionButton: some View {
         Group {
-            if case .custom = tierToDisplay.id {
+            if case .custom = tierToDisplay.type {
                 StandardButton(Loc.About.contactUs, style: .primaryMedium, action: onTap)
             } else {
                 StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
@@ -70,7 +70,7 @@ struct MembershipTeirView: View {
     
     var info: some View  {
         Group {
-            if userMembership.tier?.id == tierToDisplay.id {
+            if userMembership.tier?.type == tierToDisplay.type {
                 if userMembership.status == .active {
                     expirationText
                 } else {
@@ -83,7 +83,7 @@ struct MembershipTeirView: View {
     }
     
     var priceText: some View {
-        switch tierToDisplay.id {
+        switch tierToDisplay.type {
         case .explorer:
             AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
         case .builder:
@@ -99,7 +99,7 @@ struct MembershipTeirView: View {
     
     var expirationText: some View {
         Group {
-            switch tierToDisplay.id {
+            switch tierToDisplay.type {
             case .explorer:
                 return AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
             case .builder, .coCreator, .custom:

@@ -21,7 +21,7 @@ public protocol MembershipServiceProtocol {
     func verifyEmailCode(code: String) async throws
     
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
-    func validateName(name: String, tierId: MembershipTierId) async throws
+    func validateName(name: String, tierType: MembershipTierType) async throws
 }
 
 final class MembershipService: MembershipServiceProtocol {
@@ -32,13 +32,13 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     public func makeStatusFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
-        let cachedTier = try await getTiers(noCache: false).first { $0.id.middlewareId == membership.tier }
+        let cachedTier = try await getTiers(noCache: false).first { $0.type.id == membership.tier }
         
         if let tier = cachedTier {
             return convertMiddlewareMembership(membership: membership, tier: tier)
         }
         
-        let middlewareTier = try await getTiers(noCache: true).first { $0.id.middlewareId == membership.tier }
+        let middlewareTier = try await getTiers(noCache: true).first { $0.type.id == membership.tier }
         if let tier = middlewareTier {
             return convertMiddlewareMembership(membership: membership, tier: tier)
         }
@@ -68,16 +68,16 @@ final class MembershipService: MembershipServiceProtocol {
         }).invoke()
     }
     
-    public func validateName(name: String, tierId: MembershipTierId) async throws {
+    public func validateName(name: String, tierType: MembershipTierType) async throws {
         try await ClientCommands.membershipIsNameValid(.with {
             $0.requestedAnyName = name
-            $0.requestedTier = tierId.middlewareId
+            $0.requestedTier = tierType.id
         }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
     }
     
     // MARK: - Private
     private func convertMiddlewareMembership(membership: MiddlewareMemberhsipStatus, tier: MembershipTier) -> MembershipStatus {
-        anytypeAssert(tier.id.middlewareId == membership.tier, "\(tier) and \(membership) does not match an id")
+        anytypeAssert(tier.type.id == membership.tier, "\(tier) and \(membership) does not match an id")
         
         return MembershipStatus(
             tier: tier,

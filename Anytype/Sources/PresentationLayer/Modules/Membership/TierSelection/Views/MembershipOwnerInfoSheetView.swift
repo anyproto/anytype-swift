@@ -21,7 +21,7 @@ struct MembershipOwnerInfoSheetView: View {
         VStack(spacing: 0) {
             AnytypeText(Loc.validUntil, style: .relation2Regular, color: .Text.primary)
             Spacer.fixedHeight(4)
-            switch membership.tier?.id {
+            switch membership.tier?.type {
             case .explorer:
                 AnytypeText(Loc.forever, style: .title, color: .Text.primary)
                 Spacer.fixedHeight(55)

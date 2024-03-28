@@ -24,7 +24,7 @@ struct MembershipTierListView: View {
                 }
             }
             .onAppear {
-                scrollView.scrollTo(MembershipTierId.builder, anchor: .center)
+                scrollView.scrollTo(MembershipTierType.builder, anchor: .center)
             }
         }
     }
