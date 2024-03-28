@@ -12,7 +12,7 @@ struct MembershipTierListView: View {
                 HStack(spacing: 20) {
                     Spacer.fixedWidth(0)
                     
-                    ForEach(userMembership.tier.availableTiers) { tier in
+                    ForEach(userMembership.tierId.availableTiers) { tier in
                         MembershipTeirView(tierToDisplay: tier, userMembership: userMembership) {
                             onTierTap(tier)
                         }
@@ -34,7 +34,7 @@ struct MembershipTierListView: View {
         VStack {
             MembershipTierListView(
                 userMembership: MembershipStatus(
-                    tier: nil,
+                    tierId: nil,
                     status: .unknown,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -44,7 +44,7 @@ struct MembershipTierListView: View {
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
-                    tier: .explorer,
+                    tierId: .explorer,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -54,7 +54,7 @@ struct MembershipTierListView: View {
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
-                    tier: .explorer,
+                    tierId: .explorer,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -64,7 +64,7 @@ struct MembershipTierListView: View {
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
-                    tier: .custom(id: 0),
+                    tierId: .custom(id: 0),
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -75,7 +75,7 @@ struct MembershipTierListView: View {
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
-                    tier: .builder,
+                    tierId: .builder,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -85,7 +85,7 @@ struct MembershipTierListView: View {
             
             MembershipTierListView(
                 userMembership: MembershipStatus(
-                    tier: .coCreator,
+                    tierId: .coCreator,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,

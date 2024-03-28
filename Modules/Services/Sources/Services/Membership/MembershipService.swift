@@ -42,7 +42,7 @@ final class MembershipService: MembershipServiceProtocol {
 public extension Anytype_Model_Membership {
     func asModel() -> MembershipStatus {
         MembershipStatus(
-            tier: MembershipTierId,
+            tierId: MembershipTierId,
             status: status,
             dateEnds: Date(timeIntervalSince1970: TimeInterval(dateEnds)),
             paymentMethod: paymentMethod,

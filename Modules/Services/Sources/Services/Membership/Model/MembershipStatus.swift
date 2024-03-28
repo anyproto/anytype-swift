@@ -17,20 +17,20 @@ public enum MembershipTierId: Hashable, Identifiable {
 }
 
 public struct MembershipStatus: Equatable {
-    public let tier: MembershipTierId?
+    public let tierId: MembershipTierId?
     public let status: MembershipSubscriptionStatus
     public let dateEnds: Date
     public let paymentMethod: MembershipPaymentMethod
     public let anyName: String
     
     public init(
-        tier: MembershipTierId?,
+        tierId: MembershipTierId?,
         status: MembershipSubscriptionStatus,
         dateEnds: Date,
         paymentMethod: MembershipPaymentMethod,
         anyName: String
     ) {
-        self.tier = tier
+        self.tierId = tierId
         self.status = status
         self.dateEnds = dateEnds
         self.paymentMethod = paymentMethod
