@@ -16,7 +16,7 @@ struct MembershipCoordinator: View {
                 errorView
             } else {
                 MembershipModuleView(
-                    userMembershipPublisher: model.$userMembership.eraseToAnyPublisher(),
+                    membership: model.userMembership,
                     tiers: model.tiers 
                 ) { tier in
                     model.onTierSelected(tier: tier)
