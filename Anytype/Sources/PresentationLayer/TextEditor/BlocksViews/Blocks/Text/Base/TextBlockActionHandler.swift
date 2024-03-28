@@ -274,9 +274,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                             position: position,
                             url: url
                         )
-                        
                         safeSendableAttributedString.value.map {
                             self?.actionHandler.changeText($0, blockId: info.id)
+                            self?.resetSubject.send($0)
                         }
                     }
                 case .pasteAsLink:
@@ -288,7 +288,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         replacementText: replacementText.trimmed,
                         range: range
                     )
-                    newText.map { self?.actionHandler.changeText($0, blockId: info.id) }
+                    newText.map {
+                        self?.actionHandler.changeText($0, blockId: info.id)
+                        self?.resetSubject.send($0)
+                    }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         if #available(iOS 17.0, *) {
