@@ -32,7 +32,7 @@ struct MembershipTierSelectionView: View {
     
     var sheet: some View {
         Group {
-            if model.userMembership.tierId == model.tierToDisplay {
+            if model.userMembership.tier?.id == model.tierToDisplay {
                 MembershipOwnerInfoSheetView(membership: model.userMembership)
             } else {
                 switch model.tierToDisplay {

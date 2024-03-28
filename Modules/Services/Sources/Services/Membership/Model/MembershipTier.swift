@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 
-public enum MembershipTierId: Hashable, Identifiable {
+public enum MembershipTierId: Hashable, Identifiable, Equatable {
     case explorer
     case builder
     case coCreator
@@ -28,7 +28,7 @@ public enum MembershipTierId: Hashable, Identifiable {
     }
 }
 
-public struct MembershipTier {
+public struct MembershipTier: Equatable {
     public let id: MembershipTierId
     
     public init(id: MembershipTierId) {

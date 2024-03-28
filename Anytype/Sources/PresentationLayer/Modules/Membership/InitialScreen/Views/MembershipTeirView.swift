@@ -10,7 +10,7 @@ struct MembershipTeirView: View {
     @Environment(\.colorScheme) private var colorScheme
     
     var isPending: Bool {
-        userMembership.tierId == tierToDisplay && userMembership.status != .active
+        userMembership.tier?.id == tierToDisplay && userMembership.status != .active
     }
     
     var body: some View {
@@ -30,7 +30,7 @@ struct MembershipTeirView: View {
             actionButton
             Spacer.fixedHeight(20)
         }
-        .if(userMembership.tierId == tierToDisplay) {
+        .if(userMembership.tier?.id == tierToDisplay) {
             $0.overlay(alignment: .topTrailing) {
                 AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
                     .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
@@ -70,7 +70,7 @@ struct MembershipTeirView: View {
     
     var info: some View  {
         Group {
-            if userMembership.tierId == tierToDisplay {
+            if userMembership.tier?.id == tierToDisplay {
                 if userMembership.status == .active {
                     expirationText
                 } else {
