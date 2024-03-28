@@ -236,6 +236,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     ) -> Bool {
         let previousTypingAttributes = textView.typingAttributes
         let originalAttributedString = textView.attributedText
+        let originalCaretPosition = textView.caretPosition
         let trimmedText = replacementText.trimmed
 
         let urlString = trimmedText
@@ -268,7 +269,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         .replace : .bottom
                     
                     let safeSendableAttributedString = SafeSendable(value: originalAttributedString)
-                    Task { [weak self] in
+                    Task { @MainActor [weak self] in
                         try await self?.actionHandler.createAndFetchBookmark(
                             targetID: info.id,
                             position: position,
@@ -276,7 +277,11 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         )
                         safeSendableAttributedString.value.map {
                             self?.actionHandler.changeText($0, blockId: info.id)
-                            self?.resetSubject.send($0)
+                            if position == .bottom, let originalCaretPosition {
+                                let range = NSRange(location: textView.offsetFromBegining(originalCaretPosition), length: 0)
+                                self?.cursorManager.blockFocus = BlockFocus(id: info.id, position: .at(range))
+                                self?.resetSubject.send($0)
+                            }
                         }
                     }
                 case .pasteAsLink:
