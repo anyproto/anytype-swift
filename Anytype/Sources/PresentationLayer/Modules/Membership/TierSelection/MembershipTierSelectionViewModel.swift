@@ -6,7 +6,7 @@ import Services
 final class MembershipTierSelectionViewModel: ObservableObject {
     
     let userMembership: MembershipStatus
-    let tierToDisplay: MembershipTierId
+    let tierToDisplay: MembershipTier
     
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
@@ -14,7 +14,7 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     
     init(
         userMembership: MembershipStatus,
-        tierToDisplay: MembershipTierId,
+        tierToDisplay: MembershipTier,
         showEmailVerification: @escaping (EmailVerificationData) -> ()
     ) {
         self.userMembership = userMembership
@@ -23,7 +23,7 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     }
     
     func getVerificationEmail(email: String, subscribeToNewsletter: Bool) async throws {
-        let data = EmailVerificationData(email: email, subscribeToNewsletter: subscribeToNewsletter)
+        let data = EmailVerificationData(email: email, subscribeToNewsletter: subscribeToNewsletter, tier: tierToDisplay)
         try await membershipService.getVerificationEmail(data: data)
         showEmailVerification(data)
     }

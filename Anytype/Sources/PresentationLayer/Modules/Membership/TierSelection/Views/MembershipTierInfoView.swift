@@ -3,18 +3,18 @@ import Services
 
 
 struct MembershipTierInfoView: View {
-    let tier: MembershipTierId
+    let tier: MembershipTier
     
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(36)
-            Image(asset: tier.mediumIcon)
+            Image(asset: tier.id.mediumIcon)
             Spacer.fixedHeight(14)
-            AnytypeText(tier.title, style: .title, color: .Text.primary)
+            AnytypeText(tier.name, style: .title, color: .Text.primary)
             Spacer.fixedHeight(6)
-            AnytypeText(tier.subtitle, style: .calloutRegular, color: .Text.primary)
+            AnytypeText(tier.id.subtitle, style: .calloutRegular, color: .Text.primary)
             Spacer.fixedHeight(22)
             whatsIncluded
             Spacer.fixedHeight(30)
@@ -26,7 +26,7 @@ struct MembershipTierInfoView: View {
                 if colorScheme == .dark {
                     Color.Shape.tertiary
                 } else {
-                    tier.gradient
+                    tier.id.gradient
                 }
             }
         )
@@ -36,7 +36,7 @@ struct MembershipTierInfoView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(Loc.whatSIncluded, style: .calloutRegular, color: .Text.secondary)
             Spacer.fixedHeight(6)
-            ForEach(tier.benefits, id: \.self) { benefit in
+            ForEach(tier.id.benefits, id: \.self) { benefit in
                 HStack(spacing: 8) {
                     Image(asset: .System.textCheckMark)
                         .frame(width: 16, height: 16)
@@ -50,5 +50,5 @@ struct MembershipTierInfoView: View {
 }
 
 #Preview {
-    MembershipTierInfoView(tier: .explorer)
+    MembershipTierInfoView(tier: .mockExplorer)
 }

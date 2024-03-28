@@ -3,20 +3,7 @@ import Services
 import AnytypeCore
 
 
-extension MembershipTierId {
-    var title: String {
-        switch self {
-        case .explorer:
-            return Loc.Membership.Explorer.title
-        case .builder:
-            return Loc.Membership.Builder.title
-        case .coCreator:
-            return Loc.Membership.CoCreator.title
-        case .custom:
-            return Loc.Membership.Custom.title
-        }
-    }
-    
+extension MembershipTierId {    
     var subtitle: String {
         switch self {
         case .explorer:
@@ -98,5 +85,24 @@ extension MembershipTierId {
         case .custom:
             .purple
         }
+    }
+}
+
+// MARK: - Mocks
+extension MembershipTier {
+    static var mockExplorer: MembershipTier {
+        MembershipTier(id: .explorer, name: "Explorer")
+    }
+    
+    static var mockBuilder: MembershipTier {
+        MembershipTier(id: .builder, name: "Builder")
+    }
+    
+    static var mockCoCreator: MembershipTier {
+        MembershipTier(id: .coCreator, name: "CockCreator")
+    }
+    
+    static var mockCustom: MembershipTier {
+        MembershipTier(id: .custom(id: 228), name: "Na-Baron")
     }
 }

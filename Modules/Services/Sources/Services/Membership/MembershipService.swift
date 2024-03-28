@@ -21,7 +21,7 @@ public protocol MembershipServiceProtocol {
     func verifyEmailCode(code: String) async throws
     
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
-    func validateName(name: String, tier: MembershipTierId) async throws
+    func validateName(name: String, tierId: MembershipTierId) async throws
 }
 
 final class MembershipService: MembershipServiceProtocol {
@@ -68,10 +68,10 @@ final class MembershipService: MembershipServiceProtocol {
         }).invoke()
     }
     
-    public func validateName(name: String, tier: MembershipTierId) async throws {
+    public func validateName(name: String, tierId: MembershipTierId) async throws {
         try await ClientCommands.membershipIsNameValid(.with {
             $0.requestedAnyName = name
-            $0.requestedTier = tier.middlewareId
+            $0.requestedTier = tierId.middlewareId
         }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
     }
     

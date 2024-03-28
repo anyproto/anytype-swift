@@ -7,7 +7,7 @@ struct MembershipTierSelectionView: View {
     
     init(
         userMembership: MembershipStatus,
-        tierToDisplay: MembershipTierId,
+        tierToDisplay: MembershipTier,
         showEmailVerification: @escaping (EmailVerificationData) -> ()
     ) {
         _model = StateObject(
@@ -32,10 +32,11 @@ struct MembershipTierSelectionView: View {
     
     var sheet: some View {
         Group {
-            if model.userMembership.tier?.id == model.tierToDisplay {
+            if model.userMembership.tier?.id == model.tierToDisplay.id {
                 MembershipOwnerInfoSheetView(membership: model.userMembership)
+                EmptyView()
             } else {
-                switch model.tierToDisplay {
+                switch model.tierToDisplay.id {
                 case .explorer:
                     MembershipEmailSheetView { email, subscribeToNewsletter in
                         try await model.getVerificationEmail(email: email, subscribeToNewsletter: subscribeToNewsletter)
@@ -66,68 +67,68 @@ struct MembershipTierSelectionView: View {
     TabView {
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tierId: .explorer,
+                tier: .mockExplorer,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
                 anyName: ""
             ),
-            tierToDisplay: .explorer,
+            tierToDisplay: .mockExplorer,
             showEmailVerification: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tierId: nil,
+                tier: nil,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
                 anyName: ""
             ),
-            tierToDisplay: .explorer,
+            tierToDisplay: .mockExplorer,
             showEmailVerification: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tierId: .explorer,
+                tier: .mockExplorer,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
                 anyName: ""
             ),
-            tierToDisplay: .builder,
+            tierToDisplay: .mockBuilder,
             showEmailVerification: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tierId: .builder,
+                tier: .mockBuilder,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
                 anyName: "SonyaBlade"
             ),
-            tierToDisplay: .builder,
+            tierToDisplay: .mockBuilder,
             showEmailVerification: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tierId: .builder,
+                tier: .mockBuilder,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
                 anyName: "SonyaBlade"
             ),
-            tierToDisplay: .coCreator,
+            tierToDisplay: .mockCoCreator,
             showEmailVerification: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
-                tierId: .coCreator,
+                tier: .mockCoCreator,
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCard,
                 anyName: "SonyaBlade"
             ),
-            tierToDisplay: .coCreator,
+            tierToDisplay: .mockCoCreator,
             showEmailVerification: { _ in }
         )
     }.tabViewStyle(.page)

@@ -8,8 +8,8 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var tiers: [MembershipTier] = []
     
     @Published var showTiersLoadingError = false
-    @Published var showTier: MembershipTierId?
-    @Published var showSuccess: MembershipTierId?
+    @Published var showTier: MembershipTier?
+    @Published var showSuccess: MembershipTier?
     @Published var emailVerificationData: EmailVerificationData?
     @Published var emailUrl: URL?
     
@@ -25,8 +25,8 @@ final class MembershipCoordinatorModel: ObservableObject {
         loadTiers(noCache: false)
     }
     
-    func onTierSelected(tier: MembershipTierId) {
-        switch tier {
+    func onTierSelected(tier: MembershipTier) {
+        switch tier.id {
         case .custom:
             let mailLink = MailUrl(
                 to: "support@anytype.io",
@@ -44,7 +44,7 @@ final class MembershipCoordinatorModel: ObservableObject {
         emailVerificationData = data
     }
     
-    func onSuccessfulValidation() {
+    func onSuccessfulValidation(data: EmailVerificationData) {
         emailVerificationData = nil
         showTier = nil
         loadTiers(noCache: true)
@@ -52,7 +52,7 @@ final class MembershipCoordinatorModel: ObservableObject {
         // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
         Task {
             try await Task.sleep(seconds: 0.5)
-            showSuccess = .explorer
+            showSuccess = data.tier
         }
     }
     

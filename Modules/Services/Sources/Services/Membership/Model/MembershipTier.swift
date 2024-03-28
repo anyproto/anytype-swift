@@ -28,11 +28,16 @@ public enum MembershipTierId: Hashable, Identifiable, Equatable {
     }
 }
 
-public struct MembershipTier: Equatable {
+public struct MembershipTier: Hashable, Identifiable, Equatable {
     public let id: MembershipTierId
+    public let name: String
     
-    public init(id: MembershipTierId) {
+    public init(
+        id: MembershipTierId,
+        name: String
+    ) {
         self.id = id
+        self.name = name
     }
 }
 
@@ -43,7 +48,10 @@ extension Anytype_Model_MembershipTierData {
     func asModel() -> MembershipTier? {
         guard let tierId = MembershipTierId(intId: Int32(id)) else { return nil }
         
-        return MembershipTier(id: tierId)
+        return MembershipTier(
+            id: tierId,
+            name: name
+        )
     }
 }
 

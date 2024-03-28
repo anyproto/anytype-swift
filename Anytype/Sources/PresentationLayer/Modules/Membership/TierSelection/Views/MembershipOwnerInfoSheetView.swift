@@ -56,7 +56,7 @@ struct MembershipOwnerInfoSheetView: View {
         HStack {
             MembershipOwnerInfoSheetView(
                 membership: MembershipStatus(
-                    tierId: .explorer,
+                    tier: .mockExplorer,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -65,7 +65,7 @@ struct MembershipOwnerInfoSheetView: View {
             )
             MembershipOwnerInfoSheetView(
                 membership: MembershipStatus(
-                    tierId: .builder,
+                    tier: .mockBuilder,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCrypto,
@@ -74,7 +74,7 @@ struct MembershipOwnerInfoSheetView: View {
             )
             MembershipOwnerInfoSheetView(
                 membership: MembershipStatus(
-                    tierId: .coCreator,
+                    tier: .mockCoCreator,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodAppleInapp,

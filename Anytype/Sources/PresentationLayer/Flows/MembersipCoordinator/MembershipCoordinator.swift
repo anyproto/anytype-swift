@@ -48,13 +48,13 @@ struct MembershipCoordinator: View {
     }
     
     
-    func tierSelection(tier: MembershipTierId) -> some View {
+    func tierSelection(tier: MembershipTier) -> some View {
         MembershipTierSelectionView(userMembership: model.userMembership, tierToDisplay: tier) { data in
             model.onEmailDataSubmit(data: data)
         }
         .sheet(item: $model.emailVerificationData) { data in
             EmailVerificationView(data: data) {
-                model.onSuccessfulValidation()
+                model.onSuccessfulValidation(data: data)
             }
         }
     }

@@ -6,7 +6,7 @@ struct MembershipNameSheetView: View {
     @StateObject private var model: MembershipNameSheetViewModel
     @State private var name = ""
     
-    init(tier: MembershipTierId, anyName: String) {
+    init(tier: MembershipTier, anyName: String) {
         _model = StateObject(
             wrappedValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName)
         )
@@ -102,7 +102,7 @@ struct MembershipNameSheetView: View {
 
 #Preview {
     TabView {
-        MembershipNameSheetView(tier: .builder, anyName: "")
-        MembershipNameSheetView(tier: .coCreator, anyName: "SonyaBlade")
+        MembershipNameSheetView(tier: .mockBuilder, anyName: "")
+        MembershipNameSheetView(tier: .mockCoCreator, anyName: "SonyaBlade")
     }.tabViewStyle(.page)
 }
