@@ -4,6 +4,7 @@ import Services
 
 struct MembershipTierListView: View {
     let userMembership: MembershipStatus
+    let tiers: [MembershipTier]
     let onTierTap: (MembershipTierId) -> ()
     
     var body: some View {
@@ -12,7 +13,7 @@ struct MembershipTierListView: View {
                 HStack(spacing: 20) {
                     Spacer.fixedWidth(0)
                     
-                    ForEach(userMembership.tierId.availableTiers) { tier in
+                    ForEach(tiers.map { $0.id }) { tier in
                         MembershipTeirView(tierToDisplay: tier, userMembership: userMembership) {
                             onTierTap(tier)
                         }
@@ -39,7 +40,12 @@ struct MembershipTierListView: View {
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
                     anyName: ""
-                )
+                ), 
+                tiers: [
+                    MembershipTier(id: .explorer),
+                    MembershipTier(id: .builder),
+                    MembershipTier(id: .coCreator)
+                ]
             ) { _ in }
             
             MembershipTierListView(
@@ -49,7 +55,12 @@ struct MembershipTierListView: View {
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
                     anyName: ""
-                )
+                ),
+                tiers: [
+                    MembershipTier(id: .explorer),
+                    MembershipTier(id: .builder),
+                    MembershipTier(id: .coCreator),
+                ]
             ) { _ in }
             
             MembershipTierListView(
@@ -59,7 +70,12 @@ struct MembershipTierListView: View {
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
                     anyName: ""
-                )
+                ),
+                tiers: [
+                    MembershipTier(id: .explorer),
+                    MembershipTier(id: .builder),
+                    MembershipTier(id: .coCreator)
+                ]
             ) { _ in }
             
             MembershipTierListView(
@@ -69,7 +85,12 @@ struct MembershipTierListView: View {
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
                     anyName: ""
-                )
+                ),
+                tiers: [
+                    MembershipTier(id: .custom(id: 0)),
+                    MembershipTier(id: .builder),
+                    MembershipTier(id: .coCreator)
+                ]
             ) { _ in }
 
             
@@ -80,7 +101,11 @@ struct MembershipTierListView: View {
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
                     anyName: ""
-                )
+                ),
+                tiers: [
+                    MembershipTier(id: .builder),
+                    MembershipTier(id: .coCreator)
+                ]
             ) { _ in }
             
             MembershipTierListView(
@@ -90,7 +115,10 @@ struct MembershipTierListView: View {
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
                     anyName: ""
-                )
+                ),
+                tiers: [
+                    MembershipTier(id: .coCreator)
+                ]
             ) { _ in }
         }
     }

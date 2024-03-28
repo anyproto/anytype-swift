@@ -4,17 +4,6 @@ import Foundation
 public typealias MembershipSubscriptionStatus = Anytype_Model_Membership.Status
 public typealias MembershipPaymentMethod = Anytype_Model_Membership.PaymentMethod
 
-public enum MembershipTierId: Hashable, Identifiable {
-    case explorer
-    case builder
-    case coCreator
-    
-    case custom(id: Int32)
-    
-    public var id: Self {
-        return self
-    }
-}
 
 public struct MembershipStatus: Equatable {
     public let tierId: MembershipTierId?
@@ -38,3 +27,17 @@ public struct MembershipStatus: Equatable {
     }
 }
 
+
+// MARK: - Middleware model mapping
+
+public extension Anytype_Model_Membership {
+    func asModel() -> MembershipStatus {
+        MembershipStatus(
+            tierId: MembershipTierId(intId: tier),
+            status: status,
+            dateEnds: Date(timeIntervalSince1970: TimeInterval(dateEnds)),
+            paymentMethod: paymentMethod,
+            anyName: requestedAnyName
+        )
+    }
+}

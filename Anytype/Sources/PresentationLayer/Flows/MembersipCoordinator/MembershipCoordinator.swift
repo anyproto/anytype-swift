@@ -11,8 +11,17 @@ struct MembershipCoordinator: View {
     }
     
     var body: some View {
-        MembershipModuleView(userMembershipPublisher: model.$userMembership.eraseToAnyPublisher()) { tier in
-            model.onTierSelected(tier: tier)
+        Group {
+            if model.showTiersLoadingError {
+                errorView
+            } else {
+                MembershipModuleView(
+                    userMembershipPublisher: model.$userMembership.eraseToAnyPublisher(),
+                    tiers: model.tiers 
+                ) { tier in
+                    model.onTierSelected(tier: tier)
+                }
+            }
         }
         .animation(.default, value: model.userMembership)
         
@@ -27,6 +36,17 @@ struct MembershipCoordinator: View {
             showEmail(url: url)
         }
     }
+    
+    var errorView: some View {
+        EmptyStateView(
+            title: Loc.Error.Common.title,
+            subtitle: Loc.Error.Common.message,
+            actionText: Loc.Error.Common.tryAgain
+        ) {
+            model.loadTiers(noCache: false)
+        }
+    }
+    
     
     func tierSelection(tier: MembershipTierId) -> some View {
         MembershipTierSelectionView(userMembership: model.userMembership, tierToDisplay: tier) { data in

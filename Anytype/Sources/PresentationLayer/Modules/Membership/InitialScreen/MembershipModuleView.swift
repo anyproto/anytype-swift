@@ -7,10 +7,14 @@ struct MembershipModuleView: View {
     @StateObject private var model: MembershipModuleViewModel
     @Environment(\.openURL) private var openURL
     
+    private let tiers: [MembershipTier]
+    
     init(
         userMembershipPublisher: AnyPublisher<MembershipStatus, Never>,
+        tiers: [MembershipTier],
         onTierTap: @escaping (MembershipTierId) -> ()
     ) {
+        self.tiers = tiers
         _model = StateObject(wrappedValue: MembershipModuleViewModel(
             userMembershipPublisher: userMembershipPublisher,
             onTierTap: onTierTap
@@ -32,7 +36,7 @@ struct MembershipModuleView: View {
                     Spacer.fixedHeight(32)
                     
                     baners
-                    MembershipTierListView(userMembership: model.userMembership) {
+                    MembershipTierListView(userMembership: model.userMembership, tiers: tiers) {
                         UISelectionFeedbackGenerator().selectionChanged()
                         model.onTierTap(tier: $0)
                     }
@@ -114,7 +118,8 @@ struct MembershipModuleView: View {
 #Preview {
     NavigationView {
         MembershipModuleView(
-            userMembershipPublisher: .empty(),
+            userMembershipPublisher: .empty(), 
+            tiers: [],
             onTierTap: { _ in }
         )
     }
