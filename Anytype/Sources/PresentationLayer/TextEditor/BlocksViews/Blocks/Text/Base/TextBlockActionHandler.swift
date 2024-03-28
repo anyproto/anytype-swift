@@ -251,8 +251,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             range: range
         )
 
-        actionHandler.changeText(newTextWithLink, blockId: info.id)
-        resetSubject.send(newTextWithLink)
+        changeTextAndReset(newTextWithLink)
 
         let replacementRange = NSRange(location: range.location, length: trimmedText.count)
 
@@ -274,8 +273,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                             url: url
                         )
                         safeSendableAttributedString.value.map {
-                            self?.actionHandler.changeText($0, blockId: info.id)
-                            self?.resetSubject.send($0)
+                            self?.changeTextAndReset($0)
                         }
                     }
                 case .pasteAsLink:
@@ -288,8 +286,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         range: range
                     )
                     newText.map {
-                        self?.actionHandler.changeText($0, blockId: info.id)
-                        self?.resetSubject.send($0)
+                        self?.changeTextAndReset($0)
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -302,6 +299,11 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         showURLBookmarkPopup(urlIputParameters)
 
         return true
+    }
+    
+    private func changeTextAndReset(_ text: NSAttributedString) {
+        actionHandler.changeText(text, blockId: info.id)
+        resetSubject.send(text)
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
