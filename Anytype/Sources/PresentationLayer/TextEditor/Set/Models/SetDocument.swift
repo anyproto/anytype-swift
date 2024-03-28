@@ -61,10 +61,6 @@ final class SetDocument: SetDocumentProtocol {
         document.parsedRelations
     }
     
-    var objectRestrictions: ObjectRestrictions {
-        document.objectRestrictions
-    }
-    
     var permissions: ObjectPermissions {
         document.permissions
     }
