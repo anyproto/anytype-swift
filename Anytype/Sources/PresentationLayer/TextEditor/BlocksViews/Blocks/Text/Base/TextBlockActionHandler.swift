@@ -235,9 +235,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         replacementText: String,
         range: NSRange
     ) -> Bool {
-        let previousTypingAttributes = textView.typingAttributes
         let originalAttributedString = textView.attributedText
-        let originalCaretPosition = textView.caretPosition
         let trimmedText = replacementText.trimmed
 
         let urlString = trimmedText
