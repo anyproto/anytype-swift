@@ -22,6 +22,7 @@ public protocol WorkspaceServiceProtocol {
     func requestDecline(spaceId: String, identity: String) async throws
     func participantPermissionsChange(spaceId: String, identity: String, permissions: ParticipantPermissions) async throws
     func participantRemove(spaceId: String, identity: String) async throws
+    func leaveApprove(spaceId: String, identity: String) async throws
 }
 
 final class WorkspaceService: WorkspaceServiceProtocol {
@@ -168,6 +169,13 @@ final class WorkspaceService: WorkspaceServiceProtocol {
     
     public func participantRemove(spaceId: String, identity: String) async throws {
         try await ClientCommands.spaceParticipantRemove(.with {
+            $0.spaceID = spaceId
+            $0.identities = [identity]
+        }).invoke()
+    }
+    
+    public func leaveApprove(spaceId: String, identity: String) async throws {
+        try await ClientCommands.spaceLeaveApprove(.with {
             $0.spaceID = spaceId
             $0.identities = [identity]
         }).invoke()
