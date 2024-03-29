@@ -119,7 +119,7 @@
 
 // MARK: - Import Type Relation
 
-"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Notion" = "Notie";
 "Relation.ImportType.Markdown" = "Markdown";
 "Relation.ImportType.Html" = "HTML";
 "Relation.ImportType.Text" = "TXT";
@@ -268,7 +268,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Een nieuwe account wordt aangemaakt";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
+"Auth.JoinFlow.Setting.Space.Title" = "Jouw persoonlijke ruimte wordt aangemaakt";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
@@ -857,7 +857,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Gedeelde ruimte";
 "Spaces.Accessibility.Private" = "Persoonlijke ruimte";
-"Spaces.Accessibility.Personal" = "Default Space";
+"Spaces.Accessibility.Personal" = "Standaard ruimte";
 "Spaces.Search.Title" = "Zoek ruimten";
 "Spaces.Title" = "Ruimtes";
 "Spaces.Info.Network" = "Netwerk:";
