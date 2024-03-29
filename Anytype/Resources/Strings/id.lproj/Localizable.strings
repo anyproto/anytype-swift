@@ -920,22 +920,22 @@
 "SpaceShare.Join.CommentPlaceholder" = "Tinggalkan komentar untuk pemilik ruang";
 "SpaceShare.Join.Button" = "Permintaan bergabung";
 "SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.Message" = "Kamu diundang untuk bergabung ke ruang **%@** buatan **%@**. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 "SpaceShare.YouSuffix" = "%@ (kamu)";
 "SpaceShare.ManageSpaces" = "Kelola Ruang";
 "SpaceShare.StopSharing.Action" = "Berhenti berbagi";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
-"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joing a Space";
-"SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.MoreInfo" = "More info";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.StopSharing.Title" = "Berhenti membagikan ruang";
+"SpaceShare.StopSharing.Message" = "Anggota tidak akan lagi menyinkronkan ruang ini dan tautan pembagian akan dinonaktifkan.";
+"SpaceShare.StopSharing.Toast" = "Ruang ini tidak dibagikan lagi";
+"SpaceShare.QR.Title" = "Kode QR untuk bergabung ke Ruang";
+"SpaceShare.QR.Button" = "Tampilkan kode QR";
+"SpaceShare.MoreInfo" = "Informasi lebih lanjut";
+"SpaceShare.HowToShare.Title" = "Bagaimana caranya membagikan ruang?";
+"SpaceShare.HowToShare.Step1" = "Berikan tautan kepada orang yang ingin kamu ajak berkolaborasi.";
+"SpaceShare.HowToShare.Step2" = "Dengan mengeklik tautan, orang itu akan meminta bergabung ke dalam ruang.";
+"SpaceShare.HowToShare.Step3" = "Setelah menyetujui permintaannya, kamu bisa memilih hak akses untuk orang tersebut.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Hak aksesmu telah diganti menjadi **%@** di ruang **%@**.";
@@ -1090,20 +1090,20 @@
 "Membership.NameForm.Validating" = "Tunggu sebentar...";
 "Membership.NameForm.Validated" = "Nama ini boleh dipakai";
 
-"Membership.NameForm.Error.TooShort" = "Name is too short";
-"Membership.NameForm.Error.TooLong" = "Name is too long";
-"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+"Membership.NameForm.Error.TooShort" = "Nama terlalu pendek";
+"Membership.NameForm.Error.TooLong" = "Nama terlalu panjang";
+"Membership.NameForm.Error.HasInvalidChars" = "Nama mengandung karakter tidak valid";
 
 
 "Membership.Success.Title" = "Selamat menjadi anggota, %@";
 "Membership.Success.Subitle" = "Big cheers for your curiosity!";
 
 "Membership.Payment.Card" = "Kartu";
-"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Crypto" = "Kripto";
 "Membership.Payment.ApplePay" = "ApplePay";
 "Membership.Payment.GooglePay" = "GooglePay";
-"Membership.Payment.Apple subscription" = "Apple subscription";
-"Membership.Payment.Google subscription" = "Google subscription";
+"Membership.Payment.Apple subscription" = "Langganan Apple";
+"Membership.Payment.Google subscription" = "Langganan Google";
 
 
 // MARK: - Membership Tiers
