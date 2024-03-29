@@ -931,11 +931,11 @@
 "SpaceShare.StopSharing.Toast" = "L'espace n'est plus partagé";
 "SpaceShare.QR.Title" = "QR code pour rejoindre un espace";
 "SpaceShare.QR.Button" = "Afficher le QR code";
-"SpaceShare.MoreInfo" = "More info";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.MoreInfo" = "Plus d'infos";
+"SpaceShare.HowToShare.Title" = "Comment partager un espace ?";
+"SpaceShare.HowToShare.Step1" = "SVP fournir le lien à la personne avec qui vous souhaitez collaborer.";
+"SpaceShare.HowToShare.Step2" = "En cliquant le lien, une personne demande à joindre l'espace.";
+"SpaceShare.HowToShare.Step3" = "Après l'approbation de la demande, vous pouvez choisir les droits d'accès pour cette personne.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Vos droits d'accès ont été changés en **%@** dans l'espace **%@**.";
