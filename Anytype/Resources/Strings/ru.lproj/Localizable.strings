@@ -268,7 +268,7 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Создание нового аккаунта";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
+"Auth.JoinFlow.Setting.Space.Title" = "Настройка места по умолчанию";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
@@ -932,11 +932,11 @@
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 "SpaceShare.QR.Title" = "QR code for joing a Space";
 "SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.MoreInfo" = "More info";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.MoreInfo" = "Подробнее";
+"SpaceShare.HowToShare.Title" = "Как поделиться пространством?";
+"SpaceShare.HowToShare.Step1" = "Пожалуйста, предоставьте ссылку человеку, с которым хотите сотрудничать.";
+"SpaceShare.HowToShare.Step2" = "Нажав на ссылку, человек запросит вступление в пространство.";
+"SpaceShare.HowToShare.Step3" = "После одобрения запроса Вы можете выбрать права доступа для этого человека.";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
