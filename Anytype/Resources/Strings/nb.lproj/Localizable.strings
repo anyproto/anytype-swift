@@ -926,13 +926,13 @@
 "SpaceShare.YouSuffix" = "%@ (du)";
 "SpaceShare.ManageSpaces" = "Administrer rom";
 "SpaceShare.StopSharing.Action" = "Stopp deling";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
+"SpaceShare.StopSharing.Title" = "Slutt å dele rom";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 "SpaceShare.QR.Title" = "QR code for joing a Space";
-"SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.MoreInfo" = "More info";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.QR.Button" = "Vis QR-kode";
+"SpaceShare.MoreInfo" = "Mer info";
+"SpaceShare.HowToShare.Title" = "Hvordan dele et rom?";
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
@@ -1051,7 +1051,7 @@
 "Pay by Card" = "Betal med kort";
 "Details upon request" = "Details upon request";
 "Min X characters" = "Min %@ characters";
-"Pending" = "Pending...";
+"Pending" = "Venter...";
 
 
 "Membership.Ad.Title" = "Medlemskap";
@@ -1091,8 +1091,8 @@
 "Membership.NameForm.Validated" = "Dette navnet er ledig";
 
 "Membership.NameForm.Error.TooShort" = "Name is too short";
-"Membership.NameForm.Error.TooLong" = "Name is too long";
-"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+"Membership.NameForm.Error.TooLong" = "Navnet er for langt";
+"Membership.NameForm.Error.HasInvalidChars" = "Navnet har ugyldige tegn";
 
 
 "Membership.Success.Title" = "Velkommen til nettverket, %@";

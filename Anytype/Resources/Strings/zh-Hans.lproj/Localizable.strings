@@ -907,11 +907,11 @@
 "SpaceShare.Action.ViewRequest" = "查看请求";
 "SpaceShare.Action.Approve" = "接受";
 "SpaceShare.DeleteSharingLink.Title" = "删除链接";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
-"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "授予查看权限";
+"SpaceShare.ViewRequest.EditAccess" = "授予编辑权限";
 "SpaceShare.ViewRequest.Reject" = "拒绝";
 "SpaceShare.RemoveMember.Title" = "移除成员";
 "SpaceShare.RemoveMember.Message" = "%@ 将从空间中移除。";
@@ -1049,7 +1049,7 @@
 "Your current status" = "您目前的状态：";
 "Valid until" = "有效期至：";
 "Paid by" = "Paid by %@";
-"Myself" = "Myself";
+"Myself" = "我自己";
 "Pay by Card" = "使用信用卡";
 "Details upon request" = "Details upon request";
 "Min X characters" = "最小 %@ 个字符";
@@ -1075,17 +1075,17 @@
 
 
 "Membership.Banner.Title1" = "与我们共同创建";
-"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
-"Membership.Banner.Title2" = "Gain Benefits";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
+"Membership.Banner.Subtitle1" = "与我们的团队和社区保持密切的联系。加入与团队的聊天，影响 Anytype 的发展进化，并对功能有发言权。";
+"Membership.Banner.Title2" = "获得福利";
+"Membership.Banner.Subtitle2" = "我们的会员特权中含有 Anytype 网络中独特的身份标识、更多储存空间、提高每个共享空间的成员人数以用于大范围协作.";
 "Membership.Banner.Title3" = "支持愿景";
-"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
-"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle3" = "您的贡献支持我们这个独立的团队并支持我们“由用户驱动、安全和协作的数字环境”的愿景。";
+"Membership.Banner.Title4" = "对连接的投资";
 "Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
 
 "Membership.EmailForm.Title" = "获得您的免费会员资格";
-"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
-"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "我们需要您的邮箱来隔绝垃圾信息以及使用时的乐趣！";
+"Membership.EmailForm.Newsletter" = "我想获得产品的更新并享受免费优惠！";
 "Membership.EmailValidation" = "输入发送到您邮箱的代码";
 
 "Membership.NameForm.Title" = "选择您独有的名字";
@@ -1099,10 +1099,10 @@
 
 
 "Membership.Success.Title" = "欢迎来到网络， %@";
-"Membership.Success.Subitle" = "Big cheers for your curiosity!";
+"Membership.Success.Subitle" = "为你的好奇心干杯大的！";
 
 "Membership.Payment.Card" = "卡片";
-"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Crypto" = "加密货币";
 "Membership.Payment.ApplePay" = "Apple Pay";
 "Membership.Payment.GooglePay" = "Google Pay";
 "Membership.Payment.Apple subscription" = "Apple 订阅";
@@ -1113,23 +1113,23 @@
 "Membership.Explorer.Title" = "探索者";
 "Membership.Explorer.Subtitle" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
 "Membership.Explorer.Benefit1" = "1 GB 网络空间";
-"Membership.Explorer.Benefit2" = "10 one-to-one spaces";
+"Membership.Explorer.Benefit2" = "10 个仅单人编辑空间";
 "Membership.Explorer.Benefit3" = "最多 10 个在只读模式下的共享空间";
 
 "Membership.Builder.Title" = "建造者";
-"Membership.Builder.Subtitle" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
-"Membership.Builder.Benefit1" = "Unique name (from 7 characters)";
+"Membership.Builder.Subtitle" = "解锁多方协作的魔法以及享受顶级支持";
+"Membership.Builder.Benefit1" = "唯一名字（大于 7 个字）";
 "Membership.Builder.Benefit2" = "128 GB 网络空间";
 "Membership.Builder.Benefit3" = "10 个访客协作位置";
 "Membership.Builder.Benefit4" = "优先支持";
 
 "Membership.CoCreator.Title" = "共创者";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
-"Membership.CoCreator.Benefit1" = "Unique name (from 5 characters)";
+"Membership.CoCreator.Benefit1" = "唯一名字（大于 5 个字）";
 "Membership.CoCreator.Benefit2" = "256 GB 网络空间";
 "Membership.CoCreator.Benefit3" = "25 个访客协作位置";
 "Membership.CoCreator.Benefit4" = "与团队聊天";
-"Membership.CoCreator.Benefit5" = "Unique collectible";
+"Membership.CoCreator.Benefit5" = "独特的可收藏的";
 
 "Membership.Custom.Title" = "自定义";
 "Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";

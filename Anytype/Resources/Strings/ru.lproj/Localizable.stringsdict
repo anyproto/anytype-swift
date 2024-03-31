@@ -53,13 +53,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d выбранный блок</string>
+        <string>Выбран %d блок</string>
         <key>few</key>
-        <string>%d выбрано блоков</string>
+        <string>Выбрано %d блока</string>
         <key>many</key>
-        <string>%d selected blocks</string>
+        <string>Выбрано %d блоков</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>Выбрано %d блоков</string>
       </dict>
     </dict>
     <key>Links count</key>
@@ -75,11 +75,11 @@
         <key>one</key>
         <string>%d ссылка</string>
         <key>few</key>
-        <string>%d links</string>
-        <key>many</key>
-        <string>%d links</string>
-        <key>other</key>
         <string>%d ссылки</string>
+        <key>many</key>
+        <string>%d ссылок</string>
+        <key>other</key>
+        <string>%d ссылок</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
@@ -117,9 +117,9 @@
         <key>few</key>
         <string>%d objects deleted</string>
         <key>many</key>
-        <string>%d objects deleted</string>
+        <string>Удалено %d объектов </string>
         <key>other</key>
-        <string>%d объектов удалено</string>
+        <string>Удалено %d объектов </string>
       </dict>
     </dict>
     <key>Sharing.File.NewObject</key>
@@ -133,13 +133,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Файл объекта</string>
+        <string>Файловый объект</string>
         <key>few</key>
-        <string>%d File Objects</string>
+        <string>%d файловых объекта</string>
         <key>many</key>
-        <string>%d File Objects</string>
+        <string>%d файловых объектов</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d файловых объектов </string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Файл блока</string>
+        <string>Файловый блок</string>
         <key>few</key>
-        <string>%d File Blocks</string>
+        <string>%d файловых блока</string>
         <key>many</key>
-        <string>%d File Blocks</string>
+        <string>%d файловых блоков</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d файловых блоков</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -175,11 +175,11 @@
         <key>one</key>
         <string>Добавить объект в закладки</string>
         <key>few</key>
-        <string>%d Bookmark Objects</string>
+        <string>Добавить %d объекта в закладки </string>
         <key>many</key>
-        <string>%d Bookmark Objects</string>
+        <string>Добавить %d объектов в закладки</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>Добавить %d объектов в закладки</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -193,13 +193,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Блоки ссылок</string>
+        <string>Связать блок</string>
         <key>few</key>
-        <string>Link %d Blocks</string>
+        <string>Связать %d блока</string>
         <key>many</key>
-        <string>Link %d Blocks</string>
+        <string>Связать %d блоков</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Связать %d блоков</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
@@ -209,17 +209,17 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>Вы достигли лимита участников %d . Новые участники не смогут присоединиться.</string>
+        <string>Вы достигли лимита %d члена. Новые члены не смогут присоединиться.</string>
         <key>few</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Вы достигли лимита %d членов. Новые члены не смогут присоединиться.</string>
         <key>many</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Вы достигли лимита %d членов. Новые члены не смогут присоединиться.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Вы достигли лимита %d членов. Новые члены не смогут присоединиться.</string>
       </dict>
     </dict>
     <key>Space.MembersCount</key>

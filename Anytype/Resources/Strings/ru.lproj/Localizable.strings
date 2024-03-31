@@ -44,9 +44,9 @@
 "BlockText.ContentType.Title.Placeholder" = "Без названия";
 "BlockText.ContentType.Description.Placeholder" = "Добавить описание";
 "BlockText.ContentType.Toggle.Placeholder" = "Переключить блокировку";
-"BlockText.ContentType.Bulleted.Placeholder" = "Маркированный список";
+"BlockText.ContentType.Bulleted.Placeholder" = "Элемент маркированного списка";
 "BlockText.ContentType.Checkbox.Placeholder" = "Флажок";
-"BlockText.ContentType.Numbered.Placeholder" = "Нумерованный список";
+"BlockText.ContentType.Numbered.Placeholder" = "Элемент маркированного списка";
 "BlockText.ContentType.Quote.Placeholder" = "Выделенный текст";
 "BlockText.ContentType.Header.Placeholder" = "Название";
 "BlockText.ContentType.Header2.Placeholder" = "Заголовок";
@@ -100,7 +100,7 @@
 "Relation.Format.Status.Title" = "Выбрать";
 "Relation.Format.Tag.Title" = "Множественный выбор";
 "Relation.Format.Date.Title" = "Дата";
-"Relation.Format.FileMedia.Title" = "Файл, медиафайл";
+"Relation.Format.FileMedia.Title" = "Файл и Медиа";
 "Relation.Format.Checkbox.Title" = "Флажок";
 "Relation.Format.Url.Title" = "Ссылка";
 "Relation.Format.Email.Title" = "E-mail";
@@ -156,7 +156,7 @@
 "Move to" = "Переместить в";
 "Back" = "Назад";
 "Unpin" = "Открепить";
-"Pin on top" = "Закрепить";
+"Pin on top" = "Закрепить сверху";
 "File block subtitle" = "Сохранить файл в исходном состоянии";
 "Picture block subtitle" = "Загрузите и дополните страницу изображением";
 "Video block subtitle" = "Загрузить воспроизводимое видео";
@@ -857,7 +857,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Общее пространство";
 "Spaces.Accessibility.Private" = "Личное Пространство";
-"Spaces.Accessibility.Personal" = "Default Space";
+"Spaces.Accessibility.Personal" = "Пространство по умолчанию";
 "Spaces.Search.Title" = "Поиск пространств";
 "Spaces.Title" = "Пространства";
 "Spaces.Info.Network" = "Сеть:";
@@ -884,14 +884,14 @@
 "SpaceSettings.DeleteAlert.Message" = "Это пространство будет удалено безвозвратно. Вы не сможете отменить это действие.";
 "SpaceSettings.DeleteButton" = "Удалить пространство";
 "SpaceSettings.Share" = "Поделиться";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveButton" = "Покинуть";
+"SpaceSettings.LeaveAlert.Title" = "Покинуть пространство";
 "SpaceSettings.LeaveAlert.Message" = "%@ пространство будет удалено с ваших устройств и у вас больше не будет к ним доступа ";
 "SpaceSettings.LeaveAlert.Toast" = "Вы покинули %@.";
 
 // MARK: - Space Share
 
-"SpaceShare.Title" = "Sharing";
+"SpaceShare.Title" = "Совместное использование";
 "SpaceShare.Members" = "Участники";
 "SpaceShare.Permissions.Owner" = "Владелец";
 "SpaceShare.Permissions.Reader" = "Наблюдатель ";
@@ -899,17 +899,17 @@
 "SpaceShare.Permissions.Grand.Edit" = "Изменить";
 "SpaceShare.Permissions.Grand.View" = "Вид";
 "SpaceShare.Invite.Title" = "Ссылка на приглашение ";
-"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Description" = "Поделитесь этой ссылкой-приглашением, чтобы другие могли присоединиться к вашему пространсту. После того, как они нажмут на ссылку и запросят доступ, вы можете выбирать их права доступа.";
 "SpaceShare.Invite.Share" = "Поделится ссылкой на приглашение ";
 "SpaceShare.Invite.Generate" = "Создать ссылку на приглашение";
-"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.Invite.Empty" = "Создать ссылку-приглашение для совместного использования и добавления новых участников";
 "SpaceShare.JoinRequest" = "Запрос на присоединение";
 "SpaceShare.LeaveRequest" = "Оставить запрос";
 "SpaceShare.Action.ViewRequest" = "Посмотреть запрос";
 "SpaceShare.Action.Approve" = "Утверждено";
 "SpaceShare.DeleteSharingLink.Title" = "Удалить ссылку";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к этому пространству. Вы можете создать новую ссылку Anytype";
+"SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Предоставить доступ к просмотру";
 "SpaceShare.ViewRequest.EditAccess" = "Предоставить доступ к редактированию ";
@@ -921,17 +921,17 @@
 "SpaceShare.Join.CommentPlaceholder" = "Оставить приватный комментарий владельцу пространства";
 "SpaceShare.Join.Button" = "Отправить запрос на вступление";
 "SpaceShare.Join.Info" = "Как только владелец сообщества одобрит ваш запрос, вы присоединитесь к разделу с определенными правами доступа.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.Message" = "Вас пригласили присоединиться к пространству **%@**, созданному **%@**. Отправьте запрос, чтобы владелец пространства смог принять вас.";
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
 "SpaceShare.YouSuffix" = "%@ (вы)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.ManageSpaces" = "Управление пространствами";
 "SpaceShare.StopSharing.Action" = "Stop sharing";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
-"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joing a Space";
-"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.StopSharing.Title" = "Прекратить совместное использование пространства";
+"SpaceShare.StopSharing.Message" = "Участники больше не будут синхронизироваться с этим пространством, и ссылка на общий доступ будет отключена.";
+"SpaceShare.StopSharing.Toast" = "Пространство больше не доступно для совместного использования";
+"SpaceShare.QR.Title" = "QR-код для подключения к пространству";
+"SpaceShare.QR.Button" = "Показать QR-код";
 "SpaceShare.MoreInfo" = "Подробнее";
 "SpaceShare.HowToShare.Title" = "Как поделиться пространством?";
 "SpaceShare.HowToShare.Step1" = "Пожалуйста, предоставьте ссылку человеку, с которым хотите сотрудничать.";
@@ -939,19 +939,19 @@
 "SpaceShare.HowToShare.Step3" = "После одобрения запроса Вы можете выбрать права доступа для этого человека.";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"PermissionChangeNotification.Text" = "Ваши права доступа были изменены на **%@** в пространстве **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "Ваш запрос на присоединение к **%@** пространству был одобрен с **%@** правами доступа. Пространство будет доступно на вашем устройстве в ближайшее время.";
+"ParticipantRequestDeclineNotification.Text" = "Ваш запрос присоединиться к пространству **%@** был отклонен.";
+"RequestToLeaveNotification.Text" = "**%@** хочет покинуть пространство **%@**.";
+"ParticipantRemoveNotification.Text" = "Вы были удалены из пространства, или оно было удалено владельцем.";
 "RequestToJoinNotification.Text" = "**%@** сделал запрос на присоединение к пространству **%@**";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.GoToSpace" = "Перейти в пространство";
 "RequestToJoinNotification.ViewRequest" = "Посмотреть запрос";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Отклонить запрос о присоединении";
 "SpaceManager.DoNotCancel" = "Не отменять";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Title" = "Вам нужно будет снова отправить запрос доступа";
 "SpaceManager.CancelRequestAlert.Toast" = "Запрос был отменен.";
 
 
@@ -1031,58 +1031,58 @@
 "Gallery.Notification.Error" = "Ой! \"%@\" не был установлен. Пожалуйста, проверьте подключение к Интернету и повторите попытку или оставьте сообщение на форуме.";
 
 // MARK: - Membership
-"Membership" = "Membership";
-"Just e-mail" = "Just e-mail";
+"Membership" = "Членство";
+"Just e-mail" = "Только e-mail";
 "E-mail" = "E-mail";
-"Learn more" = "Learn more";
-"per year" = "per year";
-"per x years" = "per %@ years";
-"What’s included" = "What’s included";
-"Submit" = "Submit";
-"Resend" = "Resend";
-"Resend in" = "Resend in %@ sec";
-"Current" = "Current";
+"Learn more" = "Узнать больше";
+"per year" = "в год";
+"per x years" = "за %@ лет";
+"What’s included" = "Что включено";
+"Submit" = "Отправить";
+"Resend" = "Отправить ещё раз";
+"Resend in" = "Переслать через %@ с";
+"Current" = "Текущий";
 "Forever free" = "Бесплатно навсегда";
-"Forever" = "Forever";
+"Forever" = "Навсегда";
 "Valid until date" = "Действительно до %@";
 "Your current status" = "Ваш текущий статус:";
 "Valid until" = "Действительно до:";
 "Paid by" = "Оплачено %@";
-"Myself" = "Myself";
+"Myself" = "Меня";
 "Pay by Card" = "Оплатить картой";
 "Details upon request" = "Подробнее по запросу";
 "Min X characters" = "Минимум %@ символов";
-"Pending" = "Pending...";
+"Pending" = "Ожидание...";
 
 
-"Membership.Ad.Title" = "Membership";
-"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+"Membership.Ad.Title" = "Членство";
+"Membership.Ad.Subtitle" = "Присоединение к сети Anytype означает внесение вклада в её историю";
 
-"Membership.Legal.Details" = "Membership levels details";
+"Membership.Legal.Details" = "Детали уровней членства ";
 "Membership.Legal.Privacy" = "Политика конфиденциальности";
 "Membership.Legal.Terms" = "Условия и положения";
-"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.WouldYouLike" = "Вы хотели бы использовать Anytype для бизнеса, образования и т.д.?";
 "Membership.Legal.LetUsKnow" = "Пожалуйста, дайте нам знать об этом здесь.";
 
 "Membership.Email.Subject" = "Запрос на специальную цену";
-"Membership.Email.Body" = "Please specify your request:
-- highlight if you represent an educational, governmental, or non-profit organization
-- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
-- provide additional details about how your organization uses Anytype";
-"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
+"Membership.Email.Body" = "Пожалуйста, уточните ваш запрос:
+- доложите, представляете ли вы образовательную, правительственную, или некоммерческую организацию
+- расскажите больше о вашей организации: количество сотрудников и будущих пользователей Anytype, рынках, на которых вы работаете, и т.д.
+- предоставьте дополнительную информацию о том, как ваша организация использует Anytype";
+"Membership.CustomTierEmail.Subject" = "Запрос пользовательского плана членства, id аккаунта: %@";
 
 
 "Membership.Banner.Title1" = "Создавайте вместе с нами";
-"Membership.Banner.Subtitle1" = "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.";
+"Membership.Banner.Subtitle1" = "Будьте в близком контакте с нашей командой и сообществом. Присоединяйтесь к команде, влияйте на эволюцию любого типа и расскажите ваше мнение о функциях.";
 "Membership.Banner.Title2" = "Получайте преимущества";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
-"Membership.Banner.Title3" = "Support the Vision";
-"Membership.Banner.Subtitle3" = "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.";
-"Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
+"Membership.Banner.Subtitle2" = "Наши члены имеют уникальную идентичность в Anytype Network, больше хранилиа, общие пространста и больше членов для совместного сотрудничества.";
+"Membership.Banner.Title3" = "Поддержите перспективу";
+"Membership.Banner.Subtitle3" = "Ваш вклад поддерживает нашу независимую команду и одобряет нашу перспективу, ориентированной на пользователя и безопасной совместной цифровой среды.";
+"Membership.Banner.Title4" = "Инвестировать в Соединение";
+"Membership.Banner.Subtitle4" = "Наше программное обеспечение бесплатно, но мы процветаем в сети, которая соединяет нас всех. Поддержите нас и вы инвестируете в ту инфраструктуру, которая держит нас объединенными.";
 
-"Membership.EmailForm.Title" = "Get your free membership";
-"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
+"Membership.EmailForm.Title" = "Получите ваше бесплатное членство";
+"Membership.EmailForm.Subtitle" = "Нам нужна ваша электронная почта чтобы держать спам вдали а веселье вблизи!";
 "Membership.EmailForm.Newsletter" = "Я бы хотел получать новости о продуктах и пользоваться бесплатными преимуществами!";
 "Membership.EmailValidation" = "Введите код, отправленный на вашу электронную почту";
 
@@ -1091,16 +1091,16 @@
 "Membership.NameForm.Validating" = "Подождите секундочку...";
 "Membership.NameForm.Validated" = "Это имя свободно";
 
-"Membership.NameForm.Error.TooShort" = "Name is too short";
-"Membership.NameForm.Error.TooLong" = "Name is too long";
-"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+"Membership.NameForm.Error.TooShort" = "Имя пользователя слишком короткое ";
+"Membership.NameForm.Error.TooLong" = "Имя пользователя слишком длинное";
+"Membership.NameForm.Error.HasInvalidChars" = "Имя пользователя содержит недопустимые символы";
 
 
-"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Title" = "Добро пожаловать в сеть, %@";
 "Membership.Success.Subitle" = "Большое спасибо за ваше любопытство!";
 
 "Membership.Payment.Card" = "Карточка";
-"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Crypto" = "Криптовалюта";
 "Membership.Payment.ApplePay" = "ApplePay";
 "Membership.Payment.GooglePay" = "GooglePay";
 "Membership.Payment.Apple subscription" = "Apple subscription";
