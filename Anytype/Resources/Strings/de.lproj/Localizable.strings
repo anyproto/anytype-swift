@@ -1036,7 +1036,7 @@
 "E-mail" = "E-Mail";
 "Learn more" = "Mehr erfahren";
 "per year" = "pro Jahr";
-"per x years" = "pro %@ Jahre";
+"per x years" = "alle %@ Jahre";
 "What’s included" = "Was ist inbegriffen?";
 "Submit" = "Absenden";
 "Resend" = "Erneut senden";
@@ -1087,7 +1087,7 @@
 "Membership.EmailValidation" = "Gib den an deine E-Mail-Adresse gesendeten Code ein";
 
 "Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
-"Membership.NameForm.Subtitle" = "This name acts like a personal domain, making it easier for others to find you";
+"Membership.NameForm.Subtitle" = "Dieser Name ist wie eine persönliche Domain und macht es anderen leichter, dich zu finden";
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
 
