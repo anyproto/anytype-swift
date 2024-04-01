@@ -41,7 +41,7 @@ final class MembershipService: MembershipServiceProtocol {
     public func makeStatusFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
         let tier = try await getTiers().first { $0.type.id == membership.tier }
         
-        guard let tier = tier else {
+        guard let tier else {
             anytypeAssertionFailure("Not found tier info for \(membership)")
             throw MembershipServiceError.tierNotFound
         }
