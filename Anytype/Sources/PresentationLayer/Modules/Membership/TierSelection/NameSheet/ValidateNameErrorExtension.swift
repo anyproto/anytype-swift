@@ -3,7 +3,7 @@ import ProtobufMessages
 import Foundation
 
 
-extension MembershipServiceProtocol.ValidateNameError: LocalizedError {
+extension MembershipServiceProtocol.ValidateNameError {
     public var validateNameSheetError: String {
         switch code {
         case .tooShort:
@@ -12,7 +12,7 @@ extension MembershipServiceProtocol.ValidateNameError: LocalizedError {
             Loc.Membership.NameForm.Error.tooLong
         case .hasInvalidChars:
             Loc.Membership.NameForm.Error.hasInvalidChars
-        case .UNRECOGNIZED, .unknownError, .null, .badInput, .tierFeaturesNoName:
+        case .UNRECOGNIZED, .unknownError, .null, .badInput, .tierFeaturesNoName, .notLoggedIn, .paymentNodeError, .cacheError, .tierNotFound:
             Loc.ErrorOccurred.pleaseTryAgain
         }
     }

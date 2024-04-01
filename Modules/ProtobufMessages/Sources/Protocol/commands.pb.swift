@@ -26363,6 +26363,9 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case notLoggedIn // = 3
             case paymentNodeError // = 4
+            case cacheError // = 5
+            case membershipNotFound // = 6
+            case membershipWrongState // = 7
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26376,6 +26379,9 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
+              case 5: self = .cacheError
+              case 6: self = .membershipNotFound
+              case 7: self = .membershipWrongState
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26387,6 +26393,9 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
+              case .cacheError: return 5
+              case .membershipNotFound: return 6
+              case .membershipWrongState: return 7
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26420,7 +26429,7 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var requestedTier: Int32 = 0
+        public var requestedTier: UInt32 = 0
 
         /// full name including .any suffix
         public var requestedAnyName: String = String()
@@ -26465,10 +26474,14 @@ public struct Anytype_Rpc {
             case tooShort // = 3
             case tooLong // = 4
             case hasInvalidChars // = 5
+            case tierFeaturesNoName // = 6
 
             /// if everything is fine - "name is already taken" check should be done in the NS
             /// see IsNameAvailable()
-            case tierFeaturesNoName // = 6
+            case tierNotFound // = 7
+            case notLoggedIn // = 8
+            case paymentNodeError // = 9
+            case cacheError // = 10
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26484,6 +26497,10 @@ public struct Anytype_Rpc {
               case 4: self = .tooLong
               case 5: self = .hasInvalidChars
               case 6: self = .tierFeaturesNoName
+              case 7: self = .tierNotFound
+              case 8: self = .notLoggedIn
+              case 9: self = .paymentNodeError
+              case 10: self = .cacheError
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26497,6 +26514,10 @@ public struct Anytype_Rpc {
               case .tooLong: return 4
               case .hasInvalidChars: return 5
               case .tierFeaturesNoName: return 6
+              case .tierNotFound: return 7
+              case .notLoggedIn: return 8
+              case .paymentNodeError: return 9
+              case .cacheError: return 10
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26529,7 +26550,7 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var requestedTier: Int32 = 0
+        public var requestedTier: UInt32 = 0
 
         public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodCard
 
@@ -26580,6 +26601,12 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case notLoggedIn // = 3
             case paymentNodeError // = 4
+            case cacheError // = 5
+            case tierNotFound // = 6
+            case tierInvalid // = 7
+            case paymentMethodInvalid // = 8
+            case badAnyname // = 9
+            case membershipAlreadyExists // = 10
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26593,6 +26620,12 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
+              case 5: self = .cacheError
+              case 6: self = .tierNotFound
+              case 7: self = .tierInvalid
+              case 8: self = .paymentMethodInvalid
+              case 9: self = .badAnyname
+              case 10: self = .membershipAlreadyExists
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26604,6 +26637,12 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
+              case .cacheError: return 5
+              case .tierNotFound: return 6
+              case .tierInvalid: return 7
+              case .paymentMethodInvalid: return 8
+              case .badAnyname: return 9
+              case .membershipAlreadyExists: return 10
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26679,6 +26718,7 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case notLoggedIn // = 3
             case paymentNodeError // = 4
+            case cacheError // = 5
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26692,6 +26732,7 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
+              case 5: self = .cacheError
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26703,6 +26744,7 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
+              case .cacheError: return 5
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26775,6 +26817,10 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case notLoggedIn // = 3
             case paymentNodeError // = 4
+            case cacheError // = 5
+            case membershipNotFound // = 6
+            case membershipWrongState // = 7
+            case badAnyname // = 8
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26788,6 +26834,10 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
+              case 5: self = .cacheError
+              case 6: self = .membershipNotFound
+              case 7: self = .membershipWrongState
+              case 8: self = .badAnyname
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26799,6 +26849,10 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
+              case .cacheError: return 5
+              case .membershipNotFound: return 6
+              case .membershipWrongState: return 7
+              case .badAnyname: return 8
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26874,6 +26928,12 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case notLoggedIn // = 3
             case paymentNodeError // = 4
+            case cacheError // = 5
+            case emailWrongFormat // = 6
+            case emailAlreadyVerified // = 7
+            case emailAlredySent // = 8
+            case emailFailedToSend // = 9
+            case membershipAlreadyExists // = 10
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26887,6 +26947,12 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
+              case 5: self = .cacheError
+              case 6: self = .emailWrongFormat
+              case 7: self = .emailAlreadyVerified
+              case 8: self = .emailAlredySent
+              case 9: self = .emailFailedToSend
+              case 10: self = .membershipAlreadyExists
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26898,6 +26964,12 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
+              case .cacheError: return 5
+              case .emailWrongFormat: return 6
+              case .emailAlreadyVerified: return 7
+              case .emailAlredySent: return 8
+              case .emailFailedToSend: return 9
+              case .membershipAlreadyExists: return 10
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26971,6 +27043,12 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case notLoggedIn // = 3
             case paymentNodeError // = 4
+            case cacheError // = 5
+            case emailAlreadyVerified // = 6
+            case expired // = 7
+            case wrong // = 8
+            case membershipNotFound // = 9
+            case membershipAlreadyActive // = 10
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26984,6 +27062,12 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
+              case 5: self = .cacheError
+              case 6: self = .emailAlreadyVerified
+              case 7: self = .expired
+              case 8: self = .wrong
+              case 9: self = .membershipNotFound
+              case 10: self = .membershipAlreadyActive
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26995,6 +27079,12 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
+              case .cacheError: return 5
+              case .emailAlreadyVerified: return 6
+              case .expired: return 7
+              case .wrong: return 8
+              case .membershipNotFound: return 9
+              case .membershipAlreadyActive: return 10
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27040,8 +27130,6 @@ public struct Anytype_Rpc {
 
           public var locale: String = String()
 
-          public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodCard
-
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
           public init() {}
@@ -27083,6 +27171,7 @@ public struct Anytype_Rpc {
               case badInput // = 2
               case notLoggedIn // = 3
               case paymentNodeError // = 4
+              case cacheError // = 5
               case UNRECOGNIZED(Int)
 
               public init() {
@@ -27096,6 +27185,7 @@ public struct Anytype_Rpc {
                 case 2: self = .badInput
                 case 3: self = .notLoggedIn
                 case 4: self = .paymentNodeError
+                case 5: self = .cacheError
                 default: self = .UNRECOGNIZED(rawValue)
                 }
               }
@@ -27107,6 +27197,7 @@ public struct Anytype_Rpc {
                 case .badInput: return 2
                 case .notLoggedIn: return 3
                 case .paymentNodeError: return 4
+                case .cacheError: return 5
                 case .UNRECOGNIZED(let i): return i
                 }
               }
@@ -30060,6 +30151,9 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: CaseIterable {
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .cacheError,
+    .membershipNotFound,
+    .membershipWrongState,
   ]
 }
 
@@ -30073,6 +30167,10 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: CaseIterable {
     .tooLong,
     .hasInvalidChars,
     .tierFeaturesNoName,
+    .tierNotFound,
+    .notLoggedIn,
+    .paymentNodeError,
+    .cacheError,
   ]
 }
 
@@ -30084,6 +30182,12 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: CaseIterable
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .cacheError,
+    .tierNotFound,
+    .tierInvalid,
+    .paymentMethodInvalid,
+    .badAnyname,
+    .membershipAlreadyExists,
   ]
 }
 
@@ -30095,6 +30199,7 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code: CaseItera
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .cacheError,
   ]
 }
 
@@ -30106,6 +30211,10 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: CaseIterable {
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .cacheError,
+    .membershipNotFound,
+    .membershipWrongState,
+    .badAnyname,
   ]
 }
 
@@ -30117,6 +30226,12 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: CaseI
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .cacheError,
+    .emailWrongFormat,
+    .emailAlreadyVerified,
+    .emailAlredySent,
+    .emailFailedToSend,
+    .membershipAlreadyExists,
   ]
 }
 
@@ -30128,6 +30243,12 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: CaseIterab
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .cacheError,
+    .emailAlreadyVerified,
+    .expired,
+    .wrong,
+    .membershipNotFound,
+    .membershipAlreadyActive,
   ]
 }
 
@@ -30139,6 +30260,7 @@ extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: CaseIterable {
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .cacheError,
   ]
 }
 
@@ -69774,6 +69896,9 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: SwiftProtobuf._P
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "MEMBERSHIP_NOT_FOUND"),
+    7: .same(proto: "MEMBERSHIP_WRONG_STATE"),
   ]
 }
 
@@ -69809,7 +69934,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.requestedTier) }()
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.requestedTier) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
       default: break
       }
@@ -69818,7 +69943,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.requestedTier != 0 {
-      try visitor.visitSingularInt32Field(value: self.requestedTier, fieldNumber: 1)
+      try visitor.visitSingularUInt32Field(value: self.requestedTier, fieldNumber: 1)
     }
     if !self.requestedAnyName.isEmpty {
       try visitor.visitSingularStringField(value: self.requestedAnyName, fieldNumber: 2)
@@ -69917,6 +70042,10 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: SwiftProtobuf.
     4: .same(proto: "TOO_LONG"),
     5: .same(proto: "HAS_INVALID_CHARS"),
     6: .same(proto: "TIER_FEATURES_NO_NAME"),
+    7: .same(proto: "TIER_NOT_FOUND"),
+    8: .same(proto: "NOT_LOGGED_IN"),
+    9: .same(proto: "PAYMENT_NODE_ERROR"),
+    10: .same(proto: "CACHE_ERROR"),
   ]
 }
 
@@ -69953,7 +70082,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularInt32Field(value: &self.requestedTier) }()
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.requestedTier) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.paymentMethod) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
       default: break
@@ -69963,7 +70092,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.requestedTier != 0 {
-      try visitor.visitSingularInt32Field(value: self.requestedTier, fieldNumber: 1)
+      try visitor.visitSingularUInt32Field(value: self.requestedTier, fieldNumber: 1)
     }
     if self.paymentMethod != .methodCard {
       try visitor.visitSingularEnumField(value: self.paymentMethod, fieldNumber: 2)
@@ -70070,6 +70199,12 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: SwiftProtobu
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "TIER_NOT_FOUND"),
+    7: .same(proto: "TIER_INVALID"),
+    8: .same(proto: "PAYMENT_METHOD_INVALID"),
+    9: .same(proto: "BAD_ANYNAME"),
+    10: .same(proto: "MEMBERSHIP_ALREADY_EXISTS"),
   ]
 }
 
@@ -70198,6 +70333,7 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code: SwiftProt
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
   ]
 }
 
@@ -70333,6 +70469,10 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: SwiftProtobuf._Pr
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "MEMBERSHIP_NOT_FOUND"),
+    7: .same(proto: "MEMBERSHIP_WRONG_STATE"),
+    8: .same(proto: "BAD_ANYNAME"),
   ]
 }
 
@@ -70474,6 +70614,12 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: Swift
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "EMAIL_WRONG_FORMAT"),
+    7: .same(proto: "EMAIL_ALREADY_VERIFIED"),
+    8: .same(proto: "EMAIL_ALREDY_SENT"),
+    9: .same(proto: "EMAIL_FAILED_TO_SEND"),
+    10: .same(proto: "MEMBERSHIP_ALREADY_EXISTS"),
   ]
 }
 
@@ -70609,6 +70755,12 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: SwiftProto
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "EMAIL_ALREADY_VERIFIED"),
+    7: .same(proto: "CODE_EXPIRED"),
+    8: .same(proto: "CODE_WRONG"),
+    9: .same(proto: "MEMBERSHIP_NOT_FOUND"),
+    10: .same(proto: "MEMBERSHIP_ALREADY_ACTIVE"),
   ]
 }
 
@@ -70655,7 +70807,6 @@ extension Anytype_Rpc.Membership.Tiers.Get.Request: SwiftProtobuf.Message, Swift
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "noCache"),
     2: .same(proto: "locale"),
-    3: .same(proto: "paymentMethod"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70666,7 +70817,6 @@ extension Anytype_Rpc.Membership.Tiers.Get.Request: SwiftProtobuf.Message, Swift
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularBoolField(value: &self.noCache) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.locale) }()
-      case 3: try { try decoder.decodeSingularEnumField(value: &self.paymentMethod) }()
       default: break
       }
     }
@@ -70679,16 +70829,12 @@ extension Anytype_Rpc.Membership.Tiers.Get.Request: SwiftProtobuf.Message, Swift
     if !self.locale.isEmpty {
       try visitor.visitSingularStringField(value: self.locale, fieldNumber: 2)
     }
-    if self.paymentMethod != .methodCard {
-      try visitor.visitSingularEnumField(value: self.paymentMethod, fieldNumber: 3)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get.Request, rhs: Anytype_Rpc.Membership.Tiers.Get.Request) -> Bool {
     if lhs.noCache != rhs.noCache {return false}
     if lhs.locale != rhs.locale {return false}
-    if lhs.paymentMethod != rhs.paymentMethod {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -70781,6 +70927,7 @@ extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: SwiftProtobuf._P
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    5: .same(proto: "CACHE_ERROR"),
   ]
 }
 
