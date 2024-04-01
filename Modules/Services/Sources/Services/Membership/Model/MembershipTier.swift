@@ -41,18 +41,26 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
     }
 }
 
+public enum MembershipAnyName: Hashable, Equatable {
+    case none
+    case some(minLenght: UInt32)
+}
+
 public struct MembershipTier: Hashable, Identifiable, Equatable {
     public let type: MembershipTierType
     public let name: String
+    public let anyName: MembershipAnyName
     
     public var id: MembershipTierType { type }
     
     public init(
         type: MembershipTierType,
-        name: String
+        name: String,
+        anyName: MembershipAnyName
     ) {
         self.type = type
         self.name = name
+        self.anyName = anyName
     }
 }
 
@@ -63,9 +71,12 @@ extension Anytype_Model_MembershipTierData {
     func asModel() -> MembershipTier? {
         guard let type = MembershipTierType(intId: Int32(id)) else { return nil }
         
+        let anyName: MembershipAnyName = anyNamesCountIncluded > 0 ? .some(minLenght: anyNamesCountIncluded) : .none
+        
         return MembershipTier(
             type: type,
-            name: name
+            name: name,
+            anyName: anyName
         )
     }
 }

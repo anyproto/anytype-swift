@@ -91,18 +91,18 @@ extension MembershipTier {
 // MARK: - Mocks
 extension MembershipTier {
     static var mockExplorer: MembershipTier {
-        MembershipTier(type: .explorer, name: "Explorer")
+        MembershipTier(type: .explorer, name: "Explorer", anyName: .none)
     }
     
     static var mockBuilder: MembershipTier {
-        MembershipTier(type: .builder, name: "Builder")
+        MembershipTier(type: .builder, name: "Builder", anyName: .some(minLenght: 7))
     }
     
     static var mockCoCreator: MembershipTier {
-        MembershipTier(type: .coCreator, name: "CockCreator")
+        MembershipTier(type: .coCreator, name: "CockCreator", anyName: .some(minLenght: 5))
     }
     
     static var mockCustom: MembershipTier {
-        MembershipTier(type: .custom(id: 228), name: "Na-Baron")
+        MembershipTier(type: .custom(id: 228), name: "Na-Baron", anyName: .some(minLenght: 3))
     }
 }

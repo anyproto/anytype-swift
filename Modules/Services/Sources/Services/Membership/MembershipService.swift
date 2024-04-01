@@ -11,8 +11,8 @@ enum MembershipServiceError: Error {
 
 
 public protocol MembershipServiceProtocol {
-    func getStatus() async throws -> MembershipStatus
-    func makeStatusFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus
+    func getMembership() async throws -> MembershipStatus
+    func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier]
     func dropTiersCache() async throws
@@ -33,12 +33,12 @@ public extension MembershipServiceProtocol {
 
 final class MembershipService: MembershipServiceProtocol {
     
-    public func getStatus() async throws -> MembershipStatus {
+    public func getMembership() async throws -> MembershipStatus {
         let status = try await ClientCommands.membershipGetStatus().invoke().data
-        return try await makeStatusFromMiddlewareModel(membership: status)
+        return try await makeMembershipFromMiddlewareModel(membership: status)
     }
     
-    public func makeStatusFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
+    public func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
         let tier = try await getTiers().first { $0.type.id == membership.tier }
         
         guard let tier else {
