@@ -1110,20 +1110,17 @@
 
 
 // MARK: - Membership Tiers
-"Membership.Explorer.Title" = "探索者";
 "Membership.Explorer.Subtitle" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
 "Membership.Explorer.Benefit1" = "1 GB 网络空间";
 "Membership.Explorer.Benefit2" = "10 个仅单人编辑空间";
 "Membership.Explorer.Benefit3" = "最多 10 个在只读模式下的共享空间";
 
-"Membership.Builder.Title" = "建造者";
 "Membership.Builder.Subtitle" = "解锁多方协作的魔法以及享受顶级支持";
 "Membership.Builder.Benefit1" = "唯一名字（大于 7 个字）";
 "Membership.Builder.Benefit2" = "128 GB 网络空间";
 "Membership.Builder.Benefit3" = "10 个访客协作位置";
 "Membership.Builder.Benefit4" = "优先支持";
 
-"Membership.CoCreator.Title" = "共创者";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
 "Membership.CoCreator.Benefit1" = "唯一名字（大于 5 个字）";
 "Membership.CoCreator.Benefit2" = "256 GB 网络空间";
@@ -1131,7 +1128,6 @@
 "Membership.CoCreator.Benefit4" = "与团队聊天";
 "Membership.CoCreator.Benefit5" = "独特的可收藏的";
 
-"Membership.Custom.Title" = "自定义";
 "Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
