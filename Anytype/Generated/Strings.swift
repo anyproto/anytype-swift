@@ -1458,28 +1458,10 @@ internal enum Loc {
       internal static let title4 = Loc.tr("Localizable", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
     internal enum Builder {
-      /// Unique name (from 7 characters)
-      internal static let benefit1 = Loc.tr("Localizable", "Membership.Builder.Benefit1", fallback: "Unique name (from 7 characters)")
-      /// 128 GB of network space
-      internal static let benefit2 = Loc.tr("Localizable", "Membership.Builder.Benefit2", fallback: "128 GB of network space")
-      /// 10 Guest collaborator seats
-      internal static let benefit3 = Loc.tr("Localizable", "Membership.Builder.Benefit3", fallback: "10 Guest collaborator seats")
-      /// Priority support
-      internal static let benefit4 = Loc.tr("Localizable", "Membership.Builder.Benefit4", fallback: "Priority support")
       /// Unlock the magic of multi-party collaboration and enjoy top-notch support
       internal static let subtitle = Loc.tr("Localizable", "Membership.Builder.Subtitle", fallback: "Unlock the magic of multi-party collaboration and enjoy top-notch support")
     }
     internal enum CoCreator {
-      /// Unique name (from 5 characters)
-      internal static let benefit1 = Loc.tr("Localizable", "Membership.CoCreator.Benefit1", fallback: "Unique name (from 5 characters)")
-      /// 256 GB of network space
-      internal static let benefit2 = Loc.tr("Localizable", "Membership.CoCreator.Benefit2", fallback: "256 GB of network space")
-      /// 25 Guest collaborator seats
-      internal static let benefit3 = Loc.tr("Localizable", "Membership.CoCreator.Benefit3", fallback: "25 Guest collaborator seats")
-      /// Chat with the team
-      internal static let benefit4 = Loc.tr("Localizable", "Membership.CoCreator.Benefit4", fallback: "Chat with the team")
-      /// Unique collectible
-      internal static let benefit5 = Loc.tr("Localizable", "Membership.CoCreator.Benefit5", fallback: "Unique collectible")
       /// Support our adventure and unlock exclusive access and perks
       internal static let subtitle = Loc.tr("Localizable", "Membership.CoCreator.Subtitle", fallback: "Support our adventure and unlock exclusive access and perks")
     }
@@ -1511,14 +1493,38 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Membership.EmailForm.Title", fallback: "Get your free membership")
     }
     internal enum Explorer {
-      /// 1 GB of network space
-      internal static let benefit1 = Loc.tr("Localizable", "Membership.Explorer.Benefit1", fallback: "1 GB of network space")
-      /// 10 one-to-one spaces
-      internal static let benefit2 = Loc.tr("Localizable", "Membership.Explorer.Benefit2", fallback: "10 one-to-one spaces")
-      /// Up to 10 shared spaces in read-only mode
-      internal static let benefit3 = Loc.tr("Localizable", "Membership.Explorer.Benefit3", fallback: "Up to 10 shared spaces in read-only mode")
       /// Dive into the network and enjoy the thrill of one-on-one collaboration
       internal static let subtitle = Loc.tr("Localizable", "Membership.Explorer.Subtitle", fallback: "Dive into the network and enjoy the thrill of one-on-one collaboration")
+    }
+    internal enum Feature {
+      /// %@ Invitations
+      internal static func invites(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.Invites", String(describing: p1), fallback: "%@ Invitations")
+      }
+      /// Local, non-unique name
+      internal static let localName = Loc.tr("Localizable", "Membership.Feature.LocalName", fallback: "Local, non-unique name")
+      /// %@ Shared spaces
+      internal static func sharedSpaces(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.SharedSpaces", String(describing: p1), fallback: "%@ Shared spaces")
+      }
+      /// %@ Editors per space
+      internal static func spaceWriters(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.SpaceWriters", String(describing: p1), fallback: "%@ Editors per space")
+      }
+      /// %@ GB of backup & sync space
+      internal static func storageGB(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.StorageGB", String(describing: p1), fallback: "%@ GB of backup & sync space")
+      }
+      /// Unique Network name (%@+ characters)
+      internal static func uniqueName(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.UniqueName", String(describing: p1), fallback: "Unique Network name (%@+ characters)")
+      }
+      /// Unlimited Viewers for shared spaces
+      internal static let unlimitedViewers = Loc.tr("Localizable", "Membership.Feature.UnlimitedViewers", fallback: "Unlimited Viewers for shared spaces")
+      /// %@ Viewers for shared spaces
+      internal static func viewers(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Membership.Feature.Viewers", String(describing: p1), fallback: "%@ Viewers for shared spaces")
+      }
     }
     internal enum Legal {
       /// Membership levels details

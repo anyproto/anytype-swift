@@ -17,36 +17,6 @@ extension MembershipTier {
         }
     }
     
-    var benefits: [String] {
-        switch self.type {
-        case .explorer:
-            [
-                Loc.Membership.Explorer.benefit1,
-                Loc.Membership.Explorer.benefit2,
-                Loc.Membership.Explorer.benefit3
-            ]
-        case .builder:
-            [
-                Loc.Membership.Builder.benefit1,
-                Loc.Membership.Builder.benefit2,
-                Loc.Membership.Builder.benefit3,
-                Loc.Membership.Builder.benefit4
-            ]
-        case .coCreator:
-            [
-                Loc.Membership.CoCreator.benefit1,
-                Loc.Membership.CoCreator.benefit2,
-                Loc.Membership.CoCreator.benefit3,
-                Loc.Membership.CoCreator.benefit4,
-                Loc.Membership.CoCreator.benefit5
-            ]
-        case .custom:
-            [
-                // TBD in future updates
-            ]
-        }
-    }
-    
     var mediumIcon: ImageAsset {
         switch self.type {
         case .explorer:
@@ -86,23 +56,107 @@ extension MembershipTier {
             .purple
         }
     }
+    
+    var featureDescriptions: [String] {
+        var featureDescriptions = [anyName.description]
+        featureDescriptions.append(contentsOf: features.map(\.description))
+        return featureDescriptions
+    }
 }
+
+extension MembershipAnyName {
+    var description: String {
+        switch self {
+        case .none:
+            Loc.Membership.Feature.localName
+        case .some(let minLenght):
+            Loc.Membership.Feature.uniqueName(minLenght)
+        }
+    }
+}
+
+extension MembershipFeature {
+    var description: String {
+        switch self {
+        case .storageGbs(let value):
+            Loc.Membership.Feature.storageGB(value)
+        case .invites(let value):
+            Loc.Membership.Feature.invites(value)
+        case .spaceWriters(let value):
+            Loc.Membership.Feature.spaceWriters(value)
+        case .spaceReaders(let value):
+            switch value {
+            case .int(let intValue):
+                if intValue == 1024 { // Middleware understanding of Unlimited
+                    Loc.Membership.Feature.unlimitedViewers
+                } else {
+                    Loc.Membership.Feature.viewers(intValue)
+                }
+            case .string(let stringValue):
+                Loc.Membership.Feature.viewers(stringValue)
+            }
+        case .sharedSpaces(let value):
+            Loc.Membership.Feature.sharedSpaces(value)
+        }
+    }
+}
+
 
 // MARK: - Mocks
 extension MembershipTier {
     static var mockExplorer: MembershipTier {
-        MembershipTier(type: .explorer, name: "Explorer", anyName: .none)
+        MembershipTier(
+            type: .explorer,
+            name: "Explorer",
+            anyName: .none,
+            features: [
+                .storageGbs(.int(1)),
+                .sharedSpaces(.int(3)),
+                .spaceWriters(.int(3)),
+                .spaceReaders(.int(3))
+            ]
+        )
     }
     
     static var mockBuilder: MembershipTier {
-        MembershipTier(type: .builder, name: "Builder", anyName: .some(minLenght: 7))
+        MembershipTier(
+            type: .builder,
+            name: "Builder",
+            anyName: .some(minLenght: 7),
+            features: [
+                .storageGbs(.int(128)),
+                .sharedSpaces(.int(3)),
+                .spaceWriters(.int(10)),
+                .spaceReaders(.int(1024))
+            ]
+        )
     }
     
     static var mockCoCreator: MembershipTier {
-        MembershipTier(type: .coCreator, name: "CockCreator", anyName: .some(minLenght: 5))
+        MembershipTier(
+            type: .coCreator,
+            name: "CockCreator",
+            anyName: .some(minLenght: 5),
+            features: [
+                .storageGbs(.int(256)),
+                .sharedSpaces(.int(3)),
+                .spaceWriters(.int(10)),
+                .spaceReaders(.int(1024))
+            ]
+        )
     }
     
     static var mockCustom: MembershipTier {
-        MembershipTier(type: .custom(id: 228), name: "Na-Baron", anyName: .some(minLenght: 3))
+        MembershipTier(
+            type: .custom(id: 228),
+            name: "Na-Baron",
+            anyName: .some(minLenght: 3),
+            features: [
+                .storageGbs(.int(2560)),
+                .sharedSpaces(.int(333)),
+                .spaceWriters(.int(100)),
+                .spaceReaders(.int(1024)),
+            ]
+        )
     }
 }
