@@ -1107,20 +1107,17 @@
 
 
 // MARK: - Membership Tiers
-"Membership.Explorer.Title" = "Utforsker";
 "Membership.Explorer.Subtitle" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
 "Membership.Explorer.Benefit1" = "1 GB of network space";
 "Membership.Explorer.Benefit2" = "10 en-til-en rom";
 "Membership.Explorer.Benefit3" = "Up to 10 shared spaces in read-only mode";
 
-"Membership.Builder.Title" = "Builder";
 "Membership.Builder.Subtitle" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
 "Membership.Builder.Benefit1" = "Unikt navn (fra 7 tegn)";
 "Membership.Builder.Benefit2" = "128 GB of network space";
 "Membership.Builder.Benefit3" = "10 Guest collaborator seats";
 "Membership.Builder.Benefit4" = "Prioritert support";
 
-"Membership.CoCreator.Title" = "Co-Creator";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
 "Membership.CoCreator.Benefit1" = "Unique name (from 5 characters)";
 "Membership.CoCreator.Benefit2" = "256 GB of network space";
@@ -1128,7 +1125,6 @@
 "Membership.CoCreator.Benefit4" = "Chat med teamet";
 "Membership.CoCreator.Benefit5" = "Unique collectible";
 
-"Membership.Custom.Title" = "Custom";
 "Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
