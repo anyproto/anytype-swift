@@ -22,7 +22,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     init() {
         membershipStatusStorage.status.assign(to: &$userMembership)
-        loadTiers(noCache: false)
+        loadTiers()
     }
     
     func onTierSelected(tier: MembershipTier) {
@@ -47,7 +47,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     func onSuccessfulValidation(data: EmailVerificationData) {
         emailVerificationData = nil
         showTier = nil
-        loadTiers(noCache: true)
+        loadTiers()
         
         // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
         Task {
@@ -56,10 +56,10 @@ final class MembershipCoordinatorModel: ObservableObject {
         }
     }
     
-    func loadTiers(noCache: Bool) {
+    func loadTiers() {
         Task {
             do {
-                tiers = try await membershipService.getTiers(noCache: noCache)
+                tiers = try await membershipService.getTiers()
                 showTiersLoadingError = false
             } catch {
                 showTiersLoadingError = true

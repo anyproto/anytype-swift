@@ -43,7 +43,7 @@ struct MembershipCoordinator: View {
             subtitle: Loc.Error.Common.message,
             actionText: Loc.Error.Common.tryAgain
         ) {
-            model.loadTiers(noCache: false)
+            model.loadTiers()
         }
     }
     

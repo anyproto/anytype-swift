@@ -24,6 +24,12 @@ public protocol MembershipServiceProtocol {
     func validateName(name: String, tierType: MembershipTierType) async throws
 }
 
+public extension MembershipServiceProtocol {
+    func getTiers() async throws -> [MembershipTier] {
+        try await getTiers(noCache: false)
+    }
+}
+
 final class MembershipService: MembershipServiceProtocol {
     
     public func getStatus() async throws -> MembershipStatus {
@@ -32,19 +38,14 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     public func makeStatusFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
-        let cachedTier = try await getTiers(noCache: false).first { $0.type.id == membership.tier }
+        let tier = try await getTiers().first { $0.type.id == membership.tier }
         
-        if let tier = cachedTier {
-            return convertMiddlewareMembership(membership: membership, tier: tier)
+        guard let tier = tier else {
+            anytypeAssertionFailure("Not found tier info for \(membership)")
+            throw MembershipServiceError.tierNotFound
         }
         
-        let middlewareTier = try await getTiers(noCache: true).first { $0.type.id == membership.tier }
-        if let tier = middlewareTier {
-            return convertMiddlewareMembership(membership: membership, tier: tier)
-        }
-        
-        anytypeAssertionFailure("Not found tier info for \(membership)")
-        throw MembershipServiceError.tierNotFound
+        return convertMiddlewareMembership(membership: membership, tier: tier)
     }
     
     public func getTiers(noCache: Bool) async throws -> [MembershipTier] {
