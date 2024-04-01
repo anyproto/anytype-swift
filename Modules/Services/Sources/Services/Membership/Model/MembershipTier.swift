@@ -1,26 +1,39 @@
 import ProtobufMessages
 
 
-public enum MembershipTierId: Hashable, Identifiable, Equatable {
+public enum MembershipTierType: Hashable, Identifiable, Equatable {
     case explorer
     case builder
     case coCreator
     
     case custom(id: Int32)
     
-    public var id: Self {
-        return self
+    static let explorerId: Int32 = 1
+    static let builderId: Int32 = 4
+    static let coCreatorId: Int32 = 5
+    
+    public var id: Int32 {
+        switch self {
+        case .explorer:
+            Self.explorerId
+        case .builder:
+            Self.builderId
+        case .coCreator:
+            Self.coCreatorId
+        case .custom(let id):
+            id
+        }
     }
     
     init?(intId: Int32) {
         switch intId {
         case 0:
             return nil
-        case 1:
+        case Self.explorerId:
             self = .explorer
-        case 4:
+        case Self.builderId:
             self = .builder
-        case 5:
+        case Self.coCreatorId:
             self = .coCreator
         default:
             self = .custom(id: Int32(intId))
@@ -29,14 +42,16 @@ public enum MembershipTierId: Hashable, Identifiable, Equatable {
 }
 
 public struct MembershipTier: Hashable, Identifiable, Equatable {
-    public let id: MembershipTierId
+    public let type: MembershipTierType
     public let name: String
     
+    public var id: MembershipTierType { type }
+    
     public init(
-        id: MembershipTierId,
+        type: MembershipTierType,
         name: String
     ) {
-        self.id = id
+        self.type = type
         self.name = name
     }
 }
@@ -46,27 +61,11 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
 
 extension Anytype_Model_MembershipTierData {
     func asModel() -> MembershipTier? {
-        guard let tierId = MembershipTierId(intId: Int32(id)) else { return nil }
+        guard let type = MembershipTierType(intId: Int32(id)) else { return nil }
         
         return MembershipTier(
-            id: tierId,
+            type: type,
             name: name
         )
-    }
-}
-
-// TODO: Use API
-extension MembershipTierId {
-    var middlewareId: Int32 {
-        switch self {
-        case .explorer:
-            1
-        case .builder:
-            4
-        case .coCreator:
-            5
-        case .custom(let id):
-            id
-        }
     }
 }

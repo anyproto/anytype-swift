@@ -24,7 +24,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
     
     // TODO: use middleware api
     var minimumNumberOfCharacters: Int {
-        switch tier.id {
+        switch tier.type {
         case .builder:
             7
         case .coCreator:
@@ -62,7 +62,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
             try Task.checkCancellation()
             
             do {
-                try await memberhsipService.validateName(name: "\(name).any", tierId: tier.id)
+                try await memberhsipService.validateName(name: "\(name).any", tierType: tier.type)
                 state = .validated
             } catch let error as MembershipServiceProtocol.ValidateNameError {
                 state = .error(text: error.validateNameSheetError)
