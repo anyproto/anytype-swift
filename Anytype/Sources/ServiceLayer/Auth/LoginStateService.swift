@@ -39,7 +39,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
-        _ = try? await membershipService.getTiers(noCache: true) // To update cache
+        try? await membershipService.dropTiersCache()
         
         await startSubscriptions()
     }

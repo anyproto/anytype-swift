@@ -15,6 +15,7 @@ public protocol MembershipServiceProtocol {
     func makeStatusFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier]
+    func dropTiersCache() async throws
     
     
     func getVerificationEmail(data: EmailVerificationData) async throws
@@ -54,6 +55,10 @@ final class MembershipService: MembershipServiceProtocol {
             $0.noCache = noCache
         })
         .invoke().tiers.filter { !$0.isTest }.compactMap { $0.asModel() }
+    }
+    
+    func dropTiersCache() async throws {
+        _ = try await getTiers(noCache: true)
     }
     
     public func getVerificationEmail(data: EmailVerificationData) async throws {
