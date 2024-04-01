@@ -376,7 +376,7 @@ extension EditorPageController: EditorPageViewInput {
 
         applyBlocksSectionSnapshot(
             blocksSnapshot,
-            animatingDifferences:  dataSourceAnimationEnabled,
+            animatingDifferences: dataSourceAnimationEnabled,
             completion: completion
         )
         applyAnimationConfig = isRealData
