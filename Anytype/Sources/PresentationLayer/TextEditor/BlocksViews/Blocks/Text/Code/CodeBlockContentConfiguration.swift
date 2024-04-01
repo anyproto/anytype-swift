@@ -8,6 +8,7 @@ struct CodeBlockContentConfiguration: BlockConfiguration {
         let becomeFirstResponder: () -> ()
         let textDidChange: (UITextView) -> ()
         let showCodeSelection: @MainActor () -> ()
+        let textBlockSetNeedsLayout: () -> Void
     }
 
     let content: BlockText
