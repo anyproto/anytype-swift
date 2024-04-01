@@ -1107,20 +1107,17 @@
 
 
 // MARK: - Membership Tiers
-"Membership.Explorer.Title" = "Penjelajah";
 "Membership.Explorer.Subtitle" = "Masuki dalam jaringan dan nikmati keseruan kolaborasi one-on-one";
 "Membership.Explorer.Benefit1" = "Ruang jaringan 1 GB";
 "Membership.Explorer.Benefit2" = "10 ruang satu ke satu";
 "Membership.Explorer.Benefit3" = "Sampai dengan 10 ruang terbagi dalam mode hanya baca";
 
-"Membership.Builder.Title" = "Pembangun";
 "Membership.Builder.Subtitle" = "Dapatkan keajaiban kolaborasi multi-party dan nikmati dukungan tertinggi";
 "Membership.Builder.Benefit1" = "Nama unik (dari 7 karakter)";
 "Membership.Builder.Benefit2" = "Ruang jaringan 128 GB";
 "Membership.Builder.Benefit3" = "Tempat duduk kolaborator untuk 10 Tamu";
 "Membership.Builder.Benefit4" = "Layanan prioritas";
 
-"Membership.CoCreator.Title" = "Pencipta Bersama";
 "Membership.CoCreator.Subtitle" = "Dukung petualangan kami dan dapatkan akses dan manfaat eksklusif";
 "Membership.CoCreator.Benefit1" = "Nama unik (dari 5 karakter)";
 "Membership.CoCreator.Benefit2" = "Ruang jaringan 256 GB";
@@ -1128,7 +1125,6 @@
 "Membership.CoCreator.Benefit4" = "Mengobrol dengan tim";
 "Membership.CoCreator.Benefit5" = "Koleksi yang unik";
 
-"Membership.Custom.Title" = "Custom";
 "Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
 
 
