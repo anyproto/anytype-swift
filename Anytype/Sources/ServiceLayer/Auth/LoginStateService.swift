@@ -20,6 +20,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     @Injected(\.blockWidgetExpandedService)
     private var blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: RelationDetailsStorageProtocol
     @Injected(\.workspaceStorage)
@@ -37,6 +39,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
+        _ = try? await membershipService.getTiers(noCache: true) // To update cache
+        
         await startSubscriptions()
     }
     
