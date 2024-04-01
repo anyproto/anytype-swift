@@ -1109,20 +1109,17 @@
 
 
 // MARK: - Membership Tiers
-"Membership.Explorer.Title" = "Navegador";
 "Membership.Explorer.Subtitle" = "Mergulhe na rede e aproveite a emoção da colaboração individual";
 "Membership.Explorer.Benefit1" = "1 GB de espaço de rede";
 "Membership.Explorer.Benefit2" = "10 Espaços individuais";
 "Membership.Explorer.Benefit3" = "Até 10 Espaços compartilhados em modo somente leitura";
 
-"Membership.Builder.Title" = "Criador";
 "Membership.Builder.Subtitle" = "Desbloqueie a magia da colaboração entre várias partes e aproveite o suporte de alto nível";
 "Membership.Builder.Benefit1" = "Nome único (a partir de 7 caracteres)";
 "Membership.Builder.Benefit2" = "128 GB de espaço de rede";
 "Membership.Builder.Benefit3" = "10 Assentos de Colaboradores Convidados";
 "Membership.Builder.Benefit4" = "Suporte prioritário";
 
-"Membership.CoCreator.Title" = "Co-Criador";
 "Membership.CoCreator.Subtitle" = "Apoie nossa aventura e desbloqueie vantagens e acessos exclusivos";
 "Membership.CoCreator.Benefit1" = "Nome único (a partir de 5 caracteres)";
 "Membership.CoCreator.Benefit2" = "256 GB de espaço de rede";
@@ -1130,7 +1127,6 @@
 "Membership.CoCreator.Benefit4" = "Conversas com o time";
 "Membership.CoCreator.Benefit5" = "Colecionável único";
 
-"Membership.Custom.Title" = "Personalizado";
 "Membership.Custom.Subtitle" = "Associação feita para suas necessidades e preferências";
 
 
