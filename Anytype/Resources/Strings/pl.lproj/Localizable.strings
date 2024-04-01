@@ -1107,20 +1107,17 @@
 
 
 // MARK: - Membership Tiers
-"Membership.Explorer.Title" = "Menadżer plików";
 "Membership.Explorer.Subtitle" = "Zanurz się w sieci i ciesz się dreszczykiem emocji związanym ze współpracą jeden na jednego";
 "Membership.Explorer.Benefit1" = "1 GB przestrzeni sieciowej";
 "Membership.Explorer.Benefit2" = "10 miejsc jeden na jeden";
 "Membership.Explorer.Benefit3" = "Do 10 przestrzeni współdzielonych w trybie tylko do odczytu";
 
-"Membership.Builder.Title" = "Kreator";
 "Membership.Builder.Subtitle" = "Uwolnij magię współpracy wielostronnej i ciesz się wsparciem na najwyższym poziomie";
 "Membership.Builder.Benefit1" = "Unikalna nazwa (od 7 znaków)";
 "Membership.Builder.Benefit2" = "128 GB przestrzeni sieciowej";
 "Membership.Builder.Benefit3" = "10 miejsc dla współpracowników gości";
 "Membership.Builder.Benefit4" = "Priorytetowe wsparcie";
 
-"Membership.CoCreator.Title" = "Współtwórca";
 "Membership.CoCreator.Subtitle" = "Wesprzyj naszą przygodę i odblokuj ekskluzywny dostęp i korzyści";
 "Membership.CoCreator.Benefit1" = "Unikalna nazwa (od 5 znaków)";
 "Membership.CoCreator.Benefit2" = "256 GB przestrzeni sieciowej";
@@ -1128,7 +1125,6 @@
 "Membership.CoCreator.Benefit4" = "Porozmawiaj z zespołem";
 "Membership.CoCreator.Benefit5" = "Unikatowy przedmiot kolekcjonerski";
 
-"Membership.Custom.Title" = "Własny";
 "Membership.Custom.Subtitle" = "Członkostwo dostosowane do Twoich konkretnych potrzeb i preferencji";
 
 
