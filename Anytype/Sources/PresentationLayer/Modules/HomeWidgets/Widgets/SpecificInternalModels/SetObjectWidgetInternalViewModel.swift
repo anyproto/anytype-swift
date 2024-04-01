@@ -177,7 +177,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
         setActiveViewId()
         
         guard let setDocument else { return }
-        allowCreateObject = setDocument.canCreateObject()
+        allowCreateObject = setDocument.setPermissions.canCreateObject
         
         guard let details = setDocument.details else { return }
         name = details.title

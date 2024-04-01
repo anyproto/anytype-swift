@@ -11,7 +11,7 @@ protocol BaseDocumentGeneralProtocol: AnyObject {
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
     var forPreview: Bool { get }
-    var objectRestrictions: ObjectRestrictions { get }
+    var permissions: ObjectPermissions { get }
     
     @MainActor
     func open() async throws
@@ -27,7 +27,6 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }
-    var permissions: ObjectPermissions { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
     

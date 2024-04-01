@@ -559,6 +559,9 @@
 		2A80D0572ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0542ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift */; };
 		2A80D0622ABAFE9200DB0513 /* EditorNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */; };
 		2A80F7682BB47569000B55C6 /* SpaceMoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80F7672BB47569000B55C6 /* SpaceMoreInfoView.swift */; };
+		2A80F76A2BB5764F000B55C6 /* SetPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80F7692BB5764F000B55C6 /* SetPermissions.swift */; };
+		2A80F76C2BB5AA63000B55C6 /* ButtonForeground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80F76B2BB5AA63000B55C6 /* ButtonForeground.swift */; };
+		2A80F76F2BB5BCD2000B55C6 /* SetPermissionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80F76E2BB5BCD2000B55C6 /* SetPermissionsBuilder.swift */; };
 		2A816AC72AD7DC1700975BCA /* ServerConfigirationStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */; };
 		2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */; };
 		2A816ACC2AD7E31F00975BCA /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A816ACB2AD7E31F00975BCA /* DocumentPicker.swift */; };
@@ -2352,6 +2355,9 @@
 		2A80D0542ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarView.swift; sourceTree = "<group>"; };
 		2A80F7672BB47569000B55C6 /* SpaceMoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceMoreInfoView.swift; sourceTree = "<group>"; };
+		2A80F7692BB5764F000B55C6 /* SetPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPermissions.swift; sourceTree = "<group>"; };
+		2A80F76B2BB5AA63000B55C6 /* ButtonForeground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonForeground.swift; sourceTree = "<group>"; };
+		2A80F76E2BB5BCD2000B55C6 /* SetPermissionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetPermissionsBuilder.swift; sourceTree = "<group>"; };
 		2A816AC62AD7DC1700975BCA /* ServerConfigirationStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigirationStorage.swift; sourceTree = "<group>"; };
 		2A816AC82AD7DFC700975BCA /* ServerConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationView.swift; sourceTree = "<group>"; };
 		2A816ACB2AD7E31F00975BCA /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
@@ -6143,6 +6149,14 @@
 			path = SpaceMoreInfo;
 			sourceTree = "<group>";
 		};
+		2A80F76D2BB5BCC6000B55C6 /* Builders */ = {
+			isa = PBXGroup;
+			children = (
+				2A80F76E2BB5BCD2000B55C6 /* SetPermissionsBuilder.swift */,
+			);
+			path = Builders;
+			sourceTree = "<group>";
+		};
 		2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -8961,6 +8975,7 @@
 				2ABF8F5A2B7FADA3004B8FB8 /* ErrorStateView.swift */,
 				2ABF8F5C2B7FB1B5004B8FB8 /* ScreenStateView.swift */,
 				2A27F9B72B8DDB1F00BA1303 /* AsyncThrowsTask.swift */,
+				2A80F76B2BB5AA63000B55C6 /* ButtonForeground.swift */,
 			);
 			path = BasicComponents;
 			sourceTree = "<group>";
@@ -9181,6 +9196,7 @@
 		3DCFDE312796C360006C7D02 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2A80F76D2BB5BCC6000B55C6 /* Builders */,
 				2E8387BC291A520C00506766 /* GroupObjectIds.swift */,
 				3D7F718527A190C6003FE893 /* EditorSetPaginationHelper.swift */,
 				3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */,
@@ -9188,6 +9204,7 @@
 				2E999482293E490300FFBED9 /* Relation+Set.swift */,
 				2E9994842940D1D500FFBED9 /* SetDocument.swift */,
 				2E999486294240C300FFBED9 /* SetDocumentProtocol.swift */,
+				2A80F7692BB5764F000B55C6 /* SetPermissions.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -11382,6 +11399,7 @@
 				120AC25E2747B56000330D7B /* TextRelationDetailsViewModel.swift in Sources */,
 				2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */,
 				53CC99B3280DB6CC00C39CCF /* EventConfigurtion.swift in Sources */,
+				2A80F76C2BB5AA63000B55C6 /* ButtonForeground.swift in Sources */,
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
 				3D26AA722B9725EF00D61479 /* MembershipEmailSheetView.swift in Sources */,
 				2A03039C28ABAC92002EFC46 /* TextRelationReloadContentActionViewModel.swift in Sources */,
@@ -12133,6 +12151,7 @@
 				2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */,
 				2A536E622BAB152D00CF2FF3 /* SpaceCancelRequestAlertModel.swift in Sources */,
 				124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */,
+				2A80F76F2BB5BCD2000B55C6 /* SetPermissionsBuilder.swift in Sources */,
 				3D5D0C602B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift in Sources */,
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
 				2EAA14032AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift in Sources */,
@@ -12302,6 +12321,7 @@
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
 				2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */,
 				2A794B422AD53D3A00BA160F /* SubscriptionStorageProvider.swift in Sources */,
+				2A80F76A2BB5764F000B55C6 /* SetPermissions.swift in Sources */,
 				2A5B53BF2A80E2B100BC993B /* SpaceSettingsModuleOutput.swift in Sources */,
 				2A28722E2B4D3537007B3D59 /* ObjectOrigin+Loc.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,

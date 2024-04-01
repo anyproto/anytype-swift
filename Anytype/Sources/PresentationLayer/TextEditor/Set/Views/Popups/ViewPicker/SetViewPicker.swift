@@ -12,6 +12,9 @@ struct SetViewPicker: View {
         }
         .frame(height: 358)
         .background(Color.Background.secondary)
+        .task {
+            await viewModel.startSyncTask()
+        }
     }
     
     private var content: some View {
@@ -52,8 +55,10 @@ struct SetViewPicker: View {
         .buttonStyle(BorderlessButtonStyle())
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
-                    .foregroundColor(Color.Button.active)
+                if viewModel.canEditViews {
+                    EditButton()
+                        .buttonDynamicForegroundColor()
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 addButton
@@ -65,11 +70,11 @@ struct SetViewPicker: View {
     
     private var addButton: some View {
         Group {
-            if editMode == .inactive {
+            if editMode == .inactive && viewModel.canEditViews {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
-                    Image(asset: .X32.plus).foregroundColor(.Button.active)
+                    IconView(icon: .asset(.X32.plus)).frame(width: 32, height: 32)
                 }
             }
         }

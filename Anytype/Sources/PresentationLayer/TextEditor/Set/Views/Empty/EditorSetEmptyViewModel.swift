@@ -1,5 +1,6 @@
 struct EditorSetEmptyViewModel {
     let mode: Mode
+    let allowTap: Bool
     let onTap: () -> Void
     
     enum Mode {

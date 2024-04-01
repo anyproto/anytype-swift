@@ -16,7 +16,7 @@ struct SetTableViewHeader: View {
             ForEach(model.colums, id: \.key) { data in
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(15)
-                    if data.isReadOnlyValue {
+                    if data.isReadOnlyValue || !model.setDocument.setPermissions.canEditRelationValuesInView {
                         Image(asset: .relationLockedSmall)
                             .tint(.Button.active)
                         Spacer.fixedWidth(4)

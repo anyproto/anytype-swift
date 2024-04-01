@@ -9,9 +9,12 @@ final class SetViewSettingsListModel: ObservableObject {
     @Published var relationsValue = SetViewSettings.relations.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
     @Published var sortsValue = SetViewSettings.sorts.placeholder
+    @Published var canEditSetView = false
+    
     let settings = SetViewSettings.allCases
     
     let canBeDeleted: Bool
+    
     let mode: SetViewSettingsMode
     
     private let setDocument: SetDocumentProtocol
@@ -101,6 +104,7 @@ final class SetViewSettingsListModel: ObservableObject {
         
         name = view.name
         layoutValue = view.type.isSupported ? view.type.name : Loc.EditorSet.View.Not.Supported.title
+        canEditSetView = setDocument.setPermissions.canEditView
         updateRelationsValue()
         
         let sorts = setDocument.sorts(for: viewId)

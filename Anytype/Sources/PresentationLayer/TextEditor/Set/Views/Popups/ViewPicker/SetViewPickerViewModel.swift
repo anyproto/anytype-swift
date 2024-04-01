@@ -7,6 +7,7 @@ import AnytypeCore
 final class SetViewPickerViewModel: ObservableObject {
     @Published var rows: [SetViewRowConfiguration] = []
     @Published var disableDeletion = false
+    @Published var canEditViews = false
     
     private let setDocument: SetDocumentProtocol
     private var cancellable: AnyCancellable?
@@ -48,6 +49,12 @@ final class SetViewPickerViewModel: ObservableObject {
                 try await dataviewService.deleteView(objectId: setDocument.objectId, blockId: setDocument.blockId, viewId: view.id)
                 AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
             }
+        }
+    }
+    
+    func startSyncTask() async {
+        for await _ in setDocument.syncPublisher.values {
+            canEditViews = setDocument.setPermissions.canEditView
         }
     }
     

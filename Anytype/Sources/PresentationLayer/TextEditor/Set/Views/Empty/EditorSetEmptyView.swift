@@ -22,15 +22,17 @@ struct EditorSetEmptyView: View {
             
             Spacer.fixedHeight(16)
             
-            Button {
-                model.onTap()
-            } label: {
-                AnytypeText(model.mode.buttonTitle, style: .caption1Regular, color: .Text.primary)
-                    .padding(EdgeInsets(top: 9, leading: 12, bottom: 9, trailing: 12))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color.Shape.primary, lineWidth: 1)
-                    )
+            if model.allowTap {
+                Button {
+                    model.onTap()
+                } label: {
+                    AnytypeText(model.mode.buttonTitle, style: .caption1Regular, color: .Text.primary)
+                        .padding(EdgeInsets(top: 9, leading: 12, bottom: 9, trailing: 12))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.Shape.primary, lineWidth: 1)
+                        )
+                }
             }
         }
     }
@@ -41,6 +43,7 @@ struct EditorSetEmptyView_Previews: PreviewProvider {
         EditorSetEmptyView(
             model: EditorSetEmptyViewModel(
                 mode: .set,
+                allowTap: true,
                 onTap: {}
             )
         )

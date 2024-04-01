@@ -69,6 +69,7 @@ final class BaseDocument: BaseDocumentProtocol {
             objectRestrictions: objectRestrictions.objectRestriction
         )
     }
+    
     var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> {
         syncPublisher.compactMap {
             [weak self] in self?.permissions
