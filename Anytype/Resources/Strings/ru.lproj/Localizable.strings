@@ -1108,20 +1108,17 @@
 
 
 // MARK: - Membership Tiers
-"Membership.Explorer.Title" = "Explorer";
 "Membership.Explorer.Subtitle" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
 "Membership.Explorer.Benefit1" = "1 ГБ сетевого пространства";
 "Membership.Explorer.Benefit2" = "10 one-to-one spaces";
 "Membership.Explorer.Benefit3" = "Up to 10 shared spaces in read-only mode";
 
-"Membership.Builder.Title" = "Builder";
 "Membership.Builder.Subtitle" = "Unlock the magic of multi-party collaboration and enjoy top-notch support";
 "Membership.Builder.Benefit1" = "Уникальное имя (от 7 символов)";
 "Membership.Builder.Benefit2" = "128 ГБ сетевого пространства";
 "Membership.Builder.Benefit3" = "10 мест для гостевых соавторов";
 "Membership.Builder.Benefit4" = "Приоритетная поддержка";
 
-"Membership.CoCreator.Title" = "Соавтор";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
 "Membership.CoCreator.Benefit1" = "Уникальное имя (от 5 символов)";
 "Membership.CoCreator.Benefit2" = "256 GB of network space";
@@ -1129,7 +1126,6 @@
 "Membership.CoCreator.Benefit4" = "Общение с командой";
 "Membership.CoCreator.Benefit5" = "Unique collectible";
 
-"Membership.Custom.Title" = "Custom";
 "Membership.Custom.Subtitle" = "Членство в соответствии с вашими конкретными потребностями и предпочтениями";
 
 
