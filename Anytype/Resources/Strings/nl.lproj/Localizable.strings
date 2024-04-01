@@ -926,7 +926,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 "SpaceShare.YouSuffix" = "%@ (jij)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Action" = "Stop met delen";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
@@ -1108,20 +1108,17 @@
 
 
 // MARK: - Membership Tiers
-"Membership.Explorer.Title" = "Verkenner";
 "Membership.Explorer.Subtitle" = "Duik in het netwerk en geniet van de spanning van één-op-één samenwerking";
 "Membership.Explorer.Benefit1" = "1 GB aan netwerkruimte";
 "Membership.Explorer.Benefit2" = "10 één-op-één ruimtes";
 "Membership.Explorer.Benefit3" = "Tot 10 gedeelde ruimtes in alleen-lezen modus";
 
-"Membership.Builder.Title" = "Bouwer";
 "Membership.Builder.Subtitle" = "Ontgrendel de magie van de samenwerking tussen meerdere partijen en geniet van de hoogwaardige ondersteuning";
 "Membership.Builder.Benefit1" = "Unieke naam (van 7 tekens)";
 "Membership.Builder.Benefit2" = "128 GB aan netwerkruimte";
 "Membership.Builder.Benefit3" = "10 gast medwerker accounts";
 "Membership.Builder.Benefit4" = "Voorkeursondersteuning";
 
-"Membership.CoCreator.Title" = "Co-creator";
 "Membership.CoCreator.Subtitle" = "Ondersteun ons avontuur en ontgrendel exclusieve toegang en voordelen";
 "Membership.CoCreator.Benefit1" = "Unieke naam (van 5 tekens)";
 "Membership.CoCreator.Benefit2" = "256 GB aan netwerkruimte";
@@ -1129,7 +1126,6 @@
 "Membership.CoCreator.Benefit4" = "Chat met het team";
 "Membership.CoCreator.Benefit5" = "Uniek verzamelstuk";
 
-"Membership.Custom.Title" = "Aangepast";
 "Membership.Custom.Subtitle" = "Lidmaatschap afgestemd op jouw specifieke behoeften en voorkeuren";
 
 
