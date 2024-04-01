@@ -4,20 +4,20 @@ import Combine
 
 
 struct MembershipModuleView: View {
-    @StateObject private var model: MembershipModuleViewModel
     @Environment(\.openURL) private var openURL
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
+    private let onTierTap: (MembershipTier) -> ()
     
     init(
         membership: MembershipStatus,
         tiers: [MembershipTier],
-        onTierTap: @escaping (MembershipTierId) -> ()
+        onTierTap: @escaping (MembershipTier) -> ()
     ) {
         self.membership = membership
         self.tiers = tiers
-        _model = StateObject(wrappedValue: MembershipModuleViewModel(onTierTap: onTierTap))
+        self.onTierTap =  onTierTap
     }
     
     var body: some View {
@@ -37,7 +37,7 @@ struct MembershipModuleView: View {
                     baners
                     MembershipTierListView(userMembership: membership, tiers: tiers) {
                         UISelectionFeedbackGenerator().selectionChanged()
-                        model.onTierTap(tier: $0)
+                        onTierTap($0)
                     }
                     .padding(.vertical, 32)
                     

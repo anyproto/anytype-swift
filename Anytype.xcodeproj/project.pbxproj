@@ -1363,7 +1363,6 @@
 		3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */; };
 		3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */; };
 		3DD0CEB42B90A9C300657402 /* MembershipModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */; };
-		3DD0CEB62B90AA0500657402 /* MembershipModuleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */; };
 		3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */; };
 		3DD0CEBB2B90E6BB00657402 /* MembershipBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */; };
 		3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */; };
@@ -3160,7 +3159,6 @@
 		3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdown.swift; sourceTree = "<group>"; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleView.swift; sourceTree = "<group>"; };
-		3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleViewModel.swift; sourceTree = "<group>"; };
 		3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipLegalButton.swift; sourceTree = "<group>"; };
 		3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannerView.swift; sourceTree = "<group>"; };
 		3DD112952B95EA24007682F4 /* MembershipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinator.swift; sourceTree = "<group>"; };
@@ -9219,7 +9217,6 @@
 			children = (
 				3DD0CEB72B90ACBE00657402 /* Views */,
 				3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */,
-				3DD0CEB52B90AA0500657402 /* MembershipModuleViewModel.swift */,
 			);
 			path = InitialScreen;
 			sourceTree = "<group>";
@@ -12208,7 +12205,6 @@
 				2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				8673528D2AA8BF2C003F92DC /* WrappedSearchInteractor.swift in Sources */,
-				3DD0CEB62B90AA0500657402 /* MembershipModuleViewModel.swift in Sources */,
 				3D7DC2C02BB1D21F00A4F114 /* ValidateNameErrorExtension.swift in Sources */,
 				2AD102BF2BB1CEF800AF4DC9 /* SpaceRequestAlertModel.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,

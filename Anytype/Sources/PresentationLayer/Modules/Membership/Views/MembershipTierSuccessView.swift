@@ -5,11 +5,11 @@ import Services
 struct MembershipTierSuccessView: View {
     @Environment(\.dismiss) private var dismiss
     
-    let tier: MembershipTierId
+    let tier: MembershipTier
     
     var body: some View {
         BottomAlertView(
-            title: Loc.Membership.Success.title(tier.title),
+            title: Loc.Membership.Success.title(tier.name),
             message: Loc.Membership.Success.subitle,
             icon: .Membership.tierExplorerMedium,
             style: .plain
@@ -22,5 +22,5 @@ struct MembershipTierSuccessView: View {
 }
 
 #Preview {
-    MembershipTierSuccessView(tier: .builder)
+    MembershipTierSuccessView(tier: .mockBuilder)
 }

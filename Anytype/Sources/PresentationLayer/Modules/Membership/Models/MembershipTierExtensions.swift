@@ -3,22 +3,9 @@ import Services
 import AnytypeCore
 
 
-extension MembershipTierId {
-    var title: String {
-        switch self {
-        case .explorer:
-            return Loc.Membership.Explorer.title
-        case .builder:
-            return Loc.Membership.Builder.title
-        case .coCreator:
-            return Loc.Membership.CoCreator.title
-        case .custom:
-            return Loc.Membership.Custom.title
-        }
-    }
-    
+extension MembershipTier {
     var subtitle: String {
-        switch self {
+        switch self.type {
         case .explorer:
             return Loc.Membership.Explorer.subtitle
         case .builder:
@@ -31,7 +18,7 @@ extension MembershipTierId {
     }
     
     var benefits: [String] {
-        switch self {
+        switch self.type {
         case .explorer:
             [
                 Loc.Membership.Explorer.benefit1,
@@ -61,7 +48,7 @@ extension MembershipTierId {
     }
     
     var mediumIcon: ImageAsset {
-        switch self {
+        switch self.type {
         case .explorer:
             return .Membership.tierExplorerMedium
         case .builder:
@@ -75,7 +62,7 @@ extension MembershipTierId {
     }
     
     var smallIcon: ImageAsset {
-        switch self {
+        switch self.type {
         case .explorer:
             .Membership.tierExplorerSmall
         case .builder:
@@ -88,7 +75,7 @@ extension MembershipTierId {
     }
     
     var gradient: MembershipTeirGradient {
-        switch self {
+        switch self.type {
         case .explorer:
             .teal
         case .builder:
@@ -98,5 +85,24 @@ extension MembershipTierId {
         case .custom:
             .purple
         }
+    }
+}
+
+// MARK: - Mocks
+extension MembershipTier {
+    static var mockExplorer: MembershipTier {
+        MembershipTier(type: .explorer, name: "Explorer")
+    }
+    
+    static var mockBuilder: MembershipTier {
+        MembershipTier(type: .builder, name: "Builder")
+    }
+    
+    static var mockCoCreator: MembershipTier {
+        MembershipTier(type: .coCreator, name: "CockCreator")
+    }
+    
+    static var mockCustom: MembershipTier {
+        MembershipTier(type: .custom(id: 228), name: "Na-Baron")
     }
 }

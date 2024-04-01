@@ -53,7 +53,7 @@ struct SettingsView: View {
                         SettingsSectionItemView(
                             name: Loc.membership,
                             imageAsset: .Settings.membership,
-                            decoration: model.membership.tierId.map { .arrow (text: $0.title) } ?? .button(text: Loc.join),
+                            decoration: model.membership.tier.map { .arrow (text: $0.name) } ?? .button(text: Loc.join),
                             onTap: { model.onMembershipTap() }
                         )
                     }

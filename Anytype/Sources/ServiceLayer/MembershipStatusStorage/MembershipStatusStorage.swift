@@ -43,7 +43,9 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .membershipUpdate(let update):
-                _status = update.data.asModel()
+                Task {
+                    _status = try await membershipService.makeStatusFromMiddlewareModel(membership: update.data)
+                }
             default:
                 break
             }

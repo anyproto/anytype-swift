@@ -87,7 +87,7 @@ struct EmailVerificationView: View {
 #Preview {
     VStack {
         EmailVerificationView(
-            data: EmailVerificationData(email: "", subscribeToNewsletter: true),
+            data: EmailVerificationData(email: "", subscribeToNewsletter: true, tier: .mockExplorer),
             onSuccessfulValidation: {}
         )
     }

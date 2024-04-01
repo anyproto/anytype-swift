@@ -3,7 +3,7 @@ import Services
 
 
 struct MembershipTierInfoView: View {
-    let tier: MembershipTierId
+    let tier: MembershipTier
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -12,7 +12,7 @@ struct MembershipTierInfoView: View {
             Spacer.fixedHeight(36)
             Image(asset: tier.mediumIcon)
             Spacer.fixedHeight(14)
-            AnytypeText(tier.title, style: .title, color: .Text.primary)
+            AnytypeText(tier.name, style: .title, color: .Text.primary)
             Spacer.fixedHeight(6)
             AnytypeText(tier.subtitle, style: .calloutRegular, color: .Text.primary)
             Spacer.fixedHeight(22)
@@ -50,5 +50,5 @@ struct MembershipTierInfoView: View {
 }
 
 #Preview {
-    MembershipTierInfoView(tier: .explorer)
+    MembershipTierInfoView(tier: .mockExplorer)
 }

@@ -3,14 +3,14 @@ import Services
 
 
 struct MembershipTeirView: View {
-    let tierToDisplay: MembershipTierId
+    let tierToDisplay: MembershipTier
     let userMembership: MembershipStatus
     let onTap: () -> ()
     
     @Environment(\.colorScheme) private var colorScheme
     
     var isPending: Bool {
-        userMembership.tierId == tierToDisplay && userMembership.status != .active
+        userMembership.tier?.type == tierToDisplay.type && userMembership.status != .active
     }
     
     var body: some View {
@@ -19,7 +19,7 @@ struct MembershipTeirView: View {
             Image(asset: tierToDisplay.smallIcon)
                 .frame(width: 65, height: 64)
             Spacer.fixedHeight(10)
-            AnytypeText(tierToDisplay.title, style: .bodySemibold, color: .Text.primary)
+            AnytypeText(tierToDisplay.name, style: .bodySemibold, color: .Text.primary)
             Spacer.fixedHeight(5)
             AnytypeText(tierToDisplay.subtitle, style: .caption1Regular, color: .Text.primary)
                 .minimumScaleFactor(0.8)
@@ -30,7 +30,7 @@ struct MembershipTeirView: View {
             actionButton
             Spacer.fixedHeight(20)
         }
-        .if(userMembership.tierId == tierToDisplay) {
+        .if(userMembership.tier?.type == tierToDisplay.type) {
             $0.overlay(alignment: .topTrailing) {
                 AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
                     .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
@@ -60,7 +60,7 @@ struct MembershipTeirView: View {
     
     var actionButton: some View {
         Group {
-            if case .custom = tierToDisplay {
+            if case .custom = tierToDisplay.type {
                 StandardButton(Loc.About.contactUs, style: .primaryMedium, action: onTap)
             } else {
                 StandardButton(Loc.learnMore, style: .primaryMedium, action: onTap)
@@ -70,7 +70,7 @@ struct MembershipTeirView: View {
     
     var info: some View  {
         Group {
-            if userMembership.tierId == tierToDisplay {
+            if userMembership.tier?.type == tierToDisplay.type {
                 if userMembership.status == .active {
                     expirationText
                 } else {
@@ -83,7 +83,7 @@ struct MembershipTeirView: View {
     }
     
     var priceText: some View {
-        switch tierToDisplay {
+        switch tierToDisplay.type {
         case .explorer:
             AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
         case .builder:
@@ -99,7 +99,7 @@ struct MembershipTeirView: View {
     
     var expirationText: some View {
         Group {
-            switch tierToDisplay {
+            switch tierToDisplay.type {
             case .explorer:
                 return AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
             case .builder, .coCreator, .custom:
@@ -113,9 +113,9 @@ struct MembershipTeirView: View {
     ScrollView(.horizontal) {
         HStack {
             MembershipTeirView(
-                tierToDisplay: .explorer,
+                tierToDisplay: .mockExplorer,
                 userMembership: MembershipStatus(
-                    tierId: nil,
+                    tier: nil,
                     status: .unknown,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -123,9 +123,9 @@ struct MembershipTeirView: View {
                 )
             ) {  }
             MembershipTeirView(
-                tierToDisplay: .explorer,
+                tierToDisplay: .mockExplorer,
                 userMembership: MembershipStatus(
-                    tierId: .explorer,
+                    tier: .mockExplorer,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -133,9 +133,9 @@ struct MembershipTeirView: View {
                 )
             ) {  }
             MembershipTeirView(
-                tierToDisplay: .explorer,
+                tierToDisplay: .mockExplorer,
                 userMembership: MembershipStatus(
-                    tierId: .explorer,
+                    tier: .mockExplorer,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -143,9 +143,9 @@ struct MembershipTeirView: View {
                 )
             ) {  }
             MembershipTeirView(
-                tierToDisplay: .builder,
+                tierToDisplay: .mockBuilder,
                 userMembership: MembershipStatus(
-                    tierId: .explorer,
+                    tier: .mockExplorer,
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -153,9 +153,9 @@ struct MembershipTeirView: View {
                 )
             ) {  }
             MembershipTeirView(
-                tierToDisplay: .builder,
+                tierToDisplay: .mockBuilder,
                 userMembership: MembershipStatus(
-                    tierId: .builder,
+                    tier: .mockBuilder,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -163,9 +163,9 @@ struct MembershipTeirView: View {
                 )
             ) {  }
             MembershipTeirView(
-                tierToDisplay: .coCreator,
+                tierToDisplay: .mockCoCreator,
                 userMembership: MembershipStatus(
-                    tierId: .explorer,
+                    tier: .mockExplorer,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
@@ -173,9 +173,9 @@ struct MembershipTeirView: View {
                 )
             ) {  }
             MembershipTeirView(
-                tierToDisplay: .custom(id: 0),
+                tierToDisplay: .mockCustom,
                 userMembership: MembershipStatus(
-                    tierId: .custom(id: 0),
+                    tier: .mockCustom,
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodCard,
