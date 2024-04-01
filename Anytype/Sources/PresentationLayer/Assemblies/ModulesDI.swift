@@ -142,10 +142,6 @@ final class ModulesDI: ModulesDIProtocol {
         SetFiltersDateViewModuleAssembly()
     }
     
-    func setFilterConditions() -> SetFilterConditionsModuleAssemblyProtocol {
-        SetFilterConditionsModuleAssembly()
-    }
-    
     func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol {
         SetFiltersSelectionHeaderModuleAssembly()
     }
