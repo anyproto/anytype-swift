@@ -2,7 +2,6 @@ import Services
 import UIKit
 
 protocol EditorCollectionReloadable: AnyObject {
-    func reload(items: [EditorItem])
     func reconfigure(items: [EditorItem])
     func itemDidChangeFrame(item: EditorItem)
     func scrollToTopBlock(blockId: String) // Change to editorItem

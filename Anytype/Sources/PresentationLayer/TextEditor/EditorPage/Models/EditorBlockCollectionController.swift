@@ -8,10 +8,6 @@ final class EditorBlockCollectionController: EditorCollectionReloadable {
         self.viewInput = viewInput
     }
     
-    func reload(items: [EditorItem]) {
-        viewInput?.reload(items: items)
-    }
-    
     func reconfigure(items: [EditorItem]) {
         viewInput?.reconfigure(items: items)
     }

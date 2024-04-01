@@ -5,7 +5,7 @@ import AnytypeCore
 import SwiftUI
 
 enum EditorPageConfigurationConstants {
-    static let dataSourceAnimationEnabled = true
+    static let dataSourceAnimationEnabled = false
 }
 
 final class EditorPageController: UIViewController {
@@ -319,16 +319,6 @@ extension EditorPageController: EditorPageViewInput {
     func update(syncStatus: Services.SyncStatus) { /* Do we need this method? */ }
     
     func textBlockWillBeginEditing() { }
-    
-    func reload(items: [EditorItem]) {
-        guard items.count > 0 else { return }
-        
-        var snapshot = dataSource.snapshot()
-        
-        let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
-        snapshot.reloadItems(existingItems)
-        dataSource.apply(snapshot, animatingDifferences: true)
-    }
     
     func visibleRect(to view: UIView) -> CGRect {
         return collectionView.convert(collectionView.bounds, to: view)
