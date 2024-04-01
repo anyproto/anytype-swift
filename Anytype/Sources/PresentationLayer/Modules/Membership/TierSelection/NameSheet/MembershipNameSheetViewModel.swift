@@ -1,5 +1,7 @@
 import Services
 import SwiftUI
+import AnytypeCore
+
 
 enum MembershipNameSheetViewState {
     case `default`
@@ -22,15 +24,13 @@ final class MembershipNameSheetViewModel: ObservableObject {
     @Published var state = MembershipNameSheetViewState.default
     let anyName: String
     
-    // TODO: use middleware api
-    var minimumNumberOfCharacters: Int {
-        switch tier.type {
-        case .builder:
-            7
-        case .coCreator:
-            5
-        case .explorer, .custom:
-            .max
+    var minimumNumberOfCharacters: UInt32 {
+        switch tier.anyName {
+        case .none:
+            anytypeAssertionFailure("Unsupported tier for name selection \(tier)")
+            return .max
+        case .some(let minLenght):
+            return minLenght
         }
     }
     
