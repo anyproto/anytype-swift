@@ -6,13 +6,13 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
     case builder
     case coCreator
     
-    case custom(id: Int32)
+    case custom(id: UInt32)
     
-    static let explorerId: Int32 = 1
-    static let builderId: Int32 = 4
-    static let coCreatorId: Int32 = 5
+    static let explorerId: UInt32 = 1
+    static let builderId: UInt32 = 4
+    static let coCreatorId: UInt32 = 5
     
-    public var id: Int32 {
+    public var id: UInt32 {
         switch self {
         case .explorer:
             Self.explorerId
@@ -25,7 +25,7 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
         }
     }
     
-    init?(intId: Int32) {
+    init?(intId: UInt32) {
         switch intId {
         case 0:
             return nil
@@ -36,7 +36,7 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
         case Self.coCreatorId:
             self = .coCreator
         default:
-            self = .custom(id: Int32(intId))
+            self = .custom(id: intId)
         }
     }
 }
@@ -69,7 +69,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
 
 extension Anytype_Model_MembershipTierData {
     func asModel() -> MembershipTier? {
-        guard let type = MembershipTierType(intId: Int32(id)) else { return nil }
+        guard let type = MembershipTierType(intId: id) else { return nil }
         
         let anyName: MembershipAnyName = anyNamesCountIncluded > 0 ? .some(minLenght: anyNamesCountIncluded) : .none
         
