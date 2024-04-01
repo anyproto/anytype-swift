@@ -25,6 +25,8 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
     func buildShortcutItems() -> [UIApplicationShortcutItem] {
         let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
+        guard spaceId.isNotEmpty else { return [] } // Unauthorized user
+        
         guard let types = try? typesService.getPinnedTypes(spaceId: spaceId), types.isNotEmpty else {
             return [buildCreateDefaultObjectShortcutItem()].compactMap { $0 }
         }
