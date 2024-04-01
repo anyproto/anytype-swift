@@ -27,7 +27,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     // MARK: - Private
         
     private func setupInitialState() async throws {
-        _status = try await membershipService.getStatus()
+        _status = try await membershipService.getMembership()
         setupSubscription()
     }
     
@@ -44,7 +44,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
             switch event.value {
             case .membershipUpdate(let update):
                 Task {
-                    _status = try await membershipService.makeStatusFromMiddlewareModel(membership: update.data)
+                    _status = try await membershipService.makeMembershipFromMiddlewareModel(membership: update.data)
                 }
             default:
                 break
