@@ -25,7 +25,6 @@ final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinat
                 spaceId: spaceId,
                 filter: filter,
                 setFiltersSelectionHeaderModuleAssembly: self.modulesDI.setFiltersSelectionHeader(),
-                setFiltersSelectionViewModuleAssembly: self.modulesDI.setFiltersSelectionView(),
                 setFiltersDateCoordinatorAssembly: self.coordinatorsDI.setFiltersDate(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
                 completion: completion

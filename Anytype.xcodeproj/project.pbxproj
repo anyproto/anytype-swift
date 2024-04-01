@@ -1119,7 +1119,6 @@
 		2ECB342D2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */; };
 		2ECB342F2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */; };
 		2ECB34312A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */; };
-		2ECB34332A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34322A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift */; };
 		2ECB34372A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34362A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift */; };
 		2ECB34392A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34382A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift */; };
 		2ECB343B2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB343A2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift */; };
@@ -1128,6 +1127,7 @@
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
 		2ECF1DBD2BBADA8F007C68E2 /* SetFilterConditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF1DBC2BBADA8F007C68E2 /* SetFilterConditions.swift */; };
+		2ECF1DBF2BBADCBA007C68E2 /* SetFiltersSelectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF1DBE2BBADCBA007C68E2 /* SetFiltersSelectionData.swift */; };
 		2ED9F4392A8E8F0900BE0A6B /* SetViewSettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */; };
 		2ED9F43B2A8E902A00BE0A6B /* SetViewSettingsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */; };
 		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */; };
@@ -2919,7 +2919,6 @@
 		2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorView.swift; sourceTree = "<group>"; };
 		2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2ECB34322A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECB34362A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorView.swift; sourceTree = "<group>"; };
 		2ECB34382A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ECB343A2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -2928,6 +2927,7 @@
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
 		2ECF1DBC2BBADA8F007C68E2 /* SetFilterConditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterConditions.swift; sourceTree = "<group>"; };
+		2ECF1DBE2BBADCBA007C68E2 /* SetFiltersSelectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionData.swift; sourceTree = "<group>"; };
 		2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsList.swift; sourceTree = "<group>"; };
 		2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListModel.swift; sourceTree = "<group>"; };
 		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorView.swift; sourceTree = "<group>"; };
@@ -7813,8 +7813,8 @@
 				2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */,
 				2E2D255728880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift */,
 				2E2D255828880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift */,
-				2ECB34322A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift */,
 				2E2D256528880EB300E3DFD1 /* SetFiltersContentHandler.swift */,
+				2ECF1DBE2BBADCBA007C68E2 /* SetFiltersSelectionData.swift */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -11258,6 +11258,7 @@
 				2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */,
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
+				2ECF1DBF2BBADCBA007C68E2 /* SetFiltersSelectionData.swift in Sources */,
 				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
@@ -11542,7 +11543,6 @@
 				53D408D127F1D48000495335 /* PasteboardBlockDocumentServiceProtocol.swift in Sources */,
 				1211AF7D27F4BE7400BACB88 /* CGSizeExtensions.swift in Sources */,
 				2AAF3452295B19DF00921320 /* TreeSubscriptionDataBuilder.swift in Sources */,
-				2ECB34332A97D12800E0F9BB /* SetFiltersSelectionViewModuleAssembly.swift in Sources */,
 				2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */,
 				2A9D299228BCC16E00789AC7 /* NonExistentBlockContentConfiguration.swift in Sources */,
 				3DB3EC69275513B8002781DA /* ProgressBarStub.swift in Sources */,

@@ -16,21 +16,20 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     private weak var output: SetFiltersSelectionCoordinatorOutput?
     
     init(
-        filter: SetFilter,
-        output: SetFiltersSelectionCoordinatorOutput?,
+        data: SetFiltersSelectionData,
         contentViewBuilder: SetFiltersContentViewBuilder,
-        onApply: @escaping (SetFilter) -> Void
+        output: SetFiltersSelectionCoordinatorOutput?
     ) {
-        self.filter = filter
+        self.filter = data.filter
         self.condition = filter.filter.condition
         self.output = output
         self.condition = filter.filter.condition
         self.contentViewBuilder = contentViewBuilder
+        self.onApply = data.onApply
         self.contentHandler = SetFiltersContentHandler(
             filter: filter,
             onApply: onApply
         )
-        self.onApply = onApply
         self.state = filter.filter.condition.hasValues ? .content : .empty
     }
 

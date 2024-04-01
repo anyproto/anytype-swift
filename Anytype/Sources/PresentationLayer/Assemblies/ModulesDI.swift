@@ -146,10 +146,6 @@ final class ModulesDI: ModulesDIProtocol {
         SetFiltersSelectionHeaderModuleAssembly()
     }
     
-    func setFiltersSelectionView() -> SetFiltersSelectionViewModuleAssemblyProtocol {
-        SetFiltersSelectionViewModuleAssembly()
-    }
-    
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {
         SetFiltersListModuleAssembly(serviceLocator: serviceLocator)
     }
