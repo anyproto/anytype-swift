@@ -19,6 +19,7 @@ struct SetViewSettingsList: View {
         }
         .background(Color.Background.secondary)
         .frame(maxHeight: 358)
+        .disabled(!model.canEditSetView)
     }
     
     private var content: some View {
@@ -96,8 +97,8 @@ struct SetViewSettingsList: View {
                 
                 Spacer.fixedWidth(6)
                 
-                Image(asset: .X18.Disclosure.right)
-                    .foregroundColor(.Button.active)
+                IconView(icon: .asset(.X18.Disclosure.right))
+                    .frame(width: 18, height: 18)
             }
         }
         .frame(height: 52, alignment: .leading)
@@ -123,8 +124,7 @@ struct SetViewSettingsList: View {
                 deleteButton
             }
         } label: {
-            Image(asset: .X24.more)
-                .foregroundColor(.Button.active)
+            IconView(icon: .asset(.X24.more))
                 .frame(width: 24, height: 24)
         }
         .fixMenuOrder()

@@ -43,12 +43,6 @@ final class SetDocument: SetDocumentProtocol {
     
     var dataViewRelationsDetails: [RelationDetails] = []
     
-    var viewRelationValueIsLocked: Bool {
-        activeView.type == .gallery ||
-        activeView.type == .list ||
-        (FeatureFlags.setKanbanView && activeView.type == .kanban)
-    }
-    
     var analyticsType: AnalyticsObjectType {
         details?.analyticsType ?? .object(typeId: "")
     }
@@ -65,6 +59,8 @@ final class SetDocument: SetDocumentProtocol {
         document.permissions
     }
     
+    private(set) var setPermissions = SetPermissions()
+    
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     private let updateSubject = PassthroughSubject<SetDocumentUpdate, Never>()
     
@@ -79,16 +75,21 @@ final class SetDocument: SetDocumentProtocol {
     
     let inlineParameters: EditorInlineSetObject?
     
+    private var participantIsEditor = false
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private let permissionsBuilder: SetPermissionsBuilderProtocol
     let dataBuilder: SetContentViewDataBuilder
     
     init(
         document: BaseDocumentProtocol,
         inlineParameters: EditorInlineSetObject?,
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        accountParticipantsStorage: AccountParticipantsStorageProtocol,
+        permissionsBuilder: SetPermissionsBuilderProtocol
     ) {
         self.document = document
         self.inlineParameters = inlineParameters
@@ -99,7 +100,8 @@ final class SetDocument: SetDocumentProtocol {
             relationDetailsStorage: relationDetailsStorage
         )
         self.objectTypeProvider = objectTypeProvider
-        self.setup()
+        self.accountParticipantsStorage = accountParticipantsStorage
+        self.permissionsBuilder = permissionsBuilder
     }
     
     func view(by id: String) -> DataviewView {
@@ -183,29 +185,6 @@ final class SetDocument: SetDocumentProtocol {
         details?.isCollection ?? false
     }
     
-    func canCreateObject() -> Bool {
-        guard let details else {
-            anytypeAssertionFailure("SetDocument: No details in canCreateObject")
-            return false
-        }
-        guard details.isList else { return false }
-        
-        if details.isCollection { return true }
-        if isSetByRelation() { return true }
-        
-        // Set query validation
-        // Create objects in sets by type only permitted if type is Page-like
-        guard let setOfId = details.setOf.first(where: { $0.isNotEmpty }) else {
-            return false
-        }
-        
-        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
-            return false
-        }
-        
-        return DetailsLayout.supportedForCreationInSets.contains(layout)
-    }
-    
     func isActiveHeader() -> Bool {
         guard let details else {
             anytypeAssertionFailure("SetDocument: No details in isHeaderActive")
@@ -228,11 +207,13 @@ final class SetDocument: SetDocumentProtocol {
     @MainActor
     func open() async throws {
         try await document.open()
+        await setup()
     }
     
     @MainActor
     func openForPreview() async throws {
         try await document.openForPreview()
+        await setup()
     }
     
     @MainActor
@@ -247,7 +228,7 @@ final class SetDocument: SetDocumentProtocol {
     
     // MARK: - Private
     
-    private func setup() {
+    private func setup() async {
         document.syncPublisher.sink { [weak self] update in
             self?.updateData()
         }
@@ -258,6 +239,11 @@ final class SetDocument: SetDocumentProtocol {
             self?.triggerSync()
         }
         .store(in: &subscriptions)
+        
+        await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
+            self?.participantIsEditor = canEdit
+            self?.updateData()
+        }.store(in: &subscriptions)
     }
     
     private func updateData() {
@@ -274,6 +260,8 @@ final class SetDocument: SetDocumentProtocol {
         
         let shouldClearState = shouldClearState(prevActiveView: prevActiveView)
         updateSubject.send(.dataviewUpdated(clearState: shouldClearState))
+        setPermissions = permissionsBuilder.build(setDocument: self, participantCanEdit: participantIsEditor)
+        
         triggerSync()
     }
     

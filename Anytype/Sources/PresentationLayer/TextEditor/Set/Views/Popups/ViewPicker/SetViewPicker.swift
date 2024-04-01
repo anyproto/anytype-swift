@@ -12,6 +12,9 @@ struct SetViewPicker: View {
         }
         .frame(height: 358)
         .background(Color.Background.secondary)
+        .task {
+            await viewModel.startSyncTask()
+        }
     }
     
     private var content: some View {
@@ -53,7 +56,8 @@ struct SetViewPicker: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.Button.active)
+                    .buttonDynamicForegroundColor()
+                    .disabled(!viewModel.canEditViews)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 addButton
@@ -69,10 +73,11 @@ struct SetViewPicker: View {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
-                    Image(asset: .X32.plus).foregroundColor(.Button.active)
+                    IconView(icon: .asset(.X32.plus)).frame(width: 32, height: 32)
                 }
             }
         }
+        .disabled(!viewModel.canEditViews)
     }
     
     private func row(with configuration: SetViewRowConfiguration) -> some View {

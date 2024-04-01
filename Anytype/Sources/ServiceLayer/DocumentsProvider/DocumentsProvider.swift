@@ -37,7 +37,9 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             document: document,
             inlineParameters: inlineParameters,
             relationDetailsStorage: relationDetailsStorage,
-            objectTypeProvider: objectTypeProvider
+            objectTypeProvider: objectTypeProvider,
+            accountParticipantsStorage: accountParticipantsStorage,
+            permissionsBuilder: SetPermissionsBuilder()
         )
     }
     

@@ -14,13 +14,13 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var inlineParameters: EditorInlineSetObject? { get }
     var blockDataview: BlockDataview? { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
-    var viewRelationValueIsLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
     // TODO Refactor this
     var dataBuilder: SetContentViewDataBuilder { get }
     
     var featuredRelationsForEditor: [Relation] { get }
     var parsedRelations: ParsedRelations { get }
+    var setPermissions: SetPermissions { get }
     
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { get }
     
@@ -46,7 +46,6 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     func isSetByRelation() -> Bool
     func isBookmarksSet() -> Bool
     func isCollection() -> Bool
-    func canCreateObject() -> Bool
     func isActiveHeader() -> Bool
     func defaultObjectTypeForActiveView() throws -> ObjectType
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType

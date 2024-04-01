@@ -98,20 +98,23 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func contextMenuItems(for relation: Relation) -> [RelationValueViewModel.MenuItem] {
-        guard !setDocument.isCollection(), relation.key == BundledRelationKey.type.rawValue else {
+        guard relation.key == BundledRelationKey.type.rawValue else {
             return []
         }
-        return [
-            RelationValueViewModel.MenuItem(
-                title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
-                action: turnSetIntoCollection
-            ),
-            RelationValueViewModel.MenuItem(
-                title: isEmptyQuery ?
-                Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
-                action: showSetOfTypeSelection
-            )
-        ]
+        return .builder {
+            if setDocument.setPermissions.canTurnSetIntoCollection {
+                RelationValueViewModel.MenuItem(
+                    title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
+                    action: turnSetIntoCollection
+                )
+            }
+            if setDocument.setPermissions.canChangeQuery {
+                RelationValueViewModel.MenuItem(
+                    title: isEmptyQuery ? Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
+                    action: showSetOfTypeSelection
+                )
+            }
+        }
     }
     
     private func groupFirstOptionBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -445,7 +448,7 @@ final class EditorSetViewModel: ObservableObject {
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
-                    viewRelationValueIsLocked: setDocument.viewRelationValueIsLocked,
+                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
                     onIconTap: { [weak self] details in
@@ -663,6 +666,7 @@ extension EditorSetViewModel {
     }
     
     func showSetOfTypeSelection() {
+        guard setDocument.setPermissions.canChangeQuery else { return }
         output?.showQueries(document: setDocument, selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
             guard let self else { return }
             Task { @MainActor in
@@ -673,6 +677,7 @@ extension EditorSetViewModel {
     }
     
     private func turnSetIntoCollection() {
+        guard setDocument.setPermissions.canTurnSetIntoCollection else { return }
         Task { @MainActor in
             try await objectActionsService.setObjectCollectionType(objectId: objectId)
             try await setDocument.close()
@@ -730,7 +735,9 @@ extension EditorSetViewModel {
             document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
             inlineParameters: nil,
             relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
-            objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
+            objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
+            accountParticipantsStorage: DI.preview.serviceLocator.accountParticipantStorage(),
+            permissionsBuilder: SetPermissionsBuilder()
         ),
         headerViewModel: ObjectHeaderViewModel(
             document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
