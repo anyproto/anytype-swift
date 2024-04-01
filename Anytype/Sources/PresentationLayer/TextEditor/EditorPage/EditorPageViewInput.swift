@@ -22,6 +22,7 @@ protocol EditorPageViewInput: EditorCollectionReloadable {
     func update(
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem],
+        isRealData: Bool,
         completion: @escaping () -> Void
     )
     func update(syncStatus: SyncStatus)

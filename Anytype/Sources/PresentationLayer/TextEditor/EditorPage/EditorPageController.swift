@@ -84,6 +84,10 @@ final class EditorPageController: UIViewController {
     private let syncStatusData: SyncStatusData
     
     private var cancellables = [AnyCancellable]()
+    private var applyAnimationConfig = false
+    private var dataSourceAnimationEnabled: Bool {
+        applyAnimationConfig ? EditorPageConfigurationConstants.dataSourceAnimationEnabled : false
+    }
     
     // MARK: - Initializers
     init(
@@ -327,7 +331,7 @@ extension EditorPageController: EditorPageViewInput {
     func update(header: ObjectHeader) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: EditorPageConfigurationConstants.dataSourceAnimationEnabled)
+        dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
         
         navigationBarHelper.configureNavigationBar(using: header)
     }
@@ -358,12 +362,13 @@ extension EditorPageController: EditorPageViewInput {
         
         let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
         snapshot.reconfigureItems(existingItems)
-        dataSource.apply(snapshot, animatingDifferences: EditorPageConfigurationConstants.dataSourceAnimationEnabled)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 
     func update(
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem],
+        isRealData: Bool,
         completion: @escaping () -> Void
     ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
@@ -371,9 +376,10 @@ extension EditorPageController: EditorPageViewInput {
 
         applyBlocksSectionSnapshot(
             blocksSnapshot,
-            animatingDifferences: EditorPageConfigurationConstants.dataSourceAnimationEnabled,
+            animatingDifferences:  dataSourceAnimationEnabled,
             completion: completion
         )
+        applyAnimationConfig = isRealData
     }
 
     func scrollToTopBlock(blockId: String) {
@@ -408,7 +414,7 @@ extension EditorPageController: EditorPageViewInput {
     func itemDidChangeFrame(item: EditorItem) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            dataSource.apply(dataSource.snapshot(), animatingDifferences: EditorPageConfigurationConstants.dataSourceAnimationEnabled)
+            dataSource.apply(dataSource.snapshot(), animatingDifferences: true)
         }
     }
 
@@ -640,7 +646,7 @@ private extension EditorPageController {
         dataSource.apply(
             snapshot,
             to: .main,
-            animatingDifferences: EditorPageConfigurationConstants.dataSourceAnimationEnabled,
+            animatingDifferences: animatingDifferences,
             completion: completion
         )
 
