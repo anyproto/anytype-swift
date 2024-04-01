@@ -43,13 +43,14 @@ struct TextRelationEditingView: View {
     private var toolbar: some View {
         HStack(spacing: 0) {
             clearButton
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(maxWidth: 100, alignment: .leading)
             
-            TitleView(title: viewModel.config.title)
+            AnytypeText(viewModel.config.title, style: .uxTitle1Semibold, color: .Text.primary)
+                .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
             
             pasteButton
-                .frame(maxWidth: .infinity, alignment: .trailing)
+                .frame(maxWidth: 100, alignment: .trailing)
         }
         .frame(height: 48)
     }
