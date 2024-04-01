@@ -55,9 +55,10 @@ struct SetViewPicker: View {
         .buttonStyle(BorderlessButtonStyle())
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                EditButton()
-                    .buttonDynamicForegroundColor()
-                    .disabled(!viewModel.canEditViews)
+                if viewModel.canEditViews {
+                    EditButton()
+                        .buttonDynamicForegroundColor()
+                }
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 addButton
@@ -69,7 +70,7 @@ struct SetViewPicker: View {
     
     private var addButton: some View {
         Group {
-            if editMode == .inactive {
+            if editMode == .inactive && viewModel.canEditViews {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
@@ -77,7 +78,6 @@ struct SetViewPicker: View {
                 }
             }
         }
-        .disabled(!viewModel.canEditViews)
     }
     
     private func row(with configuration: SetViewRowConfiguration) -> some View {

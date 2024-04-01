@@ -117,17 +117,20 @@ struct SetViewSettingsList: View {
         .lineLimit(1)
     }
     
+    @ViewBuilder
     private var settingsMenu: some View {
-        Menu {
-            duplicateButton
-            if model.canBeDeleted {
-                deleteButton
+        if model.canEditSetView {
+            Menu {
+                duplicateButton
+                if model.canBeDeleted {
+                    deleteButton
+                }
+            } label: {
+                IconView(icon: .asset(.X24.more))
+                    .frame(width: 24, height: 24)
             }
-        } label: {
-            IconView(icon: .asset(.X24.more))
-                .frame(width: 24, height: 24)
+            .fixMenuOrder()
         }
-        .fixMenuOrder()
     }
     
     private var deleteButton: some View {
