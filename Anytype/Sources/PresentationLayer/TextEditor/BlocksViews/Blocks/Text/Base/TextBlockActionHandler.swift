@@ -217,16 +217,17 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         
         guard let content = info.textContent else { return mutableAttributedString }
 
-        let modifier = MarkStyleModifier(
+        let anytypeText = UIKitAnytypeText(
             attributedString: mutableAttributedString,
-            anytypeFont: content.contentType.uiFont
+            style: content.contentType.uiFont,
+            lineBreakModel: .byWordWrapping
         )
         
         if let replacementURL = replacementURL {
-            modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+            anytypeText.apply(.link(replacementURL), range: newRange)
         }
 
-        return NSAttributedString(attributedString: modifier.attributedString)
+        return NSAttributedString(attributedString: anytypeText.attrString)
     }
 
     private func shouldCreateBookmark(
@@ -234,7 +235,6 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         replacementText: String,
         range: NSRange
     ) -> Bool {
-        let previousTypingAttributes = textView.typingAttributes
         let originalAttributedString = textView.attributedText
         let trimmedText = replacementText.trimmed
 
@@ -251,9 +251,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             range: range
         )
 
-        actionHandler.changeText(newTextWithLink, blockId: info.id)
-        textView.attributedText = newTextWithLink
-        textView.typingAttributes = previousTypingAttributes
+        changeTextAndReset(newTextWithLink)
 
         let replacementRange = NSRange(location: range.location, length: trimmedText.count)
 
@@ -268,15 +266,14 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         .replace : .bottom
                     
                     let safeSendableAttributedString = SafeSendable(value: originalAttributedString)
-                    Task { [weak self] in
+                    Task { @MainActor [weak self] in
                         try await self?.actionHandler.createAndFetchBookmark(
                             targetID: info.id,
                             position: position,
                             url: url
                         )
-                        
                         safeSendableAttributedString.value.map {
-                            self?.actionHandler.changeText($0, blockId: info.id)
+                            self?.changeTextAndReset($0)
                         }
                     }
                 case .pasteAsLink:
@@ -288,7 +285,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         replacementText: replacementText.trimmed,
                         range: range
                     )
-                    newText.map { self?.actionHandler.changeText($0, blockId: info.id) }
+                    newText.map {
+                        self?.changeTextAndReset($0)
+                    }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         if #available(iOS 17.0, *) {
@@ -300,6 +299,11 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         showURLBookmarkPopup(urlIputParameters)
 
         return true
+    }
+    
+    private func changeTextAndReset(_ text: NSAttributedString) {
+        actionHandler.changeText(text, blockId: info.id)
+        resetSubject.send(text)
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
