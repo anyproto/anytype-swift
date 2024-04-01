@@ -30,7 +30,7 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             guard let self else { return }
             if featuredRelationValues != newFeaturedRelations {
                 self.featuredRelationValues = newFeaturedRelations
-                collectionController.reconfigure(items: [.block(self)])
+                collectionController.itemDidChangeFrame(item: .block(self))
             }
         }.store(in: &cancellables)
     }

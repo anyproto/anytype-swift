@@ -4,6 +4,7 @@ import AnytypeCore
 import UIKit
 import ProtobufMessages
 
+@MainActor
 protocol KeyboardActionHandlerProtocol {
     func handle(
         info: BlockInformation,
@@ -12,6 +13,7 @@ protocol KeyboardActionHandlerProtocol {
     ) async throws
 }
 
+@MainActor
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let documentId: String
     private let service: BlockActionServiceProtocol
@@ -110,7 +112,6 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         }
     }
     
-    @MainActor
     private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation, textView: UITextView) async throws {
         if text.contentType.isList || text.contentType == .quote || text.contentType == .callout {
             try await service.turnInto(.text, blockId: info.id)

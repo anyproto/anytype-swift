@@ -5,7 +5,7 @@ import AnytypeCore
 import SwiftUI
 
 enum EditorPageConfigurationConstants {
-    static let dataSourceAnimationEnabled = false
+    static let dataSourceAnimationEnabled = true
 }
 
 final class EditorPageController: UIViewController {
@@ -358,7 +358,7 @@ extension EditorPageController: EditorPageViewInput {
         
         let existingItems = items.filter { snapshot.itemIdentifiers.contains($0) }
         snapshot.reconfigureItems(existingItems)
-        dataSource.apply(snapshot, animatingDifferences: true)        
+        dataSource.apply(snapshot, animatingDifferences: EditorPageConfigurationConstants.dataSourceAnimationEnabled)
     }
 
     func update(
@@ -408,7 +408,7 @@ extension EditorPageController: EditorPageViewInput {
     func itemDidChangeFrame(item: EditorItem) {
         DispatchQueue.main.async { [weak self] in
             guard let self else { return }
-            dataSource.apply(dataSource.snapshot(), animatingDifferences: true)
+            dataSource.apply(dataSource.snapshot(), animatingDifferences: EditorPageConfigurationConstants.dataSourceAnimationEnabled)
         }
     }
 
