@@ -20,7 +20,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
     private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
-    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
@@ -34,7 +33,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol,
         undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
-        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
@@ -45,7 +43,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
         self.undoRedoModuleAssembly = undoRedoModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
-        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
         self.searchModuleAssembly = searchModuleAssembly
@@ -92,11 +89,8 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func showCoverPicker(document: BaseDocumentGeneralProtocol, onCoverAction: @escaping (ObjectCoverPickerAction) -> Void) {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(
-            document: document,
-            onCoverAction: onCoverAction
-        )
-        navigationContext.present(moduleViewController)
+        let data = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
+        navigationContext.present(ObjectCoverPicker(data: data))
     }
     
     func showIconPicker(

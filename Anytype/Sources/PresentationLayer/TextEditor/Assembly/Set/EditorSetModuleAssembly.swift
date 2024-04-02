@@ -49,7 +49,8 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
                 isOpenedForPreview: false,
                 usecase: .editor
             ),
-            interactor: serviceLocator.objectHeaderInteractor()
+            interactor: serviceLocator.objectHeaderInteractor(),
+            output: output
         )
         
         let model = EditorSetViewModel(
@@ -76,10 +77,6 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
     }
     
     private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using output: EditorSetModuleOutput?) {
-        headerModel.onCoverPickerTap = { args in
-            output?.showCoverPicker(document: args.0, onCoverAction: args.1)
-        }
-        
         headerModel.onIconPickerTap = { args in
             output?.showIconPicker(document: args.0, onIconAction: args.1)
         }

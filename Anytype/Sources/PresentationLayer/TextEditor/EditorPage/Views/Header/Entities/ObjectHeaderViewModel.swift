@@ -9,6 +9,10 @@ protocol ObjectHeaderRouterProtocol: AnyObject {
         document: BaseDocumentGeneralProtocol,
         onIconAction: @escaping (ObjectIconPickerAction) -> Void
     )
+}
+
+@MainActor
+protocol ObjectHeaderModuleOutput: AnyObject {
     func showCoverPicker(
         document: BaseDocumentGeneralProtocol,
         onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
@@ -32,13 +36,13 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
     
     private lazy var onCoverTap = { [weak self] in
-        guard let self = self, !self.configuration.isOpenedForPreview else { return }
-        guard self.document.details?.layoutValue != .note else { return }
+        guard let self, !configuration.isOpenedForPreview else { return }
+        guard document.details?.layoutValue != .note else { return }
         guard document.permissions.canChangeCover else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        self.onCoverPickerTap?((document, { [weak self] action in
+        output?.showCoverPicker(document: document, onCoverAction: { [weak self] action in
             self?.handleCoverAction(action: action)
-        }))
+        })
     }
     
     private let document: BaseDocumentGeneralProtocol
@@ -46,9 +50,8 @@ final class ObjectHeaderViewModel: ObservableObject {
     private var subscription: AnyCancellable?
     private let configuration: EditorPageViewModelConfiguration
     private let objectHeaderInteractor: ObjectHeaderInteractorProtocol
+    private weak var output: ObjectHeaderModuleOutput?
     
-    
-    var onCoverPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectCoverPickerAction) -> Void)>?
     var onIconPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectIconPickerAction) -> Void)>?
     
     // MARK: - Initializers
@@ -57,12 +60,14 @@ final class ObjectHeaderViewModel: ObservableObject {
         document: BaseDocumentGeneralProtocol,
         targetObjectId: String,
         configuration: EditorPageViewModelConfiguration,
-        interactor: ObjectHeaderInteractorProtocol
+        interactor: ObjectHeaderInteractorProtocol,
+        output: ObjectHeaderModuleOutput?
     ) {
         self.document = document
         self.targetObjectId = targetObjectId
         self.configuration = configuration
         self.objectHeaderInteractor = interactor
+        self.output = output
         
         setupSubscription()
 

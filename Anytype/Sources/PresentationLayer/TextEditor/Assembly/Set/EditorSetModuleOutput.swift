@@ -2,7 +2,7 @@ import Foundation
 import Services
 
 @MainActor
-protocol EditorSetModuleOutput: AnyObject {
+protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showEditorScreen(data: EditorScreenData)
     func replaceEditorScreen(data: EditorScreenData)
     func closeEditor()

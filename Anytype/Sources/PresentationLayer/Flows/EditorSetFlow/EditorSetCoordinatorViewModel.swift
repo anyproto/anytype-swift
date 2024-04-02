@@ -17,7 +17,6 @@ final class EditorSetCoordinatorViewModel:
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
-    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -36,6 +35,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var setViewSettingsData: SetViewData?
     @Published var setQueryData: SetQueryData?
     @Published var relationValueData: RelationValueData?
+    @Published var covertPickerData: ObjectCoverPickerData?
     @Published var toastBarData: ToastBarData = .empty
     
     init(
@@ -45,7 +45,6 @@ final class EditorSetCoordinatorViewModel:
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
-        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
@@ -62,7 +61,6 @@ final class EditorSetCoordinatorViewModel:
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectSettingCoordinator = objectSettingCoordinator
-        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -203,11 +201,7 @@ final class EditorSetCoordinatorViewModel:
         document: BaseDocumentGeneralProtocol,
         onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
     ) {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(
-            document: document,
-            onCoverAction: onCoverAction
-        )
-        navigationContext.present(moduleViewController)
+        covertPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
     }
     
     func showIconPicker(

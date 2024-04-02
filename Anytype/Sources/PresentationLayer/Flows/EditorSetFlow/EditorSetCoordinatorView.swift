@@ -27,6 +27,9 @@ struct EditorSetCoordinatorView: View {
             .anytypeSheet(item: $model.setViewSettingsData) { data in
                 model.setViewSettings(data: data)
             }
+            .sheet(item: $model.covertPickerData) {
+                ObjectCoverPicker(data: $0)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

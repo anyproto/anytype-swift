@@ -746,7 +746,8 @@ extension EditorSetViewModel {
                 isOpenedForPreview: false,
                 usecase: .editor
             ),
-            interactor: DI.preview.serviceLocator.objectHeaderInteractor()
+            interactor: DI.preview.serviceLocator.objectHeaderInteractor(),
+            output: nil
         ),
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
         dataviewService: DI.preview.serviceLocator.dataviewService(),

@@ -37,7 +37,6 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
                 setViewSettingsCoordinatorAssembly: self.coordinatorsID.setViewSettings(), 
                 setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(), 
                 objectSettingCoordinator: self.coordinatorsID.objectSettings().make(),
-                objectCoverPickerModuleAssembly: self.modulesDI.objectCoverPicker(),
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
                 objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(), 

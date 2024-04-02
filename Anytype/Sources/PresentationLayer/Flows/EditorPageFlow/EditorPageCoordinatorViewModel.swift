@@ -19,6 +19,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var relationValueData: RelationValueData?
     @Published var toastBarData: ToastBarData = .empty
     @Published var codeLanguageData: CodeLanguageListData?
+    @Published var covertPickerData: ObjectCoverPickerData?
     
     init(
         data: EditorPageObject,
@@ -67,6 +68,14 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         }
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
+    
+    func showCoverPicker(
+        document: BaseDocumentGeneralProtocol,
+        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
+    ) {
+        covertPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
+    }
+
     
     func relationValueCoordinator(data: RelationValueData) -> AnyView {
         relationValueCoordinatorAssembly.make(
