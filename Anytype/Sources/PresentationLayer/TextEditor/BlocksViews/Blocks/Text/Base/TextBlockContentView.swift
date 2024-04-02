@@ -110,12 +110,10 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         
         focusSubscription = configuration
             .focusPublisher
+            .receiveOnMain()
             .sink { [weak self] focus in
-                DispatchQueue.main.async {
-                    self?.textView.textView.setFocus(focus)
-                }
-                
-        }
+                self?.textView.textView.setFocus(focus)
+            }
         
         resetSubscription = configuration.resetPublisher.sink { [weak self] configuration in
             configuration.map {

@@ -119,6 +119,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         viewInput?.update(
             changes: nil,
             allModels: [shimmeringBlockViewModel],
+            isRealData: false,
             completion: { }
         )
     }
@@ -135,7 +136,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         
         guard document.isOpened else { return }
         
-        viewInput?.update(changes: difference, allModels: modelsHolder.items) { [weak self] in
+        viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true) { [weak self] in
             guard let self else { return }
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
         }
