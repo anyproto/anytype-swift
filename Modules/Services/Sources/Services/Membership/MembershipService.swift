@@ -41,7 +41,7 @@ final class MembershipService: MembershipServiceProtocol {
     public func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
         let tier = try await getTiers().first { $0.type.id == membership.tier }
         
-        guard let tier else {
+        if tier == nil, membership.tier != 0 {
             anytypeAssertionFailure("Not found tier info for \(membership)")
             throw MembershipServiceError.tierNotFound
         }
@@ -82,8 +82,10 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     // MARK: - Private
-    private func convertMiddlewareMembership(membership: MiddlewareMemberhsipStatus, tier: MembershipTier) -> MembershipStatus {
-        anytypeAssert(tier.type.id == membership.tier, "\(tier) and \(membership) does not match an id")
+    private func convertMiddlewareMembership(membership: MiddlewareMemberhsipStatus, tier: MembershipTier?) -> MembershipStatus {
+        if let tier {
+            anytypeAssert(tier.type.id == membership.tier, "\(tier) and \(membership) does not match an id")
+        }
         
         return MembershipStatus(
             tier: tier,

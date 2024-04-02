@@ -62,6 +62,15 @@ extension MembershipTier {
         featureDescriptions.append(contentsOf: features.map(\.description))
         return featureDescriptions
     }
+    
+    var successMessage: String {
+        switch self.type {
+        case .explorer:
+            Loc.Membership.Success.curiosity
+        case .builder, .coCreator, .custom:
+            Loc.Membership.Success.support
+        }
+    }
 }
 
 extension MembershipAnyName {
@@ -87,7 +96,7 @@ extension MembershipFeature {
         case .spaceReaders(let value):
             switch value {
             case .int(let intValue):
-                if intValue == 1024 { // Middleware understanding of Unlimited
+                if intValue >= 1024 { // Middleware understanding of Unlimited
                     Loc.Membership.Feature.unlimitedViewers
                 } else {
                     Loc.Membership.Feature.viewers(intValue)

@@ -10,8 +10,8 @@ struct MembershipTierSuccessView: View {
     var body: some View {
         BottomAlertView(
             title: Loc.Membership.Success.title(tier.name),
-            message: Loc.Membership.Success.subitle,
-            icon: .Membership.tierExplorerMedium,
+            message: tier.successMessage,
+            icon: tier.mediumIcon,
             style: .plain
         ) {
             BottomAlertButton(text: Loc.done, style: .secondary) {
