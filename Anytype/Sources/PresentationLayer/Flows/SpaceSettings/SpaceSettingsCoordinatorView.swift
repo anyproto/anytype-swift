@@ -14,7 +14,7 @@ struct SpaceSettingsCoordinatorView: View {
         .sheet(isPresented: $model.showPersonalization) {
             model.personalizationModule()
                 .sheet(isPresented: $model.showWallpaperPicker) {
-                    model.wallpaperModule()
+                    WallpaperPickerView(spaceId: model.accountSpaceId)
                 }
         }
         .sheet(isPresented: $model.showSpaceShare) {
