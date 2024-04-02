@@ -2,8 +2,12 @@ import SwiftUI
 import AnytypeCore
 
 struct PersonalizationView: View {
-    @StateObject var model: PersonalizationViewModel
+    @StateObject private var model: PersonalizationViewModel
 
+    init(spaceId: String, output: PersonalizationModuleOutput?) {
+        self._model = StateObject(wrappedValue: PersonalizationViewModel(spaceId: spaceId, output: output))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -28,11 +32,7 @@ struct PersonalizationView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.System.blue
-            PersonalizationView(model: PersonalizationViewModel(
-                spaceId: "",
-                objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-                output: nil
-            ))
+            PersonalizationView(spaceId: "", output: nil)
         }
     }
 }
