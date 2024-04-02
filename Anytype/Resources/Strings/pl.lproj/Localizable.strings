@@ -925,6 +925,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Otrzymasz powiadomienie, gdy właściciel pokoju zatwierdzi Twoją prośbę.";
 "SpaceShare.YouSuffix" = "%@ (Państwo)";
 "SpaceShare.ManageSpaces" = "Zarządzanie przestrzeniami";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
 "SpaceShare.StopSharing.Action" = "Stop sharing";
 "SpaceShare.StopSharing.Title" = "Zatrzymywanie udostępniania przestrzeni";
 "SpaceShare.StopSharing.Message" = "Członkowie nie będą już synchronizowani z tą przestrzenią, a łącze udostępniania zostanie dezaktywowane.";
@@ -1071,14 +1072,14 @@
 "Membership.CustomTierEmail.Subject" = "Niestandardowe żądanie członkostwa, ID konta: %@";
 
 
-"Membership.Banner.Title1" = "Współtwórz z nami";
-"Membership.Banner.Subtitle1" = "Pozostań w bliskim kontakcie z naszym zespołem i społecznością. Dołącz do rozmów z zespołem, wpływaj na ewolucję Anytype i wyraź swoją opinię na temat funkcji.";
-"Membership.Banner.Title2" = "Zyskaj korzyści";
-"Membership.Banner.Subtitle2" = "Nasi członkowie mają unikalną tożsamość w Anytype Network, więcej przestrzeni dyskowej, współdzielonych przestrzeni i członków na przestrzeń, co zapewnia szeroką współpracę.";
-"Membership.Banner.Title3" = "Wesprzyj wizję";
-"Membership.Banner.Subtitle3" = "Twój wkład wspiera nasz niezależny zespół i potwierdza naszą wizję bezpiecznego i opartego na współpracy środowiska cyfrowego zorientowanego na użytkownika.";
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
+"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Support Digital Independence";
+"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
 "Membership.Banner.Title4" = "Zainwestuj w łączność";
-"Membership.Banner.Subtitle4" = "Nasze oprogramowanie jest z założenia darmowe, ale rozwijamy się dzięki sieci, która łączy nas wszystkich. Wesprzyj nas, a zainwestujesz w infrastrukturę, która utrzymuje nas w jedności.";
+"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
 "Membership.EmailForm.Title" = "Uzyskaj bezpłatne członkostwo";
 "Membership.EmailForm.Subtitle" = "Potrzebujemy Twojego e-maila, aby powstrzymać spam i zabawę w zabawie!";
@@ -1086,7 +1087,7 @@
 "Membership.EmailValidation" = "Wpisz kod wysłany na Twój adres e-mail";
 
 "Membership.NameForm.Title" = "Wybierz swoją unikalną nazwę";
-"Membership.NameForm.Subtitle" = "Ta nazwa działa jak domena osobista, ułatwiając innym znalezienie Cię";
+"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
 "Membership.NameForm.Validating" = "Zaraz, zaraz...";
 "Membership.NameForm.Validated" = "Ta nazwa jest do zgarnięcia";
 
@@ -1096,7 +1097,8 @@
 
 
 "Membership.Success.Title" = "Witaj w sieci, %@";
-"Membership.Success.Subitle" = "Wielkie brawa za ciekawość!";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
 
 "Membership.Payment.Card" = "Karta";
 "Membership.Payment.Crypto" = "Krypto";
@@ -1106,27 +1108,19 @@
 "Membership.Payment.Google subscription" = "Subskrypcja Google";
 
 
-// MARK: - Membership Tiers
-"Membership.Explorer.Subtitle" = "Zanurz się w sieci i ciesz się dreszczykiem emocji związanym ze współpracą jeden na jednego";
-"Membership.Explorer.Benefit1" = "1 GB przestrzeni sieciowej";
-"Membership.Explorer.Benefit2" = "10 miejsc jeden na jeden";
-"Membership.Explorer.Benefit3" = "Do 10 przestrzeni współdzielonych w trybie tylko do odczytu";
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
 
-"Membership.Builder.Subtitle" = "Uwolnij magię współpracy wielostronnej i ciesz się wsparciem na najwyższym poziomie";
-"Membership.Builder.Benefit1" = "Unikalna nazwa (od 7 znaków)";
-"Membership.Builder.Benefit2" = "128 GB przestrzeni sieciowej";
-"Membership.Builder.Benefit3" = "10 miejsc dla współpracowników gości";
-"Membership.Builder.Benefit4" = "Priorytetowe wsparcie";
-
-"Membership.CoCreator.Subtitle" = "Wesprzyj naszą przygodę i odblokuj ekskluzywny dostęp i korzyści";
-"Membership.CoCreator.Benefit1" = "Unikalna nazwa (od 5 znaków)";
-"Membership.CoCreator.Benefit2" = "256 GB przestrzeni sieciowej";
-"Membership.CoCreator.Benefit3" = "25 miejsc dla współpracowników gości";
-"Membership.CoCreator.Benefit4" = "Porozmawiaj z zespołem";
-"Membership.CoCreator.Benefit5" = "Unikatowy przedmiot kolekcjonerski";
-
-"Membership.Custom.Subtitle" = "Członkostwo dostosowane do Twoich konkretnych potrzeb i preferencji";
-
+"Membership.Feature.LocalName" = "Local, non-unique name";
+"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
+"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";
