@@ -36,7 +36,7 @@ struct MembershipTierInfoView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(Loc.whatSIncluded, style: .calloutRegular, color: .Text.secondary)
             Spacer.fixedHeight(6)
-            ForEach(tier.featureDescriptions, id: \.self) { feature in
+            ForEach(tier.features, id: \.self) { feature in
                 HStack(spacing: 8) {
                     Image(asset: .System.textCheckMark)
                         .frame(width: 16, height: 16)

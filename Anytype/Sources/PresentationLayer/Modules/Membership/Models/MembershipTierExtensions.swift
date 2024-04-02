@@ -57,12 +57,6 @@ extension MembershipTier {
         }
     }
     
-    var featureDescriptions: [String] {
-        var featureDescriptions = [anyName.description]
-        featureDescriptions.append(contentsOf: features.map(\.description))
-        return featureDescriptions
-    }
-    
     var successMessage: String {
         switch self.type {
         case .explorer:
@@ -73,44 +67,6 @@ extension MembershipTier {
     }
 }
 
-extension MembershipAnyName {
-    var description: String {
-        switch self {
-        case .none:
-            Loc.Membership.Feature.localName
-        case .some(let minLenght):
-            Loc.Membership.Feature.uniqueName(minLenght)
-        }
-    }
-}
-
-extension MembershipFeature {
-    var description: String {
-        switch self {
-        case .storageGbs(let value):
-            Loc.Membership.Feature.storageGB(value)
-        case .invites(let value):
-            Loc.Membership.Feature.invites(value)
-        case .spaceWriters(let value):
-            Loc.Membership.Feature.spaceWriters(value)
-        case .spaceReaders(let value):
-            switch value {
-            case .int(let intValue):
-                if intValue >= 1024 { // Middleware understanding of Unlimited
-                    Loc.Membership.Feature.unlimitedViewers
-                } else {
-                    Loc.Membership.Feature.viewers(intValue)
-                }
-            case .string(let stringValue):
-                Loc.Membership.Feature.viewers(stringValue)
-            }
-        case .sharedSpaces(let value):
-            Loc.Membership.Feature.sharedSpaces(value)
-        }
-    }
-}
-
-
 // MARK: - Mocks
 extension MembershipTier {
     static var mockExplorer: MembershipTier {
@@ -119,10 +75,10 @@ extension MembershipTier {
             name: "Explorer",
             anyName: .none,
             features: [
-                .storageGbs(.int(1)),
-                .sharedSpaces(.int(3)),
-                .spaceWriters(.int(3)),
-                .spaceReaders(.int(3))
+                Loc.Membership.Feature.storageGB(1),
+                Loc.Membership.Feature.sharedSpaces(3),
+                Loc.Membership.Feature.spaceWriters(3),
+                Loc.Membership.Feature.viewers(3)
             ]
         )
     }
@@ -133,10 +89,10 @@ extension MembershipTier {
             name: "Builder",
             anyName: .some(minLenght: 7),
             features: [
-                .storageGbs(.int(128)),
-                .sharedSpaces(.int(3)),
-                .spaceWriters(.int(10)),
-                .spaceReaders(.int(1024))
+                Loc.Membership.Feature.storageGB(128),
+                Loc.Membership.Feature.sharedSpaces(3),
+                Loc.Membership.Feature.spaceWriters(10),
+                Loc.Membership.Feature.viewers("Unlimited")
             ]
         )
     }
@@ -147,10 +103,10 @@ extension MembershipTier {
             name: "CockCreator",
             anyName: .some(minLenght: 5),
             features: [
-                .storageGbs(.int(256)),
-                .sharedSpaces(.int(3)),
-                .spaceWriters(.int(10)),
-                .spaceReaders(.int(1024))
+                Loc.Membership.Feature.storageGB(256),
+                Loc.Membership.Feature.sharedSpaces(3),
+                Loc.Membership.Feature.spaceWriters(10),
+                Loc.Membership.Feature.viewers("Unlimited")
             ]
         )
     }
@@ -161,10 +117,10 @@ extension MembershipTier {
             name: "Na-Baron",
             anyName: .some(minLenght: 3),
             features: [
-                .storageGbs(.int(2560)),
-                .sharedSpaces(.int(333)),
-                .spaceWriters(.int(100)),
-                .spaceReaders(.int(1024)),
+                Loc.Membership.Feature.storageGB(2560),
+                Loc.Membership.Feature.sharedSpaces(333),
+                Loc.Membership.Feature.spaceWriters(100),
+                Loc.Membership.Feature.viewers("Unlimited")
             ]
         )
     }
