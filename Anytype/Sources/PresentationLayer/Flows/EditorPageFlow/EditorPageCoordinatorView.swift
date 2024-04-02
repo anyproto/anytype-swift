@@ -22,6 +22,9 @@ struct EditorPageCoordinatorView: View {
             .sheet(item: $model.codeLanguageData) {
                 CodeLanguageListView(data: $0)
             }
+            .sheet(item: $model.covertPickerData) {
+                ObjectCoverPicker(data: $0)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

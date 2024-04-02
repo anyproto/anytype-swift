@@ -6,7 +6,6 @@ protocol ModulesDIProtocol: AnyObject {
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol
     func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
-    func objectCoverPicker() -> ObjectCoverPickerModuleAssemblyProtocol
     func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol
     func objectSetting() -> ObjectSettingModuleAssemblyProtocol
     func search() -> SearchModuleAssemblyProtocol

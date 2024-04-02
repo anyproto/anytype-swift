@@ -83,7 +83,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),
             linkToObjectCoordinatorAssembly: coordinatorsDI.linkToObject(),
-            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
             searchModuleAssembly: modulesDI.search(),
@@ -204,7 +203,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             targetObjectId: document.objectId,
             configuration: configuration,
-            interactor: serviceLocator.objectHeaderInteractor()
+            interactor: serviceLocator.objectHeaderInteractor(),
+            output: output
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
         
@@ -308,10 +308,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     }
     
     private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
-        headerModel.onCoverPickerTap = { [weak router] args in
-            router?.showCoverPicker(document: args.0, onCoverAction: args.1)
-        }
-        
         headerModel.onIconPickerTap = { [weak router] args in
             router?.showIconPicker(document: args.0, onIconAction: args.1)
         }

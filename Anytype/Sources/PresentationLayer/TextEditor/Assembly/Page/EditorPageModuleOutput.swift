@@ -1,7 +1,7 @@
 import Foundation
 
 @MainActor
-protocol EditorPageModuleOutput: AnyObject {
+protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showEditorScreen(data: EditorScreenData)
     func replaceEditorScreen(data: EditorScreenData)
     func closeEditor()

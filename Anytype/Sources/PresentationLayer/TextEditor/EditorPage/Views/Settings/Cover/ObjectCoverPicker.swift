@@ -3,12 +3,14 @@ import Services
 
 struct ObjectCoverPicker: View {
     
-    @ObservedObject var viewModel: ObjectCoverPickerViewModel
-    @Environment(\.presentationMode) private var presentationMode
-    
-    var onDismiss: () -> Void = {}
+    @StateObject private var viewModel: ObjectCoverPickerViewModel
+    @Environment(\.dismiss) private var dismiss
     
     @State private var index: Int = 0
+    
+    init(data: ObjectCoverPickerData) {
+        self._viewModel = StateObject(wrappedValue: ObjectCoverPickerViewModel(data: data))
+    }
     
     var body: some View {
         TabView(selection: $index) {
@@ -106,11 +108,6 @@ struct ObjectCoverPicker: View {
             )
         }
         .frame(maxWidth: .infinity)
-    }
-    
-    private func dismiss() {
-        presentationMode.wrappedValue.dismiss()
-        onDismiss()
     }
 }
 

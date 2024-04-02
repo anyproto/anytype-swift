@@ -15,6 +15,13 @@ enum ObjectCoverPickerAction {
     case removeCover
 }
 
+struct ObjectCoverPickerData: Identifiable {
+    let document: BaseDocumentGeneralProtocol
+    let onCoverAction: (ObjectCoverPickerAction) -> Void
+    
+    var id: String { document.objectId }
+}
+
 final class ObjectCoverPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
@@ -26,12 +33,9 @@ final class ObjectCoverPickerViewModel: ObservableObject {
         
     // MARK: - Initializer
     
-    init(
-        document: BaseDocumentGeneralProtocol,
-        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
-    ) {
-        self.document = document
-        self.onCoverAction = onCoverAction
+    init(data: ObjectCoverPickerData) {
+        self.document = data.document
+        self.onCoverAction = data.onCoverAction
     }
 }
 

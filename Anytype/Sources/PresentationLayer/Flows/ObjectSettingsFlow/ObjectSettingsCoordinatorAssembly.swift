@@ -33,7 +33,6 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             objectSettingsModuleAssembly: modulesDI.objectSetting(),
             undoRedoModuleAssembly: modulesDI.undoRedo(),
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker(),
-            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             relationsListCoordinatorAssembly: coordinatorsDI.relationsList(),
             searchModuleAssembly: modulesDI.search(),

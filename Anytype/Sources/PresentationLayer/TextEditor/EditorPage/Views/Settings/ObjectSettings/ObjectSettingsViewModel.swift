@@ -11,7 +11,7 @@ enum ObjectSettingsAction {
 }
 
 @MainActor
-protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol {
+protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
     func undoRedoAction(document: BaseDocumentProtocol)
     func layoutPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
