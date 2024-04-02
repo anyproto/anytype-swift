@@ -16,7 +16,6 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
     init(
         spaceId: String,
         filter: SetFilter,
-        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         completion: @escaping (SetFilter) -> Void
     ) {
@@ -24,7 +23,6 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
         self.contentViewBuilder = SetFiltersContentViewBuilder(
             spaceId: spaceId,
             filter: filter,
-            setFiltersDateCoordinatorAssembly: setFiltersDateCoordinatorAssembly,
             newSearchModuleAssembly: newSearchModuleAssembly
         )
     }

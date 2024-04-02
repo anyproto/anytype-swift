@@ -18,7 +18,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol
     func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol
-    func setFiltersDate() -> SetFiltersDateCoordinatorAssemblyProtocol
     func setFiltersSelection() -> SetFiltersSelectionCoordinatorAssemblyProtocol
     func setFiltersList() -> SetFiltersListCoordinatorAssemblyProtocol
     func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol

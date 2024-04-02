@@ -31,11 +31,10 @@ final class SetFiltersDateViewModel: ObservableObject {
     }
     
     init(
-        filter: SetFilter,
-        setSelectionModel: SetFiltersSelectionViewModel?,
-        onApplyDate: @escaping (SetFiltersDate) -> Void)
-    {
-        self.filter = filter
+        data: SetFiltersDateViewData,
+        setSelectionModel: SetFiltersSelectionViewModel?
+    ){
+        self.filter = data.filter
         self.quickOption = filter.filter.quickOption
         self.setSelectionModel = setSelectionModel
         self.condition = setSelectionModel?.condition ?? DataviewFilter.Condition.equal
@@ -54,7 +53,7 @@ final class SetFiltersDateViewModel: ObservableObject {
             self.numberOfDays = filter.filter.value.safeIntValue ?? 0
         }
         
-        self.onApplyDate = onApplyDate
+        self.onApplyDate = data.onApplyDate
         self.setup()
     }
     

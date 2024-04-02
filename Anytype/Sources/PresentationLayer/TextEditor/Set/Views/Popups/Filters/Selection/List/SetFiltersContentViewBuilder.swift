@@ -8,17 +8,14 @@ final class SetFiltersContentViewBuilder {
     private let spaceId: String
     private let filter: SetFilter
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
     
     init(
         spaceId: String,
         filter: SetFilter,
-        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.spaceId = spaceId
         self.filter = filter
-        self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
@@ -169,11 +166,10 @@ final class SetFiltersContentViewBuilder {
         setSelectionModel: SetFiltersSelectionViewModel?,
         onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> AnyView {
-        setFiltersDateCoordinatorAssembly.make(
-            filter: filter,
-            setSelectionModel: setSelectionModel,
-            completion: onApplyDate
-        )
+        SetFiltersDateCoordinatorView(
+            data: SetFiltersDateViewData(filter: filter, onApplyDate: onApplyDate),
+            setSelectionModel: setSelectionModel
+        ).eraseToAnyView()
     }
     
     // MARK: - Helper methods

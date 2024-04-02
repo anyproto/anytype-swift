@@ -1112,8 +1112,6 @@
 		2ECB340F2A97A90800E0F9BB /* SetTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB340E2A97A90800E0F9BB /* SetTextView.swift */; };
 		2ECB34162A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34152A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift */; };
 		2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */; };
-		2ECB341A2A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34192A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift */; };
-		2ECB341C2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB341B2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift */; };
 		2ECB342D2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */; };
 		2ECB342F2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */; };
 		2ECB34312A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */; };
@@ -2911,8 +2909,6 @@
 		2ECB340E2A97A90800E0F9BB /* SetTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTextView.swift; sourceTree = "<group>"; };
 		2ECB34152A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateCoordinatorView.swift; sourceTree = "<group>"; };
 		2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2ECB34192A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateCoordinatorAssembly.swift; sourceTree = "<group>"; };
-		2ECB341B2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorView.swift; sourceTree = "<group>"; };
 		2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -7510,7 +7506,6 @@
 				2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */,
 				2E7C44682892D73C0062287C /* SetFiltersDateType.swift */,
 				2E7C446A2892E66D0062287C /* SetFiltersDate.swift */,
-				2ECB341B2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -7779,7 +7774,6 @@
 			children = (
 				2ECB34152A97B44800E0F9BB /* SetFiltersDateCoordinatorView.swift */,
 				2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */,
-				2ECB34192A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -10904,7 +10898,6 @@
 				3D1CEC2D27F48301000D36BA /* SettingsButton.swift in Sources */,
 				3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */,
 				2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */,
-				2ECB341C2A97B80F00E0F9BB /* SetFiltersDateViewModuleAssembly.swift in Sources */,
 				EAADB1A52678CD6E004B0AF2 /* MentionTextDetector.swift in Sources */,
 				2A2C330928928C02008BC326 /* UrlOpener.swift in Sources */,
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
@@ -11645,7 +11638,6 @@
 				12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */,
 				2E101CBB2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift in Sources */,
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,
-				2ECB341A2A97B4C400E0F9BB /* SetFiltersDateCoordinatorAssembly.swift in Sources */,
 				1226857928D4C5E60013A28E /* AppMetricsTracker.swift in Sources */,
 				2E31C9622B7281CD006DB3E2 /* RelationListSelectionView.swift in Sources */,
 				2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */,

@@ -9,32 +9,17 @@ protocol SetFiltersDateCoordinatorOutput: AnyObject {
 final class SetFiltersDateCoordinatorViewModel: ObservableObject, SetFiltersDateCoordinatorOutput {
     @Published var filtersDaysData: SetTextViewData?
     
-    private let filter: SetFilter
+    let data: SetFiltersDateViewData
     
     // TODO: Needs refactoring
-    private weak var setSelectionModel: SetFiltersSelectionViewModel?
-    
-    private let setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol
-    private let completion: (SetFiltersDate) -> Void
+    weak var setSelectionModel: SetFiltersSelectionViewModel?
     
     init(
-        filter: SetFilter,
-        setSelectionModel: SetFiltersSelectionViewModel?,
-        setFiltersDateViewModuleAssembly: SetFiltersDateViewModuleAssemblyProtocol,
-        completion: @escaping (SetFiltersDate) -> Void
+        data: SetFiltersDateViewData,
+        setSelectionModel: SetFiltersSelectionViewModel?
     ) {
-        self.filter = filter
+        self.data = data
         self.setSelectionModel = setSelectionModel
-        self.setFiltersDateViewModuleAssembly = setFiltersDateViewModuleAssembly
-        self.completion = completion
-    }
-    
-    func list() -> AnyView {
-        setFiltersDateViewModuleAssembly.make(
-            filter: filter,
-            selectionModel: setSelectionModel,
-            onApplyDate: completion
-        )
     }
     
     // MARK: - SetViewSettingsNavigationOutput
