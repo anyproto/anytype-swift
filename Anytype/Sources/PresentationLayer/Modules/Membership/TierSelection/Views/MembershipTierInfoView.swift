@@ -36,12 +36,12 @@ struct MembershipTierInfoView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(Loc.whatSIncluded, style: .calloutRegular, color: .Text.secondary)
             Spacer.fixedHeight(6)
-            ForEach(tier.benefits, id: \.self) { benefit in
+            ForEach(tier.featureDescriptions, id: \.self) { feature in
                 HStack(spacing: 8) {
                     Image(asset: .System.textCheckMark)
                         .frame(width: 16, height: 16)
                         .foregroundColor(.Text.primary)
-                    AnytypeText(benefit, style: .calloutRegular, color: .Text.primary)
+                    AnytypeText(feature, style: .calloutRegular, color: .Text.primary)
                         .lineLimit(1)
                 }
             }
