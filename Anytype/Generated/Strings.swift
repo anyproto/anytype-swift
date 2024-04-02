@@ -1440,34 +1440,34 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Membership.Ad.Title", fallback: "Membership")
     }
     internal enum Banner {
-      /// Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.
-      internal static let subtitle1 = Loc.tr("Localizable", "Membership.Banner.Subtitle1", fallback: "Stay closely connected with our team and community. Join calls with the team, influence Anytype's evolution, and have your say on features.")
-      /// Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.
-      internal static let subtitle2 = Loc.tr("Localizable", "Membership.Banner.Subtitle2", fallback: "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.")
-      /// Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.
-      internal static let subtitle3 = Loc.tr("Localizable", "Membership.Banner.Subtitle3", fallback: "Your contribution supports our independent team and endorses our vision︎ of a user-driven, secure, and collaborative digital environment.")
-      /// Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.
-      internal static let subtitle4 = Loc.tr("Localizable", "Membership.Banner.Subtitle4", fallback: "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.")
-      /// Co-create with us
-      internal static let title1 = Loc.tr("Localizable", "Membership.Banner.Title1", fallback: "Co-create with us")
-      /// Gain Benefits
-      internal static let title2 = Loc.tr("Localizable", "Membership.Banner.Title2", fallback: "Gain Benefits")
-      /// Support the Vision
-      internal static let title3 = Loc.tr("Localizable", "Membership.Banner.Title3", fallback: "Support the Vision")
+      /// As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.
+      internal static let subtitle1 = Loc.tr("Localizable", "Membership.Banner.Subtitle1", fallback: "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.")
+      /// Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.
+      internal static let subtitle2 = Loc.tr("Localizable", "Membership.Banner.Subtitle2", fallback: "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.")
+      /// Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.
+      internal static let subtitle3 = Loc.tr("Localizable", "Membership.Banner.Subtitle3", fallback: "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.")
+      /// Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.
+      internal static let subtitle4 = Loc.tr("Localizable", "Membership.Banner.Subtitle4", fallback: "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.")
+      /// Build the Vision Together
+      internal static let title1 = Loc.tr("Localizable", "Membership.Banner.Title1", fallback: "Build the Vision Together")
+      /// Unlock Member Benefits
+      internal static let title2 = Loc.tr("Localizable", "Membership.Banner.Title2", fallback: "Unlock Member Benefits")
+      /// Support Digital Independence
+      internal static let title3 = Loc.tr("Localizable", "Membership.Banner.Title3", fallback: "Support Digital Independence")
       /// Invest in Connectivity
       internal static let title4 = Loc.tr("Localizable", "Membership.Banner.Title4", fallback: "Invest in Connectivity")
     }
     internal enum Builder {
-      /// Unlock the magic of multi-party collaboration and enjoy top-notch support
-      internal static let subtitle = Loc.tr("Localizable", "Membership.Builder.Subtitle", fallback: "Unlock the magic of multi-party collaboration and enjoy top-notch support")
+      /// Unlock multiparty collaboration and extend your network storage.
+      internal static let subtitle = Loc.tr("Localizable", "Membership.Builder.Subtitle", fallback: "Unlock multiparty collaboration and extend your network storage.")
     }
     internal enum CoCreator {
-      /// Support our adventure and unlock exclusive access and perks
-      internal static let subtitle = Loc.tr("Localizable", "Membership.CoCreator.Subtitle", fallback: "Support our adventure and unlock exclusive access and perks")
+      /// Support our adventure and unlock exclusive access and perks.
+      internal static let subtitle = Loc.tr("Localizable", "Membership.CoCreator.Subtitle", fallback: "Support our adventure and unlock exclusive access and perks.")
     }
     internal enum Custom {
-      /// Membership tailored to your specific needs and preferences
-      internal static let subtitle = Loc.tr("Localizable", "Membership.Custom.Subtitle", fallback: "Membership tailored to your specific needs and preferences")
+      /// Custom conditions of Membership. If you have any questions, please contact support.
+      internal static let subtitle = Loc.tr("Localizable", "Membership.Custom.Subtitle", fallback: "Custom conditions of Membership. If you have any questions, please contact support.")
     }
     internal enum CustomTierEmail {
       /// Custom membership tier request, Account id: %@
@@ -1493,8 +1493,8 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Membership.EmailForm.Title", fallback: "Get your free membership")
     }
     internal enum Explorer {
-      /// Dive into the network and enjoy the thrill of one-on-one collaboration
-      internal static let subtitle = Loc.tr("Localizable", "Membership.Explorer.Subtitle", fallback: "Dive into the network and enjoy the thrill of one-on-one collaboration")
+      /// Sync your devices, get backup storage, and engage in collaboration.
+      internal static let subtitle = Loc.tr("Localizable", "Membership.Explorer.Subtitle", fallback: "Sync your devices, get backup storage, and engage in collaboration.")
     }
     internal enum Feature {
       /// %@ Invitations
@@ -1503,17 +1503,17 @@ internal enum Loc {
       }
       /// Local, non-unique name
       internal static let localName = Loc.tr("Localizable", "Membership.Feature.LocalName", fallback: "Local, non-unique name")
-      /// %@ Shared spaces
+      /// Up to %@ Shared spaces
       internal static func sharedSpaces(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.SharedSpaces", String(describing: p1), fallback: "%@ Shared spaces")
+        return Loc.tr("Localizable", "Membership.Feature.SharedSpaces", String(describing: p1), fallback: "Up to %@ Shared spaces")
       }
-      /// %@ Editors per space
+      /// %@ Editors per shared space
       internal static func spaceWriters(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.SpaceWriters", String(describing: p1), fallback: "%@ Editors per space")
+        return Loc.tr("Localizable", "Membership.Feature.SpaceWriters", String(describing: p1), fallback: "%@ Editors per shared space")
       }
-      /// %@ GB of backup & sync space
+      /// %@ GB of backup & sync space on the Anytype network
       internal static func storageGB(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.Feature.StorageGB", String(describing: p1), fallback: "%@ GB of backup & sync space")
+        return Loc.tr("Localizable", "Membership.Feature.StorageGB", String(describing: p1), fallback: "%@ GB of backup & sync space on the Anytype network")
       }
       /// Unique Network name (%@+ characters)
       internal static func uniqueName(_ p1: Any) -> String {
@@ -1539,8 +1539,8 @@ internal enum Loc {
       internal static let wouldYouLike = Loc.tr("Localizable", "Membership.Legal.WouldYouLike", fallback: "Would you like to use Anytype for business, education, etc.?")
     }
     internal enum NameForm {
-      /// This name acts like a personal domain, making it easier for others to find you
-      internal static let subtitle = Loc.tr("Localizable", "Membership.NameForm.Subtitle", fallback: "This name acts like a personal domain, making it easier for others to find you")
+      /// This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.
+      internal static let subtitle = Loc.tr("Localizable", "Membership.NameForm.Subtitle", fallback: "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.")
       /// Pick your unique name
       internal static let title = Loc.tr("Localizable", "Membership.NameForm.Title", fallback: "Pick your unique name")
       /// This name is up for grabs
@@ -1572,7 +1572,9 @@ internal enum Loc {
     }
     internal enum Success {
       /// Big cheers for your curiosity!
-      internal static let subitle = Loc.tr("Localizable", "Membership.Success.Subitle", fallback: "Big cheers for your curiosity!")
+      internal static let curiosity = Loc.tr("Localizable", "Membership.Success.Curiosity", fallback: "Big cheers for your curiosity!")
+      /// Big cheers for your support!
+      internal static let support = Loc.tr("Localizable", "Membership.Success.Support", fallback: "Big cheers for your support!")
       /// Welcome to the network, %@
       internal static func title(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Membership.Success.Title", String(describing: p1), fallback: "Welcome to the network, %@")
