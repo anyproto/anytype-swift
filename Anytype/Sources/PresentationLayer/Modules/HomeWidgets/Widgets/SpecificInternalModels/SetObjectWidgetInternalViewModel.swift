@@ -20,8 +20,10 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
     private var setDocument: SetDocumentProtocol?
+    private var activeViewId: String?
     private var subscriptions = [AnyCancellable]()
     private var contentSubscriptions = [AnyCancellable]()
+    private var canEditBlocks = true
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = ""
     @Published var dataview: WidgetDataviewState?
@@ -54,12 +56,21 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     }
     
     func startHeaderSubscription() {
+        widgetObject.permissionsPublisher.receiveOnMain()
+            .sink { [weak self] permissions in
+                self?.canEditBlocks = permissions.canEditBlocks
+            }
+            .store(in: &subscriptions)
+        
         widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
-            .sink { [weak self] widgetInfo in
+            .sink { [weak self] newWidgetInfo in
                 guard let self else { return }
-                self.widgetInfo = widgetInfo
-                self.setActiveViewId()
+                widgetInfo = newWidgetInfo
+                if activeViewId.isNil || canEditBlocks {
+                    activeViewId = widgetInfo?.block.viewId
+                    setActiveViewId()
+                }
             }
             .store(in: &subscriptions)
         
@@ -93,7 +104,12 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     func onActiveViewTap(_ viewId: String) {
         guard setDocument?.activeView.id != viewId else { return }
         Task { @MainActor in
-            try await blockWidgetService.setViewId(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId, viewId: viewId)
+            if canEditBlocks {
+                try? await blockWidgetService.setViewId(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId, viewId: viewId)
+            } else {
+                activeViewId = viewId
+                setActiveViewId()
+            }
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -185,7 +201,7 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     
     
     private func setActiveViewId() {
-        guard let widgetInfo, setDocument?.activeView.id != widgetInfo.block.viewId else { return }
-        setDocument?.updateActiveViewIdAndReload(widgetInfo.block.viewId)
+        guard let activeViewId, setDocument?.activeView.id != activeViewId else { return }
+        setDocument?.updateActiveViewIdAndReload(activeViewId)
     }
 }
