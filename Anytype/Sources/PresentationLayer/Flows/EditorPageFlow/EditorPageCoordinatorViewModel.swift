@@ -75,7 +75,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     ) {
         covertPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
     }
-
     
     func relationValueCoordinator(data: RelationValueData) -> AnyView {
         relationValueCoordinatorAssembly.make(
