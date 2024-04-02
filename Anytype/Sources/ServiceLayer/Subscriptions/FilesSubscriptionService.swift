@@ -44,12 +44,11 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
             type: .desc
         )
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isDeletedFilter(isDeleted: false),
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilters()
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.fileSyncStatus(syncStatus)
-        ]
+        }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

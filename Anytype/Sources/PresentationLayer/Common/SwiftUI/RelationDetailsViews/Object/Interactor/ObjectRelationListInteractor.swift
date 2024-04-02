@@ -18,11 +18,16 @@ final class ObjectRelationListInteractor: ObjectRelationListInteractorProtocol {
         self.limitedObjectTypes = limitedObjectTypes
     }
     
-    func searchOptions(text: String) async throws -> [ObjectRelationOption] {
+    func searchOptions(text: String, limitObjectIds: [String]) async throws -> [ObjectRelationOption] {
+        try await searchService.search(text: text, limitObjectIds: limitObjectIds)
+            .map { ObjectRelationOption(objectDetails: $0) }
+    }
+    
+    func searchOptions(text: String, excludeObjectIds: [String]) async throws -> [ObjectRelationOption] {
         try await searchService.searchObjectsByTypes(
             text: text,
             typeIds: limitedObjectTypes.map { $0.id },
-            excludedObjectIds: [],
+            excludedObjectIds: excludeObjectIds,
             spaceId: spaceId
         ).map { ObjectRelationOption(objectDetails: $0) }
     }

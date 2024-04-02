@@ -40,11 +40,10 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
             type: .desc
         )
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: true),
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilters(isArchive: true)
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-        ]
+        }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

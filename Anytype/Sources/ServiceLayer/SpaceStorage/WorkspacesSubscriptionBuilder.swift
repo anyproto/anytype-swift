@@ -25,12 +25,10 @@ final class WorkspacesSubscriptionBuilder: WorkspacesSubscriptionBuilderProtocol
             type: .desc
         )
         
-        let filters = [
-            SearchHelper.layoutFilter([.spaceView]),
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.isDeletedFilter(isDeleted: false),
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.layoutFilter([.spaceView])
             SearchHelper.spaceAccountStatusExcludeFilter(.spaceDeleted)
-        ]
+        }
         
         return .search(
             SubscriptionData.Search(

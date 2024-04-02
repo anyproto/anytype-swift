@@ -42,12 +42,11 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
             type: .desc
         )
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilters()
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter([DetailsLayout.set])
-        ]
+        }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
