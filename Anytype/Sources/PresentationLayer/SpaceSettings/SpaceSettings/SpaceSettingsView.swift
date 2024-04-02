@@ -24,27 +24,7 @@ struct SpaceSettingsView: View {
                     })
                     .disabled(!model.allowEditSpace)
                     
-                    if FeatureFlags.multiplayer {
-                        if model.allowShare {
-                            SectionHeaderView(title: Loc.SpaceShare.title)
-                            SettingsSectionItemView(
-                                name: Loc.SpaceSettings.share,
-                                onTap: { model.onShareTap() }
-                            )
-                        }
-                        
-                        if model.allowSpaceMembers {
-                            SectionHeaderView(title: Loc.SpaceSettings.title)
-                            SettingsSectionItemView(
-                                name: Loc.SpaceShare.members,
-                                onTap: { model.onMembersTap() }
-                            )
-                        }
-                    } else {
-                        SectionHeaderView(title: Loc.type)
-                        
-                        SpaceTypeView(name: model.spaceAccessType)
-                    }
+                    spaceSection
                     
                     SectionHeaderView(title: Loc.settings)
                     
@@ -90,6 +70,9 @@ struct SpaceSettingsView: View {
         .onAppear {
             model.onAppear()
         }
+        .task {
+            await model.startJoiningTask()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
@@ -98,6 +81,31 @@ struct SpaceSettingsView: View {
         }
         .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
             SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
+        }
+    }
+    
+    @ViewBuilder
+    private var spaceSection: some View {
+        SectionHeaderView(title: Loc.Settings.spaceType)
+        
+        if FeatureFlags.multiplayer {
+            if model.allowShare {
+                SettingsSectionItemView(
+                    name: model.spaceAccessType,
+                    decoration: .arrow(text: model.sharedSpaceDescription),
+                    onTap: { model.onShareTap() }
+                )
+            } else if model.allowSpaceMembers {
+                SettingsSectionItemView(
+                    name: model.spaceAccessType,
+                    decoration: .arrow(text: Loc.SpaceShare.members),
+                    onTap: { model.onMembersTap() }
+                )
+            } else {
+                SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
+            }
+        } else {
+            SpaceTypeView(name: model.spaceAccessType)
         }
     }
 }

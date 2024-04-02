@@ -2072,6 +2072,8 @@ internal enum Loc {
     internal static let accountAndAccess = Loc.tr("Localizable", "Settings.AccountAndAccess", fallback: "Account and access")
     /// Space name
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
+    /// Space type
+    internal static let spaceType = Loc.tr("Localizable", "Settings.SpaceType", fallback: "Space type")
     /// Settings
     internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
   }
@@ -2282,12 +2284,18 @@ internal enum Loc {
     internal static let joinRequest = Loc.tr("Localizable", "SpaceShare.JoinRequest", fallback: "Join request")
     /// Leave request
     internal static let leaveRequest = Loc.tr("Localizable", "SpaceShare.LeaveRequest", fallback: "Leave request")
+    /// Manage
+    internal static let manage = Loc.tr("Localizable", "SpaceShare.Manage", fallback: "Manage")
     /// Manage Spaces
     internal static let manageSpaces = Loc.tr("Localizable", "SpaceShare.ManageSpaces", fallback: "Manage Spaces")
     /// Members
     internal static let members = Loc.tr("Localizable", "SpaceShare.Members", fallback: "Members")
     /// More info
     internal static let moreInfo = Loc.tr("Localizable", "SpaceShare.MoreInfo", fallback: "More info")
+    /// Plural format key: "%#@object@"
+    internal static func requestsCount(_ p1: Int) -> String {
+      return Loc.tr("Localizable", "SpaceShare.RequestsCount", p1, fallback: "Plural format key: \"%#@object@\"")
+    }
     /// Sharing
     internal static let title = Loc.tr("Localizable", "SpaceShare.Title", fallback: "Sharing")
     /// %@ (you)
