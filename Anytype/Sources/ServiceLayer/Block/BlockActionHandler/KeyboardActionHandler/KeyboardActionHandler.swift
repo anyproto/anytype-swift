@@ -23,7 +23,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private weak var modelsHolder: EditorMainItemModelsHolder?
     private let editorCollectionController: EditorBlockCollectionController
     
-    init(
+    nonisolated init(
         documentId: String,
         service: BlockActionServiceProtocol,
         blockService: BlockServiceProtocol,
