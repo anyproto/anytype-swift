@@ -5386,14 +5386,8 @@ public struct Anytype_Model_MembershipTierData {
   /// you don't have to use it, you can use your own UI-friendly texts
   public var description_p: String = String()
 
-  /// can you buy it (ON ALL PLATFORMS, without clarification)?
-  public var isActive: Bool = false
-
   /// is this tier for debugging only?
   public var isTest: Bool = false
-
-  /// hidden tiers are only visible once user got them
-  public var isHiddenTier: Bool = false
 
   /// how long is the period of the subscription
   public var periodType: Anytype_Model_MembershipTierData.PeriodType = .unknown
@@ -5405,15 +5399,17 @@ public struct Anytype_Model_MembershipTierData {
   public var priceStripeUsdCents: UInt32 = 0
 
   /// number of ANY NS names that this tier includes 
-  /// (not counted as a "feature" and not in the features list)
+  /// also in the "features" list (see below)
   public var anyNamesCountIncluded: UInt32 = 0
 
-  /// somename.any - len of 8
+  /// somename.any - is of len 8
   public var anyNameMinLength: UInt32 = 0
 
-  /// each tier has a set of features
-  /// the key is FeatureId
-  public var features: [Anytype_Model_MembershipTierData.Feature] = []
+  /// localized strings for the features
+  public var features: [String] = []
+
+  /// green, blue, red, purple, custom
+  public var colorStr: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5457,65 +5453,6 @@ public struct Anytype_Model_MembershipTierData {
 
   }
 
-  public enum FeatureId: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case unknown // = 0
-    case storageGbs // = 1
-    case invites // = 2
-    case spaceWriters // = 3
-    case spaceReaders // = 4
-    case sharedSpaces // = 5
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .unknown
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .unknown
-      case 1: self = .storageGbs
-      case 2: self = .invites
-      case 3: self = .spaceWriters
-      case 4: self = .spaceReaders
-      case 5: self = .sharedSpaces
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .unknown: return 0
-      case .storageGbs: return 1
-      case .invites: return 2
-      case .spaceWriters: return 3
-      case .spaceReaders: return 4
-      case .sharedSpaces: return 5
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
-  public struct Feature {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var featureID: Anytype_Model_MembershipTierData.FeatureId = .unknown
-
-    /// usually feature has uint value
-    /// like "storage" - 120
-    public var valueUint: UInt32 = 0
-
-    /// in case feature will have string value
-    public var valueStr: String = String()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-  }
-
   public init() {}
 }
 
@@ -5530,18 +5467,6 @@ extension Anytype_Model_MembershipTierData.PeriodType: CaseIterable {
     .weeks,
     .months,
     .years,
-  ]
-}
-
-extension Anytype_Model_MembershipTierData.FeatureId: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_MembershipTierData.FeatureId] = [
-    .unknown,
-    .storageGbs,
-    .invites,
-    .spaceWriters,
-    .spaceReaders,
-    .sharedSpaces,
   ]
 }
 
@@ -5691,8 +5616,6 @@ extension Anytype_Model_Membership.Status: @unchecked Sendable {}
 extension Anytype_Model_Membership.PaymentMethod: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
-extension Anytype_Model_MembershipTierData.FeatureId: @unchecked Sendable {}
-extension Anytype_Model_MembershipTierData.Feature: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -11157,15 +11080,14 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     1: .same(proto: "id"),
     2: .same(proto: "name"),
     3: .same(proto: "description"),
-    4: .same(proto: "isActive"),
-    5: .same(proto: "isTest"),
-    6: .same(proto: "isHiddenTier"),
-    7: .same(proto: "periodType"),
-    8: .same(proto: "periodValue"),
-    9: .same(proto: "priceStripeUsdCents"),
-    10: .same(proto: "anyNamesCountIncluded"),
-    11: .same(proto: "anyNameMinLength"),
-    12: .same(proto: "features"),
+    4: .same(proto: "isTest"),
+    5: .same(proto: "periodType"),
+    6: .same(proto: "periodValue"),
+    7: .same(proto: "priceStripeUsdCents"),
+    8: .same(proto: "anyNamesCountIncluded"),
+    9: .same(proto: "anyNameMinLength"),
+    10: .same(proto: "features"),
+    11: .same(proto: "colorStr"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -11177,15 +11099,14 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
       case 1: try { try decoder.decodeSingularUInt32Field(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self.isActive) }()
-      case 5: try { try decoder.decodeSingularBoolField(value: &self.isTest) }()
-      case 6: try { try decoder.decodeSingularBoolField(value: &self.isHiddenTier) }()
-      case 7: try { try decoder.decodeSingularEnumField(value: &self.periodType) }()
-      case 8: try { try decoder.decodeSingularUInt32Field(value: &self.periodValue) }()
-      case 9: try { try decoder.decodeSingularUInt32Field(value: &self.priceStripeUsdCents) }()
-      case 10: try { try decoder.decodeSingularUInt32Field(value: &self.anyNamesCountIncluded) }()
-      case 11: try { try decoder.decodeSingularUInt32Field(value: &self.anyNameMinLength) }()
-      case 12: try { try decoder.decodeRepeatedMessageField(value: &self.features) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.isTest) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.periodType) }()
+      case 6: try { try decoder.decodeSingularUInt32Field(value: &self.periodValue) }()
+      case 7: try { try decoder.decodeSingularUInt32Field(value: &self.priceStripeUsdCents) }()
+      case 8: try { try decoder.decodeSingularUInt32Field(value: &self.anyNamesCountIncluded) }()
+      case 9: try { try decoder.decodeSingularUInt32Field(value: &self.anyNameMinLength) }()
+      case 10: try { try decoder.decodeRepeatedStringField(value: &self.features) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.colorStr) }()
       default: break
       }
     }
@@ -11201,32 +11122,29 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     if !self.description_p.isEmpty {
       try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
     }
-    if self.isActive != false {
-      try visitor.visitSingularBoolField(value: self.isActive, fieldNumber: 4)
-    }
     if self.isTest != false {
-      try visitor.visitSingularBoolField(value: self.isTest, fieldNumber: 5)
-    }
-    if self.isHiddenTier != false {
-      try visitor.visitSingularBoolField(value: self.isHiddenTier, fieldNumber: 6)
+      try visitor.visitSingularBoolField(value: self.isTest, fieldNumber: 4)
     }
     if self.periodType != .unknown {
-      try visitor.visitSingularEnumField(value: self.periodType, fieldNumber: 7)
+      try visitor.visitSingularEnumField(value: self.periodType, fieldNumber: 5)
     }
     if self.periodValue != 0 {
-      try visitor.visitSingularUInt32Field(value: self.periodValue, fieldNumber: 8)
+      try visitor.visitSingularUInt32Field(value: self.periodValue, fieldNumber: 6)
     }
     if self.priceStripeUsdCents != 0 {
-      try visitor.visitSingularUInt32Field(value: self.priceStripeUsdCents, fieldNumber: 9)
+      try visitor.visitSingularUInt32Field(value: self.priceStripeUsdCents, fieldNumber: 7)
     }
     if self.anyNamesCountIncluded != 0 {
-      try visitor.visitSingularUInt32Field(value: self.anyNamesCountIncluded, fieldNumber: 10)
+      try visitor.visitSingularUInt32Field(value: self.anyNamesCountIncluded, fieldNumber: 8)
     }
     if self.anyNameMinLength != 0 {
-      try visitor.visitSingularUInt32Field(value: self.anyNameMinLength, fieldNumber: 11)
+      try visitor.visitSingularUInt32Field(value: self.anyNameMinLength, fieldNumber: 9)
     }
     if !self.features.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.features, fieldNumber: 12)
+      try visitor.visitRepeatedStringField(value: self.features, fieldNumber: 10)
+    }
+    if !self.colorStr.isEmpty {
+      try visitor.visitSingularStringField(value: self.colorStr, fieldNumber: 11)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -11235,15 +11153,14 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.id != rhs.id {return false}
     if lhs.name != rhs.name {return false}
     if lhs.description_p != rhs.description_p {return false}
-    if lhs.isActive != rhs.isActive {return false}
     if lhs.isTest != rhs.isTest {return false}
-    if lhs.isHiddenTier != rhs.isHiddenTier {return false}
     if lhs.periodType != rhs.periodType {return false}
     if lhs.periodValue != rhs.periodValue {return false}
     if lhs.priceStripeUsdCents != rhs.priceStripeUsdCents {return false}
     if lhs.anyNamesCountIncluded != rhs.anyNamesCountIncluded {return false}
     if lhs.anyNameMinLength != rhs.anyNameMinLength {return false}
     if lhs.features != rhs.features {return false}
+    if lhs.colorStr != rhs.colorStr {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -11258,59 +11175,4 @@ extension Anytype_Model_MembershipTierData.PeriodType: SwiftProtobuf._ProtoNameP
     4: .same(proto: "PeriodTypeMonths"),
     5: .same(proto: "PeriodTypeYears"),
   ]
-}
-
-extension Anytype_Model_MembershipTierData.FeatureId: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Unknown"),
-    1: .same(proto: "StorageGBs"),
-    2: .same(proto: "Invites"),
-    3: .same(proto: "SpaceWriters"),
-    4: .same(proto: "SpaceReaders"),
-    5: .same(proto: "SharedSpaces"),
-  ]
-}
-
-extension Anytype_Model_MembershipTierData.Feature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Model_MembershipTierData.protoMessageName + ".Feature"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "featureId"),
-    2: .same(proto: "valueUint"),
-    3: .same(proto: "valueStr"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.featureID) }()
-      case 2: try { try decoder.decodeSingularUInt32Field(value: &self.valueUint) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.valueStr) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.featureID != .unknown {
-      try visitor.visitSingularEnumField(value: self.featureID, fieldNumber: 1)
-    }
-    if self.valueUint != 0 {
-      try visitor.visitSingularUInt32Field(value: self.valueUint, fieldNumber: 2)
-    }
-    if !self.valueStr.isEmpty {
-      try visitor.visitSingularStringField(value: self.valueStr, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Model_MembershipTierData.Feature, rhs: Anytype_Model_MembershipTierData.Feature) -> Bool {
-    if lhs.featureID != rhs.featureID {return false}
-    if lhs.valueUint != rhs.valueUint {return false}
-    if lhs.valueStr != rhs.valueStr {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
