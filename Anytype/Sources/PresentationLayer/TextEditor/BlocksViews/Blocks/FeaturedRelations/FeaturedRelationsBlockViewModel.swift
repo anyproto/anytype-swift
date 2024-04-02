@@ -26,13 +26,14 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         self.collectionController = collectionController
         self.onRelationTap = onRelationValueTap
         
-        document.featuredRelationsForEditorPublisher.receiveOnMain().sink { [weak self] newFeaturedRelations in
-            guard let self else { return }
-            if featuredRelationValues != newFeaturedRelations {
+        document.featuredRelationsForEditorPublisher
+            .receiveOnMain()
+            .removeDuplicates()
+            .sink { [weak self] newFeaturedRelations in
+                guard let self else { return }
                 self.featuredRelationValues = newFeaturedRelations
                 collectionController.reconfigure(items: [.block(self)])
-            }
-        }.store(in: &cancellables)
+            }.store(in: &cancellables)
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
