@@ -30,8 +30,6 @@ protocol ModulesDIProtocol: AnyObject {
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
-    func setFiltersDateView() -> SetFiltersDateViewModuleAssemblyProtocol
-    func setFiltersSelectionHeader() -> SetFiltersSelectionHeaderModuleAssemblyProtocol
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol
     func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol
     func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol

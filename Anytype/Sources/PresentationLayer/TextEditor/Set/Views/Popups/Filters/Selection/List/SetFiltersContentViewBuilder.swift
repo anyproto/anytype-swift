@@ -7,21 +7,15 @@ import SwiftUI
 final class SetFiltersContentViewBuilder {
     private let spaceId: String
     private let filter: SetFilter
-    private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
     
     init(
         spaceId: String,
         filter: SetFilter,
-        setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
-        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.spaceId = spaceId
         self.filter = filter
-        self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
-        self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
@@ -30,11 +24,10 @@ final class SetFiltersContentViewBuilder {
         output: SetFiltersSelectionCoordinatorOutput?,
         onConditionChanged: @escaping (DataviewFilter.Condition) -> Void
     ) -> AnyView {
-        setFiltersSelectionHeaderModuleAssembly.make(
-            filter: filter,
-            output: output,
-            onConditionChanged: onConditionChanged
-        )
+        SetFiltersSelectionHeaderView(
+            data: SetFiltersSelectionHeaderData(filter: filter, onConditionChanged: onConditionChanged),
+            output: output
+        ).eraseToAnyView()
     }
     
     @MainActor
@@ -173,11 +166,10 @@ final class SetFiltersContentViewBuilder {
         setSelectionModel: SetFiltersSelectionViewModel?,
         onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> AnyView {
-        setFiltersDateCoordinatorAssembly.make(
-            filter: filter,
-            setSelectionModel: setSelectionModel,
-            completion: onApplyDate
-        )
+        SetFiltersDateCoordinatorView(
+            data: SetFiltersDateViewData(filter: filter, onApplyDate: onApplyDate),
+            setSelectionModel: setSelectionModel
+        ).eraseToAnyView()
     }
     
     // MARK: - Helper methods

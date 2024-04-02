@@ -109,10 +109,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return SetSortsListCoordinatorAssembly(modulesDI: modulesDI)
     }
     
-    func setFiltersDate() -> SetFiltersDateCoordinatorAssemblyProtocol {
-        SetFiltersDateCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func setFiltersSelection() -> SetFiltersSelectionCoordinatorAssemblyProtocol {
         SetFiltersSelectionCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
