@@ -190,6 +190,7 @@ final class SpaceShareViewModel: ObservableObject {
                     identity: participant.identity,
                     permissions: newPermission
                 )
+                self?.toastBarData = ToastBarData(text: Loc.SpaceShare.accessChanged, showSnackBar: true, messageType: .success)
             }
         )
     }

@@ -2268,6 +2268,8 @@ internal enum Loc {
     }
   }
   internal enum SpaceShare {
+    /// Access rights have been changed.
+    internal static let accessChanged = Loc.tr("Localizable", "SpaceShare.AccessChanged", fallback: "Access rights have been changed.")
     /// %@ access to the space would become %@.
     internal static func changePermissions(_ p1: Any, _ p2: Any) -> String {
       return Loc.tr("Localizable", "SpaceShare.ChangePermissions", String(describing: p1), String(describing: p2), fallback: "%@ access to the space would become %@.")
