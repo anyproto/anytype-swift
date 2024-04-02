@@ -925,6 +925,7 @@
 "SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
 "SpaceShare.YouSuffix" = "%@ （您）";
 "SpaceShare.ManageSpaces" = "管理空间";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
 "SpaceShare.StopSharing.Action" = "停止共享";
 "SpaceShare.StopSharing.Title" = "停止共享此空间";
 "SpaceShare.StopSharing.Message" = "成员将不再同步到此空间，共享链接也将被停用。";
@@ -933,17 +934,17 @@
 "SpaceShare.QR.Button" = "显示二维码";
 "SpaceShare.MoreInfo" = "更多信息";
 "SpaceShare.HowToShare.Title" = "如何共享空间？";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.HowToShare.Step1" = "请向您与想要合作的人提供这个链接。";
+"SpaceShare.HowToShare.Step2" = "通过点击链接，将收到一个人加入空间的请求。";
+"SpaceShare.HowToShare.Step3" = "批准请求后，您可以选择此人的访问权限。";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "您在 **%@** 空间中的访问权限已更改为 **%@**。";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"ParticipantRequestApprovedNotification.Text" = "您加入 **%@** 空间的请求已获批准并获得了 **%@** 访问权限，该空间很快就会在您的设备中显示。";
+"ParticipantRequestDeclineNotification.Text" = "您加入**%@** 空间的请求已被拒绝。";
 "RequestToLeaveNotification.Text" = "**%@** 想要离开 **%@** 空间。";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"ParticipantRemoveNotification.Text" = "您从空间中被移出，或空间已被所有者删除。";
+"RequestToJoinNotification.Text" = "**%@** 请求加入 **%@** 空间。";
 "RequestToJoinNotification.GoToSpace" = "转到空间";
 "RequestToJoinNotification.ViewRequest" = "查看请求";
 
@@ -982,7 +983,7 @@
 
 // MARK: - Swipe tips
 "Swipe.Tip.Title" = "滑动来创建对象";
-"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+"Swipe.Tip.Subtitle" = "向左轻划就可以在部件内创建对象。";
 
 
 // MARK: - Initial
@@ -1048,10 +1049,10 @@
 "Valid until date" = "有效期至 %@";
 "Your current status" = "您目前的状态：";
 "Valid until" = "有效期至：";
-"Paid by" = "Paid by %@";
+"Paid by" = "由 %@ 支付";
 "Myself" = "我自己";
 "Pay by Card" = "使用信用卡";
-"Details upon request" = "Details upon request";
+"Details upon request" = "请求详情";
 "Min X characters" = "最小 %@ 个字符";
 "Pending" = "待定…";
 
@@ -1074,14 +1075,14 @@
 "Membership.CustomTierEmail.Subject" = "自定义会员级别请求，帐户id： %@";
 
 
-"Membership.Banner.Title1" = "与我们共同创建";
-"Membership.Banner.Subtitle1" = "与我们的团队和社区保持密切的联系。加入与团队的聊天，影响 Anytype 的发展进化，并对功能有发言权。";
-"Membership.Banner.Title2" = "获得福利";
-"Membership.Banner.Subtitle2" = "我们的会员特权中含有 Anytype 网络中独特的身份标识、更多储存空间、提高每个共享空间的成员人数以用于大范围协作.";
-"Membership.Banner.Title3" = "支持愿景";
-"Membership.Banner.Subtitle3" = "您的贡献支持我们这个独立的团队并支持我们“由用户驱动、安全和协作的数字环境”的愿景。";
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "作为尊贵的会员，你的声音很重要！参与独家活动，制定战略选择，并影响我们的路线图。";
+"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Support Digital Independence";
+"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
 "Membership.Banner.Title4" = "对连接的投资";
-"Membership.Banner.Subtitle4" = "Our software is free by design, but we thrive on the network that connects us all. Support us, and you're investing in the very infrastructure that keeps us united.";
+"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
 "Membership.EmailForm.Title" = "获得您的免费会员资格";
 "Membership.EmailForm.Subtitle" = "我们需要您的邮箱来隔绝垃圾信息以及使用时的乐趣！";
@@ -1089,9 +1090,9 @@
 "Membership.EmailValidation" = "输入发送到您邮箱的代码";
 
 "Membership.NameForm.Title" = "选择您独有的名字";
-"Membership.NameForm.Subtitle" = "这个名称就像个人域名，使其他人更容易找到您";
+"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
 "Membership.NameForm.Validating" = "请耐心等待...";
-"Membership.NameForm.Validated" = "This name is up for grabs";
+"Membership.NameForm.Validated" = "这个名称是可获得的";
 
 "Membership.NameForm.Error.TooShort" = "名称太短";
 "Membership.NameForm.Error.TooLong" = "名称过长";
@@ -1099,7 +1100,8 @@
 
 
 "Membership.Success.Title" = "欢迎来到网络， %@";
-"Membership.Success.Subitle" = "为你的好奇心干杯大的！";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
 
 "Membership.Payment.Card" = "卡片";
 "Membership.Payment.Crypto" = "加密货币";
@@ -1109,27 +1111,19 @@
 "Membership.Payment.Google subscription" = "Google 订阅";
 
 
-// MARK: - Membership Tiers
-"Membership.Explorer.Subtitle" = "Dive into the network and enjoy the thrill of one-on-one collaboration";
-"Membership.Explorer.Benefit1" = "1 GB 网络空间";
-"Membership.Explorer.Benefit2" = "10 个仅单人编辑空间";
-"Membership.Explorer.Benefit3" = "最多 10 个在只读模式下的共享空间";
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
 
-"Membership.Builder.Subtitle" = "解锁多方协作的魔法以及享受顶级支持";
-"Membership.Builder.Benefit1" = "唯一名字（大于 7 个字）";
-"Membership.Builder.Benefit2" = "128 GB 网络空间";
-"Membership.Builder.Benefit3" = "10 个访客协作位置";
-"Membership.Builder.Benefit4" = "优先支持";
-
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
-"Membership.CoCreator.Benefit1" = "唯一名字（大于 5 个字）";
-"Membership.CoCreator.Benefit2" = "256 GB 网络空间";
-"Membership.CoCreator.Benefit3" = "25 个访客协作位置";
-"Membership.CoCreator.Benefit4" = "与团队聊天";
-"Membership.CoCreator.Benefit5" = "独特的可收藏的";
-
-"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
-
+"Membership.Feature.LocalName" = "本地的，不唯一的名称";
+"Membership.Feature.UniqueName" = "唯一的网络名称（%@ 字符以上）";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ 邀请";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "共享空间拥有无限的查看者";
+"Membership.Feature.Viewers" = "共享空间有 %@ 个查看者";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";

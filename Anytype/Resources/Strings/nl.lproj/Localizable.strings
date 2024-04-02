@@ -926,6 +926,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 "SpaceShare.YouSuffix" = "%@ (jij)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
 "SpaceShare.StopSharing.Action" = "Stop met delen";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
@@ -1072,14 +1073,14 @@
 "Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
-"Membership.Banner.Title1" = "Maak samen met ons";
-"Membership.Banner.Subtitle1" = "Blijf nauw verbonden met ons team en onze gemeenschap. Neem deel aan gesprekken met het team, beïnvloed de ontwikkeling van Anytype en geef je mening over functies.";
-"Membership.Banner.Title2" = "Verdien voordelen";
-"Membership.Banner.Subtitle2" = "Onze leden hebben een unieke identiteit op het Anytype netwerk, meer opslag, gedeelde ruimtes en leden per ruimte voor uitgebreide samenwerking.";
-"Membership.Banner.Title3" = "Ondersteun de visie";
-"Membership.Banner.Subtitle3" = "Jouw bijdrage steunt ons onafhankelijke team en ondersteunt onze visie op een gebruiker-gestuurde, veilige en gezamenlijke digitale omgeving.";
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "Als een gewaardeerd lid doet jouw mening er te! Neem deel aan exclusieve evenementen, vorm strategische keuzes en beïnvloed onze routekaart.";
+"Membership.Banner.Title2" = "Ontgrendel ledenvoordelen";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Ondersteun digitale onafhankelijkheid ";
+"Membership.Banner.Subtitle3" = "Jouw bijdrage steunt ons team en ondersteunt onze visie op een gebruiker-geëigende , veilige en gezamenlijke digitale omgeving.";
 "Membership.Banner.Title4" = "Investeer in verbinding";
-"Membership.Banner.Subtitle4" = "Onze software is in opzet gratis, maar we floreren op het netwerk dat ons allemaal verbindt. Ondersteun ons, en je investeert in de infrastructuur die ons verenigt.";
+"Membership.Banner.Subtitle4" = "De waarde van ons netwerk overschrijdt de som van zijn onderdelen. Jouw lidmaatschap houdt de infrastructuur in stand voor de groei die aan dit netwerk ten grondslag ligt.";
 
 "Membership.EmailForm.Title" = "Verkrijg jouw gratis lidmaatschap";
 "Membership.EmailForm.Subtitle" = "We hebben je e-mail nodig om spam op afstand te houden en het plezier te behouden!";
@@ -1087,7 +1088,7 @@
 "Membership.EmailValidation" = "Voer de code in die naar jouw e-mailadres is verstuurd";
 
 "Membership.NameForm.Title" = "Kies jouw unieke naam";
-"Membership.NameForm.Subtitle" = "Deze naam dient als een persoonlijk domein, waardoor het gemakkelijker wordt voor anderen om je te vinden";
+"Membership.NameForm.Subtitle" = "Dit is jouw unieke naam op het Anyty-netwerk, en bevestigt jouw lidmaatschap. Het fungeert als jouw persoonlijke domein en kan niet worden gewijzigd.";
 "Membership.NameForm.Validating" = "Even geduld...";
 "Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
 
@@ -1097,7 +1098,8 @@
 
 
 "Membership.Success.Title" = "Welkom bij het netwerk, %@";
-"Membership.Success.Subitle" = "Hulde voor jouw nieuwsgierigheid!";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
 
 "Membership.Payment.Card" = "Kaart";
 "Membership.Payment.Crypto" = "Crypto";
@@ -1107,27 +1109,19 @@
 "Membership.Payment.Google subscription" = "Google subscription";
 
 
-// MARK: - Membership Tiers
-"Membership.Explorer.Subtitle" = "Duik in het netwerk en geniet van de spanning van één-op-één samenwerking";
-"Membership.Explorer.Benefit1" = "1 GB aan netwerkruimte";
-"Membership.Explorer.Benefit2" = "10 één-op-één ruimtes";
-"Membership.Explorer.Benefit3" = "Tot 10 gedeelde ruimtes in alleen-lezen modus";
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
 
-"Membership.Builder.Subtitle" = "Ontgrendel de magie van de samenwerking tussen meerdere partijen en geniet van de hoogwaardige ondersteuning";
-"Membership.Builder.Benefit1" = "Unieke naam (van 7 tekens)";
-"Membership.Builder.Benefit2" = "128 GB aan netwerkruimte";
-"Membership.Builder.Benefit3" = "10 gast medwerker accounts";
-"Membership.Builder.Benefit4" = "Voorkeursondersteuning";
-
-"Membership.CoCreator.Subtitle" = "Ondersteun ons avontuur en ontgrendel exclusieve toegang en voordelen";
-"Membership.CoCreator.Benefit1" = "Unieke naam (van 5 tekens)";
-"Membership.CoCreator.Benefit2" = "256 GB aan netwerkruimte";
-"Membership.CoCreator.Benefit3" = "25 gast medewerker accounts";
-"Membership.CoCreator.Benefit4" = "Chat met het team";
-"Membership.CoCreator.Benefit5" = "Uniek verzamelstuk";
-
-"Membership.Custom.Subtitle" = "Lidmaatschap afgestemd op jouw specifieke behoeften en voorkeuren";
-
+"Membership.Feature.LocalName" = "Local, non-unique name";
+"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
+"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";
