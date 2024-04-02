@@ -926,6 +926,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
 "SpaceShare.YouSuffix" = "%@ (du)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
 "SpaceShare.StopSharing.Action" = "Stop sharing";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
@@ -1072,14 +1073,14 @@
 "Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
-"Membership.Banner.Title1" = "Co-create with us";
-"Membership.Banner.Subtitle1" = "Bleib eng mit unserem Team und unserer Community verbunden. Nimm an Telefonaten mit dem Team teil, beeinflusse die Entwicklung von Anytype und habe ein Mitspracherecht bei Funktionen.";
-"Membership.Banner.Title2" = "Vorteile erzielen";
-"Membership.Banner.Subtitle2" = "Our members have unique identity on Anytype Network, more storage, shared spaces and members per space for extensive collaboration.";
-"Membership.Banner.Title3" = "Unterstütze die Vision";
-"Membership.Banner.Subtitle3" = "Mit deinem Beitrag unterstützt du unser unabhängiges Team und befürwortest unsere Vision︎ einer nutzerorientierten, sicheren und gemeinschaftlichen digitalen Umgebung.";
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
+"Membership.Banner.Title2" = "Mitgliedsvorteile freischalten";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Digitale Unabhängigkeit unterstützen";
+"Membership.Banner.Subtitle3" = "Mit deinem Beitrag unterstützt du unser unabhängiges Team und befürwortest unsere Vision︎ eines nutzergeführten, sicheren und gemeinschaftlichen digitalen Netzwerks.";
 "Membership.Banner.Title4" = "In Konnektivität investieren";
-"Membership.Banner.Subtitle4" = "Unsere Software ist von vornherein kostenlos, aber wir leben von dem Netzwerk, das uns alle miteinander verbindet. Unterstütze uns und investiere in die Infrastruktur, die uns zusammenhält.";
+"Membership.Banner.Subtitle4" = "Der Wert unseres Netzwerks ist größer als die Summe seiner Teile. Durch deine Mitgliedschaft wird die Infrastruktur für sein Wachstum aufrechterhalten, die dieses Netzwerk trägt.";
 
 "Membership.EmailForm.Title" = "Hol dir deine kostenlose Mitgliedschaft";
 "Membership.EmailForm.Subtitle" = "Wir brauchen deine E-Mail-Adresse, um Spam in Schach zu halten und den Spaß am Spiel zu erhalten!";
@@ -1087,7 +1088,7 @@
 "Membership.EmailValidation" = "Gib den an deine E-Mail-Adresse gesendeten Code ein";
 
 "Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
-"Membership.NameForm.Subtitle" = "Dieser Name ist wie eine persönliche Domain und macht es anderen leichter, dich zu finden";
+"Membership.NameForm.Subtitle" = "Dies ist dein eindeutiger Name im Anytype-Netzwerk, der deine Mitgliedschaft bestätigt. Er dient als deine persönliche Domain und kann nicht geändert werden.";
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
 
@@ -1097,37 +1098,30 @@
 
 
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";
-"Membership.Success.Subitle" = "Ein Hoch auf deine Neugierde!";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
 
 "Membership.Payment.Card" = "Karte";
-"Membership.Payment.Crypto" = "Krypto";
+"Membership.Payment.Crypto" = "Kryptowährung";
 "Membership.Payment.ApplePay" = "ApplePay";
 "Membership.Payment.GooglePay" = "GooglePay";
 "Membership.Payment.Apple subscription" = "Apple-Abonnement";
 "Membership.Payment.Google subscription" = "Google-Abonnement";
 
 
-// MARK: - Membership Tiers
-"Membership.Explorer.Subtitle" = "Tauche in das Netzwerk ein und genieße den Nervenkitzel der persönlichen Zusammenarbeit";
-"Membership.Explorer.Benefit1" = "1 GB Netzwerkspeicher";
-"Membership.Explorer.Benefit2" = "10 one-to-one spaces";
-"Membership.Explorer.Benefit3" = "Up to 10 shared spaces in read-only mode";
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
 
-"Membership.Builder.Subtitle" = "Entfessle die Magie der Zusammenarbeit mit mehreren Teilnehmern und genieße erstklassige Unterstützung";
-"Membership.Builder.Benefit1" = "Eindeutiger Name (ab 7 Zeichen)";
-"Membership.Builder.Benefit2" = "128 GB Netzwerkspeicher";
-"Membership.Builder.Benefit3" = "10 Plätze für Gastmitarbeiter";
-"Membership.Builder.Benefit4" = "Vorrangige Unterstützung";
-
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks";
-"Membership.CoCreator.Benefit1" = "Eindeutiger Name (ab 5 Zeichen)";
-"Membership.CoCreator.Benefit2" = "256 GB Netzwerkspeicher";
-"Membership.CoCreator.Benefit3" = "25 Plätze für Gastmitarbeiter";
-"Membership.CoCreator.Benefit4" = "Mit dem Team chatten";
-"Membership.CoCreator.Benefit5" = "Einzigartiges Sammlerstück";
-
-"Membership.Custom.Subtitle" = "Membership tailored to your specific needs and preferences";
-
+"Membership.Feature.LocalName" = "Local, non-unique name";
+"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
+"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-Typen - %@";
