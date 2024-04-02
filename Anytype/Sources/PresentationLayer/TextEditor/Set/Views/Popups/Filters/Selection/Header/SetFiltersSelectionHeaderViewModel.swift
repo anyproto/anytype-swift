@@ -10,14 +10,13 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     private let onConditionChanged: (DataviewFilter.Condition) -> Void
     
     init(
-        filter: SetFilter,
-        output: SetFiltersSelectionCoordinatorOutput?,
-        onConditionChanged: @escaping (DataviewFilter.Condition) -> Void
+        data: SetFiltersSelectionHeaderData,
+        output: SetFiltersSelectionCoordinatorOutput?
     ) {
-        self.filter = filter
-        self.output = output
-        self.onConditionChanged = onConditionChanged
+        self.filter = data.filter
+        self.onConditionChanged = data.onConditionChanged
         self.headerConfiguration = Self.headerConfiguration(with: filter)
+        self.output = output
     }
     
     func conditionTapped() {
