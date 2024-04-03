@@ -106,6 +106,7 @@ private extension EditorNavigationBarTitleView {
         arrowImageView.contentMode = .center
         arrowImageView.tintColor = .Text.primary
         arrowImageView.image = UIImage(asset: .X18.listArrow)
+        arrowImageView.isHidden = true
         
         setupLayout()        
     }
