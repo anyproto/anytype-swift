@@ -12,7 +12,7 @@ protocol TemplatesSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
-final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
+actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
     private let subscriptionId = "Templates-\(UUID().uuidString)"
     
     @Injected(\.subscriptionStorageProvider)
