@@ -1040,6 +1040,16 @@
 "Learn more" = "Learn more";
 "per year" = "per year";
 "per x years" = "per %@ years";
+"per month" = "per month";
+"per x months" = "per %@ month";
+"per week" = "per week";
+"per x weeks" = "per %@ weeks";
+"per day" = "per day";
+"per x days" = "per %@ days";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "What’s included";
 "Submit" = "Submit";
 "Resend" = "Resend";
@@ -1053,7 +1063,6 @@
 "Paid by" = "Paid by %@";
 "Myself" = "Myself";
 "Pay by Card" = "Pay by Card";
-"Details upon request" = "Details upon request";
 "Min X characters" = "Min %@ characters";
 "Pending" = "Pending...";
 

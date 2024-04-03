@@ -17,7 +17,7 @@ struct MembershipCoordinator: View {
             } else {
                 MembershipModuleView(
                     membership: model.userMembership,
-                    tiers: model.tiers 
+                    tiers: model.tiers
                 ) { tier in
                     model.onTierSelected(tier: tier)
                 }

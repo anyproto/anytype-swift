@@ -51,6 +51,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
     public let name: String
     public let anyName: MembershipAnyName
     public let features: [String]
+    public let paymentType: MembershipTierPaymentType
     
     public var id: MembershipTierType { type }
     
@@ -58,29 +59,13 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
         type: MembershipTierType,
         name: String,
         anyName: MembershipAnyName,
-        features: [String]
+        features: [String],
+        paymentType: MembershipTierPaymentType
     ) {
         self.type = type
         self.name = name
         self.anyName = anyName
         self.features = features
-    }
-}
-
-
-// MARK: - Middleware model mapping
-
-extension Anytype_Model_MembershipTierData {
-    func asModel() -> MembershipTier? {
-        guard let type = MembershipTierType(intId: id) else { return nil }
-        
-        let anyName: MembershipAnyName = anyNamesCountIncluded > 0 ? .some(minLenght: anyNameMinLength) : .none
-        
-        return MembershipTier(
-            type: type,
-            name: name,
-            anyName: anyName,
-            features: features
-        )
+        self.paymentType = paymentType
     }
 }

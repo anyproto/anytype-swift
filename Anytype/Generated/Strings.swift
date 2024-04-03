@@ -184,8 +184,6 @@ internal enum Loc {
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all", fallback: "Deselect all")
   /// Designed to capture thoughts quickly
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly", fallback: "Designed to capture thoughts quickly")
-  /// Details upon request
-  internal static let detailsUponRequest = Loc.tr("Localizable", "Details upon request", fallback: "Details upon request")
   /// Done
   internal static let done = Loc.tr("Localizable", "Done", fallback: "Done")
   /// Download
@@ -398,6 +396,26 @@ internal enum Loc {
   internal static let pending = Loc.tr("Localizable", "Pending", fallback: "Pending...")
   /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.
   internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.")
+  /// per
+  internal static let per = Loc.tr("Localizable", "per", fallback: "per")
+  /// per day
+  internal static let perDay = Loc.tr("Localizable", "per day", fallback: "per day")
+  /// per month
+  internal static let perMonth = Loc.tr("Localizable", "per month", fallback: "per month")
+  /// per week
+  internal static let perWeek = Loc.tr("Localizable", "per week", fallback: "per week")
+  /// per %@ days
+  internal static func perXDays(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "per x days", String(describing: p1), fallback: "per %@ days")
+  }
+  /// per %@ month
+  internal static func perXMonths(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "per x months", String(describing: p1), fallback: "per %@ month")
+  }
+  /// per %@ weeks
+  internal static func perXWeeks(_ p1: Any) -> String {
+    return Loc.tr("Localizable", "per x weeks", String(describing: p1), fallback: "per %@ weeks")
+  }
   /// per %@ years
   internal static func perXYears(_ p1: Any) -> String {
     return Loc.tr("Localizable", "per x years", String(describing: p1), fallback: "per %@ years")
@@ -569,6 +587,8 @@ internal enum Loc {
   internal static let unknown = Loc.tr("Localizable", "Unknown", fallback: "Unknown")
   /// Unknown error
   internal static let unknownError = Loc.tr("Localizable", "Unknown error", fallback: "Unknown error")
+  /// Unlimited
+  internal static let unlimited = Loc.tr("Localizable", "unlimited", fallback: "Unlimited")
   /// Unlock
   internal static let unlock = Loc.tr("Localizable", "Unlock", fallback: "Unlock")
   /// Unpin

@@ -1,4 +1,6 @@
 import UIKit
+import AnytypeCore
+
 
 extension String {
     
@@ -40,5 +42,22 @@ extension String {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
+    }
+    
+    func dropTrailingZerosFromPrice() -> String {
+        let components = components(separatedBy: ".")
+        
+        if components.count == 1 { return self }
+        
+        guard components.count == 2, let major = components[safe: 0], let minor = components[safe: 1] else {
+            anytypeAssertionFailure("UnsupportedPriceFormat \(self)")
+            return self
+        }
+        
+        let trimmedMinor = minor.replacingOccurrences(of: "0+$", with: "", options: .regularExpression)
+        
+        if trimmedMinor.isEmpty { return major }
+        
+        return [major, trimmedMinor].joined(separator: ".")
     }
 }

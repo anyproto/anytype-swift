@@ -79,7 +79,8 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(3),
                 Loc.Membership.Feature.viewers(3)
-            ]
+            ],
+            paymentType: .email
         )
     }
     
@@ -93,7 +94,8 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(10),
                 Loc.Membership.Feature.viewers("Unlimited")
-            ]
+            ],
+            paymentType: .mockExternal
         )
     }
     
@@ -107,7 +109,8 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(10),
                 Loc.Membership.Feature.viewers("Unlimited")
-            ]
+            ],
+            paymentType: .mockExternal
         )
     }
     
@@ -121,7 +124,8 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(333),
                 Loc.Membership.Feature.spaceWriters(100),
                 Loc.Membership.Feature.viewers("Unlimited")
-            ]
+            ],
+            paymentType: .mockExternal
         )
     }
 }

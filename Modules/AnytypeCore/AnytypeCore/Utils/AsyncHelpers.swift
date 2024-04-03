@@ -1,6 +1,6 @@
 import Foundation
 
-extension Sequence {
+public extension Sequence {
     
     func asyncForEach(_ operation: (Element) async throws -> Void) async rethrows {
         for element in self {
