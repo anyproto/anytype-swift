@@ -13,6 +13,7 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         static let spaceSelection = "space-selection"
         static let galleryImport = "main/import"
         static let invite = "invite"
+        static let object = "object"
     }
 
     private let isDebug: Bool
@@ -61,6 +62,10 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             guard let cid = queryItems.itemValue(key: "cid"),
                   let key = queryItems.itemValue(key: "key") else { return nil }
             return .invite(cid: cid, key: key)
+        case LinkPaths.object:
+            guard let objectId = queryItems.itemValue(key: "objectId"),
+                  let spaceId = queryItems.itemValue(key: "spaceId") else { return nil }
+            return .object(objectId: objectId, spaceId: spaceId)
         default:
             return nil
         }
@@ -89,6 +94,14 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             components.queryItems = [
                 URLQueryItem(name: "cid", value: cid),
                 URLQueryItem(name: "key", value: key)
+            ]
+            
+            return components.url
+        case .object(let objectId, let  spaceId):
+            guard var components = URLComponents(string: host + LinkPaths.object) else { return nil }
+            components.queryItems = [
+                URLQueryItem(name: "objectId", value: objectId),
+                URLQueryItem(name: "spaceId", value: spaceId)
             ]
             
             return components.url

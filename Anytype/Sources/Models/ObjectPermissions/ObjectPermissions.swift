@@ -20,6 +20,7 @@ struct ObjectPermissions: Equatable {
     let canEditRelationValues: Bool
     let canEditRelationsList: Bool
     let canApplyTemplates: Bool
+    let canShare: Bool
     let canEditBlocks: Bool
     let editBlocks: EditBlocksPermission
     
@@ -64,6 +65,7 @@ struct ObjectPermissions: Equatable {
         self.canChangeLayout = DetailsLayout.layoutsWithChangeLayout.contains(details.layoutValue) && canEdit
         self.canEditRelationValues = canEdit && !objectRestrictions.contains(.details)
         self.canEditRelationsList = canEdit && !objectRestrictions.contains(.relations)
+        self.canShare = !isTemplateType
         self.canApplyTemplates = canEdit && !isTemplateType
         
         if isLocked {

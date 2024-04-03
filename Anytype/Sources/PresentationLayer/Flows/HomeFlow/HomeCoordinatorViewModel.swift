@@ -15,7 +15,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let navigationContext: NavigationContextProtocol
     private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
@@ -44,6 +43,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var subscriptions = [AnyCancellable]()
     private var paths = [String: HomePath]()
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol?
+    private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
@@ -68,7 +68,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     var pageNavigation: PageNavigation {
         PageNavigation(
             push: { [weak self] data in
-                self?.push(data: data)
+                self?.pushSync(data: data)
             }, pop: { [weak self] in
                 self?.editorPath.pop()
             }, replace: { [weak self] data in
@@ -80,7 +80,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        navigationContext: NavigationContextProtocol,
         createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
@@ -105,7 +104,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.navigationContext = navigationContext
         self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
         self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
@@ -141,16 +139,20 @@ final class HomeCoordinatorViewModel: ObservableObject,
             }
             .store(in: &subscriptions)
         
-        appActionsStorage.$action
-            .compactMap { $0 }
-            .receiveOnMain()
-            .sink { [weak self] action in
-                self?.handleAppAction(action: action)
-                self?.appActionsStorage.action = nil
-            }
-            .store(in: &subscriptions)
-        
         sharingTipCoordinator.startObservingTips()
+    }
+    
+    func startDeepLinkTask() async {
+        for await action in appActionsStorage.$action.values {
+            if let action {
+                try? await handleAppAction(action: action)
+                appActionsStorage.action = nil
+            }
+        }
+    }
+    
+    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
+        self.dismissAllPresented = dismissAllPresented
     }
     
     func homeWidgetsModule(info: AccountInfo) -> AnyView? {
@@ -311,13 +313,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
     // MARK: - SetObjectCreationCoordinatorOutput
     
     func showEditorScreen(data: EditorScreenData) {
-        push(data: data)
+        pushSync(data: data)
     }
     
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        push(data: screenData)
+        pushSync(data: screenData)
     }
     
     private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
@@ -362,78 +364,79 @@ final class HomeCoordinatorViewModel: ObservableObject,
         }
     }
     
-    private func handleAppAction(action: AppAction) {
+    private func handleAppAction(action: AppAction) async throws {
         keyboardToggle.toggle()
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
         case .deepLink(let deepLink):
-            handleDeepLink(deepLink: deepLink)
+            try await handleDeepLink(deepLink: deepLink)
         }
     }
     
-    private func handleDeepLink(deepLink: DeepLink) {
+    private func handleDeepLink(deepLink: DeepLink) async throws {
+        await dismissAllPresented?()
+        
         switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            navigationContext.dismissAllPresented(animated: true) { [weak self] in
-                self?.showSharing = true
-            }
+            showSharing = true
         case .spaceSelection:
-            navigationContext.dismissAllPresented(animated: true) { [weak self] in
-                self?.showSpaceSwitch = true
-            }
+            showSpaceSwitch = true
         case let .galleryImport(type, source):
-            navigationContext.dismissAllPresented(animated: true) { [weak self] in
-                self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
-            }
+            showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
             if FeatureFlags.multiplayer {
-                navigationContext.dismissAllPresented(animated: true) { [weak self] in
-                    self?.spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
-                }
+                spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
             }
+        case .object(let objectId, _):
+            let document = documentsProvider.document(objectId: objectId, forPreview: true)
+            try await document.openForPreview()
+            guard let editorData = document.details?.editorScreenData() else { return }
+            try await push(data: editorData)
         }
     }
     
-    private func push(data: EditorScreenData) {
-        Task {
-            guard let objectId = data.objectId else {
-                editorPath.push(data)
-                return
+    private func pushSync(data: EditorScreenData) {
+        Task { try await push(data: data) }
+    }
+        
+    private func push(data: EditorScreenData) async throws {
+        guard let objectId = data.objectId else {
+            editorPath.push(data)
+            return
+        }
+        let document = documentsProvider.document(objectId: objectId, forPreview: true)
+        try await document.openForPreview()
+        guard let details = document.details else {
+            return
+        }
+        guard details.isSupportedForEdit else {
+            toastBarData = ToastBarData(text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none)
+            return
+        }
+        let spaceId = document.spaceId
+        if currentSpaceId != spaceId {
+            // Check space Is deleted
+            guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
+            
+            if let currentSpaceId = currentSpaceId {
+                paths[currentSpaceId] = editorPath
             }
-            let document = documentsProvider.document(objectId: objectId, forPreview: true)
-            try await document.openForPreview()
-            guard let details = document.details else {
-                return
+           
+            currentSpaceId = spaceId
+            try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+            
+            var path = paths[spaceId] ?? HomePath()
+            if path.count == 0 {
+                path.push(activeWorkspaceStorage.workspaceInfo)
             }
-            guard details.isSupportedForEdit else {
-                toastBarData = ToastBarData(text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none)
-                return
-            }
-            let spaceId = document.spaceId
-            if currentSpaceId != spaceId {
-                // Check space Is deleted
-                guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
-                
-                if let currentSpaceId = currentSpaceId {
-                    paths[currentSpaceId] = editorPath
-                }
-               
-                currentSpaceId = spaceId
-                try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
-                
-                var path = paths[spaceId] ?? HomePath()
-                if path.count == 0 {
-                    path.push(activeWorkspaceStorage.workspaceInfo)
-                }
-                
-                path.push(data)
-                editorPath = path
-            } else {
-                editorPath.push(data)
-            }
+            
+            path.push(data)
+            editorPath = path
+        } else {
+            editorPath.push(data)
         }
     }
     

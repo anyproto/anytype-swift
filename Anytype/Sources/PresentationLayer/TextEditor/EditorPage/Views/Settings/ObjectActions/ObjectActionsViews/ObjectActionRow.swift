@@ -61,6 +61,8 @@ private extension ObjectAction {
             return Loc.delete
         case .createWidget:
             return Loc.Actions.CreateWidget.title
+        case .copyLink:
+            return Loc.Actions.copyLink
         }
     }
 
@@ -86,6 +88,8 @@ private extension ObjectAction {
             return .X32.delete
         case .createWidget:
             return .X32.dashboard
+        case .copyLink:
+            return .X32.copy
         }
     }
 }

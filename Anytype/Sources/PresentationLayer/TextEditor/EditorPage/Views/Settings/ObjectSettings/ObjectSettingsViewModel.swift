@@ -4,6 +4,7 @@ import Services
 import UIKit
 import FloatingPanel
 import SwiftUI
+import DeepLinks
 
 enum ObjectSettingsAction {
     case cover(ObjectCoverPickerAction)
@@ -57,6 +58,7 @@ final class ObjectSettingsViewModel: ObservableObject {
         delegate: ObjectSettingsModuleDelegate,
         blockWidgetService: BlockWidgetServiceProtocol,
         activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
+        deepLinkParser: DeepLinkParserProtocol,
         settingsActionHandler: @escaping (ObjectSettingsAction) -> Void,
         documentsProvider: DocumentsProviderProtocol
     ) {
@@ -73,6 +75,7 @@ final class ObjectSettingsViewModel: ObservableObject {
             documentsProvider: documentsProvider,
             blockWidgetService: blockWidgetService,
             activeWorkpaceStorage: activeWorkpaceStorage,
+            deepLinkParser: deepLinkParser,
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction(document: document)
             },

@@ -13,6 +13,7 @@ enum ObjectAction: Hashable, Identifiable {
     case templateSetAsDefault
     case delete
     case createWidget
+    case copyLink
 
     // When adding to case
     static func allCasesWith(
@@ -54,6 +55,10 @@ enum ObjectAction: Hashable, Identifiable {
                 ObjectAction.linkItself
             }
             
+            if permissions.canShare {
+                ObjectAction.copyLink
+            }
+            
             if permissions.canLock {
                 ObjectAction.locked(isLocked: isLocked)
             }
@@ -86,6 +91,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "delete"
         case .createWidget:
             return "createWidget"
+        case .copyLink:
+            return "copyLink"
         }
     }
 }

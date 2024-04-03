@@ -3,6 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 import UIKit
+import DeepLinks
 
 @MainActor
 final class ObjectActionsViewModel: ObservableObject {
@@ -39,6 +40,7 @@ final class ObjectActionsViewModel: ObservableObject {
     private let documentsProvider: DocumentsProviderProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private let deepLinkParser: DeepLinkParserProtocol
     
     init(
         objectId: String,
@@ -48,6 +50,7 @@ final class ObjectActionsViewModel: ObservableObject {
         documentsProvider: DocumentsProviderProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
+        deepLinkParser: DeepLinkParserProtocol,
         
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> (),
@@ -60,6 +63,7 @@ final class ObjectActionsViewModel: ObservableObject {
         self.documentsProvider = documentsProvider
         self.blockWidgetService = blockWidgetService
         self.activeWorkpaceStorage = activeWorkpaceStorage
+        self.deepLinkParser = deepLinkParser
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
         self.closeEditorAction = closeEditorAction
@@ -88,7 +92,6 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func changeLockState() {
-        guard let details = details else { return }
         Task {
             AnytypeAnalytics.instance().logLockPage(!isLocked)
             try await service.setLocked(!isLocked, objectId: objectId)
@@ -200,5 +203,13 @@ final class ObjectActionsViewModel: ObservableObject {
             toastData = ToastBarData(text: Loc.Actions.CreateWidget.success, showSnackBar: true, messageType: .success)
             dismissSheet()
         }
+    }
+    
+    func copyLinkAction() {
+        guard let details else { return }
+        let link = deepLinkParser.createUrl(deepLink: .object(objectId: details.id, spaceId: details.spaceId), scheme: .main)
+        UIPasteboard.general.string = link?.absoluteString
+        toastData = ToastBarData(text: Loc.copied, showSnackBar: true)
+        dismissSheet()
     }
 }

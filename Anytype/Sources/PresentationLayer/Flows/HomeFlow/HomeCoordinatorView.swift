@@ -7,6 +7,7 @@ struct HomeCoordinatorView: View {
     
     @StateObject var model: HomeCoordinatorViewModel
     @Environment(\.keyboardDismiss) var keyboardDismiss
+    @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     var body: some View {
         ZStack {
@@ -29,10 +30,13 @@ struct HomeCoordinatorView: View {
                     model.homeBottomNavigationPanelModule()
                 }
             )
-            
         }
         .onAppear {
             model.onAppear()
+            model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
+        }
+        .task {
+            await model.startDeepLinkTask()
         }
         .environment(\.pageNavigation, model.pageNavigation)
         .onChange(of: model.keyboardToggle) { _ in
