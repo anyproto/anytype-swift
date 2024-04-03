@@ -3,7 +3,7 @@ import Combine
 
 public final class PassthroughSubjectDictionary<K, V> where K: Hashable, V: Equatable {
     
-    private var dictionary = SynchronizedDictionary<K, AnytypePassthroughSubject<V?>>()
+    private let dictionary = SynchronizedDictionary<K, AnytypePassthroughSubject<V?>>()
 
     public init() {}
     
@@ -29,7 +29,7 @@ public final class PassthroughSubjectDictionary<K, V> where K: Hashable, V: Equa
     }
     
     public func publishAllValues() {
-        dictionary.dictionary.values.forEach { $0.sendUpdate() }
+        dictionary.values.forEach { $0.sendUpdate() }
     }
     
     public func publishValue(for key: K) {
