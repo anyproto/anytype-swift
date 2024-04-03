@@ -69,7 +69,7 @@ final class SearchService: SearchServiceProtocol {
         )
         let filters: [DataviewFilter] = .builder {
             SearchHelper.includeIdsFilter(limitObjectIds)
-            SearchHelper.notHiddenFilters(allowHiddenDiscovery: false)
+            SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
         }
                 
         return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text)

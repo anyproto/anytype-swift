@@ -68,7 +68,7 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
         )
         
         let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters(allowHiddenDiscovery: false)
+            SearchHelper.notHiddenFilters(includeHiddenDiscovery: false)
             SearchHelper.spaceId(spaceId)
             SearchHelper.layoutFilter([.participant])
             SearchHelper.participantStatusFilter(.active, .joining, .removing)

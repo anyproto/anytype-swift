@@ -324,10 +324,10 @@ public class SearchHelper {
         return filter
     }
     
-    public static func notHiddenFilters(isArchive: Bool = false, allowHiddenDiscovery: Bool = true) -> [DataviewFilter] {
+    public static func notHiddenFilters(isArchive: Bool = false, includeHiddenDiscovery: Bool = true) -> [DataviewFilter] {
         .builder {
             SearchHelper.isHidden(false)
-            if allowHiddenDiscovery {
+            if includeHiddenDiscovery {
                 SearchHelper.isHiddenDiscovery(false)
             }
             SearchHelper.isDeletedFilter(isDeleted: false)
