@@ -173,8 +173,4 @@ final class ModulesDI: ModulesDIProtocol {
     func sharingTip() -> SharingTipModuleAssemblyProtocol {
         SharingTipModuleAssembly()
     }
-    
-    func shareOptions() -> ShareOptionsModuleAssemblyProtocol {
-        ShareOptionsModuleAssembly(serviceLocator: serviceLocator)
-    }
 }

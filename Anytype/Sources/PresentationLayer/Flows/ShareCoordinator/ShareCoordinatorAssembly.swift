@@ -24,7 +24,6 @@ final class ShareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol {
     @MainActor
     func make() -> AnyView {
         return ShareCoordinatorView(model: ShareCoordinatorViewModel(
-            shareOptionsModuleAssembly: self.modulesDI.shareOptions(),
             searchModuleAssembly: self.modulesDI.search(),
             activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage()
         )).eraseToAnyView()

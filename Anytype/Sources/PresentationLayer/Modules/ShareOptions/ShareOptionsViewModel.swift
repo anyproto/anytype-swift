@@ -6,9 +6,13 @@ import AnytypeCore
 @MainActor
 final class ShareOptionsViewModel: ObservableObject {
     
-    private let contentManager: SharedContentManagerProtocol
-    private let interactor: ShareOptionsInteractorProtocol
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.sharedContentManager)
+    private var contentManager: SharedContentManagerProtocol
+    @Injected(\.shareOptionsInteractor)
+    private var interactor: ShareOptionsInteractorProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    
     private weak var output: ShareOptionsModuleOutput?
     
     // First Group
@@ -34,14 +38,8 @@ final class ShareOptionsViewModel: ObservableObject {
     private var linkObjectDetails: ObjectDetails?
     
     init(
-        contentManager: SharedContentManagerProtocol,
-        interactor: ShareOptionsInteractorProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         output: ShareOptionsModuleOutput?
     ) {
-        self.contentManager = contentManager
-        self.interactor = interactor
-        self.activeWorkpaceStorage = activeWorkpaceStorage
         self.output = output
         setupData()
         if #available(iOS 17.0, *) {
