@@ -83,7 +83,7 @@ final class ModulesDI: ModulesDIProtocol {
     }
     
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol {
-        return DashboardAlertsAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
     
     func authorization() -> AuthModuleAssemblyProtocol {

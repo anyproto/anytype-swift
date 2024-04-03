@@ -19,7 +19,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
-    private let serviceLocator: ServiceLocator
     
     @Injected(\.documentService)
     private var documentService: OpenedDocumentsProviderProtocol
@@ -27,21 +26,21 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: ApplicationStateServiceProtocol
+    @Injected(\.objectHeaderInteractor)
+    private var objectHeaderInteractor: ObjectHeaderInteractorProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        urlOpener: URLOpenerProtocol,
-        serviceLocator: ServiceLocator
+        urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.appearanceModuleAssembly = appearanceModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.urlOpener = urlOpener
-        self.serviceLocator = serviceLocator
     }
     
     func startFlow() {
@@ -73,9 +72,8 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let interactor = serviceLocator.objectHeaderInteractor()
-        let module = objectIconPickerModuleAssembly.make(document: document) { action in
-            interactor.handleIconAction(objectId: objectId, spaceId: document.spaceId, action: action)
+        let module = objectIconPickerModuleAssembly.make(document: document) { [weak self] action in
+            self?.objectHeaderInteractor.handleIconAction(objectId: objectId, spaceId: document.spaceId, action: action)
         }
         navigationContext.present(module)
     }
