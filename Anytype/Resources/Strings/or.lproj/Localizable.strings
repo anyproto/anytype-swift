@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Make default";
 "Actions.CreateWidget.Title" = "ୱିଜେଟ୍ ପାଇଁ";
 "Actions.CreateWidget.Success" = "ନୂତନ ୱିଜେଟ୍ ସୃଷ୍ଟି କରାଗଲା";
+"Actions.CopyLink" = "ଲିଙ୍କ୍ କପି କରନ୍ତୁ";
 
 // Object Type
 "Set" = "ସେଟ୍ କରନ୍ତୁ";
@@ -822,6 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "ସେଟିଂସମୂହ";
 "Settings.SpaceName" = "ସ୍ଥାନ ନାମ";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - File Storage
@@ -913,7 +915,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
 "SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Join a space";
@@ -937,6 +939,7 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Manage";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
