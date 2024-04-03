@@ -105,13 +105,17 @@ final class EditorSetViewModel: ObservableObject {
             if setDocument.setPermissions.canTurnSetIntoCollection {
                 RelationValueViewModel.MenuItem(
                     title: Loc.Set.TypeRelation.ContextMenu.turnIntoCollection,
-                    action: turnSetIntoCollection
+                    action: { [weak self] in
+                        self?.turnSetIntoCollection()
+                    }
                 )
             }
             if setDocument.setPermissions.canChangeQuery {
                 RelationValueViewModel.MenuItem(
                     title: isEmptyQuery ? Loc.Set.SourceType.selectQuery : Loc.Set.TypeRelation.ContextMenu.changeQuery,
-                    action: showSetOfTypeSelection
+                    action: { [weak self] in
+                        self?.showSetOfTypeSelection()
+                    }
                 )
             }
         }
