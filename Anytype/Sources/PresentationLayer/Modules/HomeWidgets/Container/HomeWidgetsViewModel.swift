@@ -95,9 +95,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupInitialState() {
-        widgetObject.widgetsPublisher
-            .map { [weak self] blocks -> [HomeWidgetSubmoduleModel] in
+        widgetObject.syncPublisher
+            .map { [weak self] _ -> [HomeWidgetSubmoduleModel] in
                 guard let self else { return [] }
+                let blocks = self.widgetObject.children.filter(\.isWidget)
                 recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: self.widgetObject)
                 return registry.providers(blocks: blocks, widgetObject: widgetObject)
             }

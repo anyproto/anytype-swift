@@ -7,6 +7,7 @@ protocol SearchServiceProtocol: AnyObject {
     
     func searchFiles(text: String, excludedFileIds: [String],  spaceId: String) async throws -> [ObjectDetails]
     func searchImages() async throws -> [ObjectDetails]
+    func search(text: String, limitObjectIds: [String]) async throws -> [ObjectDetails]
     func searchObjectsByTypes(text: String, typeIds: [String], excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails]
     func searchTemplates(for type: String, spaceId: String) async throws -> [ObjectDetails]
     func searchObjects(

@@ -71,11 +71,11 @@ extension BundledRelationsValueProvider {
     }
     
     var isNotDeletedAndVisibleForEdit: Bool {
-        return !isDeleted && !isArchived && isVisibleLayout
+        return !isDeleted && !isArchived && isVisibleLayout && !isHiddenDiscovery
     }
     
     var isNotDeletedAndSupportedForEdit: Bool {
-        return !isDeleted && !isArchived && isSupportedForEdit
+        return !isDeleted && !isArchived && isSupportedForEdit && !isHiddenDiscovery
     }
     
     var canMakeTemplate: Bool {

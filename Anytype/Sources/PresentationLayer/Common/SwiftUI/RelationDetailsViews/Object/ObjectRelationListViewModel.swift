@@ -117,11 +117,15 @@ final class ObjectRelationListViewModel: ObservableObject {
     }
     
     private func searchTextChangedAsync(_ text: String = "") async throws {
-        let rawOptions = try await interactor.searchOptions(text: text)
+        let selectedOptions = try await interactor.searchOptions(text: text, limitObjectIds: selectedOptionsIds)
+        let rawOptions = try await interactor.searchOptions(text: text, excludeObjectIds: selectedOptionsIds)
         
-        options = rawOptions.reordered(
-            by: selectedOptionsIds
-        ) { $0.id }
+        let selectedReorder = selectedOptions
+            .reordered(
+                by: selectedOptionsIds
+            ) { $0.id }
+        
+        options = selectedReorder + rawOptions
         
         if !configuration.isEditable {
             options = options.filter { selectedOptionsIds.contains($0.id) }

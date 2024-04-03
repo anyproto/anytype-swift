@@ -43,8 +43,7 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         let sort = makeSort(type: type)
         
         let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilter()
-            SearchHelper.isArchivedFilter(isArchived: false)
+            SearchHelper.notHiddenFilters()
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.templateScheme(include: false)
