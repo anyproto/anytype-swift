@@ -14,11 +14,9 @@ protocol DashboardAlertsAssemblyProtocol: AnyObject {
 
 final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
-        self.serviceLocator = serviceLocator
+    init(uiHelpersDI: UIHelpersDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
     }
     
@@ -27,7 +25,6 @@ final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
     @MainActor
     func logoutAlert(onBackup: @escaping () -> Void, onLogout: @escaping () -> Void) -> UIViewController {
         let model = DashboardLogoutAlertModel(
-            authService: serviceLocator.authService(),
             onBackup: onBackup, 
             onLogout: onLogout
         )
@@ -37,19 +34,13 @@ final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
     
     @MainActor
     func accountDeletionAlert() -> UIViewController {
-        let model = DashboardAccountDeletionAlertModel(
-            authService: serviceLocator.authService(),
-            applicationStateService: serviceLocator.applicationStateService()
-        )
-        let view = DashboardAccountDeletionAlert(model: model)
-        return popup(view: view)
+        return popup(view: DashboardAccountDeletionAlert())
     }
     
     @MainActor
     func clearCacheAlert() -> UIViewController {
         let model = DashboardClearCacheAlertModel(
-            alertOpener: uiHelpersDI.alertOpener(),
-            fileActionService: serviceLocator.fileService()
+            alertOpener: uiHelpersDI.alertOpener()
         )
         let view = DashboardClearCacheAlert(model: model)
         return popup(view: view)

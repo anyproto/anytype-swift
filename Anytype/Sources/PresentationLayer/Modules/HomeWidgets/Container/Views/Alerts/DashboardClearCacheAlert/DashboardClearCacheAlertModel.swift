@@ -10,15 +10,15 @@ final class DashboardClearCacheAlertModel: ObservableObject {
     // MARK: - DI
     
     private let alertOpener: AlertOpenerProtocol
-    private let fileActionService: FileActionsServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileActionService: FileActionsServiceProtocol
     
     // MARK: - State
     
     @Published var toastBarData: ToastBarData = .empty
         
-    init(alertOpener: AlertOpenerProtocol, fileActionService: FileActionsServiceProtocol) {
+    init(alertOpener: AlertOpenerProtocol) {
         self.alertOpener = alertOpener
-        self.fileActionService = fileActionService
     }
     
     func onAppear() {
