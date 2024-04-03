@@ -20,6 +20,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var toastBarData: ToastBarData = .empty
     @Published var codeLanguageData: CodeLanguageListData?
     @Published var covertPickerData: ObjectCoverPickerData?
+    @Published var linkToObjectData: LinkToObjectSearchModuleData?
     
     init(
         data: EditorPageObject,
@@ -88,6 +89,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     func onSelectCodeLanguage(objectId: String, blockId: String) {
         codeLanguageData = CodeLanguageListData(documentId: objectId, blockId: blockId)
     }
+    
+    func showLinkToObject(data: LinkToObjectSearchModuleData) {
+        linkToObjectData = data
+    }
+    
+    // MARK: - Private
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
         let analyticsType = AnalyticsEventsRelationType.block

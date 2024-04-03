@@ -25,6 +25,11 @@ struct EditorPageCoordinatorView: View {
             .sheet(item: $model.covertPickerData) {
                 ObjectCoverPicker(data: $0)
             }
+            .sheet(item: $model.linkToObjectData) {
+                LinToObjectSearchView(data: $0) { data in
+                    model.showEditorScreen(data: data)
+                }
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

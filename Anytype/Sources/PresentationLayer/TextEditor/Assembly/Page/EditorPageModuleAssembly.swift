@@ -82,7 +82,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),
-            linkToObjectCoordinatorAssembly: coordinatorsDI.linkToObject(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
             searchModuleAssembly: modulesDI.search(),
@@ -220,7 +219,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             typesService: serviceLocator.typesService(),
             accessoryStateManager: accessoryState.0,
             tableService: serviceLocator.blockTableService()
@@ -252,7 +250,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             accessoryStateManager: accessoryState.0,
             cursorManager: cursorManager,
             keyboardActionHandler: keyboardHandler,
-            linkToObjectCoordinator: coordinatorsDI.linkToObject().make(output: router),
             markupChanger: BlockMarkupChanger(),
             slashMenuActionHandler: slashMenuActionHandler,
             editorPageBlocksStateManager: blocksStateManager,

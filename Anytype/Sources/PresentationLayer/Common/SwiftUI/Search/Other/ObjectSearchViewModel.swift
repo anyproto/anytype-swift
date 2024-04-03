@@ -7,7 +7,7 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     
     @Published var searchData: [SearchDataSection<ObjectSearchData>] = []
     
-    var onSelect: (ObjectSearchData) -> ()
+    var onSelectClosure: (ObjectSearchData) -> ()
 
     let placeholder: String = Loc.search
     
@@ -19,7 +19,11 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     init(spaceId: String, searchService: SearchInteractorProtocol, onSelect: @escaping (SearchDataType) -> ()) {
         self.spaceId = spaceId
         self.searchService = searchService
-        self.onSelect = onSelect
+        self.onSelectClosure = onSelect
+    }
+    
+    func onSelect(searchData: ObjectSearchData) {
+        onSelectClosure(searchData)
     }
     
     func search(text: String) {

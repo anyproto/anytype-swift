@@ -5,7 +5,7 @@ import Combine
 @MainActor
 final class SpaceSearchViewModel: SearchViewModelProtocol {
     @Published var searchData = [SearchDataSection<SpaceView>]()
-    var onSelect: (SpaceView) -> ()
+    var onSelectClosure: (SpaceView) -> ()
     var placeholder: String { Loc.Spaces.Search.title }
     var lastSearchText: String = ""
     
@@ -18,9 +18,13 @@ final class SpaceSearchViewModel: SearchViewModelProtocol {
         onSelect: @escaping (SpaceView) -> Void
     ) {
         self.participantSpacesStorage = participantSpacesStorage
-        self.onSelect = onSelect
+        self.onSelectClosure = onSelect
         
         setupSubscription()
+    }
+    
+    func onSelect(searchData: SpaceView) {
+        onSelectClosure(searchData)
     }
     
     private func setupSubscription() {
