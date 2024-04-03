@@ -20,6 +20,9 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var participantSpacesStorage: ParticipantSpacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.activeSpaceParticipantStorage)
+    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
     
@@ -29,9 +32,11 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
     private var participantSpaceView: ParticipantSpaceView?
+    private var joiningCount: Int = 0
     
     @Published var spaceName = ""
     @Published var spaceAccessType = ""
+    @Published var sharedSpaceDescription = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
@@ -85,6 +90,13 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onSpaceMembersSelected()
     }
     
+    func startJoiningTask() async {
+        for await participants in activeSpaceParticipantStorage.participantsPublisher.values {
+            joiningCount = participants.filter { $0.status == .joining }.count
+            updateViewState()
+        }
+    }
+    
     // MARK: - Private
     
     private func setupData() async throws {
@@ -112,6 +124,12 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
+        
+        if participantSpaceView.spaceView.spaceAccessType == .shared {
+            sharedSpaceDescription = joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage
+        } else {
+            sharedSpaceDescription = Loc.share
+        }
         
         if !dataLoaded {
             spaceName = spaceView.name
