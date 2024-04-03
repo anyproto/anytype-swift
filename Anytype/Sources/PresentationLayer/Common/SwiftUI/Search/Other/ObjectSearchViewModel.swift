@@ -14,8 +14,6 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     private let spaceId: String
     private let searchService: SearchInteractorProtocol
     
-    private var searchTask: AnyCancellable?
-    
     init(spaceId: String, searchService: SearchInteractorProtocol, onSelect: @escaping (SearchDataType) -> ()) {
         self.spaceId = spaceId
         self.searchService = searchService
@@ -26,23 +24,20 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
         onSelectClosure(searchData)
     }
     
-    func search(text: String) {
-        searchTask?.cancel()
-        searchTask = Task { @MainActor in
-            do {
-                let result = try await searchService.search(text: text, spaceId: spaceId)
-                let objectsSearchData = result.compactMap { ObjectSearchData(details: $0) }
-                
-                guard objectsSearchData.isNotEmpty else {
-                    searchData = []
-                    return
-                }
-                
-                searchData = [SearchDataSection(searchData: objectsSearchData, sectionName: "")]
-                
-            } catch {
+    func search(text: String) async throws {
+        do {
+            let result = try await searchService.search(text: text, spaceId: spaceId)
+            let objectsSearchData = result.compactMap { ObjectSearchData(details: $0) }
+            
+            guard objectsSearchData.isNotEmpty else {
                 searchData = []
+                return
             }
-        }.cancellable()
+            
+            searchData = [SearchDataSection(searchData: objectsSearchData, sectionName: "")]
+            
+        } catch {
+            searchData = []
+        }
     }
 }

@@ -30,7 +30,6 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
     
-    var searchTask: Task<(), Never>?
     var placeholder: String { Loc.Editor.LinkToObject.searchPlaceholder }
 
     init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: EditorScreenData) -> Void) {
@@ -38,13 +37,17 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         self.showEditorScreen = showEditorScreen
     }
 
-    func search(text: String) {
-        searchTask?.cancel()
-        searchData.removeAll()
-        
-        searchTask = Task { @MainActor [weak self, data] in
-            guard let result = try? await self?.searchService.search(text: text, spaceId: data.spaceId) else { return }
-            self?.handleSearch(result: result, text: text)
+    func search(text: String) async throws {
+        do {
+            if data.currentLinkUrl.isNotNil || data.currentLinkString.isNotNil, text.isEmpty {
+                let sections = try await buildExistingLinkSections()
+                searchData = sections
+            } else {
+                let result = try await searchService.search(text: text, spaceId: data.spaceId)
+                searchData = handleSearch(result: result, text: text)
+            }
+        } catch {
+            searchData.removeAll()
         }
     }
     
@@ -74,7 +77,9 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         }
     }
     
-    func handleSearch(result: [ObjectDetails], text: String) {
+    func handleSearch(result: [ObjectDetails], text: String) -> [SearchDataSection<SearchDataType>] {
+        var newSearchData: [SearchDataSection<SearchDataType>] = []
+        
         var objectData = result.compactMap { details in
             LinkToObjectSearchData(details: details)
         }
@@ -87,7 +92,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                     iconImage: .asset(.webPage))
                 
                 let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
-                searchData.append(webSection)
+                newSearchData.append(webSection)
             }
             
             let title = Loc.createObject + "  " + "\"" + text + "\""
@@ -107,34 +112,35 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                     iconImage: .asset(.webPage))
                 
                 let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
-                searchData.append(webSection)
+                newSearchData.append(webSection)
             }
         }
         
-        searchData.append(SearchDataSection(searchData: objectData, sectionName: Loc.objects))
+        newSearchData.append(SearchDataSection(searchData: objectData, sectionName: Loc.objects))
+        
+        return newSearchData
     }
 
-    private func buildExistingLinkSections(currentLink: Either<URL, String>) async throws -> [SearchDataSection<SearchDataType>] {
-        let linkedToData: LinkToObjectSearchData?
-        let copyLink: LinkToObjectSearchData?
+    private func buildExistingLinkSections() async throws -> [SearchDataSection<SearchDataType>] {
+        var linkedToData: LinkToObjectSearchData? = nil
+        var copyLink: LinkToObjectSearchData? = nil
 
-        switch currentLink {
-        case let .left(url):
+        if let url = data.currentLinkUrl {
             linkedToData = LinkToObjectSearchData(
                 searchKind: .openURL(url),
                 searchTitle: url.absoluteString,
                 iconImage: .asset(.webPage)
             )
-
+            
             copyLink = LinkToObjectSearchData(
                 searchKind: .copyLink(url),
                 searchTitle: Loc.Editor.LinkToObject.copyLink,
                 iconImage: .asset(.TextEditor.BlocksOption.copy)
             )
-        case let .right(blockId):
+        } else if let blockId = data.currentLinkString {
             let result = try await searchService.search(text: "", spaceId: data.spaceId)
             let object = result.first(where: { $0.id == blockId })
-
+            
             linkedToData = object.map {
                 LinkToObjectSearchData(details: $0, searchKind: .openObject($0))
             }
