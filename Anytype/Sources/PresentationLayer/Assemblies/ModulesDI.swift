@@ -82,10 +82,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SettingsAppearanceModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol {
-        return KeychainPhraseModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol {
         return DashboardAlertsAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }

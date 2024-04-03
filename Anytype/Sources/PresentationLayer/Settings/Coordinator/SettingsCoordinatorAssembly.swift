@@ -31,12 +31,9 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
         return SettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             appearanceModuleAssembly: modulesDI.settingsAppearance(),
-            keychainPhraseModuleAssembly: modulesDI.keychainPhrase(),
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            documentService: serviceLocator.documentService(),
             urlOpener: uiHelpersDI.urlOpener(),
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             serviceLocator: serviceLocator
         )
     }

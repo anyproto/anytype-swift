@@ -16,36 +16,32 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     private let navigationContext: NavigationContextProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
-    private let keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let documentService: OpenedDocumentsProviderProtocol
     private let urlOpener: URLOpenerProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let serviceLocator: ServiceLocator
-    private let applicationStateService: ApplicationStateServiceProtocol
+    
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
-        keychainPhraseModuleAssembly: KeychainPhraseModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        documentService: OpenedDocumentsProviderProtocol,
         urlOpener: URLOpenerProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         serviceLocator: ServiceLocator
     ) {
         self.navigationContext = navigationContext
         self.appearanceModuleAssembly = appearanceModuleAssembly
-        self.keychainPhraseModuleAssembly = keychainPhraseModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.documentService = documentService
         self.urlOpener = urlOpener
-        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.serviceLocator = serviceLocator
-        self.applicationStateService = serviceLocator.applicationStateService()
     }
     
     func startFlow() {
@@ -95,8 +91,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     // MARK: - SettingsAccountModuleOutput
     
     func onRecoveryPhraseSelected() {
-        let module = keychainPhraseModuleAssembly.make(context: .settings)
-        navigationContext.present(module)
+        navigationContext.present(KeychainPhraseView(context: .settings))
     }
     
     func onLogoutSelected() {
@@ -104,8 +99,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
             onBackup: { [weak self] in
                 guard let self = self else { return }
                 self.navigationContext.dismissTopPresented()
-                let module = self.keychainPhraseModuleAssembly.make(context: .logout)
-                self.navigationContext.present(module)
+                self.navigationContext.present(KeychainPhraseView(context: .logout))
             },
             onLogout: { [weak self] in
                 self?.navigationContext.dismissAllPresented(animated: true, completion: { 
