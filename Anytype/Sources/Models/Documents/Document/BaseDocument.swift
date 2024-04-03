@@ -242,8 +242,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private func setupView(_ model: ObjectViewModel) async {
         viewModelSetter.objectViewUpdate(model)
         isOpened = true
-        triggerSync(updates: [.general])
         await setupSubscriptions()
+        triggerSync(updates: [.general])
     }
     
     private func setupSubscriptions() async {
