@@ -13,7 +13,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
@@ -25,7 +24,8 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showSpaceMembers = false
     @Published var dismiss = false
     
-    private var accountSpaceId: String
+    var accountSpaceId: String
+    
     private var subscriptions = [AnyCancellable]()
     
     init(
@@ -36,7 +36,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        wallpaperPickerModuleAssembly: WallpaperPickerModuleAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
         documentService: OpenedDocumentsProviderProtocol
@@ -48,7 +47,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
-        self.wallpaperPickerModuleAssembly = wallpaperPickerModuleAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
@@ -58,10 +56,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     func personalizationModule() -> AnyView {
         return personalizationModuleAssembly.make(spaceId: accountSpaceId, output: self)
-    }
-    
-    func wallpaperModule() -> AnyView {
-        return wallpaperPickerModuleAssembly.make(spaceId: accountSpaceId)
     }
     
     // MARK: - SpaceSettingsModuleOutput

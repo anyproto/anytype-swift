@@ -82,10 +82,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SettingsAppearanceModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func wallpaperPicker() -> WallpaperPickerModuleAssemblyProtocol {
-        return WallpaperPickerModuleAssembly()
-    }
-    
     func personalization() -> PersonalizationModuleAssemblyProtocol {
         return PersonalizationModuleAssembly(serviceLocator: serviceLocator)
     }

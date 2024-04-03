@@ -38,7 +38,6 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
                 activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
                 objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(),
-                wallpaperPickerModuleAssembly: self.modulesDI.wallpaperPicker(),
                 objectTypeProvider: self.serviceLocator.objectTypeProvider(),
                 urlOpener: self.uiHelpersDI.urlOpener(),
                 documentService: self.serviceLocator.documentService()

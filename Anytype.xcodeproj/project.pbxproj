@@ -849,7 +849,6 @@
 		2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */; };
 		2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */; };
 		2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */; };
-		2AF4260929AF405700753B17 /* WallpaperPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260829AF405600753B17 /* WallpaperPickerModuleAssembly.swift */; };
 		2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */; };
 		2AF4261629AF4ECE00753B17 /* PersonalizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */; };
 		2AF4261829AF50AD00753B17 /* PersonalizationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261729AF50AD00753B17 /* PersonalizationModuleAssembly.swift */; };
@@ -2646,7 +2645,6 @@
 		2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceViewModel.swift; sourceTree = "<group>"; };
 		2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerViewModel.swift; sourceTree = "<group>"; };
-		2AF4260829AF405600753B17 /* WallpaperPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationViewModel.swift; sourceTree = "<group>"; };
 		2AF4261729AF50AD00753B17 /* PersonalizationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationModuleAssembly.swift; sourceTree = "<group>"; };
@@ -9087,7 +9085,6 @@
 				3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */,
 				3DB1CA6D272C0C19000D2779 /* WallpaperColorsGridView.swift */,
 				2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */,
-				2AF4260829AF405600753B17 /* WallpaperPickerModuleAssembly.swift */,
 			);
 			path = Wallpaper;
 			sourceTree = "<group>";
@@ -12280,7 +12277,6 @@
 				2AE85FF12B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift in Sources */,
 				2A1F94722978221400E25782 /* SetListWidgetModuleAssembly.swift in Sources */,
 				3D5A415E2703132800F1F6A1 /* SlashActionStyle.swift in Sources */,
-				2AF4260929AF405700753B17 /* WallpaperPickerModuleAssembly.swift in Sources */,
 				867B2A992A9CCE4D0040381E /* ObjectLayoutSearch.swift in Sources */,
 				2A00A73529D19051007BE598 /* ReadableContentGuide.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* FileActionsServiceProtocol.swift in Sources */,

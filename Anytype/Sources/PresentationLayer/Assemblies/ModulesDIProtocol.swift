@@ -17,7 +17,6 @@ protocol ModulesDIProtocol: AnyObject {
     func widgetType() -> WidgetTypeModuleAssemblyProtocol
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
-    func wallpaperPicker() -> WallpaperPickerModuleAssemblyProtocol
     func personalization() -> PersonalizationModuleAssemblyProtocol
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol

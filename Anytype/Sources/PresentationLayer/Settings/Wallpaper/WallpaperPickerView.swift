@@ -2,8 +2,12 @@ import SwiftUI
 import AnytypeCore
 
 struct WallpaperPickerView: View {
-    @StateObject var model: WallpaperPickerViewModel
-    @Environment(\.presentationMode) var presentationMode
+    @StateObject private var model: WallpaperPickerViewModel
+    @Environment(\.dismiss) private var dismiss
+    
+    init(spaceId: String) {
+        self._model = StateObject(wrappedValue: WallpaperPickerViewModel(spaceId: spaceId))
+    }
     
     var body: some View {
         VStack(alignment: .center) {
@@ -14,18 +18,12 @@ struct WallpaperPickerView: View {
             WallpaperColorsGridView() { background in
                 AnytypeAnalytics.instance().logSettingsWallpaperSet()
                 model.wallpaper = background
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             }
         }
         .background(Color.Background.secondary)
         .onAppear {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.wallpaperSettingsShow)
         }
-    }
-}
-
-struct WallpaperPickerView_Previews: PreviewProvider {
-    static var previews: some View {
-        WallpaperPickerView(model: WallpaperPickerViewModel(spaceId: ""))
     }
 }
