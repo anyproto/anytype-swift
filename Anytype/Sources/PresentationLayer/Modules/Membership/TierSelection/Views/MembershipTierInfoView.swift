@@ -37,12 +37,13 @@ struct MembershipTierInfoView: View {
             AnytypeText(Loc.whatSIncluded, style: .calloutRegular, color: .Text.secondary)
             Spacer.fixedHeight(6)
             ForEach(tier.features, id: \.self) { feature in
-                HStack(spacing: 8) {
-                    Image(asset: .System.textCheckMark)
-                        .frame(width: 16, height: 16)
-                        .foregroundColor(.Text.primary)
+                HStack(alignment: .top, spacing: 8) {
+                        Image(asset: .System.textCheckMark)
+                            .frame(width: 16, height: 16)
+                            .foregroundColor(.Text.primary)
+                            .padding(.top, 3)
                     AnytypeText(feature, style: .calloutRegular, color: .Text.primary)
-                        .lineLimit(1)
+                        .lineLimit(2)
                 }
             }
         }
