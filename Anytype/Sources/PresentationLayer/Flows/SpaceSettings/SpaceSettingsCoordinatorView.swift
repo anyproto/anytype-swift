@@ -12,7 +12,7 @@ struct SpaceSettingsCoordinatorView: View {
             RemoteStorageView(output: model)
         }
         .sheet(isPresented: $model.showPersonalization) {
-            model.personalizationModule()
+            PersonalizationView(spaceId: model.accountSpaceId, output: model)
                 .sheet(isPresented: $model.showWallpaperPicker) {
                     WallpaperPickerView(spaceId: model.accountSpaceId)
                 }

@@ -82,10 +82,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SettingsAppearanceModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func personalization() -> PersonalizationModuleAssemblyProtocol {
-        return PersonalizationModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol {
         return KeychainPhraseModuleAssembly(serviceLocator: serviceLocator)
     }

@@ -851,7 +851,6 @@
 		2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */; };
 		2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */; };
 		2AF4261629AF4ECE00753B17 /* PersonalizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */; };
-		2AF4261829AF50AD00753B17 /* PersonalizationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261729AF50AD00753B17 /* PersonalizationModuleAssembly.swift */; };
 		2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */; };
 		2AF4261C29AF813900753B17 /* KeychainPhraseModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261B29AF813900753B17 /* KeychainPhraseModuleAssembly.swift */; };
 		2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */; };
@@ -2647,7 +2646,6 @@
 		2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerViewModel.swift; sourceTree = "<group>"; };
 		2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationViewModel.swift; sourceTree = "<group>"; };
-		2AF4261729AF50AD00753B17 /* PersonalizationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4261B29AF813900753B17 /* KeychainPhraseModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAlertsAssembly.swift; sourceTree = "<group>"; };
@@ -8342,7 +8340,6 @@
 			children = (
 				3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */,
 				2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */,
-				2AF4261729AF50AD00753B17 /* PersonalizationModuleAssembly.swift */,
 				2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */,
 				2AB22A1E2A9F33B3000E1AA6 /* AnytypeRow.swift */,
 			);
@@ -11967,7 +11964,6 @@
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
 				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
-				2AF4261829AF50AD00753B17 /* PersonalizationModuleAssembly.swift in Sources */,
 				12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */,
 				2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */,
 				2AE85FF32B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift in Sources */,

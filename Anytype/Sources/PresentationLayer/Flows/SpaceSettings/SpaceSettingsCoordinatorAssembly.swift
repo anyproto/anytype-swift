@@ -34,7 +34,6 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
                 widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
-                personalizationModuleAssembly: self.modulesDI.personalization(),
                 activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
                 objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(),
