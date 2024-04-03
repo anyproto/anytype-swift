@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Make default";
 "Actions.CreateWidget.Title" = "To widgets";
 "Actions.CreateWidget.Success" = "New widget was created";
+"Actions.CopyLink" = "Копіювати посилання";
 
 // Object Type
 "Set" = "Набір";
@@ -823,6 +824,7 @@
 // MARK: - Settings
 "Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Обліковий запис та доступ";
 
 // MARK: - File Storage
@@ -914,7 +916,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
 "SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Join a space";
@@ -938,6 +940,7 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Manage";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
