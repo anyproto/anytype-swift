@@ -24,7 +24,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
-    private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
@@ -46,7 +45,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
-    @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
+    @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showSearchData: SearchModuleModel?
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
@@ -89,7 +88,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         pasteboardBlockService: PasteboardBlockServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
-        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
@@ -113,7 +111,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.pasteboardBlockService = pasteboardBlockService
         self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
-        self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.shareCoordinatorAssembly = shareCoordinatorAssembly
@@ -165,10 +162,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
         return newSearchModuleAssembly.widgetChangeSourceSearchModule(data: data)
-    }
-    
-    func changeTypeModule(data: WidgetTypeModuleChangeModel) -> AnyView {
-        return widgetTypeModuleAssembly.makeChangeType(data: data)
     }
     
     func searchModule(data: SearchModuleModel) -> AnyView {
@@ -223,7 +216,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
-        showChangeTypeData = WidgetTypeModuleChangeModel(
+        showChangeTypeData = WidgetTypeChangeData(
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             widgetId: widgetId,
             context: context,

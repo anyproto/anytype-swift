@@ -1,8 +1,10 @@
 import Foundation
+import Services
 
-struct WidgetTypeModuleChangeModel: Identifiable, Hashable {
+struct WidgetTypeCreateData: Identifiable, Hashable {
     let widgetObjectId: String
-    let widgetId: String
+    let source: WidgetSource
+    let position: WidgetPosition
     let context: AnalyticsWidgetContext
     @EquatableNoop var onFinish: () -> Void
     

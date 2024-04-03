@@ -1,39 +1,15 @@
 import Foundation
 import Services
-import Combine
 
-@MainActor
-final class WidgetTypeViewModel: ObservableObject {
-    
-    private let internalModel: WidgetTypeInternalViewModelProtocol
-    
-    private var subscriptions: [AnyCancellable] = []
-    @Published var rows: [WidgetTypeRowView.Model] = []
-    
-    init(internalModel: WidgetTypeInternalViewModelProtocol) {
-        self.internalModel = internalModel
-        
-        internalModel.statePublisher
-            .receiveOnMain()
-            .compactMap { $0 }
-            .sink { [weak self] state in
-                self?.setupRows(state: state)
-            }
-            .store(in: &subscriptions)
-    }
-    
-    private func setupRows(state: WidgetTypeState) {
-        let availableTypes = state.source.availableWidgetLayout
-        rows = availableTypes.map { type in
-            return WidgetTypeRowView.Model(
-                title: type.title,
-                description: type.description,
-                image: type.image,
-                isSelected: type == state.layout,
-                onTap: { [weak self] in
-                    self?.internalModel.onTap(layout: type)
-            })
-        }
+extension WidgetTypeRowView.Model {
+    init(layout: BlockWidget.Layout, isSelected: Bool, onTap: @escaping () -> Void) {
+        self = WidgetTypeRowView.Model(
+            title: layout.title,
+            description: layout.description,
+            image: layout.image,
+            isSelected: isSelected,
+            onTap: onTap
+        )
     }
 }
 
@@ -78,3 +54,4 @@ private extension BlockWidget.Layout {
         }
     }
 }
+

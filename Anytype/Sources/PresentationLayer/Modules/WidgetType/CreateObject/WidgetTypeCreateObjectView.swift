@@ -1,10 +1,13 @@
 import Foundation
 import SwiftUI
-import Services
 
-struct WidgetTypeView: View {
+struct WidgetTypeCreateObjectView: View {
     
-    @StateObject var model: WidgetTypeViewModel
+    @StateObject private var model: WidgetTypeCreateObjectViewModel
+    
+    init(data: WidgetTypeCreateData) {
+        self._model = StateObject(wrappedValue: WidgetTypeCreateObjectViewModel(data: data))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

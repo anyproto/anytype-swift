@@ -48,7 +48,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             pasteboardBlockService: serviceLocator.pasteboardBlockService(),
             typeProvider: serviceLocator.objectTypeProvider(),
             appActionsStorage: serviceLocator.appActionStorage(),
-            widgetTypeModuleAssembly: modulesDI.widgetType(),
             spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
             shareCoordinatorAssembly: coordinatorsID.share(),
