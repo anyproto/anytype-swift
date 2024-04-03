@@ -39,7 +39,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
         HomeCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            navigationContext: uiHelpersDI.commonNavigationContext(),
             createWidgetCoordinatorAssembly: coordinatorsID.createWidget(),
             searchModuleAssembly: modulesDI.search(),
             newSearchModuleAssembly: modulesDI.newSearch(),

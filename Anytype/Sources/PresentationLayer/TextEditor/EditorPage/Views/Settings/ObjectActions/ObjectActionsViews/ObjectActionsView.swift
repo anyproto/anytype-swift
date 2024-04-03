@@ -39,6 +39,8 @@ struct ObjectActionsView: View {
                             viewModel.deleteAction()
                         case .createWidget:
                             viewModel.createWidget()
+                        case .copyLink:
+                            viewModel.copyLinkAction()
                         }
                     }
                 }

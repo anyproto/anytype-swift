@@ -691,6 +691,8 @@ internal enum Loc {
     }
   }
   internal enum Actions {
+    /// Copy link
+    internal static let copyLink = Loc.tr("Localizable", "Actions.CopyLink", fallback: "Copy link")
     /// Link to
     internal static let linkItself = Loc.tr("Localizable", "Actions.LinkItself", fallback: "Link to")
     /// Make template

@@ -43,6 +43,7 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
             delegate: delegate,
             blockWidgetService: serviceLocator.blockWidgetService(),
             activeWorkpaceStorage: serviceLocator.activeWorkspaceStorage(),
+            deepLinkParser: serviceLocator.deepLinkParser(),
             settingsActionHandler: actionHandler,
             documentsProvider: serviceLocator.documentsProvider
         )
