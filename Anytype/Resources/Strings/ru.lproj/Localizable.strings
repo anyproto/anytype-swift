@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Установить по умолчанию";
 "Actions.CreateWidget.Title" = "В виджеты";
 "Actions.CreateWidget.Success" = "Создан новый виджет";
+"Actions.CopyLink" = "Скопировать ссылку";
 
 // Object Type
 "Set" = "Набор";
@@ -822,6 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Учетная запись и доступ";
 
 // MARK: - File Storage
@@ -914,7 +916,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Предоставить доступ к просмотру";
 "SpaceShare.ViewRequest.EditAccess" = "Предоставить доступ к редактированию ";
 "SpaceShare.ViewRequest.Reject" = "Отклонить";
-"SpaceShare.RemoveMember.Title" = "Исключить участника";
+"SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ будет удален из пространства.";
 "SpaceShare.ChangePermissions" = "доступ %@ к пространству станет %@.";
 "SpaceShare.Join.Title" = "Присоединиться к пространству";
@@ -938,6 +940,7 @@
 "SpaceShare.HowToShare.Step1" = "Пожалуйста, предоставьте ссылку человеку, с которым хотите сотрудничать.";
 "SpaceShare.HowToShare.Step2" = "Нажав на ссылку, человек запросит вступление в пространство.";
 "SpaceShare.HowToShare.Step3" = "После одобрения запроса Вы можете выбрать права доступа для этого человека.";
+"SpaceShare.Manage" = "Manage";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Ваши права доступа были изменены на **%@** в пространстве **%@**.";
