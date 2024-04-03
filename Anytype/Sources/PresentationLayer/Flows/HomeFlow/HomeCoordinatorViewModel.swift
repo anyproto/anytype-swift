@@ -15,9 +15,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let blockService: BlockServiceProtocol
@@ -79,9 +77,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         blockService: BlockServiceProtocol,
@@ -102,9 +98,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
         self.searchModuleAssembly = searchModuleAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
         self.blockService = blockService
@@ -159,17 +153,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
     func homeBottomNavigationPanelModule() -> AnyView {
         return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, output: self)
     }
-
-    func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
-        return newSearchModuleAssembly.widgetChangeSourceSearchModule(data: data)
-    }
     
     func searchModule(data: SearchModuleModel) -> AnyView {
         return searchModuleAssembly.makeObjectSearch(data: data)
-    }
-    
-    func createWidgetModule(data: CreateWidgetCoordinatorModel) -> AnyView {
-        return createWidgetCoordinatorAssembly.make(data: data)
     }
     
     func createSpaceSwitchModule() -> AnyView {

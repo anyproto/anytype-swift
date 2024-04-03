@@ -1,5 +1,6 @@
 import SwiftUI
 
+// TODO: Dont use in new search screens. Legacy module
 struct NewSearchView: View {
     
     @StateObject var viewModel: NewSearchViewModel

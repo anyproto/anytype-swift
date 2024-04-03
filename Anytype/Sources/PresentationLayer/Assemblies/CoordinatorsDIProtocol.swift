@@ -9,7 +9,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
     func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
     func home() -> HomeCoordinatorAssemblyProtocol
-    func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol
     func authorization() -> AuthCoordinatorAssemblyProtocol

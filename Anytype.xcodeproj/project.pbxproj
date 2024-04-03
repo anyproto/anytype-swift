@@ -394,6 +394,8 @@
 		2A35A6AE2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6AD2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift */; };
 		2A35A6B12BBD834F00CCE4F4 /* WidgetTypeRowViewModel+Init.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6B02BBD834F00CCE4F4 /* WidgetTypeRowViewModel+Init.swift */; };
 		2A35A6B42BBD845B00CCE4F4 /* WidgetTypeChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6B32BBD845B00CCE4F4 /* WidgetTypeChangeView.swift */; };
+		2A35A6BA2BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6B92BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift */; };
+		2A35A6BC2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6BB2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift */; };
 		2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */; };
 		2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */; };
 		2A35FF922AAF20FD00D6006D /* CodeLanguageRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */; };
@@ -855,7 +857,6 @@
 		2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */; };
 		2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */; };
 		2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */; };
-		2AF4C3E5295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3E4295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift */; };
 		2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */; };
 		2AFA110A296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1109296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift */; };
 		2AFA110E296C672A0055422F /* HomeBottomPanelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA110D296C672A0055422F /* HomeBottomPanelProvider.swift */; };
@@ -2191,6 +2192,8 @@
 		2A35A6AD2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeCreateObjectView.swift; sourceTree = "<group>"; };
 		2A35A6B02BBD834F00CCE4F4 /* WidgetTypeRowViewModel+Init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WidgetTypeRowViewModel+Init.swift"; sourceTree = "<group>"; };
 		2A35A6B32BBD845B00CCE4F4 /* WidgetTypeChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeChangeView.swift; sourceTree = "<group>"; };
+		2A35A6B92BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchView.swift; sourceTree = "<group>"; };
+		2A35A6BB2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetChangeSourceSearchView.swift; sourceTree = "<group>"; };
 		2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListView.swift; sourceTree = "<group>"; };
 		2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListViewModel.swift; sourceTree = "<group>"; };
 		2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageRowModel.swift; sourceTree = "<group>"; };
@@ -2648,7 +2651,6 @@
 		2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAlertsAssembly.swift; sourceTree = "<group>"; };
 		2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsSubmoduleDI.swift; sourceTree = "<group>"; };
 		2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
-		2AF4C3E4295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWidgetCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorBottomNavigationManager.swift; sourceTree = "<group>"; };
 		2AFA1109296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelModuleAssembly.swift; sourceTree = "<group>"; };
 		2AFA110D296C672A0055422F /* HomeBottomPanelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelProvider.swift; sourceTree = "<group>"; };
@@ -4385,6 +4387,7 @@
 		1244790F27D8A35800581174 /* Search screen */ = {
 			isa = PBXGroup;
 			children = (
+				2A35A6B82BBD9B7000CCE4F4 /* WidgetSourceSearch */,
 				1244793527DC61D600581174 /* Assembly */,
 				1244793927DC61E400581174 /* View */,
 				1256841B27E34309003A8251 /* ViewModel */,
@@ -4510,7 +4513,6 @@
 			isa = PBXGroup;
 			children = (
 				8685724F2AE6A4BC00F0A747 /* SpaceSearchViewModel */,
-				2AE5C71B29B7294F00A92C12 /* WidgetSourceSearchViewModel */,
 				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
 				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
 				1247BC7627FDD6CC005F2DB4 /* Legacy_ObjectTypeSearchViewModel */,
@@ -5631,6 +5633,16 @@
 				2ACD86F329C309AA0082E861 /* WidgetTypeChangeViewModel.swift */,
 			);
 			path = Change;
+			sourceTree = "<group>";
+		};
+		2A35A6B82BBD9B7000CCE4F4 /* WidgetSourceSearch */ = {
+			isa = PBXGroup;
+			children = (
+				2AE5C71B29B7294F00A92C12 /* WidgetSourceSearchViewModel */,
+				2A35A6B92BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift */,
+				2A35A6BB2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift */,
+			);
+			path = WidgetSourceSearch;
 			sourceTree = "<group>";
 		};
 		2A376F582B85F2F700CF444A /* Subviews */ = {
@@ -7086,7 +7098,6 @@
 		2AF4C3E1295DE1AB00FD7153 /* CreateWidgetFlow */ = {
 			isa = PBXGroup;
 			children = (
-				2AF4C3E4295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift */,
 				2A2B331B2A7AA633004BD906 /* CreateWidgetCoordinatorModel.swift */,
 				2A2B331D2A7AA7A6004BD906 /* CreateWidgetCoordinatorView.swift */,
 				2A2B331F2A7AA7AF004BD906 /* CreateWidgetCoordinatorViewModel.swift */,
@@ -11422,12 +11433,14 @@
 				03A90DF423A04FFE000E3EFE /* LocalRepoService.swift in Sources */,
 				EAADB16F26776DDD004B0AF2 /* MentionAttachment.swift in Sources */,
 				8638777A2A5808620024F814 /* SetObjectCreationSettingsView.swift in Sources */,
+				2A35A6BC2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift in Sources */,
 				2ECF1DBD2BBADA8F007C68E2 /* SetFilterConditions.swift in Sources */,
 				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
 				120EB4E326E8F618003A0C2B /* ObjectHeaderIconView.swift in Sources */,
 				86C4B3702B21DC61003B8C51 /* SharingTipView.swift in Sources */,
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
 				2E04201E2BA899C500F36637 /* SelectRelationListData.swift in Sources */,
+				2A35A6BA2BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift in Sources */,
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				2ACA29A52B712F73009CD054 /* GalleryNotificationViewModel.swift in Sources */,
@@ -12028,7 +12041,6 @@
 				C973E1A8285B3A5C00978BC4 /* EmptyRowViewViewModel.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				2E31C9662B73C8C8006DB3E2 /* ObjectRelationOption.swift in Sources */,
-				2AF4C3E5295DE3CB00FD7153 /* CreateWidgetCoordinatorAssembly.swift in Sources */,
 				2A9486542950A3E7007A5586 /* HomeWidgetsModuleAssembly.swift in Sources */,
 				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
 				2ADF00952AD00B04000D01F8 /* LinkToObjectCoordinatorOutput.swift in Sources */,

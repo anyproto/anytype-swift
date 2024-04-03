@@ -68,14 +68,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             uiHelpersDI: uiHelpersDI
         )
     }
-    
-    func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol {
-        return CreateWidgetCoordinatorAssembly(
-            modulesDI: modulesDI,
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI
-        )
-    }
 
     func application() -> ApplicationCoordinatorAssemblyProtocol {
         return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
