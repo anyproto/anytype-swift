@@ -82,7 +82,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         subscriptions = []
         
         document.syncStatus.sink { [weak self] status in
-            self?.viewInput?.update(syncStatus: status)
+            self?.handleSyncStatus(status: status)
         }.store(in: &subscriptions)
         
         document.flattenBlockIds.receiveOnMain().sink { [weak self] ids in
@@ -191,6 +191,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
                 viewInput?.update(details: document.details, templatesCount: details.count)
             }
         }
+    }
+    
+    private func handleSyncStatus(status: SyncStatus) {
+        let data = SyncStatusData(
+            status: status,
+            networkId: activeWorkspaceStorage.workspaceInfo.networkId
+        )
+        viewInput?.update(syncStatusData: data)
     }
 }
 

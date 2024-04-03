@@ -227,8 +227,8 @@ final class BaseDocument: BaseDocumentProtocol {
                 _resetBlocksSubject.send(blockIds)
             case .unhandled(let blockIds):
                 blockIds.forEach { infoContainer.publishValue(for: $0) }
-            case .syncStatus:
-                break
+            case .syncStatus(let status):
+                _syncStatus = status
             case .details:
                 break // Sync will be send always
             }
