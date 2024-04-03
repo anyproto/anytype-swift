@@ -118,9 +118,10 @@ struct RelationListContainerView<Content>: View where Content: View {
         EmptyStateView(
             title: Loc.Relation.EmptyState.title,
             subtitle: Loc.Relation.EmptyState.description,
-            actionText: Loc.create
-        ) {
-            onCreate(nil)
-        }
+            buttonData: EmptyStateView.ButtonData(
+                title: Loc.create,
+                action: { onCreate(nil) }
+            )
+        )
     }
 }
