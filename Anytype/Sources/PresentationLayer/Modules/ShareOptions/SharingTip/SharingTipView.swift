@@ -2,7 +2,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct SharingTipView: View {
-    @ObservedObject var viewModel: SharingTipViewModel
+    @StateObject private var viewModel = SharingTipViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -147,7 +147,7 @@ private enum SharingTipStep: Int {
 
 #Preview {
     if #available(iOS 17.0, *) {
-        SharingTipView(viewModel: .init())
+        SharingTipView()
     } else {
         EmptyView()
     }

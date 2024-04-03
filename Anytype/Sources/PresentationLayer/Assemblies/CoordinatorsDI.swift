@@ -172,7 +172,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func sharingTip() -> SharingTipCoordinatorProtocol {
         SharingTipCoordinator(
-            sharingTipAssembly: modulesDI.sharingTip(),
             navigationContext: uiHelpersDI.commonNavigationContext()
         )
     }

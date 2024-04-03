@@ -1538,7 +1538,6 @@
 		86C4B3702B21DC61003B8C51 /* SharingTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B36F2B21DC61003B8C51 /* SharingTipView.swift */; };
 		86C4B3722B22FD9C003B8C51 /* SharingTipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3712B22FD9C003B8C51 /* SharingTipViewModel.swift */; };
 		86C4B3742B244A4A003B8C51 /* UIKitTipPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */; };
-		86C4B3762B245340003B8C51 /* SharingTipAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3752B245340003B8C51 /* SharingTipAssembly.swift */; };
 		86C4B3782B246141003B8C51 /* SharingTipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */; };
 		86E69DD62A938CE8009F2221 /* SecureService in Frameworks */ = {isa = PBXBuildFile; productRef = 86E69DD52A938CE8009F2221 /* SecureService */; };
 		86E69DD72A938CE8009F2221 /* SecureService in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 86E69DD52A938CE8009F2221 /* SecureService */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -3329,7 +3328,6 @@
 		86C4B36F2B21DC61003B8C51 /* SharingTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipView.swift; sourceTree = "<group>"; };
 		86C4B3712B22FD9C003B8C51 /* SharingTipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipViewModel.swift; sourceTree = "<group>"; };
 		86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitTipPerformer.swift; sourceTree = "<group>"; };
-		86C4B3752B245340003B8C51 /* SharingTipAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipAssembly.swift; sourceTree = "<group>"; };
 		86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipCoordinator.swift; sourceTree = "<group>"; };
 		86D7255F2A94EDB0008DF702 /* Anytype.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anytype.entitlements; sourceTree = "<group>"; };
 		86D725602A94EFB8008DF702 /* AnytypeShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnytypeShareExtension.entitlements; sourceTree = "<group>"; };
@@ -9903,7 +9901,6 @@
 				86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */,
 				86C4B36F2B21DC61003B8C51 /* SharingTipView.swift */,
 				86C4B3712B22FD9C003B8C51 /* SharingTipViewModel.swift */,
-				86C4B3752B245340003B8C51 /* SharingTipAssembly.swift */,
 				86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */,
 			);
 			path = SharingTip;
@@ -10764,7 +10761,6 @@
 				3DAE1CB0273EA208009A72F3 /* EditorSetView.swift in Sources */,
 				53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */,
 				2E0797C62A09678C006F0FD7 /* AuthCoordinatorAssembly.swift in Sources */,
-				86C4B3762B245340003B8C51 /* SharingTipAssembly.swift in Sources */,
 				3D24912E27BD271900821595 /* LocalEventConverter.swift in Sources */,
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
 				2AFA1113296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift in Sources */,

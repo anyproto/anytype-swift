@@ -37,5 +37,4 @@ protocol ModulesDIProtocol: AnyObject {
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol
     func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
-    func sharingTip() -> SharingTipModuleAssemblyProtocol
 }
