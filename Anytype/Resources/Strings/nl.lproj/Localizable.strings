@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Maak standaard";
 "Actions.CreateWidget.Title" = "Naar widgets";
 "Actions.CreateWidget.Success" = "Nieuwe widget is aangemaakt";
+"Actions.CopyLink" = "Link kopiëren";
 
 // Object Type
 "Set" = "Stel in";
@@ -823,6 +824,7 @@
 // MARK: - Settings
 "Settings.Title" = "Instellingen";
 "Settings.SpaceName" = "Naam ruimte";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Account en toegang";
 
 // MARK: - File Storage
@@ -938,6 +940,7 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Beheer";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
