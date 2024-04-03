@@ -390,6 +390,7 @@
 		2A30B20D2BB44C7900206806 /* QrCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B20C2BB44C7900206806 /* QrCodeViewModel.swift */; };
 		2A3425AC2A6A8EB3005E61F1 /* SmallImageIdPainter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */; };
 		2A3425B32A6AD415005E61F1 /* AnytypeText+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */; };
+		2A35A6AB2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6AA2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift */; };
 		2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */; };
 		2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */; };
 		2A35FF922AAF20FD00D6006D /* CodeLanguageRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */; };
@@ -728,7 +729,6 @@
 		2ACDC9B42B553F840063BFBD /* SharedContentManager in Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B32B553F840063BFBD /* SharedContentManager */; };
 		2ACDC9B82B56704B0063BFBD /* ShareOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9B72B56704B0063BFBD /* ShareOptionsView.swift */; };
 		2ACDC9BA2B5670650063BFBD /* ShareOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9B92B5670650063BFBD /* ShareOptionsViewModel.swift */; };
-		2ACDC9BC2B5670710063BFBD /* ShareOptionsModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9BB2B5670710063BFBD /* ShareOptionsModuleAssembly.swift */; };
 		2ACDC9C82B5676820063BFBD /* ShareSelectionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9C72B5676820063BFBD /* ShareSelectionRow.swift */; };
 		2ACDC9CA2B5686F30063BFBD /* ShareArrowRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9C92B5686F30063BFBD /* ShareArrowRow.swift */; };
 		2ACDC9CC2B5688310063BFBD /* ShareOptionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACDC9CB2B5688310063BFBD /* ShareOptionsInteractor.swift */; };
@@ -2188,6 +2188,7 @@
 		2A30B20C2BB44C7900206806 /* QrCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeViewModel.swift; sourceTree = "<group>"; };
 		2A3425AB2A6A8EB3005E61F1 /* SmallImageIdPainter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallImageIdPainter.swift; sourceTree = "<group>"; };
 		2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnytypeText+Mention.swift"; sourceTree = "<group>"; };
+		2A35A6AA2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsDI.swift; sourceTree = "<group>"; };
 		2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListView.swift; sourceTree = "<group>"; };
 		2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListViewModel.swift; sourceTree = "<group>"; };
 		2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageRowModel.swift; sourceTree = "<group>"; };
@@ -2523,7 +2524,6 @@
 		2ACDC9AF2B553F690063BFBD /* SharedContentManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SharedContentManager; path = Modules/SharedContentManager; sourceTree = "<group>"; };
 		2ACDC9B72B56704B0063BFBD /* ShareOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsView.swift; sourceTree = "<group>"; };
 		2ACDC9B92B5670650063BFBD /* ShareOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsViewModel.swift; sourceTree = "<group>"; };
-		2ACDC9BB2B5670710063BFBD /* ShareOptionsModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsModuleAssembly.swift; sourceTree = "<group>"; };
 		2ACDC9C72B5676820063BFBD /* ShareSelectionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSelectionRow.swift; sourceTree = "<group>"; };
 		2ACDC9C92B5686F30063BFBD /* ShareArrowRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareArrowRow.swift; sourceTree = "<group>"; };
 		2ACDC9CB2B5688310063BFBD /* ShareOptionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsInteractor.swift; sourceTree = "<group>"; };
@@ -6746,9 +6746,9 @@
 				2ACDC9D22B57C22D0063BFBD /* ShareContentModels.swift */,
 				2ACDC9B72B56704B0063BFBD /* ShareOptionsView.swift */,
 				2ACDC9B92B5670650063BFBD /* ShareOptionsViewModel.swift */,
-				2ACDC9BB2B5670710063BFBD /* ShareOptionsModuleAssembly.swift */,
 				2ACDC9CB2B5688310063BFBD /* ShareOptionsInteractor.swift */,
 				2ACDC9CF2B56ACE50063BFBD /* ShareOptionsModuleOutput.swift */,
+				2A35A6AA2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift */,
 			);
 			path = ShareOptions;
 			sourceTree = "<group>";
@@ -10794,7 +10794,6 @@
 				2EFFE5CF2BAB4597006DBE6D /* RelationListEmptyState.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
 				2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */,
-				2ACDC9BC2B5670710063BFBD /* ShareOptionsModuleAssembly.swift in Sources */,
 				53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */,
 				C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */,
 				2A4DD28E2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift in Sources */,
@@ -11074,6 +11073,7 @@
 				3DD0CEBB2B90E6BB00657402 /* MembershipBannerView.swift in Sources */,
 				2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */,
 				12DE405E264AE455007B5074 /* LayoutAnchor.swift in Sources */,
+				2A35A6AB2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift in Sources */,
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
 				12D15D2227F5F81F00D22086 /* ObjectsOptionsSearchModuleBuilder.swift in Sources */,
 				2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */,

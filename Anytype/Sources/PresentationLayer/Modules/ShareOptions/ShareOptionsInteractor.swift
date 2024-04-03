@@ -10,31 +10,20 @@ protocol ShareOptionsInteractorProtocol: AnyObject {
 
 final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
-    private let blockService: BlockServiceProtocol
-    private let bookmarkService: BookmarkServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let fileService: FileActionsServiceProtocol
-    private let documentProvider: DocumentsProviderProtocol
-    private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    
-    init(
-        blockService: BlockServiceProtocol,
-        bookmarkService: BookmarkServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        fileService: FileActionsServiceProtocol,
-        documentProvider: DocumentsProviderProtocol,
-        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
-    ) {
-        self.blockService = blockService
-        self.bookmarkService = bookmarkService
-        self.objectActionsService = objectActionsService
-        self.fileService = fileService
-        self.documentProvider = documentProvider
-        self.pasteboardMiddlewareService = pasteboardMiddlewareService
-        self.objectTypeProvider = objectTypeProvider
-    }
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
+    @Injected(\.documentsProvider)
+    private var documentProvider: DocumentsProviderProtocol
+    @Injected(\.pasteboardMiddleService)
+    private var pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
     
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
         switch saveOptions {

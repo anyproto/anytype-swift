@@ -8,7 +8,7 @@ struct ShareCoordinatorView: View {
     
     var body: some View {
         NavigationView {
-            model.shareModule()
+            ShareOptionsView(output: model)
         }
         .sheet(item: $model.showSearchObjectData) { data in
             model.searchObjectModule(data: data)
