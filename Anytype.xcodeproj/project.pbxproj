@@ -852,7 +852,6 @@
 		2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */; };
 		2AF4261629AF4ECE00753B17 /* PersonalizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */; };
 		2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */; };
-		2AF4261C29AF813900753B17 /* KeychainPhraseModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261B29AF813900753B17 /* KeychainPhraseModuleAssembly.swift */; };
 		2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */; };
 		2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */; };
 		2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */; };
@@ -2647,7 +2646,6 @@
 		2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationViewModel.swift; sourceTree = "<group>"; };
 		2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationModuleOutput.swift; sourceTree = "<group>"; };
-		2AF4261B29AF813900753B17 /* KeychainPhraseModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAlertsAssembly.swift; sourceTree = "<group>"; };
 		2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsSubmoduleDI.swift; sourceTree = "<group>"; };
 		2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
@@ -3907,7 +3905,6 @@
 				3D15526E264D8DAC00B0E976 /* View */,
 				03527A0622F7A44B004F0418 /* KeychainPhraseView.swift */,
 				53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */,
-				2AF4261B29AF813900753B17 /* KeychainPhraseModuleAssembly.swift */,
 			);
 			path = KeychainPhraseView;
 			sourceTree = "<group>";
@@ -11040,7 +11037,6 @@
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
-				2AF4261C29AF813900753B17 /* KeychainPhraseModuleAssembly.swift in Sources */,
 				3D5A41612703132800F1F6A1 /* SlashActionMedia.swift in Sources */,
 				3D2F9C1C271EAE7D0043C326 /* BlockActionServiceProtocol.swift in Sources */,
 				3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */,

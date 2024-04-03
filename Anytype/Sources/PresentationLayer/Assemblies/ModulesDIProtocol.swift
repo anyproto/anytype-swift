@@ -17,7 +17,6 @@ protocol ModulesDIProtocol: AnyObject {
     func widgetType() -> WidgetTypeModuleAssemblyProtocol
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
-    func keychainPhrase() -> KeychainPhraseModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
     func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol

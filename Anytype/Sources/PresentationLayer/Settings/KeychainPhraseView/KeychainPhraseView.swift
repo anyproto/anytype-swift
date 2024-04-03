@@ -2,7 +2,11 @@ import SwiftUI
 
 struct KeychainPhraseView: View {
 
-    @ObservedObject var model: KeychainPhraseViewModel
+    @StateObject private var model: KeychainPhraseViewModel
+    
+    init(context: AnalyticsEventsKeychainContext) {
+        _model = StateObject(wrappedValue: KeychainPhraseViewModel(shownInContext: context))
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -30,6 +34,6 @@ struct KeychainPhraseView: View {
 
 struct SaveRecoveryPhraseView_Previews: PreviewProvider {    
     static var previews: some View {
-        return KeychainPhraseView(model: KeychainPhraseViewModel.makeForPreview())
+        return KeychainPhraseView(context: .logout)
     }
 }

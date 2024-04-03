@@ -28,7 +28,7 @@ struct SeedPhraseView: View {
 
 struct SeedPhraseView_Previews: PreviewProvider {
     static var previews: some View {
-        SeedPhraseView(model: KeychainPhraseViewModel.makeForPreview()).padding()
+        SeedPhraseView(model: KeychainPhraseViewModel(shownInContext: .logout)).padding()
     }
 }
 
