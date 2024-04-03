@@ -2397,8 +2397,8 @@ internal enum Loc {
       internal static func message(_ p1: Any) -> String {
         return Loc.tr("Localizable", "SpaceShare.RemoveMember.Message", String(describing: p1), fallback: "%@ will be removed from the space.")
       }
-      /// Remove memeber
-      internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove memeber")
+      /// Remove member
+      internal static let title = Loc.tr("Localizable", "SpaceShare.RemoveMember.Title", fallback: "Remove member")
     }
     internal enum StopSharing {
       /// Stop sharing
