@@ -234,6 +234,11 @@ final class SetDocument: SetDocumentProtocol {
         }
         .store(in: &subscriptions)
         
+        document.syncStatus.sink { [weak self] status in
+            self?.updateSubject.send(.syncStatus(status))
+        }
+        .store(in: &subscriptions)
+        
         relationDetailsStorage.relationsDetailsPublisher.sink { [weak self] _ in
             self?.updateDataViewRelations()
             self?.triggerSync()

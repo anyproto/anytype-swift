@@ -320,7 +320,6 @@ final class EditorPageController: UIViewController {
 // MARK: - EditorPageViewInput
 
 extension EditorPageController: EditorPageViewInput {
-    func update(syncStatus: Services.SyncStatus) { /* Do we need this method? */ }
     
     func textBlockWillBeginEditing() { }
     
