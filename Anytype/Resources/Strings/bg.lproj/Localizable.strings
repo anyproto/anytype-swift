@@ -1,11 +1,11 @@
 // style menu
-"StyleMenu.Color.TextColor.Placeholder" = "A";
+"StyleMenu.Color.TextColor.Placeholder" = "А";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Текст";
+"TextStyle.Text.Subtitle" = "Започнете да пишете в plain-text";
 
-"TextStyle.Title.Title" = "Title";
+"TextStyle.Title.Title" = "Заглавие";
 "TextStyle.Title.Subtitle" = "Big section heading";
 
 "TextStyle.Heading.Title" = "Heading";
@@ -48,7 +48,7 @@
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
 "BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
 "BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
-"BlockText.ContentType.Header.Placeholder" = "Title";
+"BlockText.ContentType.Header.Placeholder" = "Заглавие";
 "BlockText.ContentType.Header2.Placeholder" = "Heading";
 "BlockText.ContentType.Header3.Placeholder" = "Subheading";
 
@@ -59,7 +59,7 @@
 "BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
 
 "BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
 "Settings.SpaceName" = "Space name";
@@ -95,7 +95,7 @@
 "Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
+"Relation.Format.Text.Title" = "Текст";
 "Relation.Format.Number.Title" = "Number";
 "Relation.Format.Status.Title" = "Select";
 "Relation.Format.Tag.Title" = "Multi-select";
@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Make default";
 "Actions.CreateWidget.Title" = "To widgets";
 "Actions.CreateWidget.Success" = "New widget was created";
+"Actions.CopyLink" = "Copy link";
 
 // Object Type
 "Set" = "Set";
@@ -822,6 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space name";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - File Storage
@@ -913,7 +915,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
 "SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.RemoveMember.Title" = "Remove memeber";
+"SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
 "SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Join a space";
@@ -937,6 +939,7 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Manage";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";

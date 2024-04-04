@@ -3,8 +3,13 @@ import SwiftUI
 struct EmptyStateView: View {
     let title: String
     let subtitle: String
-    let actionText: String
-    let action: () -> ()
+    let buttonData: ButtonData?
+    
+    init(title: String, subtitle: String, buttonData: ButtonData? = nil) {
+        self.title = title
+        self.subtitle = subtitle
+        self.buttonData = buttonData
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,8 +21,10 @@ struct EmptyStateView: View {
             AnytypeText(subtitle, style: .uxCalloutRegular, color: .Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(12)
-            StandardButton(actionText, style: .secondarySmall) {
-                action()
+            if let buttonData {
+                StandardButton(buttonData.title, style: .secondarySmall) {
+                    buttonData.action()
+                }
             }
             Spacer.fixedHeight(48)
             Spacer()
@@ -26,10 +33,20 @@ struct EmptyStateView: View {
     }
 }
 
+extension EmptyStateView {
+    struct ButtonData {
+        let title: String
+        let action: () -> ()
+    }
+}
+
 #Preview {
     EmptyStateView(
         title: Loc.Relation.EmptyState.title,
         subtitle: Loc.Relation.EmptyState.description,
-        actionText: Loc.create
-    ) { }
+        buttonData: EmptyStateView.ButtonData(
+            title: Loc.create,
+            action: {}
+        )
+    )
 }

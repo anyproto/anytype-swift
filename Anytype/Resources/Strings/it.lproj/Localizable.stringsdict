@@ -194,5 +194,21 @@
         <string>%d membro</string>
       </dict>
     </dict>
+    <key>SpaceShare.RequestsCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d requests</string>
+        <key>one</key>
+        <string>%d request</string>
+      </dict>
+    </dict>
   </dict>
 </plist>

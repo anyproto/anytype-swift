@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Als Standard festlegen";
 "Actions.CreateWidget.Title" = "Zu Widgets";
 "Actions.CreateWidget.Success" = "Neues Widget wurde erstellt";
+"Actions.CopyLink" = "Link kopieren";
 
 // Object Type
 "Set" = "Set";
@@ -823,6 +824,7 @@
 // MARK: - Settings
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Konto und Zugriff";
 
 // MARK: - File Storage
@@ -938,6 +940,7 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Verwalten";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";

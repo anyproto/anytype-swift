@@ -41,10 +41,11 @@ struct MembershipCoordinator: View {
         EmptyStateView(
             title: Loc.Error.Common.title,
             subtitle: Loc.Error.Common.message,
-            actionText: Loc.Error.Common.tryAgain
-        ) {
-            model.loadTiers()
-        }
+            buttonData: EmptyStateView.ButtonData(
+                title: Loc.Error.Common.tryAgain,
+                action: { model.loadTiers() }
+            )
+        )
     }
     
     

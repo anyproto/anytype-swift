@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Ustaw jako domyślne";
 "Actions.CreateWidget.Title" = "Do widżetów";
 "Actions.CreateWidget.Success" = "Nowy widżet został utworzony";
+"Actions.CopyLink" = "Kopiuj link";
 
 // Object Type
 "Set" = "Ustaw";
@@ -822,6 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "Ustawienia";
 "Settings.SpaceName" = "Nazwa przestrzeni";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Konto i dostęp";
 
 // MARK: - File Storage
@@ -913,7 +915,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Dostęp do wspaniałego widoku";
 "SpaceShare.ViewRequest.EditAccess" = "Wielki dostęp do edycji";
 "SpaceShare.ViewRequest.Reject" = "Odrzuć";
-"SpaceShare.RemoveMember.Title" = "Usuń członka";
+"SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ zostanie usunięty z przestrzeni.";
 "SpaceShare.ChangePermissions" = "Dostęp %@ do przestrzeni stanie się %@.";
 "SpaceShare.Join.Title" = "Dołącz do przestrzeni";
@@ -937,6 +939,7 @@
 "SpaceShare.HowToShare.Step1" = "Podaj link osobie, z którą chcesz współpracować.";
 "SpaceShare.HowToShare.Step2" = "Klikając na link, osoba prosi o dołączenie do przestrzeni.";
 "SpaceShare.HowToShare.Step3" = "Po zatwierdzeniu wniosku możesz wybrać prawa dostępu dla tej osoby.";
+"SpaceShare.Manage" = "Manage";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Twoje prawa dostępu zostały zmienione na **%@** w przestrzeni **%@**.";

@@ -8,16 +8,15 @@ final class DashboardLogoutAlertModel: ObservableObject {
     
     // MARK: - DI
     
-    private let authService: AuthServiceProtocol
+    @Injected(\.authService)
+    private var authService: AuthServiceProtocol
     private let onBackup: () -> Void
     private let onLogout: () -> Void
     
     init(
-        authService: AuthServiceProtocol,
         onBackup: @escaping () -> Void,
         onLogout: @escaping () -> Void
     ) {
-        self.authService = authService
         self.onBackup = onBackup
         self.onLogout = onLogout
     }
