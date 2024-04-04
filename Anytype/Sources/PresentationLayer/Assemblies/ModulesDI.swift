@@ -161,8 +161,4 @@ final class ModulesDI: ModulesDIProtocol {
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol {
         ServerDocumentPickerModuleAssembly(serviceLocator: serviceLocator)
     }
-    
-    func sharingTip() -> SharingTipModuleAssemblyProtocol {
-        SharingTipModuleAssembly()
-    }
 }
