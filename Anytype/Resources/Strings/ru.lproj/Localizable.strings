@@ -1039,8 +1039,10 @@
 "Just e-mail" = "Только e-mail";
 "E-mail" = "E-mail";
 "Learn more" = "Узнать больше";
-"per year" = "в год";
-"per x years" = "за %@ лет";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "Что включено";
 "Submit" = "Отправить";
 "Resend" = "Отправить ещё раз";
@@ -1054,7 +1056,6 @@
 "Paid by" = "Оплачено %@";
 "Myself" = "Меня";
 "Pay by Card" = "Оплатить картой";
-"Details upon request" = "Подробнее по запросу";
 "Min X characters" = "Минимум %@ символов";
 "Pending" = "Ожидание...";
 

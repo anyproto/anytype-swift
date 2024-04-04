@@ -1038,8 +1038,10 @@
 "Just e-mail" = "Kun e-post";
 "E-mail" = "E-post";
 "Learn more" = "Lær mer";
-"per year" = "per år";
-"per x years" = "per %@ år";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "Hva er inkludert";
 "Submit" = "Send inn";
 "Resend" = "Send på nytt";
@@ -1053,7 +1055,6 @@
 "Paid by" = "Betalt av %@";
 "Myself" = "Meg selv";
 "Pay by Card" = "Betal med kort";
-"Details upon request" = "Details upon request";
 "Min X characters" = "Min %@ characters";
 "Pending" = "Venter...";
 
