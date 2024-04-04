@@ -1039,8 +1039,10 @@
 "Just e-mail" = "Alleen e-mail";
 "E-mail" = "E-mailadres";
 "Learn more" = "Ontdek meer";
-"per year" = "per jaar";
-"per x years" = "per %@ jaar";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "Wat is inbegrepen";
 "Submit" = "Verstuur";
 "Resend" = "Verstuur opnieuw";
@@ -1054,7 +1056,6 @@
 "Paid by" = "Betaald door %@";
 "Myself" = "Mijzelf";
 "Pay by Card" = "Betaal met kaart";
-"Details upon request" = "Details op verzoek";
 "Min X characters" = "Min %@ tekens";
 "Pending" = "Pending...";
 
