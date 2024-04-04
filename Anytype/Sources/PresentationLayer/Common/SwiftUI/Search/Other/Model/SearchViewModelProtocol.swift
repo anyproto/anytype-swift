@@ -32,6 +32,6 @@ protocol SearchViewModelProtocol: ObservableObject {
     var searchData: [SearchDataSection<SearchDataType>] { get }
     var placeholder: String { get }
     
-    func search(text: String) async throws
+    func search(text: String) async
     func onSelect(searchData: SearchDataType)
 }

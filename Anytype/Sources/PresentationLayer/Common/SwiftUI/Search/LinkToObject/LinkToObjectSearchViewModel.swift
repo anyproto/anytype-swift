@@ -37,7 +37,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         self.showEditorScreen = showEditorScreen
     }
 
-    func search(text: String) async throws {
+    func search(text: String) async {
         do {
             if data.currentLinkUrl.isNotNil || data.currentLinkString.isNotNil, text.isEmpty {
                 let sections = try await buildExistingLinkSections()

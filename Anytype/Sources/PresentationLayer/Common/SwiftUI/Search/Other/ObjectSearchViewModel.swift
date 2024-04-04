@@ -24,7 +24,7 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
         onSelectClosure(searchData)
     }
     
-    func search(text: String) async throws {
+    func search(text: String) async {
         do {
             let result = try await searchService.search(text: text, spaceId: spaceId)
             let objectsSearchData = result.compactMap { ObjectSearchData(details: $0) }
