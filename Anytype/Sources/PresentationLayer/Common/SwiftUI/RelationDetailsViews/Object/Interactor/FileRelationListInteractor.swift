@@ -16,7 +16,7 @@ final class FileRelationListInteractor: ObjectRelationListInteractorProtocol {
     }
     
     func searchOptions(text: String, limitObjectIds: [String]) async throws -> [ObjectRelationOption] {
-        try await searchService.search(text: text, limitObjectIds: limitObjectIds)
+        try await searchService.search(text: text, limitObjectIds: limitObjectIds, spaceId: spaceId)
             .map { ObjectRelationOption(objectDetails: $0) }
     }
     

@@ -84,6 +84,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let newGlobalSearch = FeatureDescription(
+        title: "New global search",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.30.0"),
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

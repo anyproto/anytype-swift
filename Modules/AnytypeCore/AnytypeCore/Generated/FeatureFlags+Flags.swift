@@ -58,6 +58,10 @@ public extension FeatureFlags {
         value(for: .membership)
     }
 
+    static var newGlobalSearch: Bool {
+        value(for: .newGlobalSearch)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -109,6 +113,7 @@ public extension FeatureFlags {
         .newTextEditingRelationView,
         .multiplayer,
         .membership,
+        .newGlobalSearch,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
