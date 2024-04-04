@@ -16,13 +16,14 @@ protocol WidgetSourceSearchInteractorProtocol: AnyObject {
 
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
     private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
     
-    init(spaceId: String, searchService: SearchServiceProtocol) {
+    init(spaceId: String) {
         self.spaceId = spaceId
-        self.searchService = searchService
     }
     
     // MARK: - WidgetSourceSearchInteractorProtocol

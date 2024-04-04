@@ -76,10 +76,6 @@ protocol NewSearchModuleAssemblyProtocol {
         target: RelationsModuleTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView
-    
-    func widgetSourceSearchModule(data: WidgetSourceSearchModuleModel) -> AnyView
-    
-    func widgetChangeSourceSearchModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView
 }
 
 // Extension for specific Settings

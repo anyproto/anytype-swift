@@ -5,23 +5,27 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     
     // MARK: - DI
     
-    private let document: BaseDocumentProtocol
+    @Injected(\.blockWidgetService)
+    private var blockWidgetService: BlockWidgetServiceProtocol
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    
+    private lazy var document: BaseDocumentProtocol = {
+        documentService.document(objectId: widgetObjectId)
+    }()
+    private let widgetObjectId: String
     private let widgetId: String
-    private let blockWidgetService: BlockWidgetServiceProtocol
     private let context: AnalyticsWidgetContext
     private let onFinish: () -> Void
     
     init(
         widgetObjectId: String,
         widgetId: String,
-        documentService: OpenedDocumentsProviderProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
         context: AnalyticsWidgetContext,
         onFinish: @escaping () -> Void
     ) {
-        self.document = documentService.document(objectId: widgetObjectId)
+        self.widgetObjectId = widgetObjectId
         self.widgetId = widgetId
-        self.blockWidgetService = blockWidgetService
         self.context = context
         self.onFinish = onFinish
     }

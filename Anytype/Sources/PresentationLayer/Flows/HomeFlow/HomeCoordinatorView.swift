@@ -43,8 +43,8 @@ struct HomeCoordinatorView: View {
             keyboardDismiss()
         }
         .snackbar(toastBarData: $model.toastBarData)
-        .sheet(item: $model.showChangeSourceData) { data in
-            model.changeSourceModule(data: data)
+        .sheet(item: $model.showChangeSourceData) {
+            WidgetChangeSourceSearchView(data: $0)
         }
         .sheet(item: $model.showChangeTypeData) {
             WidgetTypeChangeView(data: $0)
@@ -52,8 +52,8 @@ struct HomeCoordinatorView: View {
         .sheet(item: $model.showSearchData) { data in
             model.searchModule(data: data)
         }
-        .sheet(item: $model.showCreateWidgetData) { data in
-            model.createWidgetModule(data: data)
+        .sheet(item: $model.showCreateWidgetData) {
+            CreateWidgetCoordinatorView(data: $0)
         }
         .sheet(isPresented: $model.showSpaceSwitch) {
             model.createSpaceSwitchModule()

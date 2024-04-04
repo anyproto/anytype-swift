@@ -298,48 +298,4 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         return NewSearchView(viewModel: viewModel)
     }
-    
-    func widgetSourceSearchModule(data: WidgetSourceSearchModuleModel) -> AnyView {
-        return widgetSourceSearchModule(
-            spaceId: data.spaceId,
-            model: WidgetSourceSearchSelectInternalViewModel(context: data.context, onSelect: data.onSelect)
-        )
-    }
-    
-    func widgetChangeSourceSearchModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
-        return widgetSourceSearchModule(
-            spaceId: data.spaceId,
-            model: WidgetSourceSearchChangeInternalViewModel(
-                widgetObjectId: data.widgetObjectId,
-                widgetId: data.widgetId,
-                documentService: self.serviceLocator.documentService(),
-                blockWidgetService: self.serviceLocator.blockWidgetService(),
-                context: data.context,
-                onFinish: data.onFinish
-            )
-        )
-    }
-    
-    // MARK: - Private
-    
-    private func widgetSourceSearchModule(
-        spaceId: String,
-        model: @autoclosure @escaping () -> WidgetSourceSearchInternalViewModelProtocol
-    ) -> AnyView {
-       return NewSearchView(
-            viewModel: NewSearchViewModel(
-                title: Loc.Widgets.sourceSearch,
-                searchPlaceholder: Loc.search,
-                style: .default,
-                itemCreationMode: .unavailable,
-                internalViewModel: WidgetSourceSearchViewModel(
-                    interactor: WidgetSourceSearchInteractor(
-                        spaceId: spaceId,
-                        searchService: self.serviceLocator.searchService()
-                    ),
-                    internalModel: model()
-                )
-            )
-        ).eraseToAnyView()
-    }
 }

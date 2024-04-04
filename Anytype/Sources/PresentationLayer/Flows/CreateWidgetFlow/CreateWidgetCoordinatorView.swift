@@ -3,11 +3,17 @@ import SwiftUI
 
 struct CreateWidgetCoordinatorView: View {
     
-    @StateObject var model: CreateWidgetCoordinatorViewModel
-    @Environment(\.presentationMode) @Binding var presentationMode
+    @StateObject private var model: CreateWidgetCoordinatorViewModel
+    @Environment(\.presentationMode) @Binding private var presentationMode
+    
+    init(data: CreateWidgetCoordinatorModel) {
+        self._model = StateObject(wrappedValue: CreateWidgetCoordinatorViewModel(data: data))
+    }
     
     var body: some View {
-        model.makeWidgetSourceModule()
+        WidgetSourceSearchView(data: model.widgetSourceSearchData) {
+            model.onSelectSource(source: $0)
+        }
         .sheet(item: $model.showWidgetTypeData) {
             WidgetTypeCreateObjectView(data: $0)
         }
