@@ -1038,8 +1038,10 @@
 "Just e-mail" = "Just e-mail";
 "E-mail" = "E-mail";
 "Learn more" = "Learn more";
-"per year" = "per year";
-"per x years" = "per %@ years";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "What’s included";
 "Submit" = "Submit";
 "Resend" = "Resend";
@@ -1053,7 +1055,6 @@
 "Paid by" = "Paid by %@";
 "Myself" = "Myself";
 "Pay by Card" = "Pay by Card";
-"Details upon request" = "Details upon request";
 "Min X characters" = "Min %@ characters";
 "Pending" = "Pending...";
 
