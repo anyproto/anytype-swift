@@ -823,7 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
-"Settings.SpaceType" = "Space type";
+"Settings.SpaceType" = "Tipe ruang";
 "Settings.AccountAndAccess" = "Akun dan akses";
 
 // MARK: - File Storage
@@ -927,7 +927,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 "SpaceShare.YouSuffix" = "%@ (kamu)";
 "SpaceShare.ManageSpaces" = "Kelola Ruang";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.AccessChanged" = "Hak akses telah diubah.";
 "SpaceShare.StopSharing.Action" = "Berhenti berbagi";
 "SpaceShare.StopSharing.Title" = "Berhenti membagikan ruang";
 "SpaceShare.StopSharing.Message" = "Anggota tidak akan lagi menyinkronkan ruang ini dan tautan pembagian akan dinonaktifkan.";
@@ -1038,8 +1038,10 @@
 "Just e-mail" = "Kirim surel saja";
 "E-mail" = "Surel";
 "Learn more" = "Pelajari lebih lanjut";
-"per year" = "per tahun";
-"per x years" = "per %@ tahun";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "Apa saja yang termasuk";
 "Submit" = "Kirim";
 "Resend" = "Kirim ulang";
@@ -1053,7 +1055,6 @@
 "Paid by" = "Dibayar oleh %@";
 "Myself" = "Aku sendiri";
 "Pay by Card" = "Bayar via kartu";
-"Details upon request" = "Details upon request";
 "Min X characters" = "Minimal %@ karakter";
 "Pending" = "Pending...";
 
@@ -1075,7 +1076,7 @@
 "Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
-"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Title1" = "Membangun Visi Bersama";
 "Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
 "Membership.Banner.Title2" = "Unlock Member Benefits";
 "Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
