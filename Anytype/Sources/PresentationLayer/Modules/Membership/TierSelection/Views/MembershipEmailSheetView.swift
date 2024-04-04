@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MembershipEmailSheetView: View {
     @State var email = ""
-    @State var subscribeToNewsletter = true
+    @State var subscribeToNewsletter = false
     
     let action: (String, Bool) async throws -> Void
     

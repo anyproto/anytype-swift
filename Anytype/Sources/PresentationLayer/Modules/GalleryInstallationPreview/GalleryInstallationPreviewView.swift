@@ -33,8 +33,10 @@ struct GalleryInstallationPreviewView: View {
         EmptyStateView(
             title: Loc.Error.Common.title,
             subtitle: Loc.Error.Common.message,
-            actionText: Loc.Error.Common.tryAgain,
-            action: { model.onTryAgainTap() }
+            buttonData: EmptyStateView.ButtonData(
+                title: Loc.Error.Common.tryAgain,
+                action: { model.onTryAgainTap() }
+            )
         )
     }
 }

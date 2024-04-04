@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Définir par défaut";
 "Actions.CreateWidget.Title" = "Vers les widgets";
 "Actions.CreateWidget.Success" = "Un nouveau widget a été créé";
+"Actions.CopyLink" = "Copier le lien";
 
 // Object Type
 "Set" = "Set";
@@ -822,6 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "Paramètres";
 "Settings.SpaceName" = "Nom de l'espace";
+"Settings.SpaceType" = "Type d'espace";
 "Settings.AccountAndAccess" = "Compte et accès";
 
 // MARK: - File Storage
@@ -925,7 +927,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
 "SpaceShare.YouSuffix" = "%@ (vous)";
 "SpaceShare.ManageSpaces" = "Gérer les espaces";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.AccessChanged" = "Les droits d'accès ont été modifiés.";
 "SpaceShare.StopSharing.Action" = "Arrêter le partage";
 "SpaceShare.StopSharing.Title" = "Arrêter le partage de l'espace";
 "SpaceShare.StopSharing.Message" = "Les membres ne seront plus synchronisés à cet espace et le lien de partage sera désactivé.";
@@ -937,6 +939,7 @@
 "SpaceShare.HowToShare.Step1" = "SVP fournir le lien à la personne avec qui vous souhaitez collaborer.";
 "SpaceShare.HowToShare.Step2" = "En cliquant le lien, une personne demande à joindre l'espace.";
 "SpaceShare.HowToShare.Step3" = "Après l'approbation de la demande, vous pouvez choisir les droits d'accès pour cette personne.";
+"SpaceShare.Manage" = "Gérer";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Vos droits d'accès ont été changés en **%@** dans l'espace **%@**.";

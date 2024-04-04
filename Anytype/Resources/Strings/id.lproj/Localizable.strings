@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Buat sebagai bawaan";
 "Actions.CreateWidget.Title" = "Ke widget";
 "Actions.CreateWidget.Success" = "Gawai baru telah dibuat";
+"Actions.CopyLink" = "Salin tautan";
 
 // Object Type
 "Set" = "Set";
@@ -822,6 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Akun dan akses";
 
 // MARK: - File Storage
@@ -937,6 +939,7 @@
 "SpaceShare.HowToShare.Step1" = "Berikan tautan kepada orang yang ingin kamu ajak berkolaborasi.";
 "SpaceShare.HowToShare.Step2" = "Dengan mengeklik tautan, orang itu akan meminta bergabung ke dalam ruang.";
 "SpaceShare.HowToShare.Step3" = "Setelah menyetujui permintaannya, kamu bisa memilih hak akses untuk orang tersebut.";
+"SpaceShare.Manage" = "Kelola";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Hak aksesmu telah diganti menjadi **%@** di ruang **%@**.";

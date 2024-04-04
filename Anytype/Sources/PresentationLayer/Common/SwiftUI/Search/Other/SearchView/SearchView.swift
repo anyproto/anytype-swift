@@ -66,22 +66,10 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     }
     
     private var emptyState: some View {
-        VStack(alignment: .center) {
-            Spacer()
-            AnytypeText(
-                Loc.thereIsNoObjectNamed(searchText),
-                style: .uxBodyRegular,
-                color: .Text.primary
-            )
-            .multilineTextAlignment(.center)
-            AnytypeText(
-                Loc.createANewOneOrSearchForSomethingElse,
-                style: .uxBodyRegular,
-                color: .Text.secondary
-            )
-            .multilineTextAlignment(.center)
-            Spacer()
-        }.padding(.horizontal)
+        EmptyStateView(
+            title: Loc.thereIsNoObjectNamed(searchText),
+            subtitle: Loc.createANewOneOrSearchForSomethingElse
+        )
     }
 }
 

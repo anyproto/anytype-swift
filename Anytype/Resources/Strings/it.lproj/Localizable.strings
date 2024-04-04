@@ -315,6 +315,7 @@
 "Actions.TemplateMakeDefault" = "Rendi predefinito";
 "Actions.CreateWidget.Title" = "Ai widget";
 "Actions.CreateWidget.Success" = "È stato creato un nuovo widget";
+"Actions.CopyLink" = "Copia collegamento";
 
 // Object Type
 "Set" = "Insieme";
@@ -822,6 +823,7 @@
 // MARK: - Settings
 "Settings.Title" = "Impostazioni";
 "Settings.SpaceName" = "Nome dello Spazio";
+"Settings.SpaceType" = "Space type";
 "Settings.AccountAndAccess" = "Account e accesso";
 
 // MARK: - File Storage
@@ -913,7 +915,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Concedi accesso in lettura";
 "SpaceShare.ViewRequest.EditAccess" = "Concedi accesso alla modifica";
 "SpaceShare.ViewRequest.Reject" = "Rifiuta";
-"SpaceShare.RemoveMember.Title" = "Rimuovi membro";
+"SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ sarà rimosso/a dallo spazio.";
 "SpaceShare.ChangePermissions" = "L'accesso allo spazio di %@ diventerà %@.";
 "SpaceShare.Join.Title" = "Unisciti a uno spazio";
@@ -937,6 +939,7 @@
 "SpaceShare.HowToShare.Step1" = "Si prega di fornire il link alla persona con cui si desidera collaborare.";
 "SpaceShare.HowToShare.Step2" = "Cliccando sul link, una persona richiede di unirsi allo spazio.";
 "SpaceShare.HowToShare.Step3" = "Dopo aver approvato la richiesta, puoi scegliere i diritti di accesso per quella persona.";
+"SpaceShare.Manage" = "Manage";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "I tuoi diritti di accesso sono stati modificati in **%@** nello spazio **%@**.";

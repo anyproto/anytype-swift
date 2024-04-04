@@ -33,8 +33,7 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             appearanceModuleAssembly: modulesDI.settingsAppearance(),
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            urlOpener: uiHelpersDI.urlOpener(),
-            serviceLocator: serviceLocator
+            urlOpener: uiHelpersDI.urlOpener()
         )
     }
 }
