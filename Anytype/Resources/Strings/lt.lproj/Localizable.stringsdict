@@ -262,5 +262,85 @@
         <string>%d requests</string>
       </dict>
     </dict>
+    <key>Per Month</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@month@</string>
+      <key>month</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>month</string>
+        <key>few</key>
+        <string>%d months</string>
+        <key>many</key>
+        <string>%d months</string>
+        <key>other</key>
+        <string>%d months</string>
+      </dict>
+    </dict>
+    <key>Per Week</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@week@</string>
+      <key>week</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>week</string>
+        <key>few</key>
+        <string>%d weeks</string>
+        <key>many</key>
+        <string>%d weeks</string>
+        <key>other</key>
+        <string>%d weeks</string>
+      </dict>
+    </dict>
+    <key>Per Year</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@year@</string>
+      <key>year</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>year</string>
+        <key>few</key>
+        <string>%d years</string>
+        <key>many</key>
+        <string>%d years</string>
+        <key>other</key>
+        <string>%d years</string>
+      </dict>
+    </dict>
+    <key>Per Day</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@day@</string>
+      <key>day</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>day</string>
+        <key>few</key>
+        <string>%d days</string>
+        <key>many</key>
+        <string>%d days</string>
+        <key>other</key>
+        <string>%d days</string>
+      </dict>
+    </dict>
   </dict>
 </plist>
