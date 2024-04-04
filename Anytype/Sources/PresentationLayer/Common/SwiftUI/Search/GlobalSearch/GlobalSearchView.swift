@@ -37,27 +37,35 @@ struct GlobalSearchView: View {
                 ForEach(model.searchData) { section in
                     Section {
                         ForEach(section.searchData) { data in
-                            Button {
-                                dismiss()
-                                model.onSelect(searchData: data)
-                            } label: {
-                                GlobalSearchCell(data: data)
-                            }
+                            itemRow(for: data)
                         }
                     } header: {
-                        if let sectionConfig = section.sectionConfig {
-                            ListSectionHeaderView(title: sectionConfig.title) {
-                                Button {
-                                    model.clear()
-                                } label: {
-                                    AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular, color: .Text.secondary)
-                                }
-                            }
-                        }
+                        sectionHeader(for: section)
                     }
-
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func sectionHeader(for section: GlobalSearchDataSection) -> some View {
+        if let sectionConfig = section.sectionConfig {
+            ListSectionHeaderView(title: sectionConfig.title) {
+                Button {
+                    model.clear()
+                } label: {
+                    AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular, color: .Text.secondary)
+                }
+            }
+        }
+    }
+    
+    private func itemRow(for data: GlobalSearchData) -> some View {
+        Button {
+            dismiss()
+            model.onSelect(searchData: data)
+        } label: {
+            GlobalSearchCell(data: data)
         }
     }
     
