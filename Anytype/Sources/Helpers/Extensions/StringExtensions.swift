@@ -1,4 +1,6 @@
 import UIKit
+import AnytypeCore
+
 
 extension String {
     

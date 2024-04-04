@@ -23,6 +23,7 @@ enum MembershipNameSheetViewState {
 final class MembershipNameSheetViewModel: ObservableObject {
     @Published var state = MembershipNameSheetViewState.default
     let anyName: String
+    let tier: MembershipTier
     
     var minimumNumberOfCharacters: UInt32 {
         switch tier.anyName {
@@ -37,7 +38,6 @@ final class MembershipNameSheetViewModel: ObservableObject {
     @Injected(\.membershipService)
     private var memberhsipService: MembershipServiceProtocol
     
-    private let tier: MembershipTier
     private var validationTask: Task<(), any Error>?
     
     init(tier: MembershipTier, anyName: String) {

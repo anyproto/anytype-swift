@@ -27,8 +27,8 @@ struct MembershipNameSheetView: View {
             nameInput
             .newDivider()
             status
-            AnytypeText("$99 ", style: .title, color: .Text.primary) +
-            AnytypeText(Loc.perYear, style: .relation1Regular, color: .Text.primary)
+            AnytypeText("\(model.tier.paymentType.displayPrice ?? "") ", style: .title, color: .Text.primary) +
+            AnytypeText(model.tier.paymentType.localizedPeriod ?? "", style: .relation1Regular, color: .Text.primary)
             Spacer.fixedHeight(15)
             StandardButton(
                 Loc.payByCard,
