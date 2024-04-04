@@ -35,6 +35,13 @@ extension StripePaymentInfo {
             return "\(Loc.per) \(periodValue) \(periodType)"
         }
     }
+    
+    public var displayPrice: String {
+        Decimal(Double(priceInCents)/100)
+            .formatted(.currency(code: "USD")
+                .precision(.fractionLength(0...2))
+            )
+    }
 }
 
 extension Product {
@@ -57,6 +64,10 @@ extension Product {
             anytypeAssertionFailure("Not supported period \(period.unit)")
             return "\(Loc.per) \(period.value) \(period.unit)"
         }
+    }
+    
+    var anytypeDisplayPrice: String {
+        price.formatted(priceFormatStyle.precision(.fractionLength(0...2)))
     }
 }
 

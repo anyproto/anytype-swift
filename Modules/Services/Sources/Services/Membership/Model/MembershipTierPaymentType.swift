@@ -9,10 +9,6 @@ public struct StripePaymentInfo: Hashable, Equatable {
     public let periodValue: UInt32
     public let priceInCents: UInt32
     
-    public var displayPrice: String {
-        return "\(priceInCents/100).\(priceInCents%100)"
-    }
-    
     public init(periodType: MemberhipTierPaymentPeriodType, periodValue: UInt32, priceInCents: UInt32) {
         self.periodType = periodType
         self.periodValue = periodValue
