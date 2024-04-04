@@ -15,6 +15,18 @@ extension MembershipTierPaymentType {
             return info.localizedPeriod
         }
     }
+    
+    var displayPrice: String? {
+        switch self {
+        case .email:
+            anytypeAssertionFailure("No display price for email")
+            return nil
+        case .appStore(let product):
+            return product.anytypeDisplayPrice
+        case .external(let info):
+            return info.displayPrice
+        }
+    }
 }
 
 extension StripePaymentInfo {
