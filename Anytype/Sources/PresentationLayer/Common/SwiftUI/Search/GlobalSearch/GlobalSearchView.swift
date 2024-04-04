@@ -13,11 +13,11 @@ struct GlobalSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            SearchBar(text: $model.searchText, focused: true, placeholder: Loc.search)
+            SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
             content
         }
         .background(Color.Background.secondary)
-        .task(id: model.searchText) {
+        .task(id: model.state) {
             await model.search()
         }
     }
@@ -57,6 +57,7 @@ struct GlobalSearchView: View {
                     AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular, color: .Text.secondary)
                 }
             }
+            .padding(.horizontal, 20)
         }
     }
     
@@ -67,11 +68,18 @@ struct GlobalSearchView: View {
         } label: {
             GlobalSearchCell(data: data)
         }
+        .if(data.backlinks.isNotEmpty) {
+            $0.contextMenu {
+                Button(Loc.Search.Backlinks.Show.title) {
+                    model.showBacklinks(data)
+                }
+            }
+        }
     }
     
     private var emptyState: some View {
         EmptyStateView(
-            title: Loc.thereIsNoObjectNamed(model.searchText),
+            title: Loc.thereIsNoObjectNamed(model.state.searchText),
             subtitle: Loc.createANewOneOrSearchForSomethingElse
         )
     }

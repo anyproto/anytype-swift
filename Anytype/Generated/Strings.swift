@@ -1881,6 +1881,20 @@ internal enum Loc {
       internal static let scanningNotSupported = Loc.tr("Localizable", "Scanner.Error.Scanning not supported", fallback: "Scanning not supported")
     }
   }
+  internal enum Search {
+    internal enum Backlinks {
+      internal enum Header {
+        /// Backlinks of: %@
+        internal static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Search.Backlinks.Header.title", String(describing: p1), fallback: "Backlinks of: %@")
+        }
+      }
+      internal enum Show {
+        /// Show backlinks
+        internal static let title = Loc.tr("Localizable", "Search.Backlinks.Show.title", fallback: "Show backlinks")
+      }
+    }
+  }
   internal enum Server {
     /// Add Self-hosted Network
     internal static let addButton = Loc.tr("Localizable", "Server.AddButton", fallback: "Add Self-hosted Network")
