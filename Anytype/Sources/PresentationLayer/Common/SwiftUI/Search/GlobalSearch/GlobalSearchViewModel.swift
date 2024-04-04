@@ -1,16 +1,6 @@
 import Services
 import Combine
 
-enum GlobalSearchMode: Equatable {
-    case `default`
-    case filtered(name: String, limitObjectIds: [String])
-}
-
-struct GlobalSearchState: Equatable {
-    var searchText = ""
-    var mode: GlobalSearchMode = .default
-}
-
 @MainActor
 final class GlobalSearchViewModel: ObservableObject {
     

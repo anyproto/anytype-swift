@@ -1126,6 +1126,7 @@
 		2ECF1DCA2BBEE2F8007C68E2 /* GlobalSearchModuleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF1DC92BBEE2F8007C68E2 /* GlobalSearchModuleData.swift */; };
 		2ECF1DCC2BBEE71E007C68E2 /* GlobalSearchDataSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF1DCB2BBEE71E007C68E2 /* GlobalSearchDataSection.swift */; };
 		2ECF1DD02BBEF25B007C68E2 /* GlobalSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF1DCF2BBEF25B007C68E2 /* GlobalSearchCell.swift */; };
+		2ECF1DD22BBF12D0007C68E2 /* GlobalSearchState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECF1DD12BBF12D0007C68E2 /* GlobalSearchState.swift */; };
 		2ED9F4392A8E8F0900BE0A6B /* SetViewSettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */; };
 		2ED9F43B2A8E902A00BE0A6B /* SetViewSettingsListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */; };
 		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */; };
@@ -2921,6 +2922,7 @@
 		2ECF1DC92BBEE2F8007C68E2 /* GlobalSearchModuleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchModuleData.swift; sourceTree = "<group>"; };
 		2ECF1DCB2BBEE71E007C68E2 /* GlobalSearchDataSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchDataSection.swift; sourceTree = "<group>"; };
 		2ECF1DCF2BBEF25B007C68E2 /* GlobalSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchCell.swift; sourceTree = "<group>"; };
+		2ECF1DD12BBF12D0007C68E2 /* GlobalSearchState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchState.swift; sourceTree = "<group>"; };
 		2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsList.swift; sourceTree = "<group>"; };
 		2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListModel.swift; sourceTree = "<group>"; };
 		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorView.swift; sourceTree = "<group>"; };
@@ -7875,6 +7877,7 @@
 				2ECF1DC92BBEE2F8007C68E2 /* GlobalSearchModuleData.swift */,
 				2ECF1DCB2BBEE71E007C68E2 /* GlobalSearchDataSection.swift */,
 				2ECF1DCF2BBEF25B007C68E2 /* GlobalSearchCell.swift */,
+				2ECF1DD12BBF12D0007C68E2 /* GlobalSearchState.swift */,
 			);
 			path = GlobalSearch;
 			sourceTree = "<group>";
@@ -11029,6 +11032,7 @@
 				C9367A91273126AD007D687A /* SelectionOptionsView.swift in Sources */,
 				12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */,
 				C910809E274CB02400EFA11C /* DividerCursorController.swift in Sources */,
+				2ECF1DD22BBF12D0007C68E2 /* GlobalSearchState.swift in Sources */,
 				12928C8827BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift in Sources */,
 				3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */,
 				2ECB34082A95133900E0F9BB /* SetSortsListCoordinatorAssembly.swift in Sources */,
