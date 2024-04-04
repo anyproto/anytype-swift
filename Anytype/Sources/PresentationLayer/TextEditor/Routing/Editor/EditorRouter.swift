@@ -5,7 +5,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput, LinkToObjectCoordinatorOutput {
+final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
@@ -14,7 +14,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
-    private let linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let searchModuleAssembly: SearchModuleAssemblyProtocol
@@ -33,7 +32,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
-        linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         searchModuleAssembly: SearchModuleAssemblyProtocol,
@@ -52,7 +50,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.templatesCoordinator = templatesCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
-        self.linkToObjectCoordinatorAssembly = linkToObjectCoordinatorAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
         self.searchModuleAssembly = searchModuleAssembly
@@ -183,8 +180,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                     document: self.document,
                     blockIds: infos.map { $0.id },
                     actionHandler: controller.viewModel.actionHandler,
-                    linkToObjectCoordinator: self.linkToObjectCoordinatorAssembly.make(output: self),
-                    viewDidClose: viewDidClose
+                    viewDidClose: viewDidClose,
+                    openLinkToObject: { [weak self] data in
+                        self?.output?.showLinkToObject(data: data)
+                    }
                 )
             },
             onDismiss: onDismiss
@@ -435,7 +434,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             document: document,
             blockIds: selectedBlockIds,
             actionHandler: controller.viewModel.actionHandler,
-            linkToObjectCoordinator: linkToObjectCoordinatorAssembly.make(output: self)
+            openLinkToObject: { [weak self] data in
+                self?.output?.showLinkToObject(data: data)
+            }
         )
         let viewController = MarkupsViewController(
             viewModel: viewModel,

@@ -12,7 +12,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     private let blockIds: [String]
     private let actionHandler: BlockActionHandlerProtocol
     private let document: BaseDocumentProtocol
-    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+    private let openLinkToObject: (LinkToObjectSearchModuleData) -> Void
     
     // For read link value
     private var selectedMarkups: [MarkupType: AttributeState] = [:]
@@ -21,12 +21,12 @@ final class MarkupViewModel: MarkupViewModelProtocol {
         document: BaseDocumentProtocol,
         blockIds: [String],
         actionHandler: BlockActionHandlerProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
+        openLinkToObject: @escaping (LinkToObjectSearchModuleData) -> Void
     ) {
         self.document = document
         self.blockIds = blockIds
         self.actionHandler = actionHandler
-        self.linkToObjectCoordinator = linkToObjectCoordinator
+        self.openLinkToObject = openLinkToObject
     }
 
     // MARK: - MarkupViewModelProtocol
@@ -62,9 +62,10 @@ final class MarkupViewModel: MarkupViewModelProtocol {
             let blokcLink = selectedMarkups.keys.compactMap { $0.blokcLink }.first
             let currentLink = Either.from(left: urlLink, right: blokcLink)
             
-            linkToObjectCoordinator.startFlow(
+            let data = LinkToObjectSearchModuleData(
                 spaceId: document.spaceId,
-                currentLink: currentLink,
+                currentLinkUrl: selectedMarkups.keys.compactMap { $0.urlLink }.first,
+                currentLinkString: selectedMarkups.keys.compactMap { $0.blokcLink }.first,
                 setLinkToObject: { [weak self, blockIds] blockId in
                     self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(blockId))
                 },
@@ -85,6 +86,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
                     self?.view?.dismiss()
                 }
             )
+            openLinkToObject(data)
         }
     }
     

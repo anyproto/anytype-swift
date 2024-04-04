@@ -42,15 +42,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }
 
-    func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol {
-        return LinkToObjectCoordinatorAssembly(
-            serviceLocator: serviceLocator,
-            modulesDI: modulesDI,
-            coordinatorsID: self,
-            uiHelopersDI: uiHelpersDI
-        )
-    }
-    
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol {
         return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }

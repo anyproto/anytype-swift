@@ -17,10 +17,9 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             content
         }
         .background(Color.Background.secondary)
-        .onChange(of: searchText) {
-            search(text: $0)
+        .task(id: searchText) {
+            try? await viewModel.search(text: searchText)
         }
-        .onAppear { search(text: searchText) }
     }
     
     private var content: some View {
@@ -42,7 +41,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
-                                    viewModel.onSelect(searchData)
+                                    viewModel.onSelect(searchData: searchData)
                                 }
                             ) {
                                 SearchCell(data: searchData)
@@ -71,10 +70,6 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             title: Loc.thereIsNoObjectNamed(searchText),
             subtitle: Loc.createANewOneOrSearchForSomethingElse
         )
-    }
-    
-    private func search(text: String) {
-        viewModel.search(text: text)
     }
 }
 

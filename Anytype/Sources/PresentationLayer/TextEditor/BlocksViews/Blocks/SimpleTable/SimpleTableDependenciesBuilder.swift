@@ -20,7 +20,6 @@ final class SimpleTableDependenciesBuilder {
     private let tableService: BlockTableServiceProtocol
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
-    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let typesService: TypesServiceProtocol
     private let accessoryStateManager: AccessoryViewStateManager
 
@@ -37,7 +36,6 @@ final class SimpleTableDependenciesBuilder {
         mainEditorSelectionManager: SimpleTableSelectionHandler?,
         responderScrollViewHelper: ResponderScrollViewHelper,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         typesService: TypesServiceProtocol,
         accessoryStateManager: AccessoryViewStateManager,
         tableService: BlockTableServiceProtocol
@@ -51,7 +49,6 @@ final class SimpleTableDependenciesBuilder {
         self.mainEditorSelectionManager = mainEditorSelectionManager
         self.responderScrollViewHelper = responderScrollViewHelper
         self.defaultObjectService = defaultObjectService
-        self.linkToObjectCoordinator = linkToObjectCoordinator
         self.typesService = typesService
         self.accessoryStateManager = accessoryStateManager
         self.tableService = tableService

@@ -23,9 +23,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private let showWaitingView: (String) -> Void
     private let hideWaitingView: () -> Void
+    private let openLinkToObject: @MainActor (LinkToObjectSearchModuleData) -> Void
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     private let actionHandler: BlockActionHandlerProtocol
-    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let markupChanger: BlockMarkupChangerProtocol
     
     // Fix retain cycle for long paste action
@@ -65,9 +65,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         cursorManager: EditorCursorManager,
         accessoryViewStateManager: AccessoryViewStateManager,
         keyboardHandler: KeyboardActionHandlerProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         markupChanger: BlockMarkupChangerProtocol,
-        slashMenuActionHandler: SlashMenuActionHandler
+        slashMenuActionHandler: SlashMenuActionHandler,
+        openLinkToObject: @MainActor @escaping (LinkToObjectSearchModuleData) -> Void
     ) {
         self.document = document
         self.info = info
@@ -87,9 +87,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.cursorManager = cursorManager
         self.accessoryViewStateManager = accessoryViewStateManager
         self.keyboardHandler = keyboardHandler
-        self.linkToObjectCoordinator = linkToObjectCoordinator
         self.markupChanger = markupChanger
         self.slashMenuActionHandler = slashMenuActionHandler
+        self.openLinkToObject = openLinkToObject
     }
 
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
@@ -429,9 +429,10 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         let objectIdLink = text.linkToObjectState(range: range)
         let eitherLink: Either<URL, String>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
     
-        linkToObjectCoordinator.startFlow(
+        let data = LinkToObjectSearchModuleData(
             spaceId: "",
-            currentLink: eitherLink,
+            currentLinkUrl: text.linkState(range: range),
+            currentLinkString: text.linkToObjectState(range: range),
             setLinkToObject: { [weak self] linkBlockId in
                 guard let self = self else { return }
                 AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.linkToObject(linkBlockId))
@@ -464,6 +465,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
             },
             willShowNextScreen: nil
         )
+        openLinkToObject(data)
     }
     
     func setNewText(attributedString: NSAttributedString) {

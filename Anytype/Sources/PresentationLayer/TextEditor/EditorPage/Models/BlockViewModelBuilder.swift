@@ -22,7 +22,6 @@ final class BlockViewModelBuilder {
     private let cursorManager: EditorCursorManager
     private let keyboardActionHandler: KeyboardActionHandlerProtocol
     private let editorPageBlocksStateManager: EditorPageBlocksStateManager
-    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     private let markupChanger: BlockMarkupChangerProtocol
     private let slashMenuActionHandler: SlashMenuActionHandler
     private weak var output: EditorPageModuleOutput?
@@ -45,7 +44,6 @@ final class BlockViewModelBuilder {
         accessoryStateManager: AccessoryViewStateManager,
         cursorManager: EditorCursorManager,
         keyboardActionHandler: KeyboardActionHandlerProtocol,
-        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
         markupChanger: BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
         editorPageBlocksStateManager: EditorPageBlocksStateManager,
@@ -68,7 +66,6 @@ final class BlockViewModelBuilder {
         self.accessoryStateManager = accessoryStateManager
         self.cursorManager = cursorManager
         self.keyboardActionHandler = keyboardActionHandler
-        self.linkToObjectCoordinator = linkToObjectCoordinator
         self.markupChanger = markupChanger
         self.slashMenuActionHandler = slashMenuActionHandler
         self.editorPageBlocksStateManager = editorPageBlocksStateManager
@@ -175,9 +172,11 @@ final class BlockViewModelBuilder {
                     cursorManager: cursorManager,
                     accessoryViewStateManager: accessoryStateManager,
                     keyboardHandler: keyboardActionHandler,
-                    linkToObjectCoordinator: linkToObjectCoordinator,
                     markupChanger: markupChanger,
-                    slashMenuActionHandler: slashMenuActionHandler
+                    slashMenuActionHandler: slashMenuActionHandler,
+                    openLinkToObject: { [weak self] data in
+                        self?.output?.showLinkToObject(data: data)
+                    }
                 )
                 
                 let viewModel = TextBlockViewModel(
