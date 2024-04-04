@@ -26,7 +26,7 @@ struct EditorPageCoordinatorView: View {
                 ObjectCoverPicker(data: $0)
             }
             .sheet(item: $model.linkToObjectData) {
-                LinToObjectSearchView(data: $0) { data in
+                LinkToObjectSearchView(data: $0) { data in
                     model.showEditorScreen(data: data)
                 }
             }

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct LinToObjectSearchView: View {
+struct LinkToObjectSearchView: View {
     
     @StateObject private var model: LinkToObjectSearchViewModel
     @Environment(\.openURL) private var openURL

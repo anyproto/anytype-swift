@@ -395,7 +395,7 @@
 		2A35A6B42BBD845B00CCE4F4 /* WidgetTypeChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6B32BBD845B00CCE4F4 /* WidgetTypeChangeView.swift */; };
 		2A35A6BA2BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6B92BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift */; };
 		2A35A6BC2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6BB2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift */; };
-		2A35A6BE2BBDA4C000CCE4F4 /* LinToObjectSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6BD2BBDA4C000CCE4F4 /* LinToObjectSearchView.swift */; };
+		2A35A6BE2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6BD2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift */; };
 		2A35A6C02BBDA5E700CCE4F4 /* LinkToObjectSearchModuleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6BF2BBDA5E700CCE4F4 /* LinkToObjectSearchModuleData.swift */; };
 		2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */; };
 		2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */; };
@@ -2189,7 +2189,7 @@
 		2A35A6B32BBD845B00CCE4F4 /* WidgetTypeChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeChangeView.swift; sourceTree = "<group>"; };
 		2A35A6B92BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchView.swift; sourceTree = "<group>"; };
 		2A35A6BB2BBD9C4D00CCE4F4 /* WidgetChangeSourceSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetChangeSourceSearchView.swift; sourceTree = "<group>"; };
-		2A35A6BD2BBDA4C000CCE4F4 /* LinToObjectSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinToObjectSearchView.swift; sourceTree = "<group>"; };
+		2A35A6BD2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchView.swift; sourceTree = "<group>"; };
 		2A35A6BF2BBDA5E700CCE4F4 /* LinkToObjectSearchModuleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchModuleData.swift; sourceTree = "<group>"; };
 		2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListView.swift; sourceTree = "<group>"; };
 		2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListViewModel.swift; sourceTree = "<group>"; };
@@ -5639,7 +5639,7 @@
 			isa = PBXGroup;
 			children = (
 				3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */,
-				2A35A6BD2BBDA4C000CCE4F4 /* LinToObjectSearchView.swift */,
+				2A35A6BD2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift */,
 				2A35A6BF2BBDA5E700CCE4F4 /* LinkToObjectSearchModuleData.swift */,
 				538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */,
 			);
@@ -12321,7 +12321,7 @@
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
 				2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */,
 				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
-				2A35A6BE2BBDA4C000CCE4F4 /* LinToObjectSearchView.swift in Sources */,
+				2A35A6BE2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				2A6693752A7104EA007747DD /* StaticImageGuideline.swift in Sources */,
