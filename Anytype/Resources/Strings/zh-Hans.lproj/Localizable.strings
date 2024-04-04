@@ -1040,8 +1040,10 @@
 "Just e-mail" = "仅需电子邮件";
 "E-mail" = "电子邮件";
 "Learn more" = "了解详情";
-"per year" = "每年";
-"per x years" = "每 %@ 年";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "包含的内容";
 "Submit" = "提交";
 "Resend" = "重新发送";
@@ -1055,7 +1057,6 @@
 "Paid by" = "由 %@ 支付";
 "Myself" = "我自己";
 "Pay by Card" = "使用信用卡";
-"Details upon request" = "请求详情";
 "Min X characters" = "最小 %@ 个字符";
 "Pending" = "待定…";
 
