@@ -8,8 +8,8 @@ struct CreateWidgetCoordinatorView: View {
     
     var body: some View {
         model.makeWidgetSourceModule()
-        .sheet(item: $model.showWidgetTypeData) { data in
-            model.makeWidgetTypeModule(data: data)
+        .sheet(item: $model.showWidgetTypeData) {
+            WidgetTypeCreateObjectView(data: $0)
         }
         .onChange(of: model.dismiss) { _ in
             presentationMode.dismiss()

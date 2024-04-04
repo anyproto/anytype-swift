@@ -46,8 +46,8 @@ struct HomeCoordinatorView: View {
         .sheet(item: $model.showChangeSourceData) { data in
             model.changeSourceModule(data: data)
         }
-        .sheet(item: $model.showChangeTypeData) { data in
-            model.changeTypeModule(data: data)
+        .sheet(item: $model.showChangeTypeData) {
+            WidgetTypeChangeView(data: $0)
         }
         .sheet(item: $model.showSearchData) { data in
             model.searchModule(data: data)

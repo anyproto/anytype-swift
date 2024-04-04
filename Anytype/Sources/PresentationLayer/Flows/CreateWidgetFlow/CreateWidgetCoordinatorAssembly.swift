@@ -30,7 +30,6 @@ final class CreateWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProt
             model: CreateWidgetCoordinatorViewModel(
                 data: data,
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
-                widgetTypeModuleAssembly: self.modulesDI.widgetType(),
                 activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage()
             )
         ).eraseToAnyView()
