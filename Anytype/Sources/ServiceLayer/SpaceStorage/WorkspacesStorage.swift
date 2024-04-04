@@ -24,6 +24,12 @@ extension WorkspacesStorageProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func spaceViewPublisher(spaceId: String) -> AnyPublisher<SpaceView, Never> {
+        allWorkspsacesPublisher.compactMap { $0.first { $0.targetSpaceId == spaceId } }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }
 
 @MainActor
