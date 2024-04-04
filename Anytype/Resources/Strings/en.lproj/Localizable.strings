@@ -1038,14 +1038,6 @@
 "Just e-mail" = "Just e-mail";
 "E-mail" = "E-mail";
 "Learn more" = "Learn more";
-"per year" = "per year";
-"per x years" = "per %@ years";
-"per month" = "per month";
-"per x months" = "per %@ month";
-"per week" = "per week";
-"per x weeks" = "per %@ weeks";
-"per day" = "per day";
-"per x days" = "per %@ days";
 "per" = "per";
 "unlimited" = "Unlimited";
 

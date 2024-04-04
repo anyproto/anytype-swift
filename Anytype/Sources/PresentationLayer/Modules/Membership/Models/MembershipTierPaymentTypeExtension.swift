@@ -21,29 +21,13 @@ extension StripePaymentInfo {
     var localizedPeriod: String? {
         switch periodType {
         case .days:
-            if periodValue == 1 {
-                return Loc.perDay
-            } else {
-                return Loc.perXDays(periodValue)
-            }
+            return Loc.perDay(Int(periodValue))
         case .weeks:
-            if periodValue == 1 {
-                return Loc.perWeek
-            } else {
-                return Loc.perXWeeks(periodValue)
-            }
+            return Loc.perWeek(Int(periodValue))
         case .months:
-            if periodValue == 1 {
-                return Loc.perMonth
-            } else {
-                return Loc.perXMonths(periodValue)
-            }
+            return Loc.perMonth(Int(periodValue))
         case .years:
-            if periodValue == 1 {
-                return Loc.perYear
-            } else {
-                return Loc.perXYears(periodValue)
-            }
+            return Loc.perYear(Int(periodValue))
         case .unlimited:
             return Loc.unlimited
         case .UNRECOGNIZED, .unknown:
@@ -62,29 +46,13 @@ extension Product {
         
         switch period.unit {
         case .day:
-            if period.value == 1 {
-                return Loc.perDay
-            } else {
-                return Loc.perXDays(period.value)
-            }
+            return Loc.perDay(period.value)
         case .week:
-            if period.value == 1 {
-                return Loc.perWeek
-            } else {
-                return Loc.perXWeeks(period.value)
-            }
+            return Loc.perWeek(period.value)
         case .month:
-            if period.value == 1 {
-                return Loc.perMonth
-            } else {
-                return Loc.perXMonths(period.value)
-            }
+            return Loc.perMonth(period.value)
         case .year:
-            if period.value == 1 {
-                return Loc.perYear
-            } else {
-                return Loc.perXYears(period.value)
-            }
+            return Loc.perYear(period.value)
         @unknown default:
             anytypeAssertionFailure("Not supported period \(period.unit)")
             return "\(Loc.per) \(period.value) \(period.unit)"
