@@ -100,7 +100,7 @@ final class ShareOptionsViewModel: ObservableObject {
             return
         }
         output?.onDocumentSelection(
-            data: SearchModuleModel(
+            data: ObjectSearchModuleData(
                 spaceId: spaceDetails.targetSpaceId,
                 title: linkTitle,
                 layoutLimits: saveAsType.supportedLayouts,

@@ -430,7 +430,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         let eitherLink: Either<URL, String>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
     
         let data = LinkToObjectSearchModuleData(
-            spaceId: "",
+            spaceId: document.spaceId,
             currentLinkUrl: text.linkState(range: range),
             currentLinkString: text.linkToObjectState(range: range),
             setLinkToObject: { [weak self] linkBlockId in

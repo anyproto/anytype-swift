@@ -15,7 +15,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let blockService: BlockServiceProtocol
@@ -24,7 +23,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let appActionsStorage: AppActionStorage
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
-    private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -44,7 +42,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeChangeData?
-    @Published var showSearchData: SearchModuleModel?
+    @Published var showSearchData: ObjectSearchModuleData?
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
@@ -77,7 +75,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        searchModuleAssembly: SearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         blockService: BlockServiceProtocol,
@@ -86,7 +83,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         appActionsStorage: AppActionStorage,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
-        shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
         homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
@@ -98,7 +94,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.searchModuleAssembly = searchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
         self.blockService = blockService
@@ -107,7 +102,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.appActionsStorage = appActionsStorage
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
-        self.shareCoordinatorAssembly = shareCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
@@ -154,20 +148,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, output: self)
     }
     
-    func searchModule(data: SearchModuleModel) -> AnyView {
-        return searchModuleAssembly.makeObjectSearch(data: data)
-    }
-    
     func createSpaceSwitchModule() -> AnyView {
         return spaceSwitchCoordinatorAssembly.make()
     }
     
     func createSpaceSeetingsModule() -> AnyView {
         return spaceSettingsCoordinatorAssembly.make()
-    }
-
-    func createSharingModule() -> AnyView {
-        return shareCoordinatorAssembly.make()
     }
 
     func editorModule(data: EditorScreenData) -> AnyView {
@@ -247,15 +233,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onSearchSelected() {
         AnytypeAnalytics.instance().logScreenSearch()
-        showSearchData = SearchModuleModel(
+        showSearchData = ObjectSearchModuleData(
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             title: nil,
             onSelect: { [weak self] data in
                 AnytypeAnalytics.instance().logSearchResult()
-                self?.showSearchData = nil
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
-                    self?.openObject(screenData: data.editorScreenData)
-                }
+                self?.openObject(screenData: data.editorScreenData)
             }
         )
     }

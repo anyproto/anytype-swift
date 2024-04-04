@@ -47,7 +47,6 @@ protocol EditorRouterProtocol:
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ())
-    func showSearch(onSelect: @escaping (EditorScreenData) -> ())
 
     func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ())
     func showTypeSearchForObjectCreation(selectedObjectId: String?, onSelect: @escaping (TypeSelectionResult) -> ())

@@ -2,7 +2,7 @@ import SwiftUI
 import Services
 import AnytypeCore
 
-final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
+final class LinkToObjectSearchViewModel: ObservableObject {
     enum SearchKind {
         case web(URL)
         case createObject(String)
@@ -29,9 +29,8 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     let shouldShowCallout: Bool = true
     
     @Published var searchData: [SearchDataSection<SearchDataType>] = []
+    @Published var openUrl: URL?
     
-    var placeholder: String { Loc.Editor.LinkToObject.searchPlaceholder }
-
     init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: EditorScreenData) -> Void) {
         self.data = data
         self.showEditorScreen = showEditorScreen
@@ -46,6 +45,8 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                 let result = try await searchService.search(text: text, spaceId: data.spaceId)
                 searchData = handleSearch(result: result, text: text)
             }
+        } catch is CancellationError {
+            // Ignore cancellations. That means we was run new search.
         } catch {
             searchData.removeAll()
         }
@@ -66,7 +67,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
             data.setLinkToUrl(url)
         case let .openURL(url):
             data.willShowNextScreen?()
-//            urlOpener.openUrl(url)
+            openUrl = url
         case let .openObject(details):
             data.willShowNextScreen?()
             showEditorScreen(details.editorScreenData())
@@ -77,7 +78,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         }
     }
     
-    func handleSearch(result: [ObjectDetails], text: String) -> [SearchDataSection<SearchDataType>] {
+    private func handleSearch(result: [ObjectDetails], text: String) -> [SearchDataSection<SearchDataType>] {
         var newSearchData: [SearchDataSection<SearchDataType>] = []
         
         var objectData = result.compactMap { details in
@@ -116,7 +117,9 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
             }
         }
         
-        newSearchData.append(SearchDataSection(searchData: objectData, sectionName: Loc.objects))
+        if objectData.isNotEmpty {
+            newSearchData.append(SearchDataSection(searchData: objectData, sectionName: Loc.objects))
+        }
         
         return newSearchData
     }

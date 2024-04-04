@@ -49,8 +49,8 @@ struct HomeCoordinatorView: View {
         .sheet(item: $model.showChangeTypeData) {
             WidgetTypeChangeView(data: $0)
         }
-        .sheet(item: $model.showSearchData) { data in
-            model.searchModule(data: data)
+        .sheet(item: $model.showSearchData) {
+            ObjectSearchView(data: $0)
         }
         .sheet(item: $model.showCreateWidgetData) {
             CreateWidgetCoordinatorView(data: $0)
@@ -62,7 +62,7 @@ struct HomeCoordinatorView: View {
             model.createSpaceSeetingsModule()
         }
         .sheet(isPresented: $model.showSharing) {
-            model.createSharingModule()
+            ShareCoordinatorView()
         }
         .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
             model.typeSearchForObjectCreationModule()

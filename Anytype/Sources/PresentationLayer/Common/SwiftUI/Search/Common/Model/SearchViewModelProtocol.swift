@@ -24,14 +24,3 @@ struct SearchDataSection<SearchData: SearchDataProtocol>: Identifiable {
     let searchData: [SearchData]
     let sectionName: String
 }
-
-@MainActor
-protocol SearchViewModelProtocol: ObservableObject {
-    associatedtype SearchDataType: SearchDataProtocol
-
-    var searchData: [SearchDataSection<SearchDataType>] { get }
-    var placeholder: String { get }
-    
-    func search(text: String) async
-    func onSelect(searchData: SearchDataType)
-}

@@ -42,10 +42,6 @@ final class ModulesDI: ModulesDIProtocol {
         return ObjectSettingModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func search() -> SearchModuleAssemblyProtocol {
-        return SearchModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }

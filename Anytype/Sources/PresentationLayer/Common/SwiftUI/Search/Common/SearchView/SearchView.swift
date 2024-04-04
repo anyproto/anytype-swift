@@ -1,30 +1,34 @@
 import SwiftUI
 import Services
 
-struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
-    @Environment(\.presentationMode) var presentationMode
-
-    let title: String?
-
+struct SearchView<SearchData: SearchDataProtocol>: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var searchText = ""
-    @StateObject var viewModel: SearchViewModel
+    
+    let title: String?
+    let placeholder: String
+    let searchData: [SearchDataSection<SearchData>]
+    
+    var search: (_ text: String) async -> Void
+    var onSelect: (_ searchData: SearchData) -> Void
     
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: title)
-            SearchBar(text: $searchText, focused: true, placeholder: viewModel.placeholder)
+            SearchBar(text: $searchText, focused: true, placeholder: placeholder)
             content
         }
         .background(Color.Background.secondary)
         .task(id: searchText) {
-            try? await viewModel.search(text: searchText)
+            await search(searchText)
         }
     }
     
     private var content: some View {
         Group {
-            if viewModel.searchData.isEmpty {
+            if searchData.isEmpty {
                 emptyState
             } else {
                 searchResults
@@ -35,13 +39,13 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(viewModel.searchData) { section in
+                ForEach(searchData) { section in
                     Section(content: {
                         ForEach(section.searchData) { searchData in
                             Button(
                                 action: {
-                                    presentationMode.wrappedValue.dismiss()
-                                    viewModel.onSelect(searchData: searchData)
+                                    dismiss()
+                                    onSelect(searchData)
                                 }
                             ) {
                                 SearchCell(data: searchData)
@@ -69,18 +73,6 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
         EmptyStateView(
             title: Loc.thereIsNoObjectNamed(searchText),
             subtitle: Loc.createANewOneOrSearchForSomethingElse
-        )
-    }
-}
-
-struct HomeSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchView(
-            title: "FOoo",
-            viewModel: ObjectSearchViewModel(
-                spaceId: "",
-                searchService: WrappedSearchInteractor(searchService: DI.preview.serviceLocator.searchService())
-            ) { _ in }
         )
     }
 }

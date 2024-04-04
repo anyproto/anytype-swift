@@ -84,7 +84,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             urlOpener: uiHelpersDI.urlOpener(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
-            searchModuleAssembly: modulesDI.search(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
