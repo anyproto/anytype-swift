@@ -17,7 +17,9 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
                 createdDate: nil,
                 accountStatus: .spaceActive,
                 localStatus: .spaceActive,
-                spaceAccessType: .shared
+                spaceAccessType: .shared,
+                readersLimit: nil,
+                writersLimit: nil
             )
         ]
     }
