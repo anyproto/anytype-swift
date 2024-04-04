@@ -16,7 +16,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let urlOpener: URLOpenerProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
-    private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -34,7 +33,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         urlOpener: URLOpenerProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
-        searchModuleAssembly: SearchModuleAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
@@ -52,7 +50,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.urlOpener = urlOpener
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinator = objectSettingCoordinator
-        self.searchModuleAssembly = searchModuleAssembly
         self.toastPresenter = toastPresenter
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
@@ -239,20 +236,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         )
 
         navigationContext.present(moduleView)
-    }
-    
-    @MainActor
-    func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let module = searchModuleAssembly.makeObjectSearch(
-            data: SearchModuleModel(
-                spaceId: document.spaceId,
-                title: nil,
-                onSelect: { data in
-                    onSelect(data.editorScreenData)
-                }
-            )
-        )
-        navigationContext.present(module)
     }
     
     func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {

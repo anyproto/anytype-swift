@@ -3,14 +3,28 @@ import SwiftUI
 
 struct LinToObjectSearchView: View {
     
-    let data: LinkToObjectSearchModuleData
-    let showEditorScreen: (_ data: EditorScreenData) -> Void
+    @StateObject private var model: LinkToObjectSearchViewModel
+    @Environment(\.openURL) private var openURL
+    
+    init(data: LinkToObjectSearchModuleData, showEditorScreen: @escaping (_ data: EditorScreenData) -> Void) {
+        self._model = StateObject(wrappedValue: LinkToObjectSearchViewModel(data: data, showEditorScreen: showEditorScreen))
+    }
     
     var body: some View {
-        // TODO: Refactoring module. Migrate from Search View
         SearchView(
             title: Loc.linkTo,
-            viewModel: LinkToObjectSearchViewModel(data: data, showEditorScreen: showEditorScreen)
+            placeholder: Loc.Editor.LinkToObject.searchPlaceholder,
+            searchData: model.searchData,
+            search:  { text in
+                await model.search(text: text)
+            },
+            onSelect: { data in
+                model.onSelect(searchData: data)
+            }
         )
+        .onChange(of: model.openUrl) { url in
+            guard let url else { return }
+            openURL(url)
+        }
     }
 }

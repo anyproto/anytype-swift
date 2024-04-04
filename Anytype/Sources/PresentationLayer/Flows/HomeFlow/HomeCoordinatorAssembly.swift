@@ -39,7 +39,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
         HomeCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            searchModuleAssembly: modulesDI.search(),
             objectActionsService: serviceLocator.objectActionsService(),
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
             blockService: serviceLocator.blockService(),
@@ -48,7 +47,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             appActionsStorage: serviceLocator.appActionStorage(),
             spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
-            shareCoordinatorAssembly: coordinatorsID.share(),
             editorCoordinatorAssembly: coordinatorsID.editor(),
             homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),

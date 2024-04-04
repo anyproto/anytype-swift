@@ -22,7 +22,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
-    private let searchModuleAssembly: SearchModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let documentsProvider: DocumentsProviderProtocol
     
@@ -35,7 +34,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
-        searchModuleAssembly: SearchModuleAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         documentsProvider: DocumentsProviderProtocol
     ) {
@@ -45,7 +43,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
-        self.searchModuleAssembly = searchModuleAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.documentsProvider = documentsProvider
     }

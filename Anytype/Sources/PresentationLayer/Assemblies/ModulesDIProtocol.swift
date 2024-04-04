@@ -8,7 +8,6 @@ protocol ModulesDIProtocol: AnyObject {
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol
     func objectSetting() -> ObjectSettingModuleAssemblyProtocol
-    func search() -> SearchModuleAssemblyProtocol
     func createObject() -> CreateObjectModuleAssemblyProtocol
     func newSearch() -> NewSearchModuleAssemblyProtocol
     func newRelation() -> NewRelationModuleAssemblyProtocol

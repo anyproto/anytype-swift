@@ -3,35 +3,31 @@ import SwiftUI
 import Combine
 
 @MainActor
-final class SpaceSearchViewModel: SearchViewModelProtocol {
+final class SpaceSearchViewModel: ObservableObject {
+    
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    
+    private let data: SpaceSearchData
+    private var spaces = [SpaceView]()
+    
     @Published var searchData = [SearchDataSection<SpaceView>]()
-    var onSelectClosure: (SpaceView) -> ()
-    var placeholder: String { Loc.Spaces.Search.title }
+    
     var lastSearchText: String = ""
     
-    private let participantSpacesStorage: ParticipantSpacesStorageProtocol
-    private var spaces = [SpaceView]()
-    private var cancellables = [AnyCancellable]()
-    
-    init(
-        participantSpacesStorage: ParticipantSpacesStorageProtocol,
-        onSelect: @escaping (SpaceView) -> Void
-    ) {
-        self.participantSpacesStorage = participantSpacesStorage
-        self.onSelectClosure = onSelect
-        
-        setupSubscription()
+    init(data: SpaceSearchData) {
+        self.data = data
     }
     
     func onSelect(searchData: SpaceView) {
-        onSelectClosure(searchData)
+        data.onSelect(searchData)
     }
     
-    private func setupSubscription() {
-        participantSpacesStorage.activeParticipantSpacesPublisher.sink { [weak self] participantSpaces in
-            self?.spaces = participantSpaces.filter(\.canEdit).map(\.spaceView)
-            self?.search(text: self?.lastSearchText ?? "")
-        }.store(in: &cancellables)
+    func startParticioantTask() async {
+        for await participantSpaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
+            spaces = participantSpaces.filter(\.canEdit).map(\.spaceView)
+            search(text: lastSearchText)
+        }
     }
     
     func search(text: String) {
