@@ -335,6 +335,8 @@
 "There is no object named" = "Non c'è nessun oggetto denominato %@";
 "There is no type named" = "Non c'è nessun tipo denominato %@";
 "Create a new one or search for something else" = "Creane uno nuovo o cerca qualcos'altro";
+"Search.Backlinks.Show.title" = "Mostra i backlink";
+"Search.Backlinks.Header.title" = "Backlink di: %@";
 
 // MARK: - Home
 
@@ -927,7 +929,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
 "SpaceShare.YouSuffix" = "%@ (tu)";
 "SpaceShare.ManageSpaces" = "Gestisci Spazi";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.AccessChanged" = "I diritti di accesso sono stati modificati.";
 "SpaceShare.StopSharing.Action" = "Stop sharing";
 "SpaceShare.StopSharing.Title" = "Smetti di condividere lo spazio";
 "SpaceShare.StopSharing.Message" = "I membri non si sincronizzeranno più con questo spazio e il link di condivisione verrà disattivato.";
@@ -1039,7 +1041,7 @@
 "E-mail" = "E-mail";
 "Learn more" = "Per saperne di più";
 "per" = "per";
-"unlimited" = "Unlimited";
+"unlimited" = "Illimitato";
 
 
 "What’s included" = "Cosa è incluso";
@@ -1076,10 +1078,10 @@
 "Membership.CustomTierEmail.Subject" = "Richiesta di livello di appartenenza personalizzato, ID account: %@";
 
 
-"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Title1" = "Costruire insieme la visione";
 "Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
 "Membership.Banner.Title2" = "Unlock Member Benefits";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Subtitle2" = "I membri godono di limiti più elevati di archiviazione e sincronizzazione dei backup, di inviti per più ospiti a collaborare in spazi condivisi e di un'identità unica sulla Rete Anytype.";
 "Membership.Banner.Title3" = "Support Digital Independence";
 "Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
 "Membership.Banner.Title4" = "Investi nella connettività";
@@ -1101,7 +1103,7 @@
 
 
 "Membership.Success.Title" = "Benvenuto/a nella rete, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Curiosity" = "Un grande applauso per la tua curiosità!";
 "Membership.Success.Support" = "Big cheers for your support!";
 
 "Membership.Payment.Card" = "Scheda";
@@ -1117,13 +1119,13 @@
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
 "Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
 
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.LocalName" = "Nome locale, non unico";
+"Membership.Feature.UniqueName" = "Nome unico nella rete (almeno %@ caratteri)";
 "Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.Invites" = "%@ inviti";
 "Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.UnlimitedViewers" = "Visualizzatori illimitati per spazi condivisi";
+"Membership.Feature.Viewers" = "%@ Visualizzatori per spazi condivisi";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug

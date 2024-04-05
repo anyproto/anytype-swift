@@ -335,6 +335,8 @@
 "There is no object named" = "Det finnes ingen objekt med navnet %@";
 "There is no type named" = "Det finnes ingen type med navnet %@";
 "Create a new one or search for something else" = "Lag et nytt eller søk etter noe annet";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 

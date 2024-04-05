@@ -335,6 +335,8 @@
 "There is no object named" = "没有命名为 %@ 的对象";
 "There is no type named" = "没有命名为 %@ 的类型";
 "Create a new one or search for something else" = "创建一个新的或搜索其他内容";
+"Search.Backlinks.Show.title" = "显示反向链接";
+"Search.Backlinks.Header.title" = "反向链接：%@";
 
 // MARK: - Home
 
@@ -1040,8 +1042,8 @@
 "Just e-mail" = "仅需电子邮件";
 "E-mail" = "电子邮件";
 "Learn more" = "了解详情";
-"per" = "per";
-"unlimited" = "Unlimited";
+"per" = "每";
+"unlimited" = "无限的";
 
 
 "What’s included" = "包含的内容";

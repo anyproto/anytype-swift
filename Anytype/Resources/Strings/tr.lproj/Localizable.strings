@@ -335,6 +335,8 @@
 "There is no object named" = "%@ isimli nesne yok";
 "There is no type named" = "%@ adlı tür yok";
 "Create a new one or search for something else" = "Yeni oluşturun ya da başka bir şey arayın";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 

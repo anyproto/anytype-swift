@@ -335,6 +335,8 @@
 "There is no object named" = "Il n'y a aucun objet nommé %@";
 "There is no type named" = "Il n'y a aucun type nommé %@";
 "Create a new one or search for something else" = "Créer un nouveau ou rechercher autre chose";
+"Search.Backlinks.Show.title" = "Afficher les rétroliens";
+"Search.Backlinks.Header.title" = "Rétroliens de : %@";
 
 // MARK: - Home
 
@@ -1038,8 +1040,8 @@
 "Just e-mail" = "Juste un email";
 "E-mail" = "E-mail";
 "Learn more" = "En savoir plus";
-"per" = "per";
-"unlimited" = "Unlimited";
+"per" = "par";
+"unlimited" = "Illimité";
 
 
 "What’s included" = "Qu'est-ce qui est inclus ?";
@@ -1076,10 +1078,10 @@
 "Membership.CustomTierEmail.Subject" = "Demande d'adhésion personnalisée, ID de compte : %@";
 
 
-"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Title1" = "Construire la Vision ensemble";
 "Membership.Banner.Subtitle1" = "En tant que membre apprécié, votre voix compte ! Participez à des événements exclusifs, définissez des choix stratégiques et influencez notre feuille de route.";
 "Membership.Banner.Title2" = "Débloquer les Avantages des Membres";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Subtitle2" = "Les membres bénéficient d'une plus grande limite de stockage de sauvegardes  et limites de synchronisation, d'invitations pour plusieurs invités à collaborer dans des espaces partagés et d'une identité unique sur le réseau Anytype.";
 "Membership.Banner.Title3" = "Soutenir l'indépendance numérique";
 "Membership.Banner.Subtitle3" = "Votre contribution soutient notre équipe indépendante et soutient notre vision d'un environnement numérique axé sur l'utilisateur, sécurisé et collaboratif.";
 "Membership.Banner.Title4" = "Investir dans la connectivité";
@@ -1101,8 +1103,8 @@
 
 
 "Membership.Success.Title" = "Bienvenue sur le réseau, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Curiosity" = "Merci beaucoup pour votre curiosité !";
+"Membership.Success.Support" = "Un grand merci pour votre soutien !";
 
 "Membership.Payment.Card" = "Carte";
 "Membership.Payment.Crypto" = "Crypto";
@@ -1112,19 +1114,19 @@
 "Membership.Payment.Google subscription" = "Abonnement Google";
 
 
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+"Membership.Explorer.Subtitle" = "Synchronisez vos appareils, obtenez un stockage de sauvegarde et participez à la collaboration.";
+"Membership.Builder.Subtitle" = "Débloquez la collaboration multipartite et étendez votre espace de stockage réseau.";
+"Membership.CoCreator.Subtitle" = "Soutenez notre aventure et débloquez des accès et avantages exclusifs.";
+"Membership.Custom.Subtitle" = "Conditions d'adhésion personnalisées. Si vous avez des questions, veuillez contacter le support.";
 
 "Membership.Feature.LocalName" = "Nom local, non unique";
 "Membership.Feature.UniqueName" = "Nom unique dans le réseau (%@+ caractères)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.StorageGB" = "%@ Go d'espace de sauvegarde et de synchronisation sur le réseau Anytype";
 "Membership.Feature.Invites" = "%@ Invitations";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.SpaceWriters" = "%@ Éditeurs par espace partagé";
 "Membership.Feature.UnlimitedViewers" = "Nombre illimité de lecteurs pour les espaces partagés";
 "Membership.Feature.Viewers" = "%@ Lecteurs pour les espaces partagés";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+"Membership.Feature.SharedSpaces" = "Jusqu'à %@ Espaces partagés";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";

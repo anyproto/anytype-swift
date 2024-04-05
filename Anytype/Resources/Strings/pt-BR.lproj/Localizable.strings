@@ -335,6 +335,8 @@
 "There is no object named" = "Não há nenhum objeto chamado %@";
 "There is no type named" = "Não há nenhum tipo chamado %@";
 "Create a new one or search for something else" = "Crie uma nova ou procure por outra coisa";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
