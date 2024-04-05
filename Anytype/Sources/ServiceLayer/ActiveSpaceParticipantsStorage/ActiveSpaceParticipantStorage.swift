@@ -5,6 +5,8 @@ import Combine
 @MainActor
 protocol ActiveSpaceParticipantStorageProtocol: AnyObject {
     var participantsPublisher: AnyPublisher<[Participant], Never> { get }
+    var participants: [Participant] { get}
+    
     func startSubscription() async
     func stopSubscription() async
 }
@@ -35,6 +37,7 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     
     private var participantsSubject = CurrentValueSubject<[Participant], Never>([])
     var participantsPublisher: AnyPublisher<[Participant], Never> { participantsSubject.eraseToAnyPublisher() }
+    var participants: [Participant] { participantsSubject.value }
     
     nonisolated init() {}
     

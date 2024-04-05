@@ -37,7 +37,7 @@ extension ParticipantPermissions {
 extension Participant {
     
     var title: String {
-        name.withPlaceholder
+        localName.withPlaceholder
     }
     
     var canLeave: Bool {
