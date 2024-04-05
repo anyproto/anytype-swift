@@ -335,6 +335,8 @@
 "There is no object named" = "Нет объекта с именем %@";
 "There is no type named" = "Нет типа с именем %@";
 "Create a new one or search for something else" = "Создайте новый или найдите что-то другое";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
