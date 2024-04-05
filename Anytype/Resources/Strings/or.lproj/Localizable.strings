@@ -335,6 +335,8 @@
 "There is no object named" = "%@ ନାମକ କୌ ଣସି ବସ୍ତୁ ନାହିଁ ";
 "There is no type named" = "%@ ନାମକ କୌଣସି ପ୍ରକାର ନାହିଁ";
 "Create a new one or search for something else" = "ଏକ ନୂତନ ସୃଷ୍ଟି କରନ୍ତୁ କିମ୍ବା ଅନ୍ୟ କିଛି ଖୋଜନ୍ତୁ";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
