@@ -35,6 +35,9 @@ struct SpaceShareView: View {
             await model.startParticipantsTask()
         }
         .task {
+            await model.startSpaceViewTask()
+        }
+        .task {
             await model.onAppear()
         }
         .anytypeShareView(item: $model.shareInviteLink)
@@ -82,8 +85,10 @@ struct SpaceShareView: View {
             Button(Loc.SpaceShare.moreInfo) {
                 model.onMoreInfoTap()
             }
-            Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
-                model.onStopSharing()
+            if model.canStopShare {
+                Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
+                    model.onStopSharing()
+                }
             }
         } label: {
             IconView(icon: .asset(.X24.more))
