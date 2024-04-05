@@ -335,6 +335,8 @@
 "There is no object named" = "Er is geen object genaamd %@";
 "There is no type named" = "Er is geen type genaamd %@";
 "Create a new one or search for something else" = "Maak een nieuwe aan of zoek naar iets anders";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
