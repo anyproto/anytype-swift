@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>mese</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d mesi</string>
       </dict>
     </dict>
     <key>Per Week</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>week</string>
+        <string>settimana</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d settimane</string>
       </dict>
     </dict>
     <key>Per Year</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>anno</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d anni</string>
       </dict>
     </dict>
     <key>Per Day</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>giorno</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d giorni</string>
       </dict>
     </dict>
   </dict>
