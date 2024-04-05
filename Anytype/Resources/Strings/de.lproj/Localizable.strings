@@ -335,6 +335,8 @@
 "There is no object named" = "Es gibt kein Objekt mit dem Namen %@";
 "There is no type named" = "Es gibt keinen Typ mit dem Namen %@";
 "Create a new one or search for something else" = "Erstelle ein neues oder suche nach etwas anderem";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
@@ -929,13 +931,13 @@
 "SpaceShare.YouSuffix" = "%@ (du)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Action" = "Beende Teilen";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 "SpaceShare.QR.Title" = "QR code for joing a Space";
 "SpaceShare.QR.Button" = "QR-Code anzeigen";
-"SpaceShare.MoreInfo" = "More info";
+"SpaceShare.MoreInfo" = "Mehr Informationen";
 "SpaceShare.HowToShare.Title" = "How to share a space?";
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
@@ -1039,8 +1041,8 @@
 "Just e-mail" = "Nur E-Mail";
 "E-mail" = "E-Mail";
 "Learn more" = "Mehr erfahren";
-"per" = "per";
-"unlimited" = "Unlimited";
+"per" = "pro";
+"unlimited" = "Unbegrenzt";
 
 
 "What’s included" = "Was ist inbegriffen?";
@@ -1102,8 +1104,8 @@
 
 
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Curiosity" = "Ein Hoch auf deine Neugierde!";
+"Membership.Success.Support" = "Ein Hoch auf deine Unterstützung!";
 
 "Membership.Payment.Card" = "Karte";
 "Membership.Payment.Crypto" = "Kryptowährung";
@@ -1113,15 +1115,15 @@
 "Membership.Payment.Google subscription" = "Google-Abonnement";
 
 
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+"Membership.Explorer.Subtitle" = "Synchronisiere deine Geräte, erhalte Datensicherungsspeicher und arbeite mit anderen zusammen.";
+"Membership.Builder.Subtitle" = "Ermögliche die Zusammenarbeit mit mehreren Teilnehmern und erweitere deinen Netzwerkspeicher.";
+"Membership.CoCreator.Subtitle" = "Unterstütze unser Abenteuer und erhalte exklusiven Zugang und Vergünstigungen.";
+"Membership.Custom.Subtitle" = "Individuelle Bedingungen für die Mitgliedschaft. Bei Fragen wende dich bitte an den Support.";
 
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.LocalName" = "Lokaler, nicht eindeutiger Name";
+"Membership.Feature.UniqueName" = "Eindeutiger Netzwerkname (%@+ Zeichen)";
+"Membership.Feature.StorageGB" = "%@ GB Speicherplatz für Datensicherung und Synchronisation im Anytype-Netzwerk";
+"Membership.Feature.Invites" = "%@ Einladungen";
 "Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
