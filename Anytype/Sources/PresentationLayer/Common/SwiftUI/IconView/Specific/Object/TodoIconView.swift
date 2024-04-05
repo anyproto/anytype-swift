@@ -11,6 +11,7 @@ struct TodoIconView: View {
         Image(asset: checked ? .TaskLayout.done : .TaskLayout.empty)
             .resizable()
             .scaledToFit()
+            .buttonDynamicForegroundColor()
             .frame(maxWidth: 28, maxHeight: 28)
     }
 }
