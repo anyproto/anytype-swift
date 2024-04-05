@@ -17,6 +17,9 @@ struct GlobalSearchView: View {
             content
         }
         .background(Color.Background.secondary)
+        .onAppear {
+            model.onAppear()
+        }
         .task(id: model.state) {
             await model.search()
         }

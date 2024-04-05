@@ -16,6 +16,10 @@ final class GlobalSearchViewModel: ObservableObject {
         self.moduleData = data
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenSearch()
+    }
+    
     func search() async {
         do {
             let result: [ObjectDetails]
@@ -48,6 +52,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSelect(searchData: GlobalSearchData) {
+        AnytypeAnalytics.instance().logSearchResult()
         moduleData.onSelect(searchData.editorScreenData)
     }
     

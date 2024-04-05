@@ -232,14 +232,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - HomeBottomNavigationPanelModuleOutput
     
-    func onSearchSelected() {
-        AnytypeAnalytics.instance().logScreenSearch()
-        
+    func onSearchSelected() {        
         if FeatureFlags.newGlobalSearch {
             showGlobalSearchData = GlobalSearchModuleData(
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 onSelect: { [weak self] screenData in
-                    AnytypeAnalytics.instance().logSearchResult()
                     self?.openObject(screenData: screenData)
                 }
             )
@@ -248,7 +245,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
                 title: nil,
                 onSelect: { [weak self] data in
-                    AnytypeAnalytics.instance().logSearchResult()
                     self?.openObject(screenData: data.editorScreenData)
                 }
             )

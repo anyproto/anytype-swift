@@ -17,7 +17,12 @@ final class ObjectSearchViewModel: ObservableObject {
         self.data = data
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenSearch()
+    }
+    
     func onSelect(searchData: ObjectSearchData) {
+        AnytypeAnalytics.instance().logSearchResult()
         data.onSelect(searchData)
     }
     
