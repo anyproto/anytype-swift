@@ -35,6 +35,9 @@ struct SpaceShareView: View {
             await model.startParticipantsTask()
         }
         .task {
+            await model.startSpaceTask()
+        }
+        .task {
             await model.onAppear()
         }
         .anytypeShareView(item: $model.shareInviteLink)
