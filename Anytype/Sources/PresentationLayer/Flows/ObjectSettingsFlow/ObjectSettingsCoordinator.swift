@@ -110,11 +110,12 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
+        let excludedLayouts = DetailsLayout.fileLayouts + [.set, .participant]
         let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: [.set, .participant]
+            excludedLayouts: excludedLayouts
         ) { [weak navigationContext] details in
             navigationContext?.dismissAllPresented(animated: true) {
                 onSelect(details.id)
