@@ -23,7 +23,7 @@ final class GlobalSearchViewModel: ObservableObject {
             case .default:
                 result = try await searchService.search(text: state.searchText, spaceId: moduleData.spaceId)
             case .filtered(_, let limitObjectIds):
-                result = try await searchService.search(text: state.searchText, limitObjectIds: limitObjectIds, spaceId: moduleData.spaceId)
+                result = try await searchService.search(text: state.searchText, limitObjectIds: limitObjectIds)
             }
             
             let objectsSearchData = result.compactMap { GlobalSearchData(details: $0) }
