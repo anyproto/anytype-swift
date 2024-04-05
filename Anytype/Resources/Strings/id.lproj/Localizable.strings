@@ -335,6 +335,8 @@
 "There is no object named" = "Tidak ada objek bernama %@";
 "There is no type named" = "Tidak ada tipe bernama %@";
 "Create a new one or search for something else" = "Buat baru atau telusuri yang lain";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
