@@ -46,12 +46,11 @@ extension BundledRelationsValueProvider {
     public var objectName: String {
         let title: String
 
-        switch layoutValue {
-        case .note:
+        if layoutValue == .note {
             title = snippet
-        case .file, .image:
+        } else if DetailsLayout.fileLayouts.contains(layoutValue) {
             title = "\(name).\(fileExt)"
-        default:
+        } else {
             title = name
         }
         
