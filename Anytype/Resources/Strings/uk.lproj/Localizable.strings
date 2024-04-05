@@ -335,6 +335,8 @@
 "There is no object named" = "Немає об'єкта з назвою %@";
 "There is no type named" = "Немає типу з назвою %@";
 "Create a new one or search for something else" = "Створіть новий або знайдіть щось інше";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
