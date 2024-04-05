@@ -41,7 +41,7 @@ final class SpacesManagerViewModel: ObservableObject {
     func onArchive(row: ParticipantSpaceView) async throws {
         let tempDir = FileManager.default.createTempDirectory()
         let path = try await workspaceService.workspaceExport(spaceId: row.spaceView.targetSpaceId, path: tempDir.path)
-        exportSpaceUrl = URL(string: path)
+        exportSpaceUrl = URL(fileURLWithPath: path)
     }
     
     func onStopSharing(row: ParticipantSpaceView) {
