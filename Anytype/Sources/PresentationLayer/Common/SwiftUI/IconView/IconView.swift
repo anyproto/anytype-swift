@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Services
 
 struct IconView: View {
     
@@ -18,5 +19,19 @@ struct IconView: View {
         case nil:
             EmptyView()
         }
+    }
+}
+
+extension IconView {
+    init(asset: ImageAsset) {
+        self = IconView(icon: .asset(asset))
+    }
+    
+    init(object: ObjectIcon) {
+        self = IconView(icon: .object(object))
+    }
+    
+    init(uiImage: UIImage) {
+        self = IconView(icon: .image(uiImage))
     }
 }
