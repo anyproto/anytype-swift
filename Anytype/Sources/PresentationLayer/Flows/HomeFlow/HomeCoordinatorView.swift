@@ -52,6 +52,9 @@ struct HomeCoordinatorView: View {
         .sheet(item: $model.showSearchData) {
             ObjectSearchView(data: $0)
         }
+        .sheet(item: $model.showGlobalSearchData) {
+            GlobalSearchView(data: $0)
+        }
         .sheet(item: $model.showCreateWidgetData) {
             CreateWidgetCoordinatorView(data: $0)
         }
