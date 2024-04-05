@@ -8,7 +8,8 @@ public typealias ParticipantStatus = Anytype_Model_ParticipantStatus
 public struct Participant: Identifiable, Equatable {
     
     public let id: String
-    public let name: String
+    public let localName: String
+    public let globalName: String
     public let icon: ObjectIcon?
     public let status: ParticipantStatus
     public let permission: ParticipantPermissions
@@ -18,7 +19,8 @@ public struct Participant: Identifiable, Equatable {
     
     public init(details: ObjectDetails) throws {
         self.id = details.id
-        self.name = details.objectName
+        self.localName = details.objectName
+        self.globalName = details.globalName
         self.icon = details.objectIcon
         guard let status = details.participantStatusValue else {
             anytypeAssertionFailure("Participant status error", info: ["value": details.participantStatus?.description ?? "nil"])
@@ -44,6 +46,7 @@ public extension Participant {
             BundledRelationKey.participantPermissions
             BundledRelationKey.identity
             BundledRelationKey.identityProfileLink
+            BundledRelationKey.globalName
         }
     }
 }
