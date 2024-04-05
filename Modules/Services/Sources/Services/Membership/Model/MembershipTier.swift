@@ -46,12 +46,33 @@ public enum MembershipAnyName: Hashable, Equatable {
     case some(minLenght: UInt32)
 }
 
+public enum MembershipColor: Equatable {
+    case green
+    case blue
+    case red
+    case purple
+    
+    init(string: String) {
+        switch string {
+        case "green":
+            self = .green
+        case "red":
+            self = .red
+        case "blue":
+            self = .blue
+        default:
+            self = .purple
+        }
+    }
+}
+
 public struct MembershipTier: Hashable, Identifiable, Equatable {
     public let type: MembershipTierType
     public let name: String
     public let anyName: MembershipAnyName
     public let features: [String]
     public let paymentType: MembershipTierPaymentType
+    public let color: MembershipColor
     
     public var id: MembershipTierType { type }
     
@@ -60,12 +81,14 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
         name: String,
         anyName: MembershipAnyName,
         features: [String],
-        paymentType: MembershipTierPaymentType
+        paymentType: MembershipTierPaymentType,
+        color: MembershipColor
     ) {
         self.type = type
         self.name = name
         self.anyName = anyName
         self.features = features
         self.paymentType = paymentType
+        self.color = color
     }
 }
