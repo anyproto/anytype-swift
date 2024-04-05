@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>week</string>
+        <string>வாரம்</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d வாரங்கள்</string>
       </dict>
     </dict>
     <key>Per Year</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>ஆண்டு</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d வருடங்கள்</string>
       </dict>
     </dict>
     <key>Per Day</key>
