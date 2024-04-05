@@ -94,6 +94,10 @@ public extension FeatureFlags {
         value(for: .homeTestSwipeGeature)
     }
 
+    static var membershipTestTiers: Bool {
+        value(for: .membershipTestTiers)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -117,6 +121,7 @@ public extension FeatureFlags {
         .resetTips,
         .showAllTips,
         .sharingExtensionShowContentTypes,
-        .homeTestSwipeGeature
+        .homeTestSwipeGeature,
+        .membershipTestTiers
     ]
 }
