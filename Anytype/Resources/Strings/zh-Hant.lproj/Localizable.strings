@@ -36,13 +36,13 @@
 "TextStyle.Italic.Title" = "Italic";
 "TextStyle.Strikethrough.Title" = "Strikethrough";
 "TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Link.Title" = "連結";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "未命名";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
+"BlockText.ContentType.Title.Placeholder" = "未命名";
+"BlockText.ContentType.Description.Placeholder" = "新增描述";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
 "BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
 "BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
@@ -65,7 +65,7 @@
 "Settings.SpaceName" = "Space name";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
+"Object.Title.Placeholder" = "未命名";
 "Object.Deleted.Placeholder" = "Deleted object";
 
 // MARK: - Relation
@@ -265,7 +265,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Choose your name";
 "Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "未命名";
 
 "Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
@@ -335,6 +335,8 @@
 "There is no object named" = "There is no object named %@";
 "There is no type named" = "There is no type named %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 
 // MARK: - Home
 
@@ -449,7 +451,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "未命名";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -743,7 +745,7 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "未命名";
 
 // MARK: Select view
 "EditorSet.View.Not.Supported.Title" = "Unsupported";
@@ -782,7 +784,7 @@
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
+"Widgets.Layout.Link.Title" = "連結";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
