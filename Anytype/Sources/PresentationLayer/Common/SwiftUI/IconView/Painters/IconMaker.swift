@@ -108,24 +108,16 @@ final class IconMaker {
             case .todo(let checked):
                 return checked ? contentPainter(.asset(.TaskLayout.done)) : contentPainter(.asset(.TaskLayout.empty))
             case .placeholder(let c):
-                let char = c.map { String($0) } ?? ""
-                return SquareIconPainter(contentPainter: contentPainter(.char(char)))
+                return SquareIconPainter(contentPainter: contentPainter(.char(c)))
             case .deleted:
                 return contentPainter(.asset(.ghost))
             case .file(let mimeType, let name):
                 return contentPainter(.asset(FileIconBuilder.convert(mime: mimeType, fileName: name)))
-
             }
         case .asset(let imageAsset):
             return contentPainter(.asset(imageAsset))
         case .image(let uIImage):
             return contentPainter(.image(uIImage))
-        case .square(let content):
-            return SquareIconPainter(contentPainter: contentPainter(content))
-        case .cycle(let content):
-            return CircleIconPainter(contentPainter: contentPainter(content))
-        case .squircle(let content):
-            return SquircleIconPainter(contentPainter: contentPainter((content)))
         }
     }
     

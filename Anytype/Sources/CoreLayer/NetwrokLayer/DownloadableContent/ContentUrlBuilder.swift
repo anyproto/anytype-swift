@@ -25,7 +25,6 @@ final class ContentUrlBuilder {
     
     static func imageUrl(imageMetadata: ImageMetadata) -> URL? {
         guard imageMetadata.id.isNotEmpty else {
-            anytypeAssertionFailure("Image id is empty")
             return nil
         }
         

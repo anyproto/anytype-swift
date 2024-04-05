@@ -4,13 +4,6 @@ import Services
 
 enum Icon: Hashable, Equatable {
     case object(ObjectIcon)
-    
-    // Container
-    case cycle(Icon.Content)
-    case square(Icon.Content)
-    case squircle(Icon.Content)
-    
-    // Without Container
     case asset(ImageAsset)
     case image(UIImage)
 }

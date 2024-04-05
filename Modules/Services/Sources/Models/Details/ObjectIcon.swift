@@ -7,7 +7,7 @@ public enum ObjectIcon: Hashable {
     case bookmark(_ imageId: String)
     case space(Space)
     case todo(Bool)
-    case placeholder(Character?)
+    case placeholder(name: String)
     case file(mimeType: String, name: String)
     case deleted
 }
