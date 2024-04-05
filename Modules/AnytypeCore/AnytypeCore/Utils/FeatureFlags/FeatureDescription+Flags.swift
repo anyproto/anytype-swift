@@ -80,7 +80,13 @@ public extension FeatureDescription {
     
     static let membership = FeatureDescription(
         title: "Membership 💸",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "0.30.0"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "5"),
+        defaultValue: false
+    )
+    
+    static let newGlobalSearch = FeatureDescription(
+        title: "New global search",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.30.0"),
         defaultValue: false
     )
     
@@ -145,5 +151,12 @@ public extension FeatureDescription {
         title: "Test swipe gesture",
         type: .debug,
         defaultValue: false
+    )
+    
+    static let membershipTestTiers = FeatureDescription(
+        title: "Show test Membership tiers 💸",
+        type: .debug,
+        defaultValue: false,
+        debugValue: true
     )
 }

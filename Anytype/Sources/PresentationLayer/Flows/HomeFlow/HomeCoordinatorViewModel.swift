@@ -43,6 +43,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showSearchData: ObjectSearchModuleData?
+    @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
@@ -231,16 +232,23 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - HomeBottomNavigationPanelModuleOutput
     
-    func onSearchSelected() {
-        AnytypeAnalytics.instance().logScreenSearch()
-        showSearchData = ObjectSearchModuleData(
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            title: nil,
-            onSelect: { [weak self] data in
-                AnytypeAnalytics.instance().logSearchResult()
-                self?.openObject(screenData: data.editorScreenData)
-            }
-        )
+    func onSearchSelected() {        
+        if FeatureFlags.newGlobalSearch {
+            showGlobalSearchData = GlobalSearchModuleData(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                onSelect: { [weak self] screenData in
+                    self?.openObject(screenData: screenData)
+                }
+            )
+        } else {
+            showSearchData = ObjectSearchModuleData(
+                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                title: nil,
+                onSelect: { [weak self] data in
+                    self?.openObject(screenData: data.editorScreenData)
+                }
+            )
+        }
     }
     
     func onCreateObjectSelected(screenData: EditorScreenData) {

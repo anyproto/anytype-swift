@@ -77,23 +77,8 @@ struct MembershipTeirView: View {
                     AnytypeText(Loc.pending, style: .caption1Regular, color: .Text.primary)
                 }
             } else {
-                priceText
+                MembershipPricingView(tier: tierToDisplay)
             }
-        }
-    }
-    
-    var priceText: some View {
-        switch tierToDisplay.type {
-        case .explorer:
-            AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
-        case .builder:
-            AnytypeText("$99 ", style: .bodySemibold, color: .Text.primary) +
-            AnytypeText(Loc.perYear, style: .caption1Regular, color: .Text.primary)
-        case .coCreator:
-            AnytypeText("$299 ", style: .bodySemibold, color: .Text.primary) +
-            AnytypeText(Loc.perXYears(3), style: .caption1Regular, color: .Text.primary)
-        case .custom:
-            AnytypeText(Loc.detailsUponRequest, style: .caption1Regular, color: .Text.primary)
         }
     }
     

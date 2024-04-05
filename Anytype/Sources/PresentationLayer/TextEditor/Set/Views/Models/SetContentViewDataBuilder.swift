@@ -194,7 +194,6 @@ final class SetContentViewDataBuilder {
             return true
         }
         return !relationDetails.isHidden &&
-        relationDetails.format != .file &&
         relationDetails.format != .unrecognized
     }
     

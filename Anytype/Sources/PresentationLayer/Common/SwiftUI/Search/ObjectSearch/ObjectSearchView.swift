@@ -21,5 +21,8 @@ struct ObjectSearchView: View {
                 model.onSelect(searchData: data)
             }
         )
+        .onAppear {
+            model.onAppear()
+        }
     }
 }

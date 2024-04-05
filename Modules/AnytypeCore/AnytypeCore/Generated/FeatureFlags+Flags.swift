@@ -58,6 +58,10 @@ public extension FeatureFlags {
         value(for: .membership)
     }
 
+    static var newGlobalSearch: Bool {
+        value(for: .newGlobalSearch)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -94,6 +98,10 @@ public extension FeatureFlags {
         value(for: .homeTestSwipeGeature)
     }
 
+    static var membershipTestTiers: Bool {
+        value(for: .membershipTestTiers)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -109,6 +117,7 @@ public extension FeatureFlags {
         .newTextEditingRelationView,
         .multiplayer,
         .membership,
+        .newGlobalSearch,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -117,6 +126,7 @@ public extension FeatureFlags {
         .resetTips,
         .showAllTips,
         .sharingExtensionShowContentTypes,
-        .homeTestSwipeGeature
+        .homeTestSwipeGeature,
+        .membershipTestTiers
     ]
 }

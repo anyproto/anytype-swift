@@ -30,7 +30,7 @@ final class ParticipantRemoveNotificationViewModel: ObservableObject {
         Task {
             let tempDir = FileManager.default.createTempDirectory()
             let path = try await workspaceService.workspaceExport(spaceId: notification.remove.spaceID, path: tempDir.path)
-            guard let exportSpaceUrl = URL(string: path) else { return }
+            let exportSpaceUrl = URL(fileURLWithPath: path)
             await onExport(exportSpaceUrl)
         }
         try await notificationsService.reply(ids: [notification.common.id], actionType: .close)

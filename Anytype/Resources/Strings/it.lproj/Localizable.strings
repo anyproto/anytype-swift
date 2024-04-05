@@ -1038,8 +1038,10 @@
 "Just e-mail" = "Solo email";
 "E-mail" = "E-mail";
 "Learn more" = "Per saperne di più";
-"per year" = "all'anno";
-"per x years" = "per %@ anni";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
 "What’s included" = "Cosa è incluso";
 "Submit" = "Invia";
 "Resend" = "Invia di nuovo";
@@ -1053,7 +1055,6 @@
 "Paid by" = "Pagato da %@";
 "Myself" = "Me stesso/a";
 "Pay by Card" = "Paga con carta";
-"Details upon request" = "Dettagli su richiesta";
 "Min X characters" = "Minimo %@ caratteri";
 "Pending" = "In attesa...";
 

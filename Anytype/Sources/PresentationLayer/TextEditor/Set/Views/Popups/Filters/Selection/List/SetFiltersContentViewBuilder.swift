@@ -68,7 +68,7 @@ final class SetFiltersContentViewBuilder {
         switch format {
         case .tag:
             return buildTagsSearchView(onSelect: onSelect)
-        case .object:
+        case .object, .file:
             return buildObjectsSearchView(onSelect: onSelect)
         case .status:
             return buildStatusesSearchView(onSelect: onSelect)

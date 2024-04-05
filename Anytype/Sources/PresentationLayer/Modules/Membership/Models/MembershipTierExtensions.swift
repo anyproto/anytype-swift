@@ -18,41 +18,41 @@ extension MembershipTier {
     }
     
     var mediumIcon: ImageAsset {
-        switch self.type {
-        case .explorer:
+        switch color {
+        case .green:
             return .Membership.tierExplorerMedium
-        case .builder:
+        case .blue:
             return .Membership.tierBuilderMedium
-        case .coCreator:
+        case .red:
             return .Membership.tierCocreatorMedium
-        case .custom:
+        case .purple:
             anytypeAssertionFailure("Unsupported asset mediumIcon for custom tier")
             return .ghost
         }
     }
     
     var smallIcon: ImageAsset {
-        switch self.type {
-        case .explorer:
+        switch color {
+        case .green:
             .Membership.tierExplorerSmall
-        case .builder:
+        case .blue:
             .Membership.tierBuilderSmall
-        case .coCreator:
+        case .red:
             .Membership.tierCocreatorSmall
-        case .custom:
+        case .purple:
             .Membership.tierCustomSmall
         }
     }
     
     var gradient: MembershipTeirGradient {
-        switch self.type {
-        case .explorer:
+        switch color {
+        case .green:
             .teal
-        case .builder:
+        case .blue:
             .blue
-        case .coCreator:
+        case .red:
             .red
-        case .custom:
+        case .purple:
             .purple
         }
     }
@@ -79,7 +79,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(3),
                 Loc.Membership.Feature.viewers(3)
-            ]
+            ],
+            paymentType: .email,
+            color: .green
         )
     }
     
@@ -93,7 +95,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(10),
                 Loc.Membership.Feature.viewers("Unlimited")
-            ]
+            ],
+            paymentType: .mockExternal,
+            color: .blue
         )
     }
     
@@ -107,7 +111,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(3),
                 Loc.Membership.Feature.spaceWriters(10),
                 Loc.Membership.Feature.viewers("Unlimited")
-            ]
+            ],
+            paymentType: .mockExternal,
+            color: .red
         )
     }
     
@@ -121,7 +127,9 @@ extension MembershipTier {
                 Loc.Membership.Feature.sharedSpaces(333),
                 Loc.Membership.Feature.spaceWriters(100),
                 Loc.Membership.Feature.viewers("Unlimited")
-            ]
+            ],
+            paymentType: .mockExternal,
+            color: .purple
         )
     }
 }

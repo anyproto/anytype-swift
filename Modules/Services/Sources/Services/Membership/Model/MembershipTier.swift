@@ -46,11 +46,33 @@ public enum MembershipAnyName: Hashable, Equatable {
     case some(minLenght: UInt32)
 }
 
+public enum MembershipColor: Equatable {
+    case green
+    case blue
+    case red
+    case purple
+    
+    init(string: String) {
+        switch string {
+        case "green":
+            self = .green
+        case "red":
+            self = .red
+        case "blue":
+            self = .blue
+        default:
+            self = .purple
+        }
+    }
+}
+
 public struct MembershipTier: Hashable, Identifiable, Equatable {
     public let type: MembershipTierType
     public let name: String
     public let anyName: MembershipAnyName
     public let features: [String]
+    public let paymentType: MembershipTierPaymentType
+    public let color: MembershipColor
     
     public var id: MembershipTierType { type }
     
@@ -58,29 +80,15 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
         type: MembershipTierType,
         name: String,
         anyName: MembershipAnyName,
-        features: [String]
+        features: [String],
+        paymentType: MembershipTierPaymentType,
+        color: MembershipColor
     ) {
         self.type = type
         self.name = name
         self.anyName = anyName
         self.features = features
-    }
-}
-
-
-// MARK: - Middleware model mapping
-
-extension Anytype_Model_MembershipTierData {
-    func asModel() -> MembershipTier? {
-        guard let type = MembershipTierType(intId: id) else { return nil }
-        
-        let anyName: MembershipAnyName = anyNamesCountIncluded > 0 ? .some(minLenght: anyNameMinLength) : .none
-        
-        return MembershipTier(
-            type: type,
-            name: name,
-            anyName: anyName,
-            features: features
-        )
+        self.paymentType = paymentType
+        self.color = color
     }
 }

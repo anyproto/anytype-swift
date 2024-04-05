@@ -26581,6 +26581,9 @@ public struct Anytype_Rpc {
         /// stripe.com/?client_reference_id=1234
         public var paymentURL: String = String()
 
+        /// billingID is only needed for mobile clients
+        public var billingID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -70117,6 +70120,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response: SwiftProtobuf.Message, 
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "paymentUrl"),
+    3: .same(proto: "billingId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70127,6 +70131,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response: SwiftProtobuf.Message, 
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.paymentURL) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.billingID) }()
       default: break
       }
     }
@@ -70143,12 +70148,16 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response: SwiftProtobuf.Message, 
     if !self.paymentURL.isEmpty {
       try visitor.visitSingularStringField(value: self.paymentURL, fieldNumber: 2)
     }
+    if !self.billingID.isEmpty {
+      try visitor.visitSingularStringField(value: self.billingID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Response, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.paymentURL != rhs.paymentURL {return false}
+    if lhs.billingID != rhs.billingID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
