@@ -110,7 +110,8 @@ final class MembershipService: MembershipServiceProtocol {
             name: tier.name,
             anyName: anyName,
             features: tier.features,
-            paymentType: paymentType
+            paymentType: paymentType,
+            color: MembershipColor(string: tier.colorStr)
         )
     }
     
