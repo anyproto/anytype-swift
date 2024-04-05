@@ -2,6 +2,8 @@ import Foundation
 import Combine
 import Services
 import UIKit
+import AnytypeCore
+
 
 @MainActor
 final class SpaceSettingsViewModel: ObservableObject {
@@ -157,13 +159,18 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
         
         if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: workspaceInfo.accountSpaceId) {
-            info.append(
-                SettingsInfoModel(title: creatorDetails.name, subtitle: accountManager.account.id, onTap: { [weak self] in
-                    guard let self else { return }
-                    UIPasteboard.general.string = accountManager.account.id
-                    snackBarData = .init(text: Loc.copiedToClipboard(creatorDetails.name), showSnackBar: true)
-                })
-            )
+            let owner = activeSpaceParticipantStorage.participants.first(where: { $0.isOwner })
+            anytypeAssert(owner.isNotNil, "Could not find owner for space)", info: ["SpaceView": participantSpaceView.debugDescription])
+            
+            if let owner {
+                info.append(
+                    SettingsInfoModel(title: creatorDetails.name, subtitle: owner.globalName, onTap: { [weak self] in
+                        guard let self else { return }
+                        UIPasteboard.general.string = owner.globalName
+                        snackBarData = .init(text: Loc.copiedToClipboard(creatorDetails.name), showSnackBar: true)
+                    })
+                )
+            }
         }
         
         info.append(

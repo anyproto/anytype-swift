@@ -56,7 +56,7 @@ final class MembershipService: MembershipServiceProtocol {
             $0.noCache = noCache
         })
         .invoke().tiers
-        .filter { !$0.isTest }
+        .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
         .asyncMap { await buildMemberhsipTier(tier: $0) }.compactMap { $0 }
     }
     
@@ -110,7 +110,8 @@ final class MembershipService: MembershipServiceProtocol {
             name: tier.name,
             anyName: anyName,
             features: tier.features,
-            paymentType: paymentType
+            paymentType: paymentType,
+            color: MembershipColor(string: tier.colorStr)
         )
     }
     

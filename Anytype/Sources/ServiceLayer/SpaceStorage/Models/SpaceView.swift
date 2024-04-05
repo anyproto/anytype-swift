@@ -66,6 +66,10 @@ extension SpaceView {
         accountStatus == .spaceJoining
     }
     
+    var canStopShare: Bool {
+        isShared
+    }
+    
     var isActive: Bool {
         localStatus == .ok && accountStatus != .spaceRemoving && accountStatus != .spaceDeleted
     }

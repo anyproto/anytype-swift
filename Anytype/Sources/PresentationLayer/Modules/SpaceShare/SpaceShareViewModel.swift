@@ -19,11 +19,16 @@ final class SpaceShareViewModel: ObservableObject {
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.deepLinkParser)
     private var deppLinkParser: DeepLinkParserProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: WorkspacesStorageProtocol
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
+    private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
+    private var spaceView: SpaceView?
     
-    var accountSpaceId: String { activeWorkspaceStorage.workspaceInfo.accountSpaceId }
+    var accountSpaceId: String { workspaceInfo.accountSpaceId }
+    
     @Published var rows: [SpaceShareParticipantViewModel] = []
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
@@ -35,6 +40,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
+    @Published var canStopShare = false
     
     nonisolated init(onMoreInfo: @escaping () -> Void) {
         self.onMoreInfo = onMoreInfo
@@ -43,6 +49,12 @@ final class SpaceShareViewModel: ObservableObject {
     func startParticipantsTask() async {
         for await items in activeSpaceParticipantStorage.participantsPublisher.values {
             updateParticipant(items: items)
+        }
+    }
+    
+    func startSpaceViewTask() async {
+        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
+            canStopShare = spaceView.canStopShare
         }
     }
     
@@ -96,7 +108,7 @@ final class SpaceShareViewModel: ObservableObject {
     private func updateParticipant(items: [Participant]) {
         participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
         rows = participants.map { participant in
-            let isYou = activeWorkspaceStorage.workspaceInfo.profileObjectID == participant.identityProfileLink
+            let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
             return SpaceShareParticipantViewModel(
                 id: participant.id,
                 icon: participant.icon?.icon,
