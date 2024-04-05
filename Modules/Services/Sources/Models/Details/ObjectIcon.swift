@@ -1,13 +1,13 @@
 import AnytypeCore
 
 public enum ObjectIcon: Hashable {
-    case basic(_ imageObjectId: String)
+    case basic(_ imageId: String)
     case profile(Profile)
     case emoji(Emoji)
     case bookmark(_ imageId: String)
     case space(Space)
     case todo(Bool)
-    case placeholder(name: String)
+    case placeholder(_ name: String)
     case file(mimeType: String, name: String)
     case deleted
 }

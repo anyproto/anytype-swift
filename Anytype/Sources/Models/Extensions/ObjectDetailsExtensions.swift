@@ -32,7 +32,7 @@ extension BundledRelationsValueProvider {
     }
     
     var objectIconImageWithPlaceholder: Icon {
-        return objectIconImage ?? .object(.placeholder(name: title))
+        return objectIconImage ?? .object(.placeholder(title))
     }
     
     var objectType: ObjectType {
