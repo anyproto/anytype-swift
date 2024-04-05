@@ -35,9 +35,6 @@ struct SpaceShareView: View {
             await model.startParticipantsTask()
         }
         .task {
-            await model.startSpaceTask()
-        }
-        .task {
             await model.startSpaceViewTask()
         }
         .task {

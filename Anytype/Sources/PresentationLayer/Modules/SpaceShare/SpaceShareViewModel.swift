@@ -52,16 +52,10 @@ final class SpaceShareViewModel: ObservableObject {
         }
     }
     
-    func startSpaceTask() async {
-        for await space in workspacesStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
-            self.spaceView = space
-            updateView()
-        }
-    }
-    
     func startSpaceViewTask() async {
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
-            canStopShare = spaceView.canStopShare
+        for await spaceView in workspacesStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
+            self.spaceView = spaceView
+            updateView()
         }
     }
     
@@ -115,6 +109,7 @@ final class SpaceShareViewModel: ObservableObject {
     private func updateView() {
         guard let spaceView else { return }
         
+        canStopShare = spaceView.canStopShare
         canChangeReaderToWriter = spaceView.canChangeReaderToWriter(participants: participants)
         canChangeWriterToReader = spaceView.canChangeWriterToReader(participants: participants)
         
