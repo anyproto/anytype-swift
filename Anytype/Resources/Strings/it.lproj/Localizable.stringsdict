@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d requests</string>
+        <string>%d richieste</string>
         <key>one</key>
-        <string>%d request</string>
+        <string>%d richiesta</string>
       </dict>
     </dict>
     <key>Per Month</key>

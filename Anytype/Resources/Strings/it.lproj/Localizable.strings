@@ -825,7 +825,7 @@
 // MARK: - Settings
 "Settings.Title" = "Impostazioni";
 "Settings.SpaceName" = "Nome dello Spazio";
-"Settings.SpaceType" = "Space type";
+"Settings.SpaceType" = "Tipo di spazio";
 "Settings.AccountAndAccess" = "Account e accesso";
 
 // MARK: - File Storage
