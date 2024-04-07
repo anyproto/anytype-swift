@@ -335,8 +335,8 @@
 "There is no object named" = "Tidak ada objek bernama %@";
 "There is no type named" = "Tidak ada tipe bernama %@";
 "Create a new one or search for something else" = "Buat baru atau telusuri yang lain";
-"Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: %@";
+"Search.Backlinks.Show.title" = "Tampilkan taut balik";
+"Search.Backlinks.Header.title" = "Taut balik dari: %@";
 
 // MARK: - Home
 
@@ -1041,7 +1041,7 @@
 "E-mail" = "Surel";
 "Learn more" = "Pelajari lebih lanjut";
 "per" = "per";
-"unlimited" = "Unlimited";
+"unlimited" = "Tanpa batas";
 
 
 "What’s included" = "Apa saja yang termasuk";
