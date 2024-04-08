@@ -42,9 +42,9 @@ struct FileIconBuilder {
         .csv: FileIconConstants.text,
         .json: FileIconConstants.text,
 
-        .spreadsheet: FileIconConstants.spreadsheet,
-        .xls: FileIconConstants.spreadsheet,
-        .xlsx: FileIconConstants.spreadsheet,
+        .spreadsheet: FileIconConstants.table,
+        .xls: FileIconConstants.table,
+        .xlsx: FileIconConstants.table,
 
         .presentation: FileIconConstants.presentation,
         .pdf: FileIconConstants.pdf,
