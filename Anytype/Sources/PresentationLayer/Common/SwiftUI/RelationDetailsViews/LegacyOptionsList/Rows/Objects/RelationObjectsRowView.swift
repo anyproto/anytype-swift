@@ -37,18 +37,18 @@ struct RelationObjectsRowView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(
                 object.isDeleted ? Loc.nonExistentObject : object.title,
-                style: .previewTitle2Medium,
-                color: titleColor
+                style: .previewTitle2Medium
             )
+                .foregroundColor(titleColor)
                 .lineLimit(1)
             
             Spacer.fixedHeight(1)
             
             AnytypeText(
                 object.isDeleted ? Loc.deleted : object.type,
-                style: .relation2Regular,
-                color: subtitleColor
+                style: .relation2Regular
             )
+                .foregroundColor(subtitleColor)
                 .lineLimit(1)
         }
     }

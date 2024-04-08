@@ -56,7 +56,8 @@ struct SetViewSettingsList: View {
     private var viewNameContent: some View {
         Spacer.fixedHeight(10)
         
-        AnytypeText(Loc.name, style: .caption1Medium, color: .Text.secondary)
+        AnytypeText(Loc.name, style: .caption1Medium)
+                .foregroundColor(.Text.secondary)
         
         Spacer.fixedHeight(2)
         
@@ -87,9 +88,9 @@ struct SetViewSettingsList: View {
             HStack(spacing: 0) {
                 AnytypeText(
                     setting.title,
-                    style: .uxBodyRegular,
-                    color: .Text.primary
+                    style: .uxBodyRegular
                 )
+                .foregroundColor(.Text.primary)
                 
                 Spacer()
                 
@@ -111,9 +112,9 @@ struct SetViewSettingsList: View {
         let text = model.valueForSetting(setting)
         return AnytypeText(
             text,
-            style: .uxBodyRegular,
-            color: setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary
+            style: .uxBodyRegular
         )
+        .foregroundColor(setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary)
         .lineLimit(1)
     }
     

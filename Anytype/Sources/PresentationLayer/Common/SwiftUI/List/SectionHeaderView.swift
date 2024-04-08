@@ -12,7 +12,8 @@ struct SectionHeaderView<Content>: View where Content: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            AnytypeText(title, style: .caption1Regular, color: .Text.secondary)
+            AnytypeText(title, style: .caption1Regular)
+                .foregroundColor(.Text.secondary)
             Spacer()
             rightContent()
         }

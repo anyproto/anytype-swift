@@ -69,7 +69,8 @@ struct ObjectCoverPicker: View {
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText(Loc.changeCover, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.changeCover, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if viewModel.isRemoveButtonAvailable {
@@ -77,7 +78,8 @@ struct ObjectCoverPicker: View {
                     viewModel.removeCover()
                     dismiss()
                 } label: {
-                    AnytypeText(Loc.remove, style: .uxBodyRegular, color: Color.System.red)
+                    AnytypeText(Loc.remove, style: .uxBodyRegular)
+                        .foregroundColor(.System.red)
                 }
             } else {
                 EmptyView()
@@ -103,9 +105,9 @@ struct ObjectCoverPicker: View {
         } label: {
             AnytypeText(
                 tab.title,
-                style: .uxBodyRegular,
-                color: index == tab.rawValue ? Color.Button.button : Color.Button.active
+                style: .uxBodyRegular
             )
+            .foregroundColor(index == tab.rawValue ? Color.Button.button : Color.Button.active)
         }
         .frame(maxWidth: .infinity)
     }

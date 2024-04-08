@@ -36,7 +36,8 @@ struct StatusRelationDetailsView: View {
                     StatusSearchRowView(viewModel: currentStatusModel, selectionIndicatorViewModel: nil)
                 }
             } else {
-                AnytypeText(Loc.noRelatedOptionsHere, style: .uxCalloutRegular, color: .Text.tertiary)
+                AnytypeText(Loc.noRelatedOptionsHere, style: .uxCalloutRegular)
+                    .foregroundColor(.Text.tertiary)
                     .frame(height: 48)
             }
         }
@@ -54,7 +55,8 @@ private extension StatusRelationDetailsView {
                 viewModel.didTapClearButton()
             }
         } label: {
-            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+            AnytypeText(Loc.clear, style: .uxBodyRegular)
+                .foregroundColor(.Button.active)
         }
         .disabled(!viewModel.isEditable)
     }

@@ -12,7 +12,8 @@ struct RelationFilesRowView: View {
                     .frame(width: 48, height: 48)
             }
             
-            AnytypeText(file.title, style: .previewTitle2Medium, color: .Text.primary)
+            AnytypeText(file.title, style: .previewTitle2Medium)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
         }
         .frame(height: 48)

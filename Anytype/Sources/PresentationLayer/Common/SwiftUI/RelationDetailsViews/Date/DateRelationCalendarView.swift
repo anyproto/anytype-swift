@@ -72,7 +72,8 @@ struct DateRelationCalendarView: View {
         Button {
             viewModel.onQuickOptionTap(option)
         } label: {
-            AnytypeText(option.title, style: .bodyRegular, color: .Text.primary)
+            AnytypeText(option.title, style: .bodyRegular)
+                .foregroundColor(.Text.primary)
                 .frame(height: 44)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixTappableArea()
@@ -84,7 +85,8 @@ struct DateRelationCalendarView: View {
         Button {
             viewModel.clear()
         } label: {
-            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+            AnytypeText(Loc.clear, style: .uxBodyRegular)
+                .foregroundColor(.Button.active)
         }
     }
 }

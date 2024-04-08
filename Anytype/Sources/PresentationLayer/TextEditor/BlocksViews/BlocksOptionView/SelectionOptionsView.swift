@@ -38,7 +38,8 @@ private struct SelectionOptionsItemView: View {
                 .frame(width: 52, height: 52)
                 .background(Color.Background.highlightedOfSelected)
                 .cornerRadius(10.5)
-            AnytypeText(title, style: .caption2Regular, color: .Text.secondary)
+            AnytypeText(title, style: .caption2Regular)
+                .foregroundColor(.Text.secondary)
         }
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 13, trailing: 0))
 

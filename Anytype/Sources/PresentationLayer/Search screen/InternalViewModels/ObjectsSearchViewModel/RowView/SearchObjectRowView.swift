@@ -45,12 +45,14 @@ struct SearchObjectRowView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(
                 viewModel.title,
-                style: viewModel.style.titleFont,
-                color: .Text.primary
-            ).lineLimit(1)
+                style: viewModel.style.titleFont
+            )
+            .foregroundColor(.Text.primary)
+            .lineLimit(1)
             if let subtitle = viewModel.subtitle, subtitle.isNotEmpty {
                 Spacer.fixedHeight(1)
-                AnytypeText(subtitle, style: .relation2Regular, color: .Text.secondary)
+                AnytypeText(subtitle, style: .relation2Regular)
+                    .foregroundColor(.Text.secondary)
                     .lineLimit(1)
             }
         }

@@ -27,16 +27,17 @@ struct SoulView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .heading, color: .Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Soul.title, style: .heading)
+                .foregroundColor(.Auth.inputText)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(12)
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Soul.description,
-                style: .calloutRegular,
-                color: .Auth.body
+                style: .calloutRegular
             )
+                .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
             

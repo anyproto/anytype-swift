@@ -10,9 +10,11 @@ struct MembershipEmailSheetView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(26)
-            AnytypeText(Loc.Membership.EmailForm.title, style: .bodySemibold, color: .Text.primary)
+            AnytypeText(Loc.Membership.EmailForm.title, style: .bodySemibold)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(6)
-            AnytypeText(Loc.Membership.EmailForm.subtitle, style: .calloutRegular, color: .Text.primary)
+            AnytypeText(Loc.Membership.EmailForm.subtitle, style: .calloutRegular)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(10)
             TextField(Loc.eMail, text: $email)
                 .textContentType(.emailAddress)
@@ -26,7 +28,8 @@ struct MembershipEmailSheetView: View {
             } label: {
                 HStack(alignment: .top, spacing: 12) {
                     AnytypeCheckbox(checked: $subscribeToNewsletter)
-                    AnytypeText(Loc.Membership.EmailForm.newsletter, style: .calloutRegular, color: .Text.primary)
+                    AnytypeText(Loc.Membership.EmailForm.newsletter, style: .calloutRegular)
+                        .foregroundColor(.Text.primary)
                         .multilineTextAlignment(.leading)
                 }
             }

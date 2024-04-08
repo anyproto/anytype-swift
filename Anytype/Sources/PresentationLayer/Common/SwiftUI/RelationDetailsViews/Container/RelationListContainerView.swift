@@ -78,7 +78,8 @@ struct RelationListContainerView<Content>: View where Content: View {
         Button {
             onClear()
         } label: {
-            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+            AnytypeText(Loc.clear, style: .uxBodyRegular)
+                .foregroundColor(.Button.active)
         }
     }
     
@@ -96,7 +97,8 @@ struct RelationListContainerView<Content>: View where Content: View {
         } label: {
             HStack(spacing: 10) {
                 Image(asset: .X32.plus).foregroundColor(.Button.active)
-                AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular, color: .Text.primary)
+                AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular)
+                    .foregroundColor(.Text.primary)
             }
         }
         .frame(height: 52)

@@ -14,7 +14,8 @@ struct InstalledObjectTypeView: View {
                         .frame(width: 18, height: 18)
                 }
                 if let title = model.title {
-                    AnytypeText(title, style: .uxCalloutMedium, color: .Text.primary)
+                    AnytypeText(title, style: .uxCalloutMedium)
+                        .foregroundColor(.Text.primary)
                 }
             }
             .frame(height: 48)

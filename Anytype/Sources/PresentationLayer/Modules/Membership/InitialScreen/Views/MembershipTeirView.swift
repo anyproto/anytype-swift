@@ -19,9 +19,11 @@ struct MembershipTeirView: View {
             Image(asset: tierToDisplay.smallIcon)
                 .frame(width: 65, height: 64)
             Spacer.fixedHeight(10)
-            AnytypeText(tierToDisplay.name, style: .bodySemibold, color: .Text.primary)
+            AnytypeText(tierToDisplay.name, style: .bodySemibold)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(5)
-            AnytypeText(tierToDisplay.subtitle, style: .caption1Regular, color: .Text.primary)
+            AnytypeText(tierToDisplay.subtitle, style: .caption1Regular)
+                .foregroundColor(.Text.primary)
                 .minimumScaleFactor(0.8)
             Spacer()
             
@@ -32,7 +34,8 @@ struct MembershipTeirView: View {
         }
         .if(userMembership.tier?.type == tierToDisplay.type) {
             $0.overlay(alignment: .topTrailing) {
-                AnytypeText(Loc.current, style: .relation3Regular, color: .Text.primary)
+                AnytypeText(Loc.current, style: .relation3Regular)
+                    .foregroundColor(.Text.primary)
                     .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
                     .border(11, color: .Text.primary)
                     .padding(.top, 16)
@@ -74,7 +77,8 @@ struct MembershipTeirView: View {
                 if userMembership.status == .active {
                     expirationText
                 } else {
-                    AnytypeText(Loc.pending, style: .caption1Regular, color: .Text.primary)
+                    AnytypeText(Loc.pending, style: .caption1Regular)
+                        .foregroundColor(.Text.primary)
                 }
             } else {
                 MembershipPricingView(tier: tierToDisplay)
@@ -86,9 +90,11 @@ struct MembershipTeirView: View {
         Group {
             switch tierToDisplay.type {
             case .explorer:
-                return AnytypeText(Loc.foreverFree, style: .caption1Regular, color: .Text.primary)
+                return AnytypeText(Loc.foreverFree, style: .caption1Regular)
+                    .foregroundColor(.Text.primary)
             case .builder, .coCreator, .custom:
-                return AnytypeText(Loc.validUntilDate(userMembership.formattedDateEnds), style: .caption1Regular, color: .Text.primary)
+                return AnytypeText(Loc.validUntilDate(userMembership.formattedDateEnds), style: .caption1Regular)
+                    .foregroundColor(.Text.primary)
             }
         }
     }

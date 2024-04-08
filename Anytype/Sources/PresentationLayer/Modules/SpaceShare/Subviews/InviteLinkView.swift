@@ -29,7 +29,8 @@ struct InviteLinkView: View {
     var linkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold, color: .Text.primary)
+                AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold)
+                    .foregroundColor(.Text.primary)
                 Spacer()
                 Menu {
                     Button(role: .destructive) {
@@ -46,13 +47,15 @@ struct InviteLinkView: View {
             Button {
                 onCopyLink()
             } label: {
-                AnytypeText(invite?.absoluteString ?? "", style: .uxCalloutRegular, color: .Text.secondary)
+                AnytypeText(invite?.absoluteString ?? "", style: .uxCalloutRegular)
+                    .foregroundColor(.Text.secondary)
                     .lineLimit(1)
                     .frame(height: 48)
                     .newDivider()
             }
             Spacer.fixedHeight(10)
-            AnytypeText(Loc.SpaceShare.Invite.description, style: .relation3Regular, color: .Text.secondary)
+            AnytypeText(Loc.SpaceShare.Invite.description, style: .relation3Regular)
+                .foregroundColor(.Text.secondary)
             Spacer.fixedHeight(20)
             StandardButton(Loc.SpaceShare.Invite.share, style: .primaryLarge) {
                 onShareInvite()
@@ -66,9 +69,11 @@ struct InviteLinkView: View {
     
     var emptyLinkContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(8)
-            AnytypeText(Loc.SpaceShare.Invite.empty, style: .calloutRegular, color: .Text.primary)
+            AnytypeText(Loc.SpaceShare.Invite.empty, style: .calloutRegular)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(12)
             AsyncStandardButton(text: Loc.SpaceShare.Invite.generate, style: .primaryLarge) {
                 try await onGenerateInvite()

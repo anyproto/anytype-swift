@@ -73,7 +73,8 @@ struct JoinFlowView: View {
     }
     
     private var counter : some View {
-        AnytypeText(model.counter, style: .authBody, color: .Button.active)
+        AnytypeText(model.counter, style: .authBody)
+            .foregroundColor(.Button.active)
     }
 }
 

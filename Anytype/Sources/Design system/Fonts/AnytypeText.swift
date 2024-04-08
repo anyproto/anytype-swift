@@ -11,11 +11,10 @@ struct AnytypeText: View {
         self.spacing = spacing
     }
 
-    init(_ text: String?, style: AnytypeFont, color: Color, enableMarkdown: Bool = false) {
+    init(_ text: String?, style: AnytypeFont, enableMarkdown: Bool = false) {
         let spacing = style.lineSpacing
         
         self.textView = Self.buildText(text ?? "", style: style, enableMarkdown: enableMarkdown)
-                 .foregroundColor(color)
         self.spacing = spacing
     }
     
@@ -53,6 +52,11 @@ struct AnytypeText: View {
     }
     
     
+    func foregroundColor(_ color: Color) -> AnytypeText {
+        let textView = textView.foregroundColor(color)
+        return AnytypeText(textView: textView, spacing: spacing)
+    }
+    
     // MARK: - Private
     
     private static func buildText(_ text: String, style: AnytypeFont, enableMarkdown: Bool) -> Text {
@@ -71,10 +75,10 @@ struct AnytypeText: View {
 struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            AnytypeText("Foo", style: .title, color: .Text.primary)
-            AnytypeText("Foo", style: .bodyRegular, color: .Text.primary)
-            AnytypeText("Foo", style: .relation3Regular, color: .Text.primary)
-            AnytypeText("collapse", style: .codeBlock, color: .Text.primary)
+            AnytypeText("Foo", style: .title)
+            AnytypeText("Foo", style: .bodyRegular)
+            AnytypeText("Foo", style: .relation3Regular)
+            AnytypeText("collapse", style: .codeBlock)
         }
     }
 }

@@ -9,9 +9,9 @@ struct TextRelationView: View {
         if let text = text, text.isNotEmpty {
             AnytypeText(
                 text,
-                style: style.font,
-                color: style.fontColorWithError
+                style: style.font
             )
+                .foregroundColor(style.fontColorWithError)
                 .multilineTextAlignment(.leading)
                 .lineLimit(style.allowMultiLine ? nil : 1)
         } else {

@@ -11,16 +11,18 @@ struct MembershipBannerView: View {
     var body: some View {
         VStack(spacing: 0) {
             Image(asset: image)
-                .foregroundStyle(Color.Text.primary)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(24)
-            AnytypeText(title, style: .bodyRegular, color: .Text.primary)
+            AnytypeText(title, style: .bodyRegular)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
             Spacer.fixedHeight(6)
             AnytypeText(
                 subtitle,
-                style: .relation2Regular,
-                color: .Text.primary
-            ).multilineTextAlignment(.center)
+                style: .relation2Regular
+            )
+            .foregroundColor(.Text.primary)
+            .multilineTextAlignment(.center)
         }
         .padding(.horizontal, 40)
         .padding(.top, 32)

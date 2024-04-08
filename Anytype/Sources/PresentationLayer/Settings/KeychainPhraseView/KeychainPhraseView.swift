@@ -12,9 +12,11 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(24)
-            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading, color: .Text.primary)
+            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(8)
-            AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .Text.primary)
+            AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(24)
             SeedPhraseView(model: model)
             Spacer()

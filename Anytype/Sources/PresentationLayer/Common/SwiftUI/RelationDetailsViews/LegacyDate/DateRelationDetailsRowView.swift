@@ -22,7 +22,8 @@ struct DateRelationDetailsRowView: View {
                 onTap()
             } label: {
                 HStack(spacing: 0) {
-                    AnytypeText(value.title, style: .uxBodyRegular, color: .Text.primary)
+                    AnytypeText(value.title, style: .uxBodyRegular)
+                        .foregroundColor(.Text.primary)
                     Spacer()
                 }
             }

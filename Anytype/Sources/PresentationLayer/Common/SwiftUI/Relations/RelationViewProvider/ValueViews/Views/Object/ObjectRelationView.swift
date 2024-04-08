@@ -22,9 +22,9 @@ struct ObjectRelationView: View {
     private func linksView(with title: String) -> some View {
         AnytypeText(
             title,
-            style: style.font,
-            color: .Text.secondary
+            style: style.font
         )
+        .foregroundColor(.Text.secondary)
         .lineLimit(1)
     }
     
@@ -51,10 +51,10 @@ struct ObjectRelationView: View {
             
             AnytypeText(
                 option.title,
-                style: style.font,
-                color: titleColor(option: option)
+                style: style.font
             )
-                .lineLimit(1)
+            .foregroundColor(titleColor(option: option))
+            .lineLimit(1)
         }
     }
     
@@ -65,9 +65,9 @@ struct ObjectRelationView: View {
             if let prefix {
                 AnytypeText(
                     prefix,
-                    style: style.font,
-                    color: style.fontColorWithError
+                    style: style.font
                 )
+                .foregroundColor(style.fontColorWithError)
             }
 
             objectView(options: Array(options.prefix(maxOptions)))

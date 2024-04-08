@@ -39,7 +39,8 @@ struct SettingsSectionItemView: View {
                     Spacer.fixedWidth(iconSpacing)
                 }
                 HStack(alignment: .center, spacing: 0) {
-                    AnytypeText(name, style: .uxBodyRegular, color: .Text.primary)
+                    AnytypeText(name, style: .uxBodyRegular)
+                        .foregroundColor(.Text.primary)
                     Spacer()
                     decorationView
                 }
@@ -55,14 +56,16 @@ struct SettingsSectionItemView: View {
             switch decoration {
             case .arrow(let text):
                 HStack(alignment: .center, spacing: 10) {
-                    AnytypeText(text, style: .bodyRegular, color: .Text.secondary)
+                    AnytypeText(text, style: .bodyRegular)
+                        .foregroundColor(.Text.secondary)
                         .lineLimit(1)
                     Image(asset: .arrowForward)
                         .renderingMode(.template)
                         .foregroundColor(.Text.tertiary)
                 }
             case .button(let text):
-                AnytypeText(text, style: .caption1Medium, color: .Text.labelInversion)
+                AnytypeText(text, style: .caption1Medium)
+                    .foregroundColor(.Text.labelInversion)
                     .lineLimit(1)
                     .padding(.horizontal, 11)
                     .padding(.vertical, 5)

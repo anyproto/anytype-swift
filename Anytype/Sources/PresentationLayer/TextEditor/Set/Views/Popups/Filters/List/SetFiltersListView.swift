@@ -57,10 +57,10 @@ struct SetFiltersListView: View {
             Spacer()
             AnytypeText(
                 Loc.EditSet.Popup.Filters.EmptyView.title,
-                style: .uxCalloutRegular,
-                color: .Text.secondary
+                style: .uxCalloutRegular
             )
-                .frame(height: 68)
+            .foregroundColor(.Text.secondary)
+            .frame(height: 68)
             Spacer()
         }
         .frame(maxWidth: .infinity)

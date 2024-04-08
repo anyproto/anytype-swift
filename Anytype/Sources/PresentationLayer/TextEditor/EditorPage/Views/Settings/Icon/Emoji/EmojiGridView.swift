@@ -43,16 +43,16 @@ struct EmojiGridView: View {
         VStack(spacing: 0) {
             AnytypeText(
                 Loc.thereIsNoEmojiNamed + " \"\(placeholder)\"",
-                style: .uxBodyRegular,
-                color: .Text.primary
+                style: .uxBodyRegular
             )
+            .foregroundColor(.Text.primary)
             .multilineTextAlignment(.center)
             
             AnytypeText(
                 Loc.tryToFindANewOneOrUploadYourImage,
-                style: .uxBodyRegular,
-                color: .Text.secondary
+                style: .uxBodyRegular
             )
+            .foregroundColor(.Text.secondary)
             .multilineTextAlignment(.center)
             Spacer()
         }

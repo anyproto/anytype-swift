@@ -16,9 +16,11 @@ struct EmptyStateView: View {
             Spacer()
             ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
             Spacer.fixedHeight(12)
-            AnytypeText(title, style: .uxCalloutMedium, color: .Text.primary)
+            AnytypeText(title, style: .uxCalloutMedium)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            AnytypeText(subtitle, style: .uxCalloutRegular, color: .Text.primary)
+            AnytypeText(subtitle, style: .uxCalloutRegular)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(12)
             if let buttonData {

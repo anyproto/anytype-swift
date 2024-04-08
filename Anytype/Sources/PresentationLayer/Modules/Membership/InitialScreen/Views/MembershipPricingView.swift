@@ -8,13 +8,18 @@ struct MembershipPricingView: View {
     var body: some View {
         switch tier.paymentType {
         case .email:
-            AnytypeText(Loc.justEMail, style: .bodySemibold, color: .Text.primary)
+            AnytypeText(Loc.justEMail, style: .bodySemibold)
+                .foregroundColor(.Text.primary)
         case .appStore(let product):
-            AnytypeText("\(product.anytypeDisplayPrice) ", style: .bodySemibold, color: .Text.primary) +
-            AnytypeText(product.localizedPeriod ?? "", style: .caption1Regular, color: .Text.primary)
+            AnytypeText("\(product.anytypeDisplayPrice) ", style: .bodySemibold)
+                .foregroundColor(.Text.primary) +
+            AnytypeText(product.localizedPeriod ?? "", style: .caption1Regular)
+                .foregroundColor(.Text.primary)
         case .external(let info):
-            AnytypeText("\(info.displayPrice) ", style: .bodySemibold, color: .Text.primary) +
-            AnytypeText(info.localizedPeriod ?? "", style: .caption1Regular, color: .Text.primary)
+            AnytypeText("\(info.displayPrice) ", style: .bodySemibold)
+                .foregroundColor(.Text.primary) +
+            AnytypeText(info.localizedPeriod ?? "", style: .caption1Regular)
+                .foregroundColor(.Text.primary)
         }
     }
 }

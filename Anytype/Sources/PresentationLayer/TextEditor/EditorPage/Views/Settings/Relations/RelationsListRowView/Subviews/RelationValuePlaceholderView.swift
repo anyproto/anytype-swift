@@ -23,7 +23,8 @@ struct RelationValuePlaceholderView: View {
     @ViewBuilder
     private func hintView(with text: String?) -> some View {
         if let text {
-            AnytypeText(text, style: style.hintFont, color: style.hintColor)
+            AnytypeText(text, style: style.hintFont)
+                .foregroundStyle(style.hintColor)
                 .lineLimit(1)
         }
     }

@@ -27,9 +27,9 @@ struct FlowRelationsView: View {
             if let description = viewModel.description, description.isNotEmpty {
                 AnytypeText(
                     description,
-                    style: .relation3Regular,
-                    color: .Text.secondary
+                    style: .relation3Regular
                 )
+                .foregroundColor(.Text.secondary)
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(1)
             } else {
