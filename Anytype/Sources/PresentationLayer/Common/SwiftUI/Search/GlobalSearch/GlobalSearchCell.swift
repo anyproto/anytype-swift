@@ -30,10 +30,12 @@ struct GlobalSearchCell: View {
             Spacer.fixedHeight(8)
             
             AnytypeText(data.title, style: .previewTitle2Medium, color: .Text.primary)
+                .multilineTextAlignment(.leading)
                 .lineLimit(2)
             
             if data.description.isNotEmpty {
                 AnytypeText(data.description, style: .relation2Regular, color: .Text.primary)
+                    .multilineTextAlignment(.leading)
                     .lineLimit(2)
             }
             
