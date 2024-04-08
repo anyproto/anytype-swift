@@ -21,17 +21,13 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     private let state = JoinFlowState()
     
     private weak var output: JoinFlowOutput?
-    private let applicationStateService: ApplicationStateServiceProtocol
-    private let accountManager: AccountManagerProtocol
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
     
-    init(
-        output: JoinFlowOutput?,
-        applicationStateService: ApplicationStateServiceProtocol,
-        accountManager: AccountManagerProtocol
-    ) {
+    init(output: JoinFlowOutput?) {
         self.output = output
-        self.applicationStateService = applicationStateService
-        self.accountManager = accountManager
     }
     
     func content() -> AnyView? {

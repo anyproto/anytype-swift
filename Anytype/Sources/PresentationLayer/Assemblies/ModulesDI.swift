@@ -78,22 +78,10 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func joinFlow() -> JoinFlowModuleAssemblyProtocol {
-        return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
-    
-    func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly {
-        return KeyPhraseMoreInfoViewModuleAssembly()
-    }
-    
-    func authSoul() -> SoulViewModuleAssemblyProtocol {
-        return SoulViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
+
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol {
         return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
