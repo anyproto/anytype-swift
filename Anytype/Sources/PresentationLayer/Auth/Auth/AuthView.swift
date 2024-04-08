@@ -4,7 +4,11 @@ import AudioToolbox
 
 struct AuthView: View {
     
-    @ObservedObject var model: AuthViewModel
+    @StateObject var model: AuthViewModel
+    
+    init(output: AuthViewModelOutput?) {
+        _model = StateObject(wrappedValue: AuthViewModel(output: output))
+    }
     
     var body: some View {
         AuthBackgroundView(url: model.videoUrl()) {
@@ -112,8 +116,6 @@ struct AuthView: View {
 
 struct AuthView_Previews : PreviewProvider {
     static var previews: some View {
-        AuthView(
-            model: AuthViewModel(output: nil)
-        )
+        AuthView(output: nil)
     }
 }

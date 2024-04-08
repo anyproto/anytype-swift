@@ -78,16 +78,8 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func authorization() -> AuthModuleAssemblyProtocol {
-        return AuthModuleAssembly()
-    }
-    
     func joinFlow() -> JoinFlowModuleAssemblyProtocol {
         return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func login() -> LoginViewModuleAssemblyProtocol {
-        return LoginViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
@@ -148,13 +140,5 @@ final class ModulesDI: ModulesDIProtocol {
 
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
         ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
-    }
-    
-    func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol {
-        ServerConfigurationModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol {
-        ServerDocumentPickerModuleAssembly(serviceLocator: serviceLocator)
     }
 }

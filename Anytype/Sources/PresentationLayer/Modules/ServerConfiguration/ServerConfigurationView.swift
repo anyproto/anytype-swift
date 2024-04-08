@@ -5,6 +5,10 @@ struct ServerConfigurationView: View {
 
     @StateObject var model: ServerConfigurationViewModel
     
+    init(output: ServerConfigurationModuleOutput?) {
+        _model = StateObject(wrappedValue: ServerConfigurationViewModel(output: output))
+    }
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {

@@ -16,9 +16,7 @@ protocol ModulesDIProtocol: AnyObject {
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
-    func authorization() -> AuthModuleAssemblyProtocol
     func joinFlow() -> JoinFlowModuleAssemblyProtocol
-    func login() -> LoginViewModuleAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
     func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly
     func authSoul() -> SoulViewModuleAssemblyProtocol
@@ -34,6 +32,4 @@ protocol ModulesDIProtocol: AnyObject {
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol
     func deleteAccount() -> DeleteAccountModuleAssemblyProtocol
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol
-    func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol
-    func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol
 }

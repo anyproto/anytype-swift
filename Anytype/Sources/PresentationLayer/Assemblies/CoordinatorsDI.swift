@@ -61,7 +61,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func application() -> ApplicationCoordinatorAssemblyProtocol {
-        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
+        return ApplicationCoordinatorAssembly(coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
     }
     
     func settings() -> SettingsCoordinatorAssemblyProtocol {
@@ -69,15 +69,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func authorization() -> AuthCoordinatorAssemblyProtocol {
-        return AuthCoordinatorAssembly(modulesDI: modulesDI, coordinatorsID: self, uiHelpersDI: uiHelpersDI)
+        return AuthCoordinatorAssembly(coordinatorsID: self, uiHelpersDI: uiHelpersDI)
     }
     
     func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol {
         return JoinFlowCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol {
-        return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
@@ -151,10 +147,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             uiHelpersDI: uiHelpersDI,
             coordinatorsDI: self
         )
-    }
-    
-    func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol {
-        ServerConfigurationCoordinatorAssembly(modulesDI: modulesDI)
     }
     
     func sharingTip() -> SharingTipCoordinatorProtocol {
