@@ -913,7 +913,7 @@
 "SpaceShare.Action.Approve" = "Genehmigen";
 "SpaceShare.DeleteSharingLink.Title" = "Link löschen";
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.Approve.Toast" = "Du hast die Anfrage von %@ genehmigt.";
 "SpaceShare.ViewRequest.Title" = "%@ beantragte den Beitritt zu %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Lesezugriff gewähren";
 "SpaceShare.ViewRequest.EditAccess" = "Bearbeitungszugriff gewähren";
@@ -930,7 +930,7 @@
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
 "SpaceShare.YouSuffix" = "%@ (du)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.AccessChanged" = "Zugriffsrechte wurden geändert.";
 "SpaceShare.StopSharing.Action" = "Beende Teilen";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
@@ -939,9 +939,9 @@
 "SpaceShare.QR.Button" = "QR-Code anzeigen";
 "SpaceShare.MoreInfo" = "Mehr Informationen";
 "SpaceShare.HowToShare.Title" = "How to share a space?";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step1" = "Bitte gib den Link zu der Person an, mit der du zusammenarbeiten möchtest.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.HowToShare.Step3" = "Nach der Genehmigung der Anfrage kannst du die Zugriffsrechte für diese Person festlegen.";
 "SpaceShare.Manage" = "Verwalten";
 
 // MARK: - Permission notification
@@ -957,7 +957,7 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Join Request";
 "SpaceManager.DoNotCancel" = "Do Not Cancel";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Title" = "Du musst die Zugangsanfrage erneut senden";
 "SpaceManager.CancelRequestAlert.Toast" = "Die Anfrage wurde storniert.";
 
 
@@ -1072,15 +1072,15 @@
 "Membership.Legal.LetUsKnow" = "Lass es uns hier wissen.";
 
 "Membership.Email.Subject" = "Spezielle Preisanfrage";
-"Membership.Email.Body" = "Please specify your request:
-- highlight if you represent an educational, governmental, or non-profit organization
-- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
-- provide additional details about how your organization uses Anytype";
+"Membership.Email.Body" = "Bitte konkretisiere deine Anfrage:
+- hebe hervor, wenn du eine Bildungs-, Regierungs- oder gemeinnützige Organisation vertrittst
+- erzähl uns mehr über deine Organisation: Anzahl der Mitarbeiter und zukünftigen Anytype-Nutzer, Märkte, auf denen du arbeitest, usw.,
+- zusätzliche Details darüber, wie deine Organisation Anytype benutzt";
 "Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
-"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
+"Membership.Banner.Subtitle1" = "Als geschätztes Mitglied zählt deine Stimme! Nimm an exklusiven Veranstaltungen teil, gestalte strategische Entscheidungen und beeinflusse unseren Entwicklungsplan.";
 "Membership.Banner.Title2" = "Mitgliedsvorteile freischalten";
 "Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
 "Membership.Banner.Title3" = "Digitale Unabhängigkeit unterstützen";
