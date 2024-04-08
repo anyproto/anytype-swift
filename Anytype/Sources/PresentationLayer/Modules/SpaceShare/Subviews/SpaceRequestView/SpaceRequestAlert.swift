@@ -20,11 +20,11 @@ struct SpaceRequestAlert: View {
     
     var body: some View {
         BottomAlertView(title: model.title, message: "") {
-            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary) {
+            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.viewAccess, style: .secondary, disable: !model.canAddReaded) {
                 try await model.onViewAccess()
                 dismiss()
             }
-            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.editAccess, style: .secondary) {
+            BottomAlertButton(text: Loc.SpaceShare.ViewRequest.editAccess, style: .secondary, disable: !model.canAddWriter) {
                 try await model.onEditAccess()
                 dismiss()
             }
@@ -32,6 +32,9 @@ struct SpaceRequestAlert: View {
                 try await model.onReject()
                 dismiss()
             }
+        }
+        .throwTask {
+            try await model.onAppear()
         }
     }
 }

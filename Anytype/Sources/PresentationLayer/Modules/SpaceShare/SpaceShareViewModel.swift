@@ -7,16 +7,14 @@ import Combine
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
     
-    private enum Constants {
-        static let participantLimit = 11 // 10 participants and 1 owner
-    }
-    
     @Injected(\.activeSpaceParticipantStorage)
     private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
     @Injected(\.deepLinkParser)
     private var deppLinkParser: DeepLinkParserProtocol
     @Injected(\.workspaceStorage)
@@ -24,8 +22,10 @@ final class SpaceShareViewModel: ObservableObject {
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
-    private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
     private var spaceView: SpaceView?
+    private var canChangeWriterToReader = false
+    private var canChangeReaderToWriter = false
+    private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
     
     var accountSpaceId: String { workspaceInfo.accountSpaceId }
     
@@ -33,7 +33,6 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var inviteLink: URL?
     @Published var shareInviteLink: URL?
     @Published var qrCodeInviteLink: URL?
-    @Published var allowToAddMembers = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var requestAlertModel: SpaceRequestAlertData?
     @Published var changeAccessAlertModel: SpaceChangeAccessViewModel?
@@ -48,13 +47,15 @@ final class SpaceShareViewModel: ObservableObject {
     
     func startParticipantsTask() async {
         for await items in activeSpaceParticipantStorage.participantsPublisher.values {
-            updateParticipant(items: items)
+            participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
+            updateView()
         }
     }
     
     func startSpaceViewTask() async {
-        for await spaceView in workspaceStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
-            canStopShare = spaceView.canStopShare
+        for await spaceView in workspacesStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
+            self.spaceView = spaceView
+            updateView()
         }
     }
     
@@ -105,8 +106,13 @@ final class SpaceShareViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func updateParticipant(items: [Participant]) {
-        participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
+    private func updateView() {
+        guard let spaceView else { return }
+        
+        canStopShare = spaceView.canStopShare
+        canChangeReaderToWriter = spaceView.canChangeReaderToWriter(participants: participants)
+        canChangeWriterToReader = spaceView.canChangeWriterToReader(participants: participants)
+        
         rows = participants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
             return SpaceShareParticipantViewModel(
@@ -118,7 +124,6 @@ final class SpaceShareViewModel: ObservableObject {
                 contextActions: participantContextActions(participant)
             )
         }
-        allowToAddMembers = Constants.participantLimit > items.count
     }
     
     private func participantStatus(_ participant: Participant) -> SpaceShareParticipantViewModel.Status? {
@@ -157,6 +162,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.Permissions.reader,
                 isSelected: participant.permission == .reader,
                 destructive: false,
+                disabled: !canChangeWriterToReader && participant.permission != .reader,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .reader)
                 }
@@ -165,6 +171,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.Permissions.writer,
                 isSelected: participant.permission == .writer,
                 destructive: false,
+                disabled: !canChangeReaderToWriter && participant.permission != .writer,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .writer)
                 }
@@ -173,6 +180,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.RemoveMember.title,
                 isSelected: false,
                 destructive: true,
+                disabled: false,
                 action: { [weak self] in
                     self?.showRemoveAlert(participant: participant)
                 }
