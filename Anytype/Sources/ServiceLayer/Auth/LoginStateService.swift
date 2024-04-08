@@ -34,6 +34,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.storeKitService)
+    private var storeKitService: StoreKitServiceProtocol
     
     // MARK: - LoginStateServiceProtocol
     
@@ -71,6 +73,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.startSubscription()
         await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
+        storeKitService.startListenForTransactions()
     }
     
     private func stopSubscriptions() async {
@@ -81,5 +84,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.stopSubscription()
         await activeSpaceParticipantStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
+        storeKitService.stopListenForTransactions()
     }
 }
