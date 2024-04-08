@@ -182,7 +182,10 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func addPinedType(_ type: ObjectType) {
         do {
             try typesService.addPinedType(type, spaceId: spaceId)
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.pinObjectType)
+            AnytypeAnalytics.instance().logEvent(
+                AnalyticsEventsName.pinObjectType,
+                withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsType]                
+            )
             search(text: searchText)
         } catch { }
     }
@@ -190,7 +193,10 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func removePinedType(_ type: ObjectType) {
         do {
             try typesService.removePinedType(typeId: type.id, spaceId: spaceId)
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.unpinObjectType)
+            AnytypeAnalytics.instance().logEvent(
+                AnalyticsEventsName.unpinObjectType,
+                withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsType]
+            )
             search(text: searchText)
         } catch { }
     }
