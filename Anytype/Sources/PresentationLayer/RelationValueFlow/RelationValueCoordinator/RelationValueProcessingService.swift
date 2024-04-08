@@ -26,7 +26,7 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
             return true
         }
         
-        if FeatureFlags.newSelectRelationView, case .status = relation {
+        if case .status = relation {
             return true
         }
         

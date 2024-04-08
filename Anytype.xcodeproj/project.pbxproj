@@ -242,8 +242,6 @@
 		12C0592E27F3274E004FFAAB /* DownloadableContentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */; };
 		12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A57F2755F0CE00311854 /* DateRelationValue.swift */; };
 		12C2A5822756342F00311854 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5812756342F00311854 /* DateExtension.swift */; };
-		12C2A5982757A6D600311854 /* StatusRelationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5972757A6D600311854 /* StatusRelationDetailsView.swift */; };
-		12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A59C2757A6E000311854 /* StatusRelationDetailsViewModel.swift */; };
 		12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */; };
 		12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */; };
 		12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */; };
@@ -2020,8 +2018,6 @@
 		12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadableContentProtocol.swift; sourceTree = "<group>"; };
 		12C2A57F2755F0CE00311854 /* DateRelationValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationValue.swift; sourceTree = "<group>"; };
 		12C2A5812756342F00311854 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
-		12C2A5972757A6D600311854 /* StatusRelationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationDetailsView.swift; sourceTree = "<group>"; };
-		12C2A59C2757A6E000311854 /* StatusRelationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationDetailsViewModel.swift; sourceTree = "<group>"; };
 		12C6342F26600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapGestureRecognizerWithClosure.swift; sourceTree = "<group>"; };
 		12C8440126FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyConfiguration.swift; sourceTree = "<group>"; };
 		12C8440326FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderEmptyContentView.swift; sourceTree = "<group>"; };
@@ -4853,7 +4849,6 @@
 				2EE33DC12B55829400D0CDDB /* Date */,
 				1244793A27DC61FA00581174 /* SearchViewModels */,
 				12887F3D274BC25100228330 /* LegacyText */,
-				12F14CE32758EFE000B976B5 /* LegacyStatus */,
 				12EB9B1827735C2900BA732F /* LegacyOptionsList */,
 			);
 			path = RelationDetailsViews;
@@ -5218,15 +5213,6 @@
 				12EE02D52840EB5600223EB5 /* DeviceSceneStateListener.swift */,
 			);
 			path = DeviceSceneStateListener;
-			sourceTree = "<group>";
-		};
-		12F14CE32758EFE000B976B5 /* LegacyStatus */ = {
-			isa = PBXGroup;
-			children = (
-				12C2A5972757A6D600311854 /* StatusRelationDetailsView.swift */,
-				12C2A59C2757A6E000311854 /* StatusRelationDetailsViewModel.swift */,
-			);
-			path = LegacyStatus;
 			sourceTree = "<group>";
 		};
 		12FF0D0327C51AD300562DD9 /* TextField */ = {
@@ -11382,7 +11368,6 @@
 				2A1F4CBB29B88DBE004516F6 /* SentryNonFatalLogger.swift in Sources */,
 				2E0797B82A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift in Sources */,
 				2A785B452AFCDDB30020297E /* EditorCoordinatorView.swift in Sources */,
-				12C2A5982757A6D600311854 /* StatusRelationDetailsView.swift in Sources */,
 				125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */,
 				2A668F152BB2BC0200460C68 /* AsyncStandardButtonGroup.swift in Sources */,
 				2AD7412A2993DB27004BD223 /* BinLinkWidgetModuleAssembly.swift in Sources */,
@@ -11811,7 +11796,6 @@
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,
 				2E48ACA32A55D4EF0059CB5C /* CustomBackSwipe.swift in Sources */,
 				2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */,
-				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,
 				C90189A928338D2900F30853 /* TemplatesCoordinator.swift in Sources */,
 				1240EAF627B13D6B005B501E /* UIDeviceExtension.swift in Sources */,
 				125B6EC026F235F400BCD7D6 /* CursorModeAccessoryViewItem.swift in Sources */,

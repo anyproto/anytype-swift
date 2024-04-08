@@ -58,7 +58,7 @@ final class RelationValueCoordinatorViewModel:
             ).eraseToAnyView()
         }
         
-        if FeatureFlags.newSelectRelationView, case .status(let status) = relation {
+        if case .status(let status) = relation {
             let configuration = RelationModuleConfiguration(
                 title: status.name,
                 isEditable: relation.isEditable,

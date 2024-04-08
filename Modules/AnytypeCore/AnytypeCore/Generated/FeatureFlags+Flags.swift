@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .newTypePicker)
     }
 
-    static var newSelectRelationView: Bool {
-        value(for: .newSelectRelationView)
-    }
-
     static var newMultiSelectRelationView: Bool {
         value(for: .newMultiSelectRelationView)
     }
@@ -105,7 +101,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .galleryInstallation,
         .newTypePicker,
-        .newSelectRelationView,
         .newMultiSelectRelationView,
         .newObjectSelectRelationView,
         .newFileSelectRelationView,

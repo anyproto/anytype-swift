@@ -133,16 +133,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
-        case .status(let status):
-            return StatusRelationDetailsViewModel(
-                details: objectDetails,
-                selectedStatus: status.values.first,
-                relation: relation,
-                service: relationsService,
-                newSearchModuleAssembly: newSearchModuleAssembly,
-                searchService: searchService,
-                analyticsType: analyticsType
-            )
         case .tag(let tag):
             let style = RelationStyle.regular(allowMultiLine: false)
             return RelationOptionsListViewModel(
