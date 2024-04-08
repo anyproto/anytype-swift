@@ -74,7 +74,7 @@ final class MembershipService: MembershipServiceProtocol {
     public func verifyEmailCode(code: String) async throws {
         try await ClientCommands.membershipVerifyEmailCode(.with {
             $0.code = code
-        }).invoke()
+        }).invoke(ignoreLogErrors: .wrong)
     }
     
     public func validateName(name: String, tierType: MembershipTierType) async throws {

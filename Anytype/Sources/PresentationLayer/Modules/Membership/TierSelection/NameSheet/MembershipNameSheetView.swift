@@ -24,9 +24,7 @@ struct MembershipNameSheetView: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(26)
             info
-            nameInput
-            .newDivider()
-            status
+            nameView
             AnytypeText("\(model.tier.paymentType.displayPrice ?? "") ", style: .title, color: .Text.primary) +
             AnytypeText(model.tier.paymentType.localizedPeriod ?? "", style: .relation1Regular, color: .Text.primary)
             Spacer.fixedHeight(15)
@@ -35,6 +33,7 @@ struct MembershipNameSheetView: View {
                 style: .primaryLarge
             ) {
                 // TODO: Pay
+                // Support Test tiers without name and tiers if name already purchased
             }
             .disabled(!model.state.isValidated)
             Spacer.fixedHeight(20)
@@ -44,7 +43,10 @@ struct MembershipNameSheetView: View {
     
     var info: some View {
         Group {
-            if model.anyName.isEmpty {
+            switch model.anyNameAvailability {
+            case .notAvailable, .alreadyBought:
+                EmptyView()
+            case .availableForPruchase:
                 AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold, color: .Text.primary)
                 Spacer.fixedHeight(6)
                 AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular, color: .Text.primary)
@@ -53,27 +55,41 @@ struct MembershipNameSheetView: View {
         }
     }
     
+    var nameView: some View {
+        Group {
+            switch model.anyNameAvailability {
+            case .notAvailable:
+                EmptyView()
+            case .availableForPruchase:
+                nameInput
+            case .alreadyBought:
+                nameLabel
+            }
+        }
+    }
+    
     var nameInput: some View {
-        HStack {
-            if model.anyName.isEmpty {
+        VStack(spacing: 0) {
+            HStack {
                 TextField(Loc.myself, text: $name)
                     .textContentType(.username)
                 AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
-            } else {
-                AnytypeText(model.anyName, style: .uxBodyRegular, color: .Text.primary)
-                Spacer()
-                AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
             }
+            .padding(.vertical, 12)
+            .newDivider()
+            
+            nameStatus
         }
-        .padding(.vertical, 12)
     }
     
-    var status: some View {
-        Group {
-            if model.anyName.isEmpty {
-                nameStatus
-            }
+    var nameLabel: some View {
+        HStack {
+            AnytypeText(model.anyName, style: .uxBodyRegular, color: .Text.primary)
+            Spacer()
+            AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
         }
+        .padding(.vertical, 12)
+        .newDivider()
     }
     
     var nameStatus: some View {
@@ -104,5 +120,6 @@ struct MembershipNameSheetView: View {
     TabView {
         MembershipNameSheetView(tier: .mockBuilder, anyName: "")
         MembershipNameSheetView(tier: .mockCoCreator, anyName: "SonyaBlade")
+        MembershipNameSheetView(tier: .mockBuilderTest, anyName: "")
     }.tabViewStyle(.page)
 }

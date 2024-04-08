@@ -132,4 +132,20 @@ extension MembershipTier {
             color: .purple
         )
     }
+    
+    static var mockBuilderTest: MembershipTier {
+        MembershipTier(
+            type: .custom(id: 1337),
+            name: "Builder TEST",
+            anyName: .none,
+            features: [
+                Loc.Membership.Feature.storageGB(128),
+                Loc.Membership.Feature.sharedSpaces(3),
+                Loc.Membership.Feature.spaceWriters(10),
+                Loc.Membership.Feature.viewers("Unlimited")
+            ],
+            paymentType: .mockExternal,
+            color: .blue
+        )
+    }
 }

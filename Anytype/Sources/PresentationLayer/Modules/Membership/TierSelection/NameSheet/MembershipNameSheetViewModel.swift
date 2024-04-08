@@ -18,12 +18,31 @@ enum MembershipNameSheetViewState {
     }
 }
 
+enum MembershipAnyNameAvailability {
+    case notAvailable
+    case availableForPruchase
+    case alreadyBought
+}
+
 
 @MainActor
 final class MembershipNameSheetViewModel: ObservableObject {
     @Published var state = MembershipNameSheetViewState.default
-    let anyName: String
     let tier: MembershipTier
+    let anyName: String
+    
+    var anyNameAvailability: MembershipAnyNameAvailability {
+        switch tier.anyName {
+        case .none:
+            .notAvailable
+        case .some:
+            if anyName.isEmpty {
+                .availableForPruchase
+            } else {
+                .alreadyBought
+            }
+        }
+    }
     
     var minimumNumberOfCharacters: UInt32 {
         switch tier.anyName {
