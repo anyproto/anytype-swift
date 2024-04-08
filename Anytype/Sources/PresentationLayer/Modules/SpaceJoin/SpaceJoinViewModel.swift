@@ -8,12 +8,19 @@ struct SpaceJoinModuleData: Identifiable {
     let key: String
 }
 
+enum SpaceJoinDataState {
+    case requestSent
+    case invite
+}
+
 @MainActor
 final class SpaceJoinViewModel: ObservableObject {
     
     private let data: SpaceJoinModuleData
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: WorkspacesStorageProtocol
     
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void
@@ -23,6 +30,7 @@ final class SpaceJoinViewModel: ObservableObject {
     @Published var message: String = ""
     @Published var comment: String = ""
     @Published var state: ScreenState = .loading
+    @Published var dataState: SpaceJoinDataState = .invite
     @Published var toast: ToastBarData = .empty
     @Published var showSuccessAlert = false
     @Published var dismiss = false
@@ -69,6 +77,12 @@ final class SpaceJoinViewModel: ObservableObject {
             message = Loc.SpaceShare.Join.message(inviteView.spaceName.withPlaceholder, inviteView.creatorName.withPlaceholder)
             self.inviteView = inviteView
             state = .data
+            if let spaceView = workspaceStorage.allWorkspaces.first(where: { $0.targetSpaceId == inviteView.spaceId }),
+                spaceView.accountStatus == .spaceJoining {
+                dataState = .requestSent
+            } else {
+                dataState = .invite
+            }
         } catch {
             errorMessage = error.localizedDescription
             state = .error

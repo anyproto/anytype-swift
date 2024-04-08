@@ -12,7 +12,6 @@ struct SpaceJoinView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             ScreenStateView(state: model.state, error: model.errorMessage) {
                 content
             }
@@ -21,11 +20,7 @@ struct SpaceJoinView: View {
         .background(Color.Background.secondary)
         .snackbar(toastBarData: $model.toast)
         .anytypeSheet(isPresented: $model.showSuccessAlert, cancelAction: { model.onDismissSuccessAlert() }) {
-            SpaceJoinConfirmationView(onDone: {
-                model.onDismissSuccessAlert()
-            }, onManageSpaces: {
-                model.onTapManageSpaces()
-            })
+            requestSent
         }
         .onChange(of: model.dismiss) { _ in
             dismiss()
@@ -35,9 +30,27 @@ struct SpaceJoinView: View {
         }
     }
     
+    @ViewBuilder
     private var content: some View {
+        switch model.dataState {
+        case .requestSent:
+            requestSent
+        case .invite:
+            invite
+        }
+    }
+    
+    private var requestSent: some View {
+        SpaceJoinConfirmationView(onDone: {
+            model.onDismissSuccessAlert()
+        }, onManageSpaces: {
+            model.onTapManageSpaces()
+        })
+    }
+    
+    private var invite: some View {
         VStack(spacing: 0) {
-            // TODO: Add icon
+            DragIndicator()
             ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .color(.blue))
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading, color: .Text.primary)
