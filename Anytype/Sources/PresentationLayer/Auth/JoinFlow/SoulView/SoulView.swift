@@ -2,7 +2,11 @@ import SwiftUI
 
 struct SoulView: View {
     
-    @StateObject var model: SoulViewModel
+    @StateObject private var model: SoulViewModel
+    
+    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+        _model = StateObject(wrappedValue: SoulViewModel(state: state, output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -68,18 +72,6 @@ struct SoulView: View {
 
 struct JoinFlowInputView_Previews: PreviewProvider {
     static var previews: some View {
-        SoulView(
-            model: SoulViewModel(
-                state: JoinFlowState(),
-                output: nil,
-                accountManager: DI.preview.serviceLocator.accountManager(),
-                objectActionsService: DI.preview.serviceLocator.objectActionsService(),
-                authService: DI.preview.serviceLocator.authService(),
-                seedService: DI.preview.serviceLocator.seedService(),
-                usecaseService: DI.preview.serviceLocator.usecaseService(),
-                workspaceService: DI.preview.serviceLocator.workspaceService(),
-                activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()
-            )
-        )
+        SoulView(state: JoinFlowState(), output: nil)
     }
 }

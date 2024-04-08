@@ -979,7 +979,6 @@
 		2E4D78B22A82907E00813A4F /* KeyPhraseMoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4D78B12A82907E00813A4F /* KeyPhraseMoreInfoView.swift */; };
 		2E52DE672A1CDF3D00F16815 /* LineProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE662A1CDF3D00F16815 /* LineProgressBar.swift */; };
 		2E52DE692A1CDF5500F16815 /* LineProgressBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */; };
-		2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */; };
 		2E52DE6E2A1CE7E700F16815 /* SoulViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */; };
 		2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE702A1CEAF700F16815 /* SoulView.swift */; };
 		2E56F1332A0D410E00031167 /* anytype-shader-S.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2E56F1322A0D410E00031167 /* anytype-shader-S.mp4 */; };
@@ -2767,7 +2766,6 @@
 		2E4D78B12A82907E00813A4F /* KeyPhraseMoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseMoreInfoView.swift; sourceTree = "<group>"; };
 		2E52DE662A1CDF3D00F16815 /* LineProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineProgressBar.swift; sourceTree = "<group>"; };
 		2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineProgressBarConfiguration.swift; sourceTree = "<group>"; };
-		2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulViewModel.swift; sourceTree = "<group>"; };
 		2E52DE702A1CEAF700F16815 /* SoulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulView.swift; sourceTree = "<group>"; };
 		2E56F1322A0D410E00031167 /* anytype-shader-S.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "anytype-shader-S.mp4"; sourceTree = "<group>"; };
@@ -7394,7 +7392,6 @@
 		2E52DE6A2A1CE74500F16815 /* SoulView */ = {
 			isa = PBXGroup;
 			children = (
-				2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */,
 				2E52DE702A1CEAF700F16815 /* SoulView.swift */,
 				2E52DE6D2A1CE7E700F16815 /* SoulViewModel.swift */,
 			);
@@ -11952,7 +11949,6 @@
 				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
 				12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */,
 				2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */,
-				2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */,
 				2AE155922A31BDF50049C387 /* RecentCompactListWidgetModuleAssembly.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				12AB96362800867B008E32EA /* StandardButtonModel.swift in Sources */,

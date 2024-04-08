@@ -19,10 +19,7 @@ final class JoinFlowCoordinatorAssembly: JoinFlowCoordinatorAssemblyProtocol {
     
     @MainActor
     func make() -> JoinFlowCoordinatorProtocol {
-        return JoinFlowCoordinator(
-            keyViewModuleAssembly: modulesDI.authKey(),
-            soulViewModuleAssembly: modulesDI.authSoul()
-        )
+        return JoinFlowCoordinator(keyViewModuleAssembly: modulesDI.authKey())
     }
 }
 

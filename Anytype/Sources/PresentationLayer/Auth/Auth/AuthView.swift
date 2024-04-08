@@ -4,7 +4,7 @@ import AudioToolbox
 
 struct AuthView: View {
     
-    @StateObject var model: AuthViewModel
+    @StateObject private var model: AuthViewModel
     
     init(output: AuthViewModelOutput?) {
         _model = StateObject(wrappedValue: AuthViewModel(output: output))
