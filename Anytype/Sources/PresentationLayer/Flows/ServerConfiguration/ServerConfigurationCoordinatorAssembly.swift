@@ -19,7 +19,6 @@ final class ServerConfigurationCoordinatorAssembly: ServerConfigurationCoordinat
     func make() -> AnyView {
         ServerConfigurationCoordinatorView(
             model: ServerConfigurationCoordinatorViewModel(
-                serverConfigurationModuleAssembly: self.modulesDI.serverConfiguration(),
                 serverDocumentPickerModuleAssembly: self.modulesDI.serverDocumentPicker()
             )
         ).eraseToAnyView()

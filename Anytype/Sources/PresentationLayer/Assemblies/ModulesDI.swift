@@ -146,10 +146,6 @@ final class ModulesDI: ModulesDIProtocol {
         ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
     
-    func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol {
-        ServerConfigurationModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol {
         ServerDocumentPickerModuleAssembly(serviceLocator: serviceLocator)
     }

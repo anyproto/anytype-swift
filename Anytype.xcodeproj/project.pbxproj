@@ -555,7 +555,6 @@
 		2A7BC27D2B1DF25F00EB96EB /* NetworkServerConfig+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */; };
 		2A7BC27F2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */; };
 		2A7BC2812B1E2C7100EB96EB /* ServerConfigurationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC2802B1E2C7100EB96EB /* ServerConfigurationRow.swift */; };
-		2A7BC2832B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC2822B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift */; };
 		2A7BD6E628D85993008B735C /* RelationSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */; };
 		2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */; };
 		2A7CCC192B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CCC182B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift */; };
@@ -2346,7 +2345,6 @@
 		2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkServerConfig+View.swift"; sourceTree = "<group>"; };
 		2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModel.swift; sourceTree = "<group>"; };
 		2A7BC2802B1E2C7100EB96EB /* ServerConfigurationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationRow.swift; sourceTree = "<group>"; };
-		2A7BC2822B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationModuleAssembly.swift; sourceTree = "<group>"; };
 		2A7BD6E528D85993008B735C /* RelationSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2A7BD6E728D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSubscriptionDataBuilderProtocol.swift; sourceTree = "<group>"; };
 		2A7CCC182B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryInstallationPreviewViewModels.swift; sourceTree = "<group>"; };
@@ -6234,7 +6232,6 @@
 				2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */,
 				2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */,
 				2A7BC2802B1E2C7100EB96EB /* ServerConfigurationRow.swift */,
-				2A7BC2822B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift */,
 				2AE85FF42B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift */,
 			);
 			path = ServerConfiguration;
@@ -12244,7 +12241,6 @@
 				2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */,
 				3D86244A2B738D6400A5FCF4 /* ObjectTypeSubscriptionDataBuilder.swift in Sources */,
 				2EC46DDB2AC1B9EA00DEA4BD /* SetObjectCreationSettingsCoordinatorAssembly.swift in Sources */,
-				2A7BC2832B1E2DA400EB96EB /* ServerConfigurationModuleAssembly.swift in Sources */,
 				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
 				2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */,
 				8637768F2A6668680040308E /* TemplatePreviewModel.swift in Sources */,

@@ -6,19 +6,10 @@ final class ServerConfigurationCoordinatorViewModel: ObservableObject, ServerCon
     
     @Published var showDocumentPicker: Bool = false
 
-    private let serverConfigurationModuleAssembly: ServerConfigurationModuleAssemblyProtocol
     private let serverDocumentPickerModuleAssembly: ServerDocumentPickerModuleAssemblyProtocol
     
-    init(
-        serverConfigurationModuleAssembly: ServerConfigurationModuleAssemblyProtocol,
-        serverDocumentPickerModuleAssembly: ServerDocumentPickerModuleAssemblyProtocol
-    ) {
-        self.serverConfigurationModuleAssembly = serverConfigurationModuleAssembly
+    init(serverDocumentPickerModuleAssembly: ServerDocumentPickerModuleAssemblyProtocol) {
         self.serverDocumentPickerModuleAssembly = serverDocumentPickerModuleAssembly
-    }
-    
-    func makeSettingsView() -> AnyView {
-        serverConfigurationModuleAssembly.make(output: self)
     }
     
     func makeDocumentPickerView() -> AnyView {
