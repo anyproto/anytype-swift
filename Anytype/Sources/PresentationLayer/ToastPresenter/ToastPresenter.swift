@@ -156,7 +156,7 @@ class ToastPresenter: ToastPresenterProtocol {
             }
             
             let compositeAttributedString = NSMutableAttributedString()
-            let iconObjectAttributedString = await createAttributedString(from: details)
+            let iconObjectAttributedString = createAttributedString(from: details)
             
             compositeAttributedString.append(iconObjectAttributedString)
             
@@ -177,18 +177,9 @@ class ToastPresenter: ToastPresenterProtocol {
         }
     }
     
-    private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
-        guard let Icon = objectDetails.objectIconImage else {
-            return await NSAttributedString(
-                string: objectDetails.title.trimmed(numberOfCharacters: 16),
-                attributes: ToastView.objectAttributes
-            )
-        }
-        let maker = IconMaker(icon: Icon, size: CGSize(width: 16, height: 16))
-        let image = await maker.make()
-        return await NSAttributedString.imageFirstComposite(
-            image: image,
-            text: objectDetails.title.trimmed(numberOfCharacters: 16),
+    private func createAttributedString(from objectDetails: ObjectDetails) -> NSAttributedString {
+        return NSAttributedString(
+            string: objectDetails.title.trimmed(numberOfCharacters: 16),
             attributes: ToastView.objectAttributes
         )
     }

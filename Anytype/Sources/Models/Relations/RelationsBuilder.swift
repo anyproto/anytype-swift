@@ -440,7 +440,7 @@ private extension RelationsBuilder {
                 if relationDetails.key == BundledRelationKey.setOf.rawValue, objectDetail.isDeleted {
                     return Relation.Object.Option(
                         id: valueId,
-                        icon: .object(.placeholder(nil)),
+                        icon: .object(.placeholder("")),
                         title: Loc.deleted,
                         type: "",
                         isArchived: true,
