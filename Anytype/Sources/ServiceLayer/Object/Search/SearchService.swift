@@ -18,20 +18,6 @@ final class SearchService: SearchServiceProtocol {
         try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts, spaceId: spaceId)
     }
     
-    func search(text: String, excludedObjectIds: [String], spaceId: String) async throws -> [ObjectDetails] {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastOpenedDate,
-            type: .desc
-        )
-        
-        let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
-            SearchHelper.excludedIdsFilter(excludedObjectIds)
-        }
-        
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
-    }
-    
     func searchFiles(text: String, excludedFileIds: [String], spaceId: String) async throws -> [ObjectDetails] {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
@@ -108,8 +94,9 @@ final class SearchService: SearchServiceProtocol {
             relation: sortRelationKey ?? .lastOpenedDate,
             type: .desc
         )
+        
         let filters: [DataviewFilter] = .builder {
-            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayouts)
+            SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: DetailsLayout.visibleLayoutsWithFiles)
             SearchHelper.excludedIdsFilter(excludedObjectIds)
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }

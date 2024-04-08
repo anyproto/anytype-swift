@@ -196,12 +196,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        
+        let excludedLayouts = DetailsLayout.fileLayouts + [.set, .collection]
         let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
             title: Loc.moveTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: [.set, .collection]
+            excludedLayouts: excludedLayouts
         ) { [weak self] details in
             onSelect(details)
             self?.navigationContext.dismissTopPresented()
