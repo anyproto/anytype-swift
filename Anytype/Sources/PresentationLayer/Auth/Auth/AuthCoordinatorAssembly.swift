@@ -30,7 +30,6 @@ final class AuthCoordinatorAssembly: AuthCoordinatorAssemblyProtocol {
         return AuthCoordinator(
             joinFlowCoordinator: coordinatorsID.joinFlow().make(),
             loginFlowCoordinator: coordinatorsID.loginFlow().make(), 
-            serverConfigurationCoordinatorAssembly: coordinatorsID.serverConfiguration(),
             urlOpener: uiHelpersDI.urlOpener()
         )
     }

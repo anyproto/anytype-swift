@@ -28,7 +28,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func initial() -> InitialCoordinatorAssemblyProtocol
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
-    func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol
     func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol
     

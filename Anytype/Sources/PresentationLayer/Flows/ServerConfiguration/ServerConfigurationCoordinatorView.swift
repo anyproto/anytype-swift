@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ServerConfigurationCoordinatorView: View {
     
-    @StateObject var model: ServerConfigurationCoordinatorViewModel
+    @StateObject private var model = ServerConfigurationCoordinatorViewModel()
     
     var body: some View {
         ServerConfigurationView(output: model)
