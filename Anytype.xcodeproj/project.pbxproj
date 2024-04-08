@@ -3801,7 +3801,6 @@
 		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				2A685D322B7A53C400456E08 /* ApplicationCrashView */,
 				2AFD7E162B626C1E003B16EB /* GlobalEnv */,
 				2AE671DF29018AF600118F56 /* Notifications */,
 				12EE02D32840EAFF00223EB5 /* SceneDelegates */,
@@ -6061,13 +6060,6 @@
 				2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */,
 			);
 			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		2A685D322B7A53C400456E08 /* ApplicationCrashView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ApplicationCrashView;
 			sourceTree = "<group>";
 		};
 		2A6E04A0298CFCC40023B33D /* Internal */ = {

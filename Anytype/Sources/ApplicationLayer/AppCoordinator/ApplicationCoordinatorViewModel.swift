@@ -6,12 +6,18 @@ import Services
 @MainActor
 final class ApplicationCoordinatorViewModel: ObservableObject {
 
-    private let authService: AuthServiceProtocol
-    private let accountEventHandler: AccountEventHandlerProtocol
-    private let applicationStateService: ApplicationStateServiceProtocol
-    private let accountManager: AccountManagerProtocol
-    private let seedService: SeedServiceProtocol
-    private let fileErrorEventHandler: FileErrorEventHandlerProtocol
+    @Injected(\.authService)
+    private var authService: AuthServiceProtocol
+    @Injected(\.accountEventHandler)
+    private var accountEventHandler: AccountEventHandlerProtocol
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
+    @Injected(\.fileErrorEventHandler)
+    private var fileErrorEventHandler: FileErrorEventHandlerProtocol
     
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
@@ -29,24 +35,12 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Initializers
     
     init(
-        authService: AuthServiceProtocol,
-        accountEventHandler: AccountEventHandlerProtocol,
-        applicationStateService: ApplicationStateServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        seedService: SeedServiceProtocol,
-        fileErrorEventHandler: FileErrorEventHandlerProtocol,
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
         deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
         initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
-        self.authService = authService
-        self.accountEventHandler = accountEventHandler
-        self.applicationStateService = applicationStateService
-        self.accountManager = accountManager
-        self.seedService = seedService
-        self.fileErrorEventHandler = fileErrorEventHandler
         self.authCoordinatorAssembly = authCoordinatorAssembly
         self.homeCoordinatorAssembly = homeCoordinatorAssembly
         self.deleteAccountModuleAssembly = deleteAccountModuleAssembly

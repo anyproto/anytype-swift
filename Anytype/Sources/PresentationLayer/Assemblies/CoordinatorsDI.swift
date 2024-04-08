@@ -61,7 +61,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func application() -> ApplicationCoordinatorAssemblyProtocol {
-        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
+        return ApplicationCoordinatorAssembly(coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
     }
     
     func settings() -> SettingsCoordinatorAssemblyProtocol {
