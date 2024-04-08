@@ -42,7 +42,7 @@ final class RelationValueCoordinatorViewModel:
     }
     
     func relationModule() -> AnyView {
-        if FeatureFlags.newDateRelationCalendarView, case .date(let date) = relation {
+        if case .date(let date) = relation {
             let dateValue = date.value?.date
             let configuration = RelationModuleConfiguration(
                 title: date.name,

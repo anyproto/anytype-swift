@@ -133,14 +133,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
-        case .date(let value):
-            return DateRelationDetailsViewModel(
-                details: objectDetails,
-                value: value.value,
-                relation: relation,
-                service: relationsService,
-                analyticsType: analyticsType
-            )
         case .status(let status):
             return StatusRelationDetailsViewModel(
                 details: objectDetails,

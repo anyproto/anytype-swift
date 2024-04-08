@@ -22,7 +22,7 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     nonisolated init() {}
     
     func canOpenRelationInNewModule(_ relation: Relation) -> Bool {
-        if FeatureFlags.newDateRelationCalendarView, case .date = relation, relation.isEditable {
+        if case .date = relation, relation.isEditable {
             return true
         }
         
@@ -71,7 +71,7 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
         analyticsType: AnalyticsEventsRelationType,
         onToastShow: ((String) -> Void)
     ) -> Bool {
-        if FeatureFlags.newDateRelationCalendarView, case .date = relation, !relation.isEditable {
+        if case .date = relation, !relation.isEditable {
             onToastShow(Loc.Relation.Date.Locked.Alert.title(relation.name))
             return true
         }

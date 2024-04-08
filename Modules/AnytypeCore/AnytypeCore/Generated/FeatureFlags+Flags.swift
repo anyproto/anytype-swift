@@ -26,10 +26,6 @@ public extension FeatureFlags {
         value(for: .newTypePicker)
     }
 
-    static var newDateRelationCalendarView: Bool {
-        value(for: .newDateRelationCalendarView)
-    }
-
     static var newSelectRelationView: Bool {
         value(for: .newSelectRelationView)
     }
@@ -109,7 +105,6 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .galleryInstallation,
         .newTypePicker,
-        .newDateRelationCalendarView,
         .newSelectRelationView,
         .newMultiSelectRelationView,
         .newObjectSelectRelationView,
