@@ -133,95 +133,9 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 analyticsType: analyticsType,
                 actionsViewModel: actions.compactMap { $0 }
             )
-        case .tag(let tag):
-            let style = RelationStyle.regular(allowMultiLine: false)
-            return RelationOptionsListViewModel(
-                details: objectDetails,
-                selectedOptions: tag.selectedTags.map { tag in
-                    ListRowConfiguration(
-                        id: tag.id,
-                        contentHash: tag.hashValue
-                    ) {
-                        TagRelationRowView(
-                            config: TagView.Config(
-                                text: tag.text,
-                                textColor: tag.textColor,
-                                backgroundColor: tag.backgroundColor,
-                                textFont: style.font,
-                                guidlines: style.tagViewGuidlines
-                            )
-                        )
-                        .eraseToAnyView()
-                    }
-                },
-                emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
-                relation: relation,
-                searchModuleBuilder: TagsOptionsSearchModuleBuilder(
-                    relationKey: relation.key,
-                    newSearcModuleAssembly: newSearchModuleAssembly
-                ),
-                service: relationsService,
-                analyticsType: analyticsType
-            )
-        case .object(let object):
-            return RelationOptionsListViewModel(
-                details: objectDetails,
-                selectedOptions: object.selectedObjects.map { object in
-                    ListRowConfiguration(
-                        id: object.id,
-                        contentHash: object.hashValue
-                    ) {
-                        RelationObjectsRowView(
-                            object: object,
-                            action: {
-                                if let editorScreenData = object.editorScreenData {
-                                    onTap(editorScreenData)
-                                }
-                            }
-                        ).eraseToAnyView()
-                    }
-                },
-                emptyOptionsPlaceholder: Constants.objectsOptionsPlaceholder,
-                relation: relation,
-                searchModuleBuilder: ObjectsOptionsSearchModuleBuilder(
-                    limitedObjectType: object.limitedObjectTypes,
-                    newSearcModuleAssembly: newSearchModuleAssembly
-                ),
-                service: relationsService,
-                analyticsType: analyticsType
-            )
-        case .file(let file):
-            return RelationOptionsListViewModel(
-                details: objectDetails,
-                selectedOptions: file.files.map { file in
-                    ListRowConfiguration(
-                        id: file.id,
-                        contentHash: file.hashValue
-                    ) {
-                        RelationFilesRowView(
-                            file: file,
-                            action: { onTap(file.editorScreenData) }
-                        ).eraseToAnyView()
-                    }
-                },
-                emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
-                relation: relation,
-                searchModuleBuilder: FilesOptionsSearchModuleBuilder(newSearcModuleAssembly: newSearchModuleAssembly),
-                service: relationsService,
-                analyticsType: analyticsType
-            )
         default:
             return nil
         }
-    }
-    
-}
-
-private extension RelationEditingViewModelBuilder {
-    
-    enum Constants {
-        static let objectsOptionsPlaceholder = Loc.empty
-        static let tagsOrFilesOptionsPlaceholder = Loc.noRelatedOptionsHere
     }
     
 }

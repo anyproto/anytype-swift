@@ -36,24 +36,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let newMultiSelectRelationView = FeatureDescription(
-        title: "New Multi Select relation editing view - 2213",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: true
-    )
-    
-    static let newObjectSelectRelationView = FeatureDescription(
-        title: "New object relation editing view - 2214",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: true
-    )
-    
-    static let newFileSelectRelationView = FeatureDescription(
-        title: "New file relation editing view - 2259",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.28.0"),
-        defaultValue: true
-    )
-    
     static let newTextEditingRelationView = FeatureDescription(
         title: "New text relation editing view - 2438",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.29.0"),
@@ -74,7 +56,7 @@ public extension FeatureDescription {
     
     static let newGlobalSearch = FeatureDescription(
         title: "New global search",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.30.0"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
         defaultValue: false
     )
     
