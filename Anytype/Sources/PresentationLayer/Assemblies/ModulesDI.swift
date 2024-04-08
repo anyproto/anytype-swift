@@ -78,10 +78,6 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func authorization() -> AuthModuleAssemblyProtocol {
-        return AuthModuleAssembly()
-    }
-    
     func joinFlow() -> JoinFlowModuleAssemblyProtocol {
         return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
     }

@@ -897,7 +897,6 @@
 		2E0797BA2A096571006F0FD7 /* JoinFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */; };
 		2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */; };
 		2E0797C42A09678C006F0FD7 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */; };
-		2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797BF2A09678C006F0FD7 /* AuthModuleAssembly.swift */; };
 		2E0797C62A09678C006F0FD7 /* AuthCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C02A09678C006F0FD7 /* AuthCoordinatorAssembly.swift */; };
 		2E0797C72A09678D006F0FD7 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */; };
 		2E0797C82A09678D006F0FD7 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C22A09678C006F0FD7 /* AuthView.swift */; };
@@ -2693,7 +2692,6 @@
 		2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowCoordinator.swift; sourceTree = "<group>"; };
 		2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		2E0797BF2A09678C006F0FD7 /* AuthModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthModuleAssembly.swift; sourceTree = "<group>"; };
 		2E0797C02A09678C006F0FD7 /* AuthCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		2E0797C22A09678C006F0FD7 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
@@ -7193,7 +7191,6 @@
 			isa = PBXGroup;
 			children = (
 				2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */,
-				2E0797BF2A09678C006F0FD7 /* AuthModuleAssembly.swift */,
 				2E0797C02A09678C006F0FD7 /* AuthCoordinatorAssembly.swift */,
 				2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */,
 				2E0797C22A09678C006F0FD7 /* AuthView.swift */,
@@ -11692,7 +11689,6 @@
 				2E22F9F02B616B6E001EFCF3 /* SelectRelationListModuleOutput.swift in Sources */,
 				2AD5EFC42B17490200FAA908 /* ButtomAlertHeaderImageView.swift in Sources */,
 				3D93852026FB0B74001C137F /* DefaultObjectCreationService.swift in Sources */,
-				2E0797C52A09678C006F0FD7 /* AuthModuleAssembly.swift in Sources */,
 				2A2B33352A7BE5E0004BD906 /* SpaceWidgetViewModel.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				12D15D1E27F5F6C000D22086 /* RelationOptionsSearchModuleBuilderProtocol.swift in Sources */,

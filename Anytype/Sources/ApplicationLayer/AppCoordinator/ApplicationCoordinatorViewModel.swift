@@ -61,6 +61,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         if let authCoordinator {
             return authCoordinator.startFlow()
         }
+        
         let coordinator = authCoordinatorAssembly.make()
         self.authCoordinator = coordinator
         return coordinator.startFlow()

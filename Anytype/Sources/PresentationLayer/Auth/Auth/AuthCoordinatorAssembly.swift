@@ -28,7 +28,6 @@ final class AuthCoordinatorAssembly: AuthCoordinatorAssemblyProtocol {
     @MainActor
     func make() -> AuthCoordinatorProtocol {
         return AuthCoordinator(
-            authModuleAssembly: modulesDI.authorization(),
             joinFlowCoordinator: coordinatorsID.joinFlow().make(),
             loginFlowCoordinator: coordinatorsID.loginFlow().make(), 
             serverConfigurationCoordinatorAssembly: coordinatorsID.serverConfiguration(),
