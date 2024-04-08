@@ -711,6 +711,11 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: ResponseEr
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Membership.IsNameValid.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

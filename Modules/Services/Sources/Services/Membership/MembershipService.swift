@@ -79,7 +79,8 @@ final class MembershipService: MembershipServiceProtocol {
     
     public func validateName(name: String, tierType: MembershipTierType) async throws {
         try await ClientCommands.membershipIsNameValid(.with {
-            $0.requestedAnyName = name
+            $0.nsName = name
+            $0.nsNameType = .anyName
             $0.requestedTier = tierType.id
         }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
     }

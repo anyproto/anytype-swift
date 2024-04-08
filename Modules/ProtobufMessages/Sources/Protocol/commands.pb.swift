@@ -9833,6 +9833,8 @@ public struct Anytype_Rpc {
 
         public var collectionID: String = String()
 
+        public var objectsCount: Int64 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -26431,8 +26433,9 @@ public struct Anytype_Rpc {
 
         public var requestedTier: UInt32 = 0
 
-        /// full name including .any suffix
-        public var requestedAnyName: String = String()
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -26552,11 +26555,13 @@ public struct Anytype_Rpc {
 
         public var requestedTier: UInt32 = 0
 
-        public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodCard
+        public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodNone
 
         /// if empty - then no name requested
         /// if non-empty - PP node will register that name on behalf of the user
-        public var requestedAnyName: String = String()
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -26779,7 +26784,9 @@ public struct Anytype_Rpc {
 
         /// if empty - then no name requested
         /// if non-empty - PP node will register that name on behalf of the user
-        public var requestedAnyName: String = String()
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -26868,6 +26875,103 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Membership.Finalize.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    ///*
+    /// Get the current status of the e-mail verification.
+    /// Status can change if you call GetVerificationEmail or VerifyEmailCode
+    public struct GetVerificationEmailStatus {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var status: Anytype_Model_Membership.EmailVerificationStatus = .statusNotVerified
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error? = nil
       }
 
       public init() {}
@@ -27243,8 +27347,9 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        /// including ".any" suffix
-        public var fullName: String = String()
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -30221,6 +30326,17 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: CaseIterable {
   ]
 }
 
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .notLoggedIn,
+    .paymentNodeError,
+  ]
+}
+
 extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code] = [
@@ -31631,6 +31747,11 @@ extension Anytype_Rpc.Membership.Finalize.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.Finalize.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.Finalize.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.GetVerificationEmail: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.GetVerificationEmail.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.GetVerificationEmail.Response: @unchecked Sendable {}
@@ -45591,6 +45712,7 @@ extension Anytype_Rpc.Object.Import.Response: SwiftProtobuf.Message, SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "collectionId"),
+    3: .same(proto: "objectsCount"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -45601,6 +45723,7 @@ extension Anytype_Rpc.Object.Import.Response: SwiftProtobuf.Message, SwiftProtob
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.collectionID) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.objectsCount) }()
       default: break
       }
     }
@@ -45617,12 +45740,16 @@ extension Anytype_Rpc.Object.Import.Response: SwiftProtobuf.Message, SwiftProtob
     if !self.collectionID.isEmpty {
       try visitor.visitSingularStringField(value: self.collectionID, fieldNumber: 2)
     }
+    if self.objectsCount != 0 {
+      try visitor.visitSingularInt64Field(value: self.objectsCount, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Import.Response, rhs: Anytype_Rpc.Object.Import.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.collectionID != rhs.collectionID {return false}
+    if lhs.objectsCount != rhs.objectsCount {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -69928,7 +70055,8 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
   public static let protoMessageName: String = Anytype_Rpc.Membership.IsNameValid.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "requestedTier"),
-    2: .same(proto: "requestedAnyName"),
+    2: .same(proto: "nsName"),
+    3: .same(proto: "nsNameType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -69938,7 +70066,8 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularUInt32Field(value: &self.requestedTier) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
       default: break
       }
     }
@@ -69948,15 +70077,19 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: SwiftProtobuf.Message, Swi
     if self.requestedTier != 0 {
       try visitor.visitSingularUInt32Field(value: self.requestedTier, fieldNumber: 1)
     }
-    if !self.requestedAnyName.isEmpty {
-      try visitor.visitSingularStringField(value: self.requestedAnyName, fieldNumber: 2)
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 2)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.IsNameValid.Request, rhs: Anytype_Rpc.Membership.IsNameValid.Request) -> Bool {
     if lhs.requestedTier != rhs.requestedTier {return false}
-    if lhs.requestedAnyName != rhs.requestedAnyName {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -70076,7 +70209,8 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "requestedTier"),
     2: .same(proto: "paymentMethod"),
-    3: .same(proto: "requestedAnyName"),
+    3: .same(proto: "nsName"),
+    4: .same(proto: "nsNameType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70087,7 +70221,8 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularUInt32Field(value: &self.requestedTier) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.paymentMethod) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
       default: break
       }
     }
@@ -70097,11 +70232,14 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
     if self.requestedTier != 0 {
       try visitor.visitSingularUInt32Field(value: self.requestedTier, fieldNumber: 1)
     }
-    if self.paymentMethod != .methodCard {
+    if self.paymentMethod != .methodNone {
       try visitor.visitSingularEnumField(value: self.paymentMethod, fieldNumber: 2)
     }
-    if !self.requestedAnyName.isEmpty {
-      try visitor.visitSingularStringField(value: self.requestedAnyName, fieldNumber: 3)
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 3)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -70109,7 +70247,8 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
   public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Request, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Request) -> Bool {
     if lhs.requestedTier != rhs.requestedTier {return false}
     if lhs.paymentMethod != rhs.paymentMethod {return false}
-    if lhs.requestedAnyName != rhs.requestedAnyName {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -70368,7 +70507,8 @@ extension Anytype_Rpc.Membership.Finalize: SwiftProtobuf.Message, SwiftProtobuf.
 extension Anytype_Rpc.Membership.Finalize.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.Finalize.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "requestedAnyName"),
+    1: .same(proto: "nsName"),
+    2: .same(proto: "nsNameType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70377,21 +70517,26 @@ extension Anytype_Rpc.Membership.Finalize.Request: SwiftProtobuf.Message, SwiftP
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.requestedAnyName.isEmpty {
-      try visitor.visitSingularStringField(value: self.requestedAnyName, fieldNumber: 1)
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 1)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.Finalize.Request, rhs: Anytype_Rpc.Membership.Finalize.Request) -> Bool {
-    if lhs.requestedAnyName != rhs.requestedAnyName {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -70482,6 +70627,134 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: SwiftProtobuf._Pr
     6: .same(proto: "MEMBERSHIP_NOT_FOUND"),
     7: .same(proto: "MEMBERSHIP_WRONG_STATE"),
     8: .same(proto: "BAD_ANYNAME"),
+  ]
+}
+
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetVerificationEmailStatus"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmailStatus, rhs: Anytype_Rpc.Membership.GetVerificationEmailStatus) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetVerificationEmailStatus.protoMessageName + ".Request"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmailStatus.Request, rhs: Anytype_Rpc.Membership.GetVerificationEmailStatus.Request) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetVerificationEmailStatus.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if self.status != .statusNotVerified {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmailStatus.Response, rhs: Anytype_Rpc.Membership.GetVerificationEmailStatus.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error, rhs: Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "NOT_LOGGED_IN"),
+    4: .same(proto: "PAYMENT_NODE_ERROR"),
   ]
 }
 
@@ -70981,7 +71254,8 @@ extension Anytype_Rpc.NameService.ResolveName: SwiftProtobuf.Message, SwiftProto
 extension Anytype_Rpc.NameService.ResolveName.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.NameService.ResolveName.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "fullName"),
+    1: .same(proto: "nsName"),
+    2: .same(proto: "nsNameType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70990,21 +71264,26 @@ extension Anytype_Rpc.NameService.ResolveName.Request: SwiftProtobuf.Message, Sw
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.fullName) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.fullName.isEmpty {
-      try visitor.visitSingularStringField(value: self.fullName, fieldNumber: 1)
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 1)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.NameService.ResolveName.Request, rhs: Anytype_Rpc.NameService.ResolveName.Request) -> Bool {
-    if lhs.fullName != rhs.fullName {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
