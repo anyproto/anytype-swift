@@ -19,7 +19,7 @@ struct EmojiIconView: View {
         Config(side: 48, cornerRadius: 10),
         Config(side: 64, cornerRadius: 14),
         Config(side: 80, cornerRadius: 18)
-    ].sorted(by: { $0.side > $1.side }) // Order by DESK side for simple search
+    ].sorted(by: { $0.side > $1.side }) // Order by DESC side for simple search
     
     let emoji: Emoji
     
