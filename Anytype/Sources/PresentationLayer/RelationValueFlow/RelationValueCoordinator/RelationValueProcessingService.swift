@@ -26,19 +26,19 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
             return true
         }
         
-        if FeatureFlags.newSelectRelationView, case .status = relation {
+        if case .status = relation {
             return true
         }
         
-        if FeatureFlags.newMultiSelectRelationView, case .tag = relation {
+        if case .tag = relation {
             return true
         }
         
-        if FeatureFlags.newObjectSelectRelationView, case .object = relation {
+        if case .object = relation {
             return true
         }
         
-        if FeatureFlags.newFileSelectRelationView, case .file = relation {
+        if case .file = relation {
             return true
         }
         
