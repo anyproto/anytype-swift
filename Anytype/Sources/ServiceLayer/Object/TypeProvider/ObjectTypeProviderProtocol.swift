@@ -7,7 +7,7 @@ protocol ObjectTypeProviderProtocol: AnyObject {
     var objectTypes: [ObjectType] { get }
     var syncPublisher: AnyPublisher<Void, Never> { get }
     
-    func setDefaultObjectType(type: ObjectType, spaceId: String)
+    func setDefaultObjectType(type: ObjectType, spaceId: String, route: AnalyticsDefaultObjectTypeChangeRoute)
     
     func defaultObjectType(spaceId: String) throws -> ObjectType
     func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never>

@@ -175,8 +175,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func setDefaultType(_ type: ObjectType) {
-        AnytypeAnalytics.instance().logDefaultObjectTypeChange(type.analyticsType, route: .navigation)
-        objectTypeProvider.setDefaultObjectType(type: type, spaceId: spaceId)
+        objectTypeProvider.setDefaultObjectType(type: type, spaceId: spaceId, route: .navigation)
         search(text: searchText)
     }
     
