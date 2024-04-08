@@ -818,7 +818,6 @@
 		2AE85FED2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FEC2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift */; };
 		2AE85FEF2B1F4BD800268E9D /* ServerDocumentPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FEE2B1F4BD800268E9D /* ServerDocumentPickerView.swift */; };
 		2AE85FF12B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF02B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift */; };
-		2AE85FF32B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF22B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift */; };
 		2AE85FF52B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF42B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift */; };
 		2AE85FF72B20D85900268E9D /* EditorPageViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE85FF62B20D85900268E9D /* EditorPageViewState.swift */; };
 		2AE906E9296FFE820044A10A /* TextIconPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */; };
@@ -2612,7 +2611,6 @@
 		2AE85FEC2B1F4A0C00268E9D /* ServerConfigurationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AE85FEE2B1F4BD800268E9D /* ServerDocumentPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPickerView.swift; sourceTree = "<group>"; };
 		2AE85FF02B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPickerViewModel.swift; sourceTree = "<group>"; };
-		2AE85FF22B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDocumentPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE85FF42B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationModuleOutput.swift; sourceTree = "<group>"; };
 		2AE85FF62B20D85900268E9D /* EditorPageViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageViewState.swift; sourceTree = "<group>"; };
 		2AE906E8296FFE820044A10A /* TextIconPickerModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconPickerModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7009,7 +7007,6 @@
 			children = (
 				2AE85FEE2B1F4BD800268E9D /* ServerDocumentPickerView.swift */,
 				2AE85FF02B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift */,
-				2AE85FF22B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift */,
 			);
 			path = ServerDocumentPicker;
 			sourceTree = "<group>";
@@ -11973,7 +11970,6 @@
 				12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */,
 				12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */,
 				2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */,
-				2AE85FF32B1F4D8A00268E9D /* ServerDocumentPickerModuleAssembly.swift in Sources */,
 				2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */,
 				2AE155922A31BDF50049C387 /* RecentCompactListWidgetModuleAssembly.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,

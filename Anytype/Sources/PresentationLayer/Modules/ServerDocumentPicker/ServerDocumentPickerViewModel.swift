@@ -5,15 +5,12 @@ final class ServerDocumentPickerViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let storage: ServerConfigurationStorageProtocol
+    @Injected(\.serverConfigurationStorage)
+    private var storage: ServerConfigurationStorageProtocol
     
     // MARK: - State
     
     @Published var toast = ToastBarData.empty
-    
-    init(storage: ServerConfigurationStorageProtocol) {
-        self.storage = storage
-    }
     
     func onSelectFile(url: URL) {
         do {
