@@ -3,13 +3,17 @@ import AnytypeCore
 
 
 public protocol StoreKitServiceProtocol {
-    func startListenForTransactions()
     func purchase(product: Product) async throws
+    
+    func startListenForTransactions()
+    func stopListenForTransactions()
 }
 
 final class StoreKitService: StoreKitServiceProtocol {
+    private var task: Task<(), Never>?
+    
     func startListenForTransactions() {
-        Task.detached {
+        task = Task.detached {
             ///Iterate through any transactions that don't come from a direct call to `purchase()`.
             for await verificationResult in Transaction.updates {
                 do {
@@ -26,6 +30,10 @@ final class StoreKitService: StoreKitServiceProtocol {
                 }
             }
         }
+    }
+    
+    func stopListenForTransactions() {
+        task?.cancel()
     }
     
     func purchase(product: Product) async throws {
