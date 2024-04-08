@@ -25,11 +25,11 @@ struct MembershipOwnerInfoSheetView: View {
             case .explorer:
                 AnytypeText(Loc.forever, style: .title, color: .Text.primary)
                 Spacer.fixedHeight(55)
-            case .builder, .coCreator:
+            case .builder, .coCreator, .custom:
                 AnytypeText(membership.formattedDateEnds, style: .title, color: .Text.primary)
                 paymentText
-            case .custom, .none:
-                EmptyView() // TBD in future updates
+            case .none:
+                EmptyView()
             }
         }
         .frame(maxWidth: .infinity)

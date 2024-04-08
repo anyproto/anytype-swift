@@ -25,6 +25,17 @@ final class MembershipCoordinatorModel: ObservableObject {
         loadTiers()
     }
     
+    func loadTiers() {
+        Task {
+            do {
+                tiers = try await membershipService.getTiers()
+                showTiersLoadingError = false
+            } catch {
+                showTiersLoadingError = true
+            }
+        }
+    }
+    
     func onTierSelected(tier: MembershipTier) {
         switch tier.type {
         case .custom:
@@ -46,24 +57,21 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     func onSuccessfulValidation(data: EmailVerificationData) {
         emailVerificationData = nil
+        showSuccessScreen(tier: data.tier)
+    }
+    
+    func onSuccessfulPurchase(tier: MembershipTier) {
+        showSuccessScreen(tier: tier)
+    }
+    
+    private func showSuccessScreen(tier: MembershipTier) {
         showTier = nil
         loadTiers()
         
         // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
         Task {
             try await Task.sleep(seconds: 0.5)
-            showSuccess = data.tier
-        }
-    }
-    
-    func loadTiers() {
-        Task {
-            do {
-                tiers = try await membershipService.getTiers()
-                showTiersLoadingError = false
-            } catch {
-                showTiersLoadingError = true
-            }
+            showSuccess = tier
         }
     }
 }
