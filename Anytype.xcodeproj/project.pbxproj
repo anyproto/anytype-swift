@@ -902,10 +902,8 @@
 		2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A57B92A3C7C6800359110 /* UsecaseService.swift */; };
 		2E0A6CD12A376B4600A28AF2 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD02A376B4600A28AF2 /* LoginView.swift */; };
 		2E0A6CD32A376E4400A28AF2 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */; };
-		2E0A6CD52A376F1300A28AF2 /* LoginViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */; };
 		2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */; };
 		2E0A6CD92A3773F200A28AF2 /* LoginFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */; };
-		2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */; };
 		2E0A7D312BAC9F1800577AD6 /* ObjectImportType+Loc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A7D302BAC9F1800577AD6 /* ObjectImportType+Loc.swift */; };
 		2E0A7D332BB1FC0C00577AD6 /* FileDetails+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0A7D322BB1FC0C00577AD6 /* FileDetails+Analytics.swift */; };
 		2E0B0D672B753B2A00ECC37F /* WalletRecoveryError+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B0D662B753B2A00ECC37F /* WalletRecoveryError+Localize.swift */; };
@@ -2694,10 +2692,8 @@
 		2E0A57B92A3C7C6800359110 /* UsecaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsecaseService.swift; sourceTree = "<group>"; };
 		2E0A6CD02A376B4600A28AF2 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
-		2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinator.swift; sourceTree = "<group>"; };
 		2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowOutput.swift; sourceTree = "<group>"; };
-		2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0A7D302BAC9F1800577AD6 /* ObjectImportType+Loc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectImportType+Loc.swift"; sourceTree = "<group>"; };
 		2E0A7D322BB1FC0C00577AD6 /* FileDetails+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileDetails+Analytics.swift"; sourceTree = "<group>"; };
 		2E0B0D662B753B2A00ECC37F /* WalletRecoveryError+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletRecoveryError+Localize.swift"; sourceTree = "<group>"; };
@@ -7204,10 +7200,8 @@
 			children = (
 				2E0A6CD02A376B4600A28AF2 /* LoginView.swift */,
 				2E0A6CD22A376E4400A28AF2 /* LoginViewModel.swift */,
-				2E0A6CD42A376F1300A28AF2 /* LoginViewModuleAssembly.swift */,
 				2E0A6CD62A3773B800A28AF2 /* LoginFlowCoordinator.swift */,
 				2E0A6CD82A3773F200A28AF2 /* LoginFlowOutput.swift */,
-				2E0A6CDA2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift */,
 				2EC7FB9E2A5EF7FD00491F99 /* LoginLoadingRoute.swift */,
 			);
 			path = LoginFlow;
@@ -10936,7 +10930,6 @@
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
 				2E2A22FB2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift in Sources */,
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
-				2E0A6CDB2A3775D900A28AF2 /* LoginFlowCoordinatorAssembly.swift in Sources */,
 				2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */,
 				3D4507BF2B9B3DE400739EFC /* MembershipNameSheetViewModel.swift in Sources */,
 				C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */,
@@ -12242,7 +12235,6 @@
 				3D4507BC2B9B398A00739EFC /* MembershipNameSheetView.swift in Sources */,
 				2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */,
 				3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */,
-				2E0A6CD52A376F1300A28AF2 /* LoginViewModuleAssembly.swift in Sources */,
 				C9C0A99E274FB04E0002FA30 /* EditorPageBlocksStateManager.swift in Sources */,
 				C96B6CA127B0F8DE00C453EB /* SpacerBlockViewModel.swift in Sources */,
 				12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */,

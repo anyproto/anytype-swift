@@ -82,10 +82,6 @@ final class ModulesDI: ModulesDIProtocol {
         return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func login() -> LoginViewModuleAssemblyProtocol {
-        return LoginViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }

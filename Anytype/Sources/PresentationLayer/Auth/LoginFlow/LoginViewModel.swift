@@ -36,34 +36,25 @@ final class LoginViewModel: ObservableObject {
         loadingRoute.isQRInProgress || loadingRoute.isLoginInProgress
     }
     
-    let canRestoreFromKeychain: Bool
+    lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
     
-    private let authService: AuthServiceProtocol
-    private let seedService: SeedServiceProtocol
-    private let localAuthService: LocalAuthServiceProtocol
-    private let cameraPermissionVerifier: CameraPermissionVerifierProtocol
-    private let accountEventHandler: AccountEventHandlerProtocol
-    private let applicationStateService: ApplicationStateServiceProtocol
+    @Injected(\.authService)
+    private var authService: AuthServiceProtocol
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
+    @Injected(\.localAuthService)
+    private var localAuthService: LocalAuthServiceProtocol
+    @Injected(\.cameraPermissionVerifier)
+    private var cameraPermissionVerifier: CameraPermissionVerifierProtocol
+    @Injected(\.accountEventHandler)
+    private var accountEventHandler: AccountEventHandlerProtocol
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
     private weak var output: LoginFlowOutput?
     
     private var subscriptions = [AnyCancellable]()
     
-    init(
-        authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol,
-        localAuthService: LocalAuthServiceProtocol,
-        cameraPermissionVerifier: CameraPermissionVerifierProtocol,
-        accountEventHandler: AccountEventHandlerProtocol,
-        applicationStateService: ApplicationStateServiceProtocol,
-        output: LoginFlowOutput?
-    ) {
-        self.authService = authService
-        self.seedService = seedService
-        self.localAuthService = localAuthService
-        self.cameraPermissionVerifier = cameraPermissionVerifier
-        self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
-        self.accountEventHandler = accountEventHandler
-        self.applicationStateService = applicationStateService
+    init(output: LoginFlowOutput?) {
         self.output = output
         
         self.handleAccountShowEvent()

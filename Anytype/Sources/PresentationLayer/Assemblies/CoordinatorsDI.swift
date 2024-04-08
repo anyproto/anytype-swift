@@ -69,15 +69,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func authorization() -> AuthCoordinatorAssemblyProtocol {
-        return AuthCoordinatorAssembly(modulesDI: modulesDI, coordinatorsID: self, uiHelpersDI: uiHelpersDI)
+        return AuthCoordinatorAssembly(coordinatorsID: self, uiHelpersDI: uiHelpersDI)
     }
     
     func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol {
         return JoinFlowCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol {
-        return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
     
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {

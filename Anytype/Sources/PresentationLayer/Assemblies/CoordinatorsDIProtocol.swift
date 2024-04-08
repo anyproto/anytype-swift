@@ -12,7 +12,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func settings() -> SettingsCoordinatorAssemblyProtocol
     func authorization() -> AuthCoordinatorAssemblyProtocol
     func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol
-    func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol
     func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol
