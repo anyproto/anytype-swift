@@ -1,14 +1,15 @@
 import SwiftUI
 import Services
-
+import StoreKit
+ 
 
 struct MembershipNameSheetView: View {    
     @StateObject private var model: MembershipNameSheetViewModel
     @State private var name = ""
     
-    init(tier: MembershipTier, anyName: String) {
+    init(tier: MembershipTier, anyName: String, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         _model = StateObject(
-            wrappedValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName)
+            wrappedValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName, product: product, onSuccessfulPurchase: onSuccessfulPurchase)
         )
     }
     
@@ -30,14 +31,13 @@ struct MembershipNameSheetView: View {
             AnytypeText(model.tier.paymentType.localizedPeriod ?? "", style: .relation1Regular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(15)
-            StandardButton(
-                Loc.payByCard,
+            AsyncStandardButton(
+                text: Loc.payByCard,
                 style: .primaryLarge
             ) {
-                // TODO: Pay
-                // Support Test tiers without name and tiers if name already purchased
+                try await model.purchase()
             }
-            .disabled(!model.state.isValidated)
+            .disabled(!model.canBuyTier)
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
@@ -127,10 +127,10 @@ struct MembershipNameSheetView: View {
     }
 }
 
-#Preview {
-    TabView {
-        MembershipNameSheetView(tier: .mockBuilder, anyName: "")
-        MembershipNameSheetView(tier: .mockCoCreator, anyName: "SonyaBlade")
-        MembershipNameSheetView(tier: .mockBuilderTest, anyName: "")
-    }.tabViewStyle(.page)
-}
+//#Preview {
+//    TabView {
+//        MembershipNameSheetView(tier: .mockBuilder, anyName: "")
+//        MembershipNameSheetView(tier: .mockCoCreator, anyName: "SonyaBlade")
+//        MembershipNameSheetView(tier: .mockBuilderTest, anyName: "")
+//    }.tabViewStyle(.page)
+//}

@@ -98,7 +98,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
                 showFiles: false,
                 incudeNotForCreation: false
             ) { [weak self] type in
-                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
+                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
                 self?.navigationContext.dismissTopPresented(animated: true)
             }
             navigationContext.present(module)
@@ -107,7 +107,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
                 title: Loc.chooseDefaultObjectType,
                 spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
             ) { [weak self] type in
-                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId)
+                self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
                 self?.navigationContext.dismissTopPresented(animated: true)
             }
             navigationContext.present(module)

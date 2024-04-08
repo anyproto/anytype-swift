@@ -53,9 +53,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
        return try defaultObjectType(storage: defaultObjectTypes, spaceId: spaceId)
     }
     
-    func setDefaultObjectType(type: ObjectType, spaceId: String) {
+    func setDefaultObjectType(type: ObjectType, spaceId: String, route: AnalyticsDefaultObjectTypeChangeRoute) {
         defaultObjectTypes[spaceId] = type.id
-        AnytypeAnalytics.instance().logDefaultObjectTypeChange(type.analyticsType, route: .settings)
+        AnytypeAnalytics.instance().logDefaultObjectTypeChange(type.analyticsType, route: route)
     }
 
     func objectType(id: String) throws -> ObjectType {
@@ -143,17 +143,12 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     private func findNoteType(spaceId: String) -> ObjectType? {
-        let type = objectTypes.first { $0.uniqueKey == .note && $0.spaceId == spaceId }
-        if type.isNil {
-            anytypeAssertionFailure("Note type not found", info: ["spaceId": spaceId])
-        }
-        return type
+        return objectTypes.first { $0.uniqueKey == .note && $0.spaceId == spaceId }
     }
     
     private func defaultObjectType(storage: [String: String], spaceId: String) throws -> ObjectType {
         let typeId = storage[spaceId]
         guard let type = objectTypes.first(where: { $0.id == typeId }) ?? findNoteType(spaceId: spaceId) else {
-            anytypeAssertionFailure("Default object type not found", info: ["spaceId": spaceId])
             throw ObjectTypeError.objectTypeNotFound
         }
         return type
