@@ -82,7 +82,7 @@ final class RelationValueCoordinatorViewModel:
             ).eraseToAnyView()
         }
         
-        if FeatureFlags.newMultiSelectRelationView, case .tag(let tag) = relation {
+        if case .tag(let tag) = relation {
             let configuration = RelationModuleConfiguration(
                 title: tag.name,
                 isEditable: relation.isEditable,
@@ -106,7 +106,7 @@ final class RelationValueCoordinatorViewModel:
             ).eraseToAnyView()
         }
         
-        if FeatureFlags.newObjectSelectRelationView, case .object(let object) = relation {
+        if case .object(let object) = relation {
             let configuration = RelationModuleConfiguration(
                 title: object.name,
                 isEditable: relation.isEditable,
@@ -133,7 +133,7 @@ final class RelationValueCoordinatorViewModel:
             ).eraseToAnyView()
         }
         
-        if FeatureFlags.newObjectSelectRelationView, case .file(let file) = relation {
+        if case .file(let file) = relation {
             let configuration = RelationModuleConfiguration(
                 title: file.name,
                 isEditable: relation.isEditable,
