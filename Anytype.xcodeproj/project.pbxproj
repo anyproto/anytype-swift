@@ -890,7 +890,6 @@
 		2E04201E2BA899C500F36637 /* SelectRelationListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E04201D2BA899C500F36637 /* SelectRelationListData.swift */; };
 		2E0797B32A0940F8006F0FD7 /* JoinFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */; };
 		2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */; };
-		2E0797B82A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */; };
 		2E0797BA2A096571006F0FD7 /* JoinFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */; };
 		2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */; };
 		2E0797C42A09678C006F0FD7 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */; };
@@ -978,7 +977,6 @@
 		2E48ACA32A55D4EF0059CB5C /* CustomBackSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */; };
 		2E48D74328CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */; };
 		2E4D78B22A82907E00813A4F /* KeyPhraseMoreInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4D78B12A82907E00813A4F /* KeyPhraseMoreInfoView.swift */; };
-		2E4D78B62A82909900813A4F /* KeyPhraseMoreInfoViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E4D78B52A82909900813A4F /* KeyPhraseMoreInfoViewModuleAssembly.swift */; };
 		2E52DE672A1CDF3D00F16815 /* LineProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE662A1CDF3D00F16815 /* LineProgressBar.swift */; };
 		2E52DE692A1CDF5500F16815 /* LineProgressBarConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */; };
 		2E52DE6C2A1CE77100F16815 /* SoulViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */; };
@@ -2680,7 +2678,6 @@
 		2E04201D2BA899C500F36637 /* SelectRelationListData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListData.swift; sourceTree = "<group>"; };
 		2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowView.swift; sourceTree = "<group>"; };
 		2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowViewModel.swift; sourceTree = "<group>"; };
-		2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowModuleAssembly.swift; sourceTree = "<group>"; };
 		2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowCoordinator.swift; sourceTree = "<group>"; };
 		2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
@@ -2768,7 +2765,6 @@
 		2E48ACA22A55D4EF0059CB5C /* CustomBackSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackSwipe.swift; sourceTree = "<group>"; };
 		2E48D74228CF461400CEE69D /* TertiaryPressedBackgroundButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TertiaryPressedBackgroundButtonStyle.swift; sourceTree = "<group>"; };
 		2E4D78B12A82907E00813A4F /* KeyPhraseMoreInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseMoreInfoView.swift; sourceTree = "<group>"; };
-		2E4D78B52A82909900813A4F /* KeyPhraseMoreInfoViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseMoreInfoViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E52DE662A1CDF3D00F16815 /* LineProgressBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineProgressBar.swift; sourceTree = "<group>"; };
 		2E52DE682A1CDF5500F16815 /* LineProgressBarConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineProgressBarConfiguration.swift; sourceTree = "<group>"; };
 		2E52DE6B2A1CE77100F16815 /* SoulViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoulViewModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7163,7 +7159,6 @@
 				2EDC2B022A13E48F0065E009 /* KeyPhraseView */,
 				2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */,
 				2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */,
-				2E0797B72A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift */,
 				2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */,
 				2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */,
 				2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */,
@@ -7383,7 +7378,6 @@
 			isa = PBXGroup;
 			children = (
 				2E4D78B12A82907E00813A4F /* KeyPhraseMoreInfoView.swift */,
-				2E4D78B52A82909900813A4F /* KeyPhraseMoreInfoViewModuleAssembly.swift */,
 			);
 			path = KeyPhraseMoreInfoView;
 			sourceTree = "<group>";
@@ -11374,7 +11368,6 @@
 				1220670827314E210051A331 /* RelationsListViewModel.swift in Sources */,
 				2E2A22F92A9E448B00745D78 /* SetLayoutSettingsViewModel.swift in Sources */,
 				2A1F4CBB29B88DBE004516F6 /* SentryNonFatalLogger.swift in Sources */,
-				2E0797B82A0964BC006F0FD7 /* JoinFlowModuleAssembly.swift in Sources */,
 				2A785B452AFCDDB30020297E /* EditorCoordinatorView.swift in Sources */,
 				12C2A5982757A6D600311854 /* StatusRelationDetailsView.swift in Sources */,
 				125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */,
@@ -12071,7 +12064,6 @@
 				2A78A95B2B9F36D300396B82 /* WorkspacesStorageMock.swift in Sources */,
 				2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */,
 				2AE7ECA3298816F30079F12B /* WidgetObjectListInternalViewModelProtocol.swift in Sources */,
-				2E4D78B62A82909900813A4F /* KeyPhraseMoreInfoViewModuleAssembly.swift in Sources */,
 				863DB2942AB320D800CB6914 /* HeaderBuilder.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				2ACDC9CC2B5688310063BFBD /* ShareOptionsInteractor.swift in Sources */,
