@@ -8,13 +8,16 @@ struct MembershipTierSelectionView: View {
     init(
         userMembership: MembershipStatus,
         tierToDisplay: MembershipTier,
-        showEmailVerification: @escaping (EmailVerificationData) -> ()
+        showEmailVerification: @escaping (EmailVerificationData) -> (),
+        onSuccessfulPurchase: @escaping (MembershipTier) -> ()
+        
     ) {
         _model = StateObject(
             wrappedValue: MembershipTierSelectionViewModel(
                 userMembership: userMembership,
                 tierToDisplay: tierToDisplay,
-                showEmailVerification: showEmailVerification
+                showEmailVerification: showEmailVerification,
+                onSuccessfulPurchase: onSuccessfulPurchase
             )
         )
     }
@@ -32,18 +35,17 @@ struct MembershipTierSelectionView: View {
     
     var sheet: some View {
         Group {
-            if model.userMembership.tier?.type == model.tierToDisplay.type {
+            if model.tierOwned {
                 MembershipOwnerInfoSheetView(membership: model.userMembership)
-                EmptyView()
             } else {
-                switch model.tierToDisplay.id {
-                case .explorer:
+                switch model.tierToDisplay.paymentType {
+                case .email:
                     MembershipEmailSheetView { email, subscribeToNewsletter in
                         try await model.getVerificationEmail(email: email, subscribeToNewsletter: subscribeToNewsletter)
                     }
-                case .builder, .coCreator:
-                    MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName)
-                case .custom:
+                case .appStore(let product):
+                    MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
+                case .external:
                     EmptyView() // TBD in future updates
                 }
             }
@@ -74,7 +76,8 @@ struct MembershipTierSelectionView: View {
                 anyName: ""
             ),
             tierToDisplay: .mockExplorer,
-            showEmailVerification: { _ in }
+            showEmailVerification: { _ in },
+            onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
@@ -85,7 +88,8 @@ struct MembershipTierSelectionView: View {
                 anyName: ""
             ),
             tierToDisplay: .mockExplorer,
-            showEmailVerification: { _ in }
+            showEmailVerification: { _ in },
+            onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
@@ -96,7 +100,8 @@ struct MembershipTierSelectionView: View {
                 anyName: ""
             ),
             tierToDisplay: .mockBuilder,
-            showEmailVerification: { _ in }
+            showEmailVerification: { _ in },
+            onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
@@ -107,7 +112,8 @@ struct MembershipTierSelectionView: View {
                 anyName: "SonyaBlade"
             ),
             tierToDisplay: .mockBuilder,
-            showEmailVerification: { _ in }
+            showEmailVerification: { _ in },
+            onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
@@ -118,7 +124,8 @@ struct MembershipTierSelectionView: View {
                 anyName: "SonyaBlade"
             ),
             tierToDisplay: .mockCoCreator,
-            showEmailVerification: { _ in }
+            showEmailVerification: { _ in },
+            onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: MembershipStatus(
@@ -129,7 +136,8 @@ struct MembershipTierSelectionView: View {
                 anyName: "SonyaBlade"
             ),
             tierToDisplay: .mockCoCreator,
-            showEmailVerification: { _ in }
+            showEmailVerification: { _ in },
+            onSuccessfulPurchase: { _ in }
         )
     }.tabViewStyle(.page)
 }
