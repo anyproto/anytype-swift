@@ -24,7 +24,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
-    func initial() -> InitialCoordinatorAssemblyProtocol
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol

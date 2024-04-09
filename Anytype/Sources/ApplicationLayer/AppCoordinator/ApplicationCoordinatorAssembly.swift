@@ -30,8 +30,7 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
             model: ApplicationCoordinatorViewModel(
                 authCoordinatorAssembly: self.coordinatorsDI.authorization(),
                 homeCoordinatorAssembly: self.coordinatorsDI.home(),
-                deleteAccountModuleAssembly: self.modulesDI.deleteAccount(),
-                initialCoordinatorAssembly: self.coordinatorsDI.initial(), 
+                deleteAccountModuleAssembly: self.modulesDI.deleteAccount(), 
                 navigationContext: self.uiHelpersDI.commonNavigationContext()
             )
         ).eraseToAnyView()

@@ -22,7 +22,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
     private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
-    private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
@@ -38,23 +37,17 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
         deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
-        initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
         self.authCoordinatorAssembly = authCoordinatorAssembly
         self.homeCoordinatorAssembly = homeCoordinatorAssembly
         self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
-        self.initialCoordinatorAssembly = initialCoordinatorAssembly
         self.navigationContext = navigationContext
     }
     
     func onAppear() {
         runAtFirstLaunch()
         startObserve()
-    }
-    
-    func initialView() -> AnyView {
-        return initialCoordinatorAssembly.make()
     }
 
     func authView() -> AnyView {

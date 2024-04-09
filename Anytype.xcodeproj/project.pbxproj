@@ -477,7 +477,6 @@
 		2A6574682A4456F6002F568C /* ObjectIconExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6574672A4456F6002F568C /* ObjectIconExample.swift */; };
 		2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */; };
 		2A65E9B42AE1294900D40657 /* InitialCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B32AE1294900D40657 /* InitialCoordinatorViewModel.swift */; };
-		2A65E9B62AE1297800D40657 /* InitialCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */; };
 		2A6688932A1CCB1100D80CED /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688922A1CCB1100D80CED /* AboutView.swift */; };
 		2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */; };
 		2A668F152BB2BC0200460C68 /* AsyncStandardButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A668F142BB2BC0200460C68 /* AsyncStandardButtonGroup.swift */; };
@@ -2250,7 +2249,6 @@
 		2A6574672A4456F6002F568C /* ObjectIconExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconExample.swift; sourceTree = "<group>"; };
 		2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorView.swift; sourceTree = "<group>"; };
 		2A65E9B32AE1294900D40657 /* InitialCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A6688922A1CCB1100D80CED /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		2A668F142BB2BC0200460C68 /* AsyncStandardButtonGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncStandardButtonGroup.swift; sourceTree = "<group>"; };
@@ -5878,7 +5876,6 @@
 			children = (
 				2A65E9B12AE1290300D40657 /* InitialCoordinatorView.swift */,
 				2A65E9B32AE1294900D40657 /* InitialCoordinatorViewModel.swift */,
-				2A65E9B52AE1297800D40657 /* InitialCoordinatorAssembly.swift */,
 			);
 			path = InitialCoordinator;
 			sourceTree = "<group>";
@@ -10651,7 +10648,6 @@
 				3DDC9F262B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift in Sources */,
 				2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
-				2A65E9B62AE1297800D40657 /* InitialCoordinatorAssembly.swift in Sources */,
 				1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */,
 				2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */,
 				12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */,
