@@ -76,8 +76,6 @@
 "Relation.AddedToLibrary" = "라이브러리에 '%@' 관계 추가됨";
 "Relation.Deleted" = "삭제된 관계";
 "Relation.From.Type" = "%@ 유형으로 부터";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
 "Relation.EmptyState.title" = "옵션 없음";
 "Relation.EmptyState.description" = "찾을 수 없습니다. 첫 번째 옵션을 생성하여 시작합니다.";
 "Relation.EmptyState.Blocked.title" = "관계가 비어 있습니다";
@@ -337,6 +335,7 @@
 "Create a new one or search for something else" = "Create a new one or search for something else";
 "Search.Backlinks.Show.title" = "Show backlinks";
 "Search.Backlinks.Header.title" = "Backlinks of: %@";
+"Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
 
@@ -914,8 +913,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
-"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
 "SpaceShare.RemoveMember.Title" = "멤버 삭제";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
@@ -942,6 +941,8 @@
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 "SpaceShare.Manage" = "관리";
+"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "스페이스 열기";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -1108,8 +1109,6 @@
 
 "Membership.Payment.Card" = "카드";
 "Membership.Payment.Crypto" = "Crypto";
-"Membership.Payment.ApplePay" = "ApplePay";
-"Membership.Payment.GooglePay" = "GooglePay";
 "Membership.Payment.Apple subscription" = "Apple subscription";
 "Membership.Payment.Google subscription" = "Google subscription";
 
