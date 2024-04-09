@@ -1897,6 +1897,10 @@ internal enum Loc {
         /// Show backlinks
         internal static let title = Loc.tr("Localizable", "Search.Backlinks.Show.title", fallback: "Show backlinks")
       }
+      internal enum Swipe {
+        /// Backlinks
+        internal static let title = Loc.tr("Localizable", "Search.Backlinks.Swipe.title", fallback: "Backlinks")
+      }
     }
   }
   internal enum Server {
