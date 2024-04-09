@@ -76,8 +76,6 @@
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Deleted relation";
 "Relation.From.Type" = "From type %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
@@ -337,6 +335,7 @@
 "Create a new one or search for something else" = "Create a new one or search for something else";
 "Search.Backlinks.Show.title" = "Show backlinks";
 "Search.Backlinks.Header.title" = "Backlinks of: %@";
+"Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
 
@@ -914,8 +913,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
-"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
@@ -942,6 +941,8 @@
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 "SpaceShare.Manage" = "Manage";
+"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -1108,8 +1109,6 @@
 
 "Membership.Payment.Card" = "Card";
 "Membership.Payment.Crypto" = "Crypto";
-"Membership.Payment.ApplePay" = "ApplePay";
-"Membership.Payment.GooglePay" = "GooglePay";
 "Membership.Payment.Apple subscription" = "Apple subscription";
 "Membership.Payment.Google subscription" = "Google subscription";
 

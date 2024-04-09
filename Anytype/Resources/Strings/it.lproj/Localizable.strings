@@ -76,8 +76,6 @@
 "Relation.AddedToLibrary" = "Relazione ‘%@’ aggiunta alla tua libreria";
 "Relation.Deleted" = "Relazione eliminata";
 "Relation.From.Type" = "Dal tipo %@";
-"Relation.LinksFrom.Title" = "da";
-"Relation.LinksTo.Title" = "a";
 "Relation.EmptyState.title" = "Nessuna opzione";
 "Relation.EmptyState.description" = "Nessun risultato. Crea la prima opzione per iniziare.";
 "Relation.EmptyState.Blocked.title" = "La relazione è vuota";
@@ -337,6 +335,7 @@
 "Create a new one or search for something else" = "Creane uno nuovo o cerca qualcos'altro";
 "Search.Backlinks.Show.title" = "Mostra i backlink";
 "Search.Backlinks.Header.title" = "Backlink di: %@";
+"Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
 
@@ -914,8 +913,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "I nuovi membri non saranno in grado di unirsi allo spazio. È possibile generare un nuovo link in qualsiasi momento";
 "SpaceShare.Approve.Toast" = "Hai approvato la richiesta di %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Concedi accesso in lettura";
-"SpaceShare.ViewRequest.EditAccess" = "Concedi accesso alla modifica";
+"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
 "SpaceShare.ViewRequest.Reject" = "Rifiuta";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ sarà rimosso/a dallo spazio.";
@@ -942,6 +941,8 @@
 "SpaceShare.HowToShare.Step2" = "Cliccando sul link, una persona richiede di unirsi allo spazio.";
 "SpaceShare.HowToShare.Step3" = "Dopo aver approvato la richiesta, puoi scegliere i diritti di accesso per quella persona.";
 "SpaceShare.Manage" = "Manage";
+"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "I tuoi diritti di accesso sono stati modificati in **%@** nello spazio **%@**.";
@@ -1108,8 +1109,6 @@
 
 "Membership.Payment.Card" = "Scheda";
 "Membership.Payment.Crypto" = "Cripto";
-"Membership.Payment.ApplePay" = "ApplePay";
-"Membership.Payment.GooglePay" = "GooglePay";
 "Membership.Payment.Apple subscription" = "Abbonamento Apple";
 "Membership.Payment.Google subscription" = "Abbonamento Google";
 
