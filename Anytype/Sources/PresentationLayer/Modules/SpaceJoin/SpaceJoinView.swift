@@ -53,15 +53,18 @@ struct SpaceJoinView: View {
             DragIndicator()
             ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .color(.blue))
             Spacer.fixedHeight(15)
-            AnytypeText(Loc.SpaceShare.Join.title, style: .heading, color: .Text.primary)
+            AnytypeText(Loc.SpaceShare.Join.title, style: .heading)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(16)
-            AnytypeText(model.message, style: .bodyRegular, color: .Text.primary, enableMarkdown: true)
+            AnytypeText(model.message, style: .bodyRegular, enableMarkdown: true)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(16)
             AsyncStandardButton(text: Loc.SpaceShare.Join.button, style: .primaryLarge) {
                 try await model.onJoin()
             }
             Spacer.fixedHeight(20)
-            AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular, color: .Text.secondary)
+            AnytypeText(Loc.SpaceShare.Join.info, style: .caption1Regular)
+                .foregroundColor(.Text.secondary)
             Spacer.fixedHeight(16)
         }
         .padding(.horizontal, 30)

@@ -37,7 +37,8 @@ private struct ItemView: View {
                 )
                 .background(Color.Background.highlightedOfSelected)
                 .cornerRadius(10.5)
-            AnytypeText(title, style: .caption2Regular, color: .Text.secondary)
+            AnytypeText(title, style: .caption2Regular)
+                .foregroundColor(.Text.secondary)
         }
     }
 }

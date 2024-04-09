@@ -18,9 +18,11 @@ struct SettingsInfoBlockView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            AnytypeText(model.title, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(model.title, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             HStack {
-                AnytypeText(model.subtitle, style: .previewTitle2Regular, color: .Text.primary)
+                AnytypeText(model.subtitle, style: .previewTitle2Regular)
+                    .foregroundColor(.Text.primary)
                 Spacer()
                 if let onTap = model.onTap {
                     Image(asset: .X24.copy)

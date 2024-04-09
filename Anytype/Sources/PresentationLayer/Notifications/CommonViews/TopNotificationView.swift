@@ -16,7 +16,8 @@ struct TopNotificationView: View {
                     .frame(width: 40, height: 40)
             }
             VStack(alignment: .leading, spacing: 10) {
-                AnytypeText(title, style: .caption1Regular, color: .Text.labelInversion, enableMarkdown: true)
+                AnytypeText(title, style: .caption1Regular, enableMarkdown: true)
+                    .foregroundColor(.Text.labelInversion)
                 if buttons.isNotEmpty {
                     HStack(spacing: 24) {
                         ForEach(0..<buttons.count, id: \.self) { index in
@@ -24,7 +25,8 @@ struct TopNotificationView: View {
                             AsyncButton {
                                 try await button.action()
                             } label: {
-                                AnytypeText(button.title, style: .caption1Semibold, color: .Text.labelInversion)
+                                AnytypeText(button.title, style: .caption1Semibold)
+                                    .foregroundColor(.Text.labelInversion)
                             }
                         }
                     }

@@ -32,7 +32,8 @@ struct FileStorageView: View {
     @ViewBuilder
     private var locaBlock: some View {
         Spacer.fixedHeight(4)
-        AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular, color: .Text.primary)
+        AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular)
+            .foregroundColor(.Text.primary)
         Spacer.fixedHeight(16)
         FileStorageInfoBlock(
             iconImage: Emoji("📱").map { Icon.object(.emoji($0)) },

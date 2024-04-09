@@ -26,7 +26,8 @@ struct HomeBottomPanelView: View {
     
     private func makeButton(action: @escaping () -> Void, text: String) -> some View {
         Button(action: action, label: {
-            AnytypeText(text, style: .uxBodyRegular, color: .Text.white)
+            AnytypeText(text, style: .uxBodyRegular)
+                .foregroundColor(.Text.white)
                 .frame(maxWidth: .infinity)
         })
         .frame(height: 52)

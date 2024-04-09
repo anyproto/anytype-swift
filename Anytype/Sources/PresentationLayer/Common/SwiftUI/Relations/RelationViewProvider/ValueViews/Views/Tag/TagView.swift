@@ -4,7 +4,8 @@ struct TagView: View {
     let config: TagView.Config
     
     var body: some View {
-        AnytypeText(config.text, style: config.textFont, color: config.textColor)
+        AnytypeText(config.text, style: config.textFont)
+            .foregroundColor(config.textColor)
             .lineLimit(1)
             .padding(.horizontal, config.guidlines.textPadding)
             .background(config.backgroundColor)

@@ -19,7 +19,8 @@ struct CheckboxRelationView: View {
     private var featuredRelationBlock: some View {
         HStack(spacing: 6) {
             featuredRelationBlockIcon
-            AnytypeText(name, style: style.font, color: isChecked ? style.fontColor : style.hintColor)
+            AnytypeText(name, style: style.font)
+                .foregroundStyle(isChecked ? style.fontColor : style.hintColor)
                 .multilineTextAlignment(.leading)
                 .lineLimit(style.allowMultiLine ? nil : 1)
         }
@@ -54,9 +55,9 @@ struct CheckboxRelationView: View {
         Loc.EditSet.Popup.Filter.Value.unchecked
         return AnytypeText(
             text.lowercased(),
-            style: .relation1Regular,
-            color: .Text.secondary
+            style: .relation1Regular
         )
+        .foregroundColor(.Text.secondary)
     }
 }
 

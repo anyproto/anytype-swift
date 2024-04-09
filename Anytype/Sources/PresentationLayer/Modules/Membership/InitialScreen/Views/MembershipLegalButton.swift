@@ -9,7 +9,8 @@ struct MembershipLegalButton: View {
             onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(text, style: .bodyRegular, color: .Text.primary)
+                AnytypeText(text, style: .bodyRegular)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
                 Spacer()
                 IconView(icon: .asset(.X18.webLink))

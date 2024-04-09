@@ -7,7 +7,8 @@ struct SettingsTextField: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
-            AnytypeText(title, style: .caption1Regular, color: .Text.secondary)
+            AnytypeText(title, style: .caption1Regular)
+                .foregroundColor(.Text.secondary)
             AnytypeTextField(placeholder: Loc.Object.Title.placeholder, placeholderFont: .heading, text: $text)
                 .foregroundColor(.Text.primary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))

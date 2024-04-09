@@ -18,11 +18,13 @@ struct EmailVerificationView: View {
         VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(118)
-            AnytypeText(Loc.Membership.emailValidation, style: .bodySemibold, color: .Text.primary)
+            AnytypeText(Loc.Membership.emailValidation, style: .bodySemibold)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(44)
             textInput
             Spacer.fixedHeight(7)
-            AnytypeText(model.error, style: .relation2Regular, color: .System.red)
+            AnytypeText(model.error, style: .relation2Regular)
+                .foregroundColor(.System.red)
             Spacer()
             resend
             Spacer.fixedHeight(30)
@@ -78,7 +80,8 @@ struct EmailVerificationView: View {
     }
     
     private func numberView(number: String) -> some View {
-        AnytypeText(number, style: .title, color: .Text.primary)
+        AnytypeText(number, style: .title)
+            .foregroundColor(.Text.primary)
             .frame(width: 48, height: 64)
             .border(7, color: .Shape.primary, lineWidth: 1)
     }

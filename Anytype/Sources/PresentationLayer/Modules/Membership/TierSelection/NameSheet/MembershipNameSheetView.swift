@@ -26,8 +26,10 @@ struct MembershipNameSheetView: View {
             Spacer.fixedHeight(26)
             info
             nameView
-            AnytypeText("\(model.tier.paymentType.displayPrice ?? "") ", style: .title, color: .Text.primary) +
-            AnytypeText(model.tier.paymentType.localizedPeriod ?? "", style: .relation1Regular, color: .Text.primary)
+            AnytypeText("\(model.tier.paymentType.displayPrice ?? "") ", style: .title)
+                .foregroundColor(.Text.primary) +
+            AnytypeText(model.tier.paymentType.localizedPeriod ?? "", style: .relation1Regular)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(15)
             AsyncStandardButton(
                 text: Loc.payByCard,
@@ -47,9 +49,11 @@ struct MembershipNameSheetView: View {
             case .notAvailable, .alreadyBought:
                 EmptyView()
             case .availableForPruchase:
-                AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold, color: .Text.primary)
+                AnytypeText(Loc.Membership.NameForm.title, style: .bodySemibold)
+                    .foregroundColor(.Text.primary)
                 Spacer.fixedHeight(6)
-                AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular, color: .Text.primary)
+                AnytypeText(Loc.Membership.NameForm.subtitle, style: .calloutRegular)
+                    .foregroundColor(.Text.primary)
                 Spacer.fixedHeight(10)
             }
         }
@@ -73,7 +77,8 @@ struct MembershipNameSheetView: View {
             HStack {
                 TextField(Loc.myself, text: $name)
                     .textContentType(.username)
-                AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
+                AnytypeText(".any", style: .bodyRegular)
+                    .foregroundColor(.Text.primary)
             }
             .padding(.vertical, 12)
             .newDivider()
@@ -84,9 +89,11 @@ struct MembershipNameSheetView: View {
     
     var nameLabel: some View {
         HStack {
-            AnytypeText(model.anyName, style: .uxBodyRegular, color: .Text.primary)
+            AnytypeText(model.anyName, style: .uxBodyRegular)
+                .foregroundColor(.Text.primary)
             Spacer()
-            AnytypeText(".any", style: .bodyRegular, color: .Text.primary)
+            AnytypeText(".any", style: .bodyRegular)
+                .foregroundColor(.Text.primary)
         }
         .padding(.vertical, 12)
         .newDivider()
@@ -98,13 +105,17 @@ struct MembershipNameSheetView: View {
             Group {
                 switch model.state {
                 case .default:
-                    AnytypeText(Loc.minXCharacters(model.minimumNumberOfCharacters), style: .relation2Regular, color: .Text.secondary)
+                    AnytypeText(Loc.minXCharacters(model.minimumNumberOfCharacters), style: .relation2Regular)
+                        .foregroundColor(.Text.secondary)
                 case .validating:
-                    AnytypeText(Loc.Membership.NameForm.validating, style: .relation2Regular, color: .Text.secondary)
+                    AnytypeText(Loc.Membership.NameForm.validating, style: .relation2Regular)
+                        .foregroundColor(.Text.secondary)
                 case .error(text: let text):
-                    AnytypeText(text, style: .relation2Regular, color: .Dark.red)
+                    AnytypeText(text, style: .relation2Regular)
+                        .foregroundColor(.Dark.red)
                 case .validated:
-                    AnytypeText(Loc.Membership.NameForm.validated, style: .relation2Regular, color: .Dark.green)
+                    AnytypeText(Loc.Membership.NameForm.validated, style: .relation2Regular)
+                        .foregroundColor(.Dark.green)
                 }
             }
             .padding(.top, 6)

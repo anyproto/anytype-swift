@@ -70,7 +70,8 @@ private struct TypeView: View {
                     .frame(width: 16, height: 16)
             }
             
-            AnytypeText(title, style: .caption1Medium, color: .Text.primary)
+            AnytypeText(title, style: .caption1Medium)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
         }
         .padding(.vertical, 11)

@@ -34,9 +34,9 @@ struct SetFiltersCheckboxView: View {
         HStack(spacing: 0) {
             AnytypeText(
                 value.title,
-                style: .uxBodyRegular,
-                color: .Text.primary
+                style: .uxBodyRegular
             )
+            .foregroundColor(.Text.primary)
             Spacer()
             icon(for: value)
         }

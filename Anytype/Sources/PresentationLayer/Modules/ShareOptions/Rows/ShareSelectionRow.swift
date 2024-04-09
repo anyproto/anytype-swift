@@ -12,7 +12,8 @@ struct ShareSelectionRow: View {
                 .opacity(selected ? 1 : 0)
                 .foregroundColor(.blue)
             Spacer.fixedWidth(8)
-            AnytypeText(text, style: .bodyRegular, color: .Text.primary)
+            AnytypeText(text, style: .bodyRegular)
+                .foregroundColor(.Text.primary)
             Spacer()
         }
     }

@@ -90,7 +90,8 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 } else {
                     Spacer.fixedWidth(16)
                 }
-                AnytypeText(title, style: .subheading, color: .Text.primary)
+                AnytypeText(title, style: .subheading)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
                     .layoutPriority(-1)
                 Spacer.fixedWidth(16)

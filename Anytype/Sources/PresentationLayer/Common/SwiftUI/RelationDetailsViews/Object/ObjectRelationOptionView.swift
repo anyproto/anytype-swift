@@ -29,16 +29,16 @@ struct ObjectRelationOptionView: View {
         VStack(alignment: .leading, spacing: 1) {
             AnytypeText(
                 option.isDeleted ? Loc.nonExistentObject : option.title,
-                style: .uxTitle2Regular,
-                color: option.isUnavailable ? .Text.tertiary : .Text.primary
+                style: .uxTitle2Regular
             )
+            .foregroundColor(option.isUnavailable ? .Text.tertiary : .Text.primary)
             .lineLimit(1)
             
             AnytypeText(
                 option.isDeleted ? Loc.deleted : option.type,
-                style: .relation3Regular,
-                color: option.isUnavailable ? .Text.secondary : .Text.tertiary
+                style: .relation3Regular
             )
+            .foregroundColor(option.isUnavailable ? .Text.secondary : .Text.tertiary)
             .lineLimit(1)
         }
     }

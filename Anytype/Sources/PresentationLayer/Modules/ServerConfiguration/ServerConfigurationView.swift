@@ -51,7 +51,8 @@ struct ServerConfigurationView: View {
     
     private func makeRow(row: ServerConfigurationRow) -> some View {
         HStack {
-            AnytypeText(row.title, style: .bodyRegular, color: .Auth.text)
+            AnytypeText(row.title, style: .bodyRegular)
+                .foregroundColor(.Auth.text)
             Spacer()
             if row.isSelected {
                 Image(asset: .X24.tick)

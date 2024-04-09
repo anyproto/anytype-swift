@@ -62,7 +62,8 @@ struct AboutView: View {
     @ViewBuilder
     private var techSection: some View {
         SectionHeaderView(title: Loc.About.techInfo)
-        AnytypeText(model.info, style: .caption2Regular, color: .Text.secondary)
+        AnytypeText(model.info, style: .caption2Regular)
+                .foregroundColor(.Text.secondary)
         .padding(EdgeInsets(top: 8, leading: 0, bottom: 36, trailing: 0))
         .onTapGesture {
             model.onInfoTap()

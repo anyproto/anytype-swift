@@ -30,9 +30,11 @@ struct WidgetTypeRowView: View {
                 Spacer()
                 HStack(spacing: 0) {
                     VStack(alignment: .leading, spacing: 0) {
-                        AnytypeText(model.title, style: .uxTitle2Medium, color: .Text.primary)
+                        AnytypeText(model.title, style: .uxTitle2Medium)
+                            .foregroundColor(.Text.primary)
                             .lineLimit(1)
-                        AnytypeText(model.description, style: .caption1Regular, color: .Text.secondary)
+                        AnytypeText(model.description, style: .caption1Regular)
+                            .foregroundColor(.Text.secondary)
                             .lineLimit(1)
                     }
                     Spacer()

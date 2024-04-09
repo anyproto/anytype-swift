@@ -12,7 +12,8 @@ struct PersonalizationView: View {
         VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.personalization, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(12)
             
             AnytypeRow(title: Loc.defaultObjectType, description: model.objectType, action: { model.onObjectTypeTap() })

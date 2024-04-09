@@ -77,7 +77,8 @@ struct SelectRelationListView: View {
     private func rowContent(with option: SelectRelationOption) -> some View {
         switch viewModel.style {
         case .status:
-            AnytypeText(option.text, style: .relation1Regular, color: option.color)
+            AnytypeText(option.text, style: .relation1Regular)
+                .foregroundColor(option.color)
         case .tag:
             TagView(
                 config: TagView.Config(

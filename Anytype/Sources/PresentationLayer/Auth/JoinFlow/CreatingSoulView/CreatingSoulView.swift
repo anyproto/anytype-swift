@@ -15,9 +15,9 @@ struct CreatingSoulView: View {
         VStack(alignment: .center, spacing: 0) {
             AnytypeText(
                 model.showSpace ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
-                style: .bodyRegular,
-                color: .Auth.inputText
+                style: .bodyRegular
             )
+            .foregroundColor(.Auth.inputText)
             
             Spacer.fixedHeight(64)
 
@@ -62,7 +62,8 @@ struct CreatingSoulView: View {
         VStack(spacing: 8) {
             IconView(icon: model.profileIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
-            AnytypeText(model.soulName, style: .calloutRegular, color: .Auth.body)
+            AnytypeText(model.soulName, style: .calloutRegular)
+                .foregroundColor(.Auth.body)
                 .frame(width: 80)
                 .truncationMode(.middle)
                 .lineLimit(1)
@@ -74,7 +75,8 @@ struct CreatingSoulView: View {
         VStack(spacing: 8) {
             IconView(icon: model.spaceIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
-            AnytypeText(Loc.Spaces.Accessibility.personal, style: .calloutRegular, color: .Auth.body)
+            AnytypeText(Loc.Spaces.Accessibility.personal, style: .calloutRegular)
+                .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)
         }
         .frame(width: Constants.itemWidth)

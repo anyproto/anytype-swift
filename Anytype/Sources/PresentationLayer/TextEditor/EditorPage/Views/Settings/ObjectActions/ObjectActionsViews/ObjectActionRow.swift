@@ -21,9 +21,9 @@ struct ObjectActionRow: View {
                     .overlay {
                         AnytypeText(
                             setting.title,
-                            style: .caption2Regular,
-                            color: .Text.secondary
+                            style: .caption2Regular
                         )
+                        .foregroundColor(.Text.secondary)
                         .lineLimit(1)
                         .frame(maxWidth: 72)
                         .fixedSize()

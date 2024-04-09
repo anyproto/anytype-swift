@@ -45,7 +45,8 @@ struct TextRelationEditingView: View {
             clearButton
                 .frame(maxWidth: 100, alignment: .leading)
             
-            AnytypeText(viewModel.config.title, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(viewModel.config.title, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
             
@@ -86,7 +87,8 @@ struct TextRelationEditingView: View {
             Button {
                 viewModel.onClear()
             } label: {
-                AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
+                AnytypeText(Loc.clear, style: .uxBodyRegular)
+                    .foregroundColor(.Button.active)
             }
         } else {
             Spacer()
@@ -99,7 +101,8 @@ struct TextRelationEditingView: View {
             Button {
                 viewModel.onPaste()
             } label: {
-                AnytypeText(Loc.paste, style: .uxBodyRegular, color: .Button.active)
+                AnytypeText(Loc.paste, style: .uxBodyRegular)
+                    .foregroundColor(.Button.active)
             }
         } else {
             Spacer()
@@ -122,9 +125,10 @@ struct TextRelationEditingView: View {
                         Spacer.fixedWidth(10)
                         AnytypeText(
                             model.title,
-                            style: .bodyRegular,
-                            color: model.isActionAvailable ? .Text.primary : .Text.tertiary
-                        ).lineLimit(1)
+                            style: .bodyRegular
+                        )
+                        .foregroundColor(model.isActionAvailable ? .Text.primary : .Text.tertiary)
+                        .lineLimit(1)
                         Spacer()
                     }
                     .frame(height: 52)

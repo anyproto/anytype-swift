@@ -38,7 +38,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     @Published var spaceName = ""
     @Published var spaceAccessType = ""
-    @Published var sharedSpaceDescription = ""
     @Published var spaceIcon: Icon?
     @Published var info = [SettingsInfoModel]()
     @Published var snackBarData = ToastBarData.empty
@@ -46,11 +45,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var showSpaceLeaveAlert = false
     @Published var dismiss = false
     @Published var allowDelete = false
-    @Published var allowShare = false
     @Published var allowLeave = false
-    @Published var allowSpaceMembers = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
+    @Published var shareSection: SpaceSettingsShareSection = .personal
     
     init(output: SpaceSettingsModuleOutput?) {
         self.output = output
@@ -121,16 +119,20 @@ final class SpaceSettingsViewModel: ObservableObject {
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
         allowDelete = spaceView.canBeDelete
         allowLeave = participantSpaceView.canLeave
-        allowShare = participantSpaceView.canBeShared
-        allowSpaceMembers = !participantSpaceView.isOwner
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
         
-        if participantSpaceView.spaceView.spaceAccessType == .shared {
-            sharedSpaceDescription = joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage
+        if participantSpaceView.canBeShared {
+            if participantSpaceView.spaceView.spaceAccessType == .shared {
+                shareSection = .owner(joiningCount: joiningCount)
+            } else {
+                shareSection = .private(active: participantSpacesStorage.canShareSpace())
+            }
+        } else if !participantSpaceView.isOwner {
+            shareSection = .member
         } else {
-            sharedSpaceDescription = Loc.share
+            shareSection = .personal
         }
         
         if !dataLoaded {

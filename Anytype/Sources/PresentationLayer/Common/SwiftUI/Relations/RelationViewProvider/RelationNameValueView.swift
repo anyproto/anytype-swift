@@ -42,7 +42,8 @@ struct RelationNameValueView: View {
     private var nameWidth: CGFloat { width * 0.4 }
 
     private var name: some View {
-        AnytypeText(viewModel.relation.name, style: .relation1Regular, color: .Text.secondary).lineLimit(1)
+        AnytypeText(viewModel.relation.name, style: .relation1Regular)
+                .foregroundColor(.Text.secondary).lineLimit(1)
     }
 
     private var valueViewButton: some View {

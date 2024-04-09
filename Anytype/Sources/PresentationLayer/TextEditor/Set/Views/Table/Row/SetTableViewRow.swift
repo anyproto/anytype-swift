@@ -45,7 +45,8 @@ struct SetTableViewRow: View {
         Button {
             configuration.onItemTap()
         } label: {
-            AnytypeText(configuration.title, style: .previewTitle2Medium, color: .Text.primary)
+            AnytypeText(configuration.title, style: .previewTitle2Medium)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
         }
     }

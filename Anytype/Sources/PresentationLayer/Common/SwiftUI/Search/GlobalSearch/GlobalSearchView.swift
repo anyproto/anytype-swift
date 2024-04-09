@@ -57,7 +57,8 @@ struct GlobalSearchView: View {
                 Button {
                     model.clear()
                 } label: {
-                    AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular, color: .Text.secondary)
+                    AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular)
+                        .foregroundColor(.Text.secondary)
                 }
             }
             .padding(.horizontal, 20)

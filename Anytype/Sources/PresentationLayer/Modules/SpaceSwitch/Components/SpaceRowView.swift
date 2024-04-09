@@ -64,7 +64,8 @@ struct SpaceRowView: View {
             }
             .frame(width: Self.width, height: Self.width)
             Spacer()
-            AnytypeText(model.title, style: .caption1Medium, color: .Text.white)
+            AnytypeText(model.title, style: .caption1Medium)
+                .foregroundColor(.Text.white)
         }
         .frame(width: Self.width, height: 126)
         .onTapGesture {

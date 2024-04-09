@@ -28,7 +28,8 @@ struct StatusRelationView: View {
     }
     
     private func statusView(option: Relation.Status.Option) -> some View {
-        AnytypeText(option.text, style: style.font, color: option.color)
+        AnytypeText(option.text, style: style.font)
+            .foregroundColor(option.color)
             .lineLimit(1)
     }
     

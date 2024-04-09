@@ -39,7 +39,8 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText(Loc.changeIcon, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.changeIcon, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if viewModel.isRemoveButtonAvailable {
@@ -47,7 +48,8 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
                     viewModel.removeIcon()
                     dismiss()
                 } label: {
-                    AnytypeText(Loc.remove, style: .uxBodyRegular, color: Color.System.red)
+                    AnytypeText(Loc.remove, style: .uxBodyRegular)
+                        .foregroundColor(.System.red)
                 }
             } else {
                 EmptyView()
@@ -86,7 +88,8 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
             }
             
         } label: {
-            AnytypeText(tab.title, style: .uxBodyRegular, color: selectedTab == tab ? Color.Button.button : Color.Button.active)
+            AnytypeText(tab.title, style: .uxBodyRegular)
+                .foregroundColor(selectedTab == tab ? Color.Button.button : Color.Button.active)
         }
         .frame(maxWidth: .infinity)
     }
@@ -97,7 +100,8 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
                 handleSelectedEmoji($0)
             }
         } label: {
-            AnytypeText(Loc.random, style: .uxBodyRegular, color: .Button.active)
+            AnytypeText(Loc.random, style: .uxBodyRegular)
+                .foregroundColor(.Button.active)
         }
         .frame(maxWidth: .infinity)
     }

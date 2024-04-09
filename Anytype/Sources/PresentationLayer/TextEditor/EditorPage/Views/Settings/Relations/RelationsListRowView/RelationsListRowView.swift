@@ -52,7 +52,8 @@ struct RelationsListRowView: View {
     
     private var name: some View {
         Menu {
-            AnytypeText(relation.name, style: .relation1Regular, color: .Text.secondary)
+            AnytypeText(relation.name, style: .relation1Regular)
+                .foregroundColor(.Text.secondary)
         } label: {
             HStack(spacing: 6) {
                 if !relation.isEditable {
@@ -60,7 +61,9 @@ struct RelationsListRowView: View {
                         .tint(.Button.active)
                         .frame(width: 15, height: 12)
                 }
-                AnytypeText(relation.name, style: .relation1Regular, color: .Text.secondary).lineLimit(1)
+                AnytypeText(relation.name, style: .relation1Regular)
+                    .foregroundColor(.Text.secondary)
+                    .lineLimit(1)
             }
             .frame(width: size.width * 0.4, alignment: .leading)
         }
