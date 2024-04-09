@@ -80,6 +80,10 @@ internal enum Loc {
   internal static let background = Loc.tr("Localizable", "Background", fallback: "Background")
   /// Background picture
   internal static let backgroundPicture = Loc.tr("Localizable", "Background picture", fallback: "Background picture")
+  /// Plural format key: "%#@object@"
+  internal static func backlinksCount(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Backlinks count", p1, fallback: "Plural format key: \"%#@object@\"")
+  }
   /// Basic
   internal static let basic = Loc.tr("Localizable", "Basic", fallback: "Basic")
   /// Bin
@@ -1777,14 +1781,6 @@ internal enum Loc {
       internal static let protobuf = Loc.tr("Localizable", "Relation.ImportType.Protobuf", fallback: "Any-Block")
       /// TXT
       internal static let text = Loc.tr("Localizable", "Relation.ImportType.Text", fallback: "TXT")
-    }
-    internal enum LinksFrom {
-      /// from
-      internal static let title = Loc.tr("Localizable", "Relation.LinksFrom.Title", fallback: "from")
-    }
-    internal enum LinksTo {
-      /// to
-      internal static let title = Loc.tr("Localizable", "Relation.LinksTo.Title", fallback: "to")
     }
     internal enum Object {
       internal enum Delete {
