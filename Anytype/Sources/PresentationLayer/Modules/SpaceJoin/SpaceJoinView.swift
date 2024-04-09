@@ -22,6 +22,9 @@ struct SpaceJoinView: View {
         .anytypeSheet(isPresented: $model.showSuccessAlert, cancelAction: { model.onDismissSuccessAlert() }) {
             requestSent
         }
+        .task {
+            await model.onAppear()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
@@ -37,6 +40,8 @@ struct SpaceJoinView: View {
             requestSent
         case .invite:
             invite
+        case .alreadyJoined:
+            alreadyJoined
         }
     }
     
@@ -69,6 +74,25 @@ struct SpaceJoinView: View {
         }
         .padding(.horizontal, 30)
         .fixedSize(horizontal: false, vertical: true)
+    }
+    
+    private var alreadyJoined: some View {
+        BottomAlertView(title: Loc.SpaceShare.AlreadyJoin.title) {
+            BottomAlertButton(
+                text: Loc.SpaceShare.AlreadyJoin.openSpace,
+                style: .secondary,
+                action: {
+                    try await model.onTapGoToSpace()
+                }
+            )
+            BottomAlertButton(
+                text: Loc.cancel,
+                style: .warning,
+                action: {
+                    model.onDismissSuccessAlert()
+                }
+            )
+        }
     }
 }
 
