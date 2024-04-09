@@ -912,8 +912,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
 "SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
-"SpaceShare.ViewRequest.ViewAccess" = "Grand view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grand edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
+"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
 "SpaceShare.ViewRequest.Reject" = "Reject";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";

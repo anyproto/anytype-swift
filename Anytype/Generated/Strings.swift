@@ -2435,16 +2435,16 @@ internal enum Loc {
       internal static let toast = Loc.tr("Localizable", "SpaceShare.StopSharing.Toast", fallback: "The space is no longer shared")
     }
     internal enum ViewRequest {
-      /// Grand edit access
-      internal static let editAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.EditAccess", fallback: "Grand edit access")
+      /// Grant edit access
+      internal static let editAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.EditAccess", fallback: "Grant edit access")
       /// Reject
       internal static let reject = Loc.tr("Localizable", "SpaceShare.ViewRequest.Reject", fallback: "Reject")
       /// %@ requested to join %@ space
       internal static func title(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "SpaceShare.ViewRequest.Title", String(describing: p1), String(describing: p2), fallback: "%@ requested to join %@ space")
       }
-      /// Grand view access
-      internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess", fallback: "Grand view access")
+      /// Grant view access
+      internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess", fallback: "Grant view access")
     }
   }
   internal enum Spaces {
