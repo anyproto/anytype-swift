@@ -58,6 +58,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var pathChanging: Bool = false
     @Published var keyboardToggle: Bool = false
     @Published var spaceJoinData: SpaceJoinModuleData?
+    @Published var info: AccountInfo?
     
     private var currentSpaceId: String?
     
@@ -145,8 +146,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self, bottomPanelOutput: self)
     }
     
-    func homeBottomNavigationPanelModule() -> AnyView {
-        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, output: self)
+    func homeBottomNavigationPanelModule(info: AccountInfo) -> AnyView {
+        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, info: info, output: self)
     }
     
     func createSpaceSwitchModule() -> AnyView {
@@ -441,7 +442,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             
             currentSpaceId = newInfo.accountSpaceId
             editorPath = path
-            
+            info = newInfo
         }
     }
 }

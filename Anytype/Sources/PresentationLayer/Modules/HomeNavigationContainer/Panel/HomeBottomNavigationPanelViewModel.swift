@@ -9,8 +9,7 @@ import Services
 final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
-    
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private let info: AccountInfo
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private var processSubscriptionService: ProcessSubscriptionServiceProtocol
@@ -29,14 +28,14 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Published var canCreateObject: Bool = false
     
     init(
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
+        info: AccountInfo,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         processSubscriptionService: ProcessSubscriptionServiceProtocol,
         accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeBottomNavigationPanelModuleOutput?
     ) {
-        self.activeWorkpaceStorage = activeWorkpaceStorage
+        self.info = info
         self.subscriptionService = subscriptionService
         self.defaultObjectService = defaultObjectService
         self.processSubscriptionService = processSubscriptionService
@@ -74,7 +73,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     }
     
     func onAppear() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId).values {
+        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             canCreateObject = canEdit
         }
     }
@@ -85,7 +84,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         Task {
             await subscriptionService.startSubscription(
                 subId: subId,
-                objectId: activeWorkpaceStorage.workspaceInfo.profileObjectID
+                objectId: info.profileObjectID
             ) { [weak self] details in
                 self?.handleProfileDetails(details: details)
             }
@@ -102,7 +101,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private func handleCreateObject() {
         Task { @MainActor in
-            guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
+            guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: info.accountSpaceId) else { return }
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())
