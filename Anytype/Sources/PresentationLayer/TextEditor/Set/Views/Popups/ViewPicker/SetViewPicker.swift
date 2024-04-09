@@ -57,7 +57,7 @@ struct SetViewPicker: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 if viewModel.canEditViews {
                     EditButton()
-                        .buttonDynamicForegroundColor()
+                        .buttonDynamicForegroundStyle()
                 }
             }
             ToolbarItem(placement: .navigationBarTrailing) {

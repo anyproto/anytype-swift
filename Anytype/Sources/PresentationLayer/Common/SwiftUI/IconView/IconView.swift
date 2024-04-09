@@ -12,10 +12,10 @@ struct IconView: View {
             ObjectIconView(icon: objectIcon)
         case .asset(let imageAsset):
             Image(asset: imageAsset)
-                .buttonDynamicForegroundColor()
+                .buttonDynamicForegroundStyle()
         case .image(let uIImage):
             Image(uiImage: uIImage)
-                .buttonDynamicForegroundColor()
+                .buttonDynamicForegroundStyle()
         case nil:
             EmptyView()
         }
