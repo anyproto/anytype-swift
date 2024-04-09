@@ -940,6 +940,8 @@
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 "SpaceShare.Manage" = "Manage";
+"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";

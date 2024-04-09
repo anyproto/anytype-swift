@@ -11,6 +11,7 @@ struct SpaceJoinModuleData: Identifiable {
 enum SpaceJoinDataState {
     case requestSent
     case invite
+    case alreadyJoined
 }
 
 @MainActor
@@ -21,6 +22,8 @@ final class SpaceJoinViewModel: ObservableObject {
     private var workspaceService: WorkspaceServiceProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: WorkspacesStorageProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void
@@ -38,9 +41,6 @@ final class SpaceJoinViewModel: ObservableObject {
     init(data: SpaceJoinModuleData, onManageSpaces: @escaping () -> Void) {
         self.data = data
         self.onManageSpaces = onManageSpaces
-        Task {
-            await updateView()
-        }
     }
     
     func onJoin() async throws {
@@ -61,12 +61,22 @@ final class SpaceJoinViewModel: ObservableObject {
         dismiss.toggle()
     }
     
+    func onTapGoToSpace() async throws {
+        guard let inviteView else { return }
+        try await activeWorkspaceStorage.setActiveSpace(spaceId: inviteView.spaceId)
+        dismiss.toggle()
+    }
+    
     func onDisappear() {
         // Sheet open like form if at this time form sheet screen closes (anytypeSheet).
         // Notify parent after dismiss.
         if callManageSpaces {
             onManageSpaces()
         }
+    }
+    
+    func onAppear() async {
+        await updateView()
     }
     
     // MARK: - Private
@@ -77,9 +87,16 @@ final class SpaceJoinViewModel: ObservableObject {
             message = Loc.SpaceShare.Join.message(inviteView.spaceName.withPlaceholder, inviteView.creatorName.withPlaceholder)
             self.inviteView = inviteView
             state = .data
-            if let spaceView = workspaceStorage.allWorkspaces.first(where: { $0.targetSpaceId == inviteView.spaceId }),
-                spaceView.accountStatus == .spaceJoining {
-                dataState = .requestSent
+            
+            if let spaceView = workspaceStorage.allWorkspaces.first(where: { $0.targetSpaceId == inviteView.spaceId }) {
+                switch spaceView.accountStatus {
+                case .spaceJoining:
+                    dataState = .requestSent
+                case .spaceActive:
+                    dataState = .alreadyJoined
+                default:
+                    dataState = .invite
+                }
             } else {
                 dataState = .invite
             }
