@@ -5,7 +5,6 @@ struct ErrorStateView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
             ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
             Spacer.fixedHeight(12)
             AnytypeText(Loc.error, style: .uxCalloutMedium)
@@ -14,9 +13,9 @@ struct ErrorStateView: View {
             AnytypeText(message, style: .uxCalloutRegular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            Spacer()
         }
         .padding(.horizontal, 20)
+        .padding(.vertical, 12)
     }
 }
 
