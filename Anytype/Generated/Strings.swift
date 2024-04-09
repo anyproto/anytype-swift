@@ -2332,6 +2332,12 @@ internal enum Loc {
       /// View request
       internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View request")
     }
+    internal enum AlreadyJoin {
+      /// Open space
+      internal static let openSpace = Loc.tr("Localizable", "SpaceShare.AlreadyJoin.OpenSpace", fallback: "Open space")
+      /// You are already a member of this space
+      internal static let title = Loc.tr("Localizable", "SpaceShare.AlreadyJoin.Title", fallback: "You are already a member of this space")
+    }
     internal enum Approve {
       /// You approved %@'s request.
       internal static func toast(_ p1: Any) -> String {
