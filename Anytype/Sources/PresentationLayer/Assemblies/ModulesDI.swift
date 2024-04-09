@@ -81,10 +81,6 @@ final class ModulesDI: ModulesDIProtocol {
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
-
-    func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol {
-        return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
-    }
     
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol {
         return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)

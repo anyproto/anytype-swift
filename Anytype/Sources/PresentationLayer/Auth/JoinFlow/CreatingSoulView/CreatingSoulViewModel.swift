@@ -15,11 +15,16 @@ final class CreatingSoulViewModel: ObservableObject {
         accountManager.account.id
     }
     
-    private let accountManager: AccountManagerProtocol
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let authService: AuthServiceProtocol
-    private let seedService: SeedServiceProtocol
-    private let usecaseService: UsecaseServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.authService)
+    private var authService: AuthServiceProtocol
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
+    @Injected(\.usecaseService)
+    private var usecaseService: UsecaseServiceProtocol
     private weak var output: JoinFlowStepOutput?
     
     private var animationInProgress = false
@@ -28,20 +33,10 @@ final class CreatingSoulViewModel: ObservableObject {
     
     init(
         state: JoinFlowState,
-        output: JoinFlowStepOutput?,
-        accountManager: AccountManagerProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol,
-        usecaseService: UsecaseServiceProtocol
+        output: JoinFlowStepOutput?
     ) {
         self.state = state
         self.output = output
-        self.accountManager = accountManager
-        self.subscriptionService = subscriptionService
-        self.authService = authService
-        self.seedService = seedService
-        self.usecaseService = usecaseService
         self.createAccount()
     }
     

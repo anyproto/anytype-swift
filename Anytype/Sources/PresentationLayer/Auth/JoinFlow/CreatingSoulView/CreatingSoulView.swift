@@ -2,7 +2,11 @@ import SwiftUI
 
 struct CreatingSoulView: View {
     
-    @StateObject var model: CreatingSoulViewModel
+    @StateObject private var model: CreatingSoulViewModel
+    
+    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+        _model = StateObject(wrappedValue: CreatingSoulViewModel(state: state, output: output))
+    }
     
     var body: some View {
         GeometryReader { geo in
@@ -94,16 +98,6 @@ private extension CreatingSoulView {
 
 struct CreatingSoulView_Previews : PreviewProvider {
     static var previews: some View {
-        CreatingSoulView(
-            model: CreatingSoulViewModel(
-                state: JoinFlowState(),
-                output: nil,
-                accountManager: DI.preview.serviceLocator.accountManager(),
-                subscriptionService: DI.preview.serviceLocator.singleObjectSubscriptionService(),
-                authService: DI.preview.serviceLocator.authService(),
-                seedService: DI.preview.serviceLocator.seedService(),
-                usecaseService: DI.preview.serviceLocator.usecaseService()
-            )
-        )
+        CreatingSoulView(state: JoinFlowState(), output: nil)
     }
 }

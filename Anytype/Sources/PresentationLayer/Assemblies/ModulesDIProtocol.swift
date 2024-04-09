@@ -17,7 +17,6 @@ protocol ModulesDIProtocol: AnyObject {
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
-    func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
     func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol

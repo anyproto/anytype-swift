@@ -1010,7 +1010,6 @@
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
 		2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */; };
 		2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387C0291A897700506766 /* BlockDataview+Group.swift */; };
-		2E8E8D122A262C7F009BC3B0 /* CreatingSoulViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8E8D112A262C7F009BC3B0 /* CreatingSoulViewModuleAssembly.swift */; };
 		2E8E8D142A262CB6009BC3B0 /* CreatingSoulViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8E8D132A262CB6009BC3B0 /* CreatingSoulViewModel.swift */; };
 		2E8E8D162A262D2E009BC3B0 /* CreatingSoulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8E8D152A262D2E009BC3B0 /* CreatingSoulView.swift */; };
 		2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */; };
@@ -2783,7 +2782,6 @@
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
 		2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+DragAndDropDelegate.swift"; sourceTree = "<group>"; };
 		2E8387C0291A897700506766 /* BlockDataview+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockDataview+Group.swift"; sourceTree = "<group>"; };
-		2E8E8D112A262C7F009BC3B0 /* CreatingSoulViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingSoulViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2E8E8D132A262CB6009BC3B0 /* CreatingSoulViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingSoulViewModel.swift; sourceTree = "<group>"; };
 		2E8E8D152A262D2E009BC3B0 /* CreatingSoulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingSoulView.swift; sourceTree = "<group>"; };
 		2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockViewModel.swift; sourceTree = "<group>"; };
@@ -7412,7 +7410,6 @@
 		2E8E8D102A261DA4009BC3B0 /* CreatingSoulView */ = {
 			isa = PBXGroup;
 			children = (
-				2E8E8D112A262C7F009BC3B0 /* CreatingSoulViewModuleAssembly.swift */,
 				2E8E8D132A262CB6009BC3B0 /* CreatingSoulViewModel.swift */,
 				2E8E8D152A262D2E009BC3B0 /* CreatingSoulView.swift */,
 			);
@@ -11914,7 +11911,6 @@
 				2A9486562950A41B007A5586 /* HomeWidgetsView.swift in Sources */,
 				2A947B372A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
-				2E8E8D122A262C7F009BC3B0 /* CreatingSoulViewModuleAssembly.swift in Sources */,
 				125683F227DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift in Sources */,
 				C9CD66AC27EB3BDE001F1860 /* UnsplashItemsViewModel.swift in Sources */,
 				3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */,
