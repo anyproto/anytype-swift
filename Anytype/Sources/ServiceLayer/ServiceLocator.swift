@@ -10,10 +10,6 @@ import DeepLinks
 final class ServiceLocator {
     static let shared = ServiceLocator()
 
-    var sharedContentManager: SharedContentManagerProtocol {
-        Container.shared.sharedContentManager()
-    }
-
     var documentsProvider: DocumentsProviderProtocol {
         Container.shared.documentsProvider()
     }
@@ -22,15 +18,6 @@ final class ServiceLocator {
     
     var templatesService: TemplatesServiceProtocol {
         Container.shared.templatesService()
-    }
-    
-    var unsplashService: UnsplashServiceProtocol {
-        Container.shared.unsplashService()
-    }
-    
-    /// creates new localRepoService
-    func localRepoService() -> LocalRepoServiceProtocol {
-        Container.shared.localRepoService()
     }
     
     func seedService() -> SeedServiceProtocol {
@@ -42,20 +29,8 @@ final class ServiceLocator {
         Container.shared.authService()
     }
     
-    func usecaseService() -> UsecaseServiceProtocol {
-        Container.shared.usecaseService()
-    }
-    
-    func metricsService() -> MetricsServiceProtocol {
-        Container.shared.metricsService()
-    }
-    
     func loginStateService() -> LoginStateServiceProtocol {
         Container.shared.loginStateService()
-    }
-    
-    func objectLifecycleService() -> ObjectLifecycleServiceProtocol {
-        Container.shared.objectLifecycleService()
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
@@ -68,10 +43,6 @@ final class ServiceLocator {
     
     func searchService() -> SearchServiceProtocol {
         Container.shared.searchService()
-    }
-    
-    func searchMiddleService() -> SearchMiddleServiceProtocol {
-        Container.shared.searchMiddleService()
     }
     
     func detailsService() -> DetailsServiceProtocol {
@@ -120,10 +91,6 @@ final class ServiceLocator {
     
     func typesService() -> TypesServiceProtocol {
         Container.shared.typesService()
-    }
-    
-    func pinsStorage() -> TypesPinStorageProtocol {
-        Container.shared.typesPinsStorage()
     }
     
     func defaultObjectCreationService() -> DefaultObjectCreationServiceProtocol {
@@ -182,20 +149,12 @@ final class ServiceLocator {
         Container.shared.appActionStorage()
     }
     
-    func objectsCommonSubscriptionDataBuilder() -> ObjectsCommonSubscriptionDataBuilderProtocol {
-        Container.shared.objectsCommonSubscriptionDataBuilder()
-    }
-    
     func objectHeaderInteractor() -> ObjectHeaderInteractorProtocol {
         Container.shared.objectHeaderInteractor()
     }
     
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
         Container.shared.singleObjectSubscriptionService()
-    }
-    
-    func fileLimitsStorage() -> FileLimitsStorageProtocol {
-        Container.shared.fileLimitsStorage()
     }
     
     func fileErrorEventHandler() -> FileErrorEventHandlerProtocol {
@@ -206,20 +165,8 @@ final class ServiceLocator {
         Container.shared.appErrorLoggerConfiguration()
     }
     
-    func localAuthService() -> LocalAuthServiceProtocol {
-        Container.shared.localAuthService()
-    }
-    
-    func cameraPermissionVerifier() -> CameraPermissionVerifierProtocol {
-        Container.shared.cameraPermissionVerifier()
-    }
-    
     func dataviewService() -> DataviewServiceProtocol {
         Container.shared.dataviewService()
-    }
-    
-    func sceneStateNotifier() -> SceneStateNotifierProtocol {
-        Container.shared.sceneStateNotifier()
     }
     
     func deviceSceneStateListener() -> DeviceSceneStateListenerProtocol {
