@@ -94,10 +94,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {
-        SetFiltersListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol {
         SetViewSettingsImagePreviewModuleAssembly()
     }
