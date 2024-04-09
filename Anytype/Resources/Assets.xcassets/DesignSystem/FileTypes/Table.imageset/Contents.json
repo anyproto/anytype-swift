@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Archive.pdf",
+      "filename" : "Table.pdf",
       "idiom" : "universal"
     },
     {
@@ -11,7 +11,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Archive.Dark.pdf",
+      "filename" : "Table.Dark.pdf",
       "idiom" : "universal"
     }
   ],
