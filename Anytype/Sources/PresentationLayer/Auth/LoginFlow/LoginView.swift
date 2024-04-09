@@ -2,8 +2,12 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @StateObject var model: LoginViewModel
+    @StateObject private var model: LoginViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
+    
+    init(output: LoginFlowOutput?) {
+        _model = StateObject(wrappedValue: LoginViewModel(output: output))
+    }
     
     var body: some View {
         content
@@ -119,16 +123,6 @@ struct LoginView: View {
 
 struct LoginView_Previews : PreviewProvider {
     static var previews: some View {
-        LoginView(
-            model: LoginViewModel(
-                authService: DI.preview.serviceLocator.authService(),
-                seedService: DI.preview.serviceLocator.seedService(),
-                localAuthService: DI.preview.serviceLocator.localAuthService(),
-                cameraPermissionVerifier: DI.preview.serviceLocator.cameraPermissionVerifier(),
-                accountEventHandler: DI.preview.serviceLocator.accountEventHandler(),
-                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
-                output: nil
-            )
-        )
+        LoginView(output: nil)
     }
 }

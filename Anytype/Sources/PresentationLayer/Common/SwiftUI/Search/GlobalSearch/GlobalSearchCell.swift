@@ -29,19 +29,18 @@ struct GlobalSearchCell: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(8)
             
-            AnytypeText(data.title, style: .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+            AnytypeText(data.title, style: .previewTitle2Medium, color: .Text.primary)
+                .multilineTextAlignment(.leading)
                 .lineLimit(2)
             
             if data.description.isNotEmpty {
-                AnytypeText(data.description, style: .relation2Regular)
-                    .foregroundColor(.Text.primary)
+                AnytypeText(data.description, style: .relation2Regular, color: .Text.primary)
+                    .multilineTextAlignment(.leading)
                     .lineLimit(2)
             }
             
             if data.objectTypeName.isNotEmpty {
-                AnytypeText(data.objectTypeName, style: .relation2Regular)
-                .foregroundColor(.Text.secondary)
+                AnytypeText(data.objectTypeName, style: .relation2Regular, color: .Text.secondary)
                     .lineLimit(1)
             }
             

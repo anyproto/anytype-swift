@@ -11,7 +11,7 @@ public extension BundledRelationsValueProvider {
             return icon
         }
         
-        if layoutValue == .file {
+        if DetailsLayout.fileLayouts.contains(layoutValue) {
             return fileIcon
         }
         

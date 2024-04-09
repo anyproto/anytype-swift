@@ -34,7 +34,7 @@ internal extension ImageAsset {
     static let other = ImageAsset.bundle(name: "FileTypes/Other")
     static let pdf = ImageAsset.bundle(name: "FileTypes/PDF")
     static let presentation = ImageAsset.bundle(name: "FileTypes/Presentation")
-    static let spreadsheet = ImageAsset.bundle(name: "FileTypes/Spreadsheet")
+    static let table = ImageAsset.bundle(name: "FileTypes/Table")
     static let text = ImageAsset.bundle(name: "FileTypes/Text")
     static let video = ImageAsset.bundle(name: "FileTypes/Video")
   }

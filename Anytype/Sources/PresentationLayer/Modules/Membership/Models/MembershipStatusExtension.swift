@@ -28,15 +28,11 @@ public extension MembershipStatus {
             Loc.Membership.Payment.card
         case .methodCrypto:
             Loc.Membership.Payment.crypto
-        case .methodApplePay:
-            Loc.Membership.Payment.applePay
-        case .methodGooglePay:
-            Loc.Membership.Payment.googlePay
-        case .methodAppleInapp:
+        case .methodInappApple:
             Loc.Membership.Payment.appleSubscription
-        case .methodGoogleInapp:
+        case .methodInappGoogle:
             Loc.Membership.Payment.googleSubscription
-        case .UNRECOGNIZED:
+        case .UNRECOGNIZED, .methodNone:
             nil
         }
     }

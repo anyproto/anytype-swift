@@ -78,30 +78,10 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func authorization() -> AuthModuleAssemblyProtocol {
-        return AuthModuleAssembly()
-    }
-    
-    func joinFlow() -> JoinFlowModuleAssemblyProtocol {
-        return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func login() -> LoginViewModuleAssemblyProtocol {
-        return LoginViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
-    
-    func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly {
-        return KeyPhraseMoreInfoViewModuleAssembly()
-    }
-    
-    func authSoul() -> SoulViewModuleAssemblyProtocol {
-        return SoulViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
+
     func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol {
         return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
@@ -148,13 +128,5 @@ final class ModulesDI: ModulesDIProtocol {
 
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
         ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
-    }
-    
-    func serverConfiguration() -> ServerConfigurationModuleAssemblyProtocol {
-        ServerConfigurationModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func serverDocumentPicker() -> ServerDocumentPickerModuleAssemblyProtocol {
-        ServerDocumentPickerModuleAssembly(serviceLocator: serviceLocator)
     }
 }

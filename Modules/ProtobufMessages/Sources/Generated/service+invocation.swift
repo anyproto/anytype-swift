@@ -2304,6 +2304,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func membershipGetVerificationEmailStatus(
+        _ request:  Anytype_Rpc.Membership.GetVerificationEmailStatus.Request = .init()
+    ) -> Invocation< Anytype_Rpc.Membership.GetVerificationEmailStatus.Request, Anytype_Rpc.Membership.GetVerificationEmailStatus.Response> {
+        return Invocation(messageName: "MembershipGetVerificationEmailStatus", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipGetVerificationEmailStatus(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.GetVerificationEmailStatus.Response(serializedData: responseData)
+        }
+    }
+
     public static func membershipGetVerificationEmail(
         _ request: Anytype_Rpc.Membership.GetVerificationEmail.Request = .init()
     ) -> Invocation<Anytype_Rpc.Membership.GetVerificationEmail.Request, Anytype_Rpc.Membership.GetVerificationEmail.Response> {

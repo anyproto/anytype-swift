@@ -8,5 +8,6 @@ struct FileIconView: View {
     
     var body: some View {
         Image(asset: FileIconBuilder.convert(mime: mimeType, fileName: name))
+            .resizable()
     }
 }

@@ -3,12 +3,12 @@ import SwiftUI
 
 struct ServerConfigurationCoordinatorView: View {
     
-    @StateObject var model: ServerConfigurationCoordinatorViewModel
+    @StateObject private var model = ServerConfigurationCoordinatorViewModel()
     
     var body: some View {
-        model.makeSettingsView()
+        ServerConfigurationView(output: model)
             .sheet(isPresented: $model.showDocumentPicker) {
-                model.makeDocumentPickerView()
+                ServerDocumentPickerView()
             }
     }
 }

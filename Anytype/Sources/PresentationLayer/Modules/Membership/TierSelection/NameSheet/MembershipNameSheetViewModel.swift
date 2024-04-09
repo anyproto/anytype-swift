@@ -32,6 +32,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
     let tier: MembershipTier
     let anyName: String
     
+    @Injected(\.storeKitService)
+    private var storeKitService: StoreKitServiceProtocol
+    
     var anyNameAvailability: MembershipAnyNameAvailability {
         switch tier.anyName {
         case .none:
@@ -104,37 +107,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
             }
         }
     }
-    
-    // MARK: - Purchase
-    
-    func purchase() async throws {
-        let result = try await product.purchase(options: [
-            .appAccountToken(UUID()),
-            .custom(key: "TODO", value: "SEND_DATA")
-        ])
         
-        switch result {
-        case .success(let verificationResult):
-            let transaction = try checkVerified(verificationResult)
-            // TODO: Update middleware
-            await transaction.finish()
-            onSuccessfulPurchase(tier)
-        case .userCancelled:
-            break // TODO
-        case .pending:
-            break // TODO
-        @unknown default:
-            anytypeAssertionFailure("Unsupported purchase result \(result)")
-            fatalError()
-        }
-    }
-    
-    private func checkVerified<T>(_ verificationResult: VerificationResult<T>) throws -> T {
-        switch verificationResult {
-        case .unverified(_, let verificationError):
-            throw verificationError
-        case .verified(let signedType):
-            return signedType
-        }
+    func purchase() async throws {
+        try await storeKitService.purchase(product: product)
+        onSuccessfulPurchase(tier)
     }
 }

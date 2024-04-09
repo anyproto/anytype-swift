@@ -2,8 +2,12 @@ import SwiftUI
 
 struct JoinFlowView: View {
     
-    @StateObject var model: JoinFlowViewModel
+    @StateObject private var model: JoinFlowViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
+    
+    init(output: JoinFlowOutput?) {
+        _model = StateObject(wrappedValue: JoinFlowViewModel(output: output))
+    }
     
     var body: some View {
         GeometryReader { geo in
@@ -81,13 +85,7 @@ struct JoinFlowView: View {
 
 struct JoinFlowView_Previews : PreviewProvider {
     static var previews: some View {
-        JoinFlowView(
-            model: JoinFlowViewModel(
-                output: nil,
-                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
-                accountManager: DI.preview.serviceLocator.accountManager()
-            )
-        )
+        JoinFlowView(output: nil)
     }
 }
 
