@@ -27,7 +27,9 @@ struct HomeCoordinatorView: View {
                     }
                 },
                 bottomPanel: {
-                    model.homeBottomNavigationPanelModule()
+                    if let info = model.info {
+                        model.homeBottomNavigationPanelModule(info: info)
+                    }
                 }
             )
         }
