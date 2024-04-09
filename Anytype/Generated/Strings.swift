@@ -1573,16 +1573,12 @@ internal enum Loc {
     internal enum Payment {
       /// Apple subscription
       internal static let appleSubscription = Loc.tr("Localizable", "Membership.Payment.Apple subscription", fallback: "Apple subscription")
-      /// ApplePay
-      internal static let applePay = Loc.tr("Localizable", "Membership.Payment.ApplePay", fallback: "ApplePay")
       /// Card
       internal static let card = Loc.tr("Localizable", "Membership.Payment.Card", fallback: "Card")
       /// Crypto
       internal static let crypto = Loc.tr("Localizable", "Membership.Payment.Crypto", fallback: "Crypto")
       /// Google subscription
       internal static let googleSubscription = Loc.tr("Localizable", "Membership.Payment.Google subscription", fallback: "Google subscription")
-      /// GooglePay
-      internal static let googlePay = Loc.tr("Localizable", "Membership.Payment.GooglePay", fallback: "GooglePay")
     }
     internal enum Success {
       /// Big cheers for your curiosity!

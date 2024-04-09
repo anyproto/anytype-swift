@@ -673,6 +673,44 @@ extension Anytype_Model_FileIndexingStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Anytype_Model_NameserviceNameType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+
+  /// .any suffix
+  case anyName // = 0
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .anyName
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .anyName
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .anyName: return 0
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_NameserviceNameType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_NameserviceNameType] = [
+    .anyName,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public struct Anytype_Model_SmartBlockSnapshotBase {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -2134,8 +2172,6 @@ public struct Anytype_Model_Block {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var id: String = String()
-
         public var relationKey: String = String()
 
         public var type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc
@@ -2145,6 +2181,10 @@ public struct Anytype_Model_Block {
         public var format: Anytype_Model_RelationFormat = .longtext
 
         public var includeTime: Bool = false
+
+        public var id: String = String()
+
+        public var emptyPlacement: Anytype_Model_Block.Content.Dataview.Sort.EmptyType = .notSpecified
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2173,6 +2213,37 @@ public struct Anytype_Model_Block {
             case .asc: return 0
             case .desc: return 1
             case .custom: return 2
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+        }
+
+        public enum EmptyType: SwiftProtobuf.Enum {
+          public typealias RawValue = Int
+          case notSpecified // = 0
+          case start // = 1
+          case end // = 2
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .notSpecified
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .notSpecified
+            case 1: self = .start
+            case 2: self = .end
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .notSpecified: return 0
+            case .start: return 1
+            case .end: return 2
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -2983,6 +3054,15 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: CaseIterable {
     .asc,
     .desc,
     .custom,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_Block.Content.Dataview.Sort.EmptyType] = [
+    .notSpecified,
+    .start,
+    .end,
   ]
 }
 
@@ -5184,7 +5264,7 @@ public struct Anytype_Model_Membership {
 
   public var isAutoRenew: Bool = false
 
-  public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodCard
+  public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodNone
 
   /// can be empty if user did not ask for any name
   public var requestedAnyName: String = String()
@@ -5196,66 +5276,23 @@ public struct Anytype_Model_Membership {
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public enum Tier: SwiftProtobuf.Enum {
-    public typealias RawValue = Int
-    case newUser // = 0
-
-    /// "free" tier
-    case explorer // = 1
-
-    /// this tier can be used just for testing in debug mode
-    /// it will still create an active subscription, but with NO features
-    case builder1WeekTest // = 2
-
-    /// this tier can be used just for testing in debug mode
-    /// it will still create an active subscription, but with NO features
-    case coCreator1WeekTest // = 3
-    case builder // = 4
-    case coCreator // = 5
-    case UNRECOGNIZED(Int)
-
-    public init() {
-      self = .newUser
-    }
-
-    public init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .newUser
-      case 1: self = .explorer
-      case 2: self = .builder1WeekTest
-      case 3: self = .coCreator1WeekTest
-      case 4: self = .builder
-      case 5: self = .coCreator
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    public var rawValue: Int {
-      switch self {
-      case .newUser: return 0
-      case .explorer: return 1
-      case .builder1WeekTest: return 2
-      case .coCreator1WeekTest: return 3
-      case .builder: return 4
-      case .coCreator: return 5
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
   public enum Status: SwiftProtobuf.Enum {
     public typealias RawValue = Int
     case unknown // = 0
 
-    /// please wait a bit more
+    /// please wait a bit more, we are still processing your request
+    /// the payment is confirmed, but we need more time to do some side-effects:
+    /// - increase limits
+    /// - send emails
+    /// - allocate names
     case pending // = 1
+
+    /// the membership is active, ready to use!
     case active // = 2
 
     /// in some cases we need to finalize the process:
     /// - if user has bought membership directly without first calling
     /// the BuySubscription method
-    /// 
     /// in this case please call Finalize to finish the process
     case pendingRequiresFinalization // = 3
     case UNRECOGNIZED(Int)
@@ -5288,40 +5325,74 @@ public struct Anytype_Model_Membership {
 
   public enum PaymentMethod: SwiftProtobuf.Enum {
     public typealias RawValue = Int
-
-    /// Stripe
-    case methodCard // = 0
-    case methodCrypto // = 1
-    case methodApplePay // = 2
-    case methodGooglePay // = 3
-    case methodAppleInapp // = 4
-    case methodGoogleInapp // = 5
+    case methodNone // = 0
+    case methodCard // = 1
+    case methodCrypto // = 2
+    case methodInappApple // = 3
+    case methodInappGoogle // = 4
     case UNRECOGNIZED(Int)
 
     public init() {
-      self = .methodCard
+      self = .methodNone
     }
 
     public init?(rawValue: Int) {
       switch rawValue {
-      case 0: self = .methodCard
-      case 1: self = .methodCrypto
-      case 2: self = .methodApplePay
-      case 3: self = .methodGooglePay
-      case 4: self = .methodAppleInapp
-      case 5: self = .methodGoogleInapp
+      case 0: self = .methodNone
+      case 1: self = .methodCard
+      case 2: self = .methodCrypto
+      case 3: self = .methodInappApple
+      case 4: self = .methodInappGoogle
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
 
     public var rawValue: Int {
       switch self {
-      case .methodCard: return 0
-      case .methodCrypto: return 1
-      case .methodApplePay: return 2
-      case .methodGooglePay: return 3
-      case .methodAppleInapp: return 4
-      case .methodGoogleInapp: return 5
+      case .methodNone: return 0
+      case .methodCard: return 1
+      case .methodCrypto: return 2
+      case .methodInappApple: return 3
+      case .methodInappGoogle: return 4
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public enum EmailVerificationStatus: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// user NEVER comleted the verification of the email
+    case statusNotVerified // = 0
+
+    /// user has asked for new code, but did not enter it yet
+    /// (even if email was verified before, you can ask to UPDATE your e-mail)
+    /// please wait, you can not ask for more codes yet
+    case statusCodeSent // = 1
+
+    /// the e-mail is finally verified
+    case statusVerified // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .statusNotVerified
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .statusNotVerified
+      case 1: self = .statusCodeSent
+      case 2: self = .statusVerified
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .statusNotVerified: return 0
+      case .statusCodeSent: return 1
+      case .statusVerified: return 2
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -5332,18 +5403,6 @@ public struct Anytype_Model_Membership {
 }
 
 #if swift(>=4.2)
-
-extension Anytype_Model_Membership.Tier: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Membership.Tier] = [
-    .newUser,
-    .explorer,
-    .builder1WeekTest,
-    .coCreator1WeekTest,
-    .builder,
-    .coCreator,
-  ]
-}
 
 extension Anytype_Model_Membership.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
@@ -5358,12 +5417,20 @@ extension Anytype_Model_Membership.Status: CaseIterable {
 extension Anytype_Model_Membership.PaymentMethod: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Model_Membership.PaymentMethod] = [
+    .methodNone,
     .methodCard,
     .methodCrypto,
-    .methodApplePay,
-    .methodGooglePay,
-    .methodAppleInapp,
-    .methodGoogleInapp,
+    .methodInappApple,
+    .methodInappGoogle,
+  ]
+}
+
+extension Anytype_Model_Membership.EmailVerificationStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_Membership.EmailVerificationStatus] = [
+    .statusNotVerified,
+    .statusCodeSent,
+    .statusVerified,
   ]
 }
 
@@ -5374,42 +5441,106 @@ public struct Anytype_Model_MembershipTierData {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// this is a unique ID of the tier
-  /// you should hardcode this in your app and provide icon, graphics, etc for each tier 
-  /// (even for old/historical/inactive/hidden tiers)
-  public var id: UInt32 = 0
+  /// this is a unique Payment Node ID of the tier
+  /// WARNING: tiers can be sorted differently, not according to their IDs!
+  public var id: UInt32 {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
 
   /// localazied name of the tier
-  public var name: String = String()
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
 
   /// just a short technical description
-  /// you don't have to use it, you can use your own UI-friendly texts
-  public var description_p: String = String()
+  public var description_p: String {
+    get {return _storage._description_p}
+    set {_uniqueStorage()._description_p = newValue}
+  }
 
-  /// is this tier for debugging only?
-  public var isTest: Bool = false
+  /// is this tier for testing and debugging only?
+  public var isTest: Bool {
+    get {return _storage._isTest}
+    set {_uniqueStorage()._isTest = newValue}
+  }
 
   /// how long is the period of the subscription
-  public var periodType: Anytype_Model_MembershipTierData.PeriodType = .unknown
+  public var periodType: Anytype_Model_MembershipTierData.PeriodType {
+    get {return _storage._periodType}
+    set {_uniqueStorage()._periodType = newValue}
+  }
 
   /// i.e. "5 days" or "3 years"
-  public var periodValue: UInt32 = 0
+  public var periodValue: UInt32 {
+    get {return _storage._periodValue}
+    set {_uniqueStorage()._periodValue = newValue}
+  }
 
   /// this one is a price we use ONLY on Stripe platform
-  public var priceStripeUsdCents: UInt32 = 0
+  public var priceStripeUsdCents: UInt32 {
+    get {return _storage._priceStripeUsdCents}
+    set {_uniqueStorage()._priceStripeUsdCents = newValue}
+  }
 
   /// number of ANY NS names that this tier includes 
   /// also in the "features" list (see below)
-  public var anyNamesCountIncluded: UInt32 = 0
+  public var anyNamesCountIncluded: UInt32 {
+    get {return _storage._anyNamesCountIncluded}
+    set {_uniqueStorage()._anyNamesCountIncluded = newValue}
+  }
 
   /// somename.any - is of len 8
-  public var anyNameMinLength: UInt32 = 0
+  public var anyNameMinLength: UInt32 {
+    get {return _storage._anyNameMinLength}
+    set {_uniqueStorage()._anyNameMinLength = newValue}
+  }
 
   /// localized strings for the features
-  public var features: [String] = []
+  public var features: [String] {
+    get {return _storage._features}
+    set {_uniqueStorage()._features = newValue}
+  }
 
   /// green, blue, red, purple, custom
-  public var colorStr: String = String()
+  public var colorStr: String {
+    get {return _storage._colorStr}
+    set {_uniqueStorage()._colorStr = newValue}
+  }
+
+  /// Stripe platform-specific data:
+  public var stripeProductID: String {
+    get {return _storage._stripeProductID}
+    set {_uniqueStorage()._stripeProductID = newValue}
+  }
+
+  public var stripeManageURL: String {
+    get {return _storage._stripeManageURL}
+    set {_uniqueStorage()._stripeManageURL = newValue}
+  }
+
+  /// iOS platform-specific data:
+  public var iosProductID: String {
+    get {return _storage._iosProductID}
+    set {_uniqueStorage()._iosProductID = newValue}
+  }
+
+  public var iosManageURL: String {
+    get {return _storage._iosManageURL}
+    set {_uniqueStorage()._iosManageURL = newValue}
+  }
+
+  /// Android platform-specific data:
+  public var androidProductID: String {
+    get {return _storage._androidProductID}
+    set {_uniqueStorage()._androidProductID = newValue}
+  }
+
+  public var androidManageURL: String {
+    get {return _storage._androidManageURL}
+    set {_uniqueStorage()._androidManageURL = newValue}
+  }
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5454,6 +5585,8 @@ public struct Anytype_Model_MembershipTierData {
   }
 
   public init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 #if swift(>=4.2)
@@ -5482,6 +5615,7 @@ extension Anytype_Model_ParticipantStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceAccessType: @unchecked Sendable {}
 extension Anytype_Model_ImageKind: @unchecked Sendable {}
 extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
+extension Anytype_Model_NameserviceNameType: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
 extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
@@ -5522,6 +5656,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: @unchecked S
 extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Sort: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {}
@@ -5611,9 +5746,9 @@ extension Anytype_Model_FileInfo: @unchecked Sendable {}
 extension Anytype_Model_FileEncryptionKey: @unchecked Sendable {}
 extension Anytype_Model_ManifestInfo: @unchecked Sendable {}
 extension Anytype_Model_Membership: @unchecked Sendable {}
-extension Anytype_Model_Membership.Tier: @unchecked Sendable {}
 extension Anytype_Model_Membership.Status: @unchecked Sendable {}
 extension Anytype_Model_Membership.PaymentMethod: @unchecked Sendable {}
+extension Anytype_Model_Membership.EmailVerificationStatus: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
@@ -5741,6 +5876,12 @@ extension Anytype_Model_FileIndexingStatus: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "NotIndexed"),
     1: .same(proto: "Indexed"),
     2: .same(proto: "NotFound"),
+  ]
+}
+
+extension Anytype_Model_NameserviceNameType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "AnyName"),
   ]
 }
 
@@ -7304,12 +7445,13 @@ extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: SwiftProtobu
 extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Sort"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    6: .same(proto: "id"),
     1: .same(proto: "RelationKey"),
     2: .same(proto: "type"),
     3: .same(proto: "customOrder"),
     4: .same(proto: "format"),
     5: .same(proto: "includeTime"),
+    6: .same(proto: "id"),
+    7: .same(proto: "emptyPlacement"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7324,6 +7466,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
       case 4: try { try decoder.decodeSingularEnumField(value: &self.format) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
       case 6: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 7: try { try decoder.decodeSingularEnumField(value: &self.emptyPlacement) }()
       default: break
       }
     }
@@ -7348,16 +7491,20 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 6)
     }
+    if self.emptyPlacement != .notSpecified {
+      try visitor.visitSingularEnumField(value: self.emptyPlacement, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Sort, rhs: Anytype_Model_Block.Content.Dataview.Sort) -> Bool {
-    if lhs.id != rhs.id {return false}
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs.type != rhs.type {return false}
     if lhs.customOrder != rhs.customOrder {return false}
     if lhs.format != rhs.format {return false}
     if lhs.includeTime != rhs.includeTime {return false}
+    if lhs.id != rhs.id {return false}
+    if lhs.emptyPlacement != rhs.emptyPlacement {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7368,6 +7515,14 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: SwiftProtobuf._Pro
     0: .same(proto: "Asc"),
     1: .same(proto: "Desc"),
     2: .same(proto: "Custom"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NotSpecified"),
+    1: .same(proto: "Start"),
+    2: .same(proto: "End"),
   ]
 }
 
@@ -11013,7 +11168,7 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.isAutoRenew != false {
       try visitor.visitSingularBoolField(value: self.isAutoRenew, fieldNumber: 5)
     }
-    if self.paymentMethod != .methodCard {
+    if self.paymentMethod != .methodNone {
       try visitor.visitSingularEnumField(value: self.paymentMethod, fieldNumber: 6)
     }
     if !self.requestedAnyName.isEmpty {
@@ -11043,17 +11198,6 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 }
 
-extension Anytype_Model_Membership.Tier: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "TierNewUser"),
-    1: .same(proto: "TierExplorer"),
-    2: .same(proto: "TierBuilder1WeekTEST"),
-    3: .same(proto: "TierCoCreator1WeekTEST"),
-    4: .same(proto: "TierBuilder"),
-    5: .same(proto: "TierCoCreator"),
-  ]
-}
-
 extension Anytype_Model_Membership.Status: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "StatusUnknown"),
@@ -11065,12 +11209,19 @@ extension Anytype_Model_Membership.Status: SwiftProtobuf._ProtoNameProviding {
 
 extension Anytype_Model_Membership.PaymentMethod: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "MethodCard"),
-    1: .same(proto: "MethodCrypto"),
-    2: .same(proto: "MethodApplePay"),
-    3: .same(proto: "MethodGooglePay"),
-    4: .same(proto: "MethodAppleInapp"),
-    5: .same(proto: "MethodGoogleInapp"),
+    0: .same(proto: "MethodNone"),
+    1: .same(proto: "MethodCard"),
+    2: .same(proto: "MethodCrypto"),
+    3: .same(proto: "MethodInappApple"),
+    4: .same(proto: "MethodInappGoogle"),
+  ]
+}
+
+extension Anytype_Model_Membership.EmailVerificationStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "StatusNotVerified"),
+    1: .same(proto: "StatusCodeSent"),
+    2: .same(proto: "StatusVerified"),
   ]
 }
 
@@ -11088,79 +11239,179 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     9: .same(proto: "anyNameMinLength"),
     10: .same(proto: "features"),
     11: .same(proto: "colorStr"),
+    12: .same(proto: "stripeProductId"),
+    13: .same(proto: "stripeManageUrl"),
+    15: .same(proto: "iosProductId"),
+    16: .same(proto: "iosManageUrl"),
+    17: .same(proto: "androidProductId"),
+    18: .same(proto: "androidManageUrl"),
   ]
 
+  fileprivate class _StorageClass {
+    var _id: UInt32 = 0
+    var _name: String = String()
+    var _description_p: String = String()
+    var _isTest: Bool = false
+    var _periodType: Anytype_Model_MembershipTierData.PeriodType = .unknown
+    var _periodValue: UInt32 = 0
+    var _priceStripeUsdCents: UInt32 = 0
+    var _anyNamesCountIncluded: UInt32 = 0
+    var _anyNameMinLength: UInt32 = 0
+    var _features: [String] = []
+    var _colorStr: String = String()
+    var _stripeProductID: String = String()
+    var _stripeManageURL: String = String()
+    var _iosProductID: String = String()
+    var _iosManageURL: String = String()
+    var _androidProductID: String = String()
+    var _androidManageURL: String = String()
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _name = source._name
+      _description_p = source._description_p
+      _isTest = source._isTest
+      _periodType = source._periodType
+      _periodValue = source._periodValue
+      _priceStripeUsdCents = source._priceStripeUsdCents
+      _anyNamesCountIncluded = source._anyNamesCountIncluded
+      _anyNameMinLength = source._anyNameMinLength
+      _features = source._features
+      _colorStr = source._colorStr
+      _stripeProductID = source._stripeProductID
+      _stripeManageURL = source._stripeManageURL
+      _iosProductID = source._iosProductID
+      _iosManageURL = source._iosManageURL
+      _androidProductID = source._androidProductID
+      _androidManageURL = source._androidManageURL
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt32Field(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
-      case 4: try { try decoder.decodeSingularBoolField(value: &self.isTest) }()
-      case 5: try { try decoder.decodeSingularEnumField(value: &self.periodType) }()
-      case 6: try { try decoder.decodeSingularUInt32Field(value: &self.periodValue) }()
-      case 7: try { try decoder.decodeSingularUInt32Field(value: &self.priceStripeUsdCents) }()
-      case 8: try { try decoder.decodeSingularUInt32Field(value: &self.anyNamesCountIncluded) }()
-      case 9: try { try decoder.decodeSingularUInt32Field(value: &self.anyNameMinLength) }()
-      case 10: try { try decoder.decodeRepeatedStringField(value: &self.features) }()
-      case 11: try { try decoder.decodeSingularStringField(value: &self.colorStr) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularUInt32Field(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 3: try { try decoder.decodeSingularStringField(value: &_storage._description_p) }()
+        case 4: try { try decoder.decodeSingularBoolField(value: &_storage._isTest) }()
+        case 5: try { try decoder.decodeSingularEnumField(value: &_storage._periodType) }()
+        case 6: try { try decoder.decodeSingularUInt32Field(value: &_storage._periodValue) }()
+        case 7: try { try decoder.decodeSingularUInt32Field(value: &_storage._priceStripeUsdCents) }()
+        case 8: try { try decoder.decodeSingularUInt32Field(value: &_storage._anyNamesCountIncluded) }()
+        case 9: try { try decoder.decodeSingularUInt32Field(value: &_storage._anyNameMinLength) }()
+        case 10: try { try decoder.decodeRepeatedStringField(value: &_storage._features) }()
+        case 11: try { try decoder.decodeSingularStringField(value: &_storage._colorStr) }()
+        case 12: try { try decoder.decodeSingularStringField(value: &_storage._stripeProductID) }()
+        case 13: try { try decoder.decodeSingularStringField(value: &_storage._stripeManageURL) }()
+        case 15: try { try decoder.decodeSingularStringField(value: &_storage._iosProductID) }()
+        case 16: try { try decoder.decodeSingularStringField(value: &_storage._iosManageURL) }()
+        case 17: try { try decoder.decodeSingularStringField(value: &_storage._androidProductID) }()
+        case 18: try { try decoder.decodeSingularStringField(value: &_storage._androidManageURL) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.id != 0 {
-      try visitor.visitSingularUInt32Field(value: self.id, fieldNumber: 1)
-    }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
-    }
-    if !self.description_p.isEmpty {
-      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
-    }
-    if self.isTest != false {
-      try visitor.visitSingularBoolField(value: self.isTest, fieldNumber: 4)
-    }
-    if self.periodType != .unknown {
-      try visitor.visitSingularEnumField(value: self.periodType, fieldNumber: 5)
-    }
-    if self.periodValue != 0 {
-      try visitor.visitSingularUInt32Field(value: self.periodValue, fieldNumber: 6)
-    }
-    if self.priceStripeUsdCents != 0 {
-      try visitor.visitSingularUInt32Field(value: self.priceStripeUsdCents, fieldNumber: 7)
-    }
-    if self.anyNamesCountIncluded != 0 {
-      try visitor.visitSingularUInt32Field(value: self.anyNamesCountIncluded, fieldNumber: 8)
-    }
-    if self.anyNameMinLength != 0 {
-      try visitor.visitSingularUInt32Field(value: self.anyNameMinLength, fieldNumber: 9)
-    }
-    if !self.features.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.features, fieldNumber: 10)
-    }
-    if !self.colorStr.isEmpty {
-      try visitor.visitSingularStringField(value: self.colorStr, fieldNumber: 11)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._id != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 2)
+      }
+      if !_storage._description_p.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._description_p, fieldNumber: 3)
+      }
+      if _storage._isTest != false {
+        try visitor.visitSingularBoolField(value: _storage._isTest, fieldNumber: 4)
+      }
+      if _storage._periodType != .unknown {
+        try visitor.visitSingularEnumField(value: _storage._periodType, fieldNumber: 5)
+      }
+      if _storage._periodValue != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._periodValue, fieldNumber: 6)
+      }
+      if _storage._priceStripeUsdCents != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._priceStripeUsdCents, fieldNumber: 7)
+      }
+      if _storage._anyNamesCountIncluded != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._anyNamesCountIncluded, fieldNumber: 8)
+      }
+      if _storage._anyNameMinLength != 0 {
+        try visitor.visitSingularUInt32Field(value: _storage._anyNameMinLength, fieldNumber: 9)
+      }
+      if !_storage._features.isEmpty {
+        try visitor.visitRepeatedStringField(value: _storage._features, fieldNumber: 10)
+      }
+      if !_storage._colorStr.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._colorStr, fieldNumber: 11)
+      }
+      if !_storage._stripeProductID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._stripeProductID, fieldNumber: 12)
+      }
+      if !_storage._stripeManageURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._stripeManageURL, fieldNumber: 13)
+      }
+      if !_storage._iosProductID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._iosProductID, fieldNumber: 15)
+      }
+      if !_storage._iosManageURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._iosManageURL, fieldNumber: 16)
+      }
+      if !_storage._androidProductID.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._androidProductID, fieldNumber: 17)
+      }
+      if !_storage._androidManageURL.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._androidManageURL, fieldNumber: 18)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_MembershipTierData, rhs: Anytype_Model_MembershipTierData) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs.description_p != rhs.description_p {return false}
-    if lhs.isTest != rhs.isTest {return false}
-    if lhs.periodType != rhs.periodType {return false}
-    if lhs.periodValue != rhs.periodValue {return false}
-    if lhs.priceStripeUsdCents != rhs.priceStripeUsdCents {return false}
-    if lhs.anyNamesCountIncluded != rhs.anyNamesCountIncluded {return false}
-    if lhs.anyNameMinLength != rhs.anyNameMinLength {return false}
-    if lhs.features != rhs.features {return false}
-    if lhs.colorStr != rhs.colorStr {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._description_p != rhs_storage._description_p {return false}
+        if _storage._isTest != rhs_storage._isTest {return false}
+        if _storage._periodType != rhs_storage._periodType {return false}
+        if _storage._periodValue != rhs_storage._periodValue {return false}
+        if _storage._priceStripeUsdCents != rhs_storage._priceStripeUsdCents {return false}
+        if _storage._anyNamesCountIncluded != rhs_storage._anyNamesCountIncluded {return false}
+        if _storage._anyNameMinLength != rhs_storage._anyNameMinLength {return false}
+        if _storage._features != rhs_storage._features {return false}
+        if _storage._colorStr != rhs_storage._colorStr {return false}
+        if _storage._stripeProductID != rhs_storage._stripeProductID {return false}
+        if _storage._stripeManageURL != rhs_storage._stripeManageURL {return false}
+        if _storage._iosProductID != rhs_storage._iosProductID {return false}
+        if _storage._iosManageURL != rhs_storage._iosManageURL {return false}
+        if _storage._androidProductID != rhs_storage._androidProductID {return false}
+        if _storage._androidManageURL != rhs_storage._androidManageURL {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

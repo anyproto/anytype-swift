@@ -82,5 +82,6 @@ public extension BundledRelationKey {
         .participantStatus,
         .latestAclHeadId,
         .identity,
+        .globalName,
     ]
 }

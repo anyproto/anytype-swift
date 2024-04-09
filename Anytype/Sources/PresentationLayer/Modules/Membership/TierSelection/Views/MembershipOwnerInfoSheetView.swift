@@ -77,7 +77,7 @@ struct MembershipOwnerInfoSheetView: View {
                     tier: .mockCoCreator,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodAppleInapp,
+                    paymentMethod: .methodInappApple,
                     anyName: ""
                 )
             )
