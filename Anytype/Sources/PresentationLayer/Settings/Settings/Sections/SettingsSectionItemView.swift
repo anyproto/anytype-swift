@@ -40,7 +40,7 @@ struct SettingsSectionItemView: View {
                 }
                 HStack(alignment: .center, spacing: 0) {
                     AnytypeText(name, style: .uxBodyRegular)
-                        .foregroundColor(.Text.primary)
+                        .dynamicForegroundStyle(color: .Text.primary, disabledColor: .Text.tertiary)
                     Spacer()
                     decorationView
                 }
@@ -57,11 +57,11 @@ struct SettingsSectionItemView: View {
             case .arrow(let text):
                 HStack(alignment: .center, spacing: 10) {
                     AnytypeText(text, style: .bodyRegular)
-                        .foregroundColor(.Text.secondary)
+                        .dynamicForegroundStyle(color: .Text.secondary, disabledColor: .Text.tertiary)
                         .lineLimit(1)
                     Image(asset: .arrowForward)
                         .renderingMode(.template)
-                        .foregroundColor(.Text.tertiary)
+                        .dynamicForegroundStyle(color: .Text.tertiary, disabledColor: .Button.inactive)
                 }
             case .button(let text):
                 AnytypeText(text, style: .caption1Medium)
