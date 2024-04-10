@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import Kingfisher
 import Services
 
 final class UnsplashViewModel: GridItemViewModelProtocol {
