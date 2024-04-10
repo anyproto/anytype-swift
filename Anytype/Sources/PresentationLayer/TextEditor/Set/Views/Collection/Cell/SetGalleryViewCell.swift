@@ -1,5 +1,4 @@
 import SwiftUI
-import Kingfisher
 
 struct SetGalleryViewCell: View {
     @State private var width: CGFloat = .zero
