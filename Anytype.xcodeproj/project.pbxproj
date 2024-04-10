@@ -13027,7 +13027,7 @@
 			repositoryURL = "https://github.com/devicekit/DeviceKit";
 			requirement = {
 				kind = exactVersion;
-				version = 5.0.0;
+				version = 5.2.2;
 			};
 		};
 		2A30B2062BB44A0C00206806 /* XCRemoteSwiftPackageReference "QRCode" */ = {
