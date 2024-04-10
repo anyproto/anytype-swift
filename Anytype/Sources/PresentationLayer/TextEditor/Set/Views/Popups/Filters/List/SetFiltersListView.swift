@@ -1,9 +1,18 @@
 import SwiftUI
+import Services
 
 struct SetFiltersListView: View {
-    @StateObject var viewModel: SetFiltersListViewModel
+    @StateObject private var viewModel: SetFiltersListViewModel
     
     @State private var editMode = EditMode.inactive
+    
+    init(data: SetFiltersListModuleData, output: SetFiltersListCoordinatorOutput?, subscriptionDetailsStorage: ObjectDetailsStorage) {
+        _viewModel = StateObject(wrappedValue: SetFiltersListViewModel(
+            data: data,
+            output: output,
+            subscriptionDetailsStorage: subscriptionDetailsStorage
+        ))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

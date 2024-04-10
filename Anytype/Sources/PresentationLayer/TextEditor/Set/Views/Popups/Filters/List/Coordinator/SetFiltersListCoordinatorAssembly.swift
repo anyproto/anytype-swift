@@ -33,7 +33,6 @@ final class SetFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssembly
                 setDocument: setDocument,
                 viewId: viewId,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
-                setFiltersListModuleAssembly: self.modulesDI.setFiltersListModule(),
                 setFiltersSelectionCoordinatorAssembly: self.coordinatorsDI.setFiltersSelection(),
                 newSearchModuleAssembly: self.modulesDI.newSearch()
             )
