@@ -51,7 +51,7 @@ final class AuthService: AuthServiceProtocol {
         AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
         AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
-        appErrorLoggerConfiguration.setUserId(analyticsId)
+        await appErrorLoggerConfiguration.setUserId(analyticsId)
         
         UserDefaultsConfig.usersId = account.id
         
@@ -82,7 +82,7 @@ final class AuthService: AuthServiceProtocol {
         AnytypeAnalytics.instance().setUserId(analyticsId)
         AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountOpen(analyticsId: analyticsId)
-        appErrorLoggerConfiguration.setUserId(analyticsId)
+        await appErrorLoggerConfiguration.setUserId(analyticsId)
         
         switch account.status {
         case .active, .pendingDeletion:
