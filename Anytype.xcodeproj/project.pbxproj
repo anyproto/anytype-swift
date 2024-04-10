@@ -13043,7 +13043,7 @@
 			repositoryURL = "https://github.com/weichsel/ZIPFoundation";
 			requirement = {
 				kind = exactVersion;
-				version = 0.9.18;
+				version = 0.9.19;
 			};
 		};
 		2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
