@@ -1,7 +1,6 @@
 import UIKit
 import Services
 import Combine
-import Kingfisher
 import AnytypeCore
 
 struct BlockImageViewModel: BlockViewModelProtocol {

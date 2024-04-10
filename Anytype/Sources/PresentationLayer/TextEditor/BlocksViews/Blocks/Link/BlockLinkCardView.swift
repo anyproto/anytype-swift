@@ -1,6 +1,5 @@
 import UIKit
 import Services
-import Kingfisher
 import AnytypeCore
 
 final class BlockLinkCardView: UIView, BlockContentView {
