@@ -77,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d backlink</string>
+        <string>Rétrolien %d</string>
         <key>other</key>
-        <string>%d backlinks</string>
+        <string>Rétrolien %d</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
