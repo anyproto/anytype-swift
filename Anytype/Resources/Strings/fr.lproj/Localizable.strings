@@ -335,7 +335,7 @@
 "Create a new one or search for something else" = "Créer un nouveau ou rechercher autre chose";
 "Search.Backlinks.Show.title" = "Afficher les rétroliens";
 "Search.Backlinks.Header.title" = "Rétroliens de : %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Backlinks.Swipe.title" = "Rétroliens";
 
 // MARK: - Home
 
@@ -913,8 +913,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "Les nouveaux membres ne pourront pas rejoindre l'espace. Vous pouvez générer un nouveau lien à tout moment";
 "SpaceShare.Approve.Toast" = "Vous avez approuvé la demande de %@";
 "SpaceShare.ViewRequest.Title" = "%@ a demandé à rejoindre l'espace %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Accorder l’accès en consultation";
+"SpaceShare.ViewRequest.EditAccess" = "Accorder un accès à l'édition";
 "SpaceShare.ViewRequest.Reject" = "Rejeter";
 "SpaceShare.RemoveMember.Title" = "Supprimer un membre";
 "SpaceShare.RemoveMember.Message" = "%@ sera retiré de l'espace.";

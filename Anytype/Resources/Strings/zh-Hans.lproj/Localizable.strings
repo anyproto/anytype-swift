@@ -335,7 +335,7 @@
 "Create a new one or search for something else" = "创建一个新的或搜索其他内容";
 "Search.Backlinks.Show.title" = "显示反向链接";
 "Search.Backlinks.Header.title" = "反向链接：%@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Backlinks.Swipe.title" = "个反向链接";
 
 // MARK: - Home
 
@@ -913,8 +913,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接";
 "SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
 "SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "授予查看权限";
+"SpaceShare.ViewRequest.EditAccess" = "授予编辑权限";
 "SpaceShare.ViewRequest.Reject" = "拒绝";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ 将从空间中移除。";
