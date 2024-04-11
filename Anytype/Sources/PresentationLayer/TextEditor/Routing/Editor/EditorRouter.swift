@@ -239,64 +239,34 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {
-        if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
-                title: Loc.changeType,
-                spaceId: document.spaceId,
-                showPins: false,
-                showLists: false,
-                showFiles: false,
-                incudeNotForCreation: false
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        } else {
-            let view = newSearchModuleAssembly.objectTypeSearchModule(
-                title: Loc.changeType,
-                spaceId: document.spaceId,
-                selectedObjectId: selectedObjectId,
-                excludedObjectTypeId: document.details?.type,
-                showSetAndCollection: false
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
+        let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+            title: Loc.changeType,
+            spaceId: document.spaceId,
+            showPins: false,
+            showLists: false,
+            showFiles: false,
+            incudeNotForCreation: false
+        ) { [weak self] type in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(type)
         }
+        
+        navigationContext.presentSwiftUIView(view: view)
     }
     
     func showTypeSearchForObjectCreation(
         selectedObjectId: String?,
         onSelect: @escaping (TypeSelectionResult) -> ()
     ) {
-        if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
-                title: Loc.changeType,
-                spaceId: document.spaceId
-            ) { [weak self] result in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(result)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        } else {
-            let view = newSearchModuleAssembly.objectTypeSearchModule(
-                title: Loc.changeType,
-                spaceId: document.spaceId,
-                selectedObjectId: selectedObjectId,
-                excludedObjectTypeId: document.details?.type,
-                showSetAndCollection: true
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(.objectType(type: type))
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
+        let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
+            title: Loc.changeType,
+            spaceId: document.spaceId
+        ) { [weak self] result in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(result)
         }
+        
+        navigationContext.presentSwiftUIView(view: view)
     }
     
     func showWaitingView(text: String) {

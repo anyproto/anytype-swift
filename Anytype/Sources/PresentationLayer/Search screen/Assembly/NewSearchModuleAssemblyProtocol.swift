@@ -40,17 +40,6 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    func objectTypeSearchModule(
-        style: NewSearchView.Style,
-        title: String,
-        spaceId: String,
-        selectedObjectId: String?,
-        excludedObjectTypeId: String?,
-        showSetAndCollection: Bool,
-        showFiles: Bool,
-        onSelect: @escaping (_ type: ObjectType) -> Void
-    ) -> NewSearchView
-    
     func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
         spaceId: String,
@@ -136,28 +125,6 @@ extension NewSearchModuleAssemblyProtocol {
             selectionMode: selectionMode,
             excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType,
-            onSelect: onSelect
-        )
-    }
-    
-    func objectTypeSearchModule(
-        style: NewSearchView.Style = .default,
-        title: String,
-        spaceId: String,
-        selectedObjectId: String? = nil,
-        excludedObjectTypeId: String? = nil,
-        showSetAndCollection: Bool = false,
-        showFiles: Bool = false,
-        onSelect: @escaping (_ type: ObjectType) -> Void
-    ) -> NewSearchView {
-        return objectTypeSearchModule(
-            style: style,
-            title: title,
-            spaceId: spaceId,
-            selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: excludedObjectTypeId,
-            showSetAndCollection: showSetAndCollection,
-            showFiles: showFiles,
             onSelect: onSelect
         )
     }

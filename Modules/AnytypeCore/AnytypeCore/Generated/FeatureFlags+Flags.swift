@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .galleryInstallation)
     }
 
-    static var newTypePicker: Bool {
-        value(for: .newTypePicker)
-    }
-
     static var newTextEditingRelationView: Bool {
         value(for: .newTextEditingRelationView)
     }
@@ -88,7 +84,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .galleryInstallation,
-        .newTypePicker,
         .newTextEditingRelationView,
         .multiplayer,
         .membership,

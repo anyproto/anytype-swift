@@ -30,7 +30,6 @@ final class SetObjectCreationSettingsCoordinatorAssembly: SetObjectCreationSetti
         SetObjectCreationSettingsCoordinator(
             navigationContext: navigationContext ?? uiHelpersDI.commonNavigationContext(),
             setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             editorPageCoordinatorAssembly: coordinatorsDI.editorPage()
         )

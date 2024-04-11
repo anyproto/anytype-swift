@@ -129,7 +129,6 @@
 		1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */; };
 		1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */; };
 		1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */; };
-		1247BC7827FDD6EA005F2DB4 /* Legacy_ObjectTypeSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7727FDD6EA005F2DB4 /* Legacy_ObjectTypeSearchViewModel.swift */; };
 		1247BC7B27FDD7D8005F2DB4 /* Legacy_ObjectTypeSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7A27FDD7D8005F2DB4 /* Legacy_ObjectTypeSearchInteractor.swift */; };
 		1247BC7E27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7D27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift */; };
 		1247BC8027FE05C4005F2DB4 /* TransparencyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7F27FE05C4005F2DB4 /* TransparencyEffect.swift */; };
@@ -1888,7 +1887,6 @@
 		1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleInput.swift; sourceTree = "<group>"; };
 		1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleOutput.swift; sourceTree = "<group>"; };
 		1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
-		1247BC7727FDD6EA005F2DB4 /* Legacy_ObjectTypeSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Legacy_ObjectTypeSearchViewModel.swift; sourceTree = "<group>"; };
 		1247BC7A27FDD7D8005F2DB4 /* Legacy_ObjectTypeSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Legacy_ObjectTypeSearchInteractor.swift; sourceTree = "<group>"; };
 		1247BC7D27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationRestrictionsSectionView.swift; sourceTree = "<group>"; };
 		1247BC7F27FE05C4005F2DB4 /* TransparencyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparencyEffect.swift; sourceTree = "<group>"; };
@@ -4517,7 +4515,6 @@
 		1247BC7627FDD6CC005F2DB4 /* Legacy_ObjectTypeSearchViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1247BC7727FDD6EA005F2DB4 /* Legacy_ObjectTypeSearchViewModel.swift */,
 				1247BC8627FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift */,
 				1247BC7927FDD7AF005F2DB4 /* Interactor */,
 			);
@@ -11014,7 +11011,6 @@
 				3D5A417A2704541900F1F6A1 /* SearchBar.swift in Sources */,
 				2A590ED12BB1731F009D0A7C /* NotificationCoordinatorView.swift in Sources */,
 				125B6EC726F235F400BCD7D6 /* MentionDisplayData.swift in Sources */,
-				1247BC7827FDD6EA005F2DB4 /* Legacy_ObjectTypeSearchViewModel.swift in Sources */,
 				12394A2A27A405D10080E1CF /* RelationDetailsPopupBehavior.swift in Sources */,
 				1247BB0027CCBF470079DA1F /* ConstantHeightPopupLayout.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
