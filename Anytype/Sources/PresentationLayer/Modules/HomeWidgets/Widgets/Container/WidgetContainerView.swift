@@ -7,7 +7,6 @@ enum WidgetMenuItem: String {
     case changeSource
     case changeType
     case remove
-    case emptyBin
 }
 
 // TODO: Delete in after migration
@@ -101,10 +100,6 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     model.onDeleteWidgetTap()
                 }
-            }
-        case .emptyBin:
-            Button(Loc.Widgets.Actions.emptyBin, role: .destructive) {
-                model.onEmptyBinTap()
             }
         }
     }

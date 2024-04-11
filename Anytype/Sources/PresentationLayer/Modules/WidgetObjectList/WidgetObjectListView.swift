@@ -35,6 +35,9 @@ struct WidgetObjectListView: View {
         .navigationBarHidden(true)
         .environment(\.editMode, $model.viewEditMode)
         .homeBottomPanelHidden(model.homeBottomPanelHiddel, animated: false)
+        .anytypeSheet(item: $model.binAlertData) { data in
+            BinConfirmationAlert(data: data)
+        }
     }
     
     @ViewBuilder

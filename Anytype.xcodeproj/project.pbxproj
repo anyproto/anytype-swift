@@ -603,7 +603,6 @@
 		2A93E1A82AE7DE90004438FD /* View+Sheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A93E1A72AE7DE90004438FD /* View+Sheet.swift */; };
 		2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */; };
 		2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3D299E3E9D00C34C86 /* PlainList.swift */; };
-		2A947B302A3093DD00119140 /* BottomAlert+Bin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */; };
 		2A947B372A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */; };
 		2A947B392A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B382A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift */; };
 		2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B3D2A30E25600119140 /* WidgetObjectListRowView.swift */; };
@@ -2368,7 +2367,6 @@
 		2A93E1A72AE7DE90004438FD /* View+Sheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Sheet.swift"; sourceTree = "<group>"; };
 		2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyView.swift; sourceTree = "<group>"; };
 		2A945D3D299E3E9D00C34C86 /* PlainList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainList.swift; sourceTree = "<group>"; };
-		2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BottomAlert+Bin.swift"; sourceTree = "<group>"; };
 		2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataviewInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2A947B382A30CF2400119140 /* SetObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2A947B3D2A30E25600119140 /* WidgetObjectListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRowView.swift; sourceTree = "<group>"; };
@@ -8144,7 +8142,6 @@
 			children = (
 				2AD5EFC22B1748CC00FAA908 /* Bottom */,
 				3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */,
-				2A947B2F2A3093DD00119140 /* BottomAlert+Bin.swift */,
 				2E6F3E192A4C6828002F4278 /* AlertView.swift */,
 				2A81D27F2B723F3800A2959E /* ShareEnvironment.swift */,
 			);
@@ -10819,7 +10816,6 @@
 				2AFCEB4329CC808D00841E13 /* HomeWidgetsRecentStateManager.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
-				2A947B302A3093DD00119140 /* BottomAlert+Bin.swift in Sources */,
 				C9099607281AD5220011682F /* RelationItemModel.swift in Sources */,
 				12195395278DA46E00D53653 /* TextRelationViewType.swift in Sources */,
 				127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */,

@@ -23,5 +23,8 @@ struct BinConfirmationAlert: View {
                 dismiss()
             }
         }
+        .onAppear {
+            model.onAppear()
+        }
     }
 }
