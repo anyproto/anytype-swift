@@ -135,42 +135,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    func objectTypeSearchModule(
-        style: NewSearchView.Style,
-        title: String,
-        spaceId: String,
-        selectedObjectId: String?,
-        showSetAndCollection: Bool,
-        showFiles: Bool,
-        onSelect: @escaping (_ type: ObjectType) -> Void
-    ) -> NewSearchView {
-        let interactor = Legacy_ObjectTypeSearchInteractor(
-            spaceId: spaceId,
-            typesService: serviceLocator.typesService(),
-            workspaceService: serviceLocator.workspaceService(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
-            showBookmark: true,
-            showSetAndCollection: showSetAndCollection, 
-            showFiles: showFiles
-        )
-        
-        let internalViewModel = Legacy_ObjectTypeSearchViewModel(
-            interactor: interactor,
-            toastPresenter: uiHelpersDI.toastPresenter(),
-            selectedObjectId: selectedObjectId,
-            onSelect: onSelect
-        )
-        let viewModel = NewSearchViewModel(
-            title: title,
-            searchPlaceholder: Loc.ObjectType.searchOrInstall,
-            style: style,
-            itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel
-        )
-        
-        return NewSearchView(viewModel: viewModel)
-    }
-    
     func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
         spaceId: String,
