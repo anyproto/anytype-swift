@@ -2,8 +2,8 @@ import SwiftUI
 import Services
 
 
-struct MembershipTeirView: View {
-    @StateObject private var model: MembershipTeirViewModel
+struct MembershipTierView: View {
+    @StateObject private var model: MembershipTierViewModel
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -12,7 +12,7 @@ struct MembershipTeirView: View {
         onTap: @escaping () -> Void
     ) {
         _model = StateObject(
-            wrappedValue: MembershipTeirViewModel(
+            wrappedValue: MembershipTierViewModel(
                 tierToDisplay: tierToDisplay,
                 onTap: onTap
             )
@@ -128,10 +128,10 @@ struct MembershipTeirView: View {
             )
         } content: {
             HStack {
-                MembershipTeirView(tierToDisplay: .mockExplorer, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockBuilder, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCoCreator, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCustom, onTap: { })
+                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
             }
         }
     }
@@ -149,10 +149,10 @@ struct MembershipTeirView: View {
             )
         } content: {
             HStack {
-                MembershipTeirView(tierToDisplay: .mockExplorer, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockBuilder, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCoCreator, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCustom, onTap: { })
+                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
             }
         }
     }
@@ -170,10 +170,10 @@ struct MembershipTeirView: View {
             )
         } content: {
             HStack {
-                MembershipTeirView(tierToDisplay: .mockExplorer, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockBuilder, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCoCreator, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCustom, onTap: { })
+                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
             }
         }
     }
@@ -191,10 +191,10 @@ struct MembershipTeirView: View {
             )
         } content: {
             HStack {
-                MembershipTeirView(tierToDisplay: .mockExplorer, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockBuilder, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCoCreator, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCustom, onTap: { })
+                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
             }
         }
     }
@@ -212,10 +212,10 @@ struct MembershipTeirView: View {
             )
         } content: {
             HStack {
-                MembershipTeirView(tierToDisplay: .mockExplorer, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockBuilder, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCoCreator, onTap: { })
-                MembershipTeirView(tierToDisplay: .mockCustom, onTap: { })
+                MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
+                MembershipTierView(tierToDisplay: .mockBuilder, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCoCreator, onTap: { })
+                MembershipTierView(tierToDisplay: .mockCustom, onTap: { })
             }
         }
     }
