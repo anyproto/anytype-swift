@@ -308,6 +308,7 @@
 
 "Undo typing" = "Annulla la digitazione";
 "Undo" = "Annulla";
+"Redo" = "Ripristina";
 "Actions.LinkItself" = "Collega a";
 "Actions.MakeAsTemplate" = "Crea modello";
 "Actions.TemplateMakeDefault" = "Rendi predefinito";
@@ -1076,7 +1077,6 @@
 - evidenziare se si rappresenta un'organizzazione educativa, governativa o senza scopo di lucro
 - fornire maggiori informazioni sulla vostra organizzazione: numero di dipendenti e futuri utenti Anytype, mercati su cui si opera, ecc.,
 - fornire dettagli aggiuntivi su come la vostra organizzazione utilizza Anytype";
-"Membership.CustomTierEmail.Subject" = "Richiesta di livello di appartenenza personalizzato, ID account: %@";
 
 
 "Membership.Banner.Title1" = "Costruire insieme la visione";
