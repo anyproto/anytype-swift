@@ -23,7 +23,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     // MARK: - State
     
     @Published var models: [HomeWidgetSubmoduleModel] = []
-    @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: BackgroundType = .default
@@ -35,7 +34,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         info: AccountInfo,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
-        bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
@@ -48,7 +46,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.widgetObject = documentService.document(objectId: info.widgetsId)
         self.registry = registry
         self.blockWidgetService = blockWidgetService
-        self.bottomPanelProvider = bottomPanelProviderAssembly.make(info: info, stateManager: stateManager)
         self.stateManager = stateManager
         self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
@@ -95,6 +92,10 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func submoduleOutput() -> CommonWidgetModuleOutput? {
         output
+    }
+    
+    func onCreateWidgetSelected() {
+        output?.onCreateWidgetSelected(context: .editor)
     }
     
     // TODO: Delete after migration.

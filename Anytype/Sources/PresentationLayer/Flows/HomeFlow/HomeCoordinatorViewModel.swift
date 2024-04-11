@@ -8,7 +8,7 @@ import DeepLinks
 @MainActor
 final class HomeCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput,
+                                             HomeBottomNavigationPanelModuleOutput,
                                              SetObjectCreationCoordinatorOutput {
     
     // MARK: - DI
@@ -143,7 +143,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     func homeWidgetsModule(info: AccountInfo) -> AnyView? {
-        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self, bottomPanelOutput: self)
+        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
     }
     
     func homeBottomNavigationPanelModule(info: AccountInfo) -> AnyView {
@@ -170,6 +170,14 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     // MARK: - HomeWidgetsModuleOutput
+    
+    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
+        showCreateWidgetData = CreateWidgetCoordinatorModel(
+            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            position: .end,
+            context: context
+        )
+    }
     
     // MARK: - CommonWidgetModuleOutput
         
@@ -219,16 +227,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onManageSpacesSelected() {
         showSpaceManager = true
-    }
-    
-    // MARK: - HomeBottomPanelModuleOutput
-    
-    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
-            position: .end,
-            context: context
-        )
     }
     
     // MARK: - HomeBottomNavigationPanelModuleOutput

@@ -37,8 +37,10 @@ struct HomeWidgetsView: View {
                 .fitIPadToReadableContentGuide()
             }
             .animation(.default, value: model.models.count)
-            model.bottomPanelProvider.view
-                .fitIPadToReadableContentGuide()
+            
+            HomeBottomPanelView(homeState: $model.homeState) {
+                model.onCreateWidgetSelected()
+            }
         }
         .task {
             await model.startParticipantTask()
