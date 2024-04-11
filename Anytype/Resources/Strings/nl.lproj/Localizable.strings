@@ -308,6 +308,7 @@
 
 "Undo typing" = "Typen ongedaan maken";
 "Undo" = "Ongedaan maken";
+"Redo" = "Voer opnieuw uit";
 "Actions.LinkItself" = "Link naar";
 "Actions.MakeAsTemplate" = "Maak sjabloon";
 "Actions.TemplateMakeDefault" = "Maak standaard";
@@ -1077,7 +1078,6 @@
 - markeer als je een onderwijs-, overheids- of non-profit organisatie vertegenwoordigt
 - vertel ons meer over jouw organisatie: aantal medewerkers en toekomstige Anytype gebruikers, markten waar je in werkt, enz.
 - geef aanvulende informatie over hoe jouw organisatie Anytype gebruikt";
-"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
