@@ -11,7 +11,8 @@ struct SettingsButton: View {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer.fixedHeight(14)
                 HStack(spacing: 0) {
-                    AnytypeText(text, style: .uxBodyRegular, color: textColor)
+                    AnytypeText(text, style: .uxBodyRegular)
+                        .foregroundColor(textColor)
                     Spacer()
                 }
                 Spacer.fixedHeight(14)

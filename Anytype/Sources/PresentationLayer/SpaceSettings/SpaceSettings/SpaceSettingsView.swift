@@ -89,20 +89,28 @@ struct SpaceSettingsView: View {
         SectionHeaderView(title: Loc.Settings.spaceType)
         
         if FeatureFlags.multiplayer {
-            if model.allowShare {
+            switch model.shareSection {
+            case .personal:
+                SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
+            case .private(let active):
                 SettingsSectionItemView(
                     name: model.spaceAccessType,
-                    decoration: .arrow(text: model.sharedSpaceDescription),
+                    decoration: .arrow(text: Loc.share),
                     onTap: { model.onShareTap() }
                 )
-            } else if model.allowSpaceMembers {
+                .disabled(!active)
+            case .owner(let joiningCount):
+                SettingsSectionItemView(
+                    name: model.spaceAccessType,
+                    decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
+                    onTap: { model.onShareTap() }
+                )
+            case .member:
                 SettingsSectionItemView(
                     name: model.spaceAccessType,
                     decoration: .arrow(text: Loc.SpaceShare.members),
                     onTap: { model.onMembersTap() }
                 )
-            } else {
-                SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
             }
         } else {
             SpaceTypeView(name: model.spaceAccessType)

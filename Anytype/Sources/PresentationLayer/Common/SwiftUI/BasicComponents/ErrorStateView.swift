@@ -5,16 +5,17 @@ struct ErrorStateView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer()
             ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.error, style: .uxCalloutMedium, color: .Text.primary)
+            AnytypeText(Loc.error, style: .uxCalloutMedium)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            AnytypeText(message, style: .uxCalloutRegular, color: .Text.primary)
+            AnytypeText(message, style: .uxCalloutRegular)
+                .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            Spacer()
         }
         .padding(.horizontal, 20)
+        .padding(.vertical, 12)
     }
 }
 

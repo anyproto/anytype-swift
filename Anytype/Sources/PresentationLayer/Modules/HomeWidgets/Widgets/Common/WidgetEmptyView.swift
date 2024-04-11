@@ -8,7 +8,8 @@ struct WidgetEmptyView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
             Spacer()
-            AnytypeText(title, style: .relation2Regular, color: .Text.secondary)
+            AnytypeText(title, style: .relation2Regular)
+                .foregroundColor(.Text.secondary)
             Spacer()
         }
     }

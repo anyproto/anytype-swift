@@ -38,7 +38,8 @@ struct SpaceShareParticipantView: View {
             IconView(icon: participant.icon)
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 2) {
-                AnytypeText(participant.name, style: .uxTitle2Medium, color: .Text.primary)
+                AnytypeText(participant.name, style: .uxTitle2Medium)
+                    .foregroundColor(.Text.primary)
                     .truncationMode(.middle)
                 status
             }
@@ -58,9 +59,11 @@ struct SpaceShareParticipantView: View {
     private var status: some View {
         switch participant.status {
         case .active(let permission):
-            AnytypeText(permission, style: .relation3Regular, color: .Text.secondary)
+            AnytypeText(permission, style: .relation3Regular)
+                .foregroundColor(.Text.secondary)
         case .pending(let message):
-            AnytypeText(message, style: .relation3Regular, color: .Text.labelInversion)
+            AnytypeText(message, style: .relation3Regular)
+                .foregroundColor(.Text.labelInversion)
                 .padding(.horizontal, 3)
                 .background(Color.Button.button)
                 .cornerRadius(3, style: .continuous)
@@ -80,7 +83,8 @@ struct SpaceShareParticipantView: View {
                         action.action()
                     } label: {
                         HStack {
-                            AnytypeText(action.title, style: .uxCalloutRegular, color: .Text.primary)
+                            AnytypeText(action.title, style: .uxCalloutRegular)
+                                .foregroundColor(.Text.primary)
                             Spacer()
                             if action.isSelected {
                                 Image(asset: .X24.tick)

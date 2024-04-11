@@ -12,10 +12,8 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     @Published var filtersSelectionData: FiltersSelectionData?
     @Published var filtersSearchData: FiltersSearchData?
     
-    private let setDocument: SetDocumentProtocol
-    private let viewId: String
-    private let subscriptionDetailsStorage: ObjectDetailsStorage
-    private let setFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol
+    let data: SetFiltersListModuleData
+    let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinatorAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
@@ -23,25 +21,13 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
         setDocument: SetDocumentProtocol,
         viewId: String,
         subscriptionDetailsStorage: ObjectDetailsStorage,
-        setFiltersListModuleAssembly: SetFiltersListModuleAssemblyProtocol,
         setFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
-        self.setDocument = setDocument
-        self.viewId = viewId
+        self.data = SetFiltersListModuleData(setDocument: setDocument, viewId: viewId)
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
-        self.setFiltersListModuleAssembly = setFiltersListModuleAssembly
         self.setFiltersSelectionCoordinatorAssembly = setFiltersSelectionCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-    }
-    
-    func list() -> AnyView {
-        setFiltersListModuleAssembly.make(
-            with: setDocument,
-            viewId: viewId,
-            subscriptionDetailsStorage: subscriptionDetailsStorage,
-            output: self
-        )
     }
     
     // MARK: - SetFiltersListCoordinatorOutput
@@ -75,7 +61,7 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     
     func setFiltersSelection(data: FiltersSelectionData) -> AnyView {
         setFiltersSelectionCoordinatorAssembly.make(
-            with: setDocument.spaceId,
+            with: self.data.setDocument.spaceId,
             filter: data.filter,
             completion: { [weak self] filter in
                 self?.filtersSelectionData = nil

@@ -21,7 +21,8 @@ struct RelationsListView: View {
             }
             
             Spacer()
-            AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.relations, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             Spacer()
             
             if !viewModel.navigationBarButtonsDisabled {
@@ -40,9 +41,9 @@ struct RelationsListView: View {
         } label: {
             AnytypeText(
                 editingMode ? Loc.done : Loc.edit,
-                style: .uxBodyRegular,
-                color: .Text.secondary
+                style: .uxBodyRegular
             )
+            .foregroundColor(.Text.secondary)
         }
     }
     

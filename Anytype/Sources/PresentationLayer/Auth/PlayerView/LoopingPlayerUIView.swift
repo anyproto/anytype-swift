@@ -5,7 +5,8 @@ final class LoopingPlayerUIView: UIView, SceneStateListener {
     private let playerLayer = AVPlayerLayer()
     private var playerLooper: AVPlayerLooper?
     private let player = AVQueuePlayer()
-    private let sceneStateNotifier = ServiceLocator.shared.sceneStateNotifier()
+    @Injected(\.sceneStateNotifier)
+    private var sceneStateNotifier: SceneStateNotifierProtocol
     
     init(url: URL) {
         super.init(frame: .zero)

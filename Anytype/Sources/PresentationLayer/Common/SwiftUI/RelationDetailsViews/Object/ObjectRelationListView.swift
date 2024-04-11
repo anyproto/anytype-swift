@@ -54,9 +54,9 @@ struct ObjectRelationListView: View {
             WrappingHStack(items, spacing: .constant(5), lineSpacing: 0) { item in
                 AnytypeText(
                     item.name,
-                    style: item.isSelected ? .caption1Medium : .caption1Regular,
-                    color: .Text.secondary
+                    style: item.isSelected ? .caption1Medium : .caption1Regular
                 )
+                .foregroundColor(.Text.secondary)
             }
             .padding(.top, 26)
             .padding(.bottom, 8)

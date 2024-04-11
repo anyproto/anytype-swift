@@ -23,7 +23,8 @@ final class DeepLinkParser: DeepLinkParserProtocol {
     }
     
     public func parse(url: URL) -> DeepLink? {
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return nil }
+        let urlString = url.absoluteString.replacingHTMLEntities
+        guard var components = URLComponents(string: urlString) else { return nil }
         
         let queryItems = components.queryItems ?? []
         components.queryItems = nil

@@ -4,7 +4,7 @@ import AudioToolbox
 
 struct AuthView: View {
     
-    @StateObject var model: AuthViewModel
+    @StateObject private var model: AuthViewModel
     
     init(output: AuthViewModelOutput?) {
         _model = StateObject(wrappedValue: AuthViewModel(output: output))
@@ -53,7 +53,8 @@ struct AuthView: View {
             
             Spacer.fixedHeight(20)
             
-            AnytypeText(Loc.Auth.Welcome.subtitle, style: .uxCalloutRegular, color: .Auth.body)
+            AnytypeText(Loc.Auth.Welcome.subtitle, style: .uxCalloutRegular)
+                .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, UIDevice.isPad ? 85 : 38)
         }
@@ -101,9 +102,9 @@ struct AuthView: View {
         AnytypeText(
             Loc.Auth.Caption.Privacy.text(AboutApp.termsLink, AboutApp.privacyLink),
             style: .authCaption,
-            color: .Auth.caption,
             enableMarkdown: true
         )
+        .foregroundColor(.Auth.caption)
         .multilineTextAlignment(.center)
         .padding(.horizontal, 38)
         .accentColor(.Auth.body)

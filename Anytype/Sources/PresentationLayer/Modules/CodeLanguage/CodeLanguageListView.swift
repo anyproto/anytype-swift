@@ -22,7 +22,8 @@ struct CodeLanguageListView: View {
                             row.onTap()
                         } label: {
                             HStack(spacing: 0) {
-                                AnytypeText(row.title, style: .bodyRegular, color: .Text.primary)
+                                AnytypeText(row.title, style: .bodyRegular)
+                                    .foregroundColor(.Text.primary)
                                     .lineLimit(1)
                                 Spacer()
                                 if row.isSelected {

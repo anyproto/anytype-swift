@@ -26,10 +26,12 @@ struct MembershipModuleView: View {
             ScrollView {
                 VStack {
                     Spacer.fixedHeight(40)
-                    AnytypeText(Loc.Membership.Ad.title, style: .riccioneTitle, color: .Text.primary)
+                    AnytypeText(Loc.Membership.Ad.title, style: .riccioneTitle)
+                        .foregroundColor(.Text.primary)
                         .padding(.horizontal, 20)
                         .multilineTextAlignment(.center)
-                    AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular, color: .Text.primary)
+                    AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular)
+                        .foregroundColor(.Text.primary)
                         .padding(.horizontal, 60)
                         .multilineTextAlignment(.center)
                     Spacer.fixedHeight(32)
@@ -101,14 +103,12 @@ struct MembershipModuleView: View {
             } label: {
                 AnytypeText(
                     "\(Loc.Membership.Legal.wouldYouLike) ",
-                    style: .caption1Regular,
-                    color: .Text.primary
-                ) +
+                    style: .caption1Regular
+                ).foregroundColor(.Text.primary) +
                 AnytypeText(
                     Loc.Membership.Legal.letUsKnow,
-                    style: .caption1Regular,
-                    color: .Text.primary
-                ).underline()
+                    style: .caption1Regular
+                ).foregroundColor(.Text.primary).underline()
             }
         }
     }

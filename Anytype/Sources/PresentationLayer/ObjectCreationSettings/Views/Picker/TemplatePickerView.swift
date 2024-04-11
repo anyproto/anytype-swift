@@ -43,9 +43,9 @@ struct TemplatePickerView: View {
             ToolbarItem(placement: .principal) {
                 AnytypeText(
                     Loc.TemplateSelection.Available.title(viewModel.items.count),
-                    style: .caption1Medium,
-                    color: .Text.primary
+                    style: .caption1Medium
                 )
+                .foregroundColor(.Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 settingsButton
@@ -80,8 +80,10 @@ struct TemplatePickerView: View {
             Spacer.fixedHeight(32)
             HStack {
                 VStack(alignment: .leading, spacing: 8) {
-                    AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title, color: .Text.tertiary)
-                    AnytypeText(Loc.TemplateSelection.Template.subtitle, style: .relation2Regular, color: .Text.tertiary)
+                    AnytypeText(Loc.BlockText.ContentType.Title.placeholder, style: .title)
+                        .foregroundColor(.Text.tertiary)
+                    AnytypeText(Loc.TemplateSelection.Template.subtitle, style: .relation2Regular)
+                        .foregroundColor(.Text.tertiary)
                 }
                 Spacer()
             }

@@ -60,7 +60,8 @@ struct WidgetSwipeActionView<Content: View>: View {
                             Image(asset: .X32.plus)
                                 .foregroundColor(.Text.white)
                             if showTitle {
-                                AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium, color: .Text.white)
+                                AnytypeText(Loc.Widgets.Actions.newObject, style: .caption2Medium)
+                                    .foregroundColor(.Text.white)
                             }
                         }
                         .frame(width: 96)

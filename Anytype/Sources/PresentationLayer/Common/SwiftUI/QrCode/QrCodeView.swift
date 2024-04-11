@@ -14,7 +14,8 @@ struct QrCodeView: View {
         VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(15)
-            AnytypeText(model.title, style: .heading, color: .Text.primary)
+            AnytypeText(model.title, style: .heading)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(20)
             QRCodeDocumentUIView(document: model.document)
                 .frame(width: 200, height: 200)

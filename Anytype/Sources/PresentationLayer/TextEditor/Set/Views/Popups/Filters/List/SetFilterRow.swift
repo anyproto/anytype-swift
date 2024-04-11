@@ -29,7 +29,8 @@ struct SetFilterRow: View {
             Spacer.fixedWidth(12)
             
             VStack(alignment: .leading, spacing: 2) {
-                AnytypeText(configuration.title, style: .uxTitle2Medium, color: .Text.primary)
+                AnytypeText(configuration.title, style: .uxTitle2Medium)
+                    .foregroundColor(.Text.primary)
                 filterConditionView
             }
             
@@ -48,13 +49,15 @@ struct SetFilterRow: View {
                 subtitle.isNotEmpty
             {
                 HStack(spacing: 8) {
-                    AnytypeText(subtitle, style: .relation1Regular, color: .Text.secondary)
+                    AnytypeText(subtitle, style: .relation1Regular)
+                        .foregroundColor(.Text.secondary)
                         .layoutPriority(1)
                     switch configuration.type {
                     case let .relation(relation):
                         relationValueView(for: relation)
                     case let .date(date):
-                        AnytypeText(date, style: .relation1Regular, color: .Text.secondary)
+                        AnytypeText(date, style: .relation1Regular)
+                            .foregroundColor(.Text.secondary)
                     }
                 }
             }

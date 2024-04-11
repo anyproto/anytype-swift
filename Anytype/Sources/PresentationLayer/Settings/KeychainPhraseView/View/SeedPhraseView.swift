@@ -9,9 +9,9 @@ struct SeedPhraseView: View {
             HStack {
                 AnytypeText(
                     model.recoveryPhrase ?? Loc.Keychain.seedPhrasePlaceholder,
-                    style: .codeBlock,
-                    color: .Dark.sky
+                    style: .codeBlock
                 )
+                    .foregroundColor(.Dark.sky)
                     .redacted(reason: model.recoveryPhrase.isNil ? .placeholder : [])
                     .multilineTextAlignment(.leading)
                 if model.recoveryPhrase.isNotNil {

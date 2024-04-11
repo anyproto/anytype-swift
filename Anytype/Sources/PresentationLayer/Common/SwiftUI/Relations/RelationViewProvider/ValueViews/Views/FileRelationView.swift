@@ -38,9 +38,9 @@ struct FileRelationView: View {
             
             AnytypeText(
                 option.title,
-                style: style.font,
-                color: style.fontColor
+                style: style.font
             )
+                .foregroundColor(style.fontColor)
                 .lineLimit(1)
         }
     }

@@ -2,7 +2,11 @@ import SwiftUI
 
 struct CreatingSoulView: View {
     
-    @StateObject var model: CreatingSoulViewModel
+    @StateObject private var model: CreatingSoulViewModel
+    
+    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+        _model = StateObject(wrappedValue: CreatingSoulViewModel(state: state, output: output))
+    }
     
     var body: some View {
         GeometryReader { geo in
@@ -15,9 +19,9 @@ struct CreatingSoulView: View {
         VStack(alignment: .center, spacing: 0) {
             AnytypeText(
                 model.showSpace ? Loc.Auth.JoinFlow.Setting.Space.title : Loc.Auth.JoinFlow.Creating.Soul.title,
-                style: .bodyRegular,
-                color: .Auth.inputText
+                style: .bodyRegular
             )
+            .foregroundColor(.Auth.inputText)
             
             Spacer.fixedHeight(64)
 
@@ -62,7 +66,8 @@ struct CreatingSoulView: View {
         VStack(spacing: 8) {
             IconView(icon: model.profileIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
-            AnytypeText(model.soulName, style: .calloutRegular, color: .Auth.body)
+            AnytypeText(model.soulName, style: .calloutRegular)
+                .foregroundColor(.Auth.body)
                 .frame(width: 80)
                 .truncationMode(.middle)
                 .lineLimit(1)
@@ -74,7 +79,8 @@ struct CreatingSoulView: View {
         VStack(spacing: 8) {
             IconView(icon: model.spaceIcon)
                 .frame(width: Constants.imageDimension, height: Constants.imageDimension)
-            AnytypeText(Loc.Spaces.Accessibility.personal, style: .calloutRegular, color: .Auth.body)
+            AnytypeText(Loc.Spaces.Accessibility.personal, style: .calloutRegular)
+                .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)
         }
         .frame(width: Constants.itemWidth)
@@ -92,16 +98,6 @@ private extension CreatingSoulView {
 
 struct CreatingSoulView_Previews : PreviewProvider {
     static var previews: some View {
-        CreatingSoulView(
-            model: CreatingSoulViewModel(
-                state: JoinFlowState(),
-                output: nil,
-                accountManager: DI.preview.serviceLocator.accountManager(),
-                subscriptionService: DI.preview.serviceLocator.singleObjectSubscriptionService(),
-                authService: DI.preview.serviceLocator.authService(),
-                seedService: DI.preview.serviceLocator.seedService(),
-                usecaseService: DI.preview.serviceLocator.usecaseService()
-            )
-        )
+        CreatingSoulView(state: JoinFlowState(), output: nil)
     }
 }

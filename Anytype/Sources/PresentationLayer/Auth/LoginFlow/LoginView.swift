@@ -79,9 +79,9 @@ struct LoginView: View {
             
             AnytypeText(
                 Loc.Auth.LoginFlow.or,
-                style: .caption2Medium,
-                color: .Auth.inputText
+                style: .caption2Medium
             )
+            .foregroundColor(.Auth.inputText)
             
             HStack(spacing: 8) {
                 StandardButton(

@@ -6,6 +6,8 @@ import Services
 protocol ParticipantSpacesStorageProtocol: AnyObject {
     var allParticipantSpaces: [ParticipantSpaceView] { get }
     var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> { get }
+    func canShareSpace() -> Bool
+    
     func startSubscription() async
     func stopSubscription() async
 }
@@ -26,6 +28,10 @@ extension ParticipantSpacesStorageProtocol {
 @MainActor
 final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
+    private enum Constants {
+        static let maxSharedSpaces = 3
+    }
+    
     // MARK: - DI
     
     @Injected(\.workspaceStorage)
@@ -41,6 +47,10 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> { $allParticipantSpaces.eraseToAnyPublisher() }
     
     nonisolated init() {}
+    
+    func canShareSpace() -> Bool {
+        allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count < Constants.maxSharedSpaces
+    }
     
     func startSubscription() async {
         Publishers.CombineLatest(workspaceStorage.allWorkspsacesPublisher, accountParticipantsStorage.participantsPublisher)

@@ -1,5 +1,4 @@
 import UIKit
-import Kingfisher
 import AnytypeCore
 import Services
 

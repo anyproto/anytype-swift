@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "video.pdf",
+      "filename" : "Video.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Video.Dark.pdf",
       "idiom" : "universal"
     }
   ],

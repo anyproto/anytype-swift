@@ -76,8 +76,6 @@
 "Relation.AddedToLibrary" = "关联“%@”已添加到您的文库";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
-"Relation.LinksFrom.Title" = "从";
-"Relation.LinksTo.Title" = "到";
 "Relation.EmptyState.title" = "无选项";
 "Relation.EmptyState.description" = "什么也没有。创建第一个选项以开始。";
 "Relation.EmptyState.Blocked.title" = "关联是空的";
@@ -337,6 +335,7 @@
 "Create a new one or search for something else" = "创建一个新的或搜索其他内容";
 "Search.Backlinks.Show.title" = "显示反向链接";
 "Search.Backlinks.Header.title" = "反向链接：%@";
+"Search.Backlinks.Swipe.title" = "个反向链接";
 
 // MARK: - Home
 
@@ -942,6 +941,8 @@
 "SpaceShare.HowToShare.Step2" = "通过点击链接，将收到一个人加入空间的请求。";
 "SpaceShare.HowToShare.Step3" = "批准请求后，您可以选择此人的访问权限。";
 "SpaceShare.Manage" = "管理";
+"SpaceShare.AlreadyJoin.Title" = "你已经是这个空间的成员了";
+"SpaceShare.AlreadyJoin.OpenSpace" = "打开空间";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "您在 **%@** 空间中的访问权限已更改为 **%@**。";
@@ -1111,8 +1112,6 @@
 
 "Membership.Payment.Card" = "卡片";
 "Membership.Payment.Crypto" = "加密货币";
-"Membership.Payment.ApplePay" = "Apple Pay";
-"Membership.Payment.GooglePay" = "Google Pay";
 "Membership.Payment.Apple subscription" = "Apple 订阅";
 "Membership.Payment.Google subscription" = "Google 订阅";
 

@@ -132,10 +132,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         EditorSetModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
 
-    func initial() -> InitialCoordinatorAssemblyProtocol {
-        InitialCoordinatorAssembly(serviceLocator: serviceLocator)
-    }
-
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol {
         SpaceSwitchCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }

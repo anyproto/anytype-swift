@@ -80,6 +80,10 @@ internal enum Loc {
   internal static let background = Loc.tr("Localizable", "Background", fallback: "Background")
   /// Background picture
   internal static let backgroundPicture = Loc.tr("Localizable", "Background picture", fallback: "Background picture")
+  /// Plural format key: "%#@object@"
+  internal static func backlinksCount(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Backlinks count", p1, fallback: "Plural format key: \"%#@object@\"")
+  }
   /// Basic
   internal static let basic = Loc.tr("Localizable", "Basic", fallback: "Basic")
   /// Bin
@@ -1778,14 +1782,6 @@ internal enum Loc {
       /// TXT
       internal static let text = Loc.tr("Localizable", "Relation.ImportType.Text", fallback: "TXT")
     }
-    internal enum LinksFrom {
-      /// from
-      internal static let title = Loc.tr("Localizable", "Relation.LinksFrom.Title", fallback: "from")
-    }
-    internal enum LinksTo {
-      /// to
-      internal static let title = Loc.tr("Localizable", "Relation.LinksTo.Title", fallback: "to")
-    }
     internal enum Object {
       internal enum Delete {
         internal enum Alert {
@@ -1900,6 +1896,10 @@ internal enum Loc {
       internal enum Show {
         /// Show backlinks
         internal static let title = Loc.tr("Localizable", "Search.Backlinks.Show.title", fallback: "Show backlinks")
+      }
+      internal enum Swipe {
+        /// Backlinks
+        internal static let title = Loc.tr("Localizable", "Search.Backlinks.Swipe.title", fallback: "Backlinks")
       }
     }
   }
@@ -2336,6 +2336,12 @@ internal enum Loc {
       /// View request
       internal static let viewRequest = Loc.tr("Localizable", "SpaceShare.Action.ViewRequest", fallback: "View request")
     }
+    internal enum AlreadyJoin {
+      /// Open space
+      internal static let openSpace = Loc.tr("Localizable", "SpaceShare.AlreadyJoin.OpenSpace", fallback: "Open space")
+      /// You are already a member of this space
+      internal static let title = Loc.tr("Localizable", "SpaceShare.AlreadyJoin.Title", fallback: "You are already a member of this space")
+    }
     internal enum Approve {
       /// You approved %@'s request.
       internal static func toast(_ p1: Any) -> String {
@@ -2433,16 +2439,16 @@ internal enum Loc {
       internal static let toast = Loc.tr("Localizable", "SpaceShare.StopSharing.Toast", fallback: "The space is no longer shared")
     }
     internal enum ViewRequest {
-      /// Grand edit access
-      internal static let editAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.EditAccess", fallback: "Grand edit access")
+      /// Grant edit access
+      internal static let editAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.EditAccess", fallback: "Grant edit access")
       /// Reject
       internal static let reject = Loc.tr("Localizable", "SpaceShare.ViewRequest.Reject", fallback: "Reject")
       /// %@ requested to join %@ space
       internal static func title(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "SpaceShare.ViewRequest.Title", String(describing: p1), String(describing: p2), fallback: "%@ requested to join %@ space")
       }
-      /// Grand view access
-      internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess", fallback: "Grand view access")
+      /// Grant view access
+      internal static let viewAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.ViewAccess", fallback: "Grant view access")
     }
   }
   internal enum Spaces {

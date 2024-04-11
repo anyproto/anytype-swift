@@ -9,7 +9,8 @@ final class DeviceSceneStateListener: DeviceSceneStateListenerProtocol, SceneSta
     
     @Injected(\.sceneLifecycleStateService)
     private var lifecycleStateService: SceneLifecycleStateServiceProtocol
-    private let sceneStateNotifier = ServiceLocator.shared.sceneStateNotifier()
+    @Injected(\.sceneStateNotifier)
+    private var sceneStateNotifier: SceneStateNotifierProtocol
     
     // MARK: - DeviceSceneStateListenerProtocol
     

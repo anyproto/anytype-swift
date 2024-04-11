@@ -22,9 +22,11 @@ struct ObjectSettingRow: View {
             Image(asset: setting.imageAsset).frame(width: Constants.iconWidth, height: Constants.iconWidth)
 
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(setting.title, style: .uxTitle2Medium, color: .Text.primary)
+                AnytypeText(setting.title, style: .uxTitle2Medium)
+                    .foregroundColor(.Text.primary)
 
-                AnytypeText(setting.description, style: .caption1Regular, color: .Text.secondary)
+                AnytypeText(setting.description, style: .caption1Regular)
+                    .foregroundColor(.Text.secondary)
             }
 
             Spacer()

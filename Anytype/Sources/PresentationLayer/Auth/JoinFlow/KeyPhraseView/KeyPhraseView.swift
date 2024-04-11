@@ -20,22 +20,24 @@ struct KeyPhraseView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .heading, color: .Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .heading)
+                .foregroundColor(.Auth.inputText)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(12)
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Key.description,
-                style: .calloutRegular,
-                color: .Auth.body
+                style: .calloutRegular
             )
+                .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 30)
             
             Spacer.fixedHeight(4)
             
-            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .uxBodyRegular, color: .Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .uxBodyRegular)
+                .foregroundColor(.Auth.inputText)
                 .padding(.vertical, 4)
                 .fixTappableArea()
                 .onTapGesture {
@@ -75,7 +77,8 @@ struct KeyPhraseView: View {
     private var buttons: some View {
         VStack(spacing: 0) {
             if !model.keyShown {
-                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Tip.title, style: .caption1Regular, color: .Auth.body)
+                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Tip.title, style: .caption1Regular)
+                    .foregroundColor(.Auth.body)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                 Spacer.fixedHeight(18)

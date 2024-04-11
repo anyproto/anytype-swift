@@ -76,9 +76,9 @@ struct SetKanbanColumn: View {
             case .uncategorized:
                 AnytypeText(
                     Loc.Set.View.Kanban.Column.Title.uncategorized,
-                    style: .relation2Regular,
-                    color: .Text.secondary
+                    style: .relation2Regular
                 )
+                .foregroundColor(.Text.secondary)
             case let .status(options):
                 StatusRelationView(options: options, hint: "", style: .kanbanHeader)
             case let .tag(options):
@@ -96,9 +96,9 @@ struct SetKanbanColumn: View {
                     Loc.Set.View.Kanban.Column.Title.unchecked(title)
                     AnytypeText(
                         text,
-                        style: .relation2Regular,
-                        color: .Text.secondary
+                        style: .relation2Regular
                     )
+                    .foregroundColor(.Text.secondary)
                 }
             }
             
@@ -123,9 +123,9 @@ struct SetKanbanColumn: View {
                     Spacer.fixedWidth(7)
                     AnytypeText(
                         Loc.Set.View.Kanban.Column.Paging.Title.showMore,
-                        style: .caption1Medium,
-                        color: .Text.secondary
+                        style: .caption1Medium
                     )
+                    .foregroundColor(.Text.secondary)
                     Spacer()
                 }
                 Spacer.fixedHeight(4)

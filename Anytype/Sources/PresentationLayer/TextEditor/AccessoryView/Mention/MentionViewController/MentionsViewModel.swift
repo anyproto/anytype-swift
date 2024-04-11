@@ -2,7 +2,6 @@ import Services
 import ProtobufMessages
 import SwiftProtobuf
 import UIKit
-import Kingfisher
 import AnytypeCore
 import Combine
 

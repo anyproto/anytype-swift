@@ -78,24 +78,8 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func joinFlow() -> JoinFlowModuleAssemblyProtocol {
-        return JoinFlowModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
         return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
-    }
-    
-    func authKeyMoreInfo() -> KeyPhraseMoreInfoViewModuleAssembly {
-        return KeyPhraseMoreInfoViewModuleAssembly()
-    }
-    
-    func authSoul() -> SoulViewModuleAssemblyProtocol {
-        return SoulViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func authCreatingSoul() -> CreatingSoulViewModuleAssemblyProtocol {
-        return CreatingSoulViewModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol {
@@ -104,10 +88,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func setFiltersListModule() -> SetFiltersListModuleAssemblyProtocol {
-        SetFiltersListModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol {

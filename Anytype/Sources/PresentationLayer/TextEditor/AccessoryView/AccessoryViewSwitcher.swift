@@ -64,7 +64,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
     func showDefaultView() {
         let isSelectType = document.details?.isSelectType ?? false
-        let canSelectType = !document.permissions.canChangeType
+        let canSelectType = document.permissions.canChangeType
         
         if isSelectType && canSelectType && !typePickerDismissedByUser {
             showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)

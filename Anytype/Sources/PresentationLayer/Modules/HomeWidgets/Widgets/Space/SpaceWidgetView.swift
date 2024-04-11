@@ -14,12 +14,15 @@ struct SpaceWidgetView: View {
             IconView(icon: model.spaceIcon)
                 .frame(width: 40, height: 40)
             VStack(alignment: .leading, spacing: 1) {
-                AnytypeText(model.spaceName, style: .previewTitle2Medium, color: .Text.primary)
+                AnytypeText(model.spaceName, style: .previewTitle2Medium)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
                 if model.sharedSpace {
-                    AnytypeText(model.spaceMembers, style: .relation3Regular, color: .Text.secondary)
+                    AnytypeText(model.spaceMembers, style: .relation3Regular)
+                        .foregroundColor(.Text.secondary)
                 } else {
-                    AnytypeText(model.spaceAccessType, style: .relation3Regular, color: .Text.secondary)
+                    AnytypeText(model.spaceAccessType, style: .relation3Regular)
+                        .foregroundColor(.Text.secondary)
                 }
             }
             Spacer()

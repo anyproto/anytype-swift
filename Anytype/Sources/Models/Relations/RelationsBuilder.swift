@@ -44,6 +44,17 @@ final class RelationsBuilder {
         
         relationsDetails.forEach { relationDetails in
             guard !relationDetails.isHidden else { return }
+            guard relationDetails.key != BundledRelationKey.globalName.rawValue else {
+                hackGlobalNameValue(
+                    relationsDetails: relationsDetails,
+                    objectDetails: objectDetails,
+                    relationValuesIsLocked: relationValuesIsLocked,
+                    storage: storage
+                )
+                .flatMap { featuredRelations.append($0) }
+                return
+            }
+            
             
             let value = relation(
                 relationDetails: relationDetails,
@@ -81,6 +92,54 @@ final class RelationsBuilder {
         )
     }
     
+    //fallback to identiy if globalName is empty
+    private func hackGlobalNameValue(
+        relationsDetails: [RelationDetails],
+        objectDetails: ObjectDetails,
+        relationValuesIsLocked: Bool,
+        storage: ObjectDetailsStorage
+    ) -> Relation? {
+        guard let globaName = relationForKey(
+            key: BundledRelationKey.globalName.rawValue,
+            relationsDetails: relationsDetails,
+            objectDetails: objectDetails,
+            relationValuesIsLocked: relationValuesIsLocked,
+            storage: storage
+        ) else { return nil }
+        
+        if globaName.hasValue { return globaName }
+        
+        guard let identity = relationForKey(
+            key: BundledRelationKey.identity.rawValue,
+            relationsDetails: relationsDetails,
+            objectDetails: objectDetails,
+            relationValuesIsLocked: relationValuesIsLocked,
+            storage: storage
+        ) else { return nil }
+        
+        if identity.hasValue { return identity }
+        
+        return nil
+    }
+    
+    private func relationForKey(
+        key: String,
+        relationsDetails: [RelationDetails],
+        objectDetails: ObjectDetails,
+        relationValuesIsLocked: Bool,
+        storage: ObjectDetailsStorage
+    ) -> Relation? {
+        guard let details = relationsDetails.first(where: { $0.key == key }) else {
+            return nil
+        }
+        
+        return relation(
+            relationDetails: details,
+            details: objectDetails,
+            relationValuesIsLocked: relationValuesIsLocked,
+            storage: storage
+        )
+    }
 }
 
 // MARK: - Private extension

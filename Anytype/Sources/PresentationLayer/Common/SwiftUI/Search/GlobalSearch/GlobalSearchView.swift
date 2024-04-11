@@ -35,16 +35,14 @@ struct GlobalSearchView: View {
     }
     
     private var searchResults: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(model.searchData) { section in
-                    Section {
-                        ForEach(section.searchData) { data in
-                            itemRow(for: data)
-                        }
-                    } header: {
-                        sectionHeader(for: section)
+        PlainList {
+            ForEach(model.searchData) { section in
+                Section {
+                    ForEach(section.searchData) { data in
+                        itemRow(for: data)
                     }
+                } header: {
+                    sectionHeader(for: section)
                 }
             }
         }
@@ -53,11 +51,12 @@ struct GlobalSearchView: View {
     @ViewBuilder
     private func sectionHeader(for section: GlobalSearchDataSection) -> some View {
         if let sectionConfig = section.sectionConfig {
-            ListSectionHeaderView(title: sectionConfig.title) {
+            ListSectionHeaderView(title: sectionConfig.title, increasedTopPadding: false) {
                 Button {
                     model.clear()
                 } label: {
-                    AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular, color: .Text.secondary)
+                    AnytypeText(sectionConfig.buttonTitle, style: .caption1Regular)
+                        .foregroundColor(.Text.secondary)
                 }
             }
             .padding(.horizontal, 20)
@@ -74,6 +73,11 @@ struct GlobalSearchView: View {
         .if(data.backlinks.isNotEmpty) {
             $0.contextMenu {
                 Button(Loc.Search.Backlinks.Show.title) {
+                    model.showBacklinks(data)
+                }
+            }
+            .swipeActions {
+                Button(Loc.Search.Backlinks.Swipe.title) {
                     model.showBacklinks(data)
                 }
             }

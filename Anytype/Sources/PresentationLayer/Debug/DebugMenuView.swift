@@ -21,7 +21,8 @@ struct DebugMenuView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Debug menu 👻", style: .title, color: .Text.primary)
+            AnytypeText("Debug menu 👻", style: .title)
+                .foregroundColor(.Text.primary)
             ScrollView {
                 VStack(spacing: 0) {
                     buttons
@@ -38,7 +39,8 @@ struct DebugMenuView: View {
     @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
     private var setPageCounter: some View {
         HStack {
-            AnytypeText("Number of rows per page in set", style: .bodyRegular, color: .Text.primary)
+            AnytypeText("Number of rows per page in set", style: .bodyRegular)
+                .foregroundColor(.Text.primary)
                 .frame(maxWidth: .infinity)
             TextField("Pages", text: $rowsPerPageInSet)
                 .textFieldStyle(.roundedBorder)
@@ -147,7 +149,8 @@ struct DebugMenuView: View {
     var toggles: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(model.flags, id: \.title) { section in
-                AnytypeText(section.title, style: .heading, color: .Text.primary)
+                AnytypeText(section.title, style: .heading)
+                    .foregroundColor(.Text.primary)
                     .padding()
                 VStack(spacing: 0) {
                     ForEach(section.rows, id: \.description.title) { row in

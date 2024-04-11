@@ -13,7 +13,8 @@ struct KeyboardToolbarView: View {
                 Button(action: {
                     UIApplication.shared.hideKeyboard()
                 }) {
-                    AnytypeText(Loc.done, style: .uxBodyRegular, color: .Text.primary)
+                    AnytypeText(Loc.done, style: .uxBodyRegular)
+                        .foregroundColor(.Text.primary)
                 }
                 .padding(.trailing, 10)
             })

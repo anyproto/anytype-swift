@@ -29,9 +29,9 @@ struct SetKanbanColumnSettingsView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(
                 Loc.Set.View.Kanban.Column.Settings.Color.title,
-                style: .caption1Regular,
-                color: .Text.secondary
+                style: .caption1Regular
             )
+            .foregroundColor(.Text.secondary)
             .padding(.horizontal, 20)
             Spacer.fixedHeight(14)
             ScrollView(.horizontal, showsIndicators: false) {
