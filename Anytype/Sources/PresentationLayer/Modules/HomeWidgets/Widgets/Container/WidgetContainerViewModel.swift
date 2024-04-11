@@ -99,26 +99,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func onEmptyBinTap() {
-       Task {
-           let binIds = try await searchService.searchArchiveObjectIds(spaceId: widgetObject.spaceId)
-           guard binIds.isNotEmpty else {
-               toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
-               return
-           }
-           AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
-           let alert = BottomAlertLegacy.binConfirmation(count: binIds.count) { [binIds, weak self] in
-               Task { [weak self] in
-                   AnytypeAnalytics.instance().logDeletion(count: binIds.count, route: .bin)
-                   try await self?.objectActionsService.delete(objectIds: binIds)
-                   self?.toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
-               }
-           }
-           alertOpener.showFloatAlert(model: alert)
-        }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
-    
     // MARK: - Private
     
     private func expandedDidChange() {

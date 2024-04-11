@@ -36,6 +36,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     var isSheet: Bool
     @Published var viewEditMode: EditMode = .inactive
     @Published private(set) var canEdit = false
+    @Published var binAlertData: BinConfirmationAlertData? = nil
     
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
@@ -129,14 +130,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func delete(objectIds: [String]) {
-        AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
-        let alert = BottomAlertLegacy.binConfirmation(count: objectIds.count) { [objectIds, weak self] in
-            Task { [weak self] in
-                AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: .bin)
-                try? await self?.objectActionService.delete(objectIds: objectIds)
-            }
-        }
-        alertOpener.showFloatAlert(model: alert)
+        binAlertData = BinConfirmationAlertData(ids: objectIds)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     

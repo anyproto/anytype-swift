@@ -28,7 +28,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func collectionsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - Link
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func binLinkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - Bottom
     func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol
     func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
@@ -119,10 +118,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: linkWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            binLinkWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: binLinkWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
             stateManager: stateManager
         )
     }
@@ -209,10 +204,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return LinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func binLinkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return BinLinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
     // MARK: - Bottom
