@@ -424,7 +424,6 @@
 		2A4E3F832BC7C7AC00724DBF /* BinConfirmationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E3F822BC7C7AC00724DBF /* BinConfirmationAlert.swift */; };
 		2A4E3F862BC7C81200724DBF /* BinConfirmationAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E3F852BC7C81200724DBF /* BinConfirmationAlertModel.swift */; };
 		2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */; };
-		2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C8C296C0BFF002BB71B /* HomeBottomPanelViewModel.swift */; };
 		2A4E99E82B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */; };
 		2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; };
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -758,7 +757,6 @@
 		2AD5EFC62B17492500FAA908 /* BottomAlertButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */; };
 		2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */; };
 		2AD5EFCB2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFCA2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift */; };
-		2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */; };
 		2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */; };
 		2AD7412C2993E1C9004BD223 /* HomeWidgetCommonProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7412B2993E1C9004BD223 /* HomeWidgetCommonProvider.swift */; };
 		2AD7412E2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7412D2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift */; };
@@ -840,9 +838,6 @@
 		2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */; };
 		2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */; };
 		2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */; };
-		2AFA110A296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1109296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift */; };
-		2AFA110E296C672A0055422F /* HomeBottomPanelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA110D296C672A0055422F /* HomeBottomPanelProvider.swift */; };
-		2AFA1110296C67B50055422F /* HomeBottomPanelProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA110F296C67B50055422F /* HomeBottomPanelProviderAssembly.swift */; };
 		2AFA1113296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1112296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift */; };
 		2AFB541D28621776004F7458 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB541C28621776004F7458 /* Strings.swift */; };
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
@@ -2200,7 +2195,6 @@
 		2A4E3F822BC7C7AC00724DBF /* BinConfirmationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinConfirmationAlert.swift; sourceTree = "<group>"; };
 		2A4E3F852BC7C81200724DBF /* BinConfirmationAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinConfirmationAlertModel.swift; sourceTree = "<group>"; };
 		2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelView.swift; sourceTree = "<group>"; };
-		2A4E5C8C296C0BFF002BB71B /* HomeBottomPanelViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelViewModel.swift; sourceTree = "<group>"; };
 		2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
@@ -2532,7 +2526,6 @@
 		2AD5EFC52B17492500FAA908 /* BottomAlertButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomAlertButtonView.swift; sourceTree = "<group>"; };
 		2AD5EFC82B1753E400FAA908 /* DocumentUpdateAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentUpdateAlertView.swift; sourceTree = "<group>"; };
 		2AD5EFCA2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCommonOpenErrorView.swift; sourceTree = "<group>"; };
-		2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelModuleOutput.swift; sourceTree = "<group>"; };
 		2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AD7412B2993E1C9004BD223 /* HomeWidgetCommonProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetCommonProvider.swift; sourceTree = "<group>"; };
 		2AD7412D2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetCommonProviderAssembly.swift; sourceTree = "<group>"; };
@@ -2614,9 +2607,6 @@
 		2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsSubmoduleDI.swift; sourceTree = "<group>"; };
 		2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorBottomNavigationManager.swift; sourceTree = "<group>"; };
-		2AFA1109296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelModuleAssembly.swift; sourceTree = "<group>"; };
-		2AFA110D296C672A0055422F /* HomeBottomPanelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelProvider.swift; sourceTree = "<group>"; };
-		2AFA110F296C67B50055422F /* HomeBottomPanelProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelProviderAssembly.swift; sourceTree = "<group>"; };
 		2AFA1112296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsCommonSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AFB541C28621776004F7458 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -5688,11 +5678,7 @@
 		2A4E5C8B296C0BEF002BB71B /* HomeBottomPanel */ = {
 			isa = PBXGroup;
 			children = (
-				2AFA110C296C67090055422F /* Provider */,
-				2AFA1109296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift */,
 				2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */,
-				2A4E5C8C296C0BFF002BB71B /* HomeBottomPanelViewModel.swift */,
-				2AD6792B29812EE600339624 /* HomeBottomPanelModuleOutput.swift */,
 			);
 			path = HomeBottomPanel;
 			sourceTree = "<group>";
@@ -7006,15 +6992,6 @@
 				2A2B331F2A7AA7AF004BD906 /* CreateWidgetCoordinatorViewModel.swift */,
 			);
 			path = CreateWidgetFlow;
-			sourceTree = "<group>";
-		};
-		2AFA110C296C67090055422F /* Provider */ = {
-			isa = PBXGroup;
-			children = (
-				2AFA110D296C672A0055422F /* HomeBottomPanelProvider.swift */,
-				2AFA110F296C67B50055422F /* HomeBottomPanelProviderAssembly.swift */,
-			);
-			path = Provider;
 			sourceTree = "<group>";
 		};
 		2AFD7E162B626C1E003B16EB /* GlobalEnv */ = {
@@ -10656,7 +10633,6 @@
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
 				2AD1FCC12AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift in Sources */,
 				C9EF85172938E6A50001E6EC /* TappableLabel.swift in Sources */,
-				2AFA1110296C67B50055422F /* HomeBottomPanelProviderAssembly.swift in Sources */,
 				2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */,
 				123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */,
 				12C8440926FCECA300D64B8D /* ObjectHeaderFilledContentView.swift in Sources */,
@@ -11091,7 +11067,6 @@
 				2AA4C26F2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift in Sources */,
 				2A7466AA2A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift in Sources */,
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
-				2AD6792C29812EE600339624 /* HomeBottomPanelModuleOutput.swift in Sources */,
 				2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
 				2A30B2022BB40E3400206806 /* BlockFields+Fields.swift in Sources */,
@@ -11261,7 +11236,6 @@
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
 				2A64B6BB2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift in Sources */,
-				2A4E5C8D296C0BFF002BB71B /* HomeBottomPanelViewModel.swift in Sources */,
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				2A176C482BA9A52300F5036D /* ParticipantRemoveNotificationView.swift in Sources */,
@@ -11333,7 +11307,6 @@
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
 				2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */,
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
-				2AFA110E296C672A0055422F /* HomeBottomPanelProvider.swift in Sources */,
 				2E2A23022A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift in Sources */,
 				2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */,
 				2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */,
@@ -11776,7 +11749,6 @@
 				2A4919A929530B0F00FCEAC9 /* HomeSubmoduleProviderProtocol.swift in Sources */,
 				2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
-				2AFA110A296C44BF0055422F /* HomeBottomPanelModuleAssembly.swift in Sources */,
 				3D24912B27BD271900821595 /* MentionMarkupEventProvider.swift in Sources */,
 				2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */,
 				3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */,

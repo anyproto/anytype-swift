@@ -28,9 +28,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func collectionsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - Link
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    // MARK: - Bottom
-    func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol
-    func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol
 }
 
 final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
@@ -204,15 +201,5 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return LinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
-    // MARK: - Bottom
-    
-    func bottomPanelProviderAssembly(output: HomeBottomPanelModuleOutput?) -> HomeBottomPanelProviderAssemblyProtocol {
-        return HomeBottomPanelProviderAssembly(widgetsSubmoduleDI: self, output: output)
-    }
-    
-    func bottomPanelModuleAssembly() -> HomeBottomPanelModuleAssemblyProtocol {
-        return HomeBottomPanelModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
 }
