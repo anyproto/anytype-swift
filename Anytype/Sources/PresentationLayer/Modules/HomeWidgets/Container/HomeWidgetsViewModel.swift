@@ -2,6 +2,7 @@ import Foundation
 import AnytypeCore
 import Services
 import Combine
+import SwiftUI
 
 @MainActor
 final class HomeWidgetsViewModel: ObservableObject {
@@ -28,7 +29,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var wallpaper: BackgroundType = .default
     
     var spaceId: String { info.accountSpaceId }
-    private var objectSubscriptions = [AnyCancellable]()
     
     init(
         info: AccountInfo,
@@ -55,6 +55,19 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.output = output
         subscribeOnWallpaper()
         setupInitialState()
+    }
+    
+    func startWidgetObjectTask() async {
+        for await _ in widgetObject.syncPublisher.values {
+            let blocks = widgetObject.children.filter(\.isWidget)
+            recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
+            let providers = registry.providers(blocks: blocks, widgetObject: widgetObject)
+            
+            guard providers != models else { continue }
+            
+            models = providers
+            dataLoaded = true
+        }
     }
     
     func startParticipantTask() async {
@@ -108,21 +121,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupInitialState() {
-        widgetObject.syncPublisher
-            .map { [weak self] _ -> [HomeWidgetSubmoduleModel] in
-                guard let self else { return [] }
-                let blocks = self.widgetObject.children.filter(\.isWidget)
-                recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: self.widgetObject)
-                return registry.providers(blocks: blocks, widgetObject: widgetObject)
-            }
-            .removeDuplicates()
-            .receiveOnMain()
-            .sink { [weak self] models in
-                self?.models = models
-                self?.dataLoaded = true
-            }
-            .store(in: &objectSubscriptions)
-        
         stateManager.homeStatePublisher
             .receiveOnMain()
             .assign(to: &$homeState)

@@ -12,28 +12,25 @@ struct HomeWidgetsView: View {
                 HomeTopShadow()
             } content: {
                 VStack(spacing: 12) {
-                    SpaceWidgetView {
-                        model.onSpaceSelected()
-                    }
-                    if #available(iOS 17.0, *) {
-                        WidgetSwipeTipView()
-                    }
-                    ForEach(model.models) { rowModel in
-                        rowModel.provider.view
-                    }
-                    BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                     if model.dataLoaded {
-                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
+                        SpaceWidgetView {
+                            model.onSpaceSelected()
+                        }
+                        if #available(iOS 17.0, *) {
+                            WidgetSwipeTipView()
+                        }
+                        ForEach(model.models) { rowModel in
+                            rowModel.provider.view
+                        }
+                        BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
+                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
                             model.onEditButtonTap()
                         }
-                        .opacity(model.homeState.isReadWrite ? 1 : 0)
-                        .animation(.default, value: model.homeState)
                     }
                     AnytypeNavigationSpacer()
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
-                .opacity(model.dataLoaded ? 1 : 0)
                 .fitIPadToReadableContentGuide()
             }
             .animation(.default, value: model.models.count)
@@ -41,6 +38,9 @@ struct HomeWidgetsView: View {
             HomeBottomPanelView(homeState: $model.homeState) {
                 model.onCreateWidgetSelected()
             }
+        }
+        .task {
+            await model.startWidgetObjectTask()
         }
         .task {
             await model.startParticipantTask()
