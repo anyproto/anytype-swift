@@ -19,7 +19,6 @@ final class EditorSetCoordinatorViewModel:
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
@@ -47,7 +46,6 @@ final class EditorSetCoordinatorViewModel:
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
@@ -63,7 +61,6 @@ final class EditorSetCoordinatorViewModel:
         self.objectSettingCoordinator = objectSettingCoordinator
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
@@ -133,30 +130,16 @@ final class EditorSetCoordinatorViewModel:
         )
     }
     func setQuery(_ queryData: SetQueryData) -> AnyView {
-        if FeatureFlags.newTypePicker {
-            return objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
-                title: Loc.Set.SourceType.selectQuery,
-                spaceId: data.spaceId,
-                showPins: false,
-                showLists: false,
-                showFiles: true,
-                incudeNotForCreation: true
-            ) { [weak self] type in
-                queryData.onSelect(type.id)
-                self?.setQueryData = nil
-            }
-        } else {
-            return newSearchModuleAssembly.objectTypeSearchModule(
-                title: Loc.Set.SourceType.selectQuery,
-                spaceId: data.spaceId,
-                selectedObjectId: queryData.selectedObjectId,
-                excludedObjectTypeId: queryData.document.details?.type,
-                showSetAndCollection: false,
-                showFiles: true
-            ) { [weak self] type in
-                queryData.onSelect(type.id)
-                self?.setQueryData = nil
-            }.eraseToAnyView()
+        return objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+            title: Loc.Set.SourceType.selectQuery,
+            spaceId: data.spaceId,
+            showPins: false,
+            showLists: false,
+            showFiles: true,
+            incudeNotForCreation: true
+        ) { [weak self] type in
+            queryData.onSelect(type.id)
+            self?.setQueryData = nil
         }
     }
     

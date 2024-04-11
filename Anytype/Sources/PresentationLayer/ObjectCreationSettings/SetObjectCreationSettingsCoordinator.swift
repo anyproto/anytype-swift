@@ -22,7 +22,6 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
 final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
@@ -32,13 +31,11 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     init(
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol,
         editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
@@ -138,32 +135,19 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         setDocument: SetDocumentProtocol,
         onSelect: @escaping (ObjectType) -> ()
     ) {
-        if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
-                title: Loc.changeType,
-                spaceId: setDocument.spaceId,
-                showPins: false,
-                showLists: true, 
-                showFiles: false,
-                incudeNotForCreation: false
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        } else {
-            let view = newSearchModuleAssembly.objectTypeSearchModule(
-                title: Loc.changeType,
-                spaceId: setDocument.spaceId,
-                showSetAndCollection: true
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
+        let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+            title: Loc.changeType,
+            spaceId: setDocument.spaceId,
+            showPins: false,
+            showLists: true,
+            showFiles: false,
+            incudeNotForCreation: false
+        ) { [weak self] type in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(type)
         }
+        
+        navigationContext.presentSwiftUIView(view: view)
     }
 }
 

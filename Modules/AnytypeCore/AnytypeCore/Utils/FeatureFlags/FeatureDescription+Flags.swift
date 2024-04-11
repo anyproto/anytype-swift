@@ -30,12 +30,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let newTypePicker = FeatureDescription(
-        title: "New type picker, you know 🫵🐭 - IOS-2017",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "3"),
-        defaultValue: true
-    )
-    
     static let newTextEditingRelationView = FeatureDescription(
         title: "New text relation editing view - 2438",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "4"),
