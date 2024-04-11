@@ -308,6 +308,7 @@
 
 "Undo typing" = "Deshacer Escritura";
 "Undo" = "Deshacer";
+"Redo" = "Rehacer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Crear plantilla";
 "Actions.TemplateMakeDefault" = "Establecer como predeterminado";
@@ -1076,7 +1077,6 @@
 - Marque si representas a un una organización educativa, institucional o sin ánimo de lucro.
 - Cuéntanos sobre tu organización: número de empleados y futuros usuarios de Anytype, mercados en los que trabajas y otros posibles datos.
 - Indíquenos como tu organización va a usar Anytype.";
-"Membership.CustomTierEmail.Subject" = "Solicitud de membresía personalizada, ID de cuenta: %@";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

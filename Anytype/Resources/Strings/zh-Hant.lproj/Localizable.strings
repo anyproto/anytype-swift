@@ -308,6 +308,7 @@
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
+"Redo" = "重做";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
 "Actions.TemplateMakeDefault" = "Make default";
@@ -1076,7 +1077,6 @@
 - highlight if you represent an educational, governmental, or non-profit organization
 - tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
 - provide additional details about how your organization uses Anytype";
-"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

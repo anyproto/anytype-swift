@@ -308,6 +308,7 @@
 
 "Undo typing" = "Eingabe widerrufen";
 "Undo" = "Rückgängig";
+"Redo" = "Wiederholen";
 "Actions.LinkItself" = "Link zu";
 "Actions.MakeAsTemplate" = "Vorlage erstellen";
 "Actions.TemplateMakeDefault" = "Als Standard festlegen";
@@ -1077,7 +1078,6 @@
 - hebe hervor, wenn du eine Bildungs-, Regierungs- oder gemeinnützige Organisation vertrittst
 - erzähl uns mehr über deine Organisation: Anzahl der Mitarbeiter und zukünftigen Anytype-Nutzer, Märkte, auf denen du arbeitest, usw.,
 - zusätzliche Details darüber, wie deine Organisation Anytype benutzt";
-"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

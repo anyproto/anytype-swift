@@ -308,6 +308,7 @@
 
 "Undo typing" = "Cofnij wpisywanie";
 "Undo" = "Cofnij";
+"Redo" = "Redo";
 "Actions.LinkItself" = "Łącze do";
 "Actions.MakeAsTemplate" = "Utwórz szablon";
 "Actions.TemplateMakeDefault" = "Ustaw jako domyślne";
@@ -1076,7 +1077,6 @@
 - Podkreśl, czy reprezentujesz organizację edukacyjną, rządową czy non-profit.
 - opowiedz nam więcej o swojej organizacji: liczbie pracowników i przyszłych użytkownikach Anytype, rynkach, na których działasz itp.,
 - podaj dodatkowe szczegóły dotyczące sposobu, w jaki Twoja organizacja korzysta z Anytype";
-"Membership.CustomTierEmail.Subject" = "Niestandardowe żądanie członkostwa, ID konta: %@";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

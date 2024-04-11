@@ -308,6 +308,7 @@
 
 "Undo typing" = "Urungkan mengetik";
 "Undo" = "Urungkan";
+"Redo" = "Ulangi";
 "Actions.LinkItself" = "Tautkan ke";
 "Actions.MakeAsTemplate" = "Buat templat";
 "Actions.TemplateMakeDefault" = "Buat sebagai bawaan";
@@ -1076,7 +1077,6 @@
 - jelaskan jika Anda mewakili organisasi pendidikan, pemerintah, atau nirlaba
 - ceritakan organisasi Anda: jumlah pegawai dan pengguna Anytype dalam waktu mendatang, pasaran yang sedang dikerjakan, dll.
 - jelaskan detail tambahan tentang bagaimana organisasi Anda menggunakan Anytype";
-"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
 "Membership.Banner.Title1" = "Membangun Visi Bersama";
