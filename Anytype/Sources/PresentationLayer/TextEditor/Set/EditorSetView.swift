@@ -106,7 +106,7 @@ struct EditorSetView: View {
             EditorSetEmptyView(
                 model: EditorSetEmptyViewModel(
                     mode: model.setDocument.isCollection() ? .collection : .set,
-                    allowTap: model.setDocument.setPermissions.canCreateObject,
+                    allowTap: model.setDocument.isCollection() ? model.setDocument.setPermissions.canCreateObject : model.setDocument.setPermissions.canChangeQuery,
                     onTap: { model.onEmptyStateButtonTap() }
                 )
             )
