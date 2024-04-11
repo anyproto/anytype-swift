@@ -24,26 +24,18 @@ final class BinLinkWidgetViewModel: ObservableObject {
         self.output = output
     }
     
-    // MARK: - WidgetContainerContentViewModelProtocol
-
-    func startHeaderSubscription() {}
-    
-    func startContentSubscription() {}
-    
     func onHeaderTap() {
         AnytypeAnalytics.instance().logSelectHomeTab(source: .bin)
         output?.onObjectSelected(screenData: .bin)
     }
     
-    func onEmptyBinTap() {
-       Task {
-           let binIds = try await searchService.searchArchiveObjectIds(spaceId: spaceId)
-           guard binIds.isNotEmpty else {
-               toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
-               return
-           }
-           binAlertData = BinConfirmationAlertData(ids: binIds)
+    func onEmptyBinTap() async throws {
+        let binIds = try await searchService.searchArchiveObjectIds(spaceId: spaceId)
+        guard binIds.isNotEmpty else {
+            toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+            return
         }
+        binAlertData = BinConfirmationAlertData(ids: binIds)
         UISelectionFeedbackGenerator().selectionChanged()
     }
 }

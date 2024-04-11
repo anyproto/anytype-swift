@@ -50,8 +50,8 @@ private struct BinLinkWidgetViewInternal: View {
     }
     
     private var menuItems: some View {
-        Button(Loc.Widgets.Actions.emptyBin, role: .destructive) {
-            model.onEmptyBinTap()
+        AsyncButton(Loc.Widgets.Actions.emptyBin, role: .destructive) {
+            try await model.onEmptyBinTap()
         }
     }
 }
