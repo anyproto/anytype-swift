@@ -4,9 +4,12 @@ import AnytypeCore
 
 public protocol StoreKitServiceProtocol {
     func purchase(product: Product) async throws
+    func isPurchased(product: Product) async throws -> Bool
+    
     
     func startListenForTransactions()
     func stopListenForTransactions()
+    
 }
 
 final class StoreKitService: StoreKitServiceProtocol {
@@ -34,6 +37,13 @@ final class StoreKitService: StoreKitServiceProtocol {
     
     func stopListenForTransactions() {
         task?.cancel()
+    }
+    
+    func isPurchased(product: Product) async throws -> Bool {
+        guard let result = await Transaction.latest(for: product.id) else { return false }
+        let transaction = try checkVerified(result)
+        
+        return transaction.revocationDate.isNil  
     }
     
     func purchase(product: Product) async throws {

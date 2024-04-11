@@ -45,5 +45,8 @@ struct MockView<Content: View>: View {
         Container.shared.activeWorkspaceStorage.onPreview {
             ActiveWorkpaceStorageMock.shared
         }
+        Container.shared.membershipStatusStorage.onPreview {
+            MembershipStatusStorageMock.shared
+        }
     }
 }

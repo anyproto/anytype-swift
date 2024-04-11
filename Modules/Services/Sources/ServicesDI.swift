@@ -121,6 +121,6 @@ public extension Container {
     }
     
     var storeKitService: Factory<StoreKitServiceProtocol> {
-        self { StoreKitService() }.shared
+        self { StoreKitService() }.singleton
     }
 }

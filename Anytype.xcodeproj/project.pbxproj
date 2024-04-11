@@ -1249,6 +1249,7 @@
 		3D6381F72B6A61CF0026D071 /* WrappingHStack in Frameworks */ = {isa = PBXBuildFile; productRef = 3D6381F62B6A61CF0026D071 /* WrappingHStack */; };
 		3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */; };
 		3D68564D26E10D2500AA36A9 /* View+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */; };
+		3D6E045B2BC5598500CE48AF /* MembershipStatusStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */; };
 		3D6F2D722B87983500AA667B /* PasteboardBlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */; };
 		3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
@@ -1326,6 +1327,7 @@
 		3DB881362B9A7002009B294F /* MembershipOwnerInfoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB881352B9A7002009B294F /* MembershipOwnerInfoSheetView.swift */; };
 		3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92F84264BF69900E83276 /* View+CornerRadius.swift */; };
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
+		3DB9351E2BC4574D0004113B /* MembershipTeirViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9351D2BC4574C0004113B /* MembershipTeirViewModel.swift */; };
 		3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */; };
 		3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
@@ -3018,6 +3020,7 @@
 		3D611E952B93779900B33305 /* MembershipTierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierExtensions.swift; sourceTree = "<group>"; };
 		3D68564126E0E1A000AA36A9 /* Spacer+FixedSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Spacer+FixedSize.swift"; sourceTree = "<group>"; };
 		3D68564C26E10D2500AA36A9 /* View+Placeholder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Placeholder.swift"; sourceTree = "<group>"; };
+		3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorageMock.swift; sourceTree = "<group>"; };
 		3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockService.swift; sourceTree = "<group>"; };
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -3095,6 +3098,7 @@
 		3DB881352B9A7002009B294F /* MembershipOwnerInfoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipOwnerInfoSheetView.swift; sourceTree = "<group>"; };
 		3DB92F84264BF69900E83276 /* View+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+CornerRadius.swift"; sourceTree = "<group>"; };
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
+		3DB9351D2BC4574C0004113B /* MembershipTeirViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirViewModel.swift; sourceTree = "<group>"; };
 		3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Emoji.swift"; sourceTree = "<group>"; };
 		3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Clamped.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
@@ -5992,6 +5996,7 @@
 				2A78A9562B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift */,
 				2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */,
 				2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */,
+				3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -9012,6 +9017,15 @@
 			path = Sections;
 			sourceTree = "<group>";
 		};
+		3DB9351C2BC4573E0004113B /* MembershipTeirView */ = {
+			isa = PBXGroup;
+			children = (
+				3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */,
+				3DB9351D2BC4574C0004113B /* MembershipTeirViewModel.swift */,
+			);
+			path = MembershipTeirView;
+			sourceTree = "<group>";
+		};
 		3DB980FB274E868800ECC882 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -9077,9 +9091,9 @@
 		3DD0CEB72B90ACBE00657402 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3DB9351C2BC4573E0004113B /* MembershipTeirView */,
 				3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */,
 				3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */,
-				3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */,
 				3D611E922B93775B00B33305 /* MembershipTierListView.swift */,
 				3DE3DE642BBDBAA300C9E6D3 /* MembershipPricingView.swift */,
 			);
@@ -10797,6 +10811,7 @@
 				3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */,
 				C9D5F7BD281A79C30076A47F /* DynamicCollectionView.swift in Sources */,
 				2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */,
+				3D6E045B2BC5598500CE48AF /* MembershipStatusStorageMock.swift in Sources */,
 				2A1F94932979579B00E25782 /* CommonWidgetModuleOutput.swift in Sources */,
 				125B6EC326F235F400BCD7D6 /* CursorModeAccessoryView.swift in Sources */,
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
@@ -11805,6 +11820,7 @@
 				1244791427D8A37000581174 /* NewSearchView.swift in Sources */,
 				2A0B7151297697230003B1C5 /* HomeEditButtonStyle.swift in Sources */,
 				3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */,
+				3DB9351E2BC4574D0004113B /* MembershipTeirViewModel.swift in Sources */,
 				2AD7412E2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift in Sources */,
 				C9CD66A427EAFD3E001F1860 /* GridItemViewModel.swift in Sources */,
 				2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */,
