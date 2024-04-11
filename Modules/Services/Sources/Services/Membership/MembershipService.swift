@@ -120,16 +120,13 @@ final class MembershipService: MembershipServiceProtocol {
         type: MembershipTierType,
         tier: Anytype_Model_MembershipTierData
     ) async -> MembershipTierPaymentType? {
-        switch type {
-        case .explorer:
-            return .email
-        case .builder:
-            let productId = "Membership.Subscription.Builder" // TODO: Get from middleware
-            
+        guard type != .explorer else { return .email }
+        
+        if tier.iosProductID.isNotEmpty {
             do {
-                let product = try await Product.products(for: [productId])
+                let product = try await Product.products(for: [tier.iosProductID])
                 guard let product = product.first else {
-                    anytypeAssertionFailure("Not found product for id \(productId)")
+                    anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
                     return nil
                 }
                 
@@ -138,14 +135,14 @@ final class MembershipService: MembershipServiceProtocol {
                 anytypeAssertionFailure("Get products error", info: ["error": error.localizedDescription])
                 return nil
             }
-        case .coCreator, .custom:
+        } else {
             let info = StripePaymentInfo(
                 periodType: tier.periodType,
                 periodValue: tier.periodValue,
-                priceInCents: tier.priceStripeUsdCents
+                priceInCents: tier.priceStripeUsdCents,
+                paymentUrl: URL(string: tier.iosManageURL) ?? URL(string: "https://download.anytype.io")! // TODO: Update with actual link
             )
             return .external(info: info)
-
         }
     }
 }

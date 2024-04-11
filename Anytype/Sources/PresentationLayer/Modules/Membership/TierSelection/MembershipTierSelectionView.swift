@@ -4,6 +4,8 @@ import Services
 
 struct MembershipTierSelectionView: View {
     @StateObject private var model: MembershipTierSelectionViewModel
+    @Environment(\.openURL) private var openURL
+
     
     init(
         userMembership: MembershipStatus,
@@ -45,8 +47,10 @@ struct MembershipTierSelectionView: View {
                     }
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
-                case .external:
-                    EmptyView() // TBD in future updates
+                case .external(let info):
+                    StandardButton("More info", style: .primaryLarge) {
+                        openURL(info.paymentUrl)
+                    }.padding()
                 }
             }
         }

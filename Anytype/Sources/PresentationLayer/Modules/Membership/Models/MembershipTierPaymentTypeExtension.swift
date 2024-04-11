@@ -92,6 +92,6 @@ public extension MembershipTierPaymentType {
 
 extension StripePaymentInfo {
     static var mockInfo: StripePaymentInfo {
-        StripePaymentInfo(periodType: .years, periodValue: 1, priceInCents: 10000)
+        StripePaymentInfo(periodType: .years, periodValue: 1, priceInCents: 10000, paymentUrl: URL(string: "https://anytype.io")!)
     }
 }
