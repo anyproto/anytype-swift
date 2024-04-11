@@ -308,6 +308,7 @@
 
 "Undo typing" = "Annuler la frappe";
 "Undo" = "Annuler";
+"Redo" = "Rétablir";
 "Actions.LinkItself" = "Lien vers";
 "Actions.MakeAsTemplate" = "Créer un modèle";
 "Actions.TemplateMakeDefault" = "Définir par défaut";
@@ -1076,7 +1077,6 @@
 - choisissez si vous représentez une organisation éducative, gouvernementale, ou un organisme à but non-lucratif
 - dites-nous en plus à propos de votre organisme : numbre d'employés et futurs utilisateurs Anytype, marchés sur lesquels vous travaillez, etc.,
 - précisez des détails complémentaires sur la manière dont votre organisme utilise Anytype";
-"Membership.CustomTierEmail.Subject" = "Demande d'adhésion personnalisée, ID de compte : %@";
 
 
 "Membership.Banner.Title1" = "Construire la Vision ensemble";
