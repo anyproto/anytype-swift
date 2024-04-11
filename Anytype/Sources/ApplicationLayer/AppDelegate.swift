@@ -57,7 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         continue userActivity: NSUserActivity,
         restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void
     ) -> Bool {
-        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, let url = userActivity.webpageURL else { return false }
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb, 
+                let url = userActivity.webpageURL else { return false }
         print(url)
         return true
     }

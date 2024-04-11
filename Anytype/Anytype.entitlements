@@ -4,7 +4,8 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:invite-stage.any.corp</string>
+		<string>applinks:invite-stage.any.coop</string>
+		<string>applinks:invite.any.coop</string>
 	</array>
 	<key>com.apple.developer.networking.multicast</key>
 	<true/>
