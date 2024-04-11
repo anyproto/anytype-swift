@@ -308,6 +308,7 @@
 
 "Undo typing" = "Desfazer digitação";
 "Undo" = "Desfazer";
+"Redo" = "Refazer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Fazer modelo";
 "Actions.TemplateMakeDefault" = "Tornar padrão";
@@ -1078,7 +1079,6 @@
 — Fale mais sobre a organização: número de funcionários e usuários futuros do Anytype, mercados onde trabalham, etc.;
 — Forneça mais detalhes sobre como sua empresa usa o Anytype
 ";
-"Membership.CustomTierEmail.Subject" = "Custom membership tier request, Account id: %@";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
