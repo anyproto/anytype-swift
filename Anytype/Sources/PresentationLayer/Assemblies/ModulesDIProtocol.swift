@@ -4,7 +4,6 @@ protocol ModulesDIProtocol: AnyObject {
     func relationValue() -> RelationValueModuleAssemblyProtocol
     func relationsList() -> RelationsListModuleAssemblyProtocol
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol
-    func undoRedo() -> UndoRedoModuleAssemblyProtocol
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol
     func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol
     func objectSetting() -> ObjectSettingModuleAssemblyProtocol

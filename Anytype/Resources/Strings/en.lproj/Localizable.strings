@@ -308,6 +308,7 @@
 
 "Undo typing" = "Undo typing";
 "Undo" = "Undo";
+"Redo" = "Redo";
 "Actions.LinkItself" = "Link to";
 "Actions.MakeAsTemplate" = "Make template";
 "Actions.TemplateMakeDefault" = "Make default";

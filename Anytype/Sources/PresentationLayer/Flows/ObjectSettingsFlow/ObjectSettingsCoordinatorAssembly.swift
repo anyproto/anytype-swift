@@ -31,7 +31,6 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
         ObjectSettingsCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
             objectSettingsModuleAssembly: modulesDI.objectSetting(),
-            undoRedoModuleAssembly: modulesDI.undoRedo(),
             objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             relationsListCoordinatorAssembly: coordinatorsDI.relationsList(),

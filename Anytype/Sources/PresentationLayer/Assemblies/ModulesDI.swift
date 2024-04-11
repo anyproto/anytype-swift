@@ -26,10 +26,6 @@ final class ModulesDI: ModulesDIProtocol {
         TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func undoRedo() -> UndoRedoModuleAssemblyProtocol {
-        return UndoRedoModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
     func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol {
         return ObjectLayoutPickerModuleAssembly(serviceLocator: serviceLocator)
     }

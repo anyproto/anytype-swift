@@ -18,7 +18,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
                                        RelationValueCoordinatorOutput {
     private let navigationContext: NavigationContextProtocol
     private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
-    private let undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
@@ -30,7 +29,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     init(
         navigationContext: NavigationContextProtocol,
         objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol,
-        undoRedoModuleAssembly: UndoRedoModuleAssemblyProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
@@ -39,7 +37,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     ) {
         self.navigationContext = navigationContext
         self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
-        self.undoRedoModuleAssembly = undoRedoModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
@@ -75,9 +72,9 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     // MARK: - ObjectSettingsModelOutput
     
     func undoRedoAction(document: BaseDocumentProtocol) {
-        let moduleViewController = undoRedoModuleAssembly.make(document: document)
+        // TODO: Move to editor
         navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(moduleViewController)
+        navigationContext.present(UndoRedoViewController(objectId: document.objectId))
     }
     
     func layoutPickerAction(document: BaseDocumentProtocol) {
