@@ -10,6 +10,8 @@ final class UndoRedoViewModel: ObservableObject {
     
     private let objectId: String
 
+    @Published var toastData: ToastBarData = .empty
+    
     init(
         objectId: String
     ) {
@@ -18,11 +20,19 @@ final class UndoRedoViewModel: ObservableObject {
 
     func undo() async throws {
         AnytypeAnalytics.instance().logUndo()
-        try await objectActionsService.undo(objectId: objectId)
+        do {
+            try await objectActionsService.undo(objectId: objectId)
+        } catch let error as ObjectActionsServiceError {
+            toastData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
+        }
     }
 
     func redo() async throws {
-        AnytypeAnalytics.instance().logRedo()
-        try await objectActionsService.redo(objectId: objectId)
+        do {
+            AnytypeAnalytics.instance().logRedo()
+            try await objectActionsService.redo(objectId: objectId)
+        } catch let error as ObjectActionsServiceError {
+            toastData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
+        }
     }
 }

@@ -29,6 +29,7 @@ struct UndoRedoView: View {
                 )
             }
         }
+        .snackbar(toastBarData: $model.toastData)
         .padding(.init(top: 8, leading: 16, bottom: 0, trailing: 16))
     }
 }
