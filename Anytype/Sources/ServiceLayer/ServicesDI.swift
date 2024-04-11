@@ -224,6 +224,10 @@ extension Container {
         self { DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug) }
     }
     
+    var universalLinkParser: Factory<UniversalLinkParserProtocol> {
+        self { UniversalLinkParser() }.shared
+    }
+    
     var detailsService: Factory<DetailsServiceProtocol> {
         self { DetailsService() }.shared
     }
