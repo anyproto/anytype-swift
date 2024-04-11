@@ -3,7 +3,7 @@ import SwiftUI
 
 struct InitialCoordinatorView: View {
     
-    @StateObject var model: InitialCoordinatorViewModel
+    @StateObject private var model = InitialCoordinatorViewModel()
     
     var body: some View {
         ZStack {
