@@ -4,6 +4,7 @@ import SwiftUI
 struct HomeEditButton: View {
     
     let text: String
+    let homeState: HomeWidgetsState
     let action: () -> Void
     
     var body: some View {
@@ -17,5 +18,7 @@ struct HomeEditButton: View {
         )
         .background(.thinMaterial)
         .cornerRadius(8, style: .continuous)
+        .opacity(homeState.isReadWrite ? 1 : 0)
+        .animation(.default, value: homeState)
     }
 }

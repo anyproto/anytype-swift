@@ -28,6 +28,12 @@ private struct BinLinkWidgetViewInternal: View {
     }
     
     var body: some View {
+        if homeState.isReadWrite || homeState.isEditWidgets {
+            content
+        }
+    }
+    
+    var content: some View {
         WidgetContainerViewNew(
             title: Loc.bin,
             icon: .Widget.bin,
