@@ -21,6 +21,7 @@ extension HomeWidgetsState {
     }
 }
 
+// TODO: Delete. Use Binding between module and submodules
 protocol HomeWidgetsStateManagerProtocol: AnyObject {
     var homeState: HomeWidgetsState { get }
     var homeStatePublisher: AnyPublisher<HomeWidgetsState, Never> { get }

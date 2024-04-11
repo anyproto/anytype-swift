@@ -52,5 +52,8 @@ struct HomeWidgetsView: View {
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
         }
+        .onChange(of: model.homeState) { _ in
+            model.onHomeStateChanged()
+        }
     }
 }

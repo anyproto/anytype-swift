@@ -97,6 +97,13 @@ final class HomeWidgetsViewModel: ObservableObject {
         output
     }
     
+    // TODO: Delete after migration.
+    func onHomeStateChanged() {
+        if stateManager.homeState != homeState {
+            stateManager.setHomeState(homeState)
+        }
+    }
+    
     // MARK: - Private
     
     private func setupInitialState() {
