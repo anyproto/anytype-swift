@@ -1487,12 +1487,6 @@ internal enum Loc {
       /// Custom conditions of Membership. If you have any questions, please contact support.
       internal static let subtitle = Loc.tr("Localizable", "Membership.Custom.Subtitle", fallback: "Custom conditions of Membership. If you have any questions, please contact support.")
     }
-    internal enum CustomTierEmail {
-      /// Custom membership tier request, Account id: %@
-      internal static func subject(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Membership.CustomTierEmail.Subject", String(describing: p1), fallback: "Custom membership tier request, Account id: %@")
-      }
-    }
     internal enum Email {
       /// Please specify your request:
       /// - highlight if you represent an educational, governmental, or non-profit organization

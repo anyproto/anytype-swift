@@ -37,18 +37,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     }
     
     func onTierSelected(tier: MembershipTier) {
-        switch tier.type {
-        case .custom:
-            let mailLink = MailUrl(
-                to: "support@anytype.io",
-                subject: Loc.Membership.CustomTierEmail.subject(accountManager.account.id),
-                body: ""
-            )
-            emailUrl = mailLink.url
-            
-        case .explorer, .builder, .coCreator:
-            showTier = tier
-        }
+        showTier = tier
     }
     
     func onEmailDataSubmit(data: EmailVerificationData) {
