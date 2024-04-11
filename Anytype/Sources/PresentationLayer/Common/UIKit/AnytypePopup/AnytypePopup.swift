@@ -5,7 +5,9 @@ import SwiftUI
 import Combine
 import AnytypeCore
 
-final class AnytypePopup: FloatingPanelController {
+// TODO: Delete it
+// Use Native SwiftUI navigation
+class AnytypePopup: FloatingPanelController {
 
     struct Configuration {
         let isGrabberVisible: Bool

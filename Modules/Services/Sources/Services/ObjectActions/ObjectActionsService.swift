@@ -199,7 +199,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         do {
             try await ClientCommands.objectUndo(.with {
                 $0.contextID = objectId
-            }).invoke()
+            }).invoke(ignoreLogErrors: .canNotMove)
         } catch let error as Anytype_Rpc.Object.Undo.Response.Error where error.code == .canNotMove {
             throw ObjectActionsServiceError.nothingToUndo
         }
@@ -209,7 +209,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         do {
             try await ClientCommands.objectRedo(.with {
                 $0.contextID = objectId
-            }).invoke()
+            }).invoke(ignoreLogErrors: .canNotMove)
         }  catch let error as Anytype_Rpc.Object.Redo.Response.Error where error.code == .canNotMove {
             throw ObjectActionsServiceError.nothingToRedo
         }

@@ -454,6 +454,8 @@ internal enum Loc {
   internal static let red = Loc.tr("Localizable", "Red", fallback: "Red")
   /// Red background
   internal static let redBackground = Loc.tr("Localizable", "Red background", fallback: "Red background")
+  /// Redo
+  internal static let redo = Loc.tr("Localizable", "Redo", fallback: "Redo")
   /// Relations
   internal static let relations = Loc.tr("Localizable", "Relations", fallback: "Relations")
   /// Remove

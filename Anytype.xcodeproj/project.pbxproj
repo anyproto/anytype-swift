@@ -343,6 +343,7 @@
 		2A2987362ACBFD2B009E8787 /* EditorSetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2987352ACBFD2B009E8787 /* EditorSetModuleAssembly.swift */; };
 		2A2987382ACBFD3C009E8787 /* EditorSetModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2987372ACBFD3C009E8787 /* EditorSetModuleOutput.swift */; };
 		2A29873C2ACC087B009E8787 /* PageNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A29873B2ACC087B009E8787 /* PageNavigation.swift */; };
+		2A298E342BC7F1BE00F1194C /* UndoRedoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */; };
 		2A29FD2F2A701BDD007A8549 /* ActiveWorkspaceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A29FD2E2A701BDD007A8549 /* ActiveWorkspaceStorage.swift */; };
 		2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A347429229D2B0004BD8B /* NavigationContext.swift */; };
 		2A2B331A2A7AA525004BD906 /* WidgetTypeCreateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B33192A7AA525004BD906 /* WidgetTypeCreateData.swift */; };
@@ -860,7 +861,6 @@
 		2AFF7AC4299CDA6900B7746B /* BinSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */; };
 		2AFF7AC8299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */; };
 		2AFF7ACC299D24C300B7746B /* DocumentViewModelSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */; };
-		2AFFFB822924DEE700A487E1 /* UndoRedoAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB812924DEE700A487E1 /* UndoRedoAssembly.swift */; };
 		2AFFFB842924DFC600A487E1 /* UIHelpersDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */; };
 		2AFFFB862924EE1000A487E1 /* ViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */; };
 		2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */; };
@@ -2117,6 +2117,7 @@
 		2A2987352ACBFD2B009E8787 /* EditorSetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetModuleAssembly.swift; sourceTree = "<group>"; };
 		2A2987372ACBFD3C009E8787 /* EditorSetModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetModuleOutput.swift; sourceTree = "<group>"; };
 		2A29873B2ACC087B009E8787 /* PageNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNavigation.swift; sourceTree = "<group>"; };
+		2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewController.swift; sourceTree = "<group>"; };
 		2A29FD2E2A701BDD007A8549 /* ActiveWorkspaceStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkspaceStorage.swift; sourceTree = "<group>"; };
 		2A2A347429229D2B0004BD8B /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
 		2A2B33192A7AA525004BD906 /* WidgetTypeCreateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeCreateData.swift; sourceTree = "<group>"; };
@@ -2629,7 +2630,6 @@
 		2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinSubscriptionService.swift; sourceTree = "<group>"; };
 		2AFF7AC7299CFB9A00B7746B /* AnytypeRelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeRelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelSetter.swift; sourceTree = "<group>"; };
-		2AFFFB812924DEE700A487E1 /* UndoRedoAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoAssembly.swift; sourceTree = "<group>"; };
 		2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpersDI.swift; sourceTree = "<group>"; };
 		2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider.swift; sourceTree = "<group>"; };
 		2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPickerModuleAssembly.swift; sourceTree = "<group>"; };
@@ -9830,7 +9830,7 @@
 			children = (
 				C91989EC2811673600CC6BEB /* UndoRedoView.swift */,
 				C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */,
-				2AFFFB812924DEE700A487E1 /* UndoRedoAssembly.swift */,
+				2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */,
 			);
 			path = UndoRedo;
 			sourceTree = "<group>";
@@ -12003,7 +12003,6 @@
 				2A1AEDA028FD318A008C3660 /* MarkupViewTypes.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */,
-				2AFFFB822924DEE700A487E1 /* UndoRedoAssembly.swift in Sources */,
 				2A1F4CBA29B88DBE004516F6 /* SentryConfiguration.swift in Sources */,
 				539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
@@ -12147,6 +12146,7 @@
 				3DE0CFD726F8593D003A606A /* SlashMenuItemType.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */,
+				2A298E342BC7F1BE00F1194C /* UndoRedoViewController.swift in Sources */,
 				C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */,
 				2A28D050297FCFE400E55E15 /* WidgetContainerView.swift in Sources */,
 				2ABF8F5D2B7FB1B5004B8FB8 /* ScreenStateView.swift in Sources */,
