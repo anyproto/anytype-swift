@@ -6,45 +6,45 @@ public extension FeatureDescription {
     
     static let setKanbanView = FeatureDescription(
         title: "Set kanban view",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
     )
     
     static let fullInlineSetImpl = FeatureDescription(
         title: "Full inline set impl (IOS-790)",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false,
         debugValue: false
     )
     
     static let dndOnCollectionsAndSets = FeatureDescription(
         title: "Dnd on collections and sets (wating for the middle)",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.?.0"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "?"),
         defaultValue: false
     )
     
     static let galleryInstallation = FeatureDescription(
         title: "Gallery / Experience installation - IOS-1805",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.28.0"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "3"),
         defaultValue: true
     )
     
     static let newTypePicker = FeatureDescription(
         title: "New type picker, you know 🫵🐭 - IOS-2017",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "0.28.0"),
+        type: .feature(author: "vova@anytype.io", releaseVersion: "3"),
         defaultValue: true
     )
     
     static let newTextEditingRelationView = FeatureDescription(
         title: "New text relation editing view - 2438",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "0.29.0"),
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "4"),
         defaultValue: true
     )
     
     static let multiplayer = FeatureDescription(
         title: "Multiplayer",
-        type: .feature(author: "m@anytype.io", releaseVersion: "0.29.0"),
+        type: .feature(author: "m@anytype.io", releaseVersion: "4"),
         defaultValue: false
     )
     
