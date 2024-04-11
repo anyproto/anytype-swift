@@ -21,6 +21,7 @@ struct HomeWidgetsView: View {
                     ForEach(model.models) { rowModel in
                         rowModel.provider.view
                     }
+                    BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                     if model.dataLoaded {
                         HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
                             model.onEditButtonTap()

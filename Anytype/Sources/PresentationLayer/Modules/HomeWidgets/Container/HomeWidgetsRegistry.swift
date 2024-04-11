@@ -42,7 +42,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let stateManager: HomeWidgetsStateManagerProtocol
     private var providersCache: [ProviderCache] = []
@@ -65,7 +64,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.objectTreeWidgetProviderAssembly = objectTreeWidgetProviderAssembly
@@ -85,7 +83,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
         self.collectionsCompactListWidgetProviderAssembly = collectionsCompactListWidgetProviderAssembly
         self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
-        self.binLinkWidgetProviderAssembly = binLinkWidgetProviderAssembly
         self.stateManager = stateManager
     }
     
@@ -111,15 +108,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         }
         
         newProvidersCache.append(contentsOf: blockWidgets)
-        
-        newProvidersCache.append(
-            createProviderCache(
-                source: binLinkWidgetProviderAssembly,
-                widgetBlockId: Constants.binWidgetId,
-                info: nil,
-                widgetObject: widgetObject
-            )
-        )
         
         providersCache = newProvidersCache
         return providersCache.map { HomeWidgetSubmoduleModel(blockId: $0.widgetBlockId, provider: $0.provider) }

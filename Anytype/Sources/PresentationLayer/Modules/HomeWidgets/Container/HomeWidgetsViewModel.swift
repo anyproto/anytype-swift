@@ -28,6 +28,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: BackgroundType = .default
     
+    var spaceId: String { info.accountSpaceId }
     private var objectSubscriptions = [AnyCancellable]()
     
     init(
@@ -92,6 +93,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onSpaceSelected()
     }
     
+    func submoduleOutput() -> CommonWidgetModuleOutput? {
+        output
+    }
+    
     // MARK: - Private
     
     private func setupInitialState() {
@@ -113,8 +118,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         stateManager.homeStatePublisher
             .receiveOnMain()
             .assign(to: &$homeState)
-        
-
     }
     
     private func subscribeOnWallpaper() {

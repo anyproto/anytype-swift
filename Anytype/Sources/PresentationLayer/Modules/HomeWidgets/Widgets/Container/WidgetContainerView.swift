@@ -10,6 +10,7 @@ enum WidgetMenuItem: String {
     case emptyBin
 }
 
+// TODO: Delete in after migration
 struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
     
     @ObservedObject var model: WidgetContainerViewModel<ContentVM>
