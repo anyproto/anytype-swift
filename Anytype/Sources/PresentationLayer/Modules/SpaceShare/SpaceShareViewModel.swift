@@ -80,6 +80,12 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onGenerateInvite() async throws {
+        guard let spaceView else { return }
+        
+        if !spaceView.isShared {
+            try await workspaceService.makeSharable(spaceId: accountSpaceId)
+        }
+        
         let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
         inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
     }
