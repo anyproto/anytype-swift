@@ -1012,7 +1012,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Actualizar";
 "Error.UnableToConnect" = "Por favor conéctate a Internet";
 "Error.Common.Title" = "¡Ups!";
-"Error.Common.Message" = "Por favor, comprueba tu conexión a internet e inténtalo de nuevo o publica un informe en el foro.";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Inténtalo de nuevo";
 
 // MARK: - Relative date formatter
