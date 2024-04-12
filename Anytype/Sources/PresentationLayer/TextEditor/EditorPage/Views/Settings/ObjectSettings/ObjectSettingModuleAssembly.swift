@@ -36,16 +36,9 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     ) -> UIViewController {
         let viewModel = ObjectSettingsViewModel(
             document: document,
-            objectActionsService: serviceLocator.objectActionsService(),
-            blockService: serviceLocator.blockService(),
-            templatesService: serviceLocator.templatesService,
             output: output,
             delegate: delegate,
-            blockWidgetService: serviceLocator.blockWidgetService(),
-            activeWorkpaceStorage: serviceLocator.activeWorkspaceStorage(),
-            deepLinkParser: serviceLocator.deepLinkParser(),
-            settingsActionHandler: actionHandler,
-            documentsProvider: serviceLocator.documentsProvider
+            settingsActionHandler: actionHandler
         )
         let view = ObjectSettingsView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: view, floatingPanelStyle: true)

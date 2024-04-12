@@ -26,39 +26,31 @@ final class ObjectActionsViewModel: ObservableObject {
     }()
     
     private let objectId: String
-    private let service: ObjectActionsServiceProtocol
-    private let blockService: BlockServiceProtocol
-    private let templatesService: TemplatesServiceProtocol
-    private let documentsProvider: DocumentsProviderProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
-    private let deepLinkParser: DeepLinkParserProtocol
     
+    @Injected(\.objectActionsService)
+    private var service: ObjectActionsServiceProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.templatesService)
+    private var templatesService: TemplatesServiceProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
+    @Injected(\.blockWidgetService)
+    private var blockWidgetService: BlockWidgetServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.deepLinkParser)
+    private var deepLinkParser: DeepLinkParserProtocol
     @Injected(\.documentService)
     private var openDocumentsProvider: OpenedDocumentsProviderProtocol
     
     init(
         objectId: String,
-        service: ObjectActionsServiceProtocol,
-        blockService: BlockServiceProtocol,
-        templatesService: TemplatesServiceProtocol,
-        documentsProvider: DocumentsProviderProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
-        deepLinkParser: DeepLinkParserProtocol,
-        
         undoRedoAction: @escaping () -> (),
         openPageAction: @escaping (_ screenData: EditorScreenData) -> (),
         closeEditorAction: @escaping () -> ()
     ) {
         self.objectId = objectId
-        self.service = service
-        self.blockService = blockService
-        self.templatesService = templatesService
-        self.documentsProvider = documentsProvider
-        self.blockWidgetService = blockWidgetService
-        self.activeWorkpaceStorage = activeWorkpaceStorage
-        self.deepLinkParser = deepLinkParser
         self.undoRedoAction = undoRedoAction
         self.openPageAction = openPageAction
         self.closeEditorAction = closeEditorAction

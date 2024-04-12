@@ -45,16 +45,9 @@ final class ObjectSettingsViewModel: ObservableObject {
     private weak var delegate: ObjectSettingsModuleDelegate?
     init(
         document: BaseDocumentProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        blockService: BlockServiceProtocol,
-        templatesService: TemplatesServiceProtocol,
         output: ObjectSettingsModelOutput,
         delegate: ObjectSettingsModuleDelegate,
-        blockWidgetService: BlockWidgetServiceProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
-        deepLinkParser: DeepLinkParserProtocol,
-        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void,
-        documentsProvider: DocumentsProviderProtocol
+        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
         self.document = document
         self.output = output
@@ -63,13 +56,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
-            service: objectActionsService,
-            blockService: blockService,
-            templatesService: templatesService,
-            documentsProvider: documentsProvider,
-            blockWidgetService: blockWidgetService,
-            activeWorkpaceStorage: activeWorkpaceStorage,
-            deepLinkParser: deepLinkParser,
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction(document: document)
             },
