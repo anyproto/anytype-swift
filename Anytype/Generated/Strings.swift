@@ -757,10 +757,11 @@ internal enum Loc {
         }
       }
       internal enum Key {
-        /// It’s a novel way of authentication that gives you full ownership over your account and data.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "It’s a novel way of authentication that gives you full ownership over your account and data.")
-        /// Save your Recovery Phrase
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "Save your Recovery Phrase")
+        /// It gives you full ownership over your vault.
+        /// It can not be recovered.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "It gives you full ownership over your vault.\nIt can not be recovered.")
+        /// This is your Key
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "This is your Key")
         internal enum Button {
           internal enum Copy {
             /// Copy to clipboard
@@ -775,16 +776,16 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Later.Title", fallback: "Skip")
           }
           internal enum Saved {
-            /// Go to the app
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Go to the app")
+            /// Enter my Vault
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Enter my Vault")
           }
           internal enum Show {
-            /// Show Recovery Phrase
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Show Recovery Phrase")
+            /// Show my Key
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Show.Title", fallback: "Show my Key")
           }
           internal enum Tip {
-            /// You can find Recovery Phrase later in Anytype settings
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Tip.Title", fallback: "You can find Recovery Phrase later in Anytype settings")
+            /// You can find this key later in Anytype settings
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Tip.Title", fallback: "You can find this key later in Anytype settings")
           }
         }
         internal enum ReadMore {
@@ -814,10 +815,6 @@ internal enum Loc {
             /// That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.")
           }
-        }
-        internal enum TextField {
-          /// Type your recovery phrase
-          internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Key.TextField.Placeholder", fallback: "Type your recovery phrase")
         }
       }
       internal enum Setting {

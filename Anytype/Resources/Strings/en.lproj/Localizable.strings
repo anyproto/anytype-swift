@@ -243,15 +243,14 @@
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Save your Recovery Phrase";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type your recovery phrase";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show Recovery Phrase";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
