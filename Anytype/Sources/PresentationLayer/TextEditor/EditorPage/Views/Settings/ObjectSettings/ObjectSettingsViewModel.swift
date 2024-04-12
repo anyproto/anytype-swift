@@ -23,12 +23,6 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 
 @MainActor
 final class ObjectSettingsViewModel: ObservableObject {
-   
-    var onDismiss: () -> Void = {} {
-        didSet {
-            objectActionsViewModel.dismissSheet = onDismiss
-        }
-    }
     
     var settings: [ObjectSetting] {
         guard let details = document.details else { return [] }

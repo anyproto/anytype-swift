@@ -49,7 +49,6 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
         )
         let view = ObjectSettingsView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: view, floatingPanelStyle: true)
-        viewModel.onDismiss = { [weak popup] in popup?.dismiss(animated: true) }
         
         return popup
     }

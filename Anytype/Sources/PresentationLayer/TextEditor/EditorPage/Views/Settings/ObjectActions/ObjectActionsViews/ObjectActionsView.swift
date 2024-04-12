@@ -5,6 +5,8 @@ struct ObjectActionsView: View {
     
     @ObservedObject var viewModel: ObjectActionsViewModel
  
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         if viewModel.objectActions.isEmpty {
             EmptyView()
@@ -48,5 +50,8 @@ struct ObjectActionsView: View {
         }
         .frame(height: 108)
         .snackbar(toastBarData: $viewModel.toastData)
+        .onChange(of: viewModel.dismiss) { _ in
+            dismiss()
+        }
     }
 }
