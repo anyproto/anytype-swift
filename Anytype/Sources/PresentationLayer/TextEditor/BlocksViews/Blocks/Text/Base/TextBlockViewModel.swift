@@ -137,10 +137,13 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         let isDragConfigurationAvailable =
         content.contentType != .description && content.contentType != .title
         
+        let backgroundColor = info.backgroundColor?.backgroundColor.color
+                                ?? contentConfiguration.content.defaultBackgroundColor
+        
         let info = blockInformationProvider.info
         return contentConfiguration.cellBlockConfiguration(
             dragConfiguration: isDragConfigurationAvailable ? .init(id: info.id) : nil,
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color ?? content.defaultBackgroundColor)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: backgroundColor)
         )
     }
     
