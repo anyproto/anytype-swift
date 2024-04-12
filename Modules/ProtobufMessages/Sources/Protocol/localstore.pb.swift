@@ -206,10 +206,10 @@ public struct Anytype_Model_ObjectStoreChecksums {
   /// increased in order to remove indexes and reindex everything. Automatically triggers objects and files reindex(one time only)
   public var idxRebuildCounter: Int32 = 0
 
-  /// increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
+  /// DEPRECATED increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
   public var fulltextRebuild: Int32 = 0
 
-  /// remove all the fulltext indexes and add to reindex queue after
+  /// DEPRECATED remove all the fulltext indexes and add to reindex queue after
   public var fulltextErase: Int32 = 0
 
   public var bundledTemplates: String = String()

@@ -42,6 +42,8 @@ public extension BundledRelationKey {
         .isReadonly,
         .isDeleted,
         .isHidden,
+        .spaceShareableStatus,
+        .isAclShared,
         .isHiddenDiscovery,
         .done,
         .isArchived,

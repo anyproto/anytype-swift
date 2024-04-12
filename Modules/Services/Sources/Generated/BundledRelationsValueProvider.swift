@@ -163,6 +163,8 @@ public protocol BundledRelationsValueProvider {
     var origin: Int? { get }
     var spaceLocalStatus: Int? { get }
     var spaceRemoteStatus: Int? { get }
+    var spaceShareableStatus: Int? { get }
+    var isAclShared: Bool { get }
     var spaceAccountStatus: Int? { get }
     var spaceInviteFileCid: String { get }
     var spaceInviteFileKey: String { get }
@@ -731,6 +733,14 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
     var spaceRemoteStatus: Int? {
         return value(for: BundledRelationKey.spaceRemoteStatus.rawValue)
+    }
+    /// Specify if the space is shareable
+    var spaceShareableStatus: Int? {
+        return value(for: BundledRelationKey.spaceShareableStatus.rawValue)
+    }
+    /// Specify if access control list is shared
+    var isAclShared: Bool {
+        return value(for: BundledRelationKey.isAclShared.rawValue)
     }
     /// Relation that indicates the status of space that the user is set. Possible values: models.SpaceStatus
     var spaceAccountStatus: Int? {

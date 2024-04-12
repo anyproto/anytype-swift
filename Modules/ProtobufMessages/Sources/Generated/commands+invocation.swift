@@ -1081,11 +1081,6 @@ extension Anytype_Rpc.Space.Delete.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Space.Exit.Response: ResultWithError {}
-extension Anytype_Rpc.Space.Exit.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.Space.InviteGenerate.Response: ResultWithError {}
 extension Anytype_Rpc.Space.InviteGenerate.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -1118,6 +1113,11 @@ extension Anytype_Rpc.Space.JoinCancel.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Space.LeaveApprove.Response: ResultWithError {}
 extension Anytype_Rpc.Space.LeaveApprove.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Space.MakeShareable.Response: ResultWithError {}
+extension Anytype_Rpc.Space.MakeShareable.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

@@ -673,6 +673,50 @@ extension Anytype_Model_FileIndexingStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public enum Anytype_Model_SpaceShareableStatus: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case statusUnknown // = 0
+  case statusShareable // = 1
+  case statusNotShareable // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .statusUnknown
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .statusUnknown
+    case 1: self = .statusShareable
+    case 2: self = .statusNotShareable
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .statusUnknown: return 0
+    case .statusShareable: return 1
+    case .statusNotShareable: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_SpaceShareableStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_SpaceShareableStatus] = [
+    .statusUnknown,
+    .statusShareable,
+    .statusNotShareable,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 public enum Anytype_Model_NameserviceNameType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
 
@@ -5615,6 +5659,7 @@ extension Anytype_Model_ParticipantStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceAccessType: @unchecked Sendable {}
 extension Anytype_Model_ImageKind: @unchecked Sendable {}
 extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
+extension Anytype_Model_SpaceShareableStatus: @unchecked Sendable {}
 extension Anytype_Model_NameserviceNameType: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
@@ -5876,6 +5921,14 @@ extension Anytype_Model_FileIndexingStatus: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "NotIndexed"),
     1: .same(proto: "Indexed"),
     2: .same(proto: "NotFound"),
+  ]
+}
+
+extension Anytype_Model_SpaceShareableStatus: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "StatusUnknown"),
+    1: .same(proto: "StatusShareable"),
+    2: .same(proto: "StatusNotShareable"),
   ]
 }
 
