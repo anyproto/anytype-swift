@@ -278,8 +278,8 @@ internal enum Loc {
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync", fallback: "Initializing sync")
   /// Into object
   internal static let intoObject = Loc.tr("Localizable", "Into object", fallback: "Into object")
-  /// Join
-  internal static let join = Loc.tr("Localizable", "Join", fallback: "Join")
+  /// New Vault
+  internal static let join = Loc.tr("Localizable", "Join", fallback: "New Vault")
   /// Just e-mail
   internal static let justEMail = Loc.tr("Localizable", "Just e-mail", fallback: "Just e-mail")
   /// Layout
@@ -737,8 +737,8 @@ internal enum Loc {
   internal enum Auth {
     /// Please allow access
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle", fallback: "Please allow access")
-    /// Log In
-    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "Log In")
+    /// I have a Key
+    internal static let logIn = Loc.tr("Localizable", "Auth.LogIn", fallback: "I have a Key")
     /// Next
     internal static let next = Loc.tr("Localizable", "Auth.Next", fallback: "Next")
     internal enum Caption {
@@ -862,8 +862,10 @@ internal enum Loc {
       }
     }
     internal enum Welcome {
-      /// Anytype is your safe space to write, plan, think and organise everything that matters to you.
-      internal static let subtitle = Loc.tr("Localizable", "Auth.Welcome.Subtitle", fallback: "Anytype is your safe space to write, plan, think and organise everything that matters to you.")
+      /// Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).
+      internal static func subtitle(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Auth.Welcome.Subtitle", String(describing: p1), fallback: "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).")
+      }
     }
   }
   internal enum BlockLink {

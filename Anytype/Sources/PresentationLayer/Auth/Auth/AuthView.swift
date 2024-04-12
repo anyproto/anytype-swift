@@ -42,7 +42,7 @@ struct AuthView: View {
     
     private var greetings: some View {
         VStack(alignment: .center, spacing: 0) {
-            Image(asset: .theEverythingApp)
+            Image(asset: .localInternet)
                 .onTapGesture(count: 10) {
                     AudioServicesPlaySystemSound(1109)
                     model.showDebugMenu.toggle()
@@ -53,10 +53,18 @@ struct AuthView: View {
             
             Spacer.fixedHeight(20)
             
-            AnytypeText(Loc.Auth.Welcome.subtitle, style: .uxCalloutRegular)
-                .foregroundColor(.Auth.body)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, UIDevice.isPad ? 85 : 38)
+            AnytypeText(
+                Loc.Auth.Welcome.subtitle(AboutApp.anyprotoLink),
+                style: .uxCalloutRegular,
+                enableMarkdown: true
+            )
+            .foregroundColor(.Auth.body)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, UIDevice.isPad ? 85 : 38)
+            .environment(\.openURL, OpenURLAction { url in
+                model.onUrlTapAction(url)
+                return .handled
+            })
         }
     }
     
