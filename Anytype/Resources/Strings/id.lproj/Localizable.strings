@@ -336,7 +336,7 @@
 "Create a new one or search for something else" = "Buat baru atau telusuri yang lain";
 "Search.Backlinks.Show.title" = "Tampilkan taut balik";
 "Search.Backlinks.Header.title" = "Taut balik dari: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Backlinks.Swipe.title" = "Tautan balik";
 
 // MARK: - Home
 
@@ -914,8 +914,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan batu kapan saja";
 "SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
+"SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
 "SpaceShare.ViewRequest.Reject" = "Tolak";
 "SpaceShare.RemoveMember.Title" = "Hapus anggota";
 "SpaceShare.RemoveMember.Message" = "%@ akan dihapus dari ruang.";
@@ -942,7 +942,7 @@
 "SpaceShare.HowToShare.Step2" = "Dengan mengeklik tautan, orang itu akan meminta bergabung ke dalam ruang.";
 "SpaceShare.HowToShare.Step3" = "Setelah menyetujui permintaannya, kamu bisa memilih hak akses untuk orang tersebut.";
 "SpaceShare.Manage" = "Kelola";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.Title" = "Kamu sudah merupakan anggota ruang ini";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Buka ruang";
 
 // MARK: - Permission notification
@@ -1012,7 +1012,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
 "Error.UnableToConnect" = "Tolong sambungkan ke internet";
 "Error.Common.Title" = "Waduh!";
-"Error.Common.Message" = "Silakan cek koneksi internetmu dan coba lagi, atau buatlah laporan di forum.";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Coba lagi";
 
 // MARK: - Relative date formatter
