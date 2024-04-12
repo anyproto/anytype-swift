@@ -83,18 +83,18 @@ struct MembershipModuleView: View {
     var legal: some View {
         VStack {
             MembershipLegalButton(text: Loc.Membership.Legal.details) {
-                openURL(URL(string: "https://anytype.io/pricing")!)
+                openURL(URL(string: AboutApp.pricingLink)!)
             }
             MembershipLegalButton(text: Loc.Membership.Legal.privacy) { 
-                openURL(URL(string: "https://anytype.io/app_privacy")!)
+                openURL(URL(string: AboutApp.privacyPolicyLink)!)
             }
             MembershipLegalButton(text: Loc.Membership.Legal.terms) { 
-                openURL(URL(string: "https://anytype.io/terms_of_use")!)
+                openURL(URL(string: AboutApp.termsLink)!)
             }
             
             Button {
                 let mailLink = MailUrl(
-                    to: "license@anytype.io",
+                    to: AboutApp.licenseMailTo,
                     subject: Loc.Membership.Email.subject,
                     body: Loc.Membership.Email.body
                 )

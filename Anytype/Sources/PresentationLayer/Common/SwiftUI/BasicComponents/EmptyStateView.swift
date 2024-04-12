@@ -19,7 +19,7 @@ struct EmptyStateView: View {
             AnytypeText(title, style: .uxCalloutMedium)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
-            AnytypeText(subtitle, style: .uxCalloutRegular)
+            AnytypeText(subtitle, style: .uxCalloutRegular, enableMarkdown: true)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(12)

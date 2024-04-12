@@ -1250,8 +1250,8 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Error.AnytypeNeedsUpgrate.Title", fallback: "Update Your App")
     }
     internal enum Common {
-      /// Please check your internet connection and try again or post a report on forum.
-      internal static let message = Loc.tr("Localizable", "Error.Common.Message", fallback: "Please check your internet connection and try again or post a report on forum.")
+      /// Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).
+      internal static let message = Loc.tr("Localizable", "Error.Common.Message", fallback: "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).")
       /// Oops!
       internal static let title = Loc.tr("Localizable", "Error.Common.Title", fallback: "Oops!")
       /// Try again
