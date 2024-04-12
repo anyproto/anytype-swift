@@ -15,7 +15,7 @@ struct SoulView: View {
             Spacer()
             
             StandardButton(
-                Loc.Auth.next,
+                Loc.Auth.JoinFlow.Soul.button,
                 inProgress: model.inProgress,
                 style: .primaryLarge,
                 action: {
@@ -39,7 +39,7 @@ struct SoulView: View {
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Soul.description,
-                style: .calloutRegular
+                style: .bodyRegular
             )
                 .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)

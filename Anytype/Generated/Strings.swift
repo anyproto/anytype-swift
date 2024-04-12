@@ -827,12 +827,14 @@ internal enum Loc {
         }
       }
       internal enum Soul {
-        /// This is how you will appear in the app.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "This is how you will appear in the app.")
+        /// Get my Key
+        internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Get my Key")
+        /// Only seen by people you share something with. There is no central registry of users.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of users.")
         /// Untitled
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Untitled")
-        /// Choose your name
-        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Choose your name")
+        /// Set your name
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set your name")
       }
     }
     internal enum LoginFlow {
