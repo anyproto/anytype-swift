@@ -3,6 +3,10 @@ enum AboutApp {
     static let communityLink = "https://community.anytype.io"
     static let helpLink = "https://doc.anytype.io/"
     static let termsLink = "https://anytype.io/terms_of_use"
-    static let privacyLink = "https://anytype.io/privacy_policy.html"
-    static let mailTo = "support@anytype.io"
+    static let reportBugLink = "http://community.anytype.io/report-bug"
+    static let pricingLink = "https://anytype.io/pricing"
+    static let privacyPolicyLink = "https://anytype.io/app_privacy"
+    
+    static let supportMailTo = "support@anytype.io"
+    static let licenseMailTo = "license@anytype.io"
 }

@@ -51,7 +51,7 @@ final class AboutViewModel: ObservableObject {
     func onContactTap() {
         AnytypeAnalytics.instance().logContactUs()
         let mailLink = MailUrl(
-            to: AboutApp.mailTo,
+            to: AboutApp.supportMailTo,
             subject: Loc.About.Mail.subject(accountManager.account.id),
             body: Loc.About.Mail.body(fullInfo())
         )
@@ -66,7 +66,7 @@ final class AboutViewModel: ObservableObject {
     
     func onPrivacyPolicyTap() {
         AnytypeAnalytics.instance().logPrivacyPolicy()
-        handleUrl(string: AboutApp.privacyLink)
+        handleUrl(string: AboutApp.privacyPolicyLink)
     }
     
     func onInfoTap() {
