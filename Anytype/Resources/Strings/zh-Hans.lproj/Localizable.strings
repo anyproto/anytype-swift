@@ -1012,7 +1012,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "更新";
 "Error.UnableToConnect" = "请连接到互联网";
 "Error.Common.Title" = "哎呀!";
-"Error.Common.Message" = "请检查您的互联网连接，然后重试或在论坛上反馈。";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "请再试一次";
 
 // MARK: - Relative date formatter
