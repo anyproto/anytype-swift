@@ -24,22 +24,11 @@ struct SettingsView: View {
                     SectionHeaderView(title: Loc.settings)
                     
                     SettingsSectionItemView(
-                        name: Loc.Settings.accountAndAccess,
-                        imageAsset: .Settings.keychainPhrase,
-                        onTap: { model.onAccountDataTap() }
-                    )
-                    
-                    SettingsSectionItemView(
                         name: Loc.appearance,
                         imageAsset: .Settings.appearance,
                         onTap: { model.onAppearanceTap() }
                     )
                     
-                    SettingsSectionItemView(
-                        name: Loc.FileStorage.Local.title,
-                        imageAsset: .Settings.fileStorage,
-                        onTap: { model.onFileStorageTap() }
-                    )
                     
                     if FeatureFlags.multiplayer {
                         SettingsSectionItemView(
@@ -48,6 +37,18 @@ struct SettingsView: View {
                             onTap: { model.onSpacesTap() }
                         )
                     }
+                    
+                    SettingsSectionItemView(
+                        name: Loc.FileStorage.Local.title,
+                        imageAsset: .Settings.fileStorage,
+                        onTap: { model.onFileStorageTap() }
+                    )
+                    
+                    SettingsSectionItemView(
+                        name: Loc.Settings.accountAndAccess,
+                        imageAsset: .Settings.keychainPhrase,
+                        onTap: { model.onAccountDataTap() }
+                    )
                     
                     if FeatureFlags.membership {
                         SettingsSectionItemView(
