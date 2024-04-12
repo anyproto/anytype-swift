@@ -71,7 +71,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d backlinks</string>
+        <string>[%d] taut balik</string>
       </dict>
     </dict>
     <key>Days to deletion account</key>
