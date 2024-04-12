@@ -165,10 +165,12 @@ final class SpaceSettingsViewModel: ObservableObject {
             anytypeAssert(owner.isNotNil, "Could not find owner for space)", info: ["SpaceView": participantSpaceView.debugDescription])
             
             if let owner {
+                let displayName = owner.globalName.isNotEmpty ? owner.globalName : owner.identity
+                
                 info.append(
-                    SettingsInfoModel(title: creatorDetails.name, subtitle: owner.globalName, onTap: { [weak self] in
+                    SettingsInfoModel(title: creatorDetails.name, subtitle: displayName, onTap: { [weak self] in
                         guard let self else { return }
-                        UIPasteboard.general.string = owner.globalName
+                        UIPasteboard.general.string = displayName
                         snackBarData = .init(text: Loc.copiedToClipboard(creatorDetails.name), showSnackBar: true)
                     })
                 )
