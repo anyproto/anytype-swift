@@ -58,7 +58,7 @@ final class UniversalLinkParserTests: XCTestCase {
     }
     
     func testCreateUniversalLinkURL() throws {
-        let url = parser.createUrl(deepLink: .invite(cid: "1", key: "2"))
+        let url = parser.createUrl(link: .invite(cid: "1", key: "2"))
         XCTAssertEqual(url, URL(string: "https://invite.any.coop/1#2")!)
     }
 }

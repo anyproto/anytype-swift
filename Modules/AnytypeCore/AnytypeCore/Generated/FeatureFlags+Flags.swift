@@ -30,6 +30,10 @@ public extension FeatureFlags {
         value(for: .multiplayer)
     }
 
+    static var universalLinks: Bool {
+        value(for: .universalLinks)
+    }
+
     static var membership: Bool {
         value(for: .membership)
     }
@@ -86,6 +90,7 @@ public extension FeatureFlags {
         .galleryInstallation,
         .newTextEditingRelationView,
         .multiplayer,
+        .universalLinks,
         .membership,
         .newGlobalSearch,
         .rainbowViews,

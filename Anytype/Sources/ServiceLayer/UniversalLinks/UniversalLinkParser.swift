@@ -3,7 +3,7 @@ import AnytypeCore
 
 protocol UniversalLinkParserProtocol: AnyObject {
     func parse(url: URL) -> UniversalLink?
-    func createUrl(deepLink: UniversalLink) -> URL?
+    func createUrl(link: UniversalLink) -> URL?
 }
 
 final class UniversalLinkParser: UniversalLinkParserProtocol {
@@ -38,8 +38,8 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
         return nil
     }
     
-    func createUrl(deepLink: UniversalLink) -> URL? {
-        switch deepLink {
+    func createUrl(link: UniversalLink) -> URL? {
+        switch link {
         case .invite(let cid, let key):
             return URL(string: "https://\(LinkPaths.inviteHostProd)/\(cid)#\(key)")
         }
