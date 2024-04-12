@@ -87,10 +87,11 @@ platform :ios do
     upload_dsyms_to_sentry
 
     if current_branch == "develop" || current_branch == "release"
+      appInfo = options[:release] ? "Release" : "Dev"
       add_linear_comment(
         from_tag: old_tag_name,
         to_tag: tag_name,
-        comment: "Implemented in `#{version}(#{build_number})`. This comment was created automatically."
+        comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
       )
     end
 
