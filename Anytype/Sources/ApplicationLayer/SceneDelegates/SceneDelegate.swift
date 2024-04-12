@@ -31,6 +31,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         deepLinkParser = di.serviceLocator.deepLinkParser()
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
+        if let userActivity = connectionOptions.userActivities.first {
+            handleUserActivity(userActivity)
+        }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
         
         
@@ -57,6 +60,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIApplication.shared.shortcutItems = builder?.buildShortcutItems()
     }
     
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        handleUserActivity(userActivity)
+    }
+    
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         completionHandler(handleQuickAction(shortcutItem))
     }
@@ -78,7 +85,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appActionStorage.action = .deepLink(deepLink)
     }
     
-    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+    private func handleUserActivity(_ userActivity: NSUserActivity) {
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
                 let url = userActivity.webpageURL else { return }
     
