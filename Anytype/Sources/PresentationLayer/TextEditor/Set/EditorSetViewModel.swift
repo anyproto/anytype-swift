@@ -70,17 +70,21 @@ final class EditorSetViewModel: ObservableObject {
         setDocument.inlineParameters?.targetObjectID != nil
     }
     
-    var isEmptyQuery: Bool {
-        setDocument.details?.setOf.first { $0.isNotEmpty } == nil
-    }
-    
     var showEmptyState: Bool {
         (isEmptyQuery && !setDocument.isCollection()) ||
-        (setDocument.isCollection() && recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
+        (recordsDict.values.first { $0.isNotEmpty } == nil && setDocument.activeViewFilters.isEmpty)
+    }
+    
+    var emptyStateMode: EditorSetEmptyMode {
+        isEmptyQuery && !setDocument.isCollection() ? .emptyQuery : .emptyList
     }
     
     var subscriptionId: String {
         setSubscriptionDataBuilder.subscriptionId
+    }
+    
+    private var isEmptyQuery: Bool {
+        setDocument.details?.setOf.first { $0.isNotEmpty } == nil
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -559,10 +563,11 @@ final class EditorSetViewModel: ObservableObject {
     }
 
     func onEmptyStateButtonTap() {
-        if setDocument.isCollection() {
-            createObject()
-        } else {
+        switch emptyStateMode {
+        case .emptyQuery:
             showSetOfTypeSelection()
+        case .emptyList:
+            createObject()
         }
     }
     
