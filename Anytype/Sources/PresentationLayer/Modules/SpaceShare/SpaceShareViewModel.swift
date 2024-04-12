@@ -3,6 +3,7 @@ import Services
 import UIKit
 import DeepLinks
 import Combine
+import AnytypeCore
 
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
@@ -17,6 +18,8 @@ final class SpaceShareViewModel: ObservableObject {
     private var workspacesStorage: WorkspacesStorageProtocol
     @Injected(\.deepLinkParser)
     private var deppLinkParser: DeepLinkParserProtocol
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: UniversalLinkParserProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: WorkspacesStorageProtocol
     
@@ -62,7 +65,11 @@ final class SpaceShareViewModel: ObservableObject {
     func onAppear() async {
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
+            if FeatureFlags.universalLinks {
+                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+            } else {
+                inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
+            }
         } catch {}
     }
     
@@ -87,7 +94,11 @@ final class SpaceShareViewModel: ObservableObject {
         }
         
         let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
-        inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
+        if FeatureFlags.universalLinks {
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
+        } else {
+            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
+        }
     }
     
     func onDeleteLinkCompleted() {
