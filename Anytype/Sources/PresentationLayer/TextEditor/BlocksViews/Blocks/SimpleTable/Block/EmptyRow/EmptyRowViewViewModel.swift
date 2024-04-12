@@ -43,7 +43,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
         emptyRowConfiguration().spreadsheetConfiguration(
             dragConfiguration: nil,
-            styleConfiguration: .init(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .Background.primary)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .Background.primary)
         )
     }
 

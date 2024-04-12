@@ -60,13 +60,13 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
             return BlockLinkCardConfiguration(state: state, backgroundColor: backgroundColor, todoToggleAction: toggleTodo)
                 .cellBlockConfiguration(
                     dragConfiguration: .init(id: info.id),
-                    styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                    styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
                 )
         default:
             return BlockLinkTextConfiguration(state: state, todoToggleAction: toggleTodo)
                 .cellBlockConfiguration(
                     dragConfiguration: .init(id: info.id),
-                    styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                    styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
                 )
         }
     }

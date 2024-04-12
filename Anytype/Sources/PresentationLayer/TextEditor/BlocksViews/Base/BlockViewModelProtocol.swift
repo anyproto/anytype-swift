@@ -25,7 +25,7 @@ extension ContentConfigurationProvider {
         return EmptyRowConfiguration(id: "", action: {} )
             .spreadsheetConfiguration(
                 dragConfiguration: nil,
-                styleConfiguration: .init(backgroundColor: .Background.primary)
+                styleConfiguration: CellStyleConfiguration(backgroundColor: .Background.primary)
             )
     }
 }

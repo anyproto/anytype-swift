@@ -60,7 +60,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
                 imageViewTapHandler: didTapOpenImage
             ).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),
-                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
         }
     }
@@ -72,7 +72,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
             dragConfiguration: .init(id: info.id),
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
 

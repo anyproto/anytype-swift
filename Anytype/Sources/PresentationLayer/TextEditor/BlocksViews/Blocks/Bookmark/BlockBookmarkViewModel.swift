@@ -73,7 +73,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
                 backgroundColor: backgroundColor
             ).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),
-                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
         case .error:
             return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
@@ -105,7 +105,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
             dragConfiguration: .init(id: info.id),
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
     

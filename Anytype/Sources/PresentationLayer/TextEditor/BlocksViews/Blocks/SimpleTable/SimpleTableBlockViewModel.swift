@@ -48,7 +48,7 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
             }
         ).cellBlockConfiguration(
             dragConfiguration: nil,
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
 
