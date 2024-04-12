@@ -4,43 +4,34 @@ import SwiftUI
 struct ObjectActionsView: View {
     
     @ObservedObject var viewModel: ObjectActionsViewModel
- 
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        if viewModel.objectActions.isEmpty {
-            EmptyView()
-        } else {
-            content
-        }
-    }
-    
-    var content: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
                 ForEach(viewModel.objectActions) { setting in
                     ObjectActionRow(setting: setting) {
                         switch setting {
                         case .archive:
-                            viewModel.changeArchiveState()
+                            try await viewModel.changeArchiveState()
                         case .favorite:
-                            viewModel.changeFavoriteSate()
+                            try await viewModel.changeFavoriteSate()
                         case .locked:
-                            viewModel.changeLockState()
+                            try await viewModel.changeLockState()
                         case .undoRedo:
                             viewModel.undoRedoAction()
                         case .duplicate:
-                            viewModel.duplicateAction()
+                            try await viewModel.duplicateAction()
                         case .linkItself:
                             viewModel.linkItselfAction()
                         case .makeAsTemplate:
-                            viewModel.makeAsTempalte()
+                            try await viewModel.makeAsTempalte()
                         case .templateSetAsDefault:
                             viewModel.makeTemplateAsDefault()
                         case .delete:
-                            viewModel.deleteAction()
+                            try await viewModel.deleteAction()
                         case .createWidget:
-                            viewModel.createWidget()
+                            try await viewModel.createWidget()
                         case .copyLink:
                             viewModel.copyLinkAction()
                         }
@@ -48,10 +39,12 @@ struct ObjectActionsView: View {
                 }
             }.padding(.horizontal, 16)
         }
-        .frame(height: 108)
         .snackbar(toastBarData: $viewModel.toastData)
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
+        }
+        .task {
+            await viewModel.startDocumentTask()
         }
     }
 }

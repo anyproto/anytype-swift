@@ -99,9 +99,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         objectActionsViewModel.onTemplateMakeDefault = { [weak delegate] templateId in
             delegate?.didTapUseTemplateAsDefault(templateId: templateId)
         }
-        
-        setupSubscription()
-        onDocumentUpdate()
     }
 
     func onTapLayoutPicker() {
@@ -122,21 +119,5 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     func onTapRelations() {
         output?.relationsAction(document: document)
-    }
-    
-    // MARK: - Private
-    private func setupSubscription() {
-        subscription = document.syncPublisher.sink { [weak self] in
-            self?.onDocumentUpdate()
-        }
-    }
-    
-    private func onDocumentUpdate() {
-        objectWillChange.send()
-        if let details = document.details {
-            objectActionsViewModel.details = details
-        }
-        objectActionsViewModel.isLocked = document.isLocked
-        objectActionsViewModel.permissions = document.permissions
     }
 }
