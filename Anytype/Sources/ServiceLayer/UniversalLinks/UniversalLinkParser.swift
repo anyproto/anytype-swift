@@ -17,8 +17,6 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
     func parse(url: URL) -> UniversalLink? {
         guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true) else { return nil }
         
-        // From iOS 16 can be migrated to Regex
-        
         // Link: https://invite.any.coop/<inviteId>#<encryptionkey>
         if LinkPaths.inviteHosts.contains(components.host), var path = components.path, let fragment = components.fragment {
             
