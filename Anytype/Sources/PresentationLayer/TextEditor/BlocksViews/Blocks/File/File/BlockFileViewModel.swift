@@ -63,7 +63,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         case .done:
             return BlockFileConfiguration(data: fileData.mediaData).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),
-                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
         }
     }
@@ -75,7 +75,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
             dragConfiguration: .init(id: info.id),
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
 }

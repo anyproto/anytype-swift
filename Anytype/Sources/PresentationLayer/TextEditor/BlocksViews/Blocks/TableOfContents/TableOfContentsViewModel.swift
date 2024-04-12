@@ -36,7 +36,7 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
             blockSetNeedsLayout: { editorCollectionController.reconfigure(items: [.block(self)] )}
         ).cellBlockConfiguration(
             dragConfiguration: BlockDragConfiguration(id: info.id),
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
     

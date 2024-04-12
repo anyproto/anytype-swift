@@ -140,7 +140,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         let info = blockInformationProvider.info
         return contentConfiguration.cellBlockConfiguration(
             dragConfiguration: isDragConfigurationAvailable ? .init(id: info.id) : nil,
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color ?? content.defaultBackgroundColor)
         )
     }
     
@@ -154,7 +154,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         return textBlockContentConfiguration()
             .spreadsheetConfiguration(
                 dragConfiguration: .init(id: info.id),
-                styleConfiguration: .init(backgroundColor: color)
+                styleConfiguration: CellStyleConfiguration(backgroundColor: color)
             )
     }
 }

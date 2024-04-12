@@ -77,7 +77,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
                 audioPlayerViewDelegate: self
             ).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),
-                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
         }
     }
@@ -89,7 +89,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
             dragConfiguration: .init(id: info.id),
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
     

@@ -56,7 +56,7 @@ final class RelationBlockViewModel: BlockViewModelProtocol {
             relation: RelationItemModel(relation: relationProvider.relation)
         ).cellBlockConfiguration(
             dragConfiguration: .init(id: info.id),
-            styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
 }

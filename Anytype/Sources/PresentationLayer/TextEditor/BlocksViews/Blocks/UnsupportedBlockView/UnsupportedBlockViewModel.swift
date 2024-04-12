@@ -15,7 +15,7 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
         UnsupportedBlockContentConfiguration(text: Loc.unsupportedBlock)
             .cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),
-                styleConfiguration: .init(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
     }
 
