@@ -1013,7 +1013,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
 "Error.Common.Title" = "Oeps!";
-"Error.Common.Message" = "Controleer alsjeblieft jouw internetverbinding en probeer het opnieuw of rapporteer het op het forum.";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Probeer opnieuw";
 
 // MARK: - Relative date formatter
