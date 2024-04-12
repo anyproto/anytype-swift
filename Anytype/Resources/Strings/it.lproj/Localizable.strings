@@ -336,7 +336,7 @@
 "Create a new one or search for something else" = "Creane uno nuovo o cerca qualcos'altro";
 "Search.Backlinks.Show.title" = "Mostra i backlink";
 "Search.Backlinks.Header.title" = "Backlink di: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Backlinks.Swipe.title" = "Backlink";
 
 // MARK: - Home
 
@@ -914,8 +914,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "I nuovi membri non saranno in grado di unirsi allo spazio. È possibile generare un nuovo link in qualsiasi momento";
 "SpaceShare.Approve.Toast" = "Hai approvato la richiesta di %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Concedi accesso in lettura";
+"SpaceShare.ViewRequest.EditAccess" = "Concedi accesso alla modifica";
 "SpaceShare.ViewRequest.Reject" = "Rifiuta";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ sarà rimosso/a dallo spazio.";
@@ -942,7 +942,7 @@
 "SpaceShare.HowToShare.Step2" = "Cliccando sul link, una persona richiede di unirsi allo spazio.";
 "SpaceShare.HowToShare.Step3" = "Dopo aver approvato la richiesta, puoi scegliere i diritti di accesso per quella persona.";
 "SpaceShare.Manage" = "Manage";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.Title" = "Sei già membro di questo spazio";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
 
 // MARK: - Permission notification
@@ -1012,7 +1012,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Aggiorna";
 "Error.UnableToConnect" = "Si prega di connettersi a internet";
 "Error.Common.Title" = "Ops!";
-"Error.Common.Message" = "Controlla la tua connessione internet e riprova o pubblica un rapporto sul forum.";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Riprova";
 
 // MARK: - Relative date formatter
