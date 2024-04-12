@@ -45,7 +45,7 @@ struct EditorSetEmptyView_Previews: PreviewProvider {
     static var previews: some View {
         EditorSetEmptyView(
             model: EditorSetEmptyViewModel(
-                mode: .set,
+                mode: .emptyQuery,
                 allowTap: true,
                 onTap: {}
             )
