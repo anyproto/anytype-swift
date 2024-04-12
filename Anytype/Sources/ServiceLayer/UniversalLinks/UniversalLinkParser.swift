@@ -9,7 +9,9 @@ protocol UniversalLinkParserProtocol: AnyObject {
 final class UniversalLinkParser: UniversalLinkParserProtocol {
 
     private enum LinkPaths {
-        static let inviteHosts = ["invite.any.coop", "invite-stage.any.coop"]
+        static let inviteHostProd = "invite.any.coop"
+        static let inviteHostStage = "invite-stage.any.coop"
+        static let inviteHosts = [inviteHostProd, inviteHostStage]
     }
     
     func parse(url: URL) -> UniversalLink? {
@@ -37,8 +39,11 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
     }
     
     func createUrl(deepLink: UniversalLink) -> URL? {
-        return nil
-    }  
+        switch deepLink {
+        case .invite(let cid, let key):
+            return URL(string: "https://\(LinkPaths.inviteHostProd)/\(cid)#\(key)")
+        }
+    }
     
     private func logNilResult(url: URL) {
         anytypeAssertionFailure("Can't process universal link", info: ["url": url.absoluteString])

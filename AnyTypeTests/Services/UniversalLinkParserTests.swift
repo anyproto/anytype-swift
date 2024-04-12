@@ -43,17 +43,22 @@ final class UniversalLinkParserTests: XCTestCase {
         XCTAssertEqual(deepLink, nil)
     }
     
-    func testOOnlyHostWithSlash() throws {
+    func testOnlyHostWithSlash() throws {
         let url = URL(string: "https://invite.any.coop/")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
     }
     
-    func testOOnlyHostWithoutSlash() throws {
+    func testOnlyHostWithoutSlash() throws {
         let url = URL(string: "https://invite.any.coop")!
         
         let deepLink = parser.parse(url: url)
         XCTAssertEqual(deepLink, nil)
+    }
+    
+    func testCreateUniversalLinkURL() throws {
+        let url = parser.createUrl(deepLink: .invite(cid: "1", key: "2"))
+        XCTAssertEqual(url, URL(string: "https://invite.any.coop/1#2")!)
     }
 }
