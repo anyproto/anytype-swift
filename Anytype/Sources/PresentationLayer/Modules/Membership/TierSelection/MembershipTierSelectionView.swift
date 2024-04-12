@@ -48,6 +48,7 @@ struct MembershipTierSelectionView: View {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
                 case .external(let info):
+                    // TODO: Add proper wording
                     StandardButton("More info", style: .primaryLarge) {
                         openURL(info.paymentUrl)
                     }.padding()

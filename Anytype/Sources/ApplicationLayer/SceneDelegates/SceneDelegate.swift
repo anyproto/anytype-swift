@@ -11,6 +11,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: UniversalLinkParserProtocol
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -74,5 +76,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         else { return }
         
         appActionStorage.action = .deepLink(deepLink)
+    }
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+                let url = userActivity.webpageURL else { return }
+    
+        guard let link = universalLinkParser.parse(url: url) else { return }
+        
+        appActionStorage.action = .deepLink(link.toDeepLink())
     }
 }

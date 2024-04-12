@@ -402,6 +402,12 @@ public enum BundledRelationKey: String {
     /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
     case spaceRemoteStatus = "spaceRemoteStatus"
 
+    /// Specify if the space is shareable
+    case spaceShareableStatus = "spaceShareableStatus"
+
+    /// Specify if access control list is shared
+    case isAclShared = "isAclShared"
+
     /// Relation that indicates the status of space that the user is set. Possible values: models.SpaceStatus
     case spaceAccountStatus = "spaceAccountStatus"
 

@@ -384,16 +384,6 @@ public struct ClientCommands {
         }
     }
 
-    public static func spaceExit(
-        _ request: Anytype_Rpc.Space.Exit.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Space.Exit.Request, Anytype_Rpc.Space.Exit.Response> {
-        return Invocation(messageName: "SpaceExit", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceSpaceExit(requestData) ?? Data()
-            return try Anytype_Rpc.Space.Exit.Response(serializedData: responseData)
-        }
-    }
-
     public static func spaceStopSharing(
         _ request: Anytype_Rpc.Space.StopSharing.Request = .init()
     ) -> Invocation<Anytype_Rpc.Space.StopSharing.Request, Anytype_Rpc.Space.StopSharing.Response> {
@@ -431,6 +421,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceSpaceLeaveApprove(requestData) ?? Data()
             return try Anytype_Rpc.Space.LeaveApprove.Response(serializedData: responseData)
+        }
+    }
+
+    public static func spaceMakeShareable(
+        _ request: Anytype_Rpc.Space.MakeShareable.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Space.MakeShareable.Request, Anytype_Rpc.Space.MakeShareable.Response> {
+        return Invocation(messageName: "SpaceMakeShareable", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceSpaceMakeShareable(requestData) ?? Data()
+            return try Anytype_Rpc.Space.MakeShareable.Response(serializedData: responseData)
         }
     }
 

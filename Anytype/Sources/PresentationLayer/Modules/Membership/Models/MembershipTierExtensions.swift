@@ -44,7 +44,7 @@ extension MembershipTier {
         }
     }
     
-    var gradient: MembershipTeirGradient {
+    var gradient: MembershipTierGradient {
         switch color {
         case .green:
             .teal
