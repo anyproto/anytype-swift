@@ -107,7 +107,7 @@ struct EditorSetView: View {
                 model: EditorSetEmptyViewModel(
                     mode: model.emptyStateMode,
                     allowTap: model.setDocument.isCollection() ? model.setDocument.setPermissions.canCreateObject : model.setDocument.setPermissions.canChangeQuery,
-                    onTap: { model.onEmptyStateButtonTap(mode: model.emptyStateMode) }
+                    onTap: { model.onEmptyStateButtonTap() }
                 )
             )
             .frame(width: tableHeaderSize.width)

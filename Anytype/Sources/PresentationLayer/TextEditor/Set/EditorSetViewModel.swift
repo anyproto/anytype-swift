@@ -562,8 +562,8 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
 
-    func onEmptyStateButtonTap(mode: EditorSetEmptyMode) {
-        switch mode {
+    func onEmptyStateButtonTap() {
+        switch emptyStateMode {
         case .emptyQuery:
             showSetOfTypeSelection()
         case .emptyList:
