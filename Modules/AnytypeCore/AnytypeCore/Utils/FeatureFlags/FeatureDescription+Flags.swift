@@ -39,7 +39,7 @@ public extension FeatureDescription {
     static let multiplayer = FeatureDescription(
         title: "Multiplayer",
         type: .feature(author: "m@anytype.io", releaseVersion: "4"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let membership = FeatureDescription(
