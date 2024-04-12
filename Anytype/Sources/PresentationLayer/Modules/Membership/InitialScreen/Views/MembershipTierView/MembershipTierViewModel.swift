@@ -1,7 +1,7 @@
 import Services
 import SwiftUI
 
-enum MembershipTeirViewState {
+enum MembershipTierViewState {
     case owned
     case pending
     case unowned
@@ -16,9 +16,9 @@ enum MembershipTeirViewState {
 }
 
 @MainActor
-final class MembershipTeirViewModel: ObservableObject {
+final class MembershipTierViewModel: ObservableObject {
     
-    @Published var state: MembershipTeirViewState = .owned
+    @Published var state: MembershipTierViewState = .owned
     @Published var userMembership: MembershipStatus = .empty
     
     let tierToDisplay: MembershipTier

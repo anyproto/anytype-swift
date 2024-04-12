@@ -14,7 +14,7 @@ struct MembershipTierListView: View {
                     Spacer.fixedWidth(0)
                     
                     ForEach(tiers) { tier in
-                        MembershipTeirView(tierToDisplay: tier) {
+                        MembershipTierView(tierToDisplay: tier) {
                             onTierTap(tier)
                         }
                         .id(tier)

@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum MembershipTeirGradient: String {
+enum MembershipTierGradient: String {
     case teal
     case blue
     case red
@@ -20,7 +20,7 @@ enum MembershipTeirGradient: String {
     }
 }
 
-extension MembershipTeirGradient: View {
+extension MembershipTierGradient: View {
     var body: some View {
         LinearGradient(
             stops: [
@@ -34,5 +34,5 @@ extension MembershipTeirGradient: View {
 }
 
 #Preview {
-    MembershipTeirGradient.teal
+    MembershipTierGradient.teal
 }

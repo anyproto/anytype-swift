@@ -1238,7 +1238,7 @@
 		3D5D0C5C2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5B2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift */; };
 		3D5D0C5E2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5D2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift */; };
 		3D5D0C602B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */; };
-		3D611E8E2B936B8300B33305 /* MembershipTeirView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */; };
+		3D611E8E2B936B8300B33305 /* MembershipTierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E8D2B936B8300B33305 /* MembershipTierView.swift */; };
 		3D611E902B93727700B33305 /* MembershipTeirGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */; };
 		3D611E932B93775B00B33305 /* MembershipTierListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E922B93775B00B33305 /* MembershipTierListView.swift */; };
 		3D611E962B93779900B33305 /* MembershipTierExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D611E952B93779900B33305 /* MembershipTierExtensions.swift */; };
@@ -1323,7 +1323,7 @@
 		3DB881362B9A7002009B294F /* MembershipOwnerInfoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB881352B9A7002009B294F /* MembershipOwnerInfoSheetView.swift */; };
 		3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92F84264BF69900E83276 /* View+CornerRadius.swift */; };
 		3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */; };
-		3DB9351E2BC4574D0004113B /* MembershipTeirViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9351D2BC4574C0004113B /* MembershipTeirViewModel.swift */; };
+		3DB9351E2BC4574D0004113B /* MembershipTierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9351D2BC4574C0004113B /* MembershipTierViewModel.swift */; };
 		3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */; };
 		3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
@@ -3006,7 +3006,7 @@
 		3D5D0C5B2B8CAEA2005DB879 /* TypeSearchForNewObjectCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		3D5D0C5D2B8CBC28005DB879 /* TypeSearchForNewObjectCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorView.swift; sourceTree = "<group>"; };
 		3D5D0C5F2B8CBC37005DB879 /* TypeSearchForNewObjectCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeSearchForNewObjectCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirView.swift; sourceTree = "<group>"; };
+		3D611E8D2B936B8300B33305 /* MembershipTierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierView.swift; sourceTree = "<group>"; };
 		3D611E8F2B93727700B33305 /* MembershipTeirGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirGradient.swift; sourceTree = "<group>"; };
 		3D611E922B93775B00B33305 /* MembershipTierListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierListView.swift; sourceTree = "<group>"; };
 		3D611E952B93779900B33305 /* MembershipTierExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierExtensions.swift; sourceTree = "<group>"; };
@@ -3090,7 +3090,7 @@
 		3DB881352B9A7002009B294F /* MembershipOwnerInfoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipOwnerInfoSheetView.swift; sourceTree = "<group>"; };
 		3DB92F84264BF69900E83276 /* View+CornerRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+CornerRadius.swift"; sourceTree = "<group>"; };
 		3DB92FA3264D8B0100E83276 /* SettingsSectionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsSectionItemView.swift; sourceTree = "<group>"; };
-		3DB9351D2BC4574C0004113B /* MembershipTeirViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTeirViewModel.swift; sourceTree = "<group>"; };
+		3DB9351D2BC4574C0004113B /* MembershipTierViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierViewModel.swift; sourceTree = "<group>"; };
 		3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Emoji.swift"; sourceTree = "<group>"; };
 		3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Clamped.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
@@ -9013,13 +9013,13 @@
 			path = Sections;
 			sourceTree = "<group>";
 		};
-		3DB9351C2BC4573E0004113B /* MembershipTeirView */ = {
+		3DB9351C2BC4573E0004113B /* MembershipTierView */ = {
 			isa = PBXGroup;
 			children = (
-				3D611E8D2B936B8300B33305 /* MembershipTeirView.swift */,
-				3DB9351D2BC4574C0004113B /* MembershipTeirViewModel.swift */,
+				3D611E8D2B936B8300B33305 /* MembershipTierView.swift */,
+				3DB9351D2BC4574C0004113B /* MembershipTierViewModel.swift */,
 			);
-			path = MembershipTeirView;
+			path = MembershipTierView;
 			sourceTree = "<group>";
 		};
 		3DB980FB274E868800ECC882 /* Model */ = {
@@ -9087,7 +9087,7 @@
 		3DD0CEB72B90ACBE00657402 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3DB9351C2BC4573E0004113B /* MembershipTeirView */,
+				3DB9351C2BC4573E0004113B /* MembershipTierView */,
 				3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */,
 				3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */,
 				3D611E922B93775B00B33305 /* MembershipTierListView.swift */,
@@ -10685,7 +10685,7 @@
 				2ACD86F429C309AA0082E861 /* WidgetTypeChangeViewModel.swift in Sources */,
 				2AFCEB3929C8A25900841E13 /* CollectionsSubscriptionService.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
-				3D611E8E2B936B8300B33305 /* MembershipTeirView.swift in Sources */,
+				3D611E8E2B936B8300B33305 /* MembershipTierView.swift in Sources */,
 				C97A9A19287300080032DE3E /* SimpleTableMenuView.swift in Sources */,
 				2A5025122BC01C6400A141B8 /* EmojiIconView.swift in Sources */,
 				2A43EAC72A98A18500DA4AAE /* QuickActionShortcutBuilder.swift in Sources */,
@@ -11810,7 +11810,7 @@
 				1244791427D8A37000581174 /* NewSearchView.swift in Sources */,
 				2A0B7151297697230003B1C5 /* HomeEditButtonStyle.swift in Sources */,
 				3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */,
-				3DB9351E2BC4574D0004113B /* MembershipTeirViewModel.swift in Sources */,
+				3DB9351E2BC4574D0004113B /* MembershipTierViewModel.swift in Sources */,
 				2AD7412E2993E1EF004BD223 /* HomeWidgetCommonProviderAssembly.swift in Sources */,
 				C9CD66A427EAFD3E001F1860 /* GridItemViewModel.swift in Sources */,
 				2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */,
