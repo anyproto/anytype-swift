@@ -59,6 +59,7 @@ struct AuthView: View {
                 enableMarkdown: true
             )
             .foregroundColor(.Auth.body)
+            .accentColor(.Auth.text)
             .multilineTextAlignment(.center)
             .padding(.horizontal, UIDevice.isPad ? 85 : 38)
             .environment(\.openURL, OpenURLAction { url in
