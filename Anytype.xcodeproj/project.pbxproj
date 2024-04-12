@@ -345,6 +345,7 @@
 		2A298E342BC7F1BE00F1194C /* UndoRedoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */; };
 		2A298E3C2BC83FC100F1194C /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E3A2BC83FBF00F1194C /* UniversalLink.swift */; };
 		2A298E3D2BC83FC100F1194C /* UniversalLinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E3B2BC83FC100F1194C /* UniversalLinkParser.swift */; };
+		2A298E402BC91E6A00F1194C /* UniversalLinkParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E3F2BC91E6A00F1194C /* UniversalLinkParserTests.swift */; };
 		2A29FD2F2A701BDD007A8549 /* ActiveWorkspaceStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A29FD2E2A701BDD007A8549 /* ActiveWorkspaceStorage.swift */; };
 		2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2A347429229D2B0004BD8B /* NavigationContext.swift */; };
 		2A2B331A2A7AA525004BD906 /* WidgetTypeCreateData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B33192A7AA525004BD906 /* WidgetTypeCreateData.swift */; };
@@ -2120,6 +2121,7 @@
 		2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewController.swift; sourceTree = "<group>"; };
 		2A298E3A2BC83FBF00F1194C /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
 		2A298E3B2BC83FC100F1194C /* UniversalLinkParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinkParser.swift; sourceTree = "<group>"; };
+		2A298E3F2BC91E6A00F1194C /* UniversalLinkParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UniversalLinkParserTests.swift; path = AnyTypeTests/Services/UniversalLinkParserTests.swift; sourceTree = SOURCE_ROOT; };
 		2A29FD2E2A701BDD007A8549 /* ActiveWorkspaceStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveWorkspaceStorage.swift; sourceTree = "<group>"; };
 		2A2A347429229D2B0004BD8B /* NavigationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationContext.swift; sourceTree = "<group>"; };
 		2A2B33192A7AA525004BD906 /* WidgetTypeCreateData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeCreateData.swift; sourceTree = "<group>"; };
@@ -3905,6 +3907,7 @@
 		03C5C54122DFD90C00DD91DE /* AnytypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				2A298E3E2BC91E5400F1194C /* Services */,
 				2AA1613D2B76716B00935919 /* Home */,
 				2A20B91A2AFBCBB3001D0014 /* AnytypeTests.xctestplan */,
 				2A4C7FFD2A823E0D00201946 /* Formatters */,
@@ -5359,6 +5362,14 @@
 				2A298E3B2BC83FC100F1194C /* UniversalLinkParser.swift */,
 			);
 			path = UniversalLinks;
+			sourceTree = "<group>";
+		};
+		2A298E3E2BC91E5400F1194C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				2A298E3F2BC91E6A00F1194C /* UniversalLinkParserTests.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		2A29FD2D2A701BBB007A8549 /* SpaceStorage */ = {
@@ -12224,6 +12235,7 @@
 				3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */,
 				3D34F25427C3D16400990C49 /* KeyboardActionHandlerTests.swift in Sources */,
 				2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */,
+				2A298E402BC91E6A00F1194C /* UniversalLinkParserTests.swift in Sources */,
 				2A20B9192AFBC26C001D0014 /* AnytypeRelativeDateTimeFormatterTests.swift in Sources */,
 				EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */,
 				3DA46B67273BEB60007B7464 /* BlockActionHandlerMock.swift in Sources */,

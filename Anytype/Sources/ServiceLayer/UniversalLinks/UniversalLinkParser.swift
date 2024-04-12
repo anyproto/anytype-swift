@@ -15,20 +15,32 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
     func parse(url: URL) -> UniversalLink? {
         guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true) else { return nil }
         
+        // From iOS 16 can be migrated to Regex
         
-        if LinkPaths.inviteHosts.contains(components.host), let path = components.path {
-            let regex = try? NSRegularExpression(pattern: "(<inviteId>.+?)#(<encryptionkey>.+?)", options: .caseInsensitive)
-            let match = regex?.firstMatch(in: path, range: NSRange(location: 0, length: path.count))
+        // Link: https://invite.any.coop/<inviteId>#<encryptionkey>
+        if LinkPaths.inviteHosts.contains(components.host), var path = components.path, let fragment = components.fragment {
             
-            match?.range(withName: "inviteId")
+            if path.hasPrefix("/") {
+                path.removeFirst(1)
+            }
+            
+            guard path.isNotEmpty, fragment.isNotEmpty else {
+                logNilResult(url: url)
+                return nil
+            }
+            
+            return .invite(cid: path, key: fragment)
         }
         
-        anytypeAssertionFailure("Can't process universal link", info: ["url": url.absoluteString])
+        logNilResult(url: url)
         return nil
     }
     
     func createUrl(deepLink: UniversalLink) -> URL? {
         return nil
+    }  
+    
+    private func logNilResult(url: URL) {
+        anytypeAssertionFailure("Can't process universal link", info: ["url": url.absoluteString])
     }
-
 }
