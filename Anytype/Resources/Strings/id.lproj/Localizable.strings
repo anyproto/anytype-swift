@@ -1012,7 +1012,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Perbarui";
 "Error.UnableToConnect" = "Tolong sambungkan ke internet";
 "Error.Common.Title" = "Waduh!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
+"Error.Common.Message" = "Silakan cek koneksi internetmu lalu coba lagi atau [laporkan di forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Coba lagi";
 
 // MARK: - Relative date formatter
