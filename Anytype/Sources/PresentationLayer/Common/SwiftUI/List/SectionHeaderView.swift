@@ -16,9 +16,17 @@ struct SectionHeaderView<Content>: View where Content: View {
         HStack(spacing: 0) {
             AnytypeText(title, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
-            Spacer()
+                .if(rightContent().isNotNil) {
+                    $0.lineLimit(1)
+                }
+            
+            if rightContent().isNotNil {
+                Spacer.init(minLength: 16)
+            }
+            
             rightContent()
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, increasedTopPadding ? 26 : 8)
         .padding(.bottom, 8)
     }
