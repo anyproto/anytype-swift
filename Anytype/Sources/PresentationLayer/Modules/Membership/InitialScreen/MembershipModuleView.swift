@@ -1,4 +1,5 @@
 import SwiftUI
+import StoreKit
 import Services
 import Combine
 
@@ -81,7 +82,7 @@ struct MembershipModuleView: View {
     }
     
     var legal: some View {
-        VStack {
+        VStack(alignment: .leading) {
             MembershipLegalButton(text: Loc.Membership.Legal.details) {
                 openURL(URL(string: AboutApp.pricingLink)!)
             }
@@ -92,15 +93,24 @@ struct MembershipModuleView: View {
                 openURL(URL(string: AboutApp.termsLink)!)
             }
             
-            Button {
-                let mailLink = MailUrl(
-                    to: AboutApp.licenseMailTo,
-                    subject: Loc.Membership.Email.subject,
-                    body: Loc.Membership.Email.body
-                )
-                guard let mailUrl = mailLink.url else { return }
-                openURL(mailUrl)
-            } label: {
+            Spacer.fixedHeight(32)
+            contactUs
+            Spacer.fixedHeight(24)
+            restorePurchases
+        }
+    }
+    
+    private var contactUs: some View {
+        Button {
+            let mailLink = MailUrl(
+                to: AboutApp.licenseMailTo,
+                subject: Loc.Membership.Email.subject,
+                body: Loc.Membership.Email.body
+            )
+            guard let mailUrl = mailLink.url else { return }
+            openURL(mailUrl)
+        } label: {
+            Group {
                 AnytypeText(
                     "\(Loc.Membership.Legal.wouldYouLike) ",
                     style: .caption1Regular
@@ -110,6 +120,28 @@ struct MembershipModuleView: View {
                     style: .caption1Regular
                 ).foregroundColor(.Text.primary).underline()
             }
+            .multilineTextAlignment(.leading)
+            .padding(.horizontal, 20)
+        }
+    }
+    
+    private var restorePurchases: some View {
+        AsyncButton {
+            try await AppStore.sync()
+        } label: {
+            Group {
+                AnytypeText(
+                    "\(Loc.Membership.Legal.alreadyPurchasedTier) ",
+                    style: .caption1Regular
+                ).foregroundColor(.Text.primary) +
+                AnytypeText(
+                    Loc.Membership.Legal.restorePurchases,
+                    style: .caption1Regular
+                )
+                .foregroundColor(.Text.primary).underline()
+            }
+            .multilineTextAlignment(.leading)
+            .padding(.horizontal, 20)
         }
     }
 }

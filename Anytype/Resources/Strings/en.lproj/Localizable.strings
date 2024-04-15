@@ -1069,6 +1069,8 @@
 "Membership.Legal.Terms" = "Terms and conditions";
 "Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
 "Membership.Legal.LetUsKnow" = "Please let us know here.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
 
 "Membership.Email.Subject" = "Special Pricing Request";
 "Membership.Email.Body" = "Please specify your request:
