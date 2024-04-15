@@ -23,8 +23,8 @@ final class RemoteStorageViewModel: ObservableObject {
     private var fileLimitsStorage: FileLimitsStorageProtocol
     @Injected(\.documentsProvider)
     private var documentProvider: DocumentsProviderProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
@@ -118,7 +118,10 @@ final class RemoteStorageViewModel: ObservableObject {
             segmentInfo.currentLegend = Loc.FileStorage.LimitLegend.current(spaceView.title, byteCountFormatter.string(fromByteCount: spaceBytesUsage))
         }
        
-        let otherSpaces = workspacesStorage.activeWorkspaces.filter { $0.targetSpaceId != spaceId }
+        let otherSpaces = participantSpacesStorage.activeParticipantSpaces
+            .filter(\.isOwner)
+            .map(\.spaceView)
+            .filter { $0.targetSpaceId != spaceId }
         
         if otherSpaces.isNotEmpty {
             segmentInfo.otherUsages = otherSpaces.map { spaceView in
