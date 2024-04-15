@@ -218,8 +218,6 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Sign up";
-"Login" = "Log In";
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Please allow access";
@@ -237,7 +235,7 @@
 "Error creating wallet" = "Error creating wallet";
 "Error select account" = "Error select account";
 "Error wallet recover account" = "Error wallet recover account";
-"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Search for language";
 
@@ -271,8 +269,8 @@
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your recovery phrase";
-"Auth.LoginFlow.Enter.Button.Title" = "Login";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings

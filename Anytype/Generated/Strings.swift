@@ -304,8 +304,6 @@ internal enum Loc {
   internal static let lock = Loc.tr("Localizable", "Lock", fallback: "Lock")
   /// Log out
   internal static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log out")
-  /// Log In
-  internal static let login = Loc.tr("Localizable", "Login", fallback: "Log In")
   /// Logout and clear data
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Media
@@ -521,8 +519,6 @@ internal enum Loc {
   internal static let shared = Loc.tr("Localizable", "Shared", fallback: "Shared")
   /// Show types
   internal static let showTypes = Loc.tr("Localizable", "Show types", fallback: "Show types")
-  /// Sign up
-  internal static let signUp = Loc.tr("Localizable", "Sign up", fallback: "Sign up")
   /// Sky
   internal static let sky = Loc.tr("Localizable", "Sky", fallback: "Sky")
   /// Sky background
@@ -838,10 +834,8 @@ internal enum Loc {
       /// OR
       internal static let or = Loc.tr("Localizable", "Auth.LoginFlow.Or", fallback: "OR")
       internal enum Enter {
-        internal enum Button {
-          /// Login
-          internal static let title = Loc.tr("Localizable", "Auth.LoginFlow.Enter.Button.Title", fallback: "Login")
-        }
+        /// Enter my Vault
+        internal static let title = Loc.tr("Localizable", "Auth.LoginFlow.Enter.Title", fallback: "Enter my Vault")
       }
       internal enum Entering {
         internal enum Void {
@@ -850,8 +844,8 @@ internal enum Loc {
         }
       }
       internal enum Textfield {
-        /// Type your recovery phrase
-        internal static let placeholder = Loc.tr("Localizable", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Type your recovery phrase")
+        /// Type your key
+        internal static let placeholder = Loc.tr("Localizable", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Type your key")
       }
       internal enum Use {
         internal enum Keychain {
@@ -2663,8 +2657,8 @@ internal enum Loc {
   internal enum Wallet {
     internal enum Recovery {
       internal enum Error {
-        /// Invalid recovery phrase
-        internal static let description = Loc.tr("Localizable", "Wallet.Recovery.Error.description", fallback: "Invalid recovery phrase")
+        /// Invalid Key
+        internal static let description = Loc.tr("Localizable", "Wallet.Recovery.Error.description", fallback: "Invalid Key")
       }
     }
   }
