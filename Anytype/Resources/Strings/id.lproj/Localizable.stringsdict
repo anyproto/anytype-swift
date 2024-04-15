@@ -74,10 +74,10 @@
         <string>[%d] taut balik</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Akun ini akan dihapus %#@days@</string>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -85,7 +85,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d hari lagi</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
