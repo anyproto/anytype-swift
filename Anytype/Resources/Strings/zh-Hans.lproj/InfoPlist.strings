@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "面容 ID 用于检索存储在安全钥匙串中的恢复短语";
+"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
 "NSCameraUsageDescription" = "相机用于扫描二维码，以获得安全便捷的登录体验";
 "NSLocalNetworkUsageDescription" = "本地网络访问用于直接在附近的设备之间同步数据";
 "NSPhotoLibraryAddUsageDescription" = "需要访问权限才能将所选图像保存到您的文库中";
