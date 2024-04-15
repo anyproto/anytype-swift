@@ -91,6 +91,8 @@ final class SpaceShareViewModel: ObservableObject {
     func onGenerateInvite() async throws {
         guard let spaceView else { return }
         
+        AnytypeAnalytics.instance().logShareSpace()
+        
         if !spaceView.isShared {
             try await workspaceService.makeSharable(spaceId: accountSpaceId)
         }
@@ -116,6 +118,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onShowQrCode() {
+        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .qr)
         qrCodeInviteLink = inviteLink
     }
     

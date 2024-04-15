@@ -783,7 +783,7 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logSpaceShare() {
+    func logShareSpace() {
         logEvent(AnalyticsEventsName.shareSpace)
     }
     

@@ -485,6 +485,7 @@ enum CreateSpaceRoute: String {
 enum ClickSettingsSpaceShareType: String {
     case moreInfo = "MoreInfo"
     case revoke = "Revoke"
+    case qr = "Qr"
 }
 
 enum ScreenInviteConfirmRoute: String {
