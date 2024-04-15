@@ -79,6 +79,14 @@ final class SpaceJoinViewModel: ObservableObject {
         await updateView()
     }
     
+    func onRequestSentAppear() {
+        AnytypeAnalytics.instance().logScreenRequestSent()
+    }
+    
+    func onInviewViewAppear() {
+        AnytypeAnalytics.instance().logScreenInviteRequest()
+    }
+    
     // MARK: - Private
     
     private func updateView() async {

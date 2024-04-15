@@ -17,7 +17,11 @@ final class SpacesManagerViewModel: ObservableObject {
     @Published var spaceForLeaveAlert: SpaceView?
     @Published var spaceViewForDelete: SpaceView?
     @Published var exportSpaceUrl: URL?
-        
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenSettingsSpaceList()
+    }
+    
     func startWorkspacesTask() async {
         for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
             let participantSpaces = participantSpaces.filter { $0.spaceView.localStatus == .unknown || $0.spaceView.localStatus == .ok }
