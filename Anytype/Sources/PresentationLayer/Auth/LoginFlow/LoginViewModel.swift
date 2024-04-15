@@ -122,7 +122,7 @@ final class LoginViewModel: ObservableObject {
     
     private func restoreFromkeychain() {
         Task {
-            try await localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain)
+            try await localAuthService.auth(reason: Loc.restoreKeyFromKeychain)
             let phrase = try seedService.obtainSeed()
             walletRecovery(with: phrase, route: .keychain)
         }
@@ -170,14 +170,14 @@ final class LoginViewModel: ObservableObject {
                 case .pendingDeletion:
                     applicationStateService.state = .delete
                 case .deleted:
-                    errorText = Loc.accountDeleted
+                    errorText = Loc.vaultDeleted
                 }
             } catch SelectAccountError.accountIsDeleted {
-                errorText = Loc.accountDeleted
+                errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
-                errorText = Loc.Account.Select.Incompatible.Version.Error.text
+                errorText = Loc.Vault.Select.Incompatible.Version.Error.text
             } catch {
-                errorText = Loc.selectAccountError
+                errorText = Loc.selectVaultError
             }
         }
     }

@@ -27,14 +27,14 @@ struct SettingsAccountView: View {
     @ViewBuilder
     private var header: some View {
         DragIndicator()
-        TitleView(title: Loc.Settings.accountAndAccess)
+        TitleView(title: Loc.Settings.vaultAndAccess)
     }
     
     @ViewBuilder
     private var accessBlock: some View {
         SectionHeaderView(title: Loc.access)
         SettingsSectionItemView(
-            name: Loc.Keychain.recoveryPhrase,
+            name: Loc.Keychain.key,
             imageAsset: .Settings.keychainPhrase,
             onTap: { model.onRecoveryPhraseTap() }
         )
@@ -42,9 +42,9 @@ struct SettingsAccountView: View {
 
     @ViewBuilder
     private var accountBlock: some View {
-        SectionHeaderView(title: Loc.account)
+        SectionHeaderView(title: Loc.vault)
         
-        SettingsButton(text: Loc.deleteAccount, textColor: .Text.primary) {
+        SettingsButton(text: Loc.deleteVault, textColor: .Text.primary) {
             model.onDeleteAccountTap()
         }
         

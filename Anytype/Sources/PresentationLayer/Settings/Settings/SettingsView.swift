@@ -45,7 +45,7 @@ struct SettingsView: View {
                     )
                     
                     SettingsSectionItemView(
-                        name: Loc.Settings.accountAndAccess,
+                        name: Loc.Settings.vaultAndAccess,
                         imageAsset: .Settings.keychainPhrase,
                         onTap: { model.onAccountDataTap() }
                     )
