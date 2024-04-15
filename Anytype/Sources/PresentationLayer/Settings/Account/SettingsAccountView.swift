@@ -27,7 +27,7 @@ struct SettingsAccountView: View {
     @ViewBuilder
     private var header: some View {
         DragIndicator()
-        TitleView(title: Loc.Settings.accountAndAccess)
+        TitleView(title: Loc.Settings.vaultAndAccess)
     }
     
     @ViewBuilder

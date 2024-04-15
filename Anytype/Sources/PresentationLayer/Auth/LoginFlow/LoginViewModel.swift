@@ -170,14 +170,14 @@ final class LoginViewModel: ObservableObject {
                 case .pendingDeletion:
                     applicationStateService.state = .delete
                 case .deleted:
-                    errorText = Loc.accountDeleted
+                    errorText = Loc.vaultDeleted
                 }
             } catch SelectAccountError.accountIsDeleted {
-                errorText = Loc.accountDeleted
+                errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
                 errorText = Loc.Account.Select.Incompatible.Version.Error.text
             } catch {
-                errorText = Loc.selectAccountError
+                errorText = Loc.selectVaultError
             }
         }
     }

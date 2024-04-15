@@ -16,14 +16,6 @@ internal enum Loc {
   internal static let access = Loc.tr("Localizable", "Access", fallback: "Access")
   /// Access to key from keychain
   internal static let accessToKeyFromKeychain = Loc.tr("Localizable", "Access to key from keychain", fallback: "Access to key from keychain")
-  /// Account deleted
-  internal static let accountDeleted = Loc.tr("Localizable", "Account deleted", fallback: "Account deleted")
-  /// Account is deleted
-  internal static let accountIsDeleted = Loc.tr("Localizable", "Account is deleted", fallback: "Account is deleted")
-  /// Account recover error, try again
-  internal static let accountRecoverError = Loc.tr("Localizable", "Account recover error", fallback: "Account recover error, try again")
-  /// Account recover error, probably no internet connection
-  internal static let accountRecoverErrorNoInternet = Loc.tr("Localizable", "Account recover error no internet", fallback: "Account recover error, probably no internet connection")
   /// Action-focused layout with a checkbox
   internal static let actionFocusedLayoutWithACheckbox = Loc.tr("Localizable", "Action-focused layout with a checkbox", fallback: "Action-focused layout with a checkbox")
   /// Actions
@@ -220,10 +212,10 @@ internal enum Loc {
   internal static let error = Loc.tr("Localizable", "Error", fallback: "Error")
   /// Error creating wallet
   internal static let errorCreatingWallet = Loc.tr("Localizable", "Error creating wallet", fallback: "Error creating wallet")
-  /// Error select account
-  internal static let errorSelectAccount = Loc.tr("Localizable", "Error select account", fallback: "Error select account")
-  /// Error wallet recover account
-  internal static let errorWalletRecoverAccount = Loc.tr("Localizable", "Error wallet recover account", fallback: "Error wallet recover account")
+  /// Error select vault
+  internal static let errorSelectVault = Loc.tr("Localizable", "Error select vault", fallback: "Error select vault")
+  /// Error wallet recover vault
+  internal static let errorWalletRecoverVault = Loc.tr("Localizable", "Error wallet recover vault", fallback: "Error wallet recover vault")
   /// Everywhere
   internal static let everywhere = Loc.tr("Localizable", "Everywhere", fallback: "Everywhere")
   /// Exact day
@@ -480,8 +472,6 @@ internal enum Loc {
   internal static let search = Loc.tr("Localizable", "Search", fallback: "Search")
   /// Search for language
   internal static let searchForLanguage = Loc.tr("Localizable", "Search for language", fallback: "Search for language")
-  /// Select account error
-  internal static let selectAccountError = Loc.tr("Localizable", "Select account error", fallback: "Select account error")
   /// Select all
   internal static let selectAll = Loc.tr("Localizable", "Select all", fallback: "Select all")
   /// Select date
@@ -496,6 +486,8 @@ internal enum Loc {
   internal static let selectOptions = Loc.tr("Localizable", "Select options", fallback: "Select options")
   /// Select relation type
   internal static let selectRelationType = Loc.tr("Localizable", "Select relation type", fallback: "Select relation type")
+  /// Select vault error
+  internal static let selectVaultError = Loc.tr("Localizable", "Select vault error", fallback: "Select vault error")
   /// Plural format key: "%#@object@"
   internal static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1, fallback: "Plural format key: \"%#@object@\"")
@@ -605,6 +597,12 @@ internal enum Loc {
   }
   /// Vault
   internal static let vault = Loc.tr("Localizable", "Vault", fallback: "Vault")
+  /// Vault deleted
+  internal static let vaultDeleted = Loc.tr("Localizable", "Vault deleted", fallback: "Vault deleted")
+  /// Vault recover error, try again
+  internal static let vaultRecoverError = Loc.tr("Localizable", "Vault recover error", fallback: "Vault recover error, try again")
+  /// Vault recover error, probably no internet connection
+  internal static let vaultRecoverErrorNoInternet = Loc.tr("Localizable", "Vault recover error no internet", fallback: "Vault recover error, probably no internet connection")
   /// Video
   internal static let video = Loc.tr("Localizable", "Video", fallback: "Video")
   /// Upload playable video
@@ -628,10 +626,6 @@ internal enum Loc {
   /// Your current status:
   internal static let yourCurrentStatus = Loc.tr("Localizable", "Your current status", fallback: "Your current status:")
   internal enum About {
-    /// Account ID: %@
-    internal static func accountId(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.accountId", String(describing: p1), fallback: "Account ID: %@")
-    }
     /// Analytics ID: %@
     internal static func analyticsId(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.analyticsId", String(describing: p1), fallback: "Analytics ID: %@")
@@ -676,6 +670,10 @@ internal enum Loc {
     internal static let techInfo = Loc.tr("Localizable", "About.TechInfo", fallback: "Tech Info")
     /// Terms of Use
     internal static let termsOfUse = Loc.tr("Localizable", "About.TermsOfUse", fallback: "Terms of Use")
+    /// Vault ID: %@
+    internal static func vaultId(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "About.vaultId", String(describing: p1), fallback: "Vault ID: %@")
+    }
     /// What’s New
     internal static let whatsNew = Loc.tr("Localizable", "About.WhatsNew", fallback: "What’s New")
     internal enum Mail {
@@ -686,9 +684,9 @@ internal enum Loc {
       internal static func body(_ p1: Any) -> String {
         return Loc.tr("Localizable", "About.Mail.Body", String(describing: p1), fallback: "\n\nTechnical information\n%@")
       }
-      /// Support request, Account ID %@
+      /// Support request, Vault ID %@
       internal static func subject(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "About.Mail.Subject", String(describing: p1), fallback: "Support request, Account ID %@")
+        return Loc.tr("Localizable", "About.Mail.Subject", String(describing: p1), fallback: "Support request, Vault ID %@")
       }
     }
   }
@@ -748,8 +746,8 @@ internal enum Loc {
     internal enum JoinFlow {
       internal enum Creating {
         internal enum Soul {
-          /// Generating new account
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Creating.Soul.Title", fallback: "Generating new account")
+          /// Generating new vault
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Creating.Soul.Title", fallback: "Generating new vault")
         }
       }
       internal enum Key {
@@ -1042,8 +1040,8 @@ internal enum Loc {
     }
   }
   internal enum DeletionAlert {
-    /// You will be logged out on all other devices. You'll have 30 days to recover your account. Afterwards, it will be deleted permanently.
-    internal static let description = Loc.tr("Localizable", "DeletionAlert.description", fallback: "You will be logged out on all other devices. You'll have 30 days to recover your account. Afterwards, it will be deleted permanently.")
+    /// You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.
+    internal static let description = Loc.tr("Localizable", "DeletionAlert.description", fallback: "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.")
     /// Are you sure you want to delete your vault?
     internal static let title = Loc.tr("Localizable", "DeletionAlert.title", fallback: "Are you sure you want to delete your vault?")
   }
@@ -1304,13 +1302,13 @@ internal enum Loc {
         return Loc.tr("Localizable", "FileStorage.Space.Used", String(describing: p1), String(describing: p2), fallback: "%@ of %@ used")
       }
       internal enum Mail {
-        /// Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.
+        /// Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.
         internal static func body(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
-          return Loc.tr("Localizable", "FileStorage.Space.Mail.Body", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.")
+          return Loc.tr("Localizable", "FileStorage.Space.Mail.Body", String(describing: p1), String(describing: p2), String(describing: p3), fallback: "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.")
         }
-        /// Get more storage, account %@
+        /// Get more storage, vault %@
         internal static func subject(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "FileStorage.Space.Mail.Subject", String(describing: p1), fallback: "Get more storage, account %@")
+          return Loc.tr("Localizable", "FileStorage.Space.Mail.Subject", String(describing: p1), fallback: "Get more storage, vault %@")
         }
       }
     }
@@ -1359,16 +1357,16 @@ internal enum Loc {
   }
   internal enum Initial {
     internal enum UnstableMiddle {
-      /// Continue with current account
-      internal static let `continue` = Loc.tr("Localizable", "Initial.UnstableMiddle.Continue", fallback: "Continue with current account")
-      /// Logout from current account
-      internal static let logout = Loc.tr("Localizable", "Initial.UnstableMiddle.Logout", fallback: "Logout from current account")
-      /// You launch app with a unstable middleware. Don't use your production account. Your account may be broken.
-      internal static let message = Loc.tr("Localizable", "Initial.UnstableMiddle.Message", fallback: "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.")
+      /// Continue with current vault
+      internal static let `continue` = Loc.tr("Localizable", "Initial.UnstableMiddle.Continue", fallback: "Continue with current vault")
+      /// Logout from current vault
+      internal static let logout = Loc.tr("Localizable", "Initial.UnstableMiddle.Logout", fallback: "Logout from current vault")
+      /// You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.
+      internal static let message = Loc.tr("Localizable", "Initial.UnstableMiddle.Message", fallback: "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.")
       /// Warning
       internal static let title = Loc.tr("Localizable", "Initial.UnstableMiddle.Title", fallback: "Warning")
-      /// I won't be using my production account
-      internal static let wontUseProd = Loc.tr("Localizable", "Initial.UnstableMiddle.WontUseProd", fallback: "I won't be using my production account")
+      /// I won't be using my production vault
+      internal static let wontUseProd = Loc.tr("Localizable", "Initial.UnstableMiddle.WontUseProd", fallback: "I won't be using my production vault")
     }
   }
   internal enum InterfaceStyle {
@@ -2081,14 +2079,14 @@ internal enum Loc {
     }
   }
   internal enum Settings {
-    /// Vault and access
-    internal static let accountAndAccess = Loc.tr("Localizable", "Settings.AccountAndAccess", fallback: "Vault and access")
     /// Space name
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
     /// Space type
     internal static let spaceType = Loc.tr("Localizable", "Settings.SpaceType", fallback: "Space type")
     /// Settings
     internal static let title = Loc.tr("Localizable", "Settings.Title", fallback: "Settings")
+    /// Vault and access
+    internal static let vaultAndAccess = Loc.tr("Localizable", "Settings.VaultAndAccess", fallback: "Vault and access")
   }
   internal enum Sharing {
     /// Add to
