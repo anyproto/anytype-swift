@@ -15,7 +15,7 @@ internal extension ImageAsset {
     static let appIconSmile = ImageAsset.bundle(name: "AppIconsPreview/AppIconSmile")
   }
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
-  static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
+  static let localInternet = ImageAsset.bundle(name: "local-internet")
   enum BottomAlert {
     static let error = ImageAsset.bundle(name: "BottomAlert/error")
     static let question = ImageAsset.bundle(name: "BottomAlert/question")

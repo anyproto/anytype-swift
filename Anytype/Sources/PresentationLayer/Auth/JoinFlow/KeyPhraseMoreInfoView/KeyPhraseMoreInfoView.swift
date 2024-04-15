@@ -41,7 +41,7 @@ struct KeyPhraseMoreInfoView: View {
                     .foregroundColor(.Auth.inputText)
             }
             .frame(width: 56, height: 56)
-            AnytypeText(description, style: .bodyRegular)
+            AnytypeText(description, style: .bodyRegular, enableMarkdown: true)
                 .foregroundColor(.Auth.inputText)
         }
     }

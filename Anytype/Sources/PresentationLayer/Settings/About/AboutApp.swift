@@ -1,4 +1,5 @@
 enum AboutApp {
+    static let anyprotoLink = "https://github.com/anyproto"
     static let whatsNewLink = "https://anytype.io/release-notes/ios"
     static let communityLink = "https://community.anytype.io"
     static let helpLink = "https://doc.anytype.io/"

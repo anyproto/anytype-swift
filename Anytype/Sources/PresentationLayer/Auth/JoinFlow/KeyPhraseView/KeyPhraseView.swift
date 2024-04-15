@@ -28,7 +28,7 @@ struct KeyPhraseView: View {
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Key.description,
-                style: .calloutRegular
+                style: .bodyRegular
             )
                 .foregroundColor(.Auth.body)
                 .multilineTextAlignment(.center)
