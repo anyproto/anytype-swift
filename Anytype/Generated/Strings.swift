@@ -14,10 +14,8 @@ internal enum Loc {
   internal static let about = Loc.tr("Localizable", "About", fallback: "About")
   /// Access
   internal static let access = Loc.tr("Localizable", "Access", fallback: "Access")
-  /// Access to secret phrase from keychain
-  internal static let accessToSecretPhraseFromKeychain = Loc.tr("Localizable", "Access to secret phrase from keychain", fallback: "Access to secret phrase from keychain")
-  /// Account
-  internal static let account = Loc.tr("Localizable", "Account", fallback: "Account")
+  /// Access to key from keychain
+  internal static let accessToKeyFromKeychain = Loc.tr("Localizable", "Access to key from keychain", fallback: "Access to key from keychain")
   /// Account deleted
   internal static let accountDeleted = Loc.tr("Localizable", "Account deleted", fallback: "Account deleted")
   /// Account is deleted
@@ -74,8 +72,8 @@ internal enum Loc {
   internal static let back = Loc.tr("Localizable", "Back", fallback: "Back")
   /// Back up phrase
   internal static let backUpPhrase = Loc.tr("Localizable", "Back up phrase", fallback: "Back up phrase")
-  /// Back up your recovery phrase
-  internal static let backUpYourRecoveryPhrase = Loc.tr("Localizable", "Back up your recovery phrase", fallback: "Back up your recovery phrase")
+  /// Back up your key
+  internal static let backUpYourKey = Loc.tr("Localizable", "Back up your key", fallback: "Back up your key")
   /// Background
   internal static let background = Loc.tr("Localizable", "Background", fallback: "Background")
   /// Background picture
@@ -166,9 +164,9 @@ internal enum Loc {
   internal static let createType = Loc.tr("Localizable", "Create type", fallback: "Create type")
   /// Current
   internal static let current = Loc.tr("Localizable", "Current", fallback: "Current")
-  /// Plural format key: "This account will be deleted %#@days@"
-  internal static func daysToDeletionAccount(_ p1: Int) -> String {
-    return Loc.tr("Localizable", "Days to deletion account", p1, fallback: "Plural format key: \"This account will be deleted %#@days@\"")
+  /// Plural format key: "This vault will be deleted %#@days@"
+  internal static func daysToDeletionVault(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Days to deletion vault", p1, fallback: "Plural format key: \"This vault will be deleted %#@days@\"")
   }
   /// Default background
   internal static let defaultBackground = Loc.tr("Localizable", "Default background", fallback: "Default background")
@@ -176,8 +174,8 @@ internal enum Loc {
   internal static let defaultObjectType = Loc.tr("Localizable", "Default object type", fallback: "Default object type")
   /// Delete
   internal static let delete = Loc.tr("Localizable", "Delete", fallback: "Delete")
-  /// Delete account
-  internal static let deleteAccount = Loc.tr("Localizable", "Delete account", fallback: "Delete account")
+  /// Delete vault
+  internal static let deleteVault = Loc.tr("Localizable", "Delete vault", fallback: "Delete vault")
   /// Deleted
   internal static let deleted = Loc.tr("Localizable", "Deleted", fallback: "Deleted")
   /// Deletion error
@@ -605,6 +603,8 @@ internal enum Loc {
   internal static func validUntilDate(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Valid until date", String(describing: p1), fallback: "Valid until %@")
   }
+  /// Vault
+  internal static let vault = Loc.tr("Localizable", "Vault", fallback: "Vault")
   /// Video
   internal static let video = Loc.tr("Localizable", "Video", fallback: "Video")
   /// Upload playable video
@@ -1042,10 +1042,10 @@ internal enum Loc {
     }
   }
   internal enum DeletionAlert {
-    /// You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently
-    internal static let description = Loc.tr("Localizable", "DeletionAlert.description", fallback: "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently")
-    /// Are you sure to delete account?
-    internal static let title = Loc.tr("Localizable", "DeletionAlert.title", fallback: "Are you sure to delete account?")
+    /// You will be logged out on all other devices. You'll have 30 days to recover your account. Afterwards, it will be deleted permanently.
+    internal static let description = Loc.tr("Localizable", "DeletionAlert.description", fallback: "You will be logged out on all other devices. You'll have 30 days to recover your account. Afterwards, it will be deleted permanently.")
+    /// Are you sure you want to delete your vault?
+    internal static let title = Loc.tr("Localizable", "DeletionAlert.title", fallback: "Are you sure you want to delete your vault?")
   }
   internal enum EditSet {
     internal enum Popup {
@@ -1380,28 +1380,14 @@ internal enum Loc {
     internal static let system = Loc.tr("Localizable", "InterfaceStyle.system", fallback: "System")
   }
   internal enum Keychain {
-    /// Don’t forget to save your recovery phrase
-    internal static let donTForgetToSaveYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Don’t forget to save your recovery phrase", fallback: "Don’t forget to save your recovery phrase")
     /// Have you backed up your recovery phrase?
     internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Have you backed up your recovery phrase?", fallback: "Have you backed up your recovery phrase?")
-    /// Recovery phrase
-    internal static let recoveryPhrase = Loc.tr("Localizable", "Keychain.Recovery phrase", fallback: "Recovery phrase")
-    /// Recovery phrase copied
-    internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Keychain.Recovery phrase copied to clipboard", fallback: "Recovery phrase copied")
-    /// You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.
-    internal static let recoveryPhraseDescription = Loc.tr("Localizable", "Keychain.Recovery phrase description", fallback: "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.")
-    /// If you lose the recovery phrase and get logged out you will not be able to 
-    internal static let saveKeychainAlertPart1 = Loc.tr("Localizable", "Keychain.Save keychain alert part 1", fallback: "If you lose the recovery phrase and get logged out you will not be able to ")
-    /// ever access your data again
-    internal static let saveKeychainAlertPart2 = Loc.tr("Localizable", "Keychain.Save keychain alert part 2", fallback: "ever access your data again")
-    /// .
-    /// Save this recovery phrase outside of Anytype for data recovery.
-    /// We recommend using a secure data vault, password manager or piece of paper in the safe.
-    internal static let saveKeychainAlertPart3 = Loc.tr("Localizable", "Keychain.Save keychain alert part 3", fallback: ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.")
+    /// Key
+    internal static let key = Loc.tr("Localizable", "Keychain.Key", fallback: "Key")
     /// witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair
     internal static let seedPhrasePlaceholder = Loc.tr("Localizable", "Keychain.SeedPhrasePlaceholder", fallback: "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair")
-    /// Show and copy phrase
-    internal static let showAndCopyPhrase = Loc.tr("Localizable", "Keychain.Show and copy phrase", fallback: "Show and copy phrase")
+    /// Show and copy key
+    internal static let showAndCopyKey = Loc.tr("Localizable", "Keychain.Show and copy key", fallback: "Show and copy key")
     internal enum Error {
       /// Data to String conversion error
       internal static let dataToStringConversionError = Loc.tr("Localizable", "Keychain.Error.Data to String conversion error", fallback: "Data to String conversion error")
@@ -1409,6 +1395,16 @@ internal enum Loc {
       internal static let stringToDataConversionError = Loc.tr("Localizable", "Keychain.Error.String to Data conversion error", fallback: "String to Data conversion error")
       /// Unknown Keychain Error
       internal static let unknownKeychainError = Loc.tr("Localizable", "Keychain.Error.Unknown Keychain Error", fallback: "Unknown Keychain Error")
+    }
+    internal enum Key {
+      /// You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.
+      internal static let description = Loc.tr("Localizable", "Keychain.Key.description", fallback: "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.")
+      internal enum Copy {
+        internal enum Toast {
+          /// Key copied
+          internal static let title = Loc.tr("Localizable", "Keychain.Key.Copy.Toast.title", fallback: "Key copied")
+        }
+      }
     }
   }
   internal enum LinkAppearance {
@@ -2085,8 +2081,8 @@ internal enum Loc {
     }
   }
   internal enum Settings {
-    /// Account and access
-    internal static let accountAndAccess = Loc.tr("Localizable", "Settings.AccountAndAccess", fallback: "Account and access")
+    /// Vault and access
+    internal static let accountAndAccess = Loc.tr("Localizable", "Settings.AccountAndAccess", fallback: "Vault and access")
     /// Space name
     internal static let spaceName = Loc.tr("Localizable", "Settings.SpaceName", fallback: "Space name")
     /// Space type

@@ -203,14 +203,10 @@
 "Restore" = "Restore";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Recovery phrase";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
-"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Keychain.Save keychain alert part 2" = "ever access your data again";
-"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
-"Keychain.Show and copy phrase" = "Show and copy phrase";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
 "Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
@@ -566,9 +562,9 @@
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
 "Create object from clipboard" = "Create object from clipboard";
-"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Back up your recovery phrase";
-"Account" = "Account";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Access";
 "Back up phrase" = "Back up phrase";
 "Removing cache" = "Removing cache";
@@ -659,14 +655,14 @@
 "This object doesn't exist" = "This object doesn't exist";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Delete account";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
 "New" = "New";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your account. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
@@ -824,7 +820,7 @@
 "Settings.Title" = "Settings";
 "Settings.SpaceName" = "Space name";
 "Settings.SpaceType" = "Space type";
-"Settings.AccountAndAccess" = "Account and access";
+"Settings.AccountAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";

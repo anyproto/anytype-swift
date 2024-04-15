@@ -39,7 +39,7 @@ class KeychainPhraseViewModel: ObservableObject {
     // MARK: - Private
     
     private func obtainRecoveryPhrase() async throws {
-        try await localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain)
+        try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
         recoveryPhrase = try seedService.obtainSeed()
     }
     
@@ -49,7 +49,7 @@ class KeychainPhraseViewModel: ObservableObject {
     }
     
     private func showToast() {
-        toastBarData = ToastBarData(text: Loc.Keychain.recoveryPhraseCopiedToClipboard, showSnackBar: true)
+        toastBarData = ToastBarData(text: Loc.Keychain.Key.Copy.Toast.title, showSnackBar: true)
         AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
     }
 }

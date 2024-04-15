@@ -76,7 +76,7 @@ struct GlobalSearchView: View {
                     model.showBacklinks(data)
                 }
             }
-            .swipeActions {
+            .swipeActions(allowsFullSwipe: false) {
                 Button(Loc.Search.Backlinks.Swipe.title) {
                     model.showBacklinks(data)
                 }

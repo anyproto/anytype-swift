@@ -12,15 +12,15 @@ struct KeychainPhraseView: View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(24)
-            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading)
+            AnytypeText(Loc.backUpYourKey, style: .heading)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(8)
-            AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular)
+            AnytypeText(Loc.Keychain.Key.description, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(24)
             SeedPhraseView(model: model)
             Spacer()
-            StandardButton(Loc.Keychain.showAndCopyPhrase, style: .secondaryLarge) {
+            StandardButton(Loc.Keychain.showAndCopyKey, style: .secondaryLarge) {
                 model.onSeedViewTap()
             }
             Spacer.fixedHeight(20)

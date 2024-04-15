@@ -46,7 +46,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     func onCopyPhrase() {
         Task {
-            try await localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain)
+            try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
             let phrase = try seedService.obtainSeed()
             UIPasteboard.general.string = phrase
             toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
