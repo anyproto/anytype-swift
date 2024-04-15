@@ -203,76 +203,70 @@
 "Restore" = "恢复";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "恢复短语";
-"Keychain.Recovery phrase copied to clipboard" = "已复制的恢复短语";
-"Keychain.Recovery phrase description" = "您将需要短语才能登录。将其保存在安全的地方。如果您丢失了它，您将无法再访问您的帐户。";
-"Keychain.Save keychain alert part 1" = "如果您丢失了恢复短语并注销，您将再也无法 ";
-"Keychain.Save keychain alert part 2" = "访问您的数据";
-"Keychain.Save keychain alert part 3" = ".\n将此恢复短语保存在 Anytype 之外以进行数据恢复。\n我们建议在保险箱中使用安全的数据保管库、密码管理器或纸张。";
-"Keychain.Don’t forget to save your recovery phrase" = "不要忘记保存您的恢复短语";
-"Keychain.Show and copy phrase" = "显示和复制短语";
-"Keychain.Have you backed up your recovery phrase?" = "您是否备份了恢复短语?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "字符串到数据转换错误";
 "Keychain.Error.Data to String conversion error" = "数据到字符串转换错误";
 "Keychain.Error.Unknown Keychain Error" = "未知的钥匙串是错误的";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "注册";
-"Login" = "登录";
 "Create" = "创建";
 "Scan QR code" = "扫描二维码";
 "Auth.CameraPermissionTitle" = "请允许访问";
-"Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
-"Auth.LogIn" = "登录";
-"Join" = "加入";
-"Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
 
-"Account recover error" = "帐户恢复错误，请重试";
-"Account recover error no internet" = "帐户恢复错误，可能没有互联网连接";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "创建钱包时出错";
-"Error select account" = "选择帐户时出错";
-"Error wallet recover account" = "错误钱包恢复帐户";
-"Wallet.Recovery.Error.description" = "恢复短语无效";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "搜索语言";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "保存您的恢复短语";
-"Auth.JoinFlow.Key.Description" = "要登录您的帐户，您需要一个恢复短语。它是12个随机单词，就像所有数据的主密码。立即保存或稍后在设置中保存恢复短语。";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "输入恢复短语";
-"Auth.JoinFlow.Key.Button.Show.Title" = "显示恢复短语";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "进入应用";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
 "Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "恢复短语可以在 Anytype 设置中找到";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "什么是恢复短语？";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是12个单词的随机组合，您的帐户在此设备上神奇般地生成。";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "谁知道该恢复短语，谁就拥有该帐户。**此时此刻，你是世界上唯一知道它的人。**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "这就是为什么必须确保恢复短语的安全。作为唯一的所有者，如果恢复短语丢失了，没有人可以帮助到您。";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "如何保存我的恢复短语？";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存恢复短语的最简单方法是将其保存在您的密码管理器中。";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
-"Auth.JoinFlow.Soul.Title" = "选择名称";
-"Auth.JoinFlow.Soul.Description" = "这将是您在应用中的显示方式。";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
 "Auth.JoinFlow.Setting.Space.Title" = "设置默认空间";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
 "Auth.LoginFlow.Or" = "或者";
-"Auth.LoginFlow.Textfield.Placeholder" = "输入恢复短语";
-"Auth.LoginFlow.Enter.Button.Title" = "登录";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "无效的输入";
 
 // Object settings
@@ -347,7 +341,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype 需要访问您的相机才能扫描二维码。\n\n请转到您设备的设置 -> 隐私 -> 将 Anytype 相机设置为开。";
 
 // MARK: - Deletion
-"Pending deletion text" = "我们很遗憾看到您离开。您有 30 天的时间撤销此请求。30 天后，您的加密帐户数据将从备份节点中永久删除。";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "撤消/重做";
@@ -515,7 +509,6 @@
 "Unknown error" = "未知错误";
 "Open Type Error" = "不支持的类型 “%@”。您可以使用桌面端打开。";
 "Close" = "关闭";
-"Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
 "Nothing to redo" = "无需重做";
 "Nothing to undo" = "没有可撤销的历史";
@@ -568,18 +561,18 @@
 "Mode" = "模式";
 "copied to clipboard" = "%@ 已复制到剪贴板";
 "Create object from clipboard" = "从剪贴板创建对象";
-"Access to secret phrase from keychain" = "从钥匙串访问秘密短语";
-"Back up your recovery phrase" = "备份恢复短语";
-"Account" = "帐户";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "访问";
-"Back up phrase" = "备份短语";
+"Back up key" = "Back up key";
 "Removing cache" = "删除缓存";
 "Deletion error" = "删除错误";
 "Start" = "开始";
 "On analytics" = "关于分析";
-"Select account error" = "选择帐户错误";
-"Account deleted" = "帐户已删除";
-"Account.Select.Incompatible.Version.Error.Text" = "由于远程节点上的版本不兼容，无法检索帐户数据。请将 Anytype 更新到最新版本。";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "从钥匙串恢复";
 "Edit" = "编辑";
 "In this object" = "在此对象中";
@@ -661,14 +654,14 @@
 "This object doesn't exist" = "此对象不存在";
 "Setting up encrypted storage\nPlease wait" = "设置加密存储\n请稍候";
 "These objects will be deleted irrevocably" = "这些对象将被删除且不可撤销。您无法撤销此操作。";
-"Delete account" = "删除帐户";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "取消删除";
 "Logout and clear data" = "注销并清除数据";
 "New" = "新建";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "您确定要删除账户吗？";
-"DeletionAlert.description" = "您将在所有其他设备上注销。您将有 30 天的时间来恢复它。之后将永久删除";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "网格";
@@ -801,7 +794,7 @@
 "About.AppVersion" = "App 版本: %@";
 "About.BuildNumber" = "构建版本: %@";
 "About.Library" = "库版本: %@";
-"About.accountId" = "帐户 ID: %@";
+"About.vaultId" = "Vault ID: %@";
 "About.analyticsId" = "分析 ID: %@";
 "About.deviceId" = "设备 ID: %@";
 "About.Device" = "设备: %@";
@@ -815,7 +808,7 @@
 "About.TermsOfUse" = "使用条款";
 "About.PrivacyPolicy" = "隐私策略";
 "About.TechInfo" = "技术信息";
-"About.Mail.Subject" = "支持请求, 帐户 ID %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\n技术信息\n%@";
 
 // MARK: - Cache
@@ -826,7 +819,7 @@
 "Settings.Title" = "设置";
 "Settings.SpaceName" = "空间名称";
 "Settings.SpaceType" = "空间类型";
-"Settings.AccountAndAccess" = "账户与访问权限";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
@@ -834,8 +827,8 @@
 "FileStorage.Space.Instruction" = "您可以在我们的节点上免费加密备份存储多达 %@ 的文件。如果达到限制，文件将仅存储在本地。";
 "FileStorage.Space.Used" = "已使用 %@ ,总共有 %@ ";
 "FileStorage.Space.GetMore" = "获取更多空间";
-"FileStorage.Space.Mail.Subject" = " %@ 帐户，获取更多存储空间";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "本地存储";
 "FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被重新加载。";
 "FileStorage.Local.Used" = "%@ 已使用";
@@ -996,11 +989,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Message" = "您启动了一个不稳定的中间程序。不要使用您的生产账户。您的账户可能已损坏。";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Logout" = "退出当前账户";
-"Initial.UnstableMiddle.Continue" = "继续使用当前账户";
-"Initial.UnstableMiddle.WontUseProd" = "我不会使用我的生产账户";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "创建带有特定类型的对象";
