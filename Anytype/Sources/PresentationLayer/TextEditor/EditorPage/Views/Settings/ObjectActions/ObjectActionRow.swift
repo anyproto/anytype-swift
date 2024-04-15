@@ -3,11 +3,11 @@ import SwiftUI
 
 struct ObjectActionRow: View {
     let setting: ObjectAction
-    let onTap: () -> Void
+    let onTap: () async throws -> Void
 
     var body: some View {
-        Button {
-            onTap()
+        AsyncButton {
+            try await onTap()
             UISelectionFeedbackGenerator().selectionChanged()
         }
         label: {
@@ -30,6 +30,7 @@ struct ObjectActionRow: View {
                     }
             }
         }
+        .frame(height: 108)
     }
 
     private enum Constants {

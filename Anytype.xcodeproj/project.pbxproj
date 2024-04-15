@@ -9671,19 +9671,11 @@
 			path = Audioplayer;
 			sourceTree = "<group>";
 		};
-		53FF7CB626FCDB1600A5A592 /* ObjectActionsViews */ = {
+		53FF7CBA26FDD33400A5A592 /* ObjectActions */ = {
 			isa = PBXGroup;
 			children = (
 				53FF7CB426FCCDE800A5A592 /* ObjectActionRow.swift */,
 				53FF7CB726FCDB4B00A5A592 /* ObjectActionsView.swift */,
-			);
-			path = ObjectActionsViews;
-			sourceTree = "<group>";
-		};
-		53FF7CBA26FDD33400A5A592 /* ObjectActions */ = {
-			isa = PBXGroup;
-			children = (
-				53FF7CB626FCDB1600A5A592 /* ObjectActionsViews */,
 				53FF7CBB26FDD36200A5A592 /* ObjectActionsViewModel.swift */,
 				53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */,
 			);

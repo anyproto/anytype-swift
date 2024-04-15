@@ -23,12 +23,6 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 
 @MainActor
 final class ObjectSettingsViewModel: ObservableObject {
-   
-    var onDismiss: () -> Void = {} {
-        didSet {
-            objectActionsViewModel.dismissSheet = onDismiss
-        }
-    }
     
     var settings: [ObjectSetting] {
         guard let details = document.details else { return [] }
@@ -51,16 +45,9 @@ final class ObjectSettingsViewModel: ObservableObject {
     private weak var delegate: ObjectSettingsModuleDelegate?
     init(
         document: BaseDocumentProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        blockService: BlockServiceProtocol,
-        templatesService: TemplatesServiceProtocol,
         output: ObjectSettingsModelOutput,
         delegate: ObjectSettingsModuleDelegate,
-        blockWidgetService: BlockWidgetServiceProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
-        deepLinkParser: DeepLinkParserProtocol,
-        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void,
-        documentsProvider: DocumentsProviderProtocol
+        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
         self.document = document
         self.output = output
@@ -69,13 +56,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         
         self.objectActionsViewModel = ObjectActionsViewModel(
             objectId: document.objectId,
-            service: objectActionsService,
-            blockService: blockService,
-            templatesService: templatesService,
-            documentsProvider: documentsProvider,
-            blockWidgetService: blockWidgetService,
-            activeWorkpaceStorage: activeWorkpaceStorage,
-            deepLinkParser: deepLinkParser,
             undoRedoAction: { [weak output] in
                 output?.undoRedoAction(document: document)
             },
@@ -105,9 +85,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         objectActionsViewModel.onTemplateMakeDefault = { [weak delegate] templateId in
             delegate?.didTapUseTemplateAsDefault(templateId: templateId)
         }
-        
-        setupSubscription()
-        onDocumentUpdate()
     }
 
     func onTapLayoutPicker() {
@@ -128,21 +105,5 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     func onTapRelations() {
         output?.relationsAction(document: document)
-    }
-    
-    // MARK: - Private
-    private func setupSubscription() {
-        subscription = document.syncPublisher.sink { [weak self] in
-            self?.onDocumentUpdate()
-        }
-    }
-    
-    private func onDocumentUpdate() {
-        objectWillChange.send()
-        if let details = document.details {
-            objectActionsViewModel.details = details
-        }
-        objectActionsViewModel.isLocked = document.isLocked
-        objectActionsViewModel.permissions = document.permissions
     }
 }
