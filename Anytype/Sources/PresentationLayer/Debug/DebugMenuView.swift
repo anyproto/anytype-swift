@@ -120,7 +120,7 @@ struct DebugMenuView: View {
                 model.unzipWorkingDirectory()
             }
             StandardButton(
-                "Remove Recovery Phrase from device",
+                "Remove Key from device",
                 inProgress: model.isRemovingRecoveryPhraseInProgress,
                 style: .warningLarge
             ) {
