@@ -122,7 +122,7 @@ final class LoginViewModel: ObservableObject {
     
     private func restoreFromkeychain() {
         Task {
-            try await localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain)
+            try await localAuthService.auth(reason: Loc.restoreKeyFromKeychain)
             let phrase = try seedService.obtainSeed()
             walletRecovery(with: phrase, route: .keychain)
         }

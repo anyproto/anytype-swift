@@ -70,8 +70,8 @@ internal enum Loc {
   internal static let audio = Loc.tr("Localizable", "Audio", fallback: "Audio")
   /// Back
   internal static let back = Loc.tr("Localizable", "Back", fallback: "Back")
-  /// Back up phrase
-  internal static let backUpPhrase = Loc.tr("Localizable", "Back up phrase", fallback: "Back up phrase")
+  /// Back up key
+  internal static let backUpKey = Loc.tr("Localizable", "Back up key", fallback: "Back up key")
   /// Back up your key
   internal static let backUpYourKey = Loc.tr("Localizable", "Back up your key", fallback: "Back up your key")
   /// Background
@@ -472,8 +472,8 @@ internal enum Loc {
   internal static let restore = Loc.tr("Localizable", "Restore", fallback: "Restore")
   /// Restore from keychain
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain", fallback: "Restore from keychain")
-  /// Restore Recovery Phrase from the keychain
-  internal static let restoreSecretPhraseFromKeychain = Loc.tr("Localizable", "Restore secret phrase from keychain", fallback: "Restore Recovery Phrase from the keychain")
+  /// Restore Key from the keychain
+  internal static let restoreKeyFromKeychain = Loc.tr("Localizable", "Restore key from keychain", fallback: "Restore Key from the keychain")
   /// Scan QR code
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code", fallback: "Scan QR code")
   /// Search
@@ -1380,8 +1380,8 @@ internal enum Loc {
     internal static let system = Loc.tr("Localizable", "InterfaceStyle.system", fallback: "System")
   }
   internal enum Keychain {
-    /// Have you backed up your recovery phrase?
-    internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Have you backed up your recovery phrase?", fallback: "Have you backed up your recovery phrase?")
+    /// Have you backed up your key?
+    internal static let haveYouBackedUpYourKey = Loc.tr("Localizable", "Keychain.Have you backed up your key?", fallback: "Have you backed up your key?")
     /// Key
     internal static let key = Loc.tr("Localizable", "Keychain.Key", fallback: "Key")
     /// witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair

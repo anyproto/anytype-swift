@@ -207,7 +207,7 @@
 "Keychain.Key.Copy.Toast.title" = "Key copied";
 "Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
 "Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
 "Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
@@ -217,7 +217,7 @@
 "Create" = "Create";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Please allow access";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
+"Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
 "Join" = "New Vault";
 "Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
@@ -566,7 +566,7 @@
 "Back up your key" = "Back up your key";
 "Vault" = "Vault";
 "Access" = "Access";
-"Back up phrase" = "Back up phrase";
+"Back up key" = "Back up key";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Deletion error";
 "Start" = "Start";
