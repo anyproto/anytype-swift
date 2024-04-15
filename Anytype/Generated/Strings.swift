@@ -304,8 +304,6 @@ internal enum Loc {
   internal static let lock = Loc.tr("Localizable", "Lock", fallback: "Lock")
   /// Log out
   internal static let logOut = Loc.tr("Localizable", "Log out", fallback: "Log out")
-  /// Log In
-  internal static let login = Loc.tr("Localizable", "Login", fallback: "Log In")
   /// Logout and clear data
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data", fallback: "Logout and clear data")
   /// Media
@@ -521,8 +519,6 @@ internal enum Loc {
   internal static let shared = Loc.tr("Localizable", "Shared", fallback: "Shared")
   /// Show types
   internal static let showTypes = Loc.tr("Localizable", "Show types", fallback: "Show types")
-  /// Sign up
-  internal static let signUp = Loc.tr("Localizable", "Sign up", fallback: "Sign up")
   /// Sky
   internal static let sky = Loc.tr("Localizable", "Sky", fallback: "Sky")
   /// Sky background
@@ -789,14 +785,14 @@ internal enum Loc {
           }
         }
         internal enum ReadMore {
-          /// What is Recovery Phrase?
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Title", fallback: "What is Recovery Phrase?")
+          /// What is the Key?
+          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Title", fallback: "What is the Key?")
           internal enum Instruction {
-            /// How to save my phrase?
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Title", fallback: "How to save my phrase?")
+            /// How to save my key?
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Title", fallback: "How to save my key?")
             internal enum Option1 {
-              /// The easiest way to store your Recovery Phrase is to save it in your password manager.
-              internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title", fallback: "The easiest way to store your Recovery Phrase is to save it in your password manager.")
+              /// The easiest way to store your key is to save it in your password manager.
+              internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title", fallback: "The easiest way to store your key is to save it in your password manager.")
             }
             internal enum Option2 {
               /// The most secure way is to write it down on paper and keep it offline, in a safe and secure place.
@@ -804,16 +800,16 @@ internal enum Loc {
             }
           }
           internal enum Option1 {
-            /// Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.")
+            /// It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.")
           }
           internal enum Option2 {
-            /// Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**")
+            /// Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**")
           }
           internal enum Option3 {
-            /// That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.")
+            /// All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!")
           }
         }
       }
@@ -838,10 +834,8 @@ internal enum Loc {
       /// OR
       internal static let or = Loc.tr("Localizable", "Auth.LoginFlow.Or", fallback: "OR")
       internal enum Enter {
-        internal enum Button {
-          /// Login
-          internal static let title = Loc.tr("Localizable", "Auth.LoginFlow.Enter.Button.Title", fallback: "Login")
-        }
+        /// Enter my Vault
+        internal static let title = Loc.tr("Localizable", "Auth.LoginFlow.Enter.Title", fallback: "Enter my Vault")
       }
       internal enum Entering {
         internal enum Void {
@@ -850,8 +844,8 @@ internal enum Loc {
         }
       }
       internal enum Textfield {
-        /// Type your recovery phrase
-        internal static let placeholder = Loc.tr("Localizable", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Type your recovery phrase")
+        /// Type your key
+        internal static let placeholder = Loc.tr("Localizable", "Auth.LoginFlow.Textfield.Placeholder", fallback: "Type your key")
       }
       internal enum Use {
         internal enum Keychain {
@@ -2663,8 +2657,8 @@ internal enum Loc {
   internal enum Wallet {
     internal enum Recovery {
       internal enum Error {
-        /// Invalid recovery phrase
-        internal static let description = Loc.tr("Localizable", "Wallet.Recovery.Error.description", fallback: "Invalid recovery phrase")
+        /// Invalid Key
+        internal static let description = Loc.tr("Localizable", "Wallet.Recovery.Error.description", fallback: "Invalid Key")
       }
     }
   }
