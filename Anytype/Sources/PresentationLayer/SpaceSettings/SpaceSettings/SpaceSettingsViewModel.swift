@@ -117,7 +117,7 @@ final class SpaceSettingsViewModel: ObservableObject {
         
         spaceIcon = spaceView.objectIconImage
         spaceAccessType = spaceView.spaceAccessType?.name ?? ""
-        allowDelete = spaceView.canBeDelete
+        allowDelete = participantSpaceView.canBeDelete
         allowLeave = participantSpaceView.canLeave
         allowEditSpace = participantSpaceView.canEdit
         allowRemoteStorage = participantSpaceView.isOwner

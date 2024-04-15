@@ -56,12 +56,16 @@ extension SpaceView {
         isOwner && (spaceAccessType == .shared)
     }
     
+    func canLeave(isOwner: Bool) -> Bool {
+        !isOwner && isActive
+    }
+    
     var isShared: Bool {
         spaceAccessType == .shared
     }
     
-    var canBeDelete: Bool {
-        spaceAccessType == .private
+    func canBeDelete(isOwner: Bool) -> Bool {
+        (isOwner && spaceAccessType == .private) || (!isOwner && accountStatus == .spaceRemoving)
     }
     
     var canBeArchive: Bool {

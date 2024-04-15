@@ -22,7 +22,11 @@ extension ParticipantSpaceView {
     }
     
     var canLeave: Bool {
-        participant?.canLeave ?? false
+        spaceView.canLeave(isOwner: isOwner)
+    }
+    
+    var canBeDelete: Bool {
+        spaceView.canBeDelete(isOwner: isOwner)
     }
     
     var isOwner: Bool {

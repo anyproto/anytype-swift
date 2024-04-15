@@ -107,7 +107,7 @@ final class SpaceSwitchViewModel: ObservableObject {
                 onTap: { [weak self] in
                     self?.onTapWorkspace(workspace: spaceView)
                 },
-                onDelete: spaceView.canBeDelete ? { [weak self] in
+                onDelete: participantSpaceView.canBeDelete ? { [weak self] in
                     AnytypeAnalytics.instance().logClickDeleteSpace(route: .navigation)
                     self?.spaceViewForDelete = spaceView
                 } : nil,

@@ -40,10 +40,6 @@ extension Participant {
         localName.withPlaceholder
     }
     
-    var canLeave: Bool {
-        (permission == .reader || permission == .writer) && status == .active
-    }
-    
     var isOwner: Bool {
         permission == .owner
     }
