@@ -80,6 +80,7 @@ struct GlobalSearchView: View {
                 Button(Loc.Search.Backlinks.Swipe.title) {
                     model.showBacklinks(data)
                 }
+                .tint(Color.Button.active)
             }
         }
     }
