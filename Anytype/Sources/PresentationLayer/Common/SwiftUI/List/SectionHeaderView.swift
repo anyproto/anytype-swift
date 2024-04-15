@@ -14,7 +14,7 @@ struct SectionHeaderView<Content>: View where Content: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            AnytypeText(title, style: .caption1Regular, enableMarkdown: true)
+            AnytypeText(title, style: .caption1Regular)
                 .foregroundColor(.Text.secondary)
                 .if(rightContent().isNotNil) {
                     $0.lineLimit(1)

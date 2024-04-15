@@ -1879,9 +1879,9 @@ internal enum Loc {
   internal enum Search {
     internal enum Backlinks {
       internal enum Header {
-        /// Backlinks of: **%@**
+        /// Backlinks of: %@
         internal static func title(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "Search.Backlinks.Header.title", String(describing: p1), fallback: "Backlinks of: **%@**")
+          return Loc.tr("Localizable", "Search.Backlinks.Header.title", String(describing: p1), fallback: "Backlinks of: %@")
         }
       }
       internal enum Show {

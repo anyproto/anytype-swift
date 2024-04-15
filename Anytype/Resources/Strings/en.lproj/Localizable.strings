@@ -333,7 +333,7 @@
 "There is no type named" = "There is no type named %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 "Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: **%@**";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
 "Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
