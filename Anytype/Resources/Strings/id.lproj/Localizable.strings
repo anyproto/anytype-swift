@@ -203,76 +203,70 @@
 "Restore" = "Pulihkan";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Frasa pemulihan";
-"Keychain.Recovery phrase copied to clipboard" = "Frasa pemulihan disalin";
-"Keychain.Recovery phrase description" = "Kamu membutuhkannya untuk masuk. Simpanlah dengan baik. Jika kamu kehilangan frasa ini, kamu tidak bisa mengakses akunmu.";
-"Keychain.Save keychain alert part 1" = "Jika kamu kehilangan frasa pemulihan dan keluar log, kamu tidak akan bisa ";
-"Keychain.Save keychain alert part 2" = "lagi mengakses datamu";
-"Keychain.Save keychain alert part 3" = ".\nSimpanlah frasa pemulihan di luar Anytype sebagai cadangan.\nKami menyarankan menggunakan brankas data yang aman, manajer kata sandi atau tulisan langsung di kertas.";
-"Keychain.Don’t forget to save your recovery phrase" = "Jangan lupa menyimpan frasa pemulihanmu";
-"Keychain.Show and copy phrase" = "Tampilkan dan salin frasa";
-"Keychain.Have you backed up your recovery phrase?" = "Sudahkah kamu mencadangkan frasa pemulihanmu?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "Galat konversi String ke Data";
 "Keychain.Error.Data to String conversion error" = "Galat konversi Data ke String";
 "Keychain.Error.Unknown Keychain Error" = "Galat Kunci Tak Diketahui";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Daftar";
-"Login" = "Masuk";
 "Create" = "Buat";
 "Scan QR code" = "Pindai kode QR";
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
-"Restore secret phrase from keychain" = "Mengembalikan Tahap Pemulihan dari rantai kunci";
-"Auth.LogIn" = "Masuk";
-"Join" = "Gabung";
-"Auth.Welcome.Subtitle" = "Anytype adalah tempat aman bagimu untuk menulis, berpikir, merencanakan, dan mengorganisasikan apa pun yang penting bagimu.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
 
-"Account recover error" = "Galat pemulihan akun, coba lagi";
-"Account recover error no internet" = "Galat pemulihan akun, kemungkinan tak ada koneksi internet";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Galat membuat wallet";
-"Error select account" = "Galat memilih akun";
-"Error wallet recover account" = "Galat wallet memulihkan akun";
-"Wallet.Recovery.Error.description" = "Frasa pemulihan tidak valid";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Cari bahasa";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Simpan Frasa Pemulihanmu";
-"Auth.JoinFlow.Key.Description" = "Ini adalah cara autentikasi baru yang memberimu kepemilikan penuh atas akun dan datamu.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Masukkan frasa pemulihanmu";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Tampilkan Frasa Pemulihan";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Ke aplikasi";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Lewati";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Salin ke papan klip";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Baca selengkapnya";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Kamu bisa menemukan Frasa Pemulihan di Setelan Anytype";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "Apa itu Frasa Pemulihan?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Frasa Pemulihan adalah kombinasi 12 kata acak yang membuat akunmu di perangkat ini.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Siapa pun yang mengetahui Frasa Pemulihan, dialah yang memiliki akun tersebut. **Saat ini, hanya kamu yang tahu.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Itulah mengapa menjaga Frasa Pemulihan sangatlah penting. Karena kamu satu-satunya pemilik frasa ini, tidak ada yang bisa membantumu jika frasa ini hilang.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Bagaimana menyimpan frasaku?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Cara paling mudah untuk menyimpan Frasa Pemulihan adalah dengan meyimpannya di manajer kata sandi.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Sedangkan, cara yang paling aman adalah dengan menuliskannya pada secarik kertas dan menyimpan kertas itu di tempat yang aman.";
 
-"Auth.JoinFlow.Soul.Title" = "Pilih namamu";
-"Auth.JoinFlow.Soul.Description" = "Beginilah penampilanmu di dalam aplikasi.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Membuat akun baru";
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
 "Auth.JoinFlow.Setting.Space.Title" = "Menyiapkan ruang bawaanmu";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
 "Auth.LoginFlow.Or" = "ATAU";
-"Auth.LoginFlow.Textfield.Placeholder" = "Masukkan frasa pemulihanmu";
-"Auth.LoginFlow.Enter.Button.Title" = "Masuk";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Memasuki Void";
 
 // Object settings
@@ -347,7 +341,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype perlu mengakses kameramu untuk memindai kode QR.\n\nSilakan menuju Setelan -> Privasi -> Kamera dan atur Anytype menjadi ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "Kami sedih melihatmu pergi. Kamu punya waktu 30 hari untuk membatalkan permintaan ini. Setelah 30 hari, data akun terenkripsimu akan dihapus secara permanen dari simpul cadangan.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Batalkan/Ulangi";
@@ -515,7 +509,6 @@
 "Unknown error" = "Kesalahan tak dikenal";
 "Open Type Error" = "Tipe \"%@\" tidak didukung. Kamu bisa membukanya di desktop.";
 "Close" = "Tutup";
-"Account is deleted" = "Akun terhapus";
 "Add phone" = "Tambahkan telepon";
 "Nothing to redo" = "Tidak ada yang dibatalkan";
 "Nothing to undo" = "Tidak ada yang dikembalikan";
@@ -568,18 +561,18 @@
 "Mode" = "Mode";
 "copied to clipboard" = "%@ tersalin ke papan klip";
 "Create object from clipboard" = "Buat objek dari papan kerani";
-"Access to secret phrase from keychain" = "Akses untuk tahap rahasia dari rantai kunci";
-"Back up your recovery phrase" = "Cadangkan untuk tahap pemulihan";
-"Account" = "Akun";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Akses";
-"Back up phrase" = "Tahap cadangkan";
+"Back up key" = "Back up key";
 "Removing cache" = "Menghapus cache";
 "Deletion error" = "Kesalahan penghapusan ";
 "Start" = "Mulai";
 "On analytics" = "Tentang analitik";
-"Select account error" = "Memilih akun salah";
-"Account deleted" = "Akun dihapus";
-"Account.Select.Incompatible.Version.Error.Text" = "Tidak bisa mengembalikkan data akun karena versi yang tidak kompatibel pada node jarak jauh. Tolong perbaharui tipe apapun ke versi terbaru";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Memulihkan dari rantai kunci";
 "Edit" = "Sunting";
 "In this object" = "Di objek ini";
@@ -661,14 +654,14 @@
 "This object doesn't exist" = "Objek ini tidak ada";
 "Setting up encrypted storage\nPlease wait" = "Menyiapkan penyimpanan terenkripsi\nMohon tunggu";
 "These objects will be deleted irrevocably" = "Objek berikut akan dihapus secara permanen. Kamu tidak bisa membatalkan tindakan ini.";
-"Delete account" = "Hapus akun";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Batalkan penghapusan";
 "Logout and clear data" = "Keluar dan bersihkan data";
 "New" = "Baru";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Kamu yakin ingin menghapus akun?";
-"DeletionAlert.description" = "Kamu akan keluar akun pada semua perangkat. Kamu punya waktu 30 hari untuk membatalkannya, setelah itu akun akan dihapus secara permanen";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Tabel";
@@ -801,7 +794,7 @@
 "About.AppVersion" = "Versi aplikasi: %@";
 "About.BuildNumber" = "Nomor Pembuatan: %@";
 "About.Library" = "Versi Pustaka: %@";
-"About.accountId" = "ID akun: %@";
+"About.vaultId" = "Vault ID: %@";
 "About.analyticsId" = "ID analitik: %@";
 "About.deviceId" = "ID perangkat: %@";
 "About.Device" = "Perangkat: %@";
@@ -815,7 +808,7 @@
 "About.TermsOfUse" = "Ketentuan Penggunaan";
 "About.PrivacyPolicy" = "Kebijakan Privasi";
 "About.TechInfo" = "Info Tekhnologi";
-"About.Mail.Subject" = "Permintaan dukungan, ID akun %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nInformasi Tekhnik\n%@";
 
 // MARK: - Cache
@@ -826,7 +819,7 @@
 "Settings.Title" = "Setelan";
 "Settings.SpaceName" = "Nama Ruang";
 "Settings.SpaceType" = "Tipe ruang";
-"Settings.AccountAndAccess" = "Akun dan akses";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Penyimpanan berkas";
@@ -834,8 +827,8 @@
 "FileStorage.Space.Instruction" = "Kamu bisa menyimpan berkasmu hingga %@ di simpul cadangan terenkripsi kami secara gratis. Jika kamu mencapai limit, berkas hanya akan disimpan secara lokal.";
 "FileStorage.Space.Used" = "%@ dari %@ digunakan";
 "FileStorage.Space.GetMore" = "Dapatkan ruang tambahan";
-"FileStorage.Space.Mail.Subject" = "Dapatkan penyimpanan lebih, akun %@";
-"FileStorage.Space.Mail.Body" = "Halo, tim Anytype. Aku ingin menambahkan kapasitas penyimpanan berkasku karena kehabisan ruangan. Batasku saat ini adalah %@. ID akunku adalah %@. Salam sejahtera, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Penyimpanan lokal";
 "FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
 "FileStorage.Local.Used" = "%@ digunakan";
@@ -996,11 +989,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Peringatan";
-"Initial.UnstableMiddle.Message" = "Kamu meluncurkan aplikasi dengan perangkat tengah yang tidak stabil. Jangan pakai akun produksimu. Akunmu bisa rusak.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Peringatan";
-"Initial.UnstableMiddle.Logout" = "Keluar dari akun ini";
-"Initial.UnstableMiddle.Continue" = "Lanjutkan dengan akun ini";
-"Initial.UnstableMiddle.WontUseProd" = "Saya tidak akan menggunakan akun produksi saya";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Buat Objek dengan Tipe tertentu";

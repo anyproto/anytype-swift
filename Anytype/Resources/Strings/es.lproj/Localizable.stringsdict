@@ -77,15 +77,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d backlink</string>
+        <string>%d enlace</string>
         <key>other</key>
         <string>%d backlinks</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Esta cuenta será eliminada %#@days@</string>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>mañana</string>
+        <string>tomorrow</string>
         <key>other</key>
-        <string>en %d días</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -224,13 +224,13 @@
         <key>other</key>
         <string>%d requests</string>
         <key>one</key>
-        <string>%d request</string>
+        <string>%d solicitud</string>
       </dict>
     </dict>
     <key>Per Month</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@month@</string>
+      <string>por %#@month@</string>
       <key>month</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -238,7 +238,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>mes</string>
         <key>other</key>
         <string>%d months</string>
       </dict>
@@ -246,7 +246,7 @@
     <key>Per Week</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@week@</string>
+      <string>por %#@week@</string>
       <key>week</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -254,7 +254,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>week</string>
+        <string>semana</string>
         <key>other</key>
         <string>%d weeks</string>
       </dict>
@@ -262,7 +262,7 @@
     <key>Per Year</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@year@</string>
+      <string>por %#@year@</string>
       <key>year</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -270,7 +270,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>año</string>
         <key>other</key>
         <string>%d years</string>
       </dict>
@@ -278,7 +278,7 @@
     <key>Per Day</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
+      <string>por %#@day@</string>
       <key>day</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -286,7 +286,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>día</string>
         <key>other</key>
         <string>%d days</string>
       </dict>

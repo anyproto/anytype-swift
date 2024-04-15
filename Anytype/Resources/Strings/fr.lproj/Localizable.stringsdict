@@ -82,10 +82,10 @@
         <string>Rétrolien %d</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Ce compte sera supprimé %#@days@</string>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>demain</string>
+        <string>tomorrow</string>
         <key>other</key>
-        <string>dans %d jours</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>

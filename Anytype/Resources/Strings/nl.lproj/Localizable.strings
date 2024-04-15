@@ -203,76 +203,70 @@
 "Restore" = "Herstel";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Herstelzin";
-"Keychain.Recovery phrase copied to clipboard" = "Herstelzin gekopieerd";
-"Keychain.Recovery phrase description" = "Je zult dit nodig hebben om in te loggen. Bewaar dit op een veilige plek. Als je dit verliest, heb je niet langer toegang tot je account.";
-"Keychain.Save keychain alert part 1" = "Als je de herstelzin verliest en wordt uitgelogd, dan zul je niet meer in staat zijn om ";
-"Keychain.Save keychain alert part 2" = "ooit weer toegang tot je gegevens te hebben";
-"Keychain.Save keychain alert part 3" = "/\nSla deze herstelzin op buiten Anytype voor gegevensherstel.\nWe raden aan om een beveiligde gegevenskluis, wachtwoordbeheerder of vel papier te gebruiken.";
-"Keychain.Don’t forget to save your recovery phrase" = "Vergeet niet je herstelzin op te slaan";
-"Keychain.Show and copy phrase" = "Laat herstelzin zien en kopieer";
-"Keychain.Have you backed up your recovery phrase?" = "Heb je een back-up gemaakt van je herstelzin?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "Tekst-naar-data conversiefout";
 "Keychain.Error.Data to String conversion error" = "Data-naar-tekst conversiefout";
 "Keychain.Error.Unknown Keychain Error" = "Onbekende fout door keychain";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Aanmelden";
-"Login" = "Inloggen";
 "Create" = "Maak";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Geef toegang";
-"Restore secret phrase from keychain" = "Herstel de herstelzin vanuit de keychain";
-"Auth.LogIn" = "Inloggen";
-"Join" = "Neem deel";
-"Auth.Welcome.Subtitle" = "Anytype is jouw veilige ruimte om te schrijven, te plannen, na te denken en te organiseren van de dingen die jij belangrijk vindt.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
 "Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
 
-"Account recover error" = "Account herstellen ging fout, probeer het opnieuw";
-"Account recover error no internet" = "Account herstellen ging fout, waarschijnlijk geen internetverbinding";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Fout bij aanmaken wallet";
-"Error select account" = "Fout bij selecteren van account";
-"Error wallet recover account" = "Fout bij het herstellen van portemonnee van account";
-"Wallet.Recovery.Error.description" = "Ongeldige herstelzin";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Zoek naar taal";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Sla je herstelzin op";
-"Auth.JoinFlow.Key.Description" = "Het is een nieuwe manier van authenticatie waarmee je volledig eigenaar wordt van je account en gegevens. ";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Type je herstelzin";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Toon herstelzin";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Ga naar de app";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Sla over";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopieer naar klembord";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Lees meer";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Je kunt je herstelzin later in de Anytype instellingen terugvinden";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "Wat is een herstelzin?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "De herstelzin bestaat uit een willekeurige combinatie van 12 woorden waarmee je account op magische wijze wordt gegenereerd op dit apparaat.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wie jouw herstelzin kent, bezit jouw account. **Op dit moment ben jij de enige persoon ter wereld die deze kent.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Daarom is het essentieel om jouw herstelzin veilig te bewaren. Als de enige eigenaar kan niemand je helpen als deze verloren is.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Hoe bewaar ik mijn zin?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "De eenvoudigste manier om jouw herstelzin op te slaan is door deze op te slaan in je wachtwoordmanager.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "De meest veilige manier is om het op papier op te schrijven en het offline te houden, op een veilige plek. ";
 
-"Auth.JoinFlow.Soul.Title" = "Kies je naam";
-"Auth.JoinFlow.Soul.Description" = "Dit is zoals je in de app zult verschijnen.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
 "Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Een nieuwe account wordt aangemaakt";
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
 "Auth.JoinFlow.Setting.Space.Title" = "Jouw persoonlijke ruimte wordt aangemaakt";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
 "Auth.LoginFlow.Or" = "OF";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type je herstelzin";
-"Auth.LoginFlow.Enter.Button.Title" = "Aanmelden";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "De Void binnengaan";
 
 // Object settings
@@ -347,7 +341,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype heeft toegang nodig tot je camera om QR-codes te scannen.\n\nGa naar de instellingen van je apparaat -> Privacy -> Camera en zet Anytype naar AAN";
 
 // MARK: - Deletion
-"Pending deletion text" = "We vinden het jammer dat je vertrekt. Je hebt 30 dagen om deze aanvraag te annuleren. Na 30 dagen worden je versleutelde accountgegevens permanent verwijderd uit de back-upnode.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Ongedaan maken / Opnieuw doen";
@@ -515,7 +509,6 @@
 "Unknown error" = "Onbekende foutmelding";
 "Open Type Error" = "Niet ondersteund type \"%@\". Je kunt het openen via het bureaublad.";
 "Close" = "Sluit";
-"Account is deleted" = "Account wordt verwijderd";
 "Add phone" = "Voeg telefoonnummer toe";
 "Nothing to redo" = "Niets om opnieuw te doen";
 "Nothing to undo" = "Niets om ongedaan te maken";
@@ -568,18 +561,18 @@
 "Mode" = "Instelling";
 "copied to clipboard" = "%@ gekopieerd naar klembord";
 "Create object from clipboard" = "Maak object aan vanaf klembord";
-"Access to secret phrase from keychain" = "Toegang tot geheime zin vanuit sleutelhanger";
-"Back up your recovery phrase" = "Back-up jouw herstelzin";
-"Account" = "Account";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Toegang";
-"Back up phrase" = "Back-up zin";
+"Back up key" = "Back up key";
 "Removing cache" = "Cache wordt verwijderd";
 "Deletion error" = "Fout bij het verwijderen";
 "Start" = "Start";
 "On analytics" = "On analytics";
-"Select account error" = "Fout bij het selecteren van account";
-"Account deleted" = "Account verwijderd";
-"Account.Select.Incompatible.Version.Error.Text" = "Niet in staat om accountgegevens op te halen door incompatibele versie op externe nodes. Update Anytype alsjeblieft naar de nieuwste versie.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Herstellen vanuit de sleutelhanger";
 "Edit" = "Bewerk";
 "In this object" = "Binnen dit object";
@@ -661,14 +654,14 @@
 "This object doesn't exist" = "Dit object bestaat niet";
 "Setting up encrypted storage\nPlease wait" = "Versleutelde opslag\n wordt aangemaakt,  een ogenblik geduld";
 "These objects will be deleted irrevocably" = "Deze objecten zullen permanent worden verwijderd. Je kunt dit niet ongedaan maken.";
-"Delete account" = "Verwijder account";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Annuleer verwijdering";
 "Logout and clear data" = "Log uit en wis gegevens";
 "New" = "Nieuw";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Weet je zeker dat je het account wilt verwijderen?";
-"DeletionAlert.description" = "Je zult op alle andere apparaten worden uitgelogd. Je hebt 30 dagen om het te herstellen. Daarna zal het permanent worden verwijderd";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Raster";
@@ -801,7 +794,7 @@
 "About.AppVersion" = "App versie: %@";
 "About.BuildNumber" = "Build nummer: %@";
 "About.Library" = "Bibliotheek versie: %@";
-"About.accountId" = "Account ID: %@";
+"About.vaultId" = "Vault ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
 "About.deviceId" = "Apparaat ID: %@
 ";
@@ -816,7 +809,7 @@
 "About.TermsOfUse" = "Gebruikersvoorwaarden";
 "About.PrivacyPolicy" = "Privacybeleid";
 "About.TechInfo" = "Technische informatie";
-"About.Mail.Subject" = "Ondersteuningsverzoek, account-ID %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nTechnische informatie\n%@";
 
 // MARK: - Cache
@@ -827,7 +820,7 @@
 "Settings.Title" = "Instellingen";
 "Settings.SpaceName" = "Naam ruimte";
 "Settings.SpaceType" = "Space type";
-"Settings.AccountAndAccess" = "Account en toegang";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Bestandsopslag";
@@ -835,8 +828,8 @@
 "FileStorage.Space.Instruction" = "Je kunt maximaal %@ van je bestanden gratis opslaan op onze versleutelde back-up node. Als je de limiet bereikt, zullen bestanden alleen lokaal worden opgeslagen.";
 "FileStorage.Space.Used" = "%@ van %@ gebruikt";
 "FileStorage.Space.GetMore" = "Krijg meer ruimte";
-"FileStorage.Space.Mail.Subject" = "Krijg meer opslagruimte, account %@";
-"FileStorage.Space.Mail.Body" = "Hallo, Anytype team. Ik neem contact met het verzoek om de opslagcapaciteit van mijn bestanden uit te breiden, omdat ik geen opslagruimte meer heb. Mijn huidige limiet is %@. Mijn account id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Lokale opslag";
 "FileStorage.Local.Instruction" = "Om ruimte op jouw lokale apparaat te besparen, kun je al jouw bestanden naar onze versleutelde back-up node verplaatsen. De bestanden worden opnieuw geladen wanneer je ze opent.";
 "FileStorage.Local.Used" = "%@ gebruikt";
@@ -997,11 +990,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Message" = "Je start de app op met instabiele middleware. Gebruik niet jouw productieaccount. Jouw account kan beschadigd zijn.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Logout" = "Log uit van huidige account";
-"Initial.UnstableMiddle.Continue" = "Ga verder met huidige account";
-"Initial.UnstableMiddle.WontUseProd" = "Ik zal niet mijn productieaccount gebruiken";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Maak objecten aan met specifiek type";

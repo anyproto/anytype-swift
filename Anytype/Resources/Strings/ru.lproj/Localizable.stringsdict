@@ -102,10 +102,10 @@
         <string>%d backlinks</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Этот аккаунт будет удален %#@days@</string>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -113,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>завтра</string>
+        <string>tomorrow</string>
         <key>few</key>
-        <string>через %d дней</string>
+        <string>in %d days</string>
         <key>many</key>
-        <string>через %d дней</string>
+        <string>in %d days</string>
         <key>other</key>
-        <string>через %d дня</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>

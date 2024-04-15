@@ -203,76 +203,70 @@
 "Restore" = "Återställ";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Återställningsfras";
-"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied";
-"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Keychain.Save keychain alert part 2" = "ever access your data again";
-"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Keychain.Don’t forget to save your recovery phrase" = "Glöm inte att spara din återställningsfras";
-"Keychain.Show and copy phrase" = "Visa och kopiera fras";
-"Keychain.Have you backed up your recovery phrase?" = "Har du säkerhetskopierat din återställningsfras?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "String to Data conversion error";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
 "Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Registrera dig";
-"Login" = "Logga in";
 "Create" = "Skapa";
 "Scan QR code" = "Skanna QR-kod";
 "Auth.CameraPermissionTitle" = "Please allow access";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "Logga in";
-"Join" = "Join";
-"Auth.Welcome.Subtitle" = "Anytype är din trygga plats där du kan skriva, planera, tänka och organisera allt som är viktigt för dig.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Nästa";
 
-"Account recover error" = "Account recover error, try again";
-"Account recover error no internet" = "Account recover error, probably no internet connection";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Error creating wallet";
-"Error select account" = "Error select account";
-"Error wallet recover account" = "Error wallet recover account";
-"Wallet.Recovery.Error.description" = "Ogiltig återställningsfras";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Sök efter språk";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Spara din återställningsfras";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Ange din återställningsfras";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Visa återställningsfras";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Go to the app";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopiera till urklipp";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Läs mer";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find Recovery Phrase later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is Recovery Phrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows Recovery Phrase, owns the account. **At this moment, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "That's why it's essential to keep Recovery Phrase safe. As the sole owner, nobody can help you if it's lost.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my phrase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Det enklaste sättet att lagra din återställningsfras är att spara den i din lösenordshanterare.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
-"Auth.JoinFlow.Soul.Title" = "Välj ditt namn";
-"Auth.JoinFlow.Soul.Description" = "This is how you will appear in the app.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
 "Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "ELLER";
-"Auth.LoginFlow.Textfield.Placeholder" = "Ange din återställningsfras";
-"Auth.LoginFlow.Enter.Button.Title" = "Logga in";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
 
 // Object settings
@@ -347,7 +341,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Undo/Redo";
@@ -515,7 +509,6 @@
 "Unknown error" = "Okänt fel";
 "Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Stäng";
-"Account is deleted" = "Account is deleted";
 "Add phone" = "Lägg till telefon";
 "Nothing to redo" = "Nothing to redo";
 "Nothing to undo" = "Nothing to undo";
@@ -568,18 +561,18 @@
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copied to clipboard";
 "Create object from clipboard" = "Skapa objekt från urklipp";
-"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Säkerhetskopiera din återställningsfras";
-"Account" = "Konto";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Access";
-"Back up phrase" = "Back up phrase";
+"Back up key" = "Back up key";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Deletion error";
 "Start" = "Start";
 "On analytics" = "On analytics";
-"Select account error" = "Select account error";
-"Account deleted" = "Account deleted";
-"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Redigera";
 "In this object" = "In this object";
@@ -661,14 +654,14 @@
 "This object doesn't exist" = "Detta objekt existerar inte";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Radera konto";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logga ut och rensa data";
 "New" = "New";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure to delete account?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
@@ -801,7 +794,7 @@
 "About.AppVersion" = "App version: %@";
 "About.BuildNumber" = "Build number: %@";
 "About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
+"About.vaultId" = "Vault ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
 "About.deviceId" = "Device ID: %@";
 "About.Device" = "Enhet: %@";
@@ -815,7 +808,7 @@
 "About.TermsOfUse" = "Användarvillkor";
 "About.PrivacyPolicy" = "Integritetspolicy";
 "About.TechInfo" = "Tech Info";
-"About.Mail.Subject" = "Support request, Account ID %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nTechnical information\n%@";
 
 // MARK: - Cache
@@ -826,7 +819,7 @@
 "Settings.Title" = "Inställningar";
 "Settings.SpaceName" = "Space name";
 "Settings.SpaceType" = "Space type";
-"Settings.AccountAndAccess" = "Account and access";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
@@ -834,8 +827,8 @@
 "FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Local storage";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
@@ -996,11 +989,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Varning";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Varning";
-"Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Continue with current account";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Create Objects with specific Type";

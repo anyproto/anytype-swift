@@ -203,76 +203,70 @@
 "Restore" = "Wiederherstellen";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Wiederherstellungsphrase";
-"Keychain.Recovery phrase copied to clipboard" = "Wiederherstellungsphrase kopiert";
-"Keychain.Recovery phrase description" = "Du musst dich anmelden. Bewahre sie an einem sicheren Ort. Wenn du sie verlierst, kannst du nicht mehr auf dein Konto zugreifen.";
-"Keychain.Save keychain alert part 1" = "Wenn du die Wiederherstellungsphrase verlierst und dich abmeldest, kannst du niemals ";
-"Keychain.Save keychain alert part 2" = "wieder auf deine Daten zugreifen";
-"Keychain.Save keychain alert part 3" = ".\nBewahre diese Wiederherstellungsphrase außerhalb von Anytype zur Datenwiederherstellung.\nWir empfehlen einen sicheren Datentresor, Passwortmanager oder ein Stück Papier in einem Safe zu verwenden.";
-"Keychain.Don’t forget to save your recovery phrase" = "Vergiss nicht deine Wiederherstellungsphrase zu sichern";
-"Keychain.Show and copy phrase" = "Phrase anzeigen und kopieren";
-"Keychain.Have you backed up your recovery phrase?" = "Hast du deine Wiederherstellungsphrase gesichert?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
 "Keychain.Error.Data to String conversion error" = "Fehler bei der Konvertierung der Daten zu Zeichenketten";
 "Keychain.Error.Unknown Keychain Error" = "Unbekannter Schlüsselbund-Fehler";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Registrieren";
-"Login" = "Anmelden";
 "Create" = "Erstellen";
 "Scan QR code" = "QR-Code scannen";
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
-"Restore secret phrase from keychain" = "Stelle die Wiederherstellungsphrase aus dem Schlüsselbund wieder her";
-"Auth.LogIn" = "Anmelden";
-"Join" = "Beitreten";
-"Auth.Welcome.Subtitle" = "Anytype ist dein sicherer Ort zum Schreiben, Planen, Denken und Organisieren von allem, was dir wichtig ist.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
-"Account recover error" = "Fehler beim Wiederherstellen des Kontos, versuche es erneut";
-"Account recover error no internet" = "Fehler bei der Kontowiederherstellung, wahrscheinlich keine Internetverbindung";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
-"Error select account" = "Fehler bei der Kontoauswahl";
-"Error wallet recover account" = "Fehler bei Wallet-Wiederherstellung";
-"Wallet.Recovery.Error.description" = "Ungültige Wiederherstellungsphrase";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Sprache suchen";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Speichere deine Wiederherstellungsphrase";
-"Auth.JoinFlow.Key.Description" = "Es handelt sich um eine neuartige Authentifizierungsart, die dir vollen Besitz über dein Konto und die Daten gibt.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Geben Sie Ihre Wiederherstellungsphrase ein";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Wiederherstellungsphrase anzeigen";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Zur App gehen";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Wiederherstellungsphrase findest du später in den Anytype Einstellungen";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "Was ist Wiederherstellungsphrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Wiederherstellungsphrase ist eine zufällige Kombination von 12 Wörtern, aus denen Ihr Konto auf diesem Gerät magisch generiert wird.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wer das Wiederherstellungsphrase kennt, besitzt den Account. **In diesem Moment bist du der einzige Mensch auf der Welt, der es kennt.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Deshalb ist es wichtig, dass Recovery Phrase sicher bleibt. Als einziger Besitzer kann dir niemand helfen, wenn es verloren geht.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meine Phrase speichern?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Der einfachste Weg, Ihre Wiederherstellungsphrase zu speichern, ist die Speicherung in Ihrem Passwort-Manager.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
-"Auth.JoinFlow.Soul.Title" = "Wähle deinen Namen";
-"Auth.JoinFlow.Soul.Description" = "So wirst du in der App erscheinen.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Neues Konto erstellen";
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
 "Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
 "Auth.LoginFlow.Or" = "ODER";
-"Auth.LoginFlow.Textfield.Placeholder" = "Geben Sie Ihre Wiederherstellungsphrase ein";
-"Auth.LoginFlow.Enter.Button.Title" = "Anmelden";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
@@ -347,7 +341,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "Es tut uns leid, dass du gehst. Du hast 30 Tage Zeit, um diese Anfrage abzubrechen. Nach 30 Tagen werden deine verschlüsselten Kontodaten permanent aus dem Backup-Knoten entfernt.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Rückgängig/Wiederholen";
@@ -515,7 +509,6 @@
 "Unknown error" = "Unbekannter Fehler";
 "Open Type Error" = "Nicht unterstützter Typ „%@“. Sie können ihn über den Desktop öffnen.";
 "Close" = "Schließen";
-"Account is deleted" = "Konto ist Gelöscht";
 "Add phone" = "Telefon hinzufügen";
 "Nothing to redo" = "Nichts zum Wiederholen";
 "Nothing to undo" = "Nichts zum rückgängig machen";
@@ -568,18 +561,18 @@
 "Mode" = "Modus";
 "copied to clipboard" = "%@ in die Zwischenanlage kopiert";
 "Create object from clipboard" = "Objekt aus der Zwischenablage erstellen";
-"Access to secret phrase from keychain" = "Zugriff auf die Passphrase von deinem Schlüsselbund";
-"Back up your recovery phrase" = "Erstelle ein Backup Ihrer Wiederherstellungsphrase";
-"Account" = "Konto";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Zugriff";
-"Back up phrase" = "Sicherungsphrase";
+"Back up key" = "Back up key";
 "Removing cache" = "Entferne Cache…";
 "Deletion error" = "Fehler beim Löschen";
 "Start" = "Start";
 "On analytics" = "Auf Analyse";
-"Select account error" = "Konto auswählen Fehler";
-"Account deleted" = "Konto gelöscht";
-"Account.Select.Incompatible.Version.Error.Text" = "Kontodaten konnten wegen inkompatibler Version auf entfernten Knoten nicht abgerufen werden. Bitte aktualisieren Sie Anytype auf die neueste Version.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Von Schlüsselbund wiederherstellen";
 "Edit" = "Bearbeiten";
 "In this object" = "In diesem Objekt";
@@ -661,14 +654,14 @@
 "This object doesn't exist" = "Dieses Objekt existiert nicht";
 "Setting up encrypted storage\nPlease wait" = "Einrichtung des verschlüsselten Speichers\nBitte warten";
 "These objects will be deleted irrevocably" = "Diese Objekte werden endgültig gelöscht. Sie können diese Aktion nicht rückgängig machen.";
-"Delete account" = "Konto löschen";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Löschung abbrechen";
 "Logout and clear data" = "Abmelden und Daten löschen";
 "New" = "Neu";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Möchten Sie das Konto wirklich löschen?";
-"DeletionAlert.description" = "Sie werden auf allen anderen Geräten ausgeloggt. Sie haben 30 Tage Zeit, um es wiederherzustellen. Danach wird es permanent gelöscht";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Raster";
@@ -801,7 +794,7 @@
 "About.AppVersion" = "App-Version: %@";
 "About.BuildNumber" = "Build Nummer: %@";
 "About.Library" = "Bibliotheksversion: %@";
-"About.accountId" = "Konto-ID: %@";
+"About.vaultId" = "Vault ID: %@";
 "About.analyticsId" = "Analytics-ID: %@";
 "About.deviceId" = "Geräte-ID: %@
 ";
@@ -816,7 +809,7 @@
 "About.TermsOfUse" = "Nutzungsbedingungen";
 "About.PrivacyPolicy" = "Datenschutzerklärung";
 "About.TechInfo" = "Technische Info";
-"About.Mail.Subject" = "Supportanfrage, Konto-ID %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nTechnische Informationen\n%@";
 
 // MARK: - Cache
@@ -827,7 +820,7 @@
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.SpaceType" = "Space type";
-"Settings.AccountAndAccess" = "Konto und Zugriff";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Dateispeicher";
@@ -835,8 +828,8 @@
 "FileStorage.Space.Instruction" = "Du kannst bis zu %@ deiner Dateien auf unserem verschlüsselten Backup-Knoten kostenlos speichern. Wenn das Limit erreicht wurde, werden Dateien nur noch lokal gespeichert.";
 "FileStorage.Space.Used" = "%@ von %@ verwendet";
 "FileStorage.Space.GetMore" = "Speicherplatz erweitern";
-"FileStorage.Space.Mail.Subject" = "Mehr Speicherplatz erhalten, Konto %@";
-"FileStorage.Space.Mail.Body" = "Hallo, Anytype Team. Ich bitte nach einer Erweiterung meiner Speicherkapazität, da mir der Speicher ausgegangen ist. Meine aktuellen Limits sind %@. Meine Konto-ID ist %@. Grüße, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Lokaler Speicher";
 "FileStorage.Local.Instruction" = "Um Platz auf deinem Gerät zu sparen, können alle deine Dateien auf unseren verschlüsselten Backup-Knoten ausgelagert werden. Die Dateien werden beim Öffnen dann wieder heruntergeladen.";
 "FileStorage.Local.Used" = "%@ verwendet";
@@ -997,11 +990,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Warnung";
-"Initial.UnstableMiddle.Message" = "Sie starten die App mit einer instabilen Middleware. Verwenden Sie nicht Ihr Produktionskonto. Ihr Konto könnte beschädigt sein.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Warnung";
-"Initial.UnstableMiddle.Logout" = "Von aktuellem Konto abmelden";
-"Initial.UnstableMiddle.Continue" = "Mit aktuellem Konto fortfahren";
-"Initial.UnstableMiddle.WontUseProd" = "Ich werde mein Produktionskonto nicht verwenden";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Erstelle Objekte mit bestimmtem Typ";

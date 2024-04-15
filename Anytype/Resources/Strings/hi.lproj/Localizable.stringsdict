@@ -84,10 +84,10 @@
         <string>%d backlinks</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>यह खाता %#@days@  दिनों में हटा दिया जाएगा </string>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -95,7 +95,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>कल</string>
+        <string>tomorrow</string>
         <key>other</key>
         <string>in %d days</string>
       </dict>

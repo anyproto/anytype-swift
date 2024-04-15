@@ -203,76 +203,70 @@
 "Restore" = "Gjenopprett";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Gjenopprettingsfrase";
-"Keychain.Recovery phrase copied to clipboard" = "Gjenopprettingsfrase kopiert";
-"Keychain.Recovery phrase description" = "Du trenger den for å logge inn. Behold den på et trygt sted. Hvis du mister den, får du ikke lenger tilgang til kontoen din.";
-"Keychain.Save keychain alert part 1" = "Hvis du mister gjenopprettingsfrasen og blir utlogget, vil du ikke kunne ";
-"Keychain.Save keychain alert part 2" = "få tilgang til dine data igjen";
-"Keychain.Save keychain alert part 3" = ".\nLagre denne gjenopprettingsfrasen utenfor Anytype for datagjenoppretting.\nVi anbefaler å bruke et sikkert datahvelv, passordbehandler eller et stykke papir i safen.";
-"Keychain.Don’t forget to save your recovery phrase" = "Ikke glem å lagre gjenopprettingsfrasen";
-"Keychain.Show and copy phrase" = "Vis og kopier frase";
-"Keychain.Have you backed up your recovery phrase?" = "Har du lagret din gjenopprettingsfrase?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "Tekst til data konverteringsfeil";
 "Keychain.Error.Data to String conversion error" = "Data til tekst konverteringsfeil";
 "Keychain.Error.Unknown Keychain Error" = "Ukjent feil med nøkkelring";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Registrer deg";
-"Login" = "Logg inn";
 "Create" = "Opprett";
 "Scan QR code" = "Skann QR-kode";
 "Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
-"Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
-"Auth.LogIn" = "Logg inn";
-"Join" = "Bli med";
-"Auth.Welcome.Subtitle" = "Anytype er ditt sikre sted å skrive, planlegge, tenke og organisere alt som betyr for deg.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
 "Auth.Caption.Privacy.Text" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Auth.Next" = "Neste";
 
-"Account recover error" = "Feil ved gjenoppretting av kontoen, prøv igjen";
-"Account recover error no internet" = "Feil ved kontogjenoppretting, sannsynligvis ingen internettilkobling";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Feil ved oppretting av wallet";
-"Error select account" = "Feil ved valg av konto";
-"Error wallet recover account" = "Feil ved gjenoppretting av wallet-konto";
-"Wallet.Recovery.Error.description" = "Ugyldig gjenopprettingsfrase";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Søk etter språk";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Lagre gjenopprettingsfrasen din";
-"Auth.JoinFlow.Key.Description" = "Det er en ny metode for autentisering som gir deg full eierskap over kontoen din og dataene dine.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Skriv inn gjenopprettingsfrasen din";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Vis gjenopprettingsfrasen";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Gå til appen";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Hopp over";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopier til utklippstavlen";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Les mer";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Du kan finne gjenopprettingsfrasen senere i Anytype innstillingene";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "Hva er gjenopprettingsfrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Gjenopprettingsfrasen er en tilfeldig kombinasjon av 12 ord som magisk genererer kontoen din på denne enheten.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Den som kjenner gjenopprettingsfrasen, eier kontoen. **Akkurat nå er du den eneste personen i verden som kjenner den.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Derfor er det avgjørende å oppbevare gjenopprettingsfrasen trygt. Som den eneste eieren, kan ingen hjelpe deg hvis den blir mistet.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Hvordan lagre min frase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Den enkleste måten å lagre gjenopprettingsfrasen er å lagre den i passordbehandleren.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Den sikreste måten er å skrive den ned på papir og oppbevare den offline, på et trygt og sikkert sted.";
 
-"Auth.JoinFlow.Soul.Title" = "Velg ditt navn";
-"Auth.JoinFlow.Soul.Description" = "Slik vises du i appen.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
 "Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Genererer ny konto";
+"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
 "Auth.JoinFlow.Setting.Space.Title" = "Setter opp ditt standard rom";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
 "Auth.LoginFlow.Or" = "ELLER";
-"Auth.LoginFlow.Textfield.Placeholder" = "Skriv inn gjenopprettingsfrasen din";
-"Auth.LoginFlow.Enter.Button.Title" = "Logg inn";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Går inn i Void";
 
 // Object settings
@@ -347,7 +341,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype trenger tilgang til kameraet ditt for å skanne QR-koder.\n\nVennligst gå til Innstillinger -> Personvern -> Kamera på enheten din og sett Anytype til PÅ.";
 
 // MARK: - Deletion
-"Pending deletion text" = "Vi er lei for å se deg gå. Du har 30 dager på deg til å avbryte denne forespørselen. Etter 30 dager blir dine krypterte kontodata permanent fjernet fra sikkerhetskopinoden.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Angre/Omgjør";
@@ -515,7 +509,6 @@
 "Unknown error" = "Ukjent feil";
 "Open Type Error" = "Ikke støttet type \"%@\". Du kan åpne den i skrivebordsappen.";
 "Close" = "Lukk";
-"Account is deleted" = "Konto er slettet";
 "Add phone" = "Legg til telefon";
 "Nothing to redo" = "Ingenting å gjenta";
 "Nothing to undo" = "Ingenting å angre";
@@ -568,18 +561,18 @@
 "Mode" = "Modus";
 "copied to clipboard" = "%@ kopiert til utklippstavlen";
 "Create object from clipboard" = "Opprett objekt fra utklippstavlen";
-"Access to secret phrase from keychain" = "Tilgang til gjenopprettingsfrasen fra nøkkelringen";
-"Back up your recovery phrase" = "Sikkerhetskopier din gjenopprettingsfrase";
-"Account" = "Konto";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Tilgang";
-"Back up phrase" = "Sikkerhetskopier frase";
+"Back up key" = "Back up key";
 "Removing cache" = "Fjerner hurtigbuffer";
 "Deletion error" = "Feil ved sletting";
 "Start" = "Start";
 "On analytics" = "Om analysen";
-"Select account error" = "Feil ved valg av konto";
-"Account deleted" = "Konto slettet";
-"Account.Select.Incompatible.Version.Error.Text" = "Kan ikke hente kontodata på grunn av inkompatibel versjon på eksterne noder. Vennligst oppdater Anytype til den nyeste versjonen.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Gjenopprett fra nøkkelring";
 "Edit" = "Rediger";
 "In this object" = "I dette objektet";
@@ -661,14 +654,14 @@
 "This object doesn't exist" = "Dette objektet eksisterer ikke";
 "Setting up encrypted storage\nPlease wait" = "Setter opp kryptert lagring\nVennligst vent";
 "These objects will be deleted irrevocably" = "Disse objektene vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
-"Delete account" = "Slett konto";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Avbryt sletting";
 "Logout and clear data" = "Logg ut og slett data";
 "New" = "Ny";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Er du sikker på at du vil slette kontoen?";
-"DeletionAlert.description" = "Du blir logget ut på alle andre enheter. Du vil ha 30 dager for å gjenopprette den. Etterpå vil den bli slettet permanent";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Rutenett";
@@ -801,7 +794,7 @@
 "About.AppVersion" = "Appversjon: %@";
 "About.BuildNumber" = "Byggnummer: %@";
 "About.Library" = "Bibliotekversjon: %@";
-"About.accountId" = "Konto-ID: %@";
+"About.vaultId" = "Vault ID: %@";
 "About.analyticsId" = "Analytics-ID: %@";
 "About.deviceId" = "Enhets-ID: %@";
 "About.Device" = "Enhet: %@";
@@ -815,7 +808,7 @@
 "About.TermsOfUse" = "Brukervilkår";
 "About.PrivacyPolicy" = "Personvernerklæring";
 "About.TechInfo" = "Teknisk informasjon";
-"About.Mail.Subject" = "Supportforespørsel, konto-ID %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nTeknisk informasjon\n%@";
 
 // MARK: - Cache
@@ -826,7 +819,7 @@
 "Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
 "Settings.SpaceType" = "Rom-type";
-"Settings.AccountAndAccess" = "Konto og tilgang";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Fillagring";
@@ -834,8 +827,8 @@
 "FileStorage.Space.Instruction" = "Du kan lagre opptil %@ av filene dine på vår krypterte sikkerhetskopi-node gratis. Hvis du når grensen, vil filene kun bli lagret lokalt.";
 "FileStorage.Space.Used" = "%@ av %@ brukt";
 "FileStorage.Space.GetMore" = "Få mer plass";
-"FileStorage.Space.Mail.Subject" = "Få mer lagringsplass, konto %@";
-"FileStorage.Space.Mail.Body" = "Hei, Anytype-team. Jeg tar kontakt for å be om en økning i lagringskapasiteten for filene mine, da jeg har gått tom for lagringsplass. Min nåværende grense er %@. Min konto-ID er %@. Hilsen, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Lokal lagring";
 "FileStorage.Local.Instruction" = "For å spare plass på den lokale enheten din, kan du slette alle lokale filer og beholde dem på vår krypterte sikkerhetskopi-node. Filene vil bli lastet ned igjen når du åpner dem.";
 "FileStorage.Local.Used" = "%@ brukt";
@@ -996,11 +989,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Advarsel";
-"Initial.UnstableMiddle.Message" = "Du starter app med en ustabil mellomvare. Ikke bruk din produksjonskonto. Kontoen din kan bli ødelagt.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Advarsel";
-"Initial.UnstableMiddle.Logout" = "Logg ut fra denne kontoen";
-"Initial.UnstableMiddle.Continue" = "Fortsett med denne kontoen";
-"Initial.UnstableMiddle.WontUseProd" = "Jeg vil ikke bruke min produksjonskonto";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Opprett objekter med spesifikk type";
