@@ -102,10 +102,10 @@
         <string>%d backlinks</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Tento účet bude odstránený  %#@days@</string>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -113,7 +113,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>zajtra</string>
+        <string>tomorrow</string>
         <key>few</key>
         <string>in %d days</string>
         <key>many</key>
