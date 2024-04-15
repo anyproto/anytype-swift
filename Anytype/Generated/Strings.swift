@@ -386,8 +386,8 @@ internal enum Loc {
   internal static let payByCard = Loc.tr("Localizable", "Pay by Card", fallback: "Pay by Card")
   /// Pending...
   internal static let pending = Loc.tr("Localizable", "Pending", fallback: "Pending...")
-  /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.
-  internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.")
+  /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.
+  internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.")
   /// per
   internal static let per = Loc.tr("Localizable", "per", fallback: "per")
   /// Plural format key: "per %#@day@"
@@ -687,18 +687,6 @@ internal enum Loc {
       /// Support request, Vault ID %@
       internal static func subject(_ p1: Any) -> String {
         return Loc.tr("Localizable", "About.Mail.Subject", String(describing: p1), fallback: "Support request, Vault ID %@")
-      }
-    }
-  }
-  internal enum Account {
-    internal enum Select {
-      internal enum Incompatible {
-        internal enum Version {
-          internal enum Error {
-            /// Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.
-            internal static let text = Loc.tr("Localizable", "Account.Select.Incompatible.Version.Error.Text", fallback: "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.")
-          }
-        }
       }
     }
   }
@@ -2647,6 +2635,18 @@ internal enum Loc {
   internal enum ToggleEmpty {
     /// Toggle empty. Tap to create block.
     internal static let tapToCreateBlock = Loc.tr("Localizable", "Toggle empty. Tap to create block.", fallback: "Toggle empty. Tap to create block.")
+  }
+  internal enum Vault {
+    internal enum Select {
+      internal enum Incompatible {
+        internal enum Version {
+          internal enum Error {
+            /// Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.
+            internal static let text = Loc.tr("Localizable", "Vault.Select.Incompatible.Version.Error.Text", fallback: "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.")
+          }
+        }
+      }
+    }
   }
   internal enum Wallet {
     internal enum Recovery {

@@ -175,7 +175,7 @@ final class LoginViewModel: ObservableObject {
             } catch SelectAccountError.accountIsDeleted {
                 errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
-                errorText = Loc.Account.Select.Incompatible.Version.Error.text
+                errorText = Loc.Vault.Select.Incompatible.Version.Error.text
             } catch {
                 errorText = Loc.selectVaultError
             }
