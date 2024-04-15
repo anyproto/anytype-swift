@@ -19,7 +19,12 @@ final class SpaceLeaveAlertModel: ObservableObject {
         self.spaceName = workspaceStorage.spaceView(spaceId: spaceId)?.title ?? ""
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenLeaveSpace()
+    }
+    
     func onTapLeave() async throws {
+        AnytypeAnalytics.instance().logLeaveSpace()
         try await workspaceService.deleteSpace(spaceId: spaceId)
         toast = ToastBarData(text: Loc.SpaceSettings.LeaveAlert.toast(spaceName), showSnackBar: true, messageType: .success)
     }

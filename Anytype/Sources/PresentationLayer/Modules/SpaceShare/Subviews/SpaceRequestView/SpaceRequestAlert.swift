@@ -7,6 +7,7 @@ struct SpaceRequestAlertData: Identifiable {
     let spaceName: String
     let participantIdentity: String
     let participantName: String
+    let route: ScreenInviteConfirmRoute
 }
 
 struct SpaceRequestAlert: View {

@@ -13,16 +13,20 @@ struct StopSharingAlert: View {
     var body: some View {
         BottomAlertView(
             title: Loc.SpaceShare.StopSharing.title,
-            message: Loc.SpaceShare.StopSharing.message) {
-                BottomAlertButton(text: Loc.SpaceShare.StopSharing.action, style: .warning) {
-                    try await model.onTapStopShare()
-                    dismiss()
-                }
-                BottomAlertButton(text: Loc.cancel, style: .secondary) {
-                    dismiss()
-                }
+            message: Loc.SpaceShare.StopSharing.message
+        ) {
+            BottomAlertButton(text: Loc.SpaceShare.StopSharing.action, style: .warning) {
+                try await model.onTapStopShare()
+                dismiss()
             }
-            .snackbar(toastBarData: $model.toast)
+            BottomAlertButton(text: Loc.cancel, style: .secondary) {
+                dismiss()
+            }
+        }
+        .snackbar(toastBarData: $model.toast)
+        .onAppear {
+            model.onAppear()
+        }
     }
     
 }

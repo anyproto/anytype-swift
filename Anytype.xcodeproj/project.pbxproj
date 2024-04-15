@@ -844,6 +844,7 @@
 		2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */; };
 		2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */; };
 		2AF8755A2BCD23C200FB1532 /* LocalizableWidget.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACE06512B7CD96D009AA7B6 /* LocalizableWidget.strings */; };
+		2AF875612BCD560100FB1532 /* ParticipantPermissions+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF875602BCD560100FB1532 /* ParticipantPermissions+Analytics.swift */; };
 		2AFA1113296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1112296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift */; };
 		2AFB541D28621776004F7458 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB541C28621776004F7458 /* Strings.swift */; };
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
@@ -2629,6 +2630,7 @@
 		2AF8755D2BCD23CA00FB1532 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/LocalizableWidget.strings; sourceTree = "<group>"; };
 		2AF8755E2BCD23CC00FB1532 /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/LocalizableWidget.strings; sourceTree = "<group>"; };
 		2AF8755F2BCD23CE00FB1532 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LocalizableWidget.strings; sourceTree = "<group>"; };
+		2AF875602BCD560100FB1532 /* ParticipantPermissions+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParticipantPermissions+Analytics.swift"; sourceTree = "<group>"; };
 		2AFA1112296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsCommonSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AFB541C28621776004F7458 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -6337,6 +6339,7 @@
 				2A1D2B3D2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift */,
 				2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */,
 				2E0A7D322BB1FC0C00577AD6 /* FileDetails+Analytics.swift */,
+				2AF875602BCD560100FB1532 /* ParticipantPermissions+Analytics.swift */,
 			);
 			path = Converters;
 			sourceTree = "<group>";
@@ -11432,6 +11435,7 @@
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
 				2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */,
 				2A377E432A82700C00EA856B /* RemoteStorageViewModel.swift in Sources */,
+				2AF875612BCD560100FB1532 /* ParticipantPermissions+Analytics.swift in Sources */,
 				C92DCD952729952500A03D91 /* CursorModeAccessoryViewModel.swift in Sources */,
 				2EAA14002AA63918000A712A /* SetViewSettingsImagePreviewCover.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,

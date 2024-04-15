@@ -32,6 +32,9 @@ struct SpacesManagerView: View {
         .task {
             await model.startWorkspacesTask()
         }
+        .onAppear {
+            model.onAppear()
+        }
         .background(Color.Background.primary)
         .anytypeSheet(item: $model.spaceForCancelRequestAlert) { space in
             SpaceCancelRequestAlert(spaceId: space.targetSpaceId)

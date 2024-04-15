@@ -26,6 +26,8 @@ final class SpaceRequestAlertModel: ObservableObject {
     }
     
     func onAppear() async throws {
+        AnytypeAnalytics.instance().logScreenInviteConfirm(route: data.route)
+        
         guard let spaceView = workspaceStorage.spaceView(spaceId: data.spaceId) else {
             throw CommonError.undefined
         }
@@ -37,6 +39,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     }
     
     func onViewAccess() async throws {
+        AnytypeAnalytics.instance().logApproveInviteRequest(type: .read)
         try await workspaceService.requestApprove(
             spaceId: data.spaceId,
             identity: data.participantIdentity,
@@ -45,6 +48,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     }
     
     func onEditAccess() async throws {
+        AnytypeAnalytics.instance().logApproveInviteRequest(type: .write)
         try await workspaceService.requestApprove(
             spaceId: data.spaceId,
             identity: data.participantIdentity,
@@ -53,6 +57,7 @@ final class SpaceRequestAlertModel: ObservableObject {
     }
 
     func onReject() async throws {
+        AnytypeAnalytics.instance().logRejectInviteRequest()
         try await workspaceService.requestDecline(
             spaceId: data.spaceId,
             identity: data.participantIdentity

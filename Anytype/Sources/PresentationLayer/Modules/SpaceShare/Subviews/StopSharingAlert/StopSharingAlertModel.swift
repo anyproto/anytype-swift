@@ -20,6 +20,11 @@ final class StopSharingAlertModel: ObservableObject {
     func onTapStopShare() async throws {
         try await workspaceService.stopSharing(spaceId: spaceId)
         toast = ToastBarData(text: Loc.SpaceShare.StopSharing.toast, showSnackBar: true, messageType: .success)
+        AnytypeAnalytics.instance().logStopSpaceShare()
         onStopShare?()
+    }
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenStopShare()
     }
 }

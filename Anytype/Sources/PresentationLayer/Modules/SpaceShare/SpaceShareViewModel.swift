@@ -63,6 +63,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onAppear() async {
+        AnytypeAnalytics.instance().logScreenSettingsSpaceShare()
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
             if FeatureFlags.universalLinks {
@@ -78,6 +79,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onCopyLink() {
+        AnytypeAnalytics.instance().logClickShareSpaceCopyLink()
         UIPasteboard.general.string = inviteLink?.absoluteString
         toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)
     }
@@ -118,6 +120,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onMoreInfoTap() {
+        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .moreInfo)
         onMoreInfo()
     }
     
@@ -164,6 +167,7 @@ final class SpaceShareViewModel: ObservableObject {
             })
         case .removing:
             return SpaceShareParticipantViewModel.Action(title: Loc.SpaceShare.Action.approve, action: { [weak self] in
+                AnytypeAnalytics.instance().logApproveLeaveRequest()
                 try await self?.workspaceService.leaveApprove(spaceId: participant.spaceId, identity: participant.identity)
                 self?.toastBarData = ToastBarData(text: Loc.SpaceShare.Approve.toast(participant.title), showSnackBar: true)
             })
@@ -212,7 +216,8 @@ final class SpaceShareViewModel: ObservableObject {
             spaceId: spaceView.targetSpaceId,
             spaceName: spaceView.title,
             participantIdentity: participant.identity,
-            participantName: participant.title
+            participantName: participant.title,
+            route: .settings
         )
     }
     
@@ -222,6 +227,7 @@ final class SpaceShareViewModel: ObservableObject {
             participantName: participant.title,
             permissions: newPermission.title,
             onConfirm: { [weak self] in
+                AnytypeAnalytics.instance().logChangeSpaceMemberPermissions(type: newPermission.analyticsType)
                 try await self?.workspaceService.participantPermissionsChange(
                     spaceId: participant.spaceId,
                     identity: participant.identity,
@@ -236,6 +242,7 @@ final class SpaceShareViewModel: ObservableObject {
         removeParticipantAlertModel = SpaceParticipantRemoveViewModel(
             participantName: participant.title,
             onConfirm: { [weak self] in
+                AnytypeAnalytics.instance().logRemoveSpaceMember()
                 try await self?.workspaceService.participantRemove(spaceId: participant.spaceId, identity: participant.identity)
             }
         )
