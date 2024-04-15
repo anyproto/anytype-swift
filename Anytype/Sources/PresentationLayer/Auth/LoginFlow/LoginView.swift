@@ -12,7 +12,7 @@ struct LoginView: View {
     var body: some View {
         content
             .navigationBarBackButtonHidden(true)
-            .navigationTitle(Loc.login)
+            .navigationTitle(Loc.Auth.LoginFlow.Enter.title)
             .navigationBarTitleDisplayMode(.inline)
             .background(TransparentBackground())
             .padding(.horizontal, 16)
@@ -67,7 +67,7 @@ struct LoginView: View {
     private var buttonsBlock : some View {
         VStack(spacing: 12) {
             StandardButton(
-                Loc.Auth.LoginFlow.Enter.Button.title,
+                Loc.Auth.LoginFlow.Enter.title,
                 inProgress: model.loadingRoute.isLoginInProgress,
                 style: .primaryLarge,
                 action: {
