@@ -21,7 +21,7 @@ struct SectionHeaderView<Content>: View where Content: View {
                 }
             
             if rightContent().isNotNil {
-                Spacer.fixedWidth(16)
+                Spacer.init(minLength: 16)
             }
             
             rightContent()
