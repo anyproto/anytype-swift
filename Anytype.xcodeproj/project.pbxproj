@@ -1011,8 +1011,6 @@
 		2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BC291A520C00506766 /* GroupObjectIds.swift */; };
 		2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */; };
 		2E8387C1291A897700506766 /* BlockDataview+Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8387C0291A897700506766 /* BlockDataview+Group.swift */; };
-		2E8E8D142A262CB6009BC3B0 /* CreatingSoulViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8E8D132A262CB6009BC3B0 /* CreatingSoulViewModel.swift */; };
-		2E8E8D162A262D2E009BC3B0 /* CreatingSoulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8E8D152A262D2E009BC3B0 /* CreatingSoulView.swift */; };
 		2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */; };
 		2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */; };
 		2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9221A0294B8D4900968750 /* DataViewBlockView.swift */; };
@@ -2796,8 +2794,6 @@
 		2E8387BC291A520C00506766 /* GroupObjectIds.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupObjectIds.swift; sourceTree = "<group>"; };
 		2E8387BE291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+DragAndDropDelegate.swift"; sourceTree = "<group>"; };
 		2E8387C0291A897700506766 /* BlockDataview+Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockDataview+Group.swift"; sourceTree = "<group>"; };
-		2E8E8D132A262CB6009BC3B0 /* CreatingSoulViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingSoulViewModel.swift; sourceTree = "<group>"; };
-		2E8E8D152A262D2E009BC3B0 /* CreatingSoulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingSoulView.swift; sourceTree = "<group>"; };
 		2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockViewModel.swift; sourceTree = "<group>"; };
 		2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockConfiguration.swift; sourceTree = "<group>"; };
 		2E9221A0294B8D4900968750 /* DataViewBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockView.swift; sourceTree = "<group>"; };
@@ -7083,7 +7079,6 @@
 			isa = PBXGroup;
 			children = (
 				2E4D78B02A82904E00813A4F /* KeyPhraseMoreInfoView */,
-				2E8E8D102A261DA4009BC3B0 /* CreatingSoulView */,
 				2E52DE6A2A1CE74500F16815 /* SoulView */,
 				2EDC2B022A13E48F0065E009 /* KeyPhraseView */,
 				2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */,
@@ -7444,15 +7439,6 @@
 				2E7E50462B6D65F6003867A3 /* ObjectRelationListCoordinatorViewModel.swift */,
 			);
 			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		2E8E8D102A261DA4009BC3B0 /* CreatingSoulView */ = {
-			isa = PBXGroup;
-			children = (
-				2E8E8D132A262CB6009BC3B0 /* CreatingSoulViewModel.swift */,
-				2E8E8D152A262D2E009BC3B0 /* CreatingSoulView.swift */,
-			);
-			path = CreatingSoulView;
 			sourceTree = "<group>";
 		};
 		2E92219B294B8B0100968750 /* DataView */ = {
@@ -11032,7 +11018,6 @@
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				2AA8108C29A6686F007DD64B /* DragAndDropModels.swift in Sources */,
 				C9D23C80293E098D00244864 /* ToastPresenter+Extensions.swift in Sources */,
-				2E8E8D142A262CB6009BC3B0 /* CreatingSoulViewModel.swift in Sources */,
 				3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */,
 				2A794B442AD53D4400BA160F /* SubscriptionStorage.swift in Sources */,
 				530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
@@ -11829,7 +11814,6 @@
 				3D44984026D53A89005A3E06 /* ObjectHeader+Mutation.swift in Sources */,
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				2ACD26B72AFB9A1B00B19E50 /* DataviewView+View.swift in Sources */,
-				2E8E8D162A262D2E009BC3B0 /* CreatingSoulView.swift in Sources */,
 				3D24913427BD271900821595 /* LocalEvent.swift in Sources */,
 				127240D72846249600C6F8E2 /* NewSearchViewState.swift in Sources */,
 				2A298E3D2BC83FC100F1194C /* UniversalLinkParser.swift in Sources */,

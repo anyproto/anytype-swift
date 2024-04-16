@@ -732,12 +732,6 @@ internal enum Loc {
       }
     }
     internal enum JoinFlow {
-      internal enum Creating {
-        internal enum Soul {
-          /// Generating new vault
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Creating.Soul.Title", fallback: "Generating new vault")
-        }
-      }
       internal enum Key {
         /// It gives you full ownership over your vault.
         /// It can not be recovered.
@@ -797,12 +791,6 @@ internal enum Loc {
             /// All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option3.Title", fallback: "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!")
           }
-        }
-      }
-      internal enum Setting {
-        internal enum Space {
-          /// Setting up your default space
-          internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Setting.Space.Title", fallback: "Setting up your default space")
         }
       }
       internal enum Soul {
