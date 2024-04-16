@@ -784,91 +784,91 @@ extension AnytypeAnalytics {
     }
     
     func logShareSpace() {
-        logEvent(AnalyticsEventsName.shareSpace)
+        logEvent("ShareSpace")
     }
     
     func logScreenSettingsSpaceShare() {
-        logEvent(AnalyticsEventsName.screenSettingsSpaceShare)
+        logEvent("ScreenSettingsSpaceShare")
     }
     
     func logClickShareSpaceCopyLink() {
-        logEvent(AnalyticsEventsName.clickShareSpaceCopyLink)
+        logEvent("ClickShareSpaceCopyLink")
     }
     
     func logScreenStopShare() {
-        logEvent(AnalyticsEventsName.screenStopShare)
+        logEvent("ScreenStopShare")
     }
     
     func logStopSpaceShare() {
-        logEvent(AnalyticsEventsName.stopSpaceShare)
+        logEvent("StopSpaceShare")
     }
     
     func logClickSettingsSpaceShare(type: ClickSettingsSpaceShareType) {
         logEvent(
-            AnalyticsEventsName.clickSettingsSpaceShare,
+            "ClickSettingsSpaceShare",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
         )
     }
     
     func logScreenRevokeShareLink() {
-        logEvent(AnalyticsEventsName.screenRevokeShareLink)
+        logEvent("ScreenRevokeShareLink")
     }
     
     func logRevokeShareLink() {
-        logEvent(AnalyticsEventsName.revokeShareLink)
+        logEvent("RevokeShareLink")
     }
     
     func logScreenInviteConfirm(route: ScreenInviteConfirmRoute) {
         logEvent(
-            AnalyticsEventsName.screenInviteConfirm,
+            "ScreenInviteConfirm",
             withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue]
         )
     }
     
     func logApproveInviteRequest(type: PermissionAnalyticsType) {
         logEvent(
-            AnalyticsEventsName.approveInviteRequest,
+            "ApproveInviteRequest",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
         )
     }
     
     func logRejectInviteRequest() {
-        logEvent(AnalyticsEventsName.rejectInviteRequest)
+        logEvent("RejectInviteRequest")
     }
     
     func logChangeSpaceMemberPermissions(type: PermissionAnalyticsType) {
         logEvent(
-            AnalyticsEventsName.changeSpaceMemberPermissions,
+            "ChangeSpaceMemberPermissions",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
         )
     }
     
     func logRemoveSpaceMember() {
-        logEvent(AnalyticsEventsName.removeSpaceMember)
+        logEvent("RemoveSpaceMember")
     }
     
     func logScreenInviteRequest() {
-        logEvent(AnalyticsEventsName.screenInviteRequest)
+        logEvent("ScreenInviteRequest")
     }
     
     func logScreenRequestSent() {
-        logEvent(AnalyticsEventsName.screenRequestSent)
+        logEvent("ScreenRequestSent")
     }
     
     func logScreenSettingsSpaceList() {
-        logEvent(AnalyticsEventsName.screenSettingsSpaceList)
+        logEvent("ScreenSettingsSpaceList")
     }
     
     func logScreenLeaveSpace() {
-        logEvent(AnalyticsEventsName.screenLeaveSpace)
+        logEvent("ScreenLeaveSpace")
     }
     
     func logLeaveSpace() {
-        logEvent(AnalyticsEventsName.leaveSpace)
+        logEvent("LeaveSpace")
     }
     
     func logApproveLeaveRequest() {
-        logEvent(AnalyticsEventsName.approveLeaveRequest)
+        logEvent("ApproveLeaveRequest")
     }
     
     func logScreenQr(type: ScreenQrAnalyticsType) {

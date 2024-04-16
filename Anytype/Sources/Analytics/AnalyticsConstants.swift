@@ -193,27 +193,6 @@ enum AnalyticsEventsName {
     static let clickGalleryInstallSpace = "ClickGalleryInstallSpace"
     static let galleryInstall = "GalleryInstall"
     
-    // Spaces
-    static let shareSpace = "ShareSpace"
-    static let screenSettingsSpaceShare = "ScreenSettingsSpaceShare"
-    static let clickShareSpaceCopyLink = "ClickShareSpaceCopyLink"
-    static let screenStopShare = "ScreenStopShare"
-    static let stopSpaceShare = "StopSpaceShare"
-    static let clickSettingsSpaceShare = "ClickSettingsSpaceShare"
-    static let screenRevokeShareLink = "ScreenRevokeShareLink"
-    static let revokeShareLink = "RevokeShareLink"
-    static let screenInviteConfirm = "ScreenInviteConfirm"
-    static let approveInviteRequest = "ApproveInviteRequest"
-    static let rejectInviteRequest = "RejectInviteRequest"
-    static let changeSpaceMemberPermissions = "ChangeSpaceMemberPermissions"
-    static let removeSpaceMember = "RemoveSpaceMember"
-    static let screenInviteRequest = "ScreenInviteRequest"
-    static let screenRequestSent = "ScreenRequestSent"
-    static let screenSettingsSpaceList = "ScreenSettingsSpaceList"
-    static let screenLeaveSpace = "ScreenLeaveSpace"
-    static let leaveSpace = "LeaveSpace"
-    static let approveLeaveRequest = "ApproveLeaveRequest"
-    
     // Keyboard bar actions
     enum KeyboardBarAction {
         static let slashMenu = "KeyboardBarSlashMenu"
