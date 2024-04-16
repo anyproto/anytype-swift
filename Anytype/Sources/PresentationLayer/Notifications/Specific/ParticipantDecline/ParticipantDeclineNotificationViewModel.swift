@@ -9,6 +9,6 @@ final class ParticipantDeclineNotificationViewModel: ObservableObject {
     
     init(notification: NotificationParticipantRequestDecline) {
         self.notification = notification
-        message = Loc.ParticipantRequestDeclineNotification.text(notification.requestDecline.spaceName.withPlaceholder)
+        message = Loc.ParticipantRequestDeclineNotification.text(notification.requestDecline.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces))
     }
 }

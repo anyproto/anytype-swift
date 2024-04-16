@@ -20,7 +20,10 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     init(notification: NotificationRequestToJoin, onViewRequest: @escaping (_ notification: NotificationRequestToJoin) async -> Void) {
         self.notification = notification
         self.onViewRequest = onViewRequest
-        message = Loc.RequestToJoinNotification.text(notification.requestToJoin.identityName.withPlaceholder, notification.requestToJoin.spaceName.withPlaceholder)
+        message = Loc.RequestToJoinNotification.text(
+            notification.requestToJoin.identityName.withPlaceholder.trimmingCharacters(in: .whitespaces),
+            notification.requestToJoin.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces)
+        )
     }
     
     func onTapGoToSpace() async throws {

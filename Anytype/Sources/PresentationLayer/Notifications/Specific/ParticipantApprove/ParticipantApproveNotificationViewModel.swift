@@ -9,6 +9,9 @@ final class ParticipantApproveNotificationViewModel: ObservableObject {
     
     init(notification: NotificationParticipantRequestApproved) {
         self.notification = notification
-        message = Loc.ParticipantRequestApprovedNotification.text(notification.requestApprove.spaceName.withPlaceholder, notification.requestApprove.permissions.grandTitle)
+        message = Loc.ParticipantRequestApprovedNotification.text(
+            notification.requestApprove.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces),
+            notification.requestApprove.permissions.grandTitle
+        )
     }
 }
