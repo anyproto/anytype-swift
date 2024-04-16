@@ -11,32 +11,21 @@ final class SetLayoutSettingsCoordinatorViewModel: ObservableObject, SetLayoutSe
     @Published var imagePreviewData: SheetData?
     @Published var groupByData: SheetData?
     
-    private let setDocument: SetDocumentProtocol
-    private let viewId: String
-    private let setLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol
+    let setDocument: SetDocumentProtocol
+    let viewId: String
     private let setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol
     private let setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        setLayoutSettingsViewAssembly: SetLayoutSettingsViewAssemblyProtocol,
         setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol,
         setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
-        self.setLayoutSettingsViewAssembly = setLayoutSettingsViewAssembly
         self.setViewSettingsImagePreviewModuleAssembly = setViewSettingsImagePreviewModuleAssembly
         self.setViewSettingsGroupByModuleAssembly = setViewSettingsGroupByModuleAssembly
-    }
-    
-    func list() -> AnyView {
-        setLayoutSettingsViewAssembly.make(
-            setDocument: setDocument,
-            viewId: viewId,
-            output: self
-        )
     }
     
     // MARK: - SetLayoutSettingsCoordinatorOutput
