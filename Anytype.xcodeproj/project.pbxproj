@@ -387,6 +387,8 @@
 		2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */; };
 		2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */; };
 		2A35FF922AAF20FD00D6006D /* CodeLanguageRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */; };
+		2A360F972BCE778C002ADD3B /* AttributedString+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360F962BCE778C002ADD3B /* AttributedString+Style.swift */; };
+		2A360FA12BCE8A33002ADD3B /* Text+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360FA02BCE8A33002ADD3B /* Text+Style.swift */; };
 		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
 		2A376F5A2B85F30600CF444A /* SpacesManagerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */; };
 		2A376F5F2B861D7100CF444A /* SpaceStatus+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */; };
@@ -2163,6 +2165,8 @@
 		2A35FF8D2AAF202E00D6006D /* CodeLanguageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListView.swift; sourceTree = "<group>"; };
 		2A35FF8F2AAF203C00D6006D /* CodeLanguageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageListViewModel.swift; sourceTree = "<group>"; };
 		2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageRowModel.swift; sourceTree = "<group>"; };
+		2A360F962BCE778C002ADD3B /* AttributedString+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedString+Style.swift"; sourceTree = "<group>"; };
+		2A360FA02BCE8A33002ADD3B /* Text+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Style.swift"; sourceTree = "<group>"; };
 		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerRowView.swift; sourceTree = "<group>"; };
 		2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceStatus+Localize.swift"; sourceTree = "<group>"; };
@@ -9517,6 +9521,8 @@
 				533AED8B26CC421F0018E33C /* SwiftUIFont.swift */,
 				3DAA6C8F264A918F0029CD39 /* AnytypeText.swift */,
 				2E2EA2CD2A543EFE00569E1E /* AnytypeFontConfig.swift */,
+				2A360F962BCE778C002ADD3B /* AttributedString+Style.swift */,
+				2A360FA02BCE8A33002ADD3B /* Text+Style.swift */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -11858,6 +11864,7 @@
 				12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */,
 				2AB522082A14D0E7007DEE53 /* FileErrorEventHandler.swift in Sources */,
 				2AE155922A31BDF50049C387 /* RecentCompactListWidgetModuleAssembly.swift in Sources */,
+				2A360FA12BCE8A33002ADD3B /* Text+Style.swift in Sources */,
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				12AB96362800867B008E32EA /* StandardButtonModel.swift in Sources */,
 				2A176C4A2BA9A57500F5036D /* ParticipantRemoveNotificationViewModel.swift in Sources */,
@@ -12141,6 +12148,7 @@
 				3D30418127EC878000FFE0EB /* SetRelation.swift in Sources */,
 				530F503626F0ECD100F76D03 /* AudioBlockContentConfiguration.swift in Sources */,
 				C9367A9D27313692007D687A /* AccessoryViewSwitcher.swift in Sources */,
+				2A360F972BCE778C002ADD3B /* AttributedString+Style.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				2A8A2DD12AB99B0E00105549 /* ShareCoordinatorView.swift in Sources */,
 				C90F8F2228DC706D00E874A9 /* FilePreviewMedia.swift in Sources */,

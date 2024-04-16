@@ -319,4 +319,8 @@ extension AnytypeFont {
     var lineSpacing: CGFloat {
         return config.lineHeight - UIKitFontBuilder.uiKitFont(font: self).lineHeight
     }
+    
+    var lineHeightMultiple: CGFloat {
+        return config.lineHeight / UIKitFontBuilder.uiKitFont(font: self).lineHeight
+    }
 }

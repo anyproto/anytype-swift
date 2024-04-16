@@ -84,7 +84,10 @@ final class SpaceJoinViewModel: ObservableObject {
     private func updateView() async {
         do {
             let inviteView = try await workspaceService.inviteView(cid: data.cid, key: data.key)
-            message = Loc.SpaceShare.Join.message(inviteView.spaceName.withPlaceholder, inviteView.creatorName.withPlaceholder)
+            message = Loc.SpaceShare.Join.message(
+                inviteView.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces),
+                inviteView.creatorName.withPlaceholder.trimmingCharacters(in: .whitespaces)
+            )
             self.inviteView = inviteView
             state = .data
             

@@ -16,7 +16,10 @@ final class RequestToLeaveNotificationViewModel: ObservableObject {
     
     init(notification: NotificationRequestToLeave) {
         self.notification = notification
-        message = Loc.RequestToLeaveNotification.text(notification.requestToLeave.identityName.withPlaceholder, notification.requestToLeave.spaceName.withPlaceholder)
+        message = Loc.RequestToLeaveNotification.text(
+            notification.requestToLeave.identityName.withPlaceholder.trimmingCharacters(in: .whitespaces),
+            notification.requestToLeave.spaceName.withPlaceholder.trimmingCharacters(in: .whitespaces)
+        )
     }
     
     func onTapApprove() async throws {
