@@ -18,7 +18,6 @@ protocol ModulesDIProtocol: AnyObject {
     func authKey() -> KeyPhraseViewModuleAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol
-    func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol

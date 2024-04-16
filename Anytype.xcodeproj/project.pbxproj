@@ -910,6 +910,7 @@
 		2E101CBB2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E101CBA2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift */; };
 		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
 		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
+		2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */; };
 		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */; };
@@ -1050,7 +1051,6 @@
 		2EA9D72B2B3093FE001CF0DE /* EventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA9D72A2B3093FE001CF0DE /* EventsBunch.swift */; };
 		2EA9D72E2B3097C7001CF0DE /* TextServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA9D72D2B3097C7001CF0DE /* TextServiceHandler.swift */; };
 		2EAA13FB2AA63918000A712A /* SetRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EB2AA63918000A712A /* SetRelationsView.swift */; };
-		2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
 		2EAA13FD2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */; };
 		2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
 		2EAA13FF2AA63918000A712A /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */; };
@@ -2693,6 +2693,7 @@
 		2E101CBA2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingModuleAssembly.swift; sourceTree = "<group>"; };
 		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
 		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
+		2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsData.swift; sourceTree = "<group>"; };
 		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationModuleConfiguration.swift; sourceTree = "<group>"; };
@@ -2833,7 +2834,6 @@
 		2EA9D72A2B3093FE001CF0DE /* EventsBunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsBunch.swift; sourceTree = "<group>"; };
 		2EA9D72D2B3097C7001CF0DE /* TextServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextServiceHandler.swift; sourceTree = "<group>"; };
 		2EAA13EB2AA63918000A712A /* SetRelationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRelationsView.swift; sourceTree = "<group>"; };
-		2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewViewModel.swift; sourceTree = "<group>"; };
 		2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
 		2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
@@ -7232,6 +7232,7 @@
 				2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */,
 				2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */,
 				2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */,
+				2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -7576,7 +7577,6 @@
 		2EAA13EC2AA63918000A712A /* ImagePreview */ = {
 			isa = PBXGroup;
 			children = (
-				2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */,
 				2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */,
 				2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */,
 				2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */,
@@ -11140,7 +11140,6 @@
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
 				2ECF1DBF2BBADCBA007C68E2 /* SetFiltersSelectionData.swift in Sources */,
-				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
 				2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */,
@@ -11270,6 +11269,7 @@
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2A845D752B0D027300AFD252 /* WidgetSwipeActionView.swift in Sources */,
+				2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */,
 				2E999487294240C300FFBED9 /* SetDocumentProtocol.swift in Sources */,
 				120AC25E2747B56000330D7B /* TextRelationDetailsViewModel.swift in Sources */,
 				2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */,

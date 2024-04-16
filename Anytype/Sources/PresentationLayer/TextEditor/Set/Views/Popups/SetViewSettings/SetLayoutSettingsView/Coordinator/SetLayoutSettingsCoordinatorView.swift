@@ -10,8 +10,11 @@ struct SetLayoutSettingsCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.imagePreviewData) { data in
-            model.imagePreview(data: data)
-                .mediumPresentationDetents()
+            SetViewSettingsImagePreviewView(
+                setDocument: model.setDocument,
+                onSelect: data.completion
+            )
+            .mediumPresentationDetents()
         }
         .sheet(item: $model.groupByData) { data in
             CheckPopupView(

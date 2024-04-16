@@ -21,8 +21,7 @@ final class SetLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAs
         return SetLayoutSettingsCoordinatorView(
             model: SetLayoutSettingsCoordinatorViewModel(
                 setDocument: setDocument,
-                viewId: viewId,
-                setViewSettingsImagePreviewModuleAssembly: self.modulesDI.setViewSettingsImagePreview()
+                viewId: viewId
             )
         ).eraseToAnyView()
     }
