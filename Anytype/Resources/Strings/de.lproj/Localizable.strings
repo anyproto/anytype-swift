@@ -203,11 +203,11 @@
 "Restore" = "Wiederherstellen";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key" = "Schlüssel";
+"Keychain.Key.Copy.Toast.title" = "Schlüssel kopiert";
 "Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Show and copy key" = "Schlüssel anzeigen und kopieren";
+"Keychain.Have you backed up your key?" = "Hast du deinen Schlüssel gesichert?";
 "Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
 "Keychain.Error.Data to String conversion error" = "Fehler bei der Konvertierung der Daten zu Zeichenketten";
 "Keychain.Error.Unknown Keychain Error" = "Unbekannter Schlüsselbund-Fehler";
@@ -217,56 +217,53 @@
 "Create" = "Erstellen";
 "Scan QR code" = "QR-Code scannen";
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Join" = "New Vault";
+"Restore key from keychain" = "Schlüssel aus dem Schlüsselbund wiederherstellen";
+"Auth.LogIn" = "Ich habe einen Schlüssel";
+"Join" = "Neuer Tresor";
 "Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Fehler beim Wiederherstellen des Tresors, versuche es erneut";
+"Vault recover error no internet" = "Fehler beim Wiederherstellen des Tresors, wahrscheinlich keine Internetverbindung";
 
 // Auth Errors
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
 "Error select vault" = "Error select vault";
 "Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Wallet.Recovery.Error.description" = "Ungültiger Schlüssel";
 
 "Search for language" = "Sprache suchen";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Meinen Schlüssel anzeigen";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Meinen Tresor betreten";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Du findest diesen Schlüssel später in den Anytype-Einstellungen";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Was ist der Schlüssel?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Sie wird durch eine Wiederherstellungsphrase dargestellt - 12 zufällige Wörter, aus denen dein Tresor auf magische Weise auf diesem Gerät generiert wird.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wer die Kombination dieser Wörter kennt – besitzt den Tresor. **Jetzt bist du der einzige Mensch auf der Welt, der sie kennt.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Alle Rechenressourcen der Welt reichen nicht aus, um ihn zu knacken. Wenn du ihn verlierst, kann er nicht wiederhergestellt werden. Bewahre ihn also an einem sicheren Ort auf!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meinen Schlüssel speichern?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Am einfachsten ist es, deinen Schlüssel in deinem Passwort-Manager zu speichern.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
+"Auth.JoinFlow.Soul.Description" = "Nur von Leuten gesehen, mit denen du etwas teilst. Es gibt kein zentrales Register der Benutzer.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
-
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
+"Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
 "Auth.LoginFlow.Or" = "ODER";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Textfield.Placeholder" = "Gib deinen Schlüssel ein";
+"Auth.LoginFlow.Enter.Title" = "Meinen Tresor betreten";
 "Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
@@ -561,9 +558,9 @@
 "Mode" = "Modus";
 "copied to clipboard" = "%@ in die Zwischenanlage kopiert";
 "Create object from clipboard" = "Objekt aus der Zwischenablage erstellen";
-"Access to key from keychain" = "Access to key from keychain";
+"Access to key from keychain" = "Zugriff auf Schlüssel vom Schlüsselbund";
 "Back up your key" = "Back up your key";
-"Vault" = "Vault";
+"Vault" = "Tresor";
 "Access" = "Zugriff";
 "Back up key" = "Back up key";
 "Removing cache" = "Entferne Cache…";
@@ -571,7 +568,7 @@
 "Start" = "Start";
 "On analytics" = "Auf Analyse";
 "Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
+"Vault deleted" = "Tresor gelöscht";
 "Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Von Schlüsselbund wiederherstellen";
 "Edit" = "Bearbeiten";
@@ -654,7 +651,7 @@
 "This object doesn't exist" = "Dieses Objekt existiert nicht";
 "Setting up encrypted storage\nPlease wait" = "Einrichtung des verschlüsselten Speichers\nBitte warten";
 "These objects will be deleted irrevocably" = "Diese Objekte werden endgültig gelöscht. Sie können diese Aktion nicht rückgängig machen.";
-"Delete vault" = "Delete vault";
+"Delete vault" = "Tresor löschen";
 "Cancel deletion" = "Löschung abbrechen";
 "Logout and clear data" = "Abmelden und Daten löschen";
 "New" = "Neu";
@@ -820,7 +817,7 @@
 "Settings.Title" = "Einstellungen";
 "Settings.SpaceName" = "Space-Name";
 "Settings.SpaceType" = "Space type";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.VaultAndAccess" = "Tresor und Zugriff";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Dateispeicher";
@@ -891,7 +888,7 @@
 "SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Mitglieder";
 "SpaceShare.Permissions.Owner" = "Eigentümer";
-"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Reader" = "Leser";
 "SpaceShare.Permissions.Writer" = "Editor";
 "SpaceShare.Permissions.Grand.Edit" = "Bearbeiten";
 "SpaceShare.Permissions.Grand.View" = "Ansicht";
@@ -908,8 +905,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "Du hast die Anfrage von %@ genehmigt.";
 "SpaceShare.ViewRequest.Title" = "%@ beantragte den Beitritt zu %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Als Editor hinzufügen";
 "SpaceShare.ViewRequest.Reject" = "Ablehnen";
 "SpaceShare.RemoveMember.Title" = "Mitglied entfernen";
 "SpaceShare.RemoveMember.Message" = "%@ wird aus dem Space entfernt.";
@@ -1055,6 +1052,7 @@
 "Pay by Card" = "Mit Karte bezahlen";
 "Min X characters" = "Min. %@ Zeichen";
 "Pending" = "Ausstehend...";
+"Manage payment" = "Zahlung verwalten";
 
 
 "Membership.Ad.Title" = "Mitgliedschaft";
@@ -1065,6 +1063,8 @@
 "Membership.Legal.Terms" = "Allgemeine Geschäftsbedingungen";
 "Membership.Legal.WouldYouLike" = "Möchten Sie Anytype für Geschäftliches, Bildung, usw.?";
 "Membership.Legal.LetUsKnow" = "Lass es uns hier wissen.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Käufe wiederherstellen";
 
 "Membership.Email.Subject" = "Spezielle Preisanfrage";
 "Membership.Email.Body" = "Bitte konkretisiere deine Anfrage:
