@@ -46,7 +46,8 @@ struct MembershipTierView: View {
             
             info
             Spacer.fixedHeight(10)
-            actionButton
+            StandardButton(Loc.learnMore, style: .primaryMedium, action: model.onTap)
+                .disabled(model.state.isPending)
             Spacer.fixedHeight(20)
         }
         .if(model.state.isOwned) {
@@ -76,16 +77,6 @@ struct MembershipTierView: View {
             }
         )
         .cornerRadius(16, style: .continuous)
-    }
-    
-    var actionButton: some View {
-        Group {
-            if case .custom = model.tierToDisplay.type {
-                StandardButton(Loc.About.contactUs, style: .primaryMedium, action: model.onTap)
-            } else {
-                StandardButton(Loc.learnMore, style: .primaryMedium, action: model.onTap)
-            }
-        }.disabled(model.state.isPending)
     }
     
     var info: some View  {
