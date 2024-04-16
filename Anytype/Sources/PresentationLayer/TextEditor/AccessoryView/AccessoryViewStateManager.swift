@@ -250,8 +250,14 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         return textView.compare(triggerSymbolPosition, to: caretPosition) == .orderedDescending
     }
     
+    private var searchContainsMultipleSpaces: Bool {
+        guard let text = searchText() else { return false }
+        let spaces = text.filter { $0 == " " }.count
+        return spaces > 1
+    }
+    
     func dismissViewIfNeeded(forceDismiss: Bool = false) {
-        if forceDismiss || isTriggerSymbolDeleted {
+        if forceDismiss || isTriggerSymbolDeleted || searchContainsMultipleSpaces {
             configuration?.output?.accessoryState = .none
             switcher.showDefaultView()
         }
