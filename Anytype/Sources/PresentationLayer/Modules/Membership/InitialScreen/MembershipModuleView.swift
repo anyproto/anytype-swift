@@ -6,6 +6,7 @@ import Combine
 
 struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
+    @State private var safariUrl: URL?
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
@@ -48,6 +49,7 @@ struct MembershipModuleView: View {
                 }
             }
         }
+        .safariView(url: $safariUrl)
     }
     
     var baners: some View {
@@ -84,13 +86,13 @@ struct MembershipModuleView: View {
     var legal: some View {
         VStack(alignment: .leading) {
             MembershipLegalButton(text: Loc.Membership.Legal.details) {
-                openURL(URL(string: AboutApp.pricingLink)!)
+                safariUrl = URL(string: AboutApp.pricingLink)!
             }
             MembershipLegalButton(text: Loc.Membership.Legal.privacy) { 
-                openURL(URL(string: AboutApp.privacyPolicyLink)!)
+                safariUrl = URL(string: AboutApp.privacyPolicyLink)!
             }
             MembershipLegalButton(text: Loc.Membership.Legal.terms) { 
-                openURL(URL(string: AboutApp.termsLink)!)
+                safariUrl = URL(string: AboutApp.termsLink)!
             }
             
             Spacer.fixedHeight(32)
