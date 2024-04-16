@@ -20,18 +20,18 @@ protocol AccessoryViewOutput: AnyObject {
     var accessoryState: AccessoryViewInputState { get set }
     
     func showLinkToSearch(range: NSRange, text: NSAttributedString)
-    func setNewText(attributedString: NSAttributedString)
+    func setNewText(attributedString: NSAttributedString) async throws
     func didSelectAddMention(
         _ mention: MentionObject,
         at position: Int,
         attributedString: NSAttributedString
-    )
+    ) async throws
     
     func didSelectSlashAction(
         _ action: SlashAction,
         at position: Int,
         textView: UITextView?
-    )
+    ) async throws
     
     func didSelectEditButton()
     func didSelectShowStyleMenu()
@@ -70,11 +70,15 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         self.markupAccessoryViewModel = markupAccessoryViewModel
         
         markupAccessoryViewModel.onMarkupTap = { [weak self] markup in
-            self?.handle(markup)
+            Task { @MainActor in
+                try await self?.handle(markup)
+            }
         }
         
         markupAccessoryViewModel.onColorSelection = { [weak self] selectedColor in
-            self?.handle(selectedColor)
+            Task { @MainActor in
+                try await self?.handle(selectedColor)
+            }
         }
         
         cursorModeViewModel.onActionHandler = { [weak self] action in
@@ -295,35 +299,37 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
 
 // MARK: - SlashMenuHandler
 extension AccessoryViewStateManagerImpl {
-    func handle(_ action: SlashAction) {
-        guard let (attrString, index) = attributedStringWithoutSearchSymbols(),
-              let configuration else { return }
-        
-        
-        configuration.textView.textStorage.setAttributedString(attrString) // Move to action handler
-        
-        guard let triggerSymbolPosition,
-              let range = configuration.textView.textRange(
-                from: triggerSymbolPosition,
-                to: triggerSymbolPosition
-              ) else { return }
-        
-        let nsrange = NSRange(location: configuration.textView.offsetFromBegining(triggerSymbolPosition) - 1, length: 0)
-        
-        
-        configuration.textView.selectedRange = nsrange
-        
-        configuration.output?.didSelectSlashAction(
-            action,
-            at: index,
-            textView: configuration.textView
-        )
-        
-        switcher.showDefaultView()
-        slashMenuViewModel.setFilterText(filterText: "")
-        configuration.output?.accessoryState = .none
-        
-        self.triggerSymbolPosition = nil
+    func handle(_ action: SlashAction){
+        Task { @MainActor in
+            guard let (attrString, index) = attributedStringWithoutSearchSymbols(),
+                  let configuration else { return }
+            
+            
+            configuration.textView.textStorage.setAttributedString(attrString) // Move to action handler
+            
+            guard let triggerSymbolPosition,
+                  let range = configuration.textView.textRange(
+                    from: triggerSymbolPosition,
+                    to: triggerSymbolPosition
+                  ) else { return }
+            
+            let nsrange = NSRange(location: configuration.textView.offsetFromBegining(triggerSymbolPosition) - 1, length: 0)
+            
+            
+            configuration.textView.selectedRange = nsrange
+            
+            try await configuration.output?.didSelectSlashAction(
+                action,
+                at: index,
+                textView: configuration.textView
+            )
+            
+            switcher.showDefaultView()
+            slashMenuViewModel.setFilterText(filterText: "")
+            configuration.output?.accessoryState = .none
+            
+            self.triggerSymbolPosition = nil
+        }
     }
 }
 
@@ -333,21 +339,23 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
         guard let (attrString, index) = attributedStringWithoutSearchSymbols(),
               let configuration else { return }
         
-        configuration.output?.didSelectAddMention(mention, at: index, attributedString: attrString)
-        
-        switcher.showDefaultView()
-        mentionsViewModel.setFilterString("")
-        configuration.output?.accessoryState = .none
-
-        AnytypeAnalytics
-            .instance()
-            .logChangeTextStyle(.mention(MentionObject.noDetails(blockId: "")))
+        Task { @MainActor in
+            try await configuration.output?.didSelectAddMention(mention, at: index, attributedString: attrString)
+            
+            switcher.showDefaultView()
+            mentionsViewModel.setFilterString("")
+            configuration.output?.accessoryState = .none
+            
+            AnytypeAnalytics
+                .instance()
+                .logChangeTextStyle(.mention(MentionObject.noDetails(blockId: "")))
+        }
     }
 }
 
 // MARK: - Markup Action handler
 extension AccessoryViewStateManagerImpl {
-    func handle(_ markup: MarkupAccessoryViewModel.MarkupKind) {
+    func handle(_ markup: MarkupAccessoryViewModel.MarkupKind) async throws {
         guard let configuration else { return }
         
         switch markup {
@@ -366,11 +374,11 @@ extension AccessoryViewStateManagerImpl {
                 contentType: configuration.contentType
             )
             
-            configuration.output?.setNewText(attributedString: newAttributedString)
+            try await configuration.output?.setNewText(attributedString: newAttributedString)
         }
     }
     
-    func handle(_ colorItem: ColorView.ColorItem) {
+    func handle(_ colorItem: ColorView.ColorItem) async throws {
         guard let configuration else { return }
         let markup: MarkupType
         
@@ -388,7 +396,7 @@ extension AccessoryViewStateManagerImpl {
             contentType: configuration.contentType
         )
         
-        configuration.output?.setNewText(attributedString: newAttributedString)
+        try await configuration.output?.setNewText(attributedString: newAttributedString)
     }
 }
 

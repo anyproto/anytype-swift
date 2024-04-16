@@ -3,6 +3,7 @@ import Services
 import AnytypeCore
 import UIKit
 
+@MainActor
 final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
@@ -30,14 +31,14 @@ final class SlashMenuActionHandler {
         textView: UITextView?,
         blockInformation: BlockInformation,
         modifiedStringHandler: (NSAttributedString) -> Void
-    ) {
+    ) async throws {
         switch action {
         case let .actions(action):
-            handleActions(action, textView: textView, blockId: blockInformation.id)
+            try await handleActions(action, textView: textView, blockId: blockInformation.id)
         case let .alignment(alignmnet):
             handleAlignment(alignmnet, blockIds: [blockInformation.id])
         case let .style(style):
-            handleStyle(style, attributedString: textView?.attributedText, blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
+            try await handleStyle(style, attributedString: textView?.attributedText, blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
         case let .media(media):
             actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText)
         case let .objects(action):
@@ -48,22 +49,20 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 let spaceId = document.spaceId
-                Task { @MainActor [weak self] in
-                    AnytypeAnalytics.instance().logCreateLink()
-                    try await self?.actionHandler
-                        .createPage(
-                            targetId: blockInformation.id,
-                            spaceId: spaceId,
-                            typeUniqueKey: object.uniqueKeyValue,
-                            templateId: object.defaultTemplateId
+                AnytypeAnalytics.instance().logCreateLink()
+                try await actionHandler
+                    .createPage(
+                        targetId: blockInformation.id,
+                        spaceId: spaceId,
+                        typeUniqueKey: object.uniqueKeyValue,
+                        templateId: object.defaultTemplateId
+                    )
+                    .flatMap { objectId in
+                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
+                        router.showEditorScreen(
+                            data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false))
                         )
-                        .flatMap { objectId in
-                            AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
-                            self?.router.showEditorScreen(
-                                data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false))
-                            )
-                        }
-                }
+                    }
             }
         case let .relations(action):
             switch action {
@@ -80,17 +79,14 @@ final class SlashMenuActionHandler {
             switch other {
             case .table(let rowsCount, let columnsCount):
                 let safeSendableAttributedText = SafeSendable(value: textView?.attributedText)
-                Task { @MainActor in
-                    guard let blockId = try? await actionHandler.createTable(
-                        blockId: blockInformation.id,
-                        rowsCount: rowsCount,
-                        columnsCount: columnsCount,
-                        blockText: safeSendableAttributedText
-                    ) else { return }
-                    
-                    cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
-                }
+                guard let blockId = try? await actionHandler.createTable(
+                    blockId: blockInformation.id,
+                    rowsCount: rowsCount,
+                    columnsCount: columnsCount,
+                    blockText: safeSendableAttributedText
+                ) else { return }
                 
+                cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
             default:
                 actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText)
             }
@@ -117,30 +113,30 @@ final class SlashMenuActionHandler {
         attributedString: NSAttributedString?,
         blockInformation: BlockInformation,
         modifiedStringHandler: (NSAttributedString) -> Void
-    ) {
+    ) async throws {
         switch style {
         case .text:
-            actionHandler.turnInto(.text, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.text, blockId: blockInformation.id)
         case .title:
-            actionHandler.turnInto(.header, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.header, blockId: blockInformation.id)
         case .heading:
-            actionHandler.turnInto(.header2, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.header2, blockId: blockInformation.id)
         case .subheading:
-            actionHandler.turnInto(.header3, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.header3, blockId: blockInformation.id)
         case .highlighted:
-            actionHandler.turnInto(.quote, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.quote, blockId: blockInformation.id)
         case .callout:
-            actionHandler.turnInto(.callout, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.callout, blockId: blockInformation.id)
         case .checkbox:
-            actionHandler.turnInto(.checkbox, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.checkbox, blockId: blockInformation.id)
         case .bulleted:
-            actionHandler.turnInto(.bulleted, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.bulleted, blockId: blockInformation.id)
         case .numberedList:
-            actionHandler.turnInto(.numbered, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.numbered, blockId: blockInformation.id)
         case .toggle:
-            actionHandler.turnInto(.toggle, blockId: blockInformation.id)
+            try await actionHandler.turnInto(.toggle, blockId: blockInformation.id)
         case .bold:
-            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+            let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .bold,
                 info: blockInformation
@@ -148,7 +144,7 @@ final class SlashMenuActionHandler {
             
             modifiedAttributedString.map(modifiedStringHandler)
         case .italic:
-            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+            let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .italic,
                 info: blockInformation
@@ -156,7 +152,7 @@ final class SlashMenuActionHandler {
             
             modifiedAttributedString.map(modifiedStringHandler)
         case .strikethrough:
-            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+            let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .strikethrough,
                 info: blockInformation
@@ -164,7 +160,7 @@ final class SlashMenuActionHandler {
             
             modifiedAttributedString.map(modifiedStringHandler)
         case .code:
-            let modifiedAttributedString = actionHandler.toggleWholeBlockMarkup(
+            let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .keyboard,
                 info: blockInformation
@@ -176,7 +172,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: String) {
+    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: String) async throws {
         switch action {
         case .delete:
             actionHandler.delete(blockIds: [blockId])
@@ -187,9 +183,7 @@ final class SlashMenuActionHandler {
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)
             }
         case .copy:
-            Task {
-                try await pasteboardService.copy(document: document, blocksIds: [blockId], selectedTextRange: NSRange())
-            }
+            try await pasteboardService.copy(document: document, blocksIds: [blockId], selectedTextRange: NSRange())
         case .paste:
             textView?.paste(self)
         }

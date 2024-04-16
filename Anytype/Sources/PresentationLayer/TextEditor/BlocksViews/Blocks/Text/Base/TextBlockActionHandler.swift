@@ -9,6 +9,7 @@ struct TextBlockURLInputParameters {
     let optionHandler: (EditorContextualOption) -> Void
 }
 
+@MainActor
 final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     var info: BlockInformation
@@ -169,7 +170,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             .textChangeType(changeTextRange: range, replacementText: replacementText)
         
         if mentionDetecter.removeMentionIfNeeded(textView: textView, replacementText: replacementText) {
-            actionHandler.changeText(textView.attributedText, blockId: info.id)
+            Task { @MainActor in
+                try await actionHandler.changeText(textView.attributedText, blockId: info.id)
+            }
             return false
         }
 
@@ -186,20 +189,25 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             case let .turnInto(style, newText):
                 guard let content = info.textContent, content.contentType != style else { return true }
                 guard BlockRestrictionsBuilder.build(content:  info.content).canApplyTextStyle(style) else { return true }
-
-                actionHandler.turnInto(style, blockId: info.id)
-                setNewText(attributedString: newText)
-                textView.setFocus(.beginning)
+                
+                Task { @MainActor in
+                    try await actionHandler.turnInto(style, blockId: info.id)
+                    setNewText(attributedString: newText)
+                    textView.setFocus(.beginning)
+                }
             case let .addBlock(type, newText):
                 setNewText(attributedString: newText)
                 actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
                 resetSubject.send(nil)
             case let .addStyle(style, newText, styleRange, focusRange):
-                actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText, contentType: info.content.type)
-                textView.setFocus(.at(focusRange))
+                Task { @MainActor in
+                    try await actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText, contentType: info.content.type)
+                    textView.setFocus(.at(focusRange))
+                }
             }
-
+            
             return false
+                
         }
 
         return true
@@ -250,59 +258,63 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             replacementText: replacementText.trimmed,
             range: range
         )
-
-        changeTextAndReset(newTextWithLink)
-
-        let replacementRange = NSRange(location: range.location, length: trimmedText.count)
-
-        guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
-
-        let urlIputParameters = TextBlockURLInputParameters(
-            textView: textView,
-            rect: textRect) { [info, weak self] option in
-                switch option {
-                case .createBookmark:
-                    let position: BlockPosition = textView.text == trimmedText ?
-                        .replace : .bottom
-                    
-                    let safeSendableAttributedString = SafeSendable(value: originalAttributedString)
-                    Task { @MainActor [weak self] in
-                        try await self?.actionHandler.createAndFetchBookmark(
-                            targetID: info.id,
-                            position: position,
-                            url: url
-                        )
-                        safeSendableAttributedString.value.map {
-                            self?.changeTextAndReset($0)
+        
+        Task { @MainActor in
+            try await changeTextAndReset(newTextWithLink)
+            
+            let replacementRange = NSRange(location: range.location, length: trimmedText.count)
+            
+            guard let textRect = textView.textRectForRange(range: replacementRange) else { return }
+            
+            let urlIputParameters = TextBlockURLInputParameters(
+                textView: textView,
+                rect: textRect) { [info, weak self] option in
+                    switch option {
+                    case .createBookmark:
+                        let position: BlockPosition = textView.text == trimmedText ?
+                            .replace : .bottom
+                        
+                        let safeSendableAttributedString = SafeSendable(value: originalAttributedString)
+                        Task { @MainActor [weak self] in
+                            try await self?.actionHandler.createAndFetchBookmark(
+                                targetID: info.id,
+                                position: position,
+                                url: url
+                            )
+                            if let value = safeSendableAttributedString.value {
+                                try await self?.changeTextAndReset(value)
+                            }
                         }
-                    }
-                case .pasteAsLink:
-                    break
-                case .pasteAsText:
-                    let newText = self?.makeAttributedString(
-                        attributedText: originalAttributedString ?? NSAttributedString(),
-                        replacementURL: nil,
-                        replacementText: replacementText.trimmed,
-                        range: range
-                    )
-                    newText.map {
-                        self?.changeTextAndReset($0)
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        if #available(iOS 17.0, *) {
-                            SharingTip.didCopyText = true
+                    case .pasteAsLink:
+                        break
+                    case .pasteAsText:
+                        let newText = self?.makeAttributedString(
+                            attributedText: originalAttributedString ?? NSAttributedString(),
+                            replacementURL: nil,
+                            replacementText: replacementText.trimmed,
+                            range: range
+                        )
+                        if let newText {
+                            Task {
+                                try await self?.changeTextAndReset(newText)
+                            }
+                        }
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            if #available(iOS 17.0, *) {
+                                SharingTip.didCopyText = true
+                            }
                         }
                     }
                 }
-            }
-        showURLBookmarkPopup(urlIputParameters)
-
+                showURLBookmarkPopup(urlIputParameters)
+        }
+        
         return true
     }
     
-    private func changeTextAndReset(_ text: NSAttributedString) {
-        actionHandler.changeText(text, blockId: info.id)
+    private func changeTextAndReset(_ text: NSAttributedString) async throws {
+        try await actionHandler.changeText(text, blockId: info.id)
         resetSubject.send(text)
     }
 
@@ -377,7 +389,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         
         switch accessoryState {
         case .none:
-            actionHandler.changeText(textView.attributedText, blockId: info.id)
+            Task {
+                try await actionHandler.changeText(textView.attributedText, blockId: info.id)
+            }
         case .search:
             break
         }
@@ -469,14 +483,18 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     }
     
     func setNewText(attributedString: NSAttributedString) {
-        resetSubject.send(attributedString)
-        actionHandler.changeText(attributedString, blockId: info.id)
-        
-        viewModel.map { collectionController.itemDidChangeFrame(item: .block($0)) }
+        Task { @MainActor in
+            resetSubject.send(attributedString)
+            try await actionHandler.changeText(attributedString, blockId: info.id)
+            
+            viewModel.map { collectionController.itemDidChangeFrame(item: .block($0)) }
+        }
     }
     
     func changeText(attributedString: NSAttributedString) {
-        actionHandler.changeText(attributedString, blockId: info.id)
+        Task { @MainActor in
+            try await actionHandler.changeText(attributedString, blockId: info.id)
+        }
     }
     
     func didSelectAddMention(
@@ -509,8 +527,8 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         _ action: SlashAction,
         at position: Int,
         textView: UITextView?
-    ) {
-        slashMenuActionHandler.handle(
+    ) async throws {
+        try await slashMenuActionHandler.handle(
             action,
             textView: textView,
             blockInformation: info) { [weak resetSubject] modifiedAttributedString in

@@ -47,20 +47,18 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         try await service.turnIntoPage(blockId: blockId, spaceId: document.spaceId)
     }
     
-    func turnInto(_ style: BlockText.Style, blockId: String) {
-        Task {
-            switch style {
-            case .toggle:
-                if let blockInformation = document.infoContainer.get(id: blockId),
-                   blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
-                    blockInformation.toggle()
-                }
-                try await service.turnInto(style, blockId: blockId)
-            default:
-                try await service.turnInto(style, blockId: blockId)
+    func turnInto(_ style: BlockText.Style, blockId: String) async throws {
+        switch style {
+        case .toggle:
+            if let blockInformation = document.infoContainer.get(id: blockId),
+               blockInformation.childrenIds.count > 0, !blockInformation.isToggled {
+                blockInformation.toggle()
             }
-            AnytypeAnalytics.instance().logChangeBlockStyle(style)
+            try await service.turnInto(style, blockId: blockId)
+        default:
+            try await service.turnInto(style, blockId: blockId)
         }
+        AnytypeAnalytics.instance().logChangeBlockStyle(style)
     }
     
     func upload(blockId: String, filePath: String) async throws {
@@ -176,7 +174,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         _ attributedString: NSAttributedString?,
         markup: MarkupType,
         info: BlockInformation
-    ) -> NSAttributedString? {
+    ) async throws -> NSAttributedString? {
         guard let textContent = info.textContent, let attributedString else { return nil }
         let changedAttributedString = markupChanger.toggleMarkup(
             attributedString,
@@ -184,7 +182,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             contentType: .text(textContent.contentType)
         )
         
-        changeText(changedAttributedString, blockId: info.id)
+        try await changeText(changedAttributedString, blockId: info.id)
         
         return changedAttributedString
     }
@@ -195,7 +193,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockId: String,
         currentText: NSAttributedString?,
         contentType: BlockContentType
-    ) {
+    ) async throws {
         guard let currentText else { return }
         let newText = markupChanger.setMarkup(
             attribute,
@@ -206,23 +204,21 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
         AnytypeAnalytics.instance().logChangeTextStyle(attribute)
 
-        changeText(newText, blockId: blockId)
+        try await changeText(newText, blockId: blockId)
     }
     
-    func changeText(_ text: NSAttributedString, blockId: String) {
+    func changeText(_ text: NSAttributedString, blockId: String) async throws {
         let safeSendableText = SafeSendable(value: text)
 
-        Task {
-            let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
             
-            await EventsBunch(
-                contextId: document.objectId,
-                localEvents: [.setText(blockId: blockId, text: middlewareString)]
-            ).send()
+        await EventsBunch(
+            contextId: document.objectId,
+            localEvents: [.setText(blockId: blockId, text: middlewareString)]
+        ).send()
 
 
-            try await service.setText(contextId: document.objectId, blockId: blockId, middlewareString: middlewareString)
-        }
+        try await service.setText(contextId: document.objectId, blockId: blockId, middlewareString: middlewareString)
     }
     
     // MARK: - Public methods
