@@ -37,7 +37,6 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
                 mode: mode,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
-                setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),
                 setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations(),
                 setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
                 setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()

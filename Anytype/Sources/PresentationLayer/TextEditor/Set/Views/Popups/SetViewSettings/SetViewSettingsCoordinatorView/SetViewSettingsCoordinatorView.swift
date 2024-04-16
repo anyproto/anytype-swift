@@ -6,8 +6,11 @@ struct SetViewSettingsCoordinatorView: View {
     var body: some View {
         model.list()
             .sheet(isPresented: $model.showLayouts) {
-                model.setLayoutSettings()
-                    .mediumPresentationDetents()
+                SetLayoutSettingsCoordinatorView(
+                    setDocument: model.setDocument,
+                    viewId: model.viewId
+                )
+                .mediumPresentationDetents()
             }
             .sheet(isPresented: $model.showRelations) {
                 model.relationsList()
