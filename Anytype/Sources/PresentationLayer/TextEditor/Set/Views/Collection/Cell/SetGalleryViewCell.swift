@@ -84,6 +84,7 @@ struct SetGalleryViewCell: View {
                 mode: .button(action: nil)
             )
         )
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
