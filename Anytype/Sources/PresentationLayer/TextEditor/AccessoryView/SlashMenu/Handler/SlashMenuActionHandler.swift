@@ -40,7 +40,7 @@ final class SlashMenuActionHandler {
         case let .style(style):
             try await handleStyle(style, attributedString: textView?.attributedText, blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
         case let .media(media):
-            actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText)
+            actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: document.spaceId)
         case let .objects(action):
             switch action {
             case .linkTo:
@@ -58,7 +58,7 @@ final class SlashMenuActionHandler {
                         templateId: object.defaultTemplateId
                     )
                     .flatMap { objectId in
-                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, route: .powertool)
+                        AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, spaceId: object.spaceId, route: .powertool)
                         router.showEditorScreen(
                             data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false))
                         )
@@ -67,13 +67,13 @@ final class SlashMenuActionHandler {
         case let .relations(action):
             switch action {
             case .newRealtion:
-                router.showAddNewRelationView(document: document) { [weak self] relation, isNew in
-                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText)
+                router.showAddNewRelationView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
+                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: spaceId)
                     
                     AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
                 }
             case .relation(let relation):
-                actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText)
+                actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: document.spaceId)
             }
         case let .other(other):
             switch other {
@@ -83,12 +83,13 @@ final class SlashMenuActionHandler {
                     blockId: blockInformation.id,
                     rowsCount: rowsCount,
                     columnsCount: columnsCount,
-                    blockText: safeSendableAttributedText
+                    blockText: safeSendableAttributedText,
+                    spaceId: document.spaceId
                 ) else { return }
                 
                 cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
             default:
-                actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText)
+                actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: document.spaceId)
             }
         case let .color(color):
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])

@@ -200,6 +200,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         )
         viewInput?.update(syncStatusData: data)
     }
+    
+    func tapOnEmptyPlace() {
+        actionHandler.createEmptyBlock(parentId: document.objectId, spaceId: document.spaceId)
+    }
 }
 
 // MARK: - View output
@@ -224,7 +228,7 @@ extension EditorPageViewModel {
             }
             
             if let objectDetails = document.details {
-                AnytypeAnalytics.instance().logShowObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue)
+                AnytypeAnalytics.instance().logScreenObject(type: objectDetails.analyticsType, layout: objectDetails.layoutValue, spaceId: objectDetails.spaceId)
             }
             
             output?.setModuleInput(input: EditorPageModuleInputContainer(model: self), objectId: document.objectId)

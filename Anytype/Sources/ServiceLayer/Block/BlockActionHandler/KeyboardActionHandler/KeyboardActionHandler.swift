@@ -16,6 +16,7 @@ protocol KeyboardActionHandlerProtocol {
 @MainActor
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let documentId: String
+    private let spaceId: String
     private let service: BlockActionServiceProtocol
     private let blockService: BlockServiceProtocol
     private let toggleStorage: ToggleStorage
@@ -25,6 +26,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     nonisolated init(
         documentId: String,
+        spaceId: String,
         service: BlockActionServiceProtocol,
         blockService: BlockServiceProtocol,
         toggleStorage: ToggleStorage,
@@ -33,6 +35,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         editorCollectionController: EditorBlockCollectionController
     ) {
         self.documentId = documentId
+        self.spaceId = spaceId
         self.service = service
         self.blockService = blockService
         self.toggleStorage = toggleStorage
@@ -203,7 +206,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private func logCreateBlock(with style: BlockText.Style) {
         let textContentType = BlockContent.text(.empty(contentType: style)).type.analyticsValue
-        AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
+        AnytypeAnalytics.instance().logCreateBlock(type: textContentType, spaceId: spaceId, style: String(describing: style))
     }
 }
 

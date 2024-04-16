@@ -189,10 +189,10 @@ final class ObjectActionsViewModel: ObservableObject {
                     objectIds: [currentObjectId]
                 )
                 self.onLinkItselfToObjectHandler?(details.editorScreenData())
-                AnytypeAnalytics.instance().logLinkToObject(type: .collection)
+                AnytypeAnalytics.instance().logLinkToObject(type: .collection, spaceId: details.spaceId)
             } else {
                 let info = BlockInformation.emptyLink(targetId: currentObjectId)
-                AnytypeAnalytics.instance().logCreateBlock(type: info.content.type)
+                AnytypeAnalytics.instance().logCreateBlock(type: info.content.type, spaceId: details.spaceId)
                 let _ = try await self.blockService.add(
                     contextId: objectId,
                     targetId: id,
@@ -200,7 +200,7 @@ final class ObjectActionsViewModel: ObservableObject {
                     position: .bottom
                 )
                 self.onLinkItselfToObjectHandler?(details.editorScreenData())
-                AnytypeAnalytics.instance().logLinkToObject(type: .object)
+                AnytypeAnalytics.instance().logLinkToObject(type: .object, spaceId: details.spaceId)
             }
         }
     }

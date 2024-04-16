@@ -9,6 +9,7 @@ public struct FileDetails {
     public let fileMimeType: String
     public let fileContentType: FileContentType
     public let type: String
+    public let spaceId: String
     
     init(objectDetails: ObjectDetails) {
         self.name = objectDetails.name
@@ -18,6 +19,7 @@ public struct FileDetails {
         self.fileMimeType = objectDetails.fileMimeType
         self.fileContentType = objectDetails.layoutValue.fileContentType
         self.type = objectDetails.type
+        self.spaceId = objectDetails.spaceId
     }
     
     public var fileName: String {

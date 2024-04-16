@@ -53,7 +53,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         if let linkToObject {
             try await linkTo(object: linkToObject, newObjectId: noteObject.id, blockInformation: BlockInformation.emptyLink(targetId: noteObject.id))
         }
-        AnytypeAnalytics.instance().logCreateObject(objectType: noteObject.objectType.analyticsType, route: .sharingExtension)
+        AnytypeAnalytics.instance().logCreateObject(objectType: noteObject.objectType.analyticsType, spaceId: noteObject.spaceId, route: .sharingExtension)
     }
     
     private func saveNewObject(spaceId: String, linkToObject: ObjectDetails?, content: SharedContent) async {
@@ -107,6 +107,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: newBookmark.objectType.analyticsType,
+            spaceId: newBookmark.spaceId,
             route: .sharingExtension
         )
         return newBookmark
@@ -128,6 +129,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: newObject.objectType.analyticsType,
+            spaceId: newObject.spaceId,
             route: .sharingExtension
         )
         return newObject
@@ -139,6 +141,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: details.analyticsType,
+            spaceId: details.spaceId,
             route: .sharingExtension
         )
         return details
@@ -154,7 +157,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         )
         _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected(blockIds: [newBlockId]))
         if logAnalytics {
-            AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, spaceId: addToObject.spaceId, route: .sharingExtension)
         }
     }
     
@@ -168,7 +171,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             position: .bottom
         )
         if logAnalytics {
-            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: addToObject.spaceId, route: .sharingExtension)
         }
     }
     
@@ -187,7 +190,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             position: .bottom
         )
         if logAnalytics {
-            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: addToObject.spaceId, route: .sharingExtension)
         }
     }
     
@@ -206,7 +209,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                 info: blockInformation,
                 position: .bottom
             )
-            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: linkToObject.spaceId, route: .sharingExtension)
         }
     }
 }

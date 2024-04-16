@@ -197,7 +197,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 }
             case let .addBlock(type, newText):
                 setNewText(attributedString: newText)
-                actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
+                actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top, spaceId: document.spaceId)
                 resetSubject.send(nil)
             case let .addStyle(style, newText, styleRange, focusRange):
                 Task { @MainActor in
@@ -362,7 +362,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func createEmptyBlock() {
-        actionHandler.createEmptyBlock(parentId: info.id)
+        actionHandler.createEmptyBlock(parentId: info.id, spaceId: document.spaceId)
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {

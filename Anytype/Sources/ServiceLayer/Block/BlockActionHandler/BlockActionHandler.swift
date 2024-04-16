@@ -142,10 +142,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
     }
     
-    func createEmptyBlock(parentId: String) {
+    func createEmptyBlock(parentId: String, spaceId: String) {
         Task {
             let emptyBlock = BlockInformation.emptyText
-            AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type)
+            AnytypeAnalytics.instance().logCreateBlock(type: emptyBlock.content.type, spaceId: spaceId)
             try await service.addChild(info: emptyBlock, parentId: parentId)
         }
     }
@@ -265,14 +265,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockId: String,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: SafeSendable<NSAttributedString?>
+        blockText: SafeSendable<NSAttributedString?>,
+        spaceId: String
     ) async throws -> String {
         guard let isTextAndEmpty = blockText.value?.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
 
-        AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue)
+        AnytypeAnalytics.instance().logCreateBlock(type: TableBlockType.simpleTableBlock.rawValue, spaceId: spaceId)
         
         return try await blockTableService.createTable(
             contextId: document.objectId,
@@ -284,7 +285,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead")
             return
@@ -297,7 +298,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
         
-        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type)
+        AnytypeAnalytics.instance().logCreateBlock(type: newBlock.content.type, spaceId: spaceId)
         Task {
             try await service.add(info: newBlock, targetBlockId: blockId, position: position)
         }
