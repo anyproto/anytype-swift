@@ -42,19 +42,21 @@ final class RelationsBuilder {
         var deletedRelations: [Relation] = []
         var otherRelations: [Relation] = []
         
+        
+        hackGlobalNameValue(
+            relationsDetails: relationsDetails,
+            objectDetails: objectDetails,
+            relationValuesIsLocked: relationValuesIsLocked,
+            storage: storage
+        )
+        .flatMap { featuredRelations.append($0) }
+        
+        
         relationsDetails.forEach { relationDetails in
             guard !relationDetails.isHidden else { return }
-            guard relationDetails.key != BundledRelationKey.globalName.rawValue else {
-                hackGlobalNameValue(
-                    relationsDetails: relationsDetails,
-                    objectDetails: objectDetails,
-                    relationValuesIsLocked: relationValuesIsLocked,
-                    storage: storage
-                )
-                .flatMap { featuredRelations.append($0) }
-                return
+            guard relationDetails.key != BundledRelationKey.globalName.rawValue || relationDetails.key != BundledRelationKey.identity.rawValue else {
+                return // see hackGlobalNameValue
             }
-            
             
             let value = relation(
                 relationDetails: relationDetails,
@@ -99,25 +101,21 @@ final class RelationsBuilder {
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> Relation? {
-        guard let globaName = relationForKey(
+        if let globaName = relationForKey(
             key: BundledRelationKey.globalName.rawValue,
             relationsDetails: relationsDetails,
             objectDetails: objectDetails,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
-        ) else { return nil }
+        ), globaName.hasValue { return globaName }
         
-        if globaName.hasValue { return globaName }
-        
-        guard let identity = relationForKey(
+        if let identity = relationForKey(
             key: BundledRelationKey.identity.rawValue,
             relationsDetails: relationsDetails,
             objectDetails: objectDetails,
             relationValuesIsLocked: relationValuesIsLocked,
             storage: storage
-        ) else { return nil }
-        
-        if identity.hasValue { return identity }
+        ), identity.hasValue { return identity }
         
         return nil
     }

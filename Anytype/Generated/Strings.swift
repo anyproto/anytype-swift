@@ -1518,12 +1518,16 @@ internal enum Loc {
       }
     }
     internal enum Legal {
+      /// Already purchased tier?
+      internal static let alreadyPurchasedTier = Loc.tr("Localizable", "Membership.Legal.AlreadyPurchasedTier", fallback: "Already purchased tier?")
       /// Membership levels details
       internal static let details = Loc.tr("Localizable", "Membership.Legal.Details", fallback: "Membership levels details")
       /// Please let us know here.
       internal static let letUsKnow = Loc.tr("Localizable", "Membership.Legal.LetUsKnow", fallback: "Please let us know here.")
       /// Privacy policy
       internal static let privacy = Loc.tr("Localizable", "Membership.Legal.Privacy", fallback: "Privacy policy")
+      /// Restore purchases
+      internal static let restorePurchases = Loc.tr("Localizable", "Membership.Legal.RestorePurchases", fallback: "Restore purchases")
       /// Terms and conditions
       internal static let terms = Loc.tr("Localizable", "Membership.Legal.Terms", fallback: "Terms and conditions")
       /// Would you like to use Anytype for business, education, etc.?
