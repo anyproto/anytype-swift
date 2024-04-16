@@ -140,7 +140,7 @@ final class MembershipService: MembershipServiceProtocol {
                 periodType: tier.periodType,
                 periodValue: tier.periodValue,
                 priceInCents: tier.priceStripeUsdCents,
-                paymentUrl: URL(string: tier.iosManageURL) ?? URL(string: "https://download.anytype.io")! // TODO: Update with actual link
+                paymentUrl: URL(string: tier.iosManageURL) ?? URL(string: "https://anytype.io/pricing")!
             )
             return .external(info: info)
         }

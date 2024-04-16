@@ -5,6 +5,8 @@ import Services
 struct MembershipOwnerInfoSheetView: View {
     let membership: MembershipStatus
     
+    @State private var showManageSubscriptions = false
+    
     var body: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(34)
@@ -12,6 +14,8 @@ struct MembershipOwnerInfoSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(14)
             info
+            managePayment
+            Spacer.fixedHeight(46)
         }
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
@@ -54,38 +58,54 @@ struct MembershipOwnerInfoSheetView: View {
             }
         }
     }
+    
+    private var managePayment: some View {
+        Group {
+            if membership.paymentMethod == .methodInappApple {
+                VStack(spacing: 0) {
+                    Spacer.fixedHeight(20)
+                    StandardButton(Loc.managePayment, style: .secondaryLarge) {
+                        showManageSubscriptions = true
+                    }
+                }
+                .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
+            }
+        }
+    }
 }
 
 #Preview {
-    ScrollView(.horizontal) {
-        HStack {
-            MembershipOwnerInfoSheetView(
-                membership: MembershipStatus(
-                    tier: .mockExplorer,
-                    status: .active,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodCard,
-                    anyName: ""
+    NavigationView {
+        ScrollView(.horizontal) {
+            HStack {
+                MembershipOwnerInfoSheetView(
+                    membership: MembershipStatus(
+                        tier: .mockExplorer,
+                        status: .active,
+                        dateEnds: .tomorrow,
+                        paymentMethod: .methodCard,
+                        anyName: ""
+                    )
                 )
-            )
-            MembershipOwnerInfoSheetView(
-                membership: MembershipStatus(
-                    tier: .mockBuilder,
-                    status: .pending,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodCrypto,
-                    anyName: ""
+                MembershipOwnerInfoSheetView(
+                    membership: MembershipStatus(
+                        tier: .mockBuilder,
+                        status: .pending,
+                        dateEnds: .tomorrow,
+                        paymentMethod: .methodCrypto,
+                        anyName: ""
+                    )
                 )
-            )
-            MembershipOwnerInfoSheetView(
-                membership: MembershipStatus(
-                    tier: .mockCoCreator,
-                    status: .active,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodInappApple,
-                    anyName: ""
+                MembershipOwnerInfoSheetView(
+                    membership: MembershipStatus(
+                        tier: .mockCoCreator,
+                        status: .active,
+                        dateEnds: .tomorrow,
+                        paymentMethod: .methodInappApple,
+                        anyName: ""
+                    )
                 )
-            )
+            }
         }
     }
 }
