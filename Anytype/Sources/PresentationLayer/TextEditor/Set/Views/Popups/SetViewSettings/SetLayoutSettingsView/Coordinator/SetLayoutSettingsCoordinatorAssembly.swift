@@ -22,8 +22,7 @@ final class SetLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAs
             model: SetLayoutSettingsCoordinatorViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
-                setViewSettingsImagePreviewModuleAssembly: self.modulesDI.setViewSettingsImagePreview(),
-                setViewSettingsGroupByModuleAssembly: self.modulesDI.setViewSettingsGroupByView()
+                setViewSettingsImagePreviewModuleAssembly: self.modulesDI.setViewSettingsImagePreview()
             )
         ).eraseToAnyView()
     }

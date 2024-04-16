@@ -14,18 +14,15 @@ final class SetLayoutSettingsCoordinatorViewModel: ObservableObject, SetLayoutSe
     let setDocument: SetDocumentProtocol
     let viewId: String
     private let setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol
-    private let setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol,
-        setViewSettingsGroupByModuleAssembly: SetViewSettingsGroupByModuleAssemblyProtocol
+        setViewSettingsImagePreviewModuleAssembly: SetViewSettingsImagePreviewModuleAssemblyProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
         self.setViewSettingsImagePreviewModuleAssembly = setViewSettingsImagePreviewModuleAssembly
-        self.setViewSettingsGroupByModuleAssembly = setViewSettingsGroupByModuleAssembly
     }
     
     // MARK: - SetLayoutSettingsCoordinatorOutput
@@ -43,13 +40,6 @@ final class SetLayoutSettingsCoordinatorViewModel: ObservableObject, SetLayoutSe
     
     func onGroupByTap(completion: @escaping (String) -> Void) {
         groupByData = SheetData(completion: completion)
-    }
-    
-    func groupByView(data: SheetData) -> AnyView {
-        setViewSettingsGroupByModuleAssembly.make(
-            setDocument: setDocument,
-            onSelect: data.completion
-        )
     }
 }
 

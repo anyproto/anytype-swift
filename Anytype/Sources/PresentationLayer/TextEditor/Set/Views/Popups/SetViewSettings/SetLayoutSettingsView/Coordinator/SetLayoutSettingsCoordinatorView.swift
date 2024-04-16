@@ -14,8 +14,13 @@ struct SetLayoutSettingsCoordinatorView: View {
                 .mediumPresentationDetents()
         }
         .sheet(item: $model.groupByData) { data in
-            model.groupByView(data: data)
-                .fitPresentationDetents()
+            CheckPopupView(
+                viewModel: SetViewSettingsGroupByViewModel(
+                    setDocument: model.setDocument,
+                    onSelect: data.completion
+                )
+            )
+            .fitPresentationDetents()
         }
     }
 }

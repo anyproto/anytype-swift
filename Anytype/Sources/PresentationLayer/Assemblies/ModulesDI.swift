@@ -90,10 +90,6 @@ final class ModulesDI: ModulesDIProtocol {
         SetViewSettingsImagePreviewModuleAssembly()
     }
     
-    func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol {
-        SetViewSettingsGroupByModuleAssembly()
-    }
-    
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
         SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
     }

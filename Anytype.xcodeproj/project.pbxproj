@@ -1056,7 +1056,6 @@
 		2EAA13FF2AA63918000A712A /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */; };
 		2EAA14002AA63918000A712A /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F12AA63918000A712A /* SetViewSettingsImagePreviewCover.swift */; };
 		2EAA14012AA63918000A712A /* SetViewSettingsGroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */; };
-		2EAA14022AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */; };
 		2EAA14032AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F62AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift */; };
 		2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F72AA63918000A712A /* SetViewSettingsRelation.swift */; };
 		2EAA14052AA63918000A712A /* SetRelationsViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F82AA63918000A712A /* SetRelationsViewModuleAssembly.swift */; };
@@ -2840,7 +2839,6 @@
 		2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
 		2EAA13F12AA63918000A712A /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
 		2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByViewModel.swift; sourceTree = "<group>"; };
-		2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByModuleAssembly.swift; sourceTree = "<group>"; };
 		2EAA13F62AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCardSizeViewModel.swift; sourceTree = "<group>"; };
 		2EAA13F72AA63918000A712A /* SetViewSettingsRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsRelation.swift; sourceTree = "<group>"; };
 		2EAA13F82AA63918000A712A /* SetRelationsViewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRelationsViewModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7591,7 +7589,6 @@
 			isa = PBXGroup;
 			children = (
 				2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */,
-				2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */,
 			);
 			path = GroupBy;
 			sourceTree = "<group>";
@@ -11799,7 +11796,6 @@
 				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
 				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
-				2EAA14022AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */,
