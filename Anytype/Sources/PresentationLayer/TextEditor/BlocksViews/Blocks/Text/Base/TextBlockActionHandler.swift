@@ -386,14 +386,8 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     @MainActor
     private func textViewDidChangeText(textView: UITextView) {
         changeType.map { accessoryViewStateManager.textDidChange(changeType: $0) }
-        
-        switch accessoryState {
-        case .none:
-            Task {
-                try await actionHandler.changeText(textView.attributedText, blockId: info.id)
-            }
-        case .search:
-            break
+        Task {
+            try await actionHandler.changeText(textView.attributedText, blockId: info.id)
         }
     }
 
