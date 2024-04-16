@@ -49,7 +49,7 @@ struct MembershipModuleView: View {
                 }
             }
         }
-        .safariView(url: $safariUrl)
+        .safariSheet(url: $safariUrl)
     }
     
     var baners: some View {

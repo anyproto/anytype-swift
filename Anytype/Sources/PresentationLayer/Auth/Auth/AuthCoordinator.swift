@@ -12,16 +12,13 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     private let joinFlowCoordinator: JoinFlowCoordinatorProtocol
     private let loginFlowCoordinator: LoginFlowCoordinatorProtocol
-    private let urlOpener: URLOpenerProtocol
     
     init(
         joinFlowCoordinator: JoinFlowCoordinatorProtocol,
-        loginFlowCoordinator: LoginFlowCoordinatorProtocol,
-        urlOpener: URLOpenerProtocol
+        loginFlowCoordinator: LoginFlowCoordinatorProtocol
     ) {
         self.joinFlowCoordinator = joinFlowCoordinator
         self.loginFlowCoordinator = loginFlowCoordinator
-        self.urlOpener = urlOpener
     }
     
     // MARK: - AuthCoordinatorProtocol
@@ -38,10 +35,6 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     func onLoginAction() -> AnyView {
         loginFlowCoordinator.startFlow()
-    }
-    
-    func onUrlAction(_ url: URL) {
-        urlOpener.openUrl(url, presentationStyle: .pageSheet, preferredColorScheme: .dark)
     }
     
     func onSettingsAction() -> AnyView {

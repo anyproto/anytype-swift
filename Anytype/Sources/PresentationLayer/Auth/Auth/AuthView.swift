@@ -5,6 +5,7 @@ import AudioToolbox
 struct AuthView: View {
     
     @StateObject private var model: AuthViewModel
+    @State private var safariUrl: URL?
     
     init(output: AuthViewModelOutput?) {
         _model = StateObject(wrappedValue: AuthViewModel(output: output))
@@ -21,6 +22,7 @@ struct AuthView: View {
                 .background(TransparentBackground())
                 .fitIPadToReadableContentGuide()
                 .preferredColorScheme(.dark)
+                .safariSheet(url: $safariUrl, preferredColorScheme: .dark)
         }
     }
     
@@ -63,7 +65,7 @@ struct AuthView: View {
             .multilineTextAlignment(.center)
             .padding(.horizontal, UIDevice.isPad ? 85 : 38)
             .environment(\.openURL, OpenURLAction { url in
-                model.onUrlTapAction(url)
+                safariUrl = url
                 return .handled
             })
         }
@@ -118,7 +120,7 @@ struct AuthView: View {
         .padding(.horizontal, 38)
         .accentColor(.Auth.body)
         .environment(\.openURL, OpenURLAction { url in
-            model.onUrlTapAction(url)
+            safariUrl = url
             return .handled
         })
     }
