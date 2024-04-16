@@ -259,9 +259,6 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
-"Auth.JoinFlow.Setting.Space.Title" = "Jouw persoonlijke ruimte wordt aangemaakt";
-
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
 "Auth.LoginFlow.Or" = "OF";
@@ -908,8 +905,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
 "SpaceShare.ViewRequest.Reject" = "Weiger";
 "SpaceShare.RemoveMember.Title" = "Verwijder lid";
 "SpaceShare.RemoveMember.Message" = "%@ zal worden verwijderd uit de ruimte.";
@@ -1055,6 +1052,7 @@
 "Pay by Card" = "Betaal met kaart";
 "Min X characters" = "Min %@ tekens";
 "Pending" = "Pending...";
+"Manage payment" = "Beheer betaling";
 
 
 "Membership.Ad.Title" = "Lidmaatschap";
@@ -1065,6 +1063,8 @@
 "Membership.Legal.Terms" = "Algemene voorwaarden";
 "Membership.Legal.WouldYouLike" = "Wil je Anytype gebruiken voor werk, opleiding, etc.?";
 "Membership.Legal.LetUsKnow" = "Laat het ons hier weten.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
 
 "Membership.Email.Subject" = "Speciale prijsaanvraag";
 "Membership.Email.Body" = "Specificeer alsjeblieft jouw verzoek:

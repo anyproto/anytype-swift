@@ -259,9 +259,6 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
-"Auth.JoinFlow.Setting.Space.Title" = "Настройка места по умолчанию";
-
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
 "Auth.LoginFlow.Or" = "ИЛИ";
@@ -907,8 +904,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к этому пространству. Вы можете создать новую ссылку Anytype";
 "SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
 "SpaceShare.ViewRequest.Reject" = "Отклонить";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ будет удален из пространства.";
@@ -1054,6 +1051,7 @@
 "Pay by Card" = "Оплатить картой";
 "Min X characters" = "Минимум %@ символов";
 "Pending" = "Ожидание...";
+"Manage payment" = "Управление платежами";
 
 
 "Membership.Ad.Title" = "Членство";
@@ -1064,6 +1062,8 @@
 "Membership.Legal.Terms" = "Условия и положения";
 "Membership.Legal.WouldYouLike" = "Вы хотели бы использовать Anytype для бизнеса, образования и т.д.?";
 "Membership.Legal.LetUsKnow" = "Пожалуйста, дайте нам знать об этом здесь.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
 
 "Membership.Email.Subject" = "Запрос на специальную цену";
 "Membership.Email.Body" = "Пожалуйста, уточните ваш запрос:

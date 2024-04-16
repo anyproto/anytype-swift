@@ -259,9 +259,6 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
-"Auth.JoinFlow.Setting.Space.Title" = "Setter opp ditt standard rom";
-
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
 "Auth.LoginFlow.Or" = "ELLER";
@@ -907,8 +904,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "Nye medlemmer vil ikke kunne bli medlem av rommet. Du kan generere en ny lenke når som helst";
 "SpaceShare.Approve.Toast" = "Du har godkjent %@s forespørsel.";
 "SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
 "SpaceShare.ViewRequest.Reject" = "Avvis";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ vil bli fjernet fra rommet.";
@@ -1054,6 +1051,7 @@
 "Pay by Card" = "Betal med kort";
 "Min X characters" = "Minst %@ tegn";
 "Pending" = "Venter...";
+"Manage payment" = "Administrer betaling";
 
 
 "Membership.Ad.Title" = "Medlemskap";
@@ -1064,6 +1062,8 @@
 "Membership.Legal.Terms" = "Vilkår og betingelser";
 "Membership.Legal.WouldYouLike" = "Ønsker du å bruke Anytype for virksomhet, utdanning osv.?";
 "Membership.Legal.LetUsKnow" = "Vennligst gi oss beskjed her.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
 
 "Membership.Email.Subject" = "Forespørsel om spesialpris";
 "Membership.Email.Body" = "Please specify your request:

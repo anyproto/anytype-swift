@@ -259,9 +259,6 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Sem título";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your default space";
-
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar chave de acesso";
 "Auth.LoginFlow.Or" = "OU";
@@ -908,8 +905,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "Você aprovou o pedido de %@.";
 "SpaceShare.ViewRequest.Title" = "%@ pediu para entrar no espaço de %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Grant view access";
-"SpaceShare.ViewRequest.EditAccess" = "Grant edit access";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
 "SpaceShare.ViewRequest.Reject" = "Negar";
 "SpaceShare.RemoveMember.Title" = "Remover membro";
 "SpaceShare.RemoveMember.Message" = "%@ será removido do espaço.";
@@ -1055,6 +1052,7 @@
 "Pay by Card" = "Pagar com Cartão";
 "Min X characters" = "No mínimo %@ caracteres";
 "Pending" = "Pending...";
+"Manage payment" = "Manage payment";
 
 
 "Membership.Ad.Title" = "Associação";
@@ -1065,6 +1063,8 @@
 "Membership.Legal.Terms" = "Termos e Condições";
 "Membership.Legal.WouldYouLike" = "Você gostaria de usar o Anytype para negócios, educação, etc.?";
 "Membership.Legal.LetUsKnow" = "Por favor, deixe-nos saber aqui.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
 
 "Membership.Email.Subject" = "Solicitação de Preço Especial";
 "Membership.Email.Body" = "Por favor, especifique sua solicitação:

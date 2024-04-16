@@ -259,9 +259,6 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new vault";
-"Auth.JoinFlow.Setting.Space.Title" = "Menyiapkan ruang bawaanmu";
-
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
 "Auth.LoginFlow.Or" = "ATAU";
@@ -828,7 +825,7 @@
 "FileStorage.Space.Used" = "%@ dari %@ digunakan";
 "FileStorage.Space.GetMore" = "Dapatkan ruang tambahan";
 "FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Body" = "Halo, tim Anytype. Aku mengontak untuk meminta penambahan ruang penyimpanan karena penyimpananku sudah habis. Batas penyimpananku saat ini adalah %@. ID vault-ku adalah %@. Salam, %@.";
 "FileStorage.Local.Title" = "Penyimpanan lokal";
 "FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
 "FileStorage.Local.Used" = "%@ digunakan";
@@ -907,8 +904,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "Anggota baru tidak akan dapat bergabung ke ruang ini. Kamu bisa membuat tautan batu kapan saja";
 "SpaceShare.Approve.Toast" = "Kamu menyetujui permintaan %@.";
 "SpaceShare.ViewRequest.Title" = "%@ meminta bergabung ke ruang %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Izinkan akses baca";
-"SpaceShare.ViewRequest.EditAccess" = "Izinkan akses sunting";
+"SpaceShare.ViewRequest.ViewAccess" = "Tambahkan sebagai pembaca";
+"SpaceShare.ViewRequest.EditAccess" = "Tambahkan sebagai penyunting";
 "SpaceShare.ViewRequest.Reject" = "Tolak";
 "SpaceShare.RemoveMember.Title" = "Hapus anggota";
 "SpaceShare.RemoveMember.Message" = "%@ akan dihapus dari ruang.";
@@ -1054,6 +1051,7 @@
 "Pay by Card" = "Bayar via kartu";
 "Min X characters" = "Minimal %@ karakter";
 "Pending" = "Pending...";
+"Manage payment" = "Manage payment";
 
 
 "Membership.Ad.Title" = "Langganan";
@@ -1064,6 +1062,8 @@
 "Membership.Legal.Terms" = "Syarat dan ketentuan";
 "Membership.Legal.WouldYouLike" = "Apakah Anda ingin menggunakan Anytype untuk bisnis, pendidikan, dll.?";
 "Membership.Legal.LetUsKnow" = "Silakan beri tahu kami di sini.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Pulihkan pembelian";
 
 "Membership.Email.Subject" = "Permintaan Harga Khusus";
 "Membership.Email.Body" = "Silakan jelaskan permintaan Anda:
