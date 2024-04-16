@@ -361,8 +361,10 @@ final class StyleView: UIView {
 
         currentDeselectAction?()
         currentDeselectAction = deselectAction
-        blockIds.forEach {
-            actionHandler.turnInto(style, blockId: $0)
+        Task {
+            for blockId in blockIds {
+                try await actionHandler.turnInto(style, blockId: blockId)
+            }
         }
     }
 

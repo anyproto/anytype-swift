@@ -30,7 +30,9 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             actions: CodeBlockContentConfiguration.Actions(
                 becomeFirstResponder: { becomeFirstResponder(info) },
                 textDidChange: { textView in
-                    handler.changeText(textView.attributedText, blockId: info.id)
+                    Task {
+                        try await handler.changeText(textView.attributedText, blockId: info.id)
+                    }
                 },
                 showCodeSelection: { showCodeSelection(info) }, 
                 textBlockSetNeedsLayout: { editorCollectionController.itemDidChangeFrame(item: .block(self)) }

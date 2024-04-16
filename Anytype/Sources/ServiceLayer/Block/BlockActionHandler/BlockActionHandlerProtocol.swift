@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 
 protocol BlockActionHandlerProtocol: AnyObject {
-    func turnInto(_ style: BlockText.Style, blockId: String)
+    func turnInto(_ style: BlockText.Style, blockId: String) async throws
     @discardableResult
     func turnIntoPage(blockId: String) async throws -> String?
     
@@ -24,7 +24,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
         _ attributedString: NSAttributedString?,
         markup: MarkupType,
         info: BlockInformation
-    ) -> NSAttributedString?
+    ) async throws -> NSAttributedString?
     func upload(blockId: String, filePath: String) async throws
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String?
 
@@ -34,14 +34,14 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws
-    func changeText(_ text: NSAttributedString, blockId: String)
+    func changeText(_ text: NSAttributedString, blockId: String) async throws
     func setTextStyle(
         _ attribute: MarkupType,
         range: NSRange,
         blockId: String,
         currentText: NSAttributedString?,
         contentType: BlockContentType
-    )
+    ) async throws
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String)
     func uploadFileAt(localPath: String, blockId: String)
     func createAndFetchBookmark(

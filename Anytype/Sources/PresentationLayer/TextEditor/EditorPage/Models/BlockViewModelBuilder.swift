@@ -3,6 +3,7 @@ import Combine
 import UniformTypeIdentifiers
 import AnytypeCore
 
+@MainActor
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
