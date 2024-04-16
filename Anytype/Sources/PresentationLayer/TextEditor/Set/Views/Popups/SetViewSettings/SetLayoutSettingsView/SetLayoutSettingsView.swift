@@ -1,8 +1,16 @@
 import SwiftUI
 
 struct SetLayoutSettingsView: View {
-    @StateObject var model: SetLayoutSettingsViewModel
+    @StateObject private var model: SetLayoutSettingsViewModel
 
+    init(setDocument: SetDocumentProtocol, viewId: String, output: SetLayoutSettingsCoordinatorOutput?) {
+        _model = StateObject(wrappedValue: SetLayoutSettingsViewModel(
+            setDocument: setDocument,
+            viewId: viewId,
+            output: output
+        ))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()

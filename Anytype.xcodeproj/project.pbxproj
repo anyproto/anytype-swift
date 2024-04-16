@@ -910,6 +910,7 @@
 		2E101CBB2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E101CBA2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift */; };
 		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
 		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
+		2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */; };
 		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */; };
@@ -925,10 +926,8 @@
 		2E28BCF52AAB58E0001E6306 /* SetViewPickerCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E28BCF42AAB58E0001E6306 /* SetViewPickerCoordinatorAssembly.swift */; };
 		2E2A22F72A9E447000745D78 /* SetLayoutSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22F62A9E447000745D78 /* SetLayoutSettingsView.swift */; };
 		2E2A22F92A9E448B00745D78 /* SetLayoutSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22F82A9E448B00745D78 /* SetLayoutSettingsViewModel.swift */; };
-		2E2A22FB2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FA2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift */; };
 		2E2A22FE2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */; };
 		2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */; };
-		2E2A23022A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */; };
 		2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
@@ -1049,13 +1048,11 @@
 		2EA9D72B2B3093FE001CF0DE /* EventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA9D72A2B3093FE001CF0DE /* EventsBunch.swift */; };
 		2EA9D72E2B3097C7001CF0DE /* TextServiceHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EA9D72D2B3097C7001CF0DE /* TextServiceHandler.swift */; };
 		2EAA13FB2AA63918000A712A /* SetRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EB2AA63918000A712A /* SetRelationsView.swift */; };
-		2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */; };
 		2EAA13FD2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */; };
 		2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */; };
 		2EAA13FF2AA63918000A712A /* SetViewSettingsImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */; };
 		2EAA14002AA63918000A712A /* SetViewSettingsImagePreviewCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F12AA63918000A712A /* SetViewSettingsImagePreviewCover.swift */; };
 		2EAA14012AA63918000A712A /* SetViewSettingsGroupByViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */; };
-		2EAA14022AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */; };
 		2EAA14032AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F62AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift */; };
 		2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F72AA63918000A712A /* SetViewSettingsRelation.swift */; };
 		2EAA14052AA63918000A712A /* SetRelationsViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA13F82AA63918000A712A /* SetRelationsViewModuleAssembly.swift */; };
@@ -2693,6 +2690,7 @@
 		2E101CBA2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingModuleAssembly.swift; sourceTree = "<group>"; };
 		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
 		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
+		2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsData.swift; sourceTree = "<group>"; };
 		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationModuleConfiguration.swift; sourceTree = "<group>"; };
@@ -2708,10 +2706,8 @@
 		2E28BCF42AAB58E0001E6306 /* SetViewPickerCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E2A22F62A9E447000745D78 /* SetLayoutSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsView.swift; sourceTree = "<group>"; };
 		2E2A22F82A9E448B00745D78 /* SetLayoutSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsViewModel.swift; sourceTree = "<group>"; };
-		2E2A22FA2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsViewAssembly.swift; sourceTree = "<group>"; };
 		2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorView.swift; sourceTree = "<group>"; };
 		2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettings.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -2832,13 +2828,11 @@
 		2EA9D72A2B3093FE001CF0DE /* EventsBunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsBunch.swift; sourceTree = "<group>"; };
 		2EA9D72D2B3097C7001CF0DE /* TextServiceHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextServiceHandler.swift; sourceTree = "<group>"; };
 		2EAA13EB2AA63918000A712A /* SetRelationsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRelationsView.swift; sourceTree = "<group>"; };
-		2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewViewModel.swift; sourceTree = "<group>"; };
 		2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewRowConfiguration.swift; sourceTree = "<group>"; };
 		2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewView.swift; sourceTree = "<group>"; };
 		2EAA13F12AA63918000A712A /* SetViewSettingsImagePreviewCover.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsImagePreviewCover.swift; sourceTree = "<group>"; };
 		2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByViewModel.swift; sourceTree = "<group>"; };
-		2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsGroupByModuleAssembly.swift; sourceTree = "<group>"; };
 		2EAA13F62AA63918000A712A /* SetViewSettingsCardSizeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCardSizeViewModel.swift; sourceTree = "<group>"; };
 		2EAA13F72AA63918000A712A /* SetViewSettingsRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetViewSettingsRelation.swift; sourceTree = "<group>"; };
 		2EAA13F82AA63918000A712A /* SetRelationsViewModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRelationsViewModuleAssembly.swift; sourceTree = "<group>"; };
@@ -7219,7 +7213,6 @@
 				2E2A22FC2A9E45B500745D78 /* Coordinator */,
 				2E2A22F62A9E447000745D78 /* SetLayoutSettingsView.swift */,
 				2E2A22F82A9E448B00745D78 /* SetLayoutSettingsViewModel.swift */,
-				2E2A22FA2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift */,
 				2E9BF63E28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift */,
 				2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */,
 			);
@@ -7231,7 +7224,7 @@
 			children = (
 				2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */,
 				2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */,
-				2E2A23012A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift */,
+				2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -7567,7 +7560,6 @@
 		2EAA13EC2AA63918000A712A /* ImagePreview */ = {
 			isa = PBXGroup;
 			children = (
-				2EAA13ED2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift */,
 				2EAA13EE2AA63918000A712A /* SetViewSettingsImagePreviewViewModel.swift */,
 				2EAA13EF2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift */,
 				2EAA13F02AA63918000A712A /* SetViewSettingsImagePreviewView.swift */,
@@ -7580,7 +7572,6 @@
 			isa = PBXGroup;
 			children = (
 				2EAA13F32AA63918000A712A /* SetViewSettingsGroupByViewModel.swift */,
-				2EAA13F42AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift */,
 			);
 			path = GroupBy;
 			sourceTree = "<group>";
@@ -10834,7 +10825,6 @@
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
 				125683F427DF8366003A8251 /* NewSearchView+AddButtonModel.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
-				2E2A22FB2A9E449A00745D78 /* SetLayoutSettingsViewAssembly.swift in Sources */,
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
 				2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */,
 				3D4507BF2B9B3DE400739EFC /* MembershipNameSheetViewModel.swift in Sources */,
@@ -11132,7 +11122,6 @@
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
 				2ECF1DBF2BBADCBA007C68E2 /* SetFiltersSelectionData.swift in Sources */,
-				2EAA13FC2AA63918000A712A /* SetViewSettingsImagePreviewModuleAssembly.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
 				2E0D0F712938CFE200674D3F /* DataviewGroupOrder+Update.swift in Sources */,
@@ -11262,6 +11251,7 @@
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2A845D752B0D027300AFD252 /* WidgetSwipeActionView.swift in Sources */,
+				2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */,
 				2E999487294240C300FFBED9 /* SetDocumentProtocol.swift in Sources */,
 				120AC25E2747B56000330D7B /* TextRelationDetailsViewModel.swift in Sources */,
 				2AD37D5829911FA50012409E /* WidgetObjectListSetsViewModel.swift in Sources */,
@@ -11325,7 +11315,6 @@
 				2A03039F28ABD4BD002EFC46 /* SystemURLService.swift in Sources */,
 				2AC906DF29B6289A00209E39 /* RecentListWidgetModuleAssembly.swift in Sources */,
 				2E2D256128880C8D00E3DFD1 /* SetFiltersSelectionViewState.swift in Sources */,
-				2E2A23022A9E46B100745D78 /* SetLayoutSettingsCoordinatorAssembly.swift in Sources */,
 				2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */,
 				2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */,
 				2A7BC2812B1E2C7100EB96EB /* ServerConfigurationRow.swift in Sources */,
@@ -11788,7 +11777,6 @@
 				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
 				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
-				2EAA14022AA63918000A712A /* SetViewSettingsGroupByModuleAssembly.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */,

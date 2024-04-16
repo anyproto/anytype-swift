@@ -96,10 +96,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         SetFiltersListCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
     
-    func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol {
-        SetLayoutSettingsCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func setRelations() -> SetRelationsCoordinatorAssemblyProtocol {
         SetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }

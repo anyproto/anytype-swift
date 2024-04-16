@@ -86,18 +86,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func setViewSettingsImagePreview() -> SetViewSettingsImagePreviewModuleAssemblyProtocol {
-        SetViewSettingsImagePreviewModuleAssembly()
-    }
-    
-    func setLayoutSettingsView() -> SetLayoutSettingsViewAssemblyProtocol {
-        SetLayoutSettingsViewAssembly(serviceLocator: serviceLocator)
-    }
-    
-    func setViewSettingsGroupByView() -> SetViewSettingsGroupByModuleAssemblyProtocol {
-        SetViewSettingsGroupByModuleAssembly()
-    }
-    
     func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
         SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
     }

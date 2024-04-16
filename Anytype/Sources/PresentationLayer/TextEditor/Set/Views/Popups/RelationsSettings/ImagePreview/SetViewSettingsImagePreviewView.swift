@@ -1,8 +1,12 @@
 import SwiftUI
 
 struct SetViewSettingsImagePreviewView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @StateObject var viewModel: SetViewSettingsImagePreviewViewModel
+    @Environment(\.dismiss) var dismiss
+    @StateObject private var viewModel: SetViewSettingsImagePreviewViewModel
+    
+    init(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
+        _viewModel = StateObject(wrappedValue: SetViewSettingsImagePreviewViewModel(setDocument: setDocument, onSelect: onSelect))
+    }
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -25,7 +29,7 @@ struct SetViewSettingsImagePreviewView: View {
         VStack(spacing: 0) {
             ForEach(viewModel.coverRows) { item in
                 Button {
-                    presentationMode.wrappedValue.dismiss()
+                    dismiss()
                     item.onTap()
                 } label: {
                     row(item)
@@ -42,7 +46,7 @@ struct SetViewSettingsImagePreviewView: View {
                     relationsHeader
                     ForEach(viewModel.relationsRows) { item in
                         Button {
-                            presentationMode.wrappedValue.dismiss()
+                            dismiss()
                             item.onTap()
                         } label: {
                             row(item)
