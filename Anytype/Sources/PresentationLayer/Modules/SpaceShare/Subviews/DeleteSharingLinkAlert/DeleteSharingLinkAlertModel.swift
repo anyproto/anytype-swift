@@ -15,8 +15,12 @@ final class DeleteSharingLinkAlertModel: ObservableObject {
         self.onDelete = onDelete
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenRevokeShareLink()
+    }
+    
     func onTapDeleteLink() async throws {
-        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .revoke)
+        AnytypeAnalytics.instance().logRevokeShareLink()
         try await workspaceService.revokeInvite(spaceId: spaceId)
         onDelete?()
     }

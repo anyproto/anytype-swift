@@ -26,5 +26,8 @@ struct SpaceMembersView: View {
         .task {
             await model.startParticipantTask()
         }
+        .onAppear {
+            model.onAppear()
+        }
     }
 }

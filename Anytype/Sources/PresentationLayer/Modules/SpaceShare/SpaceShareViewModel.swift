@@ -85,6 +85,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onDeleteSharingLink() {
+        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .revoke)
         showDeleteLinkAlert = true
     }
     

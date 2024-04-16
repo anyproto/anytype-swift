@@ -870,4 +870,16 @@ extension AnytypeAnalytics {
     func logApproveLeaveRequest() {
         logEvent(AnalyticsEventsName.approveLeaveRequest)
     }
+    
+    func logScreenQr(type: ScreenQrAnalyticsType) {
+        logEvent("ScreenQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logClickQr() {
+        logEvent("ClickQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: "Share"])
+    }
+    
+    func logScreenSettingsSpaceMembers() {
+        logEvent("ScreenSettingsSpaceMembers")
+    }
 }

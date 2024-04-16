@@ -497,3 +497,7 @@ enum PermissionAnalyticsType: String {
     case read = "Read"
     case write = "Write"
 }
+
+enum ScreenQrAnalyticsType: String {
+    case inviteSpace = "InviteSpace"
+}

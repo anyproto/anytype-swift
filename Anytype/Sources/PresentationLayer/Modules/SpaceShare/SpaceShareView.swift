@@ -62,7 +62,7 @@ struct SpaceShareView: View {
             }
         }
         .anytypeSheet(item: $model.qrCodeInviteLink) {
-            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString)
+            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
         }
     }
     

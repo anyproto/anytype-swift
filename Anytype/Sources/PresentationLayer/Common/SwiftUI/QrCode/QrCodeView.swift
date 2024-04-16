@@ -6,8 +6,8 @@ struct QrCodeView: View {
     
     @StateObject private var model: QrCodeViewModel
     
-    init(title: String, data: String) {
-        self._model = StateObject(wrappedValue: QrCodeViewModel(title: title, data: data))
+    init(title: String, data: String, analyticsType: ScreenQrAnalyticsType) {
+        self._model = StateObject(wrappedValue: QrCodeViewModel(title: title, data: data, analyticsType: analyticsType))
     }
     
     var body: some View {
@@ -28,9 +28,16 @@ struct QrCodeView: View {
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
         .anytypeShareView(item: $model.sharedData)
+        .onAppear {
+            model.onAppear()
+        }
     }
 }
 
 #Preview {
-    QrCodeView(title: "Title", data: "https://invite.any.coop/bafybeidswywdqat64gupwpnrec12avv5yfhdbmit2skkfyv65stapd42me#D9QJW8SjXBT7QNb6yqfYE7ByggGrunwyNqMMjktKcK3b")
+    QrCodeView(
+        title: "Title",
+        data: "https://invite.any.coop/bafybeidswywdqat64gupwpnrec12avv5yfhdbmit2skkfyv65stapd42me#D9QJW8SjXBT7QNb6yqfYE7ByggGrunwyNqMMjktKcK3b",
+        analyticsType: .inviteSpace
+    )
 }
