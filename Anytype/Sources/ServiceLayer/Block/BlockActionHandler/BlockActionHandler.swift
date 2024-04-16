@@ -153,7 +153,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func addLink(targetDetails: ObjectDetails, blockId: String) {
         Task {
             let isBookmarkType = targetDetails.layoutValue == .bookmark
-            AnytypeAnalytics.instance().logCreateLink()
+            AnytypeAnalytics.instance().logCreateLink(spaceId: targetDetails.spaceId)
             try await service.add(
                 info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
                 targetBlockId: blockId,

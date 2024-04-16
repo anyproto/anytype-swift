@@ -497,8 +497,8 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenSearch)
     }
     
-    func logSearchResult() {
-        logEvent(AnalyticsEventsName.searchResult)
+    func logSearchResult(spaceId: String) {
+        logEvent(AnalyticsEventsName.searchResult, spaceId: spaceId)
     }
     
     func logLockPage(_ isLocked: Bool) {
@@ -525,9 +525,10 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.redo)
     }
     
-    func logDuplicateObject(count: Int, objectType: AnalyticsObjectType) {
+    func logDuplicateObject(count: Int, objectType: AnalyticsObjectType, spaceId: String) {
         logEvent(
             AnalyticsEventsName.duplicateObject,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.count: count,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -707,8 +708,8 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCreateLink() {
-        logEvent(AnalyticsEventsName.createLink)
+    func logCreateLink(spaceId: String) {
+        logEvent(AnalyticsEventsName.createLink, spaceId: spaceId)
     }
     
     func logScreenSettingsSpaceCreate() {

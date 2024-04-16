@@ -97,7 +97,7 @@ final class ObjectActionsViewModel: ObservableObject {
     func duplicateAction() async throws {
         guard let details = document.details else { return }
         
-        AnytypeAnalytics.instance().logDuplicateObject(count: 1, objectType: details.objectType.analyticsType)
+        AnytypeAnalytics.instance().logDuplicateObject(count: 1, objectType: details.objectType.analyticsType, spaceId: details.spaceId)
         
         let duplicatedId = try await service.duplicate(objectId: objectId)
         

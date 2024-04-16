@@ -22,7 +22,7 @@ final class ObjectSearchViewModel: ObservableObject {
     }
     
     func onSelect(searchData: ObjectSearchData) {
-        AnytypeAnalytics.instance().logSearchResult()
+        AnytypeAnalytics.instance().logSearchResult(spaceId: data.spaceId)
         data.onSelect(searchData)
     }
     
