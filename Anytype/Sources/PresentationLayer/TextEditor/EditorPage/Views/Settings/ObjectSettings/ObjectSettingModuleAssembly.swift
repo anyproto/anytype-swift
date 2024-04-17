@@ -4,7 +4,7 @@ import UIKit
 @MainActor
 protocol ObjectSettingModuleAssemblyProtocol {
     func make(
-        document: BaseDocumentProtocol,
+        objectId: String,
         output: ObjectSettingsModelOutput,
         actionHandler: @escaping (ObjectSettingsAction) -> Void
     ) -> UIViewController
@@ -22,12 +22,12 @@ final class ObjectSettingModuleAssembly: ObjectSettingModuleAssemblyProtocol {
     // MARK: - ObjectSettingModuleAssemblyProtocol
     
     func make(
-        document: BaseDocumentProtocol,
+        objectId: String,
         output: ObjectSettingsModelOutput,
         actionHandler: @escaping (ObjectSettingsAction) -> Void
     ) -> UIViewController {
         let viewModel = ObjectSettingsViewModel(
-            document: document,
+            objectId: objectId,
             output: output,
             settingsActionHandler: actionHandler
         )

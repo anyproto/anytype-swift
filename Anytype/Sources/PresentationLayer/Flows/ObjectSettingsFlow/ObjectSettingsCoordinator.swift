@@ -49,29 +49,22 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
         self.output = output
-        let document = documentsProvider.document(objectId: objectId, forPreview: false)
-        Task { @MainActor in
-            do {
-                try await document.open()
-                let moduleViewController = objectSettingsModuleAssembly.make(
-                    document: document,
-                    output: self,
-                    actionHandler: objectSettingsHandler
-                )
-                
-                navigationContext.present(moduleViewController)
-            } catch {
-                anytypeAssertionFailure(error.localizedDescription)
-            }
-        }
+        
+        let moduleViewController = objectSettingsModuleAssembly.make(
+            objectId: objectId,
+            output: self,
+            actionHandler: objectSettingsHandler
+        )
+        
+        navigationContext.present(moduleViewController)
     }
     
     // MARK: - ObjectSettingsModelOutput
     
-    func undoRedoAction(document: BaseDocumentProtocol) {
+    func undoRedoAction(objectId: String) {
         // TODO: Move to editor
         navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(UndoRedoViewController(objectId: document.objectId))
+        navigationContext.present(UndoRedoViewController(objectId: objectId))
     }
     
     func layoutPickerAction(document: BaseDocumentProtocol) {

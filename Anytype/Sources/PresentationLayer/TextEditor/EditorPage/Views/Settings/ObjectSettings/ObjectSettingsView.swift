@@ -16,6 +16,9 @@ struct ObjectSettingsView: View {
 
             ObjectActionsView(objectId: viewModel.objectId, output: viewModel)
         }
+        .task {
+            await viewModel.startDocumentTask()
+        }
     }
     
     private var settingsList: some View {
