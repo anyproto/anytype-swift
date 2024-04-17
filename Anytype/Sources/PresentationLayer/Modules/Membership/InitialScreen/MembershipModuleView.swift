@@ -52,7 +52,18 @@ struct MembershipModuleView: View {
         .safariSheet(url: $safariUrl)
     }
     
-    var baners: some View {
+    private var baners: some View {
+        Group {
+            switch membership.tier?.type {
+            case .explorer, nil:
+                bannersView
+            case .builder, .coCreator, .custom:
+                EmptyView()
+            }
+        }
+    }
+    
+    private var bannersView: some View {
         TabView {
             MembershipBannerView(
                 title: Loc.Membership.Banner.title1,
