@@ -388,8 +388,8 @@ internal enum Loc {
   internal static let payByCard = Loc.tr("Localizable", "Pay by Card", fallback: "Pay by Card")
   /// Pending...
   internal static let pending = Loc.tr("Localizable", "Pending", fallback: "Pending...")
-  /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.
-  internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.")
+  /// We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.
+  internal static let pendingDeletionText = Loc.tr("Localizable", "Pending deletion text", fallback: "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.")
   /// per
   internal static let per = Loc.tr("Localizable", "per", fallback: "per")
   /// Plural format key: "per %#@day@"
