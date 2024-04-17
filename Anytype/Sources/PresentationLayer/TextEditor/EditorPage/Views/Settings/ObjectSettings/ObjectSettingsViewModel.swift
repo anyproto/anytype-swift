@@ -13,7 +13,7 @@ enum ObjectSettingsAction {
 
 @MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
-    func undoRedoAction(document: BaseDocumentProtocol)
+    func undoRedoAction(objectId: String)
     func layoutPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
@@ -79,7 +79,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     // MARK: - ObjectActionsOutput
     
     func undoRedoAction() {
-        output?.undoRedoAction(document: document)
+        output?.undoRedoAction(objectId: objectId)
     }
     
     func openPageAction(screenData: EditorScreenData) {
