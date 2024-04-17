@@ -7,6 +7,7 @@ protocol PasteboardBlockServiceProtocol: AnyObject {
     
     func pasteInsideBlock(
         objectId: String,
+        spaceId: String,
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation: @escaping () -> Void,
@@ -14,6 +15,7 @@ protocol PasteboardBlockServiceProtocol: AnyObject {
     )
     func pasteInSelectedBlocks(
         objectId: String,
+        spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void

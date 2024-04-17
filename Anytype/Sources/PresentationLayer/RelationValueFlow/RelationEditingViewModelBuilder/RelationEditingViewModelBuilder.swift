@@ -48,6 +48,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .text(let text):
             return TextRelationDetailsViewModel(
                 objectId: objectDetails.id,
+                spaceId: objectDetails.spaceId,
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
@@ -57,6 +58,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .number(let number):
             return TextRelationDetailsViewModel(
                 objectId: objectDetails.id,
+                spaceId: objectDetails.spaceId,
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
@@ -66,6 +68,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .phone(let phone):
             return TextRelationDetailsViewModel(
                 objectId: objectDetails.id,
+                spaceId: objectDetails.spaceId,
                 value: phone.value ?? "",
                 type: .phone,
                 relation: relation,
@@ -87,6 +90,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .email(let email):
             return TextRelationDetailsViewModel(
                 objectId: objectDetails.id,
+                spaceId: objectDetails.spaceId,
                 value: email.value ?? "",
                 type: .email,
                 relation: relation,
@@ -126,6 +130,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             ]
             return TextRelationDetailsViewModel(
                 objectId: objectDetails.id,
+                spaceId: objectDetails.spaceId,
                 value: url.value ?? "",
                 type: .url,
                 relation: relation,

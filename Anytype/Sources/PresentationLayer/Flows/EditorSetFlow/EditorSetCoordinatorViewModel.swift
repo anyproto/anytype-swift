@@ -215,6 +215,7 @@ final class EditorSetCoordinatorViewModel:
         let result = relationValueProcessingService.relationProcessedSeparately(
             relation: relation,
             objectId: objectDetails.id,
+            spaceId: objectDetails.spaceId,
             analyticsType: analyticsType,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)

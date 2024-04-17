@@ -142,7 +142,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func saveFile(fileURL: URL, type: FileContentType) {
-        fileCoordinator.downloadFileAt(fileURL, withType: type)
+        fileCoordinator.downloadFileAt(fileURL, withType: type, spaceId: document.spaceId)
     }
         
     @MainActor

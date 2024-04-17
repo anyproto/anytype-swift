@@ -357,7 +357,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .addBlockBelow:
             elements.forEach { actionHandler.addBlock(.text(.text), blockId: $0.blockId, spaceId: document.spaceId) }
         case .duplicate:
-            elements.forEach { actionHandler.duplicate(blockId: $0.blockId) }
+            elements.forEach { actionHandler.duplicate(blockId: $0.blockId, spaceId: document.spaceId) }
         case .turnInto:
             Task {
                 for block in elements {
@@ -436,7 +436,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .paste:
             let blockIds = elements.map(\.blockId)
 
-            pasteboardService.pasteInSelectedBlocks(objectId: document.objectId, selectedBlockIds: blockIds) { [weak self] in
+            pasteboardService.pasteInSelectedBlocks(objectId: document.objectId, spaceId: document.spaceId, selectedBlockIds: blockIds) { [weak self] in
                 self?.router.showWaitingView(text: Loc.pasteProcessing)
             } completion: { [weak self] _ in
                 self?.router.hideWaitingView()
@@ -454,7 +454,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 }
             }
 
-            AnytypeAnalytics.instance().logCopyBlock()
+            AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId)
             Task { @MainActor [blocksIds] in
                 try await pasteboardService.copy(document: document, blocksIds: blocksIds, selectedTextRange: NSRange())
                 toastPresenter.show(message: Loc.copied)

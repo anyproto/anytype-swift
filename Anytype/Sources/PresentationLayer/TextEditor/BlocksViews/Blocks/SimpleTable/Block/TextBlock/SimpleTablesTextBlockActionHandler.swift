@@ -228,7 +228,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
             return true
         }
         
-        pasteboardService.pasteInsideBlock(objectId: document.objectId, focusedBlockId: info.id, range: range) { [weak self] in
+        pasteboardService.pasteInsideBlock(objectId: document.objectId, spaceId: document.spaceId, focusedBlockId: info.id, range: range) { [weak self] in
             self?.showWaitingView(Loc.pasteProcessing)
         } completion: { [weak textView, weak self] pasteResult in
             guard let textView else { return }
@@ -248,7 +248,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
     
     private func copy(range: NSRange) {
-        AnytypeAnalytics.instance().logCopyBlock()
+        AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId)
         Task {
             try await pasteboardService?.copy(document: document, blocksIds: [info.id], selectedTextRange: range)
         }

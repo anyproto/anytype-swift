@@ -31,6 +31,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     let actionsViewModel: [TextRelationActionViewModelProtocol]
     
     private let objectId: String
+    private let spaceId: String
     private let relation: Relation
     private let service: TextRelationEditingServiceProtocol
     private let analyticsType: AnalyticsEventsRelationType
@@ -42,6 +43,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     init(
         objectId: String,
+        spaceId: String,
         value: String,
         type: TextRelationViewType,
         relation: Relation,
@@ -50,6 +52,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         actionsViewModel: [TextRelationActionViewModelProtocol] = []
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.value = value
         self.type = type
         self.relation = relation
@@ -74,7 +77,11 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     func onWillDisappear() {
         guard isEditable else { return }
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: value.isEmpty, type: analyticsType)
+        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+            isEmpty: value.isEmpty,
+            type: analyticsType,
+            spaceId: spaceId
+        )
     }
 }
 

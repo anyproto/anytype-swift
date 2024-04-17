@@ -15,6 +15,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
     
     func pasteInsideBlock(
         objectId: String,
+        spaceId: String,
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation:  @escaping () -> Void,
@@ -22,6 +23,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
     ) {
         service.pasteInsideBlock(
             objectId: objectId,
+            spaceId: spaceId,
             focusedBlockId: focusedBlockId,
             range: range,
             handleLongOperation: handleLongOperation,
@@ -31,12 +33,14 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
     
     func pasteInSelectedBlocks(
         objectId: String,
+        spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         service.pasteInSelectedBlocks(
             objectId: objectId,
+            spaceId: spaceId,
             selectedBlockIds: selectedBlockIds,
             handleLongOperation: handleLongOperation,
             completion: completion

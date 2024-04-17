@@ -23,12 +23,9 @@ enum AnalyticsEventsName {
     static let blockDelete = "DeleteBlock"
     static let createLink = "CreateLink"
 
-    static let blockListDuplicate = "DuplicateBlock"
     static let blockListSetAlign = "ChangeBlockAlign"
     static let changeBlockBackground = "ChangeBlockBackground"
-    static let blockUpload = "UploadMedia"
-    static let downloadFile = "DownloadMedia"
-
+    
     static let blockSetTextText = "Writing"
     static let changeBlockStyle = "ChangeBlockStyle"
     static let changeTextStyle = "ChangeTextStyle"
@@ -46,7 +43,6 @@ enum AnalyticsEventsName {
     static let createRelation = "CreateRelation"
     static let changeRelationValue = "ChangeRelationValue"
     static let deleteRelationValue = "DeleteRelationValue"
-    static let deleteRelation = "DeleteRelation"
     
     // Templating
     static let selectTemplate = "SelectTemplate"
@@ -69,8 +65,6 @@ enum AnalyticsEventsName {
     static let removeIcon = "RemoveIcon"
     static let setCover = "SetCover"
     static let removeCover = "RemoveCover"
-    static let addFeatureRelation = "FeatureRelation"
-    static let removeFeatureRelation = "UnfeatureRelation"
     static let linkToObject = "LinkToObject"
     static let lockPage = "LockPage"
     static let unlockPage = "UnlockPage"

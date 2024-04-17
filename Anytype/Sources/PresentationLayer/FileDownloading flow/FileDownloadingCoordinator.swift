@@ -5,7 +5,7 @@ import Services
 final class FileDownloadingCoordinator {
     
     private(set) var type: FileContentType?
-    
+    private var spaceId: String = ""
     private weak var viewController: UIViewController?
     
     init(viewController: UIViewController?) {
@@ -18,7 +18,7 @@ final class FileDownloadingCoordinator {
 
 extension FileDownloadingCoordinator {
     
-    func downloadFileAt(_ url: URL, withType type: FileContentType) {
+    func downloadFileAt(_ url: URL, withType type: FileContentType, spaceId: String) {
         let viewModel = FileDownloadingViewModel(url: url, output: self)
         let view = FileDownloadingView(viewModel: viewModel)
         let popup = AnytypePopup(
@@ -28,6 +28,7 @@ extension FileDownloadingCoordinator {
         )
         
         self.type = type
+        self.spaceId = spaceId
         viewController?.topPresentedController.present(popup, animated: true)
     }
     
@@ -37,7 +38,7 @@ extension FileDownloadingCoordinator: FileDownloadingModuleOutput {
     
     func didDownloadFileTo(_ url: URL) {
         type.flatMap {
-            AnytypeAnalytics.instance().logDownloadMedia(type: $0)
+            AnytypeAnalytics.instance().logDownloadMedia(type: $0, spaceId: spaceId)
         }
         viewController?.topPresentedController.dismiss(animated: true) { [weak self] in
             self?.showDocumentPickerViewController(url: url)

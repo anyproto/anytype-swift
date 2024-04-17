@@ -150,31 +150,49 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.blockCreate, spaceId: spaceId, withEventProperties: props)
     }
 
-    func logUploadMedia(type: FileContentType) {
-        logEvent(AnalyticsEventsName.blockUpload,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logUploadMedia(type: FileContentType, spaceId: String) {
+        logEvent(
+            "UploadMedia",
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
     }
 
-    func logDownloadMedia(type: FileContentType) {
-        logEvent(AnalyticsEventsName.downloadFile,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logDownloadMedia(type: FileContentType, spaceId: String) {
+        logEvent(
+            "DownloadMedia",
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
     }
 
     func logReorderBlock(count: Int) {
         logEvent(AnalyticsEventsName.reorderBlock,
                  withEventProperties: [AnalyticsEventsPropertiesKey.count: count])
     }
-
-    func logAddRelation(format: RelationFormat, isNew: Bool, type: AnalyticsEventsRelationType) {
-        let eventName = isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation
-        logEvent(eventName,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.analyticsName,
-                                       AnalyticsEventsPropertiesKey.type: type.rawValue])
+    
+    func logAddExistingOrCreateRelation(
+        format: RelationFormat,
+        isNew: Bool,
+        type: AnalyticsEventsRelationType,
+        spaceId: String
+    ) {
+        logEvent(
+            isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation,
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.format: format.analyticsName,
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ]
+        )
     }
 
-    func logChangeRelationValue(isEmpty: Bool, type: AnalyticsEventsRelationType) {
-        logEvent(isEmpty ? AnalyticsEventsName.deleteRelationValue : AnalyticsEventsName.changeRelationValue,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logChangeOrDeleteRelationValue(isEmpty: Bool, type: AnalyticsEventsRelationType, spaceId: String) {
+        logEvent(
+            isEmpty ? AnalyticsEventsName.deleteRelationValue : AnalyticsEventsName.changeRelationValue,
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
     }
 
     func logCreateObject(objectType: AnalyticsObjectType, spaceId: String, route: AnalyticsEventsRouteKind) {
@@ -536,12 +554,12 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCopyBlock() {
-        logEvent(AnalyticsEventsName.copyBlock)
+    func logCopyBlock(spaceId: String) {
+        logEvent(AnalyticsEventsName.copyBlock, spaceId: spaceId)
     }
     
-    func logPasteBlock() {
-        logEvent(AnalyticsEventsName.pasteBlock)
+    func logPasteBlock(spaceId: String) {
+        logEvent(AnalyticsEventsName.pasteBlock, spaceId: spaceId)
     }
     
     func logSetObjectDescription() {
@@ -890,5 +908,21 @@ extension AnytypeAnalytics {
     
     func logScreenSettingsSpaceMembers() {
         logEvent("ScreenSettingsSpaceMembers")
+    }
+    
+    func logDuplicateBlock(spaceId: String) {
+        logEvent("DuplicateBlock", spaceId: spaceId)
+    }
+    
+    func logFeatureRelation(spaceId: String) {
+        logEvent("FeatureRelation", spaceId: spaceId)
+    }
+    
+    func logUnfeatureRelation(spaceId: String) {
+        logEvent("UnfeatureRelation", spaceId: spaceId)
+    }
+    
+    func logDeleteRelation(spaceId: String) {
+        logEvent("DeleteRelation", spaceId: spaceId)
     }
 }
