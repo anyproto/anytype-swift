@@ -19,7 +19,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Injected(\.fileErrorEventHandler)
     private var fileErrorEventHandler: FileErrorEventHandlerProtocol
     
-    private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
     private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
@@ -34,12 +33,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Initializers
     
     init(
-        authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
         deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
-        self.authCoordinatorAssembly = authCoordinatorAssembly
         self.homeCoordinatorAssembly = homeCoordinatorAssembly
         self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
         self.navigationContext = navigationContext
@@ -55,7 +52,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
             return authCoordinator.startFlow()
         }
         
-        let coordinator = authCoordinatorAssembly.make()
+        let coordinator = AuthCoordinator(
+            joinFlowCoordinator: JoinFlowCoordinator(),
+            loginFlowCoordinator: LoginFlowCoordinator()
+        )
         self.authCoordinator = coordinator
         return coordinator.startFlow()
     }

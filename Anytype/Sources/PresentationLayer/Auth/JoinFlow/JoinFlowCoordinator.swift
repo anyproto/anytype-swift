@@ -8,16 +8,6 @@ protocol JoinFlowCoordinatorProtocol {
 @MainActor
 final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
     
-    // MARK: - DI
-    
-    private let keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
-    
-    init(
-        keyViewModuleAssembly: KeyPhraseViewModuleAssemblyProtocol
-    ) {
-        self.keyViewModuleAssembly = keyViewModuleAssembly
-    }
-    
     // MARK: - JoinFlowCoordinatorProtocol
     
     func startFlow() -> AnyView {
@@ -31,7 +21,7 @@ final class JoinFlowCoordinator: JoinFlowCoordinatorProtocol, JoinFlowOutput {
         case .soul:
             return SoulView(state: state, output: output).eraseToAnyView()
         case .key:
-            return keyViewModuleAssembly.make(state: state, output: output)
+            return KeyPhraseView(state: state, output: output).eraseToAnyView()
         }
     }
     

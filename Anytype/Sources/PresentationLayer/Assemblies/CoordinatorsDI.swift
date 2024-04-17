@@ -68,14 +68,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
-    func authorization() -> AuthCoordinatorAssemblyProtocol {
-        return AuthCoordinatorAssembly(coordinatorsID: self)
-    }
-    
-    func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol {
-        return JoinFlowCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
         return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
