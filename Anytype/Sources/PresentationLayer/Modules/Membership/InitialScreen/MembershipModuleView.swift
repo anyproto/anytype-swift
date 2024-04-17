@@ -86,13 +86,13 @@ struct MembershipModuleView: View {
     var legal: some View {
         VStack(alignment: .leading) {
             MembershipLegalButton(text: Loc.Membership.Legal.details) {
-                safariUrl = URL(string: AboutApp.pricingLink)!
+                safariUrl = URL(string: AboutApp.pricingLink)
             }
             MembershipLegalButton(text: Loc.Membership.Legal.privacy) { 
-                safariUrl = URL(string: AboutApp.privacyPolicyLink)!
+                safariUrl = URL(string: AboutApp.privacyPolicyLink)
             }
             MembershipLegalButton(text: Loc.Membership.Legal.terms) { 
-                safariUrl = URL(string: AboutApp.termsLink)!
+                safariUrl = URL(string: AboutApp.termsLink)
             }
             
             Spacer.fixedHeight(32)
