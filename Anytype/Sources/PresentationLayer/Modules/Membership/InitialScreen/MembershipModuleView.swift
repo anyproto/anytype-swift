@@ -29,10 +29,7 @@ struct MembershipModuleView: View {
             ScrollView {
                 VStack {
                     Spacer.fixedHeight(40)
-                    AnytypeText(Loc.Membership.Ad.title, style: .riccioneTitle)
-                        .foregroundColor(.Text.primary)
-                        .padding(.horizontal, 20)
-                        .multilineTextAlignment(.center)
+                    title
                     AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular)
                         .foregroundColor(.Text.primary)
                         .padding(.horizontal, 60)
@@ -51,6 +48,19 @@ struct MembershipModuleView: View {
             }
         }
         .safariSheet(url: $safariUrl)
+    }
+    
+    private var title: some View {
+        Group {
+            if Loc.Membership.Ad.title.latinCharactersOnly {
+                AnytypeText(Loc.Membership.Ad.title, style: .riccioneBannerTitle)
+            } else {
+                AnytypeText(Loc.Membership.Ad.title, style: .interBannerTitle)
+            }
+        }
+        .foregroundColor(.Text.primary)
+        .padding(.horizontal, 20)
+        .multilineTextAlignment(.center)
     }
     
     private var baners: some View {
