@@ -9,7 +9,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     
     func setTextColor(_ color: BlockColor, blockIds: [String])
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String])
-    func duplicate(blockId: String)
+    func duplicate(blockId: String, spaceId: String)
     func fetch(url: AnytypeURL, blockId: String) async throws
     func checkbox(selected: Bool, blockId: String)
     func toggle(blockId: String)

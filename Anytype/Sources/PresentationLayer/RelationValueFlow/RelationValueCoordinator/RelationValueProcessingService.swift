@@ -8,6 +8,7 @@ protocol RelationValueProcessingServiceProtocol {
     func relationProcessedSeparately(
         relation: Relation,
         objectId: String,
+        spaceId: String,
         analyticsType: AnalyticsEventsRelationType,
         onToastShow: ((String) -> Void)
     ) -> Bool
@@ -68,6 +69,7 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     func relationProcessedSeparately(
         relation: Relation,
         objectId: String,
+        spaceId: String,
         analyticsType: AnalyticsEventsRelationType,
         onToastShow: ((String) -> Void)
     ) -> Bool {
@@ -80,7 +82,11 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
         
         if case .checkbox(let checkbox) = relation {
             let newValue = !checkbox.value
-            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: !newValue, type: analyticsType)
+            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                isEmpty: !newValue,
+                type: analyticsType,
+                spaceId: spaceId
+            )
             Task {
                 try await relationsService.updateRelation(objectId: objectId, relationKey: checkbox.key, value: newValue.protobufValue)
             }

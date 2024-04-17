@@ -110,6 +110,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
                 
                 pasteboardBlockService.pasteInsideBlock(
                     objectId: details.id,
+                    spaceId: details.spaceId,
                     focusedBlockId: blockId,
                     range: .zero,
                     handleLongOperation: { },

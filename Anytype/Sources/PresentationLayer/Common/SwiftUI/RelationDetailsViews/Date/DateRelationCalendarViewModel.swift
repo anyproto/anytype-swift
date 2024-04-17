@@ -41,7 +41,11 @@ final class DateRelationCalendarViewModel: ObservableObject {
     private func updateDateRelation(with value: Double) {
         Task {
             try await relationsService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: value.protobufValue)
-            AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: value.isZero, type: config.analyticsType)
+            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                isEmpty: value.isZero,
+                type: config.analyticsType,
+                spaceId: config.spaceId
+            )
         }
     }
 }

@@ -40,7 +40,11 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     func onDisappear() {
         guard config.isEditable else { return }
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: text.isEmpty, type: config.analyticsType)
+        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+            isEmpty: text.isEmpty,
+            type: config.analyticsType,
+            spaceId: config.spaceId
+        )
     }
     
     func onClear() {

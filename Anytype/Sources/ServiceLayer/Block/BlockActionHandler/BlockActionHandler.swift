@@ -104,8 +104,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
-    func duplicate(blockId: String) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListDuplicate)
+    func duplicate(blockId: String, spaceId: String) {
+        AnytypeAnalytics.instance().logDuplicateBlock(spaceId: spaceId)
         service.duplicate(blockId: blockId)
     }
     
@@ -153,7 +153,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func addLink(targetDetails: ObjectDetails, blockId: String) {
         Task {
             let isBookmarkType = targetDetails.layoutValue == .bookmark
-            AnytypeAnalytics.instance().logCreateLink()
+            AnytypeAnalytics.instance().logCreateLink(spaceId: targetDetails.spaceId)
             try await service.add(
                 info: isBookmarkType ? .bookmark(targetId: targetDetails.id) : .emptyLink(targetId: targetDetails.id),
                 targetBlockId: blockId,
@@ -234,11 +234,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             try await fileService.uploadDataAt(source: uploadingSource, contextID: document.objectId, blockID: blockId)
         }
 
-        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType)
+        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType, spaceId: document.spaceId)
     }
     
     func uploadFileAt(localPath: String, blockId: String) {
-        AnytypeAnalytics.instance().logUploadMedia(type: .file)
+        AnytypeAnalytics.instance().logUploadMedia(type: .file, spaceId: document.spaceId)
         
         Task {
             await EventsBunch(
@@ -328,6 +328,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             let blockId = try await blockService.addFirstBlock(contextId: document.objectId, info: .emptyText)
             pasteboardBlockService.pasteInsideBlock(
                 objectId: document.objectId,
+                spaceId: document.spaceId,
                 focusedBlockId: blockId,
                 range: .zero,
                 handleLongOperation: { },

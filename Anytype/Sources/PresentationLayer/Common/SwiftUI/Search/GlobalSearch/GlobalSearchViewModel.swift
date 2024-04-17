@@ -52,7 +52,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSelect(searchData: GlobalSearchData) {
-        AnytypeAnalytics.instance().logSearchResult()
+        AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId)
         moduleData.onSelect(searchData.editorScreenData)
     }
     

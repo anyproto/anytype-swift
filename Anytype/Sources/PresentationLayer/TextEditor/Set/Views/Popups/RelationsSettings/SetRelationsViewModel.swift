@@ -104,8 +104,8 @@ final class SetRelationsViewModel: ObservableObject {
     }
     
     func showAddNewRelationView() {
-        output?.onAddButtonTap { relation, isNew in
-            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .dataview)
+        output?.onAddButtonTap { [spaceId = setDocument.spaceId] relation, isNew in
+            AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .dataview, spaceId: spaceId)
         }
     }
     

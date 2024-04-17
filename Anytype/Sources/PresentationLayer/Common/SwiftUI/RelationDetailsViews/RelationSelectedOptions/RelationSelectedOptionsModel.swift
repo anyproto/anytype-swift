@@ -75,6 +75,10 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     }
     
     private func logChanges() {
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptionsIds.isEmpty, type: config.analyticsType)
+        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+            isEmpty: selectedOptionsIds.isEmpty,
+            type: config.analyticsType,
+            spaceId: config.spaceId
+        )
     }
 }

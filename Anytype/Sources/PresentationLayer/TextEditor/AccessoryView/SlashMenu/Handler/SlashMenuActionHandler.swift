@@ -49,7 +49,7 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 let spaceId = document.spaceId
-                AnytypeAnalytics.instance().logCreateLink()
+                AnytypeAnalytics.instance().logCreateLink(spaceId: spaceId)
                 try await actionHandler
                     .createPage(
                         targetId: blockInformation.id,
@@ -70,7 +70,7 @@ final class SlashMenuActionHandler {
                 router.showAddNewRelationView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
                     self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: spaceId)
                     
-                    AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
+                    AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .block, spaceId: spaceId)
                 }
             case .relation(let relation):
                 actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: document.spaceId)
@@ -178,7 +178,7 @@ final class SlashMenuActionHandler {
         case .delete:
             actionHandler.delete(blockIds: [blockId])
         case .duplicate:
-            actionHandler.duplicate(blockId: blockId)
+            actionHandler.duplicate(blockId: blockId, spaceId: document.spaceId)
         case .moveTo:
             router.showMoveTo { [weak self] details in
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: details.id)

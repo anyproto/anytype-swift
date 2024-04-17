@@ -21,27 +21,30 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
     
     func pasteInsideBlock(
         objectId: String,
+        spaceId: String,
         focusedBlockId: String,
         range: NSRange,
         handleLongOperation:  @escaping () -> Void,
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         let context = PasteboardActionContext.focused(blockId: focusedBlockId, range: range)
-        paste(objectId: objectId, context: context, handleLongOperation: handleLongOperation, completion: completion)
+        paste(objectId: objectId, spaceId: spaceId, context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
     func pasteInSelectedBlocks(
         objectId: String,
+        spaceId: String,
         selectedBlockIds: [String],
         handleLongOperation:  @escaping () -> Void,
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
     ) {
         let context = PasteboardActionContext.selected(blockIds: selectedBlockIds)
-        paste(objectId: objectId, context: context, handleLongOperation: handleLongOperation, completion: completion)
+        paste(objectId: objectId, spaceId: spaceId, context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
     private func paste(
         objectId: String,
+        spaceId: String,
         context: PasteboardActionContext,
         handleLongOperation:  @escaping () -> Void,
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
@@ -54,6 +57,7 @@ final class PasteboardBlockService: PasteboardBlockServiceProtocol {
         
         let task = PasteboardTask(
             objectId: objectId,
+            spaceId: spaceId,
             pasteboardHelper: pasteboardHelper,
             pasteboardMiddlewareService: pasteboardMiddlewareService,
             context: context

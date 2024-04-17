@@ -33,7 +33,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func duplicate(blockId: String) {
+    func duplicate(blockId: String, spaceId: String) {
         assertionFailure()
     }
     

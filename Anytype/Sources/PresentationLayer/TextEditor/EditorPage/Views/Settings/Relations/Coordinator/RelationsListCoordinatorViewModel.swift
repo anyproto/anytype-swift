@@ -49,8 +49,8 @@ final class RelationsListCoordinatorViewModel:
             document: document,
             excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
             target: .object,
-            onCompletion: { relation, isNew in
-                AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .menu)
+            onCompletion: { [spaceId = document.spaceId] relation, isNew in
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .menu, spaceId: spaceId)
             }
         )
     }
@@ -92,6 +92,7 @@ final class RelationsListCoordinatorViewModel:
         let result = relationValueProcessingService.relationProcessedSeparately(
             relation: relation,
             objectId: objectDetails.id,
+            spaceId: objectDetails.spaceId,
             analyticsType: analyticsType,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
