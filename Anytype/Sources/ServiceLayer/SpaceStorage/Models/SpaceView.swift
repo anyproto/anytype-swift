@@ -12,6 +12,7 @@ struct SpaceView: Identifiable, Equatable {
     let spaceAccessType: SpaceAccessType?
     let readersLimit: Int?
     let writersLimit: Int?
+    let sharedSpacesLimit: Int?
 }
 
 extension SpaceView: DetailsModel {
@@ -26,6 +27,7 @@ extension SpaceView: DetailsModel {
         self.spaceAccessType = details.spaceAccessTypeValue
         self.readersLimit = details.readersLimit
         self.writersLimit = details.writersLimit
+        self.sharedSpacesLimit = details.sharedSpacesLimit
     }
     
     static var subscriptionKeys: [BundledRelationKey] = .builder {
@@ -39,6 +41,7 @@ extension SpaceView: DetailsModel {
         BundledRelationKey.spaceLocalStatus
         BundledRelationKey.readersLimit
         BundledRelationKey.writersLimit
+        BundledRelationKey.sharedSpacesLimit
     }
 }
 
