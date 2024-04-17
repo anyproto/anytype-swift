@@ -25,6 +25,7 @@ public protocol BundledRelationsValueProvider {
     var restrictions: [Int] { get }
     var readersLimit: Int? { get }
     var writersLimit: Int? { get }
+    var sharedSpacesLimit: Int? { get }
     var isHighlighted: Bool { get }
     var thumbnailImage: [ObjectId] { get }
     var attachments: [ObjectId] { get }
@@ -247,6 +248,10 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Writers limit
     var writersLimit: Int? {
         return value(for: BundledRelationKey.writersLimit.rawValue)
+    }
+    /// Shared spaces limit
+    var sharedSpacesLimit: Int? {
+        return value(for: BundledRelationKey.sharedSpacesLimit.rawValue)
     }
     /// Adds the object to the highlighted dataview in space
     var isHighlighted: Bool {

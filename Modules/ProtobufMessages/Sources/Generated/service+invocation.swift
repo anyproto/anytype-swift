@@ -2345,12 +2345,12 @@ public struct ClientCommands {
     }
 
     public static func membershipGetTiers(
-        _ request: Anytype_Rpc.Membership.Tiers.Get.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Membership.Tiers.Get.Request, Anytype_Rpc.Membership.Tiers.Get.Response> {
+        _ request: Anytype_Rpc.Membership.GetTiers.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.GetTiers.Request, Anytype_Rpc.Membership.GetTiers.Response> {
         return Invocation(messageName: "MembershipGetTiers", request: request) { request in
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceMembershipGetTiers(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.Tiers.Get.Response(serializedData: responseData)
+            return try Anytype_Rpc.Membership.GetTiers.Response(serializedData: responseData)
         }
     }
 

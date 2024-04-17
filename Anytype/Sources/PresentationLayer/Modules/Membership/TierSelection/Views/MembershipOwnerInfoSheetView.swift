@@ -83,7 +83,7 @@ struct MembershipOwnerInfoSheetView: View {
                         tier: .mockExplorer,
                         status: .active,
                         dateEnds: .tomorrow,
-                        paymentMethod: .methodCard,
+                        paymentMethod: .methodStripe,
                         anyName: ""
                     )
                 )

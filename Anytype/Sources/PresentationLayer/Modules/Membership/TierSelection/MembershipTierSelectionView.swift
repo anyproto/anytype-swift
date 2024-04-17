@@ -77,7 +77,7 @@ struct MembershipTierSelectionView: View {
                 tier: .mockExplorer,
                 status: .active,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: ""
             ),
             tierToDisplay: .mockExplorer,
@@ -89,7 +89,7 @@ struct MembershipTierSelectionView: View {
                 tier: nil,
                 status: .active,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: ""
             ),
             tierToDisplay: .mockExplorer,
@@ -101,7 +101,7 @@ struct MembershipTierSelectionView: View {
                 tier: .mockExplorer,
                 status: .active,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: ""
             ),
             tierToDisplay: .mockBuilder,
@@ -113,7 +113,7 @@ struct MembershipTierSelectionView: View {
                 tier: .mockBuilder,
                 status: .active,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: "SonyaBlade"
             ),
             tierToDisplay: .mockBuilder,
@@ -125,7 +125,7 @@ struct MembershipTierSelectionView: View {
                 tier: .mockBuilder,
                 status: .active,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: "SonyaBlade"
             ),
             tierToDisplay: .mockCoCreator,
@@ -137,7 +137,7 @@ struct MembershipTierSelectionView: View {
                 tier: .mockCoCreator,
                 status: .active,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: "SonyaBlade"
             ),
             tierToDisplay: .mockCoCreator,

@@ -398,7 +398,9 @@ public struct Anytype_Rpc {
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
             case requestFailed // = 103
-            case noApproveRequests // = 104
+            case limitReached // = 104
+            case noApproveRequests // = 105
+            case notShareable // = 106
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -413,7 +415,9 @@ public struct Anytype_Rpc {
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
               case 103: self = .requestFailed
-              case 104: self = .noApproveRequests
+              case 104: self = .limitReached
+              case 105: self = .noApproveRequests
+              case 106: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -426,7 +430,9 @@ public struct Anytype_Rpc {
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
               case .requestFailed: return 103
-              case .noApproveRequests: return 104
+              case .limitReached: return 104
+              case .noApproveRequests: return 105
+              case .notShareable: return 106
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -602,6 +608,8 @@ public struct Anytype_Rpc {
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
             case requestFailed // = 103
+            case limitReached // = 104
+            case notShareable // = 105
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -616,6 +624,8 @@ public struct Anytype_Rpc {
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
               case 103: self = .requestFailed
+              case 104: self = .limitReached
+              case 105: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -628,6 +638,8 @@ public struct Anytype_Rpc {
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
               case .requestFailed: return 103
+              case .limitReached: return 104
+              case .notShareable: return 105
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -699,6 +711,7 @@ public struct Anytype_Rpc {
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
             case requestFailed // = 103
+            case limitReached // = 104
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -713,6 +726,7 @@ public struct Anytype_Rpc {
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
               case 103: self = .requestFailed
+              case 104: self = .limitReached
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -725,6 +739,7 @@ public struct Anytype_Rpc {
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
               case .requestFailed: return 103
+              case .limitReached: return 104
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -797,9 +812,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case noSuchSpace // = 101
-            case spaceIsDeleted // = 102
-            case noActiveInvite // = 103
+            case noActiveInvite // = 101
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -811,9 +824,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .noSuchSpace
-              case 102: self = .spaceIsDeleted
-              case 103: self = .noActiveInvite
+              case 101: self = .noActiveInvite
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -823,9 +834,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .noSuchSpace: return 101
-              case .spaceIsDeleted: return 102
-              case .noActiveInvite: return 103
+              case .noActiveInvite: return 101
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -896,8 +905,9 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
-            case noActiveInvite // = 103
-            case requestFailed // = 105
+            case limitReached // = 103
+            case requestFailed // = 104
+            case notShareable // = 105
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -911,8 +921,9 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
-              case 103: self = .noActiveInvite
-              case 105: self = .requestFailed
+              case 103: self = .limitReached
+              case 104: self = .requestFailed
+              case 105: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -924,8 +935,9 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
-              case .noActiveInvite: return 103
-              case .requestFailed: return 105
+              case .limitReached: return 103
+              case .requestFailed: return 104
+              case .notShareable: return 105
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1004,10 +1016,8 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
-            case noSuchSpace // = 101
-            case spaceIsDeleted // = 102
-            case inviteNotFound // = 103
-            case inviteBadSignature // = 104
+            case inviteNotFound // = 101
+            case inviteBadContent // = 102
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1019,10 +1029,8 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
-              case 101: self = .noSuchSpace
-              case 102: self = .spaceIsDeleted
-              case 103: self = .inviteNotFound
-              case 104: self = .inviteBadSignature
+              case 101: self = .inviteNotFound
+              case 102: self = .inviteBadContent
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1032,10 +1040,8 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
-              case .noSuchSpace: return 101
-              case .spaceIsDeleted: return 102
-              case .inviteNotFound: return 103
-              case .inviteBadSignature: return 104
+              case .inviteNotFound: return 101
+              case .inviteBadContent: return 102
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1114,8 +1120,10 @@ public struct Anytype_Rpc {
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
             case inviteNotFound // = 103
-            case inviteBadSignature // = 104
+            case inviteBadContent // = 104
             case requestFailed // = 105
+            case limitReached // = 106
+            case notShareable // = 107
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1130,8 +1138,10 @@ public struct Anytype_Rpc {
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
               case 103: self = .inviteNotFound
-              case 104: self = .inviteBadSignature
+              case 104: self = .inviteBadContent
               case 105: self = .requestFailed
+              case 106: self = .limitReached
+              case 107: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1144,8 +1154,10 @@ public struct Anytype_Rpc {
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
               case .inviteNotFound: return 103
-              case .inviteBadSignature: return 104
+              case .inviteBadContent: return 104
               case .requestFailed: return 105
+              case .limitReached: return 106
+              case .notShareable: return 107
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1217,6 +1229,9 @@ public struct Anytype_Rpc {
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
             case requestFailed // = 103
+            case limitReached // = 104
+            case noSuchRequest // = 105
+            case notShareable // = 106
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1231,6 +1246,9 @@ public struct Anytype_Rpc {
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
               case 103: self = .requestFailed
+              case 104: self = .limitReached
+              case 105: self = .noSuchRequest
+              case 106: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1243,6 +1261,9 @@ public struct Anytype_Rpc {
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
               case .requestFailed: return 103
+              case .limitReached: return 104
+              case .noSuchRequest: return 105
+              case .notShareable: return 106
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1317,9 +1338,11 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
-            case noSuchIdentity // = 103
+            case noSuchRequest // = 103
             case incorrectPermissions // = 104
             case requestFailed // = 105
+            case limitReached // = 106
+            case notShareable // = 107
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1333,9 +1356,11 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
-              case 103: self = .noSuchIdentity
+              case 103: self = .noSuchRequest
               case 104: self = .incorrectPermissions
               case 105: self = .requestFailed
+              case 106: self = .limitReached
+              case 107: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1347,9 +1372,11 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
-              case .noSuchIdentity: return 103
+              case .noSuchRequest: return 103
               case .incorrectPermissions: return 104
               case .requestFailed: return 105
+              case .limitReached: return 106
+              case .notShareable: return 107
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1423,6 +1450,9 @@ public struct Anytype_Rpc {
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
             case requestFailed // = 103
+            case limitReached // = 104
+            case noSuchRequest // = 105
+            case notShareable // = 106
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1437,6 +1467,9 @@ public struct Anytype_Rpc {
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
               case 103: self = .requestFailed
+              case 104: self = .limitReached
+              case 105: self = .noSuchRequest
+              case 106: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1449,6 +1482,9 @@ public struct Anytype_Rpc {
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
               case .requestFailed: return 103
+              case .limitReached: return 104
+              case .noSuchRequest: return 105
+              case .notShareable: return 106
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1523,6 +1559,8 @@ public struct Anytype_Rpc {
             case spaceIsDeleted // = 102
             case participantNotFound // = 103
             case requestFailed // = 104
+            case limitReached // = 105
+            case notShareable // = 106
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1538,6 +1576,8 @@ public struct Anytype_Rpc {
               case 102: self = .spaceIsDeleted
               case 103: self = .participantNotFound
               case 104: self = .requestFailed
+              case 105: self = .limitReached
+              case 106: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1551,6 +1591,8 @@ public struct Anytype_Rpc {
               case .spaceIsDeleted: return 102
               case .participantNotFound: return 103
               case .requestFailed: return 104
+              case .limitReached: return 105
+              case .notShareable: return 106
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1624,6 +1666,10 @@ public struct Anytype_Rpc {
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
             case requestFailed // = 103
+            case limitReached // = 104
+            case participantNotFound // = 105
+            case incorrectPermissions // = 106
+            case notShareable // = 107
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1638,6 +1684,10 @@ public struct Anytype_Rpc {
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
               case 103: self = .requestFailed
+              case 104: self = .limitReached
+              case 105: self = .participantNotFound
+              case 106: self = .incorrectPermissions
+              case 107: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1650,6 +1700,10 @@ public struct Anytype_Rpc {
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
               case .requestFailed: return 103
+              case .limitReached: return 104
+              case .participantNotFound: return 105
+              case .incorrectPermissions: return 106
+              case .notShareable: return 107
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -1722,6 +1776,9 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case noSuchSpace // = 101
             case spaceIsDeleted // = 102
+            case requestFailed // = 103
+            case limitReached // = 104
+            case notShareable // = 105
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1735,6 +1792,9 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 101: self = .noSuchSpace
               case 102: self = .spaceIsDeleted
+              case 103: self = .requestFailed
+              case 104: self = .limitReached
+              case 105: self = .notShareable
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1746,6 +1806,9 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .noSuchSpace: return 101
               case .spaceIsDeleted: return 102
+              case .requestFailed: return 103
+              case .limitReached: return 104
+              case .notShareable: return 105
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27213,114 +27276,104 @@ public struct Anytype_Rpc {
     ///*
     /// Tiers can change on the backend so if you want to show users the latest data
     /// you can call this method to get the latest tiers
-    public struct Tiers {
+    public struct GetTiers {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-      public struct Get {
+      public struct Request {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
+        /// pass true to force the cache update
+        /// by default this is false
+        public var noCache: Bool = false
+
+        public var locale: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-        public struct Request {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
+        public init() {}
+      }
 
-          /// pass true to force the cache update
-          /// by default this is false
-          public var noCache: Bool = false
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
 
-          public var locale: String = String()
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
+        public var error: Anytype_Rpc.Membership.GetTiers.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.GetTiers.Response.Error()}
+          set {_error = newValue}
         }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
 
-        public struct Response {
+        public var tiers: [Anytype_Model_MembershipTierData] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
           // SwiftProtobuf.Message conformance is added in an extension below. See the
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var error: Anytype_Rpc.Membership.Tiers.Get.Response.Error {
-            get {return _error ?? Anytype_Rpc.Membership.Tiers.Get.Response.Error()}
-            set {_error = newValue}
-          }
-          /// Returns true if `error` has been explicitly set.
-          public var hasError: Bool {return self._error != nil}
-          /// Clears the value of `error`. Subsequent reads from it will return its default value.
-          public mutating func clearError() {self._error = nil}
+          public var code: Anytype_Rpc.Membership.GetTiers.Response.Error.Code = .null
 
-          public var tiers: [Anytype_Model_MembershipTierData] = []
+          public var description_p: String = String()
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-          public struct Error {
-            // SwiftProtobuf.Message conformance is added in an extension below. See the
-            // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-            // methods supported on all messages.
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case notLoggedIn // = 3
+            case paymentNodeError // = 4
+            case cacheError // = 5
+            case UNRECOGNIZED(Int)
 
-            public var code: Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code = .null
-
-            public var description_p: String = String()
-
-            public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-            public enum Code: SwiftProtobuf.Enum {
-              public typealias RawValue = Int
-              case null // = 0
-              case unknownError // = 1
-              case badInput // = 2
-              case notLoggedIn // = 3
-              case paymentNodeError // = 4
-              case cacheError // = 5
-              case UNRECOGNIZED(Int)
-
-              public init() {
-                self = .null
-              }
-
-              public init?(rawValue: Int) {
-                switch rawValue {
-                case 0: self = .null
-                case 1: self = .unknownError
-                case 2: self = .badInput
-                case 3: self = .notLoggedIn
-                case 4: self = .paymentNodeError
-                case 5: self = .cacheError
-                default: self = .UNRECOGNIZED(rawValue)
-                }
-              }
-
-              public var rawValue: Int {
-                switch self {
-                case .null: return 0
-                case .unknownError: return 1
-                case .badInput: return 2
-                case .notLoggedIn: return 3
-                case .paymentNodeError: return 4
-                case .cacheError: return 5
-                case .UNRECOGNIZED(let i): return i
-                }
-              }
-
+            public init() {
+              self = .null
             }
 
-            public init() {}
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 3: self = .notLoggedIn
+              case 4: self = .paymentNodeError
+              case 5: self = .cacheError
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .notLoggedIn: return 3
+              case .paymentNodeError: return 4
+              case .cacheError: return 5
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
           }
 
           public init() {}
-
-          fileprivate var _error: Anytype_Rpc.Membership.Tiers.Get.Response.Error? = nil
         }
 
         public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Membership.GetTiers.Response.Error? = nil
       }
 
       public init() {}
@@ -27908,7 +27961,9 @@ extension Anytype_Rpc.Space.LeaveApprove.Response.Error.Code: CaseIterable {
     .noSuchSpace,
     .spaceIsDeleted,
     .requestFailed,
+    .limitReached,
     .noApproveRequests,
+    .notShareable,
   ]
 }
 
@@ -27934,6 +27989,8 @@ extension Anytype_Rpc.Space.InviteGenerate.Response.Error.Code: CaseIterable {
     .noSuchSpace,
     .spaceIsDeleted,
     .requestFailed,
+    .limitReached,
+    .notShareable,
   ]
 }
 
@@ -27946,6 +28003,7 @@ extension Anytype_Rpc.Space.StopSharing.Response.Error.Code: CaseIterable {
     .noSuchSpace,
     .spaceIsDeleted,
     .requestFailed,
+    .limitReached,
   ]
 }
 
@@ -27955,8 +28013,6 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .noSuchSpace,
-    .spaceIsDeleted,
     .noActiveInvite,
   ]
 }
@@ -27969,8 +28025,9 @@ extension Anytype_Rpc.Space.InviteRevoke.Response.Error.Code: CaseIterable {
     .badInput,
     .noSuchSpace,
     .spaceIsDeleted,
-    .noActiveInvite,
+    .limitReached,
     .requestFailed,
+    .notShareable,
   ]
 }
 
@@ -27980,10 +28037,8 @@ extension Anytype_Rpc.Space.InviteView.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
-    .noSuchSpace,
-    .spaceIsDeleted,
     .inviteNotFound,
-    .inviteBadSignature,
+    .inviteBadContent,
   ]
 }
 
@@ -27996,8 +28051,10 @@ extension Anytype_Rpc.Space.Join.Response.Error.Code: CaseIterable {
     .noSuchSpace,
     .spaceIsDeleted,
     .inviteNotFound,
-    .inviteBadSignature,
+    .inviteBadContent,
     .requestFailed,
+    .limitReached,
+    .notShareable,
   ]
 }
 
@@ -28010,6 +28067,9 @@ extension Anytype_Rpc.Space.JoinCancel.Response.Error.Code: CaseIterable {
     .noSuchSpace,
     .spaceIsDeleted,
     .requestFailed,
+    .limitReached,
+    .noSuchRequest,
+    .notShareable,
   ]
 }
 
@@ -28021,9 +28081,11 @@ extension Anytype_Rpc.Space.RequestApprove.Response.Error.Code: CaseIterable {
     .badInput,
     .noSuchSpace,
     .spaceIsDeleted,
-    .noSuchIdentity,
+    .noSuchRequest,
     .incorrectPermissions,
     .requestFailed,
+    .limitReached,
+    .notShareable,
   ]
 }
 
@@ -28036,6 +28098,9 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error.Code: CaseIterable {
     .noSuchSpace,
     .spaceIsDeleted,
     .requestFailed,
+    .limitReached,
+    .noSuchRequest,
+    .notShareable,
   ]
 }
 
@@ -28049,6 +28114,8 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error.Code: CaseIterable 
     .spaceIsDeleted,
     .participantNotFound,
     .requestFailed,
+    .limitReached,
+    .notShareable,
   ]
 }
 
@@ -28061,6 +28128,10 @@ extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error.Code: Ca
     .noSuchSpace,
     .spaceIsDeleted,
     .requestFailed,
+    .limitReached,
+    .participantNotFound,
+    .incorrectPermissions,
+    .notShareable,
   ]
 }
 
@@ -28072,6 +28143,9 @@ extension Anytype_Rpc.Space.Delete.Response.Error.Code: CaseIterable {
     .badInput,
     .noSuchSpace,
     .spaceIsDeleted,
+    .requestFailed,
+    .limitReached,
+    .notShareable,
   ]
 }
 
@@ -30373,9 +30447,9 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: CaseIterab
   ]
 }
 
-extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Membership.GetTiers.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code] = [
+  public static let allCases: [Anytype_Rpc.Membership.GetTiers.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -31764,12 +31838,11 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.Tiers: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.Tiers.Get: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.Tiers.Get.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.Tiers.Get.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetTiers: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetTiers.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetTiers.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetTiers.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.GetTiers.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.NameService: @unchecked Sendable {}
 extension Anytype_Rpc.NameService.ResolveName: @unchecked Sendable {}
 extension Anytype_Rpc.NameService.ResolveName.Request: @unchecked Sendable {}
@@ -32441,7 +32514,9 @@ extension Anytype_Rpc.Space.LeaveApprove.Response.Error.Code: SwiftProtobuf._Pro
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "REQUEST_FAILED"),
-    104: .same(proto: "NO_APPROVE_REQUESTS"),
+    104: .same(proto: "LIMIT_REACHED"),
+    105: .same(proto: "NO_APPROVE_REQUESTS"),
+    106: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -32727,6 +32802,8 @@ extension Anytype_Rpc.Space.InviteGenerate.Response.Error.Code: SwiftProtobuf._P
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "REQUEST_FAILED"),
+    104: .same(proto: "LIMIT_REACHED"),
+    105: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -32863,6 +32940,7 @@ extension Anytype_Rpc.Space.StopSharing.Response.Error.Code: SwiftProtobuf._Prot
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "REQUEST_FAILED"),
+    104: .same(proto: "LIMIT_REACHED"),
   ]
 }
 
@@ -33008,9 +33086,7 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error.Code: SwiftProtobuf.
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NO_SUCH_SPACE"),
-    102: .same(proto: "SPACE_IS_DELETED"),
-    103: .same(proto: "NO_ACTIVE_INVITE"),
+    101: .same(proto: "NO_ACTIVE_INVITE"),
   ]
 }
 
@@ -33146,8 +33222,9 @@ extension Anytype_Rpc.Space.InviteRevoke.Response.Error.Code: SwiftProtobuf._Pro
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
-    103: .same(proto: "NO_ACTIVE_INVITE"),
-    105: .same(proto: "REQUEST_FAILED"),
+    103: .same(proto: "LIMIT_REACHED"),
+    104: .same(proto: "REQUEST_FAILED"),
+    105: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -33311,10 +33388,8 @@ extension Anytype_Rpc.Space.InviteView.Response.Error.Code: SwiftProtobuf._Proto
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
-    101: .same(proto: "NO_SUCH_SPACE"),
-    102: .same(proto: "SPACE_IS_DELETED"),
-    103: .same(proto: "INVITE_NOT_FOUND"),
-    104: .same(proto: "INVITE_BAD_SIGNATURE"),
+    101: .same(proto: "INVITE_NOT_FOUND"),
+    102: .same(proto: "INVITE_BAD_CONTENT"),
   ]
 }
 
@@ -33469,8 +33544,10 @@ extension Anytype_Rpc.Space.Join.Response.Error.Code: SwiftProtobuf._ProtoNamePr
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "INVITE_NOT_FOUND"),
-    104: .same(proto: "INVITE_BAD_SIGNATURE"),
+    104: .same(proto: "INVITE_BAD_CONTENT"),
     105: .same(proto: "REQUEST_FAILED"),
+    106: .same(proto: "LIMIT_REACHED"),
+    107: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -33607,6 +33684,9 @@ extension Anytype_Rpc.Space.JoinCancel.Response.Error.Code: SwiftProtobuf._Proto
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "REQUEST_FAILED"),
+    104: .same(proto: "LIMIT_REACHED"),
+    105: .same(proto: "NO_SUCH_REQUEST"),
+    106: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -33754,9 +33834,11 @@ extension Anytype_Rpc.Space.RequestApprove.Response.Error.Code: SwiftProtobuf._P
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
-    103: .same(proto: "NO_SUCH_IDENTITY"),
+    103: .same(proto: "NO_SUCH_REQUEST"),
     104: .same(proto: "INCORRECT_PERMISSIONS"),
     105: .same(proto: "REQUEST_FAILED"),
+    106: .same(proto: "LIMIT_REACHED"),
+    107: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -33899,6 +33981,9 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error.Code: SwiftProtobuf._P
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "REQUEST_FAILED"),
+    104: .same(proto: "LIMIT_REACHED"),
+    105: .same(proto: "NO_SUCH_REQUEST"),
+    106: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -34042,6 +34127,8 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error.Code: SwiftProtobuf
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "PARTICIPANT_NOT_FOUND"),
     104: .same(proto: "REQUEST_FAILED"),
+    105: .same(proto: "LIMIT_REACHED"),
+    106: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -34184,6 +34271,10 @@ extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error.Code: Sw
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
     103: .same(proto: "REQUEST_FAILED"),
+    104: .same(proto: "LIMIT_REACHED"),
+    105: .same(proto: "PARTICIPANT_NOT_FOUND"),
+    106: .same(proto: "INCORRECT_PERMISSIONS"),
+    107: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -34325,6 +34416,9 @@ extension Anytype_Rpc.Space.Delete.Response.Error.Code: SwiftProtobuf._ProtoName
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "NO_SUCH_SPACE"),
     102: .same(proto: "SPACE_IS_DELETED"),
+    103: .same(proto: "REQUEST_FAILED"),
+    104: .same(proto: "LIMIT_REACHED"),
+    105: .same(proto: "NOT_SHAREABLE"),
   ]
 }
 
@@ -71043,8 +71137,8 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: SwiftProto
   ]
 }
 
-extension Anytype_Rpc.Membership.Tiers: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".Tiers"
+extension Anytype_Rpc.Membership.GetTiers: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetTiers"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -71056,33 +71150,14 @@ extension Anytype_Rpc.Membership.Tiers: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.Tiers, rhs: Anytype_Rpc.Membership.Tiers) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetTiers, rhs: Anytype_Rpc.Membership.GetTiers) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Membership.Tiers.Get: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.protoMessageName + ".Get"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get, rhs: Anytype_Rpc.Membership.Tiers.Get) -> Bool {
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Rpc.Membership.Tiers.Get.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.Get.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.GetTiers.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetTiers.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "noCache"),
     2: .same(proto: "locale"),
@@ -71111,7 +71186,7 @@ extension Anytype_Rpc.Membership.Tiers.Get.Request: SwiftProtobuf.Message, Swift
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get.Request, rhs: Anytype_Rpc.Membership.Tiers.Get.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetTiers.Request, rhs: Anytype_Rpc.Membership.GetTiers.Request) -> Bool {
     if lhs.noCache != rhs.noCache {return false}
     if lhs.locale != rhs.locale {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -71119,8 +71194,8 @@ extension Anytype_Rpc.Membership.Tiers.Get.Request: SwiftProtobuf.Message, Swift
   }
 }
 
-extension Anytype_Rpc.Membership.Tiers.Get.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.Get.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.GetTiers.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetTiers.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "tiers"),
@@ -71153,7 +71228,7 @@ extension Anytype_Rpc.Membership.Tiers.Get.Response: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get.Response, rhs: Anytype_Rpc.Membership.Tiers.Get.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetTiers.Response, rhs: Anytype_Rpc.Membership.GetTiers.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.tiers != rhs.tiers {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -71161,8 +71236,8 @@ extension Anytype_Rpc.Membership.Tiers.Get.Response: SwiftProtobuf.Message, Swif
   }
 }
 
-extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.Tiers.Get.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.GetTiers.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.GetTiers.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -71191,7 +71266,7 @@ extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.Tiers.Get.Response.Error, rhs: Anytype_Rpc.Membership.Tiers.Get.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.GetTiers.Response.Error, rhs: Anytype_Rpc.Membership.GetTiers.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -71199,7 +71274,7 @@ extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: SwiftProtobuf.Message
   }
 }
 
-extension Anytype_Rpc.Membership.Tiers.Get.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.GetTiers.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),

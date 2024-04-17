@@ -80,6 +80,7 @@ public extension BundledRelationKey {
         .spaceInviteFileKey,
         .readersLimit,
         .writersLimit,
+        .sharedSpacesLimit,
         .participantPermissions,
         .participantStatus,
         .latestAclHeadId,

@@ -54,6 +54,9 @@ public enum BundledRelationKey: String {
     /// Writers limit
     case writersLimit = "writersLimit"
 
+    /// Shared spaces limit
+    case sharedSpacesLimit = "sharedSpacesLimit"
+
     /// Adds the object to the highlighted dataview in space
     case isHighlighted = "isHighlighted"
 

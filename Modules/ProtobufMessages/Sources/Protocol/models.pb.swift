@@ -5370,7 +5370,7 @@ public struct Anytype_Model_Membership {
   public enum PaymentMethod: SwiftProtobuf.Enum {
     public typealias RawValue = Int
     case methodNone // = 0
-    case methodCard // = 1
+    case methodStripe // = 1
     case methodCrypto // = 2
     case methodInappApple // = 3
     case methodInappGoogle // = 4
@@ -5383,7 +5383,7 @@ public struct Anytype_Model_Membership {
     public init?(rawValue: Int) {
       switch rawValue {
       case 0: self = .methodNone
-      case 1: self = .methodCard
+      case 1: self = .methodStripe
       case 2: self = .methodCrypto
       case 3: self = .methodInappApple
       case 4: self = .methodInappGoogle
@@ -5394,7 +5394,7 @@ public struct Anytype_Model_Membership {
     public var rawValue: Int {
       switch self {
       case .methodNone: return 0
-      case .methodCard: return 1
+      case .methodStripe: return 1
       case .methodCrypto: return 2
       case .methodInappApple: return 3
       case .methodInappGoogle: return 4
@@ -5462,7 +5462,7 @@ extension Anytype_Model_Membership.PaymentMethod: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Model_Membership.PaymentMethod] = [
     .methodNone,
-    .methodCard,
+    .methodStripe,
     .methodCrypto,
     .methodInappApple,
     .methodInappGoogle,
@@ -11263,7 +11263,7 @@ extension Anytype_Model_Membership.Status: SwiftProtobuf._ProtoNameProviding {
 extension Anytype_Model_Membership.PaymentMethod: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "MethodNone"),
-    1: .same(proto: "MethodCard"),
+    1: .same(proto: "MethodStripe"),
     2: .same(proto: "MethodCrypto"),
     3: .same(proto: "MethodInappApple"),
     4: .same(proto: "MethodInappGoogle"),

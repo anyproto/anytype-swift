@@ -114,7 +114,7 @@ struct MembershipTierView: View {
                 tier: nil,
                 status: .pending,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: ""
             )
         } content: {
@@ -135,7 +135,7 @@ struct MembershipTierView: View {
                 tier: .mockExplorer,
                 status: .pending,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: ""
             )
         } content: {
@@ -177,7 +177,7 @@ struct MembershipTierView: View {
                 tier: .mockBuilder,
                 status: .active,
                 dateEnds: .tomorrow,
-                paymentMethod: .methodCard,
+                paymentMethod: .methodStripe,
                 anyName: ""
             )
         } content: {

@@ -706,6 +706,11 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Membership.GetTiers.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.GetTiers.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Membership.GetVerificationEmail.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -718,11 +723,6 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: Resp
 
 extension Anytype_Rpc.Membership.IsNameValid.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
-extension Anytype_Rpc.Membership.Tiers.Get.Response: ResultWithError {}
-extension Anytype_Rpc.Membership.Tiers.Get.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
