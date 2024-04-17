@@ -7,5 +7,8 @@ struct ObjectSettingsCoordinatorView: View {
     
     var body: some View {
         ObjectSettingsView(objectId: model.objectId, output: model, actionHandler: model.objectSettingsHandler)
+            .sheet(item: $model.coverPickerData) {
+                ObjectCoverPicker(data: $0)
+            }
     }
 }

@@ -17,6 +17,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
+    @Published var coverPickerData: ObjectCoverPickerData?
     
     init(
         objectId: String,
@@ -52,8 +53,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func showCoverPicker(document: BaseDocumentGeneralProtocol, onCoverAction: @escaping (ObjectCoverPickerAction) -> Void) {
-        let data = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
-        navigationContext.present(ObjectCoverPicker(data: data))
+        coverPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
     }
     
     func showIconPicker(
