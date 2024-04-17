@@ -339,7 +339,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype 需要访问您的相机才能扫描二维码。\n\n请转到您设备的设置 -> 隐私 -> 将 Anytype 相机设置为开。";
 
 // MARK: - Deletion
-"Pending deletion text" = "我们很遗憾看到您离开。您有 30 天的时间撤销此请求。30 天后，您加密库的数据将从备份节点中永久删除。";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "撤消/重做";

@@ -338,7 +338,7 @@
 "Alert.CameraPermissions.GoToSettings" = "QR କୋଡ୍ ସ୍କାନ୍ କରିବା ପାଇଁ ଏନିଟାଇପ ଆପଣଙ୍କ କ୍ୟାମେରାକୁ ପ୍ରବେଶ ଆବଶ୍ୟକ କରେ | \n\n ଦୟାକରି, ଆପଣଙ୍କର ଡିଭାଇସର ସେଟିଂସମୂହ ->ଏନିଟାଇପ ଯାଆନ୍ତୁ ଏବଂ କ୍ୟାମେରା ଅନ୍ ସେଟ୍ କରନ୍ତୁ |";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "ଅଣ୍ଡୁ/ରିଡୁ";
