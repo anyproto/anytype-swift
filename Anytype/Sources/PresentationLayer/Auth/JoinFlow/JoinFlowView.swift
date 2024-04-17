@@ -11,7 +11,9 @@ struct JoinFlowView: View {
     
     var body: some View {
         GeometryReader { geo in
-            content(height: geo.size.height)
+            if !model.hideContent {
+                content(height: geo.size.height)
+            }
         }
         .customBackSwipe {
             guard !model.disableBackAction else { return }
