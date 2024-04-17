@@ -7,6 +7,7 @@ import Combine
 struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
     @State private var safariUrl: URL?
+    @Injected(\.accountManager) private var accountManager: AccountManagerProtocol
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
@@ -117,7 +118,7 @@ struct MembershipModuleView: View {
         Button {
             let mailLink = MailUrl(
                 to: AboutApp.licenseMailTo,
-                subject: Loc.Membership.Email.subject,
+                subject: "\(Loc.Membership.Email.subject) \(accountManager.account.id)",
                 body: Loc.Membership.Email.body
             )
             guard let mailUrl = mailLink.url else { return }
