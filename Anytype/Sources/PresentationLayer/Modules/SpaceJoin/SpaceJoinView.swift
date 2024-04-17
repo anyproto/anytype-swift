@@ -59,7 +59,7 @@ struct SpaceJoinView: View {
     private var invite: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .color(.blue))
+            ButtomAlertHeaderImageView(icon: .BottomAlert.mail, style: .color(.blue))
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading)
                 .foregroundColor(.Text.primary)
