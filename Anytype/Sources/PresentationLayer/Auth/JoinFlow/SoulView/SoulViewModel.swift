@@ -32,7 +32,7 @@ final class SoulViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .offline)
     }
     
     func onNextAction() {
