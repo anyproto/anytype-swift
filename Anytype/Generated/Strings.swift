@@ -754,8 +754,8 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Later.Title", fallback: "Skip")
           }
           internal enum Saved {
-            /// Enter my Vault
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Enter my Vault")
+            /// Next
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Button.Saved.Title", fallback: "Next")
           }
           internal enum Show {
             /// Show my Key
@@ -796,14 +796,22 @@ internal enum Loc {
         }
       }
       internal enum Soul {
-        /// Get my Key
-        internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Get my Key")
+        /// Enter my Vault
+        internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Enter my Vault")
         /// Only seen by people you share something with. There is no central registry of users.
         internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of users.")
         /// Untitled
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Untitled")
         /// Set your name
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title", fallback: "Set your name")
+      }
+      internal enum Vault {
+        /// Get my Key
+        internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Button", fallback: "Get my Key")
+        /// Everything inside is encrypted. It is local first – everything works offline. Only you have the key.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Description", fallback: "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.")
+        /// This is your Vault
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Title", fallback: "This is your Vault")
       }
     }
     internal enum LoginFlow {

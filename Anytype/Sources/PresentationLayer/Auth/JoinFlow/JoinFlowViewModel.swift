@@ -50,6 +50,8 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     func onBack() {
         guard let previousStep = step.previous else { return }
+        
+        UIApplication.shared.hideKeyboard()
         forward = false
         
         withAnimation {

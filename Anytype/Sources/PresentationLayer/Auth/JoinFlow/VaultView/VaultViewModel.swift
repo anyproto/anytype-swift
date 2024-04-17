@@ -2,13 +2,8 @@ import SwiftUI
 import Services
 
 @MainActor
-final class SoulViewModel: ObservableObject {
+final class VaultViewModel: ObservableObject {
     
-    @Published var inputText: String {
-        didSet {
-            state.soul = inputText
-        }
-    }
     @Published var inProgress = false
     
     // MARK: - DI
@@ -20,6 +15,12 @@ final class SoulViewModel: ObservableObject {
     private var accountManager: AccountManagerProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.authService)
+    private var authService: AuthServiceProtocol
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
+    @Injected(\.usecaseService)
+    private var usecaseService: UsecaseServiceProtocol
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
@@ -27,7 +28,6 @@ final class SoulViewModel: ObservableObject {
     
     init(state: JoinFlowState, output: JoinFlowStepOutput?) {
         self.state = state
-        self.inputText = state.soul
         self.output = output
     }
     
@@ -36,10 +36,34 @@ final class SoulViewModel: ObservableObject {
     }
     
     func onNextAction() {
-        updateNames()
+        if state.mnemonic.isEmpty {
+            createAccount()
+        } else {
+            onSuccess()
+        }
     }
     
-    // MARK: - Update names step
+    // MARK: - Create account step
+    
+    private func createAccount() {
+        Task { @MainActor in
+            startLoading()
+            
+            do {
+                state.mnemonic = try await authService.createWallet()
+                let account = try await authService.createAccount(
+                    name: state.soul,
+                    imagePath: ""
+                )
+                try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
+                try? seedService.saveSeed(state.mnemonic)
+                
+                onSuccess()
+            } catch {
+                createAccountError(error)
+            }
+        }
+    }
     
     private func onSuccess() {
         stopLoading()
@@ -47,34 +71,9 @@ final class SoulViewModel: ObservableObject {
         output?.onNext()
     }
     
-    private func updateNameError(_ error: Error) {
+    private func createAccountError(_ error: Error) {
         stopLoading()
         output?.onError(error)
-    }
-    
-    private func updateNames() {
-        guard accountManager.account.name != state.soul else {
-            onSuccess()
-            return
-        }
-        Task { @MainActor in
-            startLoading()
-            
-            do {
-                try await workspaceService.workspaceSetDetails(
-                    spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                    details: [.name(state.soul)]
-                )
-                try await objectActionsService.updateBundledDetails(
-                    contextID: accountManager.account.info.profileObjectID,
-                    details: [.name(state.soul)]
-                )
-                
-                onSuccess()
-            } catch {
-                updateNameError(error)
-            }
-        }
     }
     
     private func startLoading() {
