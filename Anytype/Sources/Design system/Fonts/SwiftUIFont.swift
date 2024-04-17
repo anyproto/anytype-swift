@@ -21,6 +21,8 @@ struct AnytypeFontBuilder {
             return .semibold
         case .bold:
             return .bold
+        case .light:
+            return .light
         }
     }
 }

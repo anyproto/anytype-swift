@@ -18,6 +18,7 @@ struct AnytypeFontConfig {
         case medium
         case semibold
         case bold
+        case light
     }
 }
 
@@ -296,7 +297,7 @@ extension AnytypeFont {
                 lineHeight: 56,
                 kern: -0.48
             )
-        case .riccioneTitle:
+        case .riccioneBannerTitle:
             return AnytypeFontConfig(
                 fontName: .riccione,
                 size: 48,
@@ -304,7 +305,16 @@ extension AnytypeFont {
                 lineHeight: 44,
                 kern: -0.52
             )
+        case .interBannerTitle:
+            return AnytypeFontConfig(
+                fontName: .inter,
+                size: 48,
+                weight: .light,
+                lineHeight: 48,
+                kern: -1.6
+            )
         }
+        
     }
     
     /// Line spacing.
