@@ -77,7 +77,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createEmptyBlock(parentId: String) {
+    func createEmptyBlock(parentId: String, spaceId: String) {
         assertionFailure()
     }
     
@@ -89,7 +89,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String) {
         assertionFailure()
     }
     
@@ -179,7 +179,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: AnytypeCore.SafeSendable<NSAttributedString?>) async throws -> String {
+    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: AnytypeCore.SafeSendable<NSAttributedString?>, spaceId: String) async throws -> String {
         fatalError()
     }
     
