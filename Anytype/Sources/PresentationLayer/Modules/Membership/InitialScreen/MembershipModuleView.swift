@@ -7,6 +7,7 @@ import Combine
 struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
     @State private var safariUrl: URL?
+    @Injected(\.accountManager) private var accountManager: AccountManagerProtocol
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
@@ -52,7 +53,18 @@ struct MembershipModuleView: View {
         .safariSheet(url: $safariUrl)
     }
     
-    var baners: some View {
+    private var baners: some View {
+        Group {
+            switch membership.tier?.type {
+            case .explorer, nil:
+                bannersView
+            case .builder, .coCreator, .custom:
+                EmptyView()
+            }
+        }
+    }
+    
+    private var bannersView: some View {
         TabView {
             MembershipBannerView(
                 title: Loc.Membership.Banner.title1,
@@ -106,7 +118,7 @@ struct MembershipModuleView: View {
         Button {
             let mailLink = MailUrl(
                 to: AboutApp.licenseMailTo,
-                subject: Loc.Membership.Email.subject,
+                subject: "\(Loc.Membership.Email.subject) \(accountManager.account.id)",
                 body: Loc.Membership.Email.body
             )
             guard let mailUrl = mailLink.url else { return }
