@@ -102,7 +102,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
         let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
-        AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, route: .turnInto)
+        AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, spaceId: spaceId, route: .turnInto)
 
         return try await blockService.convertChildrenToPages(
             contextId: documentId,

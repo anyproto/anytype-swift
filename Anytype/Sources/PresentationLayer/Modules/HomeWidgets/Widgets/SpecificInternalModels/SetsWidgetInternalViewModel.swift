@@ -74,7 +74,7 @@ final class SetsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
                 origin: .none,
                 templateId: nil
             )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
             output?.onObjectSelected(screenData: details.editorScreenData())
             UISelectionFeedbackGenerator().selectionChanged()
         }

@@ -294,7 +294,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
             openObject(screenData: details.editorScreenData())
         }
     }
@@ -327,7 +327,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
             
             openObject(screenData: details.editorScreenData())
         }

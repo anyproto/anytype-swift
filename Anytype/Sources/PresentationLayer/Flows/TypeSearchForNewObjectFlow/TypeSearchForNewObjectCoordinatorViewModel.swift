@@ -78,7 +78,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
             )
             
             AnytypeAnalytics.instance().logSelectObjectType(details.analyticsType, route: .clipboard)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .clipboard)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .clipboard)
 
             openObject(details)
         }
@@ -102,7 +102,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
             )
             
             AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: pasteContent ? .clipboard : .longTap)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: pasteContent ? .clipboard : .navigation)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: pasteContent ? .clipboard : .navigation)
             
             if pasteContent && !type.isListType {
                 try await objectActionsService.applyTemplate(objectId: details.id, templateId: type.defaultTemplateId)

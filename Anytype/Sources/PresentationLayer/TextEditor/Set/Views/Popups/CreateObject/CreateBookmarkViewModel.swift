@@ -50,6 +50,7 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
                 
                 AnytypeAnalytics.instance().logCreateObject(
                     objectType: details.analyticsType,
+                    spaceId: details.spaceId,
                     route: collectionId.isNotNil ? .collection : .set
                 )
             } catch {

@@ -146,6 +146,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         )
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,
+            spaceId: document.spaceId,
             service: blockActionService,
             blockService: blockService,
             toggleStorage: ToggleStorage.shared,

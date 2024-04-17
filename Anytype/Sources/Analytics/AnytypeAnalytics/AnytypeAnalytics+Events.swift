@@ -90,17 +90,21 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.id: userInterfaceStyle.analyticsId])
     }
 
-    func logShowObject(type: AnalyticsObjectType, layout: DetailsLayout) {
+    func logScreenObject(type: AnalyticsObjectType, layout: DetailsLayout, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.showObject,
+            "ScreenObject",
+            spaceId: spaceId,
             withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
                                   AnalyticsEventsPropertiesKey.layout: layout.rawValue]
         )
     }
 
-    func logObjectTypeChange(_ type: AnalyticsObjectType) {
-        logEvent(AnalyticsEventsName.objectTypeChange,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+    func logChangeObjectType(_ type: AnalyticsObjectType, spaceId: String) {
+        logEvent(
+            "ChangeObjectType",
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId]
+        )
     }
     
     func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute) {
@@ -128,11 +132,11 @@ extension AnytypeAnalytics {
         }
     }
 
-    func logCreateBlock(type: BlockContentType, route: AnalyticsEventsRouteKind? = nil) {
-        logCreateBlock(type: type.analyticsValue, route: route, style: type.styleAnalyticsValue)
+    func logCreateBlock(type: BlockContentType, spaceId: String, route: AnalyticsEventsRouteKind? = nil) {
+        logCreateBlock(type: type.analyticsValue, spaceId: spaceId, route: route, style: type.styleAnalyticsValue)
     }
     
-    func logCreateBlock(type: String,  route: AnalyticsEventsRouteKind? = nil, style: String? = nil) {
+    func logCreateBlock(type: String, spaceId: String, route: AnalyticsEventsRouteKind? = nil, style: String? = nil) {
         var props = [String: String]()
         props[AnalyticsEventsPropertiesKey.type] = type
         if let style = style {
@@ -143,7 +147,7 @@ extension AnytypeAnalytics {
             props[AnalyticsEventsPropertiesKey.route] = route.rawValue
         }
 
-        logEvent(AnalyticsEventsName.blockCreate, withEventProperties: props)
+        logEvent(AnalyticsEventsName.blockCreate, spaceId: spaceId, withEventProperties: props)
     }
 
     func logUploadMedia(type: FileContentType) {
@@ -173,17 +177,18 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
 
-    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
+    func logCreateObject(objectType: AnalyticsObjectType, spaceId: String, route: AnalyticsEventsRouteKind) {
         let properties = [
             AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
             AnalyticsEventsPropertiesKey.route: route.rawValue
         ]
-        logEvent(AnalyticsEventsName.createObject, withEventProperties: properties)
+        logEvent(AnalyticsEventsName.createObject, spaceId: spaceId, withEventProperties: properties)
     }
     
-    func logLinkToObject(type: AnalyticsEventsLinkToObjectType) {
+    func logLinkToObject(type: AnalyticsEventsLinkToObjectType, spaceId: String) {
         logEvent(
             AnalyticsEventsName.linkToObject,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.linkType: type.rawValue
             ]
@@ -191,9 +196,10 @@ extension AnytypeAnalytics {
     }
     
     // MARK: - Collection
-    func logScreenCollection(with type: String) {
+    func logScreenCollection(with type: String, spaceId: String) {
         logEvent(
             AnalyticsEventsName.screenCollection,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
                 AnalyticsEventsPropertiesKey.type: type
@@ -202,9 +208,10 @@ extension AnytypeAnalytics {
     }
     
     // MARK: - Set
-    func logScreenSet(with type: String) {
+    func logScreenSet(with type: String, spaceId: String) {
         logEvent(
             AnalyticsEventsName.screenSet,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
                 AnalyticsEventsPropertiesKey.type: type
@@ -673,9 +680,10 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logTemplateCreate(objectType: AnalyticsObjectType) {
+    func logTemplateCreate(objectType: AnalyticsObjectType, spaceId: String) {
         logEvent(
             AnalyticsEventsName.createTemplate,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
             ]
@@ -728,7 +736,7 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.clickDeleteSpaceWarning, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
-    func logDeleteSpace(type: DeleteSpaceType) {
+    func logDeleteSpace(type: SpaceAccessAnalyticsType) {
         logEvent(AnalyticsEventsName.deleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     

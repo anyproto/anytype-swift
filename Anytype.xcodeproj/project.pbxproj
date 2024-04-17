@@ -794,6 +794,7 @@
 		2AE155952A31BDF50049C387 /* SetCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */; };
 		2AE155962A31BDF50049C387 /* CollectionsCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */; };
 		2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */; };
+		2AE2761E2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2761D2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift */; };
 		2AE337D32B693E1200498A31 /* GalleryInstallationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE337D22B693E1200498A31 /* GalleryInstallationData.swift */; };
 		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
 		2AE5C71D29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE5C71C29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift */; };
@@ -2566,6 +2567,7 @@
 		2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetCompactRow.swift; sourceTree = "<group>"; };
+		2AE2761D2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceAccessType+Analytics.swift"; sourceTree = "<group>"; };
 		2AE337D22B693E1200498A31 /* GalleryInstallationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryInstallationData.swift; sourceTree = "<group>"; };
 		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		2AE5C71C29B7299F00A92C12 /* WidgetSourceSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSourceSearchViewModel.swift; sourceTree = "<group>"; };
@@ -6332,6 +6334,7 @@
 				2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */,
 				2E0A7D322BB1FC0C00577AD6 /* FileDetails+Analytics.swift */,
 				2AF875602BCD560100FB1532 /* ParticipantPermissions+Analytics.swift */,
+				2AE2761D2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift */,
 			);
 			path = Converters;
 			sourceTree = "<group>";
@@ -12145,6 +12148,7 @@
 				2A35A6B12BBD834F00CCE4F4 /* WidgetTypeRowViewModel+Init.swift in Sources */,
 				12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */,
 				2A78A95A2B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift in Sources */,
+				2AE2761E2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift in Sources */,
 				EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
 				2AE85FF12B1F4BFA00268E9D /* ServerDocumentPickerViewModel.swift in Sources */,

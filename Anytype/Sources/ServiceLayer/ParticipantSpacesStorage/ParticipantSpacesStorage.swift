@@ -23,6 +23,10 @@ extension ParticipantSpacesStorageProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func participantSpaceView(spaceId: String) -> ParticipantSpaceView? {
+        allParticipantSpaces.first { $0.spaceView.targetSpaceId == spaceId }
+    }
 }
 
 @MainActor

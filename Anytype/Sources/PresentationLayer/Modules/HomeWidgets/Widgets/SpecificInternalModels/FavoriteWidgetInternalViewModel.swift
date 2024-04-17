@@ -70,7 +70,7 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     func onCreateObjectTap() {
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
             AnytypeAnalytics.instance().logAddToFavorites(true)
             try await objectActionsService.setFavorite(objectIds: [details.id], true)
             output?.onObjectSelected(screenData: details.editorScreenData())

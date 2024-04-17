@@ -97,7 +97,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 guard let templateId = try await self?.templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId) else {
                     return
                 }
-                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId))
+                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId), spaceId: spaceId)
                 self?.templateEditingHandler?(
                     ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId)
                 )

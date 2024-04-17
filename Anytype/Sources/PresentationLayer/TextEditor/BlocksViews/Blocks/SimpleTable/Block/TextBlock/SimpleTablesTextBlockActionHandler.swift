@@ -181,7 +181,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
             case let .addBlock(type, newText):
                 Task { @MainActor in
                     try await setNewText(attributedString: newText)
-                    actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top)
+                    actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top, spaceId: document.spaceId)
                     resetSubject.send(nil)
                 }
             case let .addStyle(style, newText, styleRange, focusRange):
@@ -261,7 +261,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
     
     private func createEmptyBlock() {
-        actionHandler.createEmptyBlock(parentId: info.id)
+        actionHandler.createEmptyBlock(parentId: info.id, spaceId: document.spaceId)
     }
     
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {

@@ -16,10 +16,10 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [String])
     func delete(blockIds: [String])
     func moveToPage(blockId: String, pageId: String)
-    func createEmptyBlock(parentId: String)
+    func createEmptyBlock(parentId: String, spaceId: String)
     func addLink(targetDetails: ObjectDetails, blockId: String)
     func changeMarkup(blockIds: [String], markType: MarkupType)
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?)
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String)
     func toggleWholeBlockMarkup(
         _ attributedString: NSAttributedString?,
         markup: MarkupType,
@@ -54,13 +54,14 @@ protocol BlockActionHandlerProtocol: AnyObject {
         blockId: String,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: SafeSendable<NSAttributedString?>
+        blockText: SafeSendable<NSAttributedString?>,
+        spaceId: String
     ) async throws -> String
     func pasteContent()
 }
 
 extension BlockActionHandlerProtocol {
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString? = nil) {
-        addBlock(type, blockId: blockId, blockText: blockText, position: nil)
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString? = nil, spaceId: String) {
+        addBlock(type, blockId: blockId, blockText: blockText, position: nil, spaceId: spaceId)
     }
 }

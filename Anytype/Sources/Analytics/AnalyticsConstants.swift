@@ -63,9 +63,7 @@ enum AnalyticsEventsName {
     static let restoreFromBin = "RestoreFromBin"
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
-    static let objectTypeChange = "ChangeObjectType"
     static let selectObjectType = "SelectObjectType"
-    static let showObject = "ScreenObject"
     static let setLayoutAlign = "SetLayoutAlign"
     static let setIcon = "SetIcon"
     static let removeIcon = "RemoveIcon"
@@ -268,6 +266,8 @@ enum AnalyticsEventsPropertiesKey {
     static let name = "name"
     
     static let middleTime = "middleTime"
+    static let permissions = "permissions"
+    static let spaceType = "spaceType"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -430,8 +430,11 @@ enum ClickDeleteSpaceWarningType: String {
     case cancel = "Cancel"
 }
 
-enum DeleteSpaceType: String {
+enum SpaceAccessAnalyticsType: String {
     case `private` = "Private"
+    case shared = "Shared"
+    case personal = "Personal"
+    case unrecognized = "Unrecognized"
 }
 
 enum SelectNetworkType: String {
@@ -473,6 +476,9 @@ enum ScreenInviteConfirmRoute: String {
 enum PermissionAnalyticsType: String {
     case read = "Read"
     case write = "Write"
+    case owner = "Owner"
+    case noPermissions = "NoPermissions"
+    case unrecognized = "Unrecognized"
 }
 
 enum ScreenQrAnalyticsType: String {

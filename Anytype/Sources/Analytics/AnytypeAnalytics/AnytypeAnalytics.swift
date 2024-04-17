@@ -27,6 +27,9 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     private var lastEvents: String = ""
     private var userProperties: [AnyHashable: Any] = [:]
     
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    
     private init() {
         // Disable IDFA/IPAddress for Amplitude
         if let trackingOptions = AMPTrackingOptions().disableIDFA().disableIPAddress() {
@@ -56,6 +59,23 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
         userProperties[Keys.networkId] = networkId
     }
     
+    func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any]?) {
+        Task { @MainActor in
+            var eventProperties = eventProperties ?? [:]
+            let participantSpaceView = participantSpacesStorage.participantSpaceView(spaceId: spaceId)
+            
+            if let permissions = participantSpaceView?.participant?.permission.analyticsType {
+                eventProperties[AnalyticsEventsPropertiesKey.permissions] = permissions
+            }
+            
+            if let spaceType = participantSpaceView?.spaceView.spaceAccessType?.analyticsType {
+                eventProperties[AnalyticsEventsPropertiesKey.spaceType] = spaceType
+            }
+            
+            logEvent(eventType, withEventProperties: eventProperties)
+        }
+    }
+    
     func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any]?) {
         
         let eventConfiguration = eventsConfiguration[eventType]
@@ -74,5 +94,9 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
     func logEvent(_ eventType: String) {
         logEvent(eventType, withEventProperties: nil)
+    }
+    
+    func logEvent(_ eventType: String, spaceId: String) {
+        logEvent(eventType, spaceId: spaceId, withEventProperties: nil)
     }
 }
