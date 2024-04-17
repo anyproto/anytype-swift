@@ -85,11 +85,7 @@ final class ModulesDI: ModulesDIProtocol {
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
-    
-    func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
-        SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
+
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
         SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
     }
