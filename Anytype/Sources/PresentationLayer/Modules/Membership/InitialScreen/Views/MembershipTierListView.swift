@@ -38,7 +38,7 @@ struct MembershipTierListView: View {
                     tier: nil,
                     status: .unknown,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard,
+                    paymentMethod: .methodStripe,
                     anyName: ""
                 ), 
                 tiers: [
@@ -53,7 +53,7 @@ struct MembershipTierListView: View {
                     tier: .mockExplorer,
                     status: .pending,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard,
+                    paymentMethod: .methodStripe,
                     anyName: ""
                 ),
                 tiers: [
@@ -68,7 +68,7 @@ struct MembershipTierListView: View {
                     tier: .mockExplorer,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard,
+                    paymentMethod: .methodStripe,
                     anyName: ""
                 ),
                 tiers: [
@@ -83,7 +83,7 @@ struct MembershipTierListView: View {
                     tier: .mockCustom,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard,
+                    paymentMethod: .methodStripe,
                     anyName: ""
                 ),
                 tiers: [
@@ -99,7 +99,7 @@ struct MembershipTierListView: View {
                     tier: .mockBuilder,
                     status: .active,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard,
+                    paymentMethod: .methodStripe,
                     anyName: ""
                 ),
                 tiers: [
@@ -113,7 +113,7 @@ struct MembershipTierListView: View {
                     tier: .mockCoCreator,
                     status: .pending,
                     dateEnds: .tomorrow,
-                    paymentMethod: .methodCard,
+                    paymentMethod: .methodStripe,
                     anyName: ""
                 ),
                 tiers: [

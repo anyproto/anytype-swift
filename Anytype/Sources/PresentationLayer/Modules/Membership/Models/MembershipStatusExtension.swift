@@ -8,7 +8,7 @@ public extension MembershipStatus {
             tier: nil,
             status: .unknown,
             dateEnds: .distantFuture,
-            paymentMethod: .methodCard,
+            paymentMethod: .methodStripe,
             anyName: ""
         )
     }
@@ -24,7 +24,7 @@ public extension MembershipStatus {
     
     var localizablePaymentMethod: String? {
         switch paymentMethod {
-        case .methodCard:
+        case .methodStripe:
             Loc.Membership.Payment.card
         case .methodCrypto:
             Loc.Membership.Payment.crypto
