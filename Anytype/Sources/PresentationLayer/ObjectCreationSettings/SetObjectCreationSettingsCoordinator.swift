@@ -19,12 +19,13 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     )
 }
 
-final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
+final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
-    private var handler: TemplateSelectionObjectSettingsHandler?
+    
+    private var useAsTemplateAction: ((String) -> Void)?
     
     private var editorModuleInput: EditorPageModuleInput?
     
@@ -118,12 +119,13 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             }
         )
         
-        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
+        self.useAsTemplateAction = onSetAsDefaultTempalte
+        
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: UIHostingController(rootView: editorView),
             onSettingsTap: { [weak self] in
-                guard let self = self, let handler = self.handler else { return }
-                editorModuleInput?.showSettings(delegate: handler, output: self)
+                guard let self = self else { return }
+                editorModuleInput?.showSettings(output: self)
             },
             onSelectTemplateTap: onTemplateSelection
         )
@@ -149,22 +151,13 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         
         navigationContext.presentSwiftUIView(view: view)
     }
-}
-
-extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput {
+    
+    // MARK: - ObjectSettingsCoordinatorOutput
     func closeEditor() {
         navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
     
     func showEditorScreen(data: EditorScreenData) {}
-}
-
-final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate {
-    let useAsTemplateAction: (String) -> Void
-    
-    init(useAsTemplateAction: @escaping (String) -> Void) {
-        self.useAsTemplateAction = useAsTemplateAction
-    }
     
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
@@ -175,6 +168,6 @@ final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate
     }
     
     func didTapUseTemplateAsDefault(templateId: String) {
-        useAsTemplateAction(templateId)
+        useAsTemplateAction?(templateId)
     }
 }

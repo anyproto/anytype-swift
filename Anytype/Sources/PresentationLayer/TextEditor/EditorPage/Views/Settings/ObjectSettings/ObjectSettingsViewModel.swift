@@ -19,6 +19,9 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
     func openPageAction(screenData: EditorScreenData)
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
+    func didCreateLinkToItself(selfName: String, data: EditorScreenData)
+    func didCreateTemplate(templateId: String)
+    func didTapUseTemplateAsDefault(templateId: String)
 }
 
 @MainActor
@@ -40,19 +43,16 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     private var onLinkItselfToObjectHandler: ((EditorScreenData) -> Void)?
     
     private weak var output: ObjectSettingsModelOutput?
-    private weak var delegate: ObjectSettingsModuleDelegate?
     
     var objectId: String { document.objectId }
     
     init(
         document: BaseDocumentProtocol,
         output: ObjectSettingsModelOutput,
-        delegate: ObjectSettingsModuleDelegate,
         settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
         self.document = document
         self.output = output
-        self.delegate = delegate
         self.settingsActionHandler = settingsActionHandler
     }
 
@@ -95,15 +95,15 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     }
     
     func onNewTemplateCreation(templateId: String) {
-        delegate?.didCreateTemplate(templateId: templateId)
+        output?.didCreateTemplate(templateId: templateId)
     }
     
     func onTemplateMakeDefault(templateId: String) {
-        delegate?.didTapUseTemplateAsDefault(templateId: templateId)
+        output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
     
     func onLinkItselfToObjectHandler(data: EditorScreenData) {
         guard let documentName = document.details?.name else { return }
-        delegate?.didCreateLinkToItself(selfName: documentName, data: data)
+        output?.didCreateLinkToItself(selfName: documentName, data: data)
     }
 }

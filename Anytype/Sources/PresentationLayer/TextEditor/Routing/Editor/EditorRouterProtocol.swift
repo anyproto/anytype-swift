@@ -39,7 +39,6 @@ protocol EditorRouterProtocol:
     
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
     func showSettings(
-        delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         actionHandler: @escaping (ObjectSettingsAction) -> Void
     )

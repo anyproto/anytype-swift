@@ -174,7 +174,6 @@ final class EditorSetCoordinatorViewModel:
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
         objectSettingCoordinator.startFlow(
             objectId: data.objectId,
-            delegate: self,
             output: self,
             objectSettingsHandler: actionHandler
         )
@@ -258,7 +257,7 @@ final class EditorSetCoordinatorViewModel:
     }
 }
 
-extension EditorSetCoordinatorViewModel: ObjectSettingsModuleDelegate {
+extension EditorSetCoordinatorViewModel {
     func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
