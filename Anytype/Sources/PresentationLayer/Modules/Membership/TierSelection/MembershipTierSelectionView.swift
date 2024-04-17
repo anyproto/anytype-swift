@@ -4,7 +4,7 @@ import Services
 
 struct MembershipTierSelectionView: View {
     @StateObject private var model: MembershipTierSelectionViewModel
-    @Environment(\.openURL) private var openURL
+    @State private var safariUrl: URL?
 
     
     init(
@@ -33,6 +33,7 @@ struct MembershipTierSelectionView: View {
                     .background(sheetBackground)
             }
         }
+        .safariSheet(url: $safariUrl)
     }
     
     var sheet: some View {
@@ -50,7 +51,7 @@ struct MembershipTierSelectionView: View {
                 case .external(let info):
                     // TODO: Add proper wording
                     StandardButton("More info", style: .primaryLarge) {
-                        openURL(info.paymentUrl)
+                        safariUrl = info.paymentUrl
                     }.padding()
                 }
             }

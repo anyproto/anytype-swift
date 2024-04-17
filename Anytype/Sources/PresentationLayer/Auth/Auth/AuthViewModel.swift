@@ -48,10 +48,6 @@ final class AuthViewModel: ObservableObject {
         output?.onLoginAction()
     }
     
-    func onUrlTapAction(_ url: URL) {
-        output?.onUrlAction(url)
-    }
-    
     func onSettingsButtonTap() {
         showSettings.toggle()
     }
