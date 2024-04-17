@@ -11,20 +11,12 @@ final class VaultViewModel: ObservableObject {
     private let state: JoinFlowState
     private weak var output: JoinFlowStepOutput?
     
-    @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
     @Injected(\.authService)
     private var authService: AuthServiceProtocol
     @Injected(\.seedService)
     private var seedService: SeedServiceProtocol
     @Injected(\.usecaseService)
     private var usecaseService: UsecaseServiceProtocol
-    @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     init(state: JoinFlowState, output: JoinFlowStepOutput?) {
         self.state = state
