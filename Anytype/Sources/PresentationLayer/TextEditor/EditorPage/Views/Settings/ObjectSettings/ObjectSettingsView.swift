@@ -14,7 +14,7 @@ struct ObjectSettingsView: View {
         VStack(spacing: 0) {
             settingsList
 
-            ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
+            ObjectActionsView(objectId: viewModel.objectId, output: viewModel)
         }
     }
     
