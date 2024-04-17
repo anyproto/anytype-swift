@@ -22,7 +22,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 }
 
 @MainActor
-final class ObjectSettingsViewModel: ObservableObject {
+final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     
     var settings: [ObjectSetting] {
         guard let details = document.details else { return [] }
@@ -31,8 +31,6 @@ final class ObjectSettingsViewModel: ObservableObject {
             permissions: document.permissions
         )
     }
-    
-    let objectActionsViewModel: ObjectActionsViewModel
 
     private let document: BaseDocumentProtocol
     private let settingsBuilder = ObjectSettingBuilder()
@@ -43,6 +41,9 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     private weak var output: ObjectSettingsModelOutput?
     private weak var delegate: ObjectSettingsModuleDelegate?
+    
+    var objectId: String { document.objectId }
+    
     init(
         document: BaseDocumentProtocol,
         output: ObjectSettingsModelOutput,
@@ -53,38 +54,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         self.output = output
         self.delegate = delegate
         self.settingsActionHandler = settingsActionHandler
-        
-        self.objectActionsViewModel = ObjectActionsViewModel(
-            objectId: document.objectId,
-            undoRedoAction: { [weak output] in
-                output?.undoRedoAction(document: document)
-            },
-            openPageAction: { [weak output] screenData in
-                output?.openPageAction(screenData: screenData)
-            },
-            closeEditorAction: { [weak output] in
-                output?.closeEditorAction()
-            }
-        )
-        
-        objectActionsViewModel.onNewTemplateCreation = { [weak delegate] templateId in
-            DispatchQueue.main.async {
-                delegate?.didCreateTemplate(templateId: templateId)
-            }
-        }
-        
-        objectActionsViewModel.onLinkItselfToObjectHandler = { [weak delegate] data in
-            guard let documentName = document.details?.name else { return }
-            delegate?.didCreateLinkToItself(selfName: documentName, data: data)
-        }
-
-        objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in
-            output?.linkToAction(document: document, onSelect: onSelect)
-        }
-        
-        objectActionsViewModel.onTemplateMakeDefault = { [weak delegate] templateId in
-            delegate?.didTapUseTemplateAsDefault(templateId: templateId)
-        }
     }
 
     func onTapLayoutPicker() {
@@ -105,5 +74,36 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     func onTapRelations() {
         output?.relationsAction(document: document)
+    }
+    
+    // MARK: - ObjectActionsOutput
+    
+    func undoRedoAction() {
+        output?.undoRedoAction(document: document)
+    }
+    
+    func openPageAction(screenData: EditorScreenData) {
+        output?.openPageAction(screenData: screenData)
+    }
+    
+    func closeEditorAction() {
+        output?.closeEditorAction()
+    }
+    
+    func onLinkItselfAction(onSelect: @escaping (String) -> Void) {
+        output?.linkToAction(document: document, onSelect: onSelect)
+    }
+    
+    func onNewTemplateCreation(templateId: String) {
+        delegate?.didCreateTemplate(templateId: templateId)
+    }
+    
+    func onTemplateMakeDefault(templateId: String) {
+        delegate?.didTapUseTemplateAsDefault(templateId: templateId)
+    }
+    
+    func onLinkItselfToObjectHandler(data: EditorScreenData) {
+        guard let documentName = document.details?.name else { return }
+        delegate?.didCreateLinkToItself(selfName: documentName, data: data)
     }
 }

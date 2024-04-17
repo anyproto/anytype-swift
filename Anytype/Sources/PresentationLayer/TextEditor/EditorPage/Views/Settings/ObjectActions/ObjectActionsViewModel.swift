@@ -7,25 +7,13 @@ import DeepLinks
 
 @MainActor
 final class ObjectActionsViewModel: ObservableObject {
-    var onLinkItselfToObjectHandler: RoutingAction<EditorScreenData>?
-    
-    @Published var objectActions: [ObjectAction] = []
-    @Published var toastData = ToastBarData.empty
-    @Published var dismiss = false
-    
-    var onLinkItselfAction: RoutingAction<(String) -> Void>?
-    var onNewTemplateCreation: RoutingAction<String>?
-    var onTemplateMakeDefault: RoutingAction<String>?
-    
-    let undoRedoAction: () -> ()
-    let openPageAction: (_ screenData: EditorScreenData) -> ()
-    let closeEditorAction: () -> ()
+
+    private let objectId: String
+    private weak var output: ObjectActionsOutput?
     
     private lazy var document: BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId)
     }()
-    
-    private let objectId: String
     
     @Injected(\.objectActionsService)
     private var service: ObjectActionsServiceProtocol
@@ -44,16 +32,13 @@ final class ObjectActionsViewModel: ObservableObject {
     @Injected(\.documentService)
     private var openDocumentsProvider: OpenedDocumentsProviderProtocol
     
-    init(
-        objectId: String,
-        undoRedoAction: @escaping () -> (),
-        openPageAction: @escaping (_ screenData: EditorScreenData) -> (),
-        closeEditorAction: @escaping () -> ()
-    ) {
+    @Published var objectActions: [ObjectAction] = []
+    @Published var toastData = ToastBarData.empty
+    @Published var dismiss = false
+    
+    init(objectId: String, output: ObjectActionsOutput?) {
         self.objectId = objectId
-        self.undoRedoAction = undoRedoAction
-        self.openPageAction = openPageAction
-        self.closeEditorAction = closeEditorAction
+        self.output = output
     }
     
     func startDocumentTask() async {
@@ -79,7 +64,7 @@ final class ObjectActionsViewModel: ObservableObject {
         try await service.setArchive(objectIds: [objectId], isArchived)
         if isArchived {
             dismiss.toggle()
-            closeEditorAction()
+            output?.closeEditorAction()
         }
     }
 
@@ -103,7 +88,7 @@ final class ObjectActionsViewModel: ObservableObject {
         
         let newDetails = ObjectDetails(id: duplicatedId, values: details.values)
         dismiss.toggle()
-        openPageAction(newDetails.editorScreenData())
+        output?.openPageAction(screenData: newDetails.editorScreenData())
     }
 
     func linkItselfAction() {
@@ -113,20 +98,20 @@ final class ObjectActionsViewModel: ObservableObject {
             self?.onObjectSelection(objectId: objectId, currentObjectId: currentObjectId)
         }
 
-        onLinkItselfAction?(onObjectSelection)
+        output?.onLinkItselfAction(onSelect: onObjectSelection)
     }
     
     func makeAsTempalte() async throws {
         guard let details = document.details else { return }
         
         let templateId = try await templatesService.createTemplateFromObject(objectId: details.id)
-        onNewTemplateCreation?(templateId)
+        output?.onNewTemplateCreation(templateId: templateId)
     }
     
     func makeTemplateAsDefault() {
         guard let details = document.details else { return }
         
-        onTemplateMakeDefault?(details.id)
+        output?.onTemplateMakeDefault(templateId: details.id)
     }
     
     func deleteAction() async throws {
@@ -135,7 +120,7 @@ final class ObjectActionsViewModel: ObservableObject {
         AnytypeAnalytics.instance().logDeletion(count: 1, route: .bin)
         try await service.delete(objectIds: [details.id])
         dismiss.toggle()
-        closeEditorAction()
+        output?.closeEditorAction()
     }
     
     func createWidget() async throws {
@@ -176,30 +161,36 @@ final class ObjectActionsViewModel: ObservableObject {
         dismiss.toggle()
     }
     
+    func undoRedoAction() {
+        output?.undoRedoAction()
+    }
+    
+    // MARK: - Private
+    
     private func onObjectSelection(objectId: String, currentObjectId: String) {
         Task { @MainActor in
             let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
             try? await targetDocument.openForPreview()
             guard let id = targetDocument.children.last?.id,
                   let details = targetDocument.details else { return }
-
+            
             if details.isCollection {
-                try await self.service.addObjectsToCollection(
+                try await service.addObjectsToCollection(
                     contextId: objectId,
                     objectIds: [currentObjectId]
                 )
-                self.onLinkItselfToObjectHandler?(details.editorScreenData())
+                output?.onLinkItselfToObjectHandler(data: details.editorScreenData())
                 AnytypeAnalytics.instance().logLinkToObject(type: .collection, spaceId: details.spaceId)
             } else {
                 let info = BlockInformation.emptyLink(targetId: currentObjectId)
                 AnytypeAnalytics.instance().logCreateBlock(type: info.content.type, spaceId: details.spaceId)
-                let _ = try await self.blockService.add(
+                let _ = try await blockService.add(
                     contextId: objectId,
                     targetId: id,
                     info: info,
                     position: .bottom
                 )
-                self.onLinkItselfToObjectHandler?(details.editorScreenData())
+                output?.onLinkItselfToObjectHandler(data: details.editorScreenData())
                 AnytypeAnalytics.instance().logLinkToObject(type: .object, spaceId: details.spaceId)
             }
         }
