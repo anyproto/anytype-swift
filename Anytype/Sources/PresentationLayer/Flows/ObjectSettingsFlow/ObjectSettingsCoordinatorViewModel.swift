@@ -3,60 +3,39 @@ import Services
 import AnytypeCore
 
 @MainActor
-protocol ObjectSettingsCoordinatorProtocol {
-    func startFlow(
-        objectId: String,
-        output: ObjectSettingsCoordinatorOutput?,
-        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
-    )
-}
-
-@MainActor
-final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
-                                       ObjectSettingsModelOutput,
-                                       RelationValueCoordinatorOutput {
+final class ObjectSettingsCoordinatorViewModel: ObservableObject,
+                                                ObjectSettingsModelOutput,
+                                                RelationValueCoordinatorOutput {
+    
+    let objectId: String
+    private weak var output: ObjectSettingsCoordinatorOutput?
+    let objectSettingsHandler: (ObjectSettingsAction) -> Void
+    
     private let navigationContext: NavigationContextProtocol
-    private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let documentsProvider: DocumentsProviderProtocol
     
-    private weak var output: ObjectSettingsCoordinatorOutput?
     
     init(
+        objectId: String,
+        output: ObjectSettingsCoordinatorOutput?,
+        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void,
         navigationContext: NavigationContextProtocol,
-        objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        documentsProvider: DocumentsProviderProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
+        self.objectId = objectId
+        self.output = output
+        self.objectSettingsHandler = objectSettingsHandler
         self.navigationContext = navigationContext
-        self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.documentsProvider = documentsProvider
-    }
-    
-    func startFlow(
-        objectId: String,
-        output: ObjectSettingsCoordinatorOutput?,
-        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
-    ) {
-        self.output = output
-        
-        let moduleViewController = objectSettingsModuleAssembly.make(
-            objectId: objectId,
-            output: self,
-            actionHandler: objectSettingsHandler
-        )
-        
-        navigationContext.present(moduleViewController)
     }
     
     // MARK: - ObjectSettingsModelOutput

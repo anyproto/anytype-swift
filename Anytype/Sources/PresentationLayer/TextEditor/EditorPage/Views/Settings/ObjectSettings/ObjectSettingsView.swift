@@ -3,7 +3,15 @@ import Services
 
 struct ObjectSettingsView: View {
     
-    @ObservedObject var viewModel: ObjectSettingsViewModel
+    @StateObject private var viewModel: ObjectSettingsViewModel
+    
+    init(
+        objectId: String,
+        output: ObjectSettingsModelOutput,
+        actionHandler: @escaping (ObjectSettingsAction) -> Void
+    ) {
+        self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, output: output, settingsActionHandler: actionHandler))
+    }
     
     var body: some View {
         settings

@@ -83,7 +83,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
+            objectSettingCoordinatorAssembly: coordinatorsDI.objectSettings(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),

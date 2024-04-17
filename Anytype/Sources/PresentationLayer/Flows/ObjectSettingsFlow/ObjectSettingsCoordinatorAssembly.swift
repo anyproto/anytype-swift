@@ -1,8 +1,13 @@
 import Foundation
+import SwiftUI
 
 protocol ObjectSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make() -> ObjectSettingsCoordinatorProtocol
+    func make(
+        objectId: String,
+        output: ObjectSettingsCoordinatorOutput?,
+        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
+    ) -> AnyView
 }
 
 final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol {
@@ -27,15 +32,22 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     // MARK: - ObjectSettingsCoordinatorAssemblyProtocol
     
     @MainActor
-    func make() -> ObjectSettingsCoordinatorProtocol {
-        ObjectSettingsCoordinator(
-            navigationContext: uiHelpersDI.commonNavigationContext(),
-            objectSettingsModuleAssembly: modulesDI.objectSetting(),
-            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            relationsListCoordinatorAssembly: coordinatorsDI.relationsList(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            documentsProvider: serviceLocator.documentsProvider
-        )
+    func make(
+        objectId: String,
+        output: ObjectSettingsCoordinatorOutput?,
+        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
+    ) -> AnyView {
+        ObjectSettingsCoordinatorView(
+            model: ObjectSettingsCoordinatorViewModel(
+                objectId: objectId,
+                output: output,
+                objectSettingsHandler: objectSettingsHandler,
+                navigationContext: self.uiHelpersDI.commonNavigationContext(),
+                objectLayoutPickerModuleAssembly: self.modulesDI.objectLayoutPicker(),
+                objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
+                relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList(),
+                newSearchModuleAssembly: self.modulesDI.newSearch()
+            )
+        ).eraseToAnyView()
     }
 }
