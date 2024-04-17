@@ -77,7 +77,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
                         spaceId: notification.requestToJoin.spaceID,
                         spaceName: notification.requestToJoin.spaceName,
                         participantIdentity: notification.requestToJoin.identity,
-                        participantName: notification.requestToJoin.identityName
+                        participantName: notification.requestToJoin.identityName,
+                        route: .notification
                     )
                 }
             )

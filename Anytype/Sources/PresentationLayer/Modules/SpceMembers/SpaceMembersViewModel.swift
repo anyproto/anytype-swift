@@ -21,6 +21,10 @@ final class SpaceMembersViewModel: ObservableObject {
         }
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenSettingsSpaceMembers()
+    }
+    
     private func updateParticipant(items: [Participant]) {
         rows = items.map { participant in
             let isYou = accountManager.account.info.profileObjectID == participant.identityProfileLink

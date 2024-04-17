@@ -4,12 +4,15 @@ import UIKit
 
 final class QrCodeViewModel: ObservableObject {
     
+    private let analyticsType: ScreenQrAnalyticsType
+    
     let document: QRCode.Document
     let title: String
     @Published var sharedData: Data?
     
-    init(title: String, data: String) {
+    init(title: String, data: String, analyticsType: ScreenQrAnalyticsType) {
         self.title = title
+        self.analyticsType = analyticsType
         
         document = QRCode.Document(generator: QRCodeGenerator_External())
         document.utf8String = data
@@ -26,7 +29,12 @@ final class QrCodeViewModel: ObservableObject {
         }
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenQr(type: analyticsType)
+    }
+    
     func onShare() {
+        AnytypeAnalytics.instance().logClickQr()
         sharedData = document.jpegData(dimension: 600)
     }
 }

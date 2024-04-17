@@ -51,6 +51,9 @@ struct SpaceJoinView: View {
         }, onManageSpaces: {
             model.onTapManageSpaces()
         })
+        .onAppear {
+            model.onRequestSentAppear()
+        }
     }
     
     private var invite: some View {
@@ -74,6 +77,9 @@ struct SpaceJoinView: View {
         }
         .padding(.horizontal, 30)
         .fixedSize(horizontal: false, vertical: true)
+        .onAppear {
+            model.onInviewViewAppear()
+        }
     }
     
     private var alreadyJoined: some View {

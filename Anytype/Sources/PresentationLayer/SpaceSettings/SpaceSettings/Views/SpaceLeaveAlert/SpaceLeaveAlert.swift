@@ -12,15 +12,19 @@ struct SpaceLeaveAlert: View {
     var body: some View {
         BottomAlertView(
             title: Loc.SpaceSettings.LeaveAlert.title,
-            message: Loc.SpaceSettings.LeaveAlert.message(model.spaceName)) {
-                BottomAlertButton(text: Loc.SpaceSettings.leaveButton, style: .warning) {
-                    try await model.onTapLeave()
-                    dismiss()
-                }
-                BottomAlertButton(text: Loc.cancel, style: .secondary) {
-                    dismiss()
-                }
+            message: Loc.SpaceSettings.LeaveAlert.message(model.spaceName)
+        ) {
+            BottomAlertButton(text: Loc.SpaceSettings.leaveButton, style: .warning) {
+                try await model.onTapLeave()
+                dismiss()
             }
-            .snackbar(toastBarData: $model.toast)
+            BottomAlertButton(text: Loc.cancel, style: .secondary) {
+                dismiss()
+            }
+        }
+        .snackbar(toastBarData: $model.toast)
+        .onAppear {
+            model.onAppear()
+        }
     }
 }

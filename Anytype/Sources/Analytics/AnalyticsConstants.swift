@@ -458,3 +458,23 @@ enum CreateSpaceRoute: String {
     case navigation = "Navigation"
     case gallery = "Gallery"
 }
+
+enum ClickSettingsSpaceShareType: String {
+    case moreInfo = "MoreInfo"
+    case revoke = "Revoke"
+    case qr = "Qr"
+}
+
+enum ScreenInviteConfirmRoute: String {
+    case notification = "Notification"
+    case settings = "Settings"
+}
+
+enum PermissionAnalyticsType: String {
+    case read = "Read"
+    case write = "Write"
+}
+
+enum ScreenQrAnalyticsType: String {
+    case inviteSpace = "InviteSpace"
+}

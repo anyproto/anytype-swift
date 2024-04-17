@@ -13,15 +13,19 @@ struct DeleteSharingLinkAlert: View {
     var body: some View {
         BottomAlertView(
             title: Loc.SpaceShare.DeleteSharingLink.title,
-            message: Loc.SpaceShare.DeleteSharingLink.message) {
-                BottomAlertButton(text: Loc.SpaceShare.DeleteSharingLink.title, style: .warning) {
-                    try await model.onTapDeleteLink()
-                    dismiss()
-                }
-                BottomAlertButton(text: Loc.cancel, style: .secondary) {
-                    dismiss()
-                }
+            message: Loc.SpaceShare.DeleteSharingLink.message
+        ) {
+            BottomAlertButton(text: Loc.SpaceShare.DeleteSharingLink.title, style: .warning) {
+                try await model.onTapDeleteLink()
+                dismiss()
             }
+            BottomAlertButton(text: Loc.cancel, style: .secondary) {
+                dismiss()
+            }
+        }
+        .onAppear {
+            model.onAppear()
+        }
     }
     
 }
