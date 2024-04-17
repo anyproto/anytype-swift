@@ -10,8 +10,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func home() -> HomeCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol
-    func authorization() -> AuthCoordinatorAssemblyProtocol
-    func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
     func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol
     func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol

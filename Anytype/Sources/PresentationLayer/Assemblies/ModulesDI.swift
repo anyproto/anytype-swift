@@ -74,10 +74,6 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
     
-    func authKey() -> KeyPhraseViewModuleAssemblyProtocol {
-        return KeyPhraseViewModuleAssembly(uiHelpersDI: uiHelpersDI)
-    }
-    
     func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol {
         return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }

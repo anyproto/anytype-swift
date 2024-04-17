@@ -881,9 +881,7 @@
 		2E0797B32A0940F8006F0FD7 /* JoinFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */; };
 		2E0797B42A0940F8006F0FD7 /* JoinFlowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */; };
 		2E0797BA2A096571006F0FD7 /* JoinFlowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */; };
-		2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */; };
 		2E0797C42A09678C006F0FD7 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */; };
-		2E0797C62A09678C006F0FD7 /* AuthCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C02A09678C006F0FD7 /* AuthCoordinatorAssembly.swift */; };
 		2E0797C72A09678D006F0FD7 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */; };
 		2E0797C82A09678D006F0FD7 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C22A09678C006F0FD7 /* AuthView.swift */; };
 		2E0797C92A09678D006F0FD7 /* AuthViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0797C32A09678C006F0FD7 /* AuthViewModelOutput.swift */; };
@@ -1110,7 +1108,6 @@
 		2EDC2AFD2A125C6A0065E009 /* JoinFlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */; };
 		2EDC2B042A13E4AE0065E009 /* KeyPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B032A13E4AE0065E009 /* KeyPhraseView.swift */; };
 		2EDC2B062A13E4E00065E009 /* KeyPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B052A13E4E00065E009 /* KeyPhraseViewModel.swift */; };
-		2EDC2B082A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */; };
 		2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */; };
 		2EE33DC32B5582F300D0CDDB /* DateRelationCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE33DC22B5582F200D0CDDB /* DateRelationCalendarView.swift */; };
 		2EE33DC52B55832300D0CDDB /* DateRelationCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE33DC42B55832300D0CDDB /* DateRelationCalendarViewModel.swift */; };
@@ -2664,9 +2661,7 @@
 		2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowView.swift; sourceTree = "<group>"; };
 		2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoinFlowViewModel.swift; sourceTree = "<group>"; };
 		2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowCoordinator.swift; sourceTree = "<group>"; };
-		2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
-		2E0797C02A09678C006F0FD7 /* AuthCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		2E0797C22A09678C006F0FD7 /* AuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		2E0797C32A09678C006F0FD7 /* AuthViewModelOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewModelOutput.swift; sourceTree = "<group>"; };
@@ -2893,7 +2888,6 @@
 		2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStep.swift; sourceTree = "<group>"; };
 		2EDC2B032A13E4AE0065E009 /* KeyPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseView.swift; sourceTree = "<group>"; };
 		2EDC2B052A13E4E00065E009 /* KeyPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseViewModel.swift; sourceTree = "<group>"; };
-		2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseViewModuleAssembly.swift; sourceTree = "<group>"; };
 		2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDimmingButtonStyle.swift; sourceTree = "<group>"; };
 		2EE33DC22B5582F200D0CDDB /* DateRelationCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationCalendarView.swift; sourceTree = "<group>"; };
 		2EE33DC42B55832300D0CDDB /* DateRelationCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationCalendarViewModel.swift; sourceTree = "<group>"; };
@@ -7080,17 +7074,14 @@
 		2E0797B02A0940F8006F0FD7 /* JoinFlow */ = {
 			isa = PBXGroup;
 			children = (
+				3D6F75892BCFE4E700F6C01E /* Models */,
 				2E4D78B02A82904E00813A4F /* KeyPhraseMoreInfoView */,
 				2E52DE6A2A1CE74500F16815 /* SoulView */,
 				2EDC2B022A13E48F0065E009 /* KeyPhraseView */,
 				2E0797B12A0940F8006F0FD7 /* JoinFlowView.swift */,
 				2E0797B22A0940F8006F0FD7 /* JoinFlowViewModel.swift */,
 				2E0797B92A096571006F0FD7 /* JoinFlowCoordinator.swift */,
-				2E0797BB2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift */,
 				2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */,
-				2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */,
-				2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */,
-				2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */,
 			);
 			path = JoinFlow;
 			sourceTree = "<group>";
@@ -7099,7 +7090,6 @@
 			isa = PBXGroup;
 			children = (
 				2E0797BE2A09678C006F0FD7 /* AuthCoordinator.swift */,
-				2E0797C02A09678C006F0FD7 /* AuthCoordinatorAssembly.swift */,
 				2E0797C12A09678C006F0FD7 /* AuthViewModel.swift */,
 				2E0797C22A09678C006F0FD7 /* AuthView.swift */,
 				2E0797C32A09678C006F0FD7 /* AuthViewModelOutput.swift */,
@@ -7774,7 +7764,6 @@
 			children = (
 				2EDC2B032A13E4AE0065E009 /* KeyPhraseView.swift */,
 				2EDC2B052A13E4E00065E009 /* KeyPhraseViewModel.swift */,
-				2EDC2B072A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift */,
 			);
 			path = KeyPhraseView;
 			sourceTree = "<group>";
@@ -8645,6 +8634,16 @@
 				53D408D027F1D48000495335 /* PasteboardBlockDocumentServiceProtocol.swift */,
 			);
 			path = DocumentService;
+			sourceTree = "<group>";
+		};
+		3D6F75892BCFE4E700F6C01E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */,
+				2EC669202A166FD1001F71BC /* JoinFlowStepOutput.swift */,
+				2E4758912A1BC54F00A6FEB9 /* JoinFlowState.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3D7DC2C12BB2D3F100A4F114 /* MembershipStatusStorage */ = {
@@ -10654,7 +10653,6 @@
 				2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */,
 				3DAE1CB0273EA208009A72F3 /* EditorSetView.swift in Sources */,
 				53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */,
-				2E0797C62A09678C006F0FD7 /* AuthCoordinatorAssembly.swift in Sources */,
 				3D24912E27BD271900821595 /* LocalEventConverter.swift in Sources */,
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
 				2AFA1113296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift in Sources */,
@@ -10815,7 +10813,6 @@
 				12FD9D252767179A00991886 /* RelationDate.swift in Sources */,
 				2E6283272B84F5940018EF9C /* FeaturedRelationsView.swift in Sources */,
 				2A7CCC192B6A7EDB00F2E98B /* GalleryInstallationPreviewViewModels.swift in Sources */,
-				2EDC2B082A13E5E00065E009 /* KeyPhraseViewModuleAssembly.swift in Sources */,
 				1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */,
 				129C54CD27FC741C00C390C7 /* NewRelationFormatSectionView.swift in Sources */,
 				2E31C96D2B73DF29006DB3E2 /* ObjectRelationListInteractorProtocol.swift in Sources */,
@@ -12197,7 +12194,6 @@
 				2E2EA2CE2A543EFE00569E1E /* AnytypeFontConfig.swift in Sources */,
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
 				2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */,
-				2E0797BC2A0965FD006F0FD7 /* JoinFlowCoordinatorAssembly.swift in Sources */,
 				2A35A6BE2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,

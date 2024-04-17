@@ -2,7 +2,13 @@ import SwiftUI
 
 struct KeyPhraseView: View {
     
-    @StateObject var model: KeyPhraseViewModel
+    @StateObject private var model: KeyPhraseViewModel
+    
+    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+        _model = StateObject(
+            wrappedValue: KeyPhraseViewModel(state: state, output: output)
+        )
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -10,6 +16,7 @@ struct KeyPhraseView: View {
             Spacer()
             buttons
         }
+        .snackbar(toastBarData: $model.snackBar)
         .onAppear {
             model.onAppear()
         }
@@ -107,14 +114,6 @@ struct KeyPhraseView: View {
 }
 
 
-struct KeyView_Previews : PreviewProvider {
-    static var previews: some View {
-        KeyPhraseView(
-            model: KeyPhraseViewModel(
-                state: JoinFlowState(),
-                output: nil,
-                alertOpener: DI.preview.uihelpersDI.alertOpener()
-            )
-        )
-    }
+#Preview {
+    KeyPhraseView(state: JoinFlowState(), output: nil)
 }

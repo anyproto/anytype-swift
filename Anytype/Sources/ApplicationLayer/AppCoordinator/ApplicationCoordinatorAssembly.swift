@@ -28,7 +28,6 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
     func makeView() -> AnyView {
         return ApplicationCoordinatorView(
             model: ApplicationCoordinatorViewModel(
-                authCoordinatorAssembly: self.coordinatorsDI.authorization(),
                 homeCoordinatorAssembly: self.coordinatorsDI.home(),
                 deleteAccountModuleAssembly: self.modulesDI.deleteAccount(), 
                 navigationContext: self.uiHelpersDI.commonNavigationContext()
