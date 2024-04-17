@@ -14,15 +14,6 @@ struct AuthView: View {
     var body: some View {
         AuthBackgroundView(url: model.videoUrl()) {
             content
-                .navigationBarHidden(true)
-                .opacity(model.opacity)
-                .onAppear {
-                    model.onAppear()
-                }
-                .background(TransparentBackground())
-                .fitIPadToReadableContentGuide()
-                .preferredColorScheme(.dark)
-                .safariSheet(url: $safariUrl, preferredColorScheme: .dark)
         }
     }
     
@@ -40,6 +31,15 @@ struct AuthView: View {
         }
         .padding(.horizontal, 20)
         .ignoresSafeArea(.keyboard)
+        .navigationBarHidden(true)
+        .opacity(model.opacity)
+        .onAppear {
+            model.onAppear()
+        }
+        .background(TransparentBackground())
+        .fitIPadToReadableContentGuide()
+        .preferredColorScheme(.dark)
+        .safariSheet(url: $safariUrl, preferredColorScheme: .dark)
     }
     
     private var greetings: some View {
