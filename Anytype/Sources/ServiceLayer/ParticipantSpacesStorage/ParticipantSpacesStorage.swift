@@ -32,10 +32,6 @@ extension ParticipantSpacesStorageProtocol {
 @MainActor
 final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
-    private enum Constants {
-        static let maxSharedSpaces = 3
-    }
-    
     // MARK: - DI
     
     @Injected(\.workspaceStorage)
@@ -53,7 +49,8 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     nonisolated init() {}
     
     func canShareSpace() -> Bool {
-        allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count < Constants.maxSharedSpaces
+        guard let limit = workspaceStorage.allWorkspaces.first(where: { $0.spaceAccessType == .personal })?.sharedSpacesLimit else { return false }
+        return allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count < limit
     }
     
     func startSubscription() async {
