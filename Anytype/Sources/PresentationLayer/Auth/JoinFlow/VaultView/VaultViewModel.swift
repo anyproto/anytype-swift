@@ -38,7 +38,7 @@ final class VaultViewModel: ObservableObject {
     // MARK: - Create account step
     
     private func createAccount() {
-        Task { @MainActor in
+        Task {
             startLoading()
             
             do {

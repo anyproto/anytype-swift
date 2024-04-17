@@ -57,7 +57,7 @@ final class SoulViewModel: ObservableObject {
             onSuccess()
             return
         }
-        Task { @MainActor in
+        Task {
             startLoading()
             
             do {
