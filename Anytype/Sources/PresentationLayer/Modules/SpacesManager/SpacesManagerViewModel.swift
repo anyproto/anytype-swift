@@ -26,7 +26,7 @@ final class SpacesManagerViewModel: ObservableObject {
         for await participantSpaces in participantSpacesStorage.allParticipantSpacesPublisher.values {
             let participantSpaces = participantSpaces.filter { $0.spaceView.localStatus == .unknown || $0.spaceView.localStatus == .ok }
             withAnimation(self.participantSpaces.isEmpty ? nil : .default) {
-                self.participantSpaces = participantSpaces
+                self.participantSpaces = participantSpaces.sorted { $0.sortingWeight > $1.sortingWeight }
             }
         }
     }
@@ -51,5 +51,32 @@ final class SpacesManagerViewModel: ObservableObject {
     
     func onStopSharing(row: ParticipantSpaceView) {
         spaceForStopSharingAlert = row.spaceView
+    }
+}
+
+private extension ParticipantSpaceView {
+    var sortingWeight: Int {
+        
+        if spaceView.accountStatus == .spaceRemoving {
+            return 1
+        }
+        
+        if participant?.status == .joining {
+            return 5
+        }
+        
+        if participant?.permission == .owner {
+            return 4
+        }
+        
+        if participant?.permission == .writer {
+            return 3
+        }
+        
+        if participant?.permission == .reader {
+            return 2
+        }
+        
+        return 0
     }
 }

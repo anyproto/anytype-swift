@@ -19,6 +19,7 @@ struct SpacesManagerRowView: View {
             spaceStateInfo
         }
         .padding(.horizontal, 16)
+        .background(Color.Background.primary)
         .border(12, color: .Shape.primary)
         .lineLimit(1)
     }
