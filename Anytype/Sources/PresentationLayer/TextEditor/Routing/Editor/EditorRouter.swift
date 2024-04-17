@@ -319,20 +319,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
         objectSettingCoordinator.startFlow(
             objectId: document.objectId,
-            delegate: self,
             output: self,
             objectSettingsHandler: actionHandler
         )
     }
     
     func showSettings(
-        delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         actionHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
         objectSettingCoordinator.startFlow(
             objectId: document.objectId,
-            delegate: delegate,
             output: output,
             objectSettingsHandler: actionHandler
         )
@@ -476,7 +473,7 @@ extension EditorRouter: RelationValueCoordinatorOutput {
     }
 }
 
-extension EditorRouter: ObjectSettingsModuleDelegate {
+extension EditorRouter {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()

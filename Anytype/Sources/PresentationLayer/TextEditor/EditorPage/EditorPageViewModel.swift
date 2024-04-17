@@ -303,8 +303,8 @@ extension EditorPageViewModel {
         }
     }
     
-    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
-        router.showSettings(delegate: delegate, output: output) { [weak self] action in
+    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+        router.showSettings(output: output) { [weak self] action in
             self?.handleSettingsAction(action: action)
         }
     }

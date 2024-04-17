@@ -6,7 +6,6 @@ import AnytypeCore
 protocol ObjectSettingsCoordinatorProtocol {
     func startFlow(
         objectId: String,
-        delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
     )
@@ -46,7 +45,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     func startFlow(
         objectId: String,
-        delegate: ObjectSettingsModuleDelegate,
         output: ObjectSettingsCoordinatorOutput?,
         objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
@@ -58,7 +56,6 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
                 let moduleViewController = objectSettingsModuleAssembly.make(
                     document: document,
                     output: self,
-                    delegate: delegate,
                     actionHandler: objectSettingsHandler
                 )
                 
@@ -124,6 +121,18 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     
     func closeEditorAction() {
         output?.closeEditor()
+    }
+    
+    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
+        output?.didCreateLinkToItself(selfName: selfName, data: data)
+    }
+    
+    func didCreateTemplate(templateId: String) {
+        output?.didCreateTemplate(templateId: templateId)
+    }
+    
+    func didTapUseTemplateAsDefault(templateId: String) {
+        output?.didTapUseTemplateAsDefault(templateId: templateId)
     }
     
     // MARK: - RelationValueCoordinatorOutput

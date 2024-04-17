@@ -11,11 +11,11 @@ protocol TemplatesCoordinatorProtocol {
     )
 }
 
-final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
+final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
     private weak var rootViewController: UIViewController?
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
-    private var handler: TemplateSelectionObjectSettingsHandler?
     private var editorModuleInputs = [String: EditorPageModuleInput]()
+    private var onSetAsDefaultTempalte: ((String) -> Void)?
     
     init(
         rootViewController: UIViewController,
@@ -32,7 +32,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
     ) {
         guard let rootViewController else { return }
 
-        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
+        self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
         let picker = TemplatePickerView(
             viewModel: .init(
                 output: self,
@@ -74,15 +74,28 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     }
     
     func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel) {
-        guard let handler else { return }
-        editorModuleInputs[model.object.id]?.showSettings(delegate: handler, output: nil)
+        editorModuleInputs[model.object.id]?.showSettings(output: self)
     }
     
     func setAsDefaultBlankTemplate() {
-        handler?.useAsTemplateAction(TemplateType.blank.id)
+        onSetAsDefaultTempalte?(TemplateType.blank.id)
     }
     
     func onClose() {
         rootViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - ObjectSettingsCoordinatorOutput
+    
+    func closeEditor() {}
+    
+    func showEditorScreen(data: EditorScreenData) {}
+    
+    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {}
+    
+    func didCreateTemplate(templateId: String) {}
+    
+    func didTapUseTemplateAsDefault(templateId: String) {
+        onSetAsDefaultTempalte?(templateId)
     }
 }

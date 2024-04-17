@@ -4,14 +4,14 @@ import Services
 
 @MainActor
 protocol EditorPageModuleInput {
-    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?)
+    func showSettings(output: ObjectSettingsCoordinatorOutput?)
 }
 
 struct EditorPageModuleInputContainer: EditorPageModuleInput {
     weak var model: EditorPageViewModel?
     
-    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
-        model?.showSettings(delegate: delegate, output: output)
+    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+        model?.showSettings(output: output)
     }
 }
 
