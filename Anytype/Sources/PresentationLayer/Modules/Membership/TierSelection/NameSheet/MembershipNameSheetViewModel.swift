@@ -98,7 +98,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
             try Task.checkCancellation()
             
             do {
-                try await memberhsipService.validateName(name: "\(name).any", tierType: tier.type)
+                try await memberhsipService.validateName(name: name, tierType: tier.type)
                 state = .validated
             } catch let error as MembershipServiceProtocol.ValidateNameError {
                 state = .error(text: error.validateNameSheetError)
