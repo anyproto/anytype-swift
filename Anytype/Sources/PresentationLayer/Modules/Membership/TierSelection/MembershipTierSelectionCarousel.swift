@@ -28,7 +28,7 @@ struct MembershipTierSelectionCarousel: View {
     }
     
     var body: some View {
-        TabView(selection: $selection) {
+        TabView(selection: $selection.animation()) {
             ForEach(allTiers) { tier in
                 MembershipTierSelectionView(
                     userMembership: userMembership,
@@ -39,6 +39,15 @@ struct MembershipTierSelectionCarousel: View {
             }
         }
         .tabViewStyle(.page(indexDisplayMode: .never))
+        .background(Color.Background.primary)
+        
+        .overlay(alignment: .top) {
+            AnytypeIndexView(
+                numberOfPages: allTiers.count,
+                currentIndex: allTiers.map { $0.id }.firstIndex(of: selection) ?? 0
+            )
+            .padding()
+        }
         .ignoresSafeArea()
     }
 }
