@@ -14,7 +14,7 @@ struct MembershipOwnerInfoSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(14)
             info
-            managePayment
+            managePaymentButton
             Spacer.fixedHeight(46)
         }
         .padding(.horizontal, 20)
@@ -59,7 +59,7 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var managePayment: some View {
+    private var managePaymentButton: some View {
         Group {
             if membership.paymentMethod == .methodInappApple {
                 VStack(spacing: 0) {
