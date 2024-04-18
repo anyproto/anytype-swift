@@ -634,6 +634,10 @@ internal enum Loc {
     }
     /// Anytype Community
     internal static let anytypeCommunity = Loc.tr("Localizable", "About.AnytypeCommunity", fallback: "Anytype Community")
+    /// Anytype ID: %@
+    internal static func anytypeId(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "About.anytypeId", String(describing: p1), fallback: "Anytype ID: %@")
+    }
     /// App version: %@
     internal static func appVersion(_ p1: Any) -> String {
       return Loc.tr("Localizable", "About.AppVersion", String(describing: p1), fallback: "App version: %@")
@@ -672,10 +676,6 @@ internal enum Loc {
     internal static let techInfo = Loc.tr("Localizable", "About.TechInfo", fallback: "Tech Info")
     /// Terms of Use
     internal static let termsOfUse = Loc.tr("Localizable", "About.TermsOfUse", fallback: "Terms of Use")
-    /// Vault ID: %@
-    internal static func vaultId(_ p1: Any) -> String {
-      return Loc.tr("Localizable", "About.vaultId", String(describing: p1), fallback: "Vault ID: %@")
-    }
     /// What’s New
     internal static let whatsNew = Loc.tr("Localizable", "About.WhatsNew", fallback: "What’s New")
     internal enum Mail {
