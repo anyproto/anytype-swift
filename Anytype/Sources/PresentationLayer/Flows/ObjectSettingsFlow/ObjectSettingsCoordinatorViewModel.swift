@@ -3,75 +3,48 @@ import Services
 import AnytypeCore
 
 @MainActor
-protocol ObjectSettingsCoordinatorProtocol {
-    func startFlow(
-        objectId: String,
-        output: ObjectSettingsCoordinatorOutput?,
-        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
-    )
-}
-
-@MainActor
-final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
-                                       ObjectSettingsModelOutput,
-                                       RelationValueCoordinatorOutput {
+final class ObjectSettingsCoordinatorViewModel: ObservableObject,
+                                                ObjectSettingsModelOutput,
+                                                RelationValueCoordinatorOutput {
+    
+    let objectId: String
+    private weak var output: ObjectSettingsCoordinatorOutput?
+    let objectSettingsHandler: (ObjectSettingsAction) -> Void
+    
     private let navigationContext: NavigationContextProtocol
-    private let objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let documentsProvider: DocumentsProviderProtocol
     
-    private weak var output: ObjectSettingsCoordinatorOutput?
+    @Published var coverPickerData: ObjectCoverPickerData?
     
     init(
+        objectId: String,
+        output: ObjectSettingsCoordinatorOutput?,
+        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void,
         navigationContext: NavigationContextProtocol,
-        objectSettingsModuleAssembly: ObjectSettingModuleAssemblyProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        documentsProvider: DocumentsProviderProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
+        self.objectId = objectId
+        self.output = output
+        self.objectSettingsHandler = objectSettingsHandler
         self.navigationContext = navigationContext
-        self.objectSettingsModuleAssembly = objectSettingsModuleAssembly
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.documentsProvider = documentsProvider
-    }
-    
-    func startFlow(
-        objectId: String,
-        output: ObjectSettingsCoordinatorOutput?,
-        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
-    ) {
-        self.output = output
-        let document = documentsProvider.document(objectId: objectId, forPreview: false)
-        Task { @MainActor in
-            do {
-                try await document.open()
-                let moduleViewController = objectSettingsModuleAssembly.make(
-                    document: document,
-                    output: self,
-                    actionHandler: objectSettingsHandler
-                )
-                
-                navigationContext.present(moduleViewController)
-            } catch {
-                anytypeAssertionFailure(error.localizedDescription)
-            }
-        }
     }
     
     // MARK: - ObjectSettingsModelOutput
     
-    func undoRedoAction(document: BaseDocumentProtocol) {
+    func undoRedoAction(objectId: String) {
         // TODO: Move to editor
         navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(UndoRedoViewController(objectId: document.objectId))
+        navigationContext.present(UndoRedoViewController(objectId: objectId))
     }
     
     func layoutPickerAction(document: BaseDocumentProtocol) {
@@ -80,8 +53,7 @@ final class ObjectSettingsCoordinator: ObjectSettingsCoordinatorProtocol,
     }
     
     func showCoverPicker(document: BaseDocumentGeneralProtocol, onCoverAction: @escaping (ObjectCoverPickerAction) -> Void) {
-        let data = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
-        navigationContext.present(ObjectCoverPicker(data: data))
+        coverPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
     }
     
     func showIconPicker(

@@ -13,7 +13,7 @@ enum ObjectSettingsAction {
 
 @MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
-    func undoRedoAction(document: BaseDocumentProtocol)
+    func undoRedoAction(objectId: String)
     func layoutPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
@@ -26,36 +26,42 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 
 @MainActor
 final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
-    
-    var settings: [ObjectSetting] {
-        guard let details = document.details else { return [] }
-        return settingsBuilder.build(
-            details: details,
-            permissions: document.permissions
-        )
-    }
 
-    private let document: BaseDocumentProtocol
-    private let settingsBuilder = ObjectSettingBuilder()
+    @Injected(\.documentService)
+    private var openDocumentsProvider: OpenedDocumentsProviderProtocol
+    
     private let settingsActionHandler: (ObjectSettingsAction) -> Void
-    
-    private var subscription: AnyCancellable?
-    private var onLinkItselfToObjectHandler: ((EditorScreenData) -> Void)?
-    
     private weak var output: ObjectSettingsModelOutput?
+    private let settingsBuilder = ObjectSettingBuilder()
     
-    var objectId: String { document.objectId }
+    private lazy var document: BaseDocumentProtocol = {
+        openDocumentsProvider.document(objectId: objectId)
+    }()
+    
+    let objectId: String
+    @Published var settings: [ObjectSetting] = []
     
     init(
-        document: BaseDocumentProtocol,
+        objectId: String,
         output: ObjectSettingsModelOutput,
         settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
-        self.document = document
+        self.objectId = objectId
         self.output = output
         self.settingsActionHandler = settingsActionHandler
     }
 
+    func startDocumentTask() async {
+        for await _ in document.syncPublisher.values {
+            if let details = document.details {
+                settings = settingsBuilder.build(
+                    details: details,
+                    permissions: document.permissions
+                )
+            }
+        }
+    }
+    
     func onTapLayoutPicker() {
         output?.layoutPickerAction(document: document)
     }
@@ -79,7 +85,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     // MARK: - ObjectActionsOutput
     
     func undoRedoAction() {
-        output?.undoRedoAction(document: document)
+        output?.undoRedoAction(objectId: objectId)
     }
     
     func openPageAction(screenData: EditorScreenData) {

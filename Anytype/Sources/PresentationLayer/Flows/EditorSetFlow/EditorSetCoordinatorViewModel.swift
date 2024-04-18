@@ -16,7 +16,7 @@ final class EditorSetCoordinatorViewModel:
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
@@ -43,7 +43,7 @@ final class EditorSetCoordinatorViewModel:
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
@@ -58,7 +58,7 @@ final class EditorSetCoordinatorViewModel:
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
-        self.objectSettingCoordinator = objectSettingCoordinator
+        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
@@ -172,11 +172,13 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
-        objectSettingCoordinator.startFlow(
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: data.objectId,
             output: self,
             objectSettingsHandler: actionHandler
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
     func showCoverPicker(

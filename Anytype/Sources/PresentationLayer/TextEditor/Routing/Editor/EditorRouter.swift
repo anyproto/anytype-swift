@@ -15,7 +15,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -32,7 +32,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
@@ -49,7 +49,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.objectSettingCoordinator = objectSettingCoordinator
+        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
@@ -317,22 +317,26 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     // MARK: - Settings
     func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
-        objectSettingCoordinator.startFlow(
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
             output: self,
             objectSettingsHandler: actionHandler
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
     func showSettings(
         output: ObjectSettingsCoordinatorOutput?,
         actionHandler: @escaping (ObjectSettingsAction) -> Void
     ) {
-        objectSettingCoordinator.startFlow(
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
             output: output,
             objectSettingsHandler: actionHandler
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
     func showIconPicker(
