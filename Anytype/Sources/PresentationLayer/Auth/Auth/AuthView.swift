@@ -55,13 +55,20 @@ struct AuthView: View {
             
             Spacer.fixedHeight(20)
             
-            AnytypeText(
-                Loc.Auth.Welcome.subtitle(AboutApp.anyprotoLink),
-                style: .uxCalloutRegular,
-                enableMarkdown: true
-            )
+            Group {
+                AnytypeText(
+                    Loc.Auth.Welcome.Subtitle.p1,
+                    style: .uxCalloutRegular
+                ) +
+                AnytypeText(
+                    Loc.Auth.Welcome.Subtitle.p2(AboutApp.anyprotoLink),
+                    style: .uxCalloutRegular,
+                    enableMarkdown: true
+                )
+                .underline()
+            }
             .foregroundColor(.Auth.body)
-            .accentColor(.Auth.inputText)
+            .accentColor(.Auth.body)
             .multilineTextAlignment(.center)
             .padding(.horizontal, UIDevice.isPad ? 85 : 38)
             .environment(\.openURL, OpenURLAction { url in
