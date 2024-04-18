@@ -208,6 +208,7 @@ final class MiddlewareEventConverter {
                 .fileLimitReached,
                 .fileSpaceUsage,
                 .fileLocalUsage,
+                .fileLimitUpdated,
                 .notificationSend,
                 .notificationUpdate,
                 .payloadBroadcast,

@@ -97,7 +97,7 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         let result = try await ClientCommands.spaceInviteView(.with {
             $0.inviteCid = cid
             $0.inviteFileKey = key
-        }).invoke()
+        }).invoke(ignoreLogErrors: .inviteNotFound)
         return result.asModel()
     }
     

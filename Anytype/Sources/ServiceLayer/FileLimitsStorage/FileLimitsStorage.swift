@@ -59,6 +59,8 @@ final class FileLimitsStorage: FileLimitsStorageProtocol {
             case let .fileSpaceUsage(eventData):
                 guard let spaceIndex = data.value?.spaces.firstIndex(where: { $0.spaceID == eventData.spaceID }) else { return }
                 data.value?.spaces[spaceIndex].bytesUsage = Int64(clamping: eventData.bytesUsage)
+            case let .fileLimitUpdated(eventData):
+                data.value?.node.bytesLimit = Int64(clamping: eventData.bytesLimit)
             default:
                 break
             }

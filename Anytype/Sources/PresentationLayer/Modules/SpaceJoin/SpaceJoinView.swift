@@ -42,6 +42,8 @@ struct SpaceJoinView: View {
             invite
         case .alreadyJoined:
             alreadyJoined
+        case .inviteNotFound:
+            inviteNotFound
         }
     }
     
@@ -96,6 +98,22 @@ struct SpaceJoinView: View {
                 style: .warning,
                 action: {
                     model.onDismissSuccessAlert()
+                }
+            )
+        }
+    }
+    
+    private var inviteNotFound: some View {
+        BottomAlertView(
+            title: Loc.SpaceShare.Join.inviteNotFound,
+            icon: .BottomAlert.sadMail,
+            color: .blue
+        ) {
+            BottomAlertButton(
+                text: Loc.okay,
+                style: .secondary,
+                action: {
+                    model.onDismissInviteNotFoundAlert()
                 }
             )
         }
