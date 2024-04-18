@@ -189,6 +189,7 @@
 "Anytype Library" = "Anytype Library";
 "Copied" = "Copied";
 "Share" = "Share";
+"Okay" = "Okay";
 
 // Home
 "Favorites" = "Favorites";
@@ -220,7 +221,8 @@
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
 "Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
+"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
+"Auth.Welcome.Subtitle.p2" = "[open](%@).";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Next";
 
@@ -248,14 +250,14 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sentitola";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
@@ -569,7 +571,7 @@
 "On analytics" = "On analytics";
 "Select vault error" = "Select vault error";
 "Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Edit";
 "In this object" = "In this object";
@@ -791,7 +793,7 @@
 "About.AppVersion" = "App version: %@";
 "About.BuildNumber" = "Build number: %@";
 "About.Library" = "Library version: %@";
-"About.vaultId" = "Vault ID: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
 "About.deviceId" = "Device ID: %@";
 "About.Device" = "Device: %@";
@@ -883,6 +885,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
 "SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Members";
@@ -915,6 +918,7 @@
 "SpaceShare.Join.Button" = "Request to join";
 "SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
 "SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
 "SpaceShare.JoinConfirmation.Title" = "Request sent";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 "SpaceShare.YouSuffix" = "%@ (you)";
@@ -924,9 +928,8 @@
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
 "SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.MoreInfo" = "More info";
 "SpaceShare.HowToShare.Title" = "How to share a space?";
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";

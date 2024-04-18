@@ -189,6 +189,7 @@
 "Anytype Library" = "Anytype-Bibliothek";
 "Copied" = "Kopiert";
 "Share" = "Teilen";
+"Okay" = "Okay";
 
 // Home
 "Favorites" = "Favoriten";
@@ -220,7 +221,8 @@
 "Restore key from keychain" = "Schlüssel aus dem Schlüsselbund wiederherstellen";
 "Auth.LogIn" = "Ich habe einen Schlüssel";
 "Join" = "Neuer Tresor";
-"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
+"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
+"Auth.Welcome.Subtitle.p2" = "[open](%@).";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
@@ -248,14 +250,14 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Was ist der Schlüssel?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Sie wird durch eine Wiederherstellungsphrase dargestellt - 12 zufällige Wörter, aus denen dein Tresor auf magische Weise auf diesem Gerät generiert wird.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wer die Kombination dieser Wörter kennt – besitzt den Tresor. **Jetzt bist du der einzige Mensch auf der Welt, der sie kennt.**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Alle Rechenressourcen der Welt reichen nicht aus, um ihn zu knacken. Wenn du ihn verlierst, kann er nicht wiederhergestellt werden. Bewahre ihn also an einem sicheren Ort auf!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meinen Schlüssel speichern?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Am einfachsten ist es, deinen Schlüssel in deinem Passwort-Manager zu speichern.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Nur von Leuten gesehen, mit denen du etwas teilst. Es gibt kein zentrales Register der Benutzer.";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 "Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
 
@@ -569,7 +571,7 @@
 "On analytics" = "Auf Analyse";
 "Select vault error" = "Select vault error";
 "Vault deleted" = "Tresor gelöscht";
-"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Von Schlüsselbund wiederherstellen";
 "Edit" = "Bearbeiten";
 "In this object" = "In diesem Objekt";
@@ -791,7 +793,7 @@
 "About.AppVersion" = "App-Version: %@";
 "About.BuildNumber" = "Build Nummer: %@";
 "About.Library" = "Bibliotheksversion: %@";
-"About.vaultId" = "Vault ID: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "Analytics-ID: %@";
 "About.deviceId" = "Geräte-ID: %@
 ";
@@ -884,6 +886,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
 "SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Mitglieder";
@@ -916,6 +919,7 @@
 "SpaceShare.Join.Button" = "Beitrittsanfrage stellen";
 "SpaceShare.Join.Info" = "Sobald der Spacebesitzer Ihre Anfrage genehmigt, werden Sie dem Space beitreten, wobei der Eigentümer die Zugriffsrechte festgelegt.";
 "SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
 "SpaceShare.YouSuffix" = "%@ (du)";
@@ -925,9 +929,8 @@
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
 "SpaceShare.QR.Button" = "QR-Code anzeigen";
-"SpaceShare.MoreInfo" = "Mehr Informationen";
 "SpaceShare.HowToShare.Title" = "How to share a space?";
 "SpaceShare.HowToShare.Step1" = "Bitte gib den Link zu der Person an, mit der du zusammenarbeiten möchtest.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";

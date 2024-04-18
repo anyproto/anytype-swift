@@ -189,6 +189,7 @@
 "Anytype Library" = "Anytype 文库";
 "Copied" = "已复制";
 "Share" = "分享";
+"Okay" = "好的";
 
 // Home
 "Favorites" = "收藏夹";
@@ -220,7 +221,8 @@
 "Restore key from keychain" = "从钥匙串恢复密钥";
 "Auth.LogIn" = "我有一个密钥";
 "Join" = "新建库";
-"Auth.Welcome.Subtitle" = "共同创建数字独立空间。使用您控制的密钥加密。一切都可以离线工作。所有代码均已经[开源](%@) 。";
+"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
+"Auth.Welcome.Subtitle.p2" = "[open](%@).";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
 
@@ -249,14 +251,14 @@
 "Auth.JoinFlow.Key.ReadMore.Title" = "密钥是什么？
 ";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是 12 个单词的随机组合，您的数据库在此设备上神奇般地生成。";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "谁知道这些词的组合谁拥有这个库。 **现在，你是世界上唯一知道这个的人。**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "地球上所有的计算机都无法获取。如果你失去了它，它就无法恢复。所以，把它存放在安全的地方！";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "怎么储存我的密钥？";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存密钥最简单的方法是将其保存在您的密码管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
 "Auth.JoinFlow.Soul.Title" = "设置名称";
-"Auth.JoinFlow.Soul.Description" = "只有你分享的用户可以看见。这里没有中心管理员。";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 "Auth.JoinFlow.Soul.Button" = "获得我的密钥";
 
@@ -570,7 +572,7 @@
 "On analytics" = "关于分析";
 "Select vault error" = "库选择发生错误";
 "Vault deleted" = "库已删除";
-"Vault.Select.Incompatible.Version.Error.Text" = "由于远程节点上的版本不兼容，无法检索库数据。请将 Anytype 更新到最新版本。";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "从钥匙串恢复";
 "Edit" = "编辑";
 "In this object" = "在此对象中";
@@ -792,7 +794,7 @@
 "About.AppVersion" = "App 版本: %@";
 "About.BuildNumber" = "构建版本: %@";
 "About.Library" = "库版本: %@";
-"About.vaultId" = "库 ID：%@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "分析 ID: %@";
 "About.deviceId" = "设备 ID: %@";
 "About.Device" = "设备: %@";
@@ -884,6 +886,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "你离开了 %@。";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
 "SpaceShare.Title" = "分享";
 "SpaceShare.Members" = "参与的人";
@@ -916,6 +919,7 @@
 "SpaceShare.Join.Button" = "申请加入";
 "SpaceShare.Join.Info" = "一旦空间所有者批准您的请求，您将与访问权所有者一起加入该空间。";
 "SpaceShare.Join.Message" = "您已被邀请加入 **%@** 空间，此空间由 **%@** 创建。发送请求使空间所有者可以让您进入。";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
 "SpaceShare.JoinConfirmation.Title" = "已发送申请";
 "SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
 "SpaceShare.YouSuffix" = "%@ （您）";
@@ -925,9 +929,8 @@
 "SpaceShare.StopSharing.Title" = "停止共享此空间";
 "SpaceShare.StopSharing.Message" = "成员将不再同步到此空间，共享链接也将被停用。";
 "SpaceShare.StopSharing.Toast" = "空间已不再共享";
-"SpaceShare.QR.Title" = "加入空间的二维码";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
 "SpaceShare.QR.Button" = "显示二维码";
-"SpaceShare.MoreInfo" = "更多信息";
 "SpaceShare.HowToShare.Title" = "如何共享空间？";
 "SpaceShare.HowToShare.Step1" = "请向您与想要合作的人提供这个链接。";
 "SpaceShare.HowToShare.Step2" = "通过点击链接，将收到一个人加入空间的请求。";
