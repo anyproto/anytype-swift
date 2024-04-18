@@ -11,7 +11,9 @@ final class SetRelationsViewModel: ObservableObject {
     
     private let setDocument: SetDocumentProtocol
     private let viewId: String
-    private let dataviewService: DataviewServiceProtocol
+    
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
     
     private weak var output: SetRelationsCoordinatorOutput?
     
@@ -35,12 +37,10 @@ final class SetRelationsViewModel: ObservableObject {
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        dataviewService: DataviewServiceProtocol,
         output: SetRelationsCoordinatorOutput?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
-        self.dataviewService = dataviewService
         self.output = output
         self.setup()
     }
