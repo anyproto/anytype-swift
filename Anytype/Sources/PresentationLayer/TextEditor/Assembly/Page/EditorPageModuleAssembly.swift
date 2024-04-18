@@ -202,7 +202,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             targetObjectId: document.objectId,
             configuration: configuration,
-            interactor: serviceLocator.objectHeaderInteractor(),
             output: output
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
@@ -305,8 +304,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     }
     
     private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
-        headerModel.onIconPickerTap = { [weak router] args in
-            router?.showIconPicker(document: args.0, onIconAction: args.1)
+        headerModel.onIconPickerTap = { [weak router] document in
+            router?.showIconPicker(document: document)
         }
     }
 }

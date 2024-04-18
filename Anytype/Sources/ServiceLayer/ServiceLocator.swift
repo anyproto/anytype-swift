@@ -149,10 +149,6 @@ final class ServiceLocator {
         Container.shared.appActionStorage()
     }
     
-    func objectHeaderInteractor() -> ObjectHeaderInteractorProtocol {
-        Container.shared.objectHeaderInteractor()
-    }
-    
     func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
         Container.shared.singleObjectSubscriptionService()
     }

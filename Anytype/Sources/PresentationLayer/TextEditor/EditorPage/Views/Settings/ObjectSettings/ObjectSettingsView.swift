@@ -7,10 +7,9 @@ struct ObjectSettingsView: View {
     
     init(
         objectId: String,
-        output: ObjectSettingsModelOutput,
-        actionHandler: @escaping (ObjectSettingsAction) -> Void
+        output: ObjectSettingsModelOutput
     ) {
-        self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, output: output, settingsActionHandler: actionHandler))
+        self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, output: output))
     }
     
     var body: some View {

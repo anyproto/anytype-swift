@@ -24,21 +24,33 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     // MARK: - Private variables
     
     private let document: BaseDocumentGeneralProtocol
+    private let actionHandler: ObjectIconActionHandlerProtocol
     private var subscription: AnyCancellable?
-    private let onIconAction: (ObjectIconPickerAction) -> Void
         
     // MARK: - Initializer
     
-    init(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
+    init(document: BaseDocumentGeneralProtocol, actionHandler: ObjectIconActionHandlerProtocol) {
         self.document = document
-        self.onIconAction = onIconAction
+        self.actionHandler = actionHandler
         subscription = document.syncPublisher.sink { [weak self] in
             self?.updateState()
         }
     }
+    
+    
+    func setEmoji(_ emojiUnicode: String) {
+        actionHandler.handleIconAction(objectId: document.objectId, spaceId: document.spaceId, action: .setIcon(.emoji(emojiUnicode: emojiUnicode)))
+    }
+    
+    func uploadImage(from itemProvider: NSItemProvider) {
+        actionHandler.handleIconAction(objectId: document.objectId, spaceId: document.spaceId, action: .setIcon(.upload(itemProvider: itemProvider)))
+    }
+    
+    func removeIcon() {
+        actionHandler.handleIconAction(objectId: document.objectId, spaceId: document.spaceId, action: .removeIcon)
+    }
+    
+    // MARK: - Private
     
     private func updateState() {
         isRemoveButtonAvailable = document.details?.objectIcon != nil
@@ -60,19 +72,5 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             )
             return true
         }
-    }
-}
-
-extension ObjectIconPickerViewModel {
-    func setEmoji(_ emojiUnicode: String) {
-        onIconAction(.setIcon(.emoji(emojiUnicode: emojiUnicode)))
-    }
-    
-    func uploadImage(from itemProvider: NSItemProvider) {
-        onIconAction(.setIcon(.upload(itemProvider: itemProvider)))
-    }
-    
-    func removeIcon() {
-        onIconAction(.removeIcon)
     }
 }

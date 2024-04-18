@@ -31,7 +31,5 @@ protocol EditorPageViewModelProtocol: AnyObject {
     
     func cursorFocus(blockId: String)
     
-    func handleSettingsAction(action: ObjectSettingsAction)
-    
     func tapOnEmptyPlace()
 }

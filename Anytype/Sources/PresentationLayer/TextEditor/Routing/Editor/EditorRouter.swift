@@ -316,34 +316,26 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
 
     // MARK: - Settings
-    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
+    func showSettings() {
         let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
-            output: self,
-            objectSettingsHandler: actionHandler
+            output: self
         )
         let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
         navigationContext.present(popup)
     }
     
-    func showSettings(
-        output: ObjectSettingsCoordinatorOutput?,
-        actionHandler: @escaping (ObjectSettingsAction) -> Void
-    ) {
+    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
         let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
-            output: output,
-            objectSettingsHandler: actionHandler
+            output: output
         )
         let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
         navigationContext.present(popup)
     }
     
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, onIconAction: onIconAction)
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
 
