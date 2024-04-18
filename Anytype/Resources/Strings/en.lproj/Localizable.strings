@@ -791,7 +791,7 @@
 "About.AppVersion" = "App version: %@";
 "About.BuildNumber" = "Build number: %@";
 "About.Library" = "Library version: %@";
-"About.vaultId" = "Vault ID: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
 "About.deviceId" = "Device ID: %@";
 "About.Device" = "Device: %@";
