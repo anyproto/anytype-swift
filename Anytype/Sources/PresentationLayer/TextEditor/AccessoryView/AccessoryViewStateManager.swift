@@ -310,8 +310,7 @@ extension AccessoryViewStateManagerImpl {
             guard let (attrString, index) = attributedStringWithoutSearchSymbols(),
                   let configuration else { return }
             
-            
-            configuration.textView.textStorage.setAttributedString(attrString) // Move to action handler
+            try await configuration.output?.setNewText(attributedString: attrString)
             
             guard let triggerSymbolPosition,
                   let range = configuration.textView.textRange(

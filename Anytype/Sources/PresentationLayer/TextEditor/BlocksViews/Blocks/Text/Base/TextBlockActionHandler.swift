@@ -192,13 +192,15 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 
                 Task { @MainActor in
                     try await actionHandler.turnInto(style, blockId: info.id)
-                    setNewText(attributedString: newText)
+                    try await setNewText(attributedString: newText)
                     textView.setFocus(.beginning)
                 }
             case let .addBlock(type, newText):
-                setNewText(attributedString: newText)
-                actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top, spaceId: document.spaceId)
-                resetSubject.send(nil)
+                Task { @MainActor in
+                    try await setNewText(attributedString: newText)
+                    actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top, spaceId: document.spaceId)
+                    resetSubject.send(nil)
+                }
             case let .addStyle(style, newText, styleRange, focusRange):
                 Task { @MainActor in
                     try await actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText, contentType: info.content.type)
@@ -445,7 +447,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
                 guard let self = self else { return }
                 AnytypeAnalytics.instance().logChangeTextStyle(MarkupType.linkToObject(linkBlockId))
                 let newText = markupChanger.setMarkup(.linkToObject(linkBlockId), range: range, attributedString: text, contentType: info.content.type)
-                setNewText(attributedString: newText)
+                setNewTextSync(attributedString: newText)
             },
             setLinkToUrl: { [weak self] url in
                 guard let self = self else { return }
@@ -456,17 +458,17 @@ extension TextBlockActionHandler: AccessoryViewOutput {
                     contentType: info.content.type
                 )
                 
-                setNewText(attributedString: newText)
+                setNewTextSync(attributedString: newText)
             },
             removeLink: { [weak self] in
                 guard let self = self else { return }
                 switch eitherLink {
                 case .right:
                     let newText = markupChanger.removeMarkup(.linkToObject(nil), range: range, contentType: info.content.type, attributedString: text)
-                    setNewText(attributedString: newText)
+                    setNewTextSync(attributedString: newText)
                 case .left:
                     let newText = markupChanger.removeMarkup(.link(nil), range: range, contentType: info.content.type, attributedString: text)
-                    setNewText(attributedString: newText)
+                    setNewTextSync(attributedString: newText)
                 case .none:
                     break
                 }
@@ -476,13 +478,11 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         openLinkToObject(data)
     }
     
-    func setNewText(attributedString: NSAttributedString) {
-        Task { @MainActor in
-            resetSubject.send(attributedString)
-            try await actionHandler.changeText(attributedString, blockId: info.id)
-            
-            viewModel.map { collectionController.itemDidChangeFrame(item: .block($0)) }
-        }
+    func setNewText(attributedString: NSAttributedString) async throws {
+        resetSubject.send(attributedString)
+        try await actionHandler.changeText(attributedString, blockId: info.id)
+        
+        viewModel.map { collectionController.itemDidChangeFrame(item: .block($0)) }
     }
     
     func changeText(attributedString: NSAttributedString) {
@@ -495,7 +495,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         _ mention: MentionObject,
         at position: Int,
         attributedString: NSAttributedString
-    ) {
+    ) async throws {
         guard let textContent = info.textContent else { return }
         
         let mutableString = NSMutableAttributedString(attributedString: attributedString)
@@ -513,7 +513,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         
         let newAttributedString = anytypeText.attrString
                 
-        setNewText(attributedString: newAttributedString)
+        try await setNewText(attributedString: newAttributedString)
         focusSubject.send(.at(.init(location: position + mention.name.count + 2, length: 0)))
     }
     
@@ -536,5 +536,9 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     
     func didSelectShowStyleMenu() {
         onShowStyleMenu(info)
+    }
+    
+    private func setNewTextSync(attributedString: NSAttributedString) {
+        Task { try await setNewText(attributedString: attributedString) }
     }
 }
