@@ -883,6 +883,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
 "SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Members";
@@ -926,7 +927,6 @@
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
 "SpaceShare.QR.Title" = "QR code for joing a Space";
 "SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.MoreInfo" = "More info";
 "SpaceShare.HowToShare.Title" = "How to share a space?";
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";

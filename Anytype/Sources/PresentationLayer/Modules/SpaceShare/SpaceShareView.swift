@@ -82,7 +82,7 @@ struct SpaceShareView: View {
     
     private var rightNavigationButton: some View {
         Menu {
-            Button(Loc.SpaceShare.moreInfo) {
+            Button(Loc.moreInfo) {
                 model.onMoreInfoTap()
             }
             if model.canStopShare {
