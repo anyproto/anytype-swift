@@ -67,42 +67,11 @@ struct MembershipModuleView: View {
         Group {
             switch membership.tier?.type {
             case .explorer, nil:
-                bannersView
+                MembershipBannersView()
             case .builder, .coCreator, .custom:
                 EmptyView()
             }
         }
-    }
-    
-    private var bannersView: some View {
-        TabView {
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title1,
-                subtitle: Loc.Membership.Banner.subtitle1,
-                image: .Membership.banner1,
-                gradient: .green
-            )
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title2,
-                subtitle: Loc.Membership.Banner.subtitle2,
-                image: .Membership.banner2,
-                gradient: .yellow
-            )
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title3,
-                subtitle: Loc.Membership.Banner.subtitle3,
-                image: .Membership.banner3,
-                gradient: .pink
-            )
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title4,
-                subtitle: Loc.Membership.Banner.subtitle4,
-                image: .Membership.banner4,
-                gradient: .purple
-            )
-        }
-        .tabViewStyle(.page)
-        .frame(height: 300)
     }
     
     var legal: some View {

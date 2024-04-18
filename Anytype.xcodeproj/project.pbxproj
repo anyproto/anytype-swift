@@ -1250,6 +1250,7 @@
 		3D6E045B2BC5598500CE48AF /* MembershipStatusStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */; };
 		3D6F2D722B87983500AA667B /* PasteboardBlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */; };
 		3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */; };
+		3D6F758B2BD0286F00F6C01E /* MembershipBannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7DC2C02BB1D21F00A4F114 /* ValidateNameErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */; };
 		3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */; };
@@ -3030,6 +3031,7 @@
 		3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorageMock.swift; sourceTree = "<group>"; };
 		3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockService.swift; sourceTree = "<group>"; };
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
+		3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannersView.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNameErrorExtension.swift; sourceTree = "<group>"; };
 		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
@@ -8648,6 +8650,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3D6F758C2BD0287B00F6C01E /* MembershipBannersView */ = {
+			isa = PBXGroup;
+			children = (
+				3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */,
+				3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */,
+			);
+			path = MembershipBannersView;
+			sourceTree = "<group>";
+		};
 		3D7DC2C12BB2D3F100A4F114 /* MembershipStatusStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -9124,9 +9135,9 @@
 		3DD0CEB72B90ACBE00657402 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3D6F758C2BD0287B00F6C01E /* MembershipBannersView */,
 				3DB9351C2BC4573E0004113B /* MembershipTierView */,
 				3DD0CEB82B90ACED00657402 /* MembershipLegalButton.swift */,
-				3DD0CEBA2B90E6BB00657402 /* MembershipBannerView.swift */,
 				3D611E922B93775B00B33305 /* MembershipTierListView.swift */,
 				3DE3DE642BBDBAA300C9E6D3 /* MembershipPricingView.swift */,
 			);
@@ -11182,6 +11193,7 @@
 				2A8C00FD29C4C61300309C14 /* SectionHeaderView.swift in Sources */,
 				2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */,
 				2AC906D829B6233700209E39 /* ListWidgetViewModel.swift in Sources */,
+				3D6F758B2BD0286F00F6C01E /* MembershipBannersView.swift in Sources */,
 				2E9BF63F28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift in Sources */,
 				2AD7412C2993E1C9004BD223 /* HomeWidgetCommonProvider.swift in Sources */,
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
