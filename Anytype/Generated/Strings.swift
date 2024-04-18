@@ -2635,8 +2635,8 @@ internal enum Loc {
       internal enum Incompatible {
         internal enum Version {
           internal enum Error {
-            /// Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.
-            internal static let text = Loc.tr("Localizable", "Vault.Select.Incompatible.Version.Error.Text", fallback: "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.")
+            /// We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.
+            internal static let text = Loc.tr("Localizable", "Vault.Select.Incompatible.Version.Error.Text", fallback: "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.")
           }
         }
       }
