@@ -362,6 +362,8 @@ internal enum Loc {
   internal static let objects = Loc.tr("Localizable", "Objects", fallback: "Objects")
   /// Ok
   internal static let ok = Loc.tr("Localizable", "Ok", fallback: "Ok")
+  /// Okay
+  internal static let okay = Loc.tr("Localizable", "Okay", fallback: "Okay")
   /// On analytics
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics", fallback: "On analytics")
   /// Open object
@@ -2358,6 +2360,8 @@ internal enum Loc {
       internal static let commentPlaceholder = Loc.tr("Localizable", "SpaceShare.Join.CommentPlaceholder", fallback: "Leave a private comment for a space owner")
       /// Once the space owner approves your request, you'll join the space with the access rights owner determined.
       internal static let info = Loc.tr("Localizable", "SpaceShare.Join.Info", fallback: "Once the space owner approves your request, you'll join the space with the access rights owner determined.")
+      /// This link doesn’t seem to work
+      internal static let inviteNotFound = Loc.tr("Localizable", "SpaceShare.Join.InviteNotFound", fallback: "This link doesn’t seem to work")
       /// You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.
       internal static func message(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "SpaceShare.Join.Message", String(describing: p1), String(describing: p2), fallback: "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.")
