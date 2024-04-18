@@ -3,15 +3,34 @@ import ProtobufMessages
 import Combine
 import Services
 
+enum MembershipTierOwningState {
+    case owned
+    case pending
+    case unowned
+    
+    var isOwned: Bool {
+        self == .owned
+    }
+    
+    var isPending: Bool {
+        self == .pending
+    }
+}
+
 @MainActor
 protocol MembershipStatusStorageProtocol {
     var status: AnyPublisher<MembershipStatus, Never> { get }
+    
+    func owningState(tier: MembershipTier) async -> MembershipTierOwningState
 }
 
 @MainActor
 final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
+    @Injected(\.storeKitService)
+    private var storeKitService: StoreKitServiceProtocol
+    
     
     var status: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
     @Published var _status: MembershipStatus = .empty
@@ -22,6 +41,25 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
         Task {
             try await setupInitialState()
         }
+    }
+    
+    func owningState(tier: MembershipTier) async -> MembershipTierOwningState {
+        if _status.tier?.type == tier.type {
+            if _status.status == .active {
+                return .owned
+            } else {
+                return .pending
+            }
+        }
+        
+        // validate AppStore purchase in case middleware is still processing
+        if case let .appStore(product) = tier.paymentType {
+            if ((try? await storeKitService.isPurchased(product: product)) ?? false) {
+                return .pending
+            }
+        }
+        
+        return .unowned
     }
     
     // MARK: - Private

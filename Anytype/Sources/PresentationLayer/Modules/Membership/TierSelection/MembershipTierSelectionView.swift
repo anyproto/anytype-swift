@@ -34,13 +34,19 @@ struct MembershipTierSelectionView: View {
             }
         }
         .safariSheet(url: $safariUrl)
+        .task {
+            await model.onAppear()
+        }
     }
     
     var sheet: some View {
         Group {
-            if model.tierOwned {
+            switch model.state {
+            case .owned:
                 MembershipOwnerInfoSheetView(membership: model.userMembership)
-            } else {
+            case .pending:
+                MembershipPendingInfoSheetView(membership: model.userMembership)
+            case .unowned:
                 switch model.tierToDisplay.paymentType {
                 case .email:
                     MembershipEmailSheetView { email, subscribeToNewsletter in
