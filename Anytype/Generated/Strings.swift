@@ -786,8 +786,8 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.")
           }
           internal enum Option2 {
-            /// Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**")
+            /// Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**")
           }
           internal enum Option3 {
             /// All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!
@@ -798,8 +798,8 @@ internal enum Loc {
       internal enum Soul {
         /// Get my Key
         internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Button", fallback: "Get my Key")
-        /// Only seen by people you share something with. There is no central registry of users.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of users.")
+        /// Only seen by people you share something with. There is no central registry of these names.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description", fallback: "Only seen by people you share something with. There is no central registry of these names.")
         /// Untitled
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder", fallback: "Untitled")
         /// Set your name
@@ -831,9 +831,13 @@ internal enum Loc {
       }
     }
     internal enum Welcome {
-      /// Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).
-      internal static func subtitle(_ p1: Any) -> String {
-        return Loc.tr("Localizable", "Auth.Welcome.Subtitle", String(describing: p1), fallback: "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).")
+      internal enum Subtitle {
+        /// Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is 
+        internal static let p1 = Loc.tr("Localizable", "Auth.Welcome.Subtitle.p1", fallback: "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ")
+        /// [open](%@).
+        internal static func p2(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Auth.Welcome.Subtitle.p2", String(describing: p1), fallback: "[open](%@).")
+        }
       }
     }
   }
