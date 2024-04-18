@@ -285,28 +285,15 @@ extension EditorPageViewModel {
     func element(at: IndexPath) -> BlockViewModelProtocol? {
         modelsHolder.blockViewModel(at: at.row)
     }
-    
-    func handleSettingsAction(action: ObjectSettingsAction) {
-        switch action {
-        case .cover(let objectCoverPickerAction):
-            headerModel.handleCoverAction(action: objectCoverPickerAction)
-        case .icon(let objectIconPickerAction):
-            headerModel.handleIconAction(action: objectIconPickerAction)
-        }
-    }
 }
 
 extension EditorPageViewModel {
     func showSettings() {
-        router.showSettings { [weak self] action in
-            self?.handleSettingsAction(action: action)
-        }
+        router.showSettings()
     }
     
     func showSettings(output: ObjectSettingsCoordinatorOutput?) {
-        router.showSettings(output: output) { [weak self] action in
-            self?.handleSettingsAction(action: action)
-        }
+        router.showSettings(output: output)
     }
     
     @MainActor

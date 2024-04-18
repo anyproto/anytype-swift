@@ -5,8 +5,7 @@ protocol ObjectSettingsCoordinatorAssemblyProtocol {
     @MainActor
     func make(
         objectId: String,
-        output: ObjectSettingsCoordinatorOutput?,
-        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
+        output: ObjectSettingsCoordinatorOutput?
     ) -> AnyView
 }
 
@@ -34,14 +33,12 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     @MainActor
     func make(
         objectId: String,
-        output: ObjectSettingsCoordinatorOutput?,
-        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void
+        output: ObjectSettingsCoordinatorOutput?
     ) -> AnyView {
         ObjectSettingsCoordinatorView(
             model: ObjectSettingsCoordinatorViewModel(
                 objectId: objectId,
                 output: output,
-                objectSettingsHandler: objectSettingsHandler,
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 objectLayoutPickerModuleAssembly: self.modulesDI.objectLayoutPicker(),
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),

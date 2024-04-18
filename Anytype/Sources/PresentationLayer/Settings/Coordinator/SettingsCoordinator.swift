@@ -26,8 +26,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: ApplicationStateServiceProtocol
-    @Injected(\.objectHeaderInteractor)
-    private var objectHeaderInteractor: ObjectHeaderInteractorProtocol
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -72,9 +70,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let module = objectIconPickerModuleAssembly.make(document: document) { [weak self] action in
-            self?.objectHeaderInteractor.handleIconAction(objectId: objectId, spaceId: document.spaceId, action: action)
-        }
+        let module = objectIconPickerModuleAssembly.make(document: document)
         navigationContext.present(module)
     }
     

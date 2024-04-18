@@ -17,7 +17,6 @@ enum ObjectCoverPickerAction {
 
 struct ObjectCoverPickerData: Identifiable {
     let document: BaseDocumentGeneralProtocol
-    let onCoverAction: (ObjectCoverPickerAction) -> Void
     
     var id: String { document.objectId }
 }
@@ -28,36 +27,67 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     var isRemoveButtonAvailable: Bool { document.details?.documentCover != nil }
 
     // MARK: - Private variables
+    @Injected(\.objectHeaderUploadingService)
+    private var objectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol
+    
     private let document: BaseDocumentGeneralProtocol
-    private let onCoverAction: (ObjectCoverPickerAction) -> Void
         
     // MARK: - Initializer
     
     init(data: ObjectCoverPickerData) {
         self.document = data.document
-        self.onCoverAction = data.onCoverAction
     }
 }
 
 extension ObjectCoverPickerViewModel {
     
     func setColor(_ colorName: String) {
-        onCoverAction(.setCover(.color(colorName: colorName)))
+        Task {
+            try await objectHeaderUploadingService.handleCoverAction(
+                objectId: document.objectId,
+                spaceId: document.spaceId,
+                action: .setCover(.color(colorName: colorName))
+            )
+        }
     }
     
     func setGradient(_ gradientName: String) {
-        onCoverAction(.setCover(.gradient(gradientName: gradientName)))
+        Task {
+            try await objectHeaderUploadingService.handleCoverAction(
+                objectId: document.objectId,
+                spaceId: document.spaceId,
+                action: .setCover(.gradient(gradientName: gradientName))
+            )
+        }
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        onCoverAction(.setCover(.upload(itemProvider: itemProvider)))
+        Task {
+            try await objectHeaderUploadingService.handleCoverAction(
+                objectId: document.objectId,
+                spaceId: document.spaceId,
+                action: .setCover(.upload(itemProvider: itemProvider))
+            )
+        }
     }
 
     func uploadUnplashCover(unsplashItem: UnsplashItem) {
-        onCoverAction(.setCover(.unsplash(unsplashItem: unsplashItem)))
+        Task {
+            try await objectHeaderUploadingService.handleCoverAction(
+                objectId: document.objectId,
+                spaceId: document.spaceId,
+                action: .setCover(.unsplash(unsplashItem: unsplashItem))
+            )
+        }
     }
     
     func removeCover() {
-        onCoverAction(.removeCover)
+        Task {
+            try await objectHeaderUploadingService.handleCoverAction(
+                objectId: document.objectId,
+                spaceId: document.spaceId,
+                action: .removeCover
+            )
+        }
     }
 }

@@ -30,7 +30,6 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     @Injected(\.documentService)
     private var openDocumentsProvider: OpenedDocumentsProviderProtocol
     
-    private let settingsActionHandler: (ObjectSettingsAction) -> Void
     private weak var output: ObjectSettingsModelOutput?
     private let settingsBuilder = ObjectSettingBuilder()
     
@@ -43,12 +42,10 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     
     init(
         objectId: String,
-        output: ObjectSettingsModelOutput,
-        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
+        output: ObjectSettingsModelOutput
     ) {
         self.objectId = objectId
         self.output = output
-        self.settingsActionHandler = settingsActionHandler
     }
 
     func startDocumentTask() async {
@@ -67,15 +64,11 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     }
     
     func onTapIconPicker() {
-        output?.showIconPicker(document: document) { [weak self] action in
-            self?.settingsActionHandler(.icon(action))
-        }
+        output?.showIconPicker(document: document)
     }
     
     func onTapCoverPicker() {
-        output?.showCoverPicker(document: document) { [weak self] action in
-            self?.settingsActionHandler(.cover(action))
-        }
+        output?.showCoverPicker(document: document)
     }
     
     func onTapRelations() {

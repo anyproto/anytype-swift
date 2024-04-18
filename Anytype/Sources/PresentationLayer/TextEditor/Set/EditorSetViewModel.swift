@@ -630,14 +630,7 @@ extension EditorSetViewModel {
     }
     
     func showObjectSettings() {
-        output?.showSettings { [weak self] action in
-            switch action {
-            case .cover(let objectCoverPickerAction):
-                self?.headerModel.handleCoverAction(action: objectCoverPickerAction)
-            case .icon(let objectIconPickerAction):
-                self?.headerModel.handleIconAction(action: objectIconPickerAction)
-            }
-        }
+        output?.showSettings()
     }
     
     func objectOrderUpdate(with groupObjectIds: [GroupObjectIds]) {
@@ -669,9 +662,7 @@ extension EditorSetViewModel {
     }
     
     func showIconPicker() {
-        output?.showIconPicker(document: setDocument) { [weak self] action in
-            self?.headerModel.handleIconAction(action: action)
-        }
+        output?.showIconPicker(document: setDocument)
     }
     
     func showSetOfTypeSelection() {
@@ -755,7 +746,6 @@ extension EditorSetViewModel {
                 isOpenedForPreview: false,
                 usecase: .editor
             ),
-            interactor: DI.preview.serviceLocator.objectHeaderInteractor(),
             output: nil
         ),
         subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),

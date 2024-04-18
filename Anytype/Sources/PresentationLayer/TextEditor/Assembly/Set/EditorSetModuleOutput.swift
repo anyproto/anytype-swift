@@ -18,15 +18,9 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
         selectedColor: BlockBackgroundColor?,
         onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
     )
-    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void)
-    func showCoverPicker(
-        document: BaseDocumentGeneralProtocol,
-        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
-    )
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    )
+    func showSettings()
+    func showCoverPicker(document: BaseDocumentGeneralProtocol)
+    func showIconPicker(document: BaseDocumentGeneralProtocol)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     func showSetObjectCreationSettings(
         document: SetDocumentProtocol,

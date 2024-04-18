@@ -171,31 +171,21 @@ final class EditorSetCoordinatorViewModel:
         navigationContext.present(popup)
     }
     
-    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
+    func showSettings() {
         let module = objectSettingCoordinatorAssembly.make(
             objectId: data.objectId,
-            output: self,
-            objectSettingsHandler: actionHandler
+            output: self
         )
         let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
         navigationContext.present(popup)
     }
     
-    func showCoverPicker(
-        document: BaseDocumentGeneralProtocol,
-        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
-    ) {
-        covertPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
+    func showCoverPicker(document: BaseDocumentGeneralProtocol) {
+        covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(
-            document: document,
-            onIconAction: onIconAction
-        )
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
     

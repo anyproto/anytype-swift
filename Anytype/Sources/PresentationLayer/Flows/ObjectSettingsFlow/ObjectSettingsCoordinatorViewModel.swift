@@ -9,7 +9,6 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     
     let objectId: String
     private weak var output: ObjectSettingsCoordinatorOutput?
-    let objectSettingsHandler: (ObjectSettingsAction) -> Void
     
     private let navigationContext: NavigationContextProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
@@ -22,7 +21,6 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     init(
         objectId: String,
         output: ObjectSettingsCoordinatorOutput?,
-        objectSettingsHandler: @escaping (ObjectSettingsAction) -> Void,
         navigationContext: NavigationContextProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
@@ -31,7 +29,6 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     ) {
         self.objectId = objectId
         self.output = output
-        self.objectSettingsHandler = objectSettingsHandler
         self.navigationContext = navigationContext
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
@@ -52,15 +49,12 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
         navigationContext.present(moduleViewController)
     }
     
-    func showCoverPicker(document: BaseDocumentGeneralProtocol, onCoverAction: @escaping (ObjectCoverPickerAction) -> Void) {
-        coverPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
+    func showCoverPicker(document: BaseDocumentGeneralProtocol) {
+        coverPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, onIconAction: onIconAction)
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
     
