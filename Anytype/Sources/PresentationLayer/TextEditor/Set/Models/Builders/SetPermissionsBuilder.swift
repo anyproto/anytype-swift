@@ -49,7 +49,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
     
     private func canEditRelationValuesInView(setDocument: SetDocumentProtocol) -> Bool {
         let activeView = setDocument.activeView
-        let viewRelationValueIsLocked = activeView.type != .gallery ||
+        let viewRelationValueIsLocked = activeView.type == .gallery ||
             activeView.type == .list ||
             (FeatureFlags.setKanbanView && activeView.type == .kanban)
 
