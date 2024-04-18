@@ -50,7 +50,9 @@ extension StripePaymentInfo {
     
     public var displayPrice: String {
         Decimal(Double(priceInCents)/100)
-            .formatted(.currency(code: "USD")
+            .formatted(
+                .currency(code: "USD")
+                .locale(Locale.current)
                 .precision(.fractionLength(0...2))
             )
     }
@@ -79,7 +81,11 @@ extension Product {
     }
     
     var anytypeDisplayPrice: String {
-        price.formatted(priceFormatStyle.precision(.fractionLength(0...2)))
+        price.formatted(
+            priceFormatStyle
+                .locale(Locale.current)
+                .precision(.fractionLength(0...2))
+        )
     }
 }
 
