@@ -2388,8 +2388,8 @@ internal enum Loc {
     internal enum Qr {
       /// Show QR code
       internal static let button = Loc.tr("Localizable", "SpaceShare.QR.Button", fallback: "Show QR code")
-      /// QR code for joing a Space
-      internal static let title = Loc.tr("Localizable", "SpaceShare.QR.Title", fallback: "QR code for joing a Space")
+      /// QR code for joining a Space
+      internal static let title = Loc.tr("Localizable", "SpaceShare.QR.Title", fallback: "QR code for joining a Space")
     }
     internal enum RemoveMember {
       /// %@ will be removed from the space.

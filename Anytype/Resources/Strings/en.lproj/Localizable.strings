@@ -925,7 +925,7 @@
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joing a Space";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
 "SpaceShare.QR.Button" = "Show QR code";
 "SpaceShare.MoreInfo" = "More info";
 "SpaceShare.HowToShare.Title" = "How to share a space?";
