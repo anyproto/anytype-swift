@@ -38,7 +38,7 @@ struct MembershipNameSheetView: View {
                 try await model.purchase()
             }
             .disabled(!model.canBuyTier)
-            Spacer.fixedHeight(20)
+            Spacer.fixedHeight(40)
         }
         .padding(.horizontal, 20)
     }

@@ -49,10 +49,15 @@ struct MembershipTierSelectionView: View {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
                 case .external(let info):
-                    // TODO: Add proper wording
-                    StandardButton("More info", style: .primaryLarge) {
-                        safariUrl = info.paymentUrl
-                    }.padding()
+                    VStack {
+                        StandardButton(Loc.moreInfo, style: .primaryLarge) {
+                            safariUrl = info.paymentUrl
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 34)
+                    }
+                    .background(Color.Background.primary)
+                    .cornerRadius(16, corners: .top)
                 }
             }
         }

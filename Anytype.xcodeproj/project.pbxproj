@@ -1194,6 +1194,7 @@
 		3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */; };
 		3D30418127EC878000FFE0EB /* SetRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418027EC877F00FFE0EB /* SetRelation.swift */; };
 		3D30418527ECBBDB00FFE0EB /* AnytypeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */; };
+		3D30426A2BD123A60098F80F /* MembershipTierSelectionCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3042692BD123A60098F80F /* MembershipTierSelectionCarousel.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
 		3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */; };
 		3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */; };
@@ -2976,6 +2977,7 @@
 		3D30417127EA689F00FFE0EB /* SetContentViewDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewDataBuilder.swift; sourceTree = "<group>"; };
 		3D30418027EC877F00FFE0EB /* SetRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelation.swift; sourceTree = "<group>"; };
 		3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeToggle.swift; sourceTree = "<group>"; };
+		3D3042692BD123A60098F80F /* MembershipTierSelectionCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionCarousel.swift; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
 		3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceView.swift; sourceTree = "<group>"; };
 		3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRectCorner+Corners.swift"; sourceTree = "<group>"; };
@@ -9177,6 +9179,7 @@
 				3D26AA702B9725A900D61479 /* Views */,
 				3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */,
 				3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */,
+				3D3042692BD123A60098F80F /* MembershipTierSelectionCarousel.swift */,
 			);
 			path = TierSelection;
 			sourceTree = "<group>";
@@ -11387,6 +11390,7 @@
 				12A7B6C226C3E47200544037 /* CoverColor.swift in Sources */,
 				2A5025212BC02BBE00A141B8 /* BasicIconView.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
+				3D30426A2BD123A60098F80F /* MembershipTierSelectionCarousel.swift in Sources */,
 				2A28D04D297FCC1D00E55E15 /* WidgetContainerViewModel.swift in Sources */,
 				2E28BCEE2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift in Sources */,
 				2E999483293E490300FFBED9 /* Relation+Set.swift in Sources */,
