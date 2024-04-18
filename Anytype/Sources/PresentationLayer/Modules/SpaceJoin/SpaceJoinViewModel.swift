@@ -103,7 +103,7 @@ final class SpaceJoinViewModel: ObservableObject {
                 switch spaceView.accountStatus {
                 case .spaceJoining:
                     dataState = .requestSent
-                case .spaceActive:
+                case .spaceActive, .unknown:
                     dataState = .alreadyJoined
                 default:
                     dataState = .invite
