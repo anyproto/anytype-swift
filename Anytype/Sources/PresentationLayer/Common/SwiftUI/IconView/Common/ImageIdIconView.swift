@@ -13,7 +13,10 @@ struct ImageIdIconView: View {
             ) { image in
                 image.resizable().scaledToFill()
             } placeholder: {
-                EmptyView()
+                Image(uiImage: UIImage(ciImage: .empty()))
+                    .resizable()
+                    .scaledToFill()
+                    .redacted(reason: .placeholder)
             }
             .frame(width: side, height: side)
         }
