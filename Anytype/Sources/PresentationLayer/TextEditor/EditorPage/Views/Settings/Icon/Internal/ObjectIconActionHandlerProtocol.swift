@@ -1,5 +1,5 @@
 import Foundation
 
 protocol ObjectIconActionHandlerProtocol: AnyObject {
-    func handleIconAction(objectId: String, spaceId: String, action: ObjectIconPickerAction)
+    func handleIconAction(document: BaseDocumentGeneralProtocol, action: ObjectIconPickerAction)
 }

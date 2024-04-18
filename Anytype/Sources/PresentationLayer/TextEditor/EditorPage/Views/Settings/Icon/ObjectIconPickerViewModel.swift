@@ -39,15 +39,15 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     
     
     func setEmoji(_ emojiUnicode: String) {
-        actionHandler.handleIconAction(objectId: document.objectId, spaceId: document.spaceId, action: .setIcon(.emoji(emojiUnicode: emojiUnicode)))
+        actionHandler.handleIconAction(document: document, action: .setIcon(.emoji(emojiUnicode: emojiUnicode)))
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        actionHandler.handleIconAction(objectId: document.objectId, spaceId: document.spaceId, action: .setIcon(.upload(itemProvider: itemProvider)))
+        actionHandler.handleIconAction(document: document, action: .setIcon(.upload(itemProvider: itemProvider)))
     }
     
     func removeIcon() {
-        actionHandler.handleIconAction(objectId: document.objectId, spaceId: document.spaceId, action: .removeIcon)
+        actionHandler.handleIconAction(document: document, action: .removeIcon)
     }
     
     // MARK: - Private

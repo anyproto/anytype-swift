@@ -5,11 +5,11 @@ final class ObjectIconActionHandler: ObjectIconActionHandlerProtocol {
     @Injected(\.objectHeaderUploadingService)
     private var objectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol
     
-    func handleIconAction(objectId: String, spaceId: String, action: ObjectIconPickerAction) {
+    func handleIconAction(document: BaseDocumentGeneralProtocol, action: ObjectIconPickerAction) {
         Task {
             try await objectHeaderUploadingService.handleIconAction(
-                objectId: objectId,
-                spaceId: spaceId,
+                objectId: document.objectId,
+                spaceId: document.spaceId,
                 action: action
             )
         }

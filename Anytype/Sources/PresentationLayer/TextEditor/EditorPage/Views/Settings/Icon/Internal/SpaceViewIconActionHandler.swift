@@ -9,7 +9,11 @@ final class SpaceViewIconActionHandler: ObjectIconActionHandlerProtocol {
     @Injected(\.fileActionsService)
     private var fileService: FileActionsServiceProtocol
     
-    func handleIconAction(objectId: String, spaceId: String, action: ObjectIconPickerAction) {
+    func handleIconAction(document: BaseDocumentGeneralProtocol, action: ObjectIconPickerAction) {
+        guard let spaceId = document.details?.targetSpaceId else {
+            anytypeAssertionFailure("Target space id is empty")
+            return
+        }
         switch action {
         case .setIcon(let iconSource):
             switch iconSource {
