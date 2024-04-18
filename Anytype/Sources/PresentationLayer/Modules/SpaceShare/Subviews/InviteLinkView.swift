@@ -22,7 +22,7 @@ struct InviteLinkView: View {
         .background(Color.Background.secondary)
         .cornerRadius(16, style: .continuous)
         .padding(.horizontal, 16)
-        .padding(.bottom, 28)
+        .padding(.vertical, 36)
         .shadow(radius: 16)
     }
     
