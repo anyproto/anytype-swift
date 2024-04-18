@@ -32,9 +32,11 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     init(document: BaseDocumentGeneralProtocol, actionHandler: ObjectIconActionHandlerProtocol) {
         self.document = document
         self.actionHandler = actionHandler
-        subscription = document.syncPublisher.sink { [weak self] in
-            self?.updateState()
-        }
+        subscription = document.syncPublisher
+            .receiveOnMain()
+            .sink { [weak self] in
+                self?.updateState()
+            }
     }
     
     
