@@ -190,6 +190,7 @@
 "Copied" = "Kopiert";
 "Share" = "Teilen";
 "Okay" = "Okay";
+"Join" = "Beitreten";
 
 // Home
 "Favorites" = "Favoriten";
@@ -220,9 +221,8 @@
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
 "Restore key from keychain" = "Schlüssel aus dem Schlüsselbund wiederherstellen";
 "Auth.LogIn" = "Ich habe einen Schlüssel";
-"Join" = "Neuer Tresor";
-"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
-"Auth.Welcome.Subtitle.p2" = "[open](%@).";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
@@ -240,7 +240,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Meinen Schlüssel anzeigen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Meinen Tresor betreten";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
@@ -250,7 +250,7 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Was ist der Schlüssel?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Sie wird durch eine Wiederherstellungsphrase dargestellt - 12 zufällige Wörter, aus denen dein Tresor auf magische Weise auf diesem Gerät generiert wird.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Alle Rechenressourcen der Welt reichen nicht aus, um ihn zu knacken. Wenn du ihn verlierst, kann er nicht wiederhergestellt werden. Bewahre ihn also an einem sicheren Ort auf!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meinen Schlüssel speichern?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Am einfachsten ist es, deinen Schlüssel in deinem Passwort-Manager zu speichern.";
@@ -1061,7 +1061,7 @@
 "Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";
 
-"Membership.Legal.Details" = "Details zu den Mitgliedschaftsstufen";
+"Membership.Legal.Details" = "Membership plan details";
 "Membership.Legal.Privacy" = "Datenschutzrichtlinie";
 "Membership.Legal.Terms" = "Allgemeine Geschäftsbedingungen";
 "Membership.Legal.WouldYouLike" = "Möchten Sie Anytype für Geschäftliches, Bildung, usw.?";
