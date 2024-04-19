@@ -1,0 +1,765 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Space.Delete.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.Delete.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.Delete.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.Delete.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.Delete.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.InviteGenerate.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.InviteGenerate.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.InviteGenerate.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.InviteGenerate.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.InviteGenerate.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.InviteGetCurrent.noActiveInvite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.InviteRevoke.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.InviteRevoke.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.InviteRevoke.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.InviteRevoke.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.InviteRevoke.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.Join.inviteBadContent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+          }
+        }
+      }
+    },
+    "Space.Join.inviteNotFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.Join.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.Join.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.Join.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.Join.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.Join.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.JoinCancel.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.JoinCancel.noSuchRequest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.JoinCancel.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.JoinCancel.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.JoinCancel.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.JoinCancel.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.LeaveApprove.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.LeaveApprove.noApproveRequests" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.LeaveApprove.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.LeaveApprove.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.LeaveApprove.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.LeaveApprove.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.MakeShareable.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.MakeShareable.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.MakeShareable.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.MakeShareable.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.ParticipantPermissionsChange.incorrectPermissions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+          }
+        }
+      }
+    },
+    "Space.ParticipantPermissionsChange.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.ParticipantPermissionsChange.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.ParticipantPermissionsChange.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.ParticipantPermissionsChange.participantNotFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.ParticipantPermissionsChange.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.ParticipantPermissionsChange.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.ParticipantRemove.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.ParticipantRemove.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.ParticipantRemove.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.ParticipantRemove.participantNotFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.ParticipantRemove.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.ParticipantRemove.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.RequestApprove.incorrectPermissions" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+          }
+        }
+      }
+    },
+    "Space.RequestApprove.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.RequestApprove.noSuchRequest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.RequestApprove.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.RequestApprove.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.RequestApprove.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.RequestApprove.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.RequestDecline.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.RequestDecline.noSuchRequest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.RequestDecline.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.RequestDecline.notShareable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.RequestDecline.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.RequestDecline.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
+    "Space.StopSharing.limitReached" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        }
+      }
+    },
+    "Space.StopSharing.noSuchSpace" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        }
+      }
+    },
+    "Space.StopSharing.requestFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops! The request failed. Please check your internet connection and try again."
+          }
+        }
+      }
+    },
+    "Space.StopSharing.spaceIsDeleted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

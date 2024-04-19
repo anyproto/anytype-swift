@@ -15,7 +15,7 @@ extension ResultWithError {
     public var hasEvent: Bool { false }
 }
 
-public protocol ResponseError: Swift.Error, LocalizedError {
+public protocol ResponseError: Swift.Error {
     
     associatedtype ErrorCode: RawRepresentable where ErrorCode.RawValue == Int
     
@@ -23,10 +23,4 @@ public protocol ResponseError: Swift.Error, LocalizedError {
     
     var code: ErrorCode { get }
     var description_p: String { get }
-}
-
-public extension ResponseError  {
-    var errorDescription: String? {
-        return "Code: \(code), description: \(description_p)"
-    }
 }
