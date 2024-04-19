@@ -2,6 +2,8 @@ import Services
 import Combine
 import Foundation
 
+
+@MainActor
 protocol TextBlockActionHandlerProtocol: AnyObject {
     var info: BlockInformation { get set }
     

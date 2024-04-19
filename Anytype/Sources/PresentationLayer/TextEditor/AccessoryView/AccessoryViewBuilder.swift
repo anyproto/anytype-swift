@@ -88,6 +88,7 @@ struct AccessoryViewBuilder {
 
     }
 
+    @MainActor
     private static let menuActionsViewSize = CGSize(
         width: UIScreen.main.bounds.width,
         height: UIScreen.main.isFourInch ? 160 : 215

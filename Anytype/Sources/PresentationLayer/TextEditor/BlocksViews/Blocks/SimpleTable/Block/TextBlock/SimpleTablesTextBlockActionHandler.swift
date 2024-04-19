@@ -3,6 +3,7 @@ import Combine
 import UIKit
 import AnytypeCore
 
+
 final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     var info: BlockInformation

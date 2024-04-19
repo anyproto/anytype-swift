@@ -3,7 +3,10 @@ import UIKit
 import Services
 import AnytypeCore
 
+
 final class BeginingOfTextMarkdownListener: MarkdownListener {
+    
+    nonisolated init() { }
     
     // MARK: - MarkdownListener
     

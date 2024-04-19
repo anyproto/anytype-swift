@@ -1,6 +1,8 @@
 import Foundation
 import UIKit
 
+
+@MainActor
 final class ResponderScrollViewHelper {
 
     private let keyboardListener: KeyboardHeightListener
