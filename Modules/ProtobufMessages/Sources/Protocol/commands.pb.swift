@@ -26444,6 +26444,7 @@ public struct Anytype_Rpc {
             case cacheError // = 5
             case membershipNotFound // = 6
             case membershipWrongState // = 7
+            case canNotConnect // = 8
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26460,6 +26461,7 @@ public struct Anytype_Rpc {
               case 5: self = .cacheError
               case 6: self = .membershipNotFound
               case 7: self = .membershipWrongState
+              case 8: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26474,6 +26476,7 @@ public struct Anytype_Rpc {
               case .cacheError: return 5
               case .membershipNotFound: return 6
               case .membershipWrongState: return 7
+              case .canNotConnect: return 8
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26563,7 +26566,8 @@ public struct Anytype_Rpc {
             case cacheError // = 10
 
             /// for some probable future use (if needed)
-            case inBlacklist // = 11
+            case canNotReserve // = 11
+            case canNotConnect // = 12
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26583,7 +26587,8 @@ public struct Anytype_Rpc {
               case 8: self = .notLoggedIn
               case 9: self = .paymentNodeError
               case 10: self = .cacheError
-              case 11: self = .inBlacklist
+              case 11: self = .canNotReserve
+              case 12: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26601,7 +26606,8 @@ public struct Anytype_Rpc {
               case .notLoggedIn: return 8
               case .paymentNodeError: return 9
               case .cacheError: return 10
-              case .inBlacklist: return 11
+              case .canNotReserve: return 11
+              case .canNotConnect: return 12
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26696,6 +26702,7 @@ public struct Anytype_Rpc {
             case paymentMethodInvalid // = 8
             case badAnyname // = 9
             case membershipAlreadyExists // = 10
+            case canNotConnect // = 11
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26715,6 +26722,7 @@ public struct Anytype_Rpc {
               case 8: self = .paymentMethodInvalid
               case 9: self = .badAnyname
               case 10: self = .membershipAlreadyExists
+              case 11: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26732,6 +26740,7 @@ public struct Anytype_Rpc {
               case .paymentMethodInvalid: return 8
               case .badAnyname: return 9
               case .membershipAlreadyExists: return 10
+              case .canNotConnect: return 11
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26808,6 +26817,7 @@ public struct Anytype_Rpc {
             case notLoggedIn // = 3
             case paymentNodeError // = 4
             case cacheError // = 5
+            case canNotConnect // = 6
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26822,6 +26832,7 @@ public struct Anytype_Rpc {
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
               case 5: self = .cacheError
+              case 6: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26834,6 +26845,7 @@ public struct Anytype_Rpc {
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
               case .cacheError: return 5
+              case .canNotConnect: return 6
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26912,6 +26924,7 @@ public struct Anytype_Rpc {
             case membershipNotFound // = 6
             case membershipWrongState // = 7
             case badAnyname // = 8
+            case canNotConnect // = 9
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26929,6 +26942,7 @@ public struct Anytype_Rpc {
               case 6: self = .membershipNotFound
               case 7: self = .membershipWrongState
               case 8: self = .badAnyname
+              case 9: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26944,6 +26958,7 @@ public struct Anytype_Rpc {
               case .membershipNotFound: return 6
               case .membershipWrongState: return 7
               case .badAnyname: return 8
+              case .canNotConnect: return 9
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27017,6 +27032,7 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case notLoggedIn // = 3
             case paymentNodeError // = 4
+            case canNotConnect // = 12
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27030,6 +27046,7 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
+              case 12: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27041,6 +27058,7 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
+              case .canNotConnect: return 12
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27122,6 +27140,7 @@ public struct Anytype_Rpc {
             case emailAlredySent // = 8
             case emailFailedToSend // = 9
             case membershipAlreadyExists // = 10
+            case canNotConnect // = 11
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27141,6 +27160,7 @@ public struct Anytype_Rpc {
               case 8: self = .emailAlredySent
               case 9: self = .emailFailedToSend
               case 10: self = .membershipAlreadyExists
+              case 11: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27158,6 +27178,7 @@ public struct Anytype_Rpc {
               case .emailAlredySent: return 8
               case .emailFailedToSend: return 9
               case .membershipAlreadyExists: return 10
+              case .canNotConnect: return 11
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27237,6 +27258,7 @@ public struct Anytype_Rpc {
             case wrong // = 8
             case membershipNotFound // = 9
             case membershipAlreadyActive // = 10
+            case canNotConnect // = 11
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27256,6 +27278,7 @@ public struct Anytype_Rpc {
               case 8: self = .wrong
               case 9: self = .membershipNotFound
               case 10: self = .membershipAlreadyActive
+              case 11: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27273,6 +27296,7 @@ public struct Anytype_Rpc {
               case .wrong: return 8
               case .membershipNotFound: return 9
               case .membershipAlreadyActive: return 10
+              case .canNotConnect: return 11
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27353,6 +27377,7 @@ public struct Anytype_Rpc {
             case notLoggedIn // = 3
             case paymentNodeError // = 4
             case cacheError // = 5
+            case canNotConnect // = 6
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27367,6 +27392,7 @@ public struct Anytype_Rpc {
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
               case 5: self = .cacheError
+              case 6: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27379,6 +27405,7 @@ public struct Anytype_Rpc {
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
               case .cacheError: return 5
+              case .canNotConnect: return 6
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27479,6 +27506,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case canNotConnect // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27490,6 +27518,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27499,6 +27528,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .canNotConnect: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27551,8 +27581,10 @@ public struct Anytype_Rpc {
 
         public var found: Bool = false
 
-        /// including ".any" suffix
-        public var fullName: String = String()
+        /// not including suffix
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -27572,6 +27604,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case canNotConnect // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27583,6 +27616,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27592,6 +27626,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .canNotConnect: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27644,8 +27679,10 @@ public struct Anytype_Rpc {
 
         public var found: Bool = false
 
-        /// including ".any" suffix
-        public var fullName: String = String()
+        /// not including suffix
+        public var nsName: String = String()
+
+        public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -27665,6 +27702,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case canNotConnect // = 3
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27676,6 +27714,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 3: self = .canNotConnect
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27685,6 +27724,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .canNotConnect: return 3
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27743,7 +27783,9 @@ public struct Anytype_Rpc {
           /// this will use ReverseResolve to get current name
           /// user can buy many names, but
           /// only 1 name can be set as "current": ETH address <-> name
-          public var anyNameAttached: String = String()
+          public var nsNameAttached: String = String()
+
+          public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
           /// Number of names that the user can reserve
           public var namesCountLeft: UInt64 = 0
@@ -27771,6 +27813,7 @@ public struct Anytype_Rpc {
               case badInput // = 2
               case notLoggedIn // = 3
               case badNameResolve // = 4
+              case canNotConnect // = 5
               case UNRECOGNIZED(Int)
 
               public init() {
@@ -27784,6 +27827,7 @@ public struct Anytype_Rpc {
                 case 2: self = .badInput
                 case 3: self = .notLoggedIn
                 case 4: self = .badNameResolve
+                case 5: self = .canNotConnect
                 default: self = .UNRECOGNIZED(rawValue)
                 }
               }
@@ -27795,6 +27839,7 @@ public struct Anytype_Rpc {
                 case .badInput: return 2
                 case .notLoggedIn: return 3
                 case .badNameResolve: return 4
+                case .canNotConnect: return 5
                 case .UNRECOGNIZED(let i): return i
                 }
               }
@@ -30357,6 +30402,7 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: CaseIterable {
     .cacheError,
     .membershipNotFound,
     .membershipWrongState,
+    .canNotConnect,
   ]
 }
 
@@ -30374,7 +30420,8 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: CaseIterable {
     .notLoggedIn,
     .paymentNodeError,
     .cacheError,
-    .inBlacklist,
+    .canNotReserve,
+    .canNotConnect,
   ]
 }
 
@@ -30392,6 +30439,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: CaseIterable
     .paymentMethodInvalid,
     .badAnyname,
     .membershipAlreadyExists,
+    .canNotConnect,
   ]
 }
 
@@ -30404,6 +30452,7 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code: CaseItera
     .notLoggedIn,
     .paymentNodeError,
     .cacheError,
+    .canNotConnect,
   ]
 }
 
@@ -30419,6 +30468,7 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: CaseIterable {
     .membershipNotFound,
     .membershipWrongState,
     .badAnyname,
+    .canNotConnect,
   ]
 }
 
@@ -30430,6 +30480,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code:
     .badInput,
     .notLoggedIn,
     .paymentNodeError,
+    .canNotConnect,
   ]
 }
 
@@ -30447,6 +30498,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: CaseI
     .emailAlredySent,
     .emailFailedToSend,
     .membershipAlreadyExists,
+    .canNotConnect,
   ]
 }
 
@@ -30464,6 +30516,7 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: CaseIterab
     .wrong,
     .membershipNotFound,
     .membershipAlreadyActive,
+    .canNotConnect,
   ]
 }
 
@@ -30476,6 +30529,7 @@ extension Anytype_Rpc.Membership.GetTiers.Response.Error.Code: CaseIterable {
     .notLoggedIn,
     .paymentNodeError,
     .cacheError,
+    .canNotConnect,
   ]
 }
 
@@ -30485,6 +30539,7 @@ extension Anytype_Rpc.NameService.ResolveName.Response.Error.Code: CaseIterable 
     .null,
     .unknownError,
     .badInput,
+    .canNotConnect,
   ]
 }
 
@@ -30494,6 +30549,7 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error.Code: CaseIterable
     .null,
     .unknownError,
     .badInput,
+    .canNotConnect,
   ]
 }
 
@@ -30503,6 +30559,7 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error.Code: CaseIterab
     .null,
     .unknownError,
     .badInput,
+    .canNotConnect,
   ]
 }
 
@@ -30514,6 +30571,7 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: CaseItera
     .badInput,
     .notLoggedIn,
     .badNameResolve,
+    .canNotConnect,
   ]
 }
 
@@ -70154,6 +70212,7 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error.Code: SwiftProtobuf._P
     5: .same(proto: "CACHE_ERROR"),
     6: .same(proto: "MEMBERSHIP_NOT_FOUND"),
     7: .same(proto: "MEMBERSHIP_WRONG_STATE"),
+    8: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -70307,7 +70366,8 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: SwiftProtobuf.
     8: .same(proto: "NOT_LOGGED_IN"),
     9: .same(proto: "PAYMENT_NODE_ERROR"),
     10: .same(proto: "CACHE_ERROR"),
-    11: .same(proto: "IN_BLACKLIST"),
+    11: .same(proto: "CAN_NOT_RESERVE"),
+    12: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -70479,6 +70539,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: SwiftProtobu
     8: .same(proto: "PAYMENT_METHOD_INVALID"),
     9: .same(proto: "BAD_ANYNAME"),
     10: .same(proto: "MEMBERSHIP_ALREADY_EXISTS"),
+    11: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -70608,6 +70669,7 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error.Code: SwiftProt
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
     5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -70753,6 +70815,7 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error.Code: SwiftProtobuf._Pr
     6: .same(proto: "MEMBERSHIP_NOT_FOUND"),
     7: .same(proto: "MEMBERSHIP_WRONG_STATE"),
     8: .same(proto: "BAD_ANYNAME"),
+    9: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -70881,6 +70944,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error.Code:
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
+    12: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -71028,6 +71092,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error.Code: Swift
     8: .same(proto: "EMAIL_ALREDY_SENT"),
     9: .same(proto: "EMAIL_FAILED_TO_SEND"),
     10: .same(proto: "MEMBERSHIP_ALREADY_EXISTS"),
+    11: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -71169,6 +71234,7 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error.Code: SwiftProto
     8: .same(proto: "CODE_WRONG"),
     9: .same(proto: "MEMBERSHIP_NOT_FOUND"),
     10: .same(proto: "MEMBERSHIP_ALREADY_ACTIVE"),
+    11: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -71317,6 +71383,7 @@ extension Anytype_Rpc.Membership.GetTiers.Response.Error.Code: SwiftProtobuf._Pr
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
     5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -71511,6 +71578,7 @@ extension Anytype_Rpc.NameService.ResolveName.Response.Error.Code: SwiftProtobuf
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -71570,7 +71638,8 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response: SwiftProtobuf.Message, 
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "found"),
-    3: .same(proto: "fullName"),
+    3: .same(proto: "nsName"),
+    4: .same(proto: "nsNameType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -71581,7 +71650,8 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response: SwiftProtobuf.Message, 
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.found) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.fullName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
       default: break
       }
     }
@@ -71598,8 +71668,11 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response: SwiftProtobuf.Message, 
     if self.found != false {
       try visitor.visitSingularBoolField(value: self.found, fieldNumber: 2)
     }
-    if !self.fullName.isEmpty {
-      try visitor.visitSingularStringField(value: self.fullName, fieldNumber: 3)
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 3)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -71607,7 +71680,8 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response: SwiftProtobuf.Message, 
   public static func ==(lhs: Anytype_Rpc.NameService.ResolveAnyId.Response, rhs: Anytype_Rpc.NameService.ResolveAnyId.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.found != rhs.found {return false}
-    if lhs.fullName != rhs.fullName {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -71656,6 +71730,7 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error.Code: SwiftProtobu
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -71715,7 +71790,8 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response: SwiftProtobuf.Message
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "found"),
-    3: .same(proto: "fullName"),
+    3: .same(proto: "nsName"),
+    4: .same(proto: "nsNameType"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -71726,7 +71802,8 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response: SwiftProtobuf.Message
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.found) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.fullName) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
       default: break
       }
     }
@@ -71743,8 +71820,11 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response: SwiftProtobuf.Message
     if self.found != false {
       try visitor.visitSingularBoolField(value: self.found, fieldNumber: 2)
     }
-    if !self.fullName.isEmpty {
-      try visitor.visitSingularStringField(value: self.fullName, fieldNumber: 3)
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 3)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -71752,7 +71832,8 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response: SwiftProtobuf.Message
   public static func ==(lhs: Anytype_Rpc.NameService.ResolveSpaceId.Response, rhs: Anytype_Rpc.NameService.ResolveSpaceId.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.found != rhs.found {return false}
-    if lhs.fullName != rhs.fullName {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -71801,6 +71882,7 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error.Code: SwiftProto
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    3: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
@@ -71865,9 +71947,10 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response: SwiftProtobuf.Messag
   public static let protoMessageName: String = Anytype_Rpc.NameService.UserAccount.Get.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
-    2: .same(proto: "anyNameAttached"),
-    3: .same(proto: "namesCountLeft"),
-    4: .same(proto: "operationsCountLeft"),
+    2: .same(proto: "nsNameAttached"),
+    3: .same(proto: "nsNameType"),
+    4: .same(proto: "namesCountLeft"),
+    5: .same(proto: "operationsCountLeft"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -71877,9 +71960,10 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response: SwiftProtobuf.Messag
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.anyNameAttached) }()
-      case 3: try { try decoder.decodeSingularUInt64Field(value: &self.namesCountLeft) }()
-      case 4: try { try decoder.decodeSingularUInt64Field(value: &self.operationsCountLeft) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.nsNameAttached) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
+      case 4: try { try decoder.decodeSingularUInt64Field(value: &self.namesCountLeft) }()
+      case 5: try { try decoder.decodeSingularUInt64Field(value: &self.operationsCountLeft) }()
       default: break
       }
     }
@@ -71893,21 +71977,25 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response: SwiftProtobuf.Messag
     try { if let v = self._error {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.anyNameAttached.isEmpty {
-      try visitor.visitSingularStringField(value: self.anyNameAttached, fieldNumber: 2)
+    if !self.nsNameAttached.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsNameAttached, fieldNumber: 2)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 3)
     }
     if self.namesCountLeft != 0 {
-      try visitor.visitSingularUInt64Field(value: self.namesCountLeft, fieldNumber: 3)
+      try visitor.visitSingularUInt64Field(value: self.namesCountLeft, fieldNumber: 4)
     }
     if self.operationsCountLeft != 0 {
-      try visitor.visitSingularUInt64Field(value: self.operationsCountLeft, fieldNumber: 4)
+      try visitor.visitSingularUInt64Field(value: self.operationsCountLeft, fieldNumber: 5)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.NameService.UserAccount.Get.Response, rhs: Anytype_Rpc.NameService.UserAccount.Get.Response) -> Bool {
     if lhs._error != rhs._error {return false}
-    if lhs.anyNameAttached != rhs.anyNameAttached {return false}
+    if lhs.nsNameAttached != rhs.nsNameAttached {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.namesCountLeft != rhs.namesCountLeft {return false}
     if lhs.operationsCountLeft != rhs.operationsCountLeft {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -71960,6 +72048,7 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error.Code: SwiftProt
     2: .same(proto: "BAD_INPUT"),
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "BAD_NAME_RESOLVE"),
+    5: .same(proto: "CAN_NOT_CONNECT"),
   ]
 }
 
