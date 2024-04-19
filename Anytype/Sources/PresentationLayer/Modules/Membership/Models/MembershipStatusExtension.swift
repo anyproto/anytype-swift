@@ -13,6 +13,16 @@ extension AnyNameExtension: CustomStringConvertible  {
 }
 
 public extension MembershipStatus {
+    static var empty: MembershipStatus {
+        MembershipStatus(
+            tier: nil,
+            status: .unknown,
+            dateEnds: .distantFuture,
+            paymentMethod: .methodStripe,
+            anyName: .mock
+        )
+    }
+    
     var formattedDateEnds: String {
         let dateFormatter = DateFormatter()
         

@@ -80,31 +80,13 @@ struct MembershipOwnerInfoSheetView: View {
         ScrollView(.horizontal) {
             HStack {
                 MembershipOwnerInfoSheetView(
-                    membership: MembershipStatus(
-                        tier: .mockExplorer,
-                        status: .active,
-                        dateEnds: .tomorrow,
-                        paymentMethod: .methodStripe,
-                        anyName: .mockEmpty
-                    )
+                    membership: .mock(tier: .mockExplorer, paymentMethod: .methodStripe)
                 )
                 MembershipOwnerInfoSheetView(
-                    membership: MembershipStatus(
-                        tier: .mockBuilder,
-                        status: .pending,
-                        dateEnds: .tomorrow,
-                        paymentMethod: .methodCrypto,
-                        anyName: .mockEmpty
-                    )
+                    membership: .mock(tier: .mockExplorer, paymentMethod: .methodCrypto)
                 )
                 MembershipOwnerInfoSheetView(
-                    membership: MembershipStatus(
-                        tier: .mockCoCreator,
-                        status: .active,
-                        dateEnds: .tomorrow,
-                        paymentMethod: .methodInappApple,
-                        anyName: .mockEmpty
-                    )
+                    membership: .mock(tier: .mockCoCreator, paymentMethod: .methodInappApple)
                 )
             }
         }

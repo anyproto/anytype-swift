@@ -34,13 +34,7 @@ struct MembershipTierListView: View {
     ScrollView {
         VStack {
             MembershipTierListView(
-                userMembership: MembershipStatus(
-                    tier: nil,
-                    status: .unknown,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodStripe,
-                    anyName: .mockEmpty
-                ),
+                userMembership: .mock(tier: nil, status: .unknown),
                 tiers: [
                     MembershipTier.mockExplorer,
                     MembershipTier.mockBuilder,
@@ -49,13 +43,7 @@ struct MembershipTierListView: View {
             ) { _ in }
             
             MembershipTierListView(
-                userMembership: MembershipStatus(
-                    tier: .mockExplorer,
-                    status: .pending,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodStripe,
-                    anyName: .mockEmpty
-                ),
+                userMembership: .mock(tier: .mockExplorer, status: .pending),
                 tiers: [
                     MembershipTier.mockExplorer,
                     MembershipTier.mockBuilder,
@@ -64,13 +52,7 @@ struct MembershipTierListView: View {
             ) { _ in }
             
             MembershipTierListView(
-                userMembership: MembershipStatus(
-                    tier: .mockExplorer,
-                    status: .active,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodStripe,
-                    anyName: .mockEmpty
-                ),
+                userMembership: .mock(tier: .mockExplorer),
                 tiers: [
                     MembershipTier.mockExplorer,
                     MembershipTier.mockBuilder,
@@ -79,13 +61,7 @@ struct MembershipTierListView: View {
             ) { _ in }
             
             MembershipTierListView(
-                userMembership: MembershipStatus(
-                    tier: .mockCustom,
-                    status: .active,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodStripe,
-                    anyName: .mockEmpty
-                ),
+                userMembership: .mock(tier: .mockCustom),
                 tiers: [
                     MembershipTier.mockCustom,
                     MembershipTier.mockBuilder,
@@ -95,13 +71,7 @@ struct MembershipTierListView: View {
 
             
             MembershipTierListView(
-                userMembership: MembershipStatus(
-                    tier: .mockBuilder,
-                    status: .active,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodStripe,
-                    anyName: .mockEmpty
-                ),
+                userMembership: .mock(tier: .mockBuilder),
                 tiers: [
                     MembershipTier.mockBuilder,
                     MembershipTier.mockCoCreator
@@ -109,13 +79,7 @@ struct MembershipTierListView: View {
             ) { _ in }
             
             MembershipTierListView(
-                userMembership: MembershipStatus(
-                    tier: .mockCoCreator,
-                    status: .pending,
-                    dateEnds: .tomorrow,
-                    paymentMethod: .methodStripe,
-                    anyName: .mockEmpty
-                ),
+                userMembership: .mock(tier: .mockCoCreator, status: .pending),
                 tiers: [
                     MembershipTier.mockCoCreator
                 ]
