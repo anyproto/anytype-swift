@@ -32,6 +32,8 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     }
     
     func onAppear() async {
+        AnytypeAnalytics.instance().logScreenMembership(tier: tierToDisplay)
+        
         state = await membershipStatusStorage.owningState(tier: tierToDisplay)
     }
     
