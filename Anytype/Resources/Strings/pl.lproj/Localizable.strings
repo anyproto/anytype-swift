@@ -190,6 +190,7 @@
 "Copied" = "Skopiowano";
 "Share" = "Udostępnij";
 "Okay" = "Okay";
+"Join" = "Dołącz";
 
 // Home
 "Favorites" = "Ulubione";
@@ -220,9 +221,8 @@
 "Auth.CameraPermissionTitle" = "Zezwól na dostęp";
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
-"Join" = "New Vault";
-"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
-"Auth.Welcome.Subtitle.p2" = "[open](%@).";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)";
 "Auth.Next" = "Dalej";
 
@@ -240,7 +240,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Pomiń";
@@ -250,7 +250,7 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
@@ -885,7 +885,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "Opuściłeś %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Dodatkowe informacje";
 
 "SpaceShare.Title" = "Udostępnianie";
 "SpaceShare.Members" = "Czlonkowie";
@@ -907,8 +907,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "Nowi członkowie nie będą mogli dołączyć do pokoju. Możesz wygenerować nowy link dowolnego typu";
 "SpaceShare.Approve.Toast" = "Zatwierdziłeś prośbę %@.";
 "SpaceShare.ViewRequest.Title" = "%@ poprosił o dołączenie do %@ przestrzeni";
-"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
-"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.ViewAccess" = "Dodaj jako przeglądający";
+"SpaceShare.ViewRequest.EditAccess" = "Dodaj jako edytora";
 "SpaceShare.ViewRequest.Reject" = "Odrzuć";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ zostanie usunięty z przestrzeni.";
@@ -1036,7 +1036,7 @@
 "E-mail" = "Adres e-mail";
 "Learn more" = "Dowiedz się więcej";
 "per" = "per";
-"unlimited" = "Unlimited";
+"unlimited" = "Nieograniczony";
 
 
 "What’s included" = "Co jest wliczone w cenę?";
@@ -1060,13 +1060,13 @@
 "Membership.Ad.Title" = "Członkostwo";
 "Membership.Ad.Subtitle" = "Dołączenie do sieci Anytype oznacza przyczynienie się do jej historii";
 
-"Membership.Legal.Details" = "Szczegóły poziomów członkostwa";
+"Membership.Legal.Details" = "Membership plan details";
 "Membership.Legal.Privacy" = "Polityka prywatności";
 "Membership.Legal.Terms" = "Zasady i Warunki";
 "Membership.Legal.WouldYouLike" = "Czy chciałbyś używać Anytype w biznesie, edukacji itp.?";
 "Membership.Legal.LetUsKnow" = "Daj nam znać tutaj.";
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
-"Membership.Legal.RestorePurchases" = "Restore purchases";
+"Membership.Legal.RestorePurchases" = "Przywróć zakupy";
 
 "Membership.Email.Subject" = "Specjalne zapytanie o cenę";
 "Membership.Email.Body" = "Prosimy o sprecyzowanie prośby:
@@ -1101,7 +1101,7 @@
 
 "Membership.Success.Title" = "Witaj w sieci, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Support" = "Wielkie dzięki za Twoje wsparcie!";
 
 "Membership.Payment.Card" = "Karta";
 "Membership.Payment.Crypto" = "Krypto";
