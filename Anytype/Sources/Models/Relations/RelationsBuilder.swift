@@ -54,7 +54,7 @@ final class RelationsBuilder {
         
         relationsDetails.forEach { relationDetails in
             guard !relationDetails.isHidden else { return }
-            guard relationDetails.key != BundledRelationKey.globalName.rawValue || relationDetails.key != BundledRelationKey.identity.rawValue else {
+            guard relationDetails.key != BundledRelationKey.globalName.rawValue && relationDetails.key != BundledRelationKey.identity.rawValue else {
                 return // see hackGlobalNameValue
             }
             
