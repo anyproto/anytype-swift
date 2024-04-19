@@ -65,6 +65,7 @@ struct MembershipOwnerInfoSheetView: View {
                 VStack(spacing: 0) {
                     Spacer.fixedHeight(20)
                     StandardButton(Loc.managePayment, style: .secondaryLarge) {
+                        AnytypeAnalytics.instance().logClickMembership(type: .managePayment)
                         showManageSubscriptions = true
                     }
                 }

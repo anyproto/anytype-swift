@@ -35,6 +35,7 @@ struct MembershipNameSheetView: View {
                 text: Loc.payByCard,
                 style: .primaryLarge
             ) {
+                AnytypeAnalytics.instance().logClickMembership(type: .payByCard)
                 try await model.purchase()
             }
             .disabled(!model.canBuyTier)

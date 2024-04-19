@@ -48,6 +48,9 @@ struct MembershipModuleView: View {
             }
         }
         .safariSheet(url: $safariUrl)
+        .onAppear {
+            AnytypeAnalytics.instance().logScreenSettingsMembership()
+        }
     }
     
     private var title: some View {
