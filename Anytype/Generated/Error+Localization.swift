@@ -3499,6 +3499,9 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error: LocalizedError {
             case .badAnyname:
                 return String(localized: "Membership.Finalize.badAnyname", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.Finalize.badAnyname")
+            case .canNotConnect:
+                return String(localized: "Membership.Finalize.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.Finalize.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3547,6 +3550,9 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: LocalizedError {
             case .membershipAlreadyExists:
                 return String(localized: "Membership.GetPaymentUrl.membershipAlreadyExists", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.GetPaymentUrl.membershipAlreadyExists")
+            case .canNotConnect:
+                return String(localized: "Membership.GetPaymentUrl.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.GetPaymentUrl.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3580,6 +3586,9 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: LocalizedError
             case .cacheError:
                 return String(localized: "Membership.GetPortalLinkUrl.cacheError", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.GetPortalLinkUrl.cacheError")
+            case .canNotConnect:
+                return String(localized: "Membership.GetPortalLinkUrl.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.GetPortalLinkUrl.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3619,6 +3628,9 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error: LocalizedError {
             case .membershipWrongState:
                 return String(localized: "Membership.GetStatus.membershipWrongState", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.GetStatus.membershipWrongState")
+            case .canNotConnect:
+                return String(localized: "Membership.GetStatus.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.GetStatus.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3652,6 +3664,9 @@ extension Anytype_Rpc.Membership.GetTiers.Response.Error: LocalizedError {
             case .cacheError:
                 return String(localized: "Membership.GetTiers.cacheError", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.GetTiers.cacheError")
+            case .canNotConnect:
+                return String(localized: "Membership.GetTiers.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.GetTiers.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3700,6 +3715,9 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: LocalizedE
             case .membershipAlreadyExists:
                 return String(localized: "Membership.GetVerificationEmail.membershipAlreadyExists", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.GetVerificationEmail.membershipAlreadyExists")
+            case .canNotConnect:
+                return String(localized: "Membership.GetVerificationEmail.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.GetVerificationEmail.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3730,6 +3748,9 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: Loca
             case .paymentNodeError:
                 return String(localized: "Membership.GetVerificationEmailStatus.paymentNodeError", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.GetVerificationEmailStatus.paymentNodeError")
+            case .canNotConnect:
+                return String(localized: "Membership.GetVerificationEmailStatus.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.GetVerificationEmailStatus.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3778,9 +3799,12 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: LocalizedError {
             case .cacheError:
                 return String(localized: "Membership.IsNameValid.cacheError", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.IsNameValid.cacheError")
-            case .inBlacklist:
-                return String(localized: "Membership.IsNameValid.inBlacklist", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.IsNameValid.inBlacklist")
+            case .canNotReserve:
+                return String(localized: "Membership.IsNameValid.canNotReserve", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.IsNameValid.canNotReserve")
+            case .canNotConnect:
+                return String(localized: "Membership.IsNameValid.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.IsNameValid.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3829,6 +3853,9 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: LocalizedError 
             case .membershipAlreadyActive:
                 return String(localized: "Membership.VerifyEmailCode.membershipAlreadyActive", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.VerifyEmailCode.membershipAlreadyActive")
+            case .canNotConnect:
+                return String(localized: "Membership.VerifyEmailCode.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyEmailCode.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3877,6 +3904,9 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "NameService.ResolveAnyId.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "NameService.ResolveAnyId.badInput")
+            case .canNotConnect:
+                return String(localized: "NameService.ResolveAnyId.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "NameService.ResolveAnyId.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3901,6 +3931,9 @@ extension Anytype_Rpc.NameService.ResolveName.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "NameService.ResolveName.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "NameService.ResolveName.badInput")
+            case .canNotConnect:
+                return String(localized: "NameService.ResolveName.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "NameService.ResolveName.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3925,6 +3958,9 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: LocalizedError 
             case .badInput:
                 return String(localized: "NameService.ResolveSpaceId.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "NameService.ResolveSpaceId.badInput")
+            case .canNotConnect:
+                return String(localized: "NameService.ResolveSpaceId.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "NameService.ResolveSpaceId.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3955,6 +3991,9 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: LocalizedError
             case .badNameResolve:
                 return String(localized: "NameService.UserAccount.Get.badNameResolve", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "NameService.UserAccount.Get.badNameResolve")
+            case .canNotConnect:
+                return String(localized: "NameService.UserAccount.Get.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "NameService.UserAccount.Get.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
