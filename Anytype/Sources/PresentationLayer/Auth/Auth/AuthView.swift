@@ -55,20 +55,13 @@ struct AuthView: View {
             
             Spacer.fixedHeight(20)
             
-            Group {
-                AnytypeText(
-                    Loc.Auth.Welcome.Subtitle.p1,
-                    style: .uxCalloutRegular
-                ) +
-                AnytypeText(
-                    Loc.Auth.Welcome.Subtitle.p2(AboutApp.anyprotoLink),
-                    style: .uxCalloutRegular,
-                    enableMarkdown: true
-                )
-                .underline()
-            }
+            AnytypeText(
+                Loc.Auth.Welcome.subtitle(AboutApp.anyprotoLink),
+                style: .uxCalloutRegular,
+                enableMarkdown: true
+            )
             .foregroundColor(.Auth.body)
-            .accentColor(.Auth.body)
+            .accentColor(.Auth.inputText)
             .multilineTextAlignment(.center)
             .padding(.horizontal, UIDevice.isPad ? 85 : 38)
             .environment(\.openURL, OpenURLAction { url in
@@ -96,7 +89,7 @@ struct AuthView: View {
     private var buttons: some View {
         VStack(spacing: 12) {
             StandardButton(
-                Loc.join,
+                Loc.Auth.Button.join,
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()
