@@ -9,7 +9,7 @@ extension {{ type.name }}: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {

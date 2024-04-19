@@ -10,7 +10,7 @@ extension Anytype_Rpc.Account.ChangeNetworkConfigAndRestart.Response.Error: Loca
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -43,7 +43,7 @@ extension Anytype_Rpc.Account.ConfigUpdate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -70,7 +70,7 @@ extension Anytype_Rpc.Account.Create.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -111,7 +111,7 @@ extension Anytype_Rpc.Account.Delete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -138,7 +138,7 @@ extension Anytype_Rpc.Account.EnableLocalNetworkSync.Response.Error: LocalizedEr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -163,7 +163,7 @@ extension Anytype_Rpc.Account.LocalLink.NewChallenge.Response.Error: LocalizedEr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -190,7 +190,7 @@ extension Anytype_Rpc.Account.LocalLink.SolveChallenge.Response.Error: Localized
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -221,7 +221,7 @@ extension Anytype_Rpc.Account.Move.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -256,7 +256,7 @@ extension Anytype_Rpc.Account.Recover.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -281,7 +281,7 @@ extension Anytype_Rpc.Account.RecoverFromLegacyExport.Response.Error: LocalizedE
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -306,7 +306,7 @@ extension Anytype_Rpc.Account.RevertDeletion.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -333,7 +333,7 @@ extension Anytype_Rpc.Account.Select.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -382,7 +382,7 @@ extension Anytype_Rpc.Account.Stop.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -411,7 +411,7 @@ extension Anytype_Rpc.App.GetVersion.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -434,7 +434,7 @@ extension Anytype_Rpc.App.SetDeviceState.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -457,7 +457,7 @@ extension Anytype_Rpc.App.Shutdown.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -480,7 +480,7 @@ extension Anytype_Rpc.Block.Copy.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -503,7 +503,7 @@ extension Anytype_Rpc.Block.Create.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -526,7 +526,7 @@ extension Anytype_Rpc.Block.CreateWidget.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -549,7 +549,7 @@ extension Anytype_Rpc.Block.Cut.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -572,7 +572,7 @@ extension Anytype_Rpc.Block.Download.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -595,7 +595,7 @@ extension Anytype_Rpc.Block.Export.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -618,7 +618,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -641,7 +641,7 @@ extension Anytype_Rpc.Block.ListDelete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -664,7 +664,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -687,7 +687,7 @@ extension Anytype_Rpc.Block.ListMoveToExistingObject.Response.Error: LocalizedEr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -710,7 +710,7 @@ extension Anytype_Rpc.Block.ListMoveToNewObject.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -733,7 +733,7 @@ extension Anytype_Rpc.Block.ListSetAlign.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -756,7 +756,7 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor.Response.Error: LocalizedErro
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -779,7 +779,7 @@ extension Anytype_Rpc.Block.ListSetFields.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -802,7 +802,7 @@ extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -825,7 +825,7 @@ extension Anytype_Rpc.Block.ListTurnInto.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -848,7 +848,7 @@ extension Anytype_Rpc.Block.Merge.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -871,7 +871,7 @@ extension Anytype_Rpc.Block.Paste.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -894,7 +894,7 @@ extension Anytype_Rpc.Block.Preview.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -917,7 +917,7 @@ extension Anytype_Rpc.Block.Replace.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -940,7 +940,7 @@ extension Anytype_Rpc.Block.SetCarriage.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -963,7 +963,7 @@ extension Anytype_Rpc.Block.SetFields.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -986,7 +986,7 @@ extension Anytype_Rpc.Block.Split.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1009,7 +1009,7 @@ extension Anytype_Rpc.Block.Upload.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1032,7 +1032,7 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch.Response.Error: LocalizedErro
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1055,7 +1055,7 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1078,7 +1078,7 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: LocalizedErro
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1101,7 +1101,7 @@ extension Anytype_Rpc.BlockDataview.CreateFromExistingObject.Response.Error: Loc
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1124,7 +1124,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Add.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1147,7 +1147,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Remove.Response.Error: LocalizedError
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1170,7 +1170,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Replace.Response.Error: LocalizedErro
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1193,7 +1193,7 @@ extension Anytype_Rpc.BlockDataview.Filter.Sort.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1216,7 +1216,7 @@ extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: LocalizedE
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1239,7 +1239,7 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Move.Response.Error: LocalizedEr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1262,7 +1262,7 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: Localized
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1285,7 +1285,7 @@ extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1308,7 +1308,7 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: LocalizedErr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1331,7 +1331,7 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: Local
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1354,7 +1354,7 @@ extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1377,7 +1377,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Add.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1400,7 +1400,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Remove.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1423,7 +1423,7 @@ extension Anytype_Rpc.BlockDataview.Sort.Replace.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1446,7 +1446,7 @@ extension Anytype_Rpc.BlockDataview.Sort.SSort.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1469,7 +1469,7 @@ extension Anytype_Rpc.BlockDataview.View.Create.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1492,7 +1492,7 @@ extension Anytype_Rpc.BlockDataview.View.Delete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1515,7 +1515,7 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Response.Error: LocalizedErro
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1538,7 +1538,7 @@ extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: LocalizedEr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1561,7 +1561,7 @@ extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1584,7 +1584,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Add.Response.Error: LocalizedEr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1607,7 +1607,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Remove.Response.Error: Localize
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1630,7 +1630,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Replace.Response.Error: Localiz
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1653,7 +1653,7 @@ extension Anytype_Rpc.BlockDataview.ViewRelation.Sort.Response.Error: LocalizedE
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1676,7 +1676,7 @@ extension Anytype_Rpc.BlockDiv.ListSetStyle.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1699,7 +1699,7 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1722,7 +1722,7 @@ extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1745,7 +1745,7 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1768,7 +1768,7 @@ extension Anytype_Rpc.BlockImage.SetName.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1791,7 +1791,7 @@ extension Anytype_Rpc.BlockImage.SetWidth.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1814,7 +1814,7 @@ extension Anytype_Rpc.BlockLatex.SetProcessor.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1837,7 +1837,7 @@ extension Anytype_Rpc.BlockLatex.SetText.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1860,7 +1860,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1883,7 +1883,7 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error: LocalizedError
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1906,7 +1906,7 @@ extension Anytype_Rpc.BlockRelation.Add.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1929,7 +1929,7 @@ extension Anytype_Rpc.BlockRelation.SetKey.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1952,7 +1952,7 @@ extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1975,7 +1975,7 @@ extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -1998,7 +1998,7 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2021,7 +2021,7 @@ extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2044,7 +2044,7 @@ extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2067,7 +2067,7 @@ extension Anytype_Rpc.BlockTable.Create.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2090,7 +2090,7 @@ extension Anytype_Rpc.BlockTable.Expand.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2113,7 +2113,7 @@ extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2136,7 +2136,7 @@ extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2159,7 +2159,7 @@ extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2182,7 +2182,7 @@ extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2205,7 +2205,7 @@ extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2228,7 +2228,7 @@ extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2251,7 +2251,7 @@ extension Anytype_Rpc.BlockTable.Sort.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2274,7 +2274,7 @@ extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2297,7 +2297,7 @@ extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2320,7 +2320,7 @@ extension Anytype_Rpc.BlockText.ListSetColor.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2343,7 +2343,7 @@ extension Anytype_Rpc.BlockText.ListSetMark.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2366,7 +2366,7 @@ extension Anytype_Rpc.BlockText.ListSetStyle.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2389,7 +2389,7 @@ extension Anytype_Rpc.BlockText.SetChecked.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2412,7 +2412,7 @@ extension Anytype_Rpc.BlockText.SetColor.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2435,7 +2435,7 @@ extension Anytype_Rpc.BlockText.SetIcon.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2458,7 +2458,7 @@ extension Anytype_Rpc.BlockText.SetMarks.Get.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2481,7 +2481,7 @@ extension Anytype_Rpc.BlockText.SetStyle.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2504,7 +2504,7 @@ extension Anytype_Rpc.BlockText.SetText.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2527,7 +2527,7 @@ extension Anytype_Rpc.BlockVideo.SetName.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2550,7 +2550,7 @@ extension Anytype_Rpc.BlockVideo.SetWidth.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2573,7 +2573,7 @@ extension Anytype_Rpc.BlockWidget.SetLayout.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2596,7 +2596,7 @@ extension Anytype_Rpc.BlockWidget.SetLimit.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2619,7 +2619,7 @@ extension Anytype_Rpc.BlockWidget.SetTargetId.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2642,7 +2642,7 @@ extension Anytype_Rpc.BlockWidget.SetViewId.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2665,7 +2665,7 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2690,7 +2690,7 @@ extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2713,7 +2713,7 @@ extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2736,7 +2736,7 @@ extension Anytype_Rpc.Debug.Ping.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2759,7 +2759,7 @@ extension Anytype_Rpc.Debug.SpaceSummary.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2782,7 +2782,7 @@ extension Anytype_Rpc.Debug.StackGoroutines.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2805,7 +2805,7 @@ extension Anytype_Rpc.Debug.Stat.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2828,7 +2828,7 @@ extension Anytype_Rpc.Debug.Subscriptions.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2851,7 +2851,7 @@ extension Anytype_Rpc.Debug.Tree.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2874,7 +2874,7 @@ extension Anytype_Rpc.Debug.TreeHeads.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2897,7 +2897,7 @@ extension Anytype_Rpc.File.Download.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2920,7 +2920,7 @@ extension Anytype_Rpc.File.Drop.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2943,7 +2943,7 @@ extension Anytype_Rpc.File.ListOffload.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2968,7 +2968,7 @@ extension Anytype_Rpc.File.NodeUsage.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -2991,7 +2991,7 @@ extension Anytype_Rpc.File.Offload.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3016,7 +3016,7 @@ extension Anytype_Rpc.File.SpaceOffload.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3041,7 +3041,7 @@ extension Anytype_Rpc.File.SpaceUsage.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3064,7 +3064,7 @@ extension Anytype_Rpc.File.Upload.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3087,7 +3087,7 @@ extension Anytype_Rpc.Gallery.DownloadIndex.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3114,7 +3114,7 @@ extension Anytype_Rpc.Gallery.DownloadManifest.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3137,7 +3137,7 @@ extension Anytype_Rpc.GenericErrorResponse.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3160,7 +3160,7 @@ extension Anytype_Rpc.History.GetVersions.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3183,7 +3183,7 @@ extension Anytype_Rpc.History.SetVersion.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3206,7 +3206,7 @@ extension Anytype_Rpc.History.ShowVersion.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3229,7 +3229,7 @@ extension Anytype_Rpc.LinkPreview.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3252,7 +3252,7 @@ extension Anytype_Rpc.Log.Send.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3275,7 +3275,7 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3310,7 +3310,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3349,7 +3349,7 @@ extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: LocalizedError
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3378,7 +3378,7 @@ extension Anytype_Rpc.Membership.GetStatus.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3411,7 +3411,7 @@ extension Anytype_Rpc.Membership.GetTiers.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3440,7 +3440,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmail.Response.Error: LocalizedE
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3479,7 +3479,7 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: Loca
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3506,7 +3506,7 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3547,7 +3547,7 @@ extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3586,7 +3586,7 @@ extension Anytype_Rpc.Metrics.SetParameters.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3609,7 +3609,7 @@ extension Anytype_Rpc.NameService.ResolveAnyId.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3632,7 +3632,7 @@ extension Anytype_Rpc.NameService.ResolveName.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3655,7 +3655,7 @@ extension Anytype_Rpc.NameService.ResolveSpaceId.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3678,7 +3678,7 @@ extension Anytype_Rpc.NameService.UserAccount.Get.Response.Error: LocalizedError
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3705,7 +3705,7 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: Localize
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3728,7 +3728,7 @@ extension Anytype_Rpc.Navigation.ListObjects.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3751,7 +3751,7 @@ extension Anytype_Rpc.Notification.List.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3776,7 +3776,7 @@ extension Anytype_Rpc.Notification.Reply.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3801,7 +3801,7 @@ extension Anytype_Rpc.Notification.Test.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3826,7 +3826,7 @@ extension Anytype_Rpc.Object.ApplyTemplate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3849,7 +3849,7 @@ extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3872,7 +3872,7 @@ extension Anytype_Rpc.Object.Close.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3895,7 +3895,7 @@ extension Anytype_Rpc.Object.Create.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3918,7 +3918,7 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3941,7 +3941,7 @@ extension Anytype_Rpc.Object.CreateFromUrl.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3964,7 +3964,7 @@ extension Anytype_Rpc.Object.CreateObjectType.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -3987,7 +3987,7 @@ extension Anytype_Rpc.Object.CreateRelation.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4010,7 +4010,7 @@ extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: LocalizedError
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4033,7 +4033,7 @@ extension Anytype_Rpc.Object.CreateSet.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4058,7 +4058,7 @@ extension Anytype_Rpc.Object.Duplicate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4081,7 +4081,7 @@ extension Anytype_Rpc.Object.Graph.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4104,7 +4104,7 @@ extension Anytype_Rpc.Object.GroupsSubscribe.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4127,7 +4127,7 @@ extension Anytype_Rpc.Object.Import.Notion.ValidateToken.Response.Error: Localiz
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4160,7 +4160,7 @@ extension Anytype_Rpc.Object.Import.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4195,7 +4195,7 @@ extension Anytype_Rpc.Object.ImportExperience.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4220,7 +4220,7 @@ extension Anytype_Rpc.Object.ImportList.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4245,7 +4245,7 @@ extension Anytype_Rpc.Object.ImportUseCase.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4268,7 +4268,7 @@ extension Anytype_Rpc.Object.ListDelete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4291,7 +4291,7 @@ extension Anytype_Rpc.Object.ListDuplicate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4314,7 +4314,7 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4337,7 +4337,7 @@ extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4360,7 +4360,7 @@ extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4383,7 +4383,7 @@ extension Anytype_Rpc.Object.ListSetObjectType.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4406,7 +4406,7 @@ extension Anytype_Rpc.Object.Open.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4435,7 +4435,7 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4458,7 +4458,7 @@ extension Anytype_Rpc.Object.Redo.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4483,7 +4483,7 @@ extension Anytype_Rpc.Object.Search.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4506,7 +4506,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4529,7 +4529,7 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4552,7 +4552,7 @@ extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4575,7 +4575,7 @@ extension Anytype_Rpc.Object.SetDetails.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4598,7 +4598,7 @@ extension Anytype_Rpc.Object.SetInternalFlags.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4621,7 +4621,7 @@ extension Anytype_Rpc.Object.SetIsArchived.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4644,7 +4644,7 @@ extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4667,7 +4667,7 @@ extension Anytype_Rpc.Object.SetLayout.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4690,7 +4690,7 @@ extension Anytype_Rpc.Object.SetObjectType.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4713,7 +4713,7 @@ extension Anytype_Rpc.Object.SetSource.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4736,7 +4736,7 @@ extension Anytype_Rpc.Object.ShareByLink.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4759,7 +4759,7 @@ extension Anytype_Rpc.Object.Show.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4788,7 +4788,7 @@ extension Anytype_Rpc.Object.SubscribeIds.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4811,7 +4811,7 @@ extension Anytype_Rpc.Object.ToBookmark.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4834,7 +4834,7 @@ extension Anytype_Rpc.Object.ToCollection.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4857,7 +4857,7 @@ extension Anytype_Rpc.Object.ToSet.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4880,7 +4880,7 @@ extension Anytype_Rpc.Object.Undo.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4905,7 +4905,7 @@ extension Anytype_Rpc.Object.WorkspaceSetDashboard.Response.Error: LocalizedErro
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4928,7 +4928,7 @@ extension Anytype_Rpc.ObjectCollection.Add.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4951,7 +4951,7 @@ extension Anytype_Rpc.ObjectCollection.Remove.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4974,7 +4974,7 @@ extension Anytype_Rpc.ObjectCollection.Sort.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -4997,7 +4997,7 @@ extension Anytype_Rpc.ObjectRelation.Add.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5020,7 +5020,7 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5043,7 +5043,7 @@ extension Anytype_Rpc.ObjectRelation.Delete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5066,7 +5066,7 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable.Response.Error: LocalizedErro
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5089,7 +5089,7 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: LocalizedErr
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5112,7 +5112,7 @@ extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5137,7 +5137,7 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: LocalizedError 
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5162,7 +5162,7 @@ extension Anytype_Rpc.Process.Cancel.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5185,7 +5185,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5210,7 +5210,7 @@ extension Anytype_Rpc.Relation.Options.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5233,7 +5233,7 @@ extension Anytype_Rpc.Space.Delete.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5266,7 +5266,7 @@ extension Anytype_Rpc.Space.InviteGenerate.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5299,7 +5299,7 @@ extension Anytype_Rpc.Space.InviteGetCurrent.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5324,7 +5324,7 @@ extension Anytype_Rpc.Space.InviteRevoke.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5357,7 +5357,7 @@ extension Anytype_Rpc.Space.InviteView.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5384,7 +5384,7 @@ extension Anytype_Rpc.Space.Join.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5421,7 +5421,7 @@ extension Anytype_Rpc.Space.JoinCancel.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5456,7 +5456,7 @@ extension Anytype_Rpc.Space.LeaveApprove.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5491,7 +5491,7 @@ extension Anytype_Rpc.Space.MakeShareable.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5522,7 +5522,7 @@ extension Anytype_Rpc.Space.ParticipantPermissionsChange.Response.Error: Localiz
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5559,7 +5559,7 @@ extension Anytype_Rpc.Space.ParticipantRemove.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5594,7 +5594,7 @@ extension Anytype_Rpc.Space.RequestApprove.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5631,7 +5631,7 @@ extension Anytype_Rpc.Space.RequestDecline.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5666,7 +5666,7 @@ extension Anytype_Rpc.Space.StopSharing.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5697,7 +5697,7 @@ extension Anytype_Rpc.Template.Clone.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5720,7 +5720,7 @@ extension Anytype_Rpc.Template.CreateFromObject.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5743,7 +5743,7 @@ extension Anytype_Rpc.Template.ExportAll.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5766,7 +5766,7 @@ extension Anytype_Rpc.Unsplash.Download.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5791,7 +5791,7 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5816,7 +5816,7 @@ extension Anytype_Rpc.Wallet.CloseSession.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5839,7 +5839,7 @@ extension Anytype_Rpc.Wallet.Convert.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5862,7 +5862,7 @@ extension Anytype_Rpc.Wallet.Create.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5887,7 +5887,7 @@ extension Anytype_Rpc.Wallet.CreateSession.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5912,7 +5912,7 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5937,7 +5937,7 @@ extension Anytype_Rpc.Workspace.Create.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5960,7 +5960,7 @@ extension Anytype_Rpc.Workspace.Export.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -5983,7 +5983,7 @@ extension Anytype_Rpc.Workspace.GetAll.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -6006,7 +6006,7 @@ extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -6029,7 +6029,7 @@ extension Anytype_Rpc.Workspace.Object.Add.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -6052,7 +6052,7 @@ extension Anytype_Rpc.Workspace.Object.ListAdd.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -6075,7 +6075,7 @@ extension Anytype_Rpc.Workspace.Object.ListRemove.Response.Error: LocalizedError
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -6098,7 +6098,7 @@ extension Anytype_Rpc.Workspace.Open.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -6121,7 +6121,7 @@ extension Anytype_Rpc.Workspace.Select.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
@@ -6144,7 +6144,7 @@ extension Anytype_Rpc.Workspace.SetInfo.Response.Error: LocalizedError {
         if localizeError.isNotEmpty {
             return localizeError
         }
-        return "Code: \(code), description: \(description_p)"
+        return "Error: \(description_p) (\(code))"
     }
 
     private func localizeError() -> String {
