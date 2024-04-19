@@ -12,7 +12,7 @@ extension MembershipServiceProtocol.ValidateNameError {
             Loc.Membership.NameForm.Error.tooLong
         case .hasInvalidChars:
             Loc.Membership.NameForm.Error.hasInvalidChars
-        case .UNRECOGNIZED, .unknownError, .null, .badInput, .tierFeaturesNoName, .notLoggedIn, .paymentNodeError, .cacheError, .tierNotFound, .inBlacklist:
+        case .UNRECOGNIZED, .unknownError, .null, .badInput, .tierFeaturesNoName, .notLoggedIn, .paymentNodeError, .cacheError, .tierNotFound, .canNotConnect, .canNotReserve:
             Loc.ErrorOccurred.pleaseTryAgain
         }
     }

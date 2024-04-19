@@ -5311,7 +5311,9 @@ public struct Anytype_Model_Membership {
   public var paymentMethod: Anytype_Model_Membership.PaymentMethod = .methodNone
 
   /// can be empty if user did not ask for any name
-  public var requestedAnyName: String = String()
+  public var nsName: String = String()
+
+  public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
 
   /// if the email was verified by the user or set during the checkout - it will be here
   public var userEmail: String = String()
@@ -11180,9 +11182,10 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
     4: .same(proto: "dateEnds"),
     5: .same(proto: "isAutoRenew"),
     6: .same(proto: "paymentMethod"),
-    7: .same(proto: "requestedAnyName"),
-    8: .same(proto: "userEmail"),
-    9: .same(proto: "subscribeToNewsletter"),
+    7: .same(proto: "nsName"),
+    8: .same(proto: "nsNameType"),
+    9: .same(proto: "userEmail"),
+    10: .same(proto: "subscribeToNewsletter"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -11197,9 +11200,10 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 4: try { try decoder.decodeSingularUInt64Field(value: &self.dateEnds) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.isAutoRenew) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.paymentMethod) }()
-      case 7: try { try decoder.decodeSingularStringField(value: &self.requestedAnyName) }()
-      case 8: try { try decoder.decodeSingularStringField(value: &self.userEmail) }()
-      case 9: try { try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
+      case 9: try { try decoder.decodeSingularStringField(value: &self.userEmail) }()
+      case 10: try { try decoder.decodeSingularBoolField(value: &self.subscribeToNewsletter) }()
       default: break
       }
     }
@@ -11224,14 +11228,17 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if self.paymentMethod != .methodNone {
       try visitor.visitSingularEnumField(value: self.paymentMethod, fieldNumber: 6)
     }
-    if !self.requestedAnyName.isEmpty {
-      try visitor.visitSingularStringField(value: self.requestedAnyName, fieldNumber: 7)
+    if !self.nsName.isEmpty {
+      try visitor.visitSingularStringField(value: self.nsName, fieldNumber: 7)
+    }
+    if self.nsNameType != .anyName {
+      try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 8)
     }
     if !self.userEmail.isEmpty {
-      try visitor.visitSingularStringField(value: self.userEmail, fieldNumber: 8)
+      try visitor.visitSingularStringField(value: self.userEmail, fieldNumber: 9)
     }
     if self.subscribeToNewsletter != false {
-      try visitor.visitSingularBoolField(value: self.subscribeToNewsletter, fieldNumber: 9)
+      try visitor.visitSingularBoolField(value: self.subscribeToNewsletter, fieldNumber: 10)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -11243,7 +11250,8 @@ extension Anytype_Model_Membership: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.dateEnds != rhs.dateEnds {return false}
     if lhs.isAutoRenew != rhs.isAutoRenew {return false}
     if lhs.paymentMethod != rhs.paymentMethod {return false}
-    if lhs.requestedAnyName != rhs.requestedAnyName {return false}
+    if lhs.nsName != rhs.nsName {return false}
+    if lhs.nsNameType != rhs.nsNameType {return false}
     if lhs.userEmail != rhs.userEmail {return false}
     if lhs.subscribeToNewsletter != rhs.subscribeToNewsletter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
