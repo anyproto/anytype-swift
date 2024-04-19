@@ -76,7 +76,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var emptyStateMode: EditorSetEmptyMode {
-        isEmptyQuery && !setDocument.isCollection() ? .emptyQuery : .emptyList
+        isEmptyQuery && !setDocument.isCollection() ?
+            .emptyQuery(canChange: setDocument.setPermissions.canChangeQuery) :
+            .emptyList(canChange: setDocument.setPermissions.canCreateObject)
     }
     
     var subscriptionId: String {

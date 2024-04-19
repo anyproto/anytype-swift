@@ -1,12 +1,11 @@
 struct EditorSetEmptyViewModel {
     let mode: EditorSetEmptyMode
-    let allowTap: Bool
     let onTap: () -> Void
 }
 
 enum EditorSetEmptyMode {
-    case emptyQuery
-    case emptyList
+    case emptyQuery(canChange: Bool)
+    case emptyList(canChange: Bool)
     
     var title: String {
         switch self {
@@ -32,6 +31,15 @@ enum EditorSetEmptyMode {
             return Loc.Set.SourceType.selectQuery
         case .emptyList:
             return Loc.Collection.View.Empty.Button.title
+        }
+    }
+    
+    var canChange: Bool {
+        switch self {
+        case let .emptyQuery(canChange):
+            return canChange
+        case let .emptyList(canChange):
+            return canChange
         }
     }
 }
