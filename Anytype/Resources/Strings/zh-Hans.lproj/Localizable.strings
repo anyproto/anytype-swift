@@ -190,6 +190,7 @@
 "Copied" = "已复制";
 "Share" = "分享";
 "Okay" = "好的";
+"Join" = "加入";
 
 // Home
 "Favorites" = "收藏夹";
@@ -220,9 +221,8 @@
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore key from keychain" = "从钥匙串恢复密钥";
 "Auth.LogIn" = "我有一个密钥";
-"Join" = "新建库";
-"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
-"Auth.Welcome.Subtitle.p2" = "[open](%@).";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
 
@@ -240,7 +240,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "这是您的密钥";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "显示我的密钥";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "进入我的库";
 "Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
@@ -251,7 +251,7 @@
 "Auth.JoinFlow.Key.ReadMore.Title" = "密钥是什么？
 ";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是 12 个单词的随机组合，您的数据库在此设备上神奇般地生成。";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "地球上所有的计算机都无法获取。如果你失去了它，它就无法恢复。所以，把它存放在安全的地方！";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "怎么储存我的密钥？";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存密钥最简单的方法是将其保存在您的密码管理器中。";
@@ -1064,7 +1064,7 @@
 ";
 "Membership.Ad.Subtitle" = "加入 Anytype Network 意味着一起书写它的故事";
 
-"Membership.Legal.Details" = "会员等级详情";
+"Membership.Legal.Details" = "Membership plan details";
 "Membership.Legal.Privacy" = "隐私政策";
 "Membership.Legal.Terms" = "条款与条件";
 "Membership.Legal.WouldYouLike" = "您想要使用 Anytype 用于例如商业、教育或者其他类似用途吗？";
