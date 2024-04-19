@@ -89,7 +89,7 @@ struct AuthView: View {
     private var buttons: some View {
         VStack(spacing: 12) {
             StandardButton(
-                Loc.join,
+                Loc.Auth.Button.join,
                 style: .primaryLarge,
                 action: {
                     model.onJoinButtonTap()

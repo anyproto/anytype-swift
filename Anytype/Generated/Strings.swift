@@ -404,6 +404,9 @@ internal enum Loc {
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle")
     internal static let logIn = Loc.tr("Localizable", "Auth.LogIn")
     internal static let next = Loc.tr("Localizable", "Auth.Next")
+    internal enum Button {
+      internal static let join = Loc.tr("Localizable", "Auth.Button.Join")
+    }
     internal enum Caption {
       internal enum Privacy {
         internal static func text(_ p1: Any, _ p2: Any) -> String {
