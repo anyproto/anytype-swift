@@ -57,6 +57,7 @@ struct MembershipTierSelectionView: View {
                 case .external(let info):
                     VStack {
                         StandardButton(Loc.moreInfo, style: .primaryLarge) {
+                            AnytypeAnalytics.instance().logClickMembership(type: .moreInfo)
                             safariUrl = info.paymentUrl
                         }
                         .padding(.horizontal, 20)

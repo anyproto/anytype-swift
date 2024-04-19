@@ -925,4 +925,20 @@ extension AnytypeAnalytics {
     func logDeleteRelation(spaceId: String) {
         logEvent("DeleteRelation", spaceId: spaceId)
     }
+    
+    func logScreenSettingsMembership() {
+        logEvent("ScreenSettingsMembership")
+    }
+    
+    func logScreenMembership(tier: MembershipTier) {
+        logEvent("ScreenMembership", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])
+    }
+    
+    func logClickMembership(type: ClickMembershipType) {
+        logEvent("ClickMembership", withEventProperties: [AnalyticsEventsPropertiesKey.type:  type.rawValue])
+    }
+    
+    func logChangePlan(tier: MembershipTier) {
+        logEvent("ChangePlan", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])
+    }
 }

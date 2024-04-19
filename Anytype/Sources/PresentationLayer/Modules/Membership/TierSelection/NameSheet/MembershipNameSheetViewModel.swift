@@ -110,6 +110,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
         
     func purchase() async throws {
         try await storeKitService.purchase(product: product)
+        
+        AnytypeAnalytics.instance().logChangePlan(tier: tier)
+        
         onSuccessfulPurchase(tier)
     }
 }
