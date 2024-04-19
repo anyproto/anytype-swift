@@ -12545,6 +12545,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				BUILD_APP_URL_SCHEME = "dev-anytype";
+				BUNDLE_NAME = "$(TARGET_NAME) Dev";
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -12589,6 +12590,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				BUILD_APP_URL_SCHEME = "prod-anytype";
+				BUNDLE_NAME = "$(TARGET_NAME)";
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -12745,6 +12747,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				BUILD_APP_URL_SCHEME = "dev-anytype";
+				BUNDLE_NAME = "$(TARGET_NAME) Dev";
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -12769,7 +12772,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
-				PRODUCT_NAME = "Anytype Dev";
+				PRODUCT_NAME = "$(TARGET_NAME) Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev";
 				SENTRY_ENV = development;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

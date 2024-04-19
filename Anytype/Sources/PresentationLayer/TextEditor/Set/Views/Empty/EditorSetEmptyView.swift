@@ -24,7 +24,7 @@ struct EditorSetEmptyView: View {
             
             Spacer.fixedHeight(16)
             
-            if model.allowTap {
+            if model.mode.enableAction {
                 Button {
                     model.onTap()
                 } label: {
@@ -41,14 +41,11 @@ struct EditorSetEmptyView: View {
     }
 }
 
-struct EditorSetEmptyView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditorSetEmptyView(
-            model: EditorSetEmptyViewModel(
-                mode: .emptyQuery,
-                allowTap: true,
-                onTap: {}
-            )
+#Preview {
+    EditorSetEmptyView(
+        model: EditorSetEmptyViewModel(
+            mode: .emptyQuery(canChange: true),
+            onTap: {}
         )
-    }
+    )
 }
