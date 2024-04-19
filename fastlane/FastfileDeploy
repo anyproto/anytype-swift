@@ -95,7 +95,6 @@ platform :ios do
       )
     end
 
-    build_name = options[:release] ? "Anytype" : "Anytype Dev"
     dsym_paths = []
     Dir.chdir("..") do
       dsym_paths = Dir["./build/result/*.dSYM.zip"]

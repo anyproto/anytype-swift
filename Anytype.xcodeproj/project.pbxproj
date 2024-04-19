@@ -1765,7 +1765,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0303ECFB22D8EDAA005C552B /* Anytype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Anytype.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0303ECFB22D8EDAA005C552B /* Anytype Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Anytype Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0303ECFE22D8EDAA005C552B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0303ED0022D8EDAA005C552B /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0303ED0422D8EDAD005C552B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Anytype/Resources/Assets.xcassets; sourceTree = SOURCE_ROOT; };
@@ -3552,7 +3552,7 @@
 		0303ECFC22D8EDAA005C552B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0303ECFB22D8EDAA005C552B /* Anytype.app */,
+				0303ECFB22D8EDAA005C552B /* Anytype Dev.app */,
 				03C5C54022DFD90C00DD91DE /* AnytypeTests.xctest */,
 				C960DFA928D88615002898AE /* AnytypeWidgetExtension.appex */,
 				862D55902A8F78330018103F /* AnytypeShareExtension.appex */,
@@ -10400,7 +10400,7 @@
 				2A30B2072BB44A0C00206806 /* QRCode */,
 			);
 			productName = Anytype;
-			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
+			productReference = 0303ECFB22D8EDAA005C552B /* Anytype Dev.app */;
 			productType = "com.apple.product-type.application";
 		};
 		03C5C53F22DFD90C00DD91DE /* AnytypeTests */ = {
@@ -12569,7 +12569,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(TARGET_NAME) Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development io.anytype.app.dev";
 				SENTRY_ENV = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -12769,7 +12769,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
-				PRODUCT_NAME = "Anytype Dev";
+				PRODUCT_NAME = "$(TARGET_NAME) Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.anytype.app.dev";
 				SENTRY_ENV = development;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
