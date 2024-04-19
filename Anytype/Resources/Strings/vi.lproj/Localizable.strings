@@ -191,6 +191,7 @@
 "Copied" = "Đã sao chép";
 "Share" = "Share";
 "Okay" = "Okay";
+"Join" = "Join";
 
 // Home
 "Favorites" = "Ưa thích";
@@ -221,9 +222,8 @@
 "Auth.CameraPermissionTitle" = "Hãy cho phép truy cập";
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
-"Join" = "New Vault";
-"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
-"Auth.Welcome.Subtitle.p2" = "[open](%@).";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Tiếp";
 
@@ -241,7 +241,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
@@ -251,7 +251,7 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
@@ -1061,7 +1061,7 @@
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
 
-"Membership.Legal.Details" = "Membership levels details";
+"Membership.Legal.Details" = "Membership plan details";
 "Membership.Legal.Privacy" = "Privacy policy";
 "Membership.Legal.Terms" = "Terms and conditions";
 "Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";

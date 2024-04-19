@@ -190,6 +190,7 @@
 "Copied" = "Copié";
 "Share" = "Partager";
 "Okay" = "D'accord";
+"Join" = "Rejoindre";
 
 // Home
 "Favorites" = "Favoris";
@@ -220,9 +221,8 @@
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "J'ai une clé";
-"Join" = "Nouveau coffre-fort";
-"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
-"Auth.Welcome.Subtitle.p2" = "[open](%@).";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
 
@@ -240,7 +240,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Ceci est votre clé";
-"Auth.JoinFlow.Key.Description" = "Elle vous donne la pleine propriété de votre coffre.\nElle ne peut pas être récupéré.";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Afficher ma clé";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Accéder à mon coffre";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Ignorer";
@@ -250,7 +250,7 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Qu'est-ce que la Clé ?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "La phrase de récupération est une combinaison aléatoire de 12 mots à partir desquels votre compte est généré comme par magie sur cet appareil.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Toutes les ressources de calcul sur Terre ne suffisent pas à la briser. Si vous la perdez, elle ne peut pas être récupérée. Alors, stockez-la quelque part en sécurité !";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Comment sauvegarder ma phrase ?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La façon la plus simple de conserver votre phrase de récupération est de l’enregistrer dans votre gestionnaire de mots de passe.";
@@ -1060,7 +1060,7 @@
 "Membership.Ad.Title" = "Adhésion";
 "Membership.Ad.Subtitle" = "Rejoindre le réseau Anytype signifie contribuer à son histoire";
 
-"Membership.Legal.Details" = "Détails des niveaux d'adhésion";
+"Membership.Legal.Details" = "Membership plan details";
 "Membership.Legal.Privacy" = "Politique de confidentialité";
 "Membership.Legal.Terms" = "Termes et conditions";
 "Membership.Legal.WouldYouLike" = "Vous souhaitez utiliser Anytype pour les affaires, l'éducation, etc.?";

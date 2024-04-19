@@ -190,6 +190,7 @@
 "Copied" = "Disalin";
 "Share" = "Bagikan";
 "Okay" = "Oke";
+"Join" = "Gabung";
 
 // Home
 "Favorites" = "Favorit";
@@ -220,9 +221,8 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
-"Join" = "New Vault";
-"Auth.Welcome.Subtitle.p1" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ";
-"Auth.Welcome.Subtitle.p2" = "[open](%@).";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Dengan melanjutkan, kamu menyetujui [Syarat Penggunaan](%@) dan [Kebijakan Privasi](%@)";
 "Auth.Next" = "Lanjut";
 
@@ -240,7 +240,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Lewati";
@@ -250,7 +250,7 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
@@ -1060,7 +1060,7 @@
 "Membership.Ad.Title" = "Langganan";
 "Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";
 
-"Membership.Legal.Details" = "Detail level langganan";
+"Membership.Legal.Details" = "Membership plan details";
 "Membership.Legal.Privacy" = "Kebijakan privasi";
 "Membership.Legal.Terms" = "Syarat dan ketentuan";
 "Membership.Legal.WouldYouLike" = "Apakah Anda ingin menggunakan Anytype untuk bisnis, pendidikan, dll.?";
