@@ -621,6 +621,8 @@
 		2A96B5B42ABB454800B59A1D /* EditorPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A96B5B32ABB454800B59A1D /* EditorPageView.swift */; };
 		2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */; };
 		2A971C08297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A971C07297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift */; };
+		2A9BC1352BD175E8007AFCDF /* LocalizableError.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2A9BC1342BD175E8007AFCDF /* LocalizableError.xcstrings */; };
+		2A9BC1372BD18357007AFCDF /* Error+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9BC1362BD18357007AFCDF /* Error+Localization.swift */; };
 		2A9C187A2BA0A95900DFE560 /* AccountParticipantsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C18792BA0A95900DFE560 /* AccountParticipantsStorage.swift */; };
 		2A9C187E2BA18A2400DFE560 /* ObjectPermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */; };
 		2A9C18802BA1B76D00DFE560 /* EditBlocksPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9C187F2BA1B76D00DFE560 /* EditBlocksPermission.swift */; };
@@ -2382,6 +2384,8 @@
 		2A96B5B32ABB454800B59A1D /* EditorPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageView.swift; sourceTree = "<group>"; };
 		2A971C05297E75D300D3D786 /* RecentSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentSubscriptionService.swift; sourceTree = "<group>"; };
 		2A971C07297E7BFD00D3D786 /* ListWidgetRowModel+ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ListWidgetRowModel+ObjectDetails.swift"; sourceTree = "<group>"; };
+		2A9BC1342BD175E8007AFCDF /* LocalizableError.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = LocalizableError.xcstrings; sourceTree = "<group>"; };
+		2A9BC1362BD18357007AFCDF /* Error+Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Error+Localization.swift"; sourceTree = "<group>"; };
 		2A9C18792BA0A95900DFE560 /* AccountParticipantsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountParticipantsStorage.swift; sourceTree = "<group>"; };
 		2A9C187D2BA18A2400DFE560 /* ObjectPermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPermissions.swift; sourceTree = "<group>"; };
 		2A9C187F2BA1B76D00DFE560 /* EditBlocksPermission.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBlocksPermission.swift; sourceTree = "<group>"; };
@@ -3583,6 +3587,7 @@
 		0303ED1222D8F231005C552B /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				2A9BC12F2BD16A87007AFCDF /* ErrorLocalization */,
 				2A78A9542B9F36A800396B82 /* PreviewMocks */,
 				C9A7528128E3295800235BDE /* Shared */,
 				530A5426269FB8A4009016AE /* Analytics */,
@@ -3664,6 +3669,7 @@
 				0AAC96662340C288006CE58C /* Localizable.strings */,
 				03A46A42231417D6009AC10C /* InfoPlist.strings */,
 				2AFB542128634FC5004F7458 /* Localizable.stringsdict */,
+				2A9BC1342BD175E8007AFCDF /* LocalizableError.xcstrings */,
 			);
 			path = Strings;
 			sourceTree = "<group>";
@@ -6277,6 +6283,13 @@
 			children = (
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		2A9BC12F2BD16A87007AFCDF /* ErrorLocalization */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ErrorLocalization;
 			sourceTree = "<group>";
 		};
 		2A9C18782BA0A92900DFE560 /* AccountParticipantsStorage */ = {
@@ -10106,6 +10119,7 @@
 		C9C536A4276C75F4003CD3F3 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				2A9BC1362BD18357007AFCDF /* Error+Localization.swift */,
 				2AEAA48429F68BC8009ACA00 /* Color+Info.swift */,
 				2AFB541C28621776004F7458 /* Strings.swift */,
 				C9C536A5276C75F4003CD3F3 /* Assets.swift */,
@@ -10560,6 +10574,7 @@
 				3D568FB5266A287400DC7881 /* SystemColors.xcassets in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
 				EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */,
+				2A9BC1352BD175E8007AFCDF /* LocalizableError.xcstrings in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
 				0303ED0B22D8EDAD005C552B /* LaunchScreen.storyboard in Resources */,
 				0303ED0822D8EDAD005C552B /* Preview Assets.xcassets in Resources */,
@@ -10689,6 +10704,7 @@
 				2AD1FCC12AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift in Sources */,
 				C9EF85172938E6A50001E6EC /* TappableLabel.swift in Sources */,
 				2EC9426E2901946800DE91E4 /* SetKanbanColumn.swift in Sources */,
+				2A9BC1372BD18357007AFCDF /* Error+Localization.swift in Sources */,
 				123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */,
 				12C8440926FCECA300D64B8D /* ObjectHeaderFilledContentView.swift in Sources */,
 				2E0797C82A09678D006F0FD7 /* AuthView.swift in Sources */,

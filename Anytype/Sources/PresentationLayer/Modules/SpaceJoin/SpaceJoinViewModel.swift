@@ -116,7 +116,7 @@ final class SpaceJoinViewModel: ObservableObject {
             } else {
                 dataState = .invite
             }
-        } catch let error as InviteViewError where error.code == .inviteNotFound {
+        } catch let error as SpaceInviteViewError where error.code == .inviteNotFound {
             dataState = .inviteNotFound
             state = .data
         } catch {
