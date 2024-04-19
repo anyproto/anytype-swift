@@ -24,7 +24,7 @@ struct EditorSetEmptyView: View {
             
             Spacer.fixedHeight(16)
             
-            if model.mode.canChange {
+            if model.mode.enableAction {
                 Button {
                     model.onTap()
                 } label: {

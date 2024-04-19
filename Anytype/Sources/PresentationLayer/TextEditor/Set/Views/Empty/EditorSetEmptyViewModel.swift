@@ -5,7 +5,7 @@ struct EditorSetEmptyViewModel {
 
 enum EditorSetEmptyMode {
     case emptyQuery(canChange: Bool)
-    case emptyList(canChange: Bool)
+    case emptyList(canCreate: Bool)
     
     var title: String {
         switch self {
@@ -34,12 +34,12 @@ enum EditorSetEmptyMode {
         }
     }
     
-    var canChange: Bool {
+    var enableAction: Bool {
         switch self {
         case let .emptyQuery(canChange):
             return canChange
-        case let .emptyList(canChange):
-            return canChange
+        case let .emptyList(canCreate):
+            return canCreate
         }
     }
 }
