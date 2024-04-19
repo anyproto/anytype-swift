@@ -177,6 +177,28 @@
         }
       }
     },
+    "Space.InviteView.inviteBadContent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+          }
+        }
+      }
+    },
+    "Space.InviteView.inviteNotFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        }
+      }
+    },
     "Space.Join.inviteBadContent" : {
       "extractionState" : "manual",
       "localizations" : {

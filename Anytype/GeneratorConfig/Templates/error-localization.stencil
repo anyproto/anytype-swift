@@ -18,10 +18,12 @@ extension {{ type.name }}: LocalizedError {
         {% if variable.name == "code" %}
             {% for case in variable.type.cases %}
             case .{{ case.name }}:
-                {% if case.name == "null" or case.name == "unknownError" or case.name == "UNRECOGNIZED" or case.name == "badInput" %}
-                ""
+                {% if case.name == "null" or case.name == "unknownError" or case.name == "UNRECOGNIZED" %}
+                return ""
                 {% else %}
-                String(localizedFixedKey: "{{ type.name | replace:"Anytype_Rpc.","" | replace:".Response.Error","" }}.{{ case.name }}", table: "LocalizableError")
+                {% set locKey %}{{ type.name | replace:"Anytype_Rpc.","" | replace:".Response.Error","" }}.{{ case.name }}{% endset %}
+                return String(localized: "{{ locKey }}", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "{{ locKey }}")
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -35,12 +37,11 @@ extension {{ type.name }}: LocalizedError {
 
 private extension String {
     // If default value is emplty, Apple return key. But we expect that localziation return empty string
-    init(localizedFixedKey: StaticString, table: String? = nil) {
-        let result = String(localized: localizedFixedKey, defaultValue: "", table: table)
-        if result == "\(localizedFixedKey)" {
-            self = ""
+    func checkValue(key: String) -> String {
+        if self == key {
+            return ""
         } else {
-            self = result
+            return self
         }
     }
 }
