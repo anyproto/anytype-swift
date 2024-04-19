@@ -740,8 +740,8 @@ internal enum Loc {
     internal enum JoinFlow {
       internal enum Key {
         /// It gives you full ownership over your vault.
-        /// It can not be recovered.
-        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "It gives you full ownership over your vault.\nIt can not be recovered.")
+        /// It cannot be recovered.
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description", fallback: "It gives you full ownership over your vault.\nIt cannot be recovered.")
         /// This is your Key
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.Title", fallback: "This is your Key")
         internal enum Button {
@@ -790,8 +790,8 @@ internal enum Loc {
             internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option1.Title", fallback: "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.")
           }
           internal enum Option2 {
-            /// Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**
-            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Who knows combination of these words – owns the vault. **Now, you are the only person in the world who knows it**")
+            /// Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**
+            internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Key.ReadMore.Option2.Title", fallback: "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**")
           }
           internal enum Option3 {
             /// All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!
@@ -836,8 +836,8 @@ internal enum Loc {
     }
     internal enum Welcome {
       internal enum Subtitle {
-        /// Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is 
-        internal static let p1 = Loc.tr("Localizable", "Auth.Welcome.Subtitle.p1", fallback: "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is ")
+        /// Create & collaborate in spaces you own. Encrypted, offline & 
+        internal static let p1 = Loc.tr("Localizable", "Auth.Welcome.Subtitle.p1", fallback: "Create & collaborate in spaces you own. Encrypted, offline & ")
         /// [open](%@).
         internal static func p2(_ p1: Any) -> String {
           return Loc.tr("Localizable", "Auth.Welcome.Subtitle.p2", String(describing: p1), fallback: "[open](%@).")
@@ -1518,8 +1518,8 @@ internal enum Loc {
     internal enum Legal {
       /// Already purchased tier?
       internal static let alreadyPurchasedTier = Loc.tr("Localizable", "Membership.Legal.AlreadyPurchasedTier", fallback: "Already purchased tier?")
-      /// Membership levels details
-      internal static let details = Loc.tr("Localizable", "Membership.Legal.Details", fallback: "Membership levels details")
+      /// Membership plan details
+      internal static let details = Loc.tr("Localizable", "Membership.Legal.Details", fallback: "Membership plan details")
       /// Please let us know here.
       internal static let letUsKnow = Loc.tr("Localizable", "Membership.Legal.LetUsKnow", fallback: "Please let us know here.")
       /// Privacy policy
