@@ -39,8 +39,8 @@ struct MembershipTierListView: View {
                     status: .unknown,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodStripe,
-                    anyName: ""
-                ), 
+                    anyName: .mockEmpty
+                ),
                 tiers: [
                     MembershipTier.mockExplorer,
                     MembershipTier.mockBuilder,
@@ -54,7 +54,7 @@ struct MembershipTierListView: View {
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodStripe,
-                    anyName: ""
+                    anyName: .mockEmpty
                 ),
                 tiers: [
                     MembershipTier.mockExplorer,
@@ -69,7 +69,7 @@ struct MembershipTierListView: View {
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodStripe,
-                    anyName: ""
+                    anyName: .mockEmpty
                 ),
                 tiers: [
                     MembershipTier.mockExplorer,
@@ -84,7 +84,7 @@ struct MembershipTierListView: View {
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodStripe,
-                    anyName: ""
+                    anyName: .mockEmpty
                 ),
                 tiers: [
                     MembershipTier.mockCustom,
@@ -100,7 +100,7 @@ struct MembershipTierListView: View {
                     status: .active,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodStripe,
-                    anyName: ""
+                    anyName: .mockEmpty
                 ),
                 tiers: [
                     MembershipTier.mockBuilder,
@@ -114,7 +114,7 @@ struct MembershipTierListView: View {
                     status: .pending,
                     dateEnds: .tomorrow,
                     paymentMethod: .methodStripe,
-                    anyName: ""
+                    anyName: .mockEmpty
                 ),
                 tiers: [
                     MembershipTier.mockCoCreator

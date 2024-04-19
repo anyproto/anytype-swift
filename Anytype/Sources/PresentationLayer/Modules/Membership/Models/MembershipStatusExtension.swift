@@ -1,18 +1,18 @@
 import Services
 import Foundation
 
+extension AnyNameExtension: CustomStringConvertible  {
+    public var description: String {
+        switch self {
+        case .anyName:
+            ".any"
+        case .UNRECOGNIZED:
+            ""
+        }
+    }
+}
 
 public extension MembershipStatus {
-    static var empty: MembershipStatus {
-        return MembershipStatus(
-            tier: nil,
-            status: .unknown,
-            dateEnds: .distantFuture,
-            paymentMethod: .methodStripe,
-            anyName: ""
-        )
-    }
-    
     var formattedDateEnds: String {
         let dateFormatter = DateFormatter()
         

@@ -7,7 +7,7 @@ struct MembershipNameSheetView: View {
     @StateObject private var model: MembershipNameSheetViewModel
     @State private var name = ""
     
-    init(tier: MembershipTier, anyName: String, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
+    init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         _model = StateObject(
             wrappedValue: MembershipNameSheetViewModel(tier: tier, anyName: anyName, product: product, onSuccessfulPurchase: onSuccessfulPurchase)
         )
@@ -90,10 +90,10 @@ struct MembershipNameSheetView: View {
     
     var nameLabel: some View {
         HStack {
-            AnytypeText(model.anyName, style: .uxBodyRegular)
+            AnytypeText(model.anyName.handle, style: .uxBodyRegular)
                 .foregroundColor(.Text.primary)
             Spacer()
-            AnytypeText(".any", style: .bodyRegular)
+            AnytypeText(model.anyName.extension.description, style: .bodyRegular)
                 .foregroundColor(.Text.primary)
         }
         .padding(.vertical, 12)

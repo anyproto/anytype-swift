@@ -115,7 +115,7 @@ struct MembershipTierView: View {
                 status: .pending,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: ""
+                anyName: .mockEmpty
             )
         } content: {
             HStack {
@@ -136,7 +136,7 @@ struct MembershipTierView: View {
                 status: .pending,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: ""
+                anyName: .mockEmpty
             )
         } content: {
             HStack {
@@ -157,7 +157,7 @@ struct MembershipTierView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodInappApple,
-                anyName: ""
+                anyName: .mockEmpty
             )
         } content: {
             HStack {
@@ -178,7 +178,7 @@ struct MembershipTierView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: ""
+                anyName: .mockEmpty
             )
         } content: {
             HStack {
@@ -199,7 +199,7 @@ struct MembershipTierView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodCrypto,
-                anyName: ""
+                anyName: .mockEmpty
             )
         } content: {
             HStack {

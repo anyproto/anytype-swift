@@ -1370,6 +1370,8 @@
 		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
 		3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */; };
+		3DF58C522BD2CD780056D0BB /* MembershipTier+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF58C512BD2CD780056D0BB /* MembershipTier+Mocks.swift */; };
+		3DF58C542BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF58C532BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift */; };
 		3DF6F628262EDA31000E05A5 /* DebugMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */; };
 		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
@@ -3154,6 +3156,8 @@
 		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
 		3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSwipeTip.swift; sourceTree = "<group>"; };
+		3DF58C512BD2CD780056D0BB /* MembershipTier+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipTier+Mocks.swift"; sourceTree = "<group>"; };
+		3DF58C532BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipStatus+Mocks.swift"; sourceTree = "<group>"; };
 		3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenuView.swift; sourceTree = "<group>"; };
 		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
@@ -8628,6 +8632,7 @@
 		3D611E942B93778E00B33305 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3DF58C502BD2CD6A0056D0BB /* Mocks */,
 				3D611E952B93779900B33305 /* MembershipTierExtensions.swift */,
 				3DFD50A32BA0B114002E51F7 /* MembershipStatusExtension.swift */,
 				3DE3DE662BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift */,
@@ -9236,6 +9241,15 @@
 				3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */,
 			);
 			path = Tips;
+			sourceTree = "<group>";
+		};
+		3DF58C502BD2CD6A0056D0BB /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				3DF58C512BD2CD780056D0BB /* MembershipTier+Mocks.swift */,
+				3DF58C532BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		3DF80F3C26EFA365000492F3 /* Stylers */ = {
@@ -10904,6 +10918,7 @@
 				3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */,
 				3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */,
 				2A50251F2BC02B6600A141B8 /* FileIconView.swift in Sources */,
+				3DF58C522BD2CD780056D0BB /* MembershipTier+Mocks.swift in Sources */,
 				EAED57D026A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift in Sources */,
 				12426A1626DCE1B900693B1F /* ImageBuilderProtocol.swift in Sources */,
 				C9A4774028DB0B3600D05EA3 /* AnytypePreviewController.swift in Sources */,
@@ -11394,6 +11409,7 @@
 				2A5025212BC02BBE00A141B8 /* BasicIconView.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
 				3D30426A2BD123A60098F80F /* MembershipTierSelectionCarousel.swift in Sources */,
+				3DF58C542BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift in Sources */,
 				2A28D04D297FCC1D00E55E15 /* WidgetContainerViewModel.swift in Sources */,
 				2E28BCEE2AAB55AD001E6306 /* SetViewPickerModuleAssembly.swift in Sources */,
 				2E999483293E490300FFBED9 /* Relation+Set.swift in Sources */,
