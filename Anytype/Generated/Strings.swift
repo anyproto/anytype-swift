@@ -835,13 +835,9 @@ internal enum Loc {
       }
     }
     internal enum Welcome {
-      internal enum Subtitle {
-        /// Create & collaborate in spaces you own. Encrypted, offline & 
-        internal static let p1 = Loc.tr("Localizable", "Auth.Welcome.Subtitle.p1", fallback: "Create & collaborate in spaces you own. Encrypted, offline & ")
-        /// [open](%@).
-        internal static func p2(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "Auth.Welcome.Subtitle.p2", String(describing: p1), fallback: "[open](%@).")
-        }
+      /// Create & collaborate in spaces you own. Encrypted, offline & [open](%@).
+      internal static func subtitle(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "Auth.Welcome.Subtitle", String(describing: p1), fallback: "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).")
       }
     }
   }

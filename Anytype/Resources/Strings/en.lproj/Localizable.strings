@@ -221,8 +221,7 @@
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
 "Join" = "New Vault";
-"Auth.Welcome.Subtitle.p1" = "Create & collaborate in spaces you own. Encrypted, offline & ";
-"Auth.Welcome.Subtitle.p2" = "[open](%@).";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Next";
 
