@@ -221,6 +221,8 @@ public struct Anytype_Model_ObjectStoreChecksums {
 
   public var areOldFilesRemoved: Bool = false
 
+  public var areDeletedObjectsReindexed: Bool = false
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -578,6 +580,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     9: .same(proto: "bundledObjects"),
     10: .same(proto: "filestoreKeysForceReindexCounter"),
     12: .same(proto: "areOldFilesRemoved"),
+    13: .same(proto: "areDeletedObjectsReindexed"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -598,6 +601,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 10: try { try decoder.decodeSingularInt32Field(value: &self.filestoreKeysForceReindexCounter) }()
       case 11: try { try decoder.decodeSingularInt32Field(value: &self.fulltextErase) }()
       case 12: try { try decoder.decodeSingularBoolField(value: &self.areOldFilesRemoved) }()
+      case 13: try { try decoder.decodeSingularBoolField(value: &self.areDeletedObjectsReindexed) }()
       default: break
       }
     }
@@ -640,6 +644,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if self.areOldFilesRemoved != false {
       try visitor.visitSingularBoolField(value: self.areOldFilesRemoved, fieldNumber: 12)
     }
+    if self.areDeletedObjectsReindexed != false {
+      try visitor.visitSingularBoolField(value: self.areDeletedObjectsReindexed, fieldNumber: 13)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -656,6 +663,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.bundledObjects != rhs.bundledObjects {return false}
     if lhs.filestoreKeysForceReindexCounter != rhs.filestoreKeysForceReindexCounter {return false}
     if lhs.areOldFilesRemoved != rhs.areOldFilesRemoved {return false}
+    if lhs.areDeletedObjectsReindexed != rhs.areDeletedObjectsReindexed {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

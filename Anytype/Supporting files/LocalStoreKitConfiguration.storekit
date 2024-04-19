@@ -83,7 +83,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "Membership.Tiers.Builder",
+          "productID" : "io.anytype.membership.builder",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Builder",
           "subscriptionGroupID" : "22608A4E",
