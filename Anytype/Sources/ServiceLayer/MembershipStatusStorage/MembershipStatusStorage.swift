@@ -63,15 +63,15 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     
     func startSubscription() async {
         _status =  (try? await membershipService.getMembership(noCache: true)) ?? .empty
-        AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+        await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
         
         setupSubscription()
     }
     
-    func stopSubscriptionAndClean() {
+    func stopSubscriptionAndClean() async {
         subscription = nil
         _status = .empty
-        AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+        await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
     }
     
     // MARK: - Private
@@ -90,7 +90,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
             case .membershipUpdate(let update):
                 Task {
                     _status = try await membershipService.makeMembershipFromMiddlewareModel(membership: update.data)
-                    AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+                    await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
                 }
             default:
                 break
