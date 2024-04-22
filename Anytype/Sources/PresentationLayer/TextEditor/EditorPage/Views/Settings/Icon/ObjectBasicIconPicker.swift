@@ -3,11 +3,9 @@ import SwiftUI
 struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProtocol>: View {
     @ObservedObject var viewModel: T
     
-    @Environment(\.presentationMode) private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     @State private var selectedTab: Tab = .emoji
     
-    var onDismiss: (() -> ())?
-        
     var body: some View {
         VStack(spacing: 0) {
             switch selectedTab {
@@ -109,11 +107,6 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
     private func handleSelectedEmoji(_ emoji: EmojiData) {
         viewModel.setEmoji(emoji.emoji)
         dismiss()
-    }
-    
-    private func dismiss() {
-        presentationMode.wrappedValue.dismiss()
-        onDismiss?()
     }
 }
 

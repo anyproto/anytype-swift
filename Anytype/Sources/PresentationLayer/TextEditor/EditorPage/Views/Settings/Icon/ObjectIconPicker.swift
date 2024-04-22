@@ -3,18 +3,14 @@ import AnytypeCore
 
 struct ObjectIconPicker: View {
     @ObservedObject var viewModel: ObjectIconPickerViewModel
-    var dismissHandler = DismissHandler(onDismiss: {})
     
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
             case .basic, .set, .collection, .file, .image, .objectType:
-                ObjectBasicIconPicker(
-                    viewModel: viewModel,
-                    onDismiss: dismissHandler.onDismiss
-                )
+                ObjectBasicIconPicker(viewModel: viewModel)
             case .space, .spaceView, .profile, .participant:
-                ObjectProfileIconPicker(viewModel: viewModel, onDismiss: dismissHandler.onDismiss)
+                ObjectProfileIconPicker(viewModel: viewModel)
             case nil:
                 EmptyView()
             case .todo, .note, .bookmark, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList, .audio, .video, .pdf, .date:

@@ -4,9 +4,7 @@ import SwiftUI
 struct ObjectProfileIconPicker: View {
     
     @ObservedObject var viewModel: ObjectIconPickerViewModel
-    @Environment(\.presentationMode) private var presentationMode
-    
-    var onDismiss: (() -> ())?
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -34,11 +32,6 @@ struct ObjectProfileIconPicker: View {
         }
         .disabled(!viewModel.isRemoveEnabled)
         .frame(height: 48)
-    }
-    
-    private func dismiss() {
-        presentationMode.wrappedValue.dismiss()
-        onDismiss?()
     }
 }
 

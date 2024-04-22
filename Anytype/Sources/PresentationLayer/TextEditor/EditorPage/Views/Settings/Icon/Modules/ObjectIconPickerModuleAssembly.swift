@@ -42,12 +42,6 @@ final class ObjectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtoc
             rootView: ObjectIconPicker(viewModel: viewModel)
         )
         
-        controller.rootView.dismissHandler = DismissHandler(
-            onDismiss:  { [weak controller] in
-                controller?.dismiss(animated: true)
-            }
-        )
-        
         return controller
     }
 }

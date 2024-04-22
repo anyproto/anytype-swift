@@ -229,10 +229,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             contextId: contextId,
             objectId: objectId,
             // In feature space id should be read from blockInfo, when we will create "link to" between sapces
-            spaceId: document.spaceId,
-            onDismiss: { [weak self] in
-                self?.navigationContext.dismissTopPresented()
-            }
+            spaceId: document.spaceId
         )
 
         navigationContext.present(moduleView)
