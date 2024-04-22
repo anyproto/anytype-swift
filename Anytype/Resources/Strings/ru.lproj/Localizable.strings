@@ -1097,6 +1097,7 @@
 "Membership.NameForm.Error.TooShort" = "Имя пользователя слишком короткое ";
 "Membership.NameForm.Error.TooLong" = "Имя пользователя слишком длинное";
 "Membership.NameForm.Error.HasInvalidChars" = "Имя пользователя содержит недопустимые символы";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "Добро пожаловать в сеть, %@";

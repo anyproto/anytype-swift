@@ -1097,6 +1097,7 @@
 "Membership.NameForm.Error.TooShort" = "Za krotka nazwa";
 "Membership.NameForm.Error.TooLong" = "Imię jest zbyt długie";
 "Membership.NameForm.Error.HasInvalidChars" = "Nazwa użytkownika zawiera nieprawidłowe znaki";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "Witaj w sieci, %@";
