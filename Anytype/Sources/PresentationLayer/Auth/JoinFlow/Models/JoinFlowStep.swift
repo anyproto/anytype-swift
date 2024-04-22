@@ -1,6 +1,7 @@
 enum JoinFlowStep: Int, CaseIterable {
-    case soul = 1
+    case vault = 1
     case key
+    case soul
     
     var next: JoinFlowStep? {
         let nextStepNumber = self.rawValue + 1
@@ -19,7 +20,7 @@ enum JoinFlowStep: Int, CaseIterable {
     }
     
     static var firstStep: JoinFlowStep {
-        JoinFlowStep.allCases.first ?? .soul
+        JoinFlowStep.allCases.first ?? .vault
     }
     
     var isFirst: Bool {
