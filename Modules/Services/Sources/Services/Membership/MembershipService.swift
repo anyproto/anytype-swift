@@ -123,26 +123,34 @@ final class MembershipService: MembershipServiceProtocol {
         guard type != .explorer else { return .email }
         
         if tier.iosProductID.isNotEmpty {
-            do {
-                let product = try await Product.products(for: [tier.iosProductID])
-                guard let product = product.first else {
-                    anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
-                    return nil
-                }
-                
-                return .appStore(product: product)
-            } catch {
-                anytypeAssertionFailure("Get products error", info: ["error": error.localizedDescription])
-                return nil
-            }
+            return await buildAppStorePayment(tier: tier)
         } else {
-            let info = StripePaymentInfo(
-                periodType: tier.periodType,
-                periodValue: tier.periodValue,
-                priceInCents: tier.priceStripeUsdCents,
-                paymentUrl: URL(string: tier.iosManageURL) ?? URL(string: "https://anytype.io/pricing")!
-            )
-            return .external(info: info)
+            return buildStripePayment(tier: tier)
         }
+    }
+    
+    private func buildAppStorePayment(tier: Anytype_Model_MembershipTierData) async -> MembershipTierPaymentType {
+        do {
+            let products = try await Product.products(for: [tier.iosProductID])
+            guard let product = products.first else {
+                anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
+                return buildStripePayment(tier: tier)
+            }
+            
+            return .appStore(product: product)
+        } catch {
+            anytypeAssertionFailure("Get products error", info: ["error": error.localizedDescription])
+            return buildStripePayment(tier: tier)
+        }
+    }
+    
+    private func buildStripePayment(tier: Anytype_Model_MembershipTierData) -> MembershipTierPaymentType {
+        let info = StripePaymentInfo(
+            periodType: tier.periodType,
+            periodValue: tier.periodValue,
+            priceInCents: tier.priceStripeUsdCents,
+            paymentUrl: URL(string: tier.iosManageURL) ?? URL(string: "https://anytype.io/pricing")!
+        )
+        return .external(info: info)
     }
 }
