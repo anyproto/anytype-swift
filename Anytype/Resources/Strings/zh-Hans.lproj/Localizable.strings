@@ -1101,6 +1101,7 @@
 "Membership.NameForm.Error.TooShort" = "名称太短";
 "Membership.NameForm.Error.TooLong" = "名称过长";
 "Membership.NameForm.Error.HasInvalidChars" = "名称包含无效字符";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "欢迎来到网络， %@";
