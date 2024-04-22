@@ -1,11 +1,12 @@
 import Foundation
 import SwiftEntryKit
 
+
 final class AlertOpener: AlertOpenerProtocol {
     
     private let navigationContext: NavigationContextProtocol
     
-    init(navigationContext: NavigationContextProtocol) {
+    nonisolated init(navigationContext: NavigationContextProtocol) {
         self.navigationContext = navigationContext
     }
     

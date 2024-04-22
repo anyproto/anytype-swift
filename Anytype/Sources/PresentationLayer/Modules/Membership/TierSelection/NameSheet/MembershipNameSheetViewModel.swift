@@ -30,7 +30,7 @@ enum MembershipAnyNameAvailability {
 final class MembershipNameSheetViewModel: ObservableObject {
     @Published var state = MembershipNameSheetViewState.default
     let tier: MembershipTier
-    let anyName: String
+    let anyName: AnyName
     
     @Injected(\.storeKitService)
     private var storeKitService: StoreKitServiceProtocol
@@ -40,7 +40,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
         case .none:
             .notAvailable
         case .some:
-            if anyName.isEmpty {
+            if anyName.handle.isEmpty {
                 .availableForPruchase
             } else {
                 .alreadyBought
@@ -74,7 +74,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
     private let product: Product
     private let onSuccessfulPurchase: (MembershipTier) -> ()
     
-    init(tier: MembershipTier, anyName: String, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
+    init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         self.tier = tier
         self.anyName = anyName
         self.product = product
@@ -98,7 +98,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
             try Task.checkCancellation()
             
             do {
-                try await memberhsipService.validateName(name: "\(name).any", tierType: tier.type)
+                try await memberhsipService.validateName(name: name, tierType: tier.type)
                 state = .validated
             } catch let error as MembershipServiceProtocol.ValidateNameError {
                 state = .error(text: error.validateNameSheetError)
@@ -110,6 +110,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
         
     func purchase() async throws {
         try await storeKitService.purchase(product: product)
+        
+        AnytypeAnalytics.instance().logChangePlan(tier: tier)
+        
         onSuccessfulPurchase(tier)
     }
 }

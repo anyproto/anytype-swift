@@ -42,6 +42,8 @@ struct SpaceJoinView: View {
             invite
         case .alreadyJoined:
             alreadyJoined
+        case .inviteNotFound:
+            inviteNotFound
         }
     }
     
@@ -59,7 +61,7 @@ struct SpaceJoinView: View {
     private var invite: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.update, style: .color(.blue))
+            ButtomAlertHeaderImageView(icon: .BottomAlert.mail, style: .color(.blue))
             Spacer.fixedHeight(15)
             AnytypeText(Loc.SpaceShare.Join.title, style: .heading)
                 .foregroundColor(.Text.primary)
@@ -96,6 +98,22 @@ struct SpaceJoinView: View {
                 style: .warning,
                 action: {
                     model.onDismissSuccessAlert()
+                }
+            )
+        }
+    }
+    
+    private var inviteNotFound: some View {
+        BottomAlertView(
+            title: Loc.SpaceShare.Join.inviteNotFound,
+            icon: .BottomAlert.sadMail,
+            color: .blue
+        ) {
+            BottomAlertButton(
+                text: Loc.okay,
+                style: .secondary,
+                action: {
+                    model.onDismissInviteNotFoundAlert()
                 }
             )
         }

@@ -542,6 +542,14 @@ public struct Anytype_Event {
       set {value = .fileLocalUsage(newValue)}
     }
 
+    public var fileLimitUpdated: Anytype_Event.File.LimitUpdated {
+      get {
+        if case .fileLimitUpdated(let v)? = value {return v}
+        return Anytype_Event.File.LimitUpdated()
+      }
+      set {value = .fileLimitUpdated(newValue)}
+    }
+
     public var notificationSend: Anytype_Event.Notification.Send {
       get {
         if case .notificationSend(let v)? = value {return v}
@@ -641,6 +649,7 @@ public struct Anytype_Event {
       case fileLimitReached(Anytype_Event.File.LimitReached)
       case fileSpaceUsage(Anytype_Event.File.SpaceUsage)
       case fileLocalUsage(Anytype_Event.File.LocalUsage)
+      case fileLimitUpdated(Anytype_Event.File.LimitUpdated)
       case notificationSend(Anytype_Event.Notification.Send)
       case notificationUpdate(Anytype_Event.Notification.Update)
       case payloadBroadcast(Anytype_Event.Payload.Broadcast)
@@ -894,6 +903,10 @@ public struct Anytype_Event {
         }()
         case (.fileLocalUsage, .fileLocalUsage): return {
           guard case .fileLocalUsage(let l) = lhs, case .fileLocalUsage(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.fileLimitUpdated, .fileLimitUpdated): return {
+          guard case .fileLimitUpdated(let l) = lhs, case .fileLimitUpdated(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.notificationSend, .notificationSend): return {
@@ -4561,6 +4574,18 @@ public struct Anytype_Event {
       public init() {}
     }
 
+    public struct LimitUpdated {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var bytesLimit: UInt64 = 0
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public init() {}
   }
 
@@ -5059,6 +5084,7 @@ extension Anytype_Event.File: @unchecked Sendable {}
 extension Anytype_Event.File.LimitReached: @unchecked Sendable {}
 extension Anytype_Event.File.SpaceUsage: @unchecked Sendable {}
 extension Anytype_Event.File.LocalUsage: @unchecked Sendable {}
+extension Anytype_Event.File.LimitUpdated: @unchecked Sendable {}
 extension Anytype_Event.Membership: @unchecked Sendable {}
 extension Anytype_Event.Membership.Update: @unchecked Sendable {}
 extension Anytype_Event.Notification: @unchecked Sendable {}
@@ -5196,6 +5222,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     111: .same(proto: "fileLimitReached"),
     112: .same(proto: "fileSpaceUsage"),
     113: .same(proto: "fileLocalUsage"),
+    118: .same(proto: "fileLimitUpdated"),
     114: .same(proto: "notificationSend"),
     115: .same(proto: "notificationUpdate"),
     116: .same(proto: "payloadBroadcast"),
@@ -5936,6 +5963,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .membershipUpdate(v)
         }
       }()
+      case 118: try {
+        var v: Anytype_Event.File.LimitUpdated?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .fileLimitUpdated(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .fileLimitUpdated(v)
+        }
+      }()
       case 123: try {
         var v: Anytype_Event.Block.Dataview.RelationSet?
         var hadOneofValue = false
@@ -6287,6 +6327,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .membershipUpdate?: try {
       guard case .membershipUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 117)
+    }()
+    case .fileLimitUpdated?: try {
+      guard case .fileLimitUpdated(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 118)
     }()
     case .blockDataviewRelationSet?: try {
       guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
@@ -13222,6 +13266,38 @@ extension Anytype_Event.File.LocalUsage: SwiftProtobuf.Message, SwiftProtobuf._M
 
   public static func ==(lhs: Anytype_Event.File.LocalUsage, rhs: Anytype_Event.File.LocalUsage) -> Bool {
     if lhs.localBytesUsage != rhs.localBytesUsage {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.File.LimitUpdated: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.File.protoMessageName + ".LimitUpdated"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "bytesLimit"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bytesLimit) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.bytesLimit != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bytesLimit, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.File.LimitUpdated, rhs: Anytype_Event.File.LimitUpdated) -> Bool {
+    if lhs.bytesLimit != rhs.bytesLimit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -1,24 +1,11 @@
 import Services
 import SwiftUI
 
-enum MembershipTierViewState {
-    case owned
-    case pending
-    case unowned
-    
-    var isOwned: Bool {
-        self == .owned
-    }
-    
-    var isPending: Bool {
-        self == .pending
-    }
-}
 
 @MainActor
 final class MembershipTierViewModel: ObservableObject {
     
-    @Published var state: MembershipTierViewState = .owned
+    @Published var state: MembershipTierOwningState = .owned
     @Published var userMembership: MembershipStatus = .empty
     
     let tierToDisplay: MembershipTier
@@ -40,25 +27,8 @@ final class MembershipTierViewModel: ObservableObject {
     }
     
     func updateState() {
-        if userMembership.tier?.type == tierToDisplay.type {
-            if userMembership.status == .active {
-                state = .owned
-            } else {
-                state = .pending
-            }
-            
-            return
+        Task {
+            state = await membershipStatusStorage.owningState(tier: tierToDisplay)
         }
-        
-        // validate AppStore purchase in case middleware is still processing
-        if case let .appStore(product) = tierToDisplay.paymentType {
-            Task {
-                if try await storeKitService.isPurchased(product: product) {
-                    self.state = .pending
-                }   
-            }
-        }
-        
-        state = .unowned
     }
 }

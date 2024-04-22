@@ -5,6 +5,8 @@ import Services
 @MainActor
 final class MembershipTierSelectionViewModel: ObservableObject {
     
+    @Published var state: MembershipTierOwningState = .owned
+    
     let userMembership: MembershipStatus
     let tierToDisplay: MembershipTier
     
@@ -12,11 +14,10 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
-    private let showEmailVerification: (EmailVerificationData) -> ()
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
     
-    var tierOwned: Bool {
-        userMembership.tier?.type == tierToDisplay.type
-    }
+    private let showEmailVerification: (EmailVerificationData) -> ()
     
     init(
         userMembership: MembershipStatus,
@@ -28,6 +29,12 @@ final class MembershipTierSelectionViewModel: ObservableObject {
         self.tierToDisplay = tierToDisplay
         self.showEmailVerification = showEmailVerification
         self.onSuccessfulPurchase = onSuccessfulPurchase
+    }
+    
+    func onAppear() async {
+        AnytypeAnalytics.instance().logScreenMembership(tier: tierToDisplay)
+        
+        state = await membershipStatusStorage.owningState(tier: tierToDisplay)
     }
     
     func getVerificationEmail(email: String, subscribeToNewsletter: Bool) async throws {

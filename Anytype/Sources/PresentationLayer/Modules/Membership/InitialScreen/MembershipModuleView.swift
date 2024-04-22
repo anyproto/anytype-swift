@@ -7,6 +7,7 @@ import Combine
 struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
     @State private var safariUrl: URL?
+    @Injected(\.accountManager) private var accountManager: AccountManagerProtocol
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
@@ -28,10 +29,7 @@ struct MembershipModuleView: View {
             ScrollView {
                 VStack {
                     Spacer.fixedHeight(40)
-                    AnytypeText(Loc.Membership.Ad.title, style: .riccioneTitle)
-                        .foregroundColor(.Text.primary)
-                        .padding(.horizontal, 20)
-                        .multilineTextAlignment(.center)
+                    title
                     AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular)
                         .foregroundColor(.Text.primary)
                         .padding(.horizontal, 60)
@@ -50,37 +48,33 @@ struct MembershipModuleView: View {
             }
         }
         .safariSheet(url: $safariUrl)
+        .onAppear {
+            AnytypeAnalytics.instance().logScreenSettingsMembership()
+        }
     }
     
-    var baners: some View {
-        TabView {
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title1,
-                subtitle: Loc.Membership.Banner.subtitle1,
-                image: .Membership.banner1,
-                gradient: .green
-            )
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title2,
-                subtitle: Loc.Membership.Banner.subtitle2,
-                image: .Membership.banner2,
-                gradient: .yellow
-            )
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title3,
-                subtitle: Loc.Membership.Banner.subtitle3,
-                image: .Membership.banner3,
-                gradient: .pink
-            )
-            MembershipBannerView(
-                title: Loc.Membership.Banner.title4,
-                subtitle: Loc.Membership.Banner.subtitle4,
-                image: .Membership.banner4,
-                gradient: .purple
-            )
+    private var title: some View {
+        Group {
+            if Loc.Membership.Ad.title.latinCharactersOnly {
+                AnytypeText(Loc.Membership.Ad.title, style: .riccioneBannerTitle)
+            } else {
+                AnytypeText(Loc.Membership.Ad.title, style: .interBannerTitle)
+            }
         }
-        .tabViewStyle(.page)
-        .frame(height: 300)
+        .foregroundColor(.Text.primary)
+        .padding(.horizontal, 20)
+        .multilineTextAlignment(.center)
+    }
+    
+    private var baners: some View {
+        Group {
+            switch membership.tier?.type {
+            case .explorer, nil:
+                MembershipBannersView()
+            case .builder, .coCreator, .custom:
+                EmptyView()
+            }
+        }
     }
     
     var legal: some View {
@@ -106,7 +100,7 @@ struct MembershipModuleView: View {
         Button {
             let mailLink = MailUrl(
                 to: AboutApp.licenseMailTo,
-                subject: Loc.Membership.Email.subject,
+                subject: "\(Loc.Membership.Email.subject) \(accountManager.account.id)",
                 body: Loc.Membership.Email.body
             )
             guard let mailUrl = mailLink.url else { return }

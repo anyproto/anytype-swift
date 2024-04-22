@@ -34,10 +34,6 @@ final class ModulesDI: ModulesDIProtocol {
         return ObjectIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func objectSetting() -> ObjectSettingModuleAssemblyProtocol {
-        return ObjectSettingModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }
@@ -81,11 +77,7 @@ final class ModulesDI: ModulesDIProtocol {
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
-    
-    func setRelationsView() -> SetRelationsViewModuleAssemblyProtocol {
-        SetRelationsViewModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
+
     func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
         SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
     }

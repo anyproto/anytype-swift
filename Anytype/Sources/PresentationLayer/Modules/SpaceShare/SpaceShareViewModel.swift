@@ -255,18 +255,14 @@ final class SpaceShareViewModel: ObservableObject {
 
 private extension Participant {
     var sortingWeight: Int {
-        if permission == .owner {
-            return 4
-        }
-        
         if status == .joining {
             return 3
         }
         
         if status == .declined {
-            return 1
+            return 2
         }
         
-        return 2
+        return 1
     }
 }

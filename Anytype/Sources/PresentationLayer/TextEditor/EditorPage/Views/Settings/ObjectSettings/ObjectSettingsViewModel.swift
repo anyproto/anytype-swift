@@ -13,97 +13,96 @@ enum ObjectSettingsAction {
 
 @MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
-    func undoRedoAction(document: BaseDocumentProtocol)
+    func undoRedoAction(objectId: String)
     func layoutPickerAction(document: BaseDocumentProtocol)
     func relationsAction(document: BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
+    func didCreateLinkToItself(selfName: String, data: EditorScreenData)
+    func didCreateTemplate(templateId: String)
+    func didTapUseTemplateAsDefault(templateId: String)
 }
 
 @MainActor
-final class ObjectSettingsViewModel: ObservableObject {
-    
-    var settings: [ObjectSetting] {
-        guard let details = document.details else { return [] }
-        return settingsBuilder.build(
-            details: details,
-            permissions: document.permissions
-        )
-    }
-    
-    let objectActionsViewModel: ObjectActionsViewModel
+final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
-    private let document: BaseDocumentProtocol
-    private let settingsBuilder = ObjectSettingBuilder()
-    private let settingsActionHandler: (ObjectSettingsAction) -> Void
-    
-    private var subscription: AnyCancellable?
-    private var onLinkItselfToObjectHandler: ((EditorScreenData) -> Void)?
+    @Injected(\.documentService)
+    private var openDocumentsProvider: OpenedDocumentsProviderProtocol
     
     private weak var output: ObjectSettingsModelOutput?
-    private weak var delegate: ObjectSettingsModuleDelegate?
+    private let settingsBuilder = ObjectSettingBuilder()
+    
+    private lazy var document: BaseDocumentProtocol = {
+        openDocumentsProvider.document(objectId: objectId)
+    }()
+    
+    let objectId: String
+    @Published var settings: [ObjectSetting] = []
+    
     init(
-        document: BaseDocumentProtocol,
-        output: ObjectSettingsModelOutput,
-        delegate: ObjectSettingsModuleDelegate,
-        settingsActionHandler: @escaping (ObjectSettingsAction) -> Void
+        objectId: String,
+        output: ObjectSettingsModelOutput
     ) {
-        self.document = document
+        self.objectId = objectId
         self.output = output
-        self.delegate = delegate
-        self.settingsActionHandler = settingsActionHandler
-        
-        self.objectActionsViewModel = ObjectActionsViewModel(
-            objectId: document.objectId,
-            undoRedoAction: { [weak output] in
-                output?.undoRedoAction(document: document)
-            },
-            openPageAction: { [weak output] screenData in
-                output?.openPageAction(screenData: screenData)
-            },
-            closeEditorAction: { [weak output] in
-                output?.closeEditorAction()
-            }
-        )
-        
-        objectActionsViewModel.onNewTemplateCreation = { [weak delegate] templateId in
-            DispatchQueue.main.async {
-                delegate?.didCreateTemplate(templateId: templateId)
-            }
-        }
-        
-        objectActionsViewModel.onLinkItselfToObjectHandler = { [weak delegate] data in
-            guard let documentName = document.details?.name else { return }
-            delegate?.didCreateLinkToItself(selfName: documentName, data: data)
-        }
-
-        objectActionsViewModel.onLinkItselfAction = { [weak output] onSelect in
-            output?.linkToAction(document: document, onSelect: onSelect)
-        }
-        
-        objectActionsViewModel.onTemplateMakeDefault = { [weak delegate] templateId in
-            delegate?.didTapUseTemplateAsDefault(templateId: templateId)
-        }
     }
 
+    func startDocumentTask() async {
+        for await _ in document.syncPublisher.values {
+            if let details = document.details {
+                settings = settingsBuilder.build(
+                    details: details,
+                    permissions: document.permissions
+                )
+            }
+        }
+    }
+    
     func onTapLayoutPicker() {
         output?.layoutPickerAction(document: document)
     }
     
     func onTapIconPicker() {
-        output?.showIconPicker(document: document) { [weak self] action in
-            self?.settingsActionHandler(.icon(action))
-        }
+        output?.showIconPicker(document: document)
     }
     
     func onTapCoverPicker() {
-        output?.showCoverPicker(document: document) { [weak self] action in
-            self?.settingsActionHandler(.cover(action))
-        }
+        output?.showCoverPicker(document: document)
     }
     
     func onTapRelations() {
         output?.relationsAction(document: document)
+    }
+    
+    // MARK: - ObjectActionsOutput
+    
+    func undoRedoAction() {
+        output?.undoRedoAction(objectId: objectId)
+    }
+    
+    func openPageAction(screenData: EditorScreenData) {
+        output?.openPageAction(screenData: screenData)
+    }
+    
+    func closeEditorAction() {
+        output?.closeEditorAction()
+    }
+    
+    func onLinkItselfAction(onSelect: @escaping (String) -> Void) {
+        output?.linkToAction(document: document, onSelect: onSelect)
+    }
+    
+    func onNewTemplateCreation(templateId: String) {
+        output?.didCreateTemplate(templateId: templateId)
+    }
+    
+    func onTemplateMakeDefault(templateId: String) {
+        output?.didTapUseTemplateAsDefault(templateId: templateId)
+    }
+    
+    func onLinkItselfToObjectHandler(data: EditorScreenData) {
+        guard let documentName = document.details?.name else { return }
+        output?.didCreateLinkToItself(selfName: documentName, data: data)
     }
 }

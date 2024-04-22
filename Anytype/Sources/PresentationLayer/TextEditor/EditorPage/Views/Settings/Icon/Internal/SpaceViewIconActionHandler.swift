@@ -2,19 +2,18 @@ import UIKit
 import Services
 import AnytypeCore
 
-final class SpaceViewIconInternalViewModel {
-    private let workspaceService: WorkspaceServiceProtocol
-    private let fileService: FileActionsServiceProtocol
+final class SpaceViewIconActionHandler: ObjectIconActionHandlerProtocol {
     
-    init(
-        workspaceService: WorkspaceServiceProtocol,
-        fileService: FileActionsServiceProtocol
-    ) {
-        self.workspaceService = workspaceService
-        self.fileService = fileService
-    }
-        
-    func handleIconAction(spaceId: String, action: ObjectIconPickerAction) {
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
+    
+    func handleIconAction(document: BaseDocumentGeneralProtocol, action: ObjectIconPickerAction) {
+        guard let spaceId = document.details?.targetSpaceId else {
+            anytypeAssertionFailure("Target space id is empty")
+            return
+        }
         switch action {
         case .setIcon(let iconSource):
             switch iconSource {

@@ -2,6 +2,8 @@ import UIKit
 import Services
 import AnytypeCore
 
+
+@MainActor
 final class SimpleTableCellsBuilder {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol

@@ -2,6 +2,8 @@ import UIKit
 import Services
 import Combine
 
+
+@MainActor
 protocol AccessoryViewSwitcherProtocol {
     func update(with configuration: TextViewAccessoryConfiguration?)
     func clearAccessory()
@@ -11,6 +13,7 @@ protocol AccessoryViewSwitcherProtocol {
     func showSlashMenuView()
     func showMentionsView()
 }
+
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 

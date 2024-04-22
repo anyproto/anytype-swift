@@ -11,7 +11,7 @@ extension ObjectOpenError {
         switch error.code {
         case .anytypeNeedsUpgrade:
             self = .anytypeNeedsUpgrade
-        case .badInput, .notFound, .unknownError, .null, .UNRECOGNIZED:
+        case .badInput, .notFound, .unknownError, .null, .UNRECOGNIZED, .objectDeleted:
             self = .unknownError
         }
     }

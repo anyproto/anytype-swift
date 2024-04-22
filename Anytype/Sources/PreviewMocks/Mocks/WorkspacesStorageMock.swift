@@ -19,7 +19,8 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
                 localStatus: .spaceActive,
                 spaceAccessType: .shared,
                 readersLimit: nil,
-                writersLimit: nil
+                writersLimit: nil,
+                sharedSpacesLimit: nil
             )
         ]
     }

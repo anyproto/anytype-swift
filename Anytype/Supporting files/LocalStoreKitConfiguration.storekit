@@ -71,7 +71,7 @@
           "codeOffers" : [
 
           ],
-          "displayPrice" : "100",
+          "displayPrice" : "134.99",
           "familyShareable" : false,
           "groupNumber" : 1,
           "internalID" : "A68C4FE9",
@@ -83,7 +83,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "Membership.Tiers.Builder",
+          "productID" : "io.anytype.membership.builder",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Builder",
           "subscriptionGroupID" : "22608A4E",

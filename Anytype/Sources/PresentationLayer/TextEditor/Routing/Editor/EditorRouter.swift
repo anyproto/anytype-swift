@@ -15,7 +15,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -32,7 +32,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
@@ -49,7 +49,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.objectSettingCoordinator = objectSettingCoordinator
+        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
@@ -316,33 +316,26 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
 
     // MARK: - Settings
-    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
-        objectSettingCoordinator.startFlow(
+    func showSettings() {
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
-            delegate: self,
-            output: self,
-            objectSettingsHandler: actionHandler
+            output: self
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
-    func showSettings(
-        delegate: ObjectSettingsModuleDelegate,
-        output: ObjectSettingsCoordinatorOutput?,
-        actionHandler: @escaping (ObjectSettingsAction) -> Void
-    ) {
-        objectSettingCoordinator.startFlow(
+    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
-            delegate: delegate,
-            output: output,
-            objectSettingsHandler: actionHandler
+            output: output
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, onIconAction: onIconAction)
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
 
@@ -476,7 +469,7 @@ extension EditorRouter: RelationValueCoordinatorOutput {
     }
 }
 
-extension EditorRouter: ObjectSettingsModuleDelegate {
+extension EditorRouter {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()

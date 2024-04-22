@@ -50,8 +50,9 @@ struct MembershipCoordinator: View {
     
     
     func tierSelection(tier: MembershipTier) -> some View {
-        MembershipTierSelectionView(
+        MembershipTierSelectionCarousel(
             userMembership: model.userMembership,
+            allTiers: model.tiers,
             tierToDisplay: tier,
             showEmailVerification: { data in
                 model.onEmailDataSubmit(data: data)

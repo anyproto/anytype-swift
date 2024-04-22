@@ -64,6 +64,7 @@ struct SpaceShareView: View {
         .anytypeSheet(item: $model.qrCodeInviteLink) {
             QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
         }
+        .ignoresSafeArea()
     }
     
     private var inviteView: some View {
@@ -82,7 +83,7 @@ struct SpaceShareView: View {
     
     private var rightNavigationButton: some View {
         Menu {
-            Button(Loc.SpaceShare.moreInfo) {
+            Button(Loc.moreInfo) {
                 model.onMoreInfoTap()
             }
             if model.canStopShare {

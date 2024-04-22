@@ -189,6 +189,8 @@
 "Anytype Library" = "Libreria di Anytype";
 "Copied" = "Copiato";
 "Share" = "Condividi";
+"Okay" = "Okay";
+"Join" = "Unisciti";
 
 // Home
 "Favorites" = "Preferiti";
@@ -219,8 +221,8 @@
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
-"Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Co-create digitally independent spaces. Encrypted with keys you control. Everything works offline. All code is [open](%@).";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
 
@@ -238,7 +240,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt can not be recovered.";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Salta";
@@ -248,14 +250,14 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Who knows combination of these words – owns the vault. **Now, you are the only person in the world knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Il modo più sicuro è scriverlo su carta e tenerlo offline, in un luogo sicuro.";
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of users.";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
@@ -338,7 +340,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data is permanently removed from the backup node.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Annulla/Ripristina";
@@ -569,7 +571,7 @@
 "On analytics" = "On analytics";
 "Select vault error" = "Select vault error";
 "Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "Unable to retrieve vault data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Ripristina dal portachiavi";
 "Edit" = "Modifica";
 "In this object" = "In questo oggetto";
@@ -791,7 +793,7 @@
 "About.AppVersion" = "Versione applicazione: %@";
 "About.BuildNumber" = "Numero di build: %@";
 "About.Library" = "Versione della libraria: %@";
-"About.vaultId" = "Vault ID: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "ID Analytics: %@";
 "About.deviceId" = "ID Dispositivo: %@";
 "About.Device" = "Dispositivo: %@";
@@ -883,6 +885,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "Hai lasciato %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
 "SpaceShare.Title" = "Condivisione";
 "SpaceShare.Members" = "Membri";
@@ -915,6 +918,7 @@
 "SpaceShare.Join.Button" = "Richiesta di adesione";
 "SpaceShare.Join.Info" = "Una volta che il proprietario dello spazio approva la tua richiesta, entrerai nello spazio con i diritti di accesso determinati dal proprietario.";
 "SpaceShare.Join.Message" = "Sei stato invitato a unirti allo spazio **%@**, creato da **%@**. Invia una richiesta così il proprietario dello spazio può farti entrare.";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
 "SpaceShare.JoinConfirmation.Title" = "Richiesta inviata";
 "SpaceShare.JoinConfirmation.Message" = "Riceverai una notifica quando il proprietario dello spazio approverà la tua richiesta.";
 "SpaceShare.YouSuffix" = "%@ (tu)";
@@ -924,9 +928,8 @@
 "SpaceShare.StopSharing.Title" = "Smetti di condividere lo spazio";
 "SpaceShare.StopSharing.Message" = "I membri non si sincronizzeranno più con questo spazio e il link di condivisione verrà disattivato.";
 "SpaceShare.StopSharing.Toast" = "Lo spazio non è più condiviso";
-"SpaceShare.QR.Title" = "Codice QR per unirsi a uno Spazio";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
 "SpaceShare.QR.Button" = "Mostra codice QR";
-"SpaceShare.MoreInfo" = "Ulteriori informazioni";
 "SpaceShare.HowToShare.Title" = "Come condividere uno spazio?";
 "SpaceShare.HowToShare.Step1" = "Si prega di fornire il link alla persona con cui si desidera collaborare.";
 "SpaceShare.HowToShare.Step2" = "Cliccando sul link, una persona richiede di unirsi allo spazio.";
@@ -1057,7 +1060,7 @@
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
 
-"Membership.Legal.Details" = "Dettagli dei livelli di membership";
+"Membership.Legal.Details" = "Membership plan details";
 "Membership.Legal.Privacy" = "Informativa sulla privacy";
 "Membership.Legal.Terms" = "Termini e condizioni";
 "Membership.Legal.WouldYouLike" = "Vorresti utilizzare Anytype per affari, educazione, ecc.?";
@@ -1094,6 +1097,7 @@
 "Membership.NameForm.Error.TooShort" = "Il nome è troppo corto";
 "Membership.NameForm.Error.TooLong" = "Il nome è troppo lungo";
 "Membership.NameForm.Error.HasInvalidChars" = "Il nome contiene caratteri non validi";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "Benvenuto/a nella rete, %@";

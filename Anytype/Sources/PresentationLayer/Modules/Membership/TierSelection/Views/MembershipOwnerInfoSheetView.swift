@@ -14,7 +14,7 @@ struct MembershipOwnerInfoSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(14)
             info
-            managePayment
+            managePaymentButton
             Spacer.fixedHeight(46)
         }
         .padding(.horizontal, 20)
@@ -59,12 +59,13 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var managePayment: some View {
+    private var managePaymentButton: some View {
         Group {
             if membership.paymentMethod == .methodInappApple {
                 VStack(spacing: 0) {
                     Spacer.fixedHeight(20)
                     StandardButton(Loc.managePayment, style: .secondaryLarge) {
+                        AnytypeAnalytics.instance().logClickMembership(type: .managePayment)
                         showManageSubscriptions = true
                     }
                 }
@@ -79,31 +80,13 @@ struct MembershipOwnerInfoSheetView: View {
         ScrollView(.horizontal) {
             HStack {
                 MembershipOwnerInfoSheetView(
-                    membership: MembershipStatus(
-                        tier: .mockExplorer,
-                        status: .active,
-                        dateEnds: .tomorrow,
-                        paymentMethod: .methodStripe,
-                        anyName: ""
-                    )
+                    membership: .mock(tier: .mockExplorer, paymentMethod: .methodStripe)
                 )
                 MembershipOwnerInfoSheetView(
-                    membership: MembershipStatus(
-                        tier: .mockBuilder,
-                        status: .pending,
-                        dateEnds: .tomorrow,
-                        paymentMethod: .methodCrypto,
-                        anyName: ""
-                    )
+                    membership: .mock(tier: .mockExplorer, paymentMethod: .methodCrypto)
                 )
                 MembershipOwnerInfoSheetView(
-                    membership: MembershipStatus(
-                        tier: .mockCoCreator,
-                        status: .active,
-                        dateEnds: .tomorrow,
-                        paymentMethod: .methodInappApple,
-                        anyName: ""
-                    )
+                    membership: .mock(tier: .mockCoCreator, paymentMethod: .methodInappApple)
                 )
             }
         }

@@ -96,7 +96,7 @@ final class MembershipService: MembershipServiceProtocol {
             status: membership.status,
             dateEnds: Date(timeIntervalSince1970: TimeInterval(membership.dateEnds)),
             paymentMethod: membership.paymentMethod,
-            anyName: membership.requestedAnyName
+            anyName: AnyName(handle: membership.nsName, extension: membership.nsNameType)
         )
     }
 

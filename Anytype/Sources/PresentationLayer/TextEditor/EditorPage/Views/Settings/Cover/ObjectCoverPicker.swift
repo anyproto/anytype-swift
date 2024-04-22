@@ -13,16 +13,19 @@ struct ObjectCoverPicker: View {
     }
     
     var body: some View {
-        TabView(selection: $index) {
-            galleryTabView
-                .tag(Tab.gallery.rawValue)
-            unsplashView
-                .tag(Tab.unsplash.rawValue)
-            uploadTabView
-                .tag(Tab.upload.rawValue)
+        VStack {
+            TabView(selection: $index) {
+                galleryTabView
+                    .tag(Tab.gallery.rawValue)
+                unsplashView
+                    .tag(Tab.unsplash.rawValue)
+                uploadTabView
+                    .tag(Tab.upload.rawValue)
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            tabHeaders
         }
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        tabHeaders
+        .background(Color.Background.primary)
     }
 
     private var unsplashView: some View {

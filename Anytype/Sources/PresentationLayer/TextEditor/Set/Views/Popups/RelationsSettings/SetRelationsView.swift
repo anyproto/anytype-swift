@@ -2,8 +2,12 @@ import SwiftUI
 import AnytypeCore
 
 struct SetRelationsView: View {
-    @StateObject var model: SetRelationsViewModel
+    @StateObject private var model: SetRelationsViewModel
     @State private var editMode = EditMode.inactive
+    
+    init(setDocument: SetDocumentProtocol, viewId: String, output: SetRelationsCoordinatorOutput?) {
+        _model = StateObject(wrappedValue: SetRelationsViewModel(setDocument: setDocument, viewId: viewId, output: output))
+    }
     
     var body: some View {
         DragIndicator()

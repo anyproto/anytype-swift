@@ -1,10 +1,13 @@
 import SwiftUI
 
-
 struct ObjectActionsView: View {
     
-    @ObservedObject var viewModel: ObjectActionsViewModel
+    @StateObject private var viewModel: ObjectActionsViewModel
     @Environment(\.dismiss) private var dismiss
+    
+    init(objectId: String, output: ObjectActionsOutput?) {
+        self._viewModel = StateObject(wrappedValue: ObjectActionsViewModel(objectId: objectId, output: output))
+    }
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {

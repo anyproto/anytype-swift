@@ -478,3 +478,9 @@ enum PermissionAnalyticsType: String {
 enum ScreenQrAnalyticsType: String {
     case inviteSpace = "InviteSpace"
 }
+
+enum ClickMembershipType: String {
+    case moreInfo = "MoreInfo"
+    case payByCard = "PayByCard"
+    case managePayment = "ManagePayment"
+}

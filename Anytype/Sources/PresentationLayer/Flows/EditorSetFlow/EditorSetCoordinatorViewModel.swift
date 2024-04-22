@@ -16,7 +16,7 @@ final class EditorSetCoordinatorViewModel:
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
+    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
@@ -43,7 +43,7 @@ final class EditorSetCoordinatorViewModel:
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
+        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
@@ -58,7 +58,7 @@ final class EditorSetCoordinatorViewModel:
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
-        self.objectSettingCoordinator = objectSettingCoordinator
+        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
@@ -171,30 +171,21 @@ final class EditorSetCoordinatorViewModel:
         navigationContext.present(popup)
     }
     
-    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
-        objectSettingCoordinator.startFlow(
+    func showSettings() {
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: data.objectId,
-            delegate: self,
-            output: self,
-            objectSettingsHandler: actionHandler
+            output: self
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
-    func showCoverPicker(
-        document: BaseDocumentGeneralProtocol,
-        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
-    ) {
-        covertPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
+    func showCoverPicker(document: BaseDocumentGeneralProtocol) {
+        covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(
-            document: document,
-            onIconAction: onIconAction
-        )
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
         navigationContext.present(moduleViewController)
     }
     
@@ -258,7 +249,7 @@ final class EditorSetCoordinatorViewModel:
     }
 }
 
-extension EditorSetCoordinatorViewModel: ObjectSettingsModuleDelegate {
+extension EditorSetCoordinatorViewModel {
     func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }

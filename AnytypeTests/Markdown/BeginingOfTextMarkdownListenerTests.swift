@@ -2,6 +2,7 @@ import XCTest
 @testable import Anytype
 @testable import Services
 
+@MainActor
 class BeginingOfTextMarkdownListenerTests: XCTestCase {
 
     var listener: MarkdownListener!

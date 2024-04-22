@@ -34,13 +34,19 @@ struct MembershipTierSelectionView: View {
             }
         }
         .safariSheet(url: $safariUrl)
+        .task {
+            await model.onAppear()
+        }
     }
     
     var sheet: some View {
         Group {
-            if model.tierOwned {
+            switch model.state {
+            case .owned:
                 MembershipOwnerInfoSheetView(membership: model.userMembership)
-            } else {
+            case .pending:
+                MembershipPendingInfoSheetView(membership: model.userMembership)
+            case .unowned:
                 switch model.tierToDisplay.paymentType {
                 case .email:
                     MembershipEmailSheetView { email, subscribeToNewsletter in
@@ -49,10 +55,16 @@ struct MembershipTierSelectionView: View {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
                 case .external(let info):
-                    // TODO: Add proper wording
-                    StandardButton("More info", style: .primaryLarge) {
-                        safariUrl = info.paymentUrl
-                    }.padding()
+                    VStack {
+                        StandardButton(Loc.moreInfo, style: .primaryLarge) {
+                            AnytypeAnalytics.instance().logClickMembership(type: .moreInfo)
+                            safariUrl = info.paymentUrl
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 34)
+                    }
+                    .background(Color.Background.primary)
+                    .cornerRadius(16, corners: .top)
                 }
             }
         }
@@ -74,73 +86,37 @@ struct MembershipTierSelectionView: View {
 #Preview {
     TabView {
         MembershipTierSelectionView(
-            userMembership: MembershipStatus(
-                tier: .mockExplorer,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: ""
-            ),
+            userMembership: .mock(tier: .mockExplorer),
             tierToDisplay: .mockExplorer,
             showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
-            userMembership: MembershipStatus(
-                tier: nil,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: ""
-            ),
+            userMembership: .mock(tier: nil),
             tierToDisplay: .mockExplorer,
             showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
-            userMembership: MembershipStatus(
-                tier: .mockExplorer,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: ""
-            ),
+            userMembership: .mock(tier: .mockExplorer),
             tierToDisplay: .mockBuilder,
             showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
-            userMembership: MembershipStatus(
-                tier: .mockBuilder,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: "SonyaBlade"
-            ),
+            userMembership: .mock(tier: .mockBuilder, anyName: .mock),
             tierToDisplay: .mockBuilder,
             showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
-            userMembership: MembershipStatus(
-                tier: .mockBuilder,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: "SonyaBlade"
-            ),
+            userMembership: .mock(tier: .mockBuilder, anyName: .mock),
             tierToDisplay: .mockCoCreator,
             showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
-            userMembership: MembershipStatus(
-                tier: .mockCoCreator,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: "SonyaBlade"
-            ),
+            userMembership: .mock(tier: .mockCoCreator, anyName: .mock),
             tierToDisplay: .mockCoCreator,
             showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }

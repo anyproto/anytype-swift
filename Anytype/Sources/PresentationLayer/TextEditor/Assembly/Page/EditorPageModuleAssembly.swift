@@ -4,14 +4,14 @@ import Services
 
 @MainActor
 protocol EditorPageModuleInput {
-    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?)
+    func showSettings(output: ObjectSettingsCoordinatorOutput?)
 }
 
 struct EditorPageModuleInputContainer: EditorPageModuleInput {
     weak var model: EditorPageViewModel?
     
-    func showSettings(delegate: ObjectSettingsModuleDelegate, output: ObjectSettingsCoordinatorOutput?) {
-        model?.showSettings(delegate: delegate, output: output)
+    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+        model?.showSettings(output: output)
     }
 }
 
@@ -83,7 +83,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),
             objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
+            objectSettingCoordinatorAssembly: coordinatorsDI.objectSettings(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             newSearchModuleAssembly: modulesDI.newSearch(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
@@ -202,7 +202,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             targetObjectId: document.objectId,
             configuration: configuration,
-            interactor: serviceLocator.objectHeaderInteractor(),
             output: output
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
@@ -305,8 +304,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     }
     
     private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
-        headerModel.onIconPickerTap = { [weak router] args in
-            router?.showIconPicker(document: args.0, onIconAction: args.1)
+        headerModel.onIconPickerTap = { [weak router] document in
+            router?.showIconPicker(document: document)
         }
     }
 }

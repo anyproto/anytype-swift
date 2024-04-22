@@ -3,7 +3,14 @@ import Services
 
 struct ObjectSettingsView: View {
     
-    @ObservedObject var viewModel: ObjectSettingsViewModel
+    @StateObject private var viewModel: ObjectSettingsViewModel
+    
+    init(
+        objectId: String,
+        output: ObjectSettingsModelOutput
+    ) {
+        self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, output: output))
+    }
     
     var body: some View {
         settings
@@ -14,7 +21,10 @@ struct ObjectSettingsView: View {
         VStack(spacing: 0) {
             settingsList
 
-            ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
+            ObjectActionsView(objectId: viewModel.objectId, output: viewModel)
+        }
+        .task {
+            await viewModel.startDocumentTask()
         }
     }
     

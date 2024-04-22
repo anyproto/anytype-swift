@@ -51,5 +51,6 @@ enum AnytypeFont: CaseIterable {
     
     case navigationBarTitle
     
-    case riccioneTitle
+    case riccioneBannerTitle
+    case interBannerTitle
 }

@@ -12,6 +12,7 @@ enum SpaceJoinDataState {
     case requestSent
     case invite
     case alreadyJoined
+    case inviteNotFound
 }
 
 @MainActor
@@ -53,6 +54,10 @@ final class SpaceJoinViewModel: ObservableObject {
     }
     
     func onDismissSuccessAlert() {
+        dismiss.toggle()
+    }
+    
+    func onDismissInviteNotFoundAlert() {
         dismiss.toggle()
     }
     
@@ -103,7 +108,7 @@ final class SpaceJoinViewModel: ObservableObject {
                 switch spaceView.accountStatus {
                 case .spaceJoining:
                     dataState = .requestSent
-                case .spaceActive:
+                case .spaceActive, .unknown:
                     dataState = .alreadyJoined
                 default:
                     dataState = .invite
@@ -111,6 +116,9 @@ final class SpaceJoinViewModel: ObservableObject {
             } else {
                 dataState = .invite
             }
+        } catch let error as SpaceInviteViewError where error.code == .inviteNotFound {
+            dataState = .inviteNotFound
+            state = .data
         } catch {
             errorMessage = error.localizedDescription
             state = .error

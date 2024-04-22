@@ -70,11 +70,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-    func showCoverPicker(
-        document: BaseDocumentGeneralProtocol,
-        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
-    ) {
-        covertPickerData = ObjectCoverPickerData(document: document, onCoverAction: onCoverAction)
+    func showCoverPicker(document: BaseDocumentGeneralProtocol) {
+        covertPickerData = ObjectCoverPickerData(document: document)
     }
     
     func relationValueCoordinator(data: RelationValueData) -> AnyView {
