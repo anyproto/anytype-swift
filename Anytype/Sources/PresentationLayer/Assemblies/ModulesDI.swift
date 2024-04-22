@@ -78,10 +78,6 @@ final class ModulesDI: ModulesDIProtocol {
         return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
     }
 
-    func setViewPicker() -> SetViewPickerModuleAssemblyProtocol {
-        SetViewPickerModuleAssembly(serviceLocator: serviceLocator)
-    }
-
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol {
         HomeBottomNavigationPanelModuleAssembly(serviceLocator: serviceLocator)
     }

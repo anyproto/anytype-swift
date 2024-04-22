@@ -12,28 +12,18 @@ protocol SetViewPickerCoordinatorOutput: AnyObject {
 final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCoordinatorOutput {
     @Published var setSettingsData: SetSettingsData?
     
-    private let setDocument: SetDocumentProtocol
-    private let setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol
+    let setDocument: SetDocumentProtocol
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
     init(
         setDocument: SetDocumentProtocol,
-        setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol,
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         subscriptionDetailsStorage: ObjectDetailsStorage
     ) {
         self.setDocument = setDocument
-        self.setViewPickerModuleAssembly = setViewPickerModuleAssembly
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
-    }
-    
-    func list() -> AnyView {
-        setViewPickerModuleAssembly.make(
-            setDocument: setDocument,
-            output: self
-        )
     }
     
     // MARK: - SetViewPickerCoordinatorOutput
