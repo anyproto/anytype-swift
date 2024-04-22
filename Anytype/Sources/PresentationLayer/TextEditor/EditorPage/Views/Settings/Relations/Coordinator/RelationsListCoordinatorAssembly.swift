@@ -30,7 +30,6 @@ final class RelationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyPr
         RelationsListCoordinatorView(
             model: RelationsListCoordinatorViewModel(
                 document: document,
-                relationsListModuleAssembly: self.modulesDI.relationsList(),
                 relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
                 addNewRelationCoordinator: self.coordinatorsID.addNewRelation().make(), 
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(),
