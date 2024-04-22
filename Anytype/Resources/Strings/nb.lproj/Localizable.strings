@@ -1097,6 +1097,7 @@
 "Membership.NameForm.Error.TooShort" = "Navnet er for kort";
 "Membership.NameForm.Error.TooLong" = "Navnet er for langt";
 "Membership.NameForm.Error.HasInvalidChars" = "Navnet har ugyldige tegn";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "Velkommen til nettverket, %@";
