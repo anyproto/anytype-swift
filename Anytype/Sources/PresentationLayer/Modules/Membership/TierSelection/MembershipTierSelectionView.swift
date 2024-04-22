@@ -91,7 +91,7 @@ struct MembershipTierSelectionView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: ""
+                anyName: .mockEmpty
             ),
             tierToDisplay: .mockExplorer,
             showEmailVerification: { _ in },
@@ -103,7 +103,7 @@ struct MembershipTierSelectionView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: ""
+                anyName: .mockEmpty
             ),
             tierToDisplay: .mockExplorer,
             showEmailVerification: { _ in },
@@ -115,7 +115,7 @@ struct MembershipTierSelectionView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: ""
+                anyName: .mockEmpty
             ),
             tierToDisplay: .mockBuilder,
             showEmailVerification: { _ in },
@@ -127,7 +127,7 @@ struct MembershipTierSelectionView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: "SonyaBlade"
+                anyName: .mock
             ),
             tierToDisplay: .mockBuilder,
             showEmailVerification: { _ in },
@@ -139,7 +139,7 @@ struct MembershipTierSelectionView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: "SonyaBlade"
+                anyName: .mock
             ),
             tierToDisplay: .mockCoCreator,
             showEmailVerification: { _ in },
@@ -151,7 +151,7 @@ struct MembershipTierSelectionView: View {
                 status: .active,
                 dateEnds: .tomorrow,
                 paymentMethod: .methodStripe,
-                anyName: "SonyaBlade"
+                anyName: .mock
             ),
             tierToDisplay: .mockCoCreator,
             showEmailVerification: { _ in },

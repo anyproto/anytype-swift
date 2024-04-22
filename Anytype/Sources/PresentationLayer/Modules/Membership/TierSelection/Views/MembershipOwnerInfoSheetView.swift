@@ -85,7 +85,7 @@ struct MembershipOwnerInfoSheetView: View {
                         status: .active,
                         dateEnds: .tomorrow,
                         paymentMethod: .methodStripe,
-                        anyName: ""
+                        anyName: .mockEmpty
                     )
                 )
                 MembershipOwnerInfoSheetView(
@@ -94,7 +94,7 @@ struct MembershipOwnerInfoSheetView: View {
                         status: .pending,
                         dateEnds: .tomorrow,
                         paymentMethod: .methodCrypto,
-                        anyName: ""
+                        anyName: .mockEmpty
                     )
                 )
                 MembershipOwnerInfoSheetView(
@@ -103,7 +103,7 @@ struct MembershipOwnerInfoSheetView: View {
                         status: .active,
                         dateEnds: .tomorrow,
                         paymentMethod: .methodInappApple,
-                        anyName: ""
+                        anyName: .mockEmpty
                     )
                 )
             }

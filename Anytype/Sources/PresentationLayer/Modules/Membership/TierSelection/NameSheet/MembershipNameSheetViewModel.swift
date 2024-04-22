@@ -30,7 +30,7 @@ enum MembershipAnyNameAvailability {
 final class MembershipNameSheetViewModel: ObservableObject {
     @Published var state = MembershipNameSheetViewState.default
     let tier: MembershipTier
-    let anyName: String
+    let anyName: AnyName
     
     @Injected(\.storeKitService)
     private var storeKitService: StoreKitServiceProtocol
@@ -40,7 +40,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
         case .none:
             .notAvailable
         case .some:
-            if anyName.isEmpty {
+            if anyName.handle.isEmpty {
                 .availableForPruchase
             } else {
                 .alreadyBought
@@ -74,7 +74,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
     private let product: Product
     private let onSuccessfulPurchase: (MembershipTier) -> ()
     
-    init(tier: MembershipTier, anyName: String, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
+    init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         self.tier = tier
         self.anyName = anyName
         self.product = product
