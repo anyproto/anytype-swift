@@ -7,3 +7,4 @@ files:
     translation: /AnytypeWidget/Resources/%osx_code%/%original_file_name%
   - source: /Anytype/Resources/Strings/LocalizableError.xcstrings
     translation: /Anytype/Resources/Strings/LocalizableError.xcstrings
+    multilingual: 1
