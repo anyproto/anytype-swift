@@ -45,8 +45,7 @@ public extension FeatureDescription {
     static let universalLinks = FeatureDescription(
         title: "Universal Links",
         type: .feature(author: "m@anytype.io", releaseVersion: "4"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: true
     )
     
     static let membership = FeatureDescription(
