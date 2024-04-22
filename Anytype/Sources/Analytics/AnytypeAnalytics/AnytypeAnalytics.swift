@@ -1,18 +1,13 @@
-//
-//  AnytypeAnalytics.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 18.04.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Amplitude
+import Services
+
 
 final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
     private enum Keys {
         static let interfaceLang = "interfaceLang"
         static let networkId = "networkId"
+        static let tier = "tier"
     }
     
     var isEnabled: Bool = true
@@ -57,6 +52,10 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
     func setNetworkId(_ networkId: String) {
         userProperties[Keys.networkId] = networkId
+    }
+    
+    func setMembershipTier(tier: MembershipTier?) {
+        userProperties[Keys.tier] = tier?.name
     }
     
     func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any]?) {

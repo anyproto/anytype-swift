@@ -12,18 +12,23 @@ enum MembershipServiceError: Error {
 
 
 public protocol MembershipServiceProtocol {
-    func getMembership() async throws -> MembershipStatus
-    func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus
+    func getMembership(noCache: Bool) async throws -> MembershipStatus
+    func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus, noCache: Bool) async throws -> MembershipStatus
     
-    func getTiers(noCache: Bool) async throws -> [MembershipTier]
-    func dropTiersCache() async throws
-    
+    func getTiers(noCache: Bool) async throws -> [MembershipTier]    
     
     func getVerificationEmail(data: EmailVerificationData) async throws
     func verifyEmailCode(code: String) async throws
     
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
     func validateName(name: String, tierType: MembershipTierType) async throws
+}
+
+public extension MembershipServiceProtocol {
+    func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
+        try await makeMembershipFromMiddlewareModel(membership: membership, noCache: false)
+    }
+    
 }
 
 public extension MembershipServiceProtocol {
@@ -34,13 +39,13 @@ public extension MembershipServiceProtocol {
 
 final class MembershipService: MembershipServiceProtocol {
     
-    public func getMembership() async throws -> MembershipStatus {
+    public func getMembership(noCache: Bool) async throws -> MembershipStatus {
         let status = try await ClientCommands.membershipGetStatus().invoke().data
-        return try await makeMembershipFromMiddlewareModel(membership: status)
+        return try await makeMembershipFromMiddlewareModel(membership: status, noCache: noCache)
     }
     
-    public func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
-        let tier = try await getTiers().first { $0.type.id == membership.tier }
+    public func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus, noCache: Bool) async throws -> MembershipStatus {
+        let tier = try await getTiers(noCache: noCache).first { $0.type.id == membership.tier }
         
         if tier == nil, membership.tier != 0 {
             anytypeAssertionFailure("Not found tier info for \(membership)")
@@ -58,10 +63,6 @@ final class MembershipService: MembershipServiceProtocol {
         .invoke().tiers
         .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
         .asyncMap { await buildMemberhsipTier(tier: $0) }.compactMap { $0 }
-    }
-    
-    func dropTiersCache() async throws {
-        _ = try await getTiers(noCache: true)
     }
     
     public func getVerificationEmail(data: EmailVerificationData) async throws {

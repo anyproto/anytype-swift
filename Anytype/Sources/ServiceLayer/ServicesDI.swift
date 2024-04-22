@@ -257,7 +257,7 @@ extension Container {
     }
     
     var membershipStatusStorage: Factory<MembershipStatusStorageProtocol> {
-        self { MembershipStatusStorage() }.shared
+        self { MembershipStatusStorage() }.singleton
     }
     
     var objectHeaderUploadingService: Factory<ObjectHeaderUploadingServiceProtocol> {
