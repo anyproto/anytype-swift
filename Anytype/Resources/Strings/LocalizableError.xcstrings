@@ -359,8 +359,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -616,8 +616,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -873,8 +873,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -1130,8 +1130,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -1644,8 +1644,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -1901,8 +1901,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -2158,8 +2158,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -2415,8 +2415,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -2672,8 +2672,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Undangan ini tidak ada. Pastikan perangkatmu tersinkronisasi."
           }
         },
         "is" : {
@@ -3186,8 +3186,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -3443,8 +3443,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -3700,8 +3700,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -3957,8 +3957,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -4214,8 +4214,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Tautan undangan tidak dapat digunakan. Mungkin terdapat kesalahan format atau data yang tak valid."
           }
         },
         "is" : {
@@ -4471,8 +4471,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Undangan ini tidak ada. Pastikan perangkatmu tersinkronisasi."
           }
         },
         "is" : {
@@ -4728,8 +4728,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Tautan undangan tidak dapat digunakan. Mungkin terdapat kesalahan format atau data yang tak valid."
           }
         },
         "is" : {
@@ -4985,8 +4985,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Undangan ini tidak ada. Pastikan perangkatmu tersinkronisasi."
           }
         },
         "is" : {
@@ -5499,8 +5499,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -5756,8 +5756,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -6013,8 +6013,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -6270,8 +6270,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -6784,8 +6784,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Permintaan ini tidak ada lagi. Tidak ada yang perlu dilakukan, namun pastikan bahwa perangkatmu tersinkronisasi."
           }
         },
         "is" : {
@@ -7041,8 +7041,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -7298,8 +7298,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -7555,8 +7555,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -7812,8 +7812,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -8326,8 +8326,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Permintaan ini tidak ada lagi. Tidak ada yang perlu dilakukan, namun pastikan bahwa perangkatmu tersinkronisasi."
           }
         },
         "is" : {
@@ -8583,8 +8583,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -8840,8 +8840,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -9097,8 +9097,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -9354,8 +9354,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -9611,8 +9611,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -9868,8 +9868,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -10125,8 +10125,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -10382,8 +10382,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -10639,8 +10639,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "Hak akses tidak dapat diberikan kepada anggota. Pastikan hak akses yang diberikan benar."
           }
         },
         "is" : {
@@ -11153,8 +11153,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -11410,8 +11410,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -11667,8 +11667,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Anggota ini tidak dapat ditemukan. Tolong pastikan bahwa perangkatmu tersinkronisasi dengan baik."
           }
         },
         "is" : {
@@ -11924,8 +11924,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -12181,8 +12181,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -12695,8 +12695,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -12952,8 +12952,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -13209,8 +13209,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Anggota ini tidak dapat ditemukan. Tolong pastikan bahwa perangkatmu tersinkronisasi dengan baik."
           }
         },
         "is" : {
@@ -13466,8 +13466,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -13723,8 +13723,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -13980,8 +13980,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "Permintaan ini tidak dapat disetujui dengan hak akses ini. Pastikan hak akses yang diberikan benar."
           }
         },
         "is" : {
@@ -14494,8 +14494,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Permintaan ini tidak ada lagi. Tidak ada yang perlu dilakukan, namun pastikan bahwa perangkatmu tersinkronisasi."
           }
         },
         "is" : {
@@ -14751,8 +14751,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -15008,8 +15008,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -15265,8 +15265,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -15522,8 +15522,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -16036,8 +16036,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Permintaan ini tidak ada lagi. Tidak ada yang perlu dilakukan, namun pastikan bahwa perangkatmu tersinkronisasi."
           }
         },
         "is" : {
@@ -16293,8 +16293,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -16550,8 +16550,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini tidak dibagikan lagi. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -16807,8 +16807,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -17064,8 +17064,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
@@ -17578,8 +17578,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Terjadi kesalahan. Silakan coba lagi."
           }
         },
         "is" : {
@@ -17835,8 +17835,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ups! Permintaan gagal. Tolong periksa koneksi internetmu lalu coba lagi."
           }
         },
         "is" : {
@@ -18092,8 +18092,8 @@
         },
         "id" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Kelihatannya ruang ini sudah dihapus. Tolong pastikan bahwa perangkatmu tersinkron dengan baik."
           }
         },
         "is" : {
