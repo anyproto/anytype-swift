@@ -5,3 +5,5 @@ files:
     translation: /Anytype/Resources/Strings/%osx_code%/%original_file_name%
   - source: /AnytypeWidget/Resources/en.lproj/*
     translation: /AnytypeWidget/Resources/%osx_code%/%original_file_name%
+  - source: /Anytype/Resources/Strings/LocalizableError.xcstrings
+    translation: /Anytype/Resources/Strings/LocalizableError.xcstrings
