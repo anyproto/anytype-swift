@@ -242,7 +242,7 @@
 "Auth.JoinFlow.Key.Title" = "这是您的密钥";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "显示我的密钥";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "进入我的库";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "下一步";
 "Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
 "Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
@@ -262,11 +262,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
 "Auth.JoinFlow.Soul.Button" = "获得我的密钥";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
 "Auth.LoginFlow.Or" = "或者";
 "Auth.LoginFlow.Textfield.Placeholder" = "输入您的密钥";
-"Auth.LoginFlow.Enter.Title" = "进入我的库";
+"Auth.LoginFlow.Enter.Title" = "获得我的密钥";
 "Auth.LoginFlow.Entering.Void.Title" = "无效的输入";
 
 // Object settings

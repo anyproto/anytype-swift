@@ -242,7 +242,7 @@
 "Auth.JoinFlow.Key.Title" = "Ceci est votre clé";
 "Auth.JoinFlow.Key.Description" = "Elle vous donne la pleine propriété de votre coffre-fort.\nElle ne peut pas être récupérée.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Afficher ma clé";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Accéder à mon coffre";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Suivant";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Ignorer";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copier dans le presse-papier";
 "Auth.JoinFlow.Key.Button.Info.Title" = "En savoir plus";
@@ -261,11 +261,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
 "Auth.JoinFlow.Soul.Button" = "Obtenir ma Clé";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Utiliser le trousseau";
 "Auth.LoginFlow.Or" = "OU";
 "Auth.LoginFlow.Textfield.Placeholder" = "Tapez votre clé";
-"Auth.LoginFlow.Enter.Title" = "Accéder à mon coffre";
+"Auth.LoginFlow.Enter.Title" = "Obtenir ma Clé";
 "Auth.LoginFlow.Entering.Void.Title" = "Entrer dans le Vide";
 
 // Object settings
