@@ -340,7 +340,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype perlu mengakses kameramu untuk memindai kode QR.\n\nSilakan menuju Setelan -> Privasi -> Kamera dan atur Anytype menjadi ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "Kami sedih melihatmu pergi. Kamu punya waktu 30 hari jika ingin membatalkan permintaan ini. Setelahnya, data brankas terenkripsimu akan dihapus secara permanen dari simpul cadangan.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Batalkan/Ulangi";
@@ -793,7 +793,7 @@
 "About.AppVersion" = "Versi aplikasi: %@";
 "About.BuildNumber" = "Nomor Pembuatan: %@";
 "About.Library" = "Versi Pustaka: %@";
-"About.anytypeId" = "Anytype ID: %@";
+"About.anytypeId" = "ID Anytype: %@";
 "About.analyticsId" = "ID analitik: %@";
 "About.deviceId" = "ID perangkat: %@";
 "About.Device" = "Perangkat: %@";
@@ -885,7 +885,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "Kamu keluar dari %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Lebih lanjut";
 
 "SpaceShare.Title" = "Berbagi";
 "SpaceShare.Members" = "Anggota";
@@ -918,7 +918,7 @@
 "SpaceShare.Join.Button" = "Permintaan bergabung";
 "SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung ke ruang **%@** buatan **%@**. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.InviteNotFound" = "Sepertinya tautan ini tidak bisa digunakan";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 "SpaceShare.YouSuffix" = "%@ (kamu)";
@@ -928,7 +928,7 @@
 "SpaceShare.StopSharing.Title" = "Berhenti membagikan ruang";
 "SpaceShare.StopSharing.Message" = "Anggota tidak akan lagi menyinkronkan ruang ini dan tautan pembagian akan dinonaktifkan.";
 "SpaceShare.StopSharing.Toast" = "Ruang ini tidak dibagikan lagi";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Title" = "Kode QR untuk bergabung ke Ruang";
 "SpaceShare.QR.Button" = "Tampilkan kode QR";
 "SpaceShare.HowToShare.Title" = "Bagaimana caranya membagikan ruang?";
 "SpaceShare.HowToShare.Step1" = "Berikan tautan kepada orang yang ingin kamu ajak berkolaborasi.";
@@ -1097,7 +1097,7 @@
 "Membership.NameForm.Error.TooShort" = "Nama terlalu pendek";
 "Membership.NameForm.Error.TooLong" = "Nama terlalu panjang";
 "Membership.NameForm.Error.HasInvalidChars" = "Nama mengandung karakter tidak valid";
-"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
+"Membership.NameForm.Error.CanNotReserve" = "Nama ini sudah dipakai";
 
 
 "Membership.Success.Title" = "Selamat menjadi anggota, %@";
