@@ -3,6 +3,7 @@ import SwiftEntryKit
 import Combine
 import Services
 
+@MainActor
 protocol ToastPresenterProtocol: AnyObject {
     func show(message: String)
     func show(message: String, mode: ToastPresenterMode)
@@ -33,7 +34,7 @@ class ToastPresenter: ToastPresenterProtocol {
     private let documentsProvider: DocumentsProviderProtocol
     private var cancellable: AnyCancellable?
 
-    init(
+    nonisolated init(
         viewControllerProvider: ViewControllerProviderProtocol,
         containerViewController: UIViewController? = nil,
         keyboardHeightListener: KeyboardHeightListener,

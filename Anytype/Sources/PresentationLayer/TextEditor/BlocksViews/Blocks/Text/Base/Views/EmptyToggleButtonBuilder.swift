@@ -1,5 +1,7 @@
 import UIKit
 
+
+@MainActor
 final class EmptyToggleButtonBuilder {
     static func create(onTap: @escaping () -> ()) -> UIButton {
         let button = UIButton(

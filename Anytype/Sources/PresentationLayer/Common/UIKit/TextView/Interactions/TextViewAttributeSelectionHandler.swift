@@ -1,5 +1,6 @@
 import UIKit
 
+@MainActor
 protocol TextViewAttributeSelectionHandler {
     
     func didSelect(

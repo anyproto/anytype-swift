@@ -1,6 +1,7 @@
 import UIKit
 
 /// A proxy for layout methods of the UIView.
+@MainActor
 public class LayoutProxy {
     
     public lazy var leading = property(with: view.leadingAnchor)

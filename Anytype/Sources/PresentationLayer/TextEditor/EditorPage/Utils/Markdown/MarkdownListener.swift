@@ -9,6 +9,7 @@ enum MarkdownChange {
     case addStyle(MarkupType, text: NSAttributedString, range: NSRange, focusRange: NSRange)
 }
 
+@MainActor
 protocol MarkdownListener {
     func markdownChange(textView: UITextView, replacementText: String, range: NSRange) -> MarkdownChange?
 }

@@ -2,6 +2,7 @@ import UIKit
 import Services
 import AnytypeCore
 
+@MainActor
 protocol BlockViewModelProtocol:
     ContentConfigurationProvider,
     BlockInformationProvider

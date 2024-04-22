@@ -1,6 +1,8 @@
 import UIKit
 import Services
 
+
+@MainActor
 final class TextBlockTextViewStyler {
     static func applyStyle(textView: CustomTextView, configuration: TextBlockContentConfiguration, restrictions: BlockRestrictions) {
         updateText(textView: textView, configuration: configuration)

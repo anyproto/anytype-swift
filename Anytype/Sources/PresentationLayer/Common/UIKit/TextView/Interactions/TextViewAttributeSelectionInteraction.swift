@@ -1,5 +1,7 @@
 import UIKit
 
+
+@MainActor
 final class TextViewAttributeSelectionInteraction: NSObject {
     
     private weak var textView: UITextView?
