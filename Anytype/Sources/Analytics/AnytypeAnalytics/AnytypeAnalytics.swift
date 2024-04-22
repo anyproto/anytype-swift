@@ -1,4 +1,6 @@
 import Foundation
+import Services
+
 
 final class AnytypeAnalytics {
     
@@ -38,6 +40,10 @@ final class AnytypeAnalytics {
 
     func setNetworkId(_ networkId: String) async {
         await AnytypeAnalyticsCore.instance().setNetworkId(networkId)
+    }
+    
+    func setMembershipTier(tier: MembershipTier?) async {
+        await AnytypeAnalyticsCore.instance().setMembershipTier(tier: tier)
     }
     
     func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any]?) {

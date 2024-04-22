@@ -1,10 +1,13 @@
 import Amplitude
+import Services
+
 
 actor AnytypeAnalyticsCore {
 
     private enum Keys {
         static let interfaceLang = "interfaceLang"
         static let networkId = "networkId"
+        static let tier = "tier"
     }
     
     private var isEnabled: Bool = true
@@ -54,6 +57,10 @@ actor AnytypeAnalyticsCore {
 
     func setNetworkId(_ networkId: String) {
         userProperties[Keys.networkId] = networkId
+    }
+    
+    func setMembershipTier(tier: MembershipTier?) {
+        userProperties[Keys.tier] = tier?.name
     }
     
     func logEvent(_ eventType: String, spaceId: String, withEventProperties eventProperties: [AnyHashable : Any]?) async {
