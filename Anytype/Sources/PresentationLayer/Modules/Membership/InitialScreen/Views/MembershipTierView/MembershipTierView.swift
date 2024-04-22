@@ -110,13 +110,7 @@ struct MembershipTierView: View {
 #Preview("No tier") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = MembershipStatus(
-                tier: nil,
-                status: .pending,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: .mockEmpty
-            )
+            MembershipStatusStorageMock.shared._status = .mock(tier: nil, status: .pending)
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
@@ -131,13 +125,7 @@ struct MembershipTierView: View {
 #Preview("Pending explorer") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = MembershipStatus(
-                tier: .mockExplorer,
-                status: .pending,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: .mockEmpty
-            )
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer, status: .pending)
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
@@ -152,13 +140,7 @@ struct MembershipTierView: View {
 #Preview("Active explorer") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = MembershipStatus(
-                tier: .mockExplorer,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodInappApple,
-                anyName: .mockEmpty
-            )
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockExplorer)
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
@@ -173,13 +155,7 @@ struct MembershipTierView: View {
 #Preview("Active builder") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = MembershipStatus(
-                tier: .mockBuilder,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodStripe,
-                anyName: .mockEmpty
-            )
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockBuilder)
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })
@@ -194,13 +170,7 @@ struct MembershipTierView: View {
 #Preview("Active custom") {
     ScrollView(.horizontal) {
         MockView {
-            MembershipStatusStorageMock.shared._status = MembershipStatus(
-                tier: .mockCustom,
-                status: .active,
-                dateEnds: .tomorrow,
-                paymentMethod: .methodCrypto,
-                anyName: .mockEmpty
-            )
+            MembershipStatusStorageMock.shared._status = .mock(tier: .mockCustom, paymentMethod: .methodCrypto)
         } content: {
             HStack {
                 MembershipTierView(tierToDisplay: .mockExplorer, onTap: { })

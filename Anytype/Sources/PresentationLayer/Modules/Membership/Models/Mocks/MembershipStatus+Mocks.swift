@@ -1,4 +1,5 @@
 import Services
+import ProtobufMessages
 
 
 public extension AnyName {
@@ -12,14 +13,19 @@ public extension AnyName {
 }
 
 
-public extension MembershipStatus {
-    static var empty: MembershipStatus {
+public extension MembershipStatus {    
+    static func mock(
+        tier: MembershipTier?,
+        status: MembershipSubscriptionStatus = .active,
+        paymentMethod: MembershipPaymentMethod = .methodInappApple,
+        anyName: AnyName = .mockEmpty
+    ) -> MembershipStatus {
         MembershipStatus(
-            tier: nil,
-            status: .unknown,
-            dateEnds: .distantFuture,
-            paymentMethod: .methodStripe,
-            anyName: .mock
+            tier: tier,
+            status: status,
+            dateEnds: .tomorrow,
+            paymentMethod: paymentMethod,
+            anyName: anyName
         )
     }
 }
