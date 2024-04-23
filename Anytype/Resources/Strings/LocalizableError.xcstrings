@@ -1,6 +1,259 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Membership.IsNameValid.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong with input, try again"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.cacheError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error on our side, try again later"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.canNotConnect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can not connect, check your internet connection"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.canNotReserve" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This name is not availabe"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.hasInvalidChars" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name has invalid characters"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.notLoggedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.paymentNodeError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error on our side, try again later"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.tierFeaturesNoName" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name is not available for this tier"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.tierNotFound" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tier not found, try again later"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.tooLong" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name is too long"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.tooShort" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Name is too short"
+          }
+        }
+      }
+    },
+    "Membership.VerifyAppStoreReceipt.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong with input, try again"
+          }
+        }
+      }
+    },
+    "Membership.VerifyAppStoreReceipt.cacheError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error on our side, try again later"
+          }
+        }
+      }
+    },
+    "Membership.VerifyAppStoreReceipt.notLoggedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        }
+      }
+    },
+    "Membership.VerifyAppStoreReceipt.paymentNodeError" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error on our side, try again later"
+          }
+        }
+      }
+    },
+    "NameService.ResolveAnyId.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong with input, try again"
+          }
+        }
+      }
+    },
+    "NameService.ResolveAnyId.canNotConnect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can not connect, check your internet connection"
+          }
+        }
+      }
+    },
+    "NameService.ResolveName.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong with input, try again"
+          }
+        }
+      }
+    },
+    "NameService.ResolveName.canNotConnect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can not connect, check your internet connection"
+          }
+        }
+      }
+    },
+    "NameService.ResolveSpaceId.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong with input, try again"
+          }
+        }
+      }
+    },
+    "NameService.ResolveSpaceId.canNotConnect" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can not connect, check your internet connection"
+          }
+        }
+      }
+    },
+    "NameService.UserAccount.Get.badInput" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Something wrong with input, try again"
+          }
+        }
+      }
+    },
+    "NameService.UserAccount.Get.notLoggedIn" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        }
+      }
+    },
     "Space.Delete.limitReached" : {
       "extractionState" : "manual",
       "localizations" : {

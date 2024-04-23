@@ -100,8 +100,6 @@ final class MembershipNameSheetViewModel: ObservableObject {
             do {
                 try await memberhsipService.validateName(name: name, tierType: tier.type)
                 state = .validated
-            } catch let error as MembershipServiceProtocol.ValidateNameError {
-                state = .error(text: error.validateNameSheetError)
             } catch let error {
                 state = .error(text: error.localizedDescription)
             }

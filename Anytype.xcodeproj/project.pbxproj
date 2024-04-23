@@ -1256,7 +1256,6 @@
 		3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */; };
 		3D6F758B2BD0286F00F6C01E /* MembershipBannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
-		3D7DC2C02BB1D21F00A4F114 /* ValidateNameErrorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */; };
 		3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8D0268F636300C76974 /* BlockBookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */; };
@@ -3040,7 +3039,6 @@
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannersView.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateNameErrorExtension.swift; sourceTree = "<group>"; };
 		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -8404,7 +8402,6 @@
 			children = (
 				3D4507BB2B9B398A00739EFC /* MembershipNameSheetView.swift */,
 				3D4507BE2B9B3DE300739EFC /* MembershipNameSheetViewModel.swift */,
-				3D7DC2BF2BB1D21F00A4F114 /* ValidateNameErrorExtension.swift */,
 			);
 			path = NameSheet;
 			sourceTree = "<group>";
@@ -12151,7 +12148,6 @@
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
 				2AFEED0D2A72713500D7A45B /* Icon.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
-				3D7DC2C02BB1D21F00A4F114 /* ValidateNameErrorExtension.swift in Sources */,
 				2AD102BF2BB1CEF800AF4DC9 /* SpaceRequestAlertModel.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
