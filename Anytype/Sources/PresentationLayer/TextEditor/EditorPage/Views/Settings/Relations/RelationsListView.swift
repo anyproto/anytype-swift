@@ -3,8 +3,12 @@ import Services
 
 struct RelationsListView: View {
     
-    @StateObject var viewModel: RelationsListViewModel
+    @StateObject private var viewModel: RelationsListViewModel
     @State private var editingMode = false
+    
+    init(document: BaseDocumentProtocol, output: RelationsListModuleOutput?) {
+        _viewModel = StateObject(wrappedValue: RelationsListViewModel(document: document, output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

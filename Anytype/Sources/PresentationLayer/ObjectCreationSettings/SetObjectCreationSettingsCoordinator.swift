@@ -19,24 +19,26 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     )
 }
 
-final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
+final class SetObjectCreationSettingsCoordinator: 
+    SetObjectCreationSettingsCoordinatorProtocol,
+    ObjectSettingsCoordinatorOutput,
+    SetObjectCreationSettingsOutput
+{
     private let navigationContext: NavigationContextProtocol
-    private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
+    private var onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     
     private var editorModuleInput: EditorPageModuleInput?
     
     init(
         navigationContext: NavigationContextProtocol,
-        setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol,
         editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
-        self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
@@ -46,44 +48,13 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
-        let view = setObjectCreationSettingsAssembly.build(
+        self.onTemplateSelection = onTemplateSelection
+        
+        let view = SetObjectCreationSettingsView(
             setDocument: setDocument,
             viewId: viewId,
-            onTemplateSelection: { [weak self] setting in
-                guard let self else { return }
-                navigationContext.dismissTopPresented(animated: true) {
-                    onTemplateSelection(setting)
-                }
-            }
+            output: self
         )
-        let model = view.model
-        
-        view.model.onObjectTypesSearchAction = { [weak self, weak model] in
-            self?.showTypesSearch(
-                setDocument: setDocument,
-                onSelect: { objectType in
-                    model?.setObjectType(objectType)
-                }
-            )
-        }
-        
-        view.model.templateEditingHandler = { [weak self, weak model, weak navigationContext] setting in
-            self?.showTemplateEditing(
-                setting: setting,
-                onTemplateSelection: {
-                    navigationContext?.dismissAllPresented(animated: true) {
-                        model?.setTemplateAsDefault(templateId: setting.templateId)
-                        onTemplateSelection(setting)
-                    }
-                },
-                onSetAsDefaultTempalte: { templateId in
-                    navigationContext?.dismissTopPresented(animated: true, completion: {
-                        model?.setTemplateAsDefaultForType(templateId: templateId)
-                    })
-                },
-                completion: nil
-            )
-        }
 
         let viewModel = AnytypePopupViewModel(
             contentView: view,
@@ -169,5 +140,38 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     
     func didTapUseTemplateAsDefault(templateId: String) {
         useAsTemplateAction?(templateId)
+    }
+    
+    // MARK: - SetObjectCreationSettingsOutput
+    
+    func onTemplateSelection(setting: ObjectCreationSetting) {
+        navigationContext.dismissTopPresented(animated: true) { [weak self] in
+            self?.onTemplateSelection?(setting)
+        }
+    }
+    
+    func onObjectTypesSearchAction(setDocument: SetDocumentProtocol, completion: @escaping (ObjectType) -> Void) {
+        showTypesSearch(setDocument: setDocument, onSelect: completion)
+    }
+    
+    func templateEditingHandler(
+        setting: ObjectCreationSetting,
+        onSetAsDefaultTempalte: @escaping (String) -> Void
+    ) {
+        showTemplateEditing(
+            setting: setting,
+            onTemplateSelection: { [weak self] in
+                self?.navigationContext.dismissAllPresented(animated: true) {
+                    onSetAsDefaultTempalte(setting.templateId)
+                    self?.onTemplateSelection?(setting)
+                }
+            },
+            onSetAsDefaultTempalte: { [weak self] templateId in
+                self?.navigationContext.dismissTopPresented(animated: true, completion: {
+                    onSetAsDefaultTempalte(templateId)
+                })
+            },
+            completion: nil
+        )
     }
 }

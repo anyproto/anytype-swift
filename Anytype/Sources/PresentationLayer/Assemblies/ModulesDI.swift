@@ -18,10 +18,6 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationValueModuleAssembly(modulesDI: self, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func relationsList() -> RelationsListModuleAssemblyProtocol {
-        return RelationsListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
         TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
@@ -68,10 +64,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
-    }
-    
-    func setObjectCreationSettings() -> SetObjectCreationSettingsModuleAssemblyProtocol {
-        return SetObjectCreationSettingsModuleAssembly(serviceLocator: serviceLocator, uiHelperDI: uiHelpersDI)
     }
     
     func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
