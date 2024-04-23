@@ -30,6 +30,7 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     
     func onAddButtonTap(with viewId: String) {
         setSettingsData = SetSettingsData(
+            setDocument: setDocument,
             viewId: viewId,
             mode: .new
         )
@@ -37,6 +38,7 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     
     func onEditButtonTap(dataView: DataviewView) {
         setSettingsData = SetSettingsData(
+            setDocument: setDocument,
             viewId: dataView.id,
             mode: .edit
         )
@@ -44,18 +46,12 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     
     func setSettingsView(data: SetSettingsData) -> AnyView {
         setViewSettingsCoordinatorAssembly.make(
-            setDocument: setDocument,
-            viewId: data.viewId,
-            mode: data.mode,
+            with: SetSettingsData(
+                setDocument: setDocument,
+                viewId: data.viewId,
+                mode: data.mode
+            ),
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
-    }
-}
-
-extension SetViewPickerCoordinatorViewModel {
-    struct SetSettingsData: Identifiable {
-        let id = UUID()
-        let viewId: String
-        let mode: SetViewSettingsMode
     }
 }

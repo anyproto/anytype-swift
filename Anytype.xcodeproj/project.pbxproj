@@ -915,6 +915,7 @@
 		2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */; };
 		2E1AA8002BCFFC9B0089B136 /* VaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FF2BCFFC9B0089B136 /* VaultView.swift */; };
 		2E1AA8022BCFFCA50089B136 /* VaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8012BCFFCA50089B136 /* VaultViewModel.swift */; };
+		2E1AA8042BD7FDEB0089B136 /* SetSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8032BD7FDEB0089B136 /* SetSettingsData.swift */; };
 		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */; };
@@ -1103,7 +1104,6 @@
 		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */; };
 		2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */; };
 		2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */; };
-		2ED9F4452A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4442A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift */; };
 		2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */; };
 		2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */; };
 		2EDC2AFD2A125C6A0065E009 /* JoinFlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */; };
@@ -1206,8 +1206,8 @@
 		3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A18292733E946000D0842 /* MarkdownListener.swift */; };
 		3D3A183927340187000D0842 /* NSAttributedString+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */; };
-		3D3B35112BCEBBAA008456F8 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B35102BCEBBAA008456F8 /* SafariWebView.swift */; };
 		3D3B350E2BCE872E008456F8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D3B350D2BCE872E008456F8 /* StoreKit.framework */; };
+		3D3B35112BCEBBAA008456F8 /* SafariWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3B35102BCEBBAA008456F8 /* SafariWebView.swift */; };
 		3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */; };
 		3D40C00C273FD77A0001E336 /* SetTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D40C00B273FD77A0001E336 /* SetTableView.swift */; };
 		3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4125F926A014E1007A6880 /* TextContent+Font.swift */; };
@@ -2700,6 +2700,7 @@
 		2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsData.swift; sourceTree = "<group>"; };
 		2E1AA7FF2BCFFC9B0089B136 /* VaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultView.swift; sourceTree = "<group>"; };
 		2E1AA8012BCFFCA50089B136 /* VaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultViewModel.swift; sourceTree = "<group>"; };
+		2E1AA8032BD7FDEB0089B136 /* SetSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSettingsData.swift; sourceTree = "<group>"; };
 		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationModuleConfiguration.swift; sourceTree = "<group>"; };
@@ -2888,7 +2889,6 @@
 		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorView.swift; sourceTree = "<group>"; };
 		2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettings.swift; sourceTree = "<group>"; };
-		2ED9F4442A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsListModuleAssembly.swift; sourceTree = "<group>"; };
 		2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowOutput.swift; sourceTree = "<group>"; };
 		2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStep.swift; sourceTree = "<group>"; };
@@ -2991,8 +2991,8 @@
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
 		3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Convenience.swift"; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
-		3D3B35102BCEBBAA008456F8 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		3D3B350D2BCE872E008456F8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3D3B35102BCEBBAA008456F8 /* SafariWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebView.swift; sourceTree = "<group>"; };
 		3D3D894C2678D08E008C2B26 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewModifiers.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/BasicComponents/ViewModifiers.swift; sourceTree = SOURCE_ROOT; };
 		3D40C00B273FD77A0001E336 /* SetTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableView.swift; sourceTree = "<group>"; };
 		3D4125F926A014E1007A6880 /* TextContent+Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "TextContent+Font.swift"; path = "Anytype/Sources/Design system/TextComponents/TextContent+Font.swift"; sourceTree = SOURCE_ROOT; };
@@ -5697,6 +5697,7 @@
 		2A4E3F892BC7CF6800724DBF /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				3D3B350D2BCE872E008456F8 /* StoreKit.framework */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -7794,7 +7795,6 @@
 				2ED9F4382A8E8F0900BE0A6B /* SetViewSettingsList.swift */,
 				2ED9F43A2A8E902A00BE0A6B /* SetViewSettingsListModel.swift */,
 				2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */,
-				2ED9F4442A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift */,
 				2EA2B7D32AB2113B00F1F49F /* SetViewSettingsListMode.swift */,
 			);
 			path = SetViewSettingsList;
@@ -7806,6 +7806,7 @@
 				2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */,
 				2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */,
 				2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */,
+				2E1AA8032BD7FDEB0089B136 /* SetSettingsData.swift */,
 			);
 			path = SetViewSettingsCoordinatorView;
 			sourceTree = "<group>";
@@ -11331,7 +11332,6 @@
 				2A66937D2A7104EA007747DD /* ObjectIconImageGuidelineSet.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				2A176C482BA9A52300F5036D /* ParticipantRemoveNotificationView.swift in Sources */,
-				2ED9F4452A8FBB5400BE0A6B /* SetViewSettingsListModuleAssembly.swift in Sources */,
 				2AE276242BD0270000E0244A /* ObjectSettingsCoordinatorView.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
@@ -11818,6 +11818,7 @@
 				12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */,
 				2AD48D542B7F57CE0077C53B /* SpaceJoinViewModel.swift in Sources */,
 				2E0A57BA2A3C7C6800359110 /* UsecaseService.swift in Sources */,
+				2E1AA8042BD7FDEB0089B136 /* SetSettingsData.swift in Sources */,
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
 				2A6476472B95B8B400389E62 /* SpaceMembersViewModel.swift in Sources */,

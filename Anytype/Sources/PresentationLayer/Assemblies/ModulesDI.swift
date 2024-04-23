@@ -53,10 +53,6 @@ final class ModulesDI: ModulesDIProtocol {
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
-    
-    func setViewSettingsList() -> SetViewSettingsListModuleAssemblyProtocol {
-        return SetViewSettingsListModuleAssembly(serviceLocator: serviceLocator)
-    }
 
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol {
         HomeBottomNavigationPanelModuleAssembly(serviceLocator: serviceLocator)
