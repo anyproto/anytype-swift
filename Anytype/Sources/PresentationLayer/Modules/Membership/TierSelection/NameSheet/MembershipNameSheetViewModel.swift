@@ -69,6 +69,8 @@ final class MembershipNameSheetViewModel: ObservableObject {
     
     @Injected(\.membershipService)
     private var memberhsipService: MembershipServiceProtocol
+    @Injected(\.nameService)
+    private var nameService: NameServiceProtocol
     
     private var validationTask: Task<(), any Error>?
     private let product: Product
@@ -94,12 +96,16 @@ final class MembershipNameSheetViewModel: ObservableObject {
         state = .validating
         
         validationTask = Task {
-            try await Task.sleep(seconds: 0.5)
+            try await Task.sleep(seconds: 0.3)
             try Task.checkCancellation()
             
             do {
                 try await memberhsipService.validateName(name: name, tierType: tier.type)
-                state = .validated
+                if try await nameService.isNameAvailable(name: name) {
+                    state = .validated
+                } else {
+                    state = .error(text: Loc.thisNameIsNotAvailabe)
+                }
             } catch let error {
                 state = .error(text: error.localizedDescription)
             }

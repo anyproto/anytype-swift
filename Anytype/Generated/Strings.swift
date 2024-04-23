@@ -301,6 +301,7 @@ internal enum Loc {
     return Loc.tr("Localizable", "There is no type named", String(describing: p1))
   }
   internal static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("Localizable", "These objects will be deleted irrevocably")
+  internal static let thisNameIsNotAvailabe = Loc.tr("Localizable", "This name is not availabe")
   internal static let thisObjectDoesnTExist = Loc.tr("Localizable", "This object doesn't exist")
   internal static let toBin = Loc.tr("Localizable", "To Bin")
   internal static let today = Loc.tr("Localizable", "Today")
