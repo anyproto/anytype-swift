@@ -726,6 +726,11 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
