@@ -66,8 +66,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -323,8 +323,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -455,8 +455,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -580,8 +580,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -837,8 +837,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -1094,8 +1094,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -1351,8 +1351,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -1608,8 +1608,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -1740,8 +1740,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -1865,8 +1865,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -2122,8 +2122,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -2379,8 +2379,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -2636,8 +2636,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "L'invitation n'existe pas. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -2893,8 +2893,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -3150,8 +3150,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -3282,8 +3282,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -3407,8 +3407,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -3664,8 +3664,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -3921,8 +3921,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -4178,8 +4178,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Le lien d'invitation n'a pas pu être analysé. Il peut contenir des erreurs dans le format ou des données non valides."
           }
         },
         "fy" : {
@@ -4435,8 +4435,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "L'invitation n'existe pas. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -4692,8 +4692,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Le lien d'invitation n'a pas pu être analysé. Il peut contenir des erreurs dans le format ou des données non valides."
           }
         },
         "fy" : {
@@ -4949,8 +4949,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "L'invitation n'existe pas. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -5206,8 +5206,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -5463,8 +5463,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -5595,8 +5595,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -5720,8 +5720,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -5977,8 +5977,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -6234,8 +6234,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -6491,8 +6491,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -6748,8 +6748,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La demande n'existe plus. Aucune action n'est requise, mais assurez-vous que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -7005,8 +7005,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -7137,8 +7137,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -7262,8 +7262,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -7519,8 +7519,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -7776,8 +7776,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -8033,8 +8033,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -8290,8 +8290,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La demande n'existe plus. Aucune action n'est requise, mais assurez-vous que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -8547,8 +8547,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -8679,8 +8679,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -8804,8 +8804,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -9061,8 +9061,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -9318,8 +9318,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -9575,8 +9575,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -9832,8 +9832,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -9964,8 +9964,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -10089,8 +10089,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -10346,8 +10346,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -10603,8 +10603,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "Les droits d'accès n'ont pas pu être attribués au membre de l'espace. Veuillez vous assurer que les droits d'accès corrects sont attribués."
           }
         },
         "fy" : {
@@ -10860,8 +10860,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -11117,8 +11117,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -11249,8 +11249,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -11374,8 +11374,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -11631,8 +11631,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Le membre de l'espace n'a pas pu être trouvé. Assurez-vous que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -11888,8 +11888,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -12145,8 +12145,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -12402,8 +12402,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -12659,8 +12659,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -12791,8 +12791,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -12916,8 +12916,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -13173,8 +13173,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Le membre de l'espace n'a pas pu être trouvé. Assurez-vous que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -13430,8 +13430,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -13687,8 +13687,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -13944,8 +13944,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "La demande n'a pas pu être approuvée avec ces droits d'accès. Veuillez vous assurer que les droits d'accès corrects sont attribués."
           }
         },
         "fy" : {
@@ -14201,8 +14201,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -14458,8 +14458,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La demande n'existe plus. Aucune action n'est requise, mais assurez-vous que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -14715,8 +14715,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -14847,8 +14847,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -14972,8 +14972,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -15229,8 +15229,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -15486,8 +15486,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -15743,8 +15743,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -16000,8 +16000,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La demande n'existe plus. Aucune action n'est requise, mais assurez-vous que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -16257,8 +16257,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -16389,8 +16389,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -16514,8 +16514,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace n'est plus partagé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -16771,8 +16771,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -17028,8 +17028,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
@@ -17285,8 +17285,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite atteinte pour cet espace. Veuillez mettre à jour votre abonnement ou contacter le support pour obtenir de l'aide."
           }
         },
         "fy" : {
@@ -17542,8 +17542,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Une erreur s'est produite. Veuillez réessayer."
           }
         },
         "fy" : {
@@ -17674,8 +17674,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ой! Что-то пошло не так. Пожалуйста, попробуйте позже."
           }
         },
         "sk" : {
@@ -17799,8 +17799,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oups ! La demande a échoué. Veuillez vérifier votre connexion Internet et réessayer."
           }
         },
         "fy" : {
@@ -18056,8 +18056,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il semble que l'espace ait été supprimé. Veuillez vous assurer que vos appareils sont synchronisés."
           }
         },
         "fy" : {
