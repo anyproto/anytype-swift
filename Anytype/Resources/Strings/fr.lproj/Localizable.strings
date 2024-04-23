@@ -261,9 +261,9 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
 "Auth.JoinFlow.Soul.Button" = "Obtenir ma Clé";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Vault.Title" = "Voici votre Coffre-fort";
+"Auth.JoinFlow.Vault.Description" = "Tout ce qui se trouve à l'intérieur est chiffré. Il est en premier lieu local - tout fonctionne hors ligne. Seul vous avez la clé.";
+"Auth.JoinFlow.Vault.Button" = "Obtenir ma Clé";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Utiliser le trousseau";

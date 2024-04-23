@@ -190,7 +190,7 @@
 "Copied" = "Copied";
 "Share" = "Share";
 "Okay" = "Okay";
-"Join" = "Join";
+"Join" = "加入";
 
 // Home
 "Favorites" = "Favorites";
@@ -914,7 +914,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
 "SpaceShare.ViewRequest.EditAccess" = "Add as editor";
 "SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Title" = "移除成員";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
 "SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Join a space";
@@ -928,7 +928,7 @@
 "SpaceShare.YouSuffix" = "%@ (you)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Action" = "停止分享";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
@@ -938,9 +938,9 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
-"SpaceShare.Manage" = "Manage";
+"SpaceShare.Manage" = "管理";
 "SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
-"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "開放空間";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -1058,7 +1058,7 @@
 "Pay by Card" = "Pay by Card";
 "Min X characters" = "Min %@ characters";
 "Pending" = "Pending...";
-"Manage payment" = "Manage payment";
+"Manage payment" = "管理付款方式";
 
 
 "Membership.Ad.Title" = "Membership";
