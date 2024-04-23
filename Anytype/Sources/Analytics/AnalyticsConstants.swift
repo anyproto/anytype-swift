@@ -469,8 +469,8 @@ enum ScreenInviteConfirmRoute: String {
 }
 
 enum PermissionAnalyticsType: String {
-    case read = "Read"
-    case write = "Write"
+    case read = "Reader"
+    case write = "Writer"
     case owner = "Owner"
     case noPermissions = "NoPermissions"
     case unrecognized = "Unrecognized"
