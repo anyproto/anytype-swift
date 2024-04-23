@@ -1,22 +1,29 @@
 import SwiftUI
 
-struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProtocol>: View {
-    @ObservedObject var viewModel: T
+struct ObjectBasicIconPicker: View {
+    
+    let isRemoveButtonAvailable: Bool
+    let mediaPickerContentType: MediaPickerContentType
+    let onSelectItemProvider: (_ itemProvider: NSItemProvider) -> Void
+    let onSelectEmoji: (_ emoji: EmojiData) -> Void
+    let removeIcon: () -> Void
     
     @Environment(\.dismiss) private var dismiss
     @State private var selectedTab: Tab = .emoji
     
     var body: some View {
         VStack(spacing: 0) {
-            switch selectedTab {
-            case .emoji:
+            TabView(selection: $selectedTab) {
                 emojiTabView
-            case .upload:
+                    .tag(Tab.emoji)
                 uploadTabView
+                    .tag(Tab.upload)
             }
+            .tabViewStyle(.page(indexDisplayMode: .never))
             tabBarView
         }
         .ignoresSafeArea(.keyboard)
+        .background(Color.Background.primary)
     }
     
     private var emojiTabView: some View {
@@ -41,9 +48,9 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
-            if viewModel.isRemoveButtonAvailable {
+            if isRemoveButtonAvailable {
                 Button {
-                    viewModel.removeIcon()
+                    removeIcon()
                     dismiss()
                 } label: {
                     AnytypeText(Loc.remove, style: .uxBodyRegular)
@@ -56,10 +63,11 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
     }
     
     private var uploadTabView: some View {
-        MediaPickerView(contentType: viewModel.mediaPickerContentType) { itemProvider in
+        MediaPickerView(contentType: mediaPickerContentType) { itemProvider in
             itemProvider.flatMap {
-                viewModel.uploadImage(from: $0)
+                onSelectItemProvider($0)
             }
+            dismiss()
         }
         .transition(
             .asymmetric(
@@ -105,7 +113,7 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
     }
     
     private func handleSelectedEmoji(_ emoji: EmojiData) {
-        viewModel.setEmoji(emoji.emoji)
+        onSelectEmoji(emoji)
         dismiss()
     }
 }
@@ -113,7 +121,7 @@ struct ObjectBasicIconPicker<T: ObservableObject & ObjectIconPickerViewModelProt
 // MARK: - Private extension
 
 private extension ObjectBasicIconPicker {
-    enum Tab {
+    enum Tab: Int {
         case emoji
         case upload
         

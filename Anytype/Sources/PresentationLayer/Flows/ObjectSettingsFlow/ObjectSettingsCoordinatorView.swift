@@ -10,5 +10,8 @@ struct ObjectSettingsCoordinatorView: View {
             .sheet(item: $model.coverPickerData) {
                 ObjectCoverPicker(data: $0)
             }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
+            }
     }
 }

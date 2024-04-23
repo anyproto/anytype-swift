@@ -17,7 +17,6 @@ final class EditorSetCoordinatorViewModel:
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
@@ -36,6 +35,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var relationValueData: RelationValueData?
     @Published var covertPickerData: ObjectCoverPickerData?
     @Published var toastBarData: ToastBarData = .empty
+    @Published var objectIconPickerData: ObjectIconPickerData?
     
     init(
         data: EditorSetObject,
@@ -44,7 +44,6 @@ final class EditorSetCoordinatorViewModel:
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
@@ -59,7 +58,6 @@ final class EditorSetCoordinatorViewModel:
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
@@ -185,8 +183,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showIconPicker(document: BaseDocumentGeneralProtocol) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {

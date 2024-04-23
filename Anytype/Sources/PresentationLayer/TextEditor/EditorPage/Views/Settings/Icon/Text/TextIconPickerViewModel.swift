@@ -4,29 +4,29 @@ import UniformTypeIdentifiers
 import Combine
 import AnytypeCore
 
-final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
-    let mediaPickerContentType: MediaPickerContentType = .images
-    let isRemoveButtonAvailable: Bool = false
+struct TextIconPickerData: Identifiable, Hashable {
+    let contextId: String
+    let objectId: String
+    let spaceId: String
+    
+    var id: Int { hashValue }
+}
 
-    private let fileService: FileActionsServiceProtocol
-    private let textServiceHandler: TextServiceProtocol
+final class TextIconPickerViewModel: ObservableObject {
+    
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
+    @Injected(\.textServiceHandler)
+    private var textServiceHandler: TextServiceProtocol
+    
     private let contextId: String
     private let objectId: String
     private let spaceId: String
-    private var cancellables = [AnyCancellable]()
 
-    init(
-        fileService: FileActionsServiceProtocol,
-        textServiceHandler: TextServiceProtocol,
-        contextId: String,
-        objectId: String,
-        spaceId: String
-    ) {
-        self.fileService = fileService
-        self.textServiceHandler = textServiceHandler
-        self.contextId = contextId
-        self.objectId = objectId
-        self.spaceId = spaceId
+    init(data: TextIconPickerData) {
+        self.contextId = data.contextId
+        self.objectId = data.objectId
+        self.spaceId = data.spaceId
     }
     
 
@@ -53,7 +53,5 @@ final class TextIconPickerViewModel: ObservableObject, ObjectIconPickerViewModel
             )
         }
     }
-
-    func removeIcon() { /* Unavailable */ }
 }
 

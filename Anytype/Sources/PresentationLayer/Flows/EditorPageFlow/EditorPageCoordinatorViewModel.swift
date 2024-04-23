@@ -21,6 +21,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var codeLanguageData: CodeLanguageListData?
     @Published var covertPickerData: ObjectCoverPickerData?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
+    @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var textIconPickerData: TextIconPickerData?
     
     init(
         data: EditorPageObject,
@@ -89,6 +91,14 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showLinkToObject(data: LinkToObjectSearchModuleData) {
         linkToObjectData = data
+    }
+    
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        objectIconPickerData = ObjectIconPickerData(document: document)
+    }
+    
+    func showTextIconPicker(data: TextIconPickerData) {
+        textIconPickerData = data
     }
     
     // MARK: - Private

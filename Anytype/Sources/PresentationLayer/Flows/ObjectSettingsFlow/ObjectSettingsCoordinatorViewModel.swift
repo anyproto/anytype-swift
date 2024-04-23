@@ -12,18 +12,17 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     
     private let navigationContext: NavigationContextProtocol
     private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     @Published var coverPickerData: ObjectCoverPickerData?
+    @Published var objectIconPickerData: ObjectIconPickerData?
     
     init(
         objectId: String,
         output: ObjectSettingsCoordinatorOutput?,
         navigationContext: NavigationContextProtocol,
         objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
@@ -31,7 +30,6 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
         self.output = output
         self.navigationContext = navigationContext
         self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
@@ -54,8 +52,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func showIconPicker(document: BaseDocumentGeneralProtocol) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
     func relationsAction(document: BaseDocumentProtocol) {
