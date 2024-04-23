@@ -15,7 +15,9 @@ final class RelationsListViewModel: ObservableObject {
     
     private let document: BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
-    private let relationsService: RelationsServiceProtocol
+    
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
     
     private weak var output: RelationsListModuleOutput?
     
@@ -25,11 +27,9 @@ final class RelationsListViewModel: ObservableObject {
     
     init(
         document: BaseDocumentProtocol,
-        relationsService: RelationsServiceProtocol,
-        output: RelationsListModuleOutput
+        output: RelationsListModuleOutput?
     ) {
         self.document = document
-        self.relationsService = relationsService
         self.output = output
         
         document.parsedRelationsPublisher

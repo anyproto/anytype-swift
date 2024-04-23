@@ -18,10 +18,6 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationValueModuleAssembly(modulesDI: self, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func relationsList() -> RelationsListModuleAssemblyProtocol {
-        return RelationsListModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
         TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }

@@ -283,7 +283,6 @@
 		2A00A73929D2E411007BE598 /* WidgetContainerViewModel+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A73829D2E411007BE598 /* WidgetContainerViewModel+Helper.swift */; };
 		2A00A74029D33AA7007BE598 /* TappableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A73F29D33AA7007BE598 /* TappableArea.swift */; };
 		2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */; };
-		2A017FBA291E7BB7009C5BEF /* RelationsListModuleAsembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017FB9291E7BB7009C5BEF /* RelationsListModuleAsembly.swift */; };
 		2A01A4F62A1F9FA1002042FB /* MailToUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01A4F52A1F9FA1002042FB /* MailToUrl.swift */; };
 		2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A01A4F82A1FB507002042FB /* DeviceKit */; };
 		2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03039728ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift */; };
@@ -2044,7 +2043,6 @@
 		2A00A73829D2E411007BE598 /* WidgetContainerViewModel+Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WidgetContainerViewModel+Helper.swift"; sourceTree = "<group>"; };
 		2A00A73F29D33AA7007BE598 /* TappableArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableArea.swift; sourceTree = "<group>"; };
 		2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+Helpers.swift"; sourceTree = "<group>"; };
-		2A017FB9291E7BB7009C5BEF /* RelationsListModuleAsembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListModuleAsembly.swift; sourceTree = "<group>"; };
 		2A01A4F52A1F9FA1002042FB /* MailToUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailToUrl.swift; sourceTree = "<group>"; };
 		2A03039728ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationActionViewModelProtocol.swift; sourceTree = "<group>"; };
 		2A03039928ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationCopyActionViewModel.swift; sourceTree = "<group>"; };
@@ -4575,7 +4573,6 @@
 				1220670727314E210051A331 /* RelationsListViewModel.swift */,
 				124E2BC1273020F500A2D534 /* RelationsListView.swift */,
 				127EAC10273A375000C731F2 /* RelationsListRowView */,
-				2A017FB9291E7BB7009C5BEF /* RelationsListModuleAsembly.swift */,
 				2A7DCDDF292E4AC5001919B4 /* RelationsListModuleOutput.swift */,
 			);
 			path = Relations;
@@ -11134,7 +11131,6 @@
 				2A80D0562ABAE17F00DB0513 /* EditorPageCoordinatorView.swift in Sources */,
 				2E0797BA2A096571006F0FD7 /* JoinFlowCoordinator.swift in Sources */,
 				2A2B33302A7BB6BF004BD906 /* SpacePlusRow.swift in Sources */,
-				2A017FBA291E7BB7009C5BEF /* RelationsListModuleAsembly.swift in Sources */,
 				03CB3EFF230C0FF2003D5DFD /* SeedService.swift in Sources */,
 				2ACDC9C82B5676820063BFBD /* ShareSelectionRow.swift in Sources */,
 				2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */,
