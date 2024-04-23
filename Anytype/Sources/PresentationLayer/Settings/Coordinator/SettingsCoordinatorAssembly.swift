@@ -1,8 +1,9 @@
 import Foundation
+import SwiftUI
 
 protocol SettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make() -> SettingsCoordinatorProtocol
+    func make() -> AnyView
 }
 
 final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
@@ -27,12 +28,14 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
     // MARK: - SettingsCoordinatorAssemblyProtocol
     
     @MainActor
-    func make() -> SettingsCoordinatorProtocol {
-        return SettingsCoordinator(
-            navigationContext: uiHelpersDI.commonNavigationContext(),
-            appearanceModuleAssembly: modulesDI.settingsAppearance(),
-            dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
-            urlOpener: uiHelpersDI.urlOpener()
-        )
+    func make() -> AnyView {
+        return SettingsCoordinatorView(
+            model: SettingsCoordinatorViewModel(
+                navigationContext: self.uiHelpersDI.commonNavigationContext(),
+                appearanceModuleAssembly: self.modulesDI.settingsAppearance(),
+                dashboardAlertsAssembly: self.modulesDI.dashboardAlerts(),
+                urlOpener: self.uiHelpersDI.urlOpener()
+            )
+        ).eraseToAnyView()
     }
 }
