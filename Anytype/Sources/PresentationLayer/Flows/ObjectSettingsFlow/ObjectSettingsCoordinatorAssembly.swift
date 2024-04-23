@@ -40,7 +40,6 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
                 objectId: objectId,
                 output: output,
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
-                objectLayoutPickerModuleAssembly: self.modulesDI.objectLayoutPicker(),
                 relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList(),
                 newSearchModuleAssembly: self.modulesDI.newSearch()
             )

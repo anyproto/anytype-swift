@@ -874,7 +874,6 @@
 		2AFF7ACC299D24C300B7746B /* DocumentViewModelSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */; };
 		2AFFFB842924DFC600A487E1 /* UIHelpersDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */; };
 		2AFFFB862924EE1000A487E1 /* ViewControllerProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */; };
-		2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */; };
 		2AFFFB9F2927B05700A487E1 /* AccountEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */; };
 		2E010C342B88DF0C00504735 /* EditorFeaturedRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */; };
 		2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */; };
@@ -2659,7 +2658,6 @@
 		2AFF7ACB299D24C300B7746B /* DocumentViewModelSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewModelSetter.swift; sourceTree = "<group>"; };
 		2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelpersDI.swift; sourceTree = "<group>"; };
 		2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerProvider.swift; sourceTree = "<group>"; };
-		2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPickerModuleAssembly.swift; sourceTree = "<group>"; };
 		2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountEventHandler.swift; sourceTree = "<group>"; };
 		2E010C332B88DF0C00504735 /* EditorFeaturedRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorFeaturedRelationsView.swift; sourceTree = "<group>"; };
 		2E010C362B8CEF5500504735 /* RelationValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModel.swift; sourceTree = "<group>"; };
@@ -4250,7 +4248,6 @@
 		120E819326A06CE7006FE84E /* Layout */ = {
 			isa = PBXGroup;
 			children = (
-				2AFFFB892926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift */,
 				120E819626A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift */,
 				129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */,
 				129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */,
@@ -11025,7 +11022,6 @@
 				2E4D78B22A82907E00813A4F /* KeyPhraseMoreInfoView.swift in Sources */,
 				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				3D8624482B738D6400A5FCF4 /* ObjectTypeProvider.swift in Sources */,
-				2AFFFB8A2926670E00A487E1 /* ObjectLayoutPickerModuleAssembly.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				2EAA14042AA63918000A712A /* SetViewSettingsRelation.swift in Sources */,
 				860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */,
