@@ -244,9 +244,9 @@ final class EditorSetCoordinatorViewModel:
     func showFailureToast(message: String) {
         toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
     }
-}
 
-extension EditorSetCoordinatorViewModel {
+    // MARK: - ObjectSettingsCoordinatorOutput
+    
     func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
@@ -263,6 +263,10 @@ extension EditorSetCoordinatorViewModel {
     
     func didTapUseTemplateAsDefault(templateId: String) {
         anytypeAssertionFailure("Invalid delegate method handler")
+    }
+    
+    func didUndoRedo() {
+        anytypeAssertionFailure("Undo/redo is not available")
     }
 }
 

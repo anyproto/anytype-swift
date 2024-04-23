@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import AnytypeCore
+import SwiftUI
 
 @MainActor
 final class ObjectSettingsCoordinatorViewModel: ObservableObject,
@@ -17,6 +18,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var blockObjectSearchData: BlockObjectSearchData?
+    @Published var dismiss = false
     
     init(
         objectId: String,
@@ -33,9 +35,10 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     // MARK: - ObjectSettingsModelOutput
     
     func undoRedoAction(objectId: String) {
-        // TODO: Move to editor
-        navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(UndoRedoViewController(objectId: objectId))
+        withAnimation(nil) {
+            dismiss.toggle()
+        }
+        output?.didUndoRedo()
     }
     
     func layoutPickerAction(document: BaseDocumentProtocol) {

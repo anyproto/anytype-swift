@@ -39,6 +39,9 @@ struct EditorPageCoordinatorView: View {
             .sheet(item: $model.blockObjectSearchData) {
                 BlockObjectSearchView(data: $0)
             }
+            .anytypeSheet(item: $model.undoRedoObjectId) {
+                UndoRedoView(objectId: $0.value)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

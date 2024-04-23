@@ -341,7 +341,6 @@
 		2A2987362ACBFD2B009E8787 /* EditorSetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2987352ACBFD2B009E8787 /* EditorSetModuleAssembly.swift */; };
 		2A2987382ACBFD3C009E8787 /* EditorSetModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2987372ACBFD3C009E8787 /* EditorSetModuleOutput.swift */; };
 		2A29873C2ACC087B009E8787 /* PageNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A29873B2ACC087B009E8787 /* PageNavigation.swift */; };
-		2A298E342BC7F1BE00F1194C /* UndoRedoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */; };
 		2A298E3C2BC83FC100F1194C /* UniversalLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E3A2BC83FBF00F1194C /* UniversalLink.swift */; };
 		2A298E3D2BC83FC100F1194C /* UniversalLinkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E3B2BC83FC100F1194C /* UniversalLinkParser.swift */; };
 		2A298E402BC91E6A00F1194C /* UniversalLinkParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A298E3F2BC91E6A00F1194C /* UniversalLinkParserTests.swift */; };
@@ -2120,7 +2119,6 @@
 		2A2987352ACBFD2B009E8787 /* EditorSetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetModuleAssembly.swift; sourceTree = "<group>"; };
 		2A2987372ACBFD3C009E8787 /* EditorSetModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetModuleOutput.swift; sourceTree = "<group>"; };
 		2A29873B2ACC087B009E8787 /* PageNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageNavigation.swift; sourceTree = "<group>"; };
-		2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewController.swift; sourceTree = "<group>"; };
 		2A298E3A2BC83FBF00F1194C /* UniversalLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLink.swift; sourceTree = "<group>"; };
 		2A298E3B2BC83FC100F1194C /* UniversalLinkParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalLinkParser.swift; sourceTree = "<group>"; };
 		2A298E3F2BC91E6A00F1194C /* UniversalLinkParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UniversalLinkParserTests.swift; path = AnyTypeTests/Services/UniversalLinkParserTests.swift; sourceTree = SOURCE_ROOT; };
@@ -9926,7 +9924,6 @@
 			children = (
 				C91989EC2811673600CC6BEB /* UndoRedoView.swift */,
 				C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */,
-				2A298E332BC7F1BE00F1194C /* UndoRedoViewController.swift */,
 			);
 			path = UndoRedo;
 			sourceTree = "<group>";
@@ -12240,7 +12237,6 @@
 				3DE0CFD726F8593D003A606A /* SlashMenuItemType.swift in Sources */,
 				EAFDEFBF26381E22001B07E4 /* UITextView+Convenience.swift in Sources */,
 				12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */,
-				2A298E342BC7F1BE00F1194C /* UndoRedoViewController.swift in Sources */,
 				C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */,
 				2A28D050297FCFE400E55E15 /* WidgetContainerView.swift in Sources */,
 				2ABF8F5D2B7FB1B5004B8FB8 /* ScreenStateView.swift in Sources */,

@@ -24,6 +24,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var textIconPickerData: TextIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
+    @Published var undoRedoObjectId: StringIdentifiable?
     
     init(
         data: EditorPageObject,
@@ -104,6 +105,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showBlockObjectSearch(data: BlockObjectSearchData) {
         blockObjectSearchData = data
+    }
+    
+    func didUndoRedo() {
+        undoRedoObjectId = data.objectId.identifiable
     }
     
     // MARK: - Private

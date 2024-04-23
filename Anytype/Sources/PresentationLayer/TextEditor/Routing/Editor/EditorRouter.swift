@@ -390,6 +390,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             }
         )
     }
+    
+    func didUndoRedo() {
+        output?.didUndoRedo()
+    }
 
     // MARK: - Private
     

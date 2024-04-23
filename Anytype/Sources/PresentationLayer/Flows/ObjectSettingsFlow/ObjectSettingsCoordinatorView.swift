@@ -4,6 +4,7 @@ import SwiftUI
 struct ObjectSettingsCoordinatorView: View {
     
     @StateObject var model: ObjectSettingsCoordinatorViewModel
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         ObjectSettingsView(objectId: model.objectId, output: model)
@@ -18,6 +19,9 @@ struct ObjectSettingsCoordinatorView: View {
             }
             .sheet(item: $model.blockObjectSearchData) {
                 BlockObjectSearchView(data: $0)
+            }
+            .onChange(of: model.dismiss) { _ in
+                dismiss()
             }
     }
 }
