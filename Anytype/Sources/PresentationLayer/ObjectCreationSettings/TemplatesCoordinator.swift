@@ -98,4 +98,8 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     func didTapUseTemplateAsDefault(templateId: String) {
         onSetAsDefaultTempalte?(templateId)
     }
+    
+    func didUndoRedo() {
+        anytypeAssertionFailure("Undo/redo is not available")
+    }
 }

@@ -142,6 +142,10 @@ final class SetObjectCreationSettingsCoordinator:
         useAsTemplateAction?(templateId)
     }
     
+    func didUndoRedo() {
+        anytypeAssertionFailure("Undo/redo is not available")
+    }
+    
     // MARK: - SetObjectCreationSettingsOutput
     
     func onTemplateSelection(setting: ObjectCreationSetting) {
