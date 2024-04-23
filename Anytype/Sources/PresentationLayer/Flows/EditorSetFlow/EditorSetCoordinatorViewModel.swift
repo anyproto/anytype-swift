@@ -112,9 +112,11 @@ final class EditorSetCoordinatorViewModel:
     
     func setViewSettings(data: SetViewData) -> AnyView {
         setViewSettingsCoordinatorAssembly.make(
-            setDocument: data.document,
-            viewId: data.document.activeView.id,
-            mode: .edit,
+            with: SetSettingsData(
+                setDocument: data.document,
+                viewId: data.document.activeView.id,
+                mode: .edit
+            ),
             subscriptionDetailsStorage: data.subscriptionDetailsStorage
         )
     }
