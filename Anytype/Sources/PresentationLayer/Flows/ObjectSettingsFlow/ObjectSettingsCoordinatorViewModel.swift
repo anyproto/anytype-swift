@@ -11,25 +11,23 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     private weak var output: ObjectSettingsCoordinatorOutput?
     
     private let navigationContext: NavigationContextProtocol
-    private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     @Published var coverPickerData: ObjectCoverPickerData?
     @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var layoutPickerObjectId: StringIdentifiable?
     
     init(
         objectId: String,
         output: ObjectSettingsCoordinatorOutput?,
         navigationContext: NavigationContextProtocol,
-        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
         relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.objectId = objectId
         self.output = output
         self.navigationContext = navigationContext
-        self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
     }
@@ -43,8 +41,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func layoutPickerAction(document: BaseDocumentProtocol) {
-        let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        layoutPickerObjectId = document.objectId.identifiable
     }
     
     func showCoverPicker(document: BaseDocumentGeneralProtocol) {

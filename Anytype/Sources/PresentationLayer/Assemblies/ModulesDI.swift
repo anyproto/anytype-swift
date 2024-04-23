@@ -22,10 +22,6 @@ final class ModulesDI: ModulesDIProtocol {
         TextRelationEditingModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func objectLayoutPicker() -> ObjectLayoutPickerModuleAssemblyProtocol {
-        return ObjectLayoutPickerModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }
