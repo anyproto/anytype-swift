@@ -242,7 +242,7 @@
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Sonraki";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Atla";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Panoya kopyala";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Devamını oku";
@@ -261,11 +261,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "YA DA";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Hiçliğe giriliyor";
 
 // Object settings
@@ -1098,6 +1102,7 @@
 "Membership.NameForm.Error.TooShort" = "Name is too short";
 "Membership.NameForm.Error.TooLong" = "Name is too long";
 "Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "Welcome to the network, %@";

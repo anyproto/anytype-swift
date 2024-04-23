@@ -48,7 +48,7 @@ struct MembershipTierSelectionCarousel: View {
             )
             .padding()
         }
-        .ignoresSafeArea()
+        .ignoresSafeArea(.container)
     }
 }
 

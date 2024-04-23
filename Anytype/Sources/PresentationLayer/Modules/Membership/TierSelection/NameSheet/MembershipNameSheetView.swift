@@ -127,11 +127,3 @@ struct MembershipNameSheetView: View {
         .lineLimit(1)
     }
 }
-
-//#Preview {
-//    TabView {
-//        MembershipNameSheetView(tier: .mockBuilder, anyName: "")
-//        MembershipNameSheetView(tier: .mockCoCreator, anyName: "SonyaBlade")
-//        MembershipNameSheetView(tier: .mockBuilderTest, anyName: "")
-//    }.tabViewStyle(.page)
-//}

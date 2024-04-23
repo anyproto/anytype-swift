@@ -37,7 +37,6 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
                 setViewSettingsCoordinatorAssembly: self.coordinatorsID.setViewSettings(), 
                 setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(), 
                 objectSettingCoordinatorAssembly: self.coordinatorsID.objectSettings(),
-                objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
                 objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(), 
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 

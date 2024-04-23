@@ -242,7 +242,7 @@
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Avançar";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Pular";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copiar para área de transferência";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Ler mais";
@@ -261,11 +261,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Sem título";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar chave de acesso";
 "Auth.LoginFlow.Or" = "OU";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Entrando no vazio";
 
 // Object settings
@@ -1099,6 +1103,7 @@
 "Membership.NameForm.Error.TooShort" = "Name is too short";
 "Membership.NameForm.Error.TooLong" = "Name is too long";
 "Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "Bem-vindo à rede, %@";

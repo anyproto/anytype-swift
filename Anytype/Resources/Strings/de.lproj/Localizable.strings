@@ -242,7 +242,7 @@
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Meinen Schlüssel anzeigen";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Meinen Tresor betreten";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Weiter";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
@@ -261,11 +261,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 "Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
 "Auth.LoginFlow.Or" = "ODER";
 "Auth.LoginFlow.Textfield.Placeholder" = "Gib deinen Schlüssel ein";
-"Auth.LoginFlow.Enter.Title" = "Meinen Tresor betreten";
+"Auth.LoginFlow.Enter.Title" = "Meinen Schlüssel holen";
 "Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
@@ -1098,6 +1102,7 @@
 "Membership.NameForm.Error.TooShort" = "Name ist zu kurz";
 "Membership.NameForm.Error.TooLong" = "Name ist zu lang";
 "Membership.NameForm.Error.HasInvalidChars" = "Name enthält ungültige Zeichen";
+"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
 
 
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";

@@ -1,14 +1,8 @@
 import Foundation
 import SwiftUI
 
-
 @MainActor
-protocol SettingsCoordinatorProtocol: AnyObject {
-    func startFlow()
-}
-
-@MainActor
-final class SettingsCoordinator: SettingsCoordinatorProtocol, 
+final class SettingsCoordinatorViewModel: ObservableObject,
                                     SettingsModuleOutput,
                                     SettingsAccountModuleOutput,
                                     AboutModuleOutput,
@@ -17,7 +11,6 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     private let navigationContext: NavigationContextProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     
     @Injected(\.documentService)
@@ -31,13 +24,11 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
         navigationContext: NavigationContextProtocol,
         appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.appearanceModuleAssembly = appearanceModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.urlOpener = urlOpener
     }
     
@@ -70,7 +61,7 @@ final class SettingsCoordinator: SettingsCoordinatorProtocol,
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let module = objectIconPickerModuleAssembly.make(document: document)
+        let module = ObjectIconPicker(data: ObjectIconPickerData(document: document))
         navigationContext.present(module)
     }
     

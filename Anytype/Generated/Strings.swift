@@ -466,6 +466,11 @@ internal enum Loc {
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder")
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title")
       }
+      internal enum Vault {
+        internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Button")
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Description")
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Title")
+      }
     }
     internal enum LoginFlow {
       internal static let or = Loc.tr("Localizable", "Auth.LoginFlow.Or")
@@ -1699,6 +1704,11 @@ internal enum Loc {
       internal static let duplicated = Loc.tr("Localizable", "Templates.Popup.Duplicated")
       internal static let removed = Loc.tr("Localizable", "Templates.Popup.Removed")
       internal static let wasAddedTo = Loc.tr("Localizable", "Templates.Popup.WasAddedTo")
+      internal enum WasAddedTo {
+        internal static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Templates.Popup.WasAddedTo.title", String(describing: p1))
+        }
+      }
     }
   }
   internal enum TextStyle {

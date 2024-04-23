@@ -7,7 +7,6 @@ import AnytypeCore
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
     private let navigationContext: NavigationContextProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -21,6 +20,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showSpaceShare = false
     @Published var showSpaceMembers = false
     @Published var dismiss = false
+    @Published var showIconPickerSpaceViewId: StringIdentifiable?
     
     var accountSpaceId: String
     
@@ -28,7 +28,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     init(
         navigationContext: NavigationContextProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
@@ -37,7 +36,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         documentService: OpenedDocumentsProviderProtocol
     ) {
         self.navigationContext = navigationContext
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
@@ -51,9 +49,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     // MARK: - SpaceSettingsModuleOutput
     
     func onChangeIconSelected(objectId: String) {
-        let document = documentService.document(objectId: objectId, forPreview: true)
-        let module = objectIconPickerModuleAssembly.makeSpaceView(document: document)
-        navigationContext.present(module)
+        showIconPickerSpaceViewId = objectId.identifiable
     }
     
     func onRemoteStorageSelected() {

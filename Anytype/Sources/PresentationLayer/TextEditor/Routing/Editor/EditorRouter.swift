@@ -14,12 +14,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
 
@@ -31,12 +28,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
@@ -48,12 +42,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.templatesCoordinator = templatesCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
-        self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.templateService = templateService
         self.output = output
         
@@ -197,45 +188,30 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
         let excludedLayouts = DetailsLayout.fileLayouts + [.set, .collection]
-        let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: excludedLayouts
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.present(moveToView)
+            excludedLayouts: excludedLayouts,
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let data = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: []
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.presentSwiftUIView(view: moduleView)
+            excludedLayouts: [],
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
     func showTextIconPicker(contextId: String, objectId: String) {
-        let moduleView = textIconPickerModuleAssembly.make(
-            contextId: contextId,
-            objectId: objectId,
-            // In feature space id should be read from blockInfo, when we will create "link to" between sapces
-            spaceId: document.spaceId,
-            onDismiss: { [weak self] in
-                self?.navigationContext.dismissTopPresented()
-            }
-        )
-
-        navigationContext.present(moduleView)
+        // In feature space id should be read from blockInfo, when we will create "link to" between sapces
+        output?.showTextIconPicker(data: TextIconPickerData(contextId: contextId, objectId: objectId, spaceId: document.spaceId))
     }
     
     func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {
@@ -335,8 +311,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showIconPicker(document: BaseDocumentGeneralProtocol) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        output?.showIconPicker(document: document)
     }
 
     func showColorPicker(
@@ -414,6 +389,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 self?.didTapUseTemplateAsDefault(templateId: templateId)
             }
         )
+    }
+    
+    func didUndoRedo() {
+        output?.didUndoRedo()
     }
 
     // MARK: - Private
