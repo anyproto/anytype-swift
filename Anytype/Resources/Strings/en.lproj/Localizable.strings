@@ -365,6 +365,7 @@
 
 "TemplateEditing.Title" = "Edit template";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
 "Templates.Popup.Removed" = "The template was removed";

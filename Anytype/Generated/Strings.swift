@@ -1704,6 +1704,11 @@ internal enum Loc {
       internal static let duplicated = Loc.tr("Localizable", "Templates.Popup.Duplicated")
       internal static let removed = Loc.tr("Localizable", "Templates.Popup.Removed")
       internal static let wasAddedTo = Loc.tr("Localizable", "Templates.Popup.WasAddedTo")
+      internal enum WasAddedTo {
+        internal static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Templates.Popup.WasAddedTo.title", String(describing: p1))
+        }
+      }
     }
   }
   internal enum TextStyle {
