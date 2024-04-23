@@ -3,19 +3,19 @@ import Services
 
 final class BlockObjectsSearchInteractor {
     
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    
     private let spaceId: String
     private let excludedObjectIds: [String]
     private let excludedLayouts: [DetailsLayout]
-    private let searchService: SearchServiceProtocol
     
     init(
         spaceId: String,
         excludedObjectIds: [String],
-        excludedLayouts: [DetailsLayout],
-        searchService: SearchServiceProtocol
+        excludedLayouts: [DetailsLayout]
     ) {
         self.spaceId = spaceId
-        self.searchService = searchService
         self.excludedObjectIds = excludedObjectIds
         self.excludedLayouts = excludedLayouts
     }
@@ -27,7 +27,7 @@ extension BlockObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
         try await searchService.searchObjects(
             text: text,
             excludedObjectIds: excludedObjectIds,
-            excludedLayouts: excludedLayouts,
+            excludedLayouts: excludedLayouts + [.participant],
             spaceId: spaceId,
             sortRelationKey: .lastModifiedDate
         )

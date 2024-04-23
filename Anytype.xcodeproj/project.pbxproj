@@ -664,6 +664,7 @@
 		2AAA09062AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */; };
 		2AAA09AD2AEBF2D200A446B8 /* BlockContentType+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
+		2AAEAB572BD7F3FC00E88767 /* BlockObjectSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */; };
 		2AAF34372954C86800921320 /* TreeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34362954C86800921320 /* TreeWidgetView.swift */; };
 		2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */; };
 		2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */; };
@@ -2424,6 +2425,7 @@
 		2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockContentType+Analytics.swift"; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
+		2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockObjectSearchView.swift; sourceTree = "<group>"; };
 		2AAF34362954C86800921320 /* TreeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetView.swift; sourceTree = "<group>"; };
 		2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsRegistry.swift; sourceTree = "<group>"; };
@@ -4334,6 +4336,7 @@
 		1244790F27D8A35800581174 /* Search screen */ = {
 			isa = PBXGroup;
 			children = (
+				2AAEAB552BD7F3EE00E88767 /* BlockObjectSearch */,
 				2A35A6B82BBD9B7000CCE4F4 /* WidgetSourceSearch */,
 				1244793527DC61D600581174 /* Assembly */,
 				1244793927DC61E400581174 /* View */,
@@ -6406,6 +6409,14 @@
 				2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */,
 			);
 			path = SpaceSwitchCoordinator;
+			sourceTree = "<group>";
+		};
+		2AAEAB552BD7F3EE00E88767 /* BlockObjectSearch */ = {
+			isa = PBXGroup;
+			children = (
+				2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */,
+			);
+			path = BlockObjectSearch;
 			sourceTree = "<group>";
 		};
 		2AAF343829559BD400921320 /* Tree */ = {
@@ -10901,6 +10912,7 @@
 				0AD6B24E24CF634E0097A841 /* BlockToolbarBookmarkViewModel.swift in Sources */,
 				125683F427DF8366003A8251 /* NewSearchView+AddButtonModel.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
+				2AAEAB572BD7F3FC00E88767 /* BlockObjectSearchView.swift in Sources */,
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
 				2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */,
 				3D4507BF2B9B3DE400739EFC /* MembershipNameSheetViewModel.swift in Sources */,

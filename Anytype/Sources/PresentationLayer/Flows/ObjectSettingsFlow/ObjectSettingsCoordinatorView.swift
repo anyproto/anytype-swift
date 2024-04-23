@@ -16,5 +16,8 @@ struct ObjectSettingsCoordinatorView: View {
             .sheet(item: $model.layoutPickerObjectId) {
                 ObjectLayoutPicker(objectId: $0.value)
             }
+            .sheet(item: $model.blockObjectSearchData) {
+                BlockObjectSearchView(data: $0)
+            }
     }
 }

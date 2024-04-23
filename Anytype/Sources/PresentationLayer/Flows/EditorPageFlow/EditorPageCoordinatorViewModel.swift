@@ -23,6 +23,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var textIconPickerData: TextIconPickerData?
+    @Published var blockObjectSearchData: BlockObjectSearchData?
     
     init(
         data: EditorPageObject,
@@ -99,6 +100,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showTextIconPicker(data: TextIconPickerData) {
         textIconPickerData = data
+    }
+    
+    func showBlockObjectSearch(data: BlockObjectSearchData) {
+        blockObjectSearchData = data
     }
     
     // MARK: - Private

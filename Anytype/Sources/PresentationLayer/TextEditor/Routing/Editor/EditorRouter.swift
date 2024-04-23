@@ -16,7 +16,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let urlOpener: URLOpenerProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
@@ -31,7 +30,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         urlOpener: URLOpenerProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
@@ -46,7 +44,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.urlOpener = urlOpener
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.templateService = templateService
         self.output = output
@@ -191,31 +188,25 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
         let excludedLayouts = DetailsLayout.fileLayouts + [.set, .collection]
-        let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: excludedLayouts
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.present(moveToView)
+            excludedLayouts: excludedLayouts,
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let data = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: []
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.presentSwiftUIView(view: moduleView)
+            excludedLayouts: [],
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
     func showTextIconPicker(contextId: String, objectId: String) {
