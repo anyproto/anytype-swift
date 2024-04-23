@@ -45,10 +45,19 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     public func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus, noCache: Bool) async throws -> MembershipStatus {
-        let tier = try await getTiers(noCache: noCache).first { $0.type.id == membership.tier }
+        let tiers = try await getTiers(noCache: noCache)
+        
+        let tier = tiers.first { $0.type.id == membership.tier }
         
         if tier == nil, membership.tier != 0 {
-            anytypeAssertionFailure("Not found tier info for \(membership)")
+            anytypeAssertionFailure(
+                "Not found tier info for membership",
+                info: [
+                    "membership": membership.debugDescription,
+                    "tiers": tiers.debugDescription,
+                    "noCache": noCache.description
+                ]
+            )
             throw MembershipServiceError.tierNotFound
         }
         
