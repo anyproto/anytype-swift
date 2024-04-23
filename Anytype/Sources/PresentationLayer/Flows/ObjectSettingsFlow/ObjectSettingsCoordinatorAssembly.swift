@@ -40,8 +40,7 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
                 objectId: objectId,
                 output: output,
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
-                relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList(),
-                newSearchModuleAssembly: self.modulesDI.newSearch()
+                relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList()
             )
         ).eraseToAnyView()
     }

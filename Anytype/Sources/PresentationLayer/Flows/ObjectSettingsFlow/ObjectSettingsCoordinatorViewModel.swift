@@ -12,24 +12,22 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     
     private let navigationContext: NavigationContextProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     @Published var coverPickerData: ObjectCoverPickerData?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
+    @Published var blockObjectSearchData: BlockObjectSearchData?
     
     init(
         objectId: String,
         output: ObjectSettingsCoordinatorOutput?,
         navigationContext: NavigationContextProtocol,
-        relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     ) {
         self.objectId = objectId
         self.output = output
         self.navigationContext = navigationContext
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
     // MARK: - ObjectSettingsModelOutput
@@ -65,18 +63,15 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
         let excludedLayouts = DetailsLayout.fileLayouts + [.set, .participant]
-        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
+        blockObjectSearchData = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: excludedLayouts
-        ) { [weak navigationContext] details in
-            navigationContext?.dismissAllPresented(animated: true) {
+            excludedLayouts: excludedLayouts,
+            onSelect: { details in
                 onSelect(details.id)
             }
-        }
-
-        navigationContext.presentSwiftUIView(view: moduleView)
+        )
     }
     
     func closeEditorAction() {

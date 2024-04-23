@@ -36,6 +36,9 @@ struct EditorPageCoordinatorView: View {
             .sheet(item: $model.textIconPickerData) {
                 TextIconPickerView(data: $0)
             }
+            .sheet(item: $model.blockObjectSearchData) {
+                BlockObjectSearchView(data: $0)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }
