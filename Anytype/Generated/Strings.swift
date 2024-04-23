@@ -981,12 +981,6 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Membership.NameForm.Title")
       internal static let validated = Loc.tr("Localizable", "Membership.NameForm.Validated")
       internal static let validating = Loc.tr("Localizable", "Membership.NameForm.Validating")
-      internal enum Error {
-        internal static let canNotReserve = Loc.tr("Localizable", "Membership.NameForm.Error.CanNotReserve")
-        internal static let hasInvalidChars = Loc.tr("Localizable", "Membership.NameForm.Error.HasInvalidChars")
-        internal static let tooLong = Loc.tr("Localizable", "Membership.NameForm.Error.TooLong")
-        internal static let tooShort = Loc.tr("Localizable", "Membership.NameForm.Error.TooShort")
-      }
     }
     internal enum Payment {
       internal static let appleSubscription = Loc.tr("Localizable", "Membership.Payment.Apple subscription")
