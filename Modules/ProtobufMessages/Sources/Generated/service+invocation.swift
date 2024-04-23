@@ -2354,6 +2354,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func membershipVerifyAppStoreReceipt(
+        _ request: Anytype_Rpc.Membership.VerifyAppStoreReceipt.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.VerifyAppStoreReceipt.Request, Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response> {
+        return Invocation(messageName: "MembershipVerifyAppStoreReceipt", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceMembershipVerifyAppStoreReceipt(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response(serializedData: responseData)
+        }
+    }
+
     public static func nameServiceUserAccountGet(
         _ request:  Anytype_Rpc.NameService.UserAccount.Get.Request = .init()
     ) -> Invocation< Anytype_Rpc.NameService.UserAccount.Get.Request, Anytype_Rpc.NameService.UserAccount.Get.Response> {
