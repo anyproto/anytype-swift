@@ -40,7 +40,9 @@ public extension MembershipServiceProtocol {
 final class MembershipService: MembershipServiceProtocol {
     
     public func getMembership(noCache: Bool) async throws -> MembershipStatus {
-        let status = try await ClientCommands.membershipGetStatus().invoke().data
+        let status = try await ClientCommands.membershipGetStatus(.with {
+            $0.noCache = noCache
+        }).invoke().data
         return try await makeMembershipFromMiddlewareModel(membership: status, noCache: noCache)
     }
     
