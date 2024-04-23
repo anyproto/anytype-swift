@@ -4492,7 +4492,6 @@
 		1247BC6F27FDD351005F2DB4 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				2ABA0E05283BC420008369DC /* BlockObjectsSearchInteractor */,
 				125683DF27DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift */,
 				1247BC6C27FDD324005F2DB4 /* ObjectsSearchInteractor */,
 				1247BC6D27FDD32E005F2DB4 /* FilesSearchInteractor */,
@@ -6414,6 +6413,7 @@
 		2AAEAB552BD7F3EE00E88767 /* BlockObjectSearch */ = {
 			isa = PBXGroup;
 			children = (
+				2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */,
 				2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */,
 			);
 			path = BlockObjectSearch;
@@ -6486,14 +6486,6 @@
 				2AB522072A14D0E7007DEE53 /* FileErrorEventHandler.swift */,
 			);
 			path = File;
-			sourceTree = "<group>";
-		};
-		2ABA0E05283BC420008369DC /* BlockObjectsSearchInteractor */ = {
-			isa = PBXGroup;
-			children = (
-				2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */,
-			);
-			path = BlockObjectsSearchInteractor;
 			sourceTree = "<group>";
 		};
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
