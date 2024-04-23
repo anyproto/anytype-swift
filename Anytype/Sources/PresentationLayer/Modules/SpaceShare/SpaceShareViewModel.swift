@@ -75,6 +75,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onShareInvite() {
+        AnytypeAnalytics.instance().logClickSettingsSpaceShare(type: .shareLink)
         shareInviteLink = inviteLink
     }
     
