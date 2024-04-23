@@ -1,14 +1,8 @@
 import Foundation
 import SwiftUI
 
-
 @MainActor
-protocol SettingsCoordinatorProtocol: AnyObject {
-    func startFlow()
-}
-
-@MainActor
-final class SettingsCoordinator: SettingsCoordinatorProtocol, 
+final class SettingsCoordinatorViewModel: ObservableObject,
                                     SettingsModuleOutput,
                                     SettingsAccountModuleOutput,
                                     AboutModuleOutput,
