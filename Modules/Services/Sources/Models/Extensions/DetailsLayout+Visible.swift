@@ -58,5 +58,5 @@ public extension DetailsLayout {
     
     static var layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .participant, .set, .collection, .space, .file, .image]
     static var layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    static var layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .participant, .set, .collection, .space, .file, .image, .bookmark, .todo, .note]
+    static var layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .participant, .space, .file, .image, .bookmark, .todo, .note]
 }
