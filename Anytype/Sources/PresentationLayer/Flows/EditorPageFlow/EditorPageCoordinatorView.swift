@@ -30,6 +30,12 @@ struct EditorPageCoordinatorView: View {
                     model.showEditorScreen(data: data)
                 }
             }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
+            }
+            .sheet(item: $model.textIconPickerData) {
+                TextIconPickerView(data: $0)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

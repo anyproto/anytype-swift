@@ -32,7 +32,6 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
             navigationContext: uiHelpersDI.commonNavigationContext(),
             appearanceModuleAssembly: modulesDI.settingsAppearance(),
             dashboardAlertsAssembly: modulesDI.dashboardAlerts(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             urlOpener: uiHelpersDI.urlOpener()
         )
     }

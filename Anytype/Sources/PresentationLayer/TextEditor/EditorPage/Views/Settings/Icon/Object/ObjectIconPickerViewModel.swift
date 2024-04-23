@@ -3,6 +3,11 @@ import UIKit
 import Services
 import AnytypeCore
 
+struct ObjectIconPickerData: Identifiable {
+    let document: BaseDocumentGeneralProtocol
+    var id: String { document.objectId }
+}
+
 enum ObjectIconPickerAction {
     enum IconSource {
         case emoji(emojiUnicode: String)
@@ -13,7 +18,10 @@ enum ObjectIconPickerAction {
     case removeIcon
 }
 
-final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
+final class ObjectIconPickerViewModel: ObservableObject {
+    
+    @Injected(\.objectHeaderUploadingService)
+    private var objectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
@@ -24,14 +32,12 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     // MARK: - Private variables
     
     private let document: BaseDocumentGeneralProtocol
-    private let actionHandler: ObjectIconActionHandlerProtocol
     private var subscription: AnyCancellable?
         
     // MARK: - Initializer
     
-    init(document: BaseDocumentGeneralProtocol, actionHandler: ObjectIconActionHandlerProtocol) {
-        self.document = document
-        self.actionHandler = actionHandler
+    init(data: ObjectIconPickerData) {
+        self.document = data.document
         subscription = document.syncPublisher
             .receiveOnMain()
             .sink { [weak self] in
@@ -41,15 +47,15 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     
     
     func setEmoji(_ emojiUnicode: String) {
-        actionHandler.handleIconAction(document: document, action: .setIcon(.emoji(emojiUnicode: emojiUnicode)))
+        handleIconAction(document: document, action: .setIcon(.emoji(emojiUnicode: emojiUnicode)))
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        actionHandler.handleIconAction(document: document, action: .setIcon(.upload(itemProvider: itemProvider)))
+        handleIconAction(document: document, action: .setIcon(.upload(itemProvider: itemProvider)))
     }
     
     func removeIcon() {
-        actionHandler.handleIconAction(document: document, action: .removeIcon)
+        handleIconAction(document: document, action: .removeIcon)
     }
     
     // MARK: - Private
@@ -73,6 +79,16 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
                 info: ["detailsLayout": String(detailsLayout?.rawValue ?? 0)]
             )
             return true
+        }
+    }
+    
+    private func handleIconAction(document: BaseDocumentGeneralProtocol, action: ObjectIconPickerAction) {
+        Task {
+            try await objectHeaderUploadingService.handleIconAction(
+                objectId: document.objectId,
+                spaceId: document.spaceId,
+                action: action
+            )
         }
     }
 }

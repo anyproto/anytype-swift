@@ -41,7 +41,6 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
                 output: output,
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 objectLayoutPickerModuleAssembly: self.modulesDI.objectLayoutPicker(),
-                objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
                 relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList(),
                 newSearchModuleAssembly: self.modulesDI.newSearch()
             )

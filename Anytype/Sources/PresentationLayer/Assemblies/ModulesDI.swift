@@ -26,10 +26,6 @@ final class ModulesDI: ModulesDIProtocol {
         return ObjectLayoutPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
-    func objectIconPicker() -> ObjectIconPickerModuleAssemblyProtocol {
-        return ObjectIconPickerModuleAssembly(serviceLocator: serviceLocator)
-    }
-    
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly(serviceLocator: serviceLocator)
     }
@@ -48,10 +44,6 @@ final class ModulesDI: ModulesDIProtocol {
             uiHelpersDI: uiHelpersDI,
             widgetsSubmoduleDI:  widgetsSubmoduleDI
         )
-    }
-    
-    func textIconPicker() -> TextIconPickerModuleAssemblyProtocol {
-        return TextIconPickerModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
