@@ -3811,6 +3811,39 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Membership.VerifyAppStoreReceipt.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.badInput")
+            case .notLoggedIn:
+                return String(localized: "Membership.VerifyAppStoreReceipt.notLoggedIn", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.notLoggedIn")
+            case .paymentNodeError:
+                return String(localized: "Membership.VerifyAppStoreReceipt.paymentNodeError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.paymentNodeError")
+            case .cacheError:
+                return String(localized: "Membership.VerifyAppStoreReceipt.cacheError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.cacheError")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Membership.VerifyEmailCode.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
