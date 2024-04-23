@@ -24,7 +24,7 @@ final class CursorModeAccessoryViewModel {
     
     func update(with configuration: TextViewAccessoryConfiguration) {
         let actions: [CursorModeAccessoryView.Item]
-        if configuration.contentType == .text(.title) {
+        if configuration.contentType == .text(.title) || configuration.contentType == .text(.description) {
             actions = [.style]
         } else {
             switch configuration.usecase {
