@@ -20,7 +20,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let accountParticipantStorage: AccountParticipantsStorageProtocol
     private let menuBuilder: WidgetObjectListMenuBuilderProtocol
-    private let alertOpener: AlertOpenerProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
     
     // MARK: - State
@@ -58,7 +57,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         accountParticipantStorage: AccountParticipantsStorageProtocol,
         menuBuilder: WidgetObjectListMenuBuilderProtocol,
-        alertOpener: AlertOpenerProtocol,
         output: WidgetObjectListCommonModuleOutput?,
         isSheet: Bool = false
     ) {
@@ -67,7 +65,6 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
         self.activeWorkspaceStorage = activeWorkspaceStorage
         self.accountParticipantStorage = accountParticipantStorage
         self.menuBuilder = menuBuilder
-        self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
         internalModel.rowDetailsPublisher
