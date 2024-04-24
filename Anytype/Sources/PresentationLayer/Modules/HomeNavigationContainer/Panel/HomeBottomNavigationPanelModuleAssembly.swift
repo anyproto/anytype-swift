@@ -23,10 +23,6 @@ final class HomeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelMo
             homePath: homePath,
             model: HomeBottomNavigationPanelViewModel(
                 info: info,
-                subscriptionService: self.serviceLocator.singleObjectSubscriptionService(),
-                defaultObjectService: self.serviceLocator.defaultObjectCreationService(),
-                processSubscriptionService: self.serviceLocator.processSubscriptionService(),
-                accountParticipantStorage: self.serviceLocator.accountParticipantStorage(),
                 output: output
             )
         )
