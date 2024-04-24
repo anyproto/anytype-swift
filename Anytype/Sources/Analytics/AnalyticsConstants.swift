@@ -460,6 +460,7 @@ enum ClickSettingsSpaceShareType: String {
     case moreInfo = "MoreInfo"
     case revoke = "Revoke"
     case qr = "Qr"
+    case shareLink = "ShareLink"
 }
 
 enum ScreenInviteConfirmRoute: String {
@@ -468,8 +469,8 @@ enum ScreenInviteConfirmRoute: String {
 }
 
 enum PermissionAnalyticsType: String {
-    case read = "Read"
-    case write = "Write"
+    case read = "Reader"
+    case write = "Writer"
     case owner = "Owner"
     case noPermissions = "NoPermissions"
     case unrecognized = "Unrecognized"

@@ -68,11 +68,11 @@ actor AnytypeAnalyticsCore {
         let participantSpaceView = await participantSpacesStorage.participantSpaceView(spaceId: spaceId)
         
         if let permissions = participantSpaceView?.participant?.permission.analyticsType {
-            eventProperties[AnalyticsEventsPropertiesKey.permissions] = permissions
+            eventProperties[AnalyticsEventsPropertiesKey.permissions] = permissions.rawValue
         }
         
         if let spaceType = participantSpaceView?.spaceView.spaceAccessType?.analyticsType {
-            eventProperties[AnalyticsEventsPropertiesKey.spaceType] = spaceType
+            eventProperties[AnalyticsEventsPropertiesKey.spaceType] = spaceType.rawValue
         }
         
         logEvent(eventType, withEventProperties: eventProperties)
