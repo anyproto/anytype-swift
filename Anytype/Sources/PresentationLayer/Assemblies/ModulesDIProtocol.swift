@@ -5,7 +5,6 @@ protocol ModulesDIProtocol: AnyObject {
     func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol
     func createObject() -> CreateObjectModuleAssemblyProtocol
     func newSearch() -> NewSearchModuleAssemblyProtocol
-    func newRelation() -> NewRelationModuleAssemblyProtocol
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol

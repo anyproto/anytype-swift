@@ -21,12 +21,16 @@ final class NewRelationViewModel: ObservableObject {
     @Published var name: String
     @Published private var format: SupportedRelationFormat
     @Published private var objectTypes: [ObjectType]?
+    @Published var toastData: ToastBarData = .empty
     
     private let document: BaseDocumentProtocol
     private let target: RelationsModuleTarget
-    private let service: RelationsServiceProtocol
-    private let toastPresenter: ToastPresenterProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+    
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    
     private let relationsInteractor: RelationsInteractorProtocol
     private weak var output: NewRelationModuleOutput?
     
@@ -34,17 +38,11 @@ final class NewRelationViewModel: ObservableObject {
         name: String,
         document: BaseDocumentProtocol,
         target: RelationsModuleTarget,
-        service: RelationsServiceProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         relationsInteractor: RelationsInteractorProtocol,
         output: NewRelationModuleOutput?
     ) {
         self.document = document
         self.target = target
-        self.service = service
-        self.toastPresenter = toastPresenter
-        self.objectTypeProvider = objectTypeProvider
         self.relationsInteractor = relationsInteractor
         self.output = output
         
@@ -60,7 +58,9 @@ final class NewRelationViewModel: ObservableObject {
 extension NewRelationViewModel {
     
     func didTapFormatSection() {
-        output?.didAskToShowRelationFormats(selectedFormat: format)
+        output?.didAskToShowRelationFormats(selectedFormat: format, onSelect: { [weak self] format in
+            self?.updateRelationFormat(format)
+        })
     }
     
     func didTapTypesRestrictionSection() {
@@ -102,7 +102,7 @@ extension NewRelationViewModel {
     }
     
     private func relationDetailsAdded(relationDetails: RelationDetails) {
-        toastPresenter.show(message: Loc.Relation.addedToLibrary(relationDetails.name))
+        toastData = ToastBarData(text: Loc.Relation.addedToLibrary(relationDetails.name), showSnackBar: true)
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         output?.didCreateRelation(relationDetails)
     }

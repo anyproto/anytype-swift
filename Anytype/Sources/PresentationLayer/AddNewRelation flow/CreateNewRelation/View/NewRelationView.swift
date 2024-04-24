@@ -2,10 +2,23 @@ import SwiftUI
 
 struct NewRelationView: View {
     
-    @ObservedObject private(set) var viewModel: NewRelationViewModel
+    @StateObject private var viewModel: NewRelationViewModel
+    @Environment(\.dismiss) private var dismiss
     
-    init(viewModel: NewRelationViewModel) {
-        self.viewModel = viewModel
+    init(
+        name: String,
+        document: BaseDocumentProtocol,
+        target: RelationsModuleTarget,
+        output: NewRelationModuleOutput?
+    ) {
+        let relationsInteractor = RelationsInteractor(objectId: document.objectId)
+        _viewModel = StateObject(wrappedValue: NewRelationViewModel(
+            name: name,
+            document: document,
+            target: target,
+            relationsInteractor: relationsInteractor,
+            output: output
+        ))
     }
     
     var body: some View {
@@ -15,6 +28,7 @@ struct NewRelationView: View {
             content
         }
         .padding(.horizontal, 20)
+        .snackbar(toastBarData: $viewModel.toastData)
     }
 
     private var content: some View {
@@ -76,6 +90,7 @@ struct NewRelationView: View {
     private var button: some View {
         StandardButton(Loc.create, style: .primaryLarge) {
             viewModel.didTapAddButton()
+            dismiss()
         }
         .disabled(!viewModel.isCreateButtonActive)
         .padding(.vertical, 10)

@@ -125,7 +125,6 @@
 		1247BB0027CCBF470079DA1F /* ConstantHeightPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BAFF27CCBF470079DA1F /* ConstantHeightPopupLayout.swift */; };
 		1247BC6227FCA033005F2DB4 /* AddNewRelationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6127FCA033005F2DB4 /* AddNewRelationCoordinator.swift */; };
 		1247BC6427FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */; };
-		1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */; };
 		1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */; };
 		1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */; };
 		1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */; };
@@ -509,7 +508,6 @@
 		2A673C1729B0D7B700E3D672 /* SettingsAccountModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */; };
 		2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */; };
 		2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */; };
-		2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */; };
 		2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D562B7B694800456E08 /* Text+Markdown.swift */; };
 		2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2A685D592B7B855300456E08 /* ZIPFoundation */; };
 		2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */; };
@@ -916,6 +914,9 @@
 		2E1AA8002BCFFC9B0089B136 /* VaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FF2BCFFC9B0089B136 /* VaultView.swift */; };
 		2E1AA8022BCFFCA50089B136 /* VaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8012BCFFCA50089B136 /* VaultViewModel.swift */; };
 		2E1AA8042BD7FDEB0089B136 /* SetSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8032BD7FDEB0089B136 /* SetSettingsData.swift */; };
+		2E1AA8082BD92EF40089B136 /* NewRelationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8072BD92EF40089B136 /* NewRelationCoordinatorView.swift */; };
+		2E1AA80A2BD92F060089B136 /* NewRelationCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8092BD92F060089B136 /* NewRelationCoordinatorViewModel.swift */; };
+		2E1AA80C2BD95A2B0089B136 /* RelationFormatsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA80B2BD95A2B0089B136 /* RelationFormatsData.swift */; };
 		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */; };
@@ -1886,7 +1887,6 @@
 		1247BAFF27CCBF470079DA1F /* ConstantHeightPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantHeightPopupLayout.swift; sourceTree = "<group>"; };
 		1247BC6127FCA033005F2DB4 /* AddNewRelationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationCoordinator.swift; sourceTree = "<group>"; };
 		1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationModuleOutput.swift; sourceTree = "<group>"; };
-		1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsListModuleOutput.swift; sourceTree = "<group>"; };
 		1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleInput.swift; sourceTree = "<group>"; };
 		1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleOutput.swift; sourceTree = "<group>"; };
 		1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
@@ -2280,7 +2280,6 @@
 		2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountModuleOutput.swift; sourceTree = "<group>"; };
 		2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountViewModel.swift; sourceTree = "<group>"; };
 		2A673C1C29B0FA2800E3D672 /* AnytypeDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeDismiss.swift; sourceTree = "<group>"; };
-		2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleAssembly.swift; sourceTree = "<group>"; };
 		2A685D562B7B694800456E08 /* Text+Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Markdown.swift"; sourceTree = "<group>"; };
 		2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+Extension.swift"; sourceTree = "<group>"; };
 		2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleObjectSubscriptionService.swift; sourceTree = "<group>"; };
@@ -2697,6 +2696,9 @@
 		2E1AA7FF2BCFFC9B0089B136 /* VaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultView.swift; sourceTree = "<group>"; };
 		2E1AA8012BCFFCA50089B136 /* VaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultViewModel.swift; sourceTree = "<group>"; };
 		2E1AA8032BD7FDEB0089B136 /* SetSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSettingsData.swift; sourceTree = "<group>"; };
+		2E1AA8072BD92EF40089B136 /* NewRelationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCoordinatorView.swift; sourceTree = "<group>"; };
+		2E1AA8092BD92F060089B136 /* NewRelationCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2E1AA80B2BD95A2B0089B136 /* RelationFormatsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsData.swift; sourceTree = "<group>"; };
 		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationModuleConfiguration.swift; sourceTree = "<group>"; };
@@ -4405,7 +4407,7 @@
 			isa = PBXGroup;
 			children = (
 				129C54D127FC7A2800C390C7 /* RelationFormatsListViewModel.swift */,
-				1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */,
+				2E1AA80B2BD95A2B0089B136 /* RelationFormatsData.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4854,7 +4856,7 @@
 			children = (
 				1247BC6127FCA033005F2DB4 /* AddNewRelationCoordinator.swift */,
 				2A7DCDE1292E60BA001919B4 /* AddNewRelationCoordinatorAssembly.swift */,
-				534FFA652772315C00C51056 /* CreateNewRelation screen */,
+				534FFA652772315C00C51056 /* CreateNewRelation */,
 				129C54CE27FC79BC00C390C7 /* RelationFormatsList screen */,
 			);
 			path = "AddNewRelation flow";
@@ -7224,6 +7226,15 @@
 			path = VaultView;
 			sourceTree = "<group>";
 		};
+		2E1AA8062BD92ED10089B136 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2E1AA8072BD92EF40089B136 /* NewRelationCoordinatorView.swift */,
+				2E1AA8092BD92F060089B136 /* NewRelationCoordinatorViewModel.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		2E22F9E82B61667E001EFCF3 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -9394,14 +9405,14 @@
 			path = Relations;
 			sourceTree = "<group>";
 		};
-		534FFA652772315C00C51056 /* CreateNewRelation screen */ = {
+		534FFA652772315C00C51056 /* CreateNewRelation */ = {
 			isa = PBXGroup;
 			children = (
+				2E1AA8062BD92ED10089B136 /* Coordinator */,
 				1247BC5E27FC8DB4005F2DB4 /* View */,
 				1247BC5F27FC8DBB005F2DB4 /* ViewModel */,
-				2A67D5AA2948D86800CBFAEF /* NewRelationModuleAssembly.swift */,
 			);
-			path = "CreateNewRelation screen";
+			path = CreateNewRelation;
 			sourceTree = "<group>";
 		};
 		5356072026E25F92001464A4 /* UnsupportedBlockView */ = {
@@ -10738,6 +10749,7 @@
 				3DDC9F262B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift in Sources */,
 				2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
+				2E1AA8082BD92EF40089B136 /* NewRelationCoordinatorView.swift in Sources */,
 				1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */,
 				2A673C1D29B0FA2800E3D672 /* AnytypeDismiss.swift in Sources */,
 				12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */,
@@ -10764,6 +10776,7 @@
 				12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */,
 				2A00A73929D2E411007BE598 /* WidgetContainerViewModel+Helper.swift in Sources */,
 				53D408B027F0BF7600495335 /* FieldsConvertibleProtocol.swift in Sources */,
+				2E1AA80A2BD92F060089B136 /* NewRelationCoordinatorViewModel.swift in Sources */,
 				2A0BAD2F29E01E33005BC5D9 /* View+Focused.swift in Sources */,
 				3DB1CA0F27293733000D2779 /* AccountManager.swift in Sources */,
 				1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */,
@@ -11707,6 +11720,7 @@
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
 				2E7E50452B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift in Sources */,
+				2E1AA80C2BD95A2B0089B136 /* RelationFormatsData.swift in Sources */,
 				2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */,
 				2ECB343B2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
@@ -11813,7 +11827,6 @@
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
 				C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */,
 				2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */,
-				2A67D5AB2948D86800CBFAEF /* NewRelationModuleAssembly.swift in Sources */,
 				2EC7FBA12A60238400491F99 /* BlockRestrictions+MarkupType.swift in Sources */,
 				1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */,
 				2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */,
@@ -12043,7 +12056,6 @@
 				2A377E412A826FFD00EA856B /* RemoteStorageView.swift in Sources */,
 				2AC434972B7A0683006166BF /* SpaceShareView.swift in Sources */,
 				2AD8AFD52A83E60400F12D54 /* SpaceSwitchModuleOutput.swift in Sources */,
-				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
 				1244791627D8A38600581174 /* StatusSearchViewModel.swift in Sources */,
 				535E02AA274FE5BE00E1AF8C /* RelationBlockView.swift in Sources */,
 				3DB3EC81275654BC002781DA /* SingleAxisGeometryReader.swift in Sources */,
