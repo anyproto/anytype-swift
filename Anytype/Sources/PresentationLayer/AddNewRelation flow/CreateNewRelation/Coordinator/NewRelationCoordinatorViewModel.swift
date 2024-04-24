@@ -32,17 +32,11 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
-        
+        // TODO
     }
     
     func didCreateRelation(_ relation: RelationDetails) {
-        
-    }
-    
-    // MARK: - RelationFormatsListModuleOutput
-    
-    func didSelectFormat(_ format: SupportedRelationFormat) {
-        
+        // TODO
     }
     
 }
