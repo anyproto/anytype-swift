@@ -482,6 +482,6 @@ enum ScreenQrAnalyticsType: String {
 
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
-    case payByCard = "PayByCard"
+    case payByCard = "Stripe"
     case managePayment = "ManagePayment"
 }
