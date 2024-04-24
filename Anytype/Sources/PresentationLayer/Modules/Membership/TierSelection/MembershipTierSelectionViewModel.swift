@@ -31,9 +31,7 @@ final class MembershipTierSelectionViewModel: ObservableObject {
         self.onSuccessfulPurchase = onSuccessfulPurchase
     }
     
-    func onAppear() async {
-        AnytypeAnalytics.instance().logScreenMembership(tier: tierToDisplay)
-        
+    func onAppear() async {        
         state = await membershipStatusStorage.owningState(tier: tierToDisplay)
     }
     

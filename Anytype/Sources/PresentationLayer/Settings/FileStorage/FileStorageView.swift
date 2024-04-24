@@ -5,8 +5,8 @@ struct FileStorageView: View {
     
     @StateObject private var model: FileStorageViewModel
     
-    init(output: FileStorageModuleOutput?) {
-        self._model = StateObject(wrappedValue: FileStorageViewModel(output: output))
+    init() {
+        self._model = StateObject(wrappedValue: FileStorageViewModel())
     }
     
     var body: some View {
@@ -26,6 +26,9 @@ struct FileStorageView: View {
         }
         .onAppear {
             model.onAppear()
+        }
+        .anytypeSheet(isPresented: $model.showClearCacheAlert) {
+            DashboardClearCacheAlert()
         }
     }
     

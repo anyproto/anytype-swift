@@ -20,7 +20,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var fileErrorEventHandler: FileErrorEventHandlerProtocol
     
     private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
-    private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
@@ -34,11 +33,9 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     init(
         homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
-        deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
         self.homeCoordinatorAssembly = homeCoordinatorAssembly
-        self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
         self.navigationContext = navigationContext
     }
     
@@ -66,7 +63,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
 
     func deleteAccount() -> AnyView? {
         if case let .pendingDeletion(deadline) = accountManager.account.status {
-            return deleteAccountModuleAssembly.make(deadline: deadline)
+            return DeletedAccountView(deadline: deadline).eraseToAnyView()
         } else {
             applicationStateService.state = .initial
             return nil

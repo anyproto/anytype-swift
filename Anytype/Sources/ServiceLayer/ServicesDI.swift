@@ -263,4 +263,8 @@ extension Container {
     var objectHeaderUploadingService: Factory<ObjectHeaderUploadingServiceProtocol> {
         self { ObjectHeaderUploadingService() }.shared
     }
+    
+    var storeKitService: Factory<StoreKitServiceProtocol> {
+        self { StoreKitService() }.singleton
+    }
 }
