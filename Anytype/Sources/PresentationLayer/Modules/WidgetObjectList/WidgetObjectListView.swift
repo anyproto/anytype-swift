@@ -38,6 +38,9 @@ struct WidgetObjectListView: View {
         .anytypeSheet(item: $model.binAlertData) { data in
             BinConfirmationAlert(data: data)
         }
+        .anytypeSheet(item: $model.forceDeleteAlertData) {
+            ForceDeleteAlert(data: $0)
+        }
     }
     
     @ViewBuilder

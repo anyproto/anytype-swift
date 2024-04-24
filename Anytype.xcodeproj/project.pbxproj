@@ -664,6 +664,8 @@
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
 		2AAEAB572BD7F3FC00E88767 /* BlockObjectSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */; };
 		2AAEAB5A2BD8019200E88767 /* SettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAEAB592BD8019200E88767 /* SettingsCoordinatorView.swift */; };
+		2AAEAB5D2BD93C2B00E88767 /* ForceDeleteAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAEAB5C2BD93C2B00E88767 /* ForceDeleteAlert.swift */; };
+		2AAEAB5F2BD93CF200E88767 /* ForceDeleteAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAEAB5E2BD93CF200E88767 /* ForceDeleteAlertModel.swift */; };
 		2AAF34372954C86800921320 /* TreeWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF34362954C86800921320 /* TreeWidgetView.swift */; };
 		2AAF343C29559BF700921320 /* TreeWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */; };
 		2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */; };
@@ -2420,6 +2422,8 @@
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
 		2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockObjectSearchView.swift; sourceTree = "<group>"; };
 		2AAEAB592BD8019200E88767 /* SettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorView.swift; sourceTree = "<group>"; };
+		2AAEAB5C2BD93C2B00E88767 /* ForceDeleteAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceDeleteAlert.swift; sourceTree = "<group>"; };
+		2AAEAB5E2BD93CF200E88767 /* ForceDeleteAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForceDeleteAlertModel.swift; sourceTree = "<group>"; };
 		2AAF34362954C86800921320 /* TreeWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetView.swift; sourceTree = "<group>"; };
 		2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AAF343D29559DA600921320 /* HomeWidgetsRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsRegistry.swift; sourceTree = "<group>"; };
@@ -6420,6 +6424,15 @@
 			path = DashboardClearCacheAlert;
 			sourceTree = "<group>";
 		};
+		2AAEAB5B2BD93BF900E88767 /* ForceDeleteAlert */ = {
+			isa = PBXGroup;
+			children = (
+				2AAEAB5C2BD93C2B00E88767 /* ForceDeleteAlert.swift */,
+				2AAEAB5E2BD93CF200E88767 /* ForceDeleteAlertModel.swift */,
+			);
+			path = ForceDeleteAlert;
+			sourceTree = "<group>";
+		};
 		2AAF343829559BD400921320 /* Tree */ = {
 			isa = PBXGroup;
 			children = (
@@ -6492,6 +6505,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2AAEAB5B2BD93BF900E88767 /* ForceDeleteAlert */,
 				2AAEAB582BD8004600E88767 /* DashboardClearCacheAlert */,
 				2A80F7662BB47557000B55C6 /* SpaceMoreInfo */,
 				2ABAF2B72938E548003C4730 /* CodeLanguage */,
@@ -11450,6 +11464,7 @@
 				3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */,
 				2ABF8F5B2B7FADA3004B8FB8 /* ErrorStateView.swift in Sources */,
 				2AD934082A8F5C880093B6BF /* SwiftEntryKit+DebugError.swift in Sources */,
+				2AAEAB5D2BD93C2B00E88767 /* ForceDeleteAlert.swift in Sources */,
 				2A2A347529229D2B0004BD8B /* NavigationContext.swift in Sources */,
 				2EEFEADC2A93C39100AD5CDC /* SheetView.swift in Sources */,
 				2E083E5D2BAB635A0099A41C /* SetSortTypesData.swift in Sources */,
@@ -12130,6 +12145,7 @@
 				2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */,
 				2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */,
 				868572512AE6A4CD00F0A747 /* SpaceSearchViewModel.swift in Sources */,
+				2AAEAB5F2BD93CF200E88767 /* ForceDeleteAlertModel.swift in Sources */,
 				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
 				2AF205BD2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,

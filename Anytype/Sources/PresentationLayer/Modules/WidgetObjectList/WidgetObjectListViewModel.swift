@@ -37,6 +37,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     @Published var viewEditMode: EditMode = .inactive
     @Published private(set) var canEdit = false
     @Published var binAlertData: BinConfirmationAlertData? = nil
+    @Published var forceDeleteAlertData: ForceDeleteAlertData?
     
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
@@ -135,30 +136,11 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func forceDelete(objectIds: [String]) {
-        AnytypeAnalytics.instance().logShowDeletionWarning(route: .settings)
-        let alert = BottomAlertLegacy(
-            title: internalModel.forceDeleteTitle,
-            message: Loc.WidgetObjectList.ForceDelete.message,
-            leftButton: BottomAlertButtonLegacy(title: Loc.cancel, action: { }),
-            rightButton: BottomAlertButtonLegacy(title: Loc.delete, isDistructive: true, action: { [weak self] in
-                self?.forceDeleteConfirmed(objectIds: objectIds)
-            })
-        )
-        alertOpener.showFloatAlert(model: alert)
+        forceDeleteAlertData = ForceDeleteAlertData(objectIds: objectIds)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
     // MARK: - Private
-    
-    private func forceDeleteConfirmed(objectIds: [String]) {
-        Task {
-            AnytypeAnalytics.instance().logMoveToBin(true)
-            try await objectActionService.setArchive(objectIds: objectIds, true)
-            AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: .settings)
-            try await objectActionService.delete(objectIds: objectIds)
-        }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
     
     private func updateRows() {
         
