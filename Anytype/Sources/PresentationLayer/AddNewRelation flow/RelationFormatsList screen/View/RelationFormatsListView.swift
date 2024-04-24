@@ -2,7 +2,11 @@ import SwiftUI
 
 struct RelationFormatsListView: View {
     
-    @ObservedObject var viewModel: RelationFormatsListViewModel
+    @StateObject private var viewModel: RelationFormatsListViewModel
+    
+    init(selectedFormat: SupportedRelationFormat, output: RelationFormatsListModuleOutput?) {
+        _viewModel = StateObject(wrappedValue: RelationFormatsListViewModel(selectedFormat: selectedFormat, output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

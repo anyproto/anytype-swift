@@ -9,7 +9,7 @@ final class RelationFormatsListViewModel: ObservableObject {
     
     init(
         selectedFormat: SupportedRelationFormat,
-        output: RelationFormatsListModuleOutput
+        output: RelationFormatsListModuleOutput?
     ) {
         self.output = output
         self.supportedFormatModels = SupportedRelationFormat.allCases.asRelationFormatListCellModels(selectedFormat: selectedFormat)
