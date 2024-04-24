@@ -58,10 +58,6 @@ final class ModulesDI: ModulesDIProtocol {
         HomeBottomNavigationPanelModuleAssembly(serviceLocator: serviceLocator)
     }
 
-    func deleteAccount() -> DeleteAccountModuleAssemblyProtocol {
-        DeleteAccountModuleAssembly(serviceLocator: serviceLocator)
-    }
-
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
         ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
