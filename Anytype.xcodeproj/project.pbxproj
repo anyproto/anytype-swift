@@ -784,7 +784,6 @@
 		2ADD556E2987CDDE009AFCB1 /* LinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */; };
 		2ADD55742987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */; };
 		2ADD66732A6ECA0100266F57 /* CoreGraphics+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD66722A6ECA0100266F57 /* CoreGraphics+Hash.swift */; };
-		2ADF008C2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF008B2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift */; };
 		2ADF008F2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */; };
 		2ADF00912ACD66D4000D01F8 /* NavigationGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */; };
 		2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00922ACF0040000D01F8 /* HomePath.swift */; };
@@ -2558,7 +2557,6 @@
 		2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetViewModel.swift; sourceTree = "<group>"; };
 		2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2ADD66722A6ECA0100266F57 /* CoreGraphics+Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Hash.swift"; sourceTree = "<group>"; };
-		2ADF008B2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAccountModuleAssembly.swift; sourceTree = "<group>"; };
 		2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarStyleModifier.swift; sourceTree = "<group>"; };
 		2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationGestureModifier.swift; sourceTree = "<group>"; };
 		2ADF00922ACF0040000D01F8 /* HomePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePath.swift; sourceTree = "<group>"; };
@@ -8013,7 +8011,6 @@
 			children = (
 				3D1CEC2A27F38CE3000D36BA /* DeletedAccountView.swift */,
 				3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */,
-				2ADF008B2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift */,
 			);
 			path = DeletedAccount;
 			sourceTree = "<group>";
@@ -11538,7 +11535,6 @@
 				1244794727DC96FB00581174 /* TagsSearchViewModel.swift in Sources */,
 				C90F8F2C28DCBDBA00E874A9 /* FilePreviewContext.swift in Sources */,
 				2A80D04E2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift in Sources */,
-				2ADF008C2ACD5763000D01F8 /* DeleteAccountModuleAssembly.swift in Sources */,
 				126C46D326BD909300D31DBF /* EditorSection.swift in Sources */,
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
 				120F7D80267F8A2B00327734 /* BlockBookmarkState.swift in Sources */,

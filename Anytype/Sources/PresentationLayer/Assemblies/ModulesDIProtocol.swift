@@ -11,6 +11,5 @@ protocol ModulesDIProtocol: AnyObject {
     func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
     func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol
-    func deleteAccount() -> DeleteAccountModuleAssemblyProtocol
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol
 }
