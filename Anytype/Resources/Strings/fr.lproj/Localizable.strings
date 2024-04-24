@@ -262,7 +262,7 @@
 "Auth.JoinFlow.Soul.Button" = "Obtenir ma Clé";
 
 "Auth.JoinFlow.Vault.Title" = "Voici votre Coffre-fort";
-"Auth.JoinFlow.Vault.Description" = "Tout ce qui se trouve à l'intérieur est chiffré. Il est en premier lieu local - tout fonctionne hors ligne. Seul vous avez la clé.";
+"Auth.JoinFlow.Vault.Description" = "Tout ce qui se trouve à l'intérieur est chiffré.\n Il est en premier lieu local - tout fonctionne hors ligne.\nSeul vous avez la clé.";
 "Auth.JoinFlow.Vault.Button" = "Obtenir ma Clé";
 
 // Auth - Login flow
@@ -365,6 +365,7 @@
 
 "TemplateEditing.Title" = "Modifier le modèle";
 
+"Templates.Popup.WasAddedTo.title" = "Un nouveau modèle a été ajouté au type %@";
 "Templates.Popup.WasAddedTo" = "Le nouveau modèle a été ajouté au type";
 "Templates.Popup.Duplicated" = "Le modèle a été dupliqué";
 "Templates.Popup.Removed" = "Le modèle a été supprimé";
@@ -1097,12 +1098,6 @@
 "Membership.NameForm.Subtitle" = "Ceci est votre nom unique sur le réseau Anytype, confirmant votre abonnement. Il agit comme votre domaine personnel et ne peut pas être changé.";
 "Membership.NameForm.Validating" = "Patientez...";
 "Membership.NameForm.Validated" = "Ce nom est disponible";
-
-"Membership.NameForm.Error.TooShort" = "Le nom est trop court";
-"Membership.NameForm.Error.TooLong" = "Le nom est trop long";
-"Membership.NameForm.Error.HasInvalidChars" = "Le nom contient des caractères non valides";
-"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
-
 
 "Membership.Success.Title" = "Bienvenue sur le réseau, %@";
 "Membership.Success.Curiosity" = "Merci beaucoup pour votre curiosité !";

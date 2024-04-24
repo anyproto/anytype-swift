@@ -262,7 +262,7 @@
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
@@ -365,6 +365,7 @@
 
 "TemplateEditing.Title" = "Sjabloon bewerken";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Nieuw sjabloon is toegevoegd aan het type";
 "Templates.Popup.Duplicated" = "Dit sjabloon is gedupliceerd";
 "Templates.Popup.Removed" = "Dit sjabloon is verwijderd";
@@ -1098,12 +1099,6 @@
 "Membership.NameForm.Subtitle" = "Dit is jouw unieke naam op het Anyty-netwerk, en bevestigt jouw lidmaatschap. Het fungeert als jouw persoonlijke domein en kan niet worden gewijzigd.";
 "Membership.NameForm.Validating" = "Even geduld...";
 "Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
-
-"Membership.NameForm.Error.TooShort" = "Name is too short";
-"Membership.NameForm.Error.TooLong" = "Name is too long";
-"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
-"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
-
 
 "Membership.Success.Title" = "Welkom bij het netwerk, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";

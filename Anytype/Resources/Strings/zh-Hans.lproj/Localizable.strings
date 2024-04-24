@@ -263,7 +263,7 @@
 "Auth.JoinFlow.Soul.Button" = "获得我的密钥";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
@@ -366,6 +366,7 @@
 
 "TemplateEditing.Title" = "编辑模板";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "新模板已添加到类型";
 "Templates.Popup.Duplicated" = "模板已生成副本";
 "Templates.Popup.Removed" = "模板已删除";
@@ -1101,12 +1102,6 @@
 "Membership.NameForm.Subtitle" = "这是您在 Anytype 网络上独有的名字，正在确认您的会员资格。它将作为您的个人域名，且不能更改。";
 "Membership.NameForm.Validating" = "请耐心等待...";
 "Membership.NameForm.Validated" = "这个名称是可获得的";
-
-"Membership.NameForm.Error.TooShort" = "名称太短";
-"Membership.NameForm.Error.TooLong" = "名称过长";
-"Membership.NameForm.Error.HasInvalidChars" = "名称包含无效字符";
-"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
-
 
 "Membership.Success.Title" = "欢迎来到网络， %@";
 "Membership.Success.Curiosity" = "为你的好奇心干一杯大的！";

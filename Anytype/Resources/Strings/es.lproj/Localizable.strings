@@ -262,7 +262,7 @@
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
@@ -365,6 +365,7 @@
 
 "TemplateEditing.Title" = "Editar plantilla";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Se ha añadido una nueva plantilla al tipo";
 "Templates.Popup.Duplicated" = "La plantilla ha sido duplicada";
 "Templates.Popup.Removed" = "La plantilla ha sido eliminada";
@@ -1097,12 +1098,6 @@
 "Membership.NameForm.Subtitle" = "Este es tu nombre único en la red Anytype, confirmando tu membresía. Funciona como tu dominio personal y no se puede cambiar.";
 "Membership.NameForm.Validating" = "Espera un segundo...";
 "Membership.NameForm.Validated" = "El nombre está listo para ser grabado";
-
-"Membership.NameForm.Error.TooShort" = "El nombre es demasiado corto";
-"Membership.NameForm.Error.TooLong" = "Nombre demasiado largo";
-"Membership.NameForm.Error.HasInvalidChars" = "El nombre contiene carácteres no válidos";
-"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
-
 
 "Membership.Success.Title" = "Te damos la bienvenida a la red, %@";
 "Membership.Success.Curiosity" = "¡Enhorabuena por tu curiosidad!";
