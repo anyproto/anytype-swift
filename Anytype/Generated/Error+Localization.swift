@@ -5821,6 +5821,9 @@ extension Anytype_Rpc.Space.InviteView.Response.Error: LocalizedError {
             case .inviteBadContent:
                 return String(localized: "Space.InviteView.inviteBadContent", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Space.InviteView.inviteBadContent")
+            case .spaceIsDeleted:
+                return String(localized: "Space.InviteView.spaceIsDeleted", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.InviteView.spaceIsDeleted")
             case .UNRECOGNIZED:
                 return ""
         }
