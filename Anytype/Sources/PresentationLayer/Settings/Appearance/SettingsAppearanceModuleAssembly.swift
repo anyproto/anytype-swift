@@ -18,7 +18,7 @@ final class SettingsAppearanceModuleAssembly: SettingsAppearanceModuleAssemblyPr
     
     @MainActor
     func make() -> UIViewController {
-        let model = SettingsAppearanceViewModel(viewControllerProvider: uiHelpersDI.viewControllerProvider())
+        let model = SettingsAppearanceViewModel()
         let view = SettingsAppearanceView(model: model)
         return AnytypePopup(contentView: view, floatingPanelStyle: false)
     }

@@ -5,6 +5,8 @@ struct SettingsAppearanceView: View {
     
     @ObservedObject var model: SettingsAppearanceViewModel
     
+    @Environment(\.appInterfaceStyle) private var appInterfaceStyle
+    
     var body: some View {
         VStack(spacing: 0) {
             
@@ -23,6 +25,7 @@ struct SettingsAppearanceView: View {
         
         .onAppear {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.appearanceSettingsShow)
+            model.setAppInterfaceStyle(appInterfaceStyle)
         }
     }
     
@@ -113,9 +116,7 @@ struct SettingsAppearanceView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.System.blue
-            SettingsAppearanceView(model: SettingsAppearanceViewModel(
-                viewControllerProvider: DI.preview.uihelpersDI.viewControllerProvider()
-            ))
+            SettingsAppearanceView(model: SettingsAppearanceViewModel())
         }
     }
 }
