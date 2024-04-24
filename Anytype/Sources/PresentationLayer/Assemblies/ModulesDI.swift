@@ -54,10 +54,6 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
 
-    func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol {
-        HomeBottomNavigationPanelModuleAssembly(serviceLocator: serviceLocator)
-    }
-
     func deleteAccount() -> DeleteAccountModuleAssemblyProtocol {
         DeleteAccountModuleAssembly(serviceLocator: serviceLocator)
     }
