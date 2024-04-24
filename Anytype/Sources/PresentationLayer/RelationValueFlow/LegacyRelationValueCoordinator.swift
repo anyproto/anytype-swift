@@ -59,6 +59,10 @@ final class LegacyRelationValueCoordinator:
         urlOpener.openUrl(url)
     }
     
+    func showActionSuccessMessage(_ text: String) {
+        // LegacyRelationValueCoordinator should be deleted until 5 release
+    }
+    
     // MARK: - RelationValueViewModelOutput
     
     func onTapRelation(screenData: EditorScreenData) {

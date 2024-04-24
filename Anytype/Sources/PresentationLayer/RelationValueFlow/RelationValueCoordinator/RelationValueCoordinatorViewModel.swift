@@ -25,6 +25,8 @@ final class RelationValueCoordinatorViewModel:
     private let analyticsType: AnalyticsEventsRelationType
     private weak var output: RelationValueCoordinatorOutput?
 
+    @Published var toastBarData: ToastBarData = .empty
+    
     init(
         relation: Relation,
         objectDetails: ObjectDetails,
@@ -253,5 +255,9 @@ final class RelationValueCoordinatorViewModel:
     
     func openUrl(_ url: URL) {
         urlOpener.openUrl(url)
+    }
+    
+    func showActionSuccessMessage(_ text: String) {
+        toastBarData = ToastBarData(text: text, showSnackBar: true, messageType: .success)
     }
 }
