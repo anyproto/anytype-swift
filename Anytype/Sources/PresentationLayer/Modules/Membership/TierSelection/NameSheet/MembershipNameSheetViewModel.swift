@@ -4,7 +4,7 @@ import AnytypeCore
 import StoreKit
 
 
-enum MembershipNameSheetViewState {
+enum MembershipNameSheetViewState: Equatable {
     case `default`
     case validating
     case error(text: String)
@@ -34,6 +34,8 @@ final class MembershipNameSheetViewModel: ObservableObject {
     
     @Injected(\.storeKitService)
     private var storeKitService: StoreKitServiceProtocol
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     
     var anyNameAvailability: MembershipAnyNameAvailability {
         switch tier.anyName {
@@ -112,10 +114,11 @@ final class MembershipNameSheetViewModel: ObservableObject {
         }
     }
         
-    func purchase() async throws {
-        try await storeKitService.purchase(product: product)
+    func purchase(name: String) async throws {
+        guard state == .validated else { return }
         
-        AnytypeAnalytics.instance().logChangePlan(tier: tier)
+        let billingId = try await membershipService.getBillingId(name: name, tier: tier)
+        try await storeKitService.purchase(product: product, billingId: billingId)
         
         onSuccessfulPurchase(tier)
     }

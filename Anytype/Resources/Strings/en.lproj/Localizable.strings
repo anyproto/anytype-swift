@@ -1061,6 +1061,7 @@
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Membership";

@@ -22,6 +22,9 @@ public protocol MembershipServiceProtocol {
     
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
     func validateName(name: String, tierType: MembershipTierType) async throws
+    
+    func getBillingId(name: String, tier: MembershipTier) async throws -> String
+    func verifyReceipt(billingId: String, receipt: String) async throws
 }
 
 public extension MembershipServiceProtocol {
@@ -95,6 +98,22 @@ final class MembershipService: MembershipServiceProtocol {
             $0.nsNameType = .anyName
             $0.requestedTier = tierType.id
         }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
+    }
+    
+    public func getBillingId(name: String, tier: MembershipTier) async throws -> String {
+        try await ClientCommands.membershipGetPaymentUrl(.with {
+            $0.nsName = name
+            $0.nsNameType = .anyName
+            $0.paymentMethod = .methodInappApple
+            $0.requestedTier = tier.type.id
+        }).invoke().billingID
+    }
+    
+    public func verifyReceipt(billingId: String, receipt: String) async throws {
+        try await ClientCommands.membershipVerifyAppStoreReceipt(.with {
+            $0.billingID = billingId
+            $0.receipt = receipt
+        }).invoke()
     }
     
     // MARK: - Private

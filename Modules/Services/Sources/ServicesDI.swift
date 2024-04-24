@@ -119,8 +119,4 @@ public extension Container {
     var participantService: Factory<ParticipantServiceProtocol> {
         self { ParticipantService() }.shared
     }
-    
-    var storeKitService: Factory<StoreKitServiceProtocol> {
-        self { StoreKitService() }.singleton
-    }
 }

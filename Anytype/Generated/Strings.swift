@@ -239,6 +239,7 @@ internal enum Loc {
   internal static let previewLayout = Loc.tr("Localizable", "Preview layout")
   internal static let profile = Loc.tr("Localizable", "Profile")
   internal static let progress = Loc.tr("Localizable", "Progress...")
+  internal static let purchaseCancelled = Loc.tr("Localizable", "Purchase cancelled")
   internal static let purple = Loc.tr("Localizable", "Purple")
   internal static let purpleBackground = Loc.tr("Localizable", "Purple background")
   internal static let random = Loc.tr("Localizable", "Random")
