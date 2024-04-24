@@ -65,16 +65,17 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
             $0.trailing.equal(to: contentView.trailingAnchor)
         }
         
+        // Double-check this anchors (we already have stack)
         textBlockLeadingView.layoutUsing.anchors {
             $0.top.equal(to: contentStackView.topAnchor)
             $0.bottom.equal(to: contentStackView.bottomAnchor)
         }
         
-        
+        // Double-check this anchors (we already have stack)
         textView.layoutUsing.anchors {
             $0.trailing.equal(to: contentStackView.trailingAnchor)
             $0.top.equal(to: contentStackView.topAnchor)
-            $0.leading.equal(to: textBlockLeadingView.trailingAnchor)
+            $0.leading.equal(to: textBlockLeadingView.trailingAnchor, constant: 8)
         }
         
         createEmptyBlockButton.layoutUsing.anchors {
@@ -97,7 +98,7 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         textView.textView.textStorage.setAttributedString(configuration.attributedString)
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
         
-        textBlockLeadingView.update(style: .init(with: configuration))
+        textBlockLeadingView.update(style: TextBlockLeadingStyle(with: configuration))
     
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: configuration, restrictions: restrictions)
