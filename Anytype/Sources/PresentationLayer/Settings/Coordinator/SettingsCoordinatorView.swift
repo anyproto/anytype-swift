@@ -10,5 +10,8 @@ struct SettingsCoordinatorView: View {
             .sheet(isPresented: $model.showFileStorage) {
                 FileStorageView()
             }
+            .anytypeSheet(isPresented: $model.showAppearance) {
+                SettingsAppearanceView()
+            }
     }
 }

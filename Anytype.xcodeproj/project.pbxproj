@@ -840,7 +840,6 @@
 		2AF205BE2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */; };
 		2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */; };
 		2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */; };
-		2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */; };
 		2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */; };
 		2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */; };
 		2AF4261629AF4ECE00753B17 /* PersonalizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */; };
@@ -2612,7 +2611,6 @@
 		2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelModuleOutput.swift; sourceTree = "<group>"; };
 		2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnytypeActivityIndicator.swift; sourceTree = "<group>"; };
 		2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceViewModel.swift; sourceTree = "<group>"; };
-		2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF4260629AF402200753B17 /* WallpaperPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerViewModel.swift; sourceTree = "<group>"; };
 		2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationViewModel.swift; sourceTree = "<group>"; };
@@ -8288,7 +8286,6 @@
 				12B0FF6A274FD67900CA35FE /* AppIcon */,
 				3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */,
 				2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */,
-				2AF4260229AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift */,
 				2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */,
 			);
 			path = Appearance;
@@ -11566,7 +11563,6 @@
 				2AEDACC42B9F3A4600FA757A /* AppContext.swift in Sources */,
 				2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */,
 				0A74E50023A90EF000B6C406 /* NotificationExtension.swift in Sources */,
-				2AF4260329AF3B1700753B17 /* SettingsAppearanceModuleAssembly.swift in Sources */,
 				2AE5C71F29B72B8100A92C12 /* WidgetSourceSearchInteractor.swift in Sources */,
 				2AC906DC29B6276A00209E39 /* ListWidgetModuleAssembly.swift in Sources */,
 				3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */,

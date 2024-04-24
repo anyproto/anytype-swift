@@ -8,7 +8,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
                                     AboutModuleOutput {
     
     private let navigationContext: NavigationContextProtocol
-    private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
     private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     
@@ -20,15 +19,14 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     private var applicationStateService: ApplicationStateServiceProtocol
     
     @Published var showFileStorage = false
+    @Published var showAppearance = false
     
     init(
         navigationContext: NavigationContextProtocol,
-        appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol,
         dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
-        self.appearanceModuleAssembly = appearanceModuleAssembly
         self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.urlOpener = urlOpener
     }
@@ -44,8 +42,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onAppearanceSelected() {
-        let module = appearanceModuleAssembly.make()
-        navigationContext.present(module)
+        showAppearance = true
     }
     
     func onFileStorageSelected() {
