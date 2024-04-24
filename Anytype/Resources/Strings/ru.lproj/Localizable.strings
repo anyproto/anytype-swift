@@ -262,7 +262,7 @@
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
@@ -365,6 +365,7 @@
 
 "TemplateEditing.Title" = "Изменить шаблон";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Новый шаблон добавлен к типу";
 "Templates.Popup.Duplicated" = "Шаблон был скопирован";
 "Templates.Popup.Removed" = "Шаблон был удален";
@@ -1097,12 +1098,6 @@
 "Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
 "Membership.NameForm.Validating" = "Подождите секундочку...";
 "Membership.NameForm.Validated" = "Это имя свободно";
-
-"Membership.NameForm.Error.TooShort" = "Имя пользователя слишком короткое ";
-"Membership.NameForm.Error.TooLong" = "Имя пользователя слишком длинное";
-"Membership.NameForm.Error.HasInvalidChars" = "Имя пользователя содержит недопустимые символы";
-"Membership.NameForm.Error.CanNotReserve" = "This name already reserved";
-
 
 "Membership.Success.Title" = "Добро пожаловать в сеть, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";
