@@ -115,9 +115,7 @@ extension AddNewRelationCoordinator: RelationSearchModuleOutput {
 extension AddNewRelationCoordinator: NewRelationModuleOutput {
     
     func didAskToShowRelationFormats(selectedFormat: SupportedRelationFormat) {
-        let viewModel = RelationFormatsListViewModel(selectedFormat: selectedFormat, output: self)
-        let view = RelationFormatsListView(viewModel: viewModel)
-        
+        let view = RelationFormatsListView(selectedFormat: selectedFormat, output: self)
         navigationContext.presentSwiftUIView(view: view)
     }
     
