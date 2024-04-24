@@ -1,18 +1,32 @@
 import StoreKit
 import AnytypeCore
+import Services
 
+enum StoreKitServiceError: String, LocalizedError {
+    case userCancelled
+    
+    var errorDescription: String? {
+        switch self {
+        case .userCancelled:
+            Loc.purchaseCancelled
+        }
+    }
+}
 
 public protocol StoreKitServiceProtocol {
-    func purchase(product: Product) async throws
+    func purchase(product: Product, billingId: String) async throws
     func isPurchased(product: Product) async throws -> Bool
-    
     
     func startListenForTransactions()
     func stopListenForTransactions()
-    
 }
 
 final class StoreKitService: StoreKitServiceProtocol {
+    @Injected(\.membershipService) 
+    private var membershipService: MembershipServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    
     private var task: Task<(), Never>?
     
     func startListenForTransactions() {
@@ -23,7 +37,7 @@ final class StoreKitService: StoreKitServiceProtocol {
                     let transaction = try self.checkVerified(verificationResult)
                     
                     ///Deliver products to the user.
-                    try await self.notifyMiddleware()
+                    try await self.membershipService.verifyReceipt(billingId: "", receipt: verificationResult.jwsRepresentation)
                     
                     ///Always finish a transaction.
                     await transaction.finish()
@@ -46,21 +60,23 @@ final class StoreKitService: StoreKitServiceProtocol {
         return transaction.revocationDate.isNil  
     }
     
-    func purchase(product: Product) async throws {
+    func purchase(product: Product, billingId: String) async throws {
         let result = try await product.purchase(options: [
-            .appAccountToken(UUID()),
-            .custom(key: "TODO", value: "SEND_DATA") // TODO
+            .custom(key: "AnytypeId", value: accountManager.account.id),
+            .custom(key: "BillingId", value: billingId)
         ])
         
         switch result {
         case .success(let verificationResult):
             let transaction = try checkVerified(verificationResult)
-            try await notifyMiddleware()
+
+            try await membershipService.verifyReceipt(billingId: billingId, receipt: verificationResult.jwsRepresentation)
+            
             await transaction.finish()
         case .userCancelled:
-            break // TODO
+            throw StoreKitServiceError.userCancelled
         case .pending:
-            break // TODO
+            break // TODO support pending state
         @unknown default:
             anytypeAssertionFailure("Unsupported purchase result \(result)")
             fatalError()
@@ -74,9 +90,5 @@ final class StoreKitService: StoreKitServiceProtocol {
         case .verified(let signedType):
             return signedType
         }
-    }
-    
-    private func notifyMiddleware() async throws {
-        // TODO
     }
 }

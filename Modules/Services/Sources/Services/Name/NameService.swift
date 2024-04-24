@@ -2,14 +2,14 @@ import ProtobufMessages
 
 
 public protocol NameServiceProtocol {
-    func resolveName(name: String) async throws
+    func isNameAvailable(name: String) async throws -> Bool
 }
 
 final class NameService: NameServiceProtocol {
-    func resolveName(name: String) async throws {
-        try await ClientCommands.nameServiceResolveName(.with {
+    func isNameAvailable(name: String) async throws -> Bool {
+        return try await ClientCommands.nameServiceResolveName(.with {
             $0.nsName = name
             $0.nsNameType = .anyName
-        }).invoke()
+        }).invoke().available
     }
 }

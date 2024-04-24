@@ -90,6 +90,8 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
             case .membershipUpdate(let update):
                 Task {
                     _status = try await membershipService.makeMembershipFromMiddlewareModel(membership: update.data)
+                    _status.tier.flatMap { AnytypeAnalytics.instance().logChangePlan(tier: $0) }
+                    
                     await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
                 }
             default:
