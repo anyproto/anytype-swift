@@ -262,7 +262,7 @@
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted. It is local first – everything works offline. Only you have the key.";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
@@ -365,6 +365,7 @@
 
 "TemplateEditing.Title" = "Sunting templat";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Templat baru ditambahkan ke tipe ini";
 "Templates.Popup.Duplicated" = "Templat digandakan";
 "Templates.Popup.Removed" = "Templat dihapus";
@@ -1097,12 +1098,6 @@
 "Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
 "Membership.NameForm.Validating" = "Tunggu sebentar...";
 "Membership.NameForm.Validated" = "Nama ini boleh dipakai";
-
-"Membership.NameForm.Error.TooShort" = "Nama terlalu pendek";
-"Membership.NameForm.Error.TooLong" = "Nama terlalu panjang";
-"Membership.NameForm.Error.HasInvalidChars" = "Nama mengandung karakter tidak valid";
-"Membership.NameForm.Error.CanNotReserve" = "Nama ini sudah dipakai";
-
 
 "Membership.Success.Title" = "Selamat menjadi anggota, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";
