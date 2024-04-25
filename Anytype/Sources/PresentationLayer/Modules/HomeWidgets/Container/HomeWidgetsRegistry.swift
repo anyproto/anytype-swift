@@ -17,7 +17,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     }
     
     private enum Constants {
-        static let spaceWidgetId = "SpaceWidgetId"
         static let binWidgetId = "BinWidgetId"
     }
     
@@ -43,8 +42,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let spaceWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let stateManager: HomeWidgetsStateManagerProtocol
     private var providersCache: [ProviderCache] = []
@@ -67,8 +64,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        binLinkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        spaceWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.objectTreeWidgetProviderAssembly = objectTreeWidgetProviderAssembly
@@ -88,8 +83,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
         self.collectionsCompactListWidgetProviderAssembly = collectionsCompactListWidgetProviderAssembly
         self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
-        self.binLinkWidgetProviderAssembly = binLinkWidgetProviderAssembly
-        self.spaceWidgetProviderAssembly = spaceWidgetProviderAssembly
         self.stateManager = stateManager
     }
     
@@ -101,15 +94,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     ) -> [HomeWidgetSubmoduleModel] {
         
         var newProvidersCache: [ProviderCache] = []
-        
-        newProvidersCache.append(
-            createProviderCache(
-                source: spaceWidgetProviderAssembly,
-                widgetBlockId: Constants.spaceWidgetId,
-                info: nil,
-                widgetObject: widgetObject
-            )
-        )
         
         let blockWidgets = blocks.compactMap { block -> ProviderCache? in
             guard let widgetInfo = widgetObject.widgetInfo(block: block),
@@ -124,15 +108,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         }
         
         newProvidersCache.append(contentsOf: blockWidgets)
-        
-        newProvidersCache.append(
-            createProviderCache(
-                source: binLinkWidgetProviderAssembly,
-                widgetBlockId: Constants.binWidgetId,
-                info: nil,
-                widgetObject: widgetObject
-            )
-        )
         
         providersCache = newProvidersCache
         return providersCache.map { HomeWidgetSubmoduleModel(blockId: $0.widgetBlockId, provider: $0.provider) }

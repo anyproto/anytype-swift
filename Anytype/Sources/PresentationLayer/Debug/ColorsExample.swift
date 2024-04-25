@@ -9,7 +9,8 @@ struct ColorsExample: View {
                 VStack(spacing: 20) {
                     ForEach(UIColor.anytypeAssetsInfo.reversed(), id: \.name) { asset in
                         ForEach(asset.collections, id: \.name) { collection in
-                            AnytypeText(collection.name, style: .subheading, color: .Text.primary)
+                            AnytypeText(collection.name, style: .subheading)
+                                .foregroundColor(.Text.primary)
                             colors(collection: collection)
                         }
                     }
@@ -21,7 +22,8 @@ struct ColorsExample: View {
     @ViewBuilder
     private func colors(collection: ColorCollectionInfo) -> some View {
         ForEach(collection.colors, id: \.name) { colorInfo in
-            AnytypeText(colorInfo.name, style: .bodyRegular, color: .Text.primary)
+            AnytypeText(colorInfo.name, style: .bodyRegular)
+                .foregroundColor(.Text.primary)
             HStack(spacing: 0) {
                 HStack {
                     Spacer()
@@ -30,7 +32,8 @@ struct ColorsExample: View {
                             .strokeBorder(Color.Shape.primary, lineWidth: 1)
                             .background(Circle().foregroundColor(colorInfo.color.suColor))
                             .frame(width: 100, height: 100)
-                        AnytypeText(colorCode(color: colorInfo.color.light), style: .caption2Medium, color: .Text.primary)
+                        AnytypeText(colorCode(color: colorInfo.color.light), style: .caption2Medium)
+                            .foregroundColor(.Text.primary)
                     }
                     Spacer()
                 }
@@ -44,7 +47,8 @@ struct ColorsExample: View {
                             .strokeBorder(Color.Shape.primary, lineWidth: 1)
                             .background(Circle().foregroundColor(colorInfo.color.suColor))
                             .frame(width: 100, height: 100)
-                        AnytypeText(colorCode(color: colorInfo.color.dark), style: .caption2Medium, color: .Text.primary)
+                        AnytypeText(colorCode(color: colorInfo.color.dark), style: .caption2Medium)
+                            .foregroundColor(.Text.primary)
                     }
                     Spacer()
                 }

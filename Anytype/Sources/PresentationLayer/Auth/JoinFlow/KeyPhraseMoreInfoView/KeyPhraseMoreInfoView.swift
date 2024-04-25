@@ -8,7 +8,8 @@ struct KeyPhraseMoreInfoView: View {
             ScrollView(.vertical, showsIndicators: false) {
                 Spacer.fixedHeight(26)
                 
-                AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.title, style: .heading, color: .Auth.inputText)
+                AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.title, style: .heading)
+                    .foregroundColor(.Auth.inputText)
                     .multilineTextAlignment(.center)
                 
                 Spacer.fixedHeight(32)
@@ -36,10 +37,12 @@ struct KeyPhraseMoreInfoView: View {
     private func optionRow(for emoji: String, description: String) -> some View {
         HStack(alignment: .top, spacing: 12) {
             VStack(alignment: .leading) {
-                AnytypeText(emoji, style: .authEmoji, color: .Auth.inputText)
+                AnytypeText(emoji, style: .authEmoji)
+                    .foregroundColor(.Auth.inputText)
             }
             .frame(width: 56, height: 56)
-            AnytypeText(description, style: .bodyRegular, color: .Auth.inputText)
+            AnytypeText(description, style: .bodyRegular, enableMarkdown: true)
+                .foregroundColor(.Auth.inputText)
         }
     }
     
@@ -61,7 +64,8 @@ struct KeyPhraseMoreInfoView: View {
             
             Spacer.fixedHeight(12)
             
-            AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.Instruction.title, style: .subheading, color: .Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Key.ReadMore.Instruction.title, style: .subheading)
+                .foregroundColor(.Auth.inputText)
             
             Spacer.fixedHeight(12)
             
@@ -81,8 +85,10 @@ struct KeyPhraseMoreInfoView: View {
     
     private func instructionRow(description: String) -> some View {
         HStack(alignment: .top, spacing: 12) {
-            AnytypeText("•", style: .bodyRegular, color: .Auth.inputText)
-            AnytypeText(description, style: .uxCalloutRegular, color: .Auth.inputText)
+            AnytypeText("•", style: .bodyRegular)
+                .foregroundColor(.Auth.inputText)
+            AnytypeText(description, style: .uxCalloutRegular)
+                .foregroundColor(.Auth.inputText)
         }
     }
 }

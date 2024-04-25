@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "正文";
 
 // MARK: - Settings
-"Settings.Title" = "个人空间";
 "Settings.SpaceName" = "空间名称";
 
 // MARK: - Object
@@ -77,8 +76,6 @@
 "Relation.AddedToLibrary" = "关联“%@”已添加到您的文库";
 "Relation.Deleted" = "已删除的关联";
 "Relation.From.Type" = "来自 %@ 类型";
-"Relation.LinksFrom.Title" = "从";
-"Relation.LinksTo.Title" = "到";
 "Relation.EmptyState.title" = "无选项";
 "Relation.EmptyState.description" = "什么也没有。创建第一个选项以开始。";
 "Relation.EmptyState.Blocked.title" = "关联是空的";
@@ -118,6 +115,15 @@
 "Relation.Origin.Builtin" = "库已安装";
 "Relation.Origin.Bookmark" = "书签";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "纯文本(.txt)";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "对象";
 
@@ -138,6 +144,7 @@
 "Lists" = "分组";
 "Pinned" = "固定";
 "Delete" = "删除";
+"Export" = "导出";
 "Duplicate" = "生成副本";
 "Copy" = "拷贝";
 "Preview" = "预览";
@@ -181,6 +188,9 @@
 "Paste processing..." = "粘贴处理...";
 "Anytype Library" = "Anytype 文库";
 "Copied" = "已复制";
+"Share" = "分享";
+"Okay" = "好的";
+"Join" = "加入";
 
 // Home
 "Favorites" = "收藏夹";
@@ -195,77 +205,72 @@
 "Restore" = "恢复";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "恢复短语";
-"Keychain.Recovery phrase copied to clipboard" = "已复制的恢复短语";
-"Keychain.Recovery phrase description" = "您将需要短语才能登录。将其保存在安全的地方。如果您丢失了它，您将无法再访问您的帐户。";
-"Keychain.Save keychain alert part 1" = "如果您丢失了恢复短语并注销，您将再也无法 ";
-"Keychain.Save keychain alert part 2" = "访问您的数据";
-"Keychain.Save keychain alert part 3" = ".\n将此恢复短语保存在 Anytype 之外以进行数据恢复。\n我们建议在保险箱中使用安全的数据保管库、密码管理器或纸张。";
-"Keychain.Don’t forget to save your recovery phrase" = "不要忘记保存您的恢复短语";
-"Keychain.Show and copy phrase" = "显示和复制短语";
-"Keychain.Have you backed up your recovery phrase?" = "您是否备份了恢复短语?";
+"Keychain.Key" = "密钥";
+"Keychain.Key.Copy.Toast.title" = "密钥已复制";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "显示和复制密钥";
+"Keychain.Have you backed up your key?" = "您是否备份了密钥？";
 "Keychain.Error.String to Data conversion error" = "字符串到数据转换错误";
 "Keychain.Error.Data to String conversion error" = "数据到字符串转换错误";
 "Keychain.Error.Unknown Keychain Error" = "未知的钥匙串是错误的";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "注册";
-"Login" = "登录";
 "Create" = "创建";
 "Scan QR code" = "扫描二维码";
 "Auth.CameraPermissionTitle" = "请允许访问";
-"Restore secret phrase from keychain" = "从钥匙串恢复恢复短语";
-"Auth.LogIn" = "登录";
-"Auth.Join" = "注册";
-"Auth.Welcome.Subtitle" = "Anytype 是您编写、计划、思考和组织集于一身，对您重要的安全空间。";
+"Restore key from keychain" = "从钥匙串恢复密钥";
+"Auth.LogIn" = "我有一个密钥";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
 
-"Account recover error" = "帐户恢复错误，请重试";
-"Account recover error no internet" = "帐户恢复错误，可能没有互联网连接";
+"Vault recover error" = "库恢复错误，请重试";
+"Vault recover error no internet" = "库恢复错误，可能没有互联网连接";
 
 // Auth Errors
 "Error creating wallet" = "创建钱包时出错";
-"Error select account" = "选择帐户时出错";
-"Error wallet recover account" = "错误钱包恢复帐户";
-"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
+"Error select vault" = "选择库时出错";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "无效密钥";
 
 "Search for language" = "搜索语言";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "保存您的恢复短语";
-"Auth.JoinFlow.Key.Description" = "要登录您的帐户，您需要一个恢复短语。它是12个随机单词，就像所有数据的主密码。立即保存或稍后在设置中保存恢复短语。";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "输入恢复短语";
-"Auth.JoinFlow.Key.Button.Show.Title" = "显示恢复短语";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "进入应用";
+"Auth.JoinFlow.Key.Title" = "这是您的密钥";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "显示我的密钥";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "下一步";
 "Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
 "Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "恢复短语可以在 Anytype 设置中找到";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "稍后你可以在 Anytype 设置里找到这个密钥";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "什么是恢复短语？";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是12个单词的随机组合，您的帐户在此设备上神奇般地生成。";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "谁知道该恢复短语，谁就拥有该帐户。**此时此刻，你是世界上唯一知道它的人。**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "这就是为什么必须确保恢复短语的安全。作为唯一的所有者，如果恢复短语丢失了，没有人可以帮助到您。";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "如何保存我的恢复短语？";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存恢复短语的最简单方法是将其保存在您的密码管理器中。";
+"Auth.JoinFlow.Key.ReadMore.Title" = "密钥是什么？
+";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是 12 个单词的随机组合，您的数据库在此设备上神奇般地生成。";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "地球上所有的计算机都无法获取。如果你失去了它，它就无法恢复。所以，把它存放在安全的地方！";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "怎么储存我的密钥？";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存密钥最简单的方法是将其保存在您的密码管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
-"Auth.JoinFlow.Soul.Title" = "选择名称";
-"Auth.JoinFlow.Soul.Description" = "这将是您在应用中的显示方式。";
+"Auth.JoinFlow.Soul.Title" = "设置名称";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
+"Auth.JoinFlow.Soul.Button" = "获得我的密钥";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "生成新的 Anytype 标识";
-"Auth.JoinFlow.Setting.Space.Title" = "设置您的个人空间";
-"Auth.JoinFlow.Personal.Space.Title" = "个人空间";
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
 "Auth.LoginFlow.Or" = "或者";
-"Auth.LoginFlow.Textfield.Placeholder" = "输入恢复短语";
-"Auth.LoginFlow.Enter.Button.Title" = "登录";
+"Auth.LoginFlow.Textfield.Placeholder" = "输入您的密钥";
+"Auth.LoginFlow.Enter.Title" = "获得我的密钥";
 "Auth.LoginFlow.Entering.Void.Title" = "无效的输入";
 
 // Object settings
@@ -301,11 +306,13 @@
 
 "Undo typing" = "撤消输入";
 "Undo" = "撤消";
+"Redo" = "重做";
 "Actions.LinkItself" = "链接到";
 "Actions.MakeAsTemplate" = "制作模板";
 "Actions.TemplateMakeDefault" = "设为默认";
 "Actions.CreateWidget.Title" = "至小部件";
 "Actions.CreateWidget.Success" = "新小部件已创建";
+"Actions.CopyLink" = "拷贝链接";
 
 // Object Type
 "Set" = "集合";
@@ -325,6 +332,9 @@
 "There is no object named" = "没有命名为 %@ 的对象";
 "There is no type named" = "没有命名为 %@ 的类型";
 "Create a new one or search for something else" = "创建一个新的或搜索其他内容";
+"Search.Backlinks.Show.title" = "显示反向链接";
+"Search.Backlinks.Header.title" = "反向链接：%@";
+"Search.Backlinks.Swipe.title" = "个反向链接";
 
 // MARK: - Home
 
@@ -335,7 +345,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype 需要访问您的相机才能扫描二维码。\n\n请转到您设备的设置 -> 隐私 -> 将 Anytype 相机设置为开。";
 
 // MARK: - Deletion
-"Pending deletion text" = "我们很遗憾看到您离开。您有 30 天的时间撤销此请求。30 天后，您的加密帐户数据将从备份节点中永久删除。";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "撤消/重做";
@@ -356,6 +366,7 @@
 
 "TemplateEditing.Title" = "编辑模板";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "新模板已添加到类型";
 "Templates.Popup.Duplicated" = "模板已生成副本";
 "Templates.Popup.Removed" = "模板已删除";
@@ -503,7 +514,6 @@
 "Unknown error" = "未知错误";
 "Open Type Error" = "不支持的类型 “%@”。您可以使用桌面端打开。";
 "Close" = "关闭";
-"Account is deleted" = "帐户已删除";
 "Add phone" = "添加电话号";
 "Nothing to redo" = "无需重做";
 "Nothing to undo" = "没有可撤销的历史";
@@ -528,6 +538,7 @@
 "Unsupported value" = "不支持该值";
 "Select relation type" = "选择关联类型";
 "CommonOpenErrorView.Message" = "未找到数据";
+"AreYouSure" = "是否确定?";
 "Nothing found" = "未找到任何内容";
 "No type found text" = "找不到类型“%@”，请更改您的请求或创建新类型。";
 "Create type" = "创建类型";
@@ -554,18 +565,19 @@
 "Application icon" = "应用程序图标";
 "Mode" = "模式";
 "copied to clipboard" = "%@ 已复制到剪贴板";
-"Access to secret phrase from keychain" = "从钥匙串访问秘密短语";
-"Back up your recovery phrase" = "备份恢复短语";
-"Account" = "帐户";
+"Create object from clipboard" = "从剪贴板创建对象";
+"Access to key from keychain" = "从钥匙串访问密钥";
+"Back up your key" = "备份您的密钥";
+"Vault" = "库";
 "Access" = "访问";
-"Back up phrase" = "备份短语";
+"Back up key" = "备份密钥";
 "Removing cache" = "删除缓存";
 "Deletion error" = "删除错误";
 "Start" = "开始";
 "On analytics" = "关于分析";
-"Select account error" = "选择帐户错误";
-"Account deleted" = "帐户已删除";
-"Account.Select.Incompatible.Version.Error.Text" = "由于远程节点上的版本不兼容，无法检索帐户数据。请将 Anytype 更新到最新版本。";
+"Select vault error" = "库选择发生错误";
+"Vault deleted" = "库已删除";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "从钥匙串恢复";
 "Edit" = "编辑";
 "In this object" = "在此对象中";
@@ -633,11 +645,11 @@
 "No date" = "未注明日期";
 "Clear" = "清除";
 "Create option with" = "创建选项 “%@”";
-"Add URL" = "添加URL网址";
-"Add email" = "添加电子邮件";
-"Add phone number" = "添加电话号码";
-"Add number" = "添加数字";
-"Add text" = "添加文本";
+"Enter URL" = "输入 URL";
+"Enter email" = "请输入电子邮箱";
+"Enter phone number" = "输入电话号码";
+"Enter number" = "输入号码";
+"Enter text" = "输入文本";
 "Ok" = "好的";
 "Error occurred. Please try again" = "发生错误。请重试";
 "Add" = "添加";
@@ -647,14 +659,14 @@
 "This object doesn't exist" = "此对象不存在";
 "Setting up encrypted storage\nPlease wait" = "设置加密存储\n请稍候";
 "These objects will be deleted irrevocably" = "这些对象将被删除且不可撤销。您无法撤销此操作。";
-"Delete account" = "删除帐户";
+"Delete vault" = "删除库";
 "Cancel deletion" = "取消删除";
 "Logout and clear data" = "注销并清除数据";
 "New" = "新建";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "您确定要删除账户吗？";
-"DeletionAlert.description" = "您将在所有其他设备上注销。您将有 30 天的时间来恢复它。之后将永久删除";
+"DeletionAlert.title" = "您确定要删除您的库吗？";
+"DeletionAlert.description" = "您将在所有其他设备上登出。您将有 30 天来恢复您的库。再然后它们将被永久删除。";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "网格";
@@ -753,10 +765,6 @@
 "Content.DataView.InlineCollection.Untitled" = "无标题集锦";
 "Content.DataView.InlineSet.Toast.Failure" = "该关联集合无信息来源";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "新对象";
-"WidgetExtension.LockScreen.Description" = "快速创建新对象";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "链接到";
 "Editor.Toast.MovedTo" = "区块移至";
@@ -791,7 +799,7 @@
 "About.AppVersion" = "App 版本: %@";
 "About.BuildNumber" = "构建版本: %@";
 "About.Library" = "库版本: %@";
-"About.accountId" = "帐户 ID: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "分析 ID: %@";
 "About.deviceId" = "设备 ID: %@";
 "About.Device" = "设备: %@";
@@ -805,7 +813,7 @@
 "About.TermsOfUse" = "使用条款";
 "About.PrivacyPolicy" = "隐私策略";
 "About.TechInfo" = "技术信息";
-"About.Mail.Subject" = "支持请求, 帐户 ID %@";
+"About.Mail.Subject" = "支持请求，库 ID %@";
 "About.Mail.Body" = "\n\n技术信息\n%@";
 
 // MARK: - Cache
@@ -813,10 +821,10 @@
 "ClearCache.Error" = "错误，请稍后重试";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "个人空间";
 "Settings.Title" = "设置";
 "Settings.SpaceName" = "空间名称";
-"Settings.AccountAndAccess" = "账户与访问权限";
+"Settings.SpaceType" = "空间类型";
+"Settings.VaultAndAccess" = "库与访问权限";
 
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
@@ -824,8 +832,8 @@
 "FileStorage.Space.Instruction" = "您可以在我们的节点上免费加密备份存储多达 %@ 的文件。如果达到限制，文件将仅存储在本地。";
 "FileStorage.Space.Used" = "已使用 %@ ,总共有 %@ ";
 "FileStorage.Space.GetMore" = "获取更多空间";
-"FileStorage.Space.Mail.Subject" = " %@ 帐户，获取更多存储空间";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Subject" = "为 %@ 库获取更多存储空间";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "本地存储";
 "FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被重新加载。";
 "FileStorage.Local.Used" = "%@ 已使用";
@@ -848,10 +856,25 @@
 "ClearCacheAlert.Description" = "存储在 Anytype 中的所有媒体文件将从您当前的设备中删除。可以从备份节点或其他设备再次下载它们。";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "公共空间";
+"Spaces.Accessibility.Shared" = "共享空间";
 "Spaces.Accessibility.Private" = "私人空间";
-"Spaces.Accessibility.Personal" = "个人空间";
+"Spaces.Accessibility.Personal" = "默认空间";
 "Spaces.Search.Title" = "搜索空间";
+"Spaces.Title" = "空间";
+"Spaces.Info.Network" = "网络:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "未知";
+"Space.Status.Loading" = "加载";
+"Space.Status.Ok" = "好的";
+"Space.Status.Missing" = "缺失";
+"Space.Status.Error" = "错误";
+"Space.Status.RemoteWaitingDeletion" = "正等待删除";
+"Space.Status.RemoteDeleted" = "远程已删除";
+"Space.Status.SpaceDeleted" = "已删除";
+"Space.Status.SpaceActive" = "正在进行";
+"Space.Status.SpaceJoining" = "正在加入";
+"Space.Status.SpaceRemoving" = "删除中";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "空间设置";
@@ -861,16 +884,83 @@
 "SpaceSettings.DeleteAlert.Title" = "删除 “%@” 空间";
 "SpaceSettings.DeleteAlert.Message" = "此空间将被不可撤销地删除。您无法撤消此操作。";
 "SpaceSettings.DeleteButton" = "删除空间";
-"SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "分享";
+"SpaceSettings.LeaveButton" = "离开";
+"SpaceSettings.LeaveAlert.Title" = "离开空间";
+"SpaceSettings.LeaveAlert.Message" = "%@ 空间将被从您的设备中删除，您将无法再访问它";
+"SpaceSettings.LeaveAlert.Toast" = "你离开了 %@。";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "分享";
+"SpaceShare.Members" = "参与的人";
+"SpaceShare.Permissions.Owner" = "所有者";
+"SpaceShare.Permissions.Reader" = "浏览者";
+"SpaceShare.Permissions.Writer" = "编辑";
+"SpaceShare.Permissions.Grand.Edit" = "编辑";
+"SpaceShare.Permissions.Grand.View" = "视图";
+"SpaceShare.Invite.Title" = "邀请链接";
+"SpaceShare.Invite.Description" = "分享此邀请链接以便其他人可以加入您的空间。一旦他们点击您的链接并请求访问，您可以设置他们的访问权限。";
+"SpaceShare.Invite.Share" = "分享邀请链接";
+"SpaceShare.Invite.Generate" = "生成邀请链接";
+"SpaceShare.Invite.Empty" = "创建邀请链接以共享空间并添加新成员";
+"SpaceShare.JoinRequest" = "加入请求";
+"SpaceShare.LeaveRequest" = "退出请求";
+"SpaceShare.Action.ViewRequest" = "查看请求";
+"SpaceShare.Action.Approve" = "接受";
+"SpaceShare.DeleteSharingLink.Title" = "删除链接";
+"SpaceShare.DeleteSharingLink.Message" = "新成员将无法加入空间。您可以随时生成一个新链接";
+"SpaceShare.Approve.Toast" = "您批准了 %@ 的请求。";
+"SpaceShare.ViewRequest.Title" = "%@ 请求加入 %@ 空间";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.Reject" = "拒绝";
+"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Message" = "%@ 将从空间中移除。";
+"SpaceShare.ChangePermissions" = "%@ 访问空间将变成 %@";
+"SpaceShare.Join.Title" = "加入空间";
+"SpaceShare.Join.CommentPlaceholder" = "为空间所有者留下一个私人评论";
+"SpaceShare.Join.Button" = "申请加入";
+"SpaceShare.Join.Info" = "一旦空间所有者批准您的请求，您将与访问权所有者一起加入该空间。";
+"SpaceShare.Join.Message" = "您已被邀请加入 **%@** 空间，此空间由 **%@** 创建。发送请求使空间所有者可以让您进入。";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.JoinConfirmation.Title" = "已发送申请";
+"SpaceShare.JoinConfirmation.Message" = "当空间所有者批准你的请求后，你将收到通知。";
+"SpaceShare.YouSuffix" = "%@ （您）";
+"SpaceShare.ManageSpaces" = "管理空间";
+"SpaceShare.AccessChanged" = "访问权限现已更改。";
+"SpaceShare.StopSharing.Action" = "停止共享";
+"SpaceShare.StopSharing.Title" = "停止共享此空间";
+"SpaceShare.StopSharing.Message" = "成员将不再同步到此空间，共享链接也将被停用。";
+"SpaceShare.StopSharing.Toast" = "空间已不再共享";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Button" = "显示二维码";
+"SpaceShare.HowToShare.Title" = "如何共享空间？";
+"SpaceShare.HowToShare.Step1" = "请向您与想要合作的人提供这个链接。";
+"SpaceShare.HowToShare.Step2" = "通过点击链接，将收到一个人加入空间的请求。";
+"SpaceShare.HowToShare.Step3" = "批准请求后，您可以选择此人的访问权限。";
+"SpaceShare.Manage" = "管理";
+"SpaceShare.AlreadyJoin.Title" = "你已经是这个空间的成员了";
+"SpaceShare.AlreadyJoin.OpenSpace" = "打开空间";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "您在 **%@** 空间中的访问权限已更改为 **%@**。";
+"ParticipantRequestApprovedNotification.Text" = "您加入 **%@** 空间的请求已获批准并获得了 **%@** 访问权限，该空间很快就会在您的设备中显示。";
+"ParticipantRequestDeclineNotification.Text" = "您加入**%@** 空间的请求已被拒绝。";
+"RequestToLeaveNotification.Text" = "**%@** 想要离开 **%@** 空间。";
+"ParticipantRemoveNotification.Text" = "您从空间中被移出，或空间已被所有者删除。";
+"RequestToJoinNotification.Text" = "**%@** 请求加入 **%@** 空间。";
+"RequestToJoinNotification.GoToSpace" = "转到空间";
+"RequestToJoinNotification.ViewRequest" = "查看请求";
+
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "取消加入请求";
+"SpaceManager.DoNotCancel" = "不要取消";
+"SpaceManager.CancelRequestAlert.Title" = "您将需要再次发送访问请求";
+"SpaceManager.CancelRequestAlert.Toast" = "请求已取消。";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "创建空间";
@@ -886,8 +976,8 @@
 "Sharing.LinkTo" = "链接到";
 
 "Sharing.Text.NoteObject" = "笔记对象";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "区块";
+"Sharing.Any.Block" = "区块";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "分享扩展";
@@ -897,14 +987,19 @@
 "Sharing.Tip.Steps.2" = "滚动过该应用并点击“更多”";
 "Sharing.Tip.Steps.3" = "单击编辑来查找“Anytype”，然后点击";
 
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "滑动来创建对象";
+"Swipe.Tip.Subtitle" = "向左轻划就可以在部件内创建对象。";
+
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Message" = "您启动了一个不稳定的中间程序。不要使用您的生产账户。您的账户可能已损坏。";
+"Initial.UnstableMiddle.Message" = "您启动了一个不稳定的中间程序。不要使用您的生产库。您的库可能已损坏。";
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Logout" = "退出当前账户";
-"Initial.UnstableMiddle.Continue" = "继续使用当前账户";
-"Initial.UnstableMiddle.WontUseProd" = "我不会使用我的生产账户";
+"Initial.UnstableMiddle.Logout" = "退出当前库";
+"Initial.UnstableMiddle.Continue" = "继续使用当前库";
+"Initial.UnstableMiddle.WontUseProd" = "我不会使用我用于生产的库";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "创建带有特定类型的对象";
@@ -916,7 +1011,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "更新";
 "Error.UnableToConnect" = "请连接到互联网";
 "Error.Common.Title" = "哎呀!";
-"Error.Common.Message" = "请检查您的互联网连接，然后重试或在论坛上反馈。";
+"Error.Common.Message" = "请检查您的互联网连接，然后重试或[在论坛上发布报告](http://community.anytype.io/report-bug)。";
 "Error.Common.TryAgain" = "请再试一次";
 
 // MARK: - Relative date formatter
@@ -942,6 +1037,96 @@
 "Gallery.Notification.Button" = "转到空间";
 "Gallery.Notification.Error" = "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。";
 
+// MARK: - Membership
+"Membership" = "会员
+";
+"Just e-mail" = "仅需电子邮件";
+"E-mail" = "电子邮件";
+"Learn more" = "了解详情";
+"per" = "每";
+"unlimited" = "无限的";
+
+
+"What’s included" = "包含的内容";
+"Submit" = "提交";
+"Resend" = "重新发送";
+"Resend in" = "在 %@ 秒内重新发送";
+"Current" = "当前";
+"Forever free" = "永远免费";
+"Forever" = "无限期";
+"Valid until date" = "有效期至 %@";
+"Your current status" = "您目前的状态：";
+"Valid until" = "有效期至：";
+"Paid by" = "由 %@ 支付";
+"Myself" = "我自己";
+"Pay by Card" = "使用信用卡";
+"Min X characters" = "最小 %@ 个字符";
+"Pending" = "待定…";
+"Manage payment" = "管理付款";
+
+
+"Membership.Ad.Title" = "会员
+";
+"Membership.Ad.Subtitle" = "加入 Anytype Network 意味着一起书写它的故事";
+
+"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Privacy" = "隐私政策";
+"Membership.Legal.Terms" = "条款与条件";
+"Membership.Legal.WouldYouLike" = "您想要使用 Anytype 用于例如商业、教育或者其他类似用途吗？";
+"Membership.Legal.LetUsKnow" = "请在这里告诉我们。";
+"Membership.Legal.AlreadyPurchasedTier" = "已经购买了级别吗？";
+"Membership.Legal.RestorePurchases" = "恢复购买";
+
+"Membership.Email.Subject" = "特殊定价请求";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
+
+"Membership.Banner.Title1" = "一起构建愿景";
+"Membership.Banner.Subtitle1" = "作为尊贵的会员，你的声音很重要！参与独家活动，制定战略选择，并影响我们的路线图。";
+"Membership.Banner.Title2" = "解锁会员福利";
+"Membership.Banner.Subtitle2" = "会员可以享受更高的备份存储和同步空间，可邀请多位访客在共享空间中进行协作，以及 Anytype 网络上独有的身份。";
+"Membership.Banner.Title3" = "支持数字独立性";
+"Membership.Banner.Subtitle3" = "您的贡献支持我们这个团队并支持我们“由用户拥有的、安全和协作的数字环境”的愿景。";
+"Membership.Banner.Title4" = "对连接的投资";
+"Membership.Banner.Subtitle4" = "我们的网络的价值超过了其各部分的总和。您的会员资格维持了用于支撑这个网络增长的基础设施。";
+
+"Membership.EmailForm.Title" = "获得您的免费会员资格";
+"Membership.EmailForm.Subtitle" = "我们需要您的邮箱来隔绝垃圾信息以及使用时的乐趣！";
+"Membership.EmailForm.Newsletter" = "我想获得产品的更新并享受免费优惠！";
+"Membership.EmailValidation" = "输入发送到您邮箱的代码";
+
+"Membership.NameForm.Title" = "选择您独有的名字";
+"Membership.NameForm.Subtitle" = "这是您在 Anytype 网络上独有的名字，正在确认您的会员资格。它将作为您的个人域名，且不能更改。";
+"Membership.NameForm.Validating" = "请耐心等待...";
+"Membership.NameForm.Validated" = "这个名称是可获得的";
+
+"Membership.Success.Title" = "欢迎来到网络， %@";
+"Membership.Success.Curiosity" = "为你的好奇心干一杯大的！";
+"Membership.Success.Support" = "为你的支持干一杯大的！";
+
+"Membership.Payment.Card" = "卡片";
+"Membership.Payment.Crypto" = "加密货币";
+"Membership.Payment.Apple subscription" = "Apple 订阅";
+"Membership.Payment.Google subscription" = "Google 订阅";
+
+
+"Membership.Explorer.Subtitle" = "在您的设备之间同步，获取备份容量，以及参与到协作中。";
+"Membership.Builder.Subtitle" = "解锁多方协作并扩充您的网络存储。";
+"Membership.CoCreator.Subtitle" = "支持我们的探险并解锁专属访问权限和好处。";
+"Membership.Custom.Subtitle" = "会员资格的自定义条件。如果您有任何疑问，请联系客服。";
+
+"Membership.Feature.LocalName" = "本地的，不唯一的名称";
+"Membership.Feature.UniqueName" = "唯一的网络名称（%@ 字符以上）";
+"Membership.Feature.StorageGB" = "位于 Anytype 网络上的 %@ GB 的备份与同步空间";
+"Membership.Feature.Invites" = "%@ 邀请";
+"Membership.Feature.SpaceWriters" = "每个共享空间 %@ 个编辑者";
+"Membership.Feature.UnlimitedViewers" = "共享空间拥有无限的查看者";
+"Membership.Feature.Viewers" = "共享空间有 %@ 个查看者";
+"Membership.Feature.SharedSpaces" = "最多 %@ 个共享空间";
+
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.MimeTypes" = "媒体类型 - %@";
 "Debug.Info" = "调试信息";

@@ -8,7 +8,9 @@ extension SpaceAccessType {
             return Loc.Spaces.Accessibility.private
         case .personal:
             return Loc.Spaces.Accessibility.personal
-        case .shared, .UNRECOGNIZED:
+        case .shared:
+            return Loc.Spaces.Accessibility.shared
+        case .UNRECOGNIZED:
             return ""
         }
     }

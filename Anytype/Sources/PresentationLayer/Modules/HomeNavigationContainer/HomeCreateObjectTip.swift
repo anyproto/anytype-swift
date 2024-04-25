@@ -5,7 +5,7 @@ import TipKit
 struct HomeCreateObjectTip: Tip {
     
     @Parameter
-    static var objectTpeChanged: Bool = false
+    static var objectTypeChanged: Bool = false
     
     var title: Text {
         Text(verbatim: Loc.LongTapCreateTip.title)
@@ -21,7 +21,7 @@ struct HomeCreateObjectTip: Tip {
     
     var rules: [Rule] {
         [
-            #Rule(Self.$objectTpeChanged) {
+            #Rule(Self.$objectTypeChanged) {
                 $0 == true
             }
         ]

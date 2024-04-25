@@ -12,8 +12,10 @@ final class LocalEventConverter {
     
     func convert(_ event: LocalEvent) -> DocumentUpdate? {
         switch event {
-        case .setToggled, .setStyle, .general:
+        case .setToggled, .general:
             return .general
+        case let .setStyle(blockId):
+            return .blocks(blockIds: [blockId])
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
@@ -38,14 +40,14 @@ final class LocalEventConverter {
     // simplified version of inner converter method
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
-    private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> DocumentUpdate {
+    private func blockSetTextUpdate(blockId: String, text: MiddlewareString) -> DocumentUpdate {
         guard var info = infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Block model not found in container", info: ["blockId": "\(blockId)"])
-            return .general
+            return .unhandled(blockIds: .init([blockId]))
         }
         guard case let .text(oldText) = info.content else {
             anytypeAssertionFailure("Block model doesn't support text", info: ["contentType": "\(info.content.type)"])
-            return .general
+            return .unhandled(blockIds: .init([blockId]))
         }
         
         let middleContent = Anytype_Model_Block.Content.Text.with {
@@ -60,7 +62,7 @@ final class LocalEventConverter {
         
         guard var textContent = middleContent.textContent else {
             anytypeAssertionFailure("We cannot block content")
-            return .general
+            return .unhandled(blockIds: .init([blockId]))
         }
 
         textContent.contentType = oldText.contentType
@@ -70,6 +72,6 @@ final class LocalEventConverter {
         info = blockValidator.validated(information: info)
         infoContainer.add(info)
         
-        return .blocks(blockIds: [blockId])
+        return .unhandled(blockIds: .init([blockId]))
     }
 }

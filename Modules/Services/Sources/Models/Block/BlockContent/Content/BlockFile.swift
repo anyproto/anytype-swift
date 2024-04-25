@@ -17,6 +17,10 @@ public struct FileMetadata: Hashable {
         self.mime = mime
         self.addedAt = addedAt
     }
+    
+    public var fileExt: String {
+        mime.components(separatedBy: "/").last ?? ""
+    }
 }
 
 

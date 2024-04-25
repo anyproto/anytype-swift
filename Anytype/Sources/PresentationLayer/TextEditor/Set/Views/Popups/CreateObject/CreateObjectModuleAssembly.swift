@@ -47,7 +47,7 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
         let viewModel = CreateObjectViewModel(
             objectId: objectId,
             titleInputType: titleInputType,
-            relationService: serviceLocator.relationService(objectId: objectId),
+            relationService: serviceLocator.relationService(),
             textServiceHandler: serviceLocator.textServiceHandler(),
             openToEditAction: openToEditAction,
             closeAction: closeAction

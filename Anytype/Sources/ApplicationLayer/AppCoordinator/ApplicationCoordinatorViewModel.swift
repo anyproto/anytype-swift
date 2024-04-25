@@ -6,18 +6,20 @@ import Services
 @MainActor
 final class ApplicationCoordinatorViewModel: ObservableObject {
 
-    private let authService: AuthServiceProtocol
-    private let accountEventHandler: AccountEventHandlerProtocol
-    private let applicationStateService: ApplicationStateServiceProtocol
-    private let accountManager: AccountManagerProtocol
-    private let seedService: SeedServiceProtocol
-    private let fileErrorEventHandler: FileErrorEventHandlerProtocol
+    @Injected(\.authService)
+    private var authService: AuthServiceProtocol
+    @Injected(\.accountEventHandler)
+    private var accountEventHandler: AccountEventHandlerProtocol
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
+    @Injected(\.fileErrorEventHandler)
+    private var fileErrorEventHandler: FileErrorEventHandlerProtocol
     
-    private let authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol
     private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
-    private let deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol
-    private let initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol
-    private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
     private let navigationContext: NavigationContextProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
@@ -30,30 +32,10 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Initializers
     
     init(
-        authService: AuthServiceProtocol,
-        accountEventHandler: AccountEventHandlerProtocol,
-        applicationStateService: ApplicationStateServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        seedService: SeedServiceProtocol,
-        fileErrorEventHandler: FileErrorEventHandlerProtocol,
-        authCoordinatorAssembly: AuthCoordinatorAssemblyProtocol,
         homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
-        deleteAccountModuleAssembly: DeleteAccountModuleAssemblyProtocol,
-        initialCoordinatorAssembly: InitialCoordinatorAssemblyProtocol,
-        debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
-        self.authService = authService
-        self.accountEventHandler = accountEventHandler
-        self.applicationStateService = applicationStateService
-        self.accountManager = accountManager
-        self.seedService = seedService
-        self.fileErrorEventHandler = fileErrorEventHandler
-        self.authCoordinatorAssembly = authCoordinatorAssembly
         self.homeCoordinatorAssembly = homeCoordinatorAssembly
-        self.deleteAccountModuleAssembly = deleteAccountModuleAssembly
-        self.initialCoordinatorAssembly = initialCoordinatorAssembly
-        self.debugMenuModuleAssembly = debugMenuModuleAssembly
         self.navigationContext = navigationContext
     }
     
@@ -61,16 +43,16 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         runAtFirstLaunch()
         startObserve()
     }
-    
-    func initialView() -> AnyView {
-        return initialCoordinatorAssembly.make()
-    }
 
     func authView() -> AnyView {
         if let authCoordinator {
             return authCoordinator.startFlow()
         }
-        let coordinator = authCoordinatorAssembly.make()
+        
+        let coordinator = AuthCoordinator(
+            joinFlowCoordinator: JoinFlowCoordinator(),
+            loginFlowCoordinator: LoginFlowCoordinator()
+        )
         self.authCoordinator = coordinator
         return coordinator.startFlow()
     }
@@ -81,16 +63,12 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
 
     func deleteAccount() -> AnyView? {
         if case let .pendingDeletion(deadline) = accountManager.account.status {
-            return deleteAccountModuleAssembly.make(deadline: deadline)
+            return DeletedAccountView(deadline: deadline).eraseToAnyView()
         } else {
             applicationStateService.state = .initial
             return nil
         }
 
-    }
-    
-    func debugView() -> AnyView {
-        debugMenuModuleAssembly.make()
     }
 
     // MARK: - Subscription

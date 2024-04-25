@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
-"Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
 
 // MARK: - Object
@@ -77,8 +76,6 @@
 "Relation.AddedToLibrary" = "Relasjonen ’%@’ har blitt lagt til i biblioteket ditt";
 "Relation.Deleted" = "Slettet relasjon";
 "Relation.From.Type" = "Fra type %@";
-"Relation.LinksFrom.Title" = "fra";
-"Relation.LinksTo.Title" = "til";
 "Relation.EmptyState.title" = "Ingen valg";
 "Relation.EmptyState.description" = "Fant ingenting. Opprett første alternativ for å starte.";
 "Relation.EmptyState.Blocked.title" = "Relasjonen er tom";
@@ -109,14 +106,23 @@
 
 // Origin Relation
 
-"Relation.Origin.Clipboard" = "Clipboard";
+"Relation.Origin.Clipboard" = "Utklippstavle";
 "Relation.Origin.DragAndDrop" = "Dra og slipp";
-"Relation.Origin.Import" = "Imported object";
-"Relation.Origin.WebClipper" = "Web clipper";
-"Relation.Origin.SharingExtension" = "Mobile sharing extension";
-"Relation.Origin.UseCase" = "Use case";
-"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Import" = "Importert objekt";
+"Relation.Origin.WebClipper" = "Webklipper";
+"Relation.Origin.SharingExtension" = "Utvidelse for mobildeling";
+"Relation.Origin.UseCase" = "Eksempel";
+"Relation.Origin.Builtin" = "Bibliotek installert";
 "Relation.Origin.Bookmark" = "Bokmerke";
+
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-blokk";
+"Relation.ImportType.Csv" = "CSV";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objekt";
@@ -136,8 +142,9 @@
 "Relations" = "Relasjoner";
 "Objects" = "Objekter";
 "Lists" = "Groups";
-"Pinned" = "Pinned";
+"Pinned" = "Festet";
 "Delete" = "Slett";
+"Export" = "Eksport";
 "Duplicate" = "Dupliser";
 "Copy" = "Kopier";
 "Preview" = "Forhåndsvisning";
@@ -146,8 +153,8 @@
 "Move" = "Flytt";
 "Move to" = "Flytt til";
 "Back" = "Tilbake";
-"Unpin" = "Unpin";
-"Pin on top" = "Pin on top";
+"Unpin" = "Løsne";
+"Pin on top" = "Fest på toppen";
 "File block subtitle" = "Lagre fil i original tilstand";
 "Picture block subtitle" = "Last opp og berik siden med bilde";
 "Video block subtitle" = "Last opp spillbar video";
@@ -181,6 +188,9 @@
 "Paste processing..." = "Behandler innliming...";
 "Anytype Library" = "Anytype bibliotek";
 "Copied" = "Kopiert";
+"Share" = "Del";
+"Okay" = "Greit";
+"Join" = "Bli med";
 
 // Home
 "Favorites" = "Favoritter";
@@ -195,77 +205,71 @@
 "Restore" = "Gjenopprett";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Gjenopprettingsfrase";
-"Keychain.Recovery phrase copied to clipboard" = "Gjenopprettingsfrase kopiert";
-"Keychain.Recovery phrase description" = "Du trenger den for å logge inn. Behold den på et trygt sted. Hvis du mister den, får du ikke lenger tilgang til kontoen din.";
-"Keychain.Save keychain alert part 1" = "Hvis du mister gjenopprettingsfrasen og blir utlogget, vil du ikke kunne ";
-"Keychain.Save keychain alert part 2" = "få tilgang til dine data igjen";
-"Keychain.Save keychain alert part 3" = ".\nLagre denne gjenopprettingsfrasen utenfor Anytype for datagjenoppretting.\nVi anbefaler å bruke et sikkert datahvelv, passordbehandler eller et stykke papir i safen.";
-"Keychain.Don’t forget to save your recovery phrase" = "Ikke glem å lagre gjenopprettingsfrasen";
-"Keychain.Show and copy phrase" = "Vis og kopier frase";
-"Keychain.Have you backed up your recovery phrase?" = "Har du lagret din gjenopprettingsfrase?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "Tekst til data konverteringsfeil";
 "Keychain.Error.Data to String conversion error" = "Data til tekst konverteringsfeil";
 "Keychain.Error.Unknown Keychain Error" = "Ukjent feil med nøkkelring";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Registrer deg";
-"Login" = "Logg inn";
 "Create" = "Opprett";
 "Scan QR code" = "Skann QR-kode";
 "Auth.CameraPermissionTitle" = "Vennligst tillat tilgang";
-"Restore secret phrase from keychain" = "Gjenopprett gjenopprettingsfrasen fra nøkkelringen";
-"Auth.LogIn" = "Logg inn";
-"Auth.Join" = "Bli med";
-"Auth.Welcome.Subtitle" = "Anytype er ditt sikre sted å skrive, planlegge, tenke og organisere alt som betyr for deg.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Ved å fortsette godtar du [Brukervilkårene](%@) og [Personvernerklæringen](%@)";
 "Auth.Next" = "Neste";
 
-"Account recover error" = "Feil ved gjenoppretting av kontoen, prøv igjen";
-"Account recover error no internet" = "Feil ved kontogjenoppretting, sannsynligvis ingen internettilkobling";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Feil ved oppretting av wallet";
-"Error select account" = "Feil ved valg av konto";
-"Error wallet recover account" = "Feil ved gjenoppretting av wallet-konto";
-"Wallet.Recovery.Error.description" = "Ugyldig gjenopprettingsfrase";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Søk etter språk";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Lagre gjenopprettingsfrasen din";
-"Auth.JoinFlow.Key.Description" = "Det er en ny metode for autentisering som gir deg full eierskap over kontoen din og dataene dine.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Skriv inn gjenopprettingsfrasen din";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Vis gjenopprettingsfrasen";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Gå til appen";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Neste";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Hopp over";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopier til utklippstavlen";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Les mer";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Du kan finne gjenopprettingsfrasen senere i Anytype innstillingene";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "Hva er gjenopprettingsfrase?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Gjenopprettingsfrasen er en tilfeldig kombinasjon av 12 ord som magisk genererer kontoen din på denne enheten.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Den som kjenner gjenopprettingsfrasen, eier kontoen. **Akkurat nå er du den eneste personen i verden som kjenner den.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Derfor er det avgjørende å oppbevare gjenopprettingsfrasen trygt. Som den eneste eieren, kan ingen hjelpe deg hvis den blir mistet.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Hvordan lagre min frase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Den enkleste måten å lagre gjenopprettingsfrasen er å lagre den i passordbehandleren.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Den sikreste måten er å skrive den ned på papir og oppbevare den offline, på et trygt og sikkert sted.";
 
-"Auth.JoinFlow.Soul.Title" = "Velg ditt navn";
-"Auth.JoinFlow.Soul.Description" = "Slik vises du i appen.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Genererer ny konto";
-"Auth.JoinFlow.Setting.Space.Title" = "Setter opp ditt personlige rom";
-"Auth.JoinFlow.Personal.Space.Title" = "Innstillinger";
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
 "Auth.LoginFlow.Or" = "ELLER";
-"Auth.LoginFlow.Textfield.Placeholder" = "Skriv inn gjenopprettingsfrasen din";
-"Auth.LoginFlow.Enter.Button.Title" = "Logg inn";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Går inn i Void";
 
 // Object settings
@@ -301,11 +305,13 @@
 
 "Undo typing" = "Angre skriving";
 "Undo" = "Angre";
+"Redo" = "Omgjør";
 "Actions.LinkItself" = "Koble til";
 "Actions.MakeAsTemplate" = "Lag mal";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Angi som standard";
 "Actions.CreateWidget.Title" = "Til widgets";
 "Actions.CreateWidget.Success" = "Ny widget ble opprettet";
+"Actions.CopyLink" = "Kopier lenke";
 
 // Object Type
 "Set" = "Sett";
@@ -325,6 +331,9 @@
 "There is no object named" = "Det finnes ingen objekt med navnet %@";
 "There is no type named" = "Det finnes ingen type med navnet %@";
 "Create a new one or search for something else" = "Lag et nytt eller søk etter noe annet";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
+"Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
 
@@ -335,7 +344,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype trenger tilgang til kameraet ditt for å skanne QR-koder.\n\nVennligst gå til Innstillinger -> Personvern -> Kamera på enheten din og sett Anytype til PÅ.";
 
 // MARK: - Deletion
-"Pending deletion text" = "Vi er lei for å se deg gå. Du har 30 dager på deg til å avbryte denne forespørselen. Etter 30 dager blir dine krypterte kontodata permanent fjernet fra sikkerhetskopinoden.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Angre/Omgjør";
@@ -356,13 +365,14 @@
 
 "TemplateEditing.Title" = "Rediger mal";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Ny mal ble lagt til typen";
 "Templates.Popup.Duplicated" = "Malen ble duplisert";
 "Templates.Popup.Removed" = "Malen ble fjernet";
 "Templates.Popup.Default" = "Malen ble satt som standard";
 
 "To Bin" = "Til papirkurv";
-"Set as default" = "Set as default";
+"Set as default" = "Bruk som standard";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Fjern fra favoritter";
@@ -503,7 +513,6 @@
 "Unknown error" = "Ukjent feil";
 "Open Type Error" = "Ikke støttet type \"%@\". Du kan åpne den i skrivebordsappen.";
 "Close" = "Lukk";
-"Account is deleted" = "Konto er slettet";
 "Add phone" = "Legg til telefon";
 "Nothing to redo" = "Ingenting å gjenta";
 "Nothing to undo" = "Ingenting å angre";
@@ -528,6 +537,7 @@
 "Unsupported value" = "Ikke-støttet verdi";
 "Select relation type" = "Velg relasjonstype";
 "CommonOpenErrorView.Message" = "Ingen data funnet";
+"AreYouSure" = "Er du sikker?";
 "Nothing found" = "Ingenting funnet";
 "No type found text" = "Ingen type “%@” funnet. Endre forespørselen din eller opprett ny type.";
 "Create type" = "Opprett type";
@@ -554,18 +564,19 @@
 "Application icon" = "Appikon";
 "Mode" = "Modus";
 "copied to clipboard" = "%@ kopiert til utklippstavlen";
-"Access to secret phrase from keychain" = "Tilgang til gjenopprettingsfrasen fra nøkkelringen";
-"Back up your recovery phrase" = "Sikkerhetskopier din gjenopprettingsfrase";
-"Account" = "Konto";
+"Create object from clipboard" = "Opprett objekt fra utklippstavlen";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Tilgang";
-"Back up phrase" = "Sikkerhetskopier frase";
+"Back up key" = "Back up key";
 "Removing cache" = "Fjerner hurtigbuffer";
 "Deletion error" = "Feil ved sletting";
 "Start" = "Start";
 "On analytics" = "Om analysen";
-"Select account error" = "Feil ved valg av konto";
-"Account deleted" = "Konto slettet";
-"Account.Select.Incompatible.Version.Error.Text" = "Kan ikke hente kontodata på grunn av inkompatibel versjon på eksterne noder. Vennligst oppdater Anytype til den nyeste versjonen.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Gjenopprett fra nøkkelring";
 "Edit" = "Rediger";
 "In this object" = "I dette objektet";
@@ -583,9 +594,9 @@
 "Go back" = "Gå tilbake";
 "SyncStatus.LocalOnly.Title" = "Kun lokalt";
 "SyncStatus.LocalOnly.Description" = "Kun lokalt";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
+"SyncStatus.Synced.Anytype.Description" = "Sikkerhetskopiert på Anytype-nettverk";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Sikkerhetskopiert på Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Sikkerhetskopiert på selvhostet nettverk";
 "Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
 "Node is not connected" = "Noden er ikke tilkoblet";
 "Initializing sync" = "Initialiserer synkronisering";
@@ -603,7 +614,7 @@
 "Change type" = "Endre type";
 "Show types" = "Vis typer";
 "Hide types" = "Skjul typer";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
+"SlashMenu.LinkTo.Description" = "Opprett lenke til et annet objekt";
 "Upload playable audio" = "Last opp spillbar lyd";
 "Code snippet" = "Kodesnutt";
 "Bookmark" = "Bokmerke";
@@ -633,11 +644,11 @@
 "No date" = "Ingen dato";
 "Clear" = "Tøm";
 "Create option with" = "Opprett valg '%@'";
-"Add URL" = "Legg til URL";
-"Add email" = "Legg til e-post";
-"Add phone number" = "Legg til telefonnummer";
-"Add number" = "Legg til nummer";
-"Add text" = "Legge til tekst";
+"Enter URL" = "Skriv inn URL";
+"Enter email" = "Skriv inn e-post";
+"Enter phone number" = "Skriv inn telefonnummeret";
+"Enter number" = "Skriv inn tall";
+"Enter text" = "Skriv inn tekst";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Det oppstod en feil. Vennligst prøv igjen";
 "Add" = "Legg til";
@@ -647,14 +658,14 @@
 "This object doesn't exist" = "Dette objektet eksisterer ikke";
 "Setting up encrypted storage\nPlease wait" = "Setter opp kryptert lagring\nVennligst vent";
 "These objects will be deleted irrevocably" = "Disse objektene vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
-"Delete account" = "Slett konto";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Avbryt sletting";
 "Logout and clear data" = "Logg ut og slett data";
 "New" = "Ny";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Er du sikker på at du vil slette kontoen?";
-"DeletionAlert.description" = "Du blir logget ut på alle andre enheter. Du vil ha 30 dager for å gjenopprette den. Etterpå vil den bli slettet permanent";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Rutenett";
@@ -753,10 +764,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Navnløs samling";
 "Content.DataView.InlineSet.Toast.Failure" = "Dette innfelte settet har ingen kilde";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nytt objekt";
-"WidgetExtension.LockScreen.Description" = "Opprett et nytt objekt på direkten";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "koblet til";
 "Editor.Toast.MovedTo" = "Blokk flyttet til";
@@ -791,7 +798,7 @@
 "About.AppVersion" = "Appversjon: %@";
 "About.BuildNumber" = "Byggnummer: %@";
 "About.Library" = "Bibliotekversjon: %@";
-"About.accountId" = "Konto-ID: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "Analytics-ID: %@";
 "About.deviceId" = "Enhets-ID: %@";
 "About.Device" = "Enhet: %@";
@@ -805,7 +812,7 @@
 "About.TermsOfUse" = "Brukervilkår";
 "About.PrivacyPolicy" = "Personvernerklæring";
 "About.TechInfo" = "Teknisk informasjon";
-"About.Mail.Subject" = "Supportforespørsel, konto-ID %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nTeknisk informasjon\n%@";
 
 // MARK: - Cache
@@ -813,10 +820,10 @@
 "ClearCache.Error" = "Feil, prøv igjen senere";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Innstillinger";
 "Settings.Title" = "Innstillinger";
 "Settings.SpaceName" = "Romnavn";
-"Settings.AccountAndAccess" = "Konto og tilgang";
+"Settings.SpaceType" = "Rom-type";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Fillagring";
@@ -824,8 +831,8 @@
 "FileStorage.Space.Instruction" = "Du kan lagre opptil %@ av filene dine på vår krypterte sikkerhetskopi-node gratis. Hvis du når grensen, vil filene kun bli lagret lokalt.";
 "FileStorage.Space.Used" = "%@ av %@ brukt";
 "FileStorage.Space.GetMore" = "Få mer plass";
-"FileStorage.Space.Mail.Subject" = "Få mer lagringsplass, konto %@";
-"FileStorage.Space.Mail.Body" = "Hei, Anytype-team. Jeg tar kontakt for å be om en økning i lagringskapasiteten for filene mine, da jeg har gått tom for lagringsplass. Min nåværende grense er %@. Min konto-ID er %@. Hilsen, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Lokal lagring";
 "FileStorage.Local.Instruction" = "For å spare plass på den lokale enheten din, kan du slette alle lokale filer og beholde dem på vår krypterte sikkerhetskopi-node. Filene vil bli lastet ned igjen når du åpner dem.";
 "FileStorage.Local.Used" = "%@ brukt";
@@ -848,10 +855,25 @@
 "ClearCacheAlert.Description" = "Alle mediefiler lagret i Anytype vil bli slettet fra din nåværende enhet. De kan lastes ned igjen fra en backup-node eller en annen enhet.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Offentlig rom";
+"Spaces.Accessibility.Shared" = "Delt rom";
 "Spaces.Accessibility.Private" = "Privat rom";
-"Spaces.Accessibility.Personal" = "Innstillinger";
+"Spaces.Accessibility.Personal" = "Standard rom";
 "Spaces.Search.Title" = "Søk etter rom";
+"Spaces.Title" = "Rom";
+"Spaces.Info.Network" = "Nettverk:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Ukjent";
+"Space.Status.Loading" = "Laster";
+"Space.Status.Ok" = "Ok";
+"Space.Status.Missing" = "Mangler";
+"Space.Status.Error" = "Feil";
+"Space.Status.RemoteWaitingDeletion" = "Venter sletting";
+"Space.Status.RemoteDeleted" = "Fjernslettet";
+"Space.Status.SpaceDeleted" = "Slettet";
+"Space.Status.SpaceActive" = "Aktiv";
+"Space.Status.SpaceJoining" = "Kobler til";
+"Space.Status.SpaceRemoving" = "Fjerner";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Rominnstillinger";
@@ -861,16 +883,83 @@
 "SpaceSettings.DeleteAlert.Title" = "Slett ’%@’ rommet";
 "SpaceSettings.DeleteAlert.Message" = "Dette rommet vil bli slettet ugjenkallelig. Du kan ikke angre denne handlingen.";
 "SpaceSettings.DeleteButton" = "Slett rom";
-"SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Del";
+"SpaceSettings.LeaveButton" = "Forlat";
+"SpaceSettings.LeaveAlert.Title" = "Forlat et rom";
+"SpaceSettings.LeaveAlert.Message" = "%@-rommet vil bli fjernet fra enhetene dine og du vil ikke lenger ha tilgang til det";
+"SpaceSettings.LeaveAlert.Toast" = "Du forlot %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "Deling";
+"SpaceShare.Members" = "Medlemmer";
+"SpaceShare.Permissions.Owner" = "Eier";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Redigering";
+"SpaceShare.Permissions.Grand.Edit" = "Rediger";
+"SpaceShare.Permissions.Grand.View" = "Visning";
+"SpaceShare.Invite.Title" = "Invitasjonslenke";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Del invitasjonslenke";
+"SpaceShare.Invite.Generate" = "Generer invitasjonslenke";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Medlemsforespørsel";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "Vis forespørsel";
+"SpaceShare.Action.Approve" = "Godkjenn";
+"SpaceShare.DeleteSharingLink.Title" = "Slett lenke";
+"SpaceShare.DeleteSharingLink.Message" = "Nye medlemmer vil ikke kunne bli medlem av rommet. Du kan generere en ny lenke når som helst";
+"SpaceShare.Approve.Toast" = "Du har godkjent %@s forespørsel.";
+"SpaceShare.ViewRequest.Title" = "%@ ba om å bli med i %@-rommet";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.Reject" = "Avvis";
+"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Message" = "%@ vil bli fjernet fra rommet.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Bli med i et rom";
+"SpaceShare.Join.CommentPlaceholder" = "Legg igjen en privat kommentar til eieren av rommet";
+"SpaceShare.Join.Button" = "Be om å bli med";
+"SpaceShare.Join.Info" = "Når eieren av rommet godkjenner forespørselen din, vil du bli med i rommet med tilgangsrettigheter eieren har satt.";
+"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.JoinConfirmation.Title" = "Forespørsel sendt";
+"SpaceShare.JoinConfirmation.Message" = "Du vil motta et varsel når eieren av rommet godkjenner forespørselen din.";
+"SpaceShare.YouSuffix" = "%@ (du)";
+"SpaceShare.ManageSpaces" = "Administrer rom";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.StopSharing.Action" = "Stopp deling";
+"SpaceShare.StopSharing.Title" = "Slutt å dele rom";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Toast" = "Rommet er ikke lenger delt";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Button" = "Vis QR-kode";
+"SpaceShare.HowToShare.Title" = "Hvordan dele et rom?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Administrer";
+"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"RequestToJoinNotification.Text" = "**%@** ba om å bli med i **%@**-rommet.";
+"RequestToJoinNotification.GoToSpace" = "Gå til rom";
+"RequestToJoinNotification.ViewRequest" = "Vis forespørsel";
+
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Avbryt forespørsel";
+"SpaceManager.DoNotCancel" = "Ikke avbryt";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "Forespørselen ble avbrutt.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Opprett et rom";
@@ -897,14 +986,19 @@
 "Sharing.Tip.Steps.2" = "Bla forbi appen og trykk mer";
 "Sharing.Tip.Steps.3" = "Trykk på Rediger for å finne \"Anytype\" og trykk på";
 
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Sveip for å lage objekter";
+"Swipe.Tip.Subtitle" = "Opprett objekter inne i widgets ved enkelt å sveipe dem til venstre.";
+
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Advarsel";
-"Initial.UnstableMiddle.Message" = "Du starter app med en ustabil mellomvare. Ikke bruk din produksjonskonto. Kontoen din kan bli ødelagt.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Advarsel";
-"Initial.UnstableMiddle.Logout" = "Logg ut fra denne kontoen";
-"Initial.UnstableMiddle.Continue" = "Fortsett med denne kontoen";
-"Initial.UnstableMiddle.WontUseProd" = "Jeg vil ikke bruke min produksjonskonto";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Opprett objekter med spesifikk type";
@@ -916,7 +1010,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Oppdater";
 "Error.UnableToConnect" = "Vennligst koble deg til internett";
 "Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Prøv igjen";
 
 // MARK: - Relative date formatter
@@ -940,6 +1034,94 @@
 "Gallery.Notification.Success" = "Erfaringen ble vellykket installert i rommet \"%@\". Du kan nå åpne det og begynne å bruke det.";
 "Gallery.Notification.Button" = "Gå til rom";
 "Gallery.Notification.Error" = "Oops! \"%@\" ble ikke installert. Vennligst sjekk internettforbindelsen din og prøv igjen, eller legg ut en rapport på forumet.";
+
+// MARK: - Membership
+"Membership" = "Medlemskap";
+"Just e-mail" = "Kun e-post";
+"E-mail" = "E-post";
+"Learn more" = "Lær mer";
+"per" = "per";
+"unlimited" = "Ubegrenset";
+
+
+"What’s included" = "Hva er inkludert";
+"Submit" = "Send inn";
+"Resend" = "Send på nytt";
+"Resend in" = "Send igjen om %@ sek";
+"Current" = "Gjeldende";
+"Forever free" = "Alltid gratis";
+"Forever" = "Alltid";
+"Valid until date" = "Gyldig til %@";
+"Your current status" = "Din nåværende status:";
+"Valid until" = "Gyldig til:";
+"Paid by" = "Betalt av %@";
+"Myself" = "Meg selv";
+"Pay by Card" = "Betal med kort";
+"Min X characters" = "Minst %@ tegn";
+"Pending" = "Venter...";
+"Manage payment" = "Administrer betaling";
+
+
+"Membership.Ad.Title" = "Medlemskap";
+"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+
+"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Privacy" = "Personvernregler";
+"Membership.Legal.Terms" = "Vilkår og betingelser";
+"Membership.Legal.WouldYouLike" = "Ønsker du å bruke Anytype for virksomhet, utdanning osv.?";
+"Membership.Legal.LetUsKnow" = "Vennligst gi oss beskjed her.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
+
+"Membership.Email.Subject" = "Forespørsel om spesialpris";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
+
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
+"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Support Digital Independence";
+"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+
+"Membership.EmailForm.Title" = "Få ditt gratis medlemskap";
+"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
+"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailValidation" = "Skriv inn koden som er sendt til deg på e-post";
+
+"Membership.NameForm.Title" = "Velg ditt unike navn";
+"Membership.NameForm.Subtitle" = "Dette er ditt unike navn på Anytype-nettverket, som bekrefter medlemskapet ditt. Det fungerer som ditt personlige domene og kan ikke endres.";
+"Membership.NameForm.Validating" = "Vent et øyeblikk...";
+"Membership.NameForm.Validated" = "Dette navnet er ledig";
+
+"Membership.Success.Title" = "Velkommen til nettverket, %@";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
+
+"Membership.Payment.Card" = "Kort";
+"Membership.Payment.Crypto" = "Krypto";
+"Membership.Payment.Apple subscription" = "Apple subscription";
+"Membership.Payment.Google subscription" = "Google subscription";
+
+
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+
+"Membership.Feature.LocalName" = "Local, non-unique name";
+"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
+"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";

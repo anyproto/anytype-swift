@@ -1,6 +1,5 @@
 import UIKit
 import Combine
-import Kingfisher
 
 class BlockBookmarkImageView: UIImageView {
     

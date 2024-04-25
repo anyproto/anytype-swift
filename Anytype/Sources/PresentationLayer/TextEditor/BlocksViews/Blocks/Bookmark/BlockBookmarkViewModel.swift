@@ -4,34 +4,76 @@ import UIKit
 import AnytypeCore
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
-struct BlockBookmarkViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable { [ info, objectDetails ] as [AnyHashable] }
+final class BlockBookmarkViewModel: BlockViewModelProtocol {
+    var hashable: AnyHashable { info.id }
     
-    let info: BlockInformation
-    let bookmarkData: BlockBookmark
-    let objectDetails: ObjectDetails?
+    var info: BlockInformation { infoProvider.info }
     
-    let showBookmarkBar: (BlockInformation) -> ()
-    let openUrl: (AnytypeURL) -> ()
+    var bookmarkData: BlockBookmark {
+        guard case let .bookmark(data) = info.content else {
+            anytypeAssertionFailure("BookmarkViewModel's blockInformation has wrong content type")
+            return .empty()
+        }
+        
+        return data
+    }
     
-    func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
-        let backgroundColor = info.backgroundColor.map(UIColor.VeryLight.uiColor(from:)) ?? nil
-
-        let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
-
+    private let editorCollectionController: EditorCollectionReloadable
+    private var objectDetailsProvider: ObjectDetailsInfomationProvider?
+    private let infoProvider: BlockModelInfomationProvider
+    private let detailsStorage: ObjectDetailsStorage
+    private let showBookmarkBar: (BlockInformation) -> ()
+    private let openUrl: (AnytypeURL) -> ()
+    
+    private var subscriptions = [AnyCancellable]()
+    
+    init(
+        editorCollectionController: EditorCollectionReloadable,
+        infoProvider: BlockModelInfomationProvider,
+        detailsStorage: ObjectDetailsStorage,
+        showBookmarkBar: @escaping (BlockInformation) -> (),
+        openUrl: @escaping (AnytypeURL) -> ()
+    ) {
+        self.editorCollectionController = editorCollectionController
+        self.infoProvider = infoProvider
+        self.detailsStorage = detailsStorage
+        self.showBookmarkBar = showBookmarkBar
+        self.openUrl = openUrl
+    }
+    
+    private func setupSubscription() {
+        objectDetailsProvider?
+            .$details
+            .receiveOnMain()
+            .sink { [weak editorCollectionController, weak self] _ in
+                guard let self else { return }
+                editorCollectionController?.reconfigure(items: [.block(self)])
+        }.store(in: &subscriptions)
+    }
+    
+    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+        setupSubscriptionIfNeeded()
+        
         switch bookmarkData.state {
         case .empty:
             return emptyViewConfiguration(text: Loc.Content.Bookmark.add, state: .default)
         case .fetching:
             return emptyViewConfiguration(text: Loc.Content.Bookmark.loading, state: .uploading)
         case .done:
+            guard let objectDetails = objectDetailsProvider?.details else {
+                anytypeAssertionFailure("Coudn't find object details for bookmark")
+                return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
+            }
+
+            let backgroundColor = info.backgroundColor.map(UIColor.VeryLight.uiColor(from:)) ?? nil
+            let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
+            
             return BlockBookmarkConfiguration(
                 payload: payload,
                 backgroundColor: backgroundColor
-            )
-                .cellBlockConfiguration(
-                indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+            ).cellBlockConfiguration(
+                dragConfiguration: .init(id: info.id),
+                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )
         case .error:
             return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
@@ -47,6 +89,9 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         case .fetching:
             break
         case .done:
+            guard let objectDetails = objectDetailsProvider?.details else {
+                return
+            }
             let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
             guard let url = payload.source else { return }
             openUrl(url)
@@ -59,8 +104,30 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
             text: text,
             state: state
         ).cellBlockConfiguration(
-                indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
-            )
+            dragConfiguration: .init(id: info.id),
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
+        )
+    }
+    
+    private func setupSubscriptionIfNeeded() {
+        guard objectDetailsProvider.isNil, bookmarkData.targetObjectID.isNotEmpty else {
+            return
+        }
+        objectDetailsProvider = ObjectDetailsInfomationProvider(
+            detailsStorage: detailsStorage,
+            targetObjectId: bookmarkData.targetObjectID,
+            details: detailsStorage.get(id: bookmarkData.targetObjectID)
+        )
+        setupSubscription()
+    }
+}
+
+private extension BlockInformation {
+    var bookmarkContent: BlockBookmark {
+        guard case let .bookmark(dataView) = content else {
+            return .empty()
+        }
+        
+        return dataView
     }
 }

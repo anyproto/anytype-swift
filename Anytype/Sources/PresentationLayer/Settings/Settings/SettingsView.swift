@@ -5,6 +5,10 @@ struct SettingsView: View {
     
     @ObservedObject var model: SettingsViewModel
     
+    init(output: SettingsModuleOutput) {
+        _model = ObservedObject(initialValue: SettingsViewModel(output: output))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -20,22 +24,40 @@ struct SettingsView: View {
                     SectionHeaderView(title: Loc.settings)
                     
                     SettingsSectionItemView(
-                        name: Loc.Settings.accountAndAccess,
-                        imageAsset: .Settings.keychainPhrase,
-                        onTap: { model.onAccountDataTap() }
-                    )
-                    
-                    SettingsSectionItemView(
                         name: Loc.appearance,
                         imageAsset: .Settings.appearance,
                         onTap: { model.onAppearanceTap() }
                     )
+                    
+                    
+                    if FeatureFlags.multiplayer {
+                        SettingsSectionItemView(
+                            name: Loc.Spaces.title,
+                            imageAsset: .Settings.spaces,
+                            onTap: { model.onSpacesTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.FileStorage.Local.title,
                         imageAsset: .Settings.fileStorage,
                         onTap: { model.onFileStorageTap() }
                     )
+                    
+                    SettingsSectionItemView(
+                        name: Loc.Settings.vaultAndAccess,
+                        imageAsset: .Settings.keychainPhrase,
+                        onTap: { model.onAccountDataTap() }
+                    )
+                    
+                    if FeatureFlags.membership {
+                        SettingsSectionItemView(
+                            name: Loc.membership,
+                            imageAsset: .Settings.membership,
+                            decoration: model.membership.tier.map { .arrow (text: $0.name) } ?? .button(text: Loc.join),
+                            onTap: { model.onMembershipTap() }
+                        )
+                    }
                     
                     SettingsSectionItemView(
                         name: Loc.about,

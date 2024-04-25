@@ -12,14 +12,11 @@ final class SetFilterConditionsViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Initializer
 
-    init(
-        filter: SetFilter,
-        onSelect: @escaping (DataviewFilter.Condition) -> Void
-    ) {
-        self.title = filter.relationDetails.name
-        self.filter = filter
-        self.selectedCondition = filter.filter.condition
-        self.onSelect = onSelect
+    init(data: SetFilterConditions) {
+        self.title = data.filter.relationDetails.name
+        self.filter = data.filter
+        self.selectedCondition = data.filter.filter.condition
+        self.onSelect = data.completion
         self.items = self.buildPopupItems()
     }
     

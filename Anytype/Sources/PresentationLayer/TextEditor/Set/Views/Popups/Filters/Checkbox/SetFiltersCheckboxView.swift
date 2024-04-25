@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct SetFiltersCheckboxView: View {
-    @StateObject var viewModel: SetFiltersCheckboxViewModel
+    @StateObject private var viewModel: SetFiltersCheckboxViewModel
+    
+    init(filter: SetFilter, onApplyCheckbox: @escaping (Bool) -> Void) {
+        _viewModel = StateObject(wrappedValue: SetFiltersCheckboxViewModel(filter: filter, onApplyCheckbox: onApplyCheckbox))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -30,9 +34,9 @@ struct SetFiltersCheckboxView: View {
         HStack(spacing: 0) {
             AnytypeText(
                 value.title,
-                style: .uxBodyRegular,
-                color: .Text.primary
+                style: .uxBodyRegular
             )
+            .foregroundColor(.Text.primary)
             Spacer()
             icon(for: value)
         }

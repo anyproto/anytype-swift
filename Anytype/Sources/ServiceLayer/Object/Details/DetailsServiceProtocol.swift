@@ -3,11 +3,10 @@ import AnytypeCore
 
 protocol DetailsServiceProtocol {
         
-    func updateBundledDetails(_ bundledDetails: [BundledDetails]) async throws
-    func updateBundledDetails(contextID: String, bundledDetails: [BundledDetails]) async throws
-    func setLayout(_ detailsLayout: DetailsLayout) async throws
+    func updateBundledDetails(objectId: String, bundledDetails: [BundledDetails]) async throws
+    func setLayout(objectId: String, detailsLayout: DetailsLayout) async throws
     func updateDetails(contextId: String, relationKey: String, value: DataviewGroupValue) async throws
     
-    func setCover(spaceId: String, source: FileUploadingSource) async throws
-    func setCover(imageObjectId: String) async throws
+    func setCover(objectId: String, spaceId: String, source: FileUploadingSource) async throws
+    func setCover(objectId: String, imageObjectId: String) async throws
 }

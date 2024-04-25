@@ -39,18 +39,14 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
         HomeCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            navigationContext: uiHelpersDI.commonNavigationContext(),
-            createWidgetCoordinatorAssembly: coordinatorsID.createWidget(),
-            searchModuleAssembly: modulesDI.search(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
             objectActionsService: serviceLocator.objectActionsService(),
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
+            blockService: serviceLocator.blockService(),
+            pasteboardBlockService: serviceLocator.pasteboardBlockService(),
             typeProvider: serviceLocator.objectTypeProvider(),
             appActionsStorage: serviceLocator.appActionStorage(),
-            widgetTypeModuleAssembly: modulesDI.widgetType(),
             spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
-            shareCoordinatorAssembly: coordinatorsID.share(),
             editorCoordinatorAssembly: coordinatorsID.editor(),
             homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
@@ -58,8 +54,7 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             documentsProvider: serviceLocator.documentsProvider,
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
             sharingTipCoordinator: coordinatorsID.sharingTip(),
-            galleryInstallationCoordinatorAssembly: coordinatorsID.galleryInstallation(),
-            notificationCoordinator: coordinatorsID.notificationCoordinator()
+            typeSearchCoordinatorAssembly: coordinatorsID.typeSearchForNewObject()
         )
     }
 }

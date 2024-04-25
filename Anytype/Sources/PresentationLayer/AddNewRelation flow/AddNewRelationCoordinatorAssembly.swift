@@ -19,8 +19,7 @@ final class AddNewRelationCoordinatorAssembly: AddNewRelationCoordinatorAssembly
     func make() -> AddNewRelationCoordinatorProtocol {
         return AddNewRelationCoordinator(
             navigationContext: uiHelpersDI.commonNavigationContext(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            newRelationModuleAssembly: modulesDI.newRelation()
+            newSearchModuleAssembly: modulesDI.newSearch()
         )
     }
 }

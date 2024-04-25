@@ -36,7 +36,7 @@ final class SetContentViewDataBuilder {
         excludeRelations: [RelationDetails],
         spaceId: String
     ) -> [RelationDetails] {
-        view.options.compactMap { option in
+        var relationDetails: [RelationDetails] = view.options.compactMap { option in
             let relationDetails = dataViewRelationsDetails.first { relation in
                 option.key == relation.key
             }
@@ -46,6 +46,19 @@ final class SetContentViewDataBuilder {
             
             return relationDetails
         }
+        // force insert Done relation after the Name for all Sets/Collections if needed
+        let doneRelationIsExcluded = excludeRelations.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
+        let doneRelationDetails = try? relationDetailsStorage.relationsDetails(for: BundledRelationKey.done, spaceId: spaceId)
+        if !doneRelationIsExcluded, let doneRelationDetails {
+            if let index = relationDetails.firstIndex(where: { $0.key == BundledRelationKey.name.rawValue }),
+                index < relationDetails.count
+            {
+                relationDetails.insert(doneRelationDetails, at: index + 1)
+            } else {
+                relationDetails.insert(doneRelationDetails, at: 0)
+            }
+        }
+        return relationDetails
     }
     
     func itemData(
@@ -189,12 +202,10 @@ final class SetContentViewDataBuilder {
         guard excludeRelations.first(where: { $0.key == relationDetails.key }) == nil else {
             return false
         }
-        guard relationDetails.key != ExceptionalSetSort.name.rawValue,
-              relationDetails.key != ExceptionalSetSort.done.rawValue else {
+        guard relationDetails.key != BundledRelationKey.name.rawValue else {
             return true
         }
         return !relationDetails.isHidden &&
-        relationDetails.format != .file &&
         relationDetails.format != .unrecognized
     }
     

@@ -82,10 +82,30 @@
         <string>%d links</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Backlinks count</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Цей обліковий запис буде видалено %#@days@</string>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d backlink</string>
+        <key>few</key>
+        <string>%d backlinks</string>
+        <key>many</key>
+        <string>%d backlinks</string>
+        <key>other</key>
+        <string>%d backlinks</string>
+      </dict>
+    </dict>
+    <key>Days to deletion vault</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>завтра</string>
+        <string>tomorrow</string>
         <key>few</key>
-        <string>через %d днi</string>
+        <string>in %d days</string>
         <key>many</key>
-        <string>через %d днів</string>
+        <string>in %d days</string>
         <key>other</key>
-        <string>через %d днів</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -200,6 +220,146 @@
         <string>Link %d Blocks</string>
         <key>other</key>
         <string>Link %d Blocks</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>few</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>many</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d members</string>
+        <key>one</key>
+        <string>%d member</string>
+        <key>few</key>
+        <string>%d members</string>
+        <key>many</key>
+        <string>%d members</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.RequestsCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d requests</string>
+        <key>one</key>
+        <string>%d request</string>
+        <key>few</key>
+        <string>%d requests</string>
+        <key>many</key>
+        <string>%d requests</string>
+      </dict>
+    </dict>
+    <key>Per Month</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@month@</string>
+      <key>month</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>month</string>
+        <key>few</key>
+        <string>%d months</string>
+        <key>many</key>
+        <string>%d months</string>
+        <key>other</key>
+        <string>%d months</string>
+      </dict>
+    </dict>
+    <key>Per Week</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@week@</string>
+      <key>week</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>week</string>
+        <key>few</key>
+        <string>%d weeks</string>
+        <key>many</key>
+        <string>%d weeks</string>
+        <key>other</key>
+        <string>%d weeks</string>
+      </dict>
+    </dict>
+    <key>Per Year</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@year@</string>
+      <key>year</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>year</string>
+        <key>few</key>
+        <string>%d years</string>
+        <key>many</key>
+        <string>%d years</string>
+        <key>other</key>
+        <string>%d years</string>
+      </dict>
+    </dict>
+    <key>Per Day</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@day@</string>
+      <key>day</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>day</string>
+        <key>few</key>
+        <string>%d days</string>
+        <key>many</key>
+        <string>%d days</string>
+        <key>other</key>
+        <string>%d days</string>
       </dict>
     </dict>
   </dict>

@@ -29,13 +29,13 @@ struct ObjectIconImageGuidelineSet {
                 return todoImageGuideline
             case .placeholder:
                 return placeholderImageGuideline
+            case .deleted, .file:
+                return staticImageGuideline
             }
         case .asset:
             return staticImageGuideline
         case .image:
             return staticImageGuideline
-        case .square, .cycle, .squircle:
-            return nil
         }
     }
     

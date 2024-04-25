@@ -8,7 +8,8 @@ struct SpaceTypeView: View {
         HStack(spacing: 4) {
             Image(asset: .X24.privateSpace)
                 .foregroundColor(.Text.primary)
-            AnytypeText(name, style: .bodyRegular, color: .Text.primary)
+            AnytypeText(name, style: .bodyRegular)
+                .foregroundColor(.Text.primary)
         }
         .frame(height: 52)
         .frame(maxWidth: .infinity, alignment: .leading)

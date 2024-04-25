@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 
+
 final class AnytypeAlertViewModel: AnytypePopupViewModelProtocol, ObservableObject {
     private(set) var popupLayout: AnytypePopupLayoutType
     private weak var popup: AnytypePopupProxy?

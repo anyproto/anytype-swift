@@ -13,20 +13,23 @@ final class PasteboardTask {
     
     private var alreadyStarted: Bool = false
     
-    private let objectId: BlockId
+    private let objectId: String
+    private let spaceId: String
     private let context: PasteboardActionContext
-    private let pasteboardHelper: PasteboardHelper
+    private let pasteboardHelper: PasteboardHelperProtocol
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
 
     // MARK: - Initializers
 
     init(
-        objectId: BlockId,
-        pasteboardHelper: PasteboardHelper,
+        objectId: String,
+        spaceId: String,
+        pasteboardHelper: PasteboardHelperProtocol,
         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
         context: PasteboardActionContext
     ) {
         self.objectId = objectId
+        self.spaceId = spaceId
         self.pasteboardHelper = pasteboardHelper
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
         self.context = context
@@ -45,7 +48,7 @@ final class PasteboardTask {
     private func performPaste() async throws -> PasteboardPasteResult? {
         guard pasteboardHelper.hasSlots else { return nil }
         
-        AnytypeAnalytics.instance().logPasteBlock()
+        AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId)
         
         // Find first item to paste with follow order anySlots (blocks slots), htmlSlot, textSlot, filesSlots
         // blocks slots

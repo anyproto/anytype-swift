@@ -2,7 +2,7 @@ import SwiftUI
 
 @available(iOS 17.0, *)
 struct SharingTipView: View {
-    @ObservedObject var viewModel: SharingTipViewModel
+    @StateObject private var viewModel = SharingTipViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -43,7 +43,8 @@ struct SharingTipView: View {
     var content: some View {
         VStack {
             Spacer.fixedHeight(39)
-            AnytypeText(Loc.Sharing.Tip.title, style: .heading, color: .Text.primary)
+            AnytypeText(Loc.Sharing.Tip.title, style: .heading)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(39)
             carouselImages
             Spacer.fixedHeight(32)
@@ -103,7 +104,8 @@ struct SharingTipView: View {
     private func stepTextView(step number: Int) -> some View {
         if let tipStep = SharingTipStep(rawValue: number) {
             HStack(spacing: 8) {
-                AnytypeText("\(number).  \(tipStep.title)", style: .uxBodyRegular, color: .Text.primary)
+                AnytypeText("\(number).  \(tipStep.title)", style: .uxBodyRegular)
+                    .foregroundColor(.Text.primary)
                 tipStep.image
             }
         } else {
@@ -147,7 +149,7 @@ private enum SharingTipStep: Int {
 
 #Preview {
     if #available(iOS 17.0, *) {
-        SharingTipView(viewModel: .init())
+        SharingTipView()
     } else {
         EmptyView()
     }

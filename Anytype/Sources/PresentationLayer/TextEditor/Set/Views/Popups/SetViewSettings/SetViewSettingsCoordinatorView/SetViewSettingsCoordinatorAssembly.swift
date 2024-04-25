@@ -4,9 +4,7 @@ import Services
 protocol SetViewSettingsCoordinatorAssemblyProtocol {
     @MainActor
     func make(
-        setDocument: SetDocumentProtocol,
-        viewId: String,
-        mode: SetViewSettingsMode,
+        with data: SetSettingsData,
         subscriptionDetailsStorage: ObjectDetailsStorage
     ) -> AnyView
 }
@@ -25,19 +23,13 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     
     @MainActor
     func make(
-        setDocument: SetDocumentProtocol,
-        viewId: String,
-        mode: SetViewSettingsMode,
+        with data: SetSettingsData,
         subscriptionDetailsStorage: ObjectDetailsStorage
     ) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
-                setDocument: setDocument,
-                viewId: viewId,
-                mode: mode,
+                data: data,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
-                setViewSettingsListModuleAssembly: self.modulesDI.setViewSettingsList(),
-                setLayoutSettingsCoordinatorAssembly: self.coordinatorsDI.setLayoutSettings(),
                 setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations(),
                 setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
                 setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()

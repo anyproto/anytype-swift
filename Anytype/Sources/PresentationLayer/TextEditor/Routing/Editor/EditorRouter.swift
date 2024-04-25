@@ -5,7 +5,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput, LinkToObjectCoordinatorOutput {
+final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
@@ -14,17 +14,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
-    private let relationValueCoordinator: RelationValueCoordinatorProtocol
-    private let linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol
-    private let objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
-    private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
     private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
 
@@ -36,17 +28,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
-        relationValueCoordinator: RelationValueCoordinatorProtocol,
-        linkToObjectCoordinatorAssembly: LinkToObjectCoordinatorAssemblyProtocol,
-        objectCoverPickerModuleAssembly: ObjectCoverPickerModuleAssemblyProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        objectSettingCoordinator: ObjectSettingsCoordinatorProtocol,
-        searchModuleAssembly: SearchModuleAssemblyProtocol,
+        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        codeLanguageListModuleAssembly: CodeLanguageListModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
         templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
@@ -58,17 +42,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.templatesCoordinator = templatesCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
-        self.relationValueCoordinator = relationValueCoordinator
-        self.linkToObjectCoordinatorAssembly = linkToObjectCoordinatorAssembly
-        self.objectCoverPickerModuleAssembly = objectCoverPickerModuleAssembly
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.objectSettingCoordinator = objectSettingCoordinator
-        self.searchModuleAssembly = searchModuleAssembly
+        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
-        self.codeLanguageListModuleAssembly = codeLanguageListModuleAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
-        self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
         self.templateService = templateService
         self.output = output
         
@@ -82,10 +58,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
         guard !details.isDeleted else { return }
         
-        showPage(data: details.editorScreenData())
+        showEditorScreen(data: details.editorScreenData())
     }
     
-    func showPage(data: EditorScreenData) {
+    func showEditorScreen(data: EditorScreenData) {
         Task { @MainActor in
             output?.showEditorScreen(data: data)
         }
@@ -157,19 +133,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func saveFile(fileURL: URL, type: FileContentType) {
-        fileCoordinator.downloadFileAt(fileURL, withType: type)
+        fileCoordinator.downloadFileAt(fileURL, withType: type, spaceId: document.spaceId)
     }
-    
-    func showCodeLanguage(blockId: BlockId, selectedLanguage: CodeLanguage) {
-        if FeatureFlags.newCodeLanguages {
-            let module = codeLanguageListModuleAssembly.make(document: document, blockId: blockId, selectedLanguage: selectedLanguage)
-            navigationContext.present(module)
-        } else {
-            let moduleViewController = codeLanguageListModuleAssembly.makeLegacy(document: document, blockId: blockId)
-            navigationContext.present(moduleViewController)
-        }
-    }
-    
+        
     @MainActor
     func showStyleMenu(
         informations: [BlockInformation],
@@ -202,8 +168,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                     document: self.document,
                     blockIds: infos.map { $0.id },
                     actionHandler: controller.viewModel.actionHandler,
-                    linkToObjectCoordinator: self.linkToObjectCoordinatorAssembly.make(output: self),
-                    viewDidClose: viewDidClose
+                    viewDidClose: viewDidClose,
+                    openLinkToObject: { [weak self] data in
+                        self?.output?.showLinkToObject(data: data)
+                    }
                 )
             },
             onDismiss: onDismiss
@@ -219,83 +187,62 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        
-        let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let excludedLayouts = DetailsLayout.fileLayouts + [.set, .collection]
+        let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: [.set, .collection]
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.present(moveToView)
+            excludedLayouts: excludedLayouts,
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let data = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: []
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.presentSwiftUIView(view: moduleView)
+            excludedLayouts: [],
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
-    func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
-        let moduleView = textIconPickerModuleAssembly.make(
-            contextId: contextId,
-            objectId: objectId,
-            // In feature space id should be read from blockInfo, when we will create "link to" between sapces
-            spaceId: document.spaceId,
-            onDismiss: { [weak self] in
-                self?.navigationContext.dismissTopPresented()
-            }
-        )
-
-        navigationContext.present(moduleView)
+    func showTextIconPicker(contextId: String, objectId: String) {
+        // In feature space id should be read from blockInfo, when we will create "link to" between sapces
+        output?.showTextIconPicker(data: TextIconPickerData(contextId: contextId, objectId: objectId, spaceId: document.spaceId))
     }
     
-    @MainActor
-    func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let module = searchModuleAssembly.makeObjectSearch(
-            data: SearchModuleModel(
-                spaceId: document.spaceId,
-                title: nil,
-                onSelect: { data in
-                    onSelect(data.editorScreenData)
-                }
-            )
-        )
-        navigationContext.present(module)
-    }
-    
-    func showTypes(selectedObjectId: BlockId?, onSelect: @escaping (ObjectType) -> ()) {
-        showTypesSearch(
+    func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {
+        let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
             title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
+            spaceId: document.spaceId,
             showPins: false,
             showLists: false,
-            onSelect: onSelect
-        )
+            showFiles: false,
+            incudeNotForCreation: false
+        ) { [weak self] type in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(type)
+        }
+        
+        navigationContext.presentSwiftUIView(view: view)
     }
     
-    func showTypesForEmptyObject(
-        selectedObjectId: BlockId?,
-        onSelect: @escaping (ObjectType) -> ()
+    func showTypeSearchForObjectCreation(
+        selectedObjectId: String?,
+        onSelect: @escaping (TypeSelectionResult) -> ()
     ) {
-        showTypesSearch(
+        let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
             title: Loc.changeType,
-            selectedObjectId: selectedObjectId,
-            showPins: true,
-            showLists: true,
-            onSelect: onSelect
-        )
+            spaceId: document.spaceId
+        ) { [weak self] result in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(result)
+        }
+        
+        navigationContext.presentSwiftUIView(view: view)
     }
     
     func showWaitingView(text: String) {
@@ -345,45 +292,26 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
 
     // MARK: - Settings
-    func showSettings(actionHandler: @escaping (ObjectSettingsAction) -> Void) {
-        objectSettingCoordinator.startFlow(
+    func showSettings() {
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
-            delegate: self,
-            output: self,
-            objectSettingsHandler: actionHandler
+            output: self
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
-    func showSettings(
-        delegate: ObjectSettingsModuleDelegate,
-        output: ObjectSettingsCoordinatorOutput?,
-        actionHandler: @escaping (ObjectSettingsAction) -> Void
-    ) {
-        objectSettingCoordinator.startFlow(
+    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+        let module = objectSettingCoordinatorAssembly.make(
             objectId: document.objectId,
-            delegate: delegate,
-            output: output,
-            objectSettingsHandler: actionHandler
+            output: output
         )
+        let popup = AnytypePopup(contentView: module, floatingPanelStyle: true)
+        navigationContext.present(popup)
     }
     
-    func showCoverPicker(
-        document: BaseDocumentGeneralProtocol,
-        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
-    ) {
-        let moduleViewController = objectCoverPickerModuleAssembly.make(
-            document: document,
-            onCoverAction: onCoverAction
-        )
-        navigationContext.present(moduleViewController)
-    }
-    
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document, onIconAction: onIconAction)
-        navigationContext.present(moduleViewController)
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        output?.showIconPicker(document: document)
     }
 
     func showColorPicker(
@@ -414,7 +342,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     @MainActor
     func showMarkupBottomSheet(
-        selectedBlockIds: [BlockId],
+        selectedBlockIds: [String],
         viewDidClose: @escaping () -> Void
     ) {
         guard let controller = viewController else { return }
@@ -427,7 +355,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             document: document,
             blockIds: selectedBlockIds,
             actionHandler: controller.viewModel.actionHandler,
-            linkToObjectCoordinator: linkToObjectCoordinatorAssembly.make(output: self)
+            openLinkToObject: { [weak self] data in
+                self?.output?.showLinkToObject(data: data)
+            }
         )
         let viewController = MarkupsViewController(
             viewModel: viewModel,
@@ -460,6 +390,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             }
         )
     }
+    
+    func didUndoRedo() {
+        output?.didUndoRedo()
+    }
 
     // MARK: - Private
     
@@ -470,43 +404,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         let controller = URLInputViewController(url: url, didSetURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
         navigationContext.present(controller, animated: false)
-    }
-    
-    private func showTypesSearch(
-        title: String,
-        selectedObjectId: BlockId?,
-        showPins: Bool,
-        showLists: Bool,
-        onSelect: @escaping (ObjectType) -> ()
-    ) {
-        if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.make(
-                title: title,
-                spaceId: document.spaceId,
-                showPins: showPins,
-                showLists: showLists, 
-                showFiles: false,
-                incudeNotForCreation: false
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        } else {
-            let view = newSearchModuleAssembly.objectTypeSearchModule(
-                title: title,
-                spaceId: document.spaceId,
-                selectedObjectId: selectedObjectId,
-                excludedObjectTypeId: document.details?.type,
-                showSetAndCollection: showLists
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        }
     }
 }
 
@@ -527,16 +424,7 @@ extension EditorRouter {
         let relation = document.parsedRelations.installed.first { $0.key == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, relation: relation)
-    }
-    
-    @MainActor
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        guard let objectDetails = document.detailsStorage.get(id: objectId) else {
-            anytypeAssertionFailure("Details not found")
-            return
-        }
-        relationValueCoordinator.startFlow(objectDetails: objectDetails, relation: relation, analyticsType: .block, output: self)
+        output?.showRelationValueEditingView(document: document, relation: relation)
     }
 
     @MainActor
@@ -556,21 +444,21 @@ extension EditorRouter {
 extension EditorRouter: RelationValueCoordinatorOutput {
     func openObject(screenData: EditorScreenData) {
         navigationContext.dismissAllPresented()
-        showPage(data: screenData)
+        showEditorScreen(data: screenData)
     }
 }
 
-extension EditorRouter: ObjectSettingsModuleDelegate {
+extension EditorRouter {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         guard let objectId = data.objectId else { return }
         UIApplication.shared.hideKeyboard()
         toastPresenter.showObjectName(selfName, middleAction: Loc.Editor.Toast.linkedTo, secondObjectId: objectId) { [weak self] in
-            self?.showPage(data: data)
+            self?.showEditorScreen(data: data)
         }
     }
     
     @MainActor
-    func didCreateTemplate(templateId: BlockId) {
+    func didCreateTemplate(templateId: String) {
         guard let objectTypeId = document.details?.objectType.id else { return }
         let setting = ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: document.spaceId, templateId: templateId)
         setObjectCreationSettingsCoordinator.showTemplateEditing(
@@ -589,7 +477,7 @@ extension EditorRouter: ObjectSettingsModuleDelegate {
         )
     }
     
-    func didTapUseTemplateAsDefault(templateId: BlockId) {
+    func didTapUseTemplateAsDefault(templateId: String) {
         guard let objectTypeId = document.details?.objectType.id else { return }
         Task { @MainActor in
             try? await templateService.setTemplateAsDefaultForType(objectTypeId: objectTypeId, templateId: templateId)

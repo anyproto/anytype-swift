@@ -21,18 +21,17 @@ struct SetViewRow: View {
             HStack(spacing: 0) {
                 AnytypeText(
                     configuration.name,
-                    style: .subheading,
-                    color: configuration.isActive ? .Text.primary : .Button.active
+                    style: .subheading
                 )
+                .foregroundColor(configuration.isActive ? .Text.primary : .Button.active)
                 
                 Spacer(minLength: 5)
                 
                 if !configuration.isSupported, editMode?.wrappedValue == .inactive {
                     AnytypeText(
                         Loc.EditorSet.View.Not.Supported.title,
-                        style: .caption2Regular,
-                        color: .Text.secondary
-                    )
+                        style: .caption2Regular
+                    ).foregroundColor(.Text.secondary)
                 }
             }
         }

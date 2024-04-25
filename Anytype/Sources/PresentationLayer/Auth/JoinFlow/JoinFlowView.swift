@@ -2,17 +2,23 @@ import SwiftUI
 
 struct JoinFlowView: View {
     
-    @StateObject var model: JoinFlowViewModel
-    @Environment(\.presentationMode) @Binding private var presentationMode
+    @StateObject private var model: JoinFlowViewModel
+    @Environment(\.dismiss) private var dismiss
+    
+    init(output: JoinFlowOutput?) {
+        _model = StateObject(wrappedValue: JoinFlowViewModel(output: output))
+    }
     
     var body: some View {
         GeometryReader { geo in
-            content(height: geo.size.height)
+            if !model.hideContent {
+                content(height: geo.size.height)
+            }
         }
         .customBackSwipe {
             guard !model.disableBackAction else { return }
             if model.step.isFirst {
-                 presentationMode.dismiss()
+                 dismiss()
              } else {
                  model.onBack()
              }
@@ -60,7 +66,7 @@ struct JoinFlowView: View {
     private var backButton : some View {
         Button(action: {
             if model.step.isFirst {
-                presentationMode.dismiss()
+                dismiss()
             } else {
                 model.onBack()
             }
@@ -73,20 +79,15 @@ struct JoinFlowView: View {
     }
     
     private var counter : some View {
-        AnytypeText(model.counter, style: .authBody, color: .Button.active)
+        AnytypeText(model.counter, style: .authBody)
+            .foregroundColor(.Button.active)
     }
 }
 
 
 struct JoinFlowView_Previews : PreviewProvider {
     static var previews: some View {
-        JoinFlowView(
-            model: JoinFlowViewModel(
-                output: nil,
-                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
-                accountManager: DI.preview.serviceLocator.accountManager()
-            )
-        )
+        JoinFlowView(output: nil)
     }
 }
 

@@ -66,7 +66,8 @@ struct ControlsExample: View {
     @ViewBuilder
     private func makeLargeButtonVariants(title: String, style: StandardButtonStyle) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            AnytypeText(title, style: .subheading, color: .Text.primary)
+            AnytypeText(title, style: .subheading)
+                .foregroundColor(.Text.primary)
             StandardButton(
                 "Normal",
                 style: style,
@@ -106,7 +107,8 @@ struct ControlsExample: View {
     @ViewBuilder
     private func makeTwoByLineButtonVariants(title: String, style: StandardButtonStyle) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            AnytypeText(title, style: .subheading, color: .Text.primary)
+            AnytypeText(title, style: .subheading)
+                .foregroundColor(.Text.primary)
             HStack {
                 StandardButton(
                     "Normal",
@@ -142,7 +144,8 @@ struct ControlsExample: View {
     @ViewBuilder
     private func makeComposeButtons(title: String) -> some View {
         VStack(alignment: .leading, spacing: 10) {
-            AnytypeText(title, style: .subheading, color: .Text.primary)
+            AnytypeText(title, style: .subheading)
+                .foregroundColor(.Text.primary)
             HStack(spacing: .zero) {
                 StandardButton(
                     Loc.new,

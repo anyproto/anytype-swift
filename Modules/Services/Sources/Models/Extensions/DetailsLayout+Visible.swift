@@ -46,7 +46,8 @@ public extension DetailsLayout {
     static var layoutsWithoutTemplate: [DetailsLayout] = [
         .set,
         .collection,
-        .bookmark
+        .bookmark,
+        .participant
     ] + fileAndSystemLayouts
     
     
@@ -54,4 +55,8 @@ public extension DetailsLayout {
         !DetailsLayout.layoutsWithoutTemplate.contains(self) &&
         DetailsLayout.pageLayouts.contains(self)
     }
+    
+    static var layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .set, .collection, .file, .image]
+    static var layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
+    static var layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .file, .image, .bookmark, .todo, .note]
 }

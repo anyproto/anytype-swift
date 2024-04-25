@@ -4,20 +4,20 @@ import Services
 protocol RelationsInteractorProtocol {
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails
     func addRelationToObject(relation: RelationDetails) async throws
-    func addRelationToDataview(objectId: BlockId, relation: RelationDetails, activeViewId: String) async throws
+    func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws
 }
 
 final class RelationsInteractor: RelationsInteractorProtocol {
     
-    private let relationsService: RelationsServiceProtocol
-    private let dataviewService: DataviewServiceProtocol
+    private let objectId: String
     
-    init(
-        relationsService: RelationsServiceProtocol,
-        dataviewService: DataviewServiceProtocol
-    ) {
-        self.relationsService = relationsService
-        self.dataviewService = dataviewService
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    
+    init(objectId: String) {
+        self.objectId = objectId
     }
     
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {
@@ -25,10 +25,10 @@ final class RelationsInteractor: RelationsInteractorProtocol {
     }
     
     func addRelationToObject(relation: RelationDetails) async throws {
-        try await relationsService.addRelations(relationsDetails: [relation])
+        try await relationsService.addRelations(objectId: objectId, relationsDetails: [relation])
     }
     
-    func addRelationToDataview(objectId: BlockId, relation: RelationDetails, activeViewId: String) async throws {
+    func addRelationToDataview(objectId: String, relation: RelationDetails, activeViewId: String) async throws {
         try await dataviewService.addRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relationDetails: relation)
         let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
         try await dataviewService.addViewRelation(objectId: objectId, blockId: SetConstants.dataviewBlockId, relation: newOption.asMiddleware, viewId: activeViewId)

@@ -17,17 +17,19 @@ struct HomeBottomNavigationPanelView: View {
             
             navigationButton
             
-            Image(asset: .X32.addNew)
-                .foregroundColor(.Navigation.buttonActive)
-                .onTapGesture {
-                    model.onTapNewObject()
-                }
-                .simultaneousGesture(
-                    LongPressGesture(minimumDuration: 0.3)
-                        .onEnded { _ in
-                            model.onTapCreateObjectWithType()
-                        }
-                )
+            if model.canCreateObject {
+                Image(asset: .X32.addNew)
+                    .foregroundColor(.Navigation.buttonActive)
+                    .onTapGesture {
+                        model.onTapNewObject()
+                    }
+                    .simultaneousGesture(
+                        LongPressGesture(minimumDuration: 0.3)
+                            .onEnded { _ in
+                                model.onPlusButtonLongtap()
+                            }
+                    )
+            }
             
             if homeMode {
                 Button {
@@ -82,43 +84,25 @@ struct HomeBottomNavigationPanelView: View {
             )
         }
         .animation(.default, value: homeMode)
+        .task {
+            await model.onAppear()
+        }
     }
     
     @ViewBuilder
     private var navigationButton: some View {
-        if FeatureFlags.bottomNavigationAlwaysBackButton {
-            Button {
-                if homeMode {
-                    model.onTapForward()
-                } else {
-                    model.onTapBackward()
-                }
-            } label: {
-                Image(asset: .X32.Arrow.left)
-                    .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
-            }
-            .transition(.identity)
-            .disabled(navigationButtonDisabled)
-        } else {
+        Button {
             if homeMode {
-                Button {
-                    model.onTapForward()
-                } label: {
-                    Image(asset: .X32.Arrow.right)
-                        .foregroundColor(homePath.hasForwardPath() ? .Navigation.buttonActive : .Navigation.buttonInactive)
-                }
-                .transition(.identity)
-                .disabled(!homePath.hasForwardPath())
+                model.onTapForward()
             } else {
-                Button {
-                    model.onTapBackward()
-                } label: {
-                    Image(asset: .X32.Arrow.left)
-                        .foregroundColor(.Navigation.buttonActive)
-                }
-                .transition(.identity)
+                model.onTapBackward()
             }
+        } label: {
+            Image(asset: .X32.Arrow.left)
+                .foregroundColor(navigationButtonDisabled ? .Navigation.buttonInactive : .Navigation.buttonActive)
         }
+        .transition(.identity)
+        .disabled(navigationButtonDisabled)
     }
     
     private var navigationButtonDisabled: Bool {

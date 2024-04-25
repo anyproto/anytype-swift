@@ -6,13 +6,14 @@ final class DeletedAccountViewModel: ObservableObject {
     
     private let service = ServiceLocator.shared.authService()
     private let deadline: Date
-    private let applicationStateService: ApplicationStateServiceProtocol
+    
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
     
     // MARK: - Initializer
     
-    init(deadline: Date, applicationStateService: ApplicationStateServiceProtocol) {
+    init(deadline: Date) {
         self.deadline = deadline
-        self.applicationStateService = applicationStateService
     }
     
     // MARK: - Internal var
@@ -25,7 +26,7 @@ final class DeletedAccountViewModel: ObservableObject {
     }
     
     var title: String {
-        return Loc.daysToDeletionAccount(daysToDeletion)
+        return Loc.daysToDeletionVault(daysToDeletion)
     }
     
     // MARK: - Internal funcs

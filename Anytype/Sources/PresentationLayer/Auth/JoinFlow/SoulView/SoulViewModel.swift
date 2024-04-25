@@ -15,70 +15,31 @@ final class SoulViewModel: ObservableObject {
     
     private let state: JoinFlowState
     private weak var output: JoinFlowStepOutput?
-    private let accountManager: AccountManagerProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let authService: AuthServiceProtocol
-    private let seedService: SeedServiceProtocol
-    private let usecaseService: UsecaseServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
-    init(
-        state: JoinFlowState,
-        output: JoinFlowStepOutput?,
-        accountManager: AccountManagerProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol,
-        usecaseService: UsecaseServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    ) {
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
+    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
         self.state = state
         self.inputText = state.soul
         self.output = output
-        self.accountManager = accountManager
-        self.objectActionsService = objectActionsService
-        self.authService = authService
-        self.seedService = seedService
-        self.usecaseService = usecaseService
-        self.workspaceService = workspaceService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .offline)
     }
     
     func onNextAction() {
-        if state.mnemonic.isEmpty {
-            createAccount()
-        } else {
-            updateNames()
-        }
+        updateNames()
     }
     
-    // MARK: - Create account step
-    
-    private func createAccount() {
-        Task { @MainActor in
-            startLoading()
-            
-            do {
-                state.mnemonic = try await authService.createWallet()
-                let account = try await authService.createAccount(
-                    name: state.soul,
-                    imagePath: ""
-                )
-                try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
-                try? seedService.saveSeed(state.mnemonic)
-                
-                onSuccess()
-            } catch {
-                createAccountError(error)
-            }
-        }
-    }
+    // MARK: - Update names step
     
     private func onSuccess() {
         stopLoading()
@@ -86,7 +47,7 @@ final class SoulViewModel: ObservableObject {
         output?.onNext()
     }
     
-    private func createAccountError(_ error: Error) {
+    private func updateNameError(_ error: Error) {
         stopLoading()
         output?.onError(error)
     }
@@ -96,7 +57,7 @@ final class SoulViewModel: ObservableObject {
             onSuccess()
             return
         }
-        Task { @MainActor in
+        Task {
             startLoading()
             
             do {
@@ -111,7 +72,7 @@ final class SoulViewModel: ObservableObject {
                 
                 onSuccess()
             } catch {
-                createAccountError(error)
+                updateNameError(error)
             }
         }
     }

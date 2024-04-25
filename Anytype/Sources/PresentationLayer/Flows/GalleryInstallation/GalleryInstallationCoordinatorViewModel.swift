@@ -2,40 +2,23 @@ import Foundation
 import SwiftUI
 import Services
 import AnytypeCore
+
 @MainActor
 final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                                                      GalleryInstallationPreviewModuleOutput, GallerySpaceSelectionModuleOutput {
     
-    private let data: GalleryInstallationData
-    private let galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol
-    private let gallerySpaceSelectionModuleAssembly: GallerySpaceSelectionModuleAssemblyProtocol
-    private let galleryService: GalleryServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
+    let data: GalleryInstallationData
+    @Injected(\.galleryService)
+    private var galleryService: GalleryServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
     
     private var manifest: GalleryManifest?
     @Published var dismiss = false
     @Published var showSpaceSelection = false
     
-    init(
-        data: GalleryInstallationData,
-        galleryInstallationPreviewModuleAssembly: GalleryInstallationPreviewModuleAssemblyProtocol,
-        gallerySpaceSelectionModuleAssembly: GallerySpaceSelectionModuleAssemblyProtocol,
-        galleryService: GalleryServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol
-    ) {
+    init(data: GalleryInstallationData) {
         self.data = data
-        self.galleryInstallationPreviewModuleAssembly = galleryInstallationPreviewModuleAssembly
-        self.gallerySpaceSelectionModuleAssembly = gallerySpaceSelectionModuleAssembly
-        self.galleryService = galleryService
-        self.workspaceService = workspaceService
-    }
-    
-    func previewModule() -> AnyView {
-        galleryInstallationPreviewModuleAssembly.make(data: data, output: self)
-    }
-    
-    func spaceSelectionModule() -> AnyView {
-        gallerySpaceSelectionModuleAssembly.make(output: self)
     }
     
     // MARK: - GalleryInstallationPreviewModuleOutput
@@ -58,7 +41,8 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: spaceId, isNewSpace: false, title: manifest.title, url: manifest.downloadLink)
             case .newSpace:
-                let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessibility: .personal, useCase: .none)
+                let spaceId = try await workspaceService.createSpace(name: manifest.title, gradient: .random, accessType: .personal, useCase: .none)
+                AnytypeAnalytics.instance().logCreateSpace(route: .gallery)
                 dismiss.toggle()
                 try await galleryService.importExperience(spaceId: spaceId, isNewSpace: true, title: manifest.title, url: manifest.downloadLink)
             }

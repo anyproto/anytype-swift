@@ -2,8 +2,12 @@ import SwiftUI
 import AnytypeCore
 
 struct SetRelationsView: View {
-    @StateObject var model: SetRelationsViewModel
+    @StateObject private var model: SetRelationsViewModel
     @State private var editMode = EditMode.inactive
+    
+    init(setDocument: SetDocumentProtocol, viewId: String, output: SetRelationsCoordinatorOutput?) {
+        _model = StateObject(wrappedValue: SetRelationsViewModel(setDocument: setDocument, viewId: viewId, output: output))
+    }
     
     var body: some View {
         DragIndicator()
@@ -34,7 +38,8 @@ struct SetRelationsView: View {
                     .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .principal) {
-                AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
+                AnytypeText(Loc.relations, style: .uxTitle1Semibold)
+                    .foregroundColor(.Text.primary)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {

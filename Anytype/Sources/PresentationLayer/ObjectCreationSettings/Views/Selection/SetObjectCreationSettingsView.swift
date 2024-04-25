@@ -5,7 +5,15 @@ struct SetObjectCreationSettingsView: View {
     // Popup height. Something is wrong with keyboard appearance on UIKit view. Intistic content size couldn't be calculated in FloatingPanel :/
     static let height: CGFloat = 480
 
-    @ObservedObject var model: SetObjectCreationSettingsViewModel
+    @StateObject private var model: SetObjectCreationSettingsViewModel
+    
+    init(setDocument: SetDocumentProtocol, viewId: String, output: SetObjectCreationSettingsOutput?) {
+        _model = StateObject(wrappedValue: SetObjectCreationSettingsViewModel(
+            interactor: SetObjectCreationSettingsInteractor(setDocument: setDocument, viewId: viewId),
+            setDocument: setDocument,
+            output: output
+        ))
+    }
 
     var body: some View {
         VStack {
@@ -16,11 +24,13 @@ struct SetObjectCreationSettingsView: View {
             templatesView
             Spacer.fixedHeight(24)
         }
+        .snackbar(toastBarData: $model.toastData)
     }
 
     private var navigation: some View {
         ZStack {
-            AnytypeText(Loc.createObject, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.createObject, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             if model.isTemplatesEditable {
                 navigationButton
             }
@@ -36,9 +46,9 @@ struct SetObjectCreationSettingsView: View {
                 } label: {
                     AnytypeText(
                         model.isEditingState ? Loc.done : Loc.edit,
-                        style: .bodyRegular,
-                        color: .Button.active
+                        style: .bodyRegular
                     )
+                    .foregroundColor(.Button.active)
                 }
                 Spacer()
             }
@@ -96,24 +106,14 @@ struct SetObjectCreationSettingsView: View {
     }
 }
 
-struct SetObjectCreationSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SetObjectCreationSettingsView(
-            model: .init(
-                interactor: MockSetObjectCreationSettingsInteractor(),
-                setDocument: MockSetDocument(),
-                templatesService: TemplatesService(),
-                toastPresenter: ToastPresenter(
-                    viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()),
-                    keyboardHeightListener: KeyboardHeightListener(),
-                    documentsProvider: ServiceLocator().documentsProvider
-                ),
-                onTemplateSelection: { _ in }
-            )
-        )
-        .previewLayout(.sizeThatFits)
-        .border(8, color: .Shape.primary)
-        .padding()
-        .previewDisplayName("Preview with title & icon")
-    }
+#Preview {
+    SetObjectCreationSettingsView(
+        setDocument: DI.preview.serviceLocator.documentsProvider.setDocument(objectId: "", forPreview: false, inlineParameters: nil),
+        viewId: "viewId",
+        output: nil
+    )
+    .previewLayout(.sizeThatFits)
+    .border(8, color: .Shape.primary)
+    .padding()
+    .previewDisplayName("Preview with title & icon")
 }

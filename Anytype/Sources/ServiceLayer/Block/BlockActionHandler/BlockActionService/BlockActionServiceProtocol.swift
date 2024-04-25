@@ -5,43 +5,43 @@ import AnytypeCore
 
 protocol BlockActionServiceProtocol {
 
-    func upload(blockId: BlockId, filePath: String) async throws
-    func turnInto(_ style: BlockText.Style, blockId: BlockId)
-    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId?
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool)
-    func addChild(info: BlockInformation, parentId: BlockId)
-    func delete(blockIds: [BlockId])
-    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> BlockId
+    func upload(blockId: String, filePath: String) async throws
+    func turnInto(_ style: BlockText.Style, blockId: String) async throws
+    func turnIntoPage(blockId: String, spaceId: String) async throws -> String?
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws
+    func addChild(info: BlockInformation, parentId: String) async throws
+    func delete(blockIds: [String])
+    func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String
     func split(
         _ string: NSAttributedString,
-        blockId: BlockId,
+        blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
         newBlockContentType: BlockText.Style
-    )
+    ) async throws
     
-    func bookmarkFetch(blockId: BlockId, url: AnytypeURL)
-    
-    func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor)
-    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)
-    func checked(blockId: BlockId, newValue: Bool)
-    func duplicate(blockId: BlockId)
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws
-    func merge(secondBlockId: BlockId)
+    func setBackgroundColor(blockIds: [String], color: BlockBackgroundColor)
+    func setBackgroundColor(blockIds: [String], color: MiddlewareColor)
+    func checked(blockId: String, newValue: Bool)
+    func duplicate(blockId: String)
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws
+    func setTextForced(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws
+    func merge(secondBlockId: String) async throws
     func setObjectType(type: ObjectType) async throws
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
+    
+    func bookmarkFetch(blockId: String, url: AnytypeURL)
     func createAndFetchBookmark(
-        contextID: BlockId,
-        targetID: BlockId,
+        contextID: String,
+        targetID: String,
         position: BlockPosition,
         url: AnytypeURL
     )
 }
 
 extension BlockActionServiceProtocol {
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
-        add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition) async throws {
+        try await add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
     }
 }

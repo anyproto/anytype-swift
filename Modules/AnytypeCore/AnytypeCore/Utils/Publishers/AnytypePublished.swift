@@ -1,20 +1,18 @@
 import Foundation
 import Combine
 
-struct AnytypePublished<Value> {
-    
-    private var subject: CurrentValueSubject<Value, Never>
-    
-    var value: Value {
-        get { return subject.value }
-        set { subject.send(newValue) }
+struct AnytypePassthroughSubject<Value: Equatable> {
+    var value: Value
+    var publisher: AnyPublisher<Value, Never> {
+        subject.eraseToAnyPublisher()
     }
+    private var subject = PassthroughSubject<Value, Never>()
     
     init(_ value: Value) {
-        self.subject = CurrentValueSubject(value)
+        self.value = value
     }
     
-    var publisher: AnyPublisher<Value, Never> {
-        return subject.eraseToAnyPublisher()
+    func sendUpdate() {
+        subject.send(value)
     }
 }

@@ -25,9 +25,7 @@ final class SpaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtoc
     func make() -> AnyView {
         return SpaceSwitchCoordinatorView(
             model: SpaceSwitchCoordinatorViewModel(
-                spaceSwitchModuleAssembly: self.modulesDI.spaceSwitch(),
-                spaceCreateModuleAssembly: self.modulesDI.spaceCreate(),
-                settingsCoordinator: self.coordinatorsDI.settings().make()
+                settingsCoordinatorAssembly: self.coordinatorsDI.settings()
             )
         ).eraseToAnyView()
     }

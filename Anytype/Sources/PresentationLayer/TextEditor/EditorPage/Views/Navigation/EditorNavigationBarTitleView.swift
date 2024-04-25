@@ -72,7 +72,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         mode = model
     }
 
-    func setIsReadonly(_ isReadonly: EditorEditingState.ReadonlyState?) {
+    func setIsReadonly(_ isReadonly: BlocksReadonlyReason?) {
         lockImageView.isHidden = isReadonly.isNil
         lockImageView.image = isReadonly.flatMap { UIImage(asset: $0.barIcon) }
     }
@@ -106,6 +106,7 @@ private extension EditorNavigationBarTitleView {
         arrowImageView.contentMode = .center
         arrowImageView.tintColor = .Text.primary
         arrowImageView.image = UIImage(asset: .X18.listArrow)
+        arrowImageView.isHidden = true
         
         setupLayout()        
     }
@@ -135,10 +136,10 @@ private extension EditorNavigationBarTitleView {
     }
 }
 
-private extension EditorEditingState.ReadonlyState {
+private extension BlocksReadonlyReason {
     var barIcon: ImageAsset {
         switch self {
-        case .locked:
+        case .locked, .restrictions, .spaceIsReadonly:
             return .X18.lock
         case .archived:
             return .X18.delete

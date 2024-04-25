@@ -7,19 +7,21 @@ import AnytypeCore
 final class SetViewPickerViewModel: ObservableObject {
     @Published var rows: [SetViewRowConfiguration] = []
     @Published var disableDeletion = false
+    @Published var canEditViews = false
     
     private let setDocument: SetDocumentProtocol
     private var cancellable: AnyCancellable?
-    private let dataviewService: DataviewServiceProtocol
+    
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    
     private weak var output: SetViewPickerCoordinatorOutput?
     
     init(
         setDocument: SetDocumentProtocol,
-        dataviewService: DataviewServiceProtocol,
         output: SetViewPickerCoordinatorOutput?
     ) {
         self.setDocument = setDocument
-        self.dataviewService = dataviewService
         self.output = output
         self.setup()
     }
@@ -51,6 +53,12 @@ final class SetViewPickerViewModel: ObservableObject {
         }
     }
     
+    func startSyncTask() async {
+        for await _ in setDocument.syncPublisher.values {
+            canEditViews = setDocument.setPermissions.canEditView
+        }
+    }
+    
     private func setup() {
         cancellable = setDocument.dataviewPublisher.sink { [weak self] dataView in
             self?.updateRows(with: dataView)
@@ -78,7 +86,7 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     private func handleTap(with view: DataviewView) {
-        setDocument.updateActiveViewId(view.id)
+        setDocument.updateActiveViewIdAndReload(view.id)
         AnytypeAnalytics.instance().logSwitchView(
             type: view.type.analyticStringValue,
             objectType: setDocument.analyticsType

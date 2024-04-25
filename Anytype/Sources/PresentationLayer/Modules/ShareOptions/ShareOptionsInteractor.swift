@@ -1,6 +1,8 @@
 import Foundation
 import Services
 import SharedContentManager
+import AnytypeCore
+
 
 protocol ShareOptionsInteractorProtocol: AnyObject {
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws
@@ -8,31 +10,20 @@ protocol ShareOptionsInteractorProtocol: AnyObject {
 
 final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
-    private let blockService: BlockServiceProtocol
-    private let bookmarkService: BookmarkServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let fileService: FileActionsServiceProtocol
-    private let documentProvider: DocumentsProviderProtocol
-    private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    
-    init(
-        blockService: BlockServiceProtocol,
-        bookmarkService: BookmarkServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        fileService: FileActionsServiceProtocol,
-        documentProvider: DocumentsProviderProtocol,
-        pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
-    ) {
-        self.blockService = blockService
-        self.bookmarkService = bookmarkService
-        self.objectActionsService = objectActionsService
-        self.fileService = fileService
-        self.documentProvider = documentProvider
-        self.pasteboardMiddlewareService = pasteboardMiddlewareService
-        self.objectTypeProvider = objectTypeProvider
-    }
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
+    @Injected(\.documentsProvider)
+    private var documentProvider: DocumentsProviderProtocol
+    @Injected(\.pasteboardMiddleService)
+    private var pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
     
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
         switch saveOptions {
@@ -62,7 +53,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         if let linkToObject {
             try await linkTo(object: linkToObject, newObjectId: noteObject.id, blockInformation: BlockInformation.emptyLink(targetId: noteObject.id))
         }
-        AnytypeAnalytics.instance().logCreateObject(objectType: noteObject.objectType.analyticsType, route: .sharingExtension)
+        AnytypeAnalytics.instance().logCreateObject(objectType: noteObject.objectType.analyticsType, spaceId: noteObject.spaceId, route: .sharingExtension)
     }
     
     private func saveNewObject(spaceId: String, linkToObject: ObjectDetails?, content: SharedContent) async {
@@ -77,10 +68,10 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                     newObjectId = try await createNoteObject(text: text, spaceId: spaceId).id
                     blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 case let .url(url):
-                    newObjectId = try await createBookmarkObject(url: url, spaceId: spaceId).id
+                    newObjectId = try await createBookmarkObject(url: AnytypeURL(url: url), spaceId: spaceId).id
                     blockInformation = BlockInformation.bookmark(targetId: newObjectId)
                 case let .file(url):
-                    newObjectId = try await creatFileObject(url: url, spaceId: spaceId).id
+                    newObjectId = try await createFileObject(url: url, spaceId: spaceId).id
                     blockInformation = BlockInformation.emptyLink(targetId: newObjectId)
                 }
                 
@@ -106,22 +97,23 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
         }
     }
     
-    private func createBookmarkObject(url: URL, spaceId: BlockId) async throws -> ObjectDetails {
+    private func createBookmarkObject(url: AnytypeURL, spaceId: String) async throws -> ObjectDetails {
         let newBookmark = try await bookmarkService.createBookmarkObject(
             spaceId: spaceId,
-            url: url.absoluteString,
+            url: url,
             origin: .sharingExtension
         )
-        try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url.absoluteString)
+        try await bookmarkService.fetchBookmarkContent(bookmarkId: newBookmark.id, url: url)
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: newBookmark.objectType.analyticsType,
+            spaceId: newBookmark.spaceId,
             route: .sharingExtension
         )
         return newBookmark
     }
 
-    private func createNoteObject(text: String, spaceId: BlockId) async throws -> ObjectDetails {
+    private func createNoteObject(text: String, spaceId: String) async throws -> ObjectDetails {
         let newObject = try await objectActionsService.createObject(
             name: "",
             typeUniqueKey: .note,
@@ -133,21 +125,23 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             templateId: nil
         )
         let lastBlockInDocument = try await blockService.lastBlockId(from: newObject.id)
-        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected([lastBlockInDocument]))
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: newObject.id, context: .selected(blockIds: [lastBlockInDocument]))
         
         AnytypeAnalytics.instance().logCreateObject(
             objectType: newObject.objectType.analyticsType,
+            spaceId: newObject.spaceId,
             route: .sharingExtension
         )
         return newObject
     }
     
-    private func creatFileObject(url: URL, spaceId: BlockId) async throws -> FileDetails {
+    private func createFileObject(url: URL, spaceId: String) async throws -> FileDetails {
         let data = FileData(path: url.relativePath, isTemporary: false)
         let details = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .sharingExtension)
         
         AnytypeAnalytics.instance().logCreateObject(
-            objectType: objectTypeProvider.analyticsType(id: details.type),
+            objectType: details.analyticsType,
+            spaceId: details.spaceId,
             route: .sharingExtension
         )
         return details
@@ -161,9 +155,9 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             info: .emptyText,
             position: .bottom
         )
-        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected([newBlockId]))
+        _ = try await pasteboardMiddlewareService.pasteText(text, objectId: addToObject.id, context: .selected(blockIds: [newBlockId]))
         if logAnalytics {
-            AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: BlockInformation.emptyText.content.type, spaceId: addToObject.spaceId, route: .sharingExtension)
         }
     }
     
@@ -177,7 +171,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             position: .bottom
         )
         if logAnalytics {
-            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: addToObject.spaceId, route: .sharingExtension)
         }
     }
     
@@ -196,7 +190,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             position: .bottom
         )
         if logAnalytics {
-            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: addToObject.spaceId, route: .sharingExtension)
         }
     }
     
@@ -215,7 +209,7 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
                 info: blockInformation,
                 position: .bottom
             )
-            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: linkToObject.spaceId, route: .sharingExtension)
         }
     }
 }

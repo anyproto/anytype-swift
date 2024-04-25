@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Texto";
 
 // MARK: - Settings
-"Settings.Title" = "Espacio personal";
 "Settings.SpaceName" = "Nombre del espacio";
 
 // MARK: - Object
@@ -77,29 +76,27 @@
 "Relation.AddedToLibrary" = "La relación ‘%@’ ha sido añadida a tu librería";
 "Relation.Deleted" = "Relación eliminada";
 "Relation.From.Type" = "Del tipo %@";
-"Relation.LinksFrom.Title" = "desde";
-"Relation.LinksTo.Title" = "a";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "Sin opciones";
+"Relation.EmptyState.description" = "No se ha encontrado nada. Crea la primera opción para comenzar.";
+"Relation.EmptyState.Blocked.title" = "La relación está vacía";
+"Relation.Create.Row.title" = "Crear “%@”";
+"Relation.View.Create.title" = "Crear opción";
+"Relation.View.Edit.title" = "Editar opción";
+"Relation.Create.Textfield.placeholder" = "Introducir nombre...";
 "Relation.Edit.Button.title" = "Aplicar";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
+"Relation.Date.Locked.Alert.title" = "La relación “%@” está bloqueada";
 "Relation.ObjectTypes.Header.title" = "Tipos de objeto";
 "Relation.ObjectType.Header.title" = "Tipo de Objeto:";
 
 "Relation.Delete.Alert.Title" = "¿Estás seguro?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
+"Relation.Delete.Alert.Description" = "La opción se eliminará permanentemente de tu espacio.";
 "Relation.Object.Delete.Alert.Description" = "El objeto será movido a la papelera.";
 
 "Relation.Format.Object.Title" = "Objeto";
 "Relation.Format.Text.Title" = "Texto";
 "Relation.Format.Number.Title" = "Número";
 "Relation.Format.Status.Title" = "Seleccionar";
-"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Tag.Title" = "Selección múltiple";
 "Relation.Format.Date.Title" = "Fecha";
 "Relation.Format.FileMedia.Title" = "Archivos y Multimedia";
 "Relation.Format.Checkbox.Title" = "Casilla de verificación";
@@ -110,13 +107,22 @@
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Portapapeles";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.DragAndDrop" = "Arrastrar y soltar";
 "Relation.Origin.Import" = "Objeto importado";
 "Relation.Origin.WebClipper" = "Web Clipper";
 "Relation.Origin.SharingExtension" = "Extensión para compartir móvil";
 "Relation.Origin.UseCase" = "Caso de uso";
 "Relation.Origin.Builtin" = "Librería instalada";
 "Relation.Origin.Bookmark" = "Marcador";
+
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Objeto";
@@ -136,8 +142,9 @@
 "Relations" = "Relaciones";
 "Objects" = "Objetos";
 "Lists" = "Grupos";
-"Pinned" = "Pinned";
+"Pinned" = "Anclado/a";
 "Delete" = "Borrar";
+"Export" = "Exportar";
 "Duplicate" = "Duplicar";
 "Copy" = "Copiar";
 "Preview" = "Vista previa";
@@ -146,8 +153,8 @@
 "Move" = "Mover";
 "Move to" = "Mover a";
 "Back" = "Atrás";
-"Unpin" = "Unpin";
-"Pin on top" = "Pin on top";
+"Unpin" = "Desanclar";
+"Pin on top" = "Anclar arriba";
 "File block subtitle" = "Almacenar el archivo en su estado original";
 "Picture block subtitle" = "Carga una imagen y enriquece la página.";
 "Video block subtitle" = "Cargar vídeo reproducible";
@@ -173,7 +180,7 @@
 "Green background" = "Fondo verde";
 "Create new object" = "Crear un nuevo objeto";
 "Cancel" = "Cancelar";
-"Paste or type URL" = "Pegar o escribir URL";
+"Paste or type URL" = "Pega o escribe una URL";
 "No items match filter" = "Ningún elemento coincide con el filtro";
 "Unsupported block" = "Bloque no soportado";
 "Name" = "Nombre";
@@ -181,6 +188,9 @@
 "Paste processing..." = "Procesando \"pegar\"…";
 "Anytype Library" = "Biblioteca de Anytype";
 "Copied" = "Copiado";
+"Share" = "Compartir";
+"Okay" = "Ok";
+"Join" = "Unirse";
 
 // Home
 "Favorites" = "Favoritos";
@@ -195,77 +205,71 @@
 "Restore" = "Restaurar";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Frase de recuperación";
-"Keychain.Recovery phrase copied to clipboard" = "Frase de recuperación copiada";
-"Keychain.Recovery phrase description" = "La necesitarás para iniciar sesión. Manténgala en un lugar seguro. Si la pierdes, ya no podrás acceder a tu cuenta.";
-"Keychain.Save keychain alert part 1" = "Si pierde la frase de recuperación y se cierra la sesión no podrá ";
-"Keychain.Save keychain alert part 2" = "volver a acceder a tus datos";
-"Keychain.Save keychain alert part 3" = "\nGuarde esta frase de recuperación fuera de Anytype. \n Recomendamos usar un alojamiento seguro, gestor de contraseñas o un papel en lugar seguro. ";
-"Keychain.Don’t forget to save your recovery phrase" = "No olvide guardar su frase de recuperación";
-"Keychain.Show and copy phrase" = "Mostrar y copiar frase";
-"Keychain.Have you backed up your recovery phrase?" = "¿Ha realizado una copia de seguridad de su frase de recuperación?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "Error de conversión de Cadena a Datos";
 "Keychain.Error.Data to String conversion error" = "Error de conversión de datos a cadena";
 "Keychain.Error.Unknown Keychain Error" = "Error desconocido de Llavero";
 "Keychain.SeedPhrasePlaceholder" = "bruja colapso práctica alimentar vergüenza abrir desesperación arroyo carretera de nuevo hielo lago árbol dirección desesperación";
 
 // Auth
-"Sign up" = "Registrarse";
-"Login" = "Iniciar sesión";
 "Create" = "Crear";
 "Scan QR code" = "Escanear código QR";
 "Auth.CameraPermissionTitle" = "Por favor, permita el acceso ";
-"Restore secret phrase from keychain" = "Restaurar Frase de Recuperación desde el llavero";
-"Auth.LogIn" = "Iniciar sesión";
-"Auth.Join" = "Join";
-"Auth.Welcome.Subtitle" = "Cualquier tipo es tu espacio seguro para escribir, planear, pensar y organizar todo lo que te importe.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Al continuar aceptas las [Condiciones de uso](%@) y la [Política de privacidad](%@)";
 "Auth.Next" = "Siguiente";
 
-"Account recover error" = "Error al recuperar la cuenta, inténtelo de nuevo";
-"Account recover error no internet" = "Error de recuperación de la cuenta, probablemente no haya conexión a Internet";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Error al crear cartera";
-"Error select account" = "Error al seleccionar cuenta";
-"Error wallet recover account" = "Error al recuperar cuenta de cartera";
-"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Buscar idioma";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Guarda tu Frase de Recuperación";
-"Auth.JoinFlow.Key.Description" = "Es una novedosa forma de autenticación que te da control total sobre tu cuenta y datos.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Escribe tu Frase de Recuperación";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Mostrar Frase de Recuperación";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Ir a la aplicación";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Siguiente";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Saltar";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copiar al portapapeles";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Leer más";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Puedes encontrar la frase de recuperación más tarde en los ajustes de Anytype";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "¿Qué es la frase de recuperación?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "La frase de recuperación es una combinación aleatoria de 12 palabras a partir de las cuales tu cuenta se genera mágicamente en este dispositivo.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Cualquiera que conozca la frase de recuperación, es dueño de la cuenta. **En este momento, eres la única persona en el mundo que la conoce.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Por eso es esencial mantener segura la frase de recuperación. Como único propietario, nadie puede ayudarte si se pierde.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "¿Cómo guardar mi frase?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La forma más fácil de almacenar su frase de recuperación es guardarla en su gestor de contraseñas.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "La forma más segura de almacenarla es escribirla en papel y mantenerla fuera de línea, en un lugar seguro.";
 
-"Auth.JoinFlow.Soul.Title" = "Elige el nombre de la sala";
-"Auth.JoinFlow.Soul.Description" = "Así es como aparecerá en la aplicación.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sin título";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generando nueva cuenta";
-"Auth.JoinFlow.Setting.Space.Title" = "Configurando su espacio personal";
-"Auth.JoinFlow.Personal.Space.Title" = "Espacio personal";
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usar llavero";
 "Auth.LoginFlow.Or" = "O";
-"Auth.LoginFlow.Textfield.Placeholder" = "Escribe tu Frase de Recuperación";
-"Auth.LoginFlow.Enter.Button.Title" = "Iniciar sesión";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Entrando al Vacío ";
 
 // Object settings
@@ -301,11 +305,13 @@
 
 "Undo typing" = "Deshacer Escritura";
 "Undo" = "Deshacer";
+"Redo" = "Rehacer";
 "Actions.LinkItself" = "Vincular a";
 "Actions.MakeAsTemplate" = "Crear plantilla";
 "Actions.TemplateMakeDefault" = "Establecer como predeterminado";
 "Actions.CreateWidget.Title" = "A widgets";
 "Actions.CreateWidget.Success" = "Nuevo widget creado";
+"Actions.CopyLink" = "Copiar enlace";
 
 // Object Type
 "Set" = "Ajustar";
@@ -325,6 +331,9 @@
 "There is no object named" = "No hay ningún objeto llamado %@";
 "There is no type named" = "No hay ningún tipo llamado %@";
 "Create a new one or search for something else" = "Crea uno nuevo o busca otra cosa";
+"Search.Backlinks.Show.title" = "Mostrar enlaces";
+"Search.Backlinks.Header.title" = "Enlaces de: %@";
+"Search.Backlinks.Swipe.title" = "Enlaces";
 
 // MARK: - Home
 
@@ -335,7 +344,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Cualquier tipo de cámara necesita acceso a su cámara para escanear códigos QR.\n\nPor favor, vaya a los ajustes de su dispositivo -> Privacidad -> Cámara y active Anytype";
 
 // MARK: - Deletion
-"Pending deletion text" = "Lamentamos que te vayas. Tienes 30 días para cancelar esta solicitud. Después de 30 días, los datos cifrados de su cuenta se eliminarán permanentemente del nodo de copia de seguridad.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Deshacer/Rehacer";
@@ -356,13 +365,14 @@
 
 "TemplateEditing.Title" = "Editar plantilla";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Se ha añadido una nueva plantilla al tipo";
 "Templates.Popup.Duplicated" = "La plantilla ha sido duplicada";
 "Templates.Popup.Removed" = "La plantilla ha sido eliminada";
 "Templates.Popup.Default" = "La plantilla ha sido establecida por defecto";
 
 "To Bin" = "A la Papelera";
-"Set as default" = "Set as default";
+"Set as default" = "Definir como predeterminado";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Eliminar de Favoritos";
@@ -503,7 +513,6 @@
 "Unknown error" = "Error desconocido";
 "Open Type Error" = "No se admite el tipo \"%@\". Puede abrirlo desde el escritorio.";
 "Close" = "Cerrar";
-"Account is deleted" = "Se ha eliminado la cuenta";
 "Add phone" = "Añadir teléfono";
 "Nothing to redo" = "No hay nada que rehacer";
 "Nothing to undo" = "Nada que deshacer";
@@ -518,8 +527,8 @@
 "Enter value" = "Introducir valor";
 "Select object" = "Seleccionar objeto";
 "Select file" = "Seleccionar archivo";
-"Select options" = "Select options";
-"Select option" = "Select option";
+"Select options" = "Seleccionar opciones";
+"Select option" = "Seleccionar opción";
 "Select date" = "Seleccionar fecha";
 "Add email" = "Añadir correo electrónico";
 "Add link" = "Añadir enlace";
@@ -528,9 +537,10 @@
 "Unsupported value" = "Valor no soportado";
 "Select relation type" = "Seleccionar tipo de relación";
 "CommonOpenErrorView.Message" = "No se han encontrado datos";
+"AreYouSure" = "¿Estás seguro?";
 "Nothing found" = "Nada encontrado";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"No type found text" = "No se ha encontrado ningún tipo “%@”. Cambie su solicitud o cree un nuevo tipo.";
+"Create type" = "Crear tipo";
 
 
 "Limit object types" = "Limitar tipos de objeto";
@@ -554,18 +564,19 @@
 "Application icon" = "Icono de aplicación";
 "Mode" = "Modo";
 "copied to clipboard" = "%@ copiado al portapapeles";
-"Access to secret phrase from keychain" = "Acceso a la frase secreta desde el llavero";
-"Back up your recovery phrase" = "Respaldar tu frase de recuperación";
-"Account" = "Cuenta";
+"Create object from clipboard" = "Crear objeto desde el portapapeles";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Acceso";
-"Back up phrase" = "Frase de respaldo";
+"Back up key" = "Back up key";
 "Removing cache" = "Eliminando caché";
 "Deletion error" = "Error de eliminación";
 "Start" = "Inicio";
 "On analytics" = "En análisis";
-"Select account error" = "Error en selección de cuenta";
-"Account deleted" = "Cuenta eliminada";
-"Account.Select.Incompatible.Version.Error.Text" = "No se ha podido recuperar los datos de la cuenta debido a versiones incompatibles entre los nodos remotos. Por favos, actualice Anytype a la última versión.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restaurar desde el llavero";
 "Edit" = "Editar";
 "In this object" = "En este objeto";
@@ -601,8 +612,8 @@
 "Into object" = "Objeto de nota";
 "Add below" = "Agregar debajo";
 "Change type" = "Cambiar tipo";
-"Show types" = "Show types";
-"Hide types" = "Hide types";
+"Show types" = "Mostrar tipos";
+"Hide types" = "Ocultar tipos";
 "SlashMenu.LinkTo.Description" = "Crear enlace a otro objeto";
 "Upload playable audio" = "Subir audio reproducible";
 "Code snippet" = "Fragmento de código";
@@ -632,12 +643,12 @@
 "Today" = "Hoy";
 "No date" = "Sin fecha";
 "Clear" = "Limpiar";
-"Create option with" = "Create option ‘%@’";
-"Add URL" = "Añadir URL";
-"Add email" = "Añadir correo electrónico";
-"Add phone number" = "Añadir número de teléfono";
-"Add number" = "Añadir número";
-"Add text" = "Añadir texto";
+"Create option with" = "Crear opción ‘%@’";
+"Enter URL" = "Introduce la URL";
+"Enter email" = "Introduce el email";
+"Enter phone number" = "Introduce el número de teléfono";
+"Enter number" = "Introducir número";
+"Enter text" = "Introducir texto";
 "Ok" = "Aceptar";
 "Error occurred. Please try again" = "Se ha producido un error, inténtelo de nuevo";
 "Add" = "Añadir";
@@ -647,14 +658,14 @@
 "This object doesn't exist" = "Este objeto no existe";
 "Setting up encrypted storage\nPlease wait" = "Configurando almacenamiento cifrado\nPor favor espere";
 "These objects will be deleted irrevocably" = "Estos objetos se eliminarán de forma irrevocable. No se puede deshacer esta acción.";
-"Delete account" = "Eliminar cuenta";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Cancelar la eliminación";
 "Logout and clear data" = "Cerrar sesión y eliminar datos";
 "New" = "Nuevo";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "¿Está seguro que desea eliminar esta cuenta?";
-"DeletionAlert.description" = "Se cerrará la sesión en todos los otros dispositivos. Tendrá 30 días para recuperarla. Después se eliminará permanentemente";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Cuadrícula";
@@ -662,7 +673,7 @@
 "DataviewType.gallery" = "Galeria";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendario";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "Gráfica";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Lienzo en blanco sin título";
@@ -753,10 +764,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Colección sin título";
 "Content.DataView.InlineSet.Toast.Failure" = "Este conjunto en línea no tiene un origen";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Nuevo objeto";
-"WidgetExtension.LockScreen.Description" = "Crear un nuevo objeto al vuelo";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "enlazado a";
 "Editor.Toast.MovedTo" = "Bloque movido a";
@@ -791,7 +798,7 @@
 "About.AppVersion" = "Versión de la aplicación: %@";
 "About.BuildNumber" = "Número de compilación: %@";
 "About.Library" = "Versión de la librería: %@";
-"About.accountId" = "ID de la cuenta: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "ID de analíticas: %@";
 "About.deviceId" = "ID del dispositivo: %@";
 "About.Device" = "Dispositivo: %@";
@@ -805,7 +812,7 @@
 "About.TermsOfUse" = "Términos de Uso";
 "About.PrivacyPolicy" = "Política de Privacidad";
 "About.TechInfo" = "Información técnica";
-"About.Mail.Subject" = "Solicitud de asistencia, ID de cuenta %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nInformación técnica\n%@";
 
 // MARK: - Cache
@@ -813,10 +820,10 @@
 "ClearCache.Error" = "Error, inténtelo de después";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Espacio personal";
 "Settings.Title" = "Ajustes";
 "Settings.SpaceName" = "Nombre del espacio";
-"Settings.AccountAndAccess" = "Cuenta y acceso";
+"Settings.SpaceType" = "Tipo de espacio";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Almacenamiento de archivos";
@@ -824,8 +831,8 @@
 "FileStorage.Space.Instruction" = "Puede almacenar hasta %@ de sus archivos en nuestro nodo de copia de seguridad cifrado de forma gratuita. Si alcanza el límite, los archivos se almacenarán sólo localmente.";
 "FileStorage.Space.Used" = "%@ de %@ usado";
 "FileStorage.Space.GetMore" = "Conseguir más espacio";
-"FileStorage.Space.Mail.Subject" = "Obtener más almacenamiento, cuenta %@";
-"FileStorage.Space.Mail.Body" = "Hola, equipo de Anytype. Me comunico para solicitar un aumento de la capacidad de almacenamiento de mis archivos porque me he quedado sin almacenamiento. Mi límite actual es %@. Mi ID de cuenta es %@. Saludos, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Almacenamiento local";
 "FileStorage.Local.Instruction" = "Para ahorrar espacio en tu dispositivo local, puedes subir todos tus archivos a nuestro nodo de copia de seguridad cifrada. Los archivos se cargarán de nuevo cuando los abras.";
 "FileStorage.Local.Used" = "%@ usado";
@@ -848,10 +855,25 @@
 "ClearCacheAlert.Description" = "Todos los archivos multimedia almacenados en Anytype se eliminarán de tu dispositivo actual. Se pueden volver a descargar desde un nodo de copia de seguridad o desde otro dispositivo.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Espacio público";
+"Spaces.Accessibility.Shared" = "Espacio compartido";
 "Spaces.Accessibility.Private" = "Espacio privado";
-"Spaces.Accessibility.Personal" = "Espacio personal";
+"Spaces.Accessibility.Personal" = "Espacio predeterminado";
 "Spaces.Search.Title" = "Buscar espacios";
+"Spaces.Title" = "Espacios";
+"Spaces.Info.Network" = "Red:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Desconocido";
+"Space.Status.Loading" = "Cargando";
+"Space.Status.Ok" = "Aceptar";
+"Space.Status.Missing" = "Faltante";
+"Space.Status.Error" = "Error";
+"Space.Status.RemoteWaitingDeletion" = "Esperando eliminación";
+"Space.Status.RemoteDeleted" = "Remoto eliminado";
+"Space.Status.SpaceDeleted" = "Eliminado";
+"Space.Status.SpaceActive" = "Activo";
+"Space.Status.SpaceJoining" = "Uniéndose";
+"Space.Status.SpaceRemoving" = "Eliminando";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Configuración del espacio";
@@ -861,16 +883,83 @@
 "SpaceSettings.DeleteAlert.Title" = "Eliminar '%@' espacio";
 "SpaceSettings.DeleteAlert.Message" = "Estos objetos se eliminarán de forma irrevocable. No se puede deshacer esta acción.";
 "SpaceSettings.DeleteButton" = "Eliminar '' espacio";
-"SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Compartir";
+"SpaceSettings.LeaveButton" = "Salir";
+"SpaceSettings.LeaveAlert.Title" = "Abandonar espacio";
+"SpaceSettings.LeaveAlert.Message" = "El espacio %@ será eliminado de tus dispositivos y no volverás a tener acceso a él";
+"SpaceSettings.LeaveAlert.Toast" = "Abandonaste %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Title" = "Compartir";
+"SpaceShare.Members" = "Miembros";
+"SpaceShare.Permissions.Owner" = "Propietario";
+"SpaceShare.Permissions.Reader" = "Espectador";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Grand.Edit" = "Editar";
+"SpaceShare.Permissions.Grand.View" = "Ver";
+"SpaceShare.Invite.Title" = "Enlace de invitación";
+"SpaceShare.Invite.Description" = "Comparte este enlace de invitación para que otros puedan unirse a tu Espacio. Una vez que hagan clic en tu enlace y soliciten acceso, puedes establecer sus derechos de acceso.";
+"SpaceShare.Invite.Share" = "Compartir enlace de invitación";
+"SpaceShare.Invite.Generate" = "Generar enlace de invitación";
+"SpaceShare.Invite.Empty" = "Crear enlace de invitación para compartir espacio y añadir nuevos miembros";
+"SpaceShare.JoinRequest" = "Solicitud de admisión";
+"SpaceShare.LeaveRequest" = "Retirar solicitud";
+"SpaceShare.Action.ViewRequest" = "Ver solicitud";
+"SpaceShare.Action.Approve" = "Aprobar";
+"SpaceShare.DeleteSharingLink.Title" = "Eliminar enlace";
+"SpaceShare.DeleteSharingLink.Message" = "Los nuevos miembros no podrán unirse al espacio. Puedes generar un nuevo enlace Anytype";
+"SpaceShare.Approve.Toast" = "Has aprobado la solicitud de %@.";
+"SpaceShare.ViewRequest.Title" = "%@ ha solicitado unirse al espacio %@";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.Reject" = "Rechazar";
+"SpaceShare.RemoveMember.Title" = "Eliminar miembro";
+"SpaceShare.RemoveMember.Message" = "%@ será eliminado del espacio.";
+"SpaceShare.ChangePermissions" = "El acceso al espacio de %@ se convertirá en %@.";
+"SpaceShare.Join.Title" = "Unirse a un espacio";
+"SpaceShare.Join.CommentPlaceholder" = "Deja un comentario privado al propietario del espacio";
+"SpaceShare.Join.Button" = "Solicitar acceso";
+"SpaceShare.Join.Info" = "Una vez que el propietario del espacio apruebe su solicitud, te unirás al espacio con los derechos de acceso que el propietario haya determinado.";
+"SpaceShare.Join.Message" = "Has sido invitado a unirte al espacio **%@**, creado por **%@**. Envía una solicitud para que el propietario del espacio pueda dejarte entrar.";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.JoinConfirmation.Title" = "Solicitud enviada";
+"SpaceShare.JoinConfirmation.Message" = "Recibirás una notificación cuando el propietario del espacio apruebe tu solicitud.";
+"SpaceShare.YouSuffix" = "%@ (tú)";
+"SpaceShare.ManageSpaces" = "Administrar Espacios";
+"SpaceShare.AccessChanged" = "Se han cambiado los derechos de acceso.";
+"SpaceShare.StopSharing.Action" = "Dejar de compartir";
+"SpaceShare.StopSharing.Title" = "Dejar de compartir el espacio";
+"SpaceShare.StopSharing.Message" = "Los miembros ya no se sincronizarán con este espacio y el enlace compartido se desactivará.";
+"SpaceShare.StopSharing.Toast" = "El espacio ya no está compartido";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Button" = "Mostrar el código QR";
+"SpaceShare.HowToShare.Title" = "¿Cómo compartir un espacio?";
+"SpaceShare.HowToShare.Step1" = "Por favor, proporciona el enlace a la persona con la que te gustaría colaborar.";
+"SpaceShare.HowToShare.Step2" = "Al hacer clic en el enlace, una persona solicita unirse al espacio.";
+"SpaceShare.HowToShare.Step3" = "Después de aprobar la solicitud, puedes elegir los derechos de acceso para esa persona.";
+"SpaceShare.Manage" = "Organizar";
+"SpaceShare.AlreadyJoin.Title" = "Ya eres miembro de este espacio";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Abrir espacio";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Tus derechos de acceso fueron cambiados a **%@** en el espacio **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "Tu solicitud para unirte a un espacio \"%@\" ha sido aprobada con derechos de acceso %@ . El espacio estará disponible en tu cuenta pronto.";
+"ParticipantRequestDeclineNotification.Text" = "Tu solicitud para unirte al espacio \"%@\" ha sido rechazada.";
+"RequestToLeaveNotification.Text" = "**%@** quiere dejar el espacio **%@**.";
+"ParticipantRemoveNotification.Text" = "Fuiste eliminado del espacio o el espacio ha sido eliminado por el propietario.";
+"RequestToJoinNotification.Text" = "**%@** ha solicitado unirse al espacio **%@**.";
+"RequestToJoinNotification.GoToSpace" = "Ir al Espacio";
+"RequestToJoinNotification.ViewRequest" = "Ver solicitud";
+
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancelar Solicitud de Admisión";
+"SpaceManager.DoNotCancel" = "No Cancelar";
+"SpaceManager.CancelRequestAlert.Title" = "Tienes que volver a pedir acceso";
+"SpaceManager.CancelRequestAlert.Toast" = "La solicitud fue cancelada.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Crear un espacio";
@@ -886,8 +975,8 @@
 "Sharing.LinkTo" = "Vincular a";
 
 "Sharing.Text.NoteObject" = "Objeto de nota";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Bloques:";
+"Sharing.Any.Block" = "Bloques:";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Compartir extensión";
@@ -897,27 +986,32 @@
 "Sharing.Tip.Steps.2" = "Desplazarse más allá de la aplicación y toque más";
 "Sharing.Tip.Steps.3" = "Pulse Editar para encontrar \"Anytype\" y toque";
 
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Desliza para crear objetos";
+"Swipe.Tip.Subtitle" = "Crea objetos dentro de los widgets simplemente deslizándolos a la izquierda.";
+
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Advertencia";
-"Initial.UnstableMiddle.Message" = "Inicias la aplicación con un middleware inestable. No utilices tu cuenta de producción. Tu cuenta puede estar dañada.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Advertencia";
-"Initial.UnstableMiddle.Logout" = "Salir de la cuenta";
-"Initial.UnstableMiddle.Continue" = "Continuar con la cuenta actual";
-"Initial.UnstableMiddle.WontUseProd" = "No voy a utilizar mi cuenta de producción";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Create Objects with specific Type";
+"LongTapCreateTip.Title" = "Crear objetos con un tipo específico";
 "LongTapCreateTip.Message" = "Pulsación larga en el botón Crear objeto para abrir el menú con tipos";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Actualiza tu aplicación";
 "Error.AnytypeNeedsUpgrate.Message" = "Este objeto fue modificado en una versión más reciente de Anytype. Actualice la aplicación para abrirlo en este dispositivo";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Actualizar";
-"Error.UnableToConnect" = "Please connect to the internet";
-"Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
-"Error.Common.TryAgain" = "Try again";
+"Error.UnableToConnect" = "Por favor conéctate a Internet";
+"Error.Common.Title" = "¡Ups!";
+"Error.Common.Message" = "Por favor, comprueba tu conexión a Internet e inténtalo de nuevo o [publica un informe en el foro](http://community.anytype.io/report-bug).";
+"Error.Common.TryAgain" = "Inténtalo de nuevo";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Últimos 7 días";
@@ -934,13 +1028,101 @@
 // MARK: - Gallery
 "Gallery.Unavailable.Title" = "La galería será compatible pronto";
 "Gallery.Unavailable.Message" = "Por favor, use la aplicación de escritorio por ahora";
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
-"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+"Gallery.Author" = "Creado por: %@";
+"Gallery.Install" = "Instalar";
+"Gallery.InstallToNew" = "Instalar en un nuevo espacio";
+"Gallery.Notification.Success" = "La experiencia se ha instalado con éxito en el espacio \"%@\". Ahora puedes abrirla y empezar a usarla.";
+"Gallery.Notification.Button" = "Ir al espacio";
+"Gallery.Notification.Error" = "¡Ups! \"%@\" no se instaló. Por favor, comprueba tu conexión a internet e inténtalo de nuevo o publica un informe en el foro.";
+
+// MARK: - Membership
+"Membership" = "Membresía";
+"Just e-mail" = "Sólo email";
+"E-mail" = "Email";
+"Learn more" = "Saber más ";
+"per" = "por";
+"unlimited" = "Ilimitado";
+
+
+"What’s included" = "¿Qué se incluye?";
+"Submit" = "Enviar";
+"Resend" = "Reenviar";
+"Resend in" = "Reenviar en %@ seg";
+"Current" = "Actual";
+"Forever free" = "Gratis para siempre";
+"Forever" = "Por siempre";
+"Valid until date" = "Válido hasta %@";
+"Your current status" = "Tu estado actual";
+"Valid until" = "Válido hasta:";
+"Paid by" = "Pagado por %@";
+"Myself" = "Yo mismo";
+"Pay by Card" = "Paga con tarjeta";
+"Min X characters" = "Mín. %@ caracteres";
+"Pending" = "Procesando...";
+"Manage payment" = "Gestionar pagos";
+
+
+"Membership.Ad.Title" = "Membresía";
+"Membership.Ad.Subtitle" = "Unirse a la red Anytype significa contribuir a su historia";
+
+"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Privacy" = "Política de privacidad";
+"Membership.Legal.Terms" = "Términos y condiciones";
+"Membership.Legal.WouldYouLike" = "¿Quiere usar Anytype en la empresa, en educación u otros?";
+"Membership.Legal.LetUsKnow" = "Por favor, háganoslo saber aquí.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
+
+"Membership.Email.Subject" = "Solicitar negociación de precios extraordinaria.";
+"Membership.Email.Body" = "Por favor, especifique su negociación:
+- Marque si representas a un una organización educativa, institucional o sin ánimo de lucro.
+- Cuéntanos sobre tu organización: número de empleados y futuros usuarios de Anytype, mercados en los que trabajas y otros posibles datos.
+- Indíquenos como tu organización va a usar Anytype.";
+
+
+"Membership.Banner.Title1" = "Construyamos la Visión Juntos";
+"Membership.Banner.Subtitle1" = "Como miembro valorado, ¡Tu voz importa! Inscríbete en eventos exclusivos, forma opciones estratégicas e influye en nuestro itinerario.";
+"Membership.Banner.Title2" = "Desbloquear beneficios de los miembros";
+"Membership.Banner.Subtitle2" = "Los miembros disfrutan de un mayor almacenamiento de respaldo y límites de sincronización, invitaciones para que varios invitados colaboren en espacios compartidos y una identidad única en la Red Anytype.";
+"Membership.Banner.Title3" = "Apoya la independencia digital";
+"Membership.Banner.Subtitle3" = "Tu contribución ayudará a nuestro pequeño equipo independiente y afianzará nuestra visión de un entorno digital centrado en la propiedad del usuario, la seguridad y las redes de colaboración.";
+"Membership.Banner.Title4" = "Invierte en conectividad ";
+"Membership.Banner.Subtitle4" = "El valor de nuestra red excede la suma de sus partes. Su membresía sostiene la infraestructura para su crecimiento que sustenta esta red.";
+
+"Membership.EmailForm.Title" = "Obtén tu membresía gratis";
+"Membership.EmailForm.Subtitle" = "Necesitamos tu email para mantener el spam en el cajón y el email en tu buzón!";
+"Membership.EmailForm.Newsletter" = "Me gustaría recibir actualizaciones de productos y disfrutar de cosas chulas ¡gratis!";
+"Membership.EmailValidation" = "Escribe el código que se te ha enviado al email.";
+
+"Membership.NameForm.Title" = "Elige tu nombre único";
+"Membership.NameForm.Subtitle" = "Este es tu nombre único en la red Anytype, confirmando tu membresía. Funciona como tu dominio personal y no se puede cambiar.";
+"Membership.NameForm.Validating" = "Espera un segundo...";
+"Membership.NameForm.Validated" = "El nombre está listo para ser grabado";
+
+"Membership.Success.Title" = "Te damos la bienvenida a la red, %@";
+"Membership.Success.Curiosity" = "¡Enhorabuena por tu curiosidad!";
+"Membership.Success.Support" = "¡Gracias por tu apoyo!";
+
+"Membership.Payment.Card" = "Tarjeta";
+"Membership.Payment.Crypto" = "Cripto";
+"Membership.Payment.Apple subscription" = "Suscripción de Apple";
+"Membership.Payment.Google subscription" = "Suscripción de Google";
+
+
+"Membership.Explorer.Subtitle" = "Sincroniza tus dispositivos, consigue almacenamiento de respaldo y participa en colaboración.";
+"Membership.Builder.Subtitle" = "Desbloquea la colaboración multipartidaria y extiende el almacenamiento de tu red.";
+"Membership.CoCreator.Subtitle" = "Apoya nuestra aventura y desbloquea accesos y perks exclusivos.";
+"Membership.Custom.Subtitle" = "Condiciones personalizadas de membresía. Si tienes alguna pregunta, por favor, contacta con soporte.";
+
+"Membership.Feature.LocalName" = "Nombre local, no único";
+"Membership.Feature.UniqueName" = "Nombre de red único (%@+ caracteres)";
+"Membership.Feature.StorageGB" = "%@ GB de espacio de respaldo y sincronización en la red Anytype";
+"Membership.Feature.Invites" = "%@ Invitaciones";
+"Membership.Feature.SpaceWriters" = "%@ Editores por espacio compartido";
+"Membership.Feature.UnlimitedViewers" = "Lectored ilimitados para espacios compartidos";
+"Membership.Feature.Viewers" = "%@ Lectores por espacio compartido";
+"Membership.Feature.SharedSpaces" = "Hasta %@ espacios compartidos";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.MimeTypes" = "TIpos de Dato - %@";
+"Debug.Info" = "Información de depuración";

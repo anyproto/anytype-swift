@@ -60,10 +60,24 @@
 %d tautan - tautan</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Backlinks count</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Akun ini akan dihapus %#@days@</string>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>[%d] taut balik</string>
+      </dict>
+    </dict>
+    <key>Days to deletion vault</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -71,7 +85,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d hari lagi</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -99,7 +113,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d Objek Berkas</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -113,7 +127,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d Blok Berkas</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -127,7 +141,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Objek Markah</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -141,7 +155,105 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Tautkan %d Blok</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Kamu telah mencapai batas %d anggota. Anggota baru tidak akan dapat bergabung.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d anggota</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.RequestsCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d permintaan</string>
+      </dict>
+    </dict>
+    <key>Per Month</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@month@</string>
+      <key>month</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d bulan</string>
+      </dict>
+    </dict>
+    <key>Per Week</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@week@</string>
+      <key>week</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d pekan</string>
+      </dict>
+    </dict>
+    <key>Per Year</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@year@</string>
+      <key>year</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d tahun</string>
+      </dict>
+    </dict>
+    <key>Per Day</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@day@</string>
+      <key>day</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d hari</string>
       </dict>
     </dict>
   </dict>

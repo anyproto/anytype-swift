@@ -8,9 +8,11 @@ struct ShareDebugRowView: View {
     
     var body: some View {
         HStack {
-            AnytypeText("\(index)", style: .uxCalloutRegular, color: .Text.primary)
+            AnytypeText("\(index)", style: .uxCalloutRegular)
+                .foregroundColor(.Text.primary)
             VStack {
-                AnytypeText(Loc.Debug.mimeTypes(mimeTypes.joined(separator: ", ")), style: .uxCalloutRegular, color: .Text.primary)
+                AnytypeText(Loc.Debug.mimeTypes(mimeTypes.joined(separator: ", ")), style: .uxCalloutRegular)
+                    .foregroundColor(.Text.primary)
             }
         }
     }

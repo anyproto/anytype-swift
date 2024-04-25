@@ -4,13 +4,11 @@ import SwiftUI
 @MainActor
 final class SpaceShareCoordinatorViewModel: ObservableObject {
     
-    private let spaceShareModule: SpaceShareModuleAssemblyProtocol
+    @Published var showMoreInfo = false
     
-    init(spaceShareModule: SpaceShareModuleAssemblyProtocol) {
-        self.spaceShareModule = spaceShareModule
-    }
+    init() {}
     
-    func shareModule() -> AnyView {
-        return spaceShareModule.make()
+    func onMoreInfoSelected() {
+        showMoreInfo = true
     }
 }

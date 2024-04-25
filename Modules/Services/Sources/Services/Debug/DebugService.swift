@@ -4,11 +4,10 @@ import ProtobufMessages
 public protocol DebugServiceProtocol: AnyObject {
     func exportLocalStore() async throws -> String
     func exportStackGoroutines() async throws -> String
+    func exportSpaceDebug(spaceId: String) async throws -> String
 }
 
-public final class DebugService: DebugServiceProtocol {
-    
-    public init() {}
+final class DebugService: DebugServiceProtocol {
     
     // MARK: - DebugServiceProtocol
     
@@ -30,6 +29,13 @@ public final class DebugService: DebugServiceProtocol {
         }).invoke()
         
         return tempDirString
+    }
+    
+    public func exportSpaceDebug(spaceId: String) async throws -> String {
+        let result = try await ClientCommands.debugSpaceSummary(.with {
+            $0.spaceID = spaceId
+        }).invoke()
+        return try result.jsonString()
     }
 }
 

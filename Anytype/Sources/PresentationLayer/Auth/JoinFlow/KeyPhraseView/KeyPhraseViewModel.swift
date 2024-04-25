@@ -10,21 +10,20 @@ final class KeyPhraseViewModel: ObservableObject {
         }
     }
     @Published var showMoreInfo = false
+    @Published var snackBar = ToastBarData.empty
+    
     let state: JoinFlowState
     
     private weak var output: JoinFlowStepOutput?
-    private let alertOpener: AlertOpenerProtocol
     
     init(
         state: JoinFlowState,
-        output: JoinFlowStepOutput?,
-        alertOpener: AlertOpenerProtocol
+        output: JoinFlowStepOutput?
     ) {
         self.state = state
         self.key = state.mnemonic
         self.keyShown = state.keyShown
         self.output = output
-        self.alertOpener = alertOpener
     }
     
     func onAppear() {
@@ -49,7 +48,7 @@ final class KeyPhraseViewModel: ObservableObject {
         AnytypeAnalytics.instance().logClickOnboarding(step: .phrase, button: .showAndCopy)
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = state.mnemonic
-        alertOpener.showTopAlert(message: Loc.copied)
+        snackBar = .init(text: Loc.copied, showSnackBar: true)
     }
     
     func keyPhraseMoreInfo() -> AnyView? {

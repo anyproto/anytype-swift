@@ -6,8 +6,11 @@ struct SpaceRowModel: Identifiable {
     let title: String
     let icon: Icon?
     let isSelected: Bool
+    let shared: Bool
     let onTap: () -> Void
     let onDelete: (() -> Void)?
+    let onLeave: (() -> Void)?
+    let onStopShare: (() -> Void)?
 }
 
 struct SpaceRowView: View {
@@ -25,6 +28,13 @@ struct SpaceRowView: View {
             ZStack {
                 IconView(icon: model.icon)
                     .frame(width: Self.width, height: Self.width)
+                    .overlay(alignment: .bottomLeading) {
+                        if model.shared {
+                            IconView(icon: .asset(.NavigationBase.sharedSpace))
+                                .frame(width: 16, height: 16)
+                                .padding(EdgeInsets(top: 0, leading: 8, bottom: 8, trailing: 0))
+                        }
+                    }
                     .if(model.isSelected) {
                         $0.padding(Constants.lineWidth / 2)
                             .overlay(
@@ -32,19 +42,30 @@ struct SpaceRowView: View {
                                     .stroke(Color.Text.white, lineWidth: Constants.lineWidth)
                         )
                     }
-                .frame(width: Self.width + additionalSize, height: Self.width + additionalSize)
-                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 2))
-                .contextMenu {
-                    if let onDelete = model.onDelete {
-                        Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
-                            onDelete()
+                    .frame(width: Self.width + additionalSize, height: Self.width + additionalSize)
+                    .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 2))
+                    .contextMenu {
+                        if let onDelete = model.onDelete {
+                            Button(Loc.SpaceSettings.deleteButton, role: .destructive) {
+                                onDelete()
+                            }
+                        }
+                        if let onLeave = model.onLeave {
+                            Button(Loc.SpaceSettings.leaveButton, role: .destructive) {
+                                onLeave()
+                            }
+                        }
+                        if let onStopShare = model.onStopShare {
+                            Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
+                                onStopShare()
+                            }
                         }
                     }
-                }
             }
             .frame(width: Self.width, height: Self.width)
             Spacer()
-            AnytypeText(model.title, style: .caption1Medium, color: .Text.white)
+            AnytypeText(model.title, style: .caption1Medium)
+                .foregroundColor(.Text.white)
         }
         .frame(width: Self.width, height: 126)
         .onTapGesture {

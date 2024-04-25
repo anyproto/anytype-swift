@@ -66,10 +66,26 @@
         <string>%d Links</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Backlinks count</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Dieses Konto wird gelöscht %#@days@</string>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d backlink</string>
+        <key>other</key>
+        <string>%d backlinks</string>
+      </dict>
+    </dict>
+    <key>Days to deletion vault</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>Dieser Tresor wird gelöscht %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -79,7 +95,7 @@
         <key>one</key>
         <string>morgen</string>
         <key>other</key>
-        <string>in %d Tagen</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -160,6 +176,118 @@
         <string>Block verlinken</string>
         <key>other</key>
         <string>%d Blöcke verlinken</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Du hast das Limit von %d Mitgliedern erreicht. Neue Mitglieder können nicht mehr beitreten.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Du hast das Limit von %d Mitgliedern erreicht. Neue Mitglieder können nicht mehr beitreten.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d Mitglieder</string>
+        <key>one</key>
+        <string>%d Mitglied</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.RequestsCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d Anfragen</string>
+        <key>one</key>
+        <string>%d Anfrage</string>
+      </dict>
+    </dict>
+    <key>Per Month</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>pro %#@month@</string>
+      <key>month</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Monat</string>
+        <key>other</key>
+        <string>%d Monate</string>
+      </dict>
+    </dict>
+    <key>Per Week</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>pro %#@week@</string>
+      <key>week</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Woche</string>
+        <key>other</key>
+        <string>%d Wochen</string>
+      </dict>
+    </dict>
+    <key>Per Year</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>pro %#@year@</string>
+      <key>year</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Jahr</string>
+        <key>other</key>
+        <string>%d Jahre</string>
+      </dict>
+    </dict>
+    <key>Per Day</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>pro %#@day@</string>
+      <key>day</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Tag</string>
+        <key>other</key>
+        <string>%d Tage</string>
       </dict>
     </dict>
   </dict>

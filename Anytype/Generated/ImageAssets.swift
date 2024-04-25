@@ -15,10 +15,12 @@ internal extension ImageAsset {
     static let appIconSmile = ImageAsset.bundle(name: "AppIconsPreview/AppIconSmile")
   }
   static let authPhotoIcon = ImageAsset.bundle(name: "auth_photo_icon")
-  static let theEverythingApp = ImageAsset.bundle(name: "the-everything-app")
+  static let localInternet = ImageAsset.bundle(name: "local-internet")
   enum BottomAlert {
     static let error = ImageAsset.bundle(name: "BottomAlert/error")
+    static let mail = ImageAsset.bundle(name: "BottomAlert/mail")
     static let question = ImageAsset.bundle(name: "BottomAlert/question")
+    static let sadMail = ImageAsset.bundle(name: "BottomAlert/sadMail")
     static let update = ImageAsset.bundle(name: "BottomAlert/update")
   }
   static let arrowDown = ImageAsset.bundle(name: "arrowDown")
@@ -27,12 +29,6 @@ internal extension ImageAsset {
   static let ghost = ImageAsset.bundle(name: "ghost")
   static let logo = ImageAsset.bundle(name: "logo")
   static let noImage = ImageAsset.bundle(name: "no_image")
-  enum Dashboard {
-    static let add = ImageAsset.bundle(name: "Dashboard/Add")
-    static let empty = ImageAsset.bundle(name: "Dashboard/Empty")
-    static let search = ImageAsset.bundle(name: "Dashboard/Search")
-    static let settings = ImageAsset.bundle(name: "Dashboard/Settings")
-  }
   enum FileTypes {
     static let archive = ImageAsset.bundle(name: "FileTypes/Archive")
     static let audio = ImageAsset.bundle(name: "FileTypes/Audio")
@@ -40,7 +36,7 @@ internal extension ImageAsset {
     static let other = ImageAsset.bundle(name: "FileTypes/Other")
     static let pdf = ImageAsset.bundle(name: "FileTypes/PDF")
     static let presentation = ImageAsset.bundle(name: "FileTypes/Presentation")
-    static let spreadsheet = ImageAsset.bundle(name: "FileTypes/Spreadsheet")
+    static let table = ImageAsset.bundle(name: "FileTypes/Table")
     static let text = ImageAsset.bundle(name: "FileTypes/Text")
     static let video = ImageAsset.bundle(name: "FileTypes/Video")
   }
@@ -49,6 +45,13 @@ internal extension ImageAsset {
     static let note = ImageAsset.bundle(name: "Layout/Note")
     static let profile = ImageAsset.bundle(name: "Layout/Profile")
     static let task = ImageAsset.bundle(name: "Layout/Task")
+  }
+  enum NavigationBase {
+    static let add = ImageAsset.bundle(name: "NavigationBase/Add")
+    static let empty = ImageAsset.bundle(name: "NavigationBase/Empty")
+    static let search = ImageAsset.bundle(name: "NavigationBase/Search")
+    static let settings = ImageAsset.bundle(name: "NavigationBase/Settings")
+    static let sharedSpace = ImageAsset.bundle(name: "NavigationBase/Shared Space")
   }
   enum ObjectSettings {
     static let cover = ImageAsset.bundle(name: "ObjectSettings/Cover")
@@ -68,14 +71,24 @@ internal extension ImageAsset {
     static let inline = ImageAsset.bundle(name: "Preview/Inline")
     static let text = ImageAsset.bundle(name: "Preview/Text")
   }
+  enum QrCode {
+    static let smile = ImageAsset.bundle(name: "QrCode/Smile")
+  }
   enum Settings {
     static let about = ImageAsset.bundle(name: "Settings/About")
     static let appearance = ImageAsset.bundle(name: "Settings/Appearance")
     static let debug = ImageAsset.bundle(name: "Settings/Debug")
     static let fileStorage = ImageAsset.bundle(name: "Settings/FileStorage")
     static let keychainPhrase = ImageAsset.bundle(name: "Settings/KeychainPhrase")
+    static let membership = ImageAsset.bundle(name: "Settings/Membership")
     static let personalization = ImageAsset.bundle(name: "Settings/Personalization")
     static let pinCode = ImageAsset.bundle(name: "Settings/PinCode")
+    static let spaces = ImageAsset.bundle(name: "Settings/Spaces")
+  }
+  enum System {
+    static let checkboxChecked = ImageAsset.bundle(name: "System/Checkbox checked")
+    static let checkboxUnchecked = ImageAsset.bundle(name: "System/Checkbox unchecked")
+    static let textCheckMark = ImageAsset.bundle(name: "System/Text check mark")
   }
   enum TaskLayout {
     static let done = ImageAsset.bundle(name: "TaskLayout/Done")
@@ -109,6 +122,7 @@ internal extension ImageAsset {
     static let lock = ImageAsset.bundle(name: "x18/Lock")
     static let search = ImageAsset.bundle(name: "x18/Search")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
+    static let webLink = ImageAsset.bundle(name: "x18/Web link")
   }
   enum X19 {
     static let more = ImageAsset.bundle(name: "x19/more")
@@ -128,6 +142,7 @@ internal extension ImageAsset {
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
     static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
+    static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     static let close = ImageAsset.bundle(name: "x24/Close")
     static let copy = ImageAsset.bundle(name: "x24/Copy")
     static let customizeView = ImageAsset.bundle(name: "x24/Customize View")
@@ -157,6 +172,7 @@ internal extension ImageAsset {
     static let replace = ImageAsset.bundle(name: "x24/Replace")
     static let search = ImageAsset.bundle(name: "x24/Search")
     static let select = ImageAsset.bundle(name: "x24/Select")
+    static let sharing = ImageAsset.bundle(name: "x24/Sharing")
     static let status = ImageAsset.bundle(name: "x24/Status")
     static let tag = ImageAsset.bundle(name: "x24/Tag")
     static let text = ImageAsset.bundle(name: "x24/Text")
@@ -312,6 +328,19 @@ internal extension ImageAsset {
   }
   enum Emoji {
     }
+  enum Membership {
+    static let banner1 = ImageAsset.bundle(name: "Membership/banner_1")
+    static let banner2 = ImageAsset.bundle(name: "Membership/banner_2")
+    static let banner3 = ImageAsset.bundle(name: "Membership/banner_3")
+    static let banner4 = ImageAsset.bundle(name: "Membership/banner_4")
+    static let tierBuilderMedium = ImageAsset.bundle(name: "Membership/tier_builder_medium")
+    static let tierBuilderSmall = ImageAsset.bundle(name: "Membership/tier_builder_small")
+    static let tierCocreatorMedium = ImageAsset.bundle(name: "Membership/tier_cocreator_medium")
+    static let tierCocreatorSmall = ImageAsset.bundle(name: "Membership/tier_cocreator_small")
+    static let tierCustomSmall = ImageAsset.bundle(name: "Membership/tier_custom_small")
+    static let tierExplorerMedium = ImageAsset.bundle(name: "Membership/tier_explorer_medium")
+    static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
+  }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
   static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")

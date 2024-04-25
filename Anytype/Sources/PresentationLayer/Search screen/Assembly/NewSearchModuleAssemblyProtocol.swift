@@ -40,29 +40,10 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    func objectTypeSearchModule(
-        style: NewSearchView.Style,
-        title: String,
-        spaceId: String,
-        selectedObjectId: BlockId?,
-        excludedObjectTypeId: String?,
-        showSetAndCollection: Bool,
-        showFiles: Bool,
-        onSelect: @escaping (_ type: ObjectType) -> Void
-    ) -> NewSearchView
-    
     func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
         spaceId: String,
         onSelect: @escaping (_ ids: [String]) -> Void
-    ) -> NewSearchView
-    
-    func blockObjectsSearchModule(
-        title: String,
-        spaceId: String,
-        excludedObjectIds: [String],
-        excludedLayouts: [DetailsLayout],
-        onSelect: @escaping (_ details: ObjectDetails) -> Void
     ) -> NewSearchView
     
     func setSortsSearchModule(
@@ -76,10 +57,6 @@ protocol NewSearchModuleAssemblyProtocol {
         target: RelationsModuleTarget,
         output: RelationSearchModuleOutput
     ) -> NewSearchView
-    
-    func widgetSourceSearchModule(data: WidgetSourceSearchModuleModel) -> AnyView
-    
-    func widgetChangeSourceSearchModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView
 }
 
 // Extension for specific Settings
@@ -140,28 +117,6 @@ extension NewSearchModuleAssemblyProtocol {
             selectionMode: selectionMode,
             excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType,
-            onSelect: onSelect
-        )
-    }
-    
-    func objectTypeSearchModule(
-        style: NewSearchView.Style = .default,
-        title: String,
-        spaceId: String,
-        selectedObjectId: BlockId? = nil,
-        excludedObjectTypeId: String? = nil,
-        showSetAndCollection: Bool = false,
-        showFiles: Bool = false,
-        onSelect: @escaping (_ type: ObjectType) -> Void
-    ) -> NewSearchView {
-        return objectTypeSearchModule(
-            style: style,
-            title: title,
-            spaceId: spaceId,
-            selectedObjectId: selectedObjectId,
-            excludedObjectTypeId: excludedObjectTypeId,
-            showSetAndCollection: showSetAndCollection,
-            showFiles: showFiles,
             onSelect: onSelect
         )
     }

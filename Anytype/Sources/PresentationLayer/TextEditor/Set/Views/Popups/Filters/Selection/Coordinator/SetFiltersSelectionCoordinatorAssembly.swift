@@ -24,13 +24,7 @@ final class SetFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinat
             model: SetFiltersSelectionCoordinatorViewModel(
                 spaceId: spaceId,
                 filter: filter,
-                setFiltersSelectionHeaderModuleAssembly: self.modulesDI.setFiltersSelectionHeader(),
-                setFiltersSelectionViewModuleAssembly: self.modulesDI.setFiltersSelectionView(),
-                setFiltersDateCoordinatorAssembly: self.coordinatorsDI.setFiltersDate(),
-                setFilterConditionsModuleAssembly:  self.modulesDI.setFilterConditions(),
                 newSearchModuleAssembly: self.modulesDI.newSearch(),
-                setFiltersTextViewModuleAssembly: self.modulesDI.setFiltersTextView(),
-                setFiltersCheckboxViewModuleAssembly: self.modulesDI.setFiltersCheckboxView(),
                 completion: completion
             )
         ).eraseToAnyView()

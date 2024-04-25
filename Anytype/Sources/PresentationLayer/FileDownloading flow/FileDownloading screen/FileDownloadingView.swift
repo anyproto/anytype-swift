@@ -24,7 +24,8 @@ struct FileDownloadingView: View {
     }
     
     private var errorView: some View {
-        AnytypeText(viewModel.errorMessage, style: .bodyRegular, color: .Text.primary)
+        AnytypeText(viewModel.errorMessage, style: .bodyRegular)
+                .foregroundColor(.Text.primary)
             .if(size.isNotZero) {
                 $0.frame(minHeight: size.height)
             }
@@ -32,7 +33,8 @@ struct FileDownloadingView: View {
     
     private var loadingView: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.loadingPleaseWait, style: .uxCalloutRegular, color: .Text.primary)
+            AnytypeText(Loc.loadingPleaseWait, style: .uxCalloutRegular)
+                .foregroundColor(.Text.primary)
             
             Spacer.fixedHeight(13)
             ProgressView(value: viewModel.bytesLoaded, total: viewModel.bytesExpected)
@@ -57,7 +59,8 @@ struct FileDownloadingView: View {
         Button {
             viewModel.didTapCancelButton()
         } label: {
-            AnytypeText(Loc.cancel, style: .uxBodyRegular, color: .System.red)
+            AnytypeText(Loc.cancel, style: .uxBodyRegular)
+                .foregroundColor(.System.red)
         }
     }
     
@@ -65,7 +68,8 @@ struct FileDownloadingView: View {
         Button {
             viewModel.didTapDoneButton()
         } label: {
-            AnytypeText(Loc.ok, style: .uxBodyRegular, color: .Button.accent)
+            AnytypeText(Loc.ok, style: .uxBodyRegular)
+                .foregroundColor(.Button.accent)
         }
     }
      

@@ -4,50 +4,80 @@ import SwiftUI
 struct InviteLinkView: View {
     
     let invite: URL?
-    let limitTitle: String
-    let activeShareLink: Bool
-    let onUpdateLink: () -> Void
     let onShareInvite: () -> Void
     let onCopyLink: () -> Void
+    let onDeleteSharingLink: () -> Void
+    let onGenerateInvite: () async throws -> Void
+    let onShowQrCode: () -> Void
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold, color: .Text.primary)
-                Spacer()
-                Button {
-                    onUpdateLink()
-                } label: {
-                    IconView(icon: .asset(.X24.replace))
-                        .frame(width: 28, height: 28)
-                }
+        Group {
+            if invite.isNotNil {
+                linkContent
+            } else {
+                emptyLinkContent
             }
-            Spacer.fixedHeight(8)
-            AnytypeText(Loc.SpaceShare.Invite.description, style: .uxCalloutRegular, color: .Text.primary)
-            Spacer.fixedHeight(8)
-            Button {
-                onCopyLink()
-            } label: {
-                AnytypeText(invite?.absoluteString ?? "", style: .uxCalloutRegular, color: .Text.secondary)
-                    .lineLimit(1)
-                    .frame(height: 48)
-                    .newDivider()
-            }
-            .disabled(!activeShareLink)
-            Spacer.fixedHeight(14)
-            AnytypeText(limitTitle, style: .relation3Regular, color: .Text.secondary)
-            Spacer.fixedHeight(13)
-            StandardButton(Loc.SpaceShare.Invite.button, style: .primaryLarge) {
-                onShareInvite()
-            }
-            .disabled(!activeShareLink)
         }
         .padding(20)
         .background(Color.Background.secondary)
         .cornerRadius(16, style: .continuous)
         .padding(.horizontal, 16)
-        .padding(.bottom, 28)
+        .padding(.vertical, 36)
         .shadow(radius: 16)
-        .ignoresSafeArea()
+    }
+    
+    var linkContent: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold)
+                    .foregroundColor(.Text.primary)
+                Spacer()
+                Menu {
+                    Button(role: .destructive) {
+                        onDeleteSharingLink()
+                    } label: {
+                        Text(Loc.SpaceShare.DeleteSharingLink.title)
+                    }
+                } label: {
+                    IconView(icon: .asset(.X24.more))
+                        .frame(width: 24, height: 24)
+                }
+            }
+            Spacer.fixedHeight(4)
+            Button {
+                onCopyLink()
+            } label: {
+                AnytypeText(invite?.absoluteString ?? "", style: .uxCalloutRegular)
+                    .foregroundColor(.Text.secondary)
+                    .lineLimit(1)
+                    .frame(height: 48)
+                    .newDivider()
+            }
+            Spacer.fixedHeight(10)
+            AnytypeText(Loc.SpaceShare.Invite.description, style: .relation3Regular)
+                .foregroundColor(.Text.secondary)
+            Spacer.fixedHeight(20)
+            StandardButton(Loc.SpaceShare.Invite.share, style: .primaryLarge) {
+                onShareInvite()
+            }
+            Spacer.fixedHeight(10)
+            StandardButton(Loc.SpaceShare.Qr.button, style: .secondaryLarge) {
+                onShowQrCode()
+            }
+        }
+    }
+    
+    var emptyLinkContent: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            AnytypeText(Loc.SpaceShare.Invite.title, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
+            Spacer.fixedHeight(8)
+            AnytypeText(Loc.SpaceShare.Invite.empty, style: .calloutRegular)
+                .foregroundColor(.Text.primary)
+            Spacer.fixedHeight(12)
+            AsyncStandardButton(text: Loc.SpaceShare.Invite.generate, style: .primaryLarge) {
+                try await onGenerateInvite()
+            }
+        }
     }
 }

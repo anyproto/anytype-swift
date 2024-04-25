@@ -40,7 +40,9 @@ struct StandardButton: View {
     
     var body: some View {
         Button {
-            action()
+            if !inProgress {
+                action()
+            }
         } label: {
             contentView
         }
@@ -48,7 +50,9 @@ struct StandardButton: View {
         .onLongPressGesture(minimumDuration: .infinity, maximumDistance: .infinity) {
             // Nothing
         } onPressingChanged: { pressing in
-            isPressed = pressing
+            if !inProgress {
+                isPressed = pressing
+            }
         }
     }
     
@@ -61,9 +65,9 @@ struct StandardButton: View {
             case let .text(text):
                 AnytypeText(
                     text,
-                    style: style.config.textFont,
-                    color: colorConfigStyle.textColor ?? .Text.primary
+                    style: style.config.textFont
                 )
+                .foregroundColor(colorConfigStyle.textColor ?? .Text.primary)
                 .padding(.horizontal, style.config.horizontalPadding)
             case let .image(asset):
                 Image(asset: asset)
@@ -129,7 +133,8 @@ struct StandardButton: View {
     private var infoView: some View {
         if let info, let infoTextFont = style.config.infoTextFont {
             let infoColorConfigStyle = buildInfoColorConfigStyle()
-            AnytypeText(info, style: infoTextFont, color: infoColorConfigStyle.textColor ?? .Text.primary)
+            AnytypeText(info, style: infoTextFont)
+                .foregroundColor(infoColorConfigStyle.textColor ?? .Text.primary)
                 .frame(width: 24, height: 24)
                 .background(background(style: infoColorConfigStyle))
                 .clipShape(Circle())

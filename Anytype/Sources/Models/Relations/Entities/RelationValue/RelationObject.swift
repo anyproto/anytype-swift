@@ -53,9 +53,9 @@ extension Relation.Object {
         func title(with count: Int) -> String {
             switch self {
             case .links:
-                return Loc.linksCount(count) + " " + Loc.Relation.LinksFrom.title
+                return Loc.linksCount(count)
             case .backlinks:
-                return Loc.linksCount(count) + " " + Loc.Relation.LinksTo.title
+                return Loc.backlinksCount(count)
             }
         }
     }

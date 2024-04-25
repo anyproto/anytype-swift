@@ -14,35 +14,35 @@ final class LoginStateService: LoginStateServiceProtocol {
     var isFirstLaunchAfterRegistration: Bool = false
     var isFirstLaunchAfterAuthorization: Bool = false
     
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
-    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let workspacesStorage: WorkspacesStorageProtocol
-    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
-    
-    init(
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
-        blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol,
-        workspacesStorage: WorkspacesStorageProtocol,
-        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
-    ) {
-        self.objectTypeProvider = objectTypeProvider
-        self.middlewareConfigurationProvider = middlewareConfigurationProvider
-        self.blockWidgetExpandedService = blockWidgetExpandedService
-        self.relationDetailsStorage = relationDetailsStorage
-        self.workspacesStorage = workspacesStorage
-        self.activeWorkpaceStorage = activeWorkpaceStorage
-    }
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.middlewareConfigurationProvider)
+    private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    @Injected(\.blockWidgetExpandedService)
+    private var blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: RelationDetailsStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    @Injected(\.activeSpaceParticipantStorage)
+    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.storeKitService)
+    private var storeKitService: StoreKitServiceProtocol
     
     // MARK: - LoginStateServiceProtocol
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
+        
         await startSubscriptions()
-        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func setupStateAfterAuth() {
@@ -53,7 +53,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         isFirstLaunchAfterRegistration = true
         middlewareConfigurationProvider.setupConfiguration(account: account)
         await startSubscriptions()
-        await activeWorkpaceStorage.setupActiveSpace()
     }
     
     func cleanStateAfterLogout() async {
@@ -61,7 +60,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         await stopSubscriptions()
-        await activeWorkpaceStorage.clearActiveSpace()
     }
     
     // MARK: - Private
@@ -70,11 +68,23 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
+        await activeWorkpaceStorage.setupActiveSpace()
+        await accountParticipantsStorage.startSubscription()
+        await activeSpaceParticipantStorage.startSubscription()
+        await participantSpacesStorage.startSubscription()
+        await membershipStatusStorage.startSubscription()
+        storeKitService.startListenForTransactions()
     }
     
     private func stopSubscriptions() async {
         await workspacesStorage.stopSubscription()
         await relationDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
+        await activeWorkpaceStorage.clearActiveSpace()
+        await accountParticipantsStorage.stopSubscription()
+        await activeSpaceParticipantStorage.stopSubscription()
+        await participantSpacesStorage.stopSubscription()
+        await membershipStatusStorage.stopSubscriptionAndClean()
+        storeKitService.stopListenForTransactions()
     }
 }

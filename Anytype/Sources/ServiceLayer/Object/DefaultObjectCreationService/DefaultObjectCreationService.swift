@@ -14,16 +14,10 @@ protocol DefaultObjectCreationServiceProtocol: AnyObject {
 
 final class DefaultObjectCreationService: DefaultObjectCreationServiceProtocol {
     
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let objectService: ObjectActionsServiceProtocol
-    
-    init(
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        objectService: ObjectActionsServiceProtocol
-    ) {
-        self.objectTypeProvider = objectTypeProvider
-        self.objectService = objectService
-    }
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.objectActionsService)
+    private var objectService: ObjectActionsServiceProtocol
     
     func createDefaultObject(
         name: String,

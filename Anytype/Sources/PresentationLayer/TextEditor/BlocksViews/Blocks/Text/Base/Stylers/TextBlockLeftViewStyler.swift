@@ -1,6 +1,7 @@
 import UIKit
 import Services
 
+@MainActor
 final class TextBlockLeftViewStyler {
     static func applyStyle(
         contentStackView view: UIStackView,

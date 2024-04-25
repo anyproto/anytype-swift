@@ -2,7 +2,7 @@ import ProtobufMessages
 import AnytypeCore
 
 public struct DataviewView: Hashable, Identifiable {
-    public let id: BlockId
+    public let id: String
     public let name: String
 
     public let type: DataviewViewType
@@ -17,8 +17,8 @@ public struct DataviewView: Hashable, Identifiable {
     public let coverFit: Bool
     public let groupRelationKey: String
     public let groupBackgroundColors: Bool
-    public let defaultTemplateID: BlockId?
-    public let defaultObjectTypeID: BlockId?
+    public let defaultTemplateID: String?
+    public let defaultObjectTypeID: String?
     
     public static var empty: DataviewView {
         DataviewView(
@@ -51,8 +51,8 @@ public struct DataviewView: Hashable, Identifiable {
         filters: [DataviewFilter]? = nil,
         groupRelationKey: String?  = nil,
         groupBackgroundColors: Bool? = nil,
-        defaultTemplateID: BlockId? = nil,
-        defaultObjectTypeID: BlockId? = nil
+        defaultTemplateID: String? = nil,
+        defaultObjectTypeID: String? = nil
     ) -> DataviewView {
         DataviewView(
             id: id,

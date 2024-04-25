@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Metin";
 
 // MARK: - Settings
-"Settings.Title" = "Ayarlar";
 "Settings.SpaceName" = "Alan Adı";
 
 // MARK: - Object
@@ -77,8 +76,6 @@
 "Relation.AddedToLibrary" = "%@ bağıntısı kitaplığınıza eklendi";
 "Relation.Deleted" = "Kaldırılmış Bağıntı";
 "Relation.From.Type" = "%@ türünden";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
@@ -118,6 +115,15 @@
 "Relation.Origin.Builtin" = "Kütüphane yüklü";
 "Relation.Origin.Bookmark" = "Yer imi";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Nesne";
 
@@ -138,6 +144,7 @@
 "Lists" = "Lists";
 "Pinned" = "Pinned";
 "Delete" = "Sil";
+"Export" = "Export";
 "Duplicate" = "Çoğalt";
 "Copy" = "Kopyala";
 "Preview" = "Önizleme";
@@ -181,6 +188,9 @@
 "Paste processing..." = "Yapıştırma işleniyor...";
 "Anytype Library" = "Anytype Kütüphanesi";
 "Copied" = "Kopyalandı";
+"Share" = "Paylaş";
+"Okay" = "Okay";
+"Join" = "Join";
 
 // Home
 "Favorites" = "Favoriler";
@@ -195,77 +205,71 @@
 "Restore" = "Geri Yükle";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Kurtarma dizilimi";
-"Keychain.Recovery phrase copied to clipboard" = "Kurtarma dizilimi kopyalandı";
-"Keychain.Recovery phrase description" = "Giriş yapmak için ihtiyacın olacak. Güvenli bir yerde tut. Eğer kaybedersen hesabına erişemeyeceksin.";
-"Keychain.Save keychain alert part 1" = "Eğer kurtarma dizilimini kaybedersen ve hesabından çıkış yapılırsa";
-"Keychain.Save keychain alert part 2" = "bilgilerine asla ulaşamayacaksın";
-"Keychain.Save keychain alert part 3" = ".\nBilgilerini kurtarmak için kurtarma dizilimini Anytype dışında bir yerde sakla.\nGüvenilir bir veri yedekleme sistemi, şifre yönetici programları ya da kağıt üstünde saklamanı öneririz.";
-"Keychain.Don’t forget to save your recovery phrase" = "Kurtarma dizilimini kaydetmeyi unutma";
-"Keychain.Show and copy phrase" = "İfadeyi göster ve kopyala";
-"Keychain.Have you backed up your recovery phrase?" = "Kurtarma dizilimini yedekledin mi?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Error.String to Data conversion error" = "Dizeden Veriye dönü$türme hatas";
 "Keychain.Error.Data to String conversion error" = "Data to String conversion error";
 "Keychain.Error.Unknown Keychain Error" = "Bilinmeyen Keychain hatası";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Kayıt ol";
-"Login" = "Giriş Yap";
 "Create" = "Oluştur";
 "Scan QR code" = "QR kodunu tara";
 "Auth.CameraPermissionTitle" = "Lütfen erişime izin ver";
-"Restore secret phrase from keychain" = "Restore Recovery Phrase from the keychain";
-"Auth.LogIn" = "Giriş Yap";
-"Auth.Join" = "Join";
-"Auth.Welcome.Subtitle" = "Anytype, önem verdiğin her şeyi yazman, planlaman, düşünmen ve organize etmen için güvenilir bir alandır.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Devam ederek [Kullanım Şartlarımızı](%@) ve [Gizlilik Politikalarımızı](%@) kabul etmiş olursun";
 "Auth.Next" = "Sonraki";
 
-"Account recover error" = "Hesap kurtarma hatası, yeniden deneyin";
-"Account recover error no internet" = "Hesap kurtarma hatası, muhtemel bağlantı kesikliği";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Cüzdan oluşturma hatası";
-"Error select account" = "Error select account";
-"Error wallet recover account" = "Error wallet recover account";
-"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Dil ara";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Kurtarma Dizilimini kaydet";
-"Auth.JoinFlow.Key.Description" = "It’s a novel way of authentication that gives you full ownership over your account and data.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Kurtarma dizilimini gir";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Kurtarma Dizilimini göster";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Uygulamaya git";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Sonraki";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Atla";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Panoya kopyala";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Devamını oku";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Kurtarma Dizilimini daha sonra Anytype ayarlarında bulabilirsin.";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "Kurtarma Dizilimi nedir?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Recovery Phrase is a random combination of 12 words from which your account is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Kurtarma Dizilimini bilen her kimse hesabın sahibi olur. **Şu anda, bunu bilen dünyadaki tek kişi sensin.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "İşte bu yüzden Kurtarma Dizilimini güvenli tutman çok önemli. Tek sahibi sen olduğun için kaybedersen kimse yardımcı olamaz.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Dizilimimi nasıl kaydederim?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Kurtarma Dizilimini saklamanın en kolay yolu şifre yöneticisinde kaydetmektir.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "En güvenli yol ise kağıt üstüne yazarak internet üstünde olmayan bir yerde, güvenli ve emin bir yerde saklamaktır.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
-"Auth.JoinFlow.Soul.Description" = "Uygulamada bu şekilde görüneceksiniz.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Creating.Soul.Title" = "Generating new account";
-"Auth.JoinFlow.Setting.Space.Title" = "Setting up your personal space";
-"Auth.JoinFlow.Personal.Space.Title" = "Ayarlar";
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "YA DA";
-"Auth.LoginFlow.Textfield.Placeholder" = "Kurtarma dizilimini gir";
-"Auth.LoginFlow.Enter.Button.Title" = "Giriş";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Hiçliğe giriliyor";
 
 // Object settings
@@ -301,11 +305,13 @@
 
 "Undo typing" = "Yazıyı geri al";
 "Undo" = "Geri al";
+"Redo" = "Redo";
 "Actions.LinkItself" = "Şuna bağla";
 "Actions.MakeAsTemplate" = "Şablon Oluştur";
 "Actions.TemplateMakeDefault" = "Varsayılan yap";
 "Actions.CreateWidget.Title" = "To widgets";
 "Actions.CreateWidget.Success" = "New widget was created";
+"Actions.CopyLink" = "Bağlantıyı kopyala";
 
 // Object Type
 "Set" = "Ayarla";
@@ -325,6 +331,9 @@
 "There is no object named" = "%@ isimli nesne yok";
 "There is no type named" = "%@ adlı tür yok";
 "Create a new one or search for something else" = "Yeni oluşturun ya da başka bir şey arayın";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
+"Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
 
@@ -335,7 +344,7 @@
 "Alert.CameraPermissions.GoToSettings" = "QR kodunu taramak için Anytype'ın kameranıza erişmesi gerekir.\n\nLütfen cihazınızın Ayarlar -> Gizlilik -> Kamera bölümüne gidin ve Anytype'a kamera izni verin.";
 
 // MARK: - Deletion
-"Pending deletion text" = "Gitmene üzüldük. Bu isteği iptal etmek için 30 günün var. 30 gün sonrasında şifrelenmiş hesap bilgilerin yedekleme düğümünden tamamen silinir.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Geri Al/Yinele";
@@ -356,6 +365,7 @@
 
 "TemplateEditing.Title" = "Şablonu düzenle";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Bu türe yeni bir şablon eklendi";
 "Templates.Popup.Duplicated" = "Şablon çoğaltıldı";
 "Templates.Popup.Removed" = "Şablon kaldırıldı";
@@ -503,7 +513,6 @@
 "Unknown error" = "Bilinmeyen hata";
 "Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Kapat";
-"Account is deleted" = "Hesap silindi";
 "Add phone" = "Telefon ekle";
 "Nothing to redo" = "Yinelenecek bir şey yok";
 "Nothing to undo" = "Geri alınacak bir şey yok";
@@ -528,6 +537,7 @@
 "Unsupported value" = "Desteklenmeyen değer";
 "Select relation type" = "Bağıntı türünü seç";
 "CommonOpenErrorView.Message" = "No data found";
+"AreYouSure" = "Emin misin?";
 "Nothing found" = "Hiçbir şey bulunamadı";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
@@ -554,18 +564,19 @@
 "Application icon" = "Uygulama simgesi";
 "Mode" = "Mod";
 "copied to clipboard" = "%@ panoya kopyalandı";
-"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
-"Back up your recovery phrase" = "Kurtarma dizilimini yedekle";
-"Account" = "Hesap";
+"Create object from clipboard" = "Create object from clipboard";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Erişim";
-"Back up phrase" = "İfadeyi yedekle";
+"Back up key" = "Back up key";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Silme hatası";
 "Start" = "Başla";
 "On analytics" = "On analytics";
-"Select account error" = "Select account error";
-"Account deleted" = "Hesap silindi";
-"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
 "Edit" = "Düzenle";
 "In this object" = "Bu nesnede";
@@ -633,11 +644,11 @@
 "No date" = "Tarih yok";
 "Clear" = "Temizle";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "URL Ekle";
-"Add email" = "E-posta ekle";
-"Add phone number" = "Telefon numarası ekle";
-"Add number" = "Numara ekle";
-"Add text" = "Metin ekle";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Numara gir";
+"Enter text" = "Metin gir";
 "Ok" = "Tamam";
 "Error occurred. Please try again" = "Hata oluştu. Lütfen tekrar dene";
 "Add" = "Ekle";
@@ -647,14 +658,14 @@
 "This object doesn't exist" = "Bu nesne mevcut değil";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete account" = "Hesabı sil";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Silme işlemini iptal et";
 "Logout and clear data" = "Oturumu kapat ve verileri temizle";
 "New" = "Yeni";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Hesabınızı silmek istediğinizden emin misiniz?";
-"DeletionAlert.description" = "Diğer tüm cihazlarınızdan çıkış yapılacak, ve 30 gün içinde hesabı kurtarabileceksiniz. Sonrasında, hesabınız tamamen silinecek.";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Izgara";
@@ -753,10 +764,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Untitled collection";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "New object";
-"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "linked to";
 "Editor.Toast.MovedTo" = "Block moved to";
@@ -792,7 +799,7 @@
 "About.AppVersion" = "Uygulama sürümü: %@";
 "About.BuildNumber" = "Build number: %@";
 "About.Library" = "Library version: %@";
-"About.accountId" = "Account ID: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
 "About.deviceId" = "Device ID: %@";
 "About.Device" = "Cihaz: %@";
@@ -806,7 +813,7 @@
 "About.TermsOfUse" = "Kullanım Koşulları";
 "About.PrivacyPolicy" = "Gizlilik Politikası";
 "About.TechInfo" = "Teknik Bilgi";
-"About.Mail.Subject" = "Support request, Account ID %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nTechnical information\n%@";
 
 // MARK: - Cache
@@ -814,10 +821,10 @@
 "ClearCache.Error" = "Hata, daha sonra tekrar deneyin";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Ayarlar";
 "Settings.Title" = "Ayarlar";
 "Settings.SpaceName" = "Alan Adı";
-"Settings.AccountAndAccess" = "Hesap ve erişim";
+"Settings.SpaceType" = "Space type";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Dosya depolama alanı";
@@ -825,8 +832,8 @@
 "FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Space.GetMore" = "Daha fazla alan alın";
-"FileStorage.Space.Mail.Subject" = "Daha fazla alan edinin, hesap %@";
-"FileStorage.Space.Mail.Body" = "Merhaba Anytype ekibi. Depolama alanım tükendiği için dosya depolama kapasitemde bir artış talep etmek için ulaşıyorum. Mevcut limitim %@. Hesap kimliğim %@. Teşekkürler, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Yerel depolama";
 "FileStorage.Local.Instruction" = "Cihazınızda yer kazanmak için tüm dosyalarınızı şifrelenmiş yedek düğümümüze taşıyabilirsiniz. Açtığınızda bu dosyalar tekrar geri yüklenecektir.";
 "FileStorage.Local.Used" = "Kullanılan %@";
@@ -849,10 +856,25 @@
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Ayarlar";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Search spaces";
+"Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Bilinmeyen";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Tamam";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Hata";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Silindi";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Alan ayarları";
@@ -862,16 +884,83 @@
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
-"SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Paylaş";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Title" = "Sharing";
+"SpaceShare.Members" = "Members";
 "SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Grand.Edit" = "Düzenle";
+"SpaceShare.Permissions.Grand.View" = "Görüntüle";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Title" = "Stop sharing the space";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Manage";
+"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.ViewRequest" = "View request";
+
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Alan oluştur";
@@ -898,14 +987,19 @@
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Uyarı";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Uyarı";
-"Initial.UnstableMiddle.Logout" = "Logout from current account";
-"Initial.UnstableMiddle.Continue" = "Mevcut hesapla devam et";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Create Objects with specific Type";
@@ -917,7 +1011,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Güncelle";
 "Error.UnableToConnect" = "Please connect to the internet";
 "Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
@@ -941,6 +1035,94 @@
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
 "Gallery.Notification.Button" = "Go to space";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
+"Just e-mail" = "Just e-mail";
+"E-mail" = "E-mail";
+"Learn more" = "Learn more";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
+"What’s included" = "What’s included";
+"Submit" = "Submit";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Forever";
+"Valid until date" = "Valid until %@";
+"Your current status" = "Your current status:";
+"Valid until" = "Valid until:";
+"Paid by" = "Paid by %@";
+"Myself" = "Myself";
+"Pay by Card" = "Pay by Card";
+"Min X characters" = "Min %@ characters";
+"Pending" = "Pending...";
+"Manage payment" = "Manage payment";
+
+
+"Membership.Ad.Title" = "Membership";
+"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+
+"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Privacy" = "Privacy policy";
+"Membership.Legal.Terms" = "Terms and conditions";
+"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.LetUsKnow" = "Please let us know here.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
+
+"Membership.Email.Subject" = "Special Pricing Request";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
+
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
+"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Support Digital Independence";
+"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+
+"Membership.EmailForm.Title" = "Get your free membership";
+"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
+"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Validating" = "Wait a second...";
+"Membership.NameForm.Validated" = "This name is up for grabs";
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
+
+"Membership.Payment.Card" = "Kart";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Apple subscription" = "Apple subscription";
+"Membership.Payment.Google subscription" = "Google subscription";
+
+
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+
+"Membership.Feature.LocalName" = "Local, non-unique name";
+"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
+"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

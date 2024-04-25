@@ -10,7 +10,8 @@ struct ListCreateButton: View {
         } label: {
             HStack(spacing: 8) {
                 Image(asset: .relationNew).frame(width: 24, height: 24)
-                AnytypeText(text, style: .uxBodyRegular, color: .Text.primary)
+                AnytypeText(text, style: .uxBodyRegular)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
                 Spacer()
             }

@@ -3,36 +3,43 @@ import UIKit
 import Services
 
 struct CodeBlockViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable {
-        [
-            info,
-            codeLanguage
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { info.id }
+    var info: BlockInformation { infoProvider.info }
     
-    let info: BlockInformation
-    let content: BlockText
-    let anytypeText: UIKitAnytypeText
-    let codeLanguage: CodeLanguage
-
+    let infoProvider: BlockModelInfomationProvider
+    let document: BaseDocumentProtocol
+    
     let becomeFirstResponder: (BlockInformation) -> ()
-    let textDidChange: (BlockInformation, UITextView) -> ()
-    let showCodeSelection: (BlockInformation) -> ()
+    let handler: BlockActionHandlerProtocol
+    let editorCollectionController: EditorBlockCollectionController
+    let showCodeSelection: @MainActor (BlockInformation) -> ()
 
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        CodeBlockContentConfiguration(
+    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+        guard case let .text(content) = info.content else {
+            return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
+        }
+        
+        let anytypeText = content.anytypeText(document: document)
+        let codeLanguage = info.fields.codeLanguage
+        
+        return CodeBlockContentConfiguration(
             content: content,
             anytypeText: anytypeText,
             backgroundColor: info.backgroundColor,
             codeLanguage: codeLanguage,
-            actions: .init(
+            actions: CodeBlockContentConfiguration.Actions(
                 becomeFirstResponder: { becomeFirstResponder(info) },
-                textDidChange: { textView in textDidChange(info, textView) },
-                showCodeSelection: { showCodeSelection(info) }
+                textDidChange: { textView in
+                    Task {
+                        try await handler.changeText(textView.attributedText, blockId: info.id)
+                    }
+                },
+                showCodeSelection: { showCodeSelection(info) }, 
+                textBlockSetNeedsLayout: { editorCollectionController.itemDidChangeFrame(item: .block(self)) }
             )
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id)
+            dragConfiguration: .init(id: info.id),
+            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
         )
     }
     
@@ -43,6 +50,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "id: \(blockId)\ntext: \(anytypeText.attrString.string.prefix(10))...\ntype: \(info.content.type.styleAnalyticsValue)"
+        return "id: \(blockId)"
     }
 }

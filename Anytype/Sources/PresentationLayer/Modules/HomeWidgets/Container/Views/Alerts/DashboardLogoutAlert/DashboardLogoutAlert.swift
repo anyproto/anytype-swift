@@ -5,9 +5,9 @@ struct DashboardLogoutAlert: View {
     
     var body: some View {
         FloaterAlertView(
-            title: Loc.Keychain.haveYouBackedUpYourRecoveryPhrase,
-            description: Loc.Keychain.recoveryPhraseDescription,
-            leftButtonData: StandardButtonModel(text: Loc.backUpPhrase, disabled: model.isLogoutInProgress, style: .secondaryLarge) {
+            title: Loc.Keychain.haveYouBackedUpYourKey,
+            description: Loc.Keychain.Key.description,
+            leftButtonData: StandardButtonModel(text: Loc.backUpKey, disabled: model.isLogoutInProgress, style: .secondaryLarge) {
                 model.onBackupTap()
             },
             rightButtonData: StandardButtonModel(text: Loc.logOut, inProgress: model.isLogoutInProgress, style: .warningLarge) {

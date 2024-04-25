@@ -10,8 +10,8 @@ protocol SetObjectCreationSettingsInteractorProtocol {
     var objectTypeId: String { get }
     var objectTypesConfigPublisher: AnyPublisher<ObjectTypesConfiguration, Never> { get }
     
-    func setDefaultObjectType(objectTypeId: BlockId) async throws
-    func setDefaultTemplate(templateId: BlockId) async throws
+    func setDefaultObjectType(objectTypeId: String) async throws
+    func setDefaultTemplate(templateId: String) async throws
 }
 
 @MainActor
@@ -51,14 +51,18 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private let setDocument: SetDocumentProtocol
     private let viewId: String
     
-    private let subscriptionService: TemplatesSubscriptionServiceProtocol
-    private let objectTypesProvider: ObjectTypeProviderProtocol
-    private let typesService: TypesServiceProtocol
-    private let dataviewService: DataviewServiceProtocol
+    @Injected(\.templatesSubscription)
+    private var templatesSubscription: TemplatesSubscriptionServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypesProvider: ObjectTypeProviderProtocol
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
-    @Published private var defaultTemplateId: BlockId
-    @Published private var typeDefaultTemplateId: BlockId = .empty
+    @Published private var defaultTemplateId: String
+    @Published private var typeDefaultTemplateId: String = ""
     
     private var dataView: DataviewView
     
@@ -66,20 +70,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     init(
         setDocument: SetDocumentProtocol,
-        viewId: String,
-        objectTypesProvider: ObjectTypeProviderProtocol,
-        typesService: TypesServiceProtocol,
-        subscriptionService: TemplatesSubscriptionServiceProtocol,
-        dataviewService: DataviewServiceProtocol
+        viewId: String
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
         self.dataView = setDocument.view(by: viewId)
-        self.defaultTemplateId = dataView.defaultTemplateID ?? .empty
-        self.subscriptionService = subscriptionService
-        self.objectTypesProvider = objectTypesProvider
-        self.typesService = typesService
-        self.dataviewService = dataviewService
+        self.defaultTemplateId = dataView.defaultTemplateID ?? ""
         
         let defaultObjectType = try? setDocument.defaultObjectTypeForActiveView()
         let defaultObjectTypeID = defaultObjectType?.id ?? ""
@@ -102,12 +98,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         loadTemplates()
     }
     
-    func setDefaultObjectType(objectTypeId: BlockId) async throws {
+    func setDefaultObjectType(objectTypeId: String) async throws {
         let updatedDataView = dataView.updated(defaultTemplateID: "", defaultObjectTypeID: objectTypeId)
         try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: updatedDataView)
     }
     
-    func setDefaultTemplate(templateId: BlockId) async throws {
+    func setDefaultTemplate(templateId: String) async throws {
         guard dataView.defaultTemplateID != templateId else { return }
         let updatedDataView = dataView.updated(defaultTemplateID: templateId)
         try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: updatedDataView)
@@ -123,7 +119,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             guard let self else { return }
             dataView = setDocument.view(by: dataView.id)
             if defaultTemplateId != dataView.defaultTemplateID {
-                defaultTemplateId = dataView.defaultTemplateID ?? .empty
+                defaultTemplateId = dataView.defaultTemplateID ?? ""
             }
             updateDefaultObjectTypeIdIfNeeded()
         }.store(in: &cancellables)
@@ -169,7 +165,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         let defaultTemplateId = objectTypes.first { [weak self] in
             guard let self else { return false }
             return $0.id == objectTypeId
-        }?.defaultTemplateId ?? .empty
+        }?.defaultTemplateId ?? ""
         if typeDefaultTemplateId != defaultTemplateId {
             typeDefaultTemplateId = defaultTemplateId
         }
@@ -177,7 +173,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private func loadTemplates() {
         Task {
-            await subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
+            await templatesSubscription.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
                 guard let self else { return }
                 templatesDetails = details
                 updateTypeDefaultTemplateId()

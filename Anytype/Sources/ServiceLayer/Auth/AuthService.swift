@@ -6,30 +6,24 @@ import Services
 import AnytypeCore
 
 final class AuthService: AuthServiceProtocol {
-        
-    private let rootPath: String
-    private let loginStateService: LoginStateServiceProtocol
-    private let accountManager: AccountManagerProtocol
-    private let appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol
-    private let serverConfigurationStorage: ServerConfigurationStorageProtocol
-    private let authMiddleService: AuthMiddleServiceProtocol
     
-    init(
-        localRepoService: LocalRepoServiceProtocol,
-        loginStateService: LoginStateServiceProtocol,
-        accountManager: AccountManagerProtocol,
-        appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol,
-        serverConfigurationStorage: ServerConfigurationStorageProtocol,
-        authMiddleService: AuthMiddleServiceProtocol
-    ) {
-        self.rootPath = localRepoService.middlewareRepoPath
-        self.loginStateService = loginStateService
-        self.accountManager = accountManager
-        self.appErrorLoggerConfiguration = appErrorLoggerConfiguration
-        self.serverConfigurationStorage = serverConfigurationStorage
-        self.authMiddleService = authMiddleService
-    }
+    @Injected(\.localRepoService)
+    private var localRepoService: LocalRepoServiceProtocol
+    @Injected(\.loginStateService)
+    private var loginStateService: LoginStateServiceProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
+    @Injected(\.appErrorLoggerConfiguration)
+    private var appErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol
+    @Injected(\.serverConfigurationStorage)
+    private var serverConfigurationStorage: ServerConfigurationStorageProtocol
+    @Injected(\.authMiddleService)
+    private var authMiddleService: AuthMiddleServiceProtocol
 
+    private lazy var rootPath: String = {
+        localRepoService.middlewareRepoPath
+    }()
+    
     func logout(removeData: Bool) async throws  {
         try await authMiddleService.logout(removeData: removeData)
         await loginStateService.cleanStateAfterLogout()
@@ -53,11 +47,11 @@ final class AuthService: AuthServiceProtocol {
         let middleTime = Int(((CFAbsoluteTimeGetCurrent() - start) * 1_000)) // milliseconds
         
         let analyticsId = account.info.analyticsId
-        AnytypeAnalytics.instance().setUserId(analyticsId)
-        AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
+        await AnytypeAnalytics.instance().setUserId(analyticsId)
+        await AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
-        AnytypeAnalytics.instance().logCreateSpace()
-        appErrorLoggerConfiguration.setUserId(analyticsId)
+        AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
+        await appErrorLoggerConfiguration.setUserId(analyticsId)
         
         UserDefaultsConfig.usersId = account.id
         
@@ -85,10 +79,10 @@ final class AuthService: AuthServiceProtocol {
         )
         
         let analyticsId = account.info.analyticsId
-        AnytypeAnalytics.instance().setUserId(analyticsId)
-        AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
+        await AnytypeAnalytics.instance().setUserId(analyticsId)
+        await AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountOpen(analyticsId: analyticsId)
-        appErrorLoggerConfiguration.setUserId(analyticsId)
+        await appErrorLoggerConfiguration.setUserId(analyticsId)
         
         switch account.status {
         case .active, .pendingDeletion:

@@ -1,6 +1,5 @@
 import UIKit
 import Combine
-import Kingfisher
 import AnytypeCore
 
 final class BlockBookmarkInfoView: UIView {
