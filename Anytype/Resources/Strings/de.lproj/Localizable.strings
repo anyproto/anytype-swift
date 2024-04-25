@@ -207,7 +207,7 @@
 // Keychain screen
 "Keychain.Key" = "Schlüssel";
 "Keychain.Key.Copy.Toast.title" = "Schlüssel kopiert";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Key.description" = "Du brauchst ihn um deinen Tresor zu öffnen. Bewahre ihn an einem sicheren Ort. Wenn du ihn verlierst, kannst du deinen Tresor nicht mehr öffnen.";
 "Keychain.Show and copy key" = "Schlüssel anzeigen und kopieren";
 "Keychain.Have you backed up your key?" = "Hast du deinen Schlüssel gesichert?";
 "Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
@@ -1061,6 +1061,8 @@
 "Min X characters" = "Min. %@ Zeichen";
 "Pending" = "Ausstehend...";
 "Manage payment" = "Zahlung verwalten";
+"This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Mitgliedschaft";
