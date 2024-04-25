@@ -75,7 +75,7 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         textView.layoutUsing.anchors {
             $0.trailing.equal(to: contentStackView.trailingAnchor)
             $0.top.equal(to: contentStackView.topAnchor)
-            $0.leading.equal(to: textBlockLeadingView.trailingAnchor, constant: 8)
+            $0.leading.equal(to: textBlockLeadingView.trailingAnchor)
         }
         
         createEmptyBlockButton.layoutUsing.anchors {
