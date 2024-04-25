@@ -8,6 +8,5 @@ protocol ModulesDIProtocol: AnyObject {
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol
-    func homeBottomNavigationPanel() -> HomeBottomNavigationPanelModuleAssemblyProtocol
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol
 }

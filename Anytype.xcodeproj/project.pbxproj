@@ -833,7 +833,6 @@
 		2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */; };
 		2AF205BB2ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205B72ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift */; };
 		2AF205BC2ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205B82ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift */; };
-		2AF205BD2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205B92ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift */; };
 		2AF205BE2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */; };
 		2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */; };
 		2AF4260129AF3A6000753B17 /* SettingsAppearanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */; };
@@ -2604,7 +2603,6 @@
 		2AF109572A03C56600EDDE26 /* NSItemProvider+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSItemProvider+Async.swift"; sourceTree = "<group>"; };
 		2AF205B72ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelViewModel.swift; sourceTree = "<group>"; };
 		2AF205B82ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelView.swift; sourceTree = "<group>"; };
-		2AF205B92ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBottomNavigationPanelModuleOutput.swift; sourceTree = "<group>"; };
 		2AF2C6B828BD104B00F8612B /* UIAnytypeActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIAnytypeActivityIndicator.swift; sourceTree = "<group>"; };
 		2AF4260029AF3A6000753B17 /* SettingsAppearanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceViewModel.swift; sourceTree = "<group>"; };
@@ -7030,7 +7028,6 @@
 			children = (
 				2AF205B72ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift */,
 				2AF205B82ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift */,
-				2AF205B92ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift */,
 				2AF205BA2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleOutput.swift */,
 			);
 			path = Panel;
@@ -12155,7 +12152,6 @@
 				868572512AE6A4CD00F0A747 /* SpaceSearchViewModel.swift in Sources */,
 				2AAEAB5F2BD93CF200E88767 /* ForceDeleteAlertModel.swift in Sources */,
 				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
-				2AF205BD2ABD8E660027F3EA /* HomeBottomNavigationPanelModuleAssembly.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				2E2D256428880C8D00E3DFD1 /* SetFiltersSelectionHeaderViewModel.swift in Sources */,
 				2EE33DC92B5800A100D0CDDB /* DateRelationCalendarQuickOption.swift in Sources */,
