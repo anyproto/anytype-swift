@@ -246,8 +246,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "输入出错，请重试"
           }
         },
         "zh-Hant" : {
@@ -760,8 +760,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "无法连接，请检查您的网络连接"
           }
         },
         "zh-Hant" : {
@@ -1017,8 +1017,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is not availabe"
+            "state" : "translated",
+            "value" : "该名称不可用"
           }
         },
         "zh-Hant" : {
@@ -1531,8 +1531,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "您还没有登录！:face_with_螺旋形眼睛："
           }
         },
         "zh-Hant" : {
@@ -3073,8 +3073,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "输入出错，请重试"
           }
         },
         "zh-Hant" : {
@@ -3587,8 +3587,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "您还没有登录！:face_with_螺旋形眼睛："
           }
         },
         "zh-Hant" : {
@@ -4101,8 +4101,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "输入出错，请重试"
           }
         },
         "zh-Hant" : {
@@ -4358,8 +4358,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "无法连接，请检查您的网络连接"
           }
         },
         "zh-Hant" : {
@@ -4615,8 +4615,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "输入出错，请重试"
           }
         },
         "zh-Hant" : {
@@ -4872,8 +4872,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "无法连接，请检查您的网络连接"
           }
         },
         "zh-Hant" : {
@@ -5129,8 +5129,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "输入出错，请重试"
           }
         },
         "zh-Hant" : {
@@ -5386,8 +5386,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "无法连接，请检查您的网络连接"
           }
         },
         "zh-Hant" : {
@@ -5643,8 +5643,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "输入出错，请重试"
           }
         },
         "zh-Hant" : {
@@ -5900,8 +5900,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "您还没有登录！:face_with_螺旋形眼睛："
           }
         },
         "zh-Hant" : {
@@ -6025,8 +6025,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -6282,8 +6282,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -6539,8 +6539,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -6796,8 +6796,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -7053,8 +7053,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -7310,8 +7310,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -7567,8 +7567,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -7824,8 +7824,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -8081,8 +8081,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -8338,8 +8338,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -8852,8 +8852,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -9109,8 +9109,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -9366,8 +9366,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -9623,8 +9623,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -9880,8 +9880,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -11165,8 +11165,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -11422,8 +11422,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -11679,8 +11679,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -11936,8 +11936,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -12193,8 +12193,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -12450,8 +12450,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -12964,8 +12964,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -13221,8 +13221,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -13478,8 +13478,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -13735,8 +13735,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -13992,8 +13992,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -14506,8 +14506,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -14763,8 +14763,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -15020,8 +15020,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -15277,8 +15277,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -15534,8 +15534,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -15791,8 +15791,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -16048,8 +16048,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -16305,8 +16305,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -16819,8 +16819,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -17076,8 +17076,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -17333,8 +17333,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -17847,8 +17847,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -18104,8 +18104,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -18361,8 +18361,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -18618,8 +18618,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -18875,8 +18875,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -19389,8 +19389,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -19646,8 +19646,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -20160,8 +20160,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -20674,8 +20674,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -20931,8 +20931,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -21188,8 +21188,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -21445,8 +21445,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -21702,8 +21702,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -22216,8 +22216,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -22473,8 +22473,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio non sia più condiviso. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -22730,8 +22730,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -22987,8 +22987,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -23244,8 +23244,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limite raggiunto per questo spazio. Aggiorna il tuo abbonamento o contatta il supporto per assistenza."
           }
         },
         "ja" : {
@@ -23501,8 +23501,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ops! Qualcosa è andato storto. Riprova più tardi."
           }
         },
         "ja" : {
@@ -23758,8 +23758,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Ops! La richiesta è fallita. Controlla la tua connessione Internet e prova di nuovo."
           }
         },
         "ja" : {
@@ -24015,8 +24015,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Sembra che lo spazio sia stato eliminato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
