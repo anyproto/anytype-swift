@@ -837,7 +837,6 @@
 		2AF4260D29AF471C00753B17 /* AboutModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */; };
 		2AF4261629AF4ECE00753B17 /* PersonalizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */; };
 		2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */; };
-		2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */; };
 		2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */; };
 		2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */; };
 		2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */; };
@@ -1174,7 +1173,6 @@
 		3D2F9C18271EAE4D0043C326 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C16271EAE4D0043C326 /* SearchService.swift */; };
 		3D2F9C1C271EAE7D0043C326 /* BlockActionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C1B271EAE7D0043C326 /* BlockActionServiceProtocol.swift */; };
 		3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */; };
-		3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */; };
 		3D2F9C44271F106A0043C326 /* DashboardLogoutAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C43271F106A0043C326 /* DashboardLogoutAlert.swift */; };
 		3D300BBC26D8E86B00F46763 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
@@ -2604,7 +2602,6 @@
 		2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationViewModel.swift; sourceTree = "<group>"; };
 		2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationModuleOutput.swift; sourceTree = "<group>"; };
-		2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAlertsAssembly.swift; sourceTree = "<group>"; };
 		2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsSubmoduleDI.swift; sourceTree = "<group>"; };
 		2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorBottomNavigationManager.swift; sourceTree = "<group>"; };
@@ -2951,7 +2948,6 @@
 		3D2F9C16271EAE4D0043C326 /* SearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
 		3D2F9C1B271EAE7D0043C326 /* BlockActionServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionServiceProtocol.swift; sourceTree = "<group>"; };
 		3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBuilder.swift; sourceTree = "<group>"; };
-		3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloaterAlertView.swift; sourceTree = "<group>"; };
 		3D2F9C43271F106A0043C326 /* DashboardLogoutAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlert.swift; sourceTree = "<group>"; };
 		3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoContainerMock.swift; path = AnyTypeTests/Markdown/Mocks/InfoContainerMock.swift; sourceTree = SOURCE_ROOT; };
@@ -8155,7 +8151,6 @@
 			isa = PBXGroup;
 			children = (
 				2AD5EFC22B1748CC00FAA908 /* Bottom */,
-				3D2F9C3E271F024E0043C326 /* FloaterAlertView.swift */,
 				2E6F3E192A4C6828002F4278 /* AlertView.swift */,
 				2A81D27F2B723F3800A2959E /* ShareEnvironment.swift */,
 			);
@@ -8167,7 +8162,6 @@
 			children = (
 				2ABF214A29B2055C00E872D9 /* DashboardAccountDeletionAlert */,
 				2ABF214429B204E900E872D9 /* DashboardLogoutAlert */,
-				2AF4261E29AF86CD00753B17 /* DashboardAlertsAssembly.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -11095,7 +11089,6 @@
 				2A9D299028BCC11A00789AC7 /* NonExistentBlockView.swift in Sources */,
 				2AEAA48529F68BC8009ACA00 /* Color+Info.swift in Sources */,
 				2AF205BB2ABD8E660027F3EA /* HomeBottomNavigationPanelViewModel.swift in Sources */,
-				3D2F9C3F271F024E0043C326 /* FloaterAlertView.swift in Sources */,
 				2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */,
 				2A27F9BB2B8DDDA100BA1303 /* SpaceJoinConfirmationView.swift in Sources */,
 				2AC3F9462A138263005EFEE9 /* FileLimitsStorage.swift in Sources */,
@@ -11172,7 +11165,6 @@
 				1289F59C2733622C00656EC2 /* RelationsListRowView.swift in Sources */,
 				3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */,
 				2AC5B3D32BA3380F002584B8 /* PermissionChangeNotificationView.swift in Sources */,
-				2AF4261F29AF86CD00753B17 /* DashboardAlertsAssembly.swift in Sources */,
 				1247BCAC27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift in Sources */,
 				2E2EA2CA2A53388500569E1E /* DotView.swift in Sources */,
 				2A2987382ACBFD3C009E8787 /* EditorSetModuleOutput.swift in Sources */,

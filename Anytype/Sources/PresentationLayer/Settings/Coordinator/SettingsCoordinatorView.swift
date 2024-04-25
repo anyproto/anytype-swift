@@ -23,6 +23,9 @@ struct SettingsCoordinatorView: View {
                             model.onLogoutConfirmTap()
                         }
                     }
+                    .anytypeSheet(isPresented: $model.showDeleteAccountAlert) {
+                        DashboardAccountDeletionAlert()
+                    }
                     .sheet(isPresented: $model.showKeychainPhrase) {
                         KeychainPhraseView(context: .logout)
                     }

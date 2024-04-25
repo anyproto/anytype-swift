@@ -41,10 +41,6 @@ final class ModulesDI: ModulesDIProtocol {
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
         return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
-    
-    func dashboardAlerts() -> DashboardAlertsAssemblyProtocol {
-        return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
-    }
 
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
         ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
