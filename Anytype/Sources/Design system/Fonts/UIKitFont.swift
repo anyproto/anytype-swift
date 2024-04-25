@@ -1,6 +1,6 @@
 import UIKit
 import Services
-
+import AnytypeCore
 
 extension UIFont {
 
@@ -124,12 +124,27 @@ extension AnytypeFont {
 
 
 struct UIKitFontBuilder {
+    
+    private struct FontCacheKey: Equatable, Hashable {
+        let name: AnytypeFontConfig.Name
+        let size: CGFloat
+        let weight: AnytypeFontConfig.Weight
+    }
 
+    private static let fontCache = SynchronizedDictionary<FontCacheKey, UIFont>()
+    
     static func uiKitFont(font: AnytypeFont) -> UIFont {
         return uiKitFont(name: font.config.fontName, size: font.config.size, weight: font.config.weight)
     }
 
     static func uiKitFont(name: AnytypeFontConfig.Name, size: CGFloat, weight: AnytypeFontConfig.Weight) -> UIFont {
+        
+        let fontCacheKey = FontCacheKey(name: name, size: size, weight: weight)
+        
+        if let cacheFont = fontCache[fontCacheKey] {
+            return cacheFont
+        }
+        
         let scaledSize = UIFontMetrics.default.scaledValue(for: size)
         var descriptor = UIFontDescriptor(fontAttributes: [
             attributeKey(name: name): name.rawValue,
@@ -142,7 +157,10 @@ struct UIKitFontBuilder {
             ]
         )
 
-        return UIFont(descriptor: descriptor, size: scaledSize)
+        let font = UIFont(descriptor: descriptor, size: scaledSize)
+        fontCache[fontCacheKey] = font
+        
+        return font
     }
 
     private static func attributeKey(name: AnytypeFontConfig.Name) -> UIFontDescriptor.AttributeName {
