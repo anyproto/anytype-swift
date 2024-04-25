@@ -197,11 +197,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         output: RelationSearchModuleOutput
     ) -> NewSearchView {
         
-        let relationsInteractor = RelationsInteractor(
-            objectId: document.objectId,
-            relationsService: serviceLocator.relationService(),
-            dataviewService: serviceLocator.dataviewService()
-        )
+        let relationsInteractor = RelationsInteractor(objectId: document.objectId)
         let interactor = RelationsSearchInteractor(
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),

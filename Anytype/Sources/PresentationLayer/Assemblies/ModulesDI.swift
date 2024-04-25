@@ -30,10 +30,6 @@ final class ModulesDI: ModulesDIProtocol {
         return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }
     
-    func newRelation() -> NewRelationModuleAssemblyProtocol {
-        return NewRelationModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
-    }
-    
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol {
         return HomeWidgetsModuleAssembly(
             serviceLocator: serviceLocator,
