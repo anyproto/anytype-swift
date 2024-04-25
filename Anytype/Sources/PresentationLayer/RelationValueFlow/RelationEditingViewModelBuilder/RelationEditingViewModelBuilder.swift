@@ -82,7 +82,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ),
                     TextRelationCopyActionViewModel(
                         type: .phone,
-                        alertOpener: alertOpener,
                         delegate: delegate
                     )
                 ]
@@ -104,7 +103,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ),
                     TextRelationCopyActionViewModel(
                         type: .email,
-                        alertOpener: alertOpener,
                         delegate: delegate
                     )
                 ]
@@ -118,14 +116,13 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 ),
                 TextRelationCopyActionViewModel(
                     type: .url,
-                    alertOpener: alertOpener,
                     delegate: delegate
                 ),
                 TextRelationReloadContentActionViewModel(
                     objectDetails: objectDetails,
                     relationKey: relation.key,
                     bookmarkService: bookmarkService,
-                    alertOpener: alertOpener
+                    delegate: delegate
                 )
             ]
             return TextRelationDetailsViewModel(

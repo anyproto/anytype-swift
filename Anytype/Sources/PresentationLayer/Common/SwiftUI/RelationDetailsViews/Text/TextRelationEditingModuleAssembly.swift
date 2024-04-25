@@ -76,7 +76,6 @@ final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssembly
                 ),
                 TextRelationCopyActionViewModel(
                     type: .phone,
-                    alertOpener: alertOpener,
                     delegate: output
                 )
             ]
@@ -89,7 +88,6 @@ final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssembly
                 ),
                 TextRelationCopyActionViewModel(
                     type: .email,
-                    alertOpener: alertOpener,
                     delegate: output
                 )
             ]
@@ -102,14 +100,13 @@ final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssembly
                 ),
                 TextRelationCopyActionViewModel(
                     type: .url,
-                    alertOpener: alertOpener,
                     delegate: output
                 ),
                 TextRelationReloadContentActionViewModel(
                     objectDetails: objectDetails,
                     relationKey: relationKey,
                     bookmarkService: serviceLocator.bookmarkService(),
-                    alertOpener: alertOpener
+                    delegate: output
                 )
             ]
             return actions.compactMap { $0 }
