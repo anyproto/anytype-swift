@@ -32,7 +32,6 @@ final class SettingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol {
         return SettingsCoordinatorView(
             model: SettingsCoordinatorViewModel(
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
-                appearanceModuleAssembly: self.modulesDI.settingsAppearance(),
                 dashboardAlertsAssembly: self.modulesDI.dashboardAlerts(),
                 urlOpener: self.uiHelpersDI.urlOpener()
             )

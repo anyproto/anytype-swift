@@ -46,10 +46,6 @@ final class ModulesDI: ModulesDIProtocol {
         return WidgetObjectListModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
     
-    func settingsAppearance() -> SettingsAppearanceModuleAssemblyProtocol {
-        return SettingsAppearanceModuleAssembly(uiHelpersDI: uiHelpersDI)
-    }
-    
     func dashboardAlerts() -> DashboardAlertsAssemblyProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
