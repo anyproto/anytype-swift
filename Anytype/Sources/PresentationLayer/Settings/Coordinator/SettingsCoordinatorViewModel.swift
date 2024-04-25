@@ -5,8 +5,7 @@ import SwiftUI
 final class SettingsCoordinatorViewModel: ObservableObject,
                                     SettingsModuleOutput,
                                     SettingsAccountModuleOutput,
-                                    AboutModuleOutput,
-                                    FileStorageModuleOutput {
+                                    AboutModuleOutput {
     
     private let navigationContext: NavigationContextProtocol
     private let appearanceModuleAssembly: SettingsAppearanceModuleAssemblyProtocol
@@ -19,6 +18,8 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: ApplicationStateServiceProtocol
+    
+    @Published var showFileStorage = false
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -48,7 +49,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onFileStorageSelected() {
-        navigationContext.present(FileStorageView(output: self))
+        showFileStorage = true
     }
     
     func onAboutSelected() {
@@ -96,13 +97,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     func onDeleteAccountSelected() {
         let module = dashboardAlertsAssembly.accountDeletionAlert()
-        navigationContext.present(module)
-    }
-    
-    // MARK: - FileStorageModuleOutput
-    
-    func onClearCacheSelected() {
-        let module = dashboardAlertsAssembly.clearCacheAlert()
         navigationContext.present(module)
     }
     

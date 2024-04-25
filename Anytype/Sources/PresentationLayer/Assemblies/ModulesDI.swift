@@ -54,10 +54,6 @@ final class ModulesDI: ModulesDIProtocol {
         return DashboardAlertsAssembly(uiHelpersDI: uiHelpersDI)
     }
 
-    func deleteAccount() -> DeleteAccountModuleAssemblyProtocol {
-        DeleteAccountModuleAssembly(serviceLocator: serviceLocator)
-    }
-
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
         ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
     }

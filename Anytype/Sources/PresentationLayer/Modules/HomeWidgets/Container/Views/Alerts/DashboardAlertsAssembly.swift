@@ -7,9 +7,6 @@ protocol DashboardAlertsAssemblyProtocol: AnyObject {
     
     @MainActor
     func accountDeletionAlert() -> UIViewController
-    
-    @MainActor
-    func clearCacheAlert() -> UIViewController
 }
 
 final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
@@ -35,15 +32,6 @@ final class DashboardAlertsAssembly: DashboardAlertsAssemblyProtocol {
     @MainActor
     func accountDeletionAlert() -> UIViewController {
         return popup(view: DashboardAccountDeletionAlert())
-    }
-    
-    @MainActor
-    func clearCacheAlert() -> UIViewController {
-        let model = DashboardClearCacheAlertModel(
-            alertOpener: uiHelpersDI.alertOpener()
-        )
-        let view = DashboardClearCacheAlert(model: model)
-        return popup(view: view)
     }
     
     // MARK: - Private
