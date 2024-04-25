@@ -12,6 +12,20 @@ struct SettingsCoordinatorView: View {
             }
             .anytypeSheet(isPresented: $model.showAppearance) {
                 SettingsAppearanceView()
+                    
+            }
+            .sheet(isPresented: $model.showSettingsAccount) {
+                SettingsAccountView(output: model)
+                    .anytypeSheet(isPresented: $model.showLogoutAlert) {
+                        DashboardLogoutAlert {
+                            model.onBackupTap()
+                        } onLogout: {
+                            model.onLogoutConfirmTap()
+                        }
+                    }
+                    .sheet(isPresented: $model.showKeychainPhrase) {
+                        KeychainPhraseView(context: .logout)
+                    }
             }
     }
 }

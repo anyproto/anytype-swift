@@ -20,6 +20,10 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     @Published var showFileStorage = false
     @Published var showAppearance = false
+    @Published var showLogoutAlert = false
+    @Published var showSettingsAccount = false
+    @Published var showKeychainPhrase = false
+    @Published var dismissAllPresented = false
     
     init(
         navigationContext: NavigationContextProtocol,
@@ -54,7 +58,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onAccountDataSelected() {
-        navigationContext.present(SettingsAccountView(output: self))
+        showSettingsAccount = true
     }
     
     func onChangeIconSelected(objectId: String) {
@@ -71,6 +75,14 @@ final class SettingsCoordinatorViewModel: ObservableObject,
         navigationContext.present(MembershipCoordinator())
     }
     
+    func onBackupTap() {
+        showKeychainPhrase = true
+    }
+    
+    func onLogoutConfirmTap() {
+        applicationStateService.state = .initial
+    }
+    
     // MARK: - SettingsAccountModuleOutput
     
     func onRecoveryPhraseSelected() {
@@ -78,18 +90,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onLogoutSelected() {
-        let module = dashboardAlertsAssembly.logoutAlert(
-            onBackup: { [weak self] in
-                guard let self = self else { return }
-                self.navigationContext.dismissTopPresented()
-                self.navigationContext.present(KeychainPhraseView(context: .logout))
-            },
-            onLogout: { [weak self] in
-                self?.navigationContext.dismissAllPresented(animated: true, completion: { 
-                    self?.applicationStateService.state = .initial
-                })
-            })
-        navigationContext.present(module)
+        showLogoutAlert = true
     }
     
     func onDeleteAccountSelected() {
