@@ -1063,6 +1063,8 @@
 "Min X characters" = "最小 %@ 个字符";
 "Pending" = "待定…";
 "Manage payment" = "管理付款";
+"This name is not availabe" = "该名称不可用";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "会员

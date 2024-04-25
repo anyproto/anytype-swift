@@ -1060,6 +1060,8 @@
 "Min X characters" = "Минимум %@ символов";
 "Pending" = "Ожидание...";
 "Manage payment" = "Управление платежами";
+"This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Членство";
