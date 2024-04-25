@@ -9,7 +9,6 @@ protocol UIHelpersDIProtocol {
     func toastPresenter(using containerViewController: UIViewController?) -> ToastPresenterProtocol
     func viewControllerProvider() -> ViewControllerProviderProtocol
     func commonNavigationContext() -> NavigationContextProtocol
-    func alertOpener() -> AlertOpenerProtocol
     func urlOpener() -> URLOpenerProtocol
 }
 
@@ -45,10 +44,6 @@ final class UIHelpersDI: UIHelpersDIProtocol {
     
     func commonNavigationContext() -> NavigationContextProtocol {
         NavigationContext(window: viewControllerProvider().window)
-    }
-    
-    func alertOpener() -> AlertOpenerProtocol {
-        AlertOpener(navigationContext: commonNavigationContext())
     }
     
     func urlOpener() -> URLOpenerProtocol {

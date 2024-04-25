@@ -366,7 +366,6 @@
 		2A2C33182892B3BB008BC326 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33172892B3BB008BC326 /* DI.swift */; };
 		2A2C331D2892B627008BC326 /* RelationValueModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */; };
 		2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */; };
-		2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30734828ACEF58003673DF /* AlertOpener.swift */; };
 		2A30B2022BB40E3400206806 /* BlockFields+Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */; };
 		2A30B2082BB44A0C00206806 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 2A30B2072BB44A0C00206806 /* QRCode */; };
 		2A30B20B2BB44BC800206806 /* QrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B20A2BB44BC800206806 /* QrCodeView.swift */; };
@@ -671,7 +670,6 @@
 		2AAF3452295B19DF00921320 /* TreeSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF3451295B19DF00921320 /* TreeSubscriptionDataBuilder.swift */; };
 		2AAF3454295B1B5F00921320 /* TreeSubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAF3453295B1B5F00921320 /* TreeSubscriptionManager.swift */; };
 		2AB22A1F2A9F33B3000E1AA6 /* AnytypeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB22A1E2A9F33B3000E1AA6 /* AnytypeRow.swift */; };
-		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
 		2AB2C23728B658D1000191F8 /* AnytypeURLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */; };
 		2AB508162AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB508152AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift */; };
 		2AB5083B2AE9395600E1C986 /* SpaceCreateModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB5083A2AE9395600E1C986 /* SpaceCreateModuleOutput.swift */; };
@@ -2140,7 +2138,6 @@
 		2A2C33172892B3BB008BC326 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
 		2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueModuleAssembly.swift; sourceTree = "<group>"; };
 		2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModelOutput.swift; sourceTree = "<group>"; };
-		2A30734828ACEF58003673DF /* AlertOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpener.swift; sourceTree = "<group>"; };
 		2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockFields+Fields.swift"; sourceTree = "<group>"; };
 		2A30B20A2BB44BC800206806 /* QrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeView.swift; sourceTree = "<group>"; };
 		2A30B20C2BB44C7900206806 /* QrCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeViewModel.swift; sourceTree = "<group>"; };
@@ -2428,7 +2425,6 @@
 		2AAF3451295B19DF00921320 /* TreeSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
 		2AAF3453295B1B5F00921320 /* TreeSubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeSubscriptionManager.swift; sourceTree = "<group>"; };
 		2AB22A1E2A9F33B3000E1AA6 /* AnytypeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeRow.swift; sourceTree = "<group>"; };
-		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
 		2AB2C23628B658D1000191F8 /* AnytypeURLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnytypeURLTests.swift; path = AnyTypeTests/AnytypeURL/AnytypeURLTests.swift; sourceTree = SOURCE_ROOT; };
 		2AB508152AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ByteCountFormatter+Extensions.swift"; sourceTree = "<group>"; };
 		2AB508272AE922DD00E1C986 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -5485,8 +5481,6 @@
 		2A30734728ACEF33003673DF /* Alert */ = {
 			isa = PBXGroup;
 			children = (
-				2A30734828ACEF58003673DF /* AlertOpener.swift */,
-				2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */,
 				2A4CEFFD2A13CCCD00B99891 /* BottomAlertModel.swift */,
 			);
 			path = Alert;
@@ -11206,7 +11200,6 @@
 				3D547B852B988BDE000B030A /* MembershipTierSuccessView.swift in Sources */,
 				2EA9D72B2B3093FE001CF0DE /* EventsBunch.swift in Sources */,
 				867580042A58306A0008566A /* TemplatePreview.swift in Sources */,
-				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
 				2A816ACC2AD7E31F00975BCA /* DocumentPicker.swift in Sources */,
 				2A947B422A30E3EC00119140 /* ListWidgetRowModel.swift in Sources */,
@@ -11695,7 +11688,6 @@
 				2E04201A2BA894C500F36637 /* ObjectRelationListData.swift in Sources */,
 				2A298E3C2BC83FC100F1194C /* UniversalLink.swift in Sources */,
 				3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */,
-				2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
 				2E9B46622A4F2723000541EA /* MiddlewareMerticsConfigurator.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
