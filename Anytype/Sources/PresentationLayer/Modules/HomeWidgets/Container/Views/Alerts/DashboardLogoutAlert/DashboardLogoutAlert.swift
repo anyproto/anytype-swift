@@ -33,7 +33,7 @@ struct DashboardLogoutAlert: View {
             }
         )
         .onDisappear {
-            // Fix swiftui navigation when we open next screen after dismiss that
+            // Fix swiftui navigation when we open next screen after dismiss this
             if callOnBackupTap {
                 model.onBackupTap()
             }

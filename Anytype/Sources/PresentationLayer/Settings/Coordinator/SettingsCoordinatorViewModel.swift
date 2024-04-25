@@ -23,7 +23,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     @Published var showLogoutAlert = false
     @Published var showSettingsAccount = false
     @Published var showKeychainPhrase = false
-    @Published var dismissAllPresented = false
     
     init(
         navigationContext: NavigationContextProtocol,
