@@ -1060,6 +1060,8 @@
 "Min X characters" = "Minimo %@ caratteri";
 "Pending" = "In attesa...";
 "Manage payment" = "Manage payment";
+"This name is not availabe" = "Questo nome non è disponibile";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Membership";
