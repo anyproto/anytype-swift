@@ -4,6 +4,11 @@ import Services
 import Combine
 
 @MainActor
+protocol NewRelationCoordinatorViewOutput: AnyObject {
+    func didCreateRelation(_ relation: RelationDetails)
+}
+
+@MainActor
 final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModuleOutput {
     
     @Published var relationFormatsData: RelationFormatsData?
@@ -13,14 +18,18 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     let document: BaseDocumentProtocol
     let target: RelationsModuleTarget
     
+    private weak var output: NewRelationCoordinatorViewOutput?
+    
     init(
         name: String,
         document: BaseDocumentProtocol,
-        target: RelationsModuleTarget
+        target: RelationsModuleTarget,
+        output: NewRelationCoordinatorViewOutput?
     ) {
         self.name = name
         self.document = document
         self.target = target
+        self.output = output
     }
     
     // MARK: - NewRelationModuleOutput
@@ -43,7 +52,7 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     }
     
     func didCreateRelation(_ relation: RelationDetails) {
-        // TODO
+        output?.didCreateRelation(relation)
     }
     
 }

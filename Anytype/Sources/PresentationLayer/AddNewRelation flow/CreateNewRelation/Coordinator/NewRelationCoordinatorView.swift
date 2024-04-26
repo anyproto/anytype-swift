@@ -4,8 +4,8 @@ struct NewRelationCoordinatorView: View {
     
     @StateObject private var model: NewRelationCoordinatorViewModel
     
-    init(name: String, document: BaseDocumentProtocol, target: RelationsModuleTarget) {
-        _model = StateObject(wrappedValue: NewRelationCoordinatorViewModel(name: name, document: document, target: target))
+    init(name: String, document: BaseDocumentProtocol, target: RelationsModuleTarget, output: NewRelationCoordinatorViewOutput?) {
+        _model = StateObject(wrappedValue: NewRelationCoordinatorViewModel(name: name, document: document, target: target, output: output))
     }
     
     var body: some View {
