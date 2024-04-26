@@ -1,12 +1,8 @@
 import SwiftUI
 
 struct SetViewSettingsImagePreviewView: View {
-    @Environment(\.dismiss) var dismiss
-    @StateObject private var viewModel: SetViewSettingsImagePreviewViewModel
-    
-    init(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
-        _viewModel = StateObject(wrappedValue: SetViewSettingsImagePreviewViewModel(setDocument: setDocument, onSelect: onSelect))
-    }
+    @Environment(\.presentationMode) var presentationMode
+    @StateObject var viewModel: SetViewSettingsImagePreviewViewModel
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -29,7 +25,7 @@ struct SetViewSettingsImagePreviewView: View {
         VStack(spacing: 0) {
             ForEach(viewModel.coverRows) { item in
                 Button {
-                    dismiss()
+                    presentationMode.wrappedValue.dismiss()
                     item.onTap()
                 } label: {
                     row(item)
@@ -46,7 +42,7 @@ struct SetViewSettingsImagePreviewView: View {
                     relationsHeader
                     ForEach(viewModel.relationsRows) { item in
                         Button {
-                            dismiss()
+                            presentationMode.wrappedValue.dismiss()
                             item.onTap()
                         } label: {
                             row(item)
@@ -63,8 +59,7 @@ struct SetViewSettingsImagePreviewView: View {
     private var relationsHeader: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(26)
-            AnytypeText(Loc.relations, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
+            AnytypeText(Loc.relations, style: .caption1Regular, color: .Text.secondary)
             Spacer.fixedHeight(8)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -78,8 +73,7 @@ struct SetViewSettingsImagePreviewView: View {
                     .foregroundColor(.Button.active)
                 Spacer.fixedWidth(12)
             }
-            AnytypeText(configuration.title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+            AnytypeText(configuration.title, style: .uxBodyRegular, color: .Text.primary)
             Spacer()
 
             if configuration.isSelected {

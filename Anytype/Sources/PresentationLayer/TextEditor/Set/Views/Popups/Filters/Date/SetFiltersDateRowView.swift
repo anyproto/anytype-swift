@@ -11,9 +11,9 @@ struct SetFiltersDateRowView: View {
             HStack(spacing: 0) {
                 AnytypeText(
                     configuration.title,
-                    style: .uxBodyRegular
+                    style: .uxBodyRegular,
+                    color: .Text.primary
                 )
-                .foregroundColor(.Text.primary)
                 .layoutPriority(1)
                 Spacer()
                 
@@ -36,8 +36,7 @@ struct SetFiltersDateRowView: View {
                     .accentColor(Color.System.amber100)
                 Spacer.fixedWidth(4)
             case let .days(count):
-                AnytypeText(count, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                AnytypeText(count, style: .uxBodyRegular, color: .Text.primary)
                     .lineLimit(1)
                 Spacer.fixedWidth(4)
             default:

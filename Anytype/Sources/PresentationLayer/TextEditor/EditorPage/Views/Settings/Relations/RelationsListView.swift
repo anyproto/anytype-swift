@@ -3,16 +3,11 @@ import Services
 
 struct RelationsListView: View {
     
-    @StateObject private var viewModel: RelationsListViewModel
+    @ObservedObject var viewModel: RelationsListViewModel
     @State private var editingMode = false
-    
-    init(document: BaseDocumentProtocol, output: RelationsListModuleOutput?) {
-        _viewModel = StateObject(wrappedValue: RelationsListViewModel(document: document, output: output))
-    }
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             navigationBar
             relationsList
         }
@@ -20,18 +15,11 @@ struct RelationsListView: View {
     
     private var navigationBar: some View {
         HStack {
-            if !viewModel.navigationBarButtonsDisabled {
-                editButton
-            }
-            
+            editButton
             Spacer()
-            AnytypeText(Loc.relations, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+            AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
             Spacer()
-            
-            if !viewModel.navigationBarButtonsDisabled {
-                createNewRelationButton
-            }
+            createNewRelationButton
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
@@ -45,10 +33,11 @@ struct RelationsListView: View {
         } label: {
             AnytypeText(
                 editingMode ? Loc.done : Loc.edit,
-                style: .uxBodyRegular
+                style: .uxBodyRegular,
+                color: viewModel.navigationBarButtonsDisabled ? .Button.inactive : .Text.secondary
             )
-            .foregroundColor(.Text.secondary)
         }
+        .disabled(viewModel.navigationBarButtonsDisabled)
     }
     
     private var createNewRelationButton: some View {
@@ -56,8 +45,9 @@ struct RelationsListView: View {
             viewModel.showAddNewRelationView()
         } label: {
             Image(asset: .X32.plus)
-                .foregroundColor(.Button.active)
+                .foregroundColor(viewModel.navigationBarButtonsDisabled ? .Button.inactive : .Button.active)
         }
+        .disabled(viewModel.navigationBarButtonsDisabled)
     }
     
     private var relationsList: some View {

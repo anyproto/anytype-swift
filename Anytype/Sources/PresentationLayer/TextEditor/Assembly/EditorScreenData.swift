@@ -48,7 +48,7 @@ struct EditorSetObject: Hashable, Codable {
 }
 
 struct EditorInlineSetObject: Hashable, Codable {
-    let blockId: String
+    let blockId: BlockId
     let targetObjectID: String
 }
 

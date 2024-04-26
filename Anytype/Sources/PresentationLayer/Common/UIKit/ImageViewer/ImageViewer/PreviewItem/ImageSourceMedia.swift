@@ -9,13 +9,13 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
     var previewItemURL: URL?
 
     let file: BlockFile
-    private let blockId: String
+    private let blockId: BlockId
     private let imageSource: ImageSource
     private let previewImage: UIImage?
     private let semaphore = DispatchSemaphore(value: 1)
     private var cancellables = [AnyCancellable]()
 
-    init(file: BlockFile, blockId: String, previewImage: UIImage?) {
+    init(file: BlockFile, blockId: BlockId, previewImage: UIImage?) {
         self.file = file
 
         let imageId = ImageMetadata(id: file.metadata.targetObjectId, width: .original)

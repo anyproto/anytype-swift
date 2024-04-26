@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Audio.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Audio.Dark.pdf",
+      "filename" : "music.pdf",
       "idiom" : "universal"
     }
   ],

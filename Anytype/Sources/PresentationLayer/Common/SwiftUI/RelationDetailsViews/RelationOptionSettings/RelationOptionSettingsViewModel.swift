@@ -11,18 +11,18 @@ final class RelationOptionSettingsViewModel: ObservableObject {
     let colors: [Color]
     let configuration: RelationOptionSettingsConfiguration
     
-    @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
-    
+    private let relationsService: RelationsServiceProtocol
     private let completion: (_ optionParams: RelationOptionParameters) -> Void
     
     init(
         configuration: RelationOptionSettingsConfiguration,
+        relationsService: RelationsServiceProtocol,
         completion: @escaping (_ optionParams: RelationOptionParameters) -> Void
     ) {
         self.text = configuration.option.text
         self.selectedColor = configuration.option.color
         self.configuration = configuration
+        self.relationsService = relationsService
         self.completion = completion
         self.colors = MiddlewareColor.allCasesWithoutDefault.map { Color.Dark.color(from: $0) }
     }

@@ -6,7 +6,7 @@ struct SheetView<Content: View>: View {
     private var content: Content
     private let cancelAction: (() -> Void)?
     
-    init(content: () -> Content, cancelAction: (() -> Void)?) {
+    init(@ViewBuilder content: @escaping () -> Content, cancelAction: (() -> Void)?) {
         self.content = content()
         self.cancelAction = cancelAction
     }
@@ -14,7 +14,7 @@ struct SheetView<Content: View>: View {
     var body: some View {
         ZStack {
             Color.clear
-                .fixTappableArea()
+                .contentShape(Rectangle())
                 .onTapGesture {
                     dismiss()
                     cancelAction?()

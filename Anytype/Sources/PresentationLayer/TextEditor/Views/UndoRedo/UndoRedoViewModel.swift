@@ -2,37 +2,65 @@ import UIKit
 import AnytypeCore
 import Services
 
-@MainActor
 final class UndoRedoViewModel: ObservableObject {
-    
-    @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
-    
-    private let objectId: String
+    struct ButtonModel: Identifiable {
+        let id: String
+        let title: String
+        let imageAsset: ImageAsset
+        let action: () -> Void
+    }
 
-    @Published var toastData: ToastBarData = .empty
+    var onErrorHandler: RoutingAction<String>?
     
+    lazy private(set) var buttonModels = buildButtonModels()
+
+    private let objectId: String
+    private let objectActionsService: ObjectActionsServiceProtocol
+
     init(
-        objectId: String
+        objectId: String,
+        objectActionsService: ObjectActionsServiceProtocol
     ) {
         self.objectId = objectId
+        self.objectActionsService = objectActionsService
     }
 
-    func undo() async throws {
+    func undo() {
         AnytypeAnalytics.instance().logUndo()
-        do {
-            try await objectActionsService.undo(objectId: objectId)
-        } catch let error as ObjectActionsServiceError {
-            toastData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
+        Task { @MainActor in
+            do {
+                try await objectActionsService.undo(objectId: objectId)
+            } catch let error as ObjectActionsServiceError {
+                onErrorHandler?(error.message)
+            }
         }
     }
 
-    func redo() async throws {
-        do {
-            AnytypeAnalytics.instance().logRedo()
-            try await objectActionsService.redo(objectId: objectId)
-        } catch let error as ObjectActionsServiceError {
-            toastData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .none)
+    func redo() {
+        AnytypeAnalytics.instance().logRedo()
+        Task { @MainActor in
+            do {
+                try await objectActionsService.redo(objectId: objectId)
+            } catch let error as ObjectActionsServiceError {
+                onErrorHandler?(error.message)
+            }
         }
+    }
+
+    private func buildButtonModels() -> [ButtonModel] {
+        [
+            .init(
+                id: "undo",
+                title: "Undo",
+                imageAsset: .X32.Undo.undo,
+                action: { [weak self] in self?.undo() }
+            ),
+            .init(
+                id: "redo",
+                title: "Redo",
+                imageAsset: .X32.Undo.redo,
+                action: { [weak self] in self?.redo() }
+            )
+        ]
     }
 }

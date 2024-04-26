@@ -1,4 +1,5 @@
 import SwiftUI
+import Kingfisher
 
 struct SetFullHeader: View {
     @State private var width: CGFloat = .zero
@@ -21,7 +22,7 @@ struct SetFullHeader: View {
             VStack(alignment: .leading, spacing: 8) {
                 titleView
                 description
-                featuredRelationsView
+                flowRelations
             }
             .padding([.leading], 20)
         }
@@ -33,7 +34,7 @@ struct SetFullHeader: View {
             emptyCover
             VStack(alignment: .leading, spacing: 8) {
                 iconWithTitle
-                featuredRelationsView
+                flowRelations
             }
             .padding([.leading], 20)
         }
@@ -73,9 +74,9 @@ extension SetFullHeader {
             if let description = model.details?.description, description.isNotEmpty {
                 AnytypeText(
                     description,
-                    style: .relation1Regular
+                    style: .relation1Regular,
+                    color: .Text.primary
                 )
-                .foregroundColor(.Text.primary)
                 .fixedSize(horizontal: false, vertical: true)
             } else {
                 EmptyView()
@@ -118,11 +119,18 @@ extension SetFullHeader {
         .disableAutocorrection(true)
     }
 
-    private var featuredRelationsView: some View {
-        FeaturedRelationsView(
-            relations: model.featuredRelations,
-            view: { relation in
-                relationContent(for: relation)
+    private var flowRelations: some View {
+        FlowLayout(
+            items: model.featuredRelations,
+            alignment: .leading,
+            spacing: .init(width: 6, height: 4),
+            cell: { item, index in
+                HStack(spacing: 0) {
+                    relationContent(for: item)
+                    if model.featuredRelations.count - 1 > index {
+                        dotImage
+                    }
+                }
             }
         )
     }
@@ -140,17 +148,29 @@ extension SetFullHeader {
             )
         )
         let contextMenuItems = model.contextMenuItems(for: relation)
-        let mode: RelationValueViewModel.Mode = contextMenuItems.isNotEmpty ? .contextMenu(contextMenuItems) : .button(action: { [weak model] in
-            UIApplication.shared.hideKeyboard()
-            model?.onRelationTap(relation: relation)
-        })
-        RelationValueView(
-            model: RelationValueViewModel(
+        if contextMenuItems.isNotEmpty {
+            RelationValueView(
                 relation: item,
                 style: style,
-                mode: mode
+                mode: .contextMenu(contextMenuItems)
             )
-        )
+        } else {
+            RelationValueView(
+                relation: item,
+                style: style,
+                mode: .button(action: { [weak model] in
+                    UIApplication.shared.hideKeyboard()
+                    model?.onRelationTap(relation: relation)
+                })
+            )
+        }
+    }
+
+    private var dotImage: some View {
+        Image(systemName: "circle.fill")
+            .resizable()
+            .foregroundColor(.Text.secondary)
+            .frame(width: 3, height: 3)
     }
 }
 

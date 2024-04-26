@@ -3,7 +3,7 @@ import SwiftUI
 
 struct InitialCoordinatorView: View {
     
-    @StateObject private var model = InitialCoordinatorViewModel()
+    @StateObject var model: InitialCoordinatorViewModel
     
     var body: some View {
         ZStack {
@@ -43,12 +43,9 @@ struct InitialCoordinatorView: View {
     private var crashView: some View {
         VStack {
             Spacer()
-            AnytypeText("🚨", style: .uxTitle1Semibold)
-                .foregroundColor(.Text.white)
-            AnytypeText("Previous run finished with crash", style: .uxTitle1Semibold)
-                .foregroundColor(.Text.white)
-            AnytypeText("You can copy and send your data (documents, files and etc) to developers. If your data contains private information, do not send it to the anyone.", style: .uxTitle2Medium)
-                .foregroundColor(.Text.white)
+            AnytypeText("🚨", style: .uxTitle1Semibold, color: .Text.white)
+            AnytypeText("Previous run finished with crash", style: .uxTitle1Semibold, color: .Text.white)
+            AnytypeText("You can copy and send your data (documents, files and etc) to developers. If your data contains private information, do not send it to the anyone.", style: .uxTitle2Medium, color: .Text.white)
                 .multilineTextAlignment(.center)
             Spacer()
             StandardButton("Export full directory 🤐", style: .primaryLarge) {

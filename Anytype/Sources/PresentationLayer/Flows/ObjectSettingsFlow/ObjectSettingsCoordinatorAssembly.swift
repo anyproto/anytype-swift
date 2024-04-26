@@ -1,12 +1,8 @@
 import Foundation
-import SwiftUI
 
 protocol ObjectSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make(
-        objectId: String,
-        output: ObjectSettingsCoordinatorOutput?
-    ) -> AnyView
+    func make() -> ObjectSettingsCoordinatorProtocol
 }
 
 final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol {
@@ -31,17 +27,20 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     // MARK: - ObjectSettingsCoordinatorAssemblyProtocol
     
     @MainActor
-    func make(
-        objectId: String,
-        output: ObjectSettingsCoordinatorOutput?
-    ) -> AnyView {
-        ObjectSettingsCoordinatorView(
-            model: ObjectSettingsCoordinatorViewModel(
-                objectId: objectId,
-                output: output,
-                navigationContext: self.uiHelpersDI.commonNavigationContext(),
-                relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList()
-            )
-        ).eraseToAnyView()
+    func make() -> ObjectSettingsCoordinatorProtocol {
+        ObjectSettingsCoordinator(
+            navigationContext: uiHelpersDI.commonNavigationContext(),
+            objectSettingsModuleAssembly: modulesDI.objectSetting(),
+            undoRedoModuleAssembly: modulesDI.undoRedo(),
+            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker(),
+            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
+            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
+            relationsListModuleAssembly: modulesDI.relationsList(),
+            relationValueCoordinator: coordinatorsDI.relationValue().make(),
+            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
+            searchModuleAssembly: modulesDI.search(),
+            newSearchModuleAssembly: modulesDI.newSearch(),
+            documentsProvider: serviceLocator.documentsProvider
+        )
     }
 }

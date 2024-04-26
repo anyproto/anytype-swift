@@ -7,13 +7,10 @@ enum AnytypeFont: CaseIterable {
     case subheading
 
     case previewTitle1Medium
-    case previewTitle1Regular
-    
     case previewTitle2Regular
     case previewTitle2Medium
 
     case bodyRegular
-    case bodySemibold
     
     case calloutRegular
 
@@ -25,7 +22,6 @@ enum AnytypeFont: CaseIterable {
 
     // UX fonts
     case uxTitle1Semibold
-    case uxTitle2Semibold
     case uxTitle2Regular
     case uxTitle2Medium
     case uxBodyRegular
@@ -50,7 +46,4 @@ enum AnytypeFont: CaseIterable {
     case authEmoji
     
     case navigationBarTitle
-    
-    case riccioneBannerTitle
-    case interBannerTitle
 }

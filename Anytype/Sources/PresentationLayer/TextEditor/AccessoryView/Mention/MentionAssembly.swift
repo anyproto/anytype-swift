@@ -1,15 +1,22 @@
 final class MentionAssembly {
-    func controller(document: BaseDocumentProtocol) -> (MentionsViewController, MentionsViewModel) {
+    func controller(
+        document: BaseDocumentProtocol,
+        onMentionSelect: @escaping (MentionObject) -> Void,
+        onDismiss: (() -> Void)?
+    ) -> MentionsViewController {
         let mentionService = MentionObjectsService(searchService: ServiceLocator.shared.searchService())
         
         let viewModel = MentionsViewModel(
             document: document,
             mentionService: mentionService,
-            defaultObjectService: ServiceLocator.shared.defaultObjectCreationService()
+            defaultObjectService: ServiceLocator.shared.defaultObjectCreationService(),
+            onSelect: onMentionSelect
         )
-        let controller = MentionsViewController(viewModel: viewModel)
+        let controller = MentionsViewController(viewModel: viewModel, dismissAction: onDismiss)
         controller.view.translatesAutoresizingMaskIntoConstraints = false
-                
-        return (controller, viewModel)
+        
+        viewModel.view = controller
+        
+        return controller
     }
 }

@@ -8,12 +8,10 @@ import AudioToolbox
 final class AboutViewModel: ObservableObject {
     
     // MARK: - DI
-    @Injected(\.middlewareConfigurationProvider)
-    private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
-    @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
+    private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    private let accountManager: AccountManagerProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private weak var output: AboutModuleOutput?
     
     private var appVersion: String? = MetadataProvider.appVersion
@@ -24,7 +22,15 @@ final class AboutViewModel: ObservableObject {
     @Published var info: String = ""
     @Published var snackBarData = ToastBarData.empty
     
-    init(output: AboutModuleOutput?) {
+    init(
+        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
+        accountManager: AccountManagerProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        output: AboutModuleOutput?
+    ) {
+        self.middlewareConfigurationProvider = middlewareConfigurationProvider
+        self.accountManager = accountManager
+        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
         setupView()
     }
@@ -51,7 +57,7 @@ final class AboutViewModel: ObservableObject {
     func onContactTap() {
         AnytypeAnalytics.instance().logContactUs()
         let mailLink = MailUrl(
-            to: AboutApp.supportMailTo,
+            to: AboutApp.mailTo,
             subject: Loc.About.Mail.subject(accountManager.account.id),
             body: Loc.About.Mail.body(fullInfo())
         )
@@ -66,7 +72,7 @@ final class AboutViewModel: ObservableObject {
     
     func onPrivacyPolicyTap() {
         AnytypeAnalytics.instance().logPrivacyPolicy()
-        handleUrl(string: AboutApp.privacyPolicyLink)
+        handleUrl(string: AboutApp.privacyLink)
     }
     
     func onInfoTap() {
@@ -90,7 +96,7 @@ final class AboutViewModel: ObservableObject {
                 Loc.About.appVersion(appVersion ?? ""),
                 Loc.About.buildNumber(buildNumber ?? ""),
                 Loc.About.library(libraryVersion ?? ""),
-                Loc.About.anytypeId(accountManager.account.id),
+                Loc.About.accountId(accountManager.account.id),
                 Loc.About.deviceId(activeWorkspaceStorage.workspaceInfo.deviceId),
                 Loc.About.analyticsId(activeWorkspaceStorage.workspaceInfo.analyticsId)
             ].joined(separator: "\n")

@@ -5,7 +5,11 @@ import AnytypeCore
 struct NonExistentBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
-    var hashable: AnyHashable { info.id }
+    var hashable: AnyHashable {
+        [
+            info
+        ] as [AnyHashable]
+    }
 
     init(info: BlockInformation) {
         self.info = info
@@ -14,8 +18,8 @@ struct NonExistentBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         NonExistentBlockContentConfiguration(text: Loc.nonExistentObject)
             .cellBlockConfiguration(
-                dragConfiguration: .init(id: info.id),
-                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id)
             )
     }
 

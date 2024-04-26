@@ -7,8 +7,6 @@ enum URLOpenerPresentationStyle {
     case pageSheet
 }
 
-
-@MainActor
 protocol URLOpenerProtocol: AnyObject {
     func canOpenUrl(_ url: URL) -> Bool
     func openUrl(_ url: URL, presentationStyle: URLOpenerPresentationStyle, preferredColorScheme: UIUserInterfaceStyle?)
@@ -28,7 +26,7 @@ final class URLOpener: URLOpenerProtocol {
     
     private var navigationContext: NavigationContextProtocol
     
-    nonisolated init(navigationContext: NavigationContextProtocol) {
+    init(navigationContext: NavigationContextProtocol) {
         self.navigationContext = navigationContext
     }
     

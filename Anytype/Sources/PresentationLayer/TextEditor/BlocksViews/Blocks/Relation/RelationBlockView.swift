@@ -44,7 +44,7 @@ final class RelationBlockView: UIView, BlockContentView {
     
     private func setupRelationState(
         relation: RelationItemModel,
-        action: (() -> Void)?
+        action: ((_ relation: RelationItemModel) -> Void)?
     ) {
         relationNameView.setText(relation.name)
         relationIcon.image = UIImage(asset: .relationLocked)
@@ -92,7 +92,7 @@ final class RelationBlockView: UIView, BlockContentView {
         } builder: {
             $0.hStack(
                 spacing: 12,
-                alignedTo: .leading,
+                alignedTo: .top,
                 relationNameStack,
                 $0.vStack(
                     $0.vGap(fixed: 2),

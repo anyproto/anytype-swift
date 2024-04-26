@@ -4,12 +4,8 @@ import SharedContentManager
 
 struct ShareOptionsView: View {
     
-    @StateObject private var model: ShareOptionsViewModel
+    @StateObject var model: ShareOptionsViewModel
     @Environment(\.dismiss) private var dismiss
-    
-    init(output: ShareOptionsModuleOutput?) {
-        self._model = StateObject(wrappedValue: ShareOptionsViewModel(output: output))
-    }
     
     var body: some View {
         ZStack {

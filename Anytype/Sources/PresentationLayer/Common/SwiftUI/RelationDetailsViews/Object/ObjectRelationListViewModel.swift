@@ -20,17 +20,22 @@ final class ObjectRelationListViewModel: ObservableObject {
     
     private let interactor: ObjectRelationListInteractorProtocol
     private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
-    
-    @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
     
     private weak var output: ObjectRelationListModuleOutput?
     
-    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
-        self.configuration = data.configuration
+    init(
+        configuration: RelationModuleConfiguration,
+        interactor: ObjectRelationListInteractorProtocol,
+        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
+        output: ObjectRelationListModuleOutput?
+    ) {
+        self.configuration = configuration
         self.output = output
-        self.interactor = data.interactor
-        self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
+        self.interactor = interactor
+        self.relationSelectedOptionsModel = relationSelectedOptionsModel
+        self.objectActionsService = objectActionsService
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     
@@ -117,15 +122,11 @@ final class ObjectRelationListViewModel: ObservableObject {
     }
     
     private func searchTextChangedAsync(_ text: String = "") async throws {
-        let selectedOptions = try await interactor.searchOptions(text: text, limitObjectIds: selectedOptionsIds)
-        let rawOptions = try await interactor.searchOptions(text: text, excludeObjectIds: selectedOptionsIds)
+        let rawOptions = try await interactor.searchOptions(text: text)
         
-        let selectedReorder = selectedOptions
-            .reordered(
-                by: selectedOptionsIds
-            ) { $0.id }
-        
-        options = selectedReorder + rawOptions
+        options = rawOptions.reordered(
+            by: selectedOptionsIds
+        ) { $0.id }
         
         if !configuration.isEditable {
             options = options.filter { selectedOptionsIds.contains($0.id) }

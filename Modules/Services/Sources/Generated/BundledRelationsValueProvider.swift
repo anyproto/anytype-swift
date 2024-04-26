@@ -22,10 +22,7 @@ public protocol BundledRelationsValueProvider {
     var mediaArtistURL: AnytypeURL? { get }
     var templateIsBundled: Bool { get }
     var dateOfBirth: Date? { get }
-    var restrictions: [Int] { get }
-    var readersLimit: Int? { get }
-    var writersLimit: Int? { get }
-    var sharedSpacesLimit: Int? { get }
+    var restrictions: Int? { get }
     var isHighlighted: Bool { get }
     var thumbnailImage: [ObjectId] { get }
     var attachments: [ObjectId] { get }
@@ -57,7 +54,6 @@ public protocol BundledRelationsValueProvider {
     var linkedContacts: [ObjectId] { get }
     var rottenTomatoesRating: Int? { get }
     var isHidden: Bool { get }
-    var isHiddenDiscovery: Bool { get }
     var additional: String { get }
     var budget: Int? { get }
     var mediaArtistName: String { get }
@@ -164,8 +160,6 @@ public protocol BundledRelationsValueProvider {
     var origin: Int? { get }
     var spaceLocalStatus: Int? { get }
     var spaceRemoteStatus: Int? { get }
-    var spaceShareableStatus: Int? { get }
-    var isAclShared: Bool { get }
     var spaceAccountStatus: Int? { get }
     var spaceInviteFileCid: String { get }
     var spaceInviteFileKey: String { get }
@@ -180,7 +174,6 @@ public protocol BundledRelationsValueProvider {
     var revision: Int? { get }
     var imageKind: Int? { get }
     var importType: Int? { get }
-    var globalName: String { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -238,20 +231,8 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
         return value(for: BundledRelationKey.dateOfBirth.rawValue)
     }
     /// Object restrictions list
-    var restrictions: [Int] {
+    var restrictions: Int? {
         return value(for: BundledRelationKey.restrictions.rawValue)
-    }
-    /// Readers limit
-    var readersLimit: Int? {
-        return value(for: BundledRelationKey.readersLimit.rawValue)
-    }
-    /// Writers limit
-    var writersLimit: Int? {
-        return value(for: BundledRelationKey.writersLimit.rawValue)
-    }
-    /// Shared spaces limit
-    var sharedSpacesLimit: Int? {
-        return value(for: BundledRelationKey.sharedSpacesLimit.rawValue)
     }
     /// Adds the object to the highlighted dataview in space
     var isHighlighted: Bool {
@@ -358,10 +339,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Specify if object is hidden
     var isHidden: Bool {
         return value(for: BundledRelationKey.isHidden.rawValue)
-    }
-    /// Specify if object discovery is hidden
-    var isHiddenDiscovery: Bool {
-        return value(for: BundledRelationKey.isHiddenDiscovery.rawValue)
     }
     var additional: String {
         return value(for: BundledRelationKey.additional.rawValue)
@@ -739,14 +716,6 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     var spaceRemoteStatus: Int? {
         return value(for: BundledRelationKey.spaceRemoteStatus.rawValue)
     }
-    /// Specify if the space is shareable
-    var spaceShareableStatus: Int? {
-        return value(for: BundledRelationKey.spaceShareableStatus.rawValue)
-    }
-    /// Specify if access control list is shared
-    var isAclShared: Bool {
-        return value(for: BundledRelationKey.isAclShared.rawValue)
-    }
     /// Relation that indicates the status of space that the user is set. Possible values: models.SpaceStatus
     var spaceAccountStatus: Int? {
         return value(for: BundledRelationKey.spaceAccountStatus.rawValue)
@@ -801,9 +770,5 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Import type, used to create object (notion, md and etc)
     var importType: Int? {
         return value(for: BundledRelationKey.importType.rawValue)
-    }
-    /// Name of profile that the user could be mentioned by
-    var globalName: String {
-        return value(for: BundledRelationKey.globalName.rawValue)
     }
 }

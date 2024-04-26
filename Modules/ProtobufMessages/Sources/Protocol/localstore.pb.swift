@@ -206,10 +206,10 @@ public struct Anytype_Model_ObjectStoreChecksums {
   /// increased in order to remove indexes and reindex everything. Automatically triggers objects and files reindex(one time only)
   public var idxRebuildCounter: Int32 = 0
 
-  /// DEPRECATED increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
+  /// increased in order to perform fulltext indexing for all type of objects (useful when we change fulltext config)
   public var fulltextRebuild: Int32 = 0
 
-  /// DEPRECATED remove all the fulltext indexes and add to reindex queue after
+  /// remove all the fulltext indexes and add to reindex queue after
   public var fulltextErase: Int32 = 0
 
   public var bundledTemplates: String = String()
@@ -218,10 +218,6 @@ public struct Anytype_Model_ObjectStoreChecksums {
   public var bundledObjects: Int32 = 0
 
   public var filestoreKeysForceReindexCounter: Int32 = 0
-
-  public var areOldFilesRemoved: Bool = false
-
-  public var areDeletedObjectsReindexed: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -579,8 +575,6 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     8: .same(proto: "bundledTemplates"),
     9: .same(proto: "bundledObjects"),
     10: .same(proto: "filestoreKeysForceReindexCounter"),
-    12: .same(proto: "areOldFilesRemoved"),
-    13: .same(proto: "areDeletedObjectsReindexed"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -600,8 +594,6 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.bundledObjects) }()
       case 10: try { try decoder.decodeSingularInt32Field(value: &self.filestoreKeysForceReindexCounter) }()
       case 11: try { try decoder.decodeSingularInt32Field(value: &self.fulltextErase) }()
-      case 12: try { try decoder.decodeSingularBoolField(value: &self.areOldFilesRemoved) }()
-      case 13: try { try decoder.decodeSingularBoolField(value: &self.areDeletedObjectsReindexed) }()
       default: break
       }
     }
@@ -641,12 +633,6 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if self.fulltextErase != 0 {
       try visitor.visitSingularInt32Field(value: self.fulltextErase, fieldNumber: 11)
     }
-    if self.areOldFilesRemoved != false {
-      try visitor.visitSingularBoolField(value: self.areOldFilesRemoved, fieldNumber: 12)
-    }
-    if self.areDeletedObjectsReindexed != false {
-      try visitor.visitSingularBoolField(value: self.areDeletedObjectsReindexed, fieldNumber: 13)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -662,8 +648,6 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.bundledTemplates != rhs.bundledTemplates {return false}
     if lhs.bundledObjects != rhs.bundledObjects {return false}
     if lhs.filestoreKeysForceReindexCounter != rhs.filestoreKeysForceReindexCounter {return false}
-    if lhs.areOldFilesRemoved != rhs.areOldFilesRemoved {return false}
-    if lhs.areDeletedObjectsReindexed != rhs.areDeletedObjectsReindexed {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

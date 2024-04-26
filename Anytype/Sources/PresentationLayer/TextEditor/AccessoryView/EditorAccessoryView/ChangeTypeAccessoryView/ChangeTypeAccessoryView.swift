@@ -40,7 +40,11 @@ class ChangeTypeAccessoryView: UIView {
         backgroundColor = .Background.primary
 
         addSubview(stackView) {
-            $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
+            }
         }
 
         topView.addSubview(doneButton) {

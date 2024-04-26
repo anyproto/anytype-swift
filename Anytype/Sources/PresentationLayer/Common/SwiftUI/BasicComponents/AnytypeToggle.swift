@@ -24,8 +24,7 @@ struct AnytypeToggle: View {
     
     var body: some View {
         Toggle(isOn: $model.isOn) {
-            AnytypeText(title, style: font)
-                .foregroundColor(.Text.primary)
+            AnytypeText(title, style: font, color: .Text.primary)
         }
         .toggleStyle(SwitchToggleStyle(tint: .System.amber50))
         

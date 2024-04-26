@@ -18,20 +18,20 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private weak var output: SetLayoutSettingsCoordinatorOutput?
     
     private var cancellable: Cancellable?
-    
-    @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private let dataviewService: DataviewServiceProtocol
     
     private var view: DataviewView = .empty
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        output: SetLayoutSettingsCoordinatorOutput?
+        output: SetLayoutSettingsCoordinatorOutput?,
+        dataviewService: DataviewServiceProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
         self.output = output
+        self.dataviewService = dataviewService
         self.setupSubscription()
     }
     

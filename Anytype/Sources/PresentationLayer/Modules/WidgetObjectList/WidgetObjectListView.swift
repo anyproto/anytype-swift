@@ -26,21 +26,12 @@ struct WidgetObjectListView: View {
         .onDisappear() {
             model.onDisappear()
         }
-        .task {
-            await model.startParticipantTask()
-        }
         .onChange(of: searchText) { model.didAskToSearch(text: $0) }
         .onChange(of: model.viewEditMode) { _ in model.onSwitchEditMode() }
         .navigationBarTitle("")
         .navigationBarHidden(true)
         .environment(\.editMode, $model.viewEditMode)
         .homeBottomPanelHidden(model.homeBottomPanelHiddel, animated: false)
-        .anytypeSheet(item: $model.binAlertData) { data in
-            BinConfirmationAlert(data: data)
-        }
-        .anytypeSheet(item: $model.forceDeleteAlertData) {
-            ForceDeleteAlert(data: $0)
-        }
     }
     
     @ViewBuilder
@@ -78,8 +69,8 @@ struct WidgetObjectListView: View {
     
     @ViewBuilder
     private var editButton: some View {
-        if model.contentIsNotEmpty, model.canEdit {
-            switch model.editMode {
+        if model.contentIsNotEmpty {
+            switch model.editModel {
             case .normal:
                 EditButton()
                     .foregroundColor(Color.Button.active)
@@ -87,8 +78,7 @@ struct WidgetObjectListView: View {
                 Button {
                     model.onSelectAll()
                 } label: {
-                    AnytypeText(model.selectButtonText, style: .uxBodyRegular)
-                        .foregroundColor(.Button.active)
+                    AnytypeText(model.selectButtonText, style: .uxBodyRegular, color: .Button.active)
                 }
             }
         }
@@ -107,7 +97,7 @@ struct WidgetObjectListView: View {
     }
     
     private var allowDnd: Bool {
-        switch model.editMode {
+        switch model.editModel {
         case let .normal(allowDnd):
             return allowDnd
         case .editOnly:

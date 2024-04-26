@@ -17,7 +17,7 @@ final class SimpleTableSelectionOptionHandler {
     private let router: EditorRouterProtocol
     private let tableService: BlockTableServiceProtocol
     private let document: BaseDocumentProtocol
-    private let blockInformationProvider: BlockModelInfomationProvider
+    private let tableBlockInformation: BlockInformation
     private let actionHandler: BlockActionHandlerProtocol
 
     private var currentSortType: BlocksSortType = .asc
@@ -26,13 +26,13 @@ final class SimpleTableSelectionOptionHandler {
         router: EditorRouterProtocol,
         tableService: BlockTableServiceProtocol,
         document: BaseDocumentProtocol,
-        blockInformationProvider: BlockModelInfomationProvider,
+        tableBlockInformation: BlockInformation,
         actionHandler: BlockActionHandlerProtocol
     ) {
         self.router = router
         self.tableService = tableService
         self.document = document
-        self.blockInformationProvider = blockInformationProvider
+        self.tableBlockInformation = tableBlockInformation
         self.actionHandler = actionHandler
     }
 
@@ -56,7 +56,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func handleColumnAction(action: SimpleTableColumnMenuItem) async {
         guard let table = ComputedTable(
-            blockInformation: blockInformationProvider.info,
+            blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
         ) else { return }
 
@@ -80,7 +80,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveLeft:
             let allColumnIds = table.allColumnIds
-            let dropColumnIds = uniqueColumns.compactMap { item -> String? in
+            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
                 guard let index = allColumnIds.firstIndex(of: item) else { return nil }
                 let indexBefore = allColumnIds.index(before: index)
 
@@ -92,7 +92,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveRight:
             let allColumnIds = table.allColumnIds
-            let dropColumnIds = uniqueColumns.compactMap { item -> String? in
+            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
                 guard let index = allColumnIds.firstIndex(of: item) else { return nil }
                 let indexBefore = allColumnIds.index(after: index)
 
@@ -132,7 +132,7 @@ final class SimpleTableSelectionOptionHandler {
         onFinishSelection?()
     }
 
-    private func onColorSelection(for selectedBlockIds: [String]) {
+    private func onColorSelection(for selectedBlockIds: [BlockId]) {
         let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
 
         let backgroundColors = blockInformations.map(\.backgroundColor)
@@ -164,7 +164,7 @@ final class SimpleTableSelectionOptionHandler {
         )
     }
 
-    private func onStyleSelection(for selectedBlockIds: [String]) {
+    private func onStyleSelection(for selectedBlockIds: [BlockId]) {
         router.showMarkupBottomSheet(
             selectedBlockIds: selectedBlockIds,
             viewDidClose: {
@@ -176,7 +176,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func handleRowAction(action: SimpleTableRowMenuItem) async {
         guard let table = ComputedTable(
-            blockInformation: blockInformationProvider.info,
+            blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
         ) else { return }
 
@@ -200,7 +200,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveUp:
             let allRowIds = table.allRowIds
-            let dropRowIds = uniqueRows.compactMap { item -> String? in
+            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
                 guard let index = allRowIds.firstIndex(of: item) else { return nil }
                 let indexBefore = allRowIds.index(before: index)
 
@@ -217,7 +217,7 @@ final class SimpleTableSelectionOptionHandler {
             }
         case .moveDown:
             let allRowIds = table.allRowIds
-            let dropRowIds = uniqueRows.compactMap { item -> String? in
+            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
                 guard let index = allRowIds.firstIndex(of: item) else { return nil }
                 let indexAfter = allRowIds.index(after: index)
 
@@ -256,7 +256,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func handleCellAction(action: SimpleTableCellMenuItem) async {
         guard let table = ComputedTable(
-            blockInformation: blockInformationProvider.info,
+            blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
         ) else { return }
 
@@ -285,7 +285,7 @@ final class SimpleTableSelectionOptionHandler {
     @MainActor
     private func fillSelectedRows() async {
         guard let table = ComputedTable(
-            blockInformation: blockInformationProvider.info,
+            blockInformation: tableBlockInformation,
             infoContainer: document.infoContainer
         ) else { return }
 

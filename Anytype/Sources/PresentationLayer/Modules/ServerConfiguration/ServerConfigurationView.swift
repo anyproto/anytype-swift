@@ -3,11 +3,7 @@ import SwiftUI
 
 struct ServerConfigurationView: View {
 
-    @StateObject private var model: ServerConfigurationViewModel
-    
-    init(output: ServerConfigurationModuleOutput?) {
-        _model = StateObject(wrappedValue: ServerConfigurationViewModel(output: output))
-    }
+    @StateObject var model: ServerConfigurationViewModel
     
     var body: some View {
         NavigationView {
@@ -51,8 +47,7 @@ struct ServerConfigurationView: View {
     
     private func makeRow(row: ServerConfigurationRow) -> some View {
         HStack {
-            AnytypeText(row.title, style: .bodyRegular)
-                .foregroundColor(.Auth.text)
+            AnytypeText(row.title, style: .bodyRegular, color: .Auth.text)
             Spacer()
             if row.isSelected {
                 Image(asset: .X24.tick)

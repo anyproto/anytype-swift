@@ -10,7 +10,7 @@ public enum BlocksModelsConverter {
         case .link(let data): return data.blockContent
         case .text(let data): return data.blockContent
         case .file(let data): return data.blockContent
-        case .bookmark(let data): return data.blockContent
+        case .bookmark(let data): return data.blockConten
         case .div(let data): return data.blockContent
         case .layout(let data): return data.blockContent
         case .featuredRelations: return .featuredRelations

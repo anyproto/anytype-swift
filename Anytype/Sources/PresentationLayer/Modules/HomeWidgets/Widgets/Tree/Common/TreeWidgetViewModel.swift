@@ -38,7 +38,7 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
-        widgetBlockId: String,
+        widgetBlockId: BlockId,
         internalModel: any WidgetInternalViewModelProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
@@ -62,6 +62,19 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         Task {
             await internalModel.startContentSubscription()
             await updateLinksSubscriptionsAndTree()
+        }
+    }
+    
+    func stopHeaderSubscription() {
+        internalModel.stopHeaderSubscription()
+        subscriptions.removeAll()
+        subscriptionManager.handler = nil
+    }
+    
+    func stopContentSubscription() {
+        Task {
+            await internalModel.stopContentSubscription()
+            await subscriptionManager.stopAllSubscriptions()
         }
     }
     

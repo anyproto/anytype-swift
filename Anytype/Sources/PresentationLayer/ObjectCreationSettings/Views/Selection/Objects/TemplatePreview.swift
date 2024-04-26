@@ -23,9 +23,9 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                 wrapped(shouldIncludeShimmer: false) {
                     AnytypeText(
                         Loc.TemplateSelection.blankTemplate,
-                        style: .caption2Medium
+                        style: .caption2Medium,
+                        color: .Text.tertiary
                     )
-                    .foregroundColor(.Text.tertiary)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 16)
                 }
@@ -35,19 +35,17 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                     case .none:
                         AnytypeText(
                             templateModel.title,
-                            style: .caption2Medium
-                        )
-                        .foregroundColor(.Text.primary)
-                        .padding(.horizontal, 16)
+                            style: .caption2Medium,
+                            color: .Text.primary
+                        ).padding(.horizontal, 16)
                     case let .todo(isChecked):
                         HStack(spacing: 4) {
                             IconView(icon: .object(.todo(isChecked))).frame(width: 14, height: 14)
                             AnytypeText(
                                 templateModel.title,
-                                style: .caption2Medium
-                            )
-                            .foregroundColor(.Text.primary)
-                            .lineLimit(1)
+                                style: .caption2Medium,
+                                color: .Text.primary
+                            ).lineLimit(1)
                         }.padding(.horizontal, 16)
                     }
                     

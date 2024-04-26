@@ -6,8 +6,8 @@ import AnytypeCore
 
 protocol SimpleTableSelectionHandler: AnyObject {
     func didStartSimpleTableSelectionMode(
-        simpleTableBlockId: String,
-        selectedBlockIds: [String],
+        simpleTableBlockId: BlockId,
+        selectedBlockIds: [BlockId],
         menuModel: SimpleTableMenuModel
     )
     func didStopSimpleTableSelectionMode()
@@ -29,7 +29,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
     var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { $selectedMenuTab.eraseToAnyPublisher() }
-    var editorSelectedBlocks: AnyPublisher<[String], Never> { fatalError("To remove!!!") } // Not used
+    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { fatalError("To remove!!!") } // Not used
 
     var selectedBlocksIndexPathsPublisher: AnyPublisher<[IndexPath], Never> { selectedIndexPathsSubject.eraseToAnyPublisher() }
 
@@ -37,7 +37,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
     @Published var selectedMenuTab: SimpleTableMenuView.Tab = .cell
 
     private let selectedIndexPathsSubject = PassthroughSubject<[IndexPath], Never>()
-    private let blockInformationProvider: BlockModelInfomationProvider
+    private let tableBlockInformation: BlockInformation
     private let document: BaseDocumentProtocol
     private let selectionOptionHandler: SimpleTableSelectionOptionHandler
     private let router: EditorRouterProtocol
@@ -59,14 +59,14 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 
     init(
         document: BaseDocumentProtocol,
-        blockInformationProvider: BlockModelInfomationProvider,
+        tableBlockInformation: BlockInformation,
         selectionOptionHandler: SimpleTableSelectionOptionHandler,
         router: EditorRouterProtocol,
         cursorManager: EditorCursorManager,
         mainEditorSelectionManager: SimpleTableSelectionHandler?
     ) {
         self.document = document
-        self.blockInformationProvider = blockInformationProvider
+        self.tableBlockInformation = tableBlockInformation
         self.selectionOptionHandler = selectionOptionHandler
         self.router = router
         self.cursorManager = cursorManager
@@ -78,8 +78,10 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
     func checkOpenedState() {
         if !document.isOpened {
             editingState = .loading
-        } else  if !document.permissions.canEditBlocks {
-            editingState = .readonly
+        } else if document.isArchived {
+            editingState = .readonly(state: .archived)
+        } else if document.isLocked {
+            editingState = .readonly(state: .locked)
         } else if case .editing = editingState {
             // nothing
         } else {
@@ -141,7 +143,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
     }
 
     private func updateMenuItems(for selectedBlocks: [IndexPath]) {
-        guard let computedTable = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer) else {
+        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
             return
         }
         let horizontalListItems: [SelectionOptionsItemViewModel]
@@ -179,7 +181,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
         let blockIds = computedTable.cells.blockIds(for: selectedBlocks)
 
         mainEditorSelectionManager?.didStartSimpleTableSelectionMode(
-            simpleTableBlockId: blockInformationProvider.info.id,
+            simpleTableBlockId: tableBlockInformation.id,
             selectedBlockIds: blockIds,
             menuModel: .init(
                 tabs: tabs(),
@@ -204,7 +206,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 // MARK: - SimpleTableMenuDelegate
 extension SimpleTableStateManager: SimpleTableMenuDelegate {
     func didSelectTab(tab: SimpleTableMenuView.Tab) {
-        guard let table = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer) else {
+        guard let table = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
             return
         }
 
@@ -241,9 +243,9 @@ extension SimpleTableStateManager: SimpleTableMenuDelegate {
 }
 
 // MARK: - BlocksSelectionHandler
-extension SimpleTableStateManager {
+extension SimpleTableStateManager: BlockSelectionHandler {
     func didSelectEditingState(info: BlockInformation) {
-        guard let computedTable = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer),
+        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
               let selectedIndexPath = computedTable.cells.indexPaths(for: info) else {
             return
         }
@@ -258,7 +260,7 @@ extension SimpleTableStateManager {
     func didSelectStyleSelection(infos: [BlockInformation]) {
         guard
             let firstInfo = infos.first,
-            let computedTable = ComputedTable(blockInformation: blockInformationProvider.info, infoContainer: document.infoContainer),
+            let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
               let selectedIndexPath = computedTable.cells.indexPaths(for: firstInfo) else {
             return
         }
@@ -296,8 +298,8 @@ extension Array where Element == [ComputedTable.Cell] {
         return nil
     }
 
-    func blockIds(for indexPaths: [IndexPath]) -> [String] {
-        var blockIds = [String]()
+    func blockIds(for indexPaths: [IndexPath]) -> [BlockId] {
+        var blockIds = [BlockId]()
 
         for (sectionIndex, sections) in self.enumerated() {
             for (rowIndex, item) in sections.enumerated() {
@@ -316,7 +318,7 @@ extension Array where Element == [ComputedTable.Cell] {
 }
 
 private extension EditorItem {
-     var blockId: String? {
+     var blockId: BlockId? {
         switch self {
         case .header:
             return nil

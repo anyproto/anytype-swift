@@ -2,15 +2,11 @@ import SwiftUI
 
 struct DeletedAccountView: View {
     
-    @StateObject private var viewModel: DeletedAccountViewModel
-    
-    init(deadline: Date) {
-        _viewModel = StateObject(wrappedValue: DeletedAccountViewModel(deadline: deadline))
-    }
+    @ObservedObject var viewModel: DeletedAccountViewModel
     
     var body: some View {
         ZStack {
-            CoverGradient.sky.data.asLinearGradient().ignoresSafeArea()
+            Gradients.mainBackground()
             contentView
         }
         .navigationBarHidden(true)
@@ -38,11 +34,9 @@ struct DeletedAccountView: View {
         VStack(alignment: .leading, spacing: 0) {
             clock
             Spacer.fixedHeight(19)
-            AnytypeText(viewModel.title, style: .heading)
-                .foregroundColor(.Text.primary)
+            AnytypeText(viewModel.title, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular)
-                .foregroundColor(.Text.primary)
+            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular, color: .Text.primary)
             Spacer.fixedHeight(14)
             SettingsButton(text: Loc.cancelDeletion, textColor: .System.red) { viewModel.cancel() }
             SettingsButton(text: Loc.logoutAndClearData, textColor: .System.red) { viewModel.logOut() }

@@ -9,20 +9,14 @@ final class SetViewSettingsListModel: ObservableObject {
     @Published var relationsValue = SetViewSettings.relations.placeholder
     @Published var filtersValue = SetViewSettings.filters.placeholder
     @Published var sortsValue = SetViewSettings.sorts.placeholder
-    @Published var canEditSetView = false
-    
     let settings = SetViewSettings.allCases
     
     let canBeDeleted: Bool
-    
     let mode: SetViewSettingsMode
     
     private let setDocument: SetDocumentProtocol
     private let viewId: String
-    
-    @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
-    
+    private let dataviewService: DataviewServiceProtocol
     private weak var output: SetViewSettingsCoordinatorOutput?
     
     private var cancellables = [AnyCancellable]()
@@ -30,12 +24,16 @@ final class SetViewSettingsListModel: ObservableObject {
     private var view: DataviewView = .empty
     
     init(
-        data: SetSettingsData,
+        setDocument: SetDocumentProtocol,
+        viewId: String,
+        mode: SetViewSettingsMode,
+        dataviewService: DataviewServiceProtocol,
         output: SetViewSettingsCoordinatorOutput?
     ) {
-        self.setDocument = data.setDocument
-        self.viewId = data.viewId
-        self.mode = data.mode
+        self.setDocument = setDocument
+        self.viewId = viewId
+        self.mode = mode
+        self.dataviewService = dataviewService
         self.output = output
         self.canBeDeleted = setDocument.dataView.views.count > 1
         self.debounceNameChanges()
@@ -103,7 +101,6 @@ final class SetViewSettingsListModel: ObservableObject {
         
         name = view.name
         layoutValue = view.type.isSupported ? view.type.name : Loc.EditorSet.View.Not.Supported.title
-        canEditSetView = setDocument.setPermissions.canEditView
         updateRelationsValue()
         
         let sorts = setDocument.sorts(for: viewId)

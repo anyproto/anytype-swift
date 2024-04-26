@@ -3,18 +3,18 @@ import SwiftUI
 
 struct ShareCoordinatorView: View {
     
-    @StateObject private var model = ShareCoordinatorViewModel()
+    @StateObject var model: ShareCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
-            ShareOptionsView(output: model)
+            model.shareModule()
         }
-        .sheet(item: $model.showSearchObjectData) {
-            ObjectSearchView(data: $0)
+        .sheet(item: $model.showSearchObjectData) { data in
+            model.searchObjectModule(data: data)
         }
-        .sheet(item: $model.showSpaceSearchData) {
-            SpaceSearchView(data: $0)
+        .sheet(item: $model.showSpaceSearchData) { data in
+            model.searchSpaceModule(data: data)
         }
         .onChange(of: model.dismiss) { _ in
             dismiss()

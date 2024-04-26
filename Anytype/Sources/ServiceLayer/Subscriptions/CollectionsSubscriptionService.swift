@@ -19,18 +19,20 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
         static let limit = 100
     }
     
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-    }()
+    private let subscriptionStorage: SubscriptionStorageProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Collections-\(UUID().uuidString)"
     
-    nonisolated init() {}
+    nonisolated init(
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
+    ) {
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.objectTypeProvider = objectTypeProvider
+    }
     
     func startSubscription(
         objectLimit: Int?,
@@ -42,11 +44,12 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
             type: .desc
         )
         
-        let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters()
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+        let filters = [
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
             SearchHelper.layoutFilter([DetailsLayout.collection])
-        }
+        ]
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

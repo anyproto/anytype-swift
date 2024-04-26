@@ -1,11 +1,8 @@
 import AnytypeCore
-import Services
-
 
 final class MiddlewareMerticsConfigurator: AppConfiguratorProtocol {
     
-    @Injected(\.metricsService)
-    private var metricsService: MetricsServiceProtocol
+    private let metricsService = ServiceLocator.shared.metricsService()
     
     func configure() {
         let appVersion = MetadataProvider.appVersion ?? ""

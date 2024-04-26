@@ -1,18 +1,12 @@
 import UIKit
 import SwiftUI
 import AnytypeCore
-import DeepLinks
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private var di: DIProtocol?
     private var deepLinkParser: DeepLinkParserProtocol?
-
-    @Injected(\.appActionStorage)
-    private var appActionStorage: AppActionStorage
-    @Injected(\.universalLinkParser)
-    private var universalLinkParser: UniversalLinkParserProtocol
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -31,15 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         deepLinkParser = di.serviceLocator.deepLinkParser()
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
-        if let userActivity = connectionOptions.userActivities.first {
-            handleUserActivity(userActivity)
-        }
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
         
         
         let applicationView = di.coordinatorsDI.application().makeView()
             .setKeyboardDismissEnv(window: window)
-            .setPresentedDismissEnv(window: window)
         window.rootViewController = UIHostingController(rootView: applicationView)
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
@@ -60,10 +50,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UIApplication.shared.shortcutItems = builder?.buildShortcutItems()
     }
     
-    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        handleUserActivity(userActivity)
-    }
-    
     func windowScene(_ windowScene: UIWindowScene, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         completionHandler(handleQuickAction(shortcutItem))
     }
@@ -72,25 +58,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let quickActionShortcutBuilder = di?.serviceLocator.quickActionShortcutBuilder()
         guard let action = quickActionShortcutBuilder?.buildAction(shortcutItem: item) else { return false }
         
-        appActionStorage.action = action.toAppAction()
+        AppActionStorage.shared.action = action.toAppAction()
         return true
     }
 
     private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
-        guard openURLContexts.count == 1,
-              let context = openURLContexts.first,
-              let deepLink = deepLinkParser?.parse(url: context.url)
-        else { return }
+        guard openURLContexts.count == 1, 
+                let context = openURLContexts.first else {
+            return
+        }
         
-        appActionStorage.action = .deepLink(deepLink)
-    }
-    
-    private func handleUserActivity(_ userActivity: NSUserActivity) {
-        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
-                let url = userActivity.webpageURL else { return }
-    
-        guard let link = universalLinkParser.parse(url: url) else { return }
-        
-        appActionStorage.action = .deepLink(link.toDeepLink())
+        AppActionStorage.shared.action = deepLinkParser?.parse(url: context.url)
     }
 }

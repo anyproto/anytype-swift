@@ -4,18 +4,16 @@ import Foundation
 @MainActor
 final class GallerySpaceSelectionViewModel: ObservableObject {
     
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
-    @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private let workspaceStorage: WorkspacesStorageProtocol
     private weak var output: GallerySpaceSelectionModuleOutput?
     
-    @Published var spaces: [SpaceView] = []
-    @Published var canCreateNewSpace: Bool = false
+    @Published var spaces: [SpaceView]
+    @Published var canCreateNewSpace: Bool
     
-    init(output: GallerySpaceSelectionModuleOutput?) {
+    init(workspaceStorage: WorkspacesStorageProtocol, output: GallerySpaceSelectionModuleOutput?) {
+        self.workspaceStorage = workspaceStorage
         self.output = output
-        self.spaces = participantSpacesStorage.activeParticipantSpaces.filter(\.canEdit).map(\.spaceView)
+        self.spaces = workspaceStorage.workspaces
         self.canCreateNewSpace = workspaceStorage.canCreateNewSpace()
     }
     

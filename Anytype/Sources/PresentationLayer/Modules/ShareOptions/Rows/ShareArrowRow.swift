@@ -8,12 +8,10 @@ struct ShareArrowRow: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            AnytypeText(title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+            AnytypeText(title, style: .uxBodyRegular, color: .Text.primary)
             Spacer()
             if let description {
-                AnytypeText(description, style: .uxBodyRegular)
-                    .foregroundColor(.Text.secondary)
+                AnytypeText(description, style: .uxBodyRegular, color: .Text.secondary)
                     .lineLimit(1)
                 Spacer.fixedWidth(10)
             }

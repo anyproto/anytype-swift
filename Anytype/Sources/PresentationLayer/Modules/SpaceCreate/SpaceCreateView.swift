@@ -4,12 +4,8 @@ import AnytypeCore
 
 struct SpaceCreateView: View {
     
-    @StateObject private var model: SpaceCreateViewModel
-    @Environment(\.dismiss) private var dismiss
-    
-    init(output: SpaceCreateModuleOutput?) {
-        _model = StateObject(wrappedValue: SpaceCreateViewModel(output: output))
-    }
+    @StateObject var model: SpaceCreateViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         VStack(spacing: 0) {
@@ -21,7 +17,11 @@ struct SpaceCreateView: View {
                         .focused(.constant(true))
                     
                     SectionHeaderView(title: Loc.type)
-                    SpaceTypeView(name: model.spaceAccessType.name)
+                    SpaceTypeView(name: model.spaceType.name)
+                }
+                
+                if FeatureFlags.multiplayer {
+                    SpaceJoinMVPView()
                 }
             }
             .safeAreaInset(edge: .bottom) {

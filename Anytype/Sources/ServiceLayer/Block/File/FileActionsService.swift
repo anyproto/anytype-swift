@@ -45,10 +45,10 @@ final class FileActionsService: FileActionsServiceProtocol {
     
     // Clear file cache once for app launch
     private static var cacheCleared: Bool = false
-    @Injected(\.fileService)
-    private var fileService: FileServiceProtocol
+    private let fileService: FileServiceProtocol
     
-    init() {
+    init(fileService: FileServiceProtocol) {
+        self.fileService = fileService
         if !FileActionsService.cacheCleared {
             clearFileCache()
             FileActionsService.cacheCleared = true
@@ -71,7 +71,7 @@ final class FileActionsService: FileActionsServiceProtocol {
         }
     }
  
-    func uploadDataAt(data: FileData, contextID: String, blockID: String) async throws {
+    func uploadDataAt(data: FileData, contextID: BlockId, blockID: BlockId) async throws {
         defer {
             if data.isTemporary {
                 try? FileManager.default.removeItem(atPath: data.path)
@@ -90,7 +90,7 @@ final class FileActionsService: FileActionsServiceProtocol {
         return try await fileService.uploadFileObject(path: data.path, spaceId: spaceId, origin: origin)
     }
     
-    func uploadDataAt(source: FileUploadingSource, contextID: String, blockID: String) async throws {
+    func uploadDataAt(source: FileUploadingSource, contextID: BlockId, blockID: BlockId) async throws {
         let data = try await createFileData(source: source)
         try await uploadDataAt(data: data, contextID: contextID, blockID: blockID)
     }

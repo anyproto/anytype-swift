@@ -11,8 +11,7 @@ struct RelationFormatListCell: View {
             Image(asset: model.iconAsset)
                 .foregroundColor(.Button.active)
 
-            AnytypeText(model.title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+            AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
                 .lineLimit(1)
             
             Spacer()

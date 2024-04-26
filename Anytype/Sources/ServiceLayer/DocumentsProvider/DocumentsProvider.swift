@@ -13,14 +13,22 @@ protocol DocumentsProviderProtocol {
 final class DocumentsProvider: DocumentsProviderProtocol {
     private var documentCache = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
-    @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: RelationDetailsStorageProtocol
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
-    @Injected(\.objectLifecycleService)
-    private var objectLifecycleService: ObjectLifecycleServiceProtocol
-    @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private let relationDetailsStorage: RelationDetailsStorageProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    
+    // MARK: DI for document
+    
+    private let objectLifecycleService: ObjectLifecycleServiceProtocol
+    
+    init(
+        relationDetailsStorage: RelationDetailsStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        objectLifecycleService: ObjectLifecycleServiceProtocol
+    ) {
+        self.relationDetailsStorage = relationDetailsStorage
+        self.objectTypeProvider = objectTypeProvider
+        self.objectLifecycleService = objectLifecycleService
+    }
     
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
         internalDocument(objectId: objectId, forPreview: forPreview)
@@ -37,9 +45,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             document: document,
             inlineParameters: inlineParameters,
             relationDetailsStorage: relationDetailsStorage,
-            objectTypeProvider: objectTypeProvider,
-            accountParticipantsStorage: accountParticipantsStorage,
-            permissionsBuilder: SetPermissionsBuilder()
+            objectTypeProvider: objectTypeProvider
         )
     }
     
@@ -67,8 +73,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             forPreview: forPreview,
             objectLifecycleService: objectLifecycleService,
             relationDetailsStorage: relationDetailsStorage, 
-            objectTypeProvider: objectTypeProvider,
-            accountParticipantsStorage: accountParticipantsStorage
+            objectTypeProvider: objectTypeProvider
         )
     }
 }

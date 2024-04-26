@@ -12,7 +12,6 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     }
     @Published var showError: Bool = false
     @Published var disableBackAction: Bool = false
-    @Published var hideContent = false
     
     var counter: String {
         "\(step.rawValue) / \(JoinFlowStep.totalCount)"
@@ -22,13 +21,17 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     private let state = JoinFlowState()
     
     private weak var output: JoinFlowOutput?
-    @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
-    @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
+    private let accountManager: AccountManagerProtocol
     
-    init(output: JoinFlowOutput?) {
+    init(
+        output: JoinFlowOutput?,
+        applicationStateService: ApplicationStateServiceProtocol,
+        accountManager: AccountManagerProtocol
+    ) {
         self.output = output
+        self.applicationStateService = applicationStateService
+        self.accountManager = accountManager
     }
     
     func content() -> AnyView? {
@@ -51,8 +54,6 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     func onBack() {
         guard let previousStep = step.previous else { return }
-        
-        UIApplication.shared.hideKeyboard()
         forward = false
         
         withAnimation {
@@ -73,7 +74,6 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     }
     
     private func finishFlow() {
-        hideContent.toggle() // hack to avoid inappropriate animation when hiding
         applicationStateService.state = .home
         AnytypeAnalytics.instance().logAccountOpen(
             analyticsId: accountManager.account.info.analyticsId

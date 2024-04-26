@@ -13,6 +13,5 @@ permissions:
   
 jobs:
   cla-check:
-    name: CLA Checks
     uses: anyproto/open/.github/workflows/cla.yml@main
     secrets: inherit

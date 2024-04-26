@@ -78,8 +78,7 @@ struct RelationListContainerView<Content>: View where Content: View {
         Button {
             onClear()
         } label: {
-            AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Button.active)
+            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
         }
     }
     
@@ -97,8 +96,7 @@ struct RelationListContainerView<Content>: View where Content: View {
         } label: {
             HStack(spacing: 10) {
                 Image(asset: .X32.plus).foregroundColor(.Button.active)
-                AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                AnytypeText(Loc.Relation.Create.Row.title(searchText), style: .uxBodyRegular, color: .Text.primary)
             }
         }
         .frame(height: 52)
@@ -108,7 +106,7 @@ struct RelationListContainerView<Content>: View where Content: View {
     private var emptyState: some View {
         Group {
             if !isCreateAvailable || !isEditable {
-                RelationListEmptyState()
+                blockedEmptyState
             } else  {
                 defaultEmptyState
             }
@@ -120,10 +118,19 @@ struct RelationListContainerView<Content>: View where Content: View {
         EmptyStateView(
             title: Loc.Relation.EmptyState.title,
             subtitle: Loc.Relation.EmptyState.description,
-            buttonData: EmptyStateView.ButtonData(
-                title: Loc.create,
-                action: { onCreate(nil) }
-            )
-        )
+            actionText: Loc.create
+        ) {
+            onCreate(nil)
+        }
+    }
+    
+    private var blockedEmptyState: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
+            Spacer.fixedHeight(12)
+            AnytypeText(Loc.Relation.EmptyState.Blocked.title, style: .uxCalloutMedium, color: .Text.primary)
+            Spacer()
+        }
     }
 }

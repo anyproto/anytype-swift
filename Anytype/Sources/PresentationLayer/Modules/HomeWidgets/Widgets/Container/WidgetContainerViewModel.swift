@@ -9,7 +9,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     // MARK: - DI
     
-    private let widgetBlockId: String
+    private let widgetBlockId: BlockId
     private let widgetObject: BaseDocumentProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
@@ -25,11 +25,11 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     @Published var isExpanded: Bool {
         didSet { expandedDidChange() }
     }
-    @Published var homeState: HomeWidgetsState = .readonly
+    @Published var isEditState: Bool = false
     @Published var toastData = ToastBarData.empty
     
     init(
-        widgetBlockId: String,
+        widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
@@ -53,9 +53,9 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         
         isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
         
-        stateManager.homeStatePublisher
+        stateManager.isEditStatePublisher
             .receiveOnMain()
-            .assign(to: &$homeState)
+            .assign(to: &$isEditState)
         
         contentModel.startHeaderSubscription()
         contentModel.startContentSubscription()
@@ -79,7 +79,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     func onEditTap() {
         AnytypeAnalytics.instance().logEditWidget()
-        stateManager.setHomeState(.editWidgets)
+        stateManager.setEditState(true)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
@@ -99,6 +99,26 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
+    func onEmptyBinTap() {
+       Task {
+           let binIds = try await searchService.searchArchiveObjectIds(spaceId: widgetObject.spaceId)
+           guard binIds.isNotEmpty else {
+               toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+               return
+           }
+           AnytypeAnalytics.instance().logShowDeletionWarning(route: .bin)
+           let alert = BottomAlertLegacy.binConfirmation(count: binIds.count) { [binIds, weak self] in
+               Task { [weak self] in
+                   AnytypeAnalytics.instance().logDeletion(count: binIds.count, route: .bin)
+                   try await self?.objectActionsService.delete(objectIds: binIds)
+                   self?.toastData = ToastBarData(text: Loc.Widgets.Actions.binConfirm(binIds.count), showSnackBar: true)
+               }
+           }
+           alertOpener.showFloatAlert(model: alert)
+        }
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
     // MARK: - Private
     
     private func expandedDidChange() {
@@ -114,6 +134,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     }
     
     private func analyticsContext() -> AnalyticsWidgetContext {
-        return stateManager.homeState.isEditWidgets ? .editor : .home
+        return stateManager.isEditState ? .editor : .home
     }
 }

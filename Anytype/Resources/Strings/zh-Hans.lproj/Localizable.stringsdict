@@ -58,24 +58,10 @@
         <string>%d 个链接</string>
       </dict>
     </dict>
-    <key>Backlinks count</key>
+    <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d 个反向链接</string>
-      </dict>
-    </dict>
-    <key>Days to deletion vault</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>该库将被删除 %#@days@</string>
+      <string>该账号将被删除 %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -83,7 +69,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>明天
+
+在 %d 天内</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -156,104 +144,6 @@
         <string>d</string>
         <key>other</key>
         <string>链接 %d 块</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.Invite.MaxLimit</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>你已经达到了%d名成员的限制。新成员将无法加入。</string>
-      </dict>
-    </dict>
-    <key>Space.MembersCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d 个成员</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.RequestsCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d 请求</string>
-      </dict>
-    </dict>
-    <key>Per Month</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>每 %#@month@</string>
-      <key>month</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d 个月</string>
-      </dict>
-    </dict>
-    <key>Per Week</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>每 %#@week@</string>
-      <key>week</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d 周</string>
-      </dict>
-    </dict>
-    <key>Per Year</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>每 %#@year@</string>
-      <key>year</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d 年</string>
-      </dict>
-    </dict>
-    <key>Per Day</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>每 %#@day@</string>
-      <key>day</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d 天</string>
       </dict>
     </dict>
   </dict>

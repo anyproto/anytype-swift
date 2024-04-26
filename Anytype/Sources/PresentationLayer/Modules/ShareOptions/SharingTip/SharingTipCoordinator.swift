@@ -7,10 +7,12 @@ protocol SharingTipCoordinatorProtocol {
 
 @MainActor
 final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
+    private let sharingTipAssembly: SharingTipModuleAssemblyProtocol
     private var sharingTipPerformer: UIKitTipPerformer
     private let navigationContext: NavigationContextProtocol
     
     nonisolated init(
+        sharingTipAssembly: SharingTipModuleAssemblyProtocol,
         navigationContext: NavigationContextProtocol
     ) {
         let tipPerformer: UIKitTipPerformer
@@ -20,6 +22,7 @@ final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
             tipPerformer = UIKitTipPerformer(tip: nil)
         }
         
+        self.sharingTipAssembly = sharingTipAssembly
         self.sharingTipPerformer = tipPerformer
         self.navigationContext = navigationContext
     }
@@ -34,7 +37,8 @@ final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
             
             UIApplication.shared.hideKeyboard()
             
-            navigationContext.present(SharingTipView())
+            let sharingTipView = sharingTipAssembly.make()
+            navigationContext.present(sharingTipView, animated: true)
         }
     }
 }

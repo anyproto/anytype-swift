@@ -11,7 +11,7 @@ final class TextViewWithPlaceholder: UITextView {
         case left
         case right
     }
-    
+
     override var undoManager: UndoManager? { nil }
     
     // MARK: - Views
@@ -24,40 +24,36 @@ final class TextViewWithPlaceholder: UITextView {
         label.numberOfLines = 0
         return label
     }()
-    
+
     private var placeholderConstraints: [InsetEdgeType: NSLayoutConstraint] = [:]
-    private var blockLayoutManager = TextBlockLayoutManager() {
-        didSet {
-            blockLayoutManager.allowsNonContiguousLayout = true
-        }
-    }
+    private let blockLayoutManager = TextBlockLayoutManager()
     var isLockedForEditing = false
-    
+
     // MARK: - Internal variables
     
     weak var customTextViewDelegate: CustomTextViewDelegate?
-    
+
     /// Custom color that applyed after `primaryColor`and `foregroundColor`
     var tertiaryColor: UIColor? {
         didSet {
             blockLayoutManager.tertiaryColor = tertiaryColor
         }
     }
-    
+
     /// Default font color. Applied as the lowest priority color.
     var defaultFontColor: UIColor? {
         didSet {
             blockLayoutManager.defaultColor = defaultFontColor
         }
     }
-    
+
     /// Color for selected state
     var selectedColor: UIColor? {
         didSet {
             blockLayoutManager.primaryColor = selectedColor
         }
     }
-    
+
     // MARK: - Overrides
     
     override var textContainerInset: UIEdgeInsets {
@@ -65,7 +61,7 @@ final class TextViewWithPlaceholder: UITextView {
             updatePlaceholderLayout()
         }
     }
-    
+
     override var typingAttributes: [NSAttributedString.Key : Any] {
         didSet {
             if let font = super.typingAttributes[.font] as? UIFont {
@@ -74,6 +70,12 @@ final class TextViewWithPlaceholder: UITextView {
         }
     }
     
+    override var textAlignment: NSTextAlignment {
+        didSet {
+            placeholderLabel.textAlignment = textAlignment
+        }
+    }
+
     override var canBecomeFirstResponder: Bool {
         let canBecome = super.canBecomeFirstResponder
         return isLockedForEditing ? false : canBecome
@@ -81,11 +83,11 @@ final class TextViewWithPlaceholder: UITextView {
     
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
-        
+
         reloadGestures()
         return value
     }
-    //
+
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         // Force showing paste menu item in text view for other type than text
         if action == #selector(TextViewWithPlaceholder.paste(_:)) {
@@ -93,29 +95,29 @@ final class TextViewWithPlaceholder: UITextView {
         }
         return super.canPerformAction(action, withSender: sender)
     }
-    //
+
     override func resignFirstResponder() -> Bool {
         let value = super.resignFirstResponder()
-        
+
         reloadGestures()
         return value
     }
-    
+
     override func paste(_ sender: Any?) {
         guard let customTextViewDelegate else {
             return super.paste(sender)
         }
-        
+
         if customTextViewDelegate.shouldPaste(range: selectedRange) {
             super.paste(sender)
         }
     }
-    
+
     override func copy(_ sender: Any?) {
         guard let customTextViewDelegate else {
             return super.copy(sender)
         }
-        
+
         customTextViewDelegate.copy(range: selectedRange)
     }
     
@@ -126,8 +128,9 @@ final class TextViewWithPlaceholder: UITextView {
         
         customTextViewDelegate.cut(range: selectedRange)
     }
-    
+
     // MARK: - Initialization
+        
     override init(
         frame: CGRect,
         textContainer: NSTextContainer?
@@ -136,9 +139,9 @@ final class TextViewWithPlaceholder: UITextView {
         textStorage.addLayoutManager(blockLayoutManager)
         let container = textContainer ?? NSTextContainer()
         blockLayoutManager.addTextContainer(container)
-        
+
         super.init(frame: frame, textContainer: container)
-        
+
         self.setup()
     }
     
@@ -166,18 +169,43 @@ private extension TextViewWithPlaceholder {
         }
         placeholderLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
     }
-    
+
     func updatePlaceholderLayout() {
         placeholderConstraints[.left]?.constant = textContainerInset.left
         placeholderConstraints[.right]?.constant = textContainerInset.right
         placeholderConstraints[.top]?.constant = textContainerInset.top
         placeholderConstraints[.bottom]?.constant = textContainerInset.bottom
     }
-    
-    
+
+
     
     private func syncPlaceholder() {
         self.placeholderLabel.isHidden = !self.text.isEmpty
+    }
+}
+
+// MARK: - Contextual Menu
+
+extension TextViewWithPlaceholder {
+    
+    @objc private func didSelectContextMenuActionBold() {
+        handleMenuAction(.bold)
+    }
+    
+    @objc private func didSelectContextMenuActionItalic() {
+        handleMenuAction(.italic)
+    }
+    
+    @objc private func didSelectContextMenuActionStrikethrough() {
+        handleMenuAction(.strikethrough)
+    }
+    
+    @objc private func didSelectContextMenuActionCode() {
+        handleMenuAction(.keyboard)
+    }
+
+    private func handleMenuAction(_ action: MarkupType) {
+        customTextViewDelegate?.changeTextStyle(attribute: action, range: selectedRange)
     }
 }
 
@@ -198,7 +226,7 @@ extension TextViewWithPlaceholder {
         }
         return super.addGestureRecognizer(gestureRecognizer)
     }
-    
+
     func reloadGestures() {
         gestureRecognizers?.forEach {
             if $0.isKind(of: UILongPressGestureRecognizer.self) {
@@ -206,7 +234,7 @@ extension TextViewWithPlaceholder {
             }
         }
     }
-    
+
 }
 // MARK: - Placeholder
 
@@ -216,4 +244,3 @@ extension TextViewWithPlaceholder {
         placeholderLabel.attributedText = placeholder
     }
 }
-

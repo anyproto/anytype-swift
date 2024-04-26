@@ -55,7 +55,7 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     
     // MARK: - Private
     
-    private func buildBlocksTree(information: [BlockInformation], rootId: String, container: InfoContainerProtocol) {
+    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
         
         information.forEach { container.add($0) }
         let roots = information.filter { $0.id == rootId }

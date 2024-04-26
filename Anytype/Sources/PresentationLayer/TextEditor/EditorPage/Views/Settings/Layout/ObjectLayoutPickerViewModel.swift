@@ -2,42 +2,40 @@ import Foundation
 import Services
 import Combine
 import SwiftUI
+import FloatingPanel
 
-@MainActor
 final class ObjectLayoutPickerViewModel: ObservableObject {
-
+    var selectedLayout: DetailsLayout {
+        document.details?.layoutValue ?? .basic
+    }
+    
     // MARK: - Private variables
     
-    @Injected(\.detailsService)
-    private var detailsService: DetailsServiceProtocol
-    @Injected(\.documentService)
-    private var openDocumentsProvider: OpenedDocumentsProviderProtocol
-    
-    private let objectId: String
-    
-    private lazy var document: BaseDocumentProtocol = {
-        openDocumentsProvider.document(objectId: objectId)
-    }()
-    
-    @Published var selectedLayout: DetailsLayout = .basic
+    private let document: BaseDocumentProtocol
+    private let detailsService: DetailsServiceProtocol
+    private var subscription: AnyCancellable?
     
     // MARK: - Initializer
     
-    init(objectId: String) {
-        self.objectId = objectId
+    init(document: BaseDocumentProtocol, detailsService: DetailsServiceProtocol) {
+        self.document = document
+        self.detailsService = detailsService
+        
+        setupSubscription()
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
         AnytypeAnalytics.instance().logLayoutChange(layout)
         Task { @MainActor in
-            try await detailsService.setLayout(objectId: objectId, detailsLayout: layout)
+            try await detailsService.setLayout(layout)
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }
     
-    func startDocumentSubscription() async {
-        for await details in document.detailsPublisher.values {
-            selectedLayout = details.layoutValue
+    // MARK: - Private
+    private func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] _ in
+            self?.objectWillChange.send()
         }
     }
 }

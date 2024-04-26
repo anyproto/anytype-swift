@@ -4,12 +4,10 @@ import Combine
 import UIKit
 
 @MainActor
-final class SetsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class SetsWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
-    private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
     private let setsSubscriptionService: SetsSubscriptionServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
@@ -18,41 +16,35 @@ final class SetsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = Loc.sets
-    private var subscriptions = [AnyCancellable]()
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     var allowCreateObject = true
     
     init(
-        widgetBlockId: String,
+        widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         setsSubscriptionService: SetsSubscriptionServiceProtocol,
         objectService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
         self.setsSubscriptionService = setsSubscriptionService
         self.objectService = objectService
         self.output = output
+        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
     // MARK: - WidgetInternalViewModelProtocol
     
-    func startContentSubscription() async {
-        widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId)
-            .receiveOnMain()
-            .sink { [weak self] widgetInfo in
-                guard let self else { return }
-                Task {
-                    await self.updateSubscription(widgetInfo: widgetInfo)
-                }
-            }
-            .store(in: &subscriptions)
+    override func startContentSubscription() async {
+        await super.startContentSubscription()
+        await updateSubscription()
     }
     
-    func startHeaderSubscription() {}
+    override func stopContentSubscription() async {
+        await super.stopContentSubscription()
+        await setsSubscriptionService.stopSubscription()
+    }
     
     func screenData() -> EditorScreenData? {
         return .sets
@@ -74,15 +66,25 @@ final class SetsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
                 origin: .none,
                 templateId: nil
             )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             output?.onObjectSelected(screenData: details.editorScreenData())
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }
     
+    // MARK: - CommonWidgetInternalViewModel oveerides
+    
+    override func widgetInfoUpdated() {
+        super.widgetInfoUpdated()
+        Task {
+            await updateSubscription()
+        }
+    }
+    
     // MARK: - Private func
     
-    private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
+    private func updateSubscription() async {
+        guard let widgetInfo, contentIsAppear else { return }
         await setsSubscriptionService.startSubscription(
             objectLimit: widgetInfo.fixedLimit,
             update: { [weak self] details in

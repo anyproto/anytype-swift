@@ -1,5 +1,5 @@
 // style menu
-"StyleMenu.Color.TextColor.Placeholder" = "A";
+"StyleMenu.Color.TextColor.Placeholder" = "";
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Tekst";
@@ -62,6 +62,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Tekst";
 
 // MARK: - Settings
+"Settings.Title" = "Ustawienia";
 "Settings.SpaceName" = "Nazwa przestrzeni";
 
 // MARK: - Object
@@ -70,12 +71,14 @@
 
 // MARK: - Relation
 "Featured relations" = "Polecane relacje";
-"Create relation" = "Stwórz relację '%@'";
+"Create relation" = "Utwórz relację '%@'";
 "Relation.View.Hint.Empty" = "pusty";
 "Relation.MyRelations" = "Moje relacje";
 "Relation.AddedToLibrary" = "Relacja %@ została dodana do Twojej biblioteki";
 "Relation.Deleted" = "Usunięta relacja";
 "Relation.From.Type" = "Z typu %@";
+"Relation.LinksFrom.Title" = "z";
+"Relation.LinksTo.Title" = "do";
 "Relation.EmptyState.title" = "Brak opcji";
 "Relation.EmptyState.description" = "Nic nie znaleziono. Utwórz pierwszą opcję, aby rozpocząć.";
 "Relation.EmptyState.Blocked.title" = "Powiązanie jest puste";
@@ -85,44 +88,35 @@
 "Relation.Create.Textfield.placeholder" = "Wprowadź nazwę...";
 "Relation.Edit.Button.title" = "Zastosuj";
 "Relation.Date.Locked.Alert.title" = "Relacja „%@” jest zablokowana";
-"Relation.ObjectTypes.Header.title" = "Typy obiektów:";
-"Relation.ObjectType.Header.title" = "Typ obiektu:";
+"Relation.ObjectTypes.Header.title" = "Object types:";
+"Relation.ObjectType.Header.title" = "Object type:";
 
-"Relation.Delete.Alert.Title" = "Jesteś pewny?";
+"Relation.Delete.Alert.Title" = "Are you sure?";
 "Relation.Delete.Alert.Description" = "Opcja zostanie trwale usunięta z Twojej przestrzeni.";
-"Relation.Object.Delete.Alert.Description" = "Obiekt zostanie przeniesiony do Kosza.";
+"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
 
 "Relation.Format.Object.Title" = "Obiekt";
 "Relation.Format.Text.Title" = "Tekst";
 "Relation.Format.Number.Title" = "Liczba";
-"Relation.Format.Status.Title" = "Wybierz";
+"Relation.Format.Status.Title" = "Select";
 "Relation.Format.Tag.Title" = "Wielokrotny wybór";
 "Relation.Format.Date.Title" = "Data";
 "Relation.Format.FileMedia.Title" = "Plik i media";
 "Relation.Format.Checkbox.Title" = "Pole wyboru";
 "Relation.Format.Url.Title" = "Adres URL";
-"Relation.Format.Email.Title" = "Adres mailowy";
+"Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Numer telefonu";
 
 // Origin Relation
 
-"Relation.Origin.Clipboard" = "Schowek";
+"Relation.Origin.Clipboard" = "Clipboard";
 "Relation.Origin.DragAndDrop" = "Przeciągnij i upuść";
-"Relation.Origin.Import" = "Importowany obiekt";
-"Relation.Origin.WebClipper" = "Nożyczki do strzyżenia sieci";
-"Relation.Origin.SharingExtension" = "Rozszerzenie udostępniania mobilnego";
-"Relation.Origin.UseCase" = "Przypadek użycia";
-"Relation.Origin.Builtin" = "Zainstalowana biblioteka";
-"Relation.Origin.Bookmark" = "Zakładka";
-
-// MARK: - Import Type Relation
-
-"Relation.ImportType.Notion" = "Pojęcie";
-"Relation.ImportType.Markdown" = "Markdown";
-"Relation.ImportType.Html" = "HTML";
-"Relation.ImportType.Text" = "TXT";
-"Relation.ImportType.Protobuf" = "Dowolny blok";
-"Relation.ImportType.Csv" = "CSV";
+"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.WebClipper" = "Web clipper";
+"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Obiekt";
@@ -141,10 +135,9 @@
 "Actions" = "Akcje";
 "Relations" = "Relacje";
 "Objects" = "Obiekty";
-"Lists" = "Listy";
-"Pinned" = "Przypięte";
+"Lists" = "Lists";
+"Pinned" = "Pinned";
 "Delete" = "Usuń";
-"Export" = "Eksport";
 "Duplicate" = "Duplikuj";
 "Copy" = "Kopiuj";
 "Preview" = "Podgląd";
@@ -153,8 +146,8 @@
 "Move" = "Przenieś";
 "Move to" = "Przenieś do";
 "Back" = "Wstecz";
-"Unpin" = "Odepnij";
-"Pin on top" = "Przypnij na górze";
+"Unpin" = "Unpin";
+"Pin on top" = "Pin on top";
 "File block subtitle" = "Zachowaj plik w oryginalnym formacie";
 "Picture block subtitle" = "Prześlij i wzbogacaj stronę obrazkiem";
 "Video block subtitle" = "Prześlij odtwarzalne wideo";
@@ -188,9 +181,6 @@
 "Paste processing..." = "Wklej przetwarzanie...";
 "Anytype Library" = "Biblioteka Anytype";
 "Copied" = "Skopiowano";
-"Share" = "Udostępnij";
-"Okay" = "Okay";
-"Join" = "Dołącz";
 
 // Home
 "Favorites" = "Ulubione";
@@ -205,71 +195,77 @@
 "Restore" = "Przywróć";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Recovery phrase" = "Fraza odzyskiwania";
+"Keychain.Recovery phrase copied to clipboard" = "Fraza odzyskiwania skopiowana";
+"Keychain.Recovery phrase description" = "Potrzebujesz tego do logowania. Przechowuj to w bezpiecznym miejscu. Jeśli to zgubisz, dostęp do konta nie będzie możliwy.";
+"Keychain.Save keychain alert part 1" = "Jeśli stracisz frazę odzyskiwania i zostaniesz wylogowany nie będziesz w stanie ";
+"Keychain.Save keychain alert part 2" = "odzyskać swoich danych";
+"Keychain.Save keychain alert part 3" = ".\nZapisz tę frazę odzyskiwania poza Anytype na wypadek potrzeby odzyskiwania danych.\nZalecamy używanie bezpiecznego sejfu danych, menedżera haseł lub zapisanie hasła na papierze i przechowywanie go w bezpiecznym miejscu.";
+"Keychain.Don’t forget to save your recovery phrase" = "Nie zapomnij zapisać swojej frazy odzyskiwania";
+"Keychain.Show and copy phrase" = "Pokaż i skopiuj frazę";
+"Keychain.Have you backed up your recovery phrase?" = " Czy zapisałeś swoją frazę odzyskiwania";
 "Keychain.Error.String to Data conversion error" = "Błąd konwersji ciągu znaków na dane";
 "Keychain.Error.Data to String conversion error" = "Błąd konwersji danych do ciągu znaków";
 "Keychain.Error.Unknown Keychain Error" = "Nieznany błąd pęku kluczy";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
+"Sign up" = "Zarejestruj się";
+"Login" = "Zaloguj się";
 "Create" = "Utwórz";
 "Scan QR code" = "Skanuj kod QR";
 "Auth.CameraPermissionTitle" = "Zezwól na dostęp";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
+"Restore secret phrase from keychain" = "Przywróć frazę odzyskiwania z pęku kluczy";
+"Auth.LogIn" = "Zaloguj się";
+"Auth.Join" = "Dołącz";
+"Auth.Welcome.Subtitle" = "Anytype jest Twoim bezpiecznym miejscem do pisania, planowania, myślenia i organizowania wszystkiego, co jest dla Ciebie ważne.";
 "Auth.Caption.Privacy.Text" = "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)";
 "Auth.Next" = "Dalej";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Account recover error" = "Błąd odzyskiwania konta, spróbuj ponownie";
+"Account recover error no internet" = "Błąd odzyskiwania konta, prawdopodobnie brak połączenia z Internetem";
 
 // Auth Errors
 "Error creating wallet" = "Błąd podczas tworzenia portfela";
-"Error select vault" = "Error select vault";
-"Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Error select account" = "Błąd podczas wybierania konta";
+"Error wallet recover account" = "Wystąpił błąd podczas odzyskiwania konta";
+"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
 
 "Search for language" = "Wyszukaj język";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Dalej";
+"Auth.JoinFlow.Key.Title" = "Zapisz frazę odzyskiwania";
+"Auth.JoinFlow.Key.Description" = "To nowatorski sposób uwierzytelniania, który składa na Twoje ręce pełnię władzy nad Twoim kontem i Twoimi danymi.";
+"Auth.JoinFlow.Key.TextField.Placeholder" = "Wpisz swoją frazę odzyskiwania";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Pokaż Frazę Odzyskiwania";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Przejdź do aplikacji";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Pomiń";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Skopiuj do schowka";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Zobacz więcej";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Frazę Odzyskiwania będzie można znaleźć w ustawieniach Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Czym jest Fraza Odzyskiwania?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Fraza Odzyskiwania jest losową kombinacją 12 słów, z których utkane jest zaklęcie magicznie generujące Twoje konto na tym urządzeniu";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Ktokolwiek zna Frazę Odzyskiwania — posiada to konto. **W tym momencie jesteś jedyną osobą na świecie, która ją zna**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Dlatego jest niezmiernie istotne, aby zachować Frazę Odzyskiwania w bezpiecznym miejscu. Jako jedyny posiadacz konta, nikt nie jest w stanie Ci pomóc, jeśli zostanie stracona. ";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Jak zachować moją Frazę Odzyskiwania? ";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Najprostszym sposobem na zapisanie frazy odzyskiwania jest zapisanie jej w menedżerze haseł.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Najbezpieczniejszym sposobem jest zapisanie go na papierze i przechowywanie offline, w bezpiecznym miejscu.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "Wybierz swoją nazwę";
+"Auth.JoinFlow.Soul.Description" = "W ten sposób będziesz widoczny w aplikacji.";
 "Auth.JoinFlow.Soul.Placeholder" = "Bez nazwy";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Creating.Soul.Title" = "Tworzenie nowego konta";
+"Auth.JoinFlow.Setting.Space.Title" = "Konfiguracja przestrzeni osobistej";
+"Auth.JoinFlow.Personal.Space.Title" = "Ustawienia";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Użyj pęku kluczy";
 "Auth.LoginFlow.Or" = "LUB";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Get my Key";
+"Auth.LoginFlow.Textfield.Placeholder" = "Wpisz swoją frazę odzyskiwania";
+"Auth.LoginFlow.Enter.Button.Title" = "Zaloguj się";
 "Auth.LoginFlow.Entering.Void.Title" = "Wejście w pustkę";
 
 // Object settings
@@ -305,13 +301,11 @@
 
 "Undo typing" = "Cofnij wpisywanie";
 "Undo" = "Cofnij";
-"Redo" = "Redo";
 "Actions.LinkItself" = "Łącze do";
 "Actions.MakeAsTemplate" = "Utwórz szablon";
 "Actions.TemplateMakeDefault" = "Ustaw jako domyślne";
 "Actions.CreateWidget.Title" = "Do widżetów";
 "Actions.CreateWidget.Success" = "Nowy widżet został utworzony";
-"Actions.CopyLink" = "Kopiuj link";
 
 // Object Type
 "Set" = "Ustaw";
@@ -331,9 +325,6 @@
 "There is no object named" = "Nie ma obiektu o nazwie %@";
 "There is no type named" = "Nie ma typu o nazwie %@";
 "Create a new one or search for something else" = "Utwórz nowy lub wyszukaj coś innego";
-"Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
 
@@ -344,7 +335,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "Przykro nam, że odchodzisz. Masz 30 dni na anulowanie tego żądania. Po 30 dniach zaszyfrowana kopia zapasowa Twoich danych zostanie trwale usunięta.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Cofnij/Ponów";
@@ -365,14 +356,13 @@
 
 "TemplateEditing.Title" = "Edytuj szablon";
 
-"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Nowy szablon został dodany do typu";
 "Templates.Popup.Duplicated" = "Szablon został zduplikowany";
 "Templates.Popup.Removed" = "Szablon został usunięty";
 "Templates.Popup.Default" = "Szablon został ustawiony jako domyślny";
 
 "To Bin" = "Do kosza";
-"Set as default" = "Ustaw jako domyślny";
+"Set as default" = "Set as default";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Usuń z ulubionych";
@@ -487,67 +477,67 @@
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Ukryj kolumnę";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "Nie wybrano zapytania";
-"Set.View.Empty.Subtitle" = "Dodawanie zapytania wyszukiwania w celu agregowania obiektów o jednakowych typach i relacjach w trybie na żywo";
+"Set.View.Empty.Title" = "No query selected";
+"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Kwerenda wybierająca";
-"Set.SourceType.Cancel.Toast.Title" = "To zapytanie można zmienić tylko na komputerze";
+"Set.SourceType.SelectQuery" = "Select query";
+"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Zamień zestaw w kolekcję";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Zmień zapytanie";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "Brak obiektów";
-"Collection.View.Empty.Subtitle" = "Utwórz pierwszy obiekt, aby kontynuować";
-"Collection.View.Empty.Button.Title" = "Utwórz obiekt";
+"Collection.View.Empty.Title" = "No objects";
+"Collection.View.Empty.Subtitle" = "Create first object to continue";
+"Collection.View.Empty.Button.Title" = "Create object";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dzielnik kropek";
-"SlashMenu.LineDivider" = "Rozdzielacz linii";
+"SlashMenu.DotsDivider" = "Dots divider";
+"SlashMenu.LineDivider" = "Line divider";
 "SlashMenu.TableOfContents" = "Spis treści";
 "SlashMenu.Table" = "Tabela";
 
 "Error" = "Błąd";
 "Unknown error" = "Nieznany błąd";
-"Open Type Error" = "Nieobsługiwany typ \"%@\". Możesz go otworzyć na komputerze.";
+"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Zamknij";
-"Add phone" = "Dodaj telefon";
-"Nothing to redo" = "Nie ma nic do przerobienia";
-"Nothing to undo" = "Nic do cofnięcia";
+"Account is deleted" = "Konto zostało usunięte";
+"Add phone" = "Add phone";
+"Nothing to redo" = "Nothing to redo";
+"Nothing to undo" = "Nothing to undo";
 "Progress..." = "Postęp...";
-"Grey" = "Szary";
-"Sky" = "Niebo";
-"Yellow" = "Żółty";
-"Grey background" = "Szare tło";
-"Teal background" = "Turkusowe tło";
-"Sky background" = "Tło nieba";
-"Yellow background" = "Żółte tło";
-"Enter value" = "Wpisz wartość";
-"Select object" = "Zaznaczanie obiektu";
-"Select file" = "Wybierz plik";
-"Select options" = "Wybierz opcje";
-"Select option" = "Wybierz opcje";
-"Select date" = "Wybierz datę";
-"Add email" = "Dodaj adres e-mail";
-"Add link" = "Dodaj odnośnik";
-"Enter number" = "Edytuj numer";
-"Enter text" = "Wpisz tekst";
-"Unsupported value" = "Nieobsługiwana wartość";
-"Select relation type" = "Wybierz typ relacji";
-"CommonOpenErrorView.Message" = "Nie znaleziono danych";
-"AreYouSure" = "Jesteś pewny?";
-"Nothing found" = "Nic nie znaleziono";
-"No type found text" = "Nie znaleziono typu \"%@\". Zmień żądanie lub utwórz nowy typ.";
-"Create type" = "Utwórz typ";
+"Grey" = "Grey";
+"Sky" = "Sky";
+"Yellow" = "Yellow";
+"Grey background" = "Grey background";
+"Teal background" = "Teal background";
+"Sky background" = "Sky background";
+"Yellow background" = "Yellow background";
+"Enter value" = "Enter value";
+"Select object" = "Select object";
+"Select file" = "Select file";
+"Select options" = "Select options";
+"Select option" = "Select option";
+"Select date" = "Select date";
+"Add email" = "Add email";
+"Add link" = "Add link";
+"Enter number" = "Enter number";
+"Enter text" = "Enter text";
+"Unsupported value" = "Unsupported value";
+"Select relation type" = "Select relation type";
+"CommonOpenErrorView.Message" = "No data found";
+"Nothing found" = "Nothing found";
+"No type found text" = "No type “%@” found. Change your request or create new type.";
+"Create type" = "Create type";
 
 
-"Limit object types" = "Ograniczanie typów obiektów";
-"Type" = "Typ";
-"No name" = "Brak nazwy";
-"New relation" = "Nowa relacja";
-"Non-existent object" = "Nieistniejący obiekt";
+"Limit object types" = "Limit object types";
+"Type" = "Type";
+"No name" = "No name";
+"New relation" = "New relation";
+"Non-existent object" = "Non-existent object";
 
 "Select all" = "Zaznacz wszystko";
 "Unselect all" = "Odznacz wszystko";
@@ -555,37 +545,36 @@
 "Shared" = "Udostępnione";
 "Sets" = "Zbiory";
 "Collections" = "Kolekcje";
-"Default object type" = "Domyślny typ obiektu";
+"Default object type" = "Default object type";
 "Personalization" = "Personalizacja";
-"Choose default object type" = "Wybieranie domyślnego typu obiektu";
+"Choose default object type" = "Choose default object type";
 "About" = "O aplikacji";
 "Appearance" = "Wygląd";
 "Change wallpaper" = "Zmień tło";
 "Application icon" = "Ikona aplikacji";
 "Mode" = "Tryb";
-"copied to clipboard" = "%@ Skopiowano do schowka";
-"Create object from clipboard" = "Utwórz obiekt ze schowka";
-"Access to key from keychain" = "Access to key from keychain";
-"Back up your key" = "Back up your key";
-"Vault" = "Vault";
+"copied to clipboard" = "%@ copied to clipboard";
+"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
+"Back up your recovery phrase" = "Utwórz kopię swoich wyrazów ratunkowych";
+"Account" = "Konto";
 "Access" = "Dostęp";
-"Back up key" = "Back up key";
-"Removing cache" = "Usuwanie pamięci podręcznej";
-"Deletion error" = "Błąd usuwania";
+"Back up phrase" = "Kopia zapasowa frazy";
+"Removing cache" = "Removing cache";
+"Deletion error" = "Deletion error";
 "Start" = "Rozpocznij";
 "On analytics" = "On analytics";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
+"Select account error" = "Wybierz błąd konta";
+"Account deleted" = "Konto zostało usunięte";
+"Account.Select.Incompatible.Version.Error.Text" = "Unable to retrieve account data due to incompatible version on remote nodes. Please update Anytype to the latest version.";
 "Restore from keychain" = "Przywróć z pęku kluczy";
 "Edit" = "Edytuj";
 "In this object" = "W tym obiekcie";
-"Other relations" = "Inne relacje";
+"Other relations" = "Other relations";
 "Collection of objects" = "Zbiór obiektów";
-"Designed to capture thoughts quickly" = "Zaprojektowany z myślą o szybkim rejestrowaniu myśli";
-"Action-focused layout with a checkbox" = "Układ skoncentrowany na akcji z polem wyboru";
-"Standard layout for canvas blocks" = "Standardowy układ dla bloków płótna";
-"List of related objects" = "Lista powiązanych obiektów";
+"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
+"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
+"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
+"List of related objects" = "List of related objects";
 "Lock" = "Zablokuj";
 "Unlock" = "Odblokuj";
 "Favorite" = "Dodaj do ulubionych";
@@ -593,62 +582,62 @@
 "Unsplash" = "Unsplash";
 "Go back" = "Wróć";
 "SyncStatus.LocalOnly.Title" = "Tylko lokalnie";
-"SyncStatus.LocalOnly.Description" = "Tylko lokalnie";
-"SyncStatus.Synced.Anytype.Description" = "Kopia zapasowa w sieci Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Kopia zapasowa w Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Kopia zapasowa w sieci hostowanej samodzielnie";
-"Downloading or uploading data to some node" = "Pobieranie lub przesyłanie danych do jakiegoś węzła";
-"Node is not connected" = "Węzeł nie jest połączony";
-"Initializing sync" = "Inicjowanie synchronizacji";
+"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
+"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
+"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
+"Node is not connected" = "Node is not connected";
+"Initializing sync" = "Initializing sync";
 "Not syncing" = "Brak synchronizacji";
 "Synced" = "Zsynchronizowano";
 "Syncing..." = "Synchronizowanie...";
 "No connection" = "Brak połączenia";
-"Preparing..." = "Przygotowywanie…";
-"Deleted" = "Usunięto";
-"Download" = "Pobierz";
-"Open object" = "Otwórz obiekt";
+"Preparing..." = "Preparing...";
+"Deleted" = "Deleted";
+"Download" = "Download";
+"Open object" = "Open object";
 "Open source" = "Otwórz źródło";
-"Into object" = "Do obiektu";
-"Add below" = "Dodaj poniżej";
-"Change type" = "Zmiana typu";
-"Show types" = "Pokaż typy";
-"Hide types" = "Ukrywanie typów";
-"SlashMenu.LinkTo.Description" = "Utwórz połączenie z innym obiektem";
-"Upload playable audio" = "Przesyłanie odtwarzalnego dźwięku";
-"Code snippet" = "Fragment kodu";
-"Bookmark" = "Zakładka";
+"Into object" = "Into object";
+"Add below" = "Add below";
+"Change type" = "Change type";
+"Show types" = "Show types";
+"Hide types" = "Hide types";
+"SlashMenu.LinkTo.Description" = "Create link to another object";
+"Upload playable audio" = "Upload playable audio";
+"Code snippet" = "Code snippet";
+"Bookmark" = "Bookmark";
 "Audio" = "Audio";
-"Video" = "Wideo";
-"Picture" = "Zdjęcie";
-"File" = "Plik";
-"No related options here" = "Nie ma tutaj żadnych powiązanych opcji. Możesz dodać kilka";
-"Empty" = "Pusty";
+"Video" = "Video";
+"Picture" = "Picture";
+"File" = "File";
+"No related options here" = "No related options here. You can add some";
+"Empty" = "Empty";
 "Link to" = "Łącze do";
-"Unknown" = "Nieznany";
+"Unknown" = "Unknown";
 "Settings" = "Ustawienia";
-"Views" = "Odsłon";
-"Filter" = "Filtr";
-"Sort" = "Sortuj";
+"Views" = "Views";
+"Filter" = "Filter";
+"Sort" = "Sort";
 "View" = "Zobacz";
-"Home" = "Strona główna";
-"Highlight" = "Podświetlenie";
-"Create object" = "Utwórz obiekt";
-"Web pages" = "Strony internetowe";
-"Preview layout" = "Układ podglądu";
-"Everywhere" = "Wszędzie";
-"Exact day" = "Dokładny dzień";
+"Home" = "Home";
+"Highlight" = "Highlight";
+"Create object" = "Create object";
+"Web pages" = "Web pages";
+"Preview layout" = "Preview layout";
+"Everywhere" = "Everywhere";
+"Exact day" = "Exact day";
 "Tomorrow" = "Jutro";
 "Yesterday" = "Wczoraj";
 "Today" = "Dzisiaj";
-"No date" = "Brak danych";
-"Clear" = "Wyczyść";
-"Create option with" = "Utwórz opcję '%@'";
-"Enter URL" = "Wpisz URL";
-"Enter email" = "Wpisz adres email";
-"Enter phone number" = "Podaj numer telefonu";
-"Enter number" = "Edytuj numer";
-"Enter text" = "Wpisz tekst";
+"No date" = "No date";
+"Clear" = "Clear";
+"Create option with" = "Create option ‘%@’";
+"Add URL" = "Dodaj URL";
+"Add email" = "Add email";
+"Add phone number" = "Dodaj numer telefonu";
+"Add number" = "Dodaj numer";
+"Add text" = "Dodaj tekst";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Wystąpił błąd. Spróbuj ponownie";
 "Add" = "Dodaj";
@@ -656,16 +645,16 @@
 "Failed to sync, trying again..." = "Synchronizacja nie powiodła się, próbuję ponownie...";
 "Sync.Status.Version.Outdated.Description" = "Wersja nieaktualna. Proszę zaktualizować Anytype";
 "This object doesn't exist" = "Ten obiekt nie istnieje";
-"Setting up encrypted storage\nPlease wait" = "Konfiguracja szyfrowanej pamięci masowej\nProszę czekać";
+"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "Te obiekty zostaną nieodwracalnie usunięte. Tej akcji nie można cofnąć.";
-"Delete vault" = "Delete vault";
+"Delete account" = "Usuń konto";
 "Cancel deletion" = "Anuluj usuwanie";
 "Logout and clear data" = "Wyloguj i wyczyść dane";
 "New" = "Nowy";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.title" = "Czy na pewno chcesz usunąć konto?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Siatka";
@@ -678,13 +667,13 @@
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Puste płótno bez tytułu";
 "ObjectType.SearchOrInstall" = "Szukaj lub utwórz nowy typ";
-"ObjectType.Search" = "Wyszukaj typ";
+"ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "Moje typy";
-"ObjectType.AddedToLibrary" = "Wpisz \"%@\" dodany do biblioteki";
+"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
 "ObjectType.DeletedName" = "Usunięty typ";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Utwórz %@";
+"QuickAction.create" = "Create %@";
 
 // MARK: - RedactedText
 "RedactedText.pageTitle" = "Obudź się, Neo";
@@ -696,10 +685,10 @@
 "InterfaceStyle.system" = "Systemowy";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Dodawanie nagłówków w celu utworzenia spisu treści";
+"TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Wyczyść";
+"SimpleTableMenu.Item.clearContents" = "Clear";
 "SimpleTableMenu.Item.color" = "Kolor";
 "SimpleTableMenu.Item.style" = "Wygląd";
 "SimpleTableMenu.Item.clearStyle" = "Zresetuj styl";
@@ -710,7 +699,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Przesuń w prawo";
 "SimpleTableMenu.Item.Duplicate" = "Duplikuj";
 "SimpleTableMenu.Item.Delete" = "Usuń";
-"SimpleTableMenu.Item.Sort" = "Sortuj";
+"SimpleTableMenu.Item.Sort" = "Sort";
 
 "SimpleTableMenu.Item.InsertAbove" = "Wstaw powyżej";
 "SimpleTableMenu.Item.InsertBelow" = "Wstaw poniżej";
@@ -722,311 +711,228 @@
 // MARK: Link Past Actions
 "LinkPaste.text" = "Wklej jako tekst";
 "LinkPaste.link" = "Wklej jako link";
-"LinkPaste.bookmark" = "Utwórz zakładkę";
+"LinkPaste.bookmark" = "Create bookmark";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
-"RelationAction.CopyEmail" = "Kopiowanie wiadomości e-mail";
+"RelationAction.CopyEmail" = "Copy email";
 "RelationAction.CopyLink" = "Kopiuj link";
 "RelationAction.Copied" = "Skopiowano";
-"RelationAction.ReloadingContent" = "Przeładowywanie zawartości";
-"RelationAction.ReloadContent" = "Ponowne załadowanie zawartości obiektu";
-"RelationAction.CallPhone" = "Zadzwoń do telefonu odrętwiałego";
-"RelationAction.SendEmail" = "Wyślij email";
-"RelationAction.OpenLink" = "Otwórz odnośnik w";
+"RelationAction.ReloadingContent" = "Reloading content";
+"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.CallPhone" = "Call phone numbler";
+"RelationAction.SendEmail" = "Send email";
+"RelationAction.OpenLink" = "Open link";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Widok edycji";
-"SetViewTypesPicker.New.Title" = "Nowy widok";
-"SetViewTypesPicker.Section.Types.Title" = "Wyświetl jako";
+"SetViewTypesPicker.Title" = "Edit view";
+"SetViewTypesPicker.New.Title" = "New view";
+"SetViewTypesPicker.Section.Types.Title" = "View as";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplikuj";
-"SetViewTypesPicker.Settings.Delete.View" = "Usuwanie widoku";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Nowy widok";
+"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Bez nazwy";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Nieobsługiwane";
+"EditorSet.View.Not.Supported.Title" = "Unsupported";
 
 // BlockContent
-"Content.File.Upload" = "Prześlij plik";
-"Content.Audio.Upload" = "Prześlij dźwięk";
-"Content.Video.Upload" = "Prześlij wideo";
-"Content.Picture.Upload" = "Załaduj obraz";
-"Content.Common.Uploading" = "Przesyłanie...";
-"Content.Common.Error" = "Coś poszło nie tak, spróbuj ponownie";
-"Content.Bookmark.Add" = "Dodawanie zakładki internetowej";
+"Content.File.Upload" = "Upload a file";
+"Content.Audio.Upload" = "Upload audio";
+"Content.Video.Upload" = "Upload a video";
+"Content.Picture.Upload" = "Upload a picture";
+"Content.Common.Uploading" = "Uploading...";
+"Content.Common.Error" = "Something went wrong, try again";
+"Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Wczytywanie, proszę czekać...";
-"Content.DataView.InlineSet.Subtitle" = "Zestaw liniowy";
-"Content.DataView.InlineCollection.Subtitle" = "Kolekcja wbudowana";
-"Content.DataView.InlineSet.NoSource" = "Brak źródła";
-"Content.DataView.InlineSet.NoData" = "Brak danych";
-"Content.DataView.InlineSet.Untitled" = "Zestaw bez tytułu";
-"Content.DataView.InlineCollection.Untitled" = "Kolekcja bez tytułu";
-"Content.DataView.InlineSet.Toast.Failure" = "Ten zestaw wbudowany nie ma źródła";
+"Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
+"Content.DataView.InlineSet.NoSource" = "No source";
+"Content.DataView.InlineSet.NoData" = "No data";
+"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
+"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+
+// MARK: - Widget extension
+"WidgetExtension.LockScreen.Title" = "New object";
+"WidgetExtension.LockScreen.Description" = "Create a new object on the fly";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "w związku z";
-"Editor.Toast.MovedTo" = "Blok przeniesiony do";
+"Editor.Toast.LinkedTo" = "linked to";
+"Editor.Toast.MovedTo" = "Block moved to";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Skanowanie nie jest obsługiwane";
+"Scanner.Error.Scanning not supported" = "Scanning not supported";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Źródło widżetu";
-"Widgets.Actions.ChangeSource" = "Zmień źródło";
-"Widgets.Actions.ChangeWidgetType" = "Zmień typ widżetu";
-"Widgets.Actions.RemoveWidget" = "Usuń widżet";
-"Widgets.Actions.EditWidgets" = "Edytowanie widżetów";
-"Widgets.Actions.EmptyBin" = "Pusty kosz";
-"Widgets.Actions.AddBelow" = "Dodaj poniżej";
-"Widgets.Actions.NewObject" = "Nowy obiekt";
-"Widgets.Layout.Screen.Title" = "Typ widżetu";
+"Widgets.SourceSearch" = "Widget source";
+"Widgets.Actions.ChangeSource" = "Change Source";
+"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
+"Widgets.Actions.RemoveWidget" = "Remove Widget";
+"Widgets.Actions.EditWidgets" = "Edit Widgets";
+"Widgets.Actions.EmptyBin" = "Empty Bin";
+"Widgets.Actions.AddBelow" = "Add Below";
+"Widgets.Actions.NewObject" = "New Object";
+"Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Link";
-"Widgets.Layout.Tree.Title" = "Drzewo";
+"Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "Lista";
-"Widgets.Layout.CompactList.Title" = "Lista umów";
-"Widgets.Layout.Link.Description" = "Wersja ompact obiektu";
-"Widgets.Layout.Tree.Description" = "Hierarchiczna struktura obiektów";
-"Widgets.Layout.List.Description" = "Widget z widokiem listy ustawionego obiektu";
-"Widgets.Layout.CompactList.Description" = "Widget z widokiem listy ustawionego obiektu";
-"Widgets.Empty.Title" = "Ten widok danych nie zawiera żadnych obiektów";
-"Widgets.Library.RecentlyEdited.Name" = "Ostatnio edytowane";
-"Widgets.Library.RecentlyOpened.Name" = "Niedawno otwarte";
-"Widgets.Library.RecentlyOpened.Description" = "Na tym urządzeniu";
+"Widgets.Layout.CompactList.Title" = "Сompact list";
+"Widgets.Layout.Link.Description" = "Сompact version of the object";
+"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
+"Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
+"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
+"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
+"Widgets.Library.RecentlyOpened.Description" = "On this device";
 
 // MARK: - About
-"About.AppVersion" = "Wersja aplikacji: %@";
-"About.BuildNumber" = "Numer kompilacji: %@";
-"About.Library" = "Wersja biblioteki: %@";
-"About.anytypeId" = "Anytype ID: %@";
-"About.analyticsId" = "Identyfikator analizy: %@";
-"About.deviceId" = "Identyfikator urządzenia: %@";
-"About.Device" = "Urządzenie: %@";
-"About.OSVersion" = "Wersja systemu operacyjnego: %@";
-"About.HelpCommunity" = "Pomoc i społeczność";
-"About.WhatsNew" = "Co Nowego";
-"About.AnytypeCommunity" = "Społeczność Anytype";
-"About.HelpTutorials" = "Pomoc i samouczki";
-"About.ContactUs" = "Skontaktuj się z nami";
-"About.Legal" = "Legalny";
-"About.TermsOfUse" = "Warunki korzystania";
-"About.PrivacyPolicy" = "Polityka prywatności";
-"About.TechInfo" = "Informacje techniczne";
-"About.Mail.Subject" = "Support request, Vault ID %@";
-"About.Mail.Body" = "\n\nInformacje techniczne\n%@";
+"About.AppVersion" = "App version: %@";
+"About.BuildNumber" = "Build number: %@";
+"About.Library" = "Library version: %@";
+"About.accountId" = "Account ID: %@";
+"About.analyticsId" = "Analytics ID: %@";
+"About.deviceId" = "Device ID: %@";
+"About.Device" = "Device: %@";
+"About.OSVersion" = "OS version: %@";
+"About.HelpCommunity" = "Help & Community";
+"About.WhatsNew" = "What’s New";
+"About.AnytypeCommunity" = "Anytype Community";
+"About.HelpTutorials" = "Help & Tutorials";
+"About.ContactUs" = "Contact Us";
+"About.Legal" = "Legal";
+"About.TermsOfUse" = "Terms of Use";
+"About.PrivacyPolicy" = "Privacy Policy";
+"About.TechInfo" = "Tech Info";
+"About.Mail.Subject" = "Support request, Account ID %@";
+"About.Mail.Body" = "\n\nTechnical information\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Pamięć podręczna została pomyślnie wyczyszczona";
+"ClearCache.Success" = "Cache sucessfully cleared";
 "ClearCache.Error" = "Błąd, spróbuj ponownie później";
 
 // MARK: - Settings
+"Settings.TitleLegacy" = "Ustawienia";
 "Settings.Title" = "Ustawienia";
 "Settings.SpaceName" = "Nazwa przestrzeni";
-"Settings.SpaceType" = "Space type";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.AccountAndAccess" = "Account and access";
 
 // MARK: - File Storage
-"FileStorage.Title" = "Przechowywanie plików";
-"FileStorage.Space.Title" = "Magazyn zdalny";
-"FileStorage.Space.Instruction" = "Możesz bezpłatnie przechowywać do %@ swoich plików w naszym zaszyfrowanym węźle kopii zapasowej. Jeśli osiągniesz limit, pliki będą przechowywane tylko lokalnie.";
-"FileStorage.Space.Used" = "%@ z %@";
-"FileStorage.Space.GetMore" = "Zyskaj więcej miejsca";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Lokalny magazyn";
-"FileStorage.Local.Instruction" = "Żeby zaoszczędzić miejsce na lokalnym dysku, możesz przenieść wszystkie swoje pliki do naszego zaszyfrowanego węzła kopii zapasowych. Pliki zostaną ponownie załadowane, gdy je otworzysz.";
-"FileStorage.Local.Used" = "%@ używany";
-"FileStorage.OffloadTitle" = "Odciążanie plików";
-"FileStorage.ManageFiles" = "Zarządzaj plikami";
-"FileStorage.LimitError" = "Przekroczono limit przesyłania plików";
+"FileStorage.Title" = "File storage";
+"FileStorage.Space.Title" = "Remote storage";
+"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
+"FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Space.GetMore" = "Get more space";
+"FileStorage.Space.Mail.Subject" = "Get more storage, account %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My account id is %@. Cheers, %@.";
+"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
+"FileStorage.Local.Used" = "%@ used";
+"FileStorage.OffloadTitle" = "Offload files";
+"FileStorage.ManageFiles" = "Manage files";
+"FileStorage.LimitError" = "You exceeded file limit upload";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
-"FileStorage.LimitLegend.Other" = "Inne przestrzenie | %@";
-"FileStorage.LimitLegend.Free" = "Darmowy | %@";
+"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Zsynchronizowane pliki";
-"FilesList.ForceDelete.Title" = "Czy na pewno chcesz trwale usunąć pliki?";
+"FilesList.Title" = "Synced files";
+"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "Tej czynności nie można cofnąć.";
+"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Jesteś pewny?";
-"ClearCacheAlert.Description" = "Wszystkie pliki multimedialne przechowywane w Anytype zostaną usunięte z bieżącego urządzenia. Można je pobrać ponownie z węzła kopii zapasowej lub innego urządzenia.";
+"ClearCacheAlert.Title" = "Are you sure?";
+"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Wspólna przestrzeń";
-"Spaces.Accessibility.Private" = "Przestrzeń prywatna";
-"Spaces.Accessibility.Personal" = "Przestrzeń domyślna";
+"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Personal" = "Ustawienia";
 "Spaces.Search.Title" = "Szukaj spacji";
-"Spaces.Title" = "Spacje";
-"Spaces.Info.Network" = "Sieć:";
-
-// MARK: - Space
-"Space.Status.Unknown" = "Nieznany";
-"Space.Status.Loading" = "Ładowanie";
-"Space.Status.Ok" = "Ok";
-"Space.Status.Missing" = "Brakujący";
-"Space.Status.Error" = "Błąd";
-"Space.Status.RemoteWaitingDeletion" = "Oczekiwanie na usunięcie";
-"Space.Status.RemoteDeleted" = "Zdalne usunięte";
-"Space.Status.SpaceDeleted" = "Usunięto";
-"Space.Status.SpaceActive" = "Aktywny";
-"Space.Status.SpaceJoining" = "Przyłączenie";
-"Space.Status.SpaceRemoving" = "Usuwanie";
 
 // MARK: - Space Settings
-"SpaceSettings.Title" = "Ustawienia przestrzeni";
-"SpaceSettings.RemoteStorage" = "Magazyn zdalny";
-"SpaceSettings.Info" = "Informacje o przestrzeni";
-"SpaceSettings.NetworkId" = "Identyfikator sieci";
-"SpaceSettings.DeleteAlert.Title" = "Usuń spację '%@'";
-"SpaceSettings.DeleteAlert.Message" = "To miejsce zostanie usunięte nieodwołalnie. Tej czynności nie można cofnąć.";
-"SpaceSettings.DeleteButton" = "Usuwanie spacji";
-"SpaceSettings.Share" = "Udostępnij";
-"SpaceSettings.LeaveButton" = "Pozostaw";
-"SpaceSettings.LeaveAlert.Title" = "Zostaw spację";
-"SpaceSettings.LeaveAlert.Message" = "%@ miejsce zostanie usunięte z Twoich urządzeń i nie będziesz już mieć do niego dostępu.";
-"SpaceSettings.LeaveAlert.Toast" = "Opuściłeś %@.";
+"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.Info" = "Space info";
+"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
+"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
+"SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.Sharing" = "Sharing";
+"SpaceSettings.Share" = "Share";
 
 // MARK: - Space Share
-"MoreInfo" = "Dodatkowe informacje";
 
-"SpaceShare.Title" = "Udostępnianie";
-"SpaceShare.Members" = "Czlonkowie";
-"SpaceShare.Permissions.Owner" = "Właściciel";
-"SpaceShare.Permissions.Reader" = "Osoba przeglądająca";
-"SpaceShare.Permissions.Writer" = "Redaktor";
-"SpaceShare.Permissions.Grand.Edit" = "Edytuj";
-"SpaceShare.Permissions.Grand.View" = "Zobacz";
-"SpaceShare.Invite.Title" = "Link z zaproszeniem";
-"SpaceShare.Invite.Description" = "Udostępnij ten link z zaproszeniem, aby inne osoby mogły dołączyć do Twojej przestrzeni. Gdy klikną Twój link i poproszą o dostęp, możesz ustawić ich prawa dostępu.";
-"SpaceShare.Invite.Share" = "Udostępnij link z zaproszeniem";
-"SpaceShare.Invite.Generate" = "Wygeneruj link z zaproszeniem";
-"SpaceShare.Invite.Empty" = "Utwórz link z zaproszeniem, aby udostępnić przestrzeń i dodać nowych członków";
-"SpaceShare.JoinRequest" = "Dołącz do prośby";
-"SpaceShare.LeaveRequest" = "Wniosek urlopowy";
-"SpaceShare.Action.ViewRequest" = "Wyświetl zapytanie";
-"SpaceShare.Action.Approve" = "Zatwierdź";
-"SpaceShare.DeleteSharingLink.Title" = "Usuń link";
-"SpaceShare.DeleteSharingLink.Message" = "Nowi członkowie nie będą mogli dołączyć do pokoju. Możesz wygenerować nowy link dowolnego typu";
-"SpaceShare.Approve.Toast" = "Zatwierdziłeś prośbę %@.";
-"SpaceShare.ViewRequest.Title" = "%@ poprosił o dołączenie do %@ przestrzeni";
-"SpaceShare.ViewRequest.ViewAccess" = "Dodaj jako przeglądający";
-"SpaceShare.ViewRequest.EditAccess" = "Dodaj jako edytora";
-"SpaceShare.ViewRequest.Reject" = "Odrzuć";
-"SpaceShare.RemoveMember.Title" = "Remove member";
-"SpaceShare.RemoveMember.Message" = "%@ zostanie usunięty z przestrzeni.";
-"SpaceShare.ChangePermissions" = "Dostęp %@ do przestrzeni stanie się %@.";
-"SpaceShare.Join.Title" = "Dołącz do przestrzeni";
-"SpaceShare.Join.CommentPlaceholder" = "Pozostaw prywatny komentarz dla właściciela przestrzeni";
-"SpaceShare.Join.Button" = "Poproś o dołączenie";
-"SpaceShare.Join.Info" = "Gdy właściciel przestrzeni zatwierdzi Twoje żądanie, dołączysz do przestrzeni z określonym właścicielem praw dostępu.";
-"SpaceShare.Join.Message" = "Zostałeś zaproszony do dołączenia do %@ miejsca, utworzonego przez %@. Wyślij prośbę, aby właściciel przestrzeni mógł Ci pozwolić.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
-"SpaceShare.JoinConfirmation.Title" = "Zadanie wysłane";
-"SpaceShare.JoinConfirmation.Message" = "Otrzymasz powiadomienie, gdy właściciel pokoju zatwierdzi Twoją prośbę.";
-"SpaceShare.YouSuffix" = "%@ (Państwo)";
-"SpaceShare.ManageSpaces" = "Zarządzanie przestrzeniami";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
-"SpaceShare.StopSharing.Title" = "Zatrzymywanie udostępniania przestrzeni";
-"SpaceShare.StopSharing.Message" = "Członkowie nie będą już synchronizowani z tą przestrzenią, a łącze udostępniania zostanie dezaktywowane.";
-"SpaceShare.StopSharing.Toast" = "Przestrzeń nie jest już współdzielona";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
-"SpaceShare.QR.Button" = "Pokaż kod QR";
-"SpaceShare.HowToShare.Title" = "Jak dzielić się przestrzenią?";
-"SpaceShare.HowToShare.Step1" = "Podaj link osobie, z którą chcesz współpracować.";
-"SpaceShare.HowToShare.Step2" = "Klikając na link, osoba prosi o dołączenie do przestrzeni.";
-"SpaceShare.HowToShare.Step3" = "Po zatwierdzeniu wniosku możesz wybrać prawa dostępu dla tej osoby.";
-"SpaceShare.Manage" = "Manage";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
-"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
-
-// MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Twoje prawa dostępu zostały zmienione na **%@** w przestrzeni **%@**.";
-"ParticipantRequestApprovedNotification.Text" = "Twoja prośba o dołączenie do przestrzeni **%@** została zatwierdzona z **%@** prawami dostępu. Miejsce będzie wkrótce dostępne na Twoim urządzeniu.";
-"ParticipantRequestDeclineNotification.Text" = "Twoja prośba o dołączenie do przestrzeni **%@** została odrzucona.";
-"RequestToLeaveNotification.Text" = "**%@** chce opuścić przestrzeń **%@**.";
-"ParticipantRemoveNotification.Text" = "Zostałeś usunięty z pokoju lub pokój został usunięty przez właściciela.";
-"RequestToJoinNotification.Text" = "**%@** poprosił o dołączenie do przestrzeni **%@**.";
-"RequestToJoinNotification.GoToSpace" = "Idź w kosmos";
-"RequestToJoinNotification.ViewRequest" = "Wyświetl zapytanie";
-
-// MARK: - Space manager
-"SpaceManager.CancelRequest" = "Anuluj prośbę o dołączenie";
-"SpaceManager.DoNotCancel" = "Nie anuluj";
-"SpaceManager.CancelRequestAlert.Title" = "Konieczne będzie ponowne wysłanie prośby o dostęp";
-"SpaceManager.CancelRequestAlert.Toast" = "Prośba została anulowana.";
-
-
+"SpaceShare.Title" = "Share space";
+"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Permissions.Owner" = "Owner";
+"SpaceShare.Permissions.Reader" = "Can view";
+"SpaceShare.Permissions.Writer" = "Can edit";
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Tworzenie pokoju";
+"SpaceCreate.Title" = "Create a space";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Dodaj do dowolnego typu";
+"Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Anuluj";
 "Sharing.Navigation.RightButton.Title" = "Gotowe";
 
-"Sharing.SaveAs" = "ZAPISZ JAKO";
+"Sharing.SaveAs" = "SAVE AS";
 "Sharing.SelectSpace" = "Przestrzeń";
-"Sharing.AddTo" = "Dodaj do";
+"Sharing.AddTo" = "Add to";
 "Sharing.LinkTo" = "Łącze do";
 
-"Sharing.Text.NoteObject" = "Obiekt notatki";
-"Sharing.Text.TextBlock" = "Bloki";
-"Sharing.Any.Block" = "Bloki";
+"Sharing.Text.NoteObject" = "Note object";
+"Sharing.Text.TextBlock" = "Blocks";
+"Sharing.Any.Block" = "Blocks";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Rozszerzenie udostępniania";
-"Sharing.Tip.Button.title" = "Pokaż menu udostępniania";
+"Sharing.Tip.Title" = "Share Extension";
+"Sharing.Tip.Button.title" = "Show share menu";
 
-"Sharing.Tip.Steps.1" = "Stuknij przycisk udostępniania w systemie iOS";
-"Sharing.Tip.Steps.2" = "Przewiń obok aplikacji i kliknij Więcej";
-"Sharing.Tip.Steps.3" = "Stuknij Edytuj, aby znaleźć \"Anytype\" i stuknij";
-
-// MARK: - Swipe tips
-"Swipe.Tip.Title" = "Przesuń, aby utworzyć obiekty";
-"Swipe.Tip.Subtitle" = "Twórz obiekty wewnątrz widżetów, łatwo przesuwając je w lewo.";
-
+"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
+"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
+"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Ostrzeżenie";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
-"Initial.UnstableMiddle.Title" = "Ostrzeżenie";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production account. Your account may be broken.";
+"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Logout" = "Logout from current account";
+"Initial.UnstableMiddle.Continue" = "Continue with current account";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production account";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Tworzenie obiektów o określonym typie";
-"LongTapCreateTip.Message" = "Długie dotknięcie przycisku Utwórz obiekt, aby otworzyć menu z typami";
+"LongTapCreateTip.Title" = "Create Objects with specific Type";
+"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Zaktualizuj swoją aplikację";
-"Error.AnytypeNeedsUpgrate.Message" = "Ten obiekt został zmodyfikowany w nowszej wersji Anytype. Zaktualizuj aplikację, aby otworzyć ją na tym urządzeniu";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Aktualizuj";
-"Error.UnableToConnect" = "Połącz się z Internetem";
+"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
+"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
+"Error.UnableToConnect" = "Please connect to the internet";
 "Error.Common.Title" = "Ups!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
+"Error.Common.Message" = "Sprawdź swoje połączenie internetowe i spróbuj ponownie lub opublikuj raport na forum.";
 "Error.Common.TryAgain" = "Spróbuj ponownie";
 
 // MARK: - Relative date formatter
 "RelativeFormatter.days7" = "Ostatnie 7 dni";
-"RelativeFormatter.days30" = "Poprzednie 30 dni";
+"RelativeFormatter.days30" = "Previous 30 days";
 "RelativeFormatter.older" = "Starsze";
 
 // MARK: - Server
 "Server.Network" = "Sieć";
 "Server.Networks" = "Sieci";
 "Server.AddButton" = "Dodaj sieć hostowaną";
-"Server.Anytype" = "Dowolny typ";
+"Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Tylko lokalnie";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galeria będzie obsługiwana wkrótce";
+"Gallery.Unavailable.Title" = "Gallery will be supported soon";
 "Gallery.Unavailable.Message" = "Proszę na razie korzystać z wersji na komputer";
 "Gallery.Author" = "Wykonane przez @%@";
 "Gallery.Install" = "Zainstaluj";
@@ -1035,94 +941,6 @@
 "Gallery.Notification.Button" = "Przejdź do miejsca";
 "Gallery.Notification.Error" = "Ups! \"%@\" nie został zainstalowany. Sprawdź swoje połączenie internetowe i spróbuj ponownie lub opublikuj raport na forum.";
 
-// MARK: - Membership
-"Membership" = "Członkostwo";
-"Just e-mail" = "Wystarczy wysłać e-mail";
-"E-mail" = "Adres e-mail";
-"Learn more" = "Dowiedz się więcej";
-"per" = "per";
-"unlimited" = "Nieograniczony";
-
-
-"What’s included" = "Co jest wliczone w cenę?";
-"Submit" = "Wyślij";
-"Resend" = "Wyślij ponownie";
-"Resend in" = "Wyślij ponownie za %@ s";
-"Current" = "Aktualne";
-"Forever free" = "Na zawsze za darmo";
-"Forever" = "Na zawsze";
-"Valid until date" = "Ważny do %@";
-"Your current status" = "Twój obecny status:";
-"Valid until" = "Ważny do:";
-"Paid by" = "Opłacone przez %@";
-"Myself" = "Ja";
-"Pay by Card" = "Zapłać kartą";
-"Min X characters" = "Minimalna liczba znaków %@";
-"Pending" = "Oczekujące...";
-"Manage payment" = "Manage payment";
-
-
-"Membership.Ad.Title" = "Członkostwo";
-"Membership.Ad.Subtitle" = "Dołączenie do sieci Anytype oznacza przyczynienie się do jej historii";
-
-"Membership.Legal.Details" = "Membership plan details";
-"Membership.Legal.Privacy" = "Polityka prywatności";
-"Membership.Legal.Terms" = "Zasady i Warunki";
-"Membership.Legal.WouldYouLike" = "Czy chciałbyś używać Anytype w biznesie, edukacji itp.?";
-"Membership.Legal.LetUsKnow" = "Daj nam znać tutaj.";
-"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
-"Membership.Legal.RestorePurchases" = "Przywróć zakupy";
-
-"Membership.Email.Subject" = "Specjalne zapytanie o cenę";
-"Membership.Email.Body" = "Prosimy o sprecyzowanie prośby:
-- Podkreśl, czy reprezentujesz organizację edukacyjną, rządową czy non-profit.
-- opowiedz nam więcej o swojej organizacji: liczbie pracowników i przyszłych użytkownikach Anytype, rynkach, na których działasz itp.,
-- podaj dodatkowe szczegóły dotyczące sposobu, w jaki Twoja organizacja korzysta z Anytype";
-
-
-"Membership.Banner.Title1" = "Build the Vision Together";
-"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
-"Membership.Banner.Title2" = "Unlock Member Benefits";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
-"Membership.Banner.Title3" = "Support Digital Independence";
-"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
-"Membership.Banner.Title4" = "Zainwestuj w łączność";
-"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
-
-"Membership.EmailForm.Title" = "Uzyskaj bezpłatne członkostwo";
-"Membership.EmailForm.Subtitle" = "Potrzebujemy Twojego e-maila, aby powstrzymać spam i zabawę w zabawie!";
-"Membership.EmailForm.Newsletter" = "Chcę otrzymywać aktualizacje dotyczące produktów i cieszyć się darmowymi korzyściami!";
-"Membership.EmailValidation" = "Wpisz kod wysłany na Twój adres e-mail";
-
-"Membership.NameForm.Title" = "Wybierz swoją unikalną nazwę";
-"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
-"Membership.NameForm.Validating" = "Zaraz, zaraz...";
-"Membership.NameForm.Validated" = "Ta nazwa jest do zgarnięcia";
-
-"Membership.Success.Title" = "Witaj w sieci, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Wielkie dzięki za Twoje wsparcie!";
-
-"Membership.Payment.Card" = "Karta";
-"Membership.Payment.Crypto" = "Krypto";
-"Membership.Payment.Apple subscription" = "Subskrypcja Apple";
-"Membership.Payment.Google subscription" = "Subskrypcja Google";
-
-
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
-
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
-
 // MARK: - Debug
-"Debug.MimeTypes" = "Typy mimów - %@";
-"Debug.Info" = "Informacje debugowania";
+"Debug.MimeTypes" = "Mime Types - %@";
+"Debug.Info" = "Debug Info";

@@ -12,8 +12,8 @@ struct ShimmeringBlockViewModel: SystemContentConfiguationProvider {
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        ShimmeringBlockConfiguration(image: ImageAsset.TextEditor.shimmering)
-            .cellBlockConfiguration(dragConfiguration: nil, styleConfiguration: nil)
+        return ShimmeringBlockConfiguration(image: ImageAsset.TextEditor.shimmering)
+            .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
     }
 }
 

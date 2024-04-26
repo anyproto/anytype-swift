@@ -55,7 +55,7 @@ extension ChangeTypeAccessoryView {
             .init(
                 isOpen ? Loc.hideTypes : Loc.showTypes,
                 attributes: AttributeContainer([
-                    NSAttributedString.Key.font: UIFont.bodyRegular,
+                    NSAttributedString.Key.font: UIFont.calloutRegular,
                     NSAttributedString.Key.foregroundColor: state == .highlighted ? UIColor.Text.tertiary : UIColor.Text.secondary
                 ])
             )

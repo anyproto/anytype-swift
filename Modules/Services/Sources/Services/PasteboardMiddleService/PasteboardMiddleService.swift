@@ -2,9 +2,11 @@ import ProtobufMessages
 import AnytypeCore
 import Foundation
 
-final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
+public final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     
-    public func pasteText(_ text: String, objectId: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
+    public init() {}
+
+    public func pasteText(_ text: String, objectId: BlockId, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
         try await paste(contextId: objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
@@ -16,7 +18,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               fileSlots: [])
     }
 
-    public func pasteHTML(_ html: String, objectId: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
+    public func pasteHTML(_ html: String, objectId: BlockId, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
         try await paste(contextId: objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
@@ -28,7 +30,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               fileSlots: [])
     }
 
-    public func pasteBlock(_ blocks: [String], objectId: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
+    public func pasteBlock(_ blocks: [String], objectId: BlockId, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
         let blocksSlots = blocks.compactMap { blockJSONSlot in
             try? Anytype_Model_Block(jsonString: blockJSONSlot)
         }
@@ -43,7 +45,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
                      fileSlots: [])
     }
 
-    public func pasteFiles(_ files: [PasteboardFile], objectId: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
+    public func pasteFiles(_ files: [PasteboardFile], objectId: BlockId, context: PasteboardActionContext) async throws -> PasteboardPasteResult {
         let fileSlots = files.map { file in
             return Anytype_Rpc.Block.Paste.Request.File.with {
                 $0.name = file.name
@@ -64,7 +66,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
         )
     }
 
-    public func copy(blockInformations: [BlockInformation], objectId: String, selectedTextRange: NSRange) async throws -> PasteboardCopyResult? {
+    public func copy(blockInformations: [BlockInformation], objectId: BlockId, selectedTextRange: NSRange) async throws -> PasteboardCopyResult? {
         let blocks: [Anytype_Model_Block] = blockInformations.compactMap { info in
             BlockInformationConverter.convert(information: info)
         }
@@ -80,7 +82,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
         return PasteboardCopyResult(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blockSlot: blocksSlots)
     }
     
-    public func cut(blockInformations: [BlockInformation], objectId: String, selectedTextRange: NSRange) async throws -> PasteboardCopyResult? {
+    public func cut(blockInformations: [BlockInformation], objectId: BlockId, selectedTextRange: NSRange) async throws -> PasteboardCopyResult? {
         let blocks: [Anytype_Model_Block] = blockInformations.compactMap { info in
             BlockInformationConverter.convert(information: info)
         }
@@ -101,10 +103,10 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
 
 private extension PasteboardMiddleService {
 
-    private func paste(contextId: String,
-                       focusedBlockId: String,
+    private func paste(contextId: BlockId,
+                       focusedBlockId: BlockId,
                        selectedTextRange: NSRange,
-                       selectedBlockIds: [String],
+                       selectedBlockIds: [BlockId],
                        isPartOfBlock: Bool,
                        textSlot: String,
                        htmlSlot: String,

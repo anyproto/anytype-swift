@@ -1,6 +1,6 @@
 import Foundation
 import Services
-import SwiftUI
+import UIKit
 
 extension Relation {
     
@@ -27,7 +27,7 @@ extension Relation.Status {
     struct Option: Hashable, Identifiable {
         let id: String
         let text: String
-        let color: Color
+        let color: UIColor
     }
     
 }
@@ -39,7 +39,7 @@ extension Relation.Status.Option {
         
         self.id = option.id
         self.text = option.text
-        self.color = middlewareColor.map { Color.Dark.color(from: $0) } ?? Color.Dark.default
+        self.color = middlewareColor.map { UIColor.Dark.uiColor(from: $0) } ?? UIColor.Dark.default
     }
     
 }

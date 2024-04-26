@@ -99,16 +99,16 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         styleView: UIView,
         document: BaseDocumentProtocol,
-        blockIds: [String],
+        blockIds: [BlockId],
         actionHandler: BlockActionHandlerProtocol,
-        viewDidClose: @escaping () -> Void,
-        openLinkToObject: @escaping (LinkToObjectSearchModuleData) -> Void
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol,
+        viewDidClose: @escaping () -> Void
     ) {
         let viewModel = MarkupViewModel(
             document: document,
             blockIds: blockIds,
             actionHandler: actionHandler,
-            openLinkToObject: openLinkToObject
+            linkToObjectCoordinator: linkToObjectCoordinator
         )
         let viewController = MarkupsViewController(
             viewModel: viewModel,

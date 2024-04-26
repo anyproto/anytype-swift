@@ -12,14 +12,13 @@ protocol TemplatesSubscriptionServiceProtocol: AnyObject {
     func stopSubscription() async
 }
 
-actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
+final class TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
     private let subscriptionId = "Templates-\(UUID().uuidString)"
+    private let subscriptionStorage: SubscriptionStorageProtocol
     
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-    }()
+    init(subscriptionStorageProvider: SubscriptionStorageProviderProtocol) {
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+    }
     
     func startSubscription(
         objectType: String,

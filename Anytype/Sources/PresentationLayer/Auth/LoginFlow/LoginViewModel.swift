@@ -36,25 +36,34 @@ final class LoginViewModel: ObservableObject {
         loadingRoute.isQRInProgress || loadingRoute.isLoginInProgress
     }
     
-    lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
+    let canRestoreFromKeychain: Bool
     
-    @Injected(\.authService)
-    private var authService: AuthServiceProtocol
-    @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
-    @Injected(\.localAuthService)
-    private var localAuthService: LocalAuthServiceProtocol
-    @Injected(\.cameraPermissionVerifier)
-    private var cameraPermissionVerifier: CameraPermissionVerifierProtocol
-    @Injected(\.accountEventHandler)
-    private var accountEventHandler: AccountEventHandlerProtocol
-    @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    private let authService: AuthServiceProtocol
+    private let seedService: SeedServiceProtocol
+    private let localAuthService: LocalAuthServiceProtocol
+    private let cameraPermissionVerifier: CameraPermissionVerifierProtocol
+    private let accountEventHandler: AccountEventHandlerProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
     private weak var output: LoginFlowOutput?
     
     private var subscriptions = [AnyCancellable]()
     
-    init(output: LoginFlowOutput?) {
+    init(
+        authService: AuthServiceProtocol,
+        seedService: SeedServiceProtocol,
+        localAuthService: LocalAuthServiceProtocol,
+        cameraPermissionVerifier: CameraPermissionVerifierProtocol,
+        accountEventHandler: AccountEventHandlerProtocol,
+        applicationStateService: ApplicationStateServiceProtocol,
+        output: LoginFlowOutput?
+    ) {
+        self.authService = authService
+        self.seedService = seedService
+        self.localAuthService = localAuthService
+        self.cameraPermissionVerifier = cameraPermissionVerifier
+        self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
+        self.accountEventHandler = accountEventHandler
+        self.applicationStateService = applicationStateService
         self.output = output
         
         self.handleAccountShowEvent()
@@ -122,7 +131,7 @@ final class LoginViewModel: ObservableObject {
     
     private func restoreFromkeychain() {
         Task {
-            try await localAuthService.auth(reason: Loc.restoreKeyFromKeychain)
+            try await localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain)
             let phrase = try seedService.obtainSeed()
             walletRecovery(with: phrase, route: .keychain)
         }
@@ -170,14 +179,14 @@ final class LoginViewModel: ObservableObject {
                 case .pendingDeletion:
                     applicationStateService.state = .delete
                 case .deleted:
-                    errorText = Loc.vaultDeleted
+                    errorText = Loc.accountDeleted
                 }
             } catch SelectAccountError.accountIsDeleted {
-                errorText = Loc.vaultDeleted
+                errorText = Loc.accountDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
-                errorText = Loc.Vault.Select.Incompatible.Version.Error.text
+                errorText = Loc.Account.Select.Incompatible.Version.Error.text
             } catch {
-                errorText = Loc.selectVaultError
+                errorText = Loc.selectAccountError
             }
         }
     }

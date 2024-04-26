@@ -7,19 +7,25 @@ import AnytypeCore
 @MainActor
 final class FileStorageViewModel: ObservableObject {
     
-    @Injected(\.fileLimitsStorage)
-    private var fileLimitsStorage: FileLimitsStorageProtocol
-    
+    private let fileLimitsStorage: FileLimitsStorageProtocol
+    private weak var output: FileStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
+    
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
+    
     private var nodeUsage: NodeUsageInfo?
+    private let subSpaceId = "FileStorageSpace-\(UUID().uuidString)"
     
     let phoneName: String = UIDevice.current.name
     @Published var locaUsed: String = ""
     @Published var contentLoaded: Bool = false
-    @Published var showClearCacheAlert = false
     
-    init() {
+    init(
+        fileLimitsStorage: FileLimitsStorageProtocol,
+        output: FileStorageModuleOutput?
+    ) {
+        self.fileLimitsStorage = fileLimitsStorage
+        self.output = output
         setupPlaceholderState()
         Task {
             await setupSubscription()
@@ -27,7 +33,7 @@ final class FileStorageViewModel: ObservableObject {
     }
     
     func onTapOffloadFiles() {
-        showClearCacheAlert = true
+        output?.onClearCacheSelected()
     }
     
     func onAppear() {

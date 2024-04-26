@@ -16,7 +16,7 @@ struct SetTableViewRow: View {
             Spacer.fixedHeight(12)
             AnytypeDivider()
         }
-        .fixTappableArea()
+        .contentShape(Rectangle())
     }
     
     private var details: some View {
@@ -45,8 +45,7 @@ struct SetTableViewRow: View {
         Button {
             configuration.onItemTap()
         } label: {
-            AnytypeText(configuration.title, style: .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+            AnytypeText(configuration.title, style: .previewTitle2Medium, color: .Text.primary)
                 .lineLimit(1)
         }
     }
@@ -66,16 +65,14 @@ struct SetTableViewRow: View {
     
     private func cell(_ relation: Relation) -> some View {
         RelationValueView(
-            model: RelationValueViewModel(
-                relation: RelationItemModel(relation: relation),
-                style: .set,
-                mode: .button(action: {
-                    model.showRelationValueEditingView(
-                        objectId: configuration.id,
-                        relation: relation
-                    )
-                })
-            )
+            relation: RelationItemModel(relation: relation),
+            style: .set,
+            mode: .button(action: {
+                model.showRelationValueEditingView(
+                    objectId: configuration.id,
+                    relation: relation
+                )
+            })
         )
         .frame(width: 128)
     }

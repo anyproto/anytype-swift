@@ -7,12 +7,9 @@ struct SpaceSwitchCoordinatorView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        SpaceSwitchView(output: model)
+        model.spaceSwitchModule()
             .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(output: model)
-            }
-            .sheet(isPresented: $model.showSettings) {
-                model.settingsView()
+                model.spaceCreateModule()
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()

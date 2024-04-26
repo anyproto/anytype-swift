@@ -7,13 +7,14 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     let info: BlockInformation
 
-    var hashable: AnyHashable { info.id as AnyHashable }
+    var hashable: AnyHashable {
+        info.id as AnyHashable
+    }
 
     private let dependenciesBuilder: SimpleTableDependenciesBuilder
     private let infoContainer: InfoContainerProtocol
     private let tableService: BlockTableServiceProtocol
     private let document: BaseDocumentProtocol
-    private let editorCollectionController: EditorBlockCollectionController
     
     private var store = [AnyCancellable]()
 
@@ -23,7 +24,6 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
         infoContainer: InfoContainerProtocol,
         tableService: BlockTableServiceProtocol,
         document: BaseDocumentProtocol,
-        editorCollectionController: EditorBlockCollectionController,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never> // Not proper way to handle focus. Need to refactor EditorCursorManager
     ) {
         self.info = info
@@ -31,7 +31,6 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
         self.infoContainer = infoContainer
         self.tableService = tableService
         self.document = document
-        self.editorCollectionController = editorCollectionController
         
         focusSubject.sink { [weak self] position in
             self?.set(focus: position)
@@ -41,15 +40,8 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         SimpleTableBlockContentConfiguration(
             info: info,
-            dependenciesBuilder: dependenciesBuilder,
-            onChangeHeight: { [weak self] in
-                guard let self else { return }
-                editorCollectionController.itemDidChangeFrame(item: .block(self))
-            }
-        ).cellBlockConfiguration(
-            dragConfiguration: nil,
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
-        )
+            dependenciesBuilder: dependenciesBuilder
+        ).cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
@@ -67,7 +59,7 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
                 targetIds: [firstRowId]
             )
             
-            dependenciesBuilder.cursorManager.blockFocus = BlockFocus(
+            dependenciesBuilder.cursorManager.blockFocus = .init(
                 id: "\(firstRowId)-\(firstColumnId)",
                 position: .beginning
             )

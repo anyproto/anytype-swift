@@ -6,24 +6,23 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
     
     private let contentProviderBuilder: () -> TableOfContentsContentProvider
     
-    var hashable: AnyHashable { info.id }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
     let info: BlockInformation
     let document: BaseDocumentProtocol
-    let onTap: (String) -> Void
-    let editorCollectionController: EditorBlockCollectionController
+    let onTap: (BlockId) -> Void
+    let blockSetNeedsLayout: () -> Void
     
     init(
         info: BlockInformation,
         document: BaseDocumentProtocol,
-        onTap: @escaping (String) -> Void,
-        editorCollectionController: EditorBlockCollectionController
+        onTap: @escaping (BlockId) -> Void,
+        blockSetNeedsLayout: @escaping () -> Void
     ) {
         self.info = info
         self.document = document
         self.onTap = onTap
-        self.editorCollectionController = editorCollectionController
-        
+        self.blockSetNeedsLayout = blockSetNeedsLayout
         contentProviderBuilder = {
             TableOfContentsContentProvider(document: document)
         }
@@ -33,10 +32,10 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
         return TableOfContentsConfiguration(
             contentProviderBuilder: contentProviderBuilder,
             onTap: onTap,
-            blockSetNeedsLayout: { editorCollectionController.reconfigure(items: [.block(self)] )}
+            blockSetNeedsLayout: blockSetNeedsLayout
         ).cellBlockConfiguration(
-            dragConfiguration: BlockDragConfiguration(id: info.id),
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            indentationSettings: IndentationSettings(with: info.configurationData),
+            dragConfiguration: BlockDragConfiguration(id: info.id)
         )
     }
     

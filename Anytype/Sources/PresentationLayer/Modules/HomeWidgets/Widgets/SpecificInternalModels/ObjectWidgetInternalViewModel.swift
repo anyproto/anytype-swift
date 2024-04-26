@@ -4,12 +4,10 @@ import Combine
 import UIKit
 
 @MainActor
-final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class ObjectWidgetInternalViewModel: CommonWidgetInternalViewModel, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
-    private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
     private let subscriptionManager: TreeSubscriptionManagerProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -25,10 +23,10 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> { $details.eraseToAnyPublisher() }
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
-    @Published var allowCreateObject = true
+    var allowCreateObject = true
     
     init(
-        widgetBlockId: String,
+        widgetBlockId: BlockId,
         widgetObject: BaseDocumentProtocol,
         subscriptionManager: TreeSubscriptionManagerProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
@@ -36,22 +34,20 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
         blockService: BlockServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
         self.subscriptionManager = subscriptionManager
         self.defaultObjectService = defaultObjectService
         self.documentsProvider = documentsProvider
         self.blockService = blockService
         self.output = output
+        super.init(widgetBlockId: widgetBlockId, widgetObject: widgetObject)
     }
     
-    func startHeaderSubscription() {
+    override func startHeaderSubscription() {
+        super.startHeaderSubscription()
         widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
             .receiveOnMain()
             .sink { [weak self] details in
                 self?.name = details.title
-                self?.allowCreateObject = details.permissions(participantCanEdit: true).canEditBlocks
-                
                 self?.linkedObjectDetails = details
                 Task { await self?.updateLinksSubscriptions() }
             }
@@ -66,8 +62,19 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
         }
     }
     
-    func startContentSubscription() async {
+    override func stopHeaderSubscription() {
+        super.stopHeaderSubscription()
+        subscriptions.removeAll()
+    }
+    
+    override func startContentSubscription() async {
+        await super.startContentSubscription()
         await updateLinksSubscriptions()
+    }
+    
+    override func stopContentSubscription() async {
+        await super.stopContentSubscription()
+        await subscriptionManager.stopAllSubscriptions()
     }
     
     func screenData() -> EditorScreenData? {
@@ -87,7 +94,7 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
             guard let lastBlockId = document.children.last?.id else { return }
                   
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: widgetObject.spaceId)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .widget)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .widget)
             let info = BlockInformation.emptyLink(targetId: details.id)
             let _ = try await self.blockService.add(
                 contextId: linkedObjectDetails.id,
@@ -103,7 +110,7 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     // MARK: - Private
     
     private func updateLinksSubscriptions() async {
-        guard let linkedObjectDetails else { return }
+        guard let linkedObjectDetails, contentIsAppear else { return }
         await _ = subscriptionManager.startOrUpdateSubscription(objectIds: linkedObjectDetails.links)
     }
 }

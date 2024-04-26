@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>உறுதியாக %#@object@ -ஐ அழிக்கவேண்டுமா?</string>
+      <string>Are you sure you want to delete %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -21,7 +21,7 @@
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ தேர்ந்தெடுக்கப்பட்டுள்ளது</string>
+      <string>%#@object@ selected</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -66,26 +66,10 @@
         <string>%d links</string>
       </dict>
     </dict>
-    <key>Backlinks count</key>
+    <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>%d backlink</string>
-        <key>other</key>
-        <string>%d backlinks</string>
-      </dict>
-    </dict>
-    <key>Days to deletion vault</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>This account will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -176,118 +160,6 @@
         <string>Link Block</string>
         <key>other</key>
         <string>Link %d Blocks</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.Invite.MaxLimit</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>one</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
-      </dict>
-    </dict>
-    <key>Space.MembersCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d உறுப்பினர்கள்</string>
-        <key>one</key>
-        <string>%d உறுப்பினர்</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.RequestsCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d requests</string>
-        <key>one</key>
-        <string>%d request</string>
-      </dict>
-    </dict>
-    <key>Per Month</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@month@</string>
-      <key>month</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>month</string>
-        <key>other</key>
-        <string>%d months</string>
-      </dict>
-    </dict>
-    <key>Per Week</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@week@</string>
-      <key>week</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>வாரம்</string>
-        <key>other</key>
-        <string>%d வாரங்கள்</string>
-      </dict>
-    </dict>
-    <key>Per Year</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@year@</string>
-      <key>year</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>ஆண்டு</string>
-        <key>other</key>
-        <string>%d வருடங்கள்</string>
-      </dict>
-    </dict>
-    <key>Per Day</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
-      <key>day</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>day</string>
-        <key>other</key>
-        <string>%d days</string>
       </dict>
     </dict>
   </dict>

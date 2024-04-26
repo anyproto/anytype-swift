@@ -4,13 +4,18 @@ import CoreGraphics
 
 struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     var hashable: AnyHashable {
-        "\(rowId) - \(columnId)"
+        [
+            contextId,
+            rowId,
+            columnId,
+            isHeaderRow
+        ] as [AnyHashable]
     }
 
     init(
-        contextId: String,
-        rowId: String,
-        columnId: String,
+        contextId: BlockId,
+        rowId: BlockId,
+        columnId: BlockId,
         tablesService: BlockTableServiceProtocol,
         cursorManager: EditorCursorManager,
         isHeaderRow: Bool
@@ -23,9 +28,9 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         self.isHeaderRow = isHeaderRow
     }
 
-    private let contextId: String
-    private let rowId: String
-    private let columnId: String
+    private let contextId: BlockId
+    private let rowId: BlockId
+    private let columnId: BlockId
     private let tablesService: BlockTableServiceProtocol
     private let cursorManager: EditorCursorManager
     private let isHeaderRow: Bool
@@ -43,7 +48,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
         emptyRowConfiguration().spreadsheetConfiguration(
             dragConfiguration: nil,
-            styleConfiguration: CellStyleConfiguration(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .Background.primary)
+            styleConfiguration: .init(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .Background.primary)
         )
     }
 
@@ -62,7 +67,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
                 targetIds: [rowId]
             )
             
-            cursorManager.blockFocus = BlockFocus(id: "\(rowId)-\(columnId)", position: .beginning)
+            cursorManager.blockFocus = .init(id: "\(rowId)-\(columnId)", position: .beginning)
         }
     }
 }
@@ -70,7 +75,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
 struct EmptyRowConfiguration: BlockConfiguration {
     typealias View = EmptyRowView
 
-    let id: String
+    let id: BlockId
 
     @EquatableNoop private(set) var action: () -> Void
 

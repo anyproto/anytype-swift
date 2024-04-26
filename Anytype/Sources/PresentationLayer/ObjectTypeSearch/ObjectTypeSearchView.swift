@@ -17,33 +17,11 @@ struct ObjectTypeSearchView: View {
             TitleView(title: title)
             SearchBar(text: $viewModel.searchText, focused: false, placeholder: Loc.search)
             content
-            pasteButton
         }
         .background(Color.Background.secondary)
         
         .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
-        .task {
-            viewModel.onAppear()
-        }
-    }
-    
-    private var pasteButton: some View {
-        Group {
-            if viewModel.showPasteButton {
-                Button {
-                    viewModel.createObjectFromClipboard()
-                } label: {
-                    HStack(spacing: 6) {
-                        Image(asset: .X24.clipboard).foregroundColor(.Button.active)
-                        AnytypeText(Loc.createObjectFromClipboard, style: .caption1Medium)
-                            .foregroundColor(.Text.secondary)
-                        Spacer()
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                }
-            }
-        }
+        .onAppear { viewModel.search(text: viewModel.searchText) }
     }
     
     private var content: some View {
@@ -55,11 +33,10 @@ struct ObjectTypeSearchView: View {
                 EmptyStateView(
                     title: Loc.nothingFound,
                     subtitle: Loc.noTypeFoundText(viewModel.searchText),
-                    buttonData: EmptyStateView.ButtonData(
-                        title: Loc.createType,
-                        action: { viewModel.createType(name: viewModel.searchText) }
-                    )
-                )
+                    actionText: Loc.createType
+                ) {
+                    viewModel.createType(name: viewModel.searchText)
+                }
             }
         }
     }
@@ -80,8 +57,7 @@ struct ObjectTypeSearchView: View {
     
     private func sectionHeader(_ type: SectionType) -> some View {
         HStack(spacing: 0) {
-            AnytypeText(type.name, style: .caption1Medium)
-                .foregroundColor(.Text.secondary)
+            AnytypeText(type.name, style: .caption1Medium, color: .Text.secondary)
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -101,8 +77,7 @@ struct ObjectTypeSearchView: View {
                             .frame(width: 18, height: 18)
                     }
                     
-                    AnytypeText(typeData.type.name, style: .uxTitle2Medium)
-                        .foregroundColor(.Text.primary)
+                    AnytypeText(typeData.type.name, style: .uxTitle2Medium, color: .Text.primary)
                 }
                 .padding(.vertical, 15)
                 .padding(.leading, 14)

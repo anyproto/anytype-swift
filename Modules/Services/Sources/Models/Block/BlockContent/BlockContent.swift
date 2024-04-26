@@ -25,12 +25,7 @@ public enum BlockContent: Hashable {
         case let .text(text):
             return .text(text.contentType)
         case let .file(file):
-            return .file(
-                FileBlockContentData(
-                    contentType: file.contentType,
-                    fileExt: file.metadata.fileExt
-                )
-            )
+            return .file(file.contentType)
         case let .divider(divider):
             return .divider(divider.style)
         case let .bookmark(bookmark):

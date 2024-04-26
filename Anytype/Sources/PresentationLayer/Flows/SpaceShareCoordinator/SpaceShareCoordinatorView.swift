@@ -3,14 +3,9 @@ import SwiftUI
 
 struct SpaceShareCoordinatorView: View {
     
-    @StateObject private var model = SpaceShareCoordinatorViewModel()
+    @StateObject var model: SpaceShareCoordinatorViewModel
     
     var body: some View {
-        SpaceShareView {
-            model.onMoreInfoSelected()
-        }
-        .sheet(isPresented: $model.showMoreInfo) {
-            SpaceMoreInfoView()
-        }
+        model.shareModule()
     }
 }

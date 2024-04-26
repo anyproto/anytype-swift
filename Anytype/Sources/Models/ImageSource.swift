@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 import AnytypeCore
 import Combine
 

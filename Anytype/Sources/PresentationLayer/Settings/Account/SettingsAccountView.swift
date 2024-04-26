@@ -2,12 +2,8 @@ import SwiftUI
 import AnytypeCore
 
 struct SettingsAccountView: View {
-    @StateObject private var model: SettingsAccountViewModel
+    @ObservedObject var model: SettingsAccountViewModel
 
-    init(output: SettingsAccountModuleOutput?) {
-        _model = StateObject(wrappedValue: SettingsAccountViewModel(output: output))
-    }
-    
     var body: some View {
         VStack(spacing: 0) {
             header
@@ -27,14 +23,14 @@ struct SettingsAccountView: View {
     @ViewBuilder
     private var header: some View {
         DragIndicator()
-        TitleView(title: Loc.Settings.vaultAndAccess)
+        TitleView(title: Loc.Settings.accountAndAccess)
     }
     
     @ViewBuilder
     private var accessBlock: some View {
         SectionHeaderView(title: Loc.access)
         SettingsSectionItemView(
-            name: Loc.Keychain.key,
+            name: Loc.Keychain.recoveryPhrase,
             imageAsset: .Settings.keychainPhrase,
             onTap: { model.onRecoveryPhraseTap() }
         )
@@ -42,9 +38,9 @@ struct SettingsAccountView: View {
 
     @ViewBuilder
     private var accountBlock: some View {
-        SectionHeaderView(title: Loc.vault)
+        SectionHeaderView(title: Loc.account)
         
-        SettingsButton(text: Loc.deleteVault, textColor: .Text.primary) {
+        SettingsButton(text: Loc.deleteAccount, textColor: .Text.primary) {
             model.onDeleteAccountTap()
         }
         

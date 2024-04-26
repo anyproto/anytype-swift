@@ -1,10 +1,11 @@
 public final class SearchFiltersBuilder {
     
     public static func build(isArchived: Bool, spaceIds: [String]) -> [DataviewFilter] {
-        .builder {
-            SearchHelper.notHiddenFilters(isArchive: isArchived)
+        [
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.isArchivedFilter(isArchived: isArchived),
             SearchHelper.spaceIds(spaceIds)
-        }
+        ]
     }
     
     public static  func build(isArchived: Bool, spaceId: String) -> [DataviewFilter] {

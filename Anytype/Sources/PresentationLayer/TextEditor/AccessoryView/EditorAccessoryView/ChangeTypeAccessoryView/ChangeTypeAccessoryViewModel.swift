@@ -9,7 +9,7 @@ final class ChangeTypeAccessoryViewModel {
     @Published private(set) var isTypesViewVisible: Bool = false
     @Published private(set) var supportedTypes = [TypeItem]()
     var onDoneButtonTap: (() -> Void)?
-    var onTypeSelected: ((TypeSelectionResult) -> Void)?
+    var onTypeTap: ((ObjectType) -> Void)?
 
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
@@ -41,23 +41,28 @@ final class ChangeTypeAccessoryViewModel {
     }
     
     func onSearchTap() {
-        router.showTypeSearchForObjectCreation(
+        router.showTypesForEmptyObject(
             selectedObjectId: document.details?.type,
-            onSelect: { [weak self] result in
-                self?.onTypeSelected(result: result)
+            onSelect: { [weak self] type in
+                self?.onTypeTap(type: type)
             }
         )
     }
 
-    private func onTypeSelected(result: TypeSelectionResult) {
-        onTypeSelected?(result)
+    private func onTypeTap(type: ObjectType) {
+        defer { logSelectObjectType(type: type) }
+        onTypeTap?(type)
+    }
+    
+    private func logSelectObjectType(type: ObjectType) {
+        AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .navigation)
     }
 
     private func subscribeOnDocumentChanges() {
-        document.detailsPublisher.sink { [weak self] _ in
+        document.updatePublisher.sink { [weak self] _ in
             Task { @MainActor [weak self] in
                 guard let self else { return }
-                if let supportedTypes = await fetchSupportedTypes() {
+                if let supportedTypes = await self.fetchSupportedTypes() {
                     self.supportedTypes = supportedTypes
                 }
             }
@@ -76,7 +81,7 @@ final class ChangeTypeAccessoryViewModel {
                 spaceId: document.spaceId
             ).map { type in
                 TypeItem(from: type, handler: { [weak self] in
-                    self?.onTypeSelected(result: .objectType(type: ObjectType(details: type)))
+                    self?.onTypeTap(type: ObjectType(details: type))
                 })
             }
         return supportedTypes

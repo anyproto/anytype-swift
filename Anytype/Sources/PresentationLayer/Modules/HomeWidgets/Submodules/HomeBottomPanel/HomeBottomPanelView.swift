@@ -3,38 +3,30 @@ import SwiftUI
 
 struct HomeBottomPanelView: View {
     
-    @Binding var homeState: HomeWidgetsState
-    let onCreateWidgetSelected: () -> Void
+    @StateObject var model: HomeBottomPanelViewModel
     
     var body: some View {
         VStack(spacing: 0) {
-            if homeState.isEditWidgets {
+            if model.isEditState {
                 editButtons
             }
         }
-        .animation(.default, value: homeState)
-        .fitIPadToReadableContentGuide()
+        .animation(.default, value: model.isEditState)
     }
     
     private var editButtons: some View {
         HStack(alignment: .center, spacing: 10) {
-            makeButton(text: Loc.add) {
-                AnytypeAnalytics.instance().logAddWidget(context: .editor)
-                onCreateWidgetSelected()
-            }
-            makeButton(text: Loc.done) {
-                homeState = .readwrite
-            }
+            makeButton(action: { model.onTapAdd() }, text: Loc.add)
+            makeButton(action: { model.onTapDone() }, text: Loc.done)
         }
         .padding(.horizontal, 26)
         .padding(.vertical, 10)
         .transition(.scale(scale: 0.8).combined(with: .opacity))
     }
     
-    private func makeButton(text: String, action: @escaping () -> Void) -> some View {
+    private func makeButton(action: @escaping () -> Void, text: String) -> some View {
         Button(action: action, label: {
-            AnytypeText(text, style: .uxBodyRegular)
-                .foregroundColor(.Text.white)
+            AnytypeText(text, style: .uxBodyRegular, color: .Text.white)
                 .frame(maxWidth: .infinity)
         })
         .frame(height: 52)

@@ -3,26 +3,29 @@ import SwiftUI
 import Combine
 import Services
 import AnytypeCore
-import DeepLinks
 
 @MainActor
 final class HomeCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
-                                             HomeBottomNavigationPanelModuleOutput,
+                                             HomeBottomPanelModuleOutput, HomeBottomNavigationPanelModuleOutput,
                                              SetObjectCreationCoordinatorOutput {
     
     // MARK: - DI
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private let navigationContext: NavigationContextProtocol
+    private let createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol
+    private let searchModuleAssembly: SearchModuleAssemblyProtocol
+    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
-    private let blockService: BlockServiceProtocol
-    private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let typeProvider: ObjectTypeProviderProtocol
     private let appActionsStorage: AppActionStorage
+    private let widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
+    private let shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
@@ -30,7 +33,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
-    private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
+    private let galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol
+    private let notificationCoordinator: NotificationCoordinatorProtocol
     
     // MARK: - State
     
@@ -38,34 +42,29 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var subscriptions = [AnyCancellable]()
     private var paths = [String: HomePath]()
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol?
-    private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
-    @Published var showChangeTypeData: WidgetTypeChangeData?
-    @Published var showSearchData: ObjectSearchModuleData?
-    @Published var showGlobalSearchData: GlobalSearchModuleData?
+    @Published var showChangeTypeData: WidgetTypeModuleChangeModel?
+    @Published var showSearchData: SearchModuleModel?
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
     @Published var showSharing: Bool = false
-    @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
-    @Published var showTypeSearchForObjectCreation: Bool = false
+    @Published var showTypeSearch: Bool = false
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
     @Published var keyboardToggle: Bool = false
-    @Published var spaceJoinData: SpaceJoinModuleData?
-    @Published var info: AccountInfo?
     
     private var currentSpaceId: String?
     
     var pageNavigation: PageNavigation {
         PageNavigation(
             push: { [weak self] data in
-                self?.pushSync(data: data)
+                self?.push(data: data)
             }, pop: { [weak self] in
                 self?.editorPath.pop()
             }, replace: { [weak self] data in
@@ -77,14 +76,18 @@ final class HomeCoordinatorViewModel: ObservableObject,
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        navigationContext: NavigationContextProtocol,
+        createWidgetCoordinatorAssembly: CreateWidgetCoordinatorAssemblyProtocol,
+        searchModuleAssembly: SearchModuleAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
-        blockService: BlockServiceProtocol,
-        pasteboardBlockService: PasteboardBlockServiceProtocol,
         typeProvider: ObjectTypeProviderProtocol,
         appActionsStorage: AppActionStorage,
+        widgetTypeModuleAssembly: WidgetTypeModuleAssemblyProtocol,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
+        shareCoordinatorAssembly: ShareCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
         homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
@@ -92,18 +95,23 @@ final class HomeCoordinatorViewModel: ObservableObject,
         documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol,
-        typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
+        galleryInstallationCoordinatorAssembly: GalleryInstallationCoordinatorAssemblyProtocol,
+        notificationCoordinator: NotificationCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.navigationContext = navigationContext
+        self.createWidgetCoordinatorAssembly = createWidgetCoordinatorAssembly
+        self.searchModuleAssembly = searchModuleAssembly
+        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectActionsService = objectActionsService
         self.defaultObjectService = defaultObjectService
-        self.blockService = blockService
-        self.pasteboardBlockService = pasteboardBlockService
         self.typeProvider = typeProvider
         self.appActionsStorage = appActionsStorage
+        self.widgetTypeModuleAssembly = widgetTypeModuleAssembly
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
+        self.shareCoordinatorAssembly = shareCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
@@ -111,12 +119,17 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
-        self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
+        self.galleryInstallationCoordinatorAssembly = galleryInstallationCoordinatorAssembly
+        self.notificationCoordinator = notificationCoordinator
     }
 
     func onAppear() {
         guard !viewLoaded else { return }
         viewLoaded = true
+        
+        Task {
+            await notificationCoordinator.startHandle()
+        }
         
         activeWorkspaceStorage
             .workspaceInfoPublisher
@@ -126,28 +139,40 @@ final class HomeCoordinatorViewModel: ObservableObject,
             }
             .store(in: &subscriptions)
         
+        appActionsStorage.$action
+            .compactMap { $0 }
+            .receiveOnMain()
+            .sink { [weak self] action in
+                self?.handleAppAction(action: action)
+                self?.appActionsStorage.action = nil
+            }
+            .store(in: &subscriptions)
+        
         sharingTipCoordinator.startObservingTips()
     }
     
-    func startDeepLinkTask() async {
-        for await action in appActionsStorage.$action.values {
-            if let action {
-                try? await handleAppAction(action: action)
-                appActionsStorage.action = nil
-            }
-        }
-    }
-    
-    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
-        self.dismissAllPresented = dismissAllPresented
-    }
-    
     func homeWidgetsModule(info: AccountInfo) -> AnyView? {
-        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
+        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self, bottomPanelOutput: self)
     }
     
-    func homeBottomNavigationPanelModule(info: AccountInfo) -> AnyView {
-        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, info: info, output: self)
+    func homeBottomNavigationPanelModule() -> AnyView {
+        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, output: self)
+    }
+
+    func changeSourceModule(data: WidgetChangeSourceSearchModuleModel) -> AnyView {
+        return newSearchModuleAssembly.widgetChangeSourceSearchModule(data: data)
+    }
+    
+    func changeTypeModule(data: WidgetTypeModuleChangeModel) -> AnyView {
+        return widgetTypeModuleAssembly.makeChangeType(data: data)
+    }
+    
+    func searchModule(data: SearchModuleModel) -> AnyView {
+        return searchModuleAssembly.makeObjectSearch(data: data)
+    }
+    
+    func createWidgetModule(data: CreateWidgetCoordinatorModel) -> AnyView {
+        return createWidgetCoordinatorAssembly.make(data: data)
     }
     
     func createSpaceSwitchModule() -> AnyView {
@@ -158,26 +183,34 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return spaceSettingsCoordinatorAssembly.make()
     }
 
+    func createSharingModule() -> AnyView {
+        return shareCoordinatorAssembly.make()
+    }
+
     func editorModule(data: EditorScreenData) -> AnyView {
         return editorCoordinatorAssembly.make(data: data)
     }
 
-    func typeSearchForObjectCreationModule() -> AnyView {
-        typeSearchCoordinatorAssembly.make { [weak self] details in
-            guard let self else { return }
-            openObject(screenData: details.editorScreenData())
+    func createTypeSearchModule() -> AnyView {
+        return objectTypeSearchModuleAssembly.make(
+            title: Loc.createNewObject,
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            showPins: true,
+            showLists: true, 
+            showFiles: false,
+            incudeNotForCreation: false
+        ) { [weak self] type in
+            self?.showTypeSearch = false
+            AnytypeAnalytics.instance().logSelectObjectType(type.analyticsType, route: .longTap)
+            self?.createAndShowNewObject(type: type, route: .navigation)
         }
+    }
+
+    func createGalleryInstallationModule(data: GalleryInstallationData) -> AnyView {
+        return galleryInstallationCoordinatorAssembly.make(data: data)
     }
     
     // MARK: - HomeWidgetsModuleOutput
-    
-    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
-        showCreateWidgetData = CreateWidgetCoordinatorModel(
-            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
-            position: .end,
-            context: context
-        )
-    }
     
     // MARK: - CommonWidgetModuleOutput
         
@@ -198,7 +231,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
-        showChangeTypeData = WidgetTypeChangeData(
+        showChangeTypeData = WidgetTypeModuleChangeModel(
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             widgetId: widgetId,
             context: context,
@@ -225,29 +258,31 @@ final class HomeCoordinatorViewModel: ObservableObject,
         setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     
-    func onManageSpacesSelected() {
-        showSpaceManager = true
+    // MARK: - HomeBottomPanelModuleOutput
+    
+    func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
+        showCreateWidgetData = CreateWidgetCoordinatorModel(
+            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            position: .end,
+            context: context
+        )
     }
     
     // MARK: - HomeBottomNavigationPanelModuleOutput
     
-    func onSearchSelected() {        
-        if FeatureFlags.newGlobalSearch {
-            showGlobalSearchData = GlobalSearchModuleData(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                onSelect: { [weak self] screenData in
-                    self?.openObject(screenData: screenData)
-                }
-            )
-        } else {
-            showSearchData = ObjectSearchModuleData(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                title: nil,
-                onSelect: { [weak self] data in
+    func onSearchSelected() {
+        AnytypeAnalytics.instance().logScreenSearch()
+        showSearchData = SearchModuleModel(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            title: nil,
+            onSelect: { [weak self] data in
+                AnytypeAnalytics.instance().logSearchResult()
+                self?.showSearchData = nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
                     self?.openObject(screenData: data.editorScreenData)
                 }
-            )
-        }
+            }
+        )
     }
     
     func onCreateObjectSelected(screenData: EditorScreenData) {
@@ -274,27 +309,27 @@ final class HomeCoordinatorViewModel: ObservableObject,
         editorPath.pop()
     }
     
-    func onPickTypeForNewObjectSelected() {
+    func onCreateObjectWithTypeSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
-        showTypeSearchForObjectCreation.toggle()
+        showTypeSearch.toggle()
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput
     
     func showEditorScreen(data: EditorScreenData) {
-        pushSync(data: data)
+        push(data: data)
     }
     
     // MARK: - Private
     
     private func openObject(screenData: EditorScreenData) {
-        pushSync(data: screenData)
+        push(data: screenData)
     }
     
     private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
         Task {
             let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             openObject(screenData: details.editorScreenData())
         }
     }
@@ -327,85 +362,73 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
-            
+
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: route)
             openObject(screenData: details.editorScreenData())
         }
     }
     
-    private func handleAppAction(action: AppAction) async throws {
+    private func handleAppAction(action: AppAction) {
         keyboardToggle.toggle()
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
-        case .deepLink(let deepLink):
-            try await handleDeepLink(deepLink: deepLink)
-        }
-    }
-    
-    private func handleDeepLink(deepLink: DeepLink) async throws {
-        await dismissAllPresented?()
-        
-        switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            showSharing = true
-        case .spaceSelection:
-            showSpaceSwitch = true
-        case let .galleryImport(type, source):
-            showGalleryImport = GalleryInstallationData(type: type, source: source)
-        case .invite(let cid, let key):
-            if FeatureFlags.multiplayer {
-                spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                self?.showSharing = true
             }
-        case .object(let objectId, _):
-            let document = documentsProvider.document(objectId: objectId, forPreview: true)
-            try await document.openForPreview()
-            guard let editorData = document.details?.editorScreenData() else { return }
-            try await push(data: editorData)
+        case .spaceSelection:
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                self?.showSpaceSwitch = true
+            }
+        case let .galleryImport(type, source):
+            navigationContext.dismissAllPresented(animated: true) { [weak self] in
+                self?.showGalleryImport = GalleryInstallationData(type: type, source: source)
+            }
+        case .invite:
+            break
         }
     }
     
-    private func pushSync(data: EditorScreenData) {
-        Task { try await push(data: data) }
-    }
-        
-    private func push(data: EditorScreenData) async throws {
-        guard let objectId = data.objectId else {
-            editorPath.push(data)
-            return
-        }
-        let document = documentsProvider.document(objectId: objectId, forPreview: true)
-        try await document.openForPreview()
-        guard let details = document.details else {
-            return
-        }
-        guard details.isSupportedForEdit else {
-            toastBarData = ToastBarData(text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none)
-            return
-        }
-        let spaceId = document.spaceId
-        if currentSpaceId != spaceId {
-            // Check space Is deleted
-            guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
-            
-            if let currentSpaceId = currentSpaceId {
-                paths[currentSpaceId] = editorPath
+    private func push(data: EditorScreenData) {
+        Task {
+            guard let objectId = data.objectId else {
+                editorPath.push(data)
+                return
             }
-           
-            currentSpaceId = spaceId
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
-            
-            var path = paths[spaceId] ?? HomePath()
-            if path.count == 0 {
-                path.push(activeWorkspaceStorage.workspaceInfo)
+            let document = documentsProvider.document(objectId: objectId, forPreview: true)
+            try await document.openForPreview()
+            guard let details = document.details else {
+                return
             }
-            
-            path.push(data)
-            editorPath = path
-        } else {
-            editorPath.push(data)
+            guard details.isSupportedForEdit else {
+                toastBarData = ToastBarData(text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none)
+                return
+            }
+            let spaceId = document.spaceId
+            if currentSpaceId != spaceId {
+                // Check space Is deleted
+                guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
+                
+                if let currentSpaceId = currentSpaceId {
+                    paths[currentSpaceId] = editorPath
+                }
+               
+                currentSpaceId = spaceId
+                try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+                
+                var path = paths[spaceId] ?? HomePath()
+                if path.count == 0 {
+                    path.push(activeWorkspaceStorage.workspaceInfo)
+                }
+                
+                path.push(data)
+                editorPath = path
+            } else {
+                editorPath.push(data)
+            }
         }
     }
     
@@ -440,7 +463,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             
             currentSpaceId = newInfo.accountSpaceId
             editorPath = path
-            info = newInfo
+            
         }
     }
 }

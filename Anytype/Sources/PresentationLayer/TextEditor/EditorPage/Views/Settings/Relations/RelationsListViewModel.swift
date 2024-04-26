@@ -5,7 +5,6 @@ import UIKit
 import AnytypeCore
 import Combine
 
-@MainActor
 final class RelationsListViewModel: ObservableObject {
         
     @Published private(set) var navigationBarButtonsDisabled: Bool = false
@@ -15,9 +14,7 @@ final class RelationsListViewModel: ObservableObject {
     
     private let document: BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
-    
-    @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private let relationsService: RelationsServiceProtocol
     
     private weak var output: RelationsListModuleOutput?
     
@@ -27,9 +24,11 @@ final class RelationsListViewModel: ObservableObject {
     
     init(
         document: BaseDocumentProtocol,
-        output: RelationsListModuleOutput?
+        relationsService: RelationsServiceProtocol,
+        output: RelationsListModuleOutput
     ) {
         self.document = document
+        self.relationsService = relationsService
         self.output = output
         
         document.parsedRelationsPublisher
@@ -46,7 +45,7 @@ final class RelationsListViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] in
                 guard let self else { return }
-                navigationBarButtonsDisabled = !document.permissions.canEditRelationsList
+                navigationBarButtonsDisabled = self.document.relationsListIsLocked
             }
             .store(in: &subscriptions)
     }
@@ -60,7 +59,7 @@ extension RelationsListViewModel {
     func changeRelationFeaturedState(relation: Relation, addedToObject: Bool) {
         if !addedToObject {
             Task { @MainActor in
-                try await relationsService.addRelations(objectId: document.objectId, relationKeys: [relation.key])
+                try await relationsService.addRelations(relationKeys: [relation.key])
                 changeRelationFeaturedState(relation: relation)
             }
         } else {
@@ -71,11 +70,11 @@ extension RelationsListViewModel {
     private func changeRelationFeaturedState(relation: Relation) {
         Task {
             if relation.isFeatured {
-                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId)
-                try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
+                try await relationsService.removeFeaturedRelation(relationKey: relation.key)
             } else {
-                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId)
-                try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
+                try await relationsService.addFeaturedRelation(relationKey: relation.key)
             }
         }
         UISelectionFeedbackGenerator().selectionChanged()
@@ -87,8 +86,8 @@ extension RelationsListViewModel {
     
     func removeRelation(relation: Relation) {
         Task {
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId)
-            try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
+            try await relationsService.removeRelation(relationKey: relation.key)
         }
     }
     

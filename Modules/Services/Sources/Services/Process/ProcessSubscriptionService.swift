@@ -7,11 +7,11 @@ public protocol ProcessSubscriptionServiceProtocol: AnyObject {
     func addHandler(handler: @escaping (_ processes: [ProcessEvent]) async -> Void) async -> AnyCancellable
 }
 
-actor ProcessSubscriptionService: ServiceEventsHandlerProtocol, ProcessSubscriptionServiceProtocol {
+public actor ProcessSubscriptionService: ServiceEventsHandlerProtocol, ProcessSubscriptionServiceProtocol {
     
     private var handleStorage = HandlerStorage<(_ processes: [ProcessEvent]) async -> Void>()
     
-    init() {
+    public init() {
         ServiceMessageHandlerAdapter.shared.addHandler(handler: self)
     }
     

@@ -1,13 +1,9 @@
 import SwiftUI
 
 struct SetViewSettingsList: View {
-    @StateObject private var model: SetViewSettingsListModel
+    @StateObject var model: SetViewSettingsListModel
     @Environment(\.presentationMode) @Binding private var presentationMode
     @FocusState private var isFocused: Bool
-    
-    init(data: SetSettingsData, output: SetViewSettingsCoordinatorOutput?) {
-        _model = StateObject(wrappedValue: SetViewSettingsListModel(data: data, output: output))
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,7 +19,6 @@ struct SetViewSettingsList: View {
         }
         .background(Color.Background.secondary)
         .frame(maxHeight: 358)
-        .disabled(!model.canEditSetView)
     }
     
     private var content: some View {
@@ -60,8 +55,7 @@ struct SetViewSettingsList: View {
     private var viewNameContent: some View {
         Spacer.fixedHeight(10)
         
-        AnytypeText(Loc.name, style: .caption1Medium)
-                .foregroundColor(.Text.secondary)
+        AnytypeText(Loc.name, style: .caption1Medium, color: .Text.secondary)
         
         Spacer.fixedHeight(2)
         
@@ -92,9 +86,9 @@ struct SetViewSettingsList: View {
             HStack(spacing: 0) {
                 AnytypeText(
                     setting.title,
-                    style: .uxBodyRegular
+                    style: .uxBodyRegular,
+                    color: .Text.primary
                 )
-                .foregroundColor(.Text.primary)
                 
                 Spacer()
                 
@@ -102,8 +96,8 @@ struct SetViewSettingsList: View {
                 
                 Spacer.fixedWidth(6)
                 
-                IconView(icon: .asset(.X18.Disclosure.right))
-                    .frame(width: 18, height: 18)
+                Image(asset: .X18.Disclosure.right)
+                    .foregroundColor(.Button.active)
             }
         }
         .frame(height: 52, alignment: .leading)
@@ -116,26 +110,24 @@ struct SetViewSettingsList: View {
         let text = model.valueForSetting(setting)
         return AnytypeText(
             text,
-            style: .uxBodyRegular
+            style: .uxBodyRegular,
+            color: setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary
         )
-        .foregroundColor(setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary)
         .lineLimit(1)
     }
     
-    @ViewBuilder
     private var settingsMenu: some View {
-        if model.canEditSetView {
-            Menu {
-                duplicateButton
-                if model.canBeDeleted {
-                    deleteButton
-                }
-            } label: {
-                IconView(icon: .asset(.X24.more))
-                    .frame(width: 24, height: 24)
+        Menu {
+            duplicateButton
+            if model.canBeDeleted {
+                deleteButton
             }
-            .fixMenuOrder()
+        } label: {
+            Image(asset: .X24.more)
+                .foregroundColor(.Button.active)
+                .frame(width: 24, height: 24)
         }
+        .fixMenuOrder()
     }
     
     private var deleteButton: some View {

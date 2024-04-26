@@ -7,16 +7,28 @@ import SwiftUI
 final class SetFiltersContentViewBuilder {
     private let spaceId: String
     private let filter: SetFilter
+    private let setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+    private let setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol
+    private let setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol
+    private let setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     
     init(
         spaceId: String,
         filter: SetFilter,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        setFiltersSelectionHeaderModuleAssembly: SetFiltersSelectionHeaderModuleAssemblyProtocol,
+        setFiltersDateCoordinatorAssembly: SetFiltersDateCoordinatorAssemblyProtocol,
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
+        setFiltersTextViewModuleAssembly: SetFiltersTextViewModuleAssemblyProtocol,
+        setFiltersCheckboxViewModuleAssembly: SetFiltersCheckboxViewModuleAssemblyProtocol
     ) {
         self.spaceId = spaceId
         self.filter = filter
+        self.setFiltersSelectionHeaderModuleAssembly = setFiltersSelectionHeaderModuleAssembly
+        self.setFiltersDateCoordinatorAssembly = setFiltersDateCoordinatorAssembly
         self.newSearchModuleAssembly = newSearchModuleAssembly
+        self.setFiltersTextViewModuleAssembly = setFiltersTextViewModuleAssembly
+        self.setFiltersCheckboxViewModuleAssembly = setFiltersCheckboxViewModuleAssembly
     }
     
     @MainActor
@@ -24,10 +36,11 @@ final class SetFiltersContentViewBuilder {
         output: SetFiltersSelectionCoordinatorOutput?,
         onConditionChanged: @escaping (DataviewFilter.Condition) -> Void
     ) -> AnyView {
-        SetFiltersSelectionHeaderView(
-            data: SetFiltersSelectionHeaderData(filter: filter, onConditionChanged: onConditionChanged),
-            output: output
-        ).eraseToAnyView()
+        setFiltersSelectionHeaderModuleAssembly.make(
+            filter: filter,
+            output: output,
+            onConditionChanged: onConditionChanged
+        )
     }
     
     @MainActor
@@ -68,7 +81,7 @@ final class SetFiltersContentViewBuilder {
         switch format {
         case .tag:
             return buildTagsSearchView(onSelect: onSelect)
-        case .object, .file:
+        case .object:
             return buildObjectsSearchView(onSelect: onSelect)
         case .status:
             return buildStatusesSearchView(onSelect: onSelect)
@@ -141,10 +154,10 @@ final class SetFiltersContentViewBuilder {
     func buildTextView(
         onApplyText: @escaping (_ text: String) -> Void
     ) -> AnyView {
-        SetFiltersTextView(
-            filter: filter,
+        setFiltersTextViewModuleAssembly.make(
+            with: filter,
             onApplyText: onApplyText
-        ).eraseToAnyView()
+        )
     }
     
     // MARK: - Private methods: Checkbox
@@ -153,10 +166,10 @@ final class SetFiltersContentViewBuilder {
     func buildCheckboxView(
         onApplyCheckbox: @escaping (Bool) -> Void
     ) -> AnyView {
-        SetFiltersCheckboxView(
-            filter: filter,
+        setFiltersCheckboxViewModuleAssembly.make(
+            with: filter,
             onApplyCheckbox: onApplyCheckbox
-        ).eraseToAnyView()
+        )
     }
     
     // MARK: - Private methods: Date
@@ -166,10 +179,11 @@ final class SetFiltersContentViewBuilder {
         setSelectionModel: SetFiltersSelectionViewModel?,
         onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> AnyView {
-        SetFiltersDateCoordinatorView(
-            data: SetFiltersDateViewData(filter: filter, onApplyDate: onApplyDate),
-            setSelectionModel: setSelectionModel
-        ).eraseToAnyView()
+        setFiltersDateCoordinatorAssembly.make(
+            filter: filter,
+            setSelectionModel: setSelectionModel,
+            completion: onApplyDate
+        )
     }
     
     // MARK: - Helper methods

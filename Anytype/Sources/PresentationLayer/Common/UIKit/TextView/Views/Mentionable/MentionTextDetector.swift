@@ -1,6 +1,5 @@
 import UIKit
 
-@MainActor
 protocol MentionTextDetectorProtocol {
     func removeMentionIfNeeded(textView: UITextView, replacementText: String) -> Bool
 }

@@ -8,7 +8,7 @@ public actor HandlerKeyStorage<Key: Hashable, Handler> {
     public init() {}
     
     public func addHandler(key: Key, handler: Handler) async -> AnyCancellable {
-        let keyStorage = cancellableHandlers[key] ?? HandlerStorage<Handler>()
+        var keyStorage = cancellableHandlers[key] ?? HandlerStorage<Handler>()
         return await keyStorage.addHandler(handler: handler)
     }
     

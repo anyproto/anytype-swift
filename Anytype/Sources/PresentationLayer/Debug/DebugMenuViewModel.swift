@@ -8,24 +8,30 @@ import ZIPFoundation
 final class DebugMenuViewModel: ObservableObject {
     
     @Published private(set) var isRemovingRecoveryPhraseInProgress = false
-    @Published var shareUrlFile: URL?
+    @Published var localStoreURL: URL?
+    @Published var stackGoroutinesURL: URL?
+    @Published var workingDirectoryURL: URL?
     @Published var showZipPicker = false
     @Published private(set) var flags = [FeatureFlagSection]()
     
-    @Injected(\.debugService)
-    private var debugService: DebugServiceProtocol
-    @Injected(\.localAuthService)
-    private var localAuthService: LocalAuthServiceProtocol
-    @Injected(\.localRepoService)
-    private var localRepoService: LocalRepoServiceProtocol
-    @Injected(\.authService)
-    private var authService: AuthServiceProtocol
-    @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private let debugService: DebugServiceProtocol
+    private let localAuthService: LocalAuthServiceProtocol
+    private let localRepoService: LocalRepoServiceProtocol
+    private let authService: AuthServiceProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
     
-    init() {
+    init(
+        debugService: DebugServiceProtocol,
+        localAuthService: LocalAuthServiceProtocol,
+        localRepoService: LocalRepoServiceProtocol,
+        authService: AuthServiceProtocol,
+        applicationStateService: ApplicationStateServiceProtocol
+    ) {
+        self.debugService = debugService
+        self.localAuthService = localAuthService
+        self.localRepoService = localRepoService
+        self.authService = authService
+        self.applicationStateService = applicationStateService
         updateFlags()
     }
     
@@ -48,7 +54,7 @@ final class DebugMenuViewModel: ObservableObject {
             let path = try await debugService.exportLocalStore()
             let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("localstore.zip")
             try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-            shareUrlFile = zipFile
+            localStoreURL = zipFile
         }
     }
     
@@ -57,7 +63,7 @@ final class DebugMenuViewModel: ObservableObject {
             let path = try await debugService.exportStackGoroutines()
             let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("stackGoroutines.zip")
             try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-            shareUrlFile = zipFile
+            stackGoroutinesURL = zipFile
         }
     }
     
@@ -66,7 +72,7 @@ final class DebugMenuViewModel: ObservableObject {
             try await localAuthService.auth(reason: "Share working directory")
             let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("workingDirectory.zip")
             try FileManager.default.zipItem(at: localRepoService.middlewareRepoURL, to: zipFile)
-            shareUrlFile = zipFile
+            workingDirectoryURL = zipFile
         }
     }
     
@@ -87,13 +93,6 @@ final class DebugMenuViewModel: ObservableObject {
                 to: middlewareRepoURL
             )
         }
-    }
-    
-    func onSpaceDebug() async throws {
-        let jsonDebug = try await debugService.exportSpaceDebug(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId)
-        let jsonFile = FileManager.default.createTempDirectory().appendingPathComponent("spaceInfo.json")
-        try jsonDebug.write(to: jsonFile, atomically: true, encoding: .utf8)
-        shareUrlFile = jsonFile
     }
     
     // MARK: - Private

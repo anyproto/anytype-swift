@@ -7,15 +7,15 @@ import AnytypeCore
 protocol TemplatesCoordinatorProtocol {
     func showTemplatesPicker(
         document: BaseDocumentProtocol,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     )
 }
 
-final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
+final class TemplatesCoordinator: TemplatesCoordinatorProtocol {
     private weak var rootViewController: UIViewController?
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
+    private var handler: TemplateSelectionObjectSettingsHandler?
     private var editorModuleInputs = [String: EditorPageModuleInput]()
-    private var onSetAsDefaultTempalte: ((String) -> Void)?
     
     init(
         rootViewController: UIViewController,
@@ -28,11 +28,11 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
     @MainActor
     func showTemplatesPicker(
         document: BaseDocumentProtocol,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
+        onSetAsDefaultTempalte: @escaping (BlockId) -> Void
     ) {
         guard let rootViewController else { return }
 
-        self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
+        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
         let picker = TemplatePickerView(
             viewModel: .init(
                 output: self,
@@ -74,32 +74,15 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     }
     
     func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel) {
-        editorModuleInputs[model.object.id]?.showSettings(output: self)
+        guard let handler else { return }
+        editorModuleInputs[model.object.id]?.showSettings(delegate: handler, output: nil)
     }
     
     func setAsDefaultBlankTemplate() {
-        onSetAsDefaultTempalte?(TemplateType.blank.id)
+        handler?.useAsTemplateAction(TemplateType.blank.id)
     }
     
     func onClose() {
         rootViewController?.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - ObjectSettingsCoordinatorOutput
-    
-    func closeEditor() {}
-    
-    func showEditorScreen(data: EditorScreenData) {}
-    
-    func didCreateLinkToItself(selfName: String, data: EditorScreenData) {}
-    
-    func didCreateTemplate(templateId: String) {}
-    
-    func didTapUseTemplateAsDefault(templateId: String) {
-        onSetAsDefaultTempalte?(templateId)
-    }
-    
-    func didUndoRedo() {
-        anytypeAssertionFailure("Undo/redo is not available")
     }
 }

@@ -12,10 +12,8 @@ struct FileStorageInfoBlock: View {
             IconView(icon: iconImage)
                 .frame(width: 48, height: 48)
             VStack(alignment: .leading, spacing: 1) {
-                AnytypeText(title, style: .previewTitle2Medium)
-                    .foregroundColor(.Text.primary)
-                AnytypeText(description, style: .relation3Regular)
-                    .foregroundColor(isWarning ? .System.red : .Text.secondary)
+                AnytypeText(title, style: .previewTitle2Medium, color: .Text.primary)
+                AnytypeText(description, style: .relation3Regular, color: isWarning ? .System.red : .Text.secondary)
             }
             .lineLimit(1)
         }

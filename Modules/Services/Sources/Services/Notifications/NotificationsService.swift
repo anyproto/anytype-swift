@@ -6,7 +6,7 @@ public protocol NotificationsServiceProtocol: AnyObject {
     func reply(ids: [String], actionType: NotificationActionType) async throws
 }
 
-final class NotificationsService: NotificationsServiceProtocol {
+public final class NotificationsService: NotificationsServiceProtocol {
     
     // MARK: - NotificationsServiceProtocol
     

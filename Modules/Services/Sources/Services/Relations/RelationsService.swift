@@ -6,25 +6,31 @@ enum RelationServiceError: Error {
     case unableToCreateRelationFromObject
 }
 
-final class RelationsService: RelationsServiceProtocol {
+public final class RelationsService: RelationsServiceProtocol {
+    
+    private let objectId: String
+        
+    public init(objectId: String) {
+        self.objectId = objectId
+    }
     
     // MARK: - RelationsServiceProtocol
     
-    public func addFeaturedRelation(objectId: String, relationKey: String) async throws {
+    public func addFeaturedRelation(relationKey: String) async throws {
         try await ClientCommands.objectRelationAddFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
     }
     
-    public func removeFeaturedRelation(objectId: String, relationKey: String) async throws {
+    public func removeFeaturedRelation(relationKey: String) async throws {
         try await ClientCommands.objectRelationRemoveFeatured(.with {
             $0.contextID = objectId
             $0.relations = [relationKey]
         }).invoke()
     }
     
-    public func updateRelation(objectId: String, relationKey: String, value: Google_Protobuf_Value) async throws {
+    public func updateRelation(relationKey: String, value: Google_Protobuf_Value) async throws {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
             $0.details = [
@@ -67,18 +73,18 @@ final class RelationsService: RelationsServiceProtocol {
         return RelationDetails(objectDetails: objectDetails)
     }
 
-    public func addRelations(objectId: String, relationsDetails: [RelationDetails]) async throws {
-        try await addRelations(objectId: objectId, relationKeys: relationsDetails.map(\.key))
+    public func addRelations(relationsDetails: [RelationDetails]) async throws {
+        try await addRelations(relationKeys: relationsDetails.map(\.key))
     }
 
-    public func addRelations(objectId: String, relationKeys: [String]) async throws {
+    public func addRelations(relationKeys: [String]) async throws {
         try await ClientCommands.objectRelationAdd(.with {
             $0.contextID = objectId
             $0.relationKeys = relationKeys
         }).invoke()
     }
     
-    public func removeRelation(objectId: String, relationKey: String) async throws {
+    public func removeRelation(relationKey: String) async throws {
         _ = try await ClientCommands.objectRelationDelete(.with {
             $0.contextID = objectId
             $0.relationKeys = [relationKey]

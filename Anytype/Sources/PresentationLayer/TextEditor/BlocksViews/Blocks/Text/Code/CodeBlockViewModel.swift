@@ -3,43 +3,36 @@ import UIKit
 import Services
 
 struct CodeBlockViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable { info.id }
-    var info: BlockInformation { infoProvider.info }
+    var hashable: AnyHashable {
+        [
+            info,
+            codeLanguage
+        ] as [AnyHashable]
+    }
     
-    let infoProvider: BlockModelInfomationProvider
-    let document: BaseDocumentProtocol
-    
-    let becomeFirstResponder: (BlockInformation) -> ()
-    let handler: BlockActionHandlerProtocol
-    let editorCollectionController: EditorBlockCollectionController
-    let showCodeSelection: @MainActor (BlockInformation) -> ()
+    let info: BlockInformation
+    let content: BlockText
+    let anytypeText: UIKitAnytypeText
+    let codeLanguage: CodeLanguage
 
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
-        guard case let .text(content) = info.content else {
-            return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
-        }
-        
-        let anytypeText = content.anytypeText(document: document)
-        let codeLanguage = info.fields.codeLanguage
-        
-        return CodeBlockContentConfiguration(
+    let becomeFirstResponder: (BlockInformation) -> ()
+    let textDidChange: (BlockInformation, UITextView) -> ()
+    let showCodeSelection: (BlockInformation) -> ()
+
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+        CodeBlockContentConfiguration(
             content: content,
             anytypeText: anytypeText,
             backgroundColor: info.backgroundColor,
             codeLanguage: codeLanguage,
-            actions: CodeBlockContentConfiguration.Actions(
+            actions: .init(
                 becomeFirstResponder: { becomeFirstResponder(info) },
-                textDidChange: { textView in
-                    Task {
-                        try await handler.changeText(textView.attributedText, blockId: info.id)
-                    }
-                },
-                showCodeSelection: { showCodeSelection(info) }, 
-                textBlockSetNeedsLayout: { editorCollectionController.itemDidChangeFrame(item: .block(self)) }
+                textDidChange: { textView in textDidChange(info, textView) },
+                showCodeSelection: { showCodeSelection(info) }
             )
         ).cellBlockConfiguration(
-            dragConfiguration: .init(id: info.id),
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id)
         )
     }
     
@@ -50,6 +43,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "id: \(blockId)"
+        return "id: \(blockId)\ntext: \(anytypeText.attrString.string.prefix(10))...\ntype: \(info.content.type.styleAnalyticsValue)"
     }
 }

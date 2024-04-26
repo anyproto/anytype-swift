@@ -8,5 +8,5 @@ protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onHomeSelected()
     func onForwardSelected()
     func onBackwardSelected()
-    func onPickTypeForNewObjectSelected()
+    func onCreateObjectWithTypeSelected()
 }

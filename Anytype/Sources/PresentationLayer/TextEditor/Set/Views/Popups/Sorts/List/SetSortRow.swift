@@ -29,10 +29,8 @@ struct SetSortRow: View {
             Spacer.fixedWidth(12)
             
             VStack(alignment: .leading, spacing: 2) {
-                AnytypeText(configuration.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Text.primary)
-                AnytypeText(configuration.subtitle, style: .relation1Regular)
-                    .foregroundColor(.Text.secondary)
+                AnytypeText(configuration.title, style: .uxTitle2Medium, color: .Text.primary)
+                AnytypeText(configuration.subtitle, style: .relation1Regular, color: .Text.secondary)
             }
             
             Spacer()

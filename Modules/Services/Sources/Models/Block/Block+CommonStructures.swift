@@ -6,7 +6,7 @@ public enum BlockKind {
     case block
 }
 
-public enum BlockFocusPosition: Equatable, Hashable {
+public enum BlockFocusPosition {
     case beginning
     case end
     case at(NSRange)

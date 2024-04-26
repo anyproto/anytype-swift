@@ -1,18 +1,17 @@
 import Foundation
 import UIKit
 
-@MainActor
 final class RelationFormatsListViewModel: ObservableObject {
     
     let supportedFormatModels: [RelationFormatListCell.Model]
-
-    private let onFormatSelect: (SupportedRelationFormat) -> Void
+    
+    private weak var output: RelationFormatsListModuleOutput?
     
     init(
         selectedFormat: SupportedRelationFormat,
-        onFormatSelect: @escaping (SupportedRelationFormat) -> Void
+        output: RelationFormatsListModuleOutput
     ) {
-        self.onFormatSelect = onFormatSelect
+        self.output = output
         self.supportedFormatModels = SupportedRelationFormat.allCases.asRelationFormatListCellModels(selectedFormat: selectedFormat)
     }
     
@@ -25,7 +24,7 @@ extension RelationFormatsListViewModel {
     func didSelectFormat(id: String) {
         guard let format = SupportedRelationFormat(rawValue: id) else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        onFormatSelect(format)
+        output?.didSelectFormat(format)
     }
     
 }

@@ -66,26 +66,10 @@
         <string>%d enlaces</string>
       </dict>
     </dict>
-    <key>Backlinks count</key>
+    <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>%d enlace</string>
-        <key>other</key>
-        <string>%d backlinks</string>
-      </dict>
-    </dict>
-    <key>Days to deletion vault</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Esta cuenta será eliminada %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>mañana</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>en %d días</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -125,10 +109,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Archivo del objeto
-%d Archivos del objeto</string>
+        <string>File Object</string>
         <key>other</key>
-        <string>%d Objetos de Archivo</string>
+        <string>%d File Objects</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -142,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bloque de archivo</string>
+        <string>File Block</string>
         <key>other</key>
-        <string>%d Bloques de archivo</string>
+        <string>%d File Blocks</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -158,9 +141,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d objetos de marcador</string>
+        <string>Bookmark Object</string>
         <key>other</key>
-        <string>Agregar %d marcadores a los objetos</string>
+        <string>%d Bookmark Objects</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -174,121 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Enlazar bloque</string>
+        <string>Link Block</string>
         <key>other</key>
-        <string>Enlazar %d bloques</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.Invite.MaxLimit</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>one</key>
-        <string>Has alcanzado el límite de %d miembros. Los nuevos miembros no podrán unirse.</string>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>Has alcanzado el límite de %d miembros. Los nuevos miembros no podrán unirse.</string>
-      </dict>
-    </dict>
-    <key>Space.MembersCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d miembros</string>
-        <key>one</key>
-        <string>%d miembro</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.RequestsCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d requests</string>
-        <key>one</key>
-        <string>%d solicitud</string>
-      </dict>
-    </dict>
-    <key>Per Month</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>por %#@month@</string>
-      <key>month</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>mes</string>
-        <key>other</key>
-        <string>%d months</string>
-      </dict>
-    </dict>
-    <key>Per Week</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>por %#@week@</string>
-      <key>week</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>semana</string>
-        <key>other</key>
-        <string>%d weeks</string>
-      </dict>
-    </dict>
-    <key>Per Year</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>por %#@year@</string>
-      <key>year</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>año</string>
-        <key>other</key>
-        <string>%d years</string>
-      </dict>
-    </dict>
-    <key>Per Day</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>por %#@day@</string>
-      <key>day</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>día</string>
-        <key>other</key>
-        <string>%d days</string>
+        <string>Link %d Blocks</string>
       </dict>
     </dict>
   </dict>

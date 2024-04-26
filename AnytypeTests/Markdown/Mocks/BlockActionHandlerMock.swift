@@ -4,10 +4,20 @@ import Foundation
 import AnytypeCore
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
+    var blockSelectionHandler: BlockSelectionHandler? {
+        get {
+            assertionFailure()
+            return nil
+        }
+        set {
+            assertionFailure()
+        }
+    }
+    
     var turnIntoStub = false
     var turnIntoNumberOfCalls = 0
     var turnIntoStyleFromLastCall: BlockText.Style?
-    func turnInto(_ style: BlockText.Style, blockId: String) {
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
         if turnIntoStub {
             turnIntoNumberOfCalls += 1
             turnIntoStyleFromLastCall = style
@@ -20,40 +30,40 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func turnIntoPage(blockId: String) -> String? {
+    func turnIntoPage(blockId: BlockId) -> BlockId? {
         assertionFailure()
         return nil
     }
     
-    func setTextColor(_ color: BlockColor, blockIds: [String]) {
+    func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
         assertionFailure()
     }
 
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String]) {
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
         assertionFailure()
     }
     
-    func duplicate(blockId: String, spaceId: String) {
+    func duplicate(blockId: BlockId) {
         assertionFailure()
     }
     
-    func setFields(_ fields: [BlockFields], blockId: String) {
+    func setFields(_ fields: [BlockFields], blockId: BlockId) {
         assertionFailure()
     }
     
-    func fetch(url: AnytypeURL, blockId: String) {
+    func fetch(url: AnytypeURL, blockId: BlockId) {
         assertionFailure()
     }
     
-    func checkbox(selected: Bool, blockId: String) {
+    func checkbox(selected: Bool, blockId: BlockId) {
         assertionFailure()
     }
     
-    func toggle(blockId: String) {
+    func toggle(blockId: BlockId) {
         assertionFailure()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String]) {
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
         assertionFailure()
     }
     
@@ -69,40 +79,43 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func delete(blockIds: [String]) {
+    func delete(blockIds: [BlockId]) {
         assertionFailure()
     }
     
-    func moveToPage(blockId: String, pageId: String) {
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
         assertionFailure()
     }
     
-    func createEmptyBlock(parentId: String, spaceId: String) {
+    func createEmptyBlock(parentId: BlockId) {
         assertionFailure()
     }
     
-    func setLink(url: URL?, range: NSRange, blockId: String) {
+    func setLink(url: URL?, range: NSRange, blockId: BlockId) {
         assertionFailure()
     }
     
-    func addLink(targetDetails: ObjectDetails, blockId: String) {
+    func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String) {
+    func addLink(targetDetails: ObjectDetails, blockId: BlockId) {
         assertionFailure()
     }
     
-    func toggleWholeBlockMarkup(_ attributedString: NSAttributedString?, markup: MarkupType, info: BlockInformation) -> NSAttributedString? {
-        assertionFailure()
-        return nil
-    }
-    
-    func upload(blockId: String, filePath: String) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?) {
         assertionFailure()
     }
     
-    func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String? {
+    func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId) {
+        assertionFailure()
+    }
+    
+    func upload(blockId: BlockId, filePath: String) {
+        assertionFailure()
+    }
+    
+    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId? {
         assertionFailure()
         return nil
     }
@@ -123,7 +136,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         }
     }
     
-    func changeText(_ text: NSAttributedString, blockId: String) {
+    func changeText(_ text: NSAttributedString, blockId: BlockId) {
         assertionFailure()
     }
     
@@ -143,23 +156,23 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String) {
+    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
         assertionFailure()
     }
     
-    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String, currentText: NSAttributedString?, contentType: BlockContentType) {
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: Services.BlockId, currentText: NSAttributedString?) {
         assertionFailure()
     }
     
-    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: String) {
+    func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         assertionFailure()
     }
     
-    func uploadFileAt(localPath: String, blockId: String) {
+    func uploadFileAt(localPath: String, blockId: BlockId) {
         assertionFailure()
     }
     
-    func changeTextForced(_ text: NSAttributedString, blockId: String) {
+    func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
         assertionFailure()
     }
     
@@ -167,37 +180,27 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createAndFetchBookmark(targetID: String, position: BlockPosition, url: AnytypeURL) {
+    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: AnytypeURL) {
         assertionFailure()
     }
 
-    func setFields(_ fields: FieldsConvertibleProtocol, blockId: String) {
+    func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
         assertionFailure()
     }
 
-    func setAppearance(blockId: String, appearance: BlockLink.Appearance) {
+    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
         assertionFailure()
     }
 
-    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: AnytypeCore.SafeSendable<NSAttributedString?>, spaceId: String) async throws -> String {
+    func createTable(blockId: Services.BlockId, rowsCount: Int, columnsCount: Int, blockText: AnytypeCore.SafeSendable<NSAttributedString?>) async throws -> Services.BlockId {
         fatalError()
     }
     
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String) {
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId) {
         assertionFailure()
     }
     
-    func changeMarkup(blockIds: [String], markType: MarkupType) {
+    func changeMarkup(blockIds: [Services.BlockId], markType: MarkupType) {
         assertionFailure()
     }
-    
-    func turnIntoBookmark(url: AnytypeURL) async throws -> ObjectType {
-        assertionFailure()
-        return .emptyType
-    }
-    
-    func pasteContent() {
-        assertionFailure()
-    }
-    
 }

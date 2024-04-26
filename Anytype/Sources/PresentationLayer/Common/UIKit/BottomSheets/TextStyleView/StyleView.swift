@@ -114,7 +114,7 @@ final class StyleView: UIView {
     // MARK: - Other properties
 
     private weak var viewControllerForPresenting: UIViewController?
-    private let blockIds: [String]
+    private let blockIds: [BlockId]
     private let actionHandler: BlockActionHandlerProtocol
     private var askColor: () -> UIColor?
     private var askBackgroundColor: () -> UIColor?
@@ -131,7 +131,7 @@ final class StyleView: UIView {
     /// - Parameter actionHandler: Handle bottom sheet  actions, see `StyleViewController.ActionType`
     /// - important: Use weak self inside `ActionHandler`
     init(
-        blockIds: [String],
+        blockIds: [BlockId],
         viewControllerForPresenting: UIViewController,
         style: BlockText.Style?,
         restrictions: BlockRestrictions,
@@ -361,9 +361,13 @@ final class StyleView: UIView {
 
         currentDeselectAction?()
         currentDeselectAction = deselectAction
-        Task {
-            for blockId in blockIds {
-                try await actionHandler.turnInto(style, blockId: blockId)
+        if style == .code {
+            blockIds.forEach {
+                actionHandler.toggleWholeBlockMarkup(.keyboard, blockId: $0)
+            }
+        } else {
+            blockIds.forEach {
+                actionHandler.turnInto(style, blockId: $0)
             }
         }
     }

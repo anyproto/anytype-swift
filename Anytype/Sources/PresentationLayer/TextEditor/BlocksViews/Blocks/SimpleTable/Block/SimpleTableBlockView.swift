@@ -10,6 +10,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     private lazy var dynamicLayoutView = DynamicCollectionLayoutView(frame: .zero)
     private var collectionView: EditorCollectionView { dynamicLayoutView.collectionView }
     private var modelsSubscriptions = [AnyCancellable]()
+    private weak var blockDelegate: BlockDelegate?
 
     private var cancellables = [AnyCancellable]()
 
@@ -33,15 +34,18 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         let dependencies = configuration.dependenciesBuilder.buildDependenciesContainer(blockInformation: configuration.info)
 
         self.spreadsheetLayout.dataSource = dataSource
+        self.spreadsheetLayout.cacheContainer = dependencies.cacheContainer
+        self.blockDelegate = dependencies.blockDelegate
         self.viewModel = dependencies.viewModel
 
         collectionView.delegate = self
+        spreadsheetLayout.relativePositionProvider = dependencies.relativePositionProvider
 
         dynamicLayoutView.update(
             with: .init(
                 layoutHeightMemory: .hashable(configuration.info.id as AnyHashable),
                 layout: spreadsheetLayout,
-                heightDidChanged: { configuration.onChangeHeight() }
+                heightDidChanged: { [weak self] in self?.blockDelegate?.textBlockSetNeedsLayout() }
             )
         )
 

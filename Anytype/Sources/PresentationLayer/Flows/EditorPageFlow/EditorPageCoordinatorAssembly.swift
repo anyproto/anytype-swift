@@ -17,15 +17,18 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     private let coordinatorsID: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
     private let serviceLocator: ServiceLocator
+    private let uiHelpersDI: UIHelpersDIProtocol
     
     nonisolated init(
         coordinatorsID: CoordinatorsDIProtocol,
         modulesDI: ModulesDIProtocol,
-        serviceLocator: ServiceLocator
+        serviceLocator: ServiceLocator,
+        uiHelpersDI: UIHelpersDIProtocol
     ) {
         self.coordinatorsID = coordinatorsID
         self.modulesDI = modulesDI
         self.serviceLocator = serviceLocator
+        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - EditorNewPageCoordinatorAssemblyProtocol
@@ -41,10 +44,7 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
                 data: data,
                 showHeader: showHeader,
                 setupEditorInput: setupEditorInput,
-                editorPageAssembly: self.coordinatorsID.editorPageModule(), 
-                legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
-                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
-                relationValueProcessingService: self.serviceLocator.relationValueProcessingService()
+                editorPageAssembly: self.coordinatorsID.editorPageModule()
             )
         ).eraseToAnyView()
     }

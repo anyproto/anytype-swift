@@ -2,8 +2,6 @@ import Foundation
 import UIKit
 import AnytypeCore
 
-
-@MainActor
 final class AppIconManager {
     
     static let shared = AppIconManager()

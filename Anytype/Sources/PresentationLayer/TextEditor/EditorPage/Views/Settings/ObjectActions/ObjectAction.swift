@@ -13,60 +13,59 @@ enum ObjectAction: Hashable, Identifiable {
     case templateSetAsDefault
     case delete
     case createWidget
-    case copyLink
 
     // When adding to case
     static func allCasesWith(
         details: ObjectDetails,
+        objectRestrictions: ObjectRestrictions,
         isLocked: Bool,
-        permissions: ObjectPermissions
+        isArchived: Bool
     ) -> [Self] {
-        .builder {
-            
-            if permissions.canArchive {
-                ObjectAction.archive(isArchived: details.isArchived)
-            }
-            
-            if permissions.canCreateWidget {
-                ObjectAction.createWidget
-            }
-            
-            if permissions.canFavorite {
-                ObjectAction.favorite(isFavorite: details.isFavorite)
-            }
-            
-            if permissions.canDuplicate {
-                ObjectAction.duplicate
-            }
-            
-            if permissions.canUndoRedo {
-                ObjectAction.undoRedo
-            }
-            
-            if permissions.canMakeAsTemplate {
-                ObjectAction.makeAsTemplate
-            }
-            
-            if permissions.canTemplateSetAsDefault {
-                ObjectAction.templateSetAsDefault
-            }
-            
-            if permissions.canLinkItself {
-                ObjectAction.linkItself
-            }
-            
-            if permissions.canShare {
-                ObjectAction.copyLink
-            }
-            
-            if permissions.canLock {
-                ObjectAction.locked(isLocked: isLocked)
-            }
-            
-            if permissions.canDelete {
-                ObjectAction.delete
-            }
+        
+        if isArchived {
+            return actionsForArchiveObject()
         }
+        
+        if details.isTemplateType {
+            return [
+                .archive(isArchived: details.isArchived),
+                .templateSetAsDefault,
+                .duplicate,
+                .undoRedo
+            ]
+        }
+        
+        var allCases: [ObjectAction] = []
+        
+        // We shouldn't allow archive for profile
+        if !objectRestrictions.objectRestriction.contains(.delete) {
+            allCases.append(.archive(isArchived: details.isArchived))
+        }
+        
+        if details.isVisibleLayout, !details.isTemplateType, details.layoutValue != .participant {
+            allCases.append(.createWidget)
+        }
+
+        allCases.append(.favorite(isFavorite: details.isFavorite))
+        
+        if !objectRestrictions.objectRestriction.contains(.duplicate) {
+            allCases.append(.duplicate)
+        }
+
+        if details.layoutValue != .set && details.layoutValue != .collection && details.layoutValue != .participant {
+            allCases.append(.undoRedo)
+            
+            if details.canMakeTemplate && !objectRestrictions.objectRestriction.contains(.template) {
+                allCases.append(.makeAsTemplate)
+            }
+            
+            allCases.append(.linkItself)
+            allCases.append(.locked(isLocked: isLocked))
+        } else {
+            allCases.append(.linkItself)
+        }
+
+        return allCases
     }
     
     var id: String {
@@ -91,8 +90,13 @@ enum ObjectAction: Hashable, Identifiable {
             return "delete"
         case .createWidget:
             return "createWidget"
-        case .copyLink:
-            return "copyLink"
         }
+    }
+    
+    private static func actionsForArchiveObject() -> [Self] {
+        return [
+            .delete,
+            .archive(isArchived: true)
+        ]
     }
 }

@@ -9,7 +9,9 @@ protocol WidgetInternalViewModelProtocol: AnyObject {
     var allowCreateObject: Bool { get }
     
     func startHeaderSubscription()
+    func stopHeaderSubscription()
     func startContentSubscription() async
+    func stopContentSubscription() async
     func screenData() -> EditorScreenData?
     func analyticsSource() -> AnalyticsWidgetSource
     func onCreateObjectTap()

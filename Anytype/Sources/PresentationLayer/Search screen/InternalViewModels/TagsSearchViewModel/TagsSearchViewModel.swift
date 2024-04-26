@@ -78,23 +78,26 @@ private extension TagsSearchViewModel {
 private extension Array where Element == Relation.Tag.Option {
     
     func asRowConfigurations(with selectedTagIds: [String]) -> [ListRowConfiguration] {
-        let style = RelationStyle.regular(allowMultiLine: false)
-        return map { tag in
+        map { tag in
             ListRowConfiguration(
                 id: tag.id,
                 contentHash: tag.hashValue
             ) {
                 TagSearchRowView(
-                    config: TagView.Config(
-                        text: tag.text,
-                        textColor: tag.textColor,
-                        backgroundColor: tag.backgroundColor,
-                        textFont: style.font,
-                        guidlines: style.tagViewGuidlines
-                    ),
+                    viewModel: tag.asTagViewModel,
+                    relationStyle: .regular(allowMultiLine: false),
                     selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: tag.id, selectedIds: selectedTagIds)
                 ).eraseToAnyView()
             }
         }
     }
+    
+}
+
+private extension Relation.Tag.Option {
+    
+    var asTagViewModel: TagView.Model {
+        TagView.Model(text: text, textColor: textColor, backgroundColor: backgroundColor)
+    }
+    
 }

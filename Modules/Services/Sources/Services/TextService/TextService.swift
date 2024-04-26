@@ -1,7 +1,9 @@
 import Foundation
 import ProtobufMessages
 
-final class TextService: TextServiceProtocol {
+public final class TextService: TextServiceProtocol {
+    
+    public init() {}
     
     public func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         _ = try await ClientCommands.blockTextSetText(.with {
@@ -12,7 +14,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
 
-    public func setTextForced(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
+    public func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) async throws {
         _ = try await ClientCommands.blockTextSetText(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -21,7 +23,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
     
-    public func setStyle(contextId: String, blockId: String, style: Style) async throws {
+    public func setStyle(contextId: BlockId, blockId: BlockId, style: Style) async throws {
         _ = try await ClientCommands.blockTextSetStyle(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -29,7 +31,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
     
-    public func split(contextId: String, blockId: String, range: NSRange, style: Style, mode: SplitMode) async throws -> String {
+    public func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) async throws -> BlockId {
         let response = try await ClientCommands.blockSplit(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -41,7 +43,7 @@ final class TextService: TextServiceProtocol {
         return response.blockID
     }
 
-    public func merge(contextId: String, firstBlockId: String, secondBlockId: String) async throws {
+    public func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) async throws {
         try await ClientCommands.blockMerge(.with {
             $0.contextID = contextId
             $0.firstBlockID = firstBlockId
@@ -49,7 +51,7 @@ final class TextService: TextServiceProtocol {
         }).invoke()
     }
     
-    public func checked(contextId: String, blockId: String, newValue: Bool) async throws {
+    public func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) async throws {
         try await ClientCommands.blockTextSetChecked(.with {
             $0.contextID = contextId
             $0.blockID = blockId
@@ -58,8 +60,8 @@ final class TextService: TextServiceProtocol {
     }
 
     public func setTextIcon(
-        contextId: String,
-        blockId: String,
+        contextId: BlockId,
+        blockId: BlockId,
         imageObjectId: String,
         emojiUnicode: String
     ) async throws {

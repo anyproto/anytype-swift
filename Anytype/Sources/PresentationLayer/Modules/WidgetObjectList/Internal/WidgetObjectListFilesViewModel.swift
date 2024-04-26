@@ -16,6 +16,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .editOnly
     let availableMenuItems: [WidgetObjectListMenuItem] = [.forceDelete]
+    let forceDeleteTitle: String = Loc.FilesList.ForceDelete.title
     
     private var details: [ObjectDetails] = [] {
         didSet { rowDetails = [WidgetObjectListDetailsData(details: details)] }

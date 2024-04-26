@@ -2,25 +2,19 @@ import SwiftUI
 
 struct KeychainPhraseView: View {
 
-    @StateObject private var model: KeychainPhraseViewModel
-    
-    init(context: AnalyticsEventsKeychainContext) {
-        _model = StateObject(wrappedValue: KeychainPhraseViewModel(shownInContext: context))
-    }
+    @ObservedObject var model: KeychainPhraseViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(24)
-            AnytypeText(Loc.backUpYourKey, style: .heading)
-                .foregroundColor(.Text.primary)
+            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .heading, color: .Text.primary)
             Spacer.fixedHeight(8)
-            AnytypeText(Loc.Keychain.Key.description, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+            AnytypeText(Loc.Keychain.recoveryPhraseDescription, style: .uxBodyRegular, color: .Text.primary)
             Spacer.fixedHeight(24)
             SeedPhraseView(model: model)
             Spacer()
-            StandardButton(Loc.Keychain.showAndCopyKey, style: .secondaryLarge) {
+            StandardButton(Loc.Keychain.showAndCopyPhrase, style: .secondaryLarge) {
                 model.onSeedViewTap()
             }
             Spacer.fixedHeight(20)
@@ -36,6 +30,6 @@ struct KeychainPhraseView: View {
 
 struct SaveRecoveryPhraseView_Previews: PreviewProvider {    
     static var previews: some View {
-        return KeychainPhraseView(context: .logout)
+        return KeychainPhraseView(model: KeychainPhraseViewModel.makeForPreview())
     }
 }

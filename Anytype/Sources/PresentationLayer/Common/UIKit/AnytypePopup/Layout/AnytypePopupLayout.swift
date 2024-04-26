@@ -3,7 +3,6 @@ import FloatingPanel
 import CoreGraphics
 import UIKit
 
-
 open class AnytypePopupLayout: FloatingPanelLayout {
     
     public let position: FloatingPanelPosition = .bottom

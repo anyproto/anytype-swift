@@ -11,7 +11,7 @@ struct DashboardWallpaper: View {
             case .color(let color):
                 Color(hex: color.data.hex).ignoresSafeArea()
             case .gradient(let gradient):
-                gradient.data.asLinearGradient().ignoresSafeArea()
+                Gradients.create(topHexColor: gradient.data.startHex, bottomHexColor: gradient.data.endHex)
             }
         }
     }

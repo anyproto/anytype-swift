@@ -3,17 +3,13 @@ import SwiftUI
 
 struct GalleryInstallationCoordinatorView: View {
     
-    @StateObject private var model: GalleryInstallationCoordinatorViewModel
-    @Environment(\.dismiss) private var dismiss
-    
-    init(data: GalleryInstallationData) {
-        _model = StateObject(wrappedValue: GalleryInstallationCoordinatorViewModel(data: data))
-    }
+    @StateObject var model: GalleryInstallationCoordinatorViewModel
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        GalleryInstallationPreviewView(data: model.data, output: model)
+        model.previewModule()
             .sheet(isPresented: $model.showSpaceSelection) {
-                GallerySpaceSelectionView(output: model)
+                model.spaceSelectionModule()
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()

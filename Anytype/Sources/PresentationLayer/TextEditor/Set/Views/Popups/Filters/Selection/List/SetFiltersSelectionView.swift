@@ -1,11 +1,7 @@
 import SwiftUI
 
 struct SetFiltersSelectionView: View {
-    @StateObject private var viewModel: SetFiltersSelectionViewModel
-    
-    init(data: SetFiltersSelectionData, contentViewBuilder: SetFiltersContentViewBuilder, output: SetFiltersSelectionCoordinatorOutput?) {
-        _viewModel = StateObject(wrappedValue: SetFiltersSelectionViewModel(data: data, contentViewBuilder: contentViewBuilder, output: output))
-    }
+    @StateObject var viewModel: SetFiltersSelectionViewModel
     
     var body: some View {
         VStack(spacing: 0) {

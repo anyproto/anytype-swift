@@ -7,9 +7,9 @@ enum WidgetMenuItem: String {
     case changeSource
     case changeType
     case remove
+    case emptyBin
 }
 
-// TODO: Delete in after migration
 struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
     
     @ObservedObject var model: WidgetContainerViewModel<ContentVM>
@@ -18,7 +18,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         
     var body: some View {
         WidgetSwipeActionView(
-            isEnable: contentModel.allowCreateObject && model.homeState.isReadWrite,
+            isEnable: FeatureFlags.widgetsCreateObject ? contentModel.allowCreateObject : false,
             showTitle: model.isExpanded,
             action: {
                 if #available(iOS 17.0, *) {
@@ -32,7 +32,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                 icon: contentModel.icon,
                 isExpanded: $model.isExpanded,
                 dragId: contentModel.dragId,
-                homeState: model.homeState,
+                isEditalbeMode: model.isEditState,
                 allowMenuContent: contentModel.menuItems.isNotEmpty,
                 allowContent: contentModel.allowContent,
                 headerAction: {
@@ -46,10 +46,8 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                     content
                 }
             )
-            .if(model.homeState.isReadWrite) {
-                $0.contextMenu {
-                    contextMenuItems
-                }
+            .contextMenu {
+                contextMenuItems
             }
             .snackbar(toastBarData: $model.toastData)
         }
@@ -57,7 +55,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     
     @ViewBuilder
     private var contextMenuItems: some View {
-        if model.homeState.isReadWrite {
+        if !model.isEditState {
             ForEach(contentModel.menuItems, id: \.self) {
                 menuItemToView(item: $0)
             }
@@ -100,6 +98,10 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                     model.onDeleteWidgetTap()
                 }
+            }
+        case .emptyBin:
+            Button(Loc.Widgets.Actions.emptyBin, role: .destructive) {
+                model.onEmptyBinTap()
             }
         }
     }

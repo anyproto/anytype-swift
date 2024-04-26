@@ -230,8 +230,6 @@ extension UIImage {
         return newImage ?? self
     }
 
-    
-    @MainActor
     static func imageWithText(
         _ text: String,
         textColor: UIColor,

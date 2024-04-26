@@ -11,15 +11,16 @@ struct AnytypeText: View {
         self.spacing = spacing
     }
 
-    init(_ text: String?, style: AnytypeFont, enableMarkdown: Bool = false) {
+    init(_ text: String, style: AnytypeFont, color: Color, enableMarkdown: Bool = false) {
         let spacing = style.lineSpacing
         
-        self.textView = Self.buildText(text ?? "", style: style, enableMarkdown: enableMarkdown)
+        self.textView = Self.buildText(text, style: style, enableMarkdown: enableMarkdown)
+                 .foregroundColor(color)
         self.spacing = spacing
     }
     
     init(
-        _ text: String?,
+        _ text: String,
         name: AnytypeFontConfig.Name,
         size: CGFloat,
         weight: Font.Weight,
@@ -30,7 +31,7 @@ struct AnytypeText: View {
             "Custom plex font requires custom line spacing implementation"
         )
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
-        let text = text ?? ""
+        
         textView = (enableMarkdown ? Text(markdown: text) : Text(verbatim: text)).font(font)
         self.spacing = 0
     }
@@ -43,21 +44,6 @@ struct AnytypeText: View {
             // See featureToggle list in debug menu. Replace Text to AnytypeText.
             .padding(.vertical, spacing / 2)
     }
-    
-    // MARK: - SwiftUI Text mimic methods
-    
-    func underline(_ isActive: Bool = true, color: Color? = nil) -> AnytypeText {
-        let textView = textView.underline(isActive, color: color)
-        return AnytypeText(textView: textView, spacing: spacing)
-    }
-    
-    
-    func foregroundColor(_ color: Color) -> AnytypeText {
-        let textView = textView.foregroundColor(color)
-        return AnytypeText(textView: textView, spacing: spacing)
-    }
-    
-    // MARK: - Private
     
     private static func buildText(_ text: String, style: AnytypeFont, enableMarkdown: Bool) -> Text {
         let font = AnytypeFontBuilder.font(anytypeFont: style)
@@ -75,10 +61,10 @@ struct AnytypeText: View {
 struct AnytypeText_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            AnytypeText("Foo", style: .title)
-            AnytypeText("Foo", style: .bodyRegular)
-            AnytypeText("Foo", style: .relation3Regular)
-            AnytypeText("collapse", style: .codeBlock)
+            AnytypeText("Foo", style: .title, color: .Text.primary)
+            AnytypeText("Foo", style: .bodyRegular, color: .Text.primary)
+            AnytypeText("Foo", style: .relation3Regular, color: .Text.primary)
+            AnytypeText("collapse", style: .codeBlock, color: .Text.primary)
         }
     }
 }

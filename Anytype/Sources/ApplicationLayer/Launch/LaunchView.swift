@@ -1,10 +1,10 @@
 import Foundation
 import SwiftUI
 
-struct LaunchView<DebugView: View>: View {
+struct LaunchView: View {
     
     @State private var showDebugMenu = false
-    let onDebugMenuAction:() -> DebugView
+    let onDebugMenuAction:() -> AnyView
     
     var body: some View {
         ZStack {

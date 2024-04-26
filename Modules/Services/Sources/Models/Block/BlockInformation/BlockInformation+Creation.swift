@@ -5,7 +5,7 @@ public extension BlockInformation {
     }
     
     static func empty(
-        id: String = "", content: BlockContent
+        id: BlockId = "", content: BlockContent
     ) -> BlockInformation {
         BlockInformation(
             id: id,
@@ -13,12 +13,16 @@ public extension BlockInformation {
             backgroundColor: nil,
             horizontalAlignment: .left,
             childrenIds: [],
-            configurationData: BlockInformationMetadata(backgroundColor: .default),
+            configurationData: BlockInformationMetadata(
+                backgroundColor: .default,
+                indentationStyle: content.indentationStyle(isLastChild: true),
+                calloutBackgroundColor: nil
+            ),
             fields: [:]
         )
     }
     
-    static func emptyLink(targetId: String) -> BlockInformation {
+    static func emptyLink(targetId: BlockId) -> BlockInformation {
         let content: BlockContent = .link(
             .init(
                 targetBlockID: targetId,
@@ -29,7 +33,7 @@ public extension BlockInformation {
         return BlockInformation.empty(content: content)
     }
     
-    static func bookmark(targetId: String) -> BlockInformation {
+    static func bookmark(targetId: BlockId) -> BlockInformation {
         let content: BlockContent = .bookmark(.empty(targetObjectID: targetId))
         return BlockInformation.empty(content: content)
     }

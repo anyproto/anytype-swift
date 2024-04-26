@@ -8,15 +8,11 @@ struct SpaceSwitchView: View {
         static let itemWidth: CGFloat = SpaceRowView.width
     }
     
-    @StateObject private var model: SpaceSwitchViewModel
-    @Environment(\.dismiss) private var dismiss
+    @StateObject var model: SpaceSwitchViewModel
+    @Environment(\.dismiss) var dismiss
     
     @State private var headerSize: CGSize = .zero
     @State private var size: CGSize = .zero
-    
-    init(output: SpaceSwitchModuleOutput?) {
-        _model = StateObject(wrappedValue: SpaceSwitchViewModel(output: output))
-    }
     
     private var columns: [GridItem] {
         let freeSizeForContent = size.width - Constants.minExternalSpacing * 2
@@ -73,14 +69,10 @@ struct SpaceSwitchView: View {
             dismiss()
         }
         .anytypeSheet(item: $model.spaceViewForDelete) { space in
-            SpaceDeleteAlert(spaceId: space.targetSpaceId)
+            FloaterAlertView.deleteSpaceAlert(spaceName: space.title) {
+                model.onDeleteConfirmationTap(space: space)
+            }
         }
-        .anytypeSheet(item: $model.spaceViewForLeave) { space in
-            SpaceLeaveAlert(spaceId: space.targetSpaceId)
-        }
-        .anytypeSheet(item: $model.spaceViewStopSharing) { space in
-            StopSharingAlert(spaceId: space.targetSpaceId)
-         }
     }
     
     private var content: some View {
@@ -103,11 +95,10 @@ struct SpaceSwitchView: View {
             IconView(icon: model.profileIcon)
                 .frame(width: 32, height: 32)
             Spacer.fixedWidth(12)
-            AnytypeText(model.profileName, style: .heading)
-                .foregroundColor(.Text.white)
+            AnytypeText(model.profileName, style: .heading, color: .Text.white)
                 .lineLimit(1)
             Spacer()
-            Image(asset: .NavigationBase.settings)
+            Image(asset: .Dashboard.settings)
                 .foregroundColor(.Button.white)
         }
         .frame(height: 68)
@@ -126,11 +117,5 @@ struct SpaceSwitchView: View {
         } else {
             return 0
         }
-    }
-}
-
-#Preview {
-    MockView {
-        SpaceSwitchView(output: nil)
     }
 }

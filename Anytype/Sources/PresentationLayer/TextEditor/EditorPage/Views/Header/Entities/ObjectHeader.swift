@@ -18,7 +18,9 @@ enum ObjectHeader: Hashable {
     }
 }
 extension ObjectHeader: ContentConfigurationProvider {
-    var hashable: AnyHashable { "ObjectHeader" }
+    var hashable: AnyHashable {
+        hashValue as AnyHashable
+    }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
     
@@ -29,13 +31,11 @@ extension ObjectHeader: ContentConfigurationProvider {
                 state: filledState,
                 isShimmering: isShimmering,
                 sizeConfiguration: .editorSizeConfiguration(width: maxWidth)
-            ).cellBlockConfiguration(
-                dragConfiguration: nil,
-                styleConfiguration: nil
             )
+                .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
         case .empty(let data, let isShimmering):
             return ObjectHeaderEmptyConfiguration(data: data, isShimmering: isShimmering)
-                .cellBlockConfiguration(dragConfiguration: nil, styleConfiguration: nil)
+                .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
         }
     }
     

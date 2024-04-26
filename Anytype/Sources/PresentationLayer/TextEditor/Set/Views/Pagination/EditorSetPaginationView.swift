@@ -42,9 +42,9 @@ struct EditorSetPaginationView: View {
         }) {
             AnytypeText(
                 "\(counter)",
-                style: .bodyRegular
+                style: .bodyRegular,
+                color: paginationData.selectedPage == counter ? .Button.button : .Button.inactive
             )
-                .foregroundColor(paginationData.selectedPage == counter ? .Button.button : .Button.inactive)
                 .frame(width: 24, height: 24)
         }
     }

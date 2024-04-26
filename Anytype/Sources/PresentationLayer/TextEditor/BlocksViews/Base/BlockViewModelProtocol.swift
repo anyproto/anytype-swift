@@ -2,7 +2,6 @@ import UIKit
 import Services
 import AnytypeCore
 
-@MainActor
 protocol BlockViewModelProtocol:
     ContentConfigurationProvider,
     BlockInformationProvider
@@ -26,7 +25,7 @@ extension ContentConfigurationProvider {
         return EmptyRowConfiguration(id: "", action: {} )
             .spreadsheetConfiguration(
                 dragConfiguration: nil,
-                styleConfiguration: CellStyleConfiguration(backgroundColor: .Background.primary)
+                styleConfiguration: .init(backgroundColor: .Background.primary)
             )
     }
 }
@@ -48,6 +47,6 @@ protocol BlockInformationProvider {
 // MARK: - Extensions
 
 extension BlockInformationProvider {
-    var blockId: String { info.id }
+    var blockId: BlockId { info.id }
     var content: BlockContent { info.content }
 }

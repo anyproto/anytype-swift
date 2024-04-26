@@ -1,7 +1,7 @@
 public enum BlockContentType: Hashable {
     case smartblock(BlockSmartblock.Style)
     case text(BlockText.Style)
-    case file(FileBlockContentData)
+    case file(FileContentType)
     case divider(BlockDivider.Style)
     case bookmark(BlockBookmark.Style)
     case link(BlockLink.Appearance)

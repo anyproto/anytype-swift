@@ -9,24 +9,24 @@ final class MarkupViewModel: MarkupViewModelProtocol {
 
     private var cancellable: AnyCancellable? = nil
     
-    private let blockIds: [String]
+    private let blockIds: [BlockId]
     private let actionHandler: BlockActionHandlerProtocol
     private let document: BaseDocumentProtocol
-    private let openLinkToObject: (LinkToObjectSearchModuleData) -> Void
+    private let linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     
     // For read link value
     private var selectedMarkups: [MarkupType: AttributeState] = [:]
     
     init(
         document: BaseDocumentProtocol,
-        blockIds: [String],
+        blockIds: [BlockId],
         actionHandler: BlockActionHandlerProtocol,
-        openLinkToObject: @escaping (LinkToObjectSearchModuleData) -> Void
+        linkToObjectCoordinator: LinkToObjectCoordinatorProtocol
     ) {
         self.document = document
         self.blockIds = blockIds
         self.actionHandler = actionHandler
-        self.openLinkToObject = openLinkToObject
+        self.linkToObjectCoordinator = linkToObjectCoordinator
     }
 
     // MARK: - MarkupViewModelProtocol
@@ -62,10 +62,9 @@ final class MarkupViewModel: MarkupViewModelProtocol {
             let blokcLink = selectedMarkups.keys.compactMap { $0.blokcLink }.first
             let currentLink = Either.from(left: urlLink, right: blokcLink)
             
-            let data = LinkToObjectSearchModuleData(
+            linkToObjectCoordinator.startFlow(
                 spaceId: document.spaceId,
-                currentLinkUrl: selectedMarkups.keys.compactMap { $0.urlLink }.first,
-                currentLinkString: selectedMarkups.keys.compactMap { $0.blokcLink }.first,
+                currentLink: currentLink,
                 setLinkToObject: { [weak self, blockIds] blockId in
                     self?.actionHandler.changeMarkup(blockIds: blockIds, markType: .linkToObject(blockId))
                 },
@@ -86,7 +85,6 @@ final class MarkupViewModel: MarkupViewModelProtocol {
                     self?.view?.dismiss()
                 }
             )
-            openLinkToObject(data)
         }
     }
     
@@ -95,7 +93,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     }
     
     private func subscribeToPublishers() {
-        cancellable =  document.syncPublisher.sink { [weak self] in
+        cancellable =  document.updatePublisher.sink { [weak self] _ in
             self?.updateState()
         }
     }
@@ -142,7 +140,7 @@ fileprivate extension MarkupType {
         }
     }
     
-    var blokcLink: String? {
+    var blokcLink: BlockId? {
         switch self {
         case let .linkToObject(blokcId):
             return blokcId

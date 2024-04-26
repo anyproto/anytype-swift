@@ -1,14 +1,8 @@
 import Services
 import Combine
-import Foundation
 
-
-@MainActor
-protocol TextBlockActionHandlerProtocol: AnyObject {
-    var info: BlockInformation { get set }
-    
-    var resetSubject: PassthroughSubject<NSAttributedString?, Never> { get }
-    var focusSubject: PassthroughSubject<BlockFocusPosition, Never> { get }
+protocol TextBlockActionHandlerProtocol {
+    var resetSubject: PassthroughSubject<Void, Never> { get }
 
     func textBlockActions() -> TextBlockContentConfiguration.Actions
 }

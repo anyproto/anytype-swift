@@ -45,10 +45,11 @@ final class MiddlewareEventConverter {
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
+    
         case let .blockSetChildrenIds(data):
             infoContainer
                 .setChildren(ids: data.childrenIds, parentId: data.id)
-            return .children(blockIds: [data.id])
+            return .general
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(data):
@@ -96,6 +97,11 @@ final class MiddlewareEventConverter {
 
             // if `type` changed we should reload featured relations block
             guard oldDetails.type == newDetails.type else {
+                return .general
+            }
+            
+            let relationKeys = data.details.map { $0.key }
+            if relationLinksStorage.contains(relationKeys: relationKeys) {
                 return .general
             }
             
@@ -208,39 +214,39 @@ final class MiddlewareEventConverter {
                 .fileLimitReached,
                 .fileSpaceUsage,
                 .fileLocalUsage,
-                .fileLimitUpdated,
                 .notificationSend,
                 .notificationUpdate,
-                .payloadBroadcast,
-                .membershipUpdate: // Implemented in `MembershipStatusStorage`
+                .payloadBroadcast:
             return nil
         }
     }
     
-    private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> DocumentUpdate? {
+    private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> DocumentUpdate {
         guard let info = infoContainer.get(id: newData.id) else {
             anytypeAssertionFailure("Block model not found in container", info: ["id": newData.id])
-            return nil
+            return .general
         }
         guard case let .text(oldText) = info.content else {
             anytypeAssertionFailure("Block model doesn't support text", info: ["contentType": "\(info.content.type)"])
-            return nil
+            return .general
         }
         
         guard let newInformation = informationCreator.createBlockInformation(from: newData),
-              case .text = newInformation.content else {
-            return nil
+              case let .text(textContent) = newInformation.content else {
+            return .general
         }
         infoContainer.add(newInformation)
+        
+        // If toggle changed style to another style or vice versa
+        // we should rebuild all view to display/hide toggle's child blocks
+        let isOldStyleToggle = oldText.contentType == .toggle
+        let isNewStyleToggle = textContent.contentType == .toggle
+        let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
+
 
         var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
         childIds.append(newData.id)
-        
-        if let newInformationContentType = newInformation.textContent?.contentType,
-           newInformationContentType != oldText.contentType {
-            return .children(blockIds: Set(childIds))
-        } else {
-            return .blocks(blockIds: Set(childIds))
-        }
+
+        return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
 }

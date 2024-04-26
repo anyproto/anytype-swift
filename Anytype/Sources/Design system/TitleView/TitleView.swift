@@ -14,8 +14,7 @@ struct TitleView<RightContent>: View where RightContent: View {
         HStack {
             Spacer()
             if let title = title {
-                AnytypeText(title, style: .uxTitle1Semibold)
-                    .foregroundColor(.Text.primary)
+                AnytypeText(title, style: .uxTitle1Semibold, color: .Text.primary)
                     .frame(height: 48)
             }
             Spacer()

@@ -66,26 +66,10 @@
         <string>%d links</string>
       </dict>
     </dict>
-    <key>Backlinks count</key>
+    <key>Days to deletion account</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>%d backlink</string>
-        <key>other</key>
-        <string>%d backlinks</string>
-      </dict>
-    </dict>
-    <key>Days to deletion vault</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Dit account wordt over %#@days@ verwijderd</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +77,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>morgen</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>over %d dagen</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -176,118 +160,6 @@
         <string>Link blok</string>
         <key>other</key>
         <string>Link %d blokken</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.Invite.MaxLimit</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>one</key>
-        <string>Je hebt de limiet van %d leden bereikt. Nieuwe leden zullen zich niet kunnen aanmelden.</string>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>Je hebt de limiet bereikt van %d leden bereikt. Nieuwe leden zullen zich niet kunnen aanmelden.</string>
-      </dict>
-    </dict>
-    <key>Space.MembersCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d members</string>
-        <key>one</key>
-        <string>%d member</string>
-      </dict>
-    </dict>
-    <key>SpaceShare.RequestsCount</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@</string>
-      <key>object</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>other</key>
-        <string>%d requests</string>
-        <key>one</key>
-        <string>%d request</string>
-      </dict>
-    </dict>
-    <key>Per Month</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@month@</string>
-      <key>month</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>month</string>
-        <key>other</key>
-        <string>%d months</string>
-      </dict>
-    </dict>
-    <key>Per Week</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@week@</string>
-      <key>week</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>week</string>
-        <key>other</key>
-        <string>%d weeks</string>
-      </dict>
-    </dict>
-    <key>Per Year</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@year@</string>
-      <key>year</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>year</string>
-        <key>other</key>
-        <string>%d years</string>
-      </dict>
-    </dict>
-    <key>Per Day</key>
-    <dict>
-      <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
-      <key>day</key>
-      <dict>
-        <key>NSStringFormatSpecTypeKey</key>
-        <string>NSStringPluralRuleType</string>
-        <key>NSStringFormatValueTypeKey</key>
-        <string>d</string>
-        <key>one</key>
-        <string>day</string>
-        <key>other</key>
-        <string>%d days</string>
       </dict>
     </dict>
   </dict>

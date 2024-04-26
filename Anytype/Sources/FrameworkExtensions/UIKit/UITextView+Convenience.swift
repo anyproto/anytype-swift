@@ -85,14 +85,6 @@ extension UITextView {
 
         if !isFirstResponder && canBecomeFirstResponder {
             becomeFirstResponder()
-        } else {
-            DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
-                
-                if !isFirstResponder && canBecomeFirstResponder {
-                    becomeFirstResponder()
-                }
-            }
         }
         typingAttributes = oldTypingAttributes
     }
@@ -150,4 +142,3 @@ extension UITextView: TextViewManagingFocus {
         return .at(selectedRange)
     }
 }
-

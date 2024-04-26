@@ -3,7 +3,6 @@ import Combine
 import AnytypeCore
 import UIKit
 
-
 final class FileDownloadingViewModel: NSObject, ObservableObject {
     
     @Published private(set) var isErrorOccured: Bool = false

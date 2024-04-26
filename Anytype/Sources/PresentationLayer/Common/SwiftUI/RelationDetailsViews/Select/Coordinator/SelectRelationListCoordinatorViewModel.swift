@@ -4,14 +4,41 @@ import SwiftUI
 @MainActor
 final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRelationListModuleOutput {
 
-    let data: SelectRelationListData
+    private let objectId: String
+    private let style: SelectRelationListStyle
+    private let configuration: RelationModuleConfiguration
+    private let selectedOptionsIds: [String]
+    private let selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol
+    private let relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
 
     @Published var relationData: RelationData?
     @Published var deletionAlertData: DeletionAlertData?
     @Published var dismiss = false
     
-    init(data: SelectRelationListData) {
-        self.data = data
+    init(
+        objectId: String,
+        style: SelectRelationListStyle,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        selectRelationListModuleAssembly: SelectRelationListModuleAssemblyProtocol,
+        relationOptionSettingsModuleAssembly: RelationOptionSettingsModuleAssemblyProtocol
+    ) {
+        self.objectId = objectId
+        self.style = style
+        self.configuration = configuration
+        self.selectedOptionsIds = selectedOptionsIds
+        self.selectRelationListModuleAssembly = selectRelationListModuleAssembly
+        self.relationOptionSettingsModuleAssembly = relationOptionSettingsModuleAssembly
+    }
+    
+    func selectRelationListModule() -> AnyView {
+        selectRelationListModuleAssembly.make(
+            objectId: objectId,
+            style: style, 
+            configuration: configuration,
+            selectedOptionsIds: selectedOptionsIds,
+            output: self
+        )
     }
 
     // MARK: - SelectRelationListModuleOutput
@@ -29,8 +56,8 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
                 ),
                 mode: .create(
                     RelationOptionSettingsMode.CreateData(
-                        relationKey: data.configuration.relationKey,
-                        spaceId: data.configuration.spaceId
+                        relationKey: configuration.relationKey,
+                        spaceId: configuration.spaceId
                     )
                 )
             ),
@@ -58,6 +85,14 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
         )
     }
     
+    func selectRelationCreate(data: RelationData) -> AnyView {
+        relationOptionSettingsModuleAssembly.make(
+            objectId: objectId,
+            configuration: data.configuration,
+            completion: data.completion
+        )
+    }
+    
     func onDeleteTap(completion: @escaping (_ isSuccess: Bool) -> Void) {
         deletionAlertData = DeletionAlertData(
             title: Loc.Relation.Delete.Alert.title,
@@ -71,7 +106,7 @@ final class SelectRelationListCoordinatorViewModel: ObservableObject, SelectRela
             title: data.title,
             message: data.description,
             icon: .BottomAlert.question,
-            color: .red
+            style: .red
         ) {
             BottomAlertButton(text: Loc.cancel, style: .secondary) { [weak self] in
                 data.completion(false)

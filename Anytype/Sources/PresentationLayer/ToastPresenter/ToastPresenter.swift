@@ -3,7 +3,6 @@ import SwiftEntryKit
 import Combine
 import Services
 
-@MainActor
 protocol ToastPresenterProtocol: AnyObject {
     func show(message: String)
     func show(message: String, mode: ToastPresenterMode)
@@ -13,10 +12,10 @@ protocol ToastPresenterProtocol: AnyObject {
     func showObjectName(
         _ firstObjectName: String,
         middleAction: String,
-        secondObjectId: String,
+        secondObjectId: BlockId,
         tapHandler: @escaping () -> Void
     )
-    func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void)
+    func showObjectCompositeAlert(prefixText: String, objectId: BlockId, tapHandler: @escaping () -> Void)
 }
 
 enum ToastPresenterMode {
@@ -34,7 +33,7 @@ class ToastPresenter: ToastPresenterProtocol {
     private let documentsProvider: DocumentsProviderProtocol
     private var cancellable: AnyCancellable?
 
-    nonisolated init(
+    init(
         viewControllerProvider: ViewControllerProviderProtocol,
         containerViewController: UIViewController? = nil,
         keyboardHeightListener: KeyboardHeightListener,
@@ -87,7 +86,7 @@ class ToastPresenter: ToastPresenterProtocol {
     func showObjectName(
         _ firstObjectName: String,
         middleAction: String,
-        secondObjectId: String,
+        secondObjectId: BlockId,
         tapHandler: @escaping () -> Void
     ) {
         let objectAttributedString = NSMutableAttributedString(
@@ -104,7 +103,7 @@ class ToastPresenter: ToastPresenterProtocol {
         )
     }
     
-    func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void) {
+    func showObjectCompositeAlert(prefixText: String, objectId: BlockId, tapHandler: @escaping () -> Void) {
         showObjectCompositeAlert(
             p1: .init(string: prefixText, attributes: ToastView.defaultAttributes),
             objectId: objectId,
@@ -148,7 +147,7 @@ class ToastPresenter: ToastPresenterProtocol {
     
     private func showObjectCompositeAlert(
         p1: NSAttributedString,
-        objectId: String,
+        objectId: BlockId,
         tapHandler: @escaping () -> Void
     ) {
         Task { @MainActor in
@@ -157,7 +156,7 @@ class ToastPresenter: ToastPresenterProtocol {
             }
             
             let compositeAttributedString = NSMutableAttributedString()
-            let iconObjectAttributedString = createAttributedString(from: details)
+            let iconObjectAttributedString = await createAttributedString(from: details)
             
             compositeAttributedString.append(iconObjectAttributedString)
             
@@ -178,14 +177,23 @@ class ToastPresenter: ToastPresenterProtocol {
         }
     }
     
-    private func createAttributedString(from objectDetails: ObjectDetails) -> NSAttributedString {
-        return NSAttributedString(
-            string: objectDetails.title.trimmed(numberOfCharacters: 16),
+    private func createAttributedString(from objectDetails: ObjectDetails) async -> NSAttributedString {
+        guard let Icon = objectDetails.objectIconImage else {
+            return await NSAttributedString(
+                string: objectDetails.title.trimmed(numberOfCharacters: 16),
+                attributes: ToastView.objectAttributes
+            )
+        }
+        let maker = IconMaker(icon: Icon, size: CGSize(width: 16, height: 16))
+        let image = await maker.make()
+        return await NSAttributedString.imageFirstComposite(
+            image: image,
+            text: objectDetails.title.trimmed(numberOfCharacters: 16),
             attributes: ToastView.objectAttributes
         )
     }
     
-    private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
+    private func retrieveObjectDetails(objectId: BlockId) async -> ObjectDetails? {
         let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
         try? await targetDocument.openForPreview()
         

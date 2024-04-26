@@ -9,12 +9,11 @@ import Services
 final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
-    private let info: AccountInfo
+    
+    private let activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionService: SingleObjectSubscriptionServiceProtocol
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private var processSubscriptionService: ProcessSubscriptionServiceProtocol
-    private let accountParticipantStorage: AccountParticipantsStorageProtocol
-        
     private weak var output: HomeBottomNavigationPanelModuleOutput?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
@@ -23,23 +22,21 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     // MARK: - Public properties
     
+    @Published var isEditState: Bool = false
     @Published var profileIcon: Icon?
     @Published var progress: Double? = nil
-    @Published var canCreateObject: Bool = false
     
     init(
-        info: AccountInfo,
+        activeWorkpaceStorage: ActiveWorkpaceStorageProtocol,
         subscriptionService: SingleObjectSubscriptionServiceProtocol,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         processSubscriptionService: ProcessSubscriptionServiceProtocol,
-        accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeBottomNavigationPanelModuleOutput?
     ) {
-        self.info = info
+        self.activeWorkpaceStorage = activeWorkpaceStorage
         self.subscriptionService = subscriptionService
         self.defaultObjectService = defaultObjectService
         self.processSubscriptionService = processSubscriptionService
-        self.accountParticipantStorage = accountParticipantStorage
         self.output = output
         setupDataSubscription()
     }
@@ -68,14 +65,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onProfileSelected()
     }
     
-    func onPlusButtonLongtap() {
-        output?.onPickTypeForNewObjectSelected()
-    }
-    
-    func onAppear() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
-            canCreateObject = canEdit
-        }
+    func onTapCreateObjectWithType() {
+        output?.onCreateObjectWithTypeSelected()
     }
         
     // MARK: - Private
@@ -84,7 +75,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         Task {
             await subscriptionService.startSubscription(
                 subId: subId,
-                objectId: info.profileObjectID
+                objectId: activeWorkpaceStorage.workspaceInfo.profileObjectID
             ) { [weak self] details in
                 self?.handleProfileDetails(details: details)
             }
@@ -101,8 +92,8 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     private func handleCreateObject() {
         Task { @MainActor in
-            guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: info.accountSpaceId) else { return }
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: .navigation)
+            guard let details = try? await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId) else { return }
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, route: .navigation, view: .home)
             
             output?.onCreateObjectSelected(screenData: details.editorScreenData())
         }

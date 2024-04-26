@@ -2,17 +2,13 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @StateObject private var model: LoginViewModel
+    @StateObject var model: LoginViewModel
     @Environment(\.presentationMode) @Binding private var presentationMode
-    
-    init(output: LoginFlowOutput?) {
-        _model = StateObject(wrappedValue: LoginViewModel(output: output))
-    }
     
     var body: some View {
         content
             .navigationBarBackButtonHidden(true)
-            .navigationTitle(Loc.Auth.LoginFlow.Enter.title)
+            .navigationTitle(Loc.login)
             .navigationBarTitleDisplayMode(.inline)
             .background(TransparentBackground())
             .padding(.horizontal, 16)
@@ -67,7 +63,7 @@ struct LoginView: View {
     private var buttonsBlock : some View {
         VStack(spacing: 12) {
             StandardButton(
-                Loc.Auth.LoginFlow.Enter.title,
+                Loc.Auth.LoginFlow.Enter.Button.title,
                 inProgress: model.loadingRoute.isLoginInProgress,
                 style: .primaryLarge,
                 action: {
@@ -79,9 +75,9 @@ struct LoginView: View {
             
             AnytypeText(
                 Loc.Auth.LoginFlow.or,
-                style: .caption2Medium
+                style: .caption2Medium,
+                color: .Auth.inputText
             )
-            .foregroundColor(.Auth.inputText)
             
             HStack(spacing: 8) {
                 StandardButton(
@@ -123,6 +119,16 @@ struct LoginView: View {
 
 struct LoginView_Previews : PreviewProvider {
     static var previews: some View {
-        LoginView(output: nil)
+        LoginView(
+            model: LoginViewModel(
+                authService: DI.preview.serviceLocator.authService(),
+                seedService: DI.preview.serviceLocator.seedService(),
+                localAuthService: DI.preview.serviceLocator.localAuthService(),
+                cameraPermissionVerifier: DI.preview.serviceLocator.cameraPermissionVerifier(),
+                accountEventHandler: DI.preview.serviceLocator.accountEventHandler(),
+                applicationStateService: DI.preview.serviceLocator.applicationStateService(),
+                output: nil
+            )
+        )
     }
 }

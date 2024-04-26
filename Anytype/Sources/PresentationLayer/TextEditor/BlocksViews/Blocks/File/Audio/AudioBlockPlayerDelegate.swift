@@ -27,7 +27,6 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
             audioPlayer.pause(audioId: info.id)
             audioPlayerView?.pause()
         } else {
-            guard let fileData else { return }
             setAudioSessionCategorypPlayback()
             audioPlayer.play(
                 audioId: info.id,

@@ -6,12 +6,19 @@ import UIKit
 final class DashboardAccountDeletionAlertModel: ObservableObject {
     
     // MARK: - DI
-    @Injected(\.authService)
-    private var authService: AuthServiceProtocol
-    @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    
+    private let authService: AuthServiceProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
     
     @Published var toastBarData: ToastBarData = .empty
+    
+    init(
+        authService: AuthServiceProtocol,
+        applicationStateService: ApplicationStateServiceProtocol
+    ) {
+        self.authService = authService
+        self.applicationStateService = applicationStateService
+    }
     
     func accountDeletionConfirm() {
         UINotificationFeedbackGenerator().notificationOccurred(.success)

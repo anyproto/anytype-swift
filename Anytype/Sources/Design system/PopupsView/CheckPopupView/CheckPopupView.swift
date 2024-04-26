@@ -11,11 +11,7 @@ import Services
 
 struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
-    @StateObject private var viewModel: ViewModel
-    
-    init(viewModel: ViewModel) {
-        _viewModel = StateObject(wrappedValue: viewModel)
-    }
+    @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         VStack(spacing: 0) {
@@ -49,12 +45,10 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             }
 
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(item.title, style: .uxBodyRegular)
-                    .foregroundColor(.Text.primary)
+                AnytypeText(item.title, style: .uxBodyRegular, color: .Text.primary)
 
                 if let subtitle = item.subtitle {
-                    AnytypeText(subtitle, style: .caption1Regular)
-                        .foregroundColor(.Text.secondary)
+                    AnytypeText(subtitle, style: .caption1Regular, color: .Text.secondary)
                 }
             }
             Spacer()

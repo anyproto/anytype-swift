@@ -17,49 +17,21 @@ struct SettingsInfoBlockView: View {
     let model: SettingsInfoModel
     
     var body: some View {
-        Button {
-            model.onTap?()
-        } label: {
-            label
-        }
-        .disabled(model.onTap.isNil)
-    }
-    
-    var label: some View {
         VStack(alignment: .leading, spacing: 4) {
-            AnytypeText(model.title, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+            AnytypeText(model.title, style: .uxTitle1Semibold, color: .Text.primary)
             HStack {
-                AnytypeText(model.subtitle, style: .previewTitle2Regular)
-                    .foregroundColor(.Text.primary)
-                    .multilineTextAlignment(.leading)
+                AnytypeText(model.subtitle, style: .previewTitle2Regular, color: .Text.primary)
                 Spacer()
-                if model.onTap.isNotNil {
+                if let onTap = model.onTap {
                     Image(asset: .X24.copy)
                         .foregroundColor(.Button.active)
+                        .onTapGesture {
+                            onTap()
+                        }
                 }
             }
         }
         .padding(.vertical, 12)
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-}
-
-#Preview {
-    VStack {
-        SettingsInfoBlockView(
-            model: SettingsInfoModel(
-                title: "Description",
-                subtitle: "Setting without action",
-                onTap: nil
-            )
-        )
-        SettingsInfoBlockView(
-            model: SettingsInfoModel(
-                title: "AnytypeId",
-                subtitle: "Setting with action",
-                onTap: { }
-            )
-        )
-    }.padding()
 }

@@ -29,22 +29,8 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     
     @MainActor
     func make(data: EditorSetObject) -> AnyView {
-        EditorSetCoordinatorView(
-            model: EditorSetCoordinatorViewModel(
-                data: data,
-                editorSetAssembly: self.coordinatorsID.editorSetModule(), 
-                setViewPickerCoordinatorAssembly: self.coordinatorsID.setViewPicker(),
-                setViewSettingsCoordinatorAssembly: self.coordinatorsID.setViewSettings(), 
-                setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(), 
-                objectSettingCoordinatorAssembly: self.coordinatorsID.objectSettings(),
-                objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(), 
-                legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
-                setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
-                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(), 
-                relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
-                toastPresenter: self.uiHelpersDI.toastPresenter(),
-                navigationContext: self.uiHelpersDI.commonNavigationContext()
-            )
+        return EditorSetCoordinatorView(
+            model: EditorSetCoordinatorViewModel(data: data,editorSetAssembly: self.coordinatorsID.editorSetModule())
         ).eraseToAnyView()
     }
 }

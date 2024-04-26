@@ -1,9 +1,10 @@
 import Services
+import AnytypeCore
 
 struct SlashMenuItemsBuilder {
     private let typesService: TypesServiceProtocol
     
-    init(typesService: TypesServiceProtocol) {
+    init(typesService: TypesServiceProtocol = ServiceLocator.shared.typesService()) {
         self.typesService = typesService
     }
     
@@ -66,11 +67,12 @@ struct SlashMenuItemsBuilder {
     }
     
     private func searchObjectsMenuItem(spaceId: String) async throws -> SlashMenuItem? {
+        let shouldIncludeSetsAndCollections = FeatureFlags.setAndCollectionInSlashMenu
         guard let searchTypes = try? await typesService.searchObjectTypes(
             text: "", 
             includePins: true,
-            includeLists: true,
-            includeBookmark: false,
+            includeLists: shouldIncludeSetsAndCollections,
+            includeBookmark: false, 
             includeFiles: false,
             incudeNotForCreation: false,
             spaceId: spaceId

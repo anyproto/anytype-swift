@@ -1,16 +1,22 @@
 import UIKit
-import Combine
-import Services
+
+protocol MentionsView: AnyObject {
+    func display(_ list: [MentionDisplayData], newObjectName: String)
+    func update(mention: MentionDisplayData)
+    func dismiss()
+}
 
 final class MentionsViewController: UITableViewController {
     let viewModel: MentionsViewModel
-    var dismissAction: (() -> Void)?
-    
     private lazy var dataSource = makeDataSource()
-    private var subsriptions = [AnyCancellable]()
+    private let dismissAction: (() -> Void)?
     
-    init(viewModel: MentionsViewModel) {
+    init(
+        viewModel: MentionsViewModel,
+        dismissAction: (() -> Void)?
+    ) {
         self.viewModel = viewModel
+        self.dismissAction = dismissAction
         super.init(style: .plain)
         
         setup()
@@ -19,15 +25,7 @@ final class MentionsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.obtainMentions(filterString: "")
-        
-        viewModel.$mentions.sink { [weak self] mentions, filteredString in
-            self?.display(mentions, newObjectName: filteredString)
-        }.store(in: &subsriptions)
-        
-        viewModel.dismissSubject.sink { [weak self] _ in
-            self?.dismiss()
-        }.store(in: &subsriptions)
+        viewModel.obtainMentions(filterString: .empty)
     }
     
     private func setup() {
@@ -119,9 +117,9 @@ final class MentionsViewController: UITableViewController {
     }
 }
 
-extension MentionsViewController {
+extension MentionsViewController: MentionsView {
     
-    private func display(_ list: [MentionDisplayData], newObjectName: String) {
+    func display(_ list: [MentionDisplayData], newObjectName: String) {
         DispatchQueue.main.async {
             var snapshot = NSDiffableDataSourceSnapshot<MentionSection, MentionDisplayData>()
             snapshot.appendSections(MentionSection.allCases)

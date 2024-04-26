@@ -3,29 +3,24 @@ import Services
 
 struct ObjectCoverPicker: View {
     
-    @StateObject private var viewModel: ObjectCoverPickerViewModel
-    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var viewModel: ObjectCoverPickerViewModel
+    @Environment(\.presentationMode) private var presentationMode
+    
+    var onDismiss: () -> Void = {}
     
     @State private var index: Int = 0
     
-    init(data: ObjectCoverPickerData) {
-        self._viewModel = StateObject(wrappedValue: ObjectCoverPickerViewModel(data: data))
-    }
-    
     var body: some View {
-        VStack {
-            TabView(selection: $index) {
-                galleryTabView
-                    .tag(Tab.gallery.rawValue)
-                unsplashView
-                    .tag(Tab.unsplash.rawValue)
-                uploadTabView
-                    .tag(Tab.upload.rawValue)
-            }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            tabHeaders
+        TabView(selection: $index) {
+            galleryTabView
+                .tag(Tab.gallery.rawValue)
+            unsplashView
+                .tag(Tab.unsplash.rawValue)
+            uploadTabView
+                .tag(Tab.upload.rawValue)
         }
-        .background(Color.Background.primary)
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        tabHeaders
     }
 
     private var unsplashView: some View {
@@ -37,7 +32,8 @@ struct ObjectCoverPicker: View {
                     onItemSelect: { item in
                         viewModel.uploadUnplashCover(unsplashItem: item)
                         dismiss()
-                    }
+                    },
+                    unsplashService: UnsplashService()
                 )
             )
         }
@@ -72,8 +68,7 @@ struct ObjectCoverPicker: View {
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText(Loc.changeCover, style: .uxTitle1Semibold)
-                .foregroundColor(.Text.primary)
+            AnytypeText(Loc.changeCover, style: .uxTitle1Semibold, color: .Text.primary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if viewModel.isRemoveButtonAvailable {
@@ -81,8 +76,7 @@ struct ObjectCoverPicker: View {
                     viewModel.removeCover()
                     dismiss()
                 } label: {
-                    AnytypeText(Loc.remove, style: .uxBodyRegular)
-                        .foregroundColor(.System.red)
+                    AnytypeText(Loc.remove, style: .uxBodyRegular, color: Color.System.red)
                 }
             } else {
                 EmptyView()
@@ -108,11 +102,16 @@ struct ObjectCoverPicker: View {
         } label: {
             AnytypeText(
                 tab.title,
-                style: .uxBodyRegular
+                style: .uxBodyRegular,
+                color: index == tab.rawValue ? Color.Button.button : Color.Button.active
             )
-            .foregroundColor(index == tab.rawValue ? Color.Button.button : Color.Button.active)
         }
         .frame(maxWidth: .infinity)
+    }
+    
+    private func dismiss() {
+        presentationMode.wrappedValue.dismiss()
+        onDismiss()
     }
 }
 

@@ -12,7 +12,7 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
     private let debouncer = Debouncer()
     private let openToEditAction: () -> Void
     private let closeAction: () -> Void
-    private var currentText: String = ""
+    private var currentText: String = .empty
 
     init(
         objectId: String,
@@ -64,7 +64,6 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
                 try await textServiceHandler.setText(contextId: objectId, blockId: blockId, middlewareString: middlewareString)
             case .writeToRelationName:
                 try await relationService.updateRelation(
-                    objectId: objectId,
                     relationKey: BundledRelationKey.name.rawValue,
                     value: text.protobufValue
                 )

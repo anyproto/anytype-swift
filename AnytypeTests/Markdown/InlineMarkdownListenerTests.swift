@@ -2,8 +2,6 @@ import Foundation
 import XCTest
 @testable import Anytype
 
-
-@MainActor
 class InlineMarkdownListenerTests: XCTestCase {
     
     struct Case {

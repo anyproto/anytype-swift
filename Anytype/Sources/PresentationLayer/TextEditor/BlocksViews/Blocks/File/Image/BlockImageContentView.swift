@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 import Services
+import Kingfisher
 import AnytypeCore
 
 final class BlockImageContentView: UIView, BlockContentView {

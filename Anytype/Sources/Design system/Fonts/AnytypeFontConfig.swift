@@ -10,7 +10,6 @@ struct AnytypeFontConfig {
     enum Name: String {
         case plex = "IBMPlexMono"
         case inter = "Inter"
-        case riccione = "Riccione-Xlight"
     }
     
     enum Weight {
@@ -18,7 +17,6 @@ struct AnytypeFontConfig {
         case medium
         case semibold
         case bold
-        case light
     }
 }
 
@@ -57,14 +55,6 @@ extension AnytypeFont {
                 lineHeight: 22,
                 kern: -0.41
             )
-        case .previewTitle1Regular:
-            return AnytypeFontConfig(
-                fontName: .inter,
-                size: 17,
-                weight: .regular,
-                lineHeight: 22,
-                kern: -0.41
-            )
         case .previewTitle2Regular:
             return AnytypeFontConfig(
                 fontName: .inter,
@@ -86,14 +76,6 @@ extension AnytypeFont {
                 fontName: .inter,
                 size: 17,
                 weight: .regular,
-                lineHeight: 24,
-                kern: -0.41
-            )
-        case .bodySemibold:
-            return AnytypeFontConfig(
-                fontName: .inter,
-                size: 17,
-                weight: .semibold,
                 lineHeight: 24,
                 kern: -0.41
             )
@@ -144,14 +126,6 @@ extension AnytypeFont {
                 weight: .semibold,
                 lineHeight: 24,
                 kern: -0.41
-            )
-        case .uxTitle2Semibold:
-            return AnytypeFontConfig(
-                fontName: .inter,
-                size: 15,
-                weight: .semibold,
-                lineHeight: 20,
-                kern: -0.24
             )
         case .uxTitle2Regular:
             return AnytypeFontConfig(
@@ -297,24 +271,7 @@ extension AnytypeFont {
                 lineHeight: 56,
                 kern: -0.48
             )
-        case .riccioneBannerTitle:
-            return AnytypeFontConfig(
-                fontName: .riccione,
-                size: 48,
-                weight: .regular,
-                lineHeight: 44,
-                kern: -0.52
-            )
-        case .interBannerTitle:
-            return AnytypeFontConfig(
-                fontName: .inter,
-                size: 48,
-                weight: .light,
-                lineHeight: 48,
-                kern: -1.6
-            )
         }
-        
     }
     
     /// Line spacing.
@@ -328,9 +285,5 @@ extension AnytypeFont {
     /// - Set  top/bottom space for text view as  **Top/Bottom Space =  Line spacing / 2**.
     var lineSpacing: CGFloat {
         return config.lineHeight - UIKitFontBuilder.uiKitFont(font: self).lineHeight
-    }
-    
-    var lineHeightMultiple: CGFloat {
-        return config.lineHeight / UIKitFontBuilder.uiKitFont(font: self).lineHeight
     }
 }

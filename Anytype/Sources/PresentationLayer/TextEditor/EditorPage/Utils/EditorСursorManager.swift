@@ -1,8 +1,7 @@
 import Services
-import Foundation
 
 struct BlockFocus {
-    let id: String
+    let id: BlockId
     let position: BlockFocusPosition
 }
 
@@ -37,16 +36,16 @@ final class EditorCursorManager {
         setFocusOnFirstTextBlock(blocks: blocks)
     }
 
-    func applyCurrentFocus(shouldInvalidateFocus: Bool = true) {
+    func applyCurrentFocus() {
         guard let blockFocus = blockFocus else { return }
         let focusSubject = focusSubjectHolder.focusSubject(for: blockFocus.id)
 
         focusSubject.send(blockFocus.position)
-    
-        if shouldInvalidateFocus { self.blockFocus = nil }
+
+        self.blockFocus = nil
     }
     
-    func restoreLastFocus(at blockId: String) {
+    func restoreLastFocus(at blockId: BlockId) {
         
         guard let lastBlockFocus = lastBlockFocus, lastBlockFocus.id == blockId else { return }
         let focusSubject = focusSubjectHolder.focusSubject(for: lastBlockFocus.id)
@@ -54,13 +53,13 @@ final class EditorCursorManager {
         focusSubject.send(lastBlockFocus.position)
     }
     
-    func focus(at blockId: String, position: BlockFocusPosition = .end) {
+    func focus(at blockId: BlockId, position: BlockFocusPosition = .end) {
         let focusSubject = focusSubjectHolder.focusSubject(for: blockId)
 
         focusSubject.send(position)
     }
     
-    func didChangeCursorPosition(at blockId: String, position: BlockFocusPosition) {
+    func didChangeCursorPosition(at blockId: BlockId, position: BlockFocusPosition) {
         lastBlockFocus = BlockFocus(id: blockId, position: position)
     }
 

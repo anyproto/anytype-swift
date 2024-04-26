@@ -3,9 +3,10 @@ import Foundation
 
 public final class SynchronizedDictionary<K, V> where K: Hashable {
 
-    // MARK: - Private variables
-    
     private var dictionary: [K: V] = [:]
+
+    // MARK: - Private variables
+
     private let lock = NSLock()
 
     // MARK: - Initializers
@@ -45,25 +46,9 @@ public final class SynchronizedDictionary<K, V> where K: Hashable {
         return keys
     }
     
-    public var values: Dictionary<K, V>.Values {
-        lock.lock()
-        let values = dictionary.values
-        lock.unlock()
-        
-        return values
-    }
-    
     public func removeAll() {
         lock.lock()
         dictionary.removeAll()
         lock.unlock()
-    }
-    
-    public func dictionary<T>(using lockDictionary: (Dictionary<K, V>) -> T) -> T {
-        lock.lock()
-        let generic = lockDictionary(dictionary)
-        lock.unlock()
-        
-        return generic
     }
 }

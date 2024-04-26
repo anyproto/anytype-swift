@@ -1,31 +1,18 @@
 import UIKit
 import Services
 import Combine
-import AnytypeCore
 
-final class BlockFileViewModel: BlockViewModelProtocol {
-    var hashable: AnyHashable { info.id }
-    var info: BlockInformation { informationProvider.info }
+struct BlockFileViewModel: BlockViewModelProtocol {    
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let informationProvider: BlockModelInfomationProvider
+    let info: BlockInformation
+    let fileData: BlockFile
     let handler: BlockActionHandlerProtocol
-    let showFilePicker: (String) -> ()
-    let onFileOpen: (FilePreviewContext) -> ()
     
-    init(
-        informationProvider: BlockModelInfomationProvider,
-        handler: BlockActionHandlerProtocol,
-        showFilePicker: @escaping (String) -> (),
-        onFileOpen: @escaping (FilePreviewContext) -> ()
-    ) {
-        self.informationProvider = informationProvider
-        self.handler = handler
-        self.showFilePicker = showFilePicker
-        self.onFileOpen = onFileOpen
-    }
+    let showFilePicker: (BlockId) -> ()
+    let onFileOpen: (FilePreviewContext) -> ()
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        guard case let .file(fileData) = info.content else { return }
         switch fileData.state {
         case .done:
             onFileOpen(
@@ -33,8 +20,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
                     file: FilePreviewMedia(file: fileData, blockId: info.id),
                     sourceView: nil,
                     previewImage: nil,
-                    onDidEditFile: { [weak self] url in
-                        guard let self else { return }
+                    onDidEditFile: { url in
                         handler.uploadFileAt(localPath: url.relativePath, blockId: info.id)
                     }
                 )
@@ -47,12 +33,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
-        guard case let .file(fileData) = info.content else {
-            anytypeAssertionFailure("BlockFileViewModel has wrong info.content")
-            return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
-        }
-        
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         switch fileData.state {
         case .empty:
             return emptyViewConfiguration(text: Loc.Content.File.upload, state: .default)
@@ -62,8 +43,8 @@ final class BlockFileViewModel: BlockViewModelProtocol {
             return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .done:
             return BlockFileConfiguration(data: fileData.mediaData).cellBlockConfiguration(
-                dragConfiguration: .init(id: info.id),
-                styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id)
             )
         }
     }
@@ -74,8 +55,8 @@ final class BlockFileViewModel: BlockViewModelProtocol {
             text: text,
             state: state
         ).cellBlockConfiguration(
-            dragConfiguration: .init(id: info.id),
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id)
         )
     }
 }

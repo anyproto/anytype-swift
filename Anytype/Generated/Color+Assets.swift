@@ -117,34 +117,6 @@ extension Color {
       internal static let white = Color(asset: Asset.Button.white)
     }
     
-    // MARK: - Gradients
-    enum Gradients {
-      internal static let blueEnd = Color(asset: Asset.Gradients.blueEnd)
-      internal static let bluePinkEnd = Color(asset: Asset.Gradients.bluePinkEnd)
-      internal static let bluePinkStart = Color(asset: Asset.Gradients.bluePinkStart)
-      internal static let blueStart = Color(asset: Asset.Gradients.blueStart)
-      internal static let fadingBlue = Color(asset: Asset.Gradients.fadingBlue)
-      internal static let fadingGreen = Color(asset: Asset.Gradients.fadingGreen)
-      internal static let fadingPink = Color(asset: Asset.Gradients.fadingPink)
-      internal static let fadingPurple = Color(asset: Asset.Gradients.fadingPurple)
-      internal static let fadingRed = Color(asset: Asset.Gradients.fadingRed)
-      internal static let fadingSky = Color(asset: Asset.Gradients.fadingSky)
-      internal static let fadingTeal = Color(asset: Asset.Gradients.fadingTeal)
-      internal static let fadingYellow = Color(asset: Asset.Gradients.fadingYellow)
-      internal static let greenOrangeEnd = Color(asset: Asset.Gradients.greenOrangeEnd)
-      internal static let greenOrangeStart = Color(asset: Asset.Gradients.greenOrangeStart)
-      internal static let pinkOrangeEnd = Color(asset: Asset.Gradients.pinkOrangeEnd)
-      internal static let pinkOrangeStart = Color(asset: Asset.Gradients.pinkOrangeStart)
-      internal static let redEnd = Color(asset: Asset.Gradients.redEnd)
-      internal static let redStart = Color(asset: Asset.Gradients.redStart)
-      internal static let skyEnd = Color(asset: Asset.Gradients.skyEnd)
-      internal static let skyStart = Color(asset: Asset.Gradients.skyStart)
-      internal static let tealEnd = Color(asset: Asset.Gradients.tealEnd)
-      internal static let tealStart = Color(asset: Asset.Gradients.tealStart)
-      internal static let yellowEnd = Color(asset: Asset.Gradients.yellowEnd)
-      internal static let yellowStart = Color(asset: Asset.Gradients.yellowStart)
-    }
-    
     // MARK: - ModalScreen
     enum ModalScreen {
       internal static let background = Color(asset: Asset.ModalScreen.background)

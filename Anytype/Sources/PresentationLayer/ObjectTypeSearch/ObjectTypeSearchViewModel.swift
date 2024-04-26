@@ -1,28 +1,24 @@
 import SwiftUI
 import Services
-import AnytypeCore
 
 
 @MainActor
 final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
-    @Published var showPasteButton = false
     
     let showPins: Bool
     private let showLists: Bool
     private let showFiles: Bool
     private let incudeNotForCreation: Bool
-    private let allowPaste: Bool
     
     private let spaceId: String
     private let workspaceService: WorkspaceServiceProtocol
     private let typesService: TypesServiceProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let pasteboardHelper: PasteboardHelperProtocol
     
-    private let onSelect: (TypeSelectionResult) -> Void
+    private let onSelect: (_ type: ObjectType) -> Void
     private var searchTask: Task<(), any Error>?
     
     nonisolated init(
@@ -30,46 +26,23 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         showLists: Bool,
         showFiles: Bool,
         incudeNotForCreation: Bool,
-        allowPaste: Bool,
         spaceId: String,
         workspaceService: WorkspaceServiceProtocol,
         typesService: TypesServiceProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         toastPresenter: ToastPresenterProtocol,
-        pasteboardHelper: PasteboardHelperProtocol,
-        onSelect: @escaping (TypeSelectionResult) -> Void
+        onSelect: @escaping (_ type: ObjectType) -> Void
     ) {
         self.showPins = showPins
         self.showLists = showLists
         self.showFiles = showFiles
         self.incudeNotForCreation = incudeNotForCreation
-        self.allowPaste = allowPaste
         self.spaceId = spaceId
         self.workspaceService = workspaceService
         self.typesService = typesService
         self.objectTypeProvider = objectTypeProvider
         self.toastPresenter = toastPresenter
         self.onSelect = onSelect
-        self.pasteboardHelper = pasteboardHelper
-        
-        pasteboardHelper.startSubscription { [weak self] in
-            Task { [self] in
-                await self?.updatePasteButton()
-            }
-        }
-    }
-    
-    func onAppear() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.screenObjectTypeSearch)
-        
-        search(text: searchText)
-        updatePasteButton()
-    }
-    
-    func updatePasteButton() {
-        withAnimation {
-            showPasteButton = allowPaste && pasteboardHelper.hasSlots
-        }
     }
     
     func search(text: String) {
@@ -140,30 +113,14 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
             }
             
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.typeSearchResult)
-            
-            onSelect(.objectType(type: type))
+            onSelect(type)
         }
-    }
-    
-    func createObjectFromClipboard() {
-        Task {
-            guard pasteboardHelper.hasSlots else {
-                anytypeAssertionFailure("Trying to paste with empty clipboard")
-                return
-            }
-            
-            if !pasteboardHelper.isPasteboardEmpty { // No permission
-                onSelect(.createFromPasteboard)
-            }
-        }
-        
     }
     
     func createType(name: String) {
         Task {
             let type = try await typesService.createType(name: name, spaceId: spaceId)
-            onSelect(.objectType(type: type))
+            onSelect(type)
         }
     }
     
@@ -175,17 +132,13 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     }
     
     func setDefaultType(_ type: ObjectType) {
-        objectTypeProvider.setDefaultObjectType(type: type, spaceId: spaceId, route: .navigation)
+        objectTypeProvider.setDefaultObjectType(type: type, spaceId: spaceId)
         search(text: searchText)
     }
     
     func addPinedType(_ type: ObjectType) {
         do {
             try typesService.addPinedType(type, spaceId: spaceId)
-            AnytypeAnalytics.instance().logEvent(
-                AnalyticsEventsName.pinObjectType,
-                withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsType]                
-            )
             search(text: searchText)
         } catch { }
     }
@@ -193,10 +146,6 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func removePinedType(_ type: ObjectType) {
         do {
             try typesService.removePinedType(typeId: type.id, spaceId: spaceId)
-            AnytypeAnalytics.instance().logEvent(
-                AnalyticsEventsName.unpinObjectType,
-                withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsType]
-            )
             search(text: searchText)
         } catch { }
     }

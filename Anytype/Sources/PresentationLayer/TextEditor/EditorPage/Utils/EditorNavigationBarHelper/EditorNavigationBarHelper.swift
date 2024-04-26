@@ -26,7 +26,6 @@ final class EditorNavigationBarHelper {
 
     private var currentEditorState: EditorEditingState?
     private var lastMode: EditorNavigationBarTitleView.Mode?
-    private var readonlyReason: BlocksReadonlyReason?
 
     private let onTemplatesButtonTap: () -> Void
         
@@ -123,15 +122,6 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         lastMode = mode
     }
     
-    func updatePermissions(_ permissions: ObjectPermissions) {
-        switch permissions.editBlocks {
-        case .edit:
-            readonlyReason = nil
-        case .readonly(let reason):
-            readonlyReason = reason
-        }
-    }
-    
     func updateSyncStatusData(_ statusData: SyncStatusData) {
         syncStatusItem.changeStatusData(statusData)
     }
@@ -161,12 +151,12 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarView.leftButton = nil
             navigationBarView.rightButton = nil
             navigationBarTitleView.setIsReadonly(nil)
-        case .readonly:
+        case .readonly(let mode):
             navigationBarView.titleView = navigationBarTitleView
             navigationBarView.rightButton = settingsItem
             navigationBarView.leftButton = syncStatusItem
             lastMode.map { navigationBarTitleView.configure(model: $0) }
-            navigationBarTitleView.setIsReadonly(readonlyReason)
+            navigationBarTitleView.setIsReadonly(mode)
             updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         case let .simpleTablesSelection(_, selectedBlocks, _):
             navigationBarTitleView.setAlphaForSubviews(1)

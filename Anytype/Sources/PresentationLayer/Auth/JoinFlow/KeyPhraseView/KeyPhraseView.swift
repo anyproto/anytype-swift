@@ -2,13 +2,7 @@ import SwiftUI
 
 struct KeyPhraseView: View {
     
-    @StateObject private var model: KeyPhraseViewModel
-    
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
-        _model = StateObject(
-            wrappedValue: KeyPhraseViewModel(state: state, output: output)
-        )
-    }
+    @StateObject var model: KeyPhraseViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,7 +10,6 @@ struct KeyPhraseView: View {
             Spacer()
             buttons
         }
-        .snackbar(toastBarData: $model.snackBar)
         .onAppear {
             model.onAppear()
         }
@@ -27,26 +20,24 @@ struct KeyPhraseView: View {
     
     private var content: some View {
         VStack(spacing: 0) {
-            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .heading)
-                .foregroundColor(.Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Key.title, style: .heading, color: .Auth.inputText)
                 .multilineTextAlignment(.center)
             
             Spacer.fixedHeight(12)
             
             AnytypeText(
                 Loc.Auth.JoinFlow.Key.description,
-                style: .bodyRegular
+                style: .calloutRegular,
+                color: .Auth.body
             )
-            .foregroundColor(.Auth.body)
-            .multilineTextAlignment(.center)
-            .padding(.horizontal, 30)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 30)
             
             Spacer.fixedHeight(4)
             
-            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .uxBodyRegular)
-                .foregroundColor(.Auth.inputText)
+            AnytypeText(Loc.Auth.JoinFlow.Key.Button.Info.title, style: .uxBodyRegular, color: .Auth.inputText)
                 .padding(.vertical, 4)
-                .fixTappableArea()
+                .contentShape(Rectangle())
                 .onTapGesture {
                     model.showMoreInfo.toggle()
                 }
@@ -84,8 +75,7 @@ struct KeyPhraseView: View {
     private var buttons: some View {
         VStack(spacing: 0) {
             if !model.keyShown {
-                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Tip.title, style: .caption1Regular)
-                    .foregroundColor(.Auth.body)
+                AnytypeText(Loc.Auth.JoinFlow.Key.Button.Tip.title, style: .caption1Regular, color: .Auth.body)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 28)
                 Spacer.fixedHeight(18)
@@ -114,6 +104,14 @@ struct KeyPhraseView: View {
 }
 
 
-#Preview {
-    KeyPhraseView(state: JoinFlowState(), output: nil)
+struct KeyView_Previews : PreviewProvider {
+    static var previews: some View {
+        KeyPhraseView(
+            model: KeyPhraseViewModel(
+                state: JoinFlowState(),
+                output: nil,
+                alertOpener: DI.preview.uihelpersDI.alertOpener()
+            )
+        )
+    }
 }

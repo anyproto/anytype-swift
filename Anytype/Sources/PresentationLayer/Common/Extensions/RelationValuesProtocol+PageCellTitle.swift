@@ -15,11 +15,21 @@ extension BundledRelationsValueProvider {
 
     var title: String {
         if isDeleted {
-            // TODO: Move to editor
             return Loc.nonExistentObject
         }
 
-        return objectName.withPlaceholder
+        let title: String
+
+        switch layoutValue {
+        case .note:
+            title = snippet
+        case .file, .image:
+            title = "\(name).\(fileExt)"
+        default:
+            title = name
+        }
+
+        return title.isEmpty ? Loc.Object.Title.placeholder : title.replacedNewlinesWithSpaces
     }
 
     var subtitle: String {

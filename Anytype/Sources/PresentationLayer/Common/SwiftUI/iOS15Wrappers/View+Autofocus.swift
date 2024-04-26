@@ -8,7 +8,6 @@ struct AutofocusedModifier: ViewModifier {
     
     func body(content: Content) -> some View {
         content
-            .focused($focused)
             .task {
                 try? await Task.sleep(seconds: delay)
                 focused = true

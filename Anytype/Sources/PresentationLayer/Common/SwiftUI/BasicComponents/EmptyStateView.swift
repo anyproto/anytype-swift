@@ -3,30 +3,21 @@ import SwiftUI
 struct EmptyStateView: View {
     let title: String
     let subtitle: String
-    let buttonData: ButtonData?
-    
-    init(title: String, subtitle: String, buttonData: ButtonData? = nil) {
-        self.title = title
-        self.subtitle = subtitle
-        self.buttonData = buttonData
-    }
+    let actionText: String
+    let action: () -> ()
     
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
-            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .color(.red))
+            ButtomAlertHeaderImageView(icon: .BottomAlert.error, style: .red)
             Spacer.fixedHeight(12)
-            AnytypeText(title, style: .uxCalloutMedium)
-                .foregroundColor(.Text.primary)
+            AnytypeText(title, style: .uxCalloutMedium, color: .Text.primary)
                 .multilineTextAlignment(.center)
-            AnytypeText(subtitle, style: .uxCalloutRegular, enableMarkdown: true)
-                .foregroundColor(.Text.primary)
+            AnytypeText(subtitle, style: .uxCalloutRegular, color: .Text.primary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(12)
-            if let buttonData {
-                StandardButton(buttonData.title, style: .secondarySmall) {
-                    buttonData.action()
-                }
+            StandardButton(actionText, style: .secondarySmall) {
+                action()
             }
             Spacer.fixedHeight(48)
             Spacer()
@@ -35,20 +26,10 @@ struct EmptyStateView: View {
     }
 }
 
-extension EmptyStateView {
-    struct ButtonData {
-        let title: String
-        let action: () -> ()
-    }
-}
-
 #Preview {
     EmptyStateView(
         title: Loc.Relation.EmptyState.title,
         subtitle: Loc.Relation.EmptyState.description,
-        buttonData: EmptyStateView.ButtonData(
-            title: Loc.create,
-            action: {}
-        )
-    )
+        actionText: Loc.create
+    ) { }
 }

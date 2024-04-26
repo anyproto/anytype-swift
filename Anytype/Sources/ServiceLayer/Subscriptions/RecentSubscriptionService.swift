@@ -20,19 +20,20 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-    }()
-    
-    nonisolated init() {}
-    
+    private let subscriptionStorage: SubscriptionStorageProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private let subscriptionId = "Recent-\(UUID().uuidString)"
+    
+    nonisolated init(
+        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
+        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
+        objectTypeProvider: ObjectTypeProviderProtocol
+    ) {
+        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+        self.activeWorkspaceStorage = activeWorkspaceStorage
+        self.objectTypeProvider = objectTypeProvider
+    }
     
     func startSubscription(
         type: RecentWidgetType,
@@ -43,7 +44,8 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
         let sort = makeSort(type: type)
         
         let filters: [DataviewFilter] = .builder {
-            SearchHelper.notHiddenFilters()
+            SearchHelper.notHiddenFilter()
+            SearchHelper.isArchivedFilter(isArchived: false)
             SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.layoutFilter(DetailsLayout.visibleLayouts)
             SearchHelper.templateScheme(include: false)

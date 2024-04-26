@@ -21,10 +21,10 @@ extension SubscriptionData {
 
         public init(
             identifier: String,
-            sorts: [DataviewSort] = [],
+            sorts: [DataviewSort],
             filters: [DataviewFilter],
             limit: Int,
-            offset: Int = 0,
+            offset: Int,
             keys: [String],
             afterID: String? = nil,
             beforeID: String? = nil,

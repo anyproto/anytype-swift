@@ -3,17 +3,17 @@ import Combine
 import XCTest
 
 final class InfoContainerMock: InfoContainerProtocol {
-    func recursiveChildren(of id: String) -> [BlockInformation] {
+    func recursiveChildren(of id: BlockId) -> [BlockInformation] {
         []
     }
     
-    func publisherFor(id: String) -> AnyPublisher<BlockInformation?, Never> {
+    func publisherFor(id: BlockId) -> AnyPublisher<BlockInformation?, Never> {
         assertionFailure()
         return PassthroughSubject().eraseToAnyPublisher()
     }
 
-    var getReturnInfo = [String: BlockInformation]()
-    func get(id: String) -> BlockInformation? {
+    var getReturnInfo = [BlockId: BlockInformation]()
+    func get(id: BlockId) -> BlockInformation? {
         guard let info = getReturnInfo[id] else {
             XCTFail()
             return nil
@@ -21,14 +21,14 @@ final class InfoContainerMock: InfoContainerProtocol {
         return info
     }
     
-    private var childrenReturnInfo = [String: [BlockInformation]]()
-    func stubChildForParent(parentId: String, child: BlockInformation?) {
+    private var childrenReturnInfo = [BlockId: [BlockInformation]]()
+    func stubChildForParent(parentId: BlockId, child: BlockInformation?) {
         var data: [BlockInformation] = childrenReturnInfo[parentId] ?? []
         child.flatMap { data.append($0) }
         childrenReturnInfo[parentId] = data
     }
     
-    func children(of id: String) -> [BlockInformation] {
+    func children(of id: BlockId) -> [BlockInformation] {
         guard let children = childrenReturnInfo[id] else {
             XCTFail()
             return []
@@ -41,23 +41,19 @@ final class InfoContainerMock: InfoContainerProtocol {
         assertionFailure()
     }
     
-    func remove(id: String) {
+    func remove(id: BlockId) {
         assertionFailure()
     }
     
-    func setChildren(ids: [String], parentId: String) {
+    func setChildren(ids: [BlockId], parentId: BlockId) {
         assertionFailure()
     }
     
-    func update(blockId: String, update: (BlockInformation) -> (BlockInformation?)) {
+    func update(blockId: BlockId, update: (BlockInformation) -> (BlockInformation?)) {
         assertionFailure()
     }
     
-    func updateDataview(blockId: String, update: (BlockDataview) -> (BlockDataview)) {
+    func updateDataview(blockId: BlockId, update: (BlockDataview) -> (BlockDataview)) {
         assertionFailure()
     }
-    
-    func publishAllValues() {}
-    
-    func publishValue(for key: String) {}
 }

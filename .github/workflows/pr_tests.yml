@@ -2,11 +2,11 @@ name: Run tests on PR
 
 on:
   pull_request:
+    branches: [ "develop", "release" ]
   workflow_dispatch:
 
 jobs:
   main:
-    name: Test Checks
     runs-on: ios-self-hosted
     timeout-minutes: 35
 

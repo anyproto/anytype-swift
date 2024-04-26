@@ -6,5 +6,4 @@ protocol SpaceSettingsModuleOutput: AnyObject {
     func onRemoteStorageSelected()
     func onPersonalizationSelected()
     func onSpaceShareSelected()
-    func onSpaceMembersSelected()
 }

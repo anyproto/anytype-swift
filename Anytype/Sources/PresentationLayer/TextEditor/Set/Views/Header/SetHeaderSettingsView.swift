@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct SetHeaderSettingsView: View {
     
-    @StateObject var model: SetHeaderSettingsViewModel
+    @ObservedObject var model: SetHeaderSettingsViewModel
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -22,7 +22,11 @@ struct SetHeaderSettingsView: View {
     
     @ViewBuilder
     private var createView: some View {
-        compositeCreateButtons
+        if FeatureFlags.setTemplateSelection {
+            compositeCreateButtons
+        } else {
+            createObjectButton
+        }
     }
     
     private var settingButton: some View {
@@ -34,6 +38,14 @@ struct SetHeaderSettingsView: View {
                 .foregroundColor(model.isActiveHeader ? .Button.active : .Button.inactive)
         }
         .disabled(!model.isActiveHeader)
+    }
+    
+    private var createObjectButton: some View {
+        StandardButton(Loc.new, style: .primaryXSmall) {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onCreateTap()
+        }
+        .disabled(!model.isActiveCreateButton)
     }
     
     private var compositeCreateButtons: some View {
@@ -69,9 +81,9 @@ struct SetHeaderSettingsView: View {
             HStack(alignment: .center, spacing: 0) {
                 AnytypeText(
                     model.viewName.isNotEmpty ? model.viewName : Loc.SetViewTypesPicker.Settings.Textfield.Placeholder.untitled,
-                    style: .subheading
+                    style: .subheading,
+                    color: model.isActiveHeader ? .Text.primary : .Text.tertiary
                 )
-                .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
                 Spacer.fixedWidth(4)
                 Image(asset: .arrowDown)
                     .foregroundColor(model.isActiveHeader ? .Text.primary : .Text.tertiary)
@@ -86,12 +98,10 @@ struct SetHeaderSettings_Previews: PreviewProvider {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
                 setDocument: SetDocument(
-                    document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
+                    document: MockBaseDocument(),
                     inlineParameters: nil,
                     relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
-                    objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-                    accountParticipantsStorage: DI.preview.serviceLocator.accountParticipantStorage(),
-                    permissionsBuilder: SetPermissionsBuilder()
+                    objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider()
                 ),
                 onViewTap: {},
                 onSettingsTap: {},

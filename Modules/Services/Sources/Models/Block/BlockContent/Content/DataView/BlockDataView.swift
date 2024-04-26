@@ -2,7 +2,7 @@ import AnytypeCore
 import ProtobufMessages
 
 public struct BlockDataview: Hashable {
-    public var activeViewId: String
+    public var activeViewId: BlockId
     public let views: [DataviewView]
     public let relationLinks: [RelationLink]
     public let groupOrders: [DataviewGroupOrder]
@@ -11,7 +11,7 @@ public struct BlockDataview: Hashable {
     public let isCollection: Bool
     
     public func updated(
-        activeViewId: String? = nil,
+        activeViewId: BlockId? = nil,
         views: [DataviewView]? = nil,
         relationLinks: [RelationLink]? = nil,
         groupOrders: [DataviewGroupOrder]? = nil,

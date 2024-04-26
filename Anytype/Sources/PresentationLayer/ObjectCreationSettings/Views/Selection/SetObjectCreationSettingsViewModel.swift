@@ -5,19 +5,9 @@ import Combine
 import SwiftUI
 
 struct ObjectCreationSetting {
-    let objectTypeId: String
+    let objectTypeId: BlockId
     let spaceId: String
-    let templateId: String
-}
-
-@MainActor
-protocol SetObjectCreationSettingsOutput: AnyObject {
-    func onTemplateSelection(setting: ObjectCreationSetting)
-    func onObjectTypesSearchAction(setDocument: SetDocumentProtocol, completion: @escaping (ObjectType) -> Void)
-    func templateEditingHandler(
-        setting: ObjectCreationSetting,
-        onSetAsDefaultTempalte: @escaping (String) -> Void
-    )
+    let templateId: BlockId
 }
 
 @MainActor
@@ -26,9 +16,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     @Published var objectTypes = [InstalledObjectTypeViewModel]()
     @Published var templates = [TemplatePreviewViewModel]()
     @Published var canChangeObjectType = false
-    @Published var toastData: ToastBarData = .empty
     
     var isTemplatesEditable = false
+    
+    var templateEditingHandler: ((ObjectCreationSetting) -> Void)?
+    var onObjectTypesSearchAction: (() -> Void)?
     
     private var userTemplates = [TemplatePreviewModel]() {
         didSet {
@@ -36,26 +28,25 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    @Injected(\.templatesService)
-    private var templatesService: TemplatesServiceProtocol
-    @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
-    
     private let interactor: SetObjectCreationSettingsInteractorProtocol
     private let setDocument: SetDocumentProtocol
-    
-    private weak var output: SetObjectCreationSettingsOutput?
-    
+    private let templatesService: TemplatesServiceProtocol
+    private let toastPresenter: ToastPresenterProtocol
+    private let onTemplateSelection: (ObjectCreationSetting) -> Void
     private var cancellables = [AnyCancellable]()
     
     init(
         interactor: SetObjectCreationSettingsInteractorProtocol,
         setDocument: SetDocumentProtocol,
-        output: SetObjectCreationSettingsOutput?
+        templatesService: TemplatesServiceProtocol,
+        toastPresenter: ToastPresenterProtocol,
+        onTemplateSelection: @escaping (ObjectCreationSetting) -> Void
     ) {
         self.interactor = interactor
         self.setDocument = setDocument
-        self.output = output
+        self.templatesService = templatesService
+        self.toastPresenter = toastPresenter
+        self.onTemplateSelection = onTemplateSelection
         
         updateTemplatesList()
         
@@ -87,10 +78,10 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    func onTemplateSelect(objectTypeId: String, templateId: String) {
+    func onTemplateSelect(objectTypeId: BlockId, templateId: BlockId) {
         setTemplateAsDefault(templateId: templateId)
-        output?.onTemplateSelection(
-            setting: ObjectCreationSetting(
+        onTemplateSelection(
+            ObjectCreationSetting(
                 objectTypeId: objectTypeId,
                 spaceId: setDocument.spaceId,
                 templateId: templateId
@@ -102,19 +93,19 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         let objectTypeId = interactor.objectTypeId
         let spaceId = setDocument.spaceId
         Task { [weak self] in
-            guard let self else { return }
             do {
-                let templateId = try await templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId)
-                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId), spaceId: spaceId)
-                output?.templateEditingHandler(
-                    setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId),
-                    onSetAsDefaultTempalte: { [weak self] templateId in
-                        self?.setTemplateAsDefault(templateId: templateId)
-                    }
+                guard let templateId = try await self?.templatesService.createTemplateFromObjectType(objectTypeId: objectTypeId) else {
+                    return
+                }
+                AnytypeAnalytics.instance().logTemplateCreate(objectType: .object(typeId: objectTypeId))
+                self?.templateEditingHandler?(
+                    ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateId)
                 )
-                let objectDetails = await retrieveObjectDetails(objectId: interactor.objectTypeId)
-                let title = objectDetails?.title.trimmed(numberOfCharacters: 16) ?? ""
-                toastData = ToastBarData(text: Loc.Templates.Popup.WasAddedTo.title(title), showSnackBar: true)
+                self?.toastPresenter.showObjectCompositeAlert(
+                    prefixText: Loc.Templates.Popup.wasAddedTo,
+                    objectId: self?.interactor.objectTypeId ?? "",
+                    tapHandler: { }
+                )
             } catch {
                 anytypeAssertionFailure(error.localizedDescription)
             }
@@ -125,7 +116,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         setObjectTypeAsDefault(objectType: objectType)
     }
     
-    func setTemplateAsDefault(templateId: String) {
+    func setTemplateAsDefault(templateId: BlockId) {
         Task {
             do {
                 try await interactor.setDefaultTemplate(templateId: templateId)
@@ -133,11 +124,11 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
         }
     }
     
-    func setTemplateAsDefaultForType(templateId: String) {
+    func setTemplateAsDefaultForType(templateId: BlockId) {
         Task {
             do {
                 try await templatesService.setTemplateAsDefaultForType(objectTypeId: interactor.objectTypeId, templateId: templateId)
-                toastData = ToastBarData(text: Loc.Templates.Popup.default, showSnackBar: true)
+                toastPresenter.show(message: Loc.Templates.Popup.default)
             }
         }
     }
@@ -204,10 +195,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
             title: nil,
             isSelected: false,
             onTap: { [weak self] in
-                guard let self else { return }
-                output?.onObjectTypesSearchAction(setDocument: setDocument) { [weak self] objectType in
-                    self?.setObjectType(objectType)
-                }
+                self?.onObjectTypesSearchAction?()
             }
         )
         convertedObjectTypes.insert(searchItem, at: 0)
@@ -225,16 +213,13 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 switch option {
                 case .delete:
                     try await templatesService.deleteTemplate(templateId: templateViewModel.id)
-                    toastData = ToastBarData(text: Loc.Templates.Popup.removed, showSnackBar: true)
+                    toastPresenter.show(message: Loc.Templates.Popup.removed)
                 case .duplicate:
                     try await templatesService.cloneTemplate(blockId: templateViewModel.id)
-                    toastData = ToastBarData(text: Loc.Templates.Popup.duplicated, showSnackBar: true)
+                    toastPresenter.show(message: Loc.Templates.Popup.duplicated)
                 case .editTemplate:
-                    output?.templateEditingHandler(
-                        setting: ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateViewModel.id),
-                        onSetAsDefaultTempalte: { [weak self] templateId in
-                            self?.setTemplateAsDefault(templateId: templateId)
-                        }
+                    templateEditingHandler?(
+                        ObjectCreationSetting(objectTypeId: objectTypeId, spaceId: spaceId, templateId: templateViewModel.id)
                     )
                 }
                 
@@ -287,13 +272,6 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
                 )
             }
         }
-    }
-    
-    private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
-        let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
-        try? await targetDocument.openForPreview()
-        
-        return targetDocument.details
     }
 }
 

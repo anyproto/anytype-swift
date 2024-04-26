@@ -8,11 +8,11 @@ final class EventsListener: EventsListenerProtocol {
     
     // MARK: - Internal variables
     
-    var onUpdatesReceive: (([DocumentUpdate]) -> Void)?
+    var onUpdateReceive: ((DocumentUpdate) -> Void)?
         
     // MARK: - Private variables
     
-    private let objectId: String
+    private let objectId: BlockId
      
     private let infoContainer: InfoContainerProtocol
     
@@ -26,7 +26,7 @@ final class EventsListener: EventsListenerProtocol {
     // MARK: - Initializers
     
     init(
-        objectId: String,
+        objectId: BlockId,
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
@@ -71,7 +71,7 @@ final class EventsListener: EventsListenerProtocol {
     private func subscribeMiddlewareEvents() {
         EventBunchSubscribtion.default.addHandler { [weak self] events in
             guard events.contextId == self?.objectId else { return }
-            self?.handle(events: events)
+            await self?.handle(events: events)
         }.store(in: &subscriptions)
     }
     
@@ -89,19 +89,20 @@ final class EventsListener: EventsListenerProtocol {
         subscriptions.append(subscription)
     }
     
+    @MainActor
     private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
+        let dataSourceUpdates = events.dataSourceEvents.compactMap { localConverter.convert($0) }
 
-        let updates = middlewareUpdates + markupUpdates + localUpdates
-        
-        IndentationBuilder.build(
-            container: infoContainer,
-            id: objectId
-        )
+        var updates = middlewareUpdates + markupUpdates + localUpdates
 
-        receiveUpdates(updates.filteredUpdates)
+        if dataSourceUpdates.isNotEmpty {
+            updates.append(.dataSourceUpdate)
+        }
+
+        receiveUpdates(updates)
     }
     
     private func handleRelation(eventsBunch: RelationEventsBunch) {
@@ -110,12 +111,46 @@ final class EventsListener: EventsListenerProtocol {
     }
     
     private func receiveUpdates(_ updates: [DocumentUpdate]) {
-        onUpdatesReceive?(updates)
+        if updates.contains(where: (\.hasUpdate)) {
+            IndentationBuilder.build(
+                container: infoContainer,
+                id: objectId
+            )
+        }
+        
+        updates
+            .filteredUpdates
+            .forEach { update in
+            onUpdateReceive?(update)
+        }
     }
 }
 
 private extension Array where Element == DocumentUpdate {
     var filteredUpdates: Self {
-        contains(.general) ? [.general] : self
+        var newUpdates = filter {
+            if case .blocks = $0 {
+                return false
+            }
+
+            return true
+        }
+
+        var blockIdsUpdates = Set<BlockId>()
+
+        forEach {
+            if case let .blocks(blocksSet) = $0 {
+                blocksSet.forEach { blockIdsUpdates.insert($0) }
+            }
+        }
+        if blockIdsUpdates.count > 0 {
+            newUpdates.append(.blocks(blockIds: blockIdsUpdates))
+        }
+
+        guard contains(.general) else {
+            return newUpdates
+        }
+
+        return [.general]
     }
 }

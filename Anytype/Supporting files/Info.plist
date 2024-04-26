@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(BUNDLE_NAME)</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
@@ -27,15 +27,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>$(BUILD_APP_URL_SCHEME)</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>anytype</string>
+				<string>$(APP_URL_SCHEME)</string>
 			</array>
 		</dict>
 	</array>
@@ -79,7 +71,6 @@
 		<string>IBMPlexMono-Bold.ttf</string>
 		<string>IBMPlexMono-Regular.ttf</string>
 		<string>Inter.ttf</string>
-		<string>Riccione-Xlight.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>

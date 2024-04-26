@@ -28,7 +28,6 @@ public extension UIView.LayoutStrategy {
     /// Prepares the view for autolayout and calls layout block.
     ///
     /// - Parameter closure: The layout block.
-    @MainActor
     func anchors(using closure: (LayoutProxy) -> Void) {
         root.translatesAutoresizingMaskIntoConstraints = false
         closure(LayoutProxy(view: root))

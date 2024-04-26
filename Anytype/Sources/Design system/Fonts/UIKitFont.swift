@@ -151,8 +151,6 @@ struct UIKitFontBuilder {
             return UIFontDescriptor.AttributeName.name
         case .inter:
             return UIFontDescriptor.AttributeName.family
-        case .riccione:
-            return UIFontDescriptor.AttributeName.family
         }
     }
 
@@ -166,8 +164,6 @@ struct UIKitFontBuilder {
             return .semibold
         case .bold:
             return .bold
-        case .light:
-            return .light
         }
     }
 }

@@ -7,22 +7,31 @@ import Services
 @MainActor
 final class InitialCoordinatorViewModel: ObservableObject {
     
-    @Injected(\.middlewareConfigurationProvider)
-    private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
-    @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
-    @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
-    @Injected(\.localAuthService)
-    private var localAuthService: LocalAuthServiceProtocol
-    @Injected(\.localRepoService)
-    private var localRepoService: LocalRepoServiceProtocol
+    private let middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    private let applicationStateService: ApplicationStateServiceProtocol
+    private let seedService: SeedServiceProtocol
+    private let localAuthService: LocalAuthServiceProtocol
+    private let localRepoService: LocalRepoServiceProtocol
     
     @Published var showWarningAlert: Bool = false
     @Published var showSaveBackupAlert: Bool = false
     @Published var toastBarData: ToastBarData = .empty
     @Published var middlewareShareFile: URL? = nil
     @Published var localStoreURL: URL? = nil
+    
+    init(
+        middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol,
+        applicationStateService: ApplicationStateServiceProtocol,
+        seedService: SeedServiceProtocol,
+        localAuthService: LocalAuthServiceProtocol,
+        localRepoService: LocalRepoServiceProtocol
+    ) {
+        self.middlewareConfigurationProvider = middlewareConfigurationProvider
+        self.applicationStateService = applicationStateService
+        self.seedService = seedService
+        self.localAuthService = localAuthService
+        self.localRepoService = localRepoService
+    }
     
     func onAppear() {
         checkCrash()
@@ -46,7 +55,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     func onCopyPhrase() {
         Task {
-            try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
+            try await localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain)
             let phrase = try seedService.obtainSeed()
             UIPasteboard.general.string = phrase
             toastBarData = ToastBarData(text: Loc.copied, showSnackBar: true)

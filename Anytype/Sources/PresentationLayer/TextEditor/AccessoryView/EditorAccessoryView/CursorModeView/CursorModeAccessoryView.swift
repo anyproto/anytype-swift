@@ -1,11 +1,9 @@
 import UIKit
+import Services
 import AnytypeCore
-import Combine
 
 class CursorModeAccessoryView: UIView {
     private let viewModel: CursorModeAccessoryViewModel
-    
-    private var subscriptions = [AnyCancellable]()
 
     // MARK: - Lifecycle
 
@@ -15,46 +13,63 @@ class CursorModeAccessoryView: UIView {
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
 
         setupViews()
-        bindViewModel()
-    }
-    
-    private func bindViewModel() {
-        viewModel.$items.sink { [weak self] cells in
-            Item.allCases.enumerated().forEach {
-                self?.stackView.arrangedSubviews[$0.offset].isHidden = !cells.contains($0.element)
-            }
-        }.store(in: &subscriptions)
     }
 
     private func setupViews() {
         autoresizingMask = .flexibleHeight
         backgroundColor = .Background.primary
         addSubview(stackView) {
-            $0.pinToSuperview()
-        }
-        
-        Item.allCases.forEach { item in
-            addBarButtonItem(image: item.image) { [weak self] _ in
-                UISelectionFeedbackGenerator().selectionChanged()
-                
-                self?.viewModel.handle(item.action)
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview()
+            } else {
+                $0.pinToSuperviewPreservingReadability()
             }
-        }
-        
-        addBarButtonItem(title: Loc.done) { [weak self] _ in
-            UISelectionFeedbackGenerator().selectionChanged()
-            self?.viewModel.handle(.keyboardDismiss)
         }
     }
     
+    // MARK: - Public methods
+    func setDelegate(_ delegate: CursorModeAccessoryViewDelegate) {
+        viewModel.delegate = delegate
+    }
+    
+    func update(info: BlockInformation, textView: UITextView, usecase: TextBlockUsecase) {
+        viewModel.textView = textView
+        viewModel.info = info
+        
+        updateMenuItems(info: info, usecase: usecase)
+    }
+
     // MARK: - Private methods
-    private func update(with items: [Item]) {
+    private func updateMenuItems(info: BlockInformation, usecase: TextBlockUsecase) {
+        let items: [Item]
+        if info.content.type == .text(.title) {
+            items = [.style]
+        } else {
+            switch usecase {
+            case .editor:
+                items = [.slash, .style, .actions, .mention]
+            case .simpleTable:
+                items = [.style, .actions, .mention]
+            }
+        }
+        
         stackView.arrangedSubviews.forEach { view in
             stackView.removeArrangedSubview(view)
             view.removeFromSuperview()
         }
 
-      
+        items.forEach { item in
+            addBarButtonItem(image: item.image) { [weak self] _ in
+                UISelectionFeedbackGenerator().selectionChanged()
+
+                self?.viewModel.handle(item.action)
+            }
+        }
+
+        addBarButtonItem(title: Loc.done) { [weak self] _ in
+            UISelectionFeedbackGenerator().selectionChanged()
+            self?.viewModel.handle(.keyboardDismiss)
+        }
     }
 
     /// Add bar item with title and image.

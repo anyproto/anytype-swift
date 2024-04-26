@@ -1,36 +1,62 @@
 import Foundation
 import SwiftUI
-import Services
 
 @MainActor
 protocol ObjectRelationListCoordinatorModuleOutput: AnyObject {
     func onObjectOpen(screenData: EditorScreenData)
 }
 
+enum ObjectRelationListMode {
+    case object(limitedObjectTypes: [String])
+    case file
+}
+
 @MainActor
 final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRelationListModuleOutput {
 
-    let data: ObjectRelationListData
-    
+    private let objectId: String
+    private let mode: ObjectRelationListMode
+    private let configuration: RelationModuleConfiguration
+    private let selectedOptionsIds: [String]
+    private let objectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol
     private weak var output: ObjectRelationListCoordinatorModuleOutput?
-    
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
     
     @Published var deletionAlertData: DeletionAlertData?
     @Published var dismiss = false
     
     init(
-        data: ObjectRelationListData,
+        objectId: String,
+        mode: ObjectRelationListMode,
+        configuration: RelationModuleConfiguration,
+        selectedOptionsIds: [String],
+        objectRelationListModuleAssembly: ObjectRelationListModuleAssemblyProtocol,
         output: ObjectRelationListCoordinatorModuleOutput?
     ) {
-        self.data = data
+        self.objectId = objectId
+        self.mode = mode
+        self.configuration = configuration
+        self.selectedOptionsIds = selectedOptionsIds
+        self.objectRelationListModuleAssembly = objectRelationListModuleAssembly
         self.output = output
     }
     
-    func obtainLimitedObjectTypes(with typesIds: [String]) -> [ObjectType] {
-        typesIds.compactMap { [weak self] id in
-            self?.objectTypeProvider.objectTypes.first { $0.id == id }
+    func relationListModule() -> AnyView {
+        switch mode {
+        case let .object(limitedObjectTypes):
+            return objectRelationListModuleAssembly.makeObjectModule(
+                objectId: objectId,
+                limitedObjectTypes: limitedObjectTypes,
+                configuration: configuration,
+                selectedOptionsIds: selectedOptionsIds,
+                output: self
+            )
+        case .file:
+            return objectRelationListModuleAssembly.makeFileModule(
+                objectId: objectId,
+                configuration: configuration,
+                selectedOptionsIds: selectedOptionsIds,
+                output: self
+            )
         }
     }
 
@@ -59,7 +85,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
             title: data.title,
             message: data.description,
             icon: .BottomAlert.question,
-            color: .red
+            style: .red
         ) {
             BottomAlertButton(text: Loc.cancel, style: .secondary) { [weak self] in
                 data.completion(false)

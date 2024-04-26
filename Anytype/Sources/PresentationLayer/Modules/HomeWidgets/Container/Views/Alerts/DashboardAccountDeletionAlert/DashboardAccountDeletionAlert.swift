@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DashboardAccountDeletionAlert: View {
     
-    @StateObject private var model = DashboardAccountDeletionAlertModel()
+    @ObservedObject var model: DashboardAccountDeletionAlertModel
 
     @Environment(\.presentationMode) var presentationMode
     

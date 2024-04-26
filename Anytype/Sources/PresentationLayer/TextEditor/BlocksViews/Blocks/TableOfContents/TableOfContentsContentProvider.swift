@@ -12,7 +12,6 @@ final class TableOfContentsContentProvider {
     
     private let document: BaseDocumentProtocol
     private lazy var subscriptions = [AnyCancellable]()
-    private lazy var blockSubscriptions = [String: AnyCancellable]()
     
     // MARK: - Public properties
     
@@ -27,26 +26,36 @@ final class TableOfContentsContentProvider {
     
     private func startUpdateContent() {
         updateContent()
-        
-        document.flattenBlockIds.sink { [weak self] _ in
-            self?.updateContent()
-        }.store(in: &subscriptions)
-        
-        document.resetBlocksSubject.sink { [weak self] _ in
-            self?.updateContent()
+        document.updatePublisher.sink { [weak self] in
+            self?.handleUpdate(updateResult: $0)
         }.store(in: &subscriptions)
     }
     
+    private func handleUpdate(updateResult: DocumentUpdate) {
+        switch updateResult {
+        case let .blocks(updatedIds):
+            for blockId in updatedIds {
+                guard let info = document.infoContainer.get(id: blockId),
+                      case let .text(content) = info.content,
+                      Constants.sortedHeaderStyles.contains(content.contentType) else { continue }
+                updateContent()
+                break
+            }
+        case .dataSourceUpdate, .general:
+            updateContent()
+        case .syncStatus, .details:
+            break
+        }
+    }
+    
     private func updateContent() {
-        // Remove all subscriptions
         let newContent = buildTableOfContents()
-//        guard newContent != content else { return }
+        guard newContent != content else { return }
         content = newContent
     }
     
     private func buildTableOfContents() -> TableOfContentData {
         var hasHeader = [Bool](repeating: false, count: Constants.sortedHeaderStyles.count)
-        blockSubscriptions.removeAll()
         
         var items = [TableOfContentItem]()
         for child in document.children {
@@ -55,17 +64,13 @@ final class TableOfContentsContentProvider {
                 guard let position = Constants.sortedHeaderStyles.firstIndex(of: content.contentType) else {
                     continue
                 }
-                
-                // Subscription on infocontainer child
                 let depth = hasHeader[0..<position].filter { $0 }.count
                 hasHeader[position] = true
                 for index in position+1..<hasHeader.count {
                     hasHeader[index] = false
                 }
-                let title = content.text.withPlaceholder
-                let item = TableOfContentItem(blockId: child.id, title: title, level: depth)
-                setupSubsriptionFor(item: item)
-                items.append(item)
+                let title = content.text.isEmpty ? Loc.Object.Title.placeholder : content.text
+                items.append(TableOfContentItem(blockId: child.id, title: title, level: depth))
             default:
                 break
             }
@@ -75,12 +80,6 @@ final class TableOfContentsContentProvider {
             return .empty(Loc.TalbeOfContents.empty)
         } else {
             return .items(items)
-        }
-    }
-    
-    private func setupSubsriptionFor(item: TableOfContentItem) {
-        blockSubscriptions[item.blockId] = document.infoContainer.publisherFor(id: item.blockId).sink { [weak item] information in
-            item?.title = information?.textContent?.text ?? Loc.Object.Title.placeholder
         }
     }
 }

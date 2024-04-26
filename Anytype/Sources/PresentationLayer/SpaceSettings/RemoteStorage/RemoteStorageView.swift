@@ -3,11 +3,7 @@ import AnytypeCore
 
 struct RemoteStorageView: View {
     
-    @StateObject private var model: RemoteStorageViewModel
-    
-    init(output: RemoteStorageModuleOutput?) {
-        _model = StateObject(wrappedValue: RemoteStorageViewModel(output: output))
-    }
+    @StateObject var model: RemoteStorageViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,19 +12,16 @@ struct RemoteStorageView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     Spacer.fixedHeight(10)
-                    AnytypeText(model.spaceInstruction, style: .uxCalloutRegular)
-                        .foregroundColor(.Text.primary)
+                    AnytypeText(model.spaceInstruction, style: .uxCalloutRegular, color: .Text.primary)
                     if model.showGetMoreSpaceButton {
                         Spacer.fixedHeight(4)
-                        AnytypeText(Loc.FileStorage.Space.getMore, style: .uxCalloutMedium)
-                            .foregroundColor(.System.red)
+                        AnytypeText(Loc.FileStorage.Space.getMore, style: .uxCalloutMedium, color: .System.red)
                             .onTapGesture {
                                 model.onTapGetMoreSpace()
                             }
                     }
                     Spacer.fixedHeight(20)
-                    AnytypeText(model.spaceUsed, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+                    AnytypeText(model.spaceUsed, style: .relation3Regular, color: .Text.secondary)
                     Spacer.fixedHeight(8)
                     RemoteStorageSegment(model: model.segmentInfo)
                     Spacer.fixedHeight(16)

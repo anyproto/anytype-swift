@@ -5,7 +5,9 @@ public protocol MetricsServiceProtocol {
     func metricsSetParameters(platform: String, version: String) async throws
 }
 
-final class MetricsService: MetricsServiceProtocol {
+public final class MetricsService: MetricsServiceProtocol {
+    
+    public init() {}
     
     public func metricsSetParameters(platform: String, version: String) async throws {
         try await ClientCommands.metricsSetParameters(.with {

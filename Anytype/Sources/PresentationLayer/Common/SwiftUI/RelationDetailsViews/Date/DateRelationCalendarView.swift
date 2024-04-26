@@ -6,21 +6,12 @@ struct DateRelationCalendarView: View {
     @StateObject var viewModel: DateRelationCalendarViewModel
     @Environment(\.dismiss) var dismiss
     
-    init(date: Date?, configuration: RelationModuleConfiguration) {
-        _viewModel = StateObject(wrappedValue: DateRelationCalendarViewModel(
-            date: date,
-            configuration: configuration
-        ))
-    }
-    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             content
         }
         .background(Color.Background.secondary)
-        .frame(height: 525)
-        .fitPresentationDetents()
         .onChange(of: viewModel.dismiss) { _ in
             dismiss()
         }
@@ -29,7 +20,7 @@ struct DateRelationCalendarView: View {
     private var content: some View {
         NavigationView {
             list
-                .navigationTitle(viewModel.config.title)
+                .navigationTitle(viewModel.title)
                 .navigationBarTitleDisplayMode(.inline)
         }
         .navigationViewStyle(.stack)
@@ -72,8 +63,7 @@ struct DateRelationCalendarView: View {
         Button {
             viewModel.onQuickOptionTap(option)
         } label: {
-            AnytypeText(option.title, style: .bodyRegular)
-                .foregroundColor(.Text.primary)
+            AnytypeText(option.title, style: .bodyRegular, color: .Text.primary)
                 .frame(height: 44)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .fixTappableArea()
@@ -85,15 +75,21 @@ struct DateRelationCalendarView: View {
         Button {
             viewModel.clear()
         } label: {
-            AnytypeText(Loc.clear, style: .uxBodyRegular)
-                .foregroundColor(.Button.active)
+            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .Button.active)
         }
     }
 }
 
-#Preview {
-    DateRelationCalendarView(
-        date: nil,
-        configuration: RelationModuleConfiguration.default
-    )
+struct DateCalendarView_Previews: PreviewProvider {
+    static var previews: some View {
+        DateRelationCalendarView(
+            viewModel: DateRelationCalendarViewModel(
+                title: "",
+                date: Date(),
+                relationKey: "",
+                relationsService: RelationsService(objectId: ""), 
+                analyticsType: .block
+            )
+        )
+    }
 }

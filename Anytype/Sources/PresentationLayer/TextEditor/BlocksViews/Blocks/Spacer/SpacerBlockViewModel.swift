@@ -3,21 +3,21 @@ import UIKit
 struct SpacerBlockViewModel: SystemContentConfiguationProvider {
     enum SpacerCase: CGFloat {
         case firstRowOffset = 14
-        case another = 15
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
-    var hashable: AnyHashable { usage }
+    var hashable: AnyHashable {
+        [
+            usage
+        ] as [AnyHashable]
+    }
 
     let usage: SpacerCase
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         SpacerBlockConfiguration(spacerHeight: usage.rawValue)
-            .cellBlockConfiguration(
-                dragConfiguration: nil,
-                styleConfiguration: nil
-            )
+            .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
     }
 }
 

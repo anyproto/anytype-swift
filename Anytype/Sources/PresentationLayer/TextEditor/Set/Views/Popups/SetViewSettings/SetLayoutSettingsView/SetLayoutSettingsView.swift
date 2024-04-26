@@ -1,16 +1,8 @@
 import SwiftUI
 
 struct SetLayoutSettingsView: View {
-    @StateObject private var model: SetLayoutSettingsViewModel
+    @StateObject var model: SetLayoutSettingsViewModel
 
-    init(setDocument: SetDocumentProtocol, viewId: String, output: SetLayoutSettingsCoordinatorOutput?) {
-        _model = StateObject(wrappedValue: SetLayoutSettingsViewModel(
-            setDocument: setDocument,
-            viewId: viewId,
-            output: output
-        ))
-    }
-    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -48,9 +40,9 @@ struct SetLayoutSettingsView: View {
             Image(asset: configuration.icon)
             AnytypeText(
                 configuration.name,
-                style: configuration.isSelected ? .caption2Medium : .caption2Regular
+                style: configuration.isSelected ? .caption2Medium : .caption2Regular,
+                color: configuration.isSelected ? .System.amber100 : .Text.secondary
             )
-            .foregroundColor(configuration.isSelected ? .System.amber100 : .Text.secondary)
         }
         .frame(height: 96)
         .frame(maxWidth: .infinity)
@@ -121,8 +113,7 @@ struct SetLayoutSettingsView: View {
                     Button {
                         option.onTap()
                     } label: {
-                        AnytypeText(option.id, style: .uxBodyRegular)
-                            .foregroundColor(.Text.primary)
+                        AnytypeText(option.id, style: .uxBodyRegular, color: .Text.primary)
                     }
                 }
             }
@@ -134,11 +125,9 @@ struct SetLayoutSettingsView: View {
     
     private func valueSettingContent(title: String, value: String, contextual: Bool) -> some View {
         HStack(spacing: 0) {
-            AnytypeText(title, style: .uxBodyRegular)
-                .foregroundColor(.Text.primary)
+            AnytypeText(title, style: .uxBodyRegular, color: .Text.primary)
             Spacer()
-            AnytypeText(value, style: .uxBodyRegular)
-                .foregroundColor(.Text.secondary)
+            AnytypeText(value, style: .uxBodyRegular, color: .Text.secondary)
             Spacer.fixedWidth(6)
             Image(asset: contextual ? .X18.Disclosure.down : .X18.Disclosure.right)
                 .foregroundColor(.Button.active)

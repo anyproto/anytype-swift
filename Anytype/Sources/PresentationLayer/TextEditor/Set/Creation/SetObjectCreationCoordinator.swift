@@ -53,7 +53,6 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
             showCreateObject(details: details, titleInputType: titleInputType)
             AnytypeAnalytics.instance().logCreateObject(
                 objectType: details.analyticsType,
-                spaceId: details.spaceId,
                 route: customAnalyticsRoute ?? (setDocument.isCollection() ? .collection : .set)
             )
         } else {

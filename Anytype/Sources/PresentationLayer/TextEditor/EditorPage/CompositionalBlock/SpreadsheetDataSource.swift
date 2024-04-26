@@ -33,14 +33,7 @@ final class SpreadsheetViewDataSource {
     }
 
     func reconfigureItems(items: [EditorItem]) {
-        let filtered = dataSource.snapshot().itemIdentifiers.filter { items.contains($0) }
-        guard filtered.isNotEmpty else { return }
-        
-        var snapshot = dataSource.snapshot()
-        snapshot.reconfigureItems(filtered)
-        
-    
-        dataSource.apply(snapshot)
+        items.forEach(reloadCell(for:))
     }
 
     func update(
@@ -72,7 +65,7 @@ final class SpreadsheetViewDataSource {
         setupCell(cell: cell, indexPath: indexPath, item: item.contentConfigurationProvider)
     }
 
-    func dataSourceItem(for blockId: String) -> EditorItem? {
+    func dataSourceItem(for blockId: BlockId) -> EditorItem? {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
@@ -83,7 +76,7 @@ final class SpreadsheetViewDataSource {
         }
     }
 
-    func indexPath(for blockId: String) -> IndexPath? {
+    func indexPath(for blockId: BlockId) -> IndexPath? {
         guard let item = dataSourceItem(for: blockId) else { return nil }
 
         return dataSource.indexPath(for: item)

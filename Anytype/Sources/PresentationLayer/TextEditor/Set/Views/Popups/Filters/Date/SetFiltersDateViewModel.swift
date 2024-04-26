@@ -9,12 +9,14 @@ final class SetFiltersDateViewModel: ObservableObject {
     @Published var numberOfDays: Int
     @Published var condition: DataviewFilter.Condition
     
-    @Published var filtersDaysData: SetTextViewData?
+    @Published var showFiltersDaysView = false
     
     private let filter: SetFilter
     private weak var setSelectionModel: SetFiltersSelectionViewModel?
     private let onApplyDate: (SetFiltersDate) -> Void
     private var cancellable: AnyCancellable?
+    
+    private let setTextViewModuleAssembly = SetTextViewModuleAssembly()
     
     var rows: [SetFiltersDateRowConfiguration] {
         DataviewFilter.QuickOption.orderedCases(for: condition).map { option in
@@ -31,10 +33,11 @@ final class SetFiltersDateViewModel: ObservableObject {
     }
     
     init(
-        data: SetFiltersDateViewData,
-        setSelectionModel: SetFiltersSelectionViewModel?
-    ){
-        self.filter = data.filter
+        filter: SetFilter,
+        setSelectionModel: SetFiltersSelectionViewModel?,
+        onApplyDate: @escaping (SetFiltersDate) -> Void)
+    {
+        self.filter = filter
         self.quickOption = filter.filter.quickOption
         self.setSelectionModel = setSelectionModel
         self.condition = setSelectionModel?.condition ?? DataviewFilter.Condition.equal
@@ -53,7 +56,7 @@ final class SetFiltersDateViewModel: ObservableObject {
             self.numberOfDays = filter.filter.value.safeIntValue ?? 0
         }
         
-        self.onApplyDate = data.onApplyDate
+        self.onApplyDate = onApplyDate
         self.setup()
     }
     
@@ -64,6 +67,16 @@ final class SetFiltersDateViewModel: ObservableObject {
                 numberOfDays: numberOfDays,
                 date: date
             )
+        )
+    }
+    
+    func filtersDaysView() -> AnyView {
+        setTextViewModuleAssembly.make(
+            title: quickOption.title,
+            text: "\(numberOfDays)",
+            onTextChanged: { [weak self] value in
+                self?.numberOfDays = Int(Double(value) ?? 0)
+            }
         )
     }
     
@@ -78,13 +91,7 @@ final class SetFiltersDateViewModel: ObservableObject {
         
         switch option {
         case .numberOfDaysAgo, .numberOfDaysNow:
-            filtersDaysData = SetTextViewData(
-                title: quickOption.title,
-                text: "\(numberOfDays)",
-                onTextChanged: { [weak self] value in
-                    self?.numberOfDays = Int(Double(value) ?? 0)
-                }
-            )
+            showFiltersDaysView.toggle()
         default:
             break
         }

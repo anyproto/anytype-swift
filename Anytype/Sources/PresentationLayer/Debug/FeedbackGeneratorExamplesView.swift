@@ -1,7 +1,6 @@
 import SwiftUI
 import UIKit
 
-
 struct FeedbackGeneratorExamplesView: View {
     
     private let sections: [SectionModel] = makeSections()
@@ -24,8 +23,7 @@ struct FeedbackGeneratorExamplesView: View {
                     Button {
                         handleTapOnExample(example)
                     } label: {
-                        AnytypeText(example.title, style: .uxBodyRegular)
-                            .foregroundColor(.Text.primary)
+                        AnytypeText(example.title, style: .uxBodyRegular, color: .Text.primary)
                     }
                 }
             }

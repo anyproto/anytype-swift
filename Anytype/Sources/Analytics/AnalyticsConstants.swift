@@ -23,9 +23,12 @@ enum AnalyticsEventsName {
     static let blockDelete = "DeleteBlock"
     static let createLink = "CreateLink"
 
+    static let blockListDuplicate = "DuplicateBlock"
     static let blockListSetAlign = "ChangeBlockAlign"
     static let changeBlockBackground = "ChangeBlockBackground"
-    
+    static let blockUpload = "UploadMedia"
+    static let downloadFile = "DownloadMedia"
+
     static let blockSetTextText = "Writing"
     static let changeBlockStyle = "ChangeBlockStyle"
     static let changeTextStyle = "ChangeTextStyle"
@@ -43,6 +46,7 @@ enum AnalyticsEventsName {
     static let createRelation = "CreateRelation"
     static let changeRelationValue = "ChangeRelationValue"
     static let deleteRelationValue = "DeleteRelationValue"
+    static let deleteRelation = "DeleteRelation"
     
     // Templating
     static let selectTemplate = "SelectTemplate"
@@ -59,12 +63,16 @@ enum AnalyticsEventsName {
     static let restoreFromBin = "RestoreFromBin"
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
+    static let objectTypeChange = "ChangeObjectType"
     static let selectObjectType = "SelectObjectType"
+    static let showObject = "ScreenObject"
     static let setLayoutAlign = "SetLayoutAlign"
     static let setIcon = "SetIcon"
     static let removeIcon = "RemoveIcon"
     static let setCover = "SetCover"
     static let removeCover = "RemoveCover"
+    static let addFeatureRelation = "FeatureRelation"
+    static let removeFeatureRelation = "UnfeatureRelation"
     static let linkToObject = "LinkToObject"
     static let lockPage = "LockPage"
     static let unlockPage = "UnlockPage"
@@ -72,11 +80,6 @@ enum AnalyticsEventsName {
     static let redo = "Redo"
     static let duplicateObject = "DuplicateObject"
     static let moveBlock = "MoveBlock"
-    
-    // Type picker
-    static let pinObjectType = "PinObjectType"
-    static let unpinObjectType = "UnpinObjectType"
-    static let typeSearchResult = "TypeSearchResult"
 
     // Details events
     static let changeLayout = "ChangeLayout"
@@ -110,7 +113,6 @@ enum AnalyticsEventsName {
     static let settingsWallpaperSet = "SettingsWallpaperSet"
     static let screenSettingsStorageIndex = "ScreenSettingsStorageIndex"
     static let screenSettingsStorageManager = "ScreenSettingsStorageManager"
-    static let screenObjectTypeSearch = "ScreenObjectTypeSearch"
     
     static let showDeletionWarning = "ShowDeletionWarning"
 
@@ -255,13 +257,12 @@ enum AnalyticsEventsPropertiesKey {
     static let format = "format"
     static let condition = "condition"
     static let linkType = "linkType"
+    static let view = "view"
     static let context = "context"
     static let color = "color"
     static let name = "name"
     
     static let middleTime = "middleTime"
-    static let permissions = "permissions"
-    static let spaceType = "spaceType"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -278,7 +279,11 @@ enum AnalyticsEventsRouteKind: String {
     case widget = "Widget"
     case sharingExtension = "SharingExtension"
     case homeScreen = "HomeScreen"
-    case clipboard = "Clipboard"
+}
+
+enum AnalyticsEventsRouteView: String {
+    case navbar = "Navbar"
+    case home = "Home"
 }
 
 enum AnalyticsEventsRelationType: String {
@@ -338,19 +343,20 @@ enum AnalyticsWidgetSource {
 
 enum AnalyticsObjectType {
     case object(typeId: String)
-    case file(fileExt: String)
     case custom
     
     var analyticsId: String {
         switch self {
         case .object(let typeId):
             return typeId
-        case .file(let fileExt):
-            return fileExt
         case .custom:
             return AnalyticsEventsTypeValues.customType
         }
     }
+}
+
+enum AnalyticsView: String {
+    case widget = "Widget"
 }
 
 enum AnalyticsWidgetRoute: String {
@@ -376,7 +382,9 @@ enum ShowDeletionWarningRoute: String {
 enum ScreenOnboardingStep: String {
     case void = "Void"
     case phrase = "Phrase"
-    case offline = "Offline"
+    case soul = "Soul"
+    case soulCreating = "SoulCreating"
+    case spaceCreating = "SpaceCreating"
 }
 
 enum ClickOnboardingButton: String {
@@ -399,13 +407,11 @@ enum AnalyticsDefaultObjectTypeChangeRoute: String {
     case settings = "Settings"
     case set = "Set"
     case collection = "Collection"
-    case navigation = "Navigation"
 }
 
 enum SelectObjectTypeRoute: String {
     case longTap = "LongTap"
     case navigation = "Navigation"
-    case clipboard = "Clipboard"
 }
 
 enum OnboardingTooltip: String {
@@ -424,11 +430,8 @@ enum ClickDeleteSpaceWarningType: String {
     case cancel = "Cancel"
 }
 
-enum SpaceAccessAnalyticsType: String {
+enum DeleteSpaceType: String {
     case `private` = "Private"
-    case shared = "Shared"
-    case personal = "Personal"
-    case unrecognized = "Unrecognized"
 }
 
 enum SelectNetworkType: String {
@@ -449,39 +452,4 @@ enum ClickOnboardingTooltipType: String {
 enum ClickGalleryInstallSpaceType: String {
     case new = "New"
     case existing = "Existing"
-}
-
-enum CreateSpaceRoute: String {
-    case navigation = "Navigation"
-    case gallery = "Gallery"
-}
-
-enum ClickSettingsSpaceShareType: String {
-    case moreInfo = "MoreInfo"
-    case revoke = "Revoke"
-    case qr = "Qr"
-    case shareLink = "ShareLink"
-}
-
-enum ScreenInviteConfirmRoute: String {
-    case notification = "Notification"
-    case settings = "Settings"
-}
-
-enum PermissionAnalyticsType: String {
-    case read = "Reader"
-    case write = "Writer"
-    case owner = "Owner"
-    case noPermissions = "NoPermissions"
-    case unrecognized = "Unrecognized"
-}
-
-enum ScreenQrAnalyticsType: String {
-    case inviteSpace = "InviteSpace"
-}
-
-enum ClickMembershipType: String {
-    case moreInfo = "MoreInfo"
-    case payByCard = "Stripe"
-    case managePayment = "ManagePayment"
 }

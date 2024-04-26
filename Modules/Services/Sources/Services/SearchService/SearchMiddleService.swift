@@ -17,7 +17,9 @@ public extension SearchMiddleServiceProtocol {
     }
 }
 
-final class SearchMiddleService: SearchMiddleServiceProtocol {
+public final class SearchMiddleService: SearchMiddleServiceProtocol {
+    
+    public init() {}
     
     // MARK: - SearchServiceProtocol
     

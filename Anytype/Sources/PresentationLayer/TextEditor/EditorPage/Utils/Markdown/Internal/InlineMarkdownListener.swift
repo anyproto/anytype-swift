@@ -14,8 +14,6 @@ final class InlineMarkdownListener: MarkdownListener {
     
     // MARK: - MarkdownListener
     
-    nonisolated init() { }
-    
     func markdownChange(textView: UITextView, replacementText: String, range: NSRange) -> MarkdownChange? {
         
         let replacedAttributedText = textView.attributedText.mutable

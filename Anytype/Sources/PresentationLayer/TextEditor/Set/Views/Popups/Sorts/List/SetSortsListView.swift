@@ -1,13 +1,9 @@
 import SwiftUI
 
 struct SetSortsListView: View {
-    @StateObject private var viewModel: SetSortsListViewModel
+    @StateObject var viewModel: SetSortsListViewModel
     
     @State private var editMode = EditMode.inactive
-    
-    init(setDocument: SetDocumentProtocol, viewId: String, output: SetSortsListCoordinatorOutput?) {
-        _viewModel = StateObject(wrappedValue: SetSortsListViewModel(setDocument: setDocument, viewId: viewId, output: output))
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -61,9 +57,9 @@ struct SetSortsListView: View {
             Spacer()
             AnytypeText(
                 Loc.EditSet.Popup.Sorts.EmptyView.title,
-                style: .uxCalloutRegular
+                style: .uxCalloutRegular,
+                color: .Text.secondary
             )
-                .foregroundColor(.Text.secondary)
                 .frame(height: 68)
             Spacer()
         }

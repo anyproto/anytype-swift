@@ -9,12 +9,14 @@ protocol TypesPinStorageProtocol {
 }
 
 final class TypesPinStorage: TypesPinStorageProtocol {
-    
-    @Injected(\.objectTypeProvider)
-    private var typeProvider: ObjectTypeProviderProtocol
+    private let typeProvider: ObjectTypeProviderProtocol
     
     @UserDefault("widgetCollapsedIds", defaultValue: [:])
     private var storage: [String: [ObjectType]]
+    
+    init(typeProvider: ObjectTypeProviderProtocol) {
+        self.typeProvider = typeProvider
+    }
     
     func getPins(spaceId: String) throws -> [ObjectType] {
         if let pins = storage[spaceId] {

@@ -2,12 +2,7 @@ import SwiftUI
 
 struct RelationFormatsListView: View {
     
-    @StateObject private var viewModel: RelationFormatsListViewModel
-    @Environment(\.dismiss) private var dismiss
-    
-    init(selectedFormat: SupportedRelationFormat, onFormatSelect: @escaping (SupportedRelationFormat) -> Void) {
-        _viewModel = StateObject(wrappedValue: RelationFormatsListViewModel(selectedFormat: selectedFormat, onFormatSelect: onFormatSelect))
-    }
+    @ObservedObject var viewModel: RelationFormatsListViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,7 +18,6 @@ struct RelationFormatsListView: View {
                 ForEach(viewModel.supportedFormatModels) { model in
                     Button {
                         viewModel.didSelectFormat(id: model.id)
-                        dismiss()
                     } label: {
                         RelationFormatListCell(model: model)
                     }

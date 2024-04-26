@@ -28,11 +28,11 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     
     static func conditionType(for relationDetails: RelationDetails) -> Condition {
         switch relationDetails.format {
-        case .shortText, .longText, .url, .email, .unrecognized, .phone:
+        case .shortText, .longText, .url, .email, .file, .unrecognized, .phone:
             return .text
         case .number:
             return .number
-        case .tag, .status, .object, .file:
+        case .tag, .status, .object:
             return .selected(relationDetails.format)
         case .checkbox:
             return .checkbox

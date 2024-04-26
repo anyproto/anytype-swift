@@ -39,7 +39,7 @@ public extension DataviewRelationOption {
         self.dateFormat = data.dateFormat
     }
     
-    init(key: String, isVisible: Bool) {
+    init(key: BlockId, isVisible: Bool) {
         self.init(
             key: key,
             isVisible: isVisible,

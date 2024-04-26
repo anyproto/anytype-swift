@@ -5,10 +5,6 @@ struct ObjectRelationListView: View {
     
     @StateObject var viewModel: ObjectRelationListViewModel
     
-    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
-        _viewModel = StateObject(wrappedValue: ObjectRelationListViewModel(data: data, output: output))
-    }
-    
     var body: some View {
         RelationListContainerView(
             searchText: $viewModel.searchText,
@@ -54,9 +50,9 @@ struct ObjectRelationListView: View {
             WrappingHStack(items, spacing: .constant(5), lineSpacing: 0) { item in
                 AnytypeText(
                     item.name,
-                    style: item.isSelected ? .caption1Medium : .caption1Regular
+                    style: item.isSelected ? .caption1Medium : .caption1Regular,
+                    color: .Text.secondary
                 )
-                .foregroundColor(.Text.secondary)
             }
             .padding(.top, 26)
             .padding(.bottom, 8)
@@ -108,15 +104,26 @@ struct ObjectRelationListView: View {
 }
 
 #Preview("Object") {
-    ObjectRelationListView(
-        data: ObjectRelationListData(
-            configuration: RelationModuleConfiguration.default,
-            interactor: ObjectRelationListInteractor(spaceId: "spaceId", limitedObjectTypes: []),
+    SelectRelationListView(
+        viewModel: SelectRelationListViewModel(
+            style: .status,
+            configuration: RelationModuleConfiguration(
+                title: "Object",
+                isEditable: true,
+                relationKey: "",
+                spaceId: "",
+                selectionMode: .multi,
+                analyticsType: .block
+            ),
             relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                config: RelationModuleConfiguration.default,
-                selectedOptionsIds: []
-            )
-        ),
-        output: nil
+                selectionMode: .multi,
+                selectedOptionsIds: [],
+                relationKey: "",
+                analyticsType: .block,
+                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
+            ),
+            searchService: DI.preview.serviceLocator.searchService(),
+            output: nil
+        )
     )
 }

@@ -15,8 +15,8 @@ public struct BlockRestrictionsBuilder {
             return build(textContentType: text)
         case .divider:
             return DividerBlockRestrictions()
-        case let .file(data):
-            switch data.contentType {
+        case let .file(contentType):
+            switch contentType {
             case .image:
                 return ImageBlockRestrictions()
             default:

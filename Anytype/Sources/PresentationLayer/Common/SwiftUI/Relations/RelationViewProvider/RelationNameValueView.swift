@@ -1,6 +1,6 @@
 import SwiftUI
 
-final class RelationNameValueViewModel: ObservableObject {
+class RelationNameValueViewModel: ObservableObject {
     @Published var relation: RelationItemModel
     @Published var isHighlighted: Bool = false
 
@@ -42,8 +42,7 @@ struct RelationNameValueView: View {
     private var nameWidth: CGFloat { width * 0.4 }
 
     private var name: some View {
-        AnytypeText(viewModel.relation.name, style: .relation1Regular)
-                .foregroundColor(.Text.secondary).lineLimit(1)
+        AnytypeText(viewModel.relation.name, style: .relation1Regular, color: .Text.secondary).lineLimit(1)
     }
 
     private var valueViewButton: some View {
@@ -56,11 +55,9 @@ struct RelationNameValueView: View {
 
     private var valueView: some View {
         RelationValueView(
-            model: RelationValueViewModel(
-                relation: viewModel.relation,
-                style: .regular(allowMultiLine: false),
-                mode: .button(action: viewModel.action)
-            )
+            relation: viewModel.relation,
+            style: .regular(allowMultiLine: false),
+            mode: .button(action: viewModel.action)
         )
     }
 }

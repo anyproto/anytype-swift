@@ -10,7 +10,7 @@ struct GalleryUnavailableView: View {
             title: Loc.Gallery.Unavailable.title,
             message: Loc.Gallery.Unavailable.message,
             icon: .BottomAlert.error,
-            color: .red
+            style: .red
         ) {
             BottomAlertButton(text: Loc.close, style: .secondary) {
                 dismiss()

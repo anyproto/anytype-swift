@@ -4,14 +4,29 @@ import SwiftUI
 @MainActor
 final class SpaceSwitchCoordinatorViewModel: ObservableObject, SpaceSwitchModuleOutput, SpaceCreateModuleOutput {
 
-    private let settingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol
+    private let spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol
+    private let spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol
+    private let settingsCoordinator: SettingsCoordinatorProtocol
     
     @Published var showSpaceCreate = false
-    @Published var showSettings = false
     @Published var dismiss = false
     
-    init(settingsCoordinatorAssembly: SettingsCoordinatorAssemblyProtocol) {
-        self.settingsCoordinatorAssembly = settingsCoordinatorAssembly
+    init(
+        spaceSwitchModuleAssembly: SpaceSwitchModuleAssemblyProtocol,
+        spaceCreateModuleAssembly: SpaceCreateModuleAssemblyProtocol,
+        settingsCoordinator: SettingsCoordinatorProtocol
+    ) {
+        self.spaceSwitchModuleAssembly = spaceSwitchModuleAssembly
+        self.spaceCreateModuleAssembly = spaceCreateModuleAssembly
+        self.settingsCoordinator = settingsCoordinator
+    }
+    
+    func spaceSwitchModule() -> AnyView {
+        return spaceSwitchModuleAssembly.make(output: self)
+    }
+    
+    func spaceCreateModule() -> AnyView {
+        return spaceCreateModuleAssembly.make(output: self)
     }
 
     // MARK: - SpaceSwitchModuleOutput
@@ -21,11 +36,7 @@ final class SpaceSwitchCoordinatorViewModel: ObservableObject, SpaceSwitchModule
     }
     
     func onSettingsSelected() {
-        showSettings = true
-    }
-    
-    func settingsView() -> AnyView {
-        settingsCoordinatorAssembly.make()
+        settingsCoordinator.startFlow()
     }
     
     // MARK: - SpaceCreateModuleOutput

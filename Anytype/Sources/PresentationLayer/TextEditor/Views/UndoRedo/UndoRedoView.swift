@@ -2,36 +2,22 @@ import SwiftUI
 import AnytypeCore
 
 struct UndoRedoView: View {
-    @StateObject private var model: UndoRedoViewModel
+    let viewModel: UndoRedoViewModel
 
-    init(objectId: String) {
-        self._model = StateObject(wrappedValue: UndoRedoViewModel(objectId: objectId))
-    }
-    
     var body: some View {
         HStack(spacing: 16) {
-            
-            AsyncButton {
-                try await model.undo()
-            } label: {
-                ItemView(
-                    imageAsset: .X32.Undo.undo,
-                    title: Loc.undo
-                )
-            }
-            
-            AsyncButton {
-                try await model.redo()
-            } label: {
-                ItemView(
-                    imageAsset: .X32.Undo.redo,
-                    title: Loc.redo
-                )
+            ForEach(viewModel.buttonModels) { buttonModel in
+                Button {
+                    buttonModel.action()
+                } label: {
+                    ItemView(
+                        imageAsset: buttonModel.imageAsset,
+                        title: buttonModel.title
+                    )
+                }
             }
         }
-        .snackbar(toastBarData: $model.toastData)
-        .padding(.init(top: 16, leading: 16, bottom: 8, trailing: 16))
-        .background(Color.Background.secondary)
+        .padding(.init(top: 8, leading: 16, bottom: 0, trailing: 16))
     }
 }
 
@@ -51,8 +37,7 @@ private struct ItemView: View {
                 )
                 .background(Color.Background.highlightedOfSelected)
                 .cornerRadius(10.5)
-            AnytypeText(title, style: .caption2Regular)
-                .foregroundColor(.Text.secondary)
+            AnytypeText(title, style: .caption2Regular, color: .Text.secondary)
         }
     }
 }

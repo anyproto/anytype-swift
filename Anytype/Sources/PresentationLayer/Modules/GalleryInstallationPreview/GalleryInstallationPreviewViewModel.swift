@@ -11,8 +11,7 @@ protocol GalleryInstallationPreviewModuleOutput: AnyObject {
 final class GalleryInstallationPreviewViewModel: ObservableObject {
     
     private let data: GalleryInstallationData
-    @Injected(\.galleryService)
-    private var galleryService: GalleryServiceProtocol
+    private let galleryService: GalleryServiceProtocol
     private let formatter = ByteCountFormatter.fileFormatter
     private weak var output: GalleryInstallationPreviewModuleOutput?
     
@@ -21,9 +20,11 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
     
     init(
         data: GalleryInstallationData,
+        galleryService: GalleryServiceProtocol,
         output: GalleryInstallationPreviewModuleOutput?
     ) {
         self.data = data
+        self.galleryService = galleryService
         self.output = output
         Task { await loadData() }
     }

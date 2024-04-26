@@ -1,16 +1,7 @@
 import SwiftUI
 
-struct SetFiltersDateViewData {
-    let filter: SetFilter
-    let onApplyDate: (SetFiltersDate) -> Void
-}
-
 struct SetFiltersDateView: View {
-    @StateObject private var viewModel: SetFiltersDateViewModel
-    
-    init(data: SetFiltersDateViewData, setSelectionModel: SetFiltersSelectionViewModel?) {
-        _viewModel = StateObject(wrappedValue: SetFiltersDateViewModel(data: data, setSelectionModel: setSelectionModel))
-    }
+    @StateObject var viewModel: SetFiltersDateViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -19,8 +10,8 @@ struct SetFiltersDateView: View {
             button
         }
         .padding(.horizontal, 20)
-        .sheet(item: $viewModel.filtersDaysData) { data in
-            SetTextView(data: data)
+        .sheet(isPresented: $viewModel.showFiltersDaysView) {
+            viewModel.filtersDaysView()
         }
         .background(Color.Background.secondary)
     }

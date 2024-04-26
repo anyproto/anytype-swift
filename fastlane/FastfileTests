@@ -14,10 +14,6 @@ platform :ios do
       xcargs: ENV['BUILD_OPTIONS'],
       cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
     )
-
-    ensure_git_status_clean(
-      show_uncommitted_changes: true
-    )
   end
   
 end

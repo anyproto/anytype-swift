@@ -1,5 +1,14 @@
+//
+//  ObjectHeaderCoverView.swift
+//  ObjectHeaderCoverView
+//
+//  Created by Konstantin Mordan on 08.09.2021.
+//  Copyright © 2021 Anytype. All rights reserved.
+//
+
 import Foundation
 import UIKit
+import Kingfisher
 
 final class ObjectHeaderCoverView: UIView {
     

@@ -97,9 +97,8 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
         let view = WidgetObjectListView(model: WidgetObjectListViewModel(
             internalModel: internalModel(),
             objectActionService: self.serviceLocator.objectActionsService(),
-            activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-            accountParticipantStorage: self.serviceLocator.accountParticipantStorage(),
             menuBuilder: WidgetObjectListMenuBuilder(),
+            alertOpener: self.uiHelpersDI.alertOpener(),
             output: output,
             isSheet: isSheet
         ))

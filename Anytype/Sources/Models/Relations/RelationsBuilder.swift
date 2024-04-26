@@ -28,7 +28,7 @@ final class RelationsBuilder {
     func parsedRelations(
         relationsDetails: [RelationDetails],
         typeRelationsDetails: [RelationDetails],
-        objectId: String,
+        objectId: BlockId,
         relationValuesIsLocked: Bool,
         storage: ObjectDetailsStorage
     ) -> ParsedRelations {
@@ -42,21 +42,8 @@ final class RelationsBuilder {
         var deletedRelations: [Relation] = []
         var otherRelations: [Relation] = []
         
-        
-        hackGlobalNameValue(
-            relationsDetails: relationsDetails,
-            objectDetails: objectDetails,
-            relationValuesIsLocked: relationValuesIsLocked,
-            storage: storage
-        )
-        .flatMap { featuredRelations.append($0) }
-        
-        
         relationsDetails.forEach { relationDetails in
             guard !relationDetails.isHidden else { return }
-            guard relationDetails.key != BundledRelationKey.globalName.rawValue && relationDetails.key != BundledRelationKey.identity.rawValue else {
-                return // see hackGlobalNameValue
-            }
             
             let value = relation(
                 relationDetails: relationDetails,
@@ -94,50 +81,6 @@ final class RelationsBuilder {
         )
     }
     
-    //fallback to identiy if globalName is empty
-    private func hackGlobalNameValue(
-        relationsDetails: [RelationDetails],
-        objectDetails: ObjectDetails,
-        relationValuesIsLocked: Bool,
-        storage: ObjectDetailsStorage
-    ) -> Relation? {
-        if let globaName = relationForKey(
-            key: BundledRelationKey.globalName.rawValue,
-            relationsDetails: relationsDetails,
-            objectDetails: objectDetails,
-            relationValuesIsLocked: relationValuesIsLocked,
-            storage: storage
-        ), globaName.hasValue { return globaName }
-        
-        if let identity = relationForKey(
-            key: BundledRelationKey.identity.rawValue,
-            relationsDetails: relationsDetails,
-            objectDetails: objectDetails,
-            relationValuesIsLocked: relationValuesIsLocked,
-            storage: storage
-        ), identity.hasValue { return identity }
-        
-        return nil
-    }
-    
-    private func relationForKey(
-        key: String,
-        relationsDetails: [RelationDetails],
-        objectDetails: ObjectDetails,
-        relationValuesIsLocked: Bool,
-        storage: ObjectDetailsStorage
-    ) -> Relation? {
-        guard let details = relationsDetails.first(where: { $0.key == key }) else {
-            return nil
-        }
-        
-        return relation(
-            relationDetails: details,
-            details: objectDetails,
-            relationValuesIsLocked: relationValuesIsLocked,
-            storage: storage
-        )
-    }
 }
 
 // MARK: - Private extension
@@ -272,13 +215,6 @@ private extension RelationsBuilder {
         if relationDetails.key == BundledRelationKey.origin.rawValue,
            let origin = details.intValue(for: relationDetails.key).flatMap({ ObjectOrigin(rawValue: $0) }) {
             if let title = origin.title {
-                numberValue = title
-            } else {
-                return nil
-            }
-        } else if relationDetails.key == BundledRelationKey.importType.rawValue,
-                   let importType = details.intValue(for: relationDetails.key).flatMap({ ObjectImportType(rawValue: $0) }) {
-            if let title = importType.title {
                 numberValue = title
             } else {
                 return nil
@@ -497,9 +433,9 @@ private extension RelationsBuilder {
                 if relationDetails.key == BundledRelationKey.setOf.rawValue, objectDetail.isDeleted {
                     return Relation.Object.Option(
                         id: valueId,
-                        icon: .object(.placeholder("")),
+                        icon: .object(.placeholder(nil)),
                         title: Loc.deleted,
-                        type: "",
+                        type: .empty,
                         isArchived: true,
                         isDeleted: true,
                         editorScreenData: objectDetail.editorScreenData()

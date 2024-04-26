@@ -96,22 +96,38 @@ final class TemplateEditingViewController: UIViewController {
 
         embedChild(editorViewController, into: view)
         editorViewController.view.layoutUsing.anchors {
-            $0.pinToSuperview(excluding: [.top, .bottom])
+            if FeatureFlags.ipadIncreaseWidth {
+                $0.pinToSuperview(excluding: [.top, .bottom])
+            } else {
+                $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
+            }
             $0.bottom.equal(to: view.bottomAnchor)
             $0.top.equal(to: fakeNavigationView.bottomAnchor)
         }
         
         if onSelectTemplateTap.isNotNil {
             view.addSubview(selectTemplateButton) {
-                $0.pinToSuperview(
-                    excluding: [.top],
-                    insets: .init(
-                        top: 0,
-                        left: 20,
-                        bottom: view.safeAreaInsets.bottom + 35,
-                        right: 20
+                if FeatureFlags.ipadIncreaseWidth {
+                    $0.pinToSuperview(
+                        excluding: [.top],
+                        insets: .init(
+                            top: 0,
+                            left: 20,
+                            bottom: view.safeAreaInsets.bottom + 35,
+                            right: 20
+                        )
                     )
-                )
+                } else {
+                    $0.pinToSuperviewPreservingReadability(
+                        excluding: [.top],
+                        insets: .init(
+                            top: 0,
+                            left: 20,
+                            bottom: view.safeAreaInsets.bottom + 35,
+                            right: 20
+                        )
+                    )
+                }
                 $0.height.equal(to: StandardButtonStyle.primaryLarge.config.height)
             }
         }

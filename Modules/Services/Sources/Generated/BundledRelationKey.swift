@@ -48,15 +48,6 @@ public enum BundledRelationKey: String {
     /// Object restrictions list
     case restrictions = "restrictions"
 
-    /// Readers limit
-    case readersLimit = "readersLimit"
-
-    /// Writers limit
-    case writersLimit = "writersLimit"
-
-    /// Shared spaces limit
-    case sharedSpacesLimit = "sharedSpacesLimit"
-
     /// Adds the object to the highlighted dataview in space
     case isHighlighted = "isHighlighted"
 
@@ -131,9 +122,6 @@ public enum BundledRelationKey: String {
 
     /// Specify if object is hidden
     case isHidden = "isHidden"
-
-    /// Specify if object discovery is hidden
-    case isHiddenDiscovery = "isHiddenDiscovery"
 
     case additional = "additional"
 
@@ -405,12 +393,6 @@ public enum BundledRelationKey: String {
     /// Relation that indicates the remote status of space. Possible values: models.SpaceStatus
     case spaceRemoteStatus = "spaceRemoteStatus"
 
-    /// Specify if the space is shareable
-    case spaceShareableStatus = "spaceShareableStatus"
-
-    /// Specify if access control list is shared
-    case isAclShared = "isAclShared"
-
     /// Relation that indicates the status of space that the user is set. Possible values: models.SpaceStatus
     case spaceAccountStatus = "spaceAccountStatus"
 
@@ -451,7 +433,4 @@ public enum BundledRelationKey: String {
 
     /// Import type, used to create object (notion, md and etc)
     case importType = "importType"
-
-    /// Name of profile that the user could be mentioned by
-    case globalName = "globalName"
 }

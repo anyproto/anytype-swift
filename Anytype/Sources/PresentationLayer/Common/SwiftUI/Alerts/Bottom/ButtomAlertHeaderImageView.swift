@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
-
-enum BottomAlertHeaderBackgroundColor {
+    
+enum BottomAlertHeaderBackgroundStyle {
     case green
     case blue
     case red
@@ -17,11 +17,6 @@ enum BottomAlertHeaderBackgroundColor {
         }
     }
 }
-    
-enum BottomAlertHeaderBackgroundStyle {
-    case color(BottomAlertHeaderBackgroundColor)
-    case plain
-}
 
 struct ButtomAlertHeaderImageView: View {
     
@@ -32,31 +27,25 @@ struct ButtomAlertHeaderImageView: View {
     
     var body: some View {
         ZStack {
-            background
+            gradient
             Image(asset: icon)
         }
         .frame(height: 104)
-        .padding(.vertical, 4)
     }
     
     @ViewBuilder
-    private var background: some View {
+    private var gradient: some View {
         if colorScheme == .light {
-            switch style {
-            case .color(let color):
-                GeometryReader { reader in
-                    RadialGradient(
-                        colors: color.gradient,
-                        center: .center,
-                        startRadius: 0,
-                        endRadius: 50
-                    )
-                    .frame(width: reader.size.height, height: reader.size.height)
-                    .scaleEffect(CGSize(width: reader.size.width / 104, height: 1.0))
-                    .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
-                }
-            case .plain:
-                EmptyView()
+            GeometryReader { reader in
+                RadialGradient(
+                    colors: style.gradient,
+                    center: .center,
+                    startRadius: 0,
+                    endRadius: 50
+                )
+                .frame(width: reader.size.height, height: reader.size.height)
+                .scaleEffect(CGSize(width: reader.size.width / 104, height: 1.0))
+                .position(x: reader.frame(in: .local).midX, y: reader.frame(in: .local).midY)
             }
         }
     }

@@ -9,7 +9,7 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     private let bookmarkService: BookmarkServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let closeAction: (_ details: ObjectDetails?) -> Void
-    private var currentText: String = ""
+    private var currentText: String = .empty
 
     init(
         spaceId: String,
@@ -31,26 +31,23 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
 
     func actionButtonTapped(with text: String) {
         guard text.isNotEmpty else { return }
-        guard let url = AnytypeURL(string: text) else { return }
-        createBookmarkObject(with: url)
+        createBookmarkObject(with: text)
     }
 
     func returnDidTap() {
         guard currentText.isNotEmpty else { return }
-        guard let url = AnytypeURL(string: currentText) else { return }
-        createBookmarkObject(with: url)
+        createBookmarkObject(with: currentText)
     }
     
-    private func createBookmarkObject(with url: AnytypeURL) {
+    private func createBookmarkObject(with url: String) {
         Task { @MainActor in
             do {
-                let details = try await bookmarkService.createBookmarkObject(spaceId: spaceId, url: url, origin: .none)
+                let details = try await bookmarkService.createBookmarkObject(spaceId: spaceId, url: currentText, origin: .none)
                 addObjectToCollectionIfNeeded(details)
                 closeAction(details)
                 
                 AnytypeAnalytics.instance().logCreateObject(
                     objectType: details.analyticsType,
-                    spaceId: details.spaceId,
                     route: collectionId.isNotNil ? .collection : .set
                 )
             } catch {

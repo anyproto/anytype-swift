@@ -1,7 +1,13 @@
+//
+//  AlertsFactory.swift
+//  Anytype
+//
+//  Created by Dmitry Bilienko on 29.09.2021.
+//  Copyright © 2021 Anytype. All rights reserved.
+//
+
 import SwiftUI
 
-
-@MainActor
 final class AlertsFactory {
     // TODO: Remove with LegacyLoginView
     static func goToSettingsAlert(title: String) -> Alert {

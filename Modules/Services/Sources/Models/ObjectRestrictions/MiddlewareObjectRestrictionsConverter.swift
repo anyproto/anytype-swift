@@ -12,7 +12,7 @@ public enum MiddlewareObjectRestrictionsConverter {
         }
 
         let dataViewRestrictions = middlewareRestrictions.dataview.reduce(
-            [String: [DataViewRestriction]]()
+            [BlockId: [DataViewRestriction]]()
         ) { partialResult, blockDataViewRestrictions in
             var partialResult = partialResult
 

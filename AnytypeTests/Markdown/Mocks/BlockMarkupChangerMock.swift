@@ -3,21 +3,22 @@
 import Foundation
 
 final class BlockMarkupChangerMock: BlockMarkupChangerProtocol {
-    func toggleMarkup(_ attributedString: NSAttributedString, markup: MarkupType, contentType: BlockContentType) -> NSAttributedString {
+    
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId) -> NSAttributedString? {
         assertionFailure()
-        return NSAttributedString()
+        return nil
     }
     
-    func toggleMarkup(_ attributedString: NSAttributedString, markup: MarkupType, range: NSRange, contentType: BlockContentType) -> NSAttributedString {
+    func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
         assertionFailure()
-        return NSAttributedString()
+        return nil
     }
     
     var setMarkupStubReturnString: NSAttributedString?
     var setMarkupLastMarkupType: MarkupType?
     var setMarkupNumberOfCalls = 0
     var setMarkupLastRange: NSRange?
-    func setMarkup(_ markup: MarkupType, range: NSRange, attributedString: NSAttributedString, contentType: BlockContentType) -> NSAttributedString {
+    func setMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange, currentText: NSAttributedString?) -> NSAttributedString? {
         if let string = setMarkupStubReturnString {
             setMarkupLastMarkupType = markup
             setMarkupLastRange = range
@@ -25,12 +26,12 @@ final class BlockMarkupChangerMock: BlockMarkupChangerProtocol {
             return string
         } else {
             assertionFailure()
-            return NSAttributedString()
+            return nil
         }
     }
     
-    func removeMarkup(_ markup: MarkupType, range: NSRange, contentType: BlockContentType, attributedString: NSAttributedString) -> NSAttributedString {
+    func removeMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
         assertionFailure()
-        return NSAttributedString()
+        return nil
     }
 }

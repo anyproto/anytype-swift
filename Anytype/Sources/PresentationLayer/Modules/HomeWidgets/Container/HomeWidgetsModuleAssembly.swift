@@ -7,7 +7,8 @@ protocol HomeWidgetsModuleAssemblyProtocol {
     func make(
         info: AccountInfo,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView
 }
 
@@ -29,13 +30,15 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     func make(
         info: AccountInfo,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> AnyView {
         let view = HomeWidgetsView(
             model: self.modelProvider(
                 info: info,
                 output: output,
-                widgetOutput: widgetOutput
+                widgetOutput: widgetOutput,
+                bottomPanelOutput: bottomPanelOutput
             )
         )
         return view.id(info.widgetsId).eraseToAnyView()
@@ -47,7 +50,8 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     private func modelProvider(
         info: AccountInfo,
         output: HomeWidgetsModuleOutput,
-        widgetOutput: CommonWidgetModuleOutput?
+        widgetOutput: CommonWidgetModuleOutput?,
+        bottomPanelOutput: HomeBottomPanelModuleOutput?
     ) -> HomeWidgetsViewModel {
         let stateManager = HomeWidgetsStateManager()
         let recentStateManagerProtocol = HomeWidgetsRecentStateManager(
@@ -59,12 +63,12 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
             info: info,
             registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             blockWidgetService: serviceLocator.blockWidgetService(),
+            bottomPanelProviderAssembly: widgetsSubmoduleDI.bottomPanelProviderAssembly(output: bottomPanelOutput),
             stateManager: stateManager,
             objectActionService: serviceLocator.objectActionsService(),
             recentStateManagerProtocol: recentStateManagerProtocol,
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(), 
             documentService: serviceLocator.documentService(),
-            accountParticipantStorage: serviceLocator.accountParticipantStorage(),
             output: output
         )
     }

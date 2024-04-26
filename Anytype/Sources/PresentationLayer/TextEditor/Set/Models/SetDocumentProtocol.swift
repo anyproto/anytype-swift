@@ -8,19 +8,20 @@ enum SetDocumentUpdate {
 
 protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var document: BaseDocumentProtocol { get }
-    var objectId: String { get }
-    var blockId: String { get }
-    var targetObjectId: String { get }
+    var objectId: BlockId { get }
+    var blockId: BlockId { get }
+    var targetObjectId: BlockId { get }
     var inlineParameters: EditorInlineSetObject? { get }
-    var blockDataview: BlockDataview? { get }
+    var dataviews: [BlockDataview] { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
+    var viewRelationValueIsLocked: Bool { get }
+    var relationValuesIsLocked: Bool { get }
     var analyticsType: AnalyticsObjectType { get }
     // TODO Refactor this
     var dataBuilder: SetContentViewDataBuilder { get }
     
     var featuredRelationsForEditor: [Relation] { get }
     var parsedRelations: ParsedRelations { get }
-    var setPermissions: SetPermissions { get }
     
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { get }
     
@@ -41,11 +42,12 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     func canStartSubscription() -> Bool
     func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails]
     func objectOrderIds(for groupId: String) -> [String]
-    func updateActiveViewIdAndReload(_ id: String)
+    func updateActiveViewId(_ id: BlockId)
     func isTypeSet() -> Bool
     func isSetByRelation() -> Bool
     func isBookmarksSet() -> Bool
     func isCollection() -> Bool
+    func canCreateObject() -> Bool
     func isActiveHeader() -> Bool
     func defaultObjectTypeForActiveView() throws -> ObjectType
     func defaultObjectTypeForView(_ view: DataviewView) throws -> ObjectType

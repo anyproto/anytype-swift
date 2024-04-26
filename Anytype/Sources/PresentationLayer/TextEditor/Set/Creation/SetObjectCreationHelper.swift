@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 struct SetObjectCreationResult {
     let details: ObjectDetails?
@@ -13,16 +14,25 @@ protocol SetObjectCreationHelperProtocol {
 
 final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     
-    @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
-    @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
-    @Injected(\.setPrefilledFieldsBuilder)
-    private var prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
-    @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private let dataviewService: DataviewServiceProtocol
+    private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let objectActionsService: ObjectActionsServiceProtocol
+    private let prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
+    private let blockService: BlockServiceProtocol
+    
+    init(
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        dataviewService: DataviewServiceProtocol,
+        objectActionsService: ObjectActionsServiceProtocol,
+        prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol,
+        blockService: BlockServiceProtocol
+    ) {
+        self.objectTypeProvider = objectTypeProvider
+        self.dataviewService = dataviewService
+        self.objectActionsService = objectActionsService
+        self.prefilledFieldsBuilder = prefilledFieldsBuilder
+        self.blockService = blockService
+    }
     
     // MARK: - SetObjectCreationHelperProtocol
     
@@ -102,7 +112,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         setDocument: SetDocumentProtocol,
         type: ObjectType?,
         relationsDetails: [RelationDetails],
-        templateId: String?
+        templateId: BlockId?
     ) async throws -> SetObjectCreationResult {
         let details = try await dataviewService.addRecord(
             typeUniqueKey: type?.uniqueKey,
@@ -110,8 +120,9 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
             spaceId: setDocument.spaceId,
             details: prefilledFieldsBuilder.buildPrefilledFields(from: setDocument.activeViewFilters, relationsDetails: relationsDetails)
         )
-        if let type, type.isNoteLayout {
-            guard let newBlockId = try? await blockService.addFirstBlock(contextId: details.id, info: .emptyText) else {
+        let isNote = FeatureFlags.setTextInFirstNoteBlock && (type?.isNoteLayout ?? false)
+        if isNote {
+            guard let newBlockId = try? await blockService.add(contextId: details.id, targetId: EditorConstants.headerBlockId.rawValue, info: .emptyText, position: .bottom) else {
                 return .init(details: details, titleInputType: .none)
             }
             

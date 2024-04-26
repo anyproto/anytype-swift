@@ -2,14 +2,12 @@ import Foundation
 import AnytypeCore
 import Services
 import Combine
-import SwiftUI
 
 @MainActor
 final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
-    private let info: AccountInfo
     private let widgetObject: BaseDocumentProtocol
     private let registry: HomeWidgetsRegistryProtocol
     private let blockWidgetService: BlockWidgetServiceProtocol
@@ -18,67 +16,51 @@ final class HomeWidgetsViewModel: ObservableObject {
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let accountParticipantStorage: AccountParticipantsStorageProtocol
     private weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
     
     @Published var models: [HomeWidgetSubmoduleModel] = []
-    @Published var homeState: HomeWidgetsState = .readonly
+    @Published var bottomPanelProvider: HomeSubmoduleProviderProtocol
+    @Published var hideEditButton: Bool = false
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: BackgroundType = .default
     
-    var spaceId: String { info.accountSpaceId }
+    private var objectSubscriptions = [AnyCancellable]()
     
     init(
         info: AccountInfo,
         registry: HomeWidgetsRegistryProtocol,
         blockWidgetService: BlockWidgetServiceProtocol,
+        bottomPanelProviderAssembly: HomeBottomPanelProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         documentService: OpenedDocumentsProviderProtocol,
-        accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
-        self.info = info
         self.widgetObject = documentService.document(objectId: info.widgetsId)
         self.registry = registry
         self.blockWidgetService = blockWidgetService
+        self.bottomPanelProvider = bottomPanelProviderAssembly.make(info: info, stateManager: stateManager)
         self.stateManager = stateManager
         self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
         self.documentService = documentService
         self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.accountParticipantStorage = accountParticipantStorage
         self.output = output
-        subscribeOnWallpaper()
+        subscribeOnWallpaper(info: info)
         setupInitialState()
     }
     
-    func startWidgetObjectTask() async {
-        for await _ in widgetObject.syncPublisher.values {
-            let blocks = widgetObject.children.filter(\.isWidget)
-            recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
-            let providers = registry.providers(blocks: blocks, widgetObject: widgetObject)
-            
-            guard providers != models else { continue }
-            
-            models = providers
-            dataLoaded = true
-        }
-    }
+    func onAppear() {}
     
-    func startParticipantTask() async {
-        for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
-            stateManager.setHomeState(canEdit ? .readwrite : .readonly)
-        }
-    }
+    func onDisappear() {}
     
     func onEditButtonTap() {
         AnytypeAnalytics.instance().logEditWidget()
-        stateManager.setHomeState(.editWidgets)
+        stateManager.setEditState(true)
     }
     
     func dropUpdate(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
@@ -99,34 +81,29 @@ final class HomeWidgetsViewModel: ObservableObject {
         }
     }
     
-    func onSpaceSelected() {
-        output?.onSpaceSelected()
-    }
-    
-    func submoduleOutput() -> CommonWidgetModuleOutput? {
-        output
-    }
-    
-    func onCreateWidgetSelected() {
-        output?.onCreateWidgetSelected(context: .editor)
-    }
-    
-    // TODO: Delete after migration.
-    func onHomeStateChanged() {
-        if stateManager.homeState != homeState {
-            stateManager.setHomeState(homeState)
-        }
-    }
-    
     // MARK: - Private
     
     private func setupInitialState() {
-        stateManager.homeStatePublisher
+        widgetObject.widgetsPublisher
+            .map { [weak self] blocks -> [HomeWidgetSubmoduleModel] in
+                guard let self else { return [] }
+                recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: self.widgetObject)
+                return registry.providers(blocks: blocks, widgetObject: widgetObject)
+            }
+            .removeDuplicates()
             .receiveOnMain()
-            .assign(to: &$homeState)
+            .sink { [weak self] models in
+                self?.models = models
+                self?.dataLoaded = true
+            }
+            .store(in: &objectSubscriptions)
+        
+        stateManager.isEditStatePublisher
+            .receiveOnMain()
+            .assign(to: &$hideEditButton)
     }
     
-    private func subscribeOnWallpaper() {
+    private func subscribeOnWallpaper(info: AccountInfo) {
         UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)
             .receiveOnMain()
             .assign(to: &$wallpaper)

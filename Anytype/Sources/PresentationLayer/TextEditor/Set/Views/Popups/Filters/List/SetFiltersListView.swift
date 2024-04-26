@@ -1,18 +1,9 @@
 import SwiftUI
-import Services
 
 struct SetFiltersListView: View {
-    @StateObject private var viewModel: SetFiltersListViewModel
+    @StateObject var viewModel: SetFiltersListViewModel
     
     @State private var editMode = EditMode.inactive
-    
-    init(data: SetFiltersListModuleData, output: SetFiltersListCoordinatorOutput?, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        _viewModel = StateObject(wrappedValue: SetFiltersListViewModel(
-            data: data,
-            output: output,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        ))
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -66,10 +57,10 @@ struct SetFiltersListView: View {
             Spacer()
             AnytypeText(
                 Loc.EditSet.Popup.Filters.EmptyView.title,
-                style: .uxCalloutRegular
+                style: .uxCalloutRegular,
+                color: .Text.secondary
             )
-            .foregroundColor(.Text.secondary)
-            .frame(height: 68)
+                .frame(height: 68)
             Spacer()
         }
         .frame(maxWidth: .infinity)

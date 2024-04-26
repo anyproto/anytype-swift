@@ -16,8 +16,6 @@ final class TableOfContentsView: UIView, BlockContentView {
     private var configuration: TableOfContentsConfiguration?
     private var contentProvider: TableOfContentsContentProvider?
     private var labels = [UILabel]()
-    private var labelSubscriptions = [AnyCancellable]()
-    private var items = [TableOfContentItem]()
     
     // MARK: - BlockContentView
     
@@ -26,19 +24,9 @@ final class TableOfContentsView: UIView, BlockContentView {
         
         contentProvider = configuration.contentProviderBuilder()
         
-        
-        contentProvider.map { updateView(content: $0.content) }
-        
-        contentProvider?
-            .$content
-            .dropFirst()
-            .removeDuplicates()
-            .receiveOnMain()
-            .sink { [weak self] content in
-                self?.updateView(content: content)
-                
-                configuration.blockSetNeedsLayout()
-            }.store(in: &subscriptions)
+        contentProvider?.$content.sink { [weak self] content in
+            self?.updateView(content: content)
+        }.store(in: &subscriptions)
         
         self.configuration = configuration
     }
@@ -52,6 +40,8 @@ final class TableOfContentsView: UIView, BlockContentView {
         case let .empty(title):
             showEmptyState(title: title)
         }
+        
+        configuration?.blockSetNeedsLayout()
     }
     
     private func showEmptyState(title: String) {
@@ -70,21 +60,17 @@ final class TableOfContentsView: UIView, BlockContentView {
     }
     
     private func showItems(items: [TableOfContentItem]) {
-        self.items = items
+        
         var cache: [UILabel] = labels.reversed()
         labels.removeAll()
-        labelSubscriptions.removeAll()
         
         for data in items {
            
             let label = cache.popLast() ?? createLabel()
+            label.attributedText = makeAttributedText(for: data.title)
             label.addTapGesture { [weak self] _ in
                 self?.configuration?.onTap(data.blockId)
             }
-            
-            data.$title.sink { [weak label] string in
-                label?.attributedText = makeAttributedText(for: string)
-            }.store(in: &labelSubscriptions)
             
             addSubview(label) {
                 $0.trailing.equal(to: trailingAnchor)
@@ -106,13 +92,13 @@ final class TableOfContentsView: UIView, BlockContentView {
         label.numberOfLines = 0
         return label
     }
-}
-
-private func makeAttributedText(for string: String) -> NSAttributedString {
-    return NSAttributedString(string: string, attributes: [
-        .underlineStyle: NSUnderlineStyle.single.rawValue,
-        .underlineColor: UIColor.Text.secondary,
-        .foregroundColor: UIColor.Text.secondary,
-        .font: UIFont.calloutRegular
-    ])
+    
+    private func makeAttributedText(for string: String) -> NSAttributedString {
+        return NSAttributedString(string: string, attributes: [
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
+            .underlineColor: UIColor.Text.secondary,
+            .foregroundColor: UIColor.Text.secondary,
+            .font: UIFont.calloutRegular
+        ])
+    }
 }

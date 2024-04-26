@@ -1,33 +1,16 @@
 import Foundation
 import SwiftUI
 
-struct SectionHeaderView<Content>: View where Content: View {
-    let title: String
-    let increasedTopPadding: Bool
-    let rightContent: () -> Content?
+struct SectionHeaderView: View {
     
-    init(title: String, increasedTopPadding: Bool = true, @ViewBuilder rightContent: @escaping () -> Content? = { EmptyView() }) {
-        self.title = title
-        self.increasedTopPadding = increasedTopPadding
-        self.rightContent = rightContent
-    }
+    let title: String
     
     var body: some View {
         HStack(spacing: 0) {
-            AnytypeText(title, style: .caption1Regular)
-                .foregroundColor(.Text.secondary)
-                .if(rightContent().isNotNil) {
-                    $0.lineLimit(1)
-                }
-            
-            if rightContent().isNotNil {
-                Spacer.init(minLength: 16)
-            }
-            
-            rightContent()
+            AnytypeText(title, style: .caption1Regular, color: .Text.secondary)
+            Spacer()
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.top, increasedTopPadding ? 26 : 8)
+        .padding(.top, 26)
         .padding(.bottom, 8)
     }
 }

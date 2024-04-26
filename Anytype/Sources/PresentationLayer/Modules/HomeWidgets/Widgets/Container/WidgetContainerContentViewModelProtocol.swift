@@ -11,7 +11,9 @@ protocol WidgetContainerContentViewModelProtocol: AnyObject, ObservableObject {
     var allowCreateObject: Bool { get }
     
     func startHeaderSubscription()
+    func stopHeaderSubscription()
     func startContentSubscription()
+    func stopContentSubscription()
     func onHeaderTap()
     func onCreateObjectTap()
 }

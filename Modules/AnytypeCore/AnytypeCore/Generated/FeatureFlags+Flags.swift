@@ -6,6 +6,10 @@
 public extension FeatureFlags {
 
     // Static value reader
+    static var setTemplateSelection: Bool {
+        value(for: .setTemplateSelection)
+    }
+
     static var setKanbanView: Bool {
         value(for: .setKanbanView)
     }
@@ -18,28 +22,64 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
+    static var newCodeLanguages: Bool {
+        value(for: .newCodeLanguages)
+    }
+
+    static var ipadIncreaseWidth: Bool {
+        value(for: .ipadIncreaseWidth)
+    }
+
+    static var selectTypeByLongTap: Bool {
+        value(for: .selectTypeByLongTap)
+    }
+
+    static var widgetsCreateObject: Bool {
+        value(for: .widgetsCreateObject)
+    }
+
+    static var setAndCollectionInSlashMenu: Bool {
+        value(for: .setAndCollectionInSlashMenu)
+    }
+
+    static var setTextInFirstNoteBlock: Bool {
+        value(for: .setTextInFirstNoteBlock)
+    }
+
+    static var bottomNavigationAlwaysBackButton: Bool {
+        value(for: .bottomNavigationAlwaysBackButton)
+    }
+
     static var galleryInstallation: Bool {
         value(for: .galleryInstallation)
     }
 
-    static var newTextEditingRelationView: Bool {
-        value(for: .newTextEditingRelationView)
+    static var newTypePicker: Bool {
+        value(for: .newTypePicker)
+    }
+
+    static var newDateRelationCalendarView: Bool {
+        value(for: .newDateRelationCalendarView)
+    }
+
+    static var newSelectRelationView: Bool {
+        value(for: .newSelectRelationView)
+    }
+
+    static var newMultiSelectRelationView: Bool {
+        value(for: .newMultiSelectRelationView)
+    }
+
+    static var newObjectSelectRelationView: Bool {
+        value(for: .newObjectSelectRelationView)
+    }
+
+    static var newFileSelectRelationView: Bool {
+        value(for: .newFileSelectRelationView)
     }
 
     static var multiplayer: Bool {
         value(for: .multiplayer)
-    }
-
-    static var universalLinks: Bool {
-        value(for: .universalLinks)
-    }
-
-    static var membership: Bool {
-        value(for: .membership)
-    }
-
-    static var newGlobalSearch: Bool {
-        value(for: .newGlobalSearch)
     }
 
     static var rainbowViews: Bool {
@@ -78,21 +118,27 @@ public extension FeatureFlags {
         value(for: .homeTestSwipeGeature)
     }
 
-    static var membershipTestTiers: Bool {
-        value(for: .membershipTestTiers)
-    }
-
     // All toggles
     static let features: [FeatureDescription] = [
+        .setTemplateSelection,
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
+        .newCodeLanguages,
+        .ipadIncreaseWidth,
+        .selectTypeByLongTap,
+        .widgetsCreateObject,
+        .setAndCollectionInSlashMenu,
+        .setTextInFirstNoteBlock,
+        .bottomNavigationAlwaysBackButton,
         .galleryInstallation,
-        .newTextEditingRelationView,
+        .newTypePicker,
+        .newDateRelationCalendarView,
+        .newSelectRelationView,
+        .newMultiSelectRelationView,
+        .newObjectSelectRelationView,
+        .newFileSelectRelationView,
         .multiplayer,
-        .universalLinks,
-        .membership,
-        .newGlobalSearch,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -101,7 +147,6 @@ public extension FeatureFlags {
         .resetTips,
         .showAllTips,
         .sharingExtensionShowContentTypes,
-        .homeTestSwipeGeature,
-        .membershipTestTiers
+        .homeTestSwipeGeature
     ]
 }

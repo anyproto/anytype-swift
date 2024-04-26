@@ -70,11 +70,6 @@
             value = "DEBUG"
             isEnabled = "NO">
          </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "GODEBUG"
-            value = "asyncpreemptoff=1"
-            isEnabled = "YES">
-         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction

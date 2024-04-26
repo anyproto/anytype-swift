@@ -3,11 +3,7 @@ import AnytypeCore
 
 struct FileStorageView: View {
     
-    @StateObject private var model: FileStorageViewModel
-    
-    init() {
-        self._model = StateObject(wrappedValue: FileStorageViewModel())
-    }
+    @ObservedObject var model: FileStorageViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -27,16 +23,12 @@ struct FileStorageView: View {
         .onAppear {
             model.onAppear()
         }
-        .anytypeSheet(isPresented: $model.showClearCacheAlert) {
-            DashboardClearCacheAlert()
-        }
     }
     
     @ViewBuilder
     private var locaBlock: some View {
         Spacer.fixedHeight(4)
-        AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular)
-            .foregroundColor(.Text.primary)
+        AnytypeText(Loc.FileStorage.Local.instruction, style: .uxCalloutRegular, color: .Text.primary)
         Spacer.fixedHeight(16)
         FileStorageInfoBlock(
             iconImage: Emoji("📱").map { Icon.object(.emoji($0)) },

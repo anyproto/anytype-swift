@@ -12,11 +12,11 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Initializer
 
-    init(data: SetSortTypesData) {
-        self.title = data.setSort.relationDetails.name
-        self.sort = data.setSort
-        self.selectedSort = data.setSort.sort
-        self.completion = data.completion
+    init(sort: SetSort, completion: @escaping (SetSort) -> Void) {
+        self.title = sort.relationDetails.name
+        self.sort = sort
+        self.selectedSort = sort.sort
+        self.completion = completion
         self.items = self.buildPopupItems()
     }
     

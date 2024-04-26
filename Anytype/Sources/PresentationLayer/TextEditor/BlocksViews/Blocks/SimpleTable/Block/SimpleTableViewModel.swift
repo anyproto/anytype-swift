@@ -14,7 +14,7 @@ final class SimpleTableViewModel {
     private let document: BaseDocumentProtocol
     private let cellBuilder: SimpleTableCellsBuilder
     private let cursorManager: EditorCursorManager
-    private var tableBlockInfoProvider: BlockModelInfomationProvider
+    private var tableBlockInfo: BlockInformation
 
     @Published var widths = [CGFloat]()
 
@@ -22,13 +22,13 @@ final class SimpleTableViewModel {
 
     init(
         document: BaseDocumentProtocol,
-        tableBlockInfoProvider: BlockModelInfomationProvider,
+        tableBlockInfo: BlockInformation,
         cellBuilder: SimpleTableCellsBuilder,
         stateManager: SimpleTableStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document
-        self.tableBlockInfoProvider = tableBlockInfoProvider
+        self.tableBlockInfo = tableBlockInfo
         self.cellBuilder = cellBuilder
         self.stateManager = stateManager
         self.cursorManager = cursorManager
@@ -39,23 +39,43 @@ final class SimpleTableViewModel {
     }
 
     private func setupHandlers() {
-        document.resetBlocksSubject.sink { [weak self] blockIds in
-            guard let self else { return }
-            
-            let computedTable = ComputedTable(blockInformation: tableBlockInfoProvider.info, infoContainer: document.infoContainer)
-            guard computedTable.isNotNil else { return }
-            
-            let allRelatedIds = [tableBlockInfoProvider.info.id] + document.infoContainer.recursiveChildren(of: tableBlockInfoProvider.info.id).map { $0.id }
-            
-            if Set(allRelatedIds).intersection(blockIds).count > 0 {
-                forceUpdate(shouldApplyFocus: true)
-                stateManager.checkOpenedState()
-            }
+        document.updatePublisher.sink { [weak self] update in
+            self?.handleUpdate(update: update)
         }.store(in: &cancellables)
     }
 
+    private func handleUpdate(update: DocumentUpdate) {
+        switch update {
+        case .general, .details:
+            forceUpdate(shouldApplyFocus: true)
+        case .syncStatus: break
+        case .blocks(let blockIds):
+            let container = document.infoContainer
+
+            let allChilds = container.recursiveChildren(of: tableBlockInfo.id).map(\.id)
+            guard blockIds.intersection(Set(allChilds)).isNotEmpty else {
+                return
+            }
+
+            let newItems = cellBuilder.buildItems(from: tableBlockInfo)
+
+           updateDifference(newItems: newItems)
+        case .dataSourceUpdate:
+            guard let newInfo = document.infoContainer.get(id: tableBlockInfo.id) else {
+                return
+            }
+            tableBlockInfo = newInfo
+
+            let cells = cellBuilder.buildItems(from: newInfo)
+
+            dataSource?.allModels = cells
+        }
+
+        stateManager.checkOpenedState()
+    }
+
     private func updateDifference(newItems: [[EditorItem]]) {
-        let newItems = cellBuilder.buildItems(from: tableBlockInfoProvider.info)
+        let newItems = cellBuilder.buildItems(from: tableBlockInfo)
 
         var itemsToUpdate = [EditorItem]()
         zip(newItems, dataSource!.allModels).forEach { newSections, currentSections in
@@ -70,7 +90,12 @@ final class SimpleTableViewModel {
     }
 
     private func forceUpdate(shouldApplyFocus: Bool) {
-        let cells = cellBuilder.buildItems(from: tableBlockInfoProvider.info)
+        guard let newInfo = document.infoContainer.get(id: tableBlockInfo.id) else {
+            return
+        }
+        tableBlockInfo = newInfo
+
+        let cells = cellBuilder.buildItems(from: newInfo)
         let numberOfColumns = cells.first?.count ?? 0
 
         let widths = [CGFloat](repeating: 170, count: numberOfColumns)

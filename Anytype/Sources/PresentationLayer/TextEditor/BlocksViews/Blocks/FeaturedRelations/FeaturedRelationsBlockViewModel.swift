@@ -1,54 +1,51 @@
 import UIKit
 import Services
-import Combine
 
-final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
-    let infoProvider: BlockModelInfomationProvider
-    var info: BlockInformation { infoProvider.info }
-    var hashable: AnyHashable { info.id }
+struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
+    let info: BlockInformation
 
-    private let document: BaseDocumentProtocol
-    private var featuredRelationValues: [Relation]
+    private let type: String
+    private let featuredRelationValues: [Relation]
+    private weak var blockDelegate: BlockDelegate?
     private let onRelationTap: (Relation) -> Void
-    private let collectionController: EditorCollectionReloadable
+    private let relationViewModels: [RelationItemModel]
     
-    private var cancellables = [AnyCancellable]()
+    var hashable: AnyHashable {
+        [
+            type,
+            relationViewModels
+        ] as [AnyHashable]
+    }
     
     init(
-        infoProvider: BlockModelInfomationProvider,
-        document: BaseDocumentProtocol,
-        collectionController: EditorCollectionReloadable,
+        info: BlockInformation,
+        featuredRelationValues: [Relation],
+        type: String,
+        blockDelegate: BlockDelegate,
         onRelationValueTap: @escaping (Relation) -> Void
     ) {
-        self.infoProvider = infoProvider
-        self.document = document
-        self.featuredRelationValues = document.featuredRelationsForEditor
-        self.collectionController = collectionController
+        self.info = info
+        self.featuredRelationValues = featuredRelationValues
+        self.type = type
+        self.blockDelegate = blockDelegate
         self.onRelationTap = onRelationValueTap
-        
-        document.featuredRelationsForEditorPublisher
-            .receiveOnMain()
-            .removeDuplicates()
-            .sink { [weak self] newFeaturedRelations in
-                guard let self else { return }
-                self.featuredRelationValues = newFeaturedRelations
-                collectionController.reconfigure(items: [.block(self)])
-            }.store(in: &cancellables)
+        self.relationViewModels = featuredRelationValues.map(RelationItemModel.init)
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
-        let objectType = document.details?.objectType
-        
-        return FeaturedRelationsBlockContentConfiguration(
-            featuredRelations: featuredRelationValues,
-            type: objectType?.name ?? "",
+        FeaturedRelationsBlockContentConfiguration(
+            featuredRelations: relationViewModels,
+            type: type,
             alignment: info.horizontalAlignment.asNSTextAlignment,
-            onRelationTap: { [weak self] relation in
-                self?.onRelationTap(relation)
-            }
+            onRelationTap: { item in
+                featuredRelationValues
+                    .first { $0.key == item.key }
+                    .map(onRelationTap)
+            },
+            heightDidChanged: { blockDelegate?.textBlockSetNeedsLayout() }
         ).cellBlockConfiguration(
-            dragConfiguration: nil,
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: nil
         )
     }
     

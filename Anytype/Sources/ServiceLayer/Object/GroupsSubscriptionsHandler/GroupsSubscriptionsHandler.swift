@@ -11,12 +11,13 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     }
     
     private var subscription: AnyCancellable?
-    @Injected(\.groupsSubscribeService)
-    private var groupsSubscribeService: GroupsSubscribeServiceProtocol
+    private let groupsSubscribeService: GroupsSubscribeServiceProtocol
     
     private var subscribers = SynchronizedDictionary<String, Subscriber>()
     
-    init() {
+    init(groupsSubscribeService: GroupsSubscribeServiceProtocol) {
+        self.groupsSubscribeService = groupsSubscribeService
+        
         setup()
     }
     

@@ -2,49 +2,24 @@ import Foundation
 import ProtobufMessages
 import Services
 
-enum NotificationPayload {
+public enum NotificationPayload {
+    case `import`(NotificationImport)
+    case export(NotificationExport)
     case galleryImport(NotificationGalleryImport)
-    case participantRequestApproved(NotificationParticipantRequestApproved)
-    case requestToLeave(NotificationRequestToLeave)
-    case requestToJoin(NotificationRequestToJoin)
-    case participantRemove(NotificationParticipantRemove)
-    case participantRequestDecline(NotificationParticipantRequestDecline)
-    case participantPermissionsChange(NotificationParticipantPermissionsChange)
-
     case undefined
 }
 
-struct NotificationGalleryImport {
+public struct NotificationGalleryImport {
     public let common: Services.Notification
     public let galleryImport: Anytype_Model_Notification.GalleryImport
 }
 
-struct NotificationParticipantRequestApproved {
+public struct NotificationExport {
     public let common: Services.Notification
-    public let requestApprove: Anytype_Model_Notification.ParticipantRequestApproved
+    public let export: Anytype_Model_Notification.Export
 }
 
-struct NotificationRequestToLeave {
+public struct NotificationImport {
     public let common: Services.Notification
-    public let requestToLeave: Anytype_Model_Notification.RequestToLeave
-}
-
-struct NotificationRequestToJoin {
-    public let common: Services.Notification
-    public let requestToJoin: Anytype_Model_Notification.RequestToJoin
-}
-    
-struct NotificationParticipantRemove {
-    public let common: Services.Notification
-    public let remove: Anytype_Model_Notification.ParticipantRemove
-}
-
-struct NotificationParticipantRequestDecline {
-    public let common: Services.Notification
-    public let requestDecline: Anytype_Model_Notification.ParticipantRequestDecline
-}
-
-struct NotificationParticipantPermissionsChange {
-    public let common: Services.Notification
-    public let permissionChange: Anytype_Model_Notification.ParticipantPermissionsChange
+    public let `import`: Anytype_Model_Notification.Import
 }

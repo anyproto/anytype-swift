@@ -17,7 +17,11 @@ public enum BlockInformationConverter {
             backgroundColor: MiddlewareColor(rawValue: block.backgroundColor),
             horizontalAlignment: horizontalAlignment,
             childrenIds: block.childrenIds,
-            configurationData: .init(backgroundColor: color),
+            configurationData: .init(
+                backgroundColor: color,
+                indentationStyle: .none,
+                calloutBackgroundColor: nil
+            ),
             fields: block.fields.fields
         )
         

@@ -1,6 +1,8 @@
 import ProtobufMessages
 
-final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
+public final class GroupsSubscribeService: GroupsSubscribeServiceProtocol {
+    
+    public init() {}
     
     public func startSubscription(
         id: String,

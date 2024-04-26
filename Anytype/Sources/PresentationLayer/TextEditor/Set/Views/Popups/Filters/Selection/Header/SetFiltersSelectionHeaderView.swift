@@ -1,11 +1,7 @@
 import SwiftUI
 
 struct SetFiltersSelectionHeaderView: View {
-    @StateObject private var viewModel: SetFiltersSelectionHeaderViewModel
-    
-    init(data: SetFiltersSelectionHeaderData, output: SetFiltersSelectionCoordinatorOutput?) {
-        _viewModel = StateObject(wrappedValue: SetFiltersSelectionHeaderViewModel(data: data, output: output))
-    }
+    @StateObject var viewModel: SetFiltersSelectionHeaderViewModel
     
     var body: some View {
         HStack(spacing: 12) {
@@ -18,15 +14,13 @@ struct SetFiltersSelectionHeaderView: View {
             .frame(width: 48, height: 48)
             
             VStack(alignment: .leading, spacing: 2) {
-                AnytypeText(viewModel.headerConfiguration.title, style: .uxTitle2Medium)
-                    .foregroundColor(.Text.primary)
+                AnytypeText(viewModel.headerConfiguration.title, style: .uxTitle2Medium, color: .Text.primary)
                 Button {
                     UISelectionFeedbackGenerator().selectionChanged()
                     viewModel.conditionTapped()
                 } label: {
                     HStack(alignment: .center, spacing: 5) {
-                        AnytypeText(viewModel.headerConfiguration.condition, style: .relation1Regular)
-                            .foregroundColor(.Text.secondary)
+                        AnytypeText(viewModel.headerConfiguration.condition, style: .relation1Regular, color: .Text.secondary)
                         Image(asset: .arrowDown).foregroundColor(.Text.secondary).padding(.top, 2)
                     }
                 }

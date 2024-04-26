@@ -10,16 +10,16 @@ struct NewSearchErrorView: View {
             Spacer()
             AnytypeText(
                 error.title,
-                style: .uxBodyRegular
+                style: .uxBodyRegular,
+                color: .Text.primary
             )
-            .foregroundColor(.Text.primary)
             .multilineTextAlignment(.center)
             error.subtitle.flatMap {
                 AnytypeText(
                     $0,
-                    style: .uxBodyRegular
+                    style: .uxBodyRegular,
+                    color: .Text.secondary
                 )
-                .foregroundColor(.Text.secondary)
                 .multilineTextAlignment(.center)
             }
             

@@ -3,13 +3,10 @@ import SwiftUI
 
 struct CodeLanguageListView: View {
     
-    @StateObject private var model: CodeLanguageListViewModel
+    @ObservedObject var model: CodeLanguageListViewModel
+    
     @State private var searchText: String = ""
     @Environment(\.dismiss) private var dismiss
-    
-    init(data: CodeLanguageListData) {
-        self._model = StateObject(wrappedValue: CodeLanguageListViewModel(data: data))
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -22,8 +19,7 @@ struct CodeLanguageListView: View {
                             row.onTap()
                         } label: {
                             HStack(spacing: 0) {
-                                AnytypeText(row.title, style: .bodyRegular)
-                                    .foregroundColor(.Text.primary)
+                                AnytypeText(row.title, style: .bodyRegular, color: .Text.primary)
                                     .lineLimit(1)
                                 Spacer()
                                 if row.isSelected {

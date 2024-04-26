@@ -1,8 +1,8 @@
 import Foundation
 import Services
 
-extension ObjectActionsServiceError: LocalizedError {
-    public var errorDescription: String? {
+extension ObjectActionsServiceError {
+    var message: String {
         switch self {
         case .nothingToUndo:
             return Loc.nothingToUndo

@@ -1,13 +1,9 @@
 import SwiftUI
 
 struct SetViewPicker: View {
-    @StateObject private var viewModel: SetViewPickerViewModel
+    @StateObject var viewModel: SetViewPickerViewModel
     @State private var editMode = EditMode.inactive
     @Environment(\.presentationMode) var presentationMode
-    
-    init(setDocument: SetDocumentProtocol, output: SetViewPickerCoordinatorOutput?) {
-        _viewModel = StateObject(wrappedValue: SetViewPickerViewModel(setDocument: setDocument, output: output))
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,9 +12,6 @@ struct SetViewPicker: View {
         }
         .frame(height: 358)
         .background(Color.Background.secondary)
-        .task {
-            await viewModel.startSyncTask()
-        }
     }
     
     private var content: some View {
@@ -59,10 +52,8 @@ struct SetViewPicker: View {
         .buttonStyle(BorderlessButtonStyle())
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                if viewModel.canEditViews {
-                    EditButton()
-                        .buttonDynamicForegroundStyle()
-                }
+                EditButton()
+                    .foregroundColor(Color.Button.active)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 addButton
@@ -74,11 +65,11 @@ struct SetViewPicker: View {
     
     private var addButton: some View {
         Group {
-            if editMode == .inactive && viewModel.canEditViews {
+            if editMode == .inactive {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
-                    IconView(icon: .asset(.X32.plus)).frame(width: 32, height: 32)
+                    Image(asset: .X32.plus).foregroundColor(.Button.active)
                 }
             }
         }

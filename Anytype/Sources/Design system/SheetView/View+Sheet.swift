@@ -6,7 +6,7 @@ extension View {
         isPresented: Binding<Bool>,
         onDismiss: (() -> Void)? = nil,
         cancelAction: (() -> Void)? = nil,
-        content: @escaping () -> Content
+        @ViewBuilder content: @escaping () -> Content
     ) -> some View where Content : View {
         fullScreenCover(isPresented: isPresented, onDismiss: onDismiss) {
             SheetContainerView {
@@ -23,7 +23,7 @@ extension View {
         item: Binding<Item?>,
         onDismiss: (() -> Void)? = nil,
         cancelAction: (() -> Void)? = nil,
-        content: @escaping (Item) -> Content
+        @ViewBuilder content: @escaping (Item) -> Content
     ) -> some View where Item : Identifiable, Content : View {
         fullScreenCover(item: item, onDismiss: onDismiss) { item in
             SheetContainerView {
@@ -42,7 +42,7 @@ private struct SheetContainerView<Content: View>: UIViewControllerRepresentable 
     
     let content: Content
     
-    init(content: () -> Content) {
+    init(@ViewBuilder content: () -> Content) {
         self.content = content()
     }
     
@@ -64,6 +64,7 @@ private final class UISheetControllerForPresentation<Content>: UIHostingControll
     override func willMove(toParent parent: UIViewController?) {
         super.willMove(toParent: parent)
         parent?.view.backgroundColor = .clear
+        parent?.modalPresentationStyle = .overCurrentContext
     }
     
     @available(*, unavailable)
