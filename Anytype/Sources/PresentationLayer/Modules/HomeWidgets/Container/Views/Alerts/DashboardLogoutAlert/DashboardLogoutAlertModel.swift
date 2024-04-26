@@ -4,7 +4,6 @@ import UIKit
 @MainActor
 final class DashboardLogoutAlertModel: ObservableObject {
     
-    @Published var isLogoutInProgress = false
     
     // MARK: - DI
     
@@ -25,18 +24,16 @@ final class DashboardLogoutAlertModel: ObservableObject {
         onBackup()
     }
     
-    func onLogoutTap() {
-        isLogoutInProgress = true
+    func onLogoutTap() async throws {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
 
-        Task {
-            do {
-                try await authService.logout(removeData: false)
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                onLogout()
-            } catch {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-            }
+        do {
+            try await authService.logout(removeData: false)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            onLogout()
+        } catch {
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            throw error
         }
     }
 }

@@ -23,7 +23,8 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private let navigationContext: NavigationContextProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
-
+    private var dismissAllPresented: DismissAllPresented?
+    
     // MARK: - State
     
     @Published var applicationState: ApplicationState = .initial
@@ -41,7 +42,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     
     func onAppear() {
         runAtFirstLaunch()
-        startObserve()
     }
 
     func authView() -> AnyView {
@@ -70,29 +70,30 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         }
 
     }
-
-    // MARK: - Subscription
-
-    private func startObserve() {
-        Task { @MainActor [weak self, applicationStateService] in
-            for await state in applicationStateService.statePublisher.removeDuplicates().values {
-                guard let self = self else { return }
-                self.handleApplicationState(state)
-            }
-        }
-        Task { @MainActor [weak self, accountEventHandler] in
-            for await status in accountEventHandler.accountStatusPublisher.values {
-                guard let self = self else { return }
-                await self.handleAccountStatus(status)
-            }
-        }
-        Task { @MainActor [weak self, fileErrorEventHandler] in
-            for await _ in fileErrorEventHandler.fileLimitReachedPublisher.values {
-                guard let self = self else { return }
-                self.handleFileLimitReachedError()
-            }
+    
+    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
+        self.dismissAllPresented = dismissAllPresented
+    }
+    
+    func startAppStateHandler() async {
+        for await state in applicationStateService.statePublisher.removeDuplicates().values {
+            await handleApplicationState(state)
         }
     }
+    
+    func startAccountStateHandler() async {
+        for await status in accountEventHandler.accountStatusPublisher.values {
+            await handleAccountStatus(status)
+        }
+    }
+
+    func startFileHandler() async {
+        for await _ in fileErrorEventHandler.fileLimitReachedPublisher.values {
+            handleFileLimitReachedError()
+        }
+    }
+    
+    // MARK: - Private
     
     private func runAtFirstLaunch() {
         if UserDefaultsConfig.installedAtDate.isNil {
@@ -116,49 +117,47 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         }
     }
     
-    private func handleApplicationState(_ applicationState: ApplicationState) {
+    private func handleApplicationState(_ applicationState: ApplicationState) async {
+        await dismissAllPresented?(animated: false)
         self.applicationState = applicationState
         switch applicationState {
         case .initial:
             break
         case .login:
-            loginProcess()
+            await loginProcess()
         case .home:
             break
         case .auth:
             break
         case .delete:
-            // For legacy ios untill 16.4
-            navigationContext.dismissAllPresented(animated: true)
+            break
         }
     }
     
     // MARK: - Process
 
-    private func loginProcess() {
+    private func loginProcess() async {
         let userId = UserDefaultsConfig.usersId
         guard userId.isNotEmpty else {
             applicationStateService.state = .auth
             return
         }
 
-        Task { @MainActor in
-            do {
-                let seed = try seedService.obtainSeed()
-                try await authService.walletRecovery(mnemonic: seed)
-                let account = try await authService.selectAccount(id: userId)
-                
-                switch account.status {
-                case .active:
-                    applicationStateService.state = .home
-                case .pendingDeletion:
-                    applicationStateService.state = .delete
-                case .deleted:
-                    applicationStateService.state = .auth
-                }
-            } catch {
+        do {
+            let seed = try seedService.obtainSeed()
+            try await authService.walletRecovery(mnemonic: seed)
+            let account = try await authService.selectAccount(id: userId)
+            
+            switch account.status {
+            case .active:
+                applicationStateService.state = .home
+            case .pendingDeletion:
+                applicationStateService.state = .delete
+            case .deleted:
                 applicationStateService.state = .auth
             }
+        } catch {
+            applicationStateService.state = .auth
         }
     }
 
