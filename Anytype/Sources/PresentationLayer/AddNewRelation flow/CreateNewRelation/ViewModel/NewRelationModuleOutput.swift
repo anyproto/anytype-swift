@@ -8,7 +8,10 @@ protocol NewRelationModuleOutput: AnyObject {
         selectedFormat: SupportedRelationFormat,
         onSelect: @escaping (SupportedRelationFormat) -> Void
     )
-    func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String])
+    func didAskToShowObjectTypesSearch(
+        selectedObjectTypesIds: [String],
+        onSelect: @escaping ([String]) -> Void
+    )
     func didCreateRelation(_ relation: RelationDetails)
     
 }

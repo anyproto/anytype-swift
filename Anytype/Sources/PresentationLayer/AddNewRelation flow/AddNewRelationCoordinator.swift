@@ -120,25 +120,19 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
         navigationContext.presentSwiftUIView(view: view)
     }
     
-    func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
+    func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String], onSelect: @escaping ([String]) -> Void) {
         guard let document else { return }
         let view = newSearchModuleAssembly.multiselectObjectTypesSearchModule(
             selectedObjectTypeIds: selectedObjectTypesIds,
-            spaceId: document.spaceId
-        ) { [weak self] ids in
-            self?.handleObjectTypesSelection(objectTypesIds: ids)
-        }
+            spaceId: document.spaceId,
+            onSelect: onSelect
+        )
         
         navigationContext.presentSwiftUIView(view: view)
     }
     
     func didCreateRelation(_ relation: RelationDetails) {
         onCompletion?(relation, true)
-        navigationContext.dismissTopPresented(animated: true)
-    }
-    
-    private func handleObjectTypesSelection(objectTypesIds: [String]) {
-        newRelationModuleInput?.updateTypesRestriction(objectTypeIds: objectTypesIds)
         navigationContext.dismissTopPresented(animated: true)
     }
     

@@ -64,7 +64,9 @@ extension NewRelationViewModel {
     }
     
     func didTapTypesRestrictionSection() {
-        output?.didAskToShowObjectTypesSearch(selectedObjectTypesIds: objectTypeIds)
+        output?.didAskToShowObjectTypesSearch(selectedObjectTypesIds: objectTypeIds, onSelect: { [weak self] ids in
+            self?.updateTypesRestriction(objectTypeIds: ids)
+        })
     }
     
     func didTapAddButton() {
