@@ -1,6 +1,7 @@
 import PhotosUI
 import SwiftUI
 
+// TODO: Migrate to PhotosPicker
 struct MediaPickerView: UIViewControllerRepresentable {
 
     let contentType: MediaPickerContentType
@@ -28,7 +29,7 @@ extension MediaPickerView {
     // Use a Coordinator to act as your PHPickerViewControllerDelegate
     class Coordinator: PHPickerViewControllerDelegate {
         
-        private let onSelect: (NSItemProvider?) -> Void
+        let onSelect: (NSItemProvider?) -> Void
         
         init(onSelect: @escaping (NSItemProvider?) -> Void) {
             self.onSelect = onSelect

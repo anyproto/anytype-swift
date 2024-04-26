@@ -24,7 +24,6 @@ protocol AddNewRelationCoordinatorProtocol {
 final class AddNewRelationCoordinator {
     private let navigationContext: NavigationContextProtocol
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
     
     private var onCompletion: ((_ newRelationDetails: RelationDetails, _ isNew: Bool) -> Void)?
     private var document: BaseDocumentProtocol?
@@ -32,12 +31,10 @@ final class AddNewRelationCoordinator {
     
     init(
         navigationContext: NavigationContextProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        newRelationModuleAssembly: NewRelationModuleAssemblyProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.newRelationModuleAssembly = newRelationModuleAssembly
     }
     
 }
@@ -97,15 +94,16 @@ extension AddNewRelationCoordinator: RelationSearchModuleOutput {
     }
     
     private func showCreateNewRelationView(document: BaseDocumentProtocol, target: RelationsModuleTarget, searchText: String) {
-        let module = newRelationModuleAssembly.make(
-            document: document,
-            target: target,
-            searchText: searchText,
-            output: self
-        )
-        newRelationModuleInput = module.input
+        let view = NewRelationCoordinatorView(name: searchText, document: document, target: target)
+                
+        let vc = UIHostingController(rootView: view)
         
-        navigationContext.present(module.viewController, animated: true)
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium()]
+            sheet.selectedDetentIdentifier = .medium
+        }
+        
+        navigationContext.present(vc, animated: true)
     }
       
 }
@@ -114,10 +112,11 @@ extension AddNewRelationCoordinator: RelationSearchModuleOutput {
 
 extension AddNewRelationCoordinator: NewRelationModuleOutput {
     
-    func didAskToShowRelationFormats(selectedFormat: SupportedRelationFormat) {
-        let viewModel = RelationFormatsListViewModel(selectedFormat: selectedFormat, output: self)
-        let view = RelationFormatsListView(viewModel: viewModel)
-        
+    func didAskToShowRelationFormats(
+        selectedFormat: SupportedRelationFormat,
+        onSelect: @escaping (SupportedRelationFormat) -> Void
+    ) {
+        let view = RelationFormatsListView(selectedFormat: selectedFormat, onFormatSelect: onSelect)
         navigationContext.presentSwiftUIView(view: view)
     }
     
@@ -140,17 +139,6 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
     
     private func handleObjectTypesSelection(objectTypesIds: [String]) {
         newRelationModuleInput?.updateTypesRestriction(objectTypeIds: objectTypesIds)
-        navigationContext.dismissTopPresented(animated: true)
-    }
-    
-}
-
-// MARK: - RelationFormatsListModuleOutput
-
-extension AddNewRelationCoordinator: RelationFormatsListModuleOutput {
-    
-    func didSelectFormat(_ format: SupportedRelationFormat) {
-        newRelationModuleInput?.updateRelationFormat(format)
         navigationContext.dismissTopPresented(animated: true)
     }
     

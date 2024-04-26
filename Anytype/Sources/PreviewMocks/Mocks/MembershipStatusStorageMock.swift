@@ -13,4 +13,12 @@ final class MembershipStatusStorageMock: MembershipStatusStorageProtocol {
     func owningState(tier: Services.MembershipTier) async -> MembershipTierOwningState {
         .owned
     }
+    
+    func startSubscription() async {
+        
+    }
+    
+    func stopSubscriptionAndClean() async {
+        
+    }
 }

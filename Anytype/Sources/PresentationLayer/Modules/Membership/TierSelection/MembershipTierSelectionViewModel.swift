@@ -5,7 +5,7 @@ import Services
 @MainActor
 final class MembershipTierSelectionViewModel: ObservableObject {
     
-    @Published var state: MembershipTierOwningState = .owned
+    @Published var state: MembershipTierOwningState = .pending
     
     let userMembership: MembershipStatus
     let tierToDisplay: MembershipTier
@@ -31,9 +31,7 @@ final class MembershipTierSelectionViewModel: ObservableObject {
         self.onSuccessfulPurchase = onSuccessfulPurchase
     }
     
-    func onAppear() async {
-        AnytypeAnalytics.instance().logScreenMembership(tier: tierToDisplay)
-        
+    func onAppear() async {        
         state = await membershipStatusStorage.owningState(tier: tierToDisplay)
     }
     

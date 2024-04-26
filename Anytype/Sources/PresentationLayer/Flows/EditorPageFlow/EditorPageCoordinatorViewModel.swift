@@ -21,6 +21,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var codeLanguageData: CodeLanguageListData?
     @Published var covertPickerData: ObjectCoverPickerData?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
+    @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var textIconPickerData: TextIconPickerData?
+    @Published var blockObjectSearchData: BlockObjectSearchData?
+    @Published var undoRedoObjectId: StringIdentifiable?
     
     init(
         data: EditorPageObject,
@@ -89,6 +93,22 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showLinkToObject(data: LinkToObjectSearchModuleData) {
         linkToObjectData = data
+    }
+    
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        objectIconPickerData = ObjectIconPickerData(document: document)
+    }
+    
+    func showTextIconPicker(data: TextIconPickerData) {
+        textIconPickerData = data
+    }
+    
+    func showBlockObjectSearch(data: BlockObjectSearchData) {
+        blockObjectSearchData = data
+    }
+    
+    func didUndoRedo() {
+        undoRedoObjectId = data.objectId.identifiable
     }
     
     // MARK: - Private

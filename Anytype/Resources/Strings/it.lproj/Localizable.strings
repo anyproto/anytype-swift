@@ -205,11 +205,11 @@
 "Restore" = "Ripristina";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Key" = "Chiave";
+"Keychain.Key.Copy.Toast.title" = "Chiave copiata";
+"Keychain.Key.description" = "Ne avrai bisogno per entrare nella tua cassaforte. Tienila in un posto sicuro. Se la perdi, non puoi più entrare nella tua cassaforte.";
+"Keychain.Show and copy key" = "Mostra e copia Chiave";
+"Keychain.Have you backed up your key?" = "Hai eseguito il backup della tua chiave?";
 "Keychain.Error.String to Data conversion error" = "Errore di conversione da Stringa a Dati";
 "Keychain.Error.Data to String conversion error" = "Errore di conversione da Dati a Stringa";
 "Keychain.Error.Unknown Keychain Error" = "Errore sconosciuto del Portachiavi";
@@ -219,53 +219,57 @@
 "Create" = "Crea";
 "Scan QR code" = "Scansiona codice QR";
 "Auth.CameraPermissionTitle" = "Per favore, consenti l’accesso";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
+"Restore key from keychain" = "Ripristina la Chiave dal portachiavi";
+"Auth.LogIn" = "Ho una Chiave";
 "Auth.Button.Join" = "New Vault";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Errore recupero cassaforte, riprova";
+"Vault recover error no internet" = "Errore di recupero cassaforte, probabilmente nessuna connessione ad internet";
 
 // Auth Errors
 "Error creating wallet" = "Errore nella creazione del portafoglio";
-"Error select vault" = "Error select vault";
-"Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Error select vault" = "Errore nella selezione della cassaforte";
+"Error wallet recover vault" = "Errore portafoglio recupero cassaforte";
+"Wallet.Recovery.Error.description" = "Chiave non valida";
 
 "Search for language" = "Cerca lingua";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Title" = "Questa è la tua Chiave";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Mostra la mia Chiave";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Avanti";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Salta";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copia negli appunti";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Leggi altro";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Puoi trovare questa chiave in seguito nelle impostazioni di Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Cos'è una Chiave?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "È rappresentata da una frase di recupero – 12 parole casuali da cui la tua cassaforte viene magicamente generata su questo dispositivo.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Tutte le risorse di calcolo presenti sulla Terra non sono sufficienti per irrompere. Se la perdi, non può essere recuperata. Quindi, conservala in un posto sicuro!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Come salvare la mia chiave?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Il modo più semplice per conservare la tua Chiave è salvarla nel tuo gestore di password.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Il modo più sicuro è scriverlo su carta e tenerlo offline, in un luogo sicuro.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Title" = "Imposta il tuo nome";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Senza titolo";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Tutto al suo interno è crittografato.\nÈ prioritariamente locale – tutto funziona offline.\nSolo tu hai la chiave.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Usa portachiavi";
 "Auth.LoginFlow.Or" = "O";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Textfield.Placeholder" = "Digita la tua chiave";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Entrando nel Void";
 
 // Object settings
@@ -340,7 +344,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype needs access to your camera to scan QR codes.\n\nPlease, go to your device's Settings -> Privacy -> Camera and set Anytype to ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "Ci dispiace vederti andare. Hai 30 giorni per annullare questa richiesta. Dopo 30 giorni, i tuoi dati della cassaforte crittografati verranno rimossi definitivamente dal nodo di backup.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Annulla/Ripristina";
@@ -361,6 +365,7 @@
 
 "TemplateEditing.Title" = "Modifica modello";
 
+"Templates.Popup.WasAddedTo.title" = "Nuovo modello è stato aggiunto al tipo %@";
 "Templates.Popup.WasAddedTo" = "Nuovo modello è stato aggiunto al tipo";
 "Templates.Popup.Duplicated" = "Il modello è stato duplicato";
 "Templates.Popup.Removed" = "Il modello è stato rimosso";
@@ -560,17 +565,17 @@
 "Mode" = "Modalità";
 "copied to clipboard" = "%@ copiato negli appunti";
 "Create object from clipboard" = "Crea un oggetto dagli appunti";
-"Access to key from keychain" = "Access to key from keychain";
-"Back up your key" = "Back up your key";
-"Vault" = "Vault";
+"Access to key from keychain" = "Accesso alla Chiave dal portachiavi";
+"Back up your key" = "Esegui il backup della tua chiave";
+"Vault" = "Cassaforte";
 "Access" = "Accesso";
-"Back up key" = "Back up key";
+"Back up key" = "Backup della Chiave";
 "Removing cache" = "Rimozione della cache";
 "Deletion error" = "Errore di cancellazione";
 "Start" = "Avvia";
 "On analytics" = "On analytics";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
+"Select vault error" = "Errore nella selezione della cassaforte";
+"Vault deleted" = "Cassaforte eliminata";
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Ripristina dal portachiavi";
 "Edit" = "Modifica";
@@ -653,14 +658,14 @@
 "This object doesn't exist" = "Questo oggetto non esiste";
 "Setting up encrypted storage\nPlease wait" = "Impostazione dello storage crittografato\nAttendere prego";
 "These objects will be deleted irrevocably" = "Questi oggetti verranno eliminati irrevocabilmente. Non è possibile annullare questa azione.";
-"Delete vault" = "Delete vault";
+"Delete vault" = "Elimina cassaforte";
 "Cancel deletion" = "Annulla eliminazione";
 "Logout and clear data" = "Esci e cancella i dati";
 "New" = "Nuovo";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
+"DeletionAlert.description" = "Sarai disconnesso su tutti gli altri dispositivi. Avrai 30 giorni per recuperare la tua cassaforte. In seguito verrà eliminata definitivamente.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Griglia";
@@ -807,7 +812,7 @@
 "About.TermsOfUse" = "Termini d'Uso";
 "About.PrivacyPolicy" = "Informativa sulla Privacy";
 "About.TechInfo" = "Informazioni tecniche";
-"About.Mail.Subject" = "Support request, Vault ID %@";
+"About.Mail.Subject" = "Richiesta di supporto, ID Cassaforte %@";
 "About.Mail.Body" = "\n\nInformazioni tecniche\n%@";
 
 // MARK: - Cache
@@ -818,7 +823,7 @@
 "Settings.Title" = "Impostazioni";
 "Settings.SpaceName" = "Nome dello Spazio";
 "Settings.SpaceType" = "Tipo di spazio";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.VaultAndAccess" = "Cassaforte e accesso";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Archiviazione file";
@@ -826,8 +831,8 @@
 "FileStorage.Space.Instruction" = "Puoi archiviare fino a %@ dei tuoi file sul nostro nodo di backup crittografato gratuitamente. Se raggiungi il limite, i file verranno archiviati solo in locale.";
 "FileStorage.Space.Used" = "%@ di %@ utilizzato";
 "FileStorage.Space.GetMore" = "Ottieni più spazio";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Subject" = "Ottieni più archiviazione, cassaforte %@";
+"FileStorage.Space.Mail.Body" = "Ciao, Anytype team. Vi contatto per richiedere un aumento della capacità di archiviazione dei miei file poiché ho esaurito lo spazio disponibile. Il mio limite attuale è di %@. Il mio ID della cassaforte è %@. Grazie, %@.";
 "FileStorage.Local.Title" = "Archiviazione locale";
 "FileStorage.Local.Instruction" = "Per risparmiare spazio sul tuo dispositivo locale, puoi liberare tutti i tuoi file trasferendoli al nostro nodo di backup criptato. I file verranno ricaricati quando li apri";
 "FileStorage.Local.Used" = "%@ utilizzati";
@@ -907,8 +912,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "I nuovi membri non saranno in grado di unirsi allo spazio. È possibile generare un nuovo link in qualsiasi momento";
 "SpaceShare.Approve.Toast" = "Hai approvato la richiesta di %@.";
 "SpaceShare.ViewRequest.Title" = "%@ ha richiesto di unirsi allo spazio %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
-"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.ViewAccess" = "Aggiungi come visualizzatore";
+"SpaceShare.ViewRequest.EditAccess" = "Aggiungi come editor";
 "SpaceShare.ViewRequest.Reject" = "Rifiuta";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ sarà rimosso/a dallo spazio.";
@@ -989,11 +994,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Attenzione";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
+"Initial.UnstableMiddle.Message" = "Hai avviato l'app con un middleware instabile. Non utilizzare la tua cassaforte di produzione. La tua cassaforte potrebbe essere danneggiata.";
 "Initial.UnstableMiddle.Title" = "Attenzione";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Logout" = "Disconnetti dalla cassaforte corrente";
+"Initial.UnstableMiddle.Continue" = "Continua con la cassaforte corrente";
+"Initial.UnstableMiddle.WontUseProd" = "Non userò la mia cassaforte di produzione";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Crea Oggetti con Tipo specifico";
@@ -1005,7 +1010,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Aggiorna";
 "Error.UnableToConnect" = "Si prega di connettersi a internet";
 "Error.Common.Title" = "Ops!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
+"Error.Common.Message" = "Controlla la tua connessione internet e riprova o [invia un report sul forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Riprova";
 
 // MARK: - Relative date formatter
@@ -1065,8 +1070,8 @@
 "Membership.Legal.Terms" = "Termini e condizioni";
 "Membership.Legal.WouldYouLike" = "Vorresti utilizzare Anytype per affari, educazione, ecc.?";
 "Membership.Legal.LetUsKnow" = "Per piacere, fatecelo sapere qui.";
-"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
-"Membership.Legal.RestorePurchases" = "Restore purchases";
+"Membership.Legal.AlreadyPurchasedTier" = "Hai già acquistato il livello?";
+"Membership.Legal.RestorePurchases" = "Ripristina gli acquisti";
 
 "Membership.Email.Subject" = "Richiesta di prezzi speciali";
 "Membership.Email.Body" = "Si prega di specificare la richiesta:
@@ -1093,11 +1098,6 @@
 "Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
 "Membership.NameForm.Validating" = "Aspetta un secondo...";
 "Membership.NameForm.Validated" = "Questo nome è disponibile";
-
-"Membership.NameForm.Error.TooShort" = "Il nome è troppo corto";
-"Membership.NameForm.Error.TooLong" = "Il nome è troppo lungo";
-"Membership.NameForm.Error.HasInvalidChars" = "Il nome contiene caratteri non validi";
-
 
 "Membership.Success.Title" = "Benvenuto/a nella rete, %@";
 "Membership.Success.Curiosity" = "Un grande applauso per la tua curiosità!";

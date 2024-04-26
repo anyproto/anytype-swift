@@ -22,6 +22,9 @@ protocol MembershipStatusStorageProtocol {
     var status: AnyPublisher<MembershipStatus, Never> { get }
     
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState
+    
+    func startSubscription() async
+    func stopSubscriptionAndClean() async
 }
 
 @MainActor
@@ -37,11 +40,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     
     private var subscription: AnyCancellable?
     
-    nonisolated init() {
-        Task {
-            try await setupInitialState()
-        }
-    }
+    nonisolated init() { }
     
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState {
         if _status.tier?.type == tier.type {
@@ -62,12 +61,20 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
         return .unowned
     }
     
-    // MARK: - Private
+    func startSubscription() async {
+        _status =  (try? await membershipService.getMembership(noCache: true)) ?? .empty
+        await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
         
-    private func setupInitialState() async throws {
-        _status = try await membershipService.getMembership()
         setupSubscription()
     }
+    
+    func stopSubscriptionAndClean() async {
+        subscription = nil
+        _status = .empty
+        await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
+    }
+    
+    // MARK: - Private
     
     private func setupSubscription() {        
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
@@ -83,6 +90,9 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
             case .membershipUpdate(let update):
                 Task {
                     _status = try await membershipService.makeMembershipFromMiddlewareModel(membership: update.data)
+                    _status.tier.flatMap { AnytypeAnalytics.instance().logChangePlan(tier: $0) }
+                    
+                    await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
                 }
             default:
                 break

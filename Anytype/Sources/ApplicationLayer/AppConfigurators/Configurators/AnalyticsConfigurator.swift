@@ -9,15 +9,15 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
         // Check analytics feature flag
         #if DEBUG
         
-        AnytypeAnalytics.instance().isEnabled = FeatureFlags.analytics
+        AnytypeAnalytics.instance().setIsEnabled(FeatureFlags.analytics)
         
         #endif
         
-        AnytypeAnalytics.instance().eventHandler = { [weak self] eventType, eventProperties in
+        AnytypeAnalytics.instance().setEventHandler({ [weak self] eventType, eventProperties in
             DispatchQueue.main.async {
                 self?.log(eventType: eventType, eventProperties: eventProperties)
             }
-        }
+        })
         
         AnytypeAnalytics.instance().setEventConfiguartion(event: AnalyticsEventsName.blockSetTextText,
                                                           configuation: .init(threshold: .notInRow))

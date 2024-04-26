@@ -20,8 +20,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
     @Injected(\.blockWidgetExpandedService)
     private var blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
-    @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: RelationDetailsStorageProtocol
     @Injected(\.workspaceStorage)
@@ -41,7 +41,6 @@ final class LoginStateService: LoginStateServiceProtocol {
     
     func setupStateAfterLoginOrAuth(account: AccountData) async {
         middlewareConfigurationProvider.setupConfiguration(account: account)
-        try? await membershipService.dropTiersCache()
         
         await startSubscriptions()
     }
@@ -73,6 +72,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.startSubscription()
         await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
+        await membershipStatusStorage.startSubscription()
         storeKitService.startListenForTransactions()
     }
     
@@ -84,6 +84,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.stopSubscription()
         await activeSpaceParticipantStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
+        await membershipStatusStorage.stopSubscriptionAndClean()
         storeKitService.stopListenForTransactions()
     }
 }

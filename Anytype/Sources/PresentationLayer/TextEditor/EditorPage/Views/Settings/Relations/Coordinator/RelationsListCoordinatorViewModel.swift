@@ -12,8 +12,7 @@ final class RelationsListCoordinatorViewModel:
     @Published var relationValueData: RelationValueData?
     @Published var toastBarData: ToastBarData = .empty
     
-    private let document: BaseDocumentProtocol
-    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
+    let document: BaseDocumentProtocol
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
@@ -22,7 +21,6 @@ final class RelationsListCoordinatorViewModel:
 
     init(
         document: BaseDocumentProtocol,
-        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
@@ -30,16 +28,11 @@ final class RelationsListCoordinatorViewModel:
         output: RelationValueCoordinatorOutput?
     ) {
         self.document = document
-        self.relationsListModuleAssembly = relationsListModuleAssembly
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.addNewRelationCoordinator = addNewRelationCoordinator
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.relationValueProcessingService = relationValueProcessingService
         self.output = output
-    }
-    
-    func relationsList() -> AnyView {
-        relationsListModuleAssembly.make(document: document, output: self)
     }
     
     // MARK: - RelationsListModuleOutput

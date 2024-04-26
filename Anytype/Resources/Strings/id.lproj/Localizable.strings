@@ -242,7 +242,7 @@
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Lanjut";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Lewati";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Salin ke papan klip";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Baca selengkapnya";
@@ -261,11 +261,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
 "Auth.LoginFlow.Or" = "ATAU";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Memasuki Void";
 
 // Object settings
@@ -340,7 +344,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype perlu mengakses kameramu untuk memindai kode QR.\n\nSilakan menuju Setelan -> Privasi -> Kamera dan atur Anytype menjadi ON";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "Kami sedih melihatmu pergi. Kamu punya waktu 30 hari jika ingin membatalkan permintaan ini. Setelahnya, data brankas terenkripsimu akan dihapus secara permanen dari simpul cadangan.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Batalkan/Ulangi";
@@ -361,6 +365,7 @@
 
 "TemplateEditing.Title" = "Sunting templat";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Templat baru ditambahkan ke tipe ini";
 "Templates.Popup.Duplicated" = "Templat digandakan";
 "Templates.Popup.Removed" = "Templat dihapus";
@@ -793,7 +798,7 @@
 "About.AppVersion" = "Versi aplikasi: %@";
 "About.BuildNumber" = "Nomor Pembuatan: %@";
 "About.Library" = "Versi Pustaka: %@";
-"About.anytypeId" = "Anytype ID: %@";
+"About.anytypeId" = "ID Anytype: %@";
 "About.analyticsId" = "ID analitik: %@";
 "About.deviceId" = "ID perangkat: %@";
 "About.Device" = "Perangkat: %@";
@@ -885,7 +890,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "Kamu keluar dari %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Lebih lanjut";
 
 "SpaceShare.Title" = "Berbagi";
 "SpaceShare.Members" = "Anggota";
@@ -918,7 +923,7 @@
 "SpaceShare.Join.Button" = "Permintaan bergabung";
 "SpaceShare.Join.Info" = "Ketika pemilik ruang menyetujui permintaanmu, kamu akan bergabung ke ruang ini dengan hak akses yang telah ditentukan.";
 "SpaceShare.Join.Message" = "Kamu diundang untuk bergabung ke ruang **%@** buatan **%@**. Kirimkan permintaan supaya pemilik ruang dapat mengizinkanmu bergabung.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.InviteNotFound" = "Sepertinya tautan ini tidak bisa digunakan";
 "SpaceShare.JoinConfirmation.Title" = "Permintaan terkirim";
 "SpaceShare.JoinConfirmation.Message" = "Kamu akan menerima pemberitahuan ketika pemilik ruang menyetujui permintaanmu.";
 "SpaceShare.YouSuffix" = "%@ (kamu)";
@@ -928,7 +933,7 @@
 "SpaceShare.StopSharing.Title" = "Berhenti membagikan ruang";
 "SpaceShare.StopSharing.Message" = "Anggota tidak akan lagi menyinkronkan ruang ini dan tautan pembagian akan dinonaktifkan.";
 "SpaceShare.StopSharing.Toast" = "Ruang ini tidak dibagikan lagi";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Title" = "Kode QR untuk bergabung ke Ruang";
 "SpaceShare.QR.Button" = "Tampilkan kode QR";
 "SpaceShare.HowToShare.Title" = "Bagaimana caranya membagikan ruang?";
 "SpaceShare.HowToShare.Step1" = "Berikan tautan kepada orang yang ingin kamu ajak berkolaborasi.";
@@ -1093,11 +1098,6 @@
 "Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
 "Membership.NameForm.Validating" = "Tunggu sebentar...";
 "Membership.NameForm.Validated" = "Nama ini boleh dipakai";
-
-"Membership.NameForm.Error.TooShort" = "Nama terlalu pendek";
-"Membership.NameForm.Error.TooLong" = "Nama terlalu panjang";
-"Membership.NameForm.Error.HasInvalidChars" = "Nama mengandung karakter tidak valid";
-
 
 "Membership.Success.Title" = "Selamat menjadi anggota, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";

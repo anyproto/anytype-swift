@@ -83,7 +83,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "io.anytype.membership.builder",
+          "productID" : "io.anytype.dev.membership.builder",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Builder",
           "subscriptionGroupID" : "22608A4E",

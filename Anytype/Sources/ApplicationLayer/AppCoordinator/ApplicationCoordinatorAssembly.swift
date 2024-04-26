@@ -10,16 +10,13 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
     
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
-    private let modulesDI: ModulesDIProtocol
 
     init(
         coordinatorsDI: CoordinatorsDIProtocol,
-        uiHelpersDI: UIHelpersDIProtocol,
-        modulesDI: ModulesDIProtocol
+        uiHelpersDI: UIHelpersDIProtocol
     ) {
         self.coordinatorsDI = coordinatorsDI
         self.uiHelpersDI = uiHelpersDI
-        self.modulesDI = modulesDI
     }
     
     // MARK: - ApplicationCoordinatorAssemblyProtocol
@@ -29,7 +26,6 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
         return ApplicationCoordinatorView(
             model: ApplicationCoordinatorViewModel(
                 homeCoordinatorAssembly: self.coordinatorsDI.home(),
-                deleteAccountModuleAssembly: self.modulesDI.deleteAccount(), 
                 navigationContext: self.uiHelpersDI.commonNavigationContext()
             )
         ).eraseToAnyView()
