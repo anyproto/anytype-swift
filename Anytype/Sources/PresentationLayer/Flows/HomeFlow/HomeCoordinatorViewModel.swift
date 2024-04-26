@@ -24,7 +24,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
-    private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let workspacesStorage: WorkspacesStorageProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -86,7 +85,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         workspacesStorage: WorkspacesStorageProtocol,
         documentsProvider: DocumentsProviderProtocol,
@@ -105,7 +103,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
-        self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.workspacesStorage = workspacesStorage
         self.documentsProvider = documentsProvider
@@ -144,10 +141,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func homeWidgetsModule(info: AccountInfo) -> AnyView? {
         return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
-    }
-    
-    func homeBottomNavigationPanelModule(info: AccountInfo) -> AnyView {
-        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, info: info, output: self)
     }
     
     func createSpaceSwitchModule() -> AnyView {

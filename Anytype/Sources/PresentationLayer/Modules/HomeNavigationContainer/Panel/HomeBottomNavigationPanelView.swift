@@ -1,11 +1,29 @@
 import Foundation
 import SwiftUI
 import AnytypeCore
+import Services
 
 struct HomeBottomNavigationPanelView: View {
     
     let homePath: HomePath
-    @StateObject var model: HomeBottomNavigationPanelViewModel
+    let info: AccountInfo
+    weak var output: HomeBottomNavigationPanelModuleOutput?
+    
+    var body: some View {
+        HomeBottomNavigationPanelViewInternal(homePath: homePath, info: info, output: output)
+            .id(info.accountSpaceId)
+    }
+}
+
+private struct HomeBottomNavigationPanelViewInternal: View {
+    
+    let homePath: HomePath
+    @StateObject private var model: HomeBottomNavigationPanelViewModel
+    
+    init(homePath: HomePath, info: AccountInfo, output: HomeBottomNavigationPanelModuleOutput?) {
+        self.homePath = homePath
+        self._model = StateObject(wrappedValue: HomeBottomNavigationPanelViewModel(info: info, output: output))
+    }
     
     var body: some View {
         buttons

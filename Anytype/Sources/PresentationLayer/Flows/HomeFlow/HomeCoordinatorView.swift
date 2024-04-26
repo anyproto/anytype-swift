@@ -28,7 +28,7 @@ struct HomeCoordinatorView: View {
                 },
                 bottomPanel: {
                     if let info = model.info {
-                        model.homeBottomNavigationPanelModule(info: info)
+                        HomeBottomNavigationPanelView(homePath: model.editorPath, info: info, output: model)
                     }
                 }
             )

@@ -221,8 +221,8 @@
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "J'ai une clé";
-"Auth.Button.Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
+"Auth.Button.Join" = "Nouveau coffre-fort";
+"Auth.Welcome.Subtitle" = "Créez et collaborez dans des espaces que vous possédez. Crypté, hors ligne & [open](%@).";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
 
@@ -240,9 +240,9 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Ceci est votre clé";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Description" = "Elle vous donne la pleine propriété de votre coffre-fort.\nElle ne peut pas être récupérée.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Afficher ma clé";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Accéder à mon coffre";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Suivant";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Ignorer";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copier dans le presse-papier";
 "Auth.JoinFlow.Key.Button.Info.Title" = "En savoir plus";
@@ -250,22 +250,26 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Qu'est-ce que la Clé ?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "La phrase de récupération est une combinaison aléatoire de 12 mots à partir desquels votre compte est généré comme par magie sur cet appareil.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Qui connaît la combinaison de ces mots – possède le compte. **Maintenant, vous êtes la seule personne au monde à y avoir accès.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Toutes les ressources de calcul sur Terre ne suffisent pas à la briser. Si vous la perdez, elle ne peut pas être récupérée. Alors, stockez-la quelque part en sécurité !";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Comment sauvegarder ma phrase ?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "La façon la plus simple de conserver votre phrase de récupération est de l’enregistrer dans votre gestionnaire de mots de passe.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Le moyen le plus sûr est de l'écrire sur papier et de le garder dans un endroit sûr et sécurisé.";
 
 "Auth.JoinFlow.Soul.Title" = "Saisissez votre nom";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Description" = "Seulement vu par les personnes avec qui vous partagez quelque chose. Il n'y a pas de registre central des utilisateurs.";
 "Auth.JoinFlow.Soul.Placeholder" = "Sans titre";
 "Auth.JoinFlow.Soul.Button" = "Obtenir ma Clé";
+
+"Auth.JoinFlow.Vault.Title" = "Voici votre Coffre-fort";
+"Auth.JoinFlow.Vault.Description" = "Tout ce qui se trouve à l'intérieur est chiffré.\n Il est en premier lieu local - tout fonctionne hors ligne.\nSeul vous avez la clé.";
+"Auth.JoinFlow.Vault.Button" = "Obtenir ma Clé";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Utiliser le trousseau";
 "Auth.LoginFlow.Or" = "OU";
 "Auth.LoginFlow.Textfield.Placeholder" = "Tapez votre clé";
-"Auth.LoginFlow.Enter.Title" = "Accéder à mon coffre";
+"Auth.LoginFlow.Enter.Title" = "Obtenir ma Clé";
 "Auth.LoginFlow.Entering.Void.Title" = "Entrer dans le Vide";
 
 // Object settings
@@ -361,6 +365,7 @@
 
 "TemplateEditing.Title" = "Modifier le modèle";
 
+"Templates.Popup.WasAddedTo.title" = "Un nouveau modèle a été ajouté au type %@";
 "Templates.Popup.WasAddedTo" = "Le nouveau modèle a été ajouté au type";
 "Templates.Popup.Duplicated" = "Le modèle a été dupliqué";
 "Templates.Popup.Removed" = "Le modèle a été supprimé";
@@ -571,7 +576,7 @@
 "On analytics" = "On analytics";
 "Select vault error" = "Select vault error";
 "Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
+"Vault.Select.Incompatible.Version.Error.Text" = "Nous n'avons pas pu récupérer les données de votre coffre car votre version est obsolète. Veuillez mettre à jour Anytype vers la dernière version.";
 "Restore from keychain" = "Restaurer depuis le trousseau";
 "Edit" = "Éditer";
 "In this object" = "Dans cet objet";
@@ -793,7 +798,7 @@
 "About.AppVersion" = "Version de l'application : %@";
 "About.BuildNumber" = "Numéro de version : %@";
 "About.Library" = "Version de la bibliothèque :  %@";
-"About.anytypeId" = "Anytype ID: %@";
+"About.anytypeId" = "ID Anytype : %@";
 "About.analyticsId" = "ID analytique : %@";
 "About.deviceId" = "ID de l'appareil : %@";
 "About.Device" = "Appareil : %@";
@@ -885,7 +890,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "Vous avez quitté le %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Plus d'infos";
 
 "SpaceShare.Title" = "Partager";
 "SpaceShare.Members" = "Membres";
@@ -918,7 +923,7 @@
 "SpaceShare.Join.Button" = "Demander à rejoindre";
 "SpaceShare.Join.Info" = "Une fois que le propriétaire de l'espace a approuvé votre demande, vous rejoindrez l'espace avec les droits d'accès déterminés par le propriétaire.";
 "SpaceShare.Join.Message" = "Vous avez été invité à rejoindre l'espace %@ créé par %@. Envoyez une demande afin que le propriétaire de l'espace puisse vous laisser entrer.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.InviteNotFound" = "Ce lien ne semble pas fonctionner";
 "SpaceShare.JoinConfirmation.Title" = "Demande envoyée";
 "SpaceShare.JoinConfirmation.Message" = "Vous recevrez une notification lorsque le propriétaire de l'espace approuvera votre demande.";
 "SpaceShare.YouSuffix" = "%@ (vous)";
@@ -928,7 +933,7 @@
 "SpaceShare.StopSharing.Title" = "Arrêter le partage de l'espace";
 "SpaceShare.StopSharing.Message" = "Les membres ne seront plus synchronisés à cet espace et le lien de partage sera désactivé.";
 "SpaceShare.StopSharing.Toast" = "L'espace n'est plus partagé";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Title" = "QR Code pour rejoindre un espace";
 "SpaceShare.QR.Button" = "Afficher le QR code";
 "SpaceShare.HowToShare.Title" = "Comment partager un espace ?";
 "SpaceShare.HowToShare.Step1" = "SVP fournir le lien à la personne avec qui vous souhaitez collaborer.";
@@ -1055,12 +1060,14 @@
 "Min X characters" = "Min %@ caractères";
 "Pending" = "En attente…";
 "Manage payment" = "Gérer un paiement";
+"This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Achat annulé";
 
 
 "Membership.Ad.Title" = "Adhésion";
 "Membership.Ad.Subtitle" = "Rejoindre le réseau Anytype signifie contribuer à son histoire";
 
-"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Details" = "Détails des abonnements";
 "Membership.Legal.Privacy" = "Politique de confidentialité";
 "Membership.Legal.Terms" = "Termes et conditions";
 "Membership.Legal.WouldYouLike" = "Vous souhaitez utiliser Anytype pour les affaires, l'éducation, etc.?";
@@ -1093,11 +1100,6 @@
 "Membership.NameForm.Subtitle" = "Ceci est votre nom unique sur le réseau Anytype, confirmant votre abonnement. Il agit comme votre domaine personnel et ne peut pas être changé.";
 "Membership.NameForm.Validating" = "Patientez...";
 "Membership.NameForm.Validated" = "Ce nom est disponible";
-
-"Membership.NameForm.Error.TooShort" = "Le nom est trop court";
-"Membership.NameForm.Error.TooLong" = "Le nom est trop long";
-"Membership.NameForm.Error.HasInvalidChars" = "Le nom contient des caractères non valides";
-
 
 "Membership.Success.Title" = "Bienvenue sur le réseau, %@";
 "Membership.Success.Curiosity" = "Merci beaucoup pour votre curiosité !";

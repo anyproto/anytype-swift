@@ -29,7 +29,6 @@ final class SetObjectCreationSettingsCoordinatorAssembly: SetObjectCreationSetti
     func make(with navigationContext: NavigationContextProtocol?) -> SetObjectCreationSettingsCoordinatorProtocol {
         SetObjectCreationSettingsCoordinator(
             navigationContext: navigationContext ?? uiHelpersDI.commonNavigationContext(),
-            setObjectCreationSettingsAssembly: modulesDI.setObjectCreationSettings(),
             objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             editorPageCoordinatorAssembly: coordinatorsDI.editorPage()
         )

@@ -46,14 +46,6 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    func blockObjectsSearchModule(
-        title: String,
-        spaceId: String,
-        excludedObjectIds: [String],
-        excludedLayouts: [DetailsLayout],
-        onSelect: @escaping (_ details: ObjectDetails) -> Void
-    ) -> NewSearchView
-    
     func setSortsSearchModule(
         relationsDetails: [RelationDetails],
         onSelect: @escaping (_ relation: RelationDetails) -> Void

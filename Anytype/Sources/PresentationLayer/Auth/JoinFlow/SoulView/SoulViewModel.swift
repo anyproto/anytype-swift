@@ -20,12 +20,6 @@ final class SoulViewModel: ObservableObject {
     private var accountManager: AccountManagerProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: ObjectActionsServiceProtocol
-    @Injected(\.authService)
-    private var authService: AuthServiceProtocol
-    @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
-    @Injected(\.usecaseService)
-    private var usecaseService: UsecaseServiceProtocol
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
@@ -38,38 +32,14 @@ final class SoulViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .offline)
     }
     
     func onNextAction() {
-        if state.mnemonic.isEmpty {
-            createAccount()
-        } else {
-            updateNames()
-        }
+        updateNames()
     }
     
-    // MARK: - Create account step
-    
-    private func createAccount() {
-        Task { @MainActor in
-            startLoading()
-            
-            do {
-                state.mnemonic = try await authService.createWallet()
-                let account = try await authService.createAccount(
-                    name: state.soul,
-                    imagePath: ""
-                )
-                try await usecaseService.setObjectImportDefaultUseCase(spaceId: account.info.accountSpaceId)
-                try? seedService.saveSeed(state.mnemonic)
-                
-                onSuccess()
-            } catch {
-                createAccountError(error)
-            }
-        }
-    }
+    // MARK: - Update names step
     
     private func onSuccess() {
         stopLoading()
@@ -77,7 +47,7 @@ final class SoulViewModel: ObservableObject {
         output?.onNext()
     }
     
-    private func createAccountError(_ error: Error) {
+    private func updateNameError(_ error: Error) {
         stopLoading()
         output?.onError(error)
     }
@@ -87,7 +57,7 @@ final class SoulViewModel: ObservableObject {
             onSuccess()
             return
         }
-        Task { @MainActor in
+        Task {
             startLoading()
             
             do {
@@ -102,7 +72,7 @@ final class SoulViewModel: ObservableObject {
                 
                 onSuccess()
             } catch {
-                createAccountError(error)
+                updateNameError(error)
             }
         }
     }

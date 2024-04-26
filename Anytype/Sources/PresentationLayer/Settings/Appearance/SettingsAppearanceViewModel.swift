@@ -6,7 +6,7 @@ final class SettingsAppearanceViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private var viewControllerProvider: ViewControllerProviderProtocol
+    private var appInterfaceStyle: AppInterfaceStyle?
     
     // MARK: - Public
     
@@ -14,15 +14,11 @@ final class SettingsAppearanceViewModel: ObservableObject {
         didSet {
             UISelectionFeedbackGenerator().selectionChanged()
             UserDefaultsConfig.userInterfaceStyle = currentStyle
-            viewControllerProvider.window?.overrideUserInterfaceStyle = currentStyle
+            appInterfaceStyle?(currentStyle)
         }
     }
     
     @Published var currentIcon = AppIconManager.shared.currentIcon
-
-    init(viewControllerProvider: ViewControllerProviderProtocol) {
-        self.viewControllerProvider = viewControllerProvider
-    }
     
     func updateIcon(_ icon: AppIcon) {
         AppIconManager.shared.setIcon(icon) { [weak self] error in
@@ -30,5 +26,9 @@ final class SettingsAppearanceViewModel: ObservableObject {
             self.currentIcon = AppIconManager.shared.currentIcon
         }
         UISelectionFeedbackGenerator().selectionChanged()
+    }
+    
+    func setAppInterfaceStyle(_ style: AppInterfaceStyle) {
+        self.appInterfaceStyle = style
     }
 }

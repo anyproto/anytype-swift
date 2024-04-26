@@ -19,7 +19,10 @@ final class SetViewSettingsListModel: ObservableObject {
     
     private let setDocument: SetDocumentProtocol
     private let viewId: String
-    private let dataviewService: DataviewServiceProtocol
+    
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    
     private weak var output: SetViewSettingsCoordinatorOutput?
     
     private var cancellables = [AnyCancellable]()
@@ -27,16 +30,12 @@ final class SetViewSettingsListModel: ObservableObject {
     private var view: DataviewView = .empty
     
     init(
-        setDocument: SetDocumentProtocol,
-        viewId: String,
-        mode: SetViewSettingsMode,
-        dataviewService: DataviewServiceProtocol,
+        data: SetSettingsData,
         output: SetViewSettingsCoordinatorOutput?
     ) {
-        self.setDocument = setDocument
-        self.viewId = viewId
-        self.mode = mode
-        self.dataviewService = dataviewService
+        self.setDocument = data.setDocument
+        self.viewId = data.viewId
+        self.mode = data.mode
         self.output = output
         self.canBeDeleted = setDocument.dataView.views.count > 1
         self.debounceNameChanges()
