@@ -1018,6 +1018,7 @@ public struct Anytype_Rpc {
             case badInput // = 2
             case inviteNotFound // = 101
             case inviteBadContent // = 102
+            case spaceIsDeleted // = 103
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1031,6 +1032,7 @@ public struct Anytype_Rpc {
               case 2: self = .badInput
               case 101: self = .inviteNotFound
               case 102: self = .inviteBadContent
+              case 103: self = .spaceIsDeleted
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1042,6 +1044,7 @@ public struct Anytype_Rpc {
               case .badInput: return 2
               case .inviteNotFound: return 101
               case .inviteBadContent: return 102
+              case .spaceIsDeleted: return 103
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -28203,6 +28206,7 @@ extension Anytype_Rpc.Space.InviteView.Response.Error.Code: CaseIterable {
     .badInput,
     .inviteNotFound,
     .inviteBadContent,
+    .spaceIsDeleted,
   ]
 }
 
@@ -33587,6 +33591,7 @@ extension Anytype_Rpc.Space.InviteView.Response.Error.Code: SwiftProtobuf._Proto
     2: .same(proto: "BAD_INPUT"),
     101: .same(proto: "INVITE_NOT_FOUND"),
     102: .same(proto: "INVITE_BAD_CONTENT"),
+    103: .same(proto: "SPACE_IS_DELETED"),
   ]
 }
 

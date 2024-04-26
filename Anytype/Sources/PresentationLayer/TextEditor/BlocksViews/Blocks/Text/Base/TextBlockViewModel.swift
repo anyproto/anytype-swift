@@ -51,19 +51,24 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     init(
         document: BaseDocumentProtocol,
         blockInformationProvider: BlockModelInfomationProvider,
-        stylePublisher: AnyPublisher<Style, Never>,
         actionHandler: TextBlockActionHandlerProtocol,
         cursorManager: EditorCursorManager,
-        customBackgroundColor: UIColor? = nil
+        customBackgroundColor: UIColor? = nil,
+        collectionController: EditorBlockCollectionController? = nil
     ) {
         self.blockInformationProvider = blockInformationProvider
         self.document = document
         self.actionHandler = actionHandler
         self.cursorManager = cursorManager
         self.customBackgroundColor = customBackgroundColor
-      
-        stylePublisher.receiveOnMain().sink { [weak self] style in
-            self?.style = style
+        
+        document.detailsPublisher.receiveOnMain().sink { [weak self] objectDetails in
+            guard let self, let collectionController else { return }
+            let newStyle = styleFromDetails(objectDetails: objectDetails)
+            if style != newStyle {
+                style = newStyle
+                collectionController.reconfigure(items: [.block(self)])
+            }
         }.store(in: &cancellables)
     }
         
@@ -159,5 +164,10 @@ final class TextBlockViewModel: BlockViewModelProtocol {
                 dragConfiguration: .init(id: info.id),
                 styleConfiguration: CellStyleConfiguration(backgroundColor: color)
             )
+    }
+    
+    private func styleFromDetails(objectDetails: ObjectDetails?) -> Style {
+        guard let objectDetails else { return .none }
+        return objectDetails.layoutValue == .todo ? .todo : .none
     }
 }

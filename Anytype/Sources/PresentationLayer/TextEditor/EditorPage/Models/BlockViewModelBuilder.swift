@@ -179,13 +179,12 @@ final class BlockViewModelBuilder {
                         self?.output?.showLinkToObject(data: data)
                     }
                 )
-                
                 let viewModel = TextBlockViewModel(
                     document: document,
                     blockInformationProvider: blockInformationProvider,
-                    stylePublisher: .empty(),
                     actionHandler: textBlockActionHandler,
-                    cursorManager: cursorManager
+                    cursorManager: cursorManager, 
+                    collectionController: blockCollectionController
                 )
                 
                 textBlockActionHandler.viewModel = viewModel

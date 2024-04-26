@@ -216,7 +216,7 @@ private extension TextBlockIconView {
 
         enum TitleCheckbox {
             static let imageSize = CGSize(width: 28, height: 28)
-            static let viewSize = CGSize(width: 28, height: 32) // height is equel to height of 1 line in text view
+            static let viewSize = CGSize(width: 36, height: 32) // height is equel to height of 1 line in text view
         }
         enum Checkbox {
             static let imageSize = CGSize(width: 18, height: 18)
