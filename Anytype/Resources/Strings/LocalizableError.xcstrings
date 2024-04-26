@@ -66,8 +66,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Quelque chose ne va pas avec l'entrée, réessayez"
           }
         },
         "fy" : {
@@ -323,8 +323,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Erreur de notre côté, réessayez plus tard"
           }
         },
         "fy" : {
@@ -503,8 +503,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我们这边出错了，请稍后再试"
           }
         },
         "zh-Hant" : {
@@ -580,8 +580,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Impossible de se connecter, vérifiez votre connexion internet"
           }
         },
         "fy" : {
@@ -837,8 +837,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is not availabe"
+            "state" : "translated",
+            "value" : "Ce nom n'est pas disponible"
           }
         },
         "fy" : {
@@ -1351,8 +1351,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Vous n'êtes pas connecté ! 😵‍💫"
           }
         },
         "fy" : {
@@ -1608,8 +1608,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Erreur de notre côté, réessayez plus tard"
           }
         },
         "fy" : {
@@ -1788,8 +1788,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我们这边出错了，请稍后再试"
           }
         },
         "zh-Hant" : {
@@ -2045,8 +2045,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
+            "state" : "translated",
+            "value" : "名字在此层不可用"
           }
         },
         "zh-Hant" : {
@@ -2302,8 +2302,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
+            "state" : "translated",
+            "value" : "找不到层，请稍后再试"
           }
         },
         "zh-Hant" : {
@@ -2893,8 +2893,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Quelque chose ne va pas avec l'entrée, réessayez"
           }
         },
         "fy" : {
@@ -3150,8 +3150,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Erreur de notre côté, réessayez plus tard"
           }
         },
         "fy" : {
@@ -3330,8 +3330,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我们这边出错了，请稍后再试"
           }
         },
         "zh-Hant" : {
@@ -3407,8 +3407,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Vous n'êtes pas connecté ! 😵‍💫"
           }
         },
         "fy" : {
@@ -3664,8 +3664,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Erreur de notre côté, réessayez plus tard"
           }
         },
         "fy" : {
@@ -3844,8 +3844,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我们这边出错了，请稍后再试"
           }
         },
         "zh-Hant" : {
@@ -3921,8 +3921,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Quelque chose ne va pas avec l'entrée, réessayez"
           }
         },
         "fy" : {
@@ -4178,8 +4178,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Impossible de se connecter, vérifiez votre connexion internet"
           }
         },
         "fy" : {
@@ -4435,8 +4435,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Quelque chose ne va pas avec l'entrée, réessayez"
           }
         },
         "fy" : {
@@ -4692,8 +4692,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Impossible de se connecter, vérifiez votre connexion internet"
           }
         },
         "fy" : {
@@ -4949,8 +4949,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Quelque chose ne va pas avec l'entrée, réessayez"
           }
         },
         "fy" : {
@@ -5206,8 +5206,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Impossible de se connecter, vérifiez votre connexion internet"
           }
         },
         "fy" : {
@@ -5463,8 +5463,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Quelque chose ne va pas avec l'entrée, réessayez"
           }
         },
         "fy" : {
@@ -5720,8 +5720,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Vous n'êtes pas connecté ! 😵‍💫"
           }
         },
         "fy" : {
@@ -6157,8 +6157,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -6414,8 +6414,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -6671,8 +6671,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -6928,8 +6928,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -7185,8 +7185,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -7442,8 +7442,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -7699,8 +7699,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -7956,8 +7956,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -8213,8 +8213,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -8470,8 +8470,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -8595,8 +8595,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "L'invito non esiste. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -8727,8 +8727,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "邀请不存在。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -8984,8 +8984,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -9241,8 +9241,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -9498,8 +9498,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -9755,8 +9755,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -10012,8 +10012,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -10137,8 +10137,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Il link di invito non può essere analizzato. Potrebbe contenere errori nel formato o dati non validi."
           }
         },
         "ja" : {
@@ -10269,8 +10269,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "无法解析邀请链接。它可能包含格式错误或无效数据。"
           }
         },
         "zh-Hant" : {
@@ -10394,8 +10394,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "L'invito non esiste. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -10526,8 +10526,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "邀请不存在。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -10651,8 +10651,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Il link di invito non può essere analizzato. Potrebbe contenere errori nel formato o dati non validi."
           }
         },
         "ja" : {
@@ -10783,8 +10783,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "无法解析邀请链接。它可能包含格式错误或无效数据。"
           }
         },
         "zh-Hant" : {
@@ -10908,8 +10908,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "L'invito non esiste. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -11040,8 +11040,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "邀请不存在。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -11297,8 +11297,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -11554,8 +11554,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -11811,8 +11811,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -12068,8 +12068,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -12325,8 +12325,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -12582,8 +12582,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -12707,8 +12707,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La richiesta non esiste più. Non sono necessarie azioni, ma assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -12839,8 +12839,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "请求已不存在。不需要任何操作，但请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -13096,8 +13096,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -13353,8 +13353,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -13610,8 +13610,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -13867,8 +13867,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -14124,8 +14124,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -14249,8 +14249,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La richiesta non esiste più. Non sono necessarie azioni, ma assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -14381,8 +14381,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "请求已不存在。不需要任何操作，但请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -14638,8 +14638,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -14895,8 +14895,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -15152,8 +15152,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -15409,8 +15409,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -15666,8 +15666,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -15923,8 +15923,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -16180,8 +16180,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -16437,8 +16437,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -16562,8 +16562,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "Non è stato possibile assegnare i diritti di accesso al membro dello spazio. Assicurati che i diritti di accesso corretti siano assegnati."
           }
         },
         "ja" : {
@@ -16694,8 +16694,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "无法将访问权限分配给该空间成员。请确保已被赋予正确的访问权限。"
           }
         },
         "zh-Hant" : {
@@ -16951,8 +16951,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -17208,8 +17208,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -17465,8 +17465,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -17590,8 +17590,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il membro dello spazio non è stato trovato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -17722,8 +17722,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "找不到该空间成员。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -17979,8 +17979,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -18236,8 +18236,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -18493,8 +18493,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -18750,8 +18750,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -19007,8 +19007,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -19132,8 +19132,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Il membro dello spazio non è stato trovato. Assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -19264,8 +19264,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "找不到该空间成员。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -19521,8 +19521,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -19778,8 +19778,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -19903,8 +19903,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "La richiesta non può essere approvata con questi diritti di accesso. Assicurati che i diritti di accesso corretti siano assegnati."
           }
         },
         "ja" : {
@@ -20035,8 +20035,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "针对这些访问权限的请求无法被批准。请确保已被指定正确的访问权限。"
           }
         },
         "zh-Hant" : {
@@ -20292,8 +20292,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -20417,8 +20417,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La richiesta non esiste più. Non sono necessarie azioni, ma assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -20549,8 +20549,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "请求已不存在。不需要任何操作，但请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -20806,8 +20806,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -21063,8 +21063,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -21320,8 +21320,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -21577,8 +21577,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -21834,8 +21834,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -21959,8 +21959,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "La richiesta non esiste più. Non sono necessarie azioni, ma assicurati che i tuoi dispositivi siano sincronizzati."
           }
         },
         "ja" : {
@@ -22091,8 +22091,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "请求已不存在。不需要任何操作，但请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -22348,8 +22348,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -22605,8 +22605,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来此空间已不再共享。请确保您的设备已经同步。"
           }
         },
         "zh-Hant" : {
@@ -22862,8 +22862,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -23119,8 +23119,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
@@ -23376,8 +23376,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空间人数已到达上限。请升级您的会员资格或联系客服以获取帮助。"
           }
         },
         "zh-Hant" : {
@@ -23633,8 +23633,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！出问题了。请稍候再试。"
           }
         },
         "zh-Hant" : {
@@ -23890,8 +23890,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！请求失败。请检查您的互联网连接，然后重试。"
           }
         },
         "zh-Hant" : {
@@ -24147,8 +24147,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "看起来空间已被删除。请确保您的设备已同步。"
           }
         },
         "zh-Hant" : {
