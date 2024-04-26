@@ -9,7 +9,6 @@ final class RelationEditingViewModelBuilder {
     private let textRelationEditingService: TextRelationEditingServiceProtocol
     private let searchService: SearchServiceProtocol
     private let systemURLService: SystemURLServiceProtocol
-    private let alertOpener: AlertOpenerProtocol
     private let bookmarkService: BookmarkServiceProtocol
     private let relationsService: RelationsServiceProtocol
     
@@ -19,7 +18,6 @@ final class RelationEditingViewModelBuilder {
         textRelationEditingService: TextRelationEditingServiceProtocol,
         searchService: SearchServiceProtocol,
         systemURLService: SystemURLServiceProtocol,
-        alertOpener: AlertOpenerProtocol,
         bookmarkService: BookmarkServiceProtocol,
         relationsService: RelationsServiceProtocol
     ) {
@@ -28,7 +26,6 @@ final class RelationEditingViewModelBuilder {
         self.textRelationEditingService = textRelationEditingService
         self.searchService = searchService
         self.systemURLService = systemURLService
-        self.alertOpener = alertOpener
         self.bookmarkService = bookmarkService
         self.relationsService = relationsService
     }

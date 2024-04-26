@@ -63,7 +63,6 @@ final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssembly
         guard let text, text.isNotEmpty else { return [] }
         
         let systemURLService = serviceLocator.systemURLService()
-        let alertOpener = uiHelpersDI.alertOpener()
         switch type {
         case .text, .number, .numberOfDays:
             return []

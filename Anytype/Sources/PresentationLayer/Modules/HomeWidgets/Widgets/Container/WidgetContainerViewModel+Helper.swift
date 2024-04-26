@@ -22,7 +22,6 @@ extension WidgetContainerViewModel {
             blockWidgetExpandedService: serviceLocator.blockWidgetExpandedService(),
             objectActionsService: serviceLocator.objectActionsService(),
             searchService: serviceLocator.searchService(),
-            alertOpener: uiHelpersDI.alertOpener(),
             contentModel: contentModel,
             output: output
         )
