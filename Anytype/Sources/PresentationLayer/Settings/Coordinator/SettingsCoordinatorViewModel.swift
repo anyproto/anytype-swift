@@ -8,7 +8,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
                                     AboutModuleOutput {
     
     private let navigationContext: NavigationContextProtocol
-    private let dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     
     @Injected(\.documentService)
@@ -23,14 +22,13 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     @Published var showLogoutAlert = false
     @Published var showSettingsAccount = false
     @Published var showKeychainPhrase = false
+    @Published var showDeleteAccountAlert = false
     
     init(
         navigationContext: NavigationContextProtocol,
-        dashboardAlertsAssembly: DashboardAlertsAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
-        self.dashboardAlertsAssembly = dashboardAlertsAssembly
         self.urlOpener = urlOpener
     }
     
@@ -93,8 +91,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onDeleteAccountSelected() {
-        let module = dashboardAlertsAssembly.accountDeletionAlert()
-        navigationContext.present(module)
+        showDeleteAccountAlert = true
     }
     
     // MARK: - AboutModuleOutput
