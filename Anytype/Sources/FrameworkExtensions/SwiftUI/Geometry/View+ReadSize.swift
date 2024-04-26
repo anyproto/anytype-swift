@@ -1,11 +1,11 @@
 import SwiftUI
 
 extension View {
-  func readSize(_ onChange: @escaping (CGSize) -> Void) -> some View {
-    background(
-        SizeCatcher(onChange: onChange)
-    )
-  }
+    func readSize(_ onChange: @escaping (CGSize) -> Void) -> some View {
+        background(
+            SizeCatcher(onChange: onChange)
+        )
+    }
 }
 
 private struct SizeCatcher: View {
@@ -14,17 +14,17 @@ private struct SizeCatcher: View {
     var body: some View {
         GeometryReader { geometry in
             Color.clear.preference(
-                key: FrameCatcherKey.self,
+                key: SizeCatcherKey.self,
                 value: geometry.size
             )
         }
-        .onPreferenceChange(FrameCatcherKey.self) {
+        .onPreferenceChange(SizeCatcherKey.self) {
             onChange($0)
         }
     }
 }
 
-private struct FrameCatcherKey: PreferenceKey {
+private struct SizeCatcherKey: PreferenceKey {
     static var defaultValue = CGSize.zero
     static func reduce(value: inout CGSize, nextValue: () -> CGSize) {
         value = nextValue()
