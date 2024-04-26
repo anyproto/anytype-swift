@@ -16,5 +16,20 @@ struct EditorPageCoordinatorView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
+            .sheet(item: $model.relationValueData) { data in
+                model.relationValueCoordinator(data: data)
+            }
+            .sheet(item: $model.codeLanguageData) {
+                CodeLanguageListView(data: $0)
+            }
+            .sheet(item: $model.covertPickerData) {
+                ObjectCoverPicker(data: $0)
+            }
+            .sheet(item: $model.linkToObjectData) {
+                LinkToObjectSearchView(data: $0) { data in
+                    model.showEditorScreen(data: data)
+                }
+            }
+            .snackbar(toastBarData: $model.toastBarData)
     }
 }

@@ -36,34 +36,25 @@ final class LoginViewModel: ObservableObject {
         loadingRoute.isQRInProgress || loadingRoute.isLoginInProgress
     }
     
-    let canRestoreFromKeychain: Bool
+    lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
     
-    private let authService: AuthServiceProtocol
-    private let seedService: SeedServiceProtocol
-    private let localAuthService: LocalAuthServiceProtocol
-    private let cameraPermissionVerifier: CameraPermissionVerifierProtocol
-    private let accountEventHandler: AccountEventHandlerProtocol
-    private let applicationStateService: ApplicationStateServiceProtocol
+    @Injected(\.authService)
+    private var authService: AuthServiceProtocol
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
+    @Injected(\.localAuthService)
+    private var localAuthService: LocalAuthServiceProtocol
+    @Injected(\.cameraPermissionVerifier)
+    private var cameraPermissionVerifier: CameraPermissionVerifierProtocol
+    @Injected(\.accountEventHandler)
+    private var accountEventHandler: AccountEventHandlerProtocol
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
     private weak var output: LoginFlowOutput?
     
     private var subscriptions = [AnyCancellable]()
     
-    init(
-        authService: AuthServiceProtocol,
-        seedService: SeedServiceProtocol,
-        localAuthService: LocalAuthServiceProtocol,
-        cameraPermissionVerifier: CameraPermissionVerifierProtocol,
-        accountEventHandler: AccountEventHandlerProtocol,
-        applicationStateService: ApplicationStateServiceProtocol,
-        output: LoginFlowOutput?
-    ) {
-        self.authService = authService
-        self.seedService = seedService
-        self.localAuthService = localAuthService
-        self.cameraPermissionVerifier = cameraPermissionVerifier
-        self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
-        self.accountEventHandler = accountEventHandler
-        self.applicationStateService = applicationStateService
+    init(output: LoginFlowOutput?) {
         self.output = output
         
         self.handleAccountShowEvent()
@@ -131,7 +122,7 @@ final class LoginViewModel: ObservableObject {
     
     private func restoreFromkeychain() {
         Task {
-            try await localAuthService.auth(reason: Loc.restoreSecretPhraseFromKeychain)
+            try await localAuthService.auth(reason: Loc.restoreKeyFromKeychain)
             let phrase = try seedService.obtainSeed()
             walletRecovery(with: phrase, route: .keychain)
         }
@@ -179,14 +170,14 @@ final class LoginViewModel: ObservableObject {
                 case .pendingDeletion:
                     applicationStateService.state = .delete
                 case .deleted:
-                    errorText = Loc.accountDeleted
+                    errorText = Loc.vaultDeleted
                 }
             } catch SelectAccountError.accountIsDeleted {
-                errorText = Loc.accountDeleted
+                errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
-                errorText = Loc.Account.Select.Incompatible.Version.Error.text
+                errorText = Loc.Vault.Select.Incompatible.Version.Error.text
             } catch {
-                errorText = Loc.selectAccountError
+                errorText = Loc.selectVaultError
             }
         }
     }

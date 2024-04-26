@@ -22,7 +22,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             
             #if DEBUG
             options.attachViewHierarchy = true
-            options.enableTimeToFullDisplay = true
+            options.enableTimeToFullDisplayTracing = true
             #endif
             
             options.environment = env

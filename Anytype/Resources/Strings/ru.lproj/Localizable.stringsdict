@@ -53,13 +53,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d выбранный блок</string>
+        <string>Выбран %d блок</string>
         <key>few</key>
-        <string>%d selected blocks</string>
+        <string>Выбрано %d блока</string>
         <key>many</key>
-        <string>%d selected blocks</string>
+        <string>Выбрано %d блоков</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>Выбрано %d блоков</string>
       </dict>
     </dict>
     <key>Links count</key>
@@ -75,17 +75,37 @@
         <key>one</key>
         <string>%d ссылка</string>
         <key>few</key>
-        <string>%d links</string>
-        <key>many</key>
-        <string>%d links</string>
-        <key>other</key>
         <string>%d ссылки</string>
+        <key>many</key>
+        <string>%d ссылок</string>
+        <key>other</key>
+        <string>%d ссылок</string>
       </dict>
     </dict>
-    <key>Days to deletion account</key>
+    <key>Backlinks count</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Этот аккаунт будет удален %#@days@</string>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>%d backlink</string>
+        <key>few</key>
+        <string>%d backlinks</string>
+        <key>many</key>
+        <string>%d backlinks</string>
+        <key>other</key>
+        <string>%d backlinks</string>
+      </dict>
+    </dict>
+    <key>Days to deletion vault</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>This vault will be deleted %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>завтра</string>
+        <string>tomorrow</string>
         <key>few</key>
-        <string>через %d дней</string>
+        <string>in %d days</string>
         <key>many</key>
-        <string>через %d дней</string>
+        <string>in %d days</string>
         <key>other</key>
-        <string>через %d дня</string>
+        <string>in %d days</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -117,9 +137,9 @@
         <key>few</key>
         <string>%d objects deleted</string>
         <key>many</key>
-        <string>%d objects deleted</string>
+        <string>Удалено %d объектов </string>
         <key>other</key>
-        <string>%d объектов удалено</string>
+        <string>Удалено %d объектов </string>
       </dict>
     </dict>
     <key>Sharing.File.NewObject</key>
@@ -133,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Файловый объект</string>
         <key>few</key>
-        <string>%d File Objects</string>
+        <string>%d файловых объекта</string>
         <key>many</key>
-        <string>%d File Objects</string>
+        <string>%d файловых объектов</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d файловых объектов </string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -153,13 +173,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Файловый блок</string>
         <key>few</key>
-        <string>%d File Blocks</string>
+        <string>%d файловых блока</string>
         <key>many</key>
-        <string>%d File Blocks</string>
+        <string>%d файловых блоков</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d файловых блоков</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -173,13 +193,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Добавить объект в закладки</string>
         <key>few</key>
-        <string>%d Bookmark Objects</string>
+        <string>Добавить %d объекта в закладки </string>
         <key>many</key>
-        <string>%d Bookmark Objects</string>
+        <string>Добавить %d объектов в закладки</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>Добавить %d объектов в закладки</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -193,13 +213,153 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Связать блок</string>
         <key>few</key>
-        <string>Link %d Blocks</string>
+        <string>Связать %d блока</string>
         <key>many</key>
-        <string>Link %d Blocks</string>
+        <string>Связать %d блоков</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Связать %d блоков</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.Invite.MaxLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>one</key>
+        <string>Вы достигли лимита %d члена. Новые члены не смогут присоединиться.</string>
+        <key>few</key>
+        <string>Вы достигли лимита %d членов. Новые члены не смогут присоединиться.</string>
+        <key>many</key>
+        <string>Вы достигли лимита %d членов. Новые члены не смогут присоединиться.</string>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>Вы достигли лимита %d членов. Новые члены не смогут присоединиться.</string>
+      </dict>
+    </dict>
+    <key>Space.MembersCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d members</string>
+        <key>one</key>
+        <string>%d member</string>
+        <key>few</key>
+        <string>%d members</string>
+        <key>many</key>
+        <string>%d members</string>
+      </dict>
+    </dict>
+    <key>SpaceShare.RequestsCount</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>%d requests</string>
+        <key>one</key>
+        <string>%d request</string>
+        <key>few</key>
+        <string>%d requests</string>
+        <key>many</key>
+        <string>%d requests</string>
+      </dict>
+    </dict>
+    <key>Per Month</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@month@</string>
+      <key>month</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>month</string>
+        <key>few</key>
+        <string>%d months</string>
+        <key>many</key>
+        <string>%d months</string>
+        <key>other</key>
+        <string>%d months</string>
+      </dict>
+    </dict>
+    <key>Per Week</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@week@</string>
+      <key>week</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>week</string>
+        <key>few</key>
+        <string>%d weeks</string>
+        <key>many</key>
+        <string>%d weeks</string>
+        <key>other</key>
+        <string>%d weeks</string>
+      </dict>
+    </dict>
+    <key>Per Year</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@year@</string>
+      <key>year</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>year</string>
+        <key>few</key>
+        <string>%d years</string>
+        <key>many</key>
+        <string>%d years</string>
+        <key>other</key>
+        <string>%d years</string>
+      </dict>
+    </dict>
+    <key>Per Day</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>per %#@day@</string>
+      <key>day</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>day</string>
+        <key>few</key>
+        <string>%d days</string>
+        <key>many</key>
+        <string>%d days</string>
+        <key>other</key>
+        <string>%d days</string>
       </dict>
     </dict>
   </dict>

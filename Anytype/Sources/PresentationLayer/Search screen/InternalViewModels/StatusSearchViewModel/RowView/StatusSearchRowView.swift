@@ -13,7 +13,8 @@ struct StatusSearchRowView: View {
     
     private var content: some View {
         HStack(spacing: 0) {
-            AnytypeText(viewModel.text, style: .relation1Regular, color: viewModel.color.suColor)
+            AnytypeText(viewModel.text, style: .relation1Regular)
+                .foregroundColor(viewModel.color)
             Spacer(minLength: 12)
             selectionIndicatorViewModel.flatMap {
                 SelectionIndicatorView(model: $0)
@@ -29,7 +30,7 @@ extension StatusSearchRowView {
     struct Model {
         
         let text: String
-        let color: UIColor
+        let color: Color
         
     }
 

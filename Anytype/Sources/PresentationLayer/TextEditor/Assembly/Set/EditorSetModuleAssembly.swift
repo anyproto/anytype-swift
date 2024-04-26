@@ -42,15 +42,14 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             inlineParameters: data.inline
         )
         
-        let detailsService = serviceLocator.detailsService(objectId: data.objectId)
-        
         let headerModel = ObjectHeaderViewModel(
             document: setDocument,
+            targetObjectId: setDocument.targetObjectId,
             configuration: .init(
                 isOpenedForPreview: false,
                 usecase: .editor
             ),
-            interactor: serviceLocator.objectHeaderInteractor(objectId: setDocument.targetObjectId)
+            output: output
         )
         
         let model = EditorSetViewModel(
@@ -59,8 +58,9 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
             dataviewService: serviceLocator.dataviewService(),
             searchService: serviceLocator.searchService(),
-            detailsService: detailsService,
-            objectActionsService: serviceLocator.objectActionsService(),
+            detailsService: serviceLocator.detailsService(),
+            objectActionsService: serviceLocator.objectActionsService(), 
+            relationsService: serviceLocator.relationService(),
             textServiceHandler: serviceLocator.textServiceHandler(),
             groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
@@ -69,44 +69,15 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
-
-        let router = EditorSetRouter(
-            setDocument: setDocument,
-            navigationContext: uiHelpersDI.commonNavigationContext(),
-            createObjectModuleAssembly: modulesDI.createObject(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
-            objectSettingCoordinator: coordinatorsDI.objectSettings().make(),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(), 
-            setObjectCreationCoordinator: coordinatorsDI.setObjectCreation().make(),
-            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            setViewSettingsCoordinatorAssembly: coordinatorsDI.setViewSettings(),
-            setSortsListCoordinatorAssembly: coordinatorsDI.setSortsList(),
-            setFiltersListCoordinatorAssembly: coordinatorsDI.setFiltersList(),
-            setViewSettingsImagePreviewModuleAssembly: modulesDI.setViewSettingsImagePreview(),
-            setViewSettingsGroupByModuleAssembly: modulesDI.setViewSettingsGroupByView(),
-            editorSetRelationsCoordinatorAssembly: coordinatorsDI.setRelations(),
-            setViewPickerCoordinatorAssembly: coordinatorsDI.setViewPicker(),
-            toastPresenter: uiHelpersDI.toastPresenter(),
-            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: uiHelpersDI.commonNavigationContext()),
-            output: output
-        )
         
-        setupHeaderModelActions(headerModel: headerModel, using: router)
-        
-        model.setup(router: router)
+        setupHeaderModelActions(headerModel: headerModel, using: output)
         
         return model
     }
     
-    private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
-        headerModel.onCoverPickerTap = { [weak router] args in
-            router?.showCoverPicker(document: args.0, onCoverAction: args.1)
-        }
-        
-        headerModel.onIconPickerTap = { [weak router] args in
-            router?.showIconPicker(document: args.0, onIconAction: args.1)
+    private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using output: EditorSetModuleOutput?) {
+        headerModel.onIconPickerTap = { document in
+            output?.showIconPicker(document: document)
         }
     }
 }

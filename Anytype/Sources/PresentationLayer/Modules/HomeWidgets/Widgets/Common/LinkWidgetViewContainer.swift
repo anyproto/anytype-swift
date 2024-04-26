@@ -6,7 +6,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     let icon: ImageAsset?
     @Binding var isExpanded: Bool
     let dragId: String?
-    let isEditalbeMode: Bool
+    let homeState: HomeWidgetsState
     let allowMenuContent: Bool
     let allowContent: Bool
     let menu: () -> MenuContent
@@ -21,7 +21,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         icon: ImageAsset?,
         isExpanded: Binding<Bool>,
         dragId: String? = nil,
-        isEditalbeMode: Bool = false,
+        homeState: HomeWidgetsState = .readonly,
         allowMenuContent: Bool = false,
         allowContent: Bool = true,
         headerAction: @escaping (() -> Void),
@@ -33,7 +33,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         self.icon = icon
         self._isExpanded = isExpanded
         self.dragId = dragId
-        self.isEditalbeMode = isEditalbeMode
+        self.homeState = homeState
         self.allowMenuContent = allowMenuContent
         self.allowContent = allowContent
         self.headerAction = headerAction
@@ -51,7 +51,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                     Spacer.fixedHeight(6)
                 } else {
                     content
-                        .allowsHitTesting(!isEditalbeMode)
+                        .allowsHitTesting(!homeState.isEditWidgets)
                         .frame(
                             minWidth: 0,
                             maxWidth: .infinity,
@@ -63,14 +63,16 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             .cornerRadius(16, style: .continuous)
             .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
             .contentShape(.dragPreview, RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .ifLet(dragId) { view, dragId in
-                view.anytypeVerticalDrag(itemId: dragId)
+            .if(homeState.isReadWrite) {
+                $0.ifLet(dragId) { view, dragId in
+                    view.anytypeVerticalDrag(itemId: dragId)
+                }
             }
             
             removeButton
                 .zIndex(1)
         }
-        .animation(.default, value: isEditalbeMode)
+        .animation(.default, value: homeState)
         .opacity(isDragging() ? 0 : 1)
     }
     
@@ -88,7 +90,8 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 } else {
                     Spacer.fixedWidth(16)
                 }
-                AnytypeText(title, style: .subheading, color: .Text.primary)
+                AnytypeText(title, style: .subheading)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
                     .layoutPriority(-1)
                 Spacer.fixedWidth(16)
@@ -98,7 +101,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
             .onTapGesture {
                 headerAction()
             }
-            .allowsHitTesting(!isEditalbeMode)
+            .allowsHitTesting(!homeState.isEditWidgets)
             menuButton
             arrowButton
             Spacer.fixedWidth(12)
@@ -122,7 +125,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     
     @ViewBuilder
     private var menuButton: some View {
-        if isEditalbeMode, allowMenuContent {
+        if homeState.isEditWidgets, allowMenuContent {
             Menu {
                 menu()
             } label: {
@@ -135,7 +138,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     
     @ViewBuilder
     private var removeButton: some View {
-        if isEditalbeMode, let removeAction {
+        if homeState.isEditWidgets, let removeAction {
             ZStack {
                 Color.Background.material
                     .background(.ultraThinMaterial)
@@ -166,7 +169,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Name",
                     icon: nil,
                     isExpanded: .constant(true),
-                    isEditalbeMode: false,
+                    homeState: .editWidgets,
                     headerAction: {}
                 ) {
                     Text("Content")
@@ -176,7 +179,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Name",
                     icon: ImageAsset.Widget.bin,
                     isExpanded: .constant(false),
-                    isEditalbeMode: false,
+                    homeState: .readonly,
                     headerAction: {}
                 ) {
                     Text("Content")
@@ -186,7 +189,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Very long text very long text very long text very long text",
                     icon: nil,
                     isExpanded: .constant(false),
-                    isEditalbeMode: false,
+                    homeState: .readwrite,
                     headerAction: {}
                 ) {
                     Text("Content")
@@ -196,7 +199,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Very long text very long text very long text very long text very long text",
                     icon: nil,
                     isExpanded: .constant(true),
-                    isEditalbeMode: true,
+                    homeState: .readwrite,
                     headerAction: {}
                 ) {
                     Text("Content")

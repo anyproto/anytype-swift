@@ -1,11 +1,15 @@
 import Foundation
 import Sentry
 
+@MainActor
 protocol AppErrorLoggerConfigurationProtocol: AnyObject {
     func setUserId(_ userId: String)
 }
 
+@MainActor
 final class AppErrorLoggerConfiguration: AppErrorLoggerConfigurationProtocol {
+    
+    nonisolated init() {}
     
     // MARK: - AppErrorLoggerConfigurationProtocol
     

@@ -15,11 +15,26 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     // MARK: - CoordinatorsDIProtocol
     
-    func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
-        return RelationValueCoordinatorAssembly(
-            coordinatorsDI: self,
+    func legacyRelationValue() -> LegacyRelationValueCoordinatorAssembly {
+        return LegacyRelationValueCoordinatorAssembly(
             modulesDI: modulesDI,
             uiHelpersDI: uiHelpersDI
+        )
+    }
+    
+    func relationValue() -> RelationValueCoordinatorAssemblyProtocol {
+        return RelationValueCoordinatorAssembly(
+            coordinatorsID: self,
+            modulesDI: modulesDI, 
+            uiHelpersDI: uiHelpersDI
+        )
+    }
+    
+    func relationsList() -> RelationsListCoordinatorAssemblyProtocol {
+        RelationsListCoordinatorAssembly(
+            coordinatorsID: self,
+            modulesDI: modulesDI,
+            serviceLocator: serviceLocator
         )
     }
     
@@ -27,15 +42,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }
 
-    func linkToObject() -> LinkToObjectCoordinatorAssemblyProtocol {
-        return LinkToObjectCoordinatorAssembly(
-            serviceLocator: serviceLocator,
-            modulesDI: modulesDI,
-            coordinatorsID: self,
-            uiHelopersDI: uiHelpersDI
-        )
-    }
-    
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol {
         return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
@@ -53,33 +59,13 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             uiHelpersDI: uiHelpersDI
         )
     }
-    
-    func createWidget() -> CreateWidgetCoordinatorAssemblyProtocol {
-        return CreateWidgetCoordinatorAssembly(
-            modulesDI: modulesDI,
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI
-        )
-    }
 
     func application() -> ApplicationCoordinatorAssemblyProtocol {
-        return ApplicationCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
+        return ApplicationCoordinatorAssembly(coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
     }
     
     func settings() -> SettingsCoordinatorAssemblyProtocol {
-        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, serviceLocator: serviceLocator)
-    }
-    
-    func authorization() -> AuthCoordinatorAssemblyProtocol {
-        return AuthCoordinatorAssembly(modulesDI: modulesDI, coordinatorsID: self, uiHelpersDI: uiHelpersDI)
-    }
-    
-    func joinFlow() -> JoinFlowCoordinatorAssemblyProtocol {
-        return JoinFlowCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func loginFlow() -> LoginFlowCoordinatorAssemblyProtocol {
-        return LoginFlowCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
+        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
@@ -94,10 +80,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return SetSortsListCoordinatorAssembly(modulesDI: modulesDI)
     }
     
-    func setFiltersDate() -> SetFiltersDateCoordinatorAssemblyProtocol {
-        SetFiltersDateCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func setFiltersSelection() -> SetFiltersSelectionCoordinatorAssemblyProtocol {
         SetFiltersSelectionCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
@@ -106,20 +88,12 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         SetFiltersListCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
     
-    func setLayoutSettings() -> SetLayoutSettingsCoordinatorAssemblyProtocol {
-        SetLayoutSettingsCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func setRelations() -> SetRelationsCoordinatorAssemblyProtocol {
         SetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
     
     func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
         SetViewPickerCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-    
-    func share() -> ShareCoordinatorAssemblyProtocol {
-        ShareCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
 
     func editor() -> EditorCoordinatorAssemblyProtocol {
@@ -131,7 +105,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
     }
 
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
@@ -144,10 +118,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
 
     func editorSetModule() -> EditorSetModuleAssemblyProtocol {
         EditorSetModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
-    }
-
-    func initial() -> InitialCoordinatorAssemblyProtocol {
-        InitialCoordinatorAssembly(serviceLocator: serviceLocator)
     }
 
     func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol {
@@ -163,38 +133,16 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         )
     }
     
-    func serverConfiguration() -> ServerConfigurationCoordinatorAssemblyProtocol {
-        ServerConfigurationCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
     func sharingTip() -> SharingTipCoordinatorProtocol {
         SharingTipCoordinator(
-            sharingTipAssembly: modulesDI.sharingTip(),
             navigationContext: uiHelpersDI.commonNavigationContext()
         )
     }
     
-    func galleryInstallation() -> GalleryInstallationCoordinatorAssemblyProtocol {
-        GalleryInstallationCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator)
-    }
-    
-    func notificationCoordinator() -> NotificationCoordinatorProtocol {
-        NotificationCoordinator(
-            notificationSubscriptionService: serviceLocator.notificationSubscriptionService(),
-            commonNotificationAssembly: modulesDI.commonNotification(),
-            galleryNotificationAssembly: modulesDI.galleryNotification()
+    func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol {
+        TypeSearchForNewObjectCoordinatorAssembly(
+            serviceLocator: serviceLocator,
+            modulesDI: modulesDI
         )
-    }
-    
-    func selectRelationList() -> SelectRelationListCoordinatorAssemblyProtocol {
-        SelectRelationListCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func objectRelationList() -> ObjectRelationListCoordinatorAssemblyProtocol {
-        ObjectRelationListCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func spaceShare() -> SpaceShareCoordinatorAssemblyProtocol {
-        SpaceShareCoordinatorAssembly(modulesDI: modulesDI)
     }
 }

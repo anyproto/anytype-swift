@@ -1,7 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "presentation.pdf",
+      "filename" : "Presentation.pdf",
+      "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "Presentation.Dark.pdf",
       "idiom" : "universal"
     }
   ],

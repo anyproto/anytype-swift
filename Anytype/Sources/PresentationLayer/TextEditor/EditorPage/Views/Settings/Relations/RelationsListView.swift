@@ -3,11 +3,12 @@ import Services
 
 struct RelationsListView: View {
     
-    @ObservedObject var viewModel: RelationsListViewModel
+    @StateObject var viewModel: RelationsListViewModel
     @State private var editingMode = false
     
     var body: some View {
         VStack(spacing: 0) {
+            DragIndicator()
             navigationBar
             relationsList
         }
@@ -15,11 +16,18 @@ struct RelationsListView: View {
     
     private var navigationBar: some View {
         HStack {
-            editButton
+            if !viewModel.navigationBarButtonsDisabled {
+                editButton
+            }
+            
             Spacer()
-            AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.relations, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             Spacer()
-            createNewRelationButton
+            
+            if !viewModel.navigationBarButtonsDisabled {
+                createNewRelationButton
+            }
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
@@ -33,11 +41,10 @@ struct RelationsListView: View {
         } label: {
             AnytypeText(
                 editingMode ? Loc.done : Loc.edit,
-                style: .uxBodyRegular,
-                color: viewModel.navigationBarButtonsDisabled ? .Button.inactive : .Text.secondary
+                style: .uxBodyRegular
             )
+            .foregroundColor(.Text.secondary)
         }
-        .disabled(viewModel.navigationBarButtonsDisabled)
     }
     
     private var createNewRelationButton: some View {
@@ -45,9 +52,8 @@ struct RelationsListView: View {
             viewModel.showAddNewRelationView()
         } label: {
             Image(asset: .X32.plus)
-                .foregroundColor(viewModel.navigationBarButtonsDisabled ? .Button.inactive : .Button.active)
+                .foregroundColor(.Button.active)
         }
-        .disabled(viewModel.navigationBarButtonsDisabled)
     }
     
     private var relationsList: some View {

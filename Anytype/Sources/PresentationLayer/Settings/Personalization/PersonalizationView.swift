@@ -2,13 +2,18 @@ import SwiftUI
 import AnytypeCore
 
 struct PersonalizationView: View {
-    @StateObject var model: PersonalizationViewModel
+    @StateObject private var model: PersonalizationViewModel
 
+    init(spaceId: String, output: PersonalizationModuleOutput?) {
+        self._model = StateObject(wrappedValue: PersonalizationViewModel(spaceId: spaceId, output: output))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(12)
-            AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.personalization, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(12)
             
             AnytypeRow(title: Loc.defaultObjectType, description: model.objectType, action: { model.onObjectTypeTap() })
@@ -28,11 +33,7 @@ struct PersonalizationView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.System.blue
-            PersonalizationView(model: PersonalizationViewModel(
-                spaceId: "",
-                objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-                output: nil
-            ))
+            PersonalizationView(spaceId: "", output: nil)
         }
     }
 }

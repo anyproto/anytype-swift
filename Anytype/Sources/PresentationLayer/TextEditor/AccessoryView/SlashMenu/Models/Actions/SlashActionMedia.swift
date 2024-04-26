@@ -62,13 +62,13 @@ enum SlashActionMedia: CaseIterable {
     var blockViewsType: BlockContentType {
         switch self {
         case .file:
-            return .file(.file)
+            return .file(FileBlockContentData(contentType: .file))
         case .pictre:
-            return .file(.image)
+            return .file(FileBlockContentData(contentType: .image))
         case .video:
-            return .file(.video)
+            return .file(FileBlockContentData(contentType: .video))
         case .audio:
-            return .file(.audio)
+            return .file(FileBlockContentData(contentType: .audio))
         case .bookmark:
             return .bookmark(.page)
         case .codeSnippet:

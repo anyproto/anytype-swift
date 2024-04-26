@@ -17,13 +17,13 @@ struct ApplicationCoordinatorView: View {
     var applicationView: some View {
         switch model.applicationState {
         case .initial:
-            model.initialView()
+            InitialCoordinatorView()
         case .auth:
             model.authView()
                 .preferredColorScheme(.dark)
         case .login:
             LaunchView {
-                model.debugView()
+                DebugMenuView()
             }
         case .home:
             model.homeView()

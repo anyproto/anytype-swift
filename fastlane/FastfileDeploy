@@ -62,9 +62,6 @@ platform :ios do
       cloned_source_packages_path: ENV['SPM_DERIVED_DATA']
     )
 
-    set_api_key
-    upload_to_testflight(skip_waiting_for_build_processing: true)
-
     # Reset icon/info.plist changes
     reset_git_repo(skip_clean: true)
 
@@ -84,17 +81,20 @@ platform :ios do
 
     push_to_git_remote(no_verify: true)
     
+    set_api_key
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+
     upload_dsyms_to_sentry
 
     if current_branch == "develop" || current_branch == "release"
+      appInfo = options[:release] ? "Release" : "Dev"
       add_linear_comment(
         from_tag: old_tag_name,
         to_tag: tag_name,
-        comment: "Implemented in `#{version}(#{build_number})`. This comment was created automatically."
+        comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
       )
     end
 
-    build_name = options[:release] ? "Anytype" : "Anytype Dev"
     dsym_paths = []
     Dir.chdir("..") do
       dsym_paths = Dir["./build/result/*.dSYM.zip"]

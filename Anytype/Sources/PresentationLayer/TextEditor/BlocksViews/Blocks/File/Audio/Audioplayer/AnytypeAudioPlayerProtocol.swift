@@ -19,6 +19,8 @@ protocol AnytypeAudioPlayerDelegate: AnyObject {
     func stopPlaying()
 }
 
+
+@MainActor
 protocol AnytypeAudioPlayerProtocol {
     func setAudio(playerItem: AVPlayerItem?, name: String, delegate: AnytypeAudioPlayerDelegate)
     func play()

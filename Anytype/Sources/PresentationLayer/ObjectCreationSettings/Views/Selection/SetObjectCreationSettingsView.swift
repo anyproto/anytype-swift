@@ -20,7 +20,8 @@ struct SetObjectCreationSettingsView: View {
 
     private var navigation: some View {
         ZStack {
-            AnytypeText(Loc.createObject, style: .uxTitle1Semibold, color: .Text.primary)
+            AnytypeText(Loc.createObject, style: .uxTitle1Semibold)
+                .foregroundColor(.Text.primary)
             if model.isTemplatesEditable {
                 navigationButton
             }
@@ -36,9 +37,9 @@ struct SetObjectCreationSettingsView: View {
                 } label: {
                     AnytypeText(
                         model.isEditingState ? Loc.done : Loc.edit,
-                        style: .bodyRegular,
-                        color: .Button.active
+                        style: .bodyRegular
                     )
+                    .foregroundColor(.Button.active)
                 }
                 Spacer()
             }
@@ -101,8 +102,8 @@ struct SetObjectCreationSettingsView_Previews: PreviewProvider {
         SetObjectCreationSettingsView(
             model: .init(
                 interactor: MockSetObjectCreationSettingsInteractor(),
-                setDocument: MockSetDocument(),
-                templatesService: TemplatesService(),
+                setDocument: DI.preview.serviceLocator.documentsProvider.setDocument(objectId: "", forPreview: false, inlineParameters: nil),
+                templatesService: DI.preview.serviceLocator.templatesService,
                 toastPresenter: ToastPresenter(
                     viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()),
                     keyboardHeightListener: KeyboardHeightListener(),

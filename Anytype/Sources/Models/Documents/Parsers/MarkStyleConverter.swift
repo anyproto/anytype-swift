@@ -37,8 +37,7 @@ enum MarkStyleActionConverter {
             guard let details = document.detailsStorage.get(id: tuple.value) else {
                 return .mention(.noDetails(blockId: tuple.value))
             }
-            return .mention(MentionData(details: details))
-
+            return .mention(MentionObject(details: details))
         case .object:
             return .linkToObject(tuple.value)
 

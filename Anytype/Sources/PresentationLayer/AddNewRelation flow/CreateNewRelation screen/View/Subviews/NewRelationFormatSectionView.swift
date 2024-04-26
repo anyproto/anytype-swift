@@ -8,7 +8,8 @@ struct NewRelationFormatSectionView: View {
         HStack(spacing: 5) {
             Image(asset: model.icon)
                 .foregroundColor(.Button.active)
-            AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
+            AnytypeText(model.title, style: .uxBodyRegular)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
         }
     }

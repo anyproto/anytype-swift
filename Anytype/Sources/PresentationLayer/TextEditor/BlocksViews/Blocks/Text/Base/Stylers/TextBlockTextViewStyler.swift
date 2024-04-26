@@ -1,6 +1,8 @@
 import UIKit
 import Services
 
+
+@MainActor
 final class TextBlockTextViewStyler {
     static func applyStyle(textView: CustomTextView, configuration: TextBlockContentConfiguration, restrictions: BlockRestrictions) {
         updateText(textView: textView, configuration: configuration)
@@ -19,52 +21,44 @@ final class TextBlockTextViewStyler {
     private static func updateText(textView: CustomTextView, configuration: TextBlockContentConfiguration) {
         switch configuration.content.contentType {
         case .title:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Title.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Title.placeholder, configuration: configuration)
         case .description:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Description.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Description.placeholder, configuration: configuration)
         case .toggle:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Toggle.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Toggle.placeholder, configuration: configuration)
         case .bulleted:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Bulleted.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Bulleted.placeholder, configuration: configuration)
         case .checkbox:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Checkbox.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Checkbox.placeholder, configuration: configuration)
         case .numbered:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Numbered.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Numbered.placeholder, configuration: configuration)
         case .quote:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Quote.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Quote.placeholder, configuration: configuration)
         case .header:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header.placeholder, configuration: configuration)
         case .header2:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header2.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header2.placeholder, configuration: configuration)
         case .header3:
-            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header3.placeholder, textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: Loc.BlockText.ContentType.Header3.placeholder, configuration: configuration)
         case .header4, .code, .text, .callout:
-            setupText(in: textView, placeholer: "", textStyle: configuration.anytypeText)
+            setupText(in: textView, placeholer: "", configuration: configuration)
         }
     }
     
-    private static func setupText(in textView: CustomTextView, placeholer: String, textStyle: UIKitAnytypeText) {
-        let attributes: [NSAttributedString.Key: Any] = [
-            .font: textStyle.anytypeFont.uiKitFont,
-            .foregroundColor: UIColor.Text.tertiary,
-        ]
-
-        textView.textView.update(placeholder: .init(string: placeholer, attributes: attributes))
-        textView.textView.textContainerInset = .init(
-            top: textStyle.verticalSpacing,
-            left: 0,
-            bottom: textStyle.verticalSpacing,
-            right: 0
-        )
-
-        // setup typingAttributes
+    private static func setupText(
+        in textView: CustomTextView,
+        placeholer: String,
+        configuration: TextBlockContentConfiguration
+    ) {
+        textView.textView.update(placeholder: .init(string: placeholer, attributes: configuration.placeholderAttributes))
+        textView.textView.textContainerInset = configuration.textContainerInsets
+        textView.textView.defaultFontColor = .Text.primary
+        
         if let selectedRange = textView.textView.selectedTextRange {
             let cursorPosition = textView.textView.offset(from: textView.textView.beginningOfDocument, to: selectedRange.start)
-            textView.textView.typingAttributes = textStyle.typingAttributes(for: cursorPosition)
+            textView.textView.typingAttributes = configuration.typingAttributes(cursorPosition)
         } else {
-            textView.textView.typingAttributes = textStyle.typingAttributes(for: 0)
+            textView.textView.typingAttributes = configuration.typingAttributes(0)
         }
-
-        textView.textView.defaultFontColor = .Text.primary
     }
 }

@@ -8,9 +8,7 @@ public protocol UnsplashServiceProtocol {
     func downloadImage(spaceId: String, id: String) async throws -> ObjectId
 }
 
-public final class UnsplashService: UnsplashServiceProtocol {
-    
-    public init() {}
+final class UnsplashService: UnsplashServiceProtocol {
     
     public func searchUnsplashImages(query: String) async throws -> [UnsplashItem] {
         let result = try await ClientCommands.unsplashSearch(.with {

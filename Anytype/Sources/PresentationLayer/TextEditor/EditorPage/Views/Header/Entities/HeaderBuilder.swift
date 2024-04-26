@@ -14,7 +14,7 @@ enum HeaderBuilder {
             return .empty(usecase: presentationUsecase, onTap: {})
         }
         
-        let icon = details.layoutValue == .bookmark ? nil : details.icon
+        let icon = DetailsLayout.layoutsWithIcon.contains(details.layoutValue) ? details.objectIcon : nil
         
         if let icon = icon, let cover = details.documentCover {
             return .filled(state:

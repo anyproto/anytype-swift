@@ -1,8 +1,12 @@
 import Foundation
+import SwiftUI
 
 protocol ObjectSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make() -> ObjectSettingsCoordinatorProtocol
+    func make(
+        objectId: String,
+        output: ObjectSettingsCoordinatorOutput?
+    ) -> AnyView
 }
 
 final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol {
@@ -27,20 +31,20 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
     // MARK: - ObjectSettingsCoordinatorAssemblyProtocol
     
     @MainActor
-    func make() -> ObjectSettingsCoordinatorProtocol {
-        ObjectSettingsCoordinator(
-            navigationContext: uiHelpersDI.commonNavigationContext(),
-            objectSettingsModuleAssembly: modulesDI.objectSetting(),
-            undoRedoModuleAssembly: modulesDI.undoRedo(),
-            objectLayoutPickerModuleAssembly: modulesDI.objectLayoutPicker(),
-            objectCoverPickerModuleAssembly: modulesDI.objectCoverPicker(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            relationsListModuleAssembly: modulesDI.relationsList(),
-            relationValueCoordinator: coordinatorsDI.relationValue().make(),
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
-            searchModuleAssembly: modulesDI.search(),
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            documentsProvider: serviceLocator.documentsProvider
-        )
+    func make(
+        objectId: String,
+        output: ObjectSettingsCoordinatorOutput?
+    ) -> AnyView {
+        ObjectSettingsCoordinatorView(
+            model: ObjectSettingsCoordinatorViewModel(
+                objectId: objectId,
+                output: output,
+                navigationContext: self.uiHelpersDI.commonNavigationContext(),
+                objectLayoutPickerModuleAssembly: self.modulesDI.objectLayoutPicker(),
+                objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
+                relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList(),
+                newSearchModuleAssembly: self.modulesDI.newSearch()
+            )
+        ).eraseToAnyView()
     }
 }

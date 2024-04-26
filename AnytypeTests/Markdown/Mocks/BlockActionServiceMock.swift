@@ -7,7 +7,7 @@ import AnytypeCore
 
 struct SplitData {
     let string: NSAttributedString
-    let blockId: BlockId
+    let blockId: String
     let mode: Anytype_Rpc.Block.Split.Request.Mode
     let range: NSRange
     let newBlockContentType: BlockText.Style
@@ -17,7 +17,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
-    func split(_ string: NSAttributedString, blockId: BlockId, mode: Anytype_Rpc.Block.Split.Request.Mode, range: NSRange, newBlockContentType: BlockText.Style) {
+    func split(_ string: NSAttributedString, blockId: String, mode: Anytype_Rpc.Block.Split.Request.Mode, range: NSRange, newBlockContentType: BlockText.Style) {
         if splitStub {
             splitNumberOfCalls += 1
             splitData = .init(
@@ -35,8 +35,8 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     var turnIntoStub = false
     var turnIntoNumberOfCalls = 0
     var turnIntoStyle: BlockText.Style?
-    var turnIntoBlockId: BlockId?
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+    var turnIntoBlockId: String?
+    func turnInto(_ style: BlockText.Style, blockId: String) {
         if turnIntoStub {
             turnIntoNumberOfCalls += 1
             turnIntoStyle = style
@@ -49,8 +49,8 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     var addChildStub = false
     var addChildNumberOfCalls = 0
     var addChildInfo: BlockInformation?
-    var addChildParentId: BlockId?
-    func addChild(info: BlockInformation, parentId: BlockId) {
+    var addChildParentId: String?
+    func addChild(info: BlockInformation, parentId: String) {
         if addChildStub {
             addChildNumberOfCalls += 1
             addChildInfo = info
@@ -63,10 +63,10 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     var addStub = false
     var addNumberOfCalls = 0
     var addInfo: BlockInformation?
-    var addTargetBlockId: BlockId?
+    var addTargetBlockId: String?
     var addPosition: BlockPosition?
     var addSetFocus: Bool?
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
+    func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) {
         if addStub {
             addNumberOfCalls += 1
             addInfo = info
@@ -80,8 +80,8 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     
     var deleteStub = false
     var deleteNumberOfCalls = 0
-    var deleteBlocksId: [BlockId]?
-    func delete(blockIds: [BlockId]) {
+    var deleteBlocksId: [String]?
+    func delete(blockIds: [String]) {
         if deleteStub { 
             deleteNumberOfCalls += 1
             deleteBlocksId = blockIds
@@ -92,53 +92,51 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     
     var mergeStub = false
     var mergeNumberOfCalls = 0
-    var mergeSecondBlockId: BlockId?
-    func merge(secondBlockId: BlockId) {
+    var mergeSecondBlockId: String?
+    func merge(secondBlockId: String) {
         if mergeStub {
             mergeNumberOfCalls += 1
             mergeSecondBlockId = secondBlockId
-        } else {
-            XCTFail()
         }
     }
     
-    func upload(blockId: BlockId, filePath: String) {
+    func upload(blockId: String, filePath: String) {
         assertionFailure()
     }
     
-    func turnIntoPage(blockId: BlockId, spaceId: String) async throws -> BlockId? {
+    func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
         assertionFailure()
         return nil
     }
     
     func createPage(
-        targetId: BlockId,
+        targetId: String,
         spaceId: String,
         typeUniqueKey: ObjectTypeUniqueKey,
         position: BlockPosition,
         templateId: String
-    ) async throws -> BlockId {
+    ) async throws -> String {
         assertionFailure()
         return "nil"
     }
     
-    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
+    func bookmarkFetch(blockId: String, url: AnytypeURL) {
         assertionFailure()
     }
     
-    func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor) {
+    func setBackgroundColor(blockIds: [String], color: BlockBackgroundColor) {
         assertionFailure()
     }
 
-    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
+    func setBackgroundColor(blockIds: [String], color: MiddlewareColor) {
         assertionFailure()
     }
     
-    func checked(blockId: BlockId, newValue: Bool) {
+    func checked(blockId: String, newValue: Bool) {
         assertionFailure()
     }
     
-    func duplicate(blockId: BlockId) {
+    func duplicate(blockId: String) {
         assertionFailure()
     }
     
@@ -154,11 +152,11 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
         assertionFailure()
     }
     
-    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
+    func setTextForced(contextId: String, blockId: String, middlewareString: MiddlewareString) {
         assertionFailure()
     }
     
@@ -166,11 +164,11 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: AnytypeURL) {
+    func createAndFetchBookmark(contextID: String, targetID: String, position: BlockPosition, url: AnytypeURL) {
         assertionFailure()
     }
 
-    func setFields(blockFields: BlockFields, blockId: BlockId) {
+    func setFields(blockFields: BlockFields, blockId: String) {
         assertionFailure()
     }
 }

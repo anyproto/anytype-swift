@@ -2,6 +2,8 @@ import Foundation
 import UIKit.UIViewController
 import FloatingPanel
 
+
+@MainActor
 protocol AnytypePopupViewModelProtocol {
     
     var popupLayout: AnytypePopupLayoutType { get }

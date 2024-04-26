@@ -3,7 +3,7 @@
     {
       "identity" : "amplitude-ios",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:amplitude/Amplitude-iOS.git",
+      "location" : "https://github.com/amplitude/Amplitude-iOS",
       "state" : {
         "revision" : "83b6c60321e0d5a6824e89aa45699c557cca5531",
         "version" : "8.15.2"
@@ -21,16 +21,25 @@
     {
       "identity" : "devicekit",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:devicekit/DeviceKit.git",
+      "location" : "https://github.com/devicekit/DeviceKit",
       "state" : {
-        "revision" : "691fe8112cca20ebf0020a1709d4e0205400311c",
-        "version" : "5.0.0"
+        "revision" : "fe41d18eccd92a115cffaa35dfff03018c67e635",
+        "version" : "5.2.2"
+      }
+    },
+    {
+      "identity" : "factory",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/Factory",
+      "state" : {
+        "branch" : "2.3.1",
+        "revision" : "8ca11a7bd1ede031e8e6d7a912bb116e2e43961b"
       }
     },
     {
       "identity" : "floatingpanel",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:scenee/FloatingPanel.git",
+      "location" : "https://github.com/scenee/FloatingPanel",
       "state" : {
         "revision" : "2a29cb5b3ecf4beb67cf524a030dd74a11b956c4",
         "version" : "2.6.1"
@@ -39,7 +48,7 @@
     {
       "identity" : "highlightr",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:raspu/Highlightr.git",
+      "location" : "https://github.com/raspu/Highlightr",
       "state" : {
         "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
         "version" : "2.1.2"
@@ -48,10 +57,10 @@
     {
       "identity" : "kingfisher",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:onevcat/Kingfisher.git",
+      "location" : "https://github.com/onevcat/Kingfisher",
       "state" : {
-        "revision" : "af4be924ad984cf4d16f4ae4df424e79a443d435",
-        "version" : "7.6.2"
+        "revision" : "5b92f029fab2cce44386d28588098b5be0824ef5",
+        "version" : "7.11.0"
       }
     },
     {
@@ -64,12 +73,21 @@
       }
     },
     {
+      "identity" : "qrcode",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/QRCode",
+      "state" : {
+        "revision" : "3d20089ead9f9fb559dad58f45f78ffb07d940cc",
+        "version" : "18.3.0"
+      }
+    },
+    {
       "identity" : "sentry-cocoa",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/getsentry/sentry-cocoa.git",
+      "location" : "https://github.com/getsentry/sentry-cocoa",
       "state" : {
-        "revision" : "d277532e1c8af813981ba01f591b15bbdd735615",
-        "version" : "8.8.0"
+        "revision" : "38f4f70d07117b9f958a76b1bff278c2f29ffe0e",
+        "version" : "8.21.0"
       }
     },
     {
@@ -84,7 +102,7 @@
     {
       "identity" : "swift-collections",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-collections.git",
+      "location" : "https://github.com/apple/swift-collections",
       "state" : {
         "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
         "version" : "1.0.4"
@@ -109,18 +127,36 @@
       }
     },
     {
+      "identity" : "swift-qrcode-generator",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/swift-qrcode-generator",
+      "state" : {
+        "revision" : "2b1980b825f08a81ccc762b0c4d17fcde9d5e953",
+        "version" : "2.0.2"
+      }
+    },
+    {
       "identity" : "swiftentrykit",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:bududomasidet/SwiftEntryKit.git",
+      "location" : "https://github.com/bududomasidet/SwiftEntryKit",
       "state" : {
         "revision" : "371745f2f446a5ca5e2e12523db32a2169b501a0",
         "version" : "1.0.0"
       }
     },
     {
+      "identity" : "swiftimagereadwrite",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dagronf/SwiftImageReadWrite",
+      "state" : {
+        "revision" : "96361ba7f9dce5184d95aba8ea90d9faa4acabb2",
+        "version" : "1.6.1"
+      }
+    },
+    {
       "identity" : "swiftui-visual-effects",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:lucasbrown/swiftui-visual-effects.git",
+      "location" : "https://github.com/lucasbrown/swiftui-visual-effects",
       "state" : {
         "revision" : "b26f8cebd55ff60ed8953768aa818dfb005b5838",
         "version" : "1.0.3"
@@ -140,8 +176,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/weichsel/ZIPFoundation",
       "state" : {
-        "revision" : "b979e8b52c7ae7f3f39fa0182e738e9e7257eb78",
-        "version" : "0.9.18"
+        "revision" : "02b6abe5f6eef7e3cbd5f247c5cc24e246efcfe0",
+        "version" : "0.9.19"
       }
     }
   ],

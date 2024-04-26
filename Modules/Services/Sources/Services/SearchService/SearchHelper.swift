@@ -49,10 +49,10 @@ public class SearchHelper {
         return filter
     }
     
-    public static func notHiddenFilter() -> DataviewFilter {
+    public static func isHidden(_ isHidden: Bool) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
-        filter.value = false.protobufValue
+        filter.value = isHidden.protobufValue
         filter.relationKey = BundledRelationKey.isHidden.rawValue
         filter.operator = .and
         
@@ -109,6 +109,26 @@ public class SearchHelper {
         return filter
     }
     
+    public static func participantStatusFilterExclude(_ status: ParticipantStatus...) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = status.map(\.rawValue).protobufValue
+        filter.relationKey = BundledRelationKey.participantStatus.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    public static func participantStatusFilter(_ status: ParticipantStatus...) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = status.map(\.rawValue).protobufValue
+        filter.relationKey = BundledRelationKey.participantStatus.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     public static func excludedLayoutFilter(_ layouts: [DetailsLayout]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
@@ -129,7 +149,7 @@ public class SearchHelper {
         return filter
     }
     
-    public static func supportedIdsFilter(_ typeIds: [String]) -> DataviewFilter {
+    public static func includeIdsFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeIds.protobufValue
@@ -212,6 +232,17 @@ public class SearchHelper {
         return filter
     }
     
+    public static func identityProfileLink(_ identityId: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = identityId.protobufValue
+        
+        filter.relationKey = BundledRelationKey.identityProfileLink.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     public static func spaceIds(_ spaceIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
@@ -253,10 +284,10 @@ public class SearchHelper {
         return filter
     }
     
-    public static func spaceAccountStatusExcludeFilter(_ status: SpaceStatus...) -> DataviewFilter {
+    public static func spaceAccountStatusExcludeFilter(_ statuses: SpaceStatus...) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
-        filter.value = status.map { $0.toMiddleware.rawValue }.protobufValue
+        filter.value = statuses.map { $0.rawValue }.protobufValue
         filter.relationKey = BundledRelationKey.spaceAccountStatus.rawValue
         filter.operator = .and
         
@@ -266,7 +297,7 @@ public class SearchHelper {
     public static func spaceLocalStatusFilter(_ status: SpaceStatus) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .equal
-        filter.value = status.toMiddleware.rawValue.protobufValue
+        filter.value = status.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.spaceLocalStatus.rawValue
         filter.operator = .and
         
@@ -280,6 +311,28 @@ public class SearchHelper {
         filter.value = ObjectTypeUniqueKey.template.value.protobufValue
 
         return filter
+    }
+    
+    public static func isHiddenDiscovery(_ isHidden: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = isHidden.protobufValue
+        
+        filter.relationKey = BundledRelationKey.isHiddenDiscovery.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    public static func notHiddenFilters(isArchive: Bool = false, includeHiddenDiscovery: Bool = true) -> [DataviewFilter] {
+        .builder {
+            SearchHelper.isHidden(false)
+            if includeHiddenDiscovery {
+                SearchHelper.isHiddenDiscovery(false)
+            }
+            SearchHelper.isDeletedFilter(isDeleted: false)
+            SearchHelper.isArchivedFilter(isArchived: isArchive)
+        }
     }
     
     // MARK: - Private

@@ -4,7 +4,11 @@ import Services
 
 struct GalleryInstallationPreviewView: View {
     
-    @StateObject var model: GalleryInstallationPreviewViewModel
+    @StateObject private var model: GalleryInstallationPreviewViewModel
+    
+    init(data: GalleryInstallationData, output: GalleryInstallationPreviewModuleOutput?) {
+        _model = StateObject(wrappedValue: GalleryInstallationPreviewViewModel(data: data, output: output))
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -29,8 +33,10 @@ struct GalleryInstallationPreviewView: View {
         EmptyStateView(
             title: Loc.Error.Common.title,
             subtitle: Loc.Error.Common.message,
-            actionText: Loc.Error.Common.tryAgain,
-            action: { model.onTryAgainTap() }
+            buttonData: EmptyStateView.ButtonData(
+                title: Loc.Error.Common.tryAgain,
+                action: { model.onTryAgainTap() }
+            )
         )
     }
 }

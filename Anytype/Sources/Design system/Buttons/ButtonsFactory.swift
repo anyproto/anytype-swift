@@ -1,7 +1,7 @@
-
 import UIKit
 
 
+@MainActor
 enum ButtonsFactory {
     typealias ActionHandler = (_ action: UIAction) -> Void
     

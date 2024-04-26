@@ -3,19 +3,17 @@ import ProtobufMessages
 import AnytypeCore
 
 public protocol FileServiceProtocol: AnyObject {
-    func uploadFileBlock(path: String, contextID: BlockId, blockID: BlockId) async throws
+    func uploadFileBlock(path: String, contextID: String, blockID: String) async throws
     func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails
     func clearCache() async throws
     func nodeUsage() async throws -> NodeUsageInfo
 }
 
-public final class FileService: FileServiceProtocol {
-    
-    public init() {}
+final class FileService: FileServiceProtocol {
     
     // MARK: - FileServiceProtocol
     
-    public func uploadFileBlock(path: String, contextID: BlockId, blockID: BlockId) async throws {
+    public func uploadFileBlock(path: String, contextID: String, blockID: String) async throws {
         try await ClientCommands.blockUpload(.with {
             $0.contextID = contextID
             $0.blockID = blockID

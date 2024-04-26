@@ -8,4 +8,6 @@ protocol SettingsModuleOutput: AnyObject {
     func onAboutSelected()
     func onAccountDataSelected()
     func onChangeIconSelected(objectId: String)
+    func onSpacesSelected()
+    func onMembershipSelected()
 }

@@ -6,7 +6,10 @@ protocol CellBlockConfigurationProtocol where Self: UIContentConfiguration {
 
 struct CellBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfiguration {
     func makeContentView() -> UIView & UIContentView {
-        EditorContentView<Configuration.View>(configuration: self)
+        let contentView = EditorContentView<Configuration.View>(configuration: self)
+        contentView.configuration = self
+        
+        return contentView
     }
 
     func updated(for state: UIConfigurationState) -> Self {
@@ -21,6 +24,6 @@ struct CellBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfi
 
     let blockConfiguration: Configuration
     var currentConfigurationState: UICellConfigurationState?
-    let indentationSettings: IndentationSettings?
     let dragConfiguration: BlockDragConfiguration?
+    let styleConfiguration: CellStyleConfiguration?
 }

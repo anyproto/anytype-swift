@@ -15,30 +15,40 @@ struct ObjectIconExample: View {
             ScrollView {
                 VStack(spacing: 20) {
                     Group {
-                        AnytypeText("Object Icon", style: .subheading, color: .Text.primary)
+                        AnytypeText("Object Icon", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.basic(iconId))) }
-                        AnytypeText("Profile Icon", style: .subheading, color: .Text.primary)
+                        AnytypeText("Profile Icon", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.profile(.imageId(iconId)))) }
-                        AnytypeText("Profile Char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .object(.profile(.character("A")))) }
+                        AnytypeText("Profile Char", style: .subheading)
+                            .foregroundColor(.Text.primary)
+                        demoBlock { IconView(icon: .object(.profile(.name("A")))) }
                     }
                     Group {
-                        AnytypeText("Emoji", style: .subheading, color: .Text.primary)
+                        AnytypeText("Emoji", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.emoji(Emoji("😀")!))) }
-                        AnytypeText("Todo done", style: .subheading, color: .Text.primary)
+                        AnytypeText("Todo done", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.todo(true))) }
-                        AnytypeText("Todo empty", style: .subheading, color: .Text.primary)
+                        AnytypeText("Todo empty", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.todo(false))) }
-                        AnytypeText("Space gradient", style: .subheading, color: .Text.primary)
+                        AnytypeText("Space gradient", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.space(.gradient(GradientId(2)!)))) }
-                        AnytypeText("Space char", style: .subheading, color: .Text.primary)
-                        demoBlock { IconView(icon: .object(.space(.character("A")))) }
+                        AnytypeText("Space char", style: .subheading)
+                            .foregroundColor(.Text.primary)
+                        demoBlock { IconView(icon: .object(.space(.name("A")))) }
                     }
                     
                     Group {
-                        AnytypeText("Assets - active (copy example)", style: .subheading, color: .Text.primary)
+                        AnytypeText("Assets - active (copy example)", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .asset(.X32.copy)) }
-                        AnytypeText("Assets - inactive (copy example)", style: .subheading, color: .Text.primary)
+                        AnytypeText("Assets - inactive (copy example)", style: .subheading)
+                            .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .asset(.X32.copy)).disabled(true) }
                     }
                 }
@@ -54,7 +64,8 @@ struct ObjectIconExample: View {
     private func demoBlock(@ViewBuilder content: @escaping () -> some View) -> some View {
         ForEach(0..<emojiExamples.count, id: \.self) { index in
             let size = emojiExamples[index]
-            AnytypeText("Size \(size)", style: .bodyRegular, color: .Text.primary)
+            AnytypeText("Size \(size)", style: .bodyRegular)
+                .foregroundColor(.Text.primary)
             HStack(spacing: 0) {
                 HStack {
                     Spacer()

@@ -62,7 +62,6 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Текст";
 
 // MARK: - Settings
-"Settings.Title" = "Особистий простір";
 "Settings.SpaceName" = "Назва простору";
 
 // MARK: - Object
@@ -77,8 +76,6 @@
 "Relation.AddedToLibrary" = "Відношення ‘%@’ додано до вашої бібліотеки";
 "Relation.Deleted" = "Видалене відношення";
 "Relation.From.Type" = "З типу %@";
-"Relation.LinksFrom.Title" = "from";
-"Relation.LinksTo.Title" = "to";
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
@@ -118,6 +115,15 @@
 "Relation.Origin.Builtin" = "Library installed";
 "Relation.Origin.Bookmark" = "Закладка";
 
+// MARK: - Import Type Relation
+
+"Relation.ImportType.Notion" = "Notion";
+"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Text" = "TXT";
+"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Csv" = "CSV";
+
 // MARK: - Mention
 "Mention.Subtitle.Placeholder" = "Об'єкт";
 
@@ -138,6 +144,7 @@
 "Lists" = "Groups";
 "Pinned" = "Pinned";
 "Delete" = "Видалити";
+"Export" = "Export";
 "Duplicate" = "Дублювати";
 "Copy" = "Копіювати";
 "Preview" = "Попередній перегляд";
@@ -181,6 +188,9 @@
 "Paste processing..." = "Обробка вставки...";
 "Anytype Library" = "Бібліотека Anytype";
 "Copied" = "Скопійовано";
+"Share" = "Share";
+"Okay" = "Okay";
+"Join" = "Join";
 
 // Home
 "Favorites" = "Обрані";
@@ -195,77 +205,67 @@
 "Restore" = "Відновити";
 
 // Keychain screen
-"Keychain.Recovery phrase" = "Фраза відновлення";
-"Keychain.Recovery phrase copied to clipboard" = "Фраза відновлення скопійована";
-"Keychain.Recovery phrase description" = "Вона знадобиться вам для входу. Зберігайте її надійно. У разі втрати, ви втратите доступ до облікового запису.";
-"Keychain.Save keychain alert part 1" = "Якщо ви загубите фразу відновлення і вийдете із системи, то ви не зможете";
-"Keychain.Save keychain alert part 2" = "знову отримати доступ до ваших даних";
-"Keychain.Save keychain alert part 3" = ".\nЗбережіть цю фразу відновлення за межами Anytype для відновлення даних.\nМи рекомендуємо використовувати захищене сховище даних, менеджер паролів або аркуш паперу у сейфі.";
-"Keychain.Don’t forget to save your recovery phrase" = "Не забудьте зберегти вашу фразу відновлення";
-"Keychain.Show and copy phrase" = "Показати й скопіювати фразу";
-"Keychain.Have you backed up your recovery phrase?" = "Ви зробили резервну копію своєї фрази відновлення?";
+"Keychain.Key" = "Key";
+"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Show and copy key" = "Show and copy key";
+"Keychain.Have you backed up your key?" = "Have you backed up your key?";
 "Keychain.Error.String to Data conversion error" = "Помилка перетворення рядка в дані";
 "Keychain.Error.Data to String conversion error" = "Помилка перетворення даних у рядок";
 "Keychain.Error.Unknown Keychain Error" = "Невідома помилка в'язки ключів";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Sign up" = "Зареєструватись";
-"Login" = "Log In";
 "Create" = "Створити";
 "Scan QR code" = "Сканувати QR-код";
 "Auth.CameraPermissionTitle" = "Будь ласка, дозвольте доступ";
-"Restore secret phrase from keychain" = "Відновити фразу відновлення з в'язки ключів";
-"Auth.LogIn" = "Log In";
-"Auth.Join" = "Join";
-"Auth.Welcome.Subtitle" = "Anytype - це ваш безпечний простір, де ви можете писати, планувати, думати та організовувати все, що має для вас значення.";
+"Restore key from keychain" = "Restore Key from the keychain";
+"Auth.LogIn" = "I have a Key";
+"Auth.Button.Join" = "New Vault";
+"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Продовжуючи, ви погоджуєтесь з [Умовами використання](%@) і [Політикою конфіденційності](%@)";
 "Auth.Next" = "Далі";
 
-"Account recover error" = "Помилка відновлення облікового запису, спробуйте ще раз";
-"Account recover error no internet" = "Помилка відновлення облікового запису, ймовірно немає підключення до Інтернету";
+"Vault recover error" = "Vault recover error, try again";
+"Vault recover error no internet" = "Vault recover error, probably no internet connection";
 
 // Auth Errors
 "Error creating wallet" = "Помилка при створенні гаманця";
-"Error select account" = "Помилка при виборі облікового запису";
-"Error wallet recover account" = "Помилка відновлення облікового запису";
-"Wallet.Recovery.Error.description" = "Invalid recovery phrase";
+"Error select vault" = "Error select vault";
+"Error wallet recover vault" = "Error wallet recover vault";
+"Wallet.Recovery.Error.description" = "Invalid Key";
 
 "Search for language" = "Шукати мову";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "Збережіть вашу фразу відновлення";
-"Auth.JoinFlow.Key.Description" = "Це новий спосіб автентифікації, який дає вам повне право власності на ваш обліковий запис і дані.";
-"Auth.JoinFlow.Key.TextField.Placeholder" = "Введіть вашу фразу відновлення";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Показати фразу відновлення";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Перейти в застосунок";
+"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Пропустити";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Скопіювати в буфер обміну";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Докладніше";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "Фразу відновлення можна знайти пізніше в налаштуваннях Anytype";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "Що таке фраза відновлення?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Фраза відновлення - це випадкова комбінація з 12 слів, з яких магічним чином генерується ваш обліковий запис на цьому пристрої.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Хто знає фразу відновлення, той і володіє обліковим записом. **На цю мить ви єдина людина у світі, яка її знає.";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Ось чому важливо зберігати фразу відновлення у безпеці. Якщо ви єдиний власник, ніхто не зможе вам допомогти, якщо вона загубиться.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Як зберегти мою фразу?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Найпростіший спосіб зберегти вашу фразу відновлення - це зберегти її у вашому менеджері паролів.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Найнадійніший спосіб - записати його на папері й зберігати в надійному і безпечному місці.";
 
-"Auth.JoinFlow.Soul.Title" = "Choose your name";
-"Auth.JoinFlow.Soul.Description" = "Так ви будете відображатися в застосунку.";
+"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без назви";
-
-"Auth.JoinFlow.Creating.Soul.Title" = "Створення нового облікового запису";
-"Auth.JoinFlow.Setting.Space.Title" = "Налаштування вашого особистого простору";
-"Auth.JoinFlow.Personal.Space.Title" = "Особистий простір";
+"Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Використотати в'язку ключів";
 "Auth.LoginFlow.Or" = "АБО";
-"Auth.LoginFlow.Textfield.Placeholder" = "Введіть вашу фразу відновлення";
-"Auth.LoginFlow.Enter.Button.Title" = "Вхід";
+"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Входимо до порожнечі";
 
 // Object settings
@@ -301,11 +301,13 @@
 
 "Undo typing" = "Скасувати введення";
 "Undo" = "Повернути";
+"Redo" = "Redo";
 "Actions.LinkItself" = "Зв'язати з";
 "Actions.MakeAsTemplate" = "Створити шаблон";
 "Actions.TemplateMakeDefault" = "Make default";
 "Actions.CreateWidget.Title" = "To widgets";
 "Actions.CreateWidget.Success" = "New widget was created";
+"Actions.CopyLink" = "Копіювати посилання";
 
 // Object Type
 "Set" = "Набір";
@@ -325,6 +327,9 @@
 "There is no object named" = "Немає об'єкта з назвою %@";
 "There is no type named" = "Немає типу з назвою %@";
 "Create a new one or search for something else" = "Створіть новий або знайдіть щось інше";
+"Search.Backlinks.Show.title" = "Show backlinks";
+"Search.Backlinks.Header.title" = "Backlinks of: %@";
+"Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
 
@@ -335,7 +340,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Для сканування QR-коду потрібен доступ до вашої камери.\n\nБудь ласка, перейдіть в налаштування вашого пристрою -> Конфіденційність -> Камера і виберіть Anyrype для включення";
 
 // MARK: - Deletion
-"Pending deletion text" = "Нам дуже шкода, що ви йдете. У вас є 30 днів, щоб скасувати цей запит. Через 30 днів, дані вашого зашифрованого облікового запису будуть видалені з резервного вузла.";
+"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Скасувати/Повторити";
@@ -503,7 +508,6 @@
 "Unknown error" = "Невідома помилка";
 "Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
 "Close" = "Close";
-"Account is deleted" = "Обліковий запис було видалено";
 "Add phone" = "Додайте номер телефону";
 "Nothing to redo" = "Немає дій для повторення";
 "Nothing to undo" = "Немає дій для скасування.";
@@ -528,6 +532,7 @@
 "Unsupported value" = "Непідтримуване значення";
 "Select relation type" = "Виберіть тип відношення";
 "CommonOpenErrorView.Message" = "No data found";
+"AreYouSure" = "Ви впевнені?";
 "Nothing found" = "Nothing found";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
@@ -554,18 +559,19 @@
 "Application icon" = "Іконка застосунку";
 "Mode" = "Режим";
 "copied to clipboard" = "%@ скопійовано до буфера обміну";
-"Access to secret phrase from keychain" = "Доступ до секретної фрази з в'язки ключів";
-"Back up your recovery phrase" = "Створити резервну копію вашої фрази відновлення";
-"Account" = "Обліковий запис";
+"Create object from clipboard" = "Create object from clipboard";
+"Access to key from keychain" = "Access to key from keychain";
+"Back up your key" = "Back up your key";
+"Vault" = "Vault";
 "Access" = "Доступ";
-"Back up phrase" = "Зробити резервну копію фрази";
+"Back up key" = "Back up key";
 "Removing cache" = "Видалення кешу";
 "Deletion error" = "Помилка при видаленні";
 "Start" = "Початок";
 "On analytics" = "Про аналітику";
-"Select account error" = "Оберіть помилку облікового запису";
-"Account deleted" = "Обліковий запис видалено";
-"Account.Select.Incompatible.Version.Error.Text" = "Не вдається отримати дані облікового запису через несумісну версію на віддалених вузлах. Будь ласка, оновіть Anytype до останньої версії.";
+"Select vault error" = "Select vault error";
+"Vault deleted" = "Vault deleted";
+"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Відновити з в'язки ключів";
 "Edit" = "Редагувати";
 "In this object" = "В цьому об'єкті";
@@ -633,11 +639,11 @@
 "No date" = "Без дати";
 "Clear" = "Очистити";
 "Create option with" = "Create option ‘%@’";
-"Add URL" = "Додати URL";
-"Add email" = "Додати ел. пошту";
-"Add phone number" = "Додати номер телефону";
-"Add number" = "Додати номер";
-"Add text" = "Додати текст";
+"Enter URL" = "Enter URL";
+"Enter email" = "Enter email";
+"Enter phone number" = "Enter phone number";
+"Enter number" = "Введіть номер";
+"Enter text" = "Введіть текст";
 "Ok" = "Гаразд";
 "Error occurred. Please try again" = "Виникла помилка. Будь ласка, спробуйте ще раз";
 "Add" = "Додати";
@@ -647,14 +653,14 @@
 "This object doesn't exist" = "Цей об'єкт не існує";
 "Setting up encrypted storage\nPlease wait" = "Налаштування зашифрованого сховища\nБудь ласка, зачекайте";
 "These objects will be deleted irrevocably" = "Обрані об'єкти будуть видалені безповоротно. Ви не зможете скасувати цю дію.";
-"Delete account" = "Видалити обліковий запис";
+"Delete vault" = "Delete vault";
 "Cancel deletion" = "Скасувати видалення";
 "Logout and clear data" = "Вийти й очистити дані";
 "New" = "Новий";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Ви дійсно бажаєте видалити обліковий запис?";
-"DeletionAlert.description" = "Ви вийдете на всіх інших пристроях. Вам буде надано 30 днів для відновлення облікового запису. Після цього він буде видалений назавжди";
+"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Сітка";
@@ -753,10 +759,6 @@
 "Content.DataView.InlineCollection.Untitled" = "Безіменна колекція";
 "Content.DataView.InlineSet.Toast.Failure" = "Цей вбудований набір не має джерела";
 
-// MARK: - Widget extension
-"WidgetExtension.LockScreen.Title" = "Новий обʼєкт";
-"WidgetExtension.LockScreen.Description" = "Створіть новий об'єкт на льоту";
-
 // MARK: - Toast
 "Editor.Toast.LinkedTo" = "пов'язаний з";
 "Editor.Toast.MovedTo" = "Блок переміщено до";
@@ -791,7 +793,7 @@
 "About.AppVersion" = "Версія застосунку: %@";
 "About.BuildNumber" = "Номер збірки: %@";
 "About.Library" = "Версія бібліотеки: %@";
-"About.accountId" = "Ідентифікатор облікового запису: %@";
+"About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "Ідентифікатор аналітики: %@";
 "About.deviceId" = "Ідентифікатор пристрою: %@
 ";
@@ -806,7 +808,7 @@
 "About.TermsOfUse" = "Умови використання";
 "About.PrivacyPolicy" = "Політика конфіденційності";
 "About.TechInfo" = "Технічна інформація";
-"About.Mail.Subject" = "Запит до підтримки, ідентифікатор облікового запису %@";
+"About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nТехнічна інформація\n%@";
 
 // MARK: - Cache
@@ -814,10 +816,10 @@
 "ClearCache.Error" = "Помилка, повторіть спробу пізніше";
 
 // MARK: - Settings
-"Settings.TitleLegacy" = "Особистий простір";
 "Settings.Title" = "Налаштування";
 "Settings.SpaceName" = "Назва простору";
-"Settings.AccountAndAccess" = "Обліковий запис та доступ";
+"Settings.SpaceType" = "Space type";
+"Settings.VaultAndAccess" = "Vault and access";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файлове сховище";
@@ -825,8 +827,8 @@
 "FileStorage.Space.Instruction" = "Ви можете зберегти до %@ ваших файлів на нашому зашифрованому резервному вузлі безплатно. Якщо ви досягнете ліміту, файли будуть збережені лише локально.";
 "FileStorage.Space.Used" = "%@ з %@ використано";
 "FileStorage.Space.GetMore" = "Отримати більше місця для зберігання";
-"FileStorage.Space.Mail.Subject" = "Отримати більше пам'яті, обліковий запис %@";
-"FileStorage.Space.Mail.Body" = "Привіт, команда Anytype. Я звертаюся до вас з проханням збільшити обсяг мого сховища файлів, оскільки у мене закінчилося місце. Мій поточний ліміт - %@. Ідентифікатор мого облікового запису %@. Дякую, %@.";
+"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
+"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Локальне сховище";
 "FileStorage.Local.Instruction" = "Щоб заощадити місце на вашому локальному пристрої, ви можете вивантажити всі ваші файли на наш зашифрований вузол резервного копіювання. Файли будуть завантажені назад, коли ви їх відкриєте.";
 "FileStorage.Local.Used" = "%@ використано";
@@ -849,10 +851,25 @@
 "ClearCacheAlert.Description" = "Всі медіафайли, що зберігаються в Anytype буде видалено з вашого поточного пристрою. Вони можуть бути завантажені знову з резервної копії вузла або з іншого пристрою.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Public" = "Public Space";
+"Spaces.Accessibility.Shared" = "Shared Space";
 "Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Особистий простір";
+"Spaces.Accessibility.Personal" = "Default Space";
 "Spaces.Search.Title" = "Пошук просторів";
+"Spaces.Title" = "Spaces";
+"Spaces.Info.Network" = "Network:";
+
+// MARK: - Space
+"Space.Status.Unknown" = "Невідомо";
+"Space.Status.Loading" = "Loading";
+"Space.Status.Ok" = "Гаразд";
+"Space.Status.Missing" = "Missing";
+"Space.Status.Error" = "Error";
+"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
+"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.SpaceDeleted" = "Видалено";
+"Space.Status.SpaceActive" = "Active";
+"Space.Status.SpaceJoining" = "Joining";
+"Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Параметри простору";
@@ -862,16 +879,83 @@
 "SpaceSettings.DeleteAlert.Title" = "Видалити ‘%@’ простір";
 "SpaceSettings.DeleteAlert.Message" = "Цей простір буде видалено безповоротно. Ви не можете скасувати цю дію.";
 "SpaceSettings.DeleteButton" = "Видалити простір ";
-"SpaceSettings.Sharing" = "Sharing";
 "SpaceSettings.Share" = "Share";
+"SpaceSettings.LeaveButton" = "Leave";
+"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
+"MoreInfo" = "More info";
 
-"SpaceShare.Title" = "Share space";
-"SpaceShare.MembersSection" = "Members and requests";
+"SpaceShare.Title" = "Sharing";
+"SpaceShare.Members" = "Members";
 "SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Can view";
-"SpaceShare.Permissions.Writer" = "Can edit";
+"SpaceShare.Permissions.Reader" = "Viewer";
+"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Permissions.Grand.Edit" = "Редагувати";
+"SpaceShare.Permissions.Grand.View" = "Подання";
+"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Share" = "Share invite link";
+"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
+"SpaceShare.JoinRequest" = "Join request";
+"SpaceShare.LeaveRequest" = "Leave request";
+"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Action.Approve" = "Approve";
+"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.Approve.Toast" = "You approved %@'s request.";
+"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
+"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
+"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
+"SpaceShare.Join.Title" = "Join a space";
+"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
+"SpaceShare.Join.Button" = "Request to join";
+"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
+"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
+"SpaceShare.YouSuffix" = "%@ (you)";
+"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Title" = "Stop sharing the space";
+"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
+"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
+"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
+"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.Manage" = "Manage";
+"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+
+// MARK: - Permission notification
+"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
+"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
+"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
+"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
+"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
+"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.ViewRequest" = "View request";
+
+// MARK: - Space manager
+"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
+"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+
+
 
 // MARK: - Space Create
 "SpaceCreate.Title" = "Створити простір";
@@ -898,14 +982,19 @@
 "Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
 "Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
 
+// MARK: - Swipe tips
+"Swipe.Tip.Title" = "Swipe to Create Objects";
+"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+
+
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Попередження";
-"Initial.UnstableMiddle.Message" = "Ви запускаєте додаток з нестабільним проміжним програмним забезпеченням. Не використовуйте свій виробничий обліковий запис. Ваш обліковий запис може бути пошкоджено.";
+"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Попередження";
-"Initial.UnstableMiddle.Logout" = "Вийти з поточного облікового запису";
-"Initial.UnstableMiddle.Continue" = "Продовжити з поточним обліковим записом";
-"Initial.UnstableMiddle.WontUseProd" = "Я не використовуватиму свій виробничий обліковий запис";
+"Initial.UnstableMiddle.Logout" = "Logout from current vault";
+"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Create Objects with specific Type";
@@ -917,7 +1006,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Update";
 "Error.UnableToConnect" = "Please connect to the internet";
 "Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or post a report on forum.";
+"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
@@ -941,6 +1030,99 @@
 "Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
 "Gallery.Notification.Button" = "Go to space";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+
+// MARK: - Membership
+"Membership" = "Membership";
+"Just e-mail" = "Just e-mail";
+"E-mail" = "E-mail";
+"Learn more" = "Learn more";
+"per" = "per";
+"unlimited" = "Unlimited";
+
+
+"What’s included" = "What’s included";
+"Submit" = "Submit";
+"Resend" = "Resend";
+"Resend in" = "Resend in %@ sec";
+"Current" = "Current";
+"Forever free" = "Forever free";
+"Forever" = "Forever";
+"Valid until date" = "Valid until %@";
+"Your current status" = "Your current status:";
+"Valid until" = "Valid until:";
+"Paid by" = "Paid by %@";
+"Myself" = "Myself";
+"Pay by Card" = "Pay by Card";
+"Min X characters" = "Min %@ characters";
+"Pending" = "Pending...";
+"Manage payment" = "Manage payment";
+
+
+"Membership.Ad.Title" = "Membership";
+"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+
+"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Privacy" = "Privacy policy";
+"Membership.Legal.Terms" = "Terms and conditions";
+"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
+"Membership.Legal.LetUsKnow" = "Please let us know here.";
+"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
+"Membership.Legal.RestorePurchases" = "Restore purchases";
+
+"Membership.Email.Subject" = "Special Pricing Request";
+"Membership.Email.Body" = "Please specify your request:
+- highlight if you represent an educational, governmental, or non-profit organization
+- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
+- provide additional details about how your organization uses Anytype";
+
+
+"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
+"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title3" = "Support Digital Independence";
+"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
+"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+
+"Membership.EmailForm.Title" = "Get your free membership";
+"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
+"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailValidation" = "Enter the code sent to your email";
+
+"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Validating" = "Wait a second...";
+"Membership.NameForm.Validated" = "This name is up for grabs";
+
+"Membership.NameForm.Error.TooShort" = "Name is too short";
+"Membership.NameForm.Error.TooLong" = "Name is too long";
+"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
+
+
+"Membership.Success.Title" = "Welcome to the network, %@";
+"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Support" = "Big cheers for your support!";
+
+"Membership.Payment.Card" = "Картка";
+"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Apple subscription" = "Apple subscription";
+"Membership.Payment.Google subscription" = "Google subscription";
+
+
+"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
+"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
+"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+
+"Membership.Feature.LocalName" = "Local, non-unique name";
+"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
+"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
+"Membership.Feature.Invites" = "%@ Invitations";
+"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
+"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
+"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
+"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

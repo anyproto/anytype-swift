@@ -16,12 +16,11 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     @Published var showFilters = false
     @Published var showSorts = false
     
-    private let setDocument: SetDocumentProtocol
-    private let viewId: String
+    let setDocument: SetDocumentProtocol
+    let viewId: String
     private let mode: SetViewSettingsMode
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol
-    private let setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol
     private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
@@ -32,7 +31,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         mode: SetViewSettingsMode,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol,
-        setLayoutSettingsCoordinatorAssembly: SetLayoutSettingsCoordinatorAssemblyProtocol,
         setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
@@ -42,7 +40,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
         self.mode = mode
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setViewSettingsListModuleAssembly = setViewSettingsListModuleAssembly
-        self.setLayoutSettingsCoordinatorAssembly = setLayoutSettingsCoordinatorAssembly
         self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
@@ -63,13 +60,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func onLayoutTap() {
         showLayouts.toggle()
-    }
-    
-    func setLayoutSettings() -> AnyView {
-        setLayoutSettingsCoordinatorAssembly.make(
-            setDocument: setDocument,
-            viewId: viewId
-        )
     }
     
     // MARK: - Relations

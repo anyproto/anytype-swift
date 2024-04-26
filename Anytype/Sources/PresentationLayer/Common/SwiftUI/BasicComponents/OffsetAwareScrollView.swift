@@ -50,14 +50,16 @@ struct OffsetAwareScrollView_Previews: PreviewProvider {
         
         var body: some View {
             VStack {
-                AnytypeText("\(scrollOffset.x):\(scrollOffset.y)", style: .bodyRegular, color: .Text.primary)
+                AnytypeText("\(scrollOffset.x):\(scrollOffset.y)", style: .bodyRegular)
+                    .foregroundColor(.Text.primary)
                 OffsetAwareScrollView(
                     axes: [.horizontal, .vertical],
                     showsIndicators: false,
                     offsetChanged: { scrollOffset = $0 }
                 ) {
                     ForEach(0..<100) { i in
-                        AnytypeText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", style: .bodyRegular, color: .Text.primary)
+                        AnytypeText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.", style: .bodyRegular)
+                                .foregroundColor(.Text.primary)
                     }
                 }
             }

@@ -4,6 +4,10 @@ struct SelectRelationListView: View {
     
     @StateObject var viewModel: SelectRelationListViewModel
     
+    init(data: SelectRelationListData, output: SelectRelationListModuleOutput?) {
+        _viewModel = StateObject(wrappedValue: SelectRelationListViewModel(data: data, output: output))
+    }
+    
     var body: some View {
         RelationListContainerView(
             searchText: $viewModel.searchText,
@@ -73,12 +77,17 @@ struct SelectRelationListView: View {
     private func rowContent(with option: SelectRelationOption) -> some View {
         switch viewModel.style {
         case .status:
-            AnytypeText(option.text, style: .relation1Regular, color: option.color)
+            AnytypeText(option.text, style: .relation1Regular)
+                .foregroundColor(option.color)
         case .tag:
-            TagOptionView(
-                text: option.text,
-                textColor: option.color,
-                backgroundColor: option.color.veryLightColor()
+            TagView(
+                config: TagView.Config(
+                    text: option.text,
+                    textColor: option.color,
+                    backgroundColor: option.color.veryLightColor(),
+                    textFont: .relation1Regular,
+                    guidlines: TagView.Guidlines(textPadding: 6, cornerRadius: 3, tagHeight: 20)
+                )
             )
         }
     }
@@ -86,50 +95,22 @@ struct SelectRelationListView: View {
 
 #Preview("Status list") {
     SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
+        data: SelectRelationListData(
             style: .status,
-            configuration: RelationModuleConfiguration(
-                title: "Status",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "", 
-                selectionMode: .single,
-                analyticsType: .block
-            ), 
-            relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                selectionMode: .single,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
+            configuration: RelationModuleConfiguration.default,
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(config: RelationModuleConfiguration.default, selectedOptionsIds: [])
+        ),
+        output: nil
     )
 }
 
 #Preview("Tag list") {
     SelectRelationListView(
-        viewModel: SelectRelationListViewModel(
+        data: SelectRelationListData(
             style: .tag,
-            configuration: RelationModuleConfiguration(
-                title: "Tag",
-                isEditable: true,
-                relationKey: "",
-                spaceId: "",
-                selectionMode: .multi,
-                analyticsType: .block
-            ),
-            relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                selectionMode: .multi,
-                selectedOptionsIds: [],
-                relationKey: "",
-                analyticsType: .block,
-                relationsService: DI.preview.serviceLocator.relationService(objectId: "")
-            ),
-            searchService: DI.preview.serviceLocator.searchService(),
-            output: nil
-        )
+            configuration: RelationModuleConfiguration.default,
+            relationSelectedOptionsModel: RelationSelectedOptionsModel(config: RelationModuleConfiguration.default, selectedOptionsIds: [])
+        ),
+        output: nil
     )
 }

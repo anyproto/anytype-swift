@@ -2,69 +2,66 @@ import Foundation
 import Services
 import AnytypeCore
 
-protocol BlockSelectionHandler: AnyObject {
-    func didSelectEditingState(info: BlockInformation)
-    func didSelectStyleSelection(infos: [BlockInformation])
-}
-
 protocol BlockActionHandlerProtocol: AnyObject {
-    var blockSelectionHandler: BlockSelectionHandler? { get set }
-
-    func turnInto(_ style: BlockText.Style, blockId: BlockId)
+    func turnInto(_ style: BlockText.Style, blockId: String) async throws
     @discardableResult
-    func turnIntoPage(blockId: BlockId) async throws -> BlockId?
+    func turnIntoPage(blockId: String) async throws -> String?
     
-    func setTextColor(_ color: BlockColor, blockIds: [BlockId])
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
-    func duplicate(blockId: BlockId)
-    func fetch(url: AnytypeURL, blockId: BlockId) async throws
-    func checkbox(selected: Bool, blockId: BlockId)
-    func toggle(blockId: BlockId)
-    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId])
-    func delete(blockIds: [BlockId])
-    func moveToPage(blockId: BlockId, pageId: BlockId)
-    func createEmptyBlock(parentId: BlockId)
-    func setLink(url: URL?, range: NSRange, blockId: BlockId)
-    func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
-    func addLink(targetDetails: ObjectDetails, blockId: BlockId)
-    func changeMarkup(blockIds: [BlockId], markType: MarkupType)
-    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString?, position: BlockPosition?)
-    func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
-    func upload(blockId: BlockId, filePath: String) async throws
-    func createPage(targetId: BlockId, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> BlockId?
+    func setTextColor(_ color: BlockColor, blockIds: [String])
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String])
+    func duplicate(blockId: String, spaceId: String)
+    func fetch(url: AnytypeURL, blockId: String) async throws
+    func checkbox(selected: Bool, blockId: String)
+    func toggle(blockId: String)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [String])
+    func delete(blockIds: [String])
+    func moveToPage(blockId: String, pageId: String)
+    func createEmptyBlock(parentId: String, spaceId: String)
+    func addLink(targetDetails: ObjectDetails, blockId: String)
+    func changeMarkup(blockIds: [String], markType: MarkupType)
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String)
+    func toggleWholeBlockMarkup(
+        _ attributedString: NSAttributedString?,
+        markup: MarkupType,
+        info: BlockInformation
+    ) async throws -> NSAttributedString?
+    func upload(blockId: String, filePath: String) async throws
+    func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String?
 
     func setObjectType(type: ObjectType) async throws
+    @discardableResult
+    func turnIntoBookmark(url: AnytypeURL) async throws -> ObjectType
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws
-    func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
-    func changeText(_ text: NSAttributedString, info: BlockInformation)
-    func handleKeyboardAction(
-        _ action: CustomTextView.KeyboardAction,
-        currentText: NSAttributedString,
-        info: BlockInformation
-    )
-    func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
-    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId, currentText: NSAttributedString?)
-    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: BlockId)
-    func uploadFileAt(localPath: String, blockId: BlockId)
-    func selectBlock(info: BlockInformation)
+    func changeText(_ text: NSAttributedString, blockId: String) async throws
+    func setTextStyle(
+        _ attribute: MarkupType,
+        range: NSRange,
+        blockId: String,
+        currentText: NSAttributedString?,
+        contentType: BlockContentType
+    ) async throws
+    func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String)
+    func uploadFileAt(localPath: String, blockId: String)
     func createAndFetchBookmark(
-        targetID: BlockId,
+        targetID: String,
         position: BlockPosition,
         url: AnytypeURL
     ) async throws
-    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
+    func setAppearance(blockId: String, appearance: BlockLink.Appearance)
     func createTable(
-        blockId: BlockId,
+        blockId: String,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: SafeSendable<NSAttributedString?>
-    ) async throws -> BlockId
+        blockText: SafeSendable<NSAttributedString?>,
+        spaceId: String
+    ) async throws -> String
+    func pasteContent()
 }
 
 extension BlockActionHandlerProtocol {
-    func addBlock(_ type: BlockContentType, blockId: BlockId, blockText: NSAttributedString? = nil) {
-        addBlock(type, blockId: blockId, blockText: blockText, position: nil)
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString? = nil, spaceId: String) {
+        addBlock(type, blockId: blockId, blockText: blockText, position: nil, spaceId: spaceId)
     }
 }

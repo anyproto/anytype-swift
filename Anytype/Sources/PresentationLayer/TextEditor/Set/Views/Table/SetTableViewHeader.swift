@@ -16,12 +16,13 @@ struct SetTableViewHeader: View {
             ForEach(model.colums, id: \.key) { data in
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(15)
-                    if data.isReadOnlyValue {
+                    if data.isReadOnlyValue || !model.setDocument.setPermissions.canEditRelationValuesInView {
                         Image(asset: .relationLockedSmall)
                             .tint(.Button.active)
                         Spacer.fixedWidth(4)
                     }
-                    AnytypeText(data.name, style: .relation2Regular, color: .Text.secondary)
+                    AnytypeText(data.name, style: .relation2Regular)
+                .foregroundColor(.Text.secondary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                     Spacer()

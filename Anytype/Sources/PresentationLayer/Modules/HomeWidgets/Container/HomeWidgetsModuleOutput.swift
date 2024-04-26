@@ -1,5 +1,7 @@
 import Foundation
 
 @MainActor
-protocol HomeWidgetsModuleOutput: AnyObject {
+protocol HomeWidgetsModuleOutput: AnyObject, CommonWidgetModuleOutput {
+    func onSpaceSelected()
+    func onCreateWidgetSelected(context: AnalyticsWidgetContext)
 }

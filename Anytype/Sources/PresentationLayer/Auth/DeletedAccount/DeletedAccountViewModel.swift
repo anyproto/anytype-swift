@@ -25,7 +25,7 @@ final class DeletedAccountViewModel: ObservableObject {
     }
     
     var title: String {
-        return Loc.daysToDeletionAccount(daysToDeletion)
+        return Loc.daysToDeletionVault(daysToDeletion)
     }
     
     // MARK: - Internal funcs

@@ -90,17 +90,21 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.id: userInterfaceStyle.analyticsId])
     }
 
-    func logShowObject(type: AnalyticsObjectType, layout: DetailsLayout) {
+    func logScreenObject(type: AnalyticsObjectType, layout: DetailsLayout, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.showObject,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.analyticsId,
+            "ScreenObject",
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
                                   AnalyticsEventsPropertiesKey.layout: layout.rawValue]
         )
     }
 
-    func logObjectTypeChange(_ type: AnalyticsObjectType) {
-        logEvent(AnalyticsEventsName.objectTypeChange,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId])
+    func logChangeObjectType(_ type: AnalyticsObjectType, spaceId: String) {
+        logEvent(
+            "ChangeObjectType",
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId]
+        )
     }
     
     func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute) {
@@ -128,11 +132,11 @@ extension AnytypeAnalytics {
         }
     }
 
-    func logCreateBlock(type: BlockContentType, route: AnalyticsEventsRouteKind? = nil) {
-        logCreateBlock(type: type.analyticsValue, route: route, style: type.styleAnalyticsValue)
+    func logCreateBlock(type: BlockContentType, spaceId: String, route: AnalyticsEventsRouteKind? = nil) {
+        logCreateBlock(type: type.analyticsValue, spaceId: spaceId, route: route, style: type.styleAnalyticsValue)
     }
     
-    func logCreateBlock(type: String,  route: AnalyticsEventsRouteKind? = nil, style: String? = nil) {
+    func logCreateBlock(type: String, spaceId: String, route: AnalyticsEventsRouteKind? = nil, style: String? = nil) {
         var props = [String: String]()
         props[AnalyticsEventsPropertiesKey.type] = type
         if let style = style {
@@ -143,50 +147,66 @@ extension AnytypeAnalytics {
             props[AnalyticsEventsPropertiesKey.route] = route.rawValue
         }
 
-        logEvent(AnalyticsEventsName.blockCreate, withEventProperties: props)
+        logEvent(AnalyticsEventsName.blockCreate, spaceId: spaceId, withEventProperties: props)
     }
 
-    func logUploadMedia(type: FileContentType) {
-        logEvent(AnalyticsEventsName.blockUpload,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logUploadMedia(type: FileContentType, spaceId: String) {
+        logEvent(
+            "UploadMedia",
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
     }
 
-    func logDownloadMedia(type: FileContentType) {
-        logEvent(AnalyticsEventsName.downloadFile,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logDownloadMedia(type: FileContentType, spaceId: String) {
+        logEvent(
+            "DownloadMedia",
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
     }
 
     func logReorderBlock(count: Int) {
         logEvent(AnalyticsEventsName.reorderBlock,
                  withEventProperties: [AnalyticsEventsPropertiesKey.count: count])
     }
-
-    func logAddRelation(format: RelationFormat, isNew: Bool, type: AnalyticsEventsRelationType) {
-        let eventName = isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation
-        logEvent(eventName,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.analyticsName,
-                                       AnalyticsEventsPropertiesKey.type: type.rawValue])
+    
+    func logAddExistingOrCreateRelation(
+        format: RelationFormat,
+        isNew: Bool,
+        type: AnalyticsEventsRelationType,
+        spaceId: String
+    ) {
+        logEvent(
+            isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation,
+            spaceId: spaceId,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.format: format.analyticsName,
+                AnalyticsEventsPropertiesKey.type: type.rawValue
+            ]
+        )
     }
 
-    func logChangeRelationValue(isEmpty: Bool, type: AnalyticsEventsRelationType) {
-        logEvent(isEmpty ? AnalyticsEventsName.deleteRelationValue : AnalyticsEventsName.changeRelationValue,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    func logChangeOrDeleteRelationValue(isEmpty: Bool, type: AnalyticsEventsRelationType, spaceId: String) {
+        logEvent(
+            isEmpty ? AnalyticsEventsName.deleteRelationValue : AnalyticsEventsName.changeRelationValue,
+            spaceId: spaceId,
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
     }
 
-    func logCreateObject(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind, view: AnalyticsEventsRouteView? = nil) {
-        var properties = [
+    func logCreateObject(objectType: AnalyticsObjectType, spaceId: String, route: AnalyticsEventsRouteKind) {
+        let properties = [
             AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
             AnalyticsEventsPropertiesKey.route: route.rawValue
         ]
-        if let view {
-            properties[AnalyticsEventsPropertiesKey.view] = view.rawValue
-        }
-        logEvent(AnalyticsEventsName.createObject, withEventProperties: properties)
+        logEvent(AnalyticsEventsName.createObject, spaceId: spaceId, withEventProperties: properties)
     }
     
-    func logLinkToObject(type: AnalyticsEventsLinkToObjectType) {
+    func logLinkToObject(type: AnalyticsEventsLinkToObjectType, spaceId: String) {
         logEvent(
             AnalyticsEventsName.linkToObject,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.linkType: type.rawValue
             ]
@@ -194,9 +214,10 @@ extension AnytypeAnalytics {
     }
     
     // MARK: - Collection
-    func logScreenCollection(with type: String) {
+    func logScreenCollection(with type: String, spaceId: String) {
         logEvent(
             AnalyticsEventsName.screenCollection,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
                 AnalyticsEventsPropertiesKey.type: type
@@ -205,9 +226,10 @@ extension AnytypeAnalytics {
     }
     
     // MARK: - Set
-    func logScreenSet(with type: String) {
+    func logScreenSet(with type: String, spaceId: String) {
         logEvent(
             AnalyticsEventsName.screenSet,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
                 AnalyticsEventsPropertiesKey.type: type
@@ -401,19 +423,13 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.selectHomeTab,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.view: AnalyticsView.widget.rawValue,
                 AnalyticsEventsPropertiesKey.tab: source.analyticsId
             ]
         )
     }
     
-    func logShowHome(view: AnalyticsView) {
-        logEvent(
-            AnalyticsEventsName.homeShow,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.view: view.rawValue
-            ]
-        )
+    func logShowHome() {
+        logEvent(AnalyticsEventsName.homeShow)
     }
     
     func logChangeWidgetSource(source: AnalyticsWidgetSource, route: AnalyticsWidgetRoute, context: AnalyticsWidgetContext) {
@@ -457,8 +473,7 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.Sidebar.openGroupToggle,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: source.analyticsId,
-                AnalyticsEventsPropertiesKey.view: AnalyticsView.widget.rawValue
+                AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
         )
     }
@@ -467,8 +482,7 @@ extension AnytypeAnalytics {
         logEvent(
             AnalyticsEventsName.Sidebar.closeGroupToggle,
             withEventProperties: [
-                AnalyticsEventsPropertiesKey.type: source.analyticsId,
-                AnalyticsEventsPropertiesKey.view: AnalyticsView.widget.rawValue
+                AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
         )
     }
@@ -501,8 +515,8 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.screenSearch)
     }
     
-    func logSearchResult() {
-        logEvent(AnalyticsEventsName.searchResult)
+    func logSearchResult(spaceId: String) {
+        logEvent(AnalyticsEventsName.searchResult, spaceId: spaceId)
     }
     
     func logLockPage(_ isLocked: Bool) {
@@ -529,9 +543,10 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.redo)
     }
     
-    func logDuplicateObject(count: Int, objectType: AnalyticsObjectType) {
+    func logDuplicateObject(count: Int, objectType: AnalyticsObjectType, spaceId: String) {
         logEvent(
             AnalyticsEventsName.duplicateObject,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.count: count,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -539,12 +554,12 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCopyBlock() {
-        logEvent(AnalyticsEventsName.copyBlock)
+    func logCopyBlock(spaceId: String) {
+        logEvent(AnalyticsEventsName.copyBlock, spaceId: spaceId)
     }
     
-    func logPasteBlock() {
-        logEvent(AnalyticsEventsName.pasteBlock)
+    func logPasteBlock(spaceId: String) {
+        logEvent(AnalyticsEventsName.pasteBlock, spaceId: spaceId)
     }
     
     func logSetObjectDescription() {
@@ -684,9 +699,10 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logTemplateCreate(objectType: AnalyticsObjectType) {
+    func logTemplateCreate(objectType: AnalyticsObjectType, spaceId: String) {
         logEvent(
             AnalyticsEventsName.createTemplate,
+            spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
             ]
@@ -710,16 +726,21 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCreateLink() {
-        logEvent(AnalyticsEventsName.createLink)
+    func logCreateLink(spaceId: String) {
+        logEvent(AnalyticsEventsName.createLink, spaceId: spaceId)
     }
     
     func logScreenSettingsSpaceCreate() {
         logEvent(AnalyticsEventsName.screenSettingsSpaceCreate)
     }
     
-    func logCreateSpace() {
-        logEvent(AnalyticsEventsName.createSpace)
+    func logCreateSpace(route: CreateSpaceRoute) {
+        logEvent(
+            AnalyticsEventsName.createSpace,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route.rawValue
+            ]
+        )
     }
     
     func logSwitchSpace() {
@@ -734,7 +755,7 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.clickDeleteSpaceWarning, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
-    func logDeleteSpace(type: DeleteSpaceType) {
+    func logDeleteSpace(type: SpaceAccessAnalyticsType) {
         logEvent(AnalyticsEventsName.deleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
@@ -789,4 +810,135 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logShareSpace() {
+        logEvent("ShareSpace")
+    }
+    
+    func logScreenSettingsSpaceShare() {
+        logEvent("ScreenSettingsSpaceShare")
+    }
+    
+    func logClickShareSpaceCopyLink() {
+        logEvent("ClickShareSpaceCopyLink")
+    }
+    
+    func logScreenStopShare() {
+        logEvent("ScreenStopShare")
+    }
+    
+    func logStopSpaceShare() {
+        logEvent("StopSpaceShare")
+    }
+    
+    func logClickSettingsSpaceShare(type: ClickSettingsSpaceShareType) {
+        logEvent(
+            "ClickSettingsSpaceShare",
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logScreenRevokeShareLink() {
+        logEvent("ScreenRevokeShareLink")
+    }
+    
+    func logRevokeShareLink() {
+        logEvent("RevokeShareLink")
+    }
+    
+    func logScreenInviteConfirm(route: ScreenInviteConfirmRoute) {
+        logEvent(
+            "ScreenInviteConfirm",
+            withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue]
+        )
+    }
+    
+    func logApproveInviteRequest(type: PermissionAnalyticsType) {
+        logEvent(
+            "ApproveInviteRequest",
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logRejectInviteRequest() {
+        logEvent("RejectInviteRequest")
+    }
+    
+    func logChangeSpaceMemberPermissions(type: PermissionAnalyticsType) {
+        logEvent(
+            "ChangeSpaceMemberPermissions",
+            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+        )
+    }
+    
+    func logRemoveSpaceMember() {
+        logEvent("RemoveSpaceMember")
+    }
+    
+    func logScreenInviteRequest() {
+        logEvent("ScreenInviteRequest")
+    }
+    
+    func logScreenRequestSent() {
+        logEvent("ScreenRequestSent")
+    }
+    
+    func logScreenSettingsSpaceList() {
+        logEvent("ScreenSettingsSpaceList")
+    }
+    
+    func logScreenLeaveSpace() {
+        logEvent("ScreenLeaveSpace")
+    }
+    
+    func logLeaveSpace() {
+        logEvent("LeaveSpace")
+    }
+    
+    func logApproveLeaveRequest() {
+        logEvent("ApproveLeaveRequest")
+    }
+    
+    func logScreenQr(type: ScreenQrAnalyticsType) {
+        logEvent("ScreenQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+    
+    func logClickQr() {
+        logEvent("ClickQr", withEventProperties: [AnalyticsEventsPropertiesKey.type: "Share"])
+    }
+    
+    func logScreenSettingsSpaceMembers() {
+        logEvent("ScreenSettingsSpaceMembers")
+    }
+    
+    func logDuplicateBlock(spaceId: String) {
+        logEvent("DuplicateBlock", spaceId: spaceId)
+    }
+    
+    func logFeatureRelation(spaceId: String) {
+        logEvent("FeatureRelation", spaceId: spaceId)
+    }
+    
+    func logUnfeatureRelation(spaceId: String) {
+        logEvent("UnfeatureRelation", spaceId: spaceId)
+    }
+    
+    func logDeleteRelation(spaceId: String) {
+        logEvent("DeleteRelation", spaceId: spaceId)
+    }
+    
+    func logScreenSettingsMembership() {
+        logEvent("ScreenSettingsMembership")
+    }
+    
+    func logScreenMembership(tier: MembershipTier) {
+        logEvent("ScreenMembership", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])
+    }
+    
+    func logClickMembership(type: ClickMembershipType) {
+        logEvent("ClickMembership", withEventProperties: [AnalyticsEventsPropertiesKey.type:  type.rawValue])
+    }
+    
+    func logChangePlan(tier: MembershipTier) {
+        logEvent("ChangePlan", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])
+    }
 }

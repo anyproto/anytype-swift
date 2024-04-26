@@ -3,18 +3,21 @@ import UIKit
 import Combine
 import AnytypeCore
 
+@MainActor
 protocol ObjectHeaderRouterProtocol: AnyObject {
-    func showIconPicker(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    )
-    func showCoverPicker(
-        document: BaseDocumentGeneralProtocol,
-        onCoverAction: @escaping (ObjectCoverPickerAction) -> Void
-    )
+    func showIconPicker(document: BaseDocumentGeneralProtocol)
 }
 
+@MainActor
+protocol ObjectHeaderModuleOutput: AnyObject {
+    func showCoverPicker(document: BaseDocumentGeneralProtocol)
+}
+
+@MainActor
 final class ObjectHeaderViewModel: ObservableObject {
+    
+    @Injected(\.objectHeaderUploadingService)
+    private var objectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol
     
     @Published private(set) var header: ObjectHeader?
 
@@ -22,52 +25,50 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     private lazy var onIconTap = { [weak self] in
         guard let self = self, !self.configuration.isOpenedForPreview else { return }
-        guard !document.objectRestrictions.objectRestriction.contains(.details) else { return }
+        guard document.permissions.canChangeIcon else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        self.onIconPickerTap?((document, { [weak self] action in
-            self?.handleIconAction(action: action)
-        }))
+        self.onIconPickerTap?(document)
     }
     
     private lazy var onCoverTap = { [weak self] in
-        guard let self = self, !self.configuration.isOpenedForPreview else { return }
-        guard self.document.details?.layoutValue != .note else { return }
-        guard !document.objectRestrictions.objectRestriction.contains(.details) else { return }
+        guard let self, !configuration.isOpenedForPreview else { return }
+        guard document.details?.layoutValue != .note else { return }
+        guard document.permissions.canChangeCover else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        self.onCoverPickerTap?((document, { [weak self] action in
-            self?.handleCoverAction(action: action)
-        }))
+        output?.showCoverPicker(document: document)
     }
     
     private let document: BaseDocumentGeneralProtocol
+    private let targetObjectId: String
     private var subscription: AnyCancellable?
+    private var uploadingStatusSubscription: AnyCancellable?
     private let configuration: EditorPageViewModelConfiguration
-    private let objectHeaderInteractor: ObjectHeaderInteractorProtocol
+    private weak var output: ObjectHeaderModuleOutput?
     
-    
-    var onCoverPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectCoverPickerAction) -> Void)>?
-    var onIconPickerTap: RoutingAction<(BaseDocumentGeneralProtocol, (ObjectIconPickerAction) -> Void)>?
+    var onIconPickerTap: RoutingAction<BaseDocumentGeneralProtocol>?
     
     // MARK: - Initializers
     
     init(
         document: BaseDocumentGeneralProtocol,
+        targetObjectId: String,
         configuration: EditorPageViewModelConfiguration,
-        interactor: ObjectHeaderInteractorProtocol
+        output: ObjectHeaderModuleOutput?
     ) {
         self.document = document
+        self.targetObjectId = targetObjectId
         self.configuration = configuration
-        self.objectHeaderInteractor = interactor
+        self.output = output
         
         setupSubscription()
-
+        
         header = buildShimmeringHeader()
     }
     
     // MARK: - Private
     private func setupSubscription() {
-        subscription = document.updatePublisher.sink { [weak self] update in
-            self?.onUpdate(update)
+        subscription = document.detailsPublisher.sink { [weak self] details in
+            self?.onUpdate(details: details)
         }
     }
 
@@ -96,19 +97,28 @@ final class ObjectHeaderViewModel: ObservableObject {
         )
     }
     
-    private func onUpdate(_ update: DocumentUpdate) {
-        switch update {
-        case .details, .general:
-            header = buildHeader()
-        case .blocks, .dataSourceUpdate, .syncStatus:
-            break
+    private func onUpdate(details: ObjectDetails) {
+        let header = buildHeader(details: details)
+        
+        if self.header != header {
+            self.header = header
         }
+        
+        uploadingStatusSubscription = objectHeaderUploadingService
+            .coverUploadPublisher(objectId: details.id, spaceId: details.spaceId)
+            .receiveOnMain()
+            .sink { [weak self] update in
+                if let loadingHeader = self?.buildLoadingHeader(update) {
+                    self?.header = loadingHeader
+                }
+            }
     }
     
-    private func buildHeader() -> ObjectHeader {
+    private func buildHeader(details: ObjectDetails) -> ObjectHeader {
         guard let details = document.details else {
             return buildShimmeringHeader()
         }
+        
         return HeaderBuilder.buildObjectHeader(
             details: details,
             usecase: .openedObject,
@@ -176,18 +186,4 @@ final class ObjectHeaderViewModel: ObservableObject {
         }
     }
 
-}
-
-extension ObjectHeaderViewModel {
-    func handleCoverAction(action: ObjectCoverPickerAction) {
-        objectHeaderInteractor.handleCoverAction(spaceId: document.spaceId, action: action) { [weak self] update in
-            if let loadingHeader = self?.buildLoadingHeader(update) {
-                self?.header = loadingHeader
-            }
-        }
-    }
-    
-    func handleIconAction(action: ObjectIconPickerAction) {
-        objectHeaderInteractor.handleIconAction(spaceId: document.spaceId, action: action)
-    }
 }

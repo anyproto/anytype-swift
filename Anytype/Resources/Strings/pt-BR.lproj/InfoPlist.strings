@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "O Face ID é usado para recuperar sua Frase de Recuperação armazenada com segurança no keychain";
+"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
 "NSCameraUsageDescription" = "A câmera é usada para ler códigos QR para uma experiência de login segura e conveniente";
 "NSLocalNetworkUsageDescription" = "O acesso à rede local é usado para sincronizar dados diretamente entre os seus dispositivos próximos";
 "NSPhotoLibraryAddUsageDescription" = "É necessário acesso para salvar as imagens selecionadas em sua biblioteca";

@@ -24,24 +24,38 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
     // MARK: - Private variables
     
     private let document: BaseDocumentGeneralProtocol
+    private let actionHandler: ObjectIconActionHandlerProtocol
     private var subscription: AnyCancellable?
-    private let onIconAction: (ObjectIconPickerAction) -> Void
         
     // MARK: - Initializer
     
-    init(
-        document: BaseDocumentGeneralProtocol,
-        onIconAction: @escaping (ObjectIconPickerAction) -> Void
-    ) {
+    init(document: BaseDocumentGeneralProtocol, actionHandler: ObjectIconActionHandlerProtocol) {
         self.document = document
-        self.onIconAction = onIconAction
-        subscription = document.syncPublisher.sink { [weak self] in
-            self?.updateState()
-        }
+        self.actionHandler = actionHandler
+        subscription = document.syncPublisher
+            .receiveOnMain()
+            .sink { [weak self] in
+                self?.updateState()
+            }
     }
     
+    
+    func setEmoji(_ emojiUnicode: String) {
+        actionHandler.handleIconAction(document: document, action: .setIcon(.emoji(emojiUnicode: emojiUnicode)))
+    }
+    
+    func uploadImage(from itemProvider: NSItemProvider) {
+        actionHandler.handleIconAction(document: document, action: .setIcon(.upload(itemProvider: itemProvider)))
+    }
+    
+    func removeIcon() {
+        actionHandler.handleIconAction(document: document, action: .removeIcon)
+    }
+    
+    // MARK: - Private
+    
     private func updateState() {
-        isRemoveButtonAvailable = document.details?.icon != nil
+        isRemoveButtonAvailable = document.details?.objectIcon != nil
         detailsLayout = document.details?.layoutValue
         isRemoveEnabled = makeIsRemoveEnabled()
     }
@@ -60,19 +74,5 @@ final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewMod
             )
             return true
         }
-    }
-}
-
-extension ObjectIconPickerViewModel {
-    func setEmoji(_ emojiUnicode: String) {
-        onIconAction(.setIcon(.emoji(emojiUnicode: emojiUnicode)))
-    }
-    
-    func uploadImage(from itemProvider: NSItemProvider) {
-        onIconAction(.setIcon(.upload(itemProvider: itemProvider)))
-    }
-    
-    func removeIcon() {
-        onIconAction(.removeIcon)
     }
 }

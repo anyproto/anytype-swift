@@ -17,7 +17,8 @@ struct ListWidgetCompactRow: View {
                         model.onIconTap()
                     }
             }
-            AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
+            AnytypeText(model.title, style: .previewTitle2Medium)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
             Spacer()
         }

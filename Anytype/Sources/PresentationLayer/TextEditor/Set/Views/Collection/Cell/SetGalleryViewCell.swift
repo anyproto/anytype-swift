@@ -1,5 +1,4 @@
 import SwiftUI
-import Kingfisher
 
 struct SetGalleryViewCell: View {
     @State private var width: CGFloat = .zero
@@ -79,10 +78,13 @@ struct SetGalleryViewCell: View {
     
     private func row(_ relation: Relation) -> some View {
         RelationValueView(
-            relation: RelationItemModel(relation: relation),
-            style: .setCollection,
-            mode: .button(action: nil)
+            model: RelationValueViewModel(
+                relation:  RelationItemModel(relation: relation),
+                style: .setCollection,
+                mode: .button(action: nil)
+            )
         )
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

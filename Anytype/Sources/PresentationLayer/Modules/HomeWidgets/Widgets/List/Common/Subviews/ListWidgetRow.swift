@@ -18,11 +18,13 @@ struct ListWidgetRow: View {
                     }
             }
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(model.title, style: .previewTitle2Medium, color: .Text.primary)
+                AnytypeText(model.title, style: .previewTitle2Medium)
+                    .foregroundColor(.Text.primary)
                     .lineLimit(1)
                 if let description = model.description, description.isNotEmpty {
                     Spacer.fixedHeight(1)
-                    AnytypeText(description, style: .relation3Regular, color: .Widget.secondary)
+                    AnytypeText(description, style: .relation3Regular)
+                        .foregroundColor(.Widget.secondary)
                         .lineLimit(1)
                 }
             }

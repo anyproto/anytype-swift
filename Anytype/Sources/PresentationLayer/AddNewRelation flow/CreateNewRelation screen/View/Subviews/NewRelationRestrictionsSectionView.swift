@@ -14,7 +14,8 @@ struct NewRelationRestrictionsSectionView: View {
     }
     
     private var emptyView: some View {
-        AnytypeText(Loc.none, style: .uxBodyRegular, color: .Text.primary)
+        AnytypeText(Loc.none, style: .uxBodyRegular)
+            .foregroundColor(.Text.primary)
             .lineLimit(1)
     }
     
@@ -38,7 +39,8 @@ struct NewRelationRestrictionsSectionView: View {
                     .frame(width: 20, height: 20)
                 
             }
-            AnytypeText(model.title, style: .uxBodyRegular, color: .Text.primary)
+            AnytypeText(model.title, style: .uxBodyRegular)
+                .foregroundColor(.Text.primary)
                 .lineLimit(1)
         }
     }

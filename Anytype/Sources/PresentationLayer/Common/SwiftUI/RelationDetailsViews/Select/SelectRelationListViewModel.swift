@@ -15,22 +15,20 @@ final class SelectRelationListViewModel: ObservableObject {
     let configuration: RelationModuleConfiguration
     
     private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
-    private let searchService: SearchServiceProtocol
+    
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
     
     private weak var output: SelectRelationListModuleOutput?
     
     init(
-        style: SelectRelationListStyle,
-        configuration: RelationModuleConfiguration,
-        relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol,
-        searchService: SearchServiceProtocol,
+        data: SelectRelationListData,
         output: SelectRelationListModuleOutput?
     ) {
-        self.style = style
-        self.configuration = configuration
+        self.style = data.style
+        self.configuration = data.configuration
         self.output = output
-        self.relationSelectedOptionsModel = relationSelectedOptionsModel
-        self.searchService = searchService
+        self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
     

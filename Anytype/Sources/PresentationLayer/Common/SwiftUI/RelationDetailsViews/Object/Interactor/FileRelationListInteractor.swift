@@ -6,18 +6,24 @@ final class FileRelationListInteractor: ObjectRelationListInteractorProtocol {
     let limitedObjectTypes: [ObjectType]
     
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
     
-    init(spaceId: String, searchService: SearchServiceProtocol) {
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    
+    init(spaceId: String) {
         self.spaceId = spaceId
         self.limitedObjectTypes = []
-        self.searchService = searchService
     }
     
-    func searchOptions(text: String) async throws -> [ObjectRelationOption] {
+    func searchOptions(text: String, limitObjectIds: [String]) async throws -> [ObjectRelationOption] {
+        try await searchService.search(text: text, limitObjectIds: limitObjectIds)
+            .map { ObjectRelationOption(objectDetails: $0) }
+    }
+    
+    func searchOptions(text: String, excludeObjectIds: [String]) async throws -> [ObjectRelationOption] {
         try await searchService.searchFiles(
             text: text,
-            excludedFileIds: [],
+            excludedFileIds: excludeObjectIds,
             spaceId: spaceId
         ).map { ObjectRelationOption(objectDetails: $0) }
     }

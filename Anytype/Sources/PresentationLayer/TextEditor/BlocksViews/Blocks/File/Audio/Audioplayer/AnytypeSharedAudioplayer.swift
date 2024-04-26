@@ -1,14 +1,7 @@
-//
-//  AnytypeSharedAudioplayer.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 19.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import AVFoundation
 
 
+@MainActor
 final class AnytypeSharedAudioplayer {
     static let sharedInstance = AnytypeSharedAudioplayer()
 

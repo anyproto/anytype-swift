@@ -10,29 +10,18 @@ protocol SetRelationsCoordinatorOutput: AnyObject {
 final class SetRelationsCoordinatorViewModel: ObservableObject, SetRelationsCoordinatorOutput {
     @Published var addRelationsData: AddRelationsData?
     
-    private let setDocument: SetDocumentProtocol
-    private let viewId: String
-    private let setRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtocol
+    let setDocument: SetDocumentProtocol
+    let viewId: String
     private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        setRelationsViewModuleAssembly: SetRelationsViewModuleAssemblyProtocol,
         addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
-        self.setRelationsViewModuleAssembly = setRelationsViewModuleAssembly
         self.addNewRelationCoordinator = addNewRelationCoordinator
-    }
-    
-    func list() -> AnyView {
-        setRelationsViewModuleAssembly.make(
-            setDocument: setDocument,
-            viewId: viewId,
-            output: self
-        )
     }
     
     // MARK: - EditorSetRelationsCoordinatorOutput

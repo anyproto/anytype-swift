@@ -7,18 +7,21 @@ struct SpaceSettingsCoordinatorView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        model.settingsModule()
+        SpaceSettingsView(output: model)
         .sheet(isPresented: $model.showRemoteStorage) {
-            model.remoteStorageModule()
+            RemoteStorageView(output: model)
         }
         .sheet(isPresented: $model.showPersonalization) {
-            model.personalizationModule()
+            PersonalizationView(spaceId: model.accountSpaceId, output: model)
                 .sheet(isPresented: $model.showWallpaperPicker) {
-                    model.wallpaperModule()
+                    WallpaperPickerView(spaceId: model.accountSpaceId)
                 }
         }
         .sheet(isPresented: $model.showSpaceShare) {
-            model.spaceShareModule()
+            SpaceShareCoordinatorView()
+        }
+        .sheet(isPresented: $model.showSpaceMembers) {
+            SpaceMembersView()
         }
         .onChange(of: model.dismiss) { _ in
             dismiss()

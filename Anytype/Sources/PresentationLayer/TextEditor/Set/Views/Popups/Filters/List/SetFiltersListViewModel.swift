@@ -4,6 +4,11 @@ import Services
 import FloatingPanel
 import Combine
 
+struct SetFiltersListModuleData {
+    let setDocument: SetDocumentProtocol
+    let viewId: String
+}
+
 @MainActor
 final class SetFiltersListViewModel: ObservableObject {
     @Published var rows: [SetFilterRowConfiguration] = []
@@ -12,22 +17,21 @@ final class SetFiltersListViewModel: ObservableObject {
     private let viewId: String
     private var cancellable: Cancellable?
     
-    private let dataviewService: DataviewServiceProtocol
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    
     private let relationFilterBuilder = RelationFilterBuilder()
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
     private weak var output: SetFiltersListCoordinatorOutput?
     
     init(
-        setDocument: SetDocumentProtocol,
-        viewId: String,
-        dataviewService: DataviewServiceProtocol,
+        data: SetFiltersListModuleData,
         output: SetFiltersListCoordinatorOutput?,
         subscriptionDetailsStorage: ObjectDetailsStorage)
     {
-        self.setDocument = setDocument
-        self.viewId = viewId
-        self.dataviewService = dataviewService
+        self.setDocument = data.setDocument
+        self.viewId = data.viewId
         self.output = output
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setup()

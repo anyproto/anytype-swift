@@ -20,17 +20,16 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
+    }()
     private let subscriptionId = "Files-\(UUID().uuidString)"
     
-    nonisolated init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-    }
+    nonisolated init() {}
     
     // MARK: - FilesSubscriptionServiceProtocol
     
@@ -45,12 +44,11 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
             type: .desc
         )
         
-        let filters = [
-            SearchHelper.notHiddenFilter(),
-            SearchHelper.isDeletedFilter(isDeleted: false),
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId),
+        let filters: [DataviewFilter] = .builder {
+            SearchHelper.notHiddenFilters()
+            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
             SearchHelper.fileSyncStatus(syncStatus)
-        ]
+        }
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(

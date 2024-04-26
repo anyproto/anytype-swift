@@ -71,25 +71,49 @@ extension ObjectType {
             spaceId: details.spaceId,
             uniqueKey: details.uniqueKeyValue,
             defaultTemplateId: details.defaultTemplateId,
-            canCreateObjectOfThisType: details.restrictionsList.contains(ObjectRestriction.createObjectOfThisType.rawValue),
+            canCreateObjectOfThisType: details.restrictionsValue.contains(.createObjectOfThisType),
             recommendedRelations: details.recommendedRelations,
             recommendedLayout: details.recommendedLayoutValue
         )
     }
-    
 }
 
 extension ObjectType {
+    
+    public static var subscriptionKeys: [BundledRelationKey] {
+        return [
+            BundledRelationKey.id,
+            BundledRelationKey.name,
+            BundledRelationKey.iconEmoji,
+            BundledRelationKey.description,
+            BundledRelationKey.isHidden,
+            BundledRelationKey.isReadonly,
+            BundledRelationKey.isArchived,
+            BundledRelationKey.smartblockTypes,
+            BundledRelationKey.sourceObject,
+            BundledRelationKey.recommendedRelations,
+            BundledRelationKey.recommendedLayout,
+            BundledRelationKey.uniqueKey,
+            BundledRelationKey.spaceId,
+            BundledRelationKey.defaultTemplateId,
+            BundledRelationKey.restrictions
+        ]
+    }
+    
     public var isTemplateType: Bool {
         uniqueKey == .template
     }
     
+    public var isListType: Bool {
+        isSetType || isCollectionType
+    }
+    
     public var isSetType: Bool {
-        uniqueKey == .set
+        recommendedLayout == .set
     }
     
     public var isCollectionType: Bool {
-        uniqueKey == .collection
+        recommendedLayout == .collection
     }
     
     public var isNoteLayout: Bool {

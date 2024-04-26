@@ -105,7 +105,7 @@ struct EditorSetView: View {
             Spacer.fixedHeight(48)
             EditorSetEmptyView(
                 model: EditorSetEmptyViewModel(
-                    mode: model.setDocument.isCollection() ? .collection : .set,
+                    mode: model.emptyStateMode,
                     onTap: { model.onEmptyStateButtonTap() }
                 )
             )

@@ -136,6 +136,10 @@ extension CodeBlockView: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         actionHandler?.textDidChange(textView)
+ 
+        if textView.isLayoutNeeded {
+            actionHandler?.textBlockSetNeedsLayout()
+        }
     }
 }
 

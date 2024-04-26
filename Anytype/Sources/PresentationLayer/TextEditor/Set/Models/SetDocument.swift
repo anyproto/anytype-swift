@@ -3,12 +3,12 @@ import Services
 import Combine
 import AnytypeCore
 
-class SetDocument: SetDocumentProtocol {
+final class SetDocument: SetDocumentProtocol {
     let document: BaseDocumentProtocol
     
-    var objectId: Services.BlockId { document.objectId }
-    var blockId: BlockId { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
-    var targetObjectId: BlockId { inlineParameters?.targetObjectID ?? objectId }
+    var objectId: String { document.objectId }
+    var blockId: String { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
+    var targetObjectId: String { inlineParameters?.targetObjectID ?? objectId }
     var spaceId: String { document.spaceId }
     
     var details: ObjectDetails? {
@@ -23,36 +23,25 @@ class SetDocument: SetDocumentProtocol {
         document.detailsPublisher
     }
     
-    var updatePublisher: AnyPublisher<DocumentUpdate, Never> {
-        document.updatePublisher
+    var syncStatus: AnyPublisher<SyncStatus, Never> {
+        document.syncStatus
     }
     
     var forPreview: Bool { document.forPreview }
     
-    var dataviews: [BlockDataview] {
-        return document.children.compactMap { info -> BlockDataview? in
-            if case .dataView(let data) = info.content {
-                if let blockId = inlineParameters?.blockId {
-                    return info.id == blockId ? data : nil
-                } else {
-                    return data
-                }
-            }
+    var blockDataview: BlockDataview? {
+        let blockId = inlineParameters?.blockId ?? SetConstants.dataviewBlockId
+        guard let blockInfo = document.infoContainer.get(id: blockId) else {
+            return nil
+        }
+        if case .dataView(let data) = blockInfo.content {
+           return data
+        } else {
             return nil
         }
     }
     
     var dataViewRelationsDetails: [RelationDetails] = []
-    
-    var viewRelationValueIsLocked: Bool {
-        activeView.type == .gallery ||
-        activeView.type == .list ||
-        (FeatureFlags.setKanbanView && activeView.type == .kanban)
-    }
-    
-    var relationValuesIsLocked: Bool {
-        return document.relationValuesIsLocked
-    }
     
     var analyticsType: AnalyticsObjectType {
         details?.analyticsType ?? .object(typeId: "")
@@ -66,9 +55,11 @@ class SetDocument: SetDocumentProtocol {
         document.parsedRelations
     }
     
-    var objectRestrictions: ObjectRestrictions {
-        document.objectRestrictions
+    var permissions: ObjectPermissions {
+        document.permissions
     }
+    
+    private(set) var setPermissions = SetPermissions()
     
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     private let updateSubject = PassthroughSubject<SetDocumentUpdate, Never>()
@@ -84,16 +75,21 @@ class SetDocument: SetDocumentProtocol {
     
     let inlineParameters: EditorInlineSetObject?
     
+    private var participantIsEditor = false
     private var subscriptions = [AnyCancellable]()
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private let permissionsBuilder: SetPermissionsBuilderProtocol
     let dataBuilder: SetContentViewDataBuilder
     
     init(
         document: BaseDocumentProtocol,
         inlineParameters: EditorInlineSetObject?,
         relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        objectTypeProvider: ObjectTypeProviderProtocol,
+        accountParticipantsStorage: AccountParticipantsStorageProtocol,
+        permissionsBuilder: SetPermissionsBuilderProtocol
     ) {
         self.document = document
         self.inlineParameters = inlineParameters
@@ -104,7 +100,8 @@ class SetDocument: SetDocumentProtocol {
             relationDetailsStorage: relationDetailsStorage
         )
         self.objectTypeProvider = objectTypeProvider
-        self.setup()
+        self.accountParticipantsStorage = accountParticipantsStorage
+        self.permissionsBuilder = permissionsBuilder
     }
     
     func view(by id: String) -> DataviewView {
@@ -160,7 +157,7 @@ class SetDocument: SetDocumentProtocol {
         }?.objectIds ?? []
     }
     
-    func updateActiveViewId(_ id: BlockId) {
+    func updateActiveViewIdAndReload(_ id: String) {
         updateDataview(with: id)
         updateData()
     }
@@ -188,29 +185,6 @@ class SetDocument: SetDocumentProtocol {
         details?.isCollection ?? false
     }
     
-    func canCreateObject() -> Bool {
-        guard let details else {
-            anytypeAssertionFailure("SetDocument: No details in canCreateObject")
-            return false
-        }
-        guard details.isList else { return false }
-        
-        if details.isCollection { return true }
-        if isSetByRelation() { return true }
-        
-        // Set query validation
-        // Create objects in sets by type only permitted if type is Page-like
-        guard let setOfId = details.setOf.first(where: { $0.isNotEmpty }) else {
-            return false
-        }
-        
-        guard let layout = try? ObjectTypeProvider.shared.objectType(id: setOfId).recommendedLayout else {
-            return false
-        }
-        
-        return DetailsLayout.supportedForCreationInSets.contains(layout)
-    }
-    
     func isActiveHeader() -> Bool {
         guard let details else {
             anytypeAssertionFailure("SetDocument: No details in isHeaderActive")
@@ -233,11 +207,13 @@ class SetDocument: SetDocumentProtocol {
     @MainActor
     func open() async throws {
         try await document.open()
+        await setup()
     }
     
     @MainActor
     func openForPreview() async throws {
         try await document.openForPreview()
+        await setup()
     }
     
     @MainActor
@@ -252,9 +228,14 @@ class SetDocument: SetDocumentProtocol {
     
     // MARK: - Private
     
-    private func setup() {
-        document.updatePublisher.sink { [weak self] update in
-            self?.onDocumentUpdate(update)
+    private func setup() async {
+        document.syncPublisher.sink { [weak self] update in
+            self?.updateData()
+        }
+        .store(in: &subscriptions)
+        
+        document.syncStatus.sink { [weak self] status in
+            self?.updateSubject.send(.syncStatus(status))
         }
         .store(in: &subscriptions)
         
@@ -263,24 +244,20 @@ class SetDocument: SetDocumentProtocol {
             self?.triggerSync()
         }
         .store(in: &subscriptions)
-    }
-    
-    private func onDocumentUpdate(_ data: DocumentUpdate) {
-        switch data {
-        case .general, .blocks, .details, .dataSourceUpdate:
-            updateData()
-        case .syncStatus(let status):
-            updateSubject.send(.syncStatus(status))
-        }
+        
+        await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
+            self?.participantIsEditor = canEdit
+            self?.updateData()
+        }.store(in: &subscriptions)
     }
     
     private func updateData() {
-        dataView = dataviews.first ?? .empty
+        dataView = blockDataview ?? .empty
         updateDataViewRelations()
         
         let prevActiveView = activeView
         
-        updateActiveViewId()
+        updateActiveViewIdIfNeeded()
         activeView = dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
         
         updateSorts()
@@ -288,11 +265,27 @@ class SetDocument: SetDocumentProtocol {
         
         let shouldClearState = shouldClearState(prevActiveView: prevActiveView)
         updateSubject.send(.dataviewUpdated(clearState: shouldClearState))
+        setPermissions = permissionsBuilder.build(setDocument: self, participantCanEdit: participantIsEditor)
+        
         triggerSync()
     }
     
     private func updateDataViewRelations() {
-        dataViewRelationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, spaceId: spaceId, includeDeleted: false)
+        let relationsDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, spaceId: spaceId, includeDeleted: false)
+        dataViewRelationsDetails = enrichedByDoneRelationIfNeeded(relationsDetails: relationsDetails)
+    }
+    
+    private func enrichedByDoneRelationIfNeeded(relationsDetails: [RelationDetails]) -> [RelationDetails] {
+        // force insert Done relation for dataView if needed
+        let containsDoneRelation = relationsDetails.first { $0.key == BundledRelationKey.done.rawValue }.isNotNil
+        let doneRelationDetails = try? relationDetailsStorage.relationsDetails(for: BundledRelationKey.done, spaceId: spaceId)
+        if !containsDoneRelation, let doneRelationDetails {
+            var relationsDetails = relationsDetails
+            relationsDetails.append(doneRelationDetails)
+            return relationsDetails
+        } else {
+            return relationsDetails
+        }
     }
     
     private func updateSorts() {
@@ -312,20 +305,26 @@ class SetDocument: SetDocumentProtocol {
         return modeChanged || groupRelationKeyChanged
     }
     
-    private func updateActiveViewId() {
-        let activeViewId = dataView.views.first?.id
-        if let activeViewId = activeViewId {
-            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                updateDataview(with: activeViewId)
-                dataView.activeViewId = activeViewId
-            }
-        } else {
-            updateDataview(with: "")
-            dataView.activeViewId = ""
+    private func updateActiveViewIdIfNeeded() {
+        let firstViewId = dataView.views.first?.id
+        let currentActiveViewId = dataView.activeViewId
+        
+        guard let firstViewId else {
+            updateActiveViewId(with: "")
+            return
+        }
+        
+        if currentActiveViewId.isEmpty || dataView.views.first(where: { $0.id == currentActiveViewId }).isNil {
+            updateActiveViewId(with: firstViewId)
         }
     }
     
-    private func updateDataview(with activeViewId: BlockId) {
+    private func updateActiveViewId(with viewId: String) {
+        updateDataview(with: viewId)
+        dataView.activeViewId = viewId
+    }
+    
+    private func updateDataview(with activeViewId: String) {
         document.infoContainer.updateDataview(blockId: blockId) { dataView in
             dataView.updated(activeViewId: activeViewId)
         }

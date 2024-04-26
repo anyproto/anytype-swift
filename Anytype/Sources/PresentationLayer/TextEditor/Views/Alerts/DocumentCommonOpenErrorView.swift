@@ -12,7 +12,7 @@ struct DocumentCommonOpenErrorView: View {
             title: Loc.error,
             message: Loc.CommonOpenErrorView.message
         ) {
-            BottomAlertButton(text: Loc.close, style: .secondary, loading: false) {
+            BottomAlertButton(text: Loc.close, style: .secondary) {
                 dismiss()
                 cancel()
             }

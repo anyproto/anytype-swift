@@ -19,6 +19,7 @@ struct SetViewSettingsList: View {
         }
         .background(Color.Background.secondary)
         .frame(maxHeight: 358)
+        .disabled(!model.canEditSetView)
     }
     
     private var content: some View {
@@ -55,7 +56,8 @@ struct SetViewSettingsList: View {
     private var viewNameContent: some View {
         Spacer.fixedHeight(10)
         
-        AnytypeText(Loc.name, style: .caption1Medium, color: .Text.secondary)
+        AnytypeText(Loc.name, style: .caption1Medium)
+                .foregroundColor(.Text.secondary)
         
         Spacer.fixedHeight(2)
         
@@ -86,9 +88,9 @@ struct SetViewSettingsList: View {
             HStack(spacing: 0) {
                 AnytypeText(
                     setting.title,
-                    style: .uxBodyRegular,
-                    color: .Text.primary
+                    style: .uxBodyRegular
                 )
+                .foregroundColor(.Text.primary)
                 
                 Spacer()
                 
@@ -96,8 +98,8 @@ struct SetViewSettingsList: View {
                 
                 Spacer.fixedWidth(6)
                 
-                Image(asset: .X18.Disclosure.right)
-                    .foregroundColor(.Button.active)
+                IconView(icon: .asset(.X18.Disclosure.right))
+                    .frame(width: 18, height: 18)
             }
         }
         .frame(height: 52, alignment: .leading)
@@ -110,24 +112,26 @@ struct SetViewSettingsList: View {
         let text = model.valueForSetting(setting)
         return AnytypeText(
             text,
-            style: .uxBodyRegular,
-            color: setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary
+            style: .uxBodyRegular
         )
+        .foregroundColor(setting.isPlaceholder(text) ? .Text.tertiary : .Text.secondary)
         .lineLimit(1)
     }
     
+    @ViewBuilder
     private var settingsMenu: some View {
-        Menu {
-            duplicateButton
-            if model.canBeDeleted {
-                deleteButton
+        if model.canEditSetView {
+            Menu {
+                duplicateButton
+                if model.canBeDeleted {
+                    deleteButton
+                }
+            } label: {
+                IconView(icon: .asset(.X24.more))
+                    .frame(width: 24, height: 24)
             }
-        } label: {
-            Image(asset: .X24.more)
-                .foregroundColor(.Button.active)
-                .frame(width: 24, height: 24)
+            .fixMenuOrder()
         }
-        .fixMenuOrder()
     }
     
     private var deleteButton: some View {

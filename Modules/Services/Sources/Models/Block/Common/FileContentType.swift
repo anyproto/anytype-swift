@@ -29,3 +29,13 @@ public enum FileContentType: String, Hashable {
         }
     }
 }
+
+public struct FileBlockContentData: Hashable {
+    public let contentType: FileContentType
+    public let fileExt: String
+    
+    public init(contentType: FileContentType, fileExt: String = "") {
+        self.contentType = contentType
+        self.fileExt = fileExt.lowercased()
+    }
+}

@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import Kingfisher
 import Services
 
 final class UnsplashViewModel: GridItemViewModelProtocol {
@@ -17,15 +16,15 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
             sections = backgroundSections()
         }
     }
-    private let unsplashService: UnsplashServiceProtocol
+    @Injected(\.unsplashService)
+    private var unsplashService: UnsplashServiceProtocol
     private(set) var isLoading: Bool = true
     private var searchTextChangedSubscription: AnyCancellable?
 
     @Published private var searchValue: String = ""
 
     init(
-        onItemSelect: @escaping (UnsplashItem) -> (),
-        unsplashService: UnsplashServiceProtocol
+        onItemSelect: @escaping (UnsplashItem) -> ()
     ) {
         self.onItemSelect = onItemSelect
         self.unsplashService = unsplashService

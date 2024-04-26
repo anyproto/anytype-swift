@@ -3,7 +3,7 @@ import Services
 
 @MainActor
 protocol RelationSelectedOptionsModelProtocol {
-    var selectionMode: RelationSelectionOptionsMode { get }
+    var config: RelationModuleConfiguration { get }
     var selectedOptionsIdsPublisher: AnyPublisher<[String], Never> { get }
     
     func onClear() async throws
@@ -18,34 +18,24 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     @Published private var selectedOptionsIds: [String] = []
     var selectedOptionsIdsPublisher: AnyPublisher<[String], Never> { $selectedOptionsIds.eraseToAnyPublisher() }
     
-    let selectionMode: RelationSelectionOptionsMode
+    let config: RelationModuleConfiguration
     
-    private let relationKey: String
-    private let analyticsType: AnalyticsEventsRelationType
-    private let relationsService: RelationsServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
     
-    init(
-        selectionMode: RelationSelectionOptionsMode,
-        selectedOptionsIds: [String],
-        relationKey: String,
-        analyticsType: AnalyticsEventsRelationType,
-        relationsService: RelationsServiceProtocol
-    ) {
-        self.selectionMode = selectionMode
+    init(config: RelationModuleConfiguration, selectedOptionsIds: [String]) {
+        self.config = config
         self.selectedOptionsIds = selectedOptionsIds
-        self.relationKey = relationKey
-        self.analyticsType = analyticsType
-        self.relationsService = relationsService
     }
     
     func onClear() async throws {
         selectedOptionsIds = []
-        try await relationsService.updateRelation(relationKey: relationKey, value: nil)
+        try await relationsService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: nil)
         logChanges()
     }
     
     func optionSelected(_ optionId: String) async throws {
-        switch selectionMode {
+        switch config.selectionMode {
         case .single:
             selectedOptionsIds = [optionId]
         case .multi:
@@ -53,7 +43,8 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
         }
         
         try await relationsService.updateRelation(
-            relationKey: relationKey,
+            objectId: config.objectId,
+            relationKey: config.relationKey,
             value: selectedOptionsIds.protobufValue
         )
         logChanges()
@@ -68,7 +59,8 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
         if let index = selectedOptionsIds.firstIndex(of: optionId) {
             selectedOptionsIds.remove(at: index)
             try await relationsService.updateRelation(
-                relationKey: relationKey,
+                objectId: config.objectId,
+                relationKey: config.relationKey,
                 value: selectedOptionsIds.protobufValue
             )
         }
@@ -83,6 +75,10 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     }
     
     private func logChanges() {
-        AnytypeAnalytics.instance().logChangeRelationValue(isEmpty: selectedOptionsIds.isEmpty, type: analyticsType)
+        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+            isEmpty: selectedOptionsIds.isEmpty,
+            type: config.analyticsType,
+            spaceId: config.spaceId
+        )
     }
 }

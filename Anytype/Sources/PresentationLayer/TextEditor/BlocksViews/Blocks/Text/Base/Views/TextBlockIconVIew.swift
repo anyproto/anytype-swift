@@ -177,6 +177,7 @@ extension TextBlockIconView {
     private func createQuoteView() -> UIView {
         let quoteView = UIView()
         quoteView.backgroundColor = UIColor.System.amber100
+        setContentHuggingPriority(.defaultLow + 1, for: .horizontal)
 
         addSubview(quoteView) {
             $0.width.equal(to: 2)
@@ -185,7 +186,7 @@ extension TextBlockIconView {
             $0.bottom.equal(to: bottomAnchor)
         }
         layoutUsing.anchors {
-            $0.width.equal(to: Constants.size.width, priority: .defaultLow)
+            $0.width.equal(to: Constants.size.width)
         }
 
         return quoteView
@@ -215,7 +216,7 @@ private extension TextBlockIconView {
 
         enum TitleCheckbox {
             static let imageSize = CGSize(width: 28, height: 28)
-            static let viewSize = CGSize(width: 28, height: 32) // height is equel to height of 1 line in text view
+            static let viewSize = CGSize(width: 36, height: 32) // height is equel to height of 1 line in text view
         }
         enum Checkbox {
             static let imageSize = CGSize(width: 18, height: 18)

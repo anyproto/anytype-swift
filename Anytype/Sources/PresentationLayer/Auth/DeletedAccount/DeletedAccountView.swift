@@ -6,7 +6,7 @@ struct DeletedAccountView: View {
     
     var body: some View {
         ZStack {
-            Gradients.mainBackground()
+            CoverGradient.sky.data.asLinearGradient().ignoresSafeArea()
             contentView
         }
         .navigationBarHidden(true)
@@ -34,9 +34,11 @@ struct DeletedAccountView: View {
         VStack(alignment: .leading, spacing: 0) {
             clock
             Spacer.fixedHeight(19)
-            AnytypeText(viewModel.title, style: .heading, color: .Text.primary)
+            AnytypeText(viewModel.title, style: .heading)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(11)
-            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular, color: .Text.primary)
+            AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular)
+                .foregroundColor(.Text.primary)
             Spacer.fixedHeight(14)
             SettingsButton(text: Loc.cancelDeletion, textColor: .System.red) { viewModel.cancel() }
             SettingsButton(text: Loc.logoutAndClearData, textColor: .System.red) { viewModel.logOut() }

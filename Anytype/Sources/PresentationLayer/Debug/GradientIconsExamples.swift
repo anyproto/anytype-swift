@@ -18,14 +18,16 @@ struct GradientIconsExamples: View {
     private var content: some View {
         VStack {
             HStack(spacing: 0) {
-                AnytypeText("Space", style: .subheading, color: .Text.primary)
+                AnytypeText("Space", style: .subheading)
+                    .foregroundColor(.Text.primary)
                     .frame(maxWidth: .infinity)
             }
             ScrollView() {
                 VStack {
                     ForEach(0..<gradients.count, id: \.self) { index in
                         if let gradientId = GradientId(index + 1) {
-                            AnytypeText("Gradient \(gradientId.rawValue)", style: .bodyRegular, color: .Text.primary)
+                            AnytypeText("Gradient \(gradientId.rawValue)", style: .bodyRegular)
+                                .foregroundColor(.Text.primary)
                             HStack(spacing: 0) {
                                 Spacer()
                                 IconView(icon: .object(.space(.gradient(gradientId))))

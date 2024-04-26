@@ -7,22 +7,18 @@ class KeychainPhraseViewModel: ObservableObject {
     // MARK: - DI
 
     private let shownInContext: AnalyticsEventsKeychainContext
-    private let seedService: SeedServiceProtocol
-    private let localAuthService: LocalAuthServiceProtocol
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
+    @Injected(\.localAuthService)
+    private var localAuthService: LocalAuthServiceProtocol
 
     // MARK: - State
     
     @Published private(set) var recoveryPhrase: String? = nil
     @Published var toastBarData: ToastBarData = .empty
     
-    init(
-        shownInContext: AnalyticsEventsKeychainContext,
-        seedService: SeedServiceProtocol,
-        localAuthService: LocalAuthServiceProtocol
-    ) {
+    init(shownInContext: AnalyticsEventsKeychainContext) {
         self.shownInContext = shownInContext
-        self.seedService = seedService
-        self.localAuthService = localAuthService
     }
     
     func onAppear() {
@@ -43,7 +39,7 @@ class KeychainPhraseViewModel: ObservableObject {
     // MARK: - Private
     
     private func obtainRecoveryPhrase() async throws {
-        try await localAuthService.auth(reason: Loc.accessToSecretPhraseFromKeychain)
+        try await localAuthService.auth(reason: Loc.accessToKeyFromKeychain)
         recoveryPhrase = try seedService.obtainSeed()
     }
     
@@ -53,17 +49,7 @@ class KeychainPhraseViewModel: ObservableObject {
     }
     
     private func showToast() {
-        toastBarData = ToastBarData(text: Loc.Keychain.recoveryPhraseCopiedToClipboard, showSnackBar: true)
+        toastBarData = ToastBarData(text: Loc.Keychain.Key.Copy.Toast.title, showSnackBar: true)
         AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
-    }
-}
-
-extension KeychainPhraseViewModel {
-    static func makeForPreview() -> KeychainPhraseViewModel {
-        KeychainPhraseViewModel(
-            shownInContext: .logout,
-            seedService: DI.preview.serviceLocator.seedService(),
-            localAuthService: DI.preview.serviceLocator.localAuthService()
-        )
     }
 }

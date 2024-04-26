@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ServerDocumentPickerView: View {
     
-    @StateObject var model: ServerDocumentPickerViewModel
+    @StateObject private var model = ServerDocumentPickerViewModel()
     
     var body: some View {
         DocumentPicker(contentTypes: [.yaml]) { url in

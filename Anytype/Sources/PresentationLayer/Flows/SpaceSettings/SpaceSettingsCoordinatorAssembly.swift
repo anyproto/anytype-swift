@@ -31,17 +31,11 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
     func make() -> AnyView {
         return SpaceSettingsCoordinatorView(
             model: SpaceSettingsCoordinatorViewModel(
-                spaceSettingsModuleAssembly: self.modulesDI.spaceSettings(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
-                remoteStorageModuleAssembly: self.modulesDI.remoteStorage(),
                 widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
-                personalizationModuleAssembly: self.modulesDI.personalization(),
                 activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-                newSearchModuleAssembly: self.modulesDI.newSearch(),
                 objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(),
-                wallpaperPickerModuleAssembly: self.modulesDI.wallpaperPicker(),
-                spaceShareCoordinatorAssembly: self.coordinatorsDI.spaceShare(),
                 objectTypeProvider: self.serviceLocator.objectTypeProvider(),
                 urlOpener: self.uiHelpersDI.urlOpener(),
                 documentService: self.serviceLocator.documentService()

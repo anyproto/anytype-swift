@@ -29,7 +29,8 @@ struct ObjectProfileIconPicker: View {
             viewModel.removeIcon()
             dismiss()
         } label: {
-            AnytypeText(Loc.removePhoto, style: .uxBodyRegular, color: viewModel.isRemoveEnabled ? Color.System.red : .Button.inactive)
+            AnytypeText(Loc.removePhoto, style: .uxBodyRegular)
+                .foregroundColor(viewModel.isRemoveEnabled ? Color.System.red : .Button.inactive)
         }
         .disabled(!viewModel.isRemoveEnabled)
         .frame(height: 48)
@@ -45,8 +46,8 @@ struct DocumentProfileIconPicker_Previews: PreviewProvider {
     static var previews: some View {
         ObjectProfileIconPicker(
             viewModel: ObjectIconPickerViewModel(
-                document: MockBaseDocument(),
-                onIconAction: { _ in }
+                document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
+                actionHandler: ObjectIconActionHandler()
             )
         )
     }

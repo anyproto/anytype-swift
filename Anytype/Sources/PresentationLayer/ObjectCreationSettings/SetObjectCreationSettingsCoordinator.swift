@@ -14,31 +14,29 @@ protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: (() -> Void)?,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
+        onSetAsDefaultTempalte: @escaping (String) -> Void,
         completion: (() -> Void)?
     )
 }
 
-final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol {
+final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
     private let navigationContext: NavigationContextProtocol
     private let setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
-    private var handler: TemplateSelectionObjectSettingsHandler?
+    
+    private var useAsTemplateAction: ((String) -> Void)?
     
     private var editorModuleInput: EditorPageModuleInput?
     
     init(
         navigationContext: NavigationContextProtocol,
         setObjectCreationSettingsAssembly: SetObjectCreationSettingsModuleAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol,
         editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.setObjectCreationSettingsAssembly = setObjectCreationSettingsAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
         self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
@@ -105,7 +103,7 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
     func showTemplateEditing(
         setting: ObjectCreationSetting,
         onTemplateSelection: (() -> Void)?,
-        onSetAsDefaultTempalte: @escaping (BlockId) -> Void,
+        onSetAsDefaultTempalte: @escaping (String) -> Void,
         completion: (() -> Void)?
     ) {
         let editorView = editorPageCoordinatorAssembly.make(
@@ -121,12 +119,13 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
             }
         )
         
-        handler = TemplateSelectionObjectSettingsHandler(useAsTemplateAction: onSetAsDefaultTempalte)
+        self.useAsTemplateAction = onSetAsDefaultTempalte
+        
         let editingTemplateViewController = TemplateEditingViewController(
             editorViewController: UIHostingController(rootView: editorView),
             onSettingsTap: { [weak self] in
-                guard let self = self, let handler = self.handler else { return }
-                editorModuleInput?.showSettings(delegate: handler, output: self)
+                guard let self = self else { return }
+                editorModuleInput?.showSettings(output: self)
             },
             onSelectTemplateTap: onTemplateSelection
         )
@@ -138,59 +137,37 @@ final class SetObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoord
         setDocument: SetDocumentProtocol,
         onSelect: @escaping (ObjectType) -> ()
     ) {
-        if FeatureFlags.newTypePicker {
-            let view = objectTypeSearchModuleAssembly.make(
-                title: Loc.changeType,
-                spaceId: setDocument.spaceId,
-                showPins: false,
-                showLists: true, 
-                showFiles: false,
-                incudeNotForCreation: false
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
-        } else {
-            let view = newSearchModuleAssembly.objectTypeSearchModule(
-                title: Loc.changeType,
-                spaceId: setDocument.spaceId,
-                showSetAndCollection: true
-            ) { [weak self] type in
-                self?.navigationContext.dismissTopPresented()
-                onSelect(type)
-            }
-            
-            navigationContext.presentSwiftUIView(view: view)
+        let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+            title: Loc.changeType,
+            spaceId: setDocument.spaceId,
+            showPins: false,
+            showLists: true,
+            showFiles: false,
+            incudeNotForCreation: false
+        ) { [weak self] type in
+            self?.navigationContext.dismissTopPresented()
+            onSelect(type)
         }
+        
+        navigationContext.presentSwiftUIView(view: view)
     }
-}
-
-extension SetObjectCreationSettingsCoordinator: ObjectSettingsCoordinatorOutput {
+    
+    // MARK: - ObjectSettingsCoordinatorOutput
     func closeEditor() {
         navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
     
-    func showPage(data: EditorScreenData) {}
-}
-
-final class TemplateSelectionObjectSettingsHandler: ObjectSettingsModuleDelegate {
-    let useAsTemplateAction: (BlockId) -> Void
-    
-    init(useAsTemplateAction: @escaping (BlockId) -> Void) {
-        self.useAsTemplateAction = useAsTemplateAction
-    }
+    func showEditorScreen(data: EditorScreenData) {}
     
     func didCreateLinkToItself(selfName: String, data: EditorScreenData) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
-    func didCreateTemplate(templateId: BlockId) {
+    func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
     
-    func didTapUseTemplateAsDefault(templateId: BlockId) {
-        useAsTemplateAction(templateId)
+    func didTapUseTemplateAsDefault(templateId: String) {
+        useAsTemplateAction?(templateId)
     }
 }

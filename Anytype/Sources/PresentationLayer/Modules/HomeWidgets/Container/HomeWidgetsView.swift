@@ -12,44 +12,50 @@ struct HomeWidgetsView: View {
                 HomeTopShadow()
             } content: {
                 VStack(spacing: 12) {
-                    if #available(iOS 17.0, *) {
-                        WidgetSwipeTipView()
-                    }
-                    ForEach(model.models) { rowModel in
-                        rowModel.provider.view
-                    }
                     if model.dataLoaded {
-                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets) {
+                        SpaceWidgetView {
+                            model.onSpaceSelected()
+                        }
+                        if #available(iOS 17.0, *) {
+                            WidgetSwipeTipView()
+                        }
+                        ForEach(model.models) { rowModel in
+                            rowModel.provider.view
+                        }
+                        BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
+                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
                             model.onEditButtonTap()
                         }
-                        .opacity(model.hideEditButton ? 0 : 1)
-                        .animation(.default, value: model.hideEditButton)
                     }
                     AnytypeNavigationSpacer()
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 12)
-                .opacity(model.dataLoaded ? 1 : 0)
                 .fitIPadToReadableContentGuide()
             }
             .animation(.default, value: model.models.count)
-            model.bottomPanelProvider.view
-                .fitIPadToReadableContentGuide()
+            
+            HomeBottomPanelView(homeState: $model.homeState) {
+                model.onCreateWidgetSelected()
+            }
         }
-        .onAppear {
-            model.onAppear()
+        .task {
+            await model.startWidgetObjectTask()
         }
-        .onDisappear {
-            model.onDisappear()
+        .task {
+            await model.startParticipantTask()
         }
         .navigationBarHidden(true)
         .anytypeStatusBar(style: .lightContent)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .homeBottomPanelHidden(model.hideEditButton)
+        .homeBottomPanelHidden(model.homeState.isEditWidgets)
         .anytypeVerticalDrop(data: model.models, state: $dndState) { from, to in
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
+        }
+        .onChange(of: model.homeState) { _ in
+            model.onHomeStateChanged()
         }
     }
 }

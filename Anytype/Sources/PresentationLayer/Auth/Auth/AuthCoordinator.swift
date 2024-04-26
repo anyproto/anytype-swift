@@ -10,33 +10,21 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     // MARK: - DI
     
-    private let authModuleAssembly: AuthModuleAssemblyProtocol
-    private let debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol
     private let joinFlowCoordinator: JoinFlowCoordinatorProtocol
     private let loginFlowCoordinator: LoginFlowCoordinatorProtocol
-    private let serverConfigurationCoordinatorAssembly: ServerConfigurationCoordinatorAssemblyProtocol
-    private let urlOpener: URLOpenerProtocol
     
     init(
-        authModuleAssembly: AuthModuleAssemblyProtocol,
-        debugMenuModuleAssembly: DebugMenuModuleAssemblyProtocol,
         joinFlowCoordinator: JoinFlowCoordinatorProtocol,
-        loginFlowCoordinator: LoginFlowCoordinatorProtocol,
-        serverConfigurationCoordinatorAssembly: ServerConfigurationCoordinatorAssemblyProtocol,
-        urlOpener: URLOpenerProtocol
+        loginFlowCoordinator: LoginFlowCoordinatorProtocol
     ) {
-        self.authModuleAssembly = authModuleAssembly
-        self.debugMenuModuleAssembly = debugMenuModuleAssembly
         self.joinFlowCoordinator = joinFlowCoordinator
         self.loginFlowCoordinator = loginFlowCoordinator
-        self.serverConfigurationCoordinatorAssembly = serverConfigurationCoordinatorAssembly
-        self.urlOpener = urlOpener
     }
     
     // MARK: - AuthCoordinatorProtocol
     
     func startFlow() -> AnyView {
-        return authModuleAssembly.make(output: self)
+        AuthView(output: self).eraseToAnyView()
     }
     
     // MARK: - AuthViewModelOutput
@@ -49,15 +37,7 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
         loginFlowCoordinator.startFlow()
     }
     
-    func onUrlAction(_ url: URL) {
-        urlOpener.openUrl(url, presentationStyle: .pageSheet, preferredColorScheme: .dark)
-    }
-    
-    func onDebugMenuAction() -> AnyView {
-        debugMenuModuleAssembly.make()
-    }
-    
     func onSettingsAction() -> AnyView {
-        serverConfigurationCoordinatorAssembly.make()
+        ServerConfigurationCoordinatorView().eraseToAnyView()
     }
 }

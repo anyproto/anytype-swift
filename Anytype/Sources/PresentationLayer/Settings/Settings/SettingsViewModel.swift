@@ -9,9 +9,15 @@ final class SettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    
     private weak var output: SettingsModuleOutput?
     
     // MARK: - State
@@ -22,16 +28,9 @@ final class SettingsViewModel: ObservableObject {
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
+    @Published var membership: MembershipStatus = .empty
     
-    init(
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        output: SettingsModuleOutput?
-    ) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.subscriptionService = subscriptionService
-        self.objectActionsService = objectActionsService
+    init(output: SettingsModuleOutput) {
         self.output = output
         Task {
             await setupSubscription()
@@ -66,15 +65,25 @@ final class SettingsViewModel: ObservableObject {
         output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
     }
     
+    func onSpacesTap() {
+        output?.onSpacesSelected()
+    }
+    
+    func onMembershipTap() {
+        output?.onMembershipSelected()
+    }
+    
     // MARK: - Private
     
     private func setupSubscription() async {
-            await subscriptionService.startSubscription(
-                subId: subAccountId,
-                objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
-            ) { [weak self] details in
-                self?.handleProfileDetails(details: details)
-            }
+        membershipStatusStorage.status.assign(to: &$membership)
+        
+        await subscriptionService.startSubscription(
+            subId: subAccountId,
+            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
+        ) { [weak self] details in
+            self?.handleProfileDetails(details: details)
+        }
     }
     
     private func handleProfileDetails(details: ObjectDetails) {
