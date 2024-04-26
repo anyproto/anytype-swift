@@ -11,16 +11,17 @@ final class SetViewPickerViewModel: ObservableObject {
     
     private let setDocument: SetDocumentProtocol
     private var cancellable: AnyCancellable?
-    private let dataviewService: DataviewServiceProtocol
+    
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    
     private weak var output: SetViewPickerCoordinatorOutput?
     
     init(
         setDocument: SetDocumentProtocol,
-        dataviewService: DataviewServiceProtocol,
         output: SetViewPickerCoordinatorOutput?
     ) {
         self.setDocument = setDocument
-        self.dataviewService = dataviewService
         self.output = output
         self.setup()
     }

@@ -100,7 +100,6 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
             activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
             accountParticipantStorage: self.serviceLocator.accountParticipantStorage(),
             menuBuilder: WidgetObjectListMenuBuilder(),
-            alertOpener: self.uiHelpersDI.alertOpener(),
             output: output,
             isSheet: isSheet
         ))

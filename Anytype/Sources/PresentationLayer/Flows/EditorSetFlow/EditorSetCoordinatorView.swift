@@ -30,6 +30,9 @@ struct EditorSetCoordinatorView: View {
             .sheet(item: $model.covertPickerData) {
                 ObjectCoverPicker(data: $0)
             }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

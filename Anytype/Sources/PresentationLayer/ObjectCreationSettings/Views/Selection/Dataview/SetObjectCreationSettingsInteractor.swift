@@ -51,10 +51,14 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private let setDocument: SetDocumentProtocol
     private let viewId: String
     
-    private let subscriptionService: TemplatesSubscriptionServiceProtocol
-    private let objectTypesProvider: ObjectTypeProviderProtocol
-    private let typesService: TypesServiceProtocol
-    private let dataviewService: DataviewServiceProtocol
+    @Injected(\.templatesSubscription)
+    private var templatesSubscription: TemplatesSubscriptionServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypesProvider: ObjectTypeProviderProtocol
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
     @Published private var defaultTemplateId: String
@@ -66,20 +70,12 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     init(
         setDocument: SetDocumentProtocol,
-        viewId: String,
-        objectTypesProvider: ObjectTypeProviderProtocol,
-        typesService: TypesServiceProtocol,
-        subscriptionService: TemplatesSubscriptionServiceProtocol,
-        dataviewService: DataviewServiceProtocol
+        viewId: String
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
         self.dataView = setDocument.view(by: viewId)
         self.defaultTemplateId = dataView.defaultTemplateID ?? ""
-        self.subscriptionService = subscriptionService
-        self.objectTypesProvider = objectTypesProvider
-        self.typesService = typesService
-        self.dataviewService = dataviewService
         
         let defaultObjectType = try? setDocument.defaultObjectTypeForActiveView()
         let defaultObjectTypeID = defaultObjectType?.id ?? ""
@@ -177,7 +173,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     
     private func loadTemplates() {
         Task {
-            await subscriptionService.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
+            await templatesSubscription.startSubscription(objectType: objectTypeId, spaceId: setDocument.spaceId) { [weak self] details in
                 guard let self else { return }
                 templatesDetails = details
                 updateTypeDefaultTemplateId()

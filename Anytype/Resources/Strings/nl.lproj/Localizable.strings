@@ -242,7 +242,7 @@
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Volgende";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Sla over";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopieer naar klembord";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Lees meer";
@@ -261,11 +261,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
 "Auth.LoginFlow.Or" = "OF";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "De Void binnengaan";
 
 // Object settings
@@ -361,6 +365,7 @@
 
 "TemplateEditing.Title" = "Sjabloon bewerken";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Nieuw sjabloon is toegevoegd aan het type";
 "Templates.Popup.Duplicated" = "Dit sjabloon is gedupliceerd";
 "Templates.Popup.Removed" = "Dit sjabloon is verwijderd";
@@ -1094,11 +1099,6 @@
 "Membership.NameForm.Subtitle" = "Dit is jouw unieke naam op het Anyty-netwerk, en bevestigt jouw lidmaatschap. Het fungeert als jouw persoonlijke domein en kan niet worden gewijzigd.";
 "Membership.NameForm.Validating" = "Even geduld...";
 "Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
-
-"Membership.NameForm.Error.TooShort" = "Name is too short";
-"Membership.NameForm.Error.TooLong" = "Name is too long";
-"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
-
 
 "Membership.Success.Title" = "Welkom bij het netwerk, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";

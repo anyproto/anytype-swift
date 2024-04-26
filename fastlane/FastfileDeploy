@@ -80,11 +80,6 @@ platform :ios do
     )
 
     push_to_git_remote(no_verify: true)
-    
-    set_api_key
-    upload_to_testflight(skip_waiting_for_build_processing: true)
-
-    upload_dsyms_to_sentry
 
     if current_branch == "develop" || current_branch == "release"
       appInfo = options[:release] ? "Release" : "Dev"
@@ -94,6 +89,11 @@ platform :ios do
         comment: "Implemented in **#{appInfo}** `#{version}(#{build_number})`. This comment was created automatically."
       )
     end
+    
+    set_api_key
+    upload_to_testflight(skip_waiting_for_build_processing: true)
+
+    upload_dsyms_to_sentry
 
     dsym_paths = []
     Dir.chdir("..") do

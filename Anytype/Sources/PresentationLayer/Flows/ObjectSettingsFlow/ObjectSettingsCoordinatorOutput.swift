@@ -7,4 +7,5 @@ protocol ObjectSettingsCoordinatorOutput: AnyObject {
     func didCreateLinkToItself(selfName: String, data: EditorScreenData)
     func didCreateTemplate(templateId: String)
     func didTapUseTemplateAsDefault(templateId: String)
+    func didUndoRedo()
 }

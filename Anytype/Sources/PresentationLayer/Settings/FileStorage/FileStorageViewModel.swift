@@ -9,7 +9,6 @@ final class FileStorageViewModel: ObservableObject {
     
     @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: FileLimitsStorageProtocol
-    private weak var output: FileStorageModuleOutput?
     
     private var subscriptions = [AnyCancellable]()
     private let byteCountFormatter = ByteCountFormatter.fileFormatter
@@ -18,9 +17,9 @@ final class FileStorageViewModel: ObservableObject {
     let phoneName: String = UIDevice.current.name
     @Published var locaUsed: String = ""
     @Published var contentLoaded: Bool = false
+    @Published var showClearCacheAlert = false
     
-    init(output: FileStorageModuleOutput?) {
-        self.output = output
+    init() {
         setupPlaceholderState()
         Task {
             await setupSubscription()
@@ -28,7 +27,7 @@ final class FileStorageViewModel: ObservableObject {
     }
     
     func onTapOffloadFiles() {
-        output?.onClearCacheSelected()
+        showClearCacheAlert = true
     }
     
     func onAppear() {

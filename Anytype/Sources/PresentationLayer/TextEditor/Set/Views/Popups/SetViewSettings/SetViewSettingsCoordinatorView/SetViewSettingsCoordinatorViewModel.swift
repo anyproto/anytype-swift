@@ -16,42 +16,25 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     @Published var showFilters = false
     @Published var showSorts = false
     
-    let setDocument: SetDocumentProtocol
-    let viewId: String
-    private let mode: SetViewSettingsMode
+    let data: SetSettingsData
+    
     private let subscriptionDetailsStorage: ObjectDetailsStorage
-    private let setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol
     private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     
     init(
-        setDocument: SetDocumentProtocol,
-        viewId: String,
-        mode: SetViewSettingsMode,
+        data: SetSettingsData,
         subscriptionDetailsStorage: ObjectDetailsStorage,
-        setViewSettingsListModuleAssembly: SetViewSettingsListModuleAssemblyProtocol,
         setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
         setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
         setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     ) {
-        self.setDocument = setDocument
-        self.viewId = viewId
-        self.mode = mode
+        self.data = data
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
-        self.setViewSettingsListModuleAssembly = setViewSettingsListModuleAssembly
         self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
         self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
-    }
-    
-    func list() -> AnyView {
-        setViewSettingsListModuleAssembly.make(
-            setDocument: setDocument,
-            viewId: viewId,
-            mode: mode,
-            output: self
-        )
     }
     
     // MARK: - SetViewSettingsCoordinatorOutput
@@ -70,8 +53,8 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func relationsList() -> AnyView {
         setRelationsCoordinatorAssembly.make(
-            with: setDocument,
-            viewId: viewId
+            with: data.setDocument,
+            viewId: data.viewId
         )
     }
     
@@ -83,8 +66,8 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func setFiltersList() -> AnyView {
         setFiltersListCoordinatorAssembly.make(
-            with: setDocument,
-            viewId: viewId,
+            with: data.setDocument,
+            viewId: data.viewId,
             subscriptionDetailsStorage: subscriptionDetailsStorage
         )
     }
@@ -97,8 +80,8 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func setSortsList() -> AnyView {
         setSortsListCoordinatorAssembly.make(
-            with: setDocument,
-            viewId: viewId
+            with: data.setDocument,
+            viewId: data.viewId
         )
     }
 }

@@ -166,38 +166,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    func blockObjectsSearchModule(
-        title: String,
-        spaceId: String,
-        excludedObjectIds: [String],
-        excludedLayouts: [DetailsLayout],
-        onSelect: @escaping (_ details: ObjectDetails) -> Void
-    ) -> NewSearchView {
-        let interactor = BlockObjectsSearchInteractor(
-            spaceId: spaceId,
-            excludedObjectIds: excludedObjectIds,
-            excludedLayouts: excludedLayouts,
-            searchService: serviceLocator.searchService()
-        )
-
-        let internalViewModel = ObjectsSearchViewModel(
-            selectionMode: .singleItem,
-            interactor: interactor,
-            onSelect: { details in
-                guard let result = details.first else { return }
-                onSelect(result)
-            }
-        )
-        let viewModel = NewSearchViewModel(
-            title: title,
-            style: .default,
-            itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel
-        )
-
-        return NewSearchView(viewModel: viewModel)
-    }
-    
     func setSortsSearchModule(
         relationsDetails: [RelationDetails],
         onSelect: @escaping (_ relation: RelationDetails) -> Void
@@ -229,11 +197,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         output: RelationSearchModuleOutput
     ) -> NewSearchView {
         
-        let relationsInteractor = RelationsInteractor(
-            objectId: document.objectId,
-            relationsService: serviceLocator.relationService(),
-            dataviewService: serviceLocator.dataviewService()
-        )
+        let relationsInteractor = RelationsInteractor(objectId: document.objectId)
         let interactor = RelationsSearchInteractor(
             searchService: serviceLocator.searchService(),
             workspaceService: serviceLocator.workspaceService(),
