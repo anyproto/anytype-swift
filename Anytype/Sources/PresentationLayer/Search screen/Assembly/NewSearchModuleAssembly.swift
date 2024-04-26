@@ -142,9 +142,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = Legacy_ObjectTypeSearchInteractor(
             spaceId: spaceId,
-            typesService: serviceLocator.typesService(),
-            workspaceService: serviceLocator.workspaceService(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
             showBookmark: true,
             showSetAndCollection: false, 
             showFiles: false

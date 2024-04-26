@@ -4,22 +4,32 @@ import Services
 import Combine
 
 @MainActor
+protocol NewRelationCoordinatorViewOutput: AnyObject {
+    func didCreateRelation(_ relation: RelationDetails)
+}
+
+@MainActor
 final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModuleOutput {
     
     @Published var relationFormatsData: RelationFormatsData?
+    @Published var newSearchData: NewSearchData?
     
     let name: String
     let document: BaseDocumentProtocol
     let target: RelationsModuleTarget
     
+    private weak var output: NewRelationCoordinatorViewOutput?
+    
     init(
         name: String,
         document: BaseDocumentProtocol,
-        target: RelationsModuleTarget
+        target: RelationsModuleTarget,
+        output: NewRelationCoordinatorViewOutput?
     ) {
         self.name = name
         self.document = document
         self.target = target
+        self.output = output
     }
     
     // MARK: - NewRelationModuleOutput
@@ -31,12 +41,26 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
         )
     }
     
-    func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
-        // TODO
+    func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String], onSelect: @escaping ([String]) -> Void) {
+        newSearchData = NewSearchData(
+            selectedObjectTypesIds: selectedObjectTypesIds,
+            onSelect: { [weak self] ids in
+                self?.newSearchData = nil
+                onSelect(ids)
+            }
+        )
     }
     
     func didCreateRelation(_ relation: RelationDetails) {
-        // TODO
+        output?.didCreateRelation(relation)
     }
     
+}
+
+extension NewRelationCoordinatorViewModel {
+    struct NewSearchData: Identifiable {
+        let id = UUID()
+        let selectedObjectTypesIds: [String]
+        let onSelect: (_ ids: [String]) -> Void
+    }
 }
