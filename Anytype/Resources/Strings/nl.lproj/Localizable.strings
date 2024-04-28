@@ -8,11 +8,11 @@
 "TextStyle.Title.Title" = "Titel";
 "TextStyle.Title.Subtitle" = "Grote sectie koptekst";
 
-"TextStyle.Heading.Title" = "Koptitel";
+"TextStyle.Heading.Title" = "Kop";
 "TextStyle.Heading.Subtitle" = "Middelgrote titel";
 
-"TextStyle.Subheading.Title" = "Subkoptitel";
-"TextStyle.Subheading.Subtitle" = "Kleine titel";
+"TextStyle.Subheading.Title" = "Subkop";
+"TextStyle.Subheading.Subtitle" = "Kleine kop";
 
 "TextStyle.Highlighted.Title" = "Gemarkeerd";
 "TextStyle.Highlighted.Subtitle" = "Spotlight dat speciale aandacht verdient";
@@ -49,8 +49,8 @@
 "BlockText.ContentType.Numbered.Placeholder" = "Item van genummerde lijst";
 "BlockText.ContentType.Quote.Placeholder" = "Gemarkeerde tekst";
 "BlockText.ContentType.Header.Placeholder" = "Titel";
-"BlockText.ContentType.Header2.Placeholder" = "Koptitel";
-"BlockText.ContentType.Header3.Placeholder" = "Subkoptitel";
+"BlockText.ContentType.Header2.Placeholder" = "Kop";
+"BlockText.ContentType.Header3.Placeholder" = "Subkop";
 
 // MARK: - Block Link
 
@@ -833,7 +833,7 @@
 "FileStorage.Space.Used" = "%@ van %@ gebruikt";
 "FileStorage.Space.GetMore" = "Krijg meer ruimte";
 "FileStorage.Space.Mail.Subject" = "Krijg meer opslagruimte, kluis %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Body" = "Hallo, Anytype team. Ik neem contact op met het verzoek om de opslagcapaciteit van mijn bestanden uit te breiden, omdat ik geen opslagruimte meer heb. Mijn huidige limiet is %@. Mijn kluis id is %@. Groeten, %@.";
 "FileStorage.Local.Title" = "Lokale opslag";
 "FileStorage.Local.Instruction" = "Om ruimte op jouw lokale apparaat te besparen, kun je al jouw bestanden naar onze versleutelde back-up node verplaatsen. De bestanden worden opnieuw geladen wanneer je ze opent.";
 "FileStorage.Local.Used" = "%@ gebruikt";
@@ -885,15 +885,15 @@
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
 "SpaceSettings.Share" = "Deel";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveButton" = "Verlaat";
+"SpaceSettings.LeaveAlert.Title" = "Verlaat een ruimte";
 "SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
-"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+"SpaceSettings.LeaveAlert.Toast" = "Je hebt de %@ verlaten.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Meer informatie";
 
-"SpaceShare.Title" = "Sharing";
+"SpaceShare.Title" = "Aan het delen";
 "SpaceShare.Members" = "Leden";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
 "SpaceShare.Permissions.Reader" = "Lezer";
@@ -901,7 +901,7 @@
 "SpaceShare.Permissions.Grand.Edit" = "Bewerk";
 "SpaceShare.Permissions.Grand.View" = "Weergave";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
-"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
+"SpaceShare.Invite.Description" = "Deel deze uitnodigingslink zodat anderen zich bij jouw ruimte kunnen aansluiten. Zodra ze op jouw link klikken en toegang vragen, kun je hun toegangsrechten instellen.";
 "SpaceShare.Invite.Share" = "Share invite link";
 "SpaceShare.Invite.Generate" = "Generate invite link";
 "SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
