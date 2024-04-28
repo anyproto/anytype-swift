@@ -232,7 +232,7 @@
 // Auth Errors
 "Error creating wallet" = "创建钱包时出错";
 "Error select vault" = "选择库时出错";
-"Error wallet recover vault" = "Error wallet recover vault";
+"Error wallet recover vault" = "错误的钱包的恢复库";
 "Wallet.Recovery.Error.description" = "无效密钥";
 
 "Search for language" = "搜索语言";
