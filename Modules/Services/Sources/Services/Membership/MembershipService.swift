@@ -45,7 +45,7 @@ final class MembershipService: MembershipServiceProtocol {
     public func getMembership(noCache: Bool) async throws -> MembershipStatus {
         let status = try await ClientCommands.membershipGetStatus(.with {
             $0.noCache = noCache
-        }).invoke().data
+        }).invoke(ignoreLogErrors: .canNotConnect).data
         return try await makeMembershipFromMiddlewareModel(membership: status, noCache: noCache)
     }
     
@@ -74,7 +74,7 @@ final class MembershipService: MembershipServiceProtocol {
             $0.locale = Locale.current.languageCode ?? "en"
             $0.noCache = noCache
         })
-        .invoke().tiers
+        .invoke(ignoreLogErrors: .canNotConnect).tiers
         .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
         .asyncMap { await buildMemberhsipTier(tier: $0) }.compactMap { $0 }
     }
@@ -83,13 +83,13 @@ final class MembershipService: MembershipServiceProtocol {
         try await ClientCommands.membershipGetVerificationEmail(.with {
             $0.email = data.email
             $0.subscribeToNewsletter = data.subscribeToNewsletter
-        }).invoke()
+        }).invoke(ignoreLogErrors: .canNotConnect)
     }
     
     public func verifyEmailCode(code: String) async throws {
         try await ClientCommands.membershipVerifyEmailCode(.with {
             $0.code = code
-        }).invoke(ignoreLogErrors: .wrong)
+        }).invoke(ignoreLogErrors: .wrong, .canNotConnect)
     }
     
     public func validateName(name: String, tierType: MembershipTierType) async throws {
@@ -97,7 +97,7 @@ final class MembershipService: MembershipServiceProtocol {
             $0.nsName = name
             $0.nsNameType = .anyName
             $0.requestedTier = tierType.id
-        }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
+        }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort, .canNotConnect)
     }
     
     public func getBillingId(name: String, tier: MembershipTier) async throws -> String {
@@ -106,7 +106,7 @@ final class MembershipService: MembershipServiceProtocol {
             $0.nsNameType = .anyName
             $0.paymentMethod = .methodInappApple
             $0.requestedTier = tier.type.id
-        }).invoke().billingID
+        }).invoke(ignoreLogErrors: .canNotConnect).billingID
     }
     
     public func verifyReceipt(billingId: String, receipt: String) async throws {
@@ -164,7 +164,12 @@ final class MembershipService: MembershipServiceProtocol {
         do {
             let products = try await Product.products(for: [tier.iosProductID])
             guard let product = products.first else {
-                anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
+                
+                // If dev app uses prod middleware it will receive prod product id, skip this error
+                if tier.iosProductID != "io.anytype.membership.builder" {
+                    anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
+                }
+                
                 return buildStripePayment(tier: tier)
             }
             
