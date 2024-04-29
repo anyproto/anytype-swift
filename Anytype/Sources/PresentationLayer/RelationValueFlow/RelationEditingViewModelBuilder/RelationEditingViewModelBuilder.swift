@@ -8,8 +8,6 @@ final class RelationEditingViewModelBuilder {
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     private let textRelationEditingService: TextRelationEditingServiceProtocol
     private let searchService: SearchServiceProtocol
-    private let systemURLService: SystemURLServiceProtocol
-    private let bookmarkService: BookmarkServiceProtocol
     private let relationsService: RelationsServiceProtocol
     
     init(
@@ -17,16 +15,12 @@ final class RelationEditingViewModelBuilder {
         newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         textRelationEditingService: TextRelationEditingServiceProtocol,
         searchService: SearchServiceProtocol,
-        systemURLService: SystemURLServiceProtocol,
-        bookmarkService: BookmarkServiceProtocol,
         relationsService: RelationsServiceProtocol
     ) {
         self.delegate = delegate
         self.newSearchModuleAssembly = newSearchModuleAssembly
         self.textRelationEditingService = textRelationEditingService
         self.searchService = searchService
-        self.systemURLService = systemURLService
-        self.bookmarkService = bookmarkService
         self.relationsService = relationsService
     }
     
@@ -74,7 +68,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .phone,
-                        systemURLService: systemURLService,
                         delegate: delegate
                     ),
                     TextRelationCopyActionViewModel(
@@ -95,7 +88,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .email,
-                        systemURLService: systemURLService,
                         delegate: delegate
                     ),
                     TextRelationCopyActionViewModel(
@@ -108,7 +100,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             let actions: [TextRelationActionViewModelProtocol?] = [
                 TextRelationURLActionViewModel(
                     type: .url,
-                    systemURLService: systemURLService,
                     delegate: delegate
                 ),
                 TextRelationCopyActionViewModel(
@@ -118,7 +109,6 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 TextRelationReloadContentActionViewModel(
                     objectDetails: objectDetails,
                     relationKey: relation.key,
-                    bookmarkService: bookmarkService,
                     delegate: delegate
                 )
             ]

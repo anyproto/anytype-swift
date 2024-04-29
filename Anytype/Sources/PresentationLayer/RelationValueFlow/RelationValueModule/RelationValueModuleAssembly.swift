@@ -30,8 +30,6 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
             newSearchModuleAssembly: modulesDI.newSearch(), 
             textRelationEditingService: serviceLocator.textRelationEditingService(),
             searchService: serviceLocator.searchService(),
-            systemURLService: serviceLocator.systemURLService(),
-            bookmarkService: serviceLocator.bookmarkService(),
             relationsService: serviceLocator.relationService()
         )
             .buildViewModel(

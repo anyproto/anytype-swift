@@ -6,9 +6,11 @@ import AnytypeCore
 
 final class TextRelationReloadContentActionViewModel: TextRelationActionViewModelProtocol {
     
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    
     private let objectDetails: ObjectDetails
     private let relationKey: String
-    private let bookmarkService: BookmarkServiceProtocol
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     let id = UUID().uuidString
@@ -19,7 +21,6 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     init?(
         objectDetails: ObjectDetails,
         relationKey: String,
-        bookmarkService: BookmarkServiceProtocol,
         delegate: TextRelationActionButtonViewModelDelegate?
     ) {
         guard objectDetails.layoutValue == .bookmark,
