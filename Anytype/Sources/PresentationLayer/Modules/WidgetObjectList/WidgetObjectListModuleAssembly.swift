@@ -15,11 +15,9 @@ protocol WidgetObjectListModuleAssemblyProtocol: AnyObject {
 @MainActor
 final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    nonisolated init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
-        self.serviceLocator = serviceLocator
+    nonisolated init(uiHelpersDI: UIHelpersDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
     }
     
@@ -27,60 +25,49 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
     
     func makeFavorites(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
-            internalModel: WidgetObjectListFavoritesViewModel(
-                favoriteSubscriptionService: self.serviceLocator.favoriteSubscriptionService(),
-                activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-                documentService: self.serviceLocator.documentService(),
-                objectActionService: self.serviceLocator.objectActionsService()
-            ),
+            internalModel: WidgetObjectListFavoritesViewModel(),
             output: output
         )
     }
     
     func makeRecentEdit(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
-            internalModel: WidgetObjectListRecentViewModel(
-                type: .recentEdit,
-                recentSubscriptionService: self.serviceLocator.recentSubscriptionService()
-            ),
+            internalModel: WidgetObjectListRecentViewModel(type: .recentEdit),
             output: output
         )
     }
     
     func makeRecentOpen(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
-            internalModel: WidgetObjectListRecentViewModel(
-                type: .recentOpen,
-                recentSubscriptionService: self.serviceLocator.recentSubscriptionService()
-            ),
+            internalModel: WidgetObjectListRecentViewModel(type: .recentOpen),
             output: output
         )
     }
     
     func makeSets(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
-            internalModel: WidgetObjectListSetsViewModel(setsSubscriptionService: self.serviceLocator.setsSubscriptionService()),
+            internalModel: WidgetObjectListSetsViewModel(),
             output: output
         )
     }
     
     func makeCollections(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
-            internalModel: WidgetObjectListCollectionsViewModel(subscriptionService: self.serviceLocator.collectionsSubscriptionService()),
+            internalModel: WidgetObjectListCollectionsViewModel(),
             output: output
         )
     }
     
     func makeBin(output: WidgetObjectListCommonModuleOutput?) -> AnyView {
         return make(
-            internalModel: WidgetObjectListBinViewModel(binSubscriptionService: self.serviceLocator.binSubscriptionService()),
+            internalModel: WidgetObjectListBinViewModel(),
             output: output
         )
     }
     
     func makeFiles() -> AnyView {
         return make(
-            internalModel: WidgetObjectListFilesViewModel(subscriptionService: self.serviceLocator.filesSubscriptionManager()),
+            internalModel: WidgetObjectListFilesViewModel(),
             output: nil,
             isSheet: true
         )
@@ -96,9 +83,6 @@ final class WidgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtoc
         
         let view = WidgetObjectListView(model: WidgetObjectListViewModel(
             internalModel: internalModel(),
-            objectActionService: self.serviceLocator.objectActionsService(),
-            activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-            accountParticipantStorage: self.serviceLocator.accountParticipantStorage(),
             menuBuilder: WidgetObjectListMenuBuilder(),
             output: output,
             isSheet: isSheet

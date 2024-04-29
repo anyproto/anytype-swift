@@ -4,13 +4,14 @@ import Services
 final class ObjectsSearchInteractor {
     
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
     private let excludedObjectIds: [String]
     private let limitedObjectType: [String]
     
-    init(spaceId: String, searchService: SearchServiceProtocol, excludedObjectIds: [String], limitedObjectType: [String]) {
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    
+    init(spaceId: String, excludedObjectIds: [String], limitedObjectType: [String]) {
         self.spaceId = spaceId
-        self.searchService = searchService
         self.excludedObjectIds = excludedObjectIds
         self.limitedObjectType = limitedObjectType
     }

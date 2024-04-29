@@ -14,13 +14,18 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let showFiles: Bool
     private let incudeNotForCreation: Bool
     private let allowPaste: Bool
-    
     private let spaceId: String
-    private let workspaceService: WorkspaceServiceProtocol
-    private let typesService: TypesServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+    
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.pasteboardHelper)
+    private var pasteboardHelper: PasteboardHelperProtocol
+    
     private let toastPresenter: ToastPresenterProtocol
-    private let pasteboardHelper: PasteboardHelperProtocol
     
     private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?
@@ -32,11 +37,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         incudeNotForCreation: Bool,
         allowPaste: Bool,
         spaceId: String,
-        workspaceService: WorkspaceServiceProtocol,
-        typesService: TypesServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         toastPresenter: ToastPresenterProtocol,
-        pasteboardHelper: PasteboardHelperProtocol,
         onSelect: @escaping (TypeSelectionResult) -> Void
     ) {
         self.showPins = showPins
@@ -45,19 +46,18 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         self.incudeNotForCreation = incudeNotForCreation
         self.allowPaste = allowPaste
         self.spaceId = spaceId
-        self.workspaceService = workspaceService
-        self.typesService = typesService
-        self.objectTypeProvider = objectTypeProvider
-        self.toastPresenter = toastPresenter
         self.onSelect = onSelect
-        self.pasteboardHelper = pasteboardHelper
+        self.toastPresenter = toastPresenter
         
-        pasteboardHelper.startSubscription { [weak self] in
-            Task { [self] in
-                await self?.updatePasteButton()
+        Task {
+            await pasteboardHelper.startSubscription { [weak self] in
+                Task { [self] in
+                    await self?.updatePasteButton()
+                }
             }
         }
     }
+    
     
     func onAppear() {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.screenObjectTypeSearch)

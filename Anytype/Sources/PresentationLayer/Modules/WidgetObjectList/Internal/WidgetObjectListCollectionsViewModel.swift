@@ -7,7 +7,8 @@ final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewMo
     
     // MARK: - DI
     
-    private let subscriptionService: CollectionsSubscriptionServiceProtocol
+    @Injected(\.collectionsSubscriptionService)
+    private var subscriptionService: CollectionsSubscriptionServiceProtocol
     
     // MARK: - State
     
@@ -21,9 +22,7 @@ final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewMo
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init(subscriptionService: CollectionsSubscriptionServiceProtocol) {
-        self.subscriptionService = subscriptionService
-    }
+    init() { }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     

@@ -7,7 +7,8 @@ final class WidgetObjectListSetsViewModel: WidgetObjectListInternalViewModelProt
     
     // MARK: - DI
     
-    private let setsSubscriptionService: SetsSubscriptionServiceProtocol
+    @Injected(\.setsSubscriptionService)
+    private var setsSubscriptionService: SetsSubscriptionServiceProtocol
     
     // MARK: - State
     
@@ -21,9 +22,7 @@ final class WidgetObjectListSetsViewModel: WidgetObjectListInternalViewModelProt
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init(setsSubscriptionService: SetsSubscriptionServiceProtocol) {
-        self.setsSubscriptionService = setsSubscriptionService
-    }
+    init() { }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     

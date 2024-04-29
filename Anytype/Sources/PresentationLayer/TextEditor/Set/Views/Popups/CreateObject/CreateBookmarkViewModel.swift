@@ -4,24 +4,23 @@ import AnytypeCore
 final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     let style = CreateObjectView.Style.bookmark
     
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    
     private let spaceId: String
     private let collectionId: String?
-    private let bookmarkService: BookmarkServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
     private let closeAction: (_ details: ObjectDetails?) -> Void
     private var currentText: String = ""
 
     init(
         spaceId: String,
         collectionId: String?,
-        bookmarkService: BookmarkServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
         closeAction: @escaping (_ details: ObjectDetails?) -> Void
     ) {
         self.spaceId = spaceId
         self.collectionId = collectionId
-        self.bookmarkService = bookmarkService
-        self.objectActionsService = objectActionsService
         self.closeAction = closeAction
     }
     

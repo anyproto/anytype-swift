@@ -7,7 +7,8 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     
     // MARK: - DI
     
-    private let subscriptionService: FilesSubscriptionServiceProtocol
+    @Injected(\.filesSubscriptionManager)
+    private var subscriptionService: FilesSubscriptionServiceProtocol
     private let formatter = ByteCountFormatter.fileFormatter
     // MARK: - State
     
@@ -22,9 +23,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init(subscriptionService: FilesSubscriptionServiceProtocol) {
-        self.subscriptionService = subscriptionService
-    }
+    init() { }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
