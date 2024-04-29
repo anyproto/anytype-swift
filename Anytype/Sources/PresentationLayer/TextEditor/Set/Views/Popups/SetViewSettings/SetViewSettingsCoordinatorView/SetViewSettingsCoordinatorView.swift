@@ -19,7 +19,11 @@ struct SetViewSettingsCoordinatorView: View {
             model.relationsList()
         }
         .sheet(isPresented: $model.showFilters) {
-            model.setFiltersList()
+            SetFiltersListCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId,
+                subscriptionDetailsStorage: model.data.subscriptionDetailsStorage
+            )
         }
         .sheet(isPresented: $model.showSorts) {
             SetSortsListCoordinatorView(

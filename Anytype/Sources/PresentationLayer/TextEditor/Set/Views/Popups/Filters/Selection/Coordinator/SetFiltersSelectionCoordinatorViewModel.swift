@@ -16,14 +16,12 @@ final class SetFiltersSelectionCoordinatorViewModel: ObservableObject, SetFilter
     init(
         spaceId: String,
         filter: SetFilter,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
         completion: @escaping (SetFilter) -> Void
     ) {
         self.data = SetFiltersSelectionData(filter: filter, onApply: completion)
         self.contentViewBuilder = SetFiltersContentViewBuilder(
             spaceId: spaceId,
-            filter: filter,
-            newSearchModuleAssembly: newSearchModuleAssembly
+            filter: filter
         )
     }
     

@@ -1,7 +1,12 @@
 import SwiftUI
+import Services
 
 struct SetFiltersListCoordinatorView: View {
-    @StateObject var model: SetFiltersListCoordinatorViewModel
+    @StateObject private var model: SetFiltersListCoordinatorViewModel
+    
+    init(setDocument: SetDocumentProtocol, viewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) {
+        _model = StateObject(wrappedValue: SetFiltersListCoordinatorViewModel(setDocument: setDocument, viewId: viewId, subscriptionDetailsStorage: subscriptionDetailsStorage))
+    }
     
     var body: some View {
         SetFiltersListView(
@@ -10,7 +15,11 @@ struct SetFiltersListCoordinatorView: View {
             subscriptionDetailsStorage: model.subscriptionDetailsStorage
         )
         .sheet(item: $model.filtersSelectionData) { data in
-            model.setFiltersSelection(data: data)
+            SetFiltersSelectionCoordinatorView(
+                spaceId: model.data.setDocument.spaceId, 
+                filter: data.filter,
+                completion: data.completion
+            )
         }
         .sheet(item: $model.filtersSearchData) { data in
             SetRelationsDetailsLocalSearchView(data: data)

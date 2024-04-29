@@ -1,5 +1,4 @@
 import SwiftUI
-import Services
 
 @MainActor
 protocol SetViewSettingsCoordinatorOutput: AnyObject {
@@ -18,20 +17,14 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     let data: SetSettingsData
     
-    private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
-    private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     
     init(
         data: SetSettingsData,
-        subscriptionDetailsStorage: ObjectDetailsStorage,
-        setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
-        setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
+        setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     ) {
         self.data = data
-        self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
-        self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
     }
     
     // MARK: - SetViewSettingsCoordinatorOutput
@@ -59,14 +52,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func onFiltersTap() {
         showFilters.toggle()
-    }
-    
-    func setFiltersList() -> AnyView {
-        setFiltersListCoordinatorAssembly.make(
-            with: data.setDocument,
-            viewId: data.viewId,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
     }
     
     // MARK: - Sorts
