@@ -9,7 +9,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let navigationContext: NavigationContextProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
     private let documentService: OpenedDocumentsProviderProtocol
@@ -30,7 +29,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         navigationContext: NavigationContextProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         urlOpener: URLOpenerProtocol,
         documentService: OpenedDocumentsProviderProtocol
@@ -38,7 +36,6 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         self.navigationContext = navigationContext
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
         self.documentService = documentService
@@ -82,18 +79,15 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     // MARK: - PersonalizationModuleOutput
     
     func onDefaultTypeSelected() {
-        let module = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+        let view = ObjectTypeSearchView(
             title: Loc.chooseDefaultObjectType,
             spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            showPins: false,
-            showLists: false,
-            showFiles: false,
-            incudeNotForCreation: false
+            settings: .spaceDefaultObject
         ) { [weak self] type in
             self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
             self?.navigationContext.dismissTopPresented(animated: true)
         }
-        navigationContext.present(module)
+        navigationContext.present(view)
     }
     
     func onWallpaperChangeSelected() {

@@ -9,16 +9,13 @@ protocol SetObjectCreationSettingsCoordinatorAssemblyProtocol {
 
 final class SetObjectCreationSettingsCoordinatorAssembly: SetObjectCreationSettingsCoordinatorAssemblyProtocol {
     
-    private let modulesDI: ModulesDIProtocol
     private let uiHelpersDI: UIHelpersDIProtocol
     private let coordinatorsDI: CoordinatorsDIProtocol
     
     init(
-        modulesDI: ModulesDIProtocol,
         uiHelpersDI: UIHelpersDIProtocol,
         coordinatorsDI: CoordinatorsDIProtocol
     ) {
-        self.modulesDI = modulesDI
         self.coordinatorsDI = coordinatorsDI
         self.uiHelpersDI = uiHelpersDI
     }
@@ -29,7 +26,6 @@ final class SetObjectCreationSettingsCoordinatorAssembly: SetObjectCreationSetti
     func make(with navigationContext: NavigationContextProtocol?) -> SetObjectCreationSettingsCoordinatorProtocol {
         SetObjectCreationSettingsCoordinator(
             navigationContext: navigationContext ?? uiHelpersDI.commonNavigationContext(),
-            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             editorPageCoordinatorAssembly: coordinatorsDI.editorPage()
         )
     }

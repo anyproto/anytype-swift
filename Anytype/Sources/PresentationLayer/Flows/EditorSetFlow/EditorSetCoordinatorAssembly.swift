@@ -9,18 +9,15 @@ protocol EditorSetCoordinatorAssemblyProtocol {
 final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
-    private let modulesDI: ModulesDIProtocol
     private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
     init(
         coordinatorsID: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol,
         serviceLocator: ServiceLocator,
         uiHelpersDI: UIHelpersDIProtocol
     ) {
         self.coordinatorsID = coordinatorsID
-        self.modulesDI = modulesDI
         self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
     }
@@ -37,7 +34,6 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
                 setViewSettingsCoordinatorAssembly: self.coordinatorsID.setViewSettings(), 
                 setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(), 
                 objectSettingCoordinatorAssembly: self.coordinatorsID.objectSettings(),
-                objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(), 
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
                 relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(), 
