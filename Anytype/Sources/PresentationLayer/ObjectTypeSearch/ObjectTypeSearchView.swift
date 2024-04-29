@@ -9,7 +9,23 @@ struct ObjectTypeSearchView: View {
     private typealias ObjectTypeData =  ObjectTypeSearchViewModel.ObjectTypeData
     
     let title: String
-    @StateObject var viewModel: ObjectTypeSearchViewModel
+    @StateObject private var viewModel: ObjectTypeSearchViewModel
+    
+    init(
+        title: String,
+        spaceId: String,
+        settings: ObjectTypeSearchViewSettings,
+        onSelect: @escaping (TypeSelectionResult) -> Void
+    ) {
+        self.title = title
+        _viewModel = StateObject(
+            wrappedValue: ObjectTypeSearchViewModel(
+                spaceId: spaceId,
+                settings: settings,
+                onSelect: onSelect
+            )
+        )
+    }
     
     var body: some View {
         VStack(spacing: 0) {

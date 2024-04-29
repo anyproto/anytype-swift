@@ -10,12 +10,6 @@ enum TypeSelectionResult {
 }
 
 protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
-    func makeTypeSearchForNewObjectCreation(
-        title: String,
-        spaceId: String,
-        onSelect: @escaping (TypeSelectionResult) -> Void
-    ) -> AnyView
-    
     func makeDefaultTypeSearch(
         title: String,
         spaceId: String,
@@ -27,31 +21,7 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
     ) -> AnyView
 }
 
-final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol {
-    
-    func makeTypeSearchForNewObjectCreation(
-        title: String,
-        spaceId: String,
-        onSelect: @escaping (TypeSelectionResult) -> Void
-    ) -> AnyView {
-        let settings = ObjectTypeSearchViewSettings(
-            showPins: true,
-            showLists: true,
-            showFiles: false,
-            incudeNotForCreation: false,
-            allowPaste: true
-        )
-        
-        return ObjectTypeSearchView(
-            title: title,
-            viewModel: ObjectTypeSearchViewModel(
-                spaceId: spaceId,
-                settings: settings,
-                onSelect: onSelect
-            )
-        ).eraseToAnyView()
-    }
-    
+final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol {    
     func makeDefaultTypeSearch(
         title: String,
         spaceId: String,
@@ -71,18 +41,16 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         
         return ObjectTypeSearchView(
             title: title,
-            viewModel: ObjectTypeSearchViewModel(
-                spaceId: spaceId,
-                settings: settings,
-                onSelect: { result in
-                    switch result {
-                    case .objectType(let type):
-                        onSelect(type)
-                    case .createFromPasteboard:
-                        anytypeAssertionFailure("Unsupported action createFromPasteboard")
-                    }
+            spaceId: spaceId,
+            settings: settings,
+            onSelect: { result in
+                switch result {
+                case .objectType(let type):
+                    onSelect(type)
+                case .createFromPasteboard:
+                    anytypeAssertionFailure("Unsupported action createFromPasteboard")
                 }
-            )
+            }
         ).eraseToAnyView()
     }
 }

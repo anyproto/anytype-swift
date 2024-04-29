@@ -38,10 +38,11 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
         self.openObject = openObject
     }
     
-    func typeSearchModule() -> some View {
-        return objectTypeSearchAssembly.makeTypeSearchForNewObjectCreation(
+    func typeSearchModule() -> ObjectTypeSearchView {
+        ObjectTypeSearchView(
             title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            settings: .newObjectCreation
         ) { [weak self] result in
             guard let self else { return }
             shouldDismiss = true
