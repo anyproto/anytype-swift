@@ -85,7 +85,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Deze kluis zal worden verwijderd over %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>morgen</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>over %d dagen</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d members</string>
+        <string>%d leden</string>
         <key>one</key>
-        <string>%d member</string>
+        <string>%d lid</string>
       </dict>
     </dict>
     <key>SpaceShare.RequestsCount</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d requests</string>
+        <string>%d verzoeken</string>
         <key>one</key>
-        <string>%d request</string>
+        <string>%d verzoek</string>
       </dict>
     </dict>
     <key>Per Month</key>
@@ -237,9 +237,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>maand</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d maanden</string>
       </dict>
     </dict>
     <key>Per Week</key>
@@ -255,7 +255,7 @@
         <key>one</key>
         <string>week</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d weken</string>
       </dict>
     </dict>
     <key>Per Year</key>
@@ -269,9 +269,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>jaar</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d jaren</string>
       </dict>
     </dict>
     <key>Per Day</key>
@@ -285,9 +285,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>dag</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d dagen</string>
       </dict>
     </dict>
   </dict>

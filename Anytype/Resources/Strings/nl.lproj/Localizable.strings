@@ -902,19 +902,19 @@
 "SpaceShare.Permissions.Grand.View" = "Weergave";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
 "SpaceShare.Invite.Description" = "Deel deze uitnodigingslink zodat anderen zich bij jouw ruimte kunnen aansluiten. Zodra ze op jouw link klikken en toegang vragen, kun je hun toegangsrechten instellen.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
-"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
-"SpaceShare.JoinRequest" = "Join request";
-"SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Invite.Share" = "Deel uitnodigingslink";
+"SpaceShare.Invite.Generate" = "Genereer uitnodigingslink";
+"SpaceShare.Invite.Empty" = "Maak uitnodigingslink aan om ruimte te delen en nieuwe leden toe te voegen";
+"SpaceShare.JoinRequest" = "Deelnameverzoek";
+"SpaceShare.LeaveRequest" = "Afmeldverzoek";
+"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
 "SpaceShare.Action.Approve" = "Goedkeuren";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Title" = "Verwijder link";
+"SpaceShare.DeleteSharingLink.Message" = "Nieuwe leden zullen niet kunnen deelnemen aan de ruimte. Je kunt op elk gewenst moment een nieuwe link genereren";
 "SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
-"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.ViewAccess" = "Voeg toe als lezer";
+"SpaceShare.ViewRequest.EditAccess" = "Voeg toe als schrijver";
 "SpaceShare.ViewRequest.Reject" = "Weiger";
 "SpaceShare.RemoveMember.Title" = "Verwijder lid";
 "SpaceShare.RemoveMember.Message" = "%@ zal worden verwijderd uit de ruimte.";
@@ -923,42 +923,42 @@
 "SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
 "SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
 "SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij ** %@** ruimte, aangemaakt door **%@**. Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
+"SpaceShare.Join.InviteNotFound" = "Deze link lijkt niet te werken";
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 "SpaceShare.YouSuffix" = "%@ (jij)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.ManageSpaces" = "Beheer ruimten";
+"SpaceShare.AccessChanged" = "De toegangsrechten zijn gewijzigd.";
 "SpaceShare.StopSharing.Action" = "Stop met delen";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
-"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
-"SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.StopSharing.Title" = "Stop met delen van de ruimte";
+"SpaceShare.StopSharing.Message" = "Leden zullen niet langer synchroniseren met deze ruimte en de deellink zal worden gedeactiveerd.";
+"SpaceShare.StopSharing.Toast" = "De ruimte wordt niet langer gedeeld";
+"SpaceShare.QR.Title" = "QR-code voor het deelnemen aan een ruimte";
+"SpaceShare.QR.Button" = "Toon QR-code";
+"SpaceShare.HowToShare.Title" = "Hoe deel je een ruimte?";
+"SpaceShare.HowToShare.Step1" = "Geef alsjeblieft een link naar de persoon met wie je wilt samenwerken.";
+"SpaceShare.HowToShare.Step2" = "Door op de link te klikken, vraagt een persoon om aan de ruimte deel te nemen.";
+"SpaceShare.HowToShare.Step3" = "Na goedkeuring van het verzoek, kun je de toegangsrechten voor deze persoon kiezen.";
 "SpaceShare.Manage" = "Beheer";
 "SpaceShare.AlreadyJoin.Title" = "Je bent al lid van deze ruimte.";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Open ruimte";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"PermissionChangeNotification.Text" = "Jouw toegangsrechten werden veranderd naar  **%@** in de ruimte **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte **%@** is goedgekeurd met **%@** toegangsrechten. De ruimte zal binnenkort beschikbaar zijn op jouw apparaat.";
+"ParticipantRequestDeclineNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte**%@** is afgewezen.";
+"RequestToLeaveNotification.Text" = "**%@** wil de ruimte **%@** verlaten.";
+"ParticipantRemoveNotification.Text" = "Je werd verwijderd uit de ruimte, of de ruimte werd verwijderd door de eigenaar.";
+"RequestToJoinNotification.Text" = "**%@** heeft verzocht om aan de ruimte **%@** deel te nemen.";
+"RequestToJoinNotification.GoToSpace" = "Ga naar ruimte";
+"RequestToJoinNotification.ViewRequest" = "Bekijk verzoek";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Join Request";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequest" = "Annuleer deelnameverzoek";
+"SpaceManager.DoNotCancel" = "Annuleer niet";
+"SpaceManager.CancelRequestAlert.Title" = "Je zult het toegangsverzoek opnieuw moeten sturen";
+"SpaceManager.CancelRequestAlert.Toast" = "Het verzoek werd geannuleerd.";
 
 
 
@@ -995,11 +995,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
+"Initial.UnstableMiddle.Message" = "Je start de app op met instabiele middleware. Gebruik niet jouw productie kluis. Jouw kluis kan beschadigd zijn.";
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Logout" = "Meld af bij de huidige kluis";
+"Initial.UnstableMiddle.Continue" = "Ga verder met huidige kluis";
+"Initial.UnstableMiddle.WontUseProd" = "Ik zal niet mijn productie kluis gebruiken";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Maak objecten aan met specifiek type";
@@ -1011,7 +1011,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
 "Error.Common.Title" = "Oeps!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
+"Error.Common.Message" = "Controleer alsjeblieft jouw internetverbinding en probeer het opnieuw of [rapporteer op forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Probeer opnieuw";
 
 // MARK: - Relative date formatter
@@ -1042,7 +1042,7 @@
 "E-mail" = "E-mailadres";
 "Learn more" = "Ontdek meer";
 "per" = "per";
-"unlimited" = "Unlimited";
+"unlimited" = "Onbeperkt";
 
 
 "What’s included" = "Wat is inbegrepen";
@@ -1059,10 +1059,10 @@
 "Myself" = "Mijzelf";
 "Pay by Card" = "Betaal met kaart";
 "Min X characters" = "Min %@ tekens";
-"Pending" = "Pending...";
+"Pending" = "In behandeling...";
 "Manage payment" = "Beheer betaling";
-"This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Purchase cancelled";
+"This name is not availabe" = "Deze naam is niet beschikbaar";
+"Purchase cancelled" = "Aankoop geannuleerd";
 
 
 "Membership.Ad.Title" = "Lidmaatschap";
