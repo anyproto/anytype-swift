@@ -46,11 +46,6 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    func setSortsSearchModule(
-        relationsDetails: [RelationDetails],
-        onSelect: @escaping (_ relation: RelationDetails) -> Void
-    ) -> NewSearchView
-    
     func relationsSearchModule(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],

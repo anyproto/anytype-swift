@@ -157,30 +157,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    func setSortsSearchModule(
-        relationsDetails: [RelationDetails],
-        onSelect: @escaping (_ relation: RelationDetails) -> Void
-    ) -> NewSearchView {
-        let interactor = SetSortsSearchInteractor(relationsDetails: relationsDetails)
-        
-        let internalViewModel = SetSortsSearchViewModel(
-            interactor: interactor,
-            onSelect: { details in
-                guard let result = details.first else { return }
-                onSelect(result)
-            }
-        )
-        
-        let viewModel = NewSearchViewModel(
-            searchPlaceholder: Loc.EditSet.Popup.Sort.Add.searchPlaceholder,
-            style: .default,
-            itemCreationMode: .unavailable,
-            internalViewModel: internalViewModel
-        )
-        
-        return NewSearchView(viewModel: viewModel)
-    }
-    
     func relationsSearchModule(
         document: BaseDocumentProtocol,
         excludedRelationsIds: [String],

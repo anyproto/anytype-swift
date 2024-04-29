@@ -13,7 +13,7 @@ struct SetFiltersListCoordinatorView: View {
             model.setFiltersSelection(data: data)
         }
         .sheet(item: $model.filtersSearchData) { data in
-            model.setFiltersSearch(data: data)
+            SetRelationsDetailsLocalSearchView(data: data)
         }
     }
 }

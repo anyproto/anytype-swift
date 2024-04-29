@@ -21,20 +21,17 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
     private let setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
-    private let setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
     
     init(
         data: SetSettingsData,
         subscriptionDetailsStorage: ObjectDetailsStorage,
         setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol,
-        setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol,
-        setSortsListCoordinatorAssembly: SetSortsListCoordinatorAssemblyProtocol
+        setFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssemblyProtocol
     ) {
         self.data = data
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
         self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
         self.setFiltersListCoordinatorAssembly = setFiltersListCoordinatorAssembly
-        self.setSortsListCoordinatorAssembly = setSortsListCoordinatorAssembly
     }
     
     // MARK: - SetViewSettingsCoordinatorOutput
@@ -76,12 +73,5 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func onSortsTap() {
         showSorts.toggle()
-    }
-    
-    func setSortsList() -> AnyView {
-        setSortsListCoordinatorAssembly.make(
-            with: data.setDocument,
-            viewId: data.viewId
-        )
     }
 }

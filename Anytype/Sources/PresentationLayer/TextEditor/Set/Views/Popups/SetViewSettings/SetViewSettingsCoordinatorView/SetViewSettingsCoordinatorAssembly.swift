@@ -31,8 +31,7 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
                 data: data,
                 subscriptionDetailsStorage: subscriptionDetailsStorage,
                 setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations(),
-                setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
-                setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()
+                setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList()
             )
         ).eraseToAnyView()
     }

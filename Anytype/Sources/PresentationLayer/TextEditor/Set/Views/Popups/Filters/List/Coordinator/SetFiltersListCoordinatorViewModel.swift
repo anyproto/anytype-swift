@@ -10,7 +10,7 @@ protocol SetFiltersListCoordinatorOutput: AnyObject {
 @MainActor
 final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersListCoordinatorOutput {
     @Published var filtersSelectionData: FiltersSelectionData?
-    @Published var filtersSearchData: FiltersSearchData?
+    @Published var filtersSearchData: SetRelationsDetailsLocalSearchData?
     
     let data: SetFiltersListModuleData
     let subscriptionDetailsStorage: ObjectDetailsStorage
@@ -34,19 +34,9 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     
     // MARK: - Filters search
     func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void) {
-        filtersSearchData = FiltersSearchData(
-            relationDetails: relationDetails,
-            completion: completion
-        )
-    }
-    
-    func setFiltersSearch(data: FiltersSearchData) -> NewSearchView {
-        newSearchModuleAssembly.setSortsSearchModule(
-            relationsDetails: data.relationDetails,
-            onSelect: { [weak self] relationDetails in
-                self?.filtersSearchData = nil
-                data.completion(relationDetails)
-            }
+        filtersSearchData = SetRelationsDetailsLocalSearchData(
+            relationsDetails: relationDetails,
+            onSelect: completion
         )
     }
     
@@ -77,11 +67,5 @@ extension SetFiltersListCoordinatorViewModel {
         let completion: (SetFilter) -> Void
         
         var id: String { filter.id }
-    }
-    
-    struct FiltersSearchData: Identifiable {
-        let id = UUID()
-        let relationDetails: [RelationDetails]
-        let completion: (RelationDetails) -> Void
     }
 }

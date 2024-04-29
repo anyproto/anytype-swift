@@ -22,7 +22,10 @@ struct SetViewSettingsCoordinatorView: View {
             model.setFiltersList()
         }
         .sheet(isPresented: $model.showSorts) {
-            model.setSortsList()
+            SetSortsListCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId
+            )
         }
     }
 }

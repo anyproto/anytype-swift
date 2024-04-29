@@ -1,6 +1,6 @@
 import Services
 
-final class SetSortsSearchInteractor {
+final class SetRelationsDetailsLocalSearchInteractor {
     
     private let relationsDetails: [RelationDetails]
     
@@ -9,7 +9,7 @@ final class SetSortsSearchInteractor {
     }
 }
 
-extension SetSortsSearchInteractor {
+extension SetRelationsDetailsLocalSearchInteractor {
     
     func search(text: String) -> Result<[RelationDetails], NewSearchError> {
         guard text.isNotEmpty else {
