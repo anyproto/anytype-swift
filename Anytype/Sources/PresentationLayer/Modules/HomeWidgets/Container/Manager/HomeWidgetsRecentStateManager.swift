@@ -11,21 +11,16 @@ protocol HomeWidgetsRecentStateManagerProtocol: AnyObject {
 final class HomeWidgetsRecentStateManager: HomeWidgetsRecentStateManagerProtocol {
     
     // MARK: - DI
-    
-    private let loginStateService: LoginStateServiceProtocol
-    private let expandedService: BlockWidgetExpandedServiceProtocol
+    @Injected(\.loginStateService)
+    private var loginStateService: LoginStateServiceProtocol
+    @Injected(\.blockWidgetExpandedService)
+    private var expandedService: BlockWidgetExpandedServiceProtocol
     
     // MARK: - State
     
     private var stateInstalled: Bool = false
     
-    init(
-        loginStateService: LoginStateServiceProtocol,
-        expandedService: BlockWidgetExpandedServiceProtocol
-    ) {
-        self.loginStateService = loginStateService
-        self.expandedService = expandedService
-    }
+    init() { }
     
     // MARK: - HomeWidgetsRecentStateManagerProtocol
     

@@ -5,10 +5,13 @@ import AnytypeCore
 final class CreateObjectViewModel: CreateObjectViewModelProtocol {
     let style = CreateObjectView.Style.default
     
+    @Injected(\.relationsService)
+    private var relationService: RelationsServiceProtocol
+    @Injected(\.textService)
+    private var textServiceHandler: TextServiceProtocol
+    
     private let objectId: String
     private let titleInputType: CreateObjectTitleInputType
-    private let relationService: RelationsServiceProtocol
-    private let textServiceHandler: TextServiceProtocol
     private let debouncer = Debouncer()
     private let openToEditAction: () -> Void
     private let closeAction: () -> Void
@@ -17,15 +20,11 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
     init(
         objectId: String,
         titleInputType: CreateObjectTitleInputType,
-        relationService: RelationsServiceProtocol,
-        textServiceHandler: TextServiceProtocol,
         openToEditAction: @escaping () -> Void,
         closeAction: @escaping () -> Void
     ) {
         self.objectId = objectId
         self.titleInputType = titleInputType
-        self.relationService = relationService
-        self.textServiceHandler = textServiceHandler
         self.openToEditAction = openToEditAction
         self.closeAction = closeAction
     }

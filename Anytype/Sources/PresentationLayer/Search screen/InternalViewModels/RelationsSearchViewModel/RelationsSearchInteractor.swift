@@ -3,21 +3,17 @@ import Services
 
 final class RelationsSearchInteractor {
     
-    private let searchService: SearchServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
-    private let relationsInteractor: RelationsInteractorProtocol
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: RelationDetailsStorageProtocol
     
-    init(
-        searchService: SearchServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        relationsInteractor: RelationsInteractorProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol
-    ) {
-        self.searchService = searchService
-        self.workspaceService = workspaceService
+    private let relationsInteractor: RelationsInteractorProtocol
+    
+    init(relationsInteractor: RelationsInteractorProtocol) {
         self.relationsInteractor = relationsInteractor
-        self.relationDetailsStorage = relationDetailsStorage
     }
     
     func search(text: String, excludedIds: [String], spaceId: String) async throws -> [RelationDetails] {

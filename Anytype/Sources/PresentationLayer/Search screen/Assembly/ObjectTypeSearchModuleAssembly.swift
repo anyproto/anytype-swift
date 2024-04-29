@@ -30,11 +30,9 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
 final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol {
     
     private let uiHelpersDI: UIHelpersDIProtocol
-    private let serviceLocator: ServiceLocator
     
-    init(uiHelpersDI: UIHelpersDIProtocol, serviceLocator: ServiceLocator) {
+    init(uiHelpersDI: UIHelpersDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
-        self.serviceLocator = serviceLocator
     }
     
     func makeTypeSearchForNewObjectCreation(
@@ -51,11 +49,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 incudeNotForCreation: false,
                 allowPaste: true,
                 spaceId: spaceId,
-                workspaceService: self.serviceLocator.workspaceService(),
-                typesService: self.serviceLocator.typesService(),
-                objectTypeProvider: self.serviceLocator.objectTypeProvider(),
                 toastPresenter: self.uiHelpersDI.toastPresenter(),
-                pasteboardHelper: self.serviceLocator.pasteboardHelper(),
                 onSelect: onSelect
             )
         ).eraseToAnyView()
@@ -79,11 +73,7 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
                 incudeNotForCreation: incudeNotForCreation,
                 allowPaste: false,
                 spaceId: spaceId,
-                workspaceService: self.serviceLocator.workspaceService(),
-                typesService: self.serviceLocator.typesService(),
-                objectTypeProvider: self.serviceLocator.objectTypeProvider(),
                 toastPresenter: self.uiHelpersDI.toastPresenter(),
-                pasteboardHelper: self.serviceLocator.pasteboardHelper(),
                 onSelect: { result in
                     switch result {
                     case .objectType(let type):

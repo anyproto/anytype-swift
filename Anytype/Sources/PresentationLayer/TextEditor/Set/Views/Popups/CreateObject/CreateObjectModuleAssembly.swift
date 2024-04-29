@@ -29,11 +29,7 @@ protocol CreateObjectModuleAssemblyProtocol {
 @MainActor
 final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
-    
-    nonisolated init(serviceLocator: ServiceLocator) {
-        self.serviceLocator = serviceLocator
-    }
+    nonisolated init() { }
     
     // MARK: - CreateObjectModuleAssemblyProtocol
     
@@ -47,8 +43,6 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
         let viewModel = CreateObjectViewModel(
             objectId: objectId,
             titleInputType: titleInputType,
-            relationService: serviceLocator.relationService(),
-            textServiceHandler: serviceLocator.textServiceHandler(),
             openToEditAction: openToEditAction,
             closeAction: closeAction
         )
@@ -59,8 +53,6 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
         let viewModel = CreateBookmarkViewModel(
             spaceId: spaceId,
             collectionId: collectionId,
-            bookmarkService: serviceLocator.bookmarkService(),
-            objectActionsService: serviceLocator.objectActionsService(),
             closeAction: closeAction
         )
         return make(viewModel: viewModel)

@@ -8,7 +8,8 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     
     // MARK: - DI
     
-    private let binSubscriptionService: BinSubscriptionServiceProtocol
+    @Injected(\.binSubscriptionService)
+    private var binSubscriptionService: BinSubscriptionServiceProtocol
     
     // MARK: - State
     
@@ -23,9 +24,7 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init(binSubscriptionService: BinSubscriptionServiceProtocol) {
-        self.binSubscriptionService = binSubscriptionService
-    }
+    init() { }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     

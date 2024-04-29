@@ -17,7 +17,7 @@ final class DI: DIProtocol {
     }()
     
     lazy var modulesDI: ModulesDIProtocol = {
-        return ModulesDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI, widgetsSubmoduleDI: widgetsSubmoduleDI)
+        return ModulesDI(uiHelpersDI: uihelpersDI, widgetsSubmoduleDI: widgetsSubmoduleDI)
     }()
     
     lazy var uihelpersDI: UIHelpersDIProtocol = {

@@ -16,11 +16,9 @@ protocol TextRelationEditingModuleAssemblyProtocol: AnyObject {
 @MainActor
 final class TextRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    nonisolated init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
-        self.serviceLocator = serviceLocator
+    nonisolated init(uiHelpersDI: UIHelpersDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
     }
     

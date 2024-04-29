@@ -5,11 +5,9 @@ import SwiftUI
 final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
     private let uiHelpersDI: UIHelpersDIProtocol
-    private let serviceLocator: ServiceLocator
     
-    init(uiHelpersDI: UIHelpersDIProtocol, serviceLocator: ServiceLocator) {
+    init(uiHelpersDI: UIHelpersDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
-        self.serviceLocator = serviceLocator
     }
     
     // MARK: - NewSearchModuleAssemblyProtocol
@@ -27,8 +25,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             spaceId: spaceId,
             relationKey: relationKey,
             selectedStatusesIds: selectedStatusesIds,
-            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable,
-            searchService: serviceLocator.searchService()
+            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
         
         let internalViewModel = StatusSearchViewModel(
@@ -59,8 +56,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             spaceId: spaceId,
             relationKey: relationKey,
             selectedTagIds: selectedTagIds,
-            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable,
-            searchService: serviceLocator.searchService()
+            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
         
         let internalViewModel = TagsSearchViewModel(
@@ -89,7 +85,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
             spaceId: spaceId,
-            searchService: serviceLocator.searchService(),
             excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType
         )
@@ -117,7 +112,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = FilesSearchInteractor(
             spaceId: spaceId,
-            searchService: serviceLocator.searchService(),
             excludedFileIds: excludedFileIds
         )
         
@@ -195,12 +189,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         
         let relationsInteractor = RelationsInteractor(objectId: document.objectId)
-        let interactor = RelationsSearchInteractor(
-            searchService: serviceLocator.searchService(),
-            workspaceService: serviceLocator.workspaceService(),
-            relationsInteractor: relationsInteractor,
-            relationDetailsStorage: serviceLocator.relationDetailsStorage()
-        )
+        let interactor = RelationsSearchInteractor(relationsInteractor: relationsInteractor)
         
         let internalViewModel = RelationsSearchViewModel(
             document: document,

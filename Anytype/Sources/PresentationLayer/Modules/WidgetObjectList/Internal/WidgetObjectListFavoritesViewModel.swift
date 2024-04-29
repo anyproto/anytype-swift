@@ -11,8 +11,14 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     
     // MARK: - DI
     
-    private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    private let objectActionService: ObjectActionsServiceProtocol
+    @Injected(\.favoriteSubscriptionService)
+    private var favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: ObjectActionsServiceProtocol
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     // MARK: - State
     
@@ -22,20 +28,12 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: true)
     
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
-    private var homeDocument: BaseDocumentProtocol
+    lazy private var homeDocument: BaseDocumentProtocol =
+        documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
+    
+    
     private var details: [FavoriteBlockDetails] = [] {
         didSet { rowDetails = [WidgetObjectListDetailsData(id: Constants.sectionId, details: details.map(\.details))] }
-    }
-    
-    init(
-        favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: OpenedDocumentsProviderProtocol,
-        objectActionService: ObjectActionsServiceProtocol
-    ) {
-        self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.homeDocument = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
-        self.objectActionService = objectActionService
     }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol

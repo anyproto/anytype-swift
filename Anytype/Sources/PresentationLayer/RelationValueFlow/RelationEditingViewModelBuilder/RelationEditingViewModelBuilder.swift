@@ -6,22 +6,20 @@ final class RelationEditingViewModelBuilder {
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let textRelationEditingService: TextRelationEditingServiceProtocol
-    private let searchService: SearchServiceProtocol
-    private let relationsService: RelationsServiceProtocol
+    
+    @Injected(\.textRelationEditingService)
+    private var textRelationEditingService: TextRelationEditingServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
     
     init(
         delegate: TextRelationActionButtonViewModelDelegate?,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        textRelationEditingService: TextRelationEditingServiceProtocol,
-        searchService: SearchServiceProtocol,
-        relationsService: RelationsServiceProtocol
+        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     ) {
         self.delegate = delegate
         self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.textRelationEditingService = textRelationEditingService
-        self.searchService = searchService
-        self.relationsService = relationsService
     }
     
 }
