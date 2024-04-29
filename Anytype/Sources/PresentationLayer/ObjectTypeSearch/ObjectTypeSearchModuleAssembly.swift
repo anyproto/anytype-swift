@@ -29,27 +29,24 @@ protocol ObjectTypeSearchModuleAssemblyProtocol: AnyObject {
 
 final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol {
     
-    private let uiHelpersDI: UIHelpersDIProtocol
-    
-    init(uiHelpersDI: UIHelpersDIProtocol) {
-        self.uiHelpersDI = uiHelpersDI
-    }
-    
     func makeTypeSearchForNewObjectCreation(
         title: String,
         spaceId: String,
         onSelect: @escaping (TypeSelectionResult) -> Void
     ) -> AnyView {
+        let settings = ObjectTypeSearchViewSettings(
+            showPins: true,
+            showLists: true,
+            showFiles: false,
+            incudeNotForCreation: false,
+            allowPaste: true
+        )
+        
         return ObjectTypeSearchView(
             title: title,
             viewModel: ObjectTypeSearchViewModel(
-                showPins: true,
-                showLists: true,
-                showFiles: false,
-                incudeNotForCreation: false,
-                allowPaste: true,
                 spaceId: spaceId,
-                toastPresenter: self.uiHelpersDI.toastPresenter(),
+                settings: settings,
                 onSelect: onSelect
             )
         ).eraseToAnyView()
@@ -64,16 +61,19 @@ final class ObjectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtoc
         incudeNotForCreation: Bool,
         onSelect: @escaping (_ type: ObjectType) -> Void
     ) -> AnyView {
+        let settings = ObjectTypeSearchViewSettings(
+            showPins: showPins,
+            showLists: showLists,
+            showFiles: showFiles,
+            incudeNotForCreation: incudeNotForCreation,
+            allowPaste: false
+        )
+        
         return ObjectTypeSearchView(
             title: title,
             viewModel: ObjectTypeSearchViewModel(
-                showPins: showPins,
-                showLists: showLists,
-                showFiles: showFiles,
-                incudeNotForCreation: incudeNotForCreation,
-                allowPaste: false,
                 spaceId: spaceId,
-                toastPresenter: self.uiHelpersDI.toastPresenter(),
+                settings: settings,
                 onSelect: { result in
                     switch result {
                     case .objectType(let type):

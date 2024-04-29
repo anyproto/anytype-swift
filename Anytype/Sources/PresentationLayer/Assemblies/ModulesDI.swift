@@ -36,6 +36,6 @@ final class ModulesDI: ModulesDIProtocol {
     }
 
     func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
-        ObjectTypeSearchModuleAssembly(uiHelpersDI: uiHelpersDI)
+        ObjectTypeSearchModuleAssembly()
     }
 }

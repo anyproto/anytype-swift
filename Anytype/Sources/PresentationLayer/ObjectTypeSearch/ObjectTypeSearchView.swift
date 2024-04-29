@@ -19,6 +19,7 @@ struct ObjectTypeSearchView: View {
             content
             pasteButton
         }
+        .snackbar(toastBarData: $viewModel.toastData)
         .background(Color.Background.secondary)
         
         .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
@@ -130,12 +131,12 @@ struct ObjectTypeSearchView: View {
     }
     
     private func shouldHighlightType(_ type: ObjectTypeData) -> Bool {
-        type.isDefault && viewModel.showPins
+        type.isDefault && viewModel.settings.showPins
     }
     
     @ViewBuilder
     private func contextMenu(section: SectionType, data: ObjectTypeData) -> some View {
-        if viewModel.showPins {
+        if viewModel.settings.showPins {
             if section == .pins {
                 Button(Loc.unpin) {
                     viewModel.removePinedType(data.type)
