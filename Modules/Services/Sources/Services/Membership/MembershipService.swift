@@ -164,7 +164,12 @@ final class MembershipService: MembershipServiceProtocol {
         do {
             let products = try await Product.products(for: [tier.iosProductID])
             guard let product = products.first else {
-                anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
+                
+                // If dev app uses prod middleware it will receive prod product id, skip this error
+                if tier.iosProductID != "io.anytype.membership.builder" {
+                    anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
+                }
+                
                 return buildStripePayment(tier: tier)
             }
             
