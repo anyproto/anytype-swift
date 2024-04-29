@@ -2,13 +2,21 @@ import Combine
 import Services
 import Foundation
 
+struct TextRelationEditingViewData {
+    let text: String?
+    let type: TextRelationViewType
+    let config: RelationModuleConfiguration
+    let objectDetails: ObjectDetails
+    let output: TextRelationActionButtonViewModelDelegate?
+}
+
 @MainActor
 final class TextRelationEditingViewModel: ObservableObject {
     
     @Published var text: String
     @Published var dismiss = false
     @Published var textFocused = true
-    @Published var actionsViewModels: [TextRelationActionViewModelProtocol]
+    @Published var actionsViewModels: [TextRelationActionViewModelProtocol] = []
     @Published var showPaste = false
     
     let config: RelationModuleConfiguration
@@ -18,18 +26,22 @@ final class TextRelationEditingViewModel: ObservableObject {
     private var service: TextRelationEditingServiceProtocol
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: PasteboardHelperProtocol
+    @Injected(\.textRelationActionViewModelBuilder)
+    private var builder: TextRelationActionViewModelBuilder
     
-    init(
-        text: String?,
-        type: TextRelationViewType,
-        config: RelationModuleConfiguration,
-        actionsViewModels: [TextRelationActionViewModelProtocol]
-    ) {
-        self.text = text ?? ""
-        self.config = config
-        self.type = type
-        self.actionsViewModels = actionsViewModels
-        self.textFocused = config.isEditable
+    init(data: TextRelationEditingViewData) {
+        self.text = data.text ?? ""
+        self.config = data.config
+        self.type = data.type
+        self.textFocused = data.config.isEditable
+        
+        self.actionsViewModels = builder.buildActionsViewModels(
+            text: data.text,
+            for: data.type,
+            relationKey: data.config.relationKey,
+            objectDetails: data.objectDetails,
+            output: data.output
+        )
         
         pasteboardHelper.startSubscription { [weak self] in
             self?.updatePasteState()

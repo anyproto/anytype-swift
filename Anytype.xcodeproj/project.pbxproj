@@ -901,7 +901,6 @@
 		2E0E007F2A680D8600F1D95B /* PhraseTextValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */; };
 		2E101CB72B98EF3900D03821 /* TextRelationEditingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E101CB62B98EF3900D03821 /* TextRelationEditingView.swift */; };
 		2E101CB92B98EFB500D03821 /* TextRelationEditingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E101CB82B98EFB500D03821 /* TextRelationEditingViewModel.swift */; };
-		2E101CBB2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E101CBA2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift */; };
 		2E1146D0293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */; };
 		2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */; };
 		2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */; };
@@ -2679,7 +2678,6 @@
 		2E0E007E2A680D8600F1D95B /* PhraseTextValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseTextValidator.swift; sourceTree = "<group>"; };
 		2E101CB62B98EF3900D03821 /* TextRelationEditingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingView.swift; sourceTree = "<group>"; };
 		2E101CB82B98EFB500D03821 /* TextRelationEditingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingViewModel.swift; sourceTree = "<group>"; };
-		2E101CBA2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationEditingModuleAssembly.swift; sourceTree = "<group>"; };
 		2E1146CF293124ED0057C753 /* SetKanbanColumnSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsViewModel.swift; sourceTree = "<group>"; };
 		2E1146D1293125610057C753 /* SetKanbanColumnSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnSettingsView.swift; sourceTree = "<group>"; };
 		2E1AA7FC2BCEBF180089B136 /* SetLayoutSettingsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsData.swift; sourceTree = "<group>"; };
@@ -7185,7 +7183,6 @@
 			children = (
 				2E101CB62B98EF3900D03821 /* TextRelationEditingView.swift */,
 				2E101CB82B98EFB500D03821 /* TextRelationEditingViewModel.swift */,
-				2E101CBA2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift */,
 				3DA7DC0E2BDFBCD200F8F4B5 /* TextRelationActionViewModelBuilder.swift */,
 			);
 			path = Text;
@@ -11566,7 +11563,6 @@
 				3DD0CEB42B90A9C300657402 /* MembershipModuleView.swift in Sources */,
 				2A39DC4629FBC567003C43A9 /* FileStorageView.swift in Sources */,
 				12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */,
-				2E101CBB2B98EFDD00D03821 /* TextRelationEditingModuleAssembly.swift in Sources */,
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,
 				1226857928D4C5E60013A28E /* AppMetricsTracker.swift in Sources */,
 				2E31C9622B7281CD006DB3E2 /* RelationListSelectionView.swift in Sources */,

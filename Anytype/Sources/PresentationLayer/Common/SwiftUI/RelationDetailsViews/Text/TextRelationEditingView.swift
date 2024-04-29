@@ -6,6 +6,10 @@ struct TextRelationEditingView: View {
     @StateObject var viewModel: TextRelationEditingViewModel
     @Environment(\.dismiss) var dismiss
     
+    init(data: TextRelationEditingViewData) {
+        _viewModel = StateObject(wrappedValue: TextRelationEditingViewModel(data: data))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -142,11 +146,12 @@ struct TextRelationEditingView: View {
 
 #Preview {
     TextRelationEditingView(
-        viewModel: TextRelationEditingViewModel(
+        data: .init(
             text: nil, 
             type: .text,
             config: RelationModuleConfiguration.default,
-            actionsViewModels: []
+            objectDetails: .deleted,
+            output: nil
         )
     )
 }
