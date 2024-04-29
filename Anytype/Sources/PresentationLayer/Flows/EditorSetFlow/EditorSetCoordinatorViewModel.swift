@@ -129,14 +129,11 @@ final class EditorSetCoordinatorViewModel:
             onSelect: onSelect
         )
     }
-    func setQuery(_ queryData: SetQueryData) -> AnyView {
-        return objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+    func setQuery(_ queryData: SetQueryData) -> ObjectTypeSearchView {
+        ObjectTypeSearchView(
             title: Loc.Set.SourceType.selectQuery,
             spaceId: data.spaceId,
-            showPins: false,
-            showLists: false,
-            showFiles: true,
-            incudeNotForCreation: true
+            settings: .queryInSet
         ) { [weak self] type in
             queryData.onSelect(type.id)
             self?.setQueryData = nil

@@ -1,6 +1,7 @@
 import SwiftUI
 import Services
 import WrappingHStack
+import AnytypeCore
 
 
 struct ObjectTypeSearchView: View {
@@ -172,6 +173,24 @@ struct ObjectTypeSearchView: View {
         if !data.type.readonly {
             Button(Loc.delete, role: .destructive) {
                 viewModel.deleteType(data.type)
+            }
+        }
+    }
+}
+
+extension ObjectTypeSearchView {
+    init(
+        title: String,
+        spaceId: String,
+        settings: ObjectTypeSearchViewSettings,
+        onSelect: @escaping (_ type: ObjectType) -> Void
+    ) {
+        self.init(title: title, spaceId: spaceId, settings: settings) { result in
+            switch result {
+            case .objectType(let type):
+                onSelect(type)
+            case .createFromPasteboard:
+                anytypeAssertionFailure("Unsupported action createFromPasteboard")
             }
         }
     }
