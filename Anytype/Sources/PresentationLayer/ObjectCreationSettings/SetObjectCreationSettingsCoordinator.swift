@@ -108,13 +108,10 @@ final class SetObjectCreationSettingsCoordinator:
         setDocument: SetDocumentProtocol,
         onSelect: @escaping (ObjectType) -> ()
     ) {
-        let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+        let view = ObjectTypeSearchView(
             title: Loc.changeType,
             spaceId: setDocument.spaceId,
-            showPins: false,
-            showLists: true,
-            showFiles: false,
-            incudeNotForCreation: false
+            settings: .setByRelationNewObject
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type)

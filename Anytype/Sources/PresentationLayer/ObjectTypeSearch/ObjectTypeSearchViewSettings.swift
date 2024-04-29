@@ -30,4 +30,12 @@ extension ObjectTypeSearchViewSettings {
         incudeNotForCreation: false,
         allowPaste: false
     )
+    
+    static let setByRelationNewObject = ObjectTypeSearchViewSettings(
+        showPins: false,
+        showLists: true,
+        showFiles: false,
+        incudeNotForCreation: false,
+        allowPaste: false
+    )
 }
