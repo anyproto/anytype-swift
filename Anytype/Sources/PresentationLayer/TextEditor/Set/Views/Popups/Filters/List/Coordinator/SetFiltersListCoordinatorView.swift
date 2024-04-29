@@ -1,7 +1,12 @@
 import SwiftUI
+import Services
 
 struct SetFiltersListCoordinatorView: View {
-    @StateObject var model: SetFiltersListCoordinatorViewModel
+    @StateObject private var model: SetFiltersListCoordinatorViewModel
+    
+    init(setDocument: SetDocumentProtocol, viewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) {
+        _model = StateObject(wrappedValue: SetFiltersListCoordinatorViewModel(setDocument: setDocument, viewId: viewId, subscriptionDetailsStorage: subscriptionDetailsStorage))
+    }
     
     var body: some View {
         SetFiltersListView(
