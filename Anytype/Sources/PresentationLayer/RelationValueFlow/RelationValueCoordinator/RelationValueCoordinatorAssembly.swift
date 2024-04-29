@@ -40,8 +40,7 @@ final class RelationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyPr
         RelationValueCoordinatorView(
             model: RelationValueCoordinatorViewModel(
                 relation: relation,
-                objectDetails: objectDetails, 
-                textRelationEditingModuleAssembly: self.modulesDI.textRelationEditing(), 
+                objectDetails: objectDetails,  
                 urlOpener: self.uiHelpersDI.urlOpener(),
                 analyticsType: analyticsType,
                 output: output

@@ -20,7 +20,6 @@ final class RelationValueCoordinatorViewModel:
     
     private let relation: Relation
     private let objectDetails: ObjectDetails
-    private let textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
     private let analyticsType: AnalyticsEventsRelationType
     private weak var output: RelationValueCoordinatorOutput?
@@ -30,14 +29,12 @@ final class RelationValueCoordinatorViewModel:
     init(
         relation: Relation,
         objectDetails: ObjectDetails,
-        textRelationEditingModuleAssembly: TextRelationEditingModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol,
         analyticsType: AnalyticsEventsRelationType,
         output: RelationValueCoordinatorOutput?
     ) {
         self.relation = relation
         self.objectDetails = objectDetails
-        self.textRelationEditingModuleAssembly = textRelationEditingModuleAssembly
         self.urlOpener = urlOpener
         self.analyticsType = analyticsType
         self.output = output
@@ -225,13 +222,16 @@ final class RelationValueCoordinatorViewModel:
             spaceId: objectDetails.spaceId,
             analyticsType: analyticsType
         )
-        return textRelationEditingModuleAssembly.make(
-            text: value,
-            type: type,
-            config: configuration,
-            objectDetails: objectDetails,
-            output: self
-        )
+        
+        return TextRelationEditingView(
+            data: TextRelationEditingViewData(
+                text: value,
+                type: type,
+                config: configuration,
+                objectDetails: objectDetails,
+                output: self
+            )
+        ).eraseToAnyView()
     }
     
     private func obtainLimitedObjectTypes(with typesIds: [String]) -> [ObjectType] {

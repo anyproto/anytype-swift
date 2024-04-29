@@ -2,7 +2,9 @@ import Services
 
 
 @MainActor
-final class TextRelationActionViewModelBuilder {    
+final class TextRelationActionViewModelBuilder {   
+    nonisolated init() { }
+    
     func buildActionsViewModels(
         text: String?,
         for type: TextRelationViewType,
@@ -55,5 +57,11 @@ final class TextRelationActionViewModelBuilder {
             ]
             return actions.compactMap { $0 }
         }
+    }
+}
+
+extension Container {
+    var textRelationActionViewModelBuilder: Factory<TextRelationActionViewModelBuilder> {
+        self { TextRelationActionViewModelBuilder() }.shared
     }
 }

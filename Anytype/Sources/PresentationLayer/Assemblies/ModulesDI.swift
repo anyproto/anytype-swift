@@ -16,10 +16,6 @@ final class ModulesDI: ModulesDIProtocol {
         return RelationValueModuleAssembly(modulesDI: self, uiHelpersDI: uiHelpersDI)
     }
     
-    func textRelationEditing() -> TextRelationEditingModuleAssemblyProtocol {
-        TextRelationEditingModuleAssembly(uiHelpersDI: uiHelpersDI)
-    }
-    
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly()
     }
