@@ -21,25 +21,8 @@ struct NewRelationCoordinatorView: View {
                 onFormatSelect: $0.onSelect
             )
         }
-        .sheet(item: $model.newSearchData) {
-            // TODO: Migrate from NewSearchView
-            NewSearchView(
-                viewModel: NewSearchViewModel(
-                    title: Loc.limitObjectTypes,
-                    style: .default,
-                    itemCreationMode: .unavailable,
-                    internalViewModel: MultiselectObjectTypesSearchViewModel(
-                        selectedObjectTypeIds: $0.selectedObjectTypesIds,
-                        interactor: Legacy_ObjectTypeSearchInteractor(
-                            spaceId: model.document.spaceId,
-                            showBookmark: true,
-                            showSetAndCollection: false,
-                            showFiles: false
-                        ),
-                        onSelect: $0.onSelect
-                    )
-                )
-            )
+        .sheet(item: $model.searchData) {
+            ObjectTypesLimitedSearchView(data: $0)
         }
     }
 }

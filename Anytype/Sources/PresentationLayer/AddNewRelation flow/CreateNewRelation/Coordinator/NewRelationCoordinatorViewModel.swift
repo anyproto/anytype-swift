@@ -12,7 +12,7 @@ protocol NewRelationCoordinatorViewOutput: AnyObject {
 final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModuleOutput {
     
     @Published var relationFormatsData: RelationFormatsData?
-    @Published var newSearchData: NewSearchData?
+    @Published var searchData: ObjectTypesLimitedSearchData?
     
     let name: String
     let document: BaseDocumentProtocol
@@ -42,10 +42,11 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String], onSelect: @escaping ([String]) -> Void) {
-        newSearchData = NewSearchData(
+        searchData = ObjectTypesLimitedSearchData(
+            title: Loc.limitObjectTypes,
+            spaceId: document.spaceId,
             selectedObjectTypesIds: selectedObjectTypesIds,
-            onSelect: { [weak self] ids in
-                self?.newSearchData = nil
+            onSelect: { ids in
                 onSelect(ids)
             }
         )
@@ -55,12 +56,4 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
         output?.didCreateRelation(relation)
     }
     
-}
-
-extension NewRelationCoordinatorViewModel {
-    struct NewSearchData: Identifiable {
-        let id = UUID()
-        let selectedObjectTypesIds: [String]
-        let onSelect: (_ ids: [String]) -> Void
-    }
 }

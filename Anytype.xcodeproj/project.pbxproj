@@ -982,6 +982,7 @@
 		2E6527632B5EBD9300F27126 /* SelectRelationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */; };
 		2E6527652B5EBD9F00F27126 /* SelectRelationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6527642B5EBD9F00F27126 /* SelectRelationListViewModel.swift */; };
 		2E65276B2B5EE9BA00F27126 /* RelationListContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E65276A2B5EE9BA00F27126 /* RelationListContainerView.swift */; };
+		2E6CF15B2BDC11BA002C7023 /* ObjectTypesLimitedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6CF15A2BDC11BA002C7023 /* ObjectTypesLimitedSearchView.swift */; };
 		2E6F3E1A2A4C6828002F4278 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E192A4C6828002F4278 /* AlertView.swift */; };
 		2E6F3E1D2A4DB179002F4278 /* SceneStateNotifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */; };
 		2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */; };
@@ -2758,6 +2759,7 @@
 		2E6527622B5EBD9300F27126 /* SelectRelationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListView.swift; sourceTree = "<group>"; };
 		2E6527642B5EBD9F00F27126 /* SelectRelationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListViewModel.swift; sourceTree = "<group>"; };
 		2E65276A2B5EE9BA00F27126 /* RelationListContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationListContainerView.swift; sourceTree = "<group>"; };
+		2E6CF15A2BDC11BA002C7023 /* ObjectTypesLimitedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesLimitedSearchView.swift; sourceTree = "<group>"; };
 		2E6F3E192A4C6828002F4278 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		2E6F3E1C2A4DB179002F4278 /* SceneStateNotifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateNotifier.swift; sourceTree = "<group>"; };
 		2E6F3E1E2A4DF154002F4278 /* SceneStateListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneStateListener.swift; sourceTree = "<group>"; };
@@ -4413,6 +4415,7 @@
 			children = (
 				129C54C827FC4EA200C390C7 /* NewRelationView.swift */,
 				1247BC6027FC8DD1005F2DB4 /* Subviews */,
+				2E6CF15A2BDC11BA002C7023 /* ObjectTypesLimitedSearchView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -10891,6 +10894,7 @@
 				C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				2A4E3F7D2BC6ECDA00724DBF /* BinLinkWidgetView.swift in Sources */,
+				2E6CF15B2BDC11BA002C7023 /* ObjectTypesLimitedSearchView.swift in Sources */,
 				2A2C330D28928DA7008BC326 /* CoordinatorsDI.swift in Sources */,
 				2A2987362ACBFD2B009E8787 /* EditorSetModuleAssembly.swift in Sources */,
 				12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */,
