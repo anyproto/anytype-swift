@@ -16,7 +16,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let urlOpener: URLOpenerProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
 
@@ -30,7 +29,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         urlOpener: URLOpenerProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
@@ -44,7 +42,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.urlOpener = urlOpener
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
-        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.templateService = templateService
         self.output = output
         

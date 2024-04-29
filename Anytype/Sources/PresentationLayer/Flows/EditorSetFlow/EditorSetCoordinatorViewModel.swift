@@ -17,7 +17,6 @@ final class EditorSetCoordinatorViewModel:
     private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
-    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
@@ -44,7 +43,6 @@ final class EditorSetCoordinatorViewModel:
         setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
@@ -58,7 +56,6 @@ final class EditorSetCoordinatorViewModel:
         self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
-        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly

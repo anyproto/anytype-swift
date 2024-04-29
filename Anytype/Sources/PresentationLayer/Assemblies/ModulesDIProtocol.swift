@@ -6,5 +6,4 @@ protocol ModulesDIProtocol: AnyObject {
     func newSearch() -> NewSearchModuleAssemblyProtocol
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol
-    func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol
 }

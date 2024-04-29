@@ -25,7 +25,6 @@ final class SetObjectCreationSettingsCoordinator:
     SetObjectCreationSettingsOutput
 {
     private let navigationContext: NavigationContextProtocol
-    private let objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
@@ -35,11 +34,9 @@ final class SetObjectCreationSettingsCoordinator:
     
     init(
         navigationContext: NavigationContextProtocol,
-        objectTypeSearchModuleAssembly:ObjectTypeSearchModuleAssemblyProtocol,
         editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
-        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     

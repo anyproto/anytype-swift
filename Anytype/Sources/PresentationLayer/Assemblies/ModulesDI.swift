@@ -34,8 +34,4 @@ final class ModulesDI: ModulesDIProtocol {
     func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
         return WidgetObjectListModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
-
-    func objectTypeSearch() -> ObjectTypeSearchModuleAssemblyProtocol {
-        ObjectTypeSearchModuleAssembly()
-    }
 }

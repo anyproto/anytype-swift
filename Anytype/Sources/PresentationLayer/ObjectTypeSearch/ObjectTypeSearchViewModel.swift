@@ -2,6 +2,10 @@ import SwiftUI
 import Services
 import AnytypeCore
 
+enum TypeSelectionResult {
+    case objectType(type: ObjectType)
+    case createFromPasteboard
+}
 
 @MainActor
 final class ObjectTypeSearchViewModel: ObservableObject {
