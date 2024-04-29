@@ -8,28 +8,27 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Published var text: String
     @Published var dismiss = false
     @Published var textFocused = true
-    @Published var actionsViewModel: [TextRelationActionViewModelProtocol]
+    @Published var actionsViewModels: [TextRelationActionViewModelProtocol]
     @Published var showPaste = false
     
     let config: RelationModuleConfiguration
     let type: TextRelationViewType
-    private let service: TextRelationEditingServiceProtocol
-    private let pasteboardHelper: PasteboardHelperProtocol
+    
+    @Injected(\.textRelationEditingService)
+    private var service: TextRelationEditingServiceProtocol
+    @Injected(\.pasteboardHelper)
+    private var pasteboardHelper: PasteboardHelperProtocol
     
     init(
         text: String?,
         type: TextRelationViewType,
         config: RelationModuleConfiguration,
-        actionsViewModel: [TextRelationActionViewModelProtocol],
-        service: TextRelationEditingServiceProtocol,
-        pasteboardHelper: PasteboardHelperProtocol
+        actionsViewModels: [TextRelationActionViewModelProtocol]
     ) {
         self.text = text ?? ""
         self.config = config
         self.type = type
-        self.actionsViewModel = actionsViewModel
-        self.service = service
-        self.pasteboardHelper = pasteboardHelper
+        self.actionsViewModels = actionsViewModels
         self.textFocused = config.isEditable
         
         pasteboardHelper.startSubscription { [weak self] in
@@ -82,10 +81,10 @@ final class TextRelationEditingViewModel: ObservableObject {
     }
     
     func handleTextUpdate(text: String) {
-        for actionViewModel in actionsViewModel {
+        for actionViewModel in actionsViewModels {
             actionViewModel.inputText = text
         }
-        self.actionsViewModel = actionsViewModel
+        self.actionsViewModels = actionsViewModels
     }
     
     private func logEvent() {
