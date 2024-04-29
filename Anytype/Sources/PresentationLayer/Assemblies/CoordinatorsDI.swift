@@ -76,10 +76,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
     
-    func setFiltersSelection() -> SetFiltersSelectionCoordinatorAssemblyProtocol {
-        SetFiltersSelectionCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-    
     func setFiltersList() -> SetFiltersListCoordinatorAssemblyProtocol {
         SetFiltersListCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }

@@ -32,9 +32,7 @@ final class SetFiltersListCoordinatorAssembly: SetFiltersListCoordinatorAssembly
             model: SetFiltersListCoordinatorViewModel(
                 setDocument: setDocument,
                 viewId: viewId,
-                subscriptionDetailsStorage: subscriptionDetailsStorage,
-                setFiltersSelectionCoordinatorAssembly: self.coordinatorsDI.setFiltersSelection(),
-                newSearchModuleAssembly: self.modulesDI.newSearch()
+                subscriptionDetailsStorage: subscriptionDetailsStorage
             )
         ).eraseToAnyView()
     }

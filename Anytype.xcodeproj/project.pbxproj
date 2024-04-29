@@ -1076,7 +1076,6 @@
 		2ECB34182A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */; };
 		2ECB342D2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */; };
 		2ECB342F2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */; };
-		2ECB34312A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */; };
 		2ECB34372A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34362A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift */; };
 		2ECB34392A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB34382A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift */; };
 		2ECB343B2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB343A2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift */; };
@@ -2853,7 +2852,6 @@
 		2ECB34172A97B45B00E0F9BB /* SetFiltersDateCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorView.swift; sourceTree = "<group>"; };
 		2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2ECB34362A98FEA800E0F9BB /* SetFiltersListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorView.swift; sourceTree = "<group>"; };
 		2ECB34382A98FEB000E0F9BB /* SetFiltersListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ECB343A2A98FEBE00E0F9BB /* SetFiltersListCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersListCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -7713,7 +7711,6 @@
 			children = (
 				2ECB342C2A97CFF800E0F9BB /* SetFiltersSelectionCoordinatorView.swift */,
 				2ECB342E2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift */,
-				2ECB34302A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -11037,7 +11034,6 @@
 				53EA4A782637637200968B8E /* StyleColorCellView.swift in Sources */,
 				2AD5EFC92B1753E400FAA908 /* DocumentUpdateAlertView.swift in Sources */,
 				2A5025012BBE9BD800A141B8 /* ObjectSearchModuleData.swift in Sources */,
-				2ECB34312A97D01B00E0F9BB /* SetFiltersSelectionCoordinatorAssembly.swift in Sources */,
 				12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */,
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */,
