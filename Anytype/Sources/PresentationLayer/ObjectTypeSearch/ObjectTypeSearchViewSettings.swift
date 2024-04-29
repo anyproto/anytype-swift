@@ -22,4 +22,12 @@ extension ObjectTypeSearchViewSettings {
         incudeNotForCreation: true,
         allowPaste: false
     )
+    
+    static let spaceDefaultObject = ObjectTypeSearchViewSettings(
+        showPins: false,
+        showLists: false,
+        showFiles: false,
+        incudeNotForCreation: false,
+        allowPaste: false
+    )
 }
