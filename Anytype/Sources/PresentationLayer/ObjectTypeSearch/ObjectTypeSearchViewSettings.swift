@@ -23,7 +23,15 @@ extension ObjectTypeSearchViewSettings {
         allowPaste: false
     )
     
-    static let spaceDefaultObject = ObjectTypeSearchViewSettings(
+    static let setByRelationNewObject = ObjectTypeSearchViewSettings(
+        showPins: false,
+        showLists: true,
+        showFiles: false,
+        incudeNotForCreation: false,
+        allowPaste: false
+    )
+    
+    static let editorChangeType = ObjectTypeSearchViewSettings(
         showPins: false,
         showLists: false,
         showFiles: false,
@@ -31,9 +39,9 @@ extension ObjectTypeSearchViewSettings {
         allowPaste: false
     )
     
-    static let setByRelationNewObject = ObjectTypeSearchViewSettings(
+    static let spaceDefaultObject = ObjectTypeSearchViewSettings(
         showPins: false,
-        showLists: true,
+        showLists: false,
         showFiles: false,
         incudeNotForCreation: false,
         allowPaste: false

@@ -215,13 +215,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {
-        let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+        let view = ObjectTypeSearchView(
             title: Loc.changeType,
             spaceId: document.spaceId,
-            showPins: false,
-            showLists: false,
-            showFiles: false,
-            incudeNotForCreation: false
+            settings: .editorChangeType
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type)
