@@ -3,10 +3,7 @@ import Services
 
 protocol SetViewSettingsCoordinatorAssemblyProtocol {
     @MainActor
-    func make(
-        with data: SetSettingsData,
-        subscriptionDetailsStorage: ObjectDetailsStorage
-    ) -> AnyView
+    func make(with data: SetSettingsData) -> AnyView
 }
 
 final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol {
@@ -22,17 +19,11 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     // MARK: - SetViewSettingsCoordinatorModuleAssemblyProtocol
     
     @MainActor
-    func make(
-        with data: SetSettingsData,
-        subscriptionDetailsStorage: ObjectDetailsStorage
-    ) -> AnyView {
+    func make(with data: SetSettingsData) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
                 data: data,
-                subscriptionDetailsStorage: subscriptionDetailsStorage,
-                setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations(),
-                setFiltersListCoordinatorAssembly: self.coordinatorsDI.setFiltersList(),
-                setSortsListCoordinatorAssembly: self.coordinatorsDI.setSortsList()
+                setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations()
             )
         ).eraseToAnyView()
     }

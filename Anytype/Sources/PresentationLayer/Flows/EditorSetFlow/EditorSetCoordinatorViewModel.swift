@@ -111,10 +111,10 @@ final class EditorSetCoordinatorViewModel:
         setViewSettingsCoordinatorAssembly.make(
             with: SetSettingsData(
                 setDocument: data.document,
-                viewId: data.document.activeView.id,
+                viewId: data.document.activeView.id, 
+                subscriptionDetailsStorage: data.subscriptionDetailsStorage,
                 mode: .edit
-            ),
-            subscriptionDetailsStorage: data.subscriptionDetailsStorage
+            )
         )
     }
     

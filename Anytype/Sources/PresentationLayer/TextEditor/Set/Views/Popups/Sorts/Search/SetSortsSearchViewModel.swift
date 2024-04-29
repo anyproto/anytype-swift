@@ -6,10 +6,10 @@ final class SetSortsSearchViewModel {
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
     
     private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
-    private let interactor: SetSortsSearchInteractor
+    private let interactor: SetRelationsDetailsLocalSearchInteractor
     private let onSelect: (_ details: [RelationDetails]) -> Void
     
-    init(interactor: SetSortsSearchInteractor, onSelect: @escaping (_ details: [RelationDetails]) -> Void) {
+    init(interactor: SetRelationsDetailsLocalSearchInteractor, onSelect: @escaping (_ details: [RelationDetails]) -> Void) {
         self.interactor = interactor
         self.onSelect = onSelect
     }

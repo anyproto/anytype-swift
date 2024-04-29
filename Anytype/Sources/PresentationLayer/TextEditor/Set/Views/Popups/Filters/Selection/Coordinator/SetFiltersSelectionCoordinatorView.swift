@@ -2,7 +2,11 @@ import SwiftUI
 import Services
 
 struct SetFiltersSelectionCoordinatorView: View {
-    @StateObject var model: SetFiltersSelectionCoordinatorViewModel
+    @StateObject private var model: SetFiltersSelectionCoordinatorViewModel
+    
+    init(spaceId: String, filter: SetFilter, completion: @escaping (SetFilter) -> Void) {
+        _model = StateObject(wrappedValue: SetFiltersSelectionCoordinatorViewModel(spaceId: spaceId, filter: filter, completion: completion))
+    }
     
     var body: some View {
         SetFiltersSelectionView(
