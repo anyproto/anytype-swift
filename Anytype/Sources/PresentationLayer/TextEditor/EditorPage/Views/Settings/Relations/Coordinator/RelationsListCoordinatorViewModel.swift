@@ -7,8 +7,7 @@ import AnytypeCore
 final class RelationsListCoordinatorViewModel:
     ObservableObject,
     RelationsListModuleOutput,
-    RelationValueCoordinatorOutput,
-    RelationsSearchCoordinatorOutput
+    RelationValueCoordinatorOutput
 {
     @Published var relationValueData: RelationValueData?
     @Published var relationsSearchData: RelationsSearchData?
@@ -40,7 +39,10 @@ final class RelationsListCoordinatorViewModel:
         relationsSearchData = RelationsSearchData(
             document: document,
             excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
-            target: .object
+            target: .object, 
+            onRelationSelect: { relationDetails, isNew in
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .menu, spaceId: document.spaceId)
+            }
         )
     }
     
@@ -102,11 +104,5 @@ final class RelationsListCoordinatorViewModel:
     
     func showEditorScreen(data: EditorScreenData) {
         output?.showEditorScreen(data: data)
-    }
-    
-    // MARK: - RelationsSearchCoordinatorOutput
-    
-    func onRelationSelection(relationDetails: RelationDetails, isNew: Bool) {
-        AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .menu, spaceId: document.spaceId)
     }
 }

@@ -10,10 +10,7 @@ struct SetRelationsCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.relationsSearchData) { data in
-            RelationsSearchCoordinatorView(
-                data: data,
-                output: model
-            )
+            RelationsSearchCoordinatorView(data: data)
         }
     }
 }

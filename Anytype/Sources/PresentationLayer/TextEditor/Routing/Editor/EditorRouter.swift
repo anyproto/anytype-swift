@@ -420,16 +420,8 @@ extension EditorRouter {
     }
 
     @MainActor
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    ) {
-//        addNewRelationCoordinator.showAddNewRelationView(
-//            document: document,
-//            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-//            target: .object,
-//            onCompletion: onSelect
-//        )
+    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        output?.showAddNewRelationView(document: document, onSelect: onSelect)
     }
 }
 

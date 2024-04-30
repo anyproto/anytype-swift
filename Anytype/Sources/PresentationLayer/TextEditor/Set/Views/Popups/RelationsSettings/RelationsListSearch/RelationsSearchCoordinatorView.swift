@@ -7,8 +7,8 @@ struct RelationsSearchCoordinatorView: View {
     @StateObject private var model: RelationsSearchCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: RelationsSearchData, output: RelationsSearchCoordinatorOutput?) {
-        _model = StateObject(wrappedValue: RelationsSearchCoordinatorViewModel(data: data, output: output))
+    init(data: RelationsSearchData) {
+        _model = StateObject(wrappedValue: RelationsSearchCoordinatorViewModel(data: data))
     }
     
     var body: some View {

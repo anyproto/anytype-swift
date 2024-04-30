@@ -9,8 +9,7 @@ protocol SetRelationsCoordinatorOutput: AnyObject {
 @MainActor
 final class SetRelationsCoordinatorViewModel:
     ObservableObject,
-    SetRelationsCoordinatorOutput,
-    RelationsSearchCoordinatorOutput
+    SetRelationsCoordinatorOutput
 {
     @Published var relationsSearchData: RelationsSearchData?
     
@@ -28,13 +27,11 @@ final class SetRelationsCoordinatorViewModel:
         relationsSearchData = RelationsSearchData(
             document: setDocument.document,
             excludedRelationsIds: setDocument.sortedRelations(for: viewId).map(\.id),
-            target: .dataview(activeViewId: setDocument.activeView.id)
+            target: .dataview(activeViewId: setDocument.activeView.id), 
+            onRelationSelect: { [weak self] relationDetails, isNew in
+                guard let self else { return }
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .dataview, spaceId: setDocument.spaceId)
+            }
         )
-    }
-    
-    // MARK: - RelationsSearchCoordinatorOutput
-    
-    func onRelationSelection(relationDetails: RelationDetails, isNew: Bool) {
-        AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .dataview, spaceId: setDocument.spaceId)
     }
 }

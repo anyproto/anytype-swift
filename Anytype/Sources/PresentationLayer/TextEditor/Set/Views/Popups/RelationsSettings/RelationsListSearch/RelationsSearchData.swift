@@ -6,4 +6,6 @@ struct RelationsSearchData: Identifiable {
     let document: BaseDocumentProtocol
     let excludedRelationsIds: [String]
     let target: RelationsModuleTarget
+    @EquatableNoop
+    var onRelationSelect: (_ relationDetails: RelationDetails, _ isNew: Bool) -> Void
 }

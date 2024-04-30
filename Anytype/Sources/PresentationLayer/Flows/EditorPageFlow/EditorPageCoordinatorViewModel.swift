@@ -25,6 +25,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var textIconPickerData: TextIconPickerData?
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var undoRedoObjectId: StringIdentifiable?
+    @Published var relationsSearchData: RelationsSearchData?
     
     init(
         data: EditorPageObject,
@@ -109,6 +110,15 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func didUndoRedo() {
         undoRedoObjectId = data.objectId.identifiable
+    }
+    
+    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        relationsSearchData = RelationsSearchData(
+            document: document,
+            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            target: .object, 
+            onRelationSelect: onSelect
+        )
     }
     
     // MARK: - Private
