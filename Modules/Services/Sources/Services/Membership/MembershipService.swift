@@ -6,10 +6,10 @@ import StoreKit
 
 public typealias MiddlewareMemberhsipStatus = Anytype_Model_Membership
 
-enum MembershipServiceError: Error {
+public enum MembershipServiceError: Error {
     case tierNotFound
+    case forcefullyFailedValidation
 }
-
 
 public protocol MembershipServiceProtocol {
     func getMembership(noCache: Bool) async throws -> MembershipStatus
@@ -110,6 +110,10 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     public func verifyReceipt(billingId: String, receipt: String) async throws {
+        guard !FeatureFlags.failReceiptValidation else {
+            throw MembershipServiceError.forcefullyFailedValidation
+        }
+        
         try await ClientCommands.membershipVerifyAppStoreReceipt(.with {
             $0.billingID = billingId
             $0.receipt = receipt

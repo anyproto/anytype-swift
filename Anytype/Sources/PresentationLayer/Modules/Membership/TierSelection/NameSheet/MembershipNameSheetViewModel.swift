@@ -118,8 +118,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
         guard state == .validated else { return }
         
         let billingId = try await membershipService.getBillingId(name: name, tier: tier)
-        try await storeKitService.purchase(product: product, billingId: billingId)
+        let result = try await storeKitService.purchase(product: product, billingId: billingId)
         
         onSuccessfulPurchase(tier)
+        try result.throwErrorIfNeeded()
     }
 }

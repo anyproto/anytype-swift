@@ -129,4 +129,11 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: true
     )
+    
+    static let failReceiptValidation = FeatureDescription(
+        title: "Fail receipt validaton of Memebership",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
 }

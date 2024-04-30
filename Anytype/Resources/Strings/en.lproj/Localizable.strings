@@ -1125,6 +1125,9 @@
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
 "Debug.Info" = "Debug Info";
