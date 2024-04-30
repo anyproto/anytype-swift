@@ -6,7 +6,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func relationsList() -> RelationsListCoordinatorAssemblyProtocol
     func templates() -> TemplatesCoordinatorAssemblyProtocol
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
-    func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
     func home() -> HomeCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol

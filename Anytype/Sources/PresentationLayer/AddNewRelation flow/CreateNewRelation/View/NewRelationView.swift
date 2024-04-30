@@ -5,17 +5,10 @@ struct NewRelationView: View {
     @StateObject private var viewModel: NewRelationViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(
-        name: String,
-        document: BaseDocumentProtocol,
-        target: RelationsModuleTarget,
-        output: NewRelationModuleOutput?
-    ) {
-        let relationsInteractor = RelationsInteractor(objectId: document.objectId)
+    init(data: NewRelationData, output: NewRelationModuleOutput?) {
+        let relationsInteractor = RelationsInteractor(objectId: data.document.objectId)
         _viewModel = StateObject(wrappedValue: NewRelationViewModel(
-            name: name,
-            document: document,
-            target: target,
+            data: data,
             relationsInteractor: relationsInteractor,
             output: output
         ))

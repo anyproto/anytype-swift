@@ -23,8 +23,7 @@ final class SetRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProt
         return SetRelationsCoordinatorView(
             model: SetRelationsCoordinatorViewModel(
                 setDocument: setDocument,
-                viewId: viewId,
-                addNewRelationCoordinator: self.coordinatorsDI.addNewRelation().make()
+                viewId: viewId
             )
         ).eraseToAnyView()
     }

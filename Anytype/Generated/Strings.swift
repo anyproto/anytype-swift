@@ -1166,6 +1166,11 @@ internal enum Loc {
       internal static let useCase = Loc.tr("Localizable", "Relation.Origin.UseCase")
       internal static let webClipper = Loc.tr("Localizable", "Relation.Origin.WebClipper")
     }
+    internal enum Search {
+      internal enum View {
+        internal static let placeholder = Loc.tr("Localizable", "Relation.Search.View.Placeholder")
+      }
+    }
     internal enum View {
       internal enum Create {
         internal static let title = Loc.tr("Localizable", "Relation.View.Create.title")

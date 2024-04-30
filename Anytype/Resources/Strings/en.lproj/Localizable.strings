@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";

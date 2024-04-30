@@ -9,8 +9,11 @@ struct SetRelationsCoordinatorView: View {
             viewId: model.viewId,
             output: model
         )
-        .sheet(item: $model.addRelationsData) { data in
-            model.newRelationView(data: data)
+        .sheet(item: $model.relationsSearchData) { data in
+            RelationsSearchCoordinatorView(
+                data: data,
+                output: model
+            )
         }
     }
 }

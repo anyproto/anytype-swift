@@ -14,21 +14,12 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     @Published var relationFormatsData: RelationFormatsData?
     @Published var searchData: ObjectTypesLimitedSearchData?
     
-    let name: String
-    let document: BaseDocumentProtocol
-    let target: RelationsModuleTarget
+    let data: NewRelationData
     
     private weak var output: NewRelationCoordinatorViewOutput?
     
-    init(
-        name: String,
-        document: BaseDocumentProtocol,
-        target: RelationsModuleTarget,
-        output: NewRelationCoordinatorViewOutput?
-    ) {
-        self.name = name
-        self.document = document
-        self.target = target
+    init(data: NewRelationData, output: NewRelationCoordinatorViewOutput?) {
+        self.data = data
         self.output = output
     }
     
@@ -44,7 +35,7 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String], onSelect: @escaping ([String]) -> Void) {
         searchData = ObjectTypesLimitedSearchData(
             title: Loc.limitObjectTypes,
-            spaceId: document.spaceId,
+            spaceId: data.document.spaceId,
             selectedObjectTypesIds: selectedObjectTypesIds,
             onSelect: { ids in
                 onSelect(ids)

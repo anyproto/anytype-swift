@@ -46,10 +46,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
-    func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol {
-        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
-    }
-    
     @MainActor
     func home() -> HomeCoordinatorAssemblyProtocol {
         return HomeCoordinatorAssembly(
