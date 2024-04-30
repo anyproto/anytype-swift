@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct SetViewSettingsCoordinatorView: View {
-    @StateObject var model: SetViewSettingsCoordinatorViewModel
+    @StateObject private var model: SetViewSettingsCoordinatorViewModel
+    
+    init(data: SetSettingsData) {
+        _model = StateObject(wrappedValue: SetViewSettingsCoordinatorViewModel(data: data))
+    }
     
     var body: some View {
         SetViewSettingsList(

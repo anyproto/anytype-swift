@@ -67,15 +67,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
         return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
-    
-    func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
-        return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-    
-    func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
-        SetViewPickerCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-
     func editor() -> EditorCoordinatorAssemblyProtocol {
         EditorCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI)
     }

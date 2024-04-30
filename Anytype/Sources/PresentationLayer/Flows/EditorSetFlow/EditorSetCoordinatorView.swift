@@ -22,10 +22,10 @@ struct EditorSetCoordinatorView: View {
                 model.relationValueCoordinator(data: data)
             }
             .anytypeSheet(item: $model.setViewPickerData) { data in
-                model.setViewPicker(data: data)
+                SetViewPickerCoordinatorView(data: data)
             }
             .anytypeSheet(item: $model.setViewSettingsData) { data in
-                model.setViewSettings(data: data)
+                SetViewSettingsCoordinatorView(data: data)
             }
             .sheet(item: $model.covertPickerData) {
                 ObjectCoverPicker(data: $0)
