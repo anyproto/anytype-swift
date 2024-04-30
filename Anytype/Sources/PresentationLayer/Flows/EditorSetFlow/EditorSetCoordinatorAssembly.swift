@@ -29,9 +29,7 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
         EditorSetCoordinatorView(
             model: EditorSetCoordinatorViewModel(
                 data: data,
-                editorSetAssembly: self.coordinatorsID.editorSetModule(), 
-                setViewPickerCoordinatorAssembly: self.coordinatorsID.setViewPicker(),
-                setViewSettingsCoordinatorAssembly: self.coordinatorsID.setViewSettings(), 
+                editorSetAssembly: self.coordinatorsID.editorSetModule(),
                 setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(), 
                 objectSettingCoordinatorAssembly: self.coordinatorsID.objectSettings(),
                 legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 

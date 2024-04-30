@@ -9,7 +9,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private weak var viewController: UIViewController?
     private let navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
-    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
@@ -23,7 +22,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         viewController: UIViewController,
         navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
@@ -36,7 +34,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.navigationContext = navigationContext
         self.document = document
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
-        self.addNewRelationCoordinator = addNewRelationCoordinator
         self.templatesCoordinator = templatesCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
@@ -423,16 +420,8 @@ extension EditorRouter {
     }
 
     @MainActor
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    ) {
-        addNewRelationCoordinator.showAddNewRelationView(
-            document: document,
-            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-            target: .object,
-            onCompletion: onSelect
-        )
+    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        output?.showAddNewRelationView(document: document, onSelect: onSelect)
     }
 }
 

@@ -6,14 +6,10 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func relationsList() -> RelationsListCoordinatorAssemblyProtocol
     func templates() -> TemplatesCoordinatorAssemblyProtocol
     func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
-    func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol
     func home() -> HomeCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
-    func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol
-    func setRelations() -> SetRelationsCoordinatorAssemblyProtocol
-    func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol
     func editor() -> EditorCoordinatorAssemblyProtocol
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol

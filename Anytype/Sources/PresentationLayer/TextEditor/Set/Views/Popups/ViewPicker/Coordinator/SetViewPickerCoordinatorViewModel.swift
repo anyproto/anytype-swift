@@ -13,17 +13,11 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     @Published var setSettingsData: SetSettingsData?
     
     let setDocument: SetDocumentProtocol
-    private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
-    init(
-        setDocument: SetDocumentProtocol,
-        setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
-        subscriptionDetailsStorage: ObjectDetailsStorage
-    ) {
-        self.setDocument = setDocument
-        self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
-        self.subscriptionDetailsStorage = subscriptionDetailsStorage
+    init(data: SetViewData) {
+        self.setDocument = data.document
+        self.subscriptionDetailsStorage = data.subscriptionDetailsStorage
     }
     
     // MARK: - SetViewPickerCoordinatorOutput
@@ -43,17 +37,6 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
             viewId: dataView.id, 
             subscriptionDetailsStorage: subscriptionDetailsStorage,
             mode: .edit
-        )
-    }
-    
-    func setSettingsView(data: SetSettingsData) -> AnyView {
-        setViewSettingsCoordinatorAssembly.make(
-            with: SetSettingsData(
-                setDocument: setDocument,
-                viewId: data.viewId, 
-                subscriptionDetailsStorage: subscriptionDetailsStorage,
-                mode: data.mode
-            )
         )
     }
 }

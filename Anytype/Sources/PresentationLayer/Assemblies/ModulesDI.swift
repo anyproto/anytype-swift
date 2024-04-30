@@ -20,10 +20,6 @@ final class ModulesDI: ModulesDIProtocol {
         return CreateObjectModuleAssembly()
     }
     
-    func newSearch() -> NewSearchModuleAssemblyProtocol {
-        return NewSearchModuleAssembly(uiHelpersDI: uiHelpersDI)
-    }
-    
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol {
         return HomeWidgetsModuleAssembly(
             uiHelpersDI: uiHelpersDI,

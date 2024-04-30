@@ -78,7 +78,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             viewController: controller,
             navigationContext: navigationContext,
             document: document,
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),

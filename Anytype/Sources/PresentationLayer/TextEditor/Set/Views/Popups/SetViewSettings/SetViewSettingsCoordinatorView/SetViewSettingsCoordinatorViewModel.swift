@@ -17,14 +17,8 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     let data: SetSettingsData
     
-    private let setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
-    
-    init(
-        data: SetSettingsData,
-        setRelationsCoordinatorAssembly: SetRelationsCoordinatorAssemblyProtocol
-    ) {
+    init(data: SetSettingsData) {
         self.data = data
-        self.setRelationsCoordinatorAssembly = setRelationsCoordinatorAssembly
     }
     
     // MARK: - SetViewSettingsCoordinatorOutput
@@ -39,13 +33,6 @@ final class SetViewSettingsCoordinatorViewModel: ObservableObject, SetViewSettin
     
     func onRelationsTap() {
         showRelations.toggle()
-    }
-    
-    func relationsList() -> AnyView {
-        setRelationsCoordinatorAssembly.make(
-            with: data.setDocument,
-            viewId: data.viewId
-        )
     }
     
     // MARK: - Filters

@@ -35,18 +35,16 @@ final class NewRelationViewModel: ObservableObject {
     private weak var output: NewRelationModuleOutput?
     
     init(
-        name: String,
-        document: BaseDocumentProtocol,
-        target: RelationsModuleTarget,
+        data: NewRelationData,
         relationsInteractor: RelationsInteractorProtocol,
         output: NewRelationModuleOutput?
     ) {
-        self.document = document
-        self.target = target
+        self.document = data.document
+        self.target = data.target
         self.relationsInteractor = relationsInteractor
         self.output = output
         
-        self.name = name
+        self.name = data.name
         self.format = SupportedRelationFormat.object
         handleFormatUpdate()
     }

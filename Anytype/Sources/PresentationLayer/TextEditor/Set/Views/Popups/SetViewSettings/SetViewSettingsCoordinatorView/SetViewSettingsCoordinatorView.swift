@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct SetViewSettingsCoordinatorView: View {
-    @StateObject var model: SetViewSettingsCoordinatorViewModel
+    @StateObject private var model: SetViewSettingsCoordinatorViewModel
+    
+    init(data: SetSettingsData) {
+        _model = StateObject(wrappedValue: SetViewSettingsCoordinatorViewModel(data: data))
+    }
     
     var body: some View {
         SetViewSettingsList(
@@ -16,7 +20,10 @@ struct SetViewSettingsCoordinatorView: View {
             .mediumPresentationDetents()
         }
         .sheet(isPresented: $model.showRelations) {
-            model.relationsList()
+            SetRelationsCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId
+            )
         }
         .sheet(isPresented: $model.showFilters) {
             SetFiltersListCoordinatorView(

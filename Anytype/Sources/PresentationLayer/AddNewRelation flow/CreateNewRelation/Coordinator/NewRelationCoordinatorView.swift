@@ -1,18 +1,23 @@
 import SwiftUI
 
+struct NewRelationData: Identifiable {
+    let id = UUID()
+    let name: String
+    let document: BaseDocumentProtocol
+    let target: RelationsModuleTarget
+}
+
 struct NewRelationCoordinatorView: View {
     
     @StateObject private var model: NewRelationCoordinatorViewModel
     
-    init(name: String, document: BaseDocumentProtocol, target: RelationsModuleTarget, output: NewRelationCoordinatorViewOutput?) {
-        _model = StateObject(wrappedValue: NewRelationCoordinatorViewModel(name: name, document: document, target: target, output: output))
+    init(data: NewRelationData, output: NewRelationCoordinatorViewOutput?) {
+        _model = StateObject(wrappedValue: NewRelationCoordinatorViewModel(data: data, output: output))
     }
     
     var body: some View {
         NewRelationView(
-            name: model.name,
-            document: model.document,
-            target: model.target,
+            data: model.data,
             output: model
         )
         .sheet(item: $model.relationFormatsData) {

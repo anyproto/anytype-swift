@@ -1,4 +1,5 @@
 import Foundation
+import Services
 
 @MainActor
 protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
@@ -12,6 +13,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showTextIconPicker(data: TextIconPickerData)
     func showBlockObjectSearch(data: BlockObjectSearchData)
     func didUndoRedo()
+    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     // TODO: Refactoring templates. Delete it
     func setModuleInput(input: EditorPageModuleInput, objectId: String)
     // TODO: Migrate EditorRouter to EditorPageCoordinator and make output as MainActor

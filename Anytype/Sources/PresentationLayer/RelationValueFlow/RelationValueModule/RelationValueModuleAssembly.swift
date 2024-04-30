@@ -23,10 +23,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
         output: RelationValueViewModelOutput
     ) -> UIViewController? {
         
-        let contentViewModel = RelationEditingViewModelBuilder(
-            delegate: delegate,
-            newSearchModuleAssembly: modulesDI.newSearch()
-        )
+        let contentViewModel = RelationEditingViewModelBuilder(delegate: delegate)
             .buildViewModel(
                 objectDetails: objectDetails,
                 relation: relation,
