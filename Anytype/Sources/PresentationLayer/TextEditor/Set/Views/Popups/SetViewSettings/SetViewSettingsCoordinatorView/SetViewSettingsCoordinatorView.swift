@@ -16,7 +16,10 @@ struct SetViewSettingsCoordinatorView: View {
             .mediumPresentationDetents()
         }
         .sheet(isPresented: $model.showRelations) {
-            model.relationsList()
+            SetRelationsCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId
+            )
         }
         .sheet(isPresented: $model.showFilters) {
             SetFiltersListCoordinatorView(

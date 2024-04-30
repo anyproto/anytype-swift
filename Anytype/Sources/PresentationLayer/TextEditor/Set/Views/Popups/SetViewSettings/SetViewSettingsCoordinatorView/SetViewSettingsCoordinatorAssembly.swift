@@ -22,8 +22,7 @@ final class SetViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemb
     func make(with data: SetSettingsData) -> AnyView {
         return SetViewSettingsCoordinatorView(
             model: SetViewSettingsCoordinatorViewModel(
-                data: data,
-                setRelationsCoordinatorAssembly: self.coordinatorsDI.setRelations()
+                data: data
             )
         ).eraseToAnyView()
     }
