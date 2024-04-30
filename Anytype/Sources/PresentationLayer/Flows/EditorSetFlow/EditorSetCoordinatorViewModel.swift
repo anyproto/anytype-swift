@@ -3,6 +3,12 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+struct SetViewData: Identifiable {
+    let id = UUID()
+    let document: SetDocumentProtocol
+    let subscriptionDetailsStorage: ObjectDetailsStorage
+}
+
 @MainActor
 final class EditorSetCoordinatorViewModel:
     ObservableObject,
@@ -13,7 +19,6 @@ final class EditorSetCoordinatorViewModel:
 {
     private let data: EditorSetObject
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
-    private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
@@ -38,7 +43,6 @@ final class EditorSetCoordinatorViewModel:
     init(
         data: EditorSetObject,
         editorSetAssembly: EditorSetModuleAssemblyProtocol,
-        setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
@@ -50,7 +54,6 @@ final class EditorSetCoordinatorViewModel:
     ) {
         self.data = data
         self.editorSetAssembly = editorSetAssembly
-        self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
@@ -85,13 +88,6 @@ final class EditorSetCoordinatorViewModel:
         setViewPickerData = SetViewData(
             document: document,
             subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-    }
-    
-    func setViewPicker(data: SetViewData) -> AnyView {
-        setViewPickerCoordinatorAssembly.make(
-            with: data.document,
-            subscriptionDetailsStorage: data.subscriptionDetailsStorage
         )
     }
     
@@ -255,12 +251,6 @@ final class EditorSetCoordinatorViewModel:
 }
 
 extension EditorSetCoordinatorViewModel {
-    struct SetViewData: Identifiable {
-        let id = UUID()
-        let document: SetDocumentProtocol
-        let subscriptionDetailsStorage: ObjectDetailsStorage
-    }
-    
     struct SetQueryData: Identifiable {
         let id = UUID()
         let document: SetDocumentProtocol

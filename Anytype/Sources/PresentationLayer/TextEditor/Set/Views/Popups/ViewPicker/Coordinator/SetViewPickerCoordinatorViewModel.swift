@@ -15,9 +15,9 @@ final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCo
     let setDocument: SetDocumentProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
-    init(setDocument: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        self.setDocument = setDocument
-        self.subscriptionDetailsStorage = subscriptionDetailsStorage
+    init(data: SetViewData) {
+        self.setDocument = data.document
+        self.subscriptionDetailsStorage = data.subscriptionDetailsStorage
     }
     
     // MARK: - SetViewPickerCoordinatorOutput
