@@ -1320,6 +1320,7 @@
 		3DB9351E2BC4574D0004113B /* MembershipTierViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB9351D2BC4574C0004113B /* MembershipTierViewModel.swift */; };
 		3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */; };
 		3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */; };
+		3DBC486A2BE140A9004E2A51 /* MembershipServiceError+Localisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBC48692BE140A9004E2A51 /* MembershipServiceError+Localisation.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */; };
 		3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F260266018B000B115B9 /* StandardButton.swift */; };
@@ -3090,6 +3091,7 @@
 		3DB9351D2BC4574C0004113B /* MembershipTierViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierViewModel.swift; sourceTree = "<group>"; };
 		3DB980FF274E86AA00ECC882 /* Array+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Emoji.swift"; sourceTree = "<group>"; };
 		3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Clamped.swift"; sourceTree = "<group>"; };
+		3DBC48692BE140A9004E2A51 /* MembershipServiceError+Localisation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipServiceError+Localisation.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventsListener.swift; sourceTree = "<group>"; };
 		3DC9F260266018B000B115B9 /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardButton.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/Buttons/StandardButton.swift; sourceTree = SOURCE_ROOT; };
@@ -4883,6 +4885,7 @@
 				2A64B6BA2B3DD54D000316E2 /* ObjectActionsServiceError+Localization.swift */,
 				2AC434AF2B7A20EF006166BF /* Participant+Extensions.swift */,
 				2A590EC72BB16790009D0A7C /* String+Name.swift */,
+				3DBC48692BE140A9004E2A51 /* MembershipServiceError+Localisation.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -12035,6 +12038,7 @@
 				C9D5F7BF281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift in Sources */,
 				03D1516623FB446A004027CE /* MiddlewareConfigurationProvider.swift in Sources */,
 				2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */,
+				3DBC486A2BE140A9004E2A51 /* MembershipServiceError+Localisation.swift in Sources */,
 				3D30408C27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift in Sources */,
 				2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */,
 				2A536E622BAB152D00CF2FF3 /* SpaceCancelRequestAlertModel.swift in Sources */,

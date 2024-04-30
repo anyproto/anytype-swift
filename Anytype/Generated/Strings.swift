@@ -998,6 +998,10 @@ internal enum Loc {
       }
     }
   }
+  internal enum MembershipServiceError {
+    internal static let forcefullyFailedValidation = Loc.tr("Localizable", "MembershipServiceError.forcefullyFailedValidation")
+    internal static let tierNotFound = Loc.tr("Localizable", "MembershipServiceError.tierNotFound")
+  }
   internal enum Mention {
     internal enum Subtitle {
       internal static let placeholder = Loc.tr("Localizable", "Mention.Subtitle.Placeholder")

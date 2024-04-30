@@ -13,8 +13,21 @@ enum StoreKitServiceError: String, LocalizedError {
     }
 }
 
+public struct StoreKitPurchaseSuccess {
+    let middlewareValidationError: Error?
+    
+    static let noError = StoreKitPurchaseSuccess(middlewareValidationError: nil)
+    static func withError(_ error: Error) -> StoreKitPurchaseSuccess {
+        StoreKitPurchaseSuccess(middlewareValidationError: error)
+    }
+    
+    func throwErrorIfNeeded() throws {
+        try middlewareValidationError.flatMap { throw $0 }
+    }
+}
+
 public protocol StoreKitServiceProtocol {
-    func purchase(product: Product, billingId: String) async throws
+    func purchase(product: Product, billingId: String) async throws -> StoreKitPurchaseSuccess
     func isPurchased(product: Product) async throws -> Bool
     
     func startListenForTransactions()
@@ -60,7 +73,7 @@ final class StoreKitService: StoreKitServiceProtocol {
         return transaction.revocationDate.isNil  
     }
     
-    func purchase(product: Product, billingId: String) async throws {
+    func purchase(product: Product, billingId: String) async throws -> StoreKitPurchaseSuccess {
         let result = try await product.purchase(options: [
             .custom(key: "AnytypeId", value: accountManager.account.id),
             .custom(key: "BillingId", value: billingId)
@@ -70,13 +83,20 @@ final class StoreKitService: StoreKitServiceProtocol {
         case .success(let verificationResult):
             let transaction = try checkVerified(verificationResult)
 
-            try await membershipService.verifyReceipt(billingId: billingId, receipt: verificationResult.jwsRepresentation)
+            do {
+                try await membershipService.verifyReceipt(billingId: billingId, receipt: verificationResult.jwsRepresentation)
+            } catch let error {
+                // purchase successfull and verified, but still need validation from middleware
+                // it will happen in startListenForTransactions asynchronously
+                return .withError(error)
+            }
             
             await transaction.finish()
+            return .noError
         case .userCancelled:
             throw StoreKitServiceError.userCancelled
         case .pending:
-            break // TODO support pending state
+            fatalError() // TODO support pending state
         @unknown default:
             anytypeAssertionFailure("Unsupported purchase result \(result)")
             fatalError()

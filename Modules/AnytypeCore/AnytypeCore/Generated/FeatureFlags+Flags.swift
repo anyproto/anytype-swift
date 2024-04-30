@@ -82,6 +82,10 @@ public extension FeatureFlags {
         value(for: .membershipTestTiers)
     }
 
+    static var failReceiptValidation: Bool {
+        value(for: .failReceiptValidation)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -102,6 +106,7 @@ public extension FeatureFlags {
         .showAllTips,
         .sharingExtensionShowContentTypes,
         .homeTestSwipeGeature,
-        .membershipTestTiers
+        .membershipTestTiers,
+        .failReceiptValidation
     ]
 }
