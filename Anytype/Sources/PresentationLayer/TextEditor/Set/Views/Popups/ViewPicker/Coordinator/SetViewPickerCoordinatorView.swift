@@ -9,7 +9,7 @@ struct SetViewPickerCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.setSettingsData) { data in
-            model.setSettingsView(data: data)
+            SetViewSettingsCoordinatorView(data: data)
                 .mediumPresentationDetents()
                 .background(Color.Background.secondary)
         }

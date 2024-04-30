@@ -10,7 +10,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
-    func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol
     func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol
     func editor() -> EditorCoordinatorAssemblyProtocol
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol

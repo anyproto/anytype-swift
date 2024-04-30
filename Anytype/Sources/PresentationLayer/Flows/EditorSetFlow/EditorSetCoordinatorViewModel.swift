@@ -14,7 +14,6 @@ final class EditorSetCoordinatorViewModel:
     private let data: EditorSetObject
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
-    private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
@@ -29,7 +28,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var dismiss = false
     
     @Published var setViewPickerData: SetViewData?
-    @Published var setViewSettingsData: SetViewData?
+    @Published var setViewSettingsData: SetSettingsData?
     @Published var setQueryData: SetQueryData?
     @Published var relationValueData: RelationValueData?
     @Published var covertPickerData: ObjectCoverPickerData?
@@ -40,7 +39,6 @@ final class EditorSetCoordinatorViewModel:
         data: EditorSetObject,
         editorSetAssembly: EditorSetModuleAssemblyProtocol,
         setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
-        setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
@@ -53,7 +51,6 @@ final class EditorSetCoordinatorViewModel:
         self.data = data
         self.editorSetAssembly = editorSetAssembly
         self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
-        self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
@@ -101,20 +98,11 @@ final class EditorSetCoordinatorViewModel:
     // MARK: - EditorSetModuleOutput - SetViewSettings
     
     func showSetViewSettings(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        setViewSettingsData = SetViewData(
-            document: document,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-    }
-    
-    func setViewSettings(data: SetViewData) -> AnyView {
-        setViewSettingsCoordinatorAssembly.make(
-            with: SetSettingsData(
-                setDocument: data.document,
-                viewId: data.document.activeView.id, 
-                subscriptionDetailsStorage: data.subscriptionDetailsStorage,
-                mode: .edit
-            )
+        setViewSettingsData = SetSettingsData(
+            setDocument: document,
+            viewId: document.activeView.id,
+            subscriptionDetailsStorage: subscriptionDetailsStorage,
+            mode: .edit
         )
     }
     

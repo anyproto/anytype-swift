@@ -1092,7 +1092,6 @@
 		2ED9F43D2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */; };
 		2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */; };
 		2ED9F4432A8F94D400BE0A6B /* SetViewSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */; };
-		2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */; };
 		2EDC2AFB2A125BD60065E009 /* JoinFlowOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */; };
 		2EDC2AFD2A125C6A0065E009 /* JoinFlowStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */; };
 		2EDC2B042A13E4AE0065E009 /* KeyPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EDC2B032A13E4AE0065E009 /* KeyPhraseView.swift */; };
@@ -2865,7 +2864,6 @@
 		2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorView.swift; sourceTree = "<group>"; };
 		2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2ED9F4422A8F94D400BE0A6B /* SetViewSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettings.swift; sourceTree = "<group>"; };
-		2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2EDC2AFA2A125BD60065E009 /* JoinFlowOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowOutput.swift; sourceTree = "<group>"; };
 		2EDC2AFC2A125C6A0065E009 /* JoinFlowStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinFlowStep.swift; sourceTree = "<group>"; };
 		2EDC2B032A13E4AE0065E009 /* KeyPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPhraseView.swift; sourceTree = "<group>"; };
@@ -7776,7 +7774,6 @@
 			children = (
 				2ED9F43C2A8E90A800BE0A6B /* SetViewSettingsCoordinatorView.swift */,
 				2ED9F43E2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift */,
-				2ED9F4462A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift */,
 				2E1AA8032BD7FDEB0089B136 /* SetSettingsData.swift */,
 			);
 			path = SetViewSettingsCoordinatorView;
@@ -11791,7 +11788,6 @@
 				2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */,
 				2EC7FBA12A60238400491F99 /* BlockRestrictions+MarkupType.swift in Sources */,
 				1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */,
-				2ED9F4472A8FBC6400BE0A6B /* SetViewSettingsCoordinatorAssembly.swift in Sources */,
 				2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */,
 				3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,

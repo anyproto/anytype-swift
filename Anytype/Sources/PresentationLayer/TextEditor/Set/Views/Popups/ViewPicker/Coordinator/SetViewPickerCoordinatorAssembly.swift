@@ -30,7 +30,6 @@ final class SetViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyPr
         return SetViewPickerCoordinatorView(
             model: SetViewPickerCoordinatorViewModel(
                 setDocument: setDocument,
-                setViewSettingsCoordinatorAssembly: self.coordinatorsDI.setViewSettings(),
                 subscriptionDetailsStorage: subscriptionDetailsStorage
             )
         ).eraseToAnyView()
