@@ -22,7 +22,7 @@ struct EditorSetCoordinatorView: View {
                 model.relationValueCoordinator(data: data)
             }
             .anytypeSheet(item: $model.setViewPickerData) { data in
-                model.setViewPicker(data: data)
+                SetViewPickerCoordinatorView(data: data)
             }
             .anytypeSheet(item: $model.setViewSettingsData) { data in
                 SetViewSettingsCoordinatorView(data: data)
