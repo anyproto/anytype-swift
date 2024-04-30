@@ -57,7 +57,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func updatePasteButton() {
         withAnimation {
-            showPasteButton = settings.allowPaste && pasteboardHelper.hasSlots
+            showPasteButton = settings.allowPaste && !pasteboardHelper.isPasteboardEmpty
         }
     }
     
