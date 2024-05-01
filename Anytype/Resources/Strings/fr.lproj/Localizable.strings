@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "N° de téléphone";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Presse-papier";
@@ -1124,6 +1126,9 @@
 "Membership.Feature.UnlimitedViewers" = "Nombre illimité de lecteurs pour les espaces partagés";
 "Membership.Feature.Viewers" = "%@ Lecteurs pour les espaces partagés";
 "Membership.Feature.SharedSpaces" = "Jusqu'à %@ Espaces partagés";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";
