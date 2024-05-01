@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "电子邮件";
 "Relation.Format.Phone.Title" = "电话号码";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "剪贴板";
@@ -1128,6 +1130,9 @@
 "Membership.Feature.UnlimitedViewers" = "共享空间拥有无限的查看者";
 "Membership.Feature.Viewers" = "共享空间有 %@ 个查看者";
 "Membership.Feature.SharedSpaces" = "最多 %@ 个共享空间";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";

@@ -82,7 +82,7 @@
 "Relation.Create.Row.title" = "Create “%@”";
 "Relation.View.Create.title" = "Create option";
 "Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Create.Textfield.placeholder" = "İsim girin...";
 "Relation.Edit.Button.title" = "Uygula";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
 "Relation.ObjectTypes.Header.title" = "Object types:";
@@ -103,6 +103,8 @@
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "E-Posta";
 "Relation.Format.Phone.Title" = "Telefon numarası";
+
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
 
 // Origin Relation
 
@@ -141,10 +143,10 @@
 "Actions" = "Eylemler";
 "Relations" = "Bağıntılar";
 "Objects" = "Nesneler";
-"Lists" = "Lists";
-"Pinned" = "Pinned";
+"Lists" = "Listeler";
+"Pinned" = "Sabitlendi";
 "Delete" = "Sil";
-"Export" = "Export";
+"Export" = "Dışa Aktar";
 "Duplicate" = "Çoğalt";
 "Copy" = "Kopyala";
 "Preview" = "Önizleme";
@@ -153,8 +155,8 @@
 "Move" = "Taşı";
 "Move to" = "Şuraya taşı";
 "Back" = "Geri";
-"Unpin" = "Unpin";
-"Pin on top" = "Pin on top";
+"Unpin" = "Sabitlemeyi kaldır";
+"Pin on top" = "Başa sabitle";
 "File block subtitle" = "Dosyayı orijinal halinde sakla";
 "Picture block subtitle" = "Resim yükle ve sayfayı zenginleştir";
 "Video block subtitle" = "Oynatılabilir video yükle";
@@ -205,8 +207,8 @@
 "Restore" = "Geri Yükle";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key" = "Kurtarma anahtarı";
+"Keychain.Key.Copy.Toast.title" = "Kurtarma anahtarı kopyalandı";
 "Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
 "Keychain.Show and copy key" = "Show and copy key";
 "Keychain.Have you backed up your key?" = "Have you backed up your key?";
@@ -1061,7 +1063,7 @@
 "Min X characters" = "Min %@ characters";
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
-"This name is not availabe" = "This name is not availabe";
+"This name is not availabe" = "Bu isim uygun değil";
 "Purchase cancelled" = "Purchase cancelled";
 
 
@@ -1125,6 +1127,9 @@
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

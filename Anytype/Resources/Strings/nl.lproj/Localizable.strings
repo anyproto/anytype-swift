@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "E-mailadres";
 "Relation.Format.Phone.Title" = "Telefoonnummer";
 
+"Relation.Search.View.Placeholder" = "Zoek of maak een nieuwe relatie aan";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Klembord";
@@ -1125,6 +1127,9 @@
 "Membership.Feature.UnlimitedViewers" = "Onbeperkt aantal Lezers voor gedeelde ruimten";
 "Membership.Feature.Viewers" = "%@ Lezers voor gedeelde ruimten";
 "Membership.Feature.SharedSpaces" = "Tot %@ Gedeelde ruimten";
+
+"MembershipServiceError.tierNotFound" = "Abonnementsgegevens niet gevonden, herstart app en probeer het opnieuw";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS AAN 🫵🐭. Schakel uit in Debug instellingen";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";

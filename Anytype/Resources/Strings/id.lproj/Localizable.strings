@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "Surel";
 "Relation.Format.Phone.Title" = "Nomor telepon";
 
+"Relation.Search.View.Placeholder" = "Telusuri atau buat relasi baru";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Papan kerani";
@@ -1124,6 +1126,9 @@
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Jenis MIME - %@";
