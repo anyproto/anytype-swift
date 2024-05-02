@@ -14,18 +14,15 @@ final class RelationsListCoordinatorViewModel:
     @Published var toastBarData: ToastBarData = .empty
     
     let document: BaseDocumentProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     private weak var output: RelationValueCoordinatorOutput?
 
     init(
         document: BaseDocumentProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol,
         output: RelationValueCoordinatorOutput?
     ) {
         self.document = document
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.relationValueProcessingService = relationValueProcessingService
         self.output = output
     }
@@ -58,14 +55,14 @@ final class RelationsListCoordinatorViewModel:
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-        relationValueCoordinatorAssembly.make(
-            relation: data.relation,
-            objectDetails: data.objectDetails,
-            analyticsType: .menu,
-            output: self
-        )
-    }
+//    func relationValueCoordinator(data: RelationValueData) -> AnyView {
+//        relationValueCoordinatorAssembly.make(
+//            relation: data.relation,
+//            objectDetails: data.objectDetails,
+//            analyticsType: .menu,
+//            output: self
+//        )
+//    }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
         relationValueData = relationValueProcessingService.handleRelationValue(

@@ -878,7 +878,6 @@
 		2E0B0D672B753B2A00ECC37F /* WalletRecoveryError+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0B0D662B753B2A00ECC37F /* WalletRecoveryError+Localize.swift */; };
 		2E0C65B62B9786FF00D33F5F /* RelationValueCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65B52B9786FF00D33F5F /* RelationValueCoordinatorView.swift */; };
 		2E0C65B82B97870D00D33F5F /* RelationValueCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65B72B97870D00D33F5F /* RelationValueCoordinatorViewModel.swift */; };
-		2E0C65BA2B97871C00D33F5F /* RelationValueCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65B92B97871C00D33F5F /* RelationValueCoordinatorAssembly.swift */; };
 		2E0C65BE2B9798D800D33F5F /* RelationValueProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65BD2B9798D800D33F5F /* RelationValueProcessingService.swift */; };
 		2E0C65C12B97A2F300D33F5F /* RelationsListCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65C02B97A2F300D33F5F /* RelationsListCoordinatorViewModel.swift */; };
 		2E0C65C32B97A2FB00D33F5F /* RelationsListCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0C65C22B97A2FB00D33F5F /* RelationsListCoordinatorView.swift */; };
@@ -2643,7 +2642,6 @@
 		2E0B0D662B753B2A00ECC37F /* WalletRecoveryError+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WalletRecoveryError+Localize.swift"; sourceTree = "<group>"; };
 		2E0C65B52B9786FF00D33F5F /* RelationValueCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorView.swift; sourceTree = "<group>"; };
 		2E0C65B72B97870D00D33F5F /* RelationValueCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2E0C65B92B97871C00D33F5F /* RelationValueCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2E0C65BD2B9798D800D33F5F /* RelationValueProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueProcessingService.swift; sourceTree = "<group>"; };
 		2E0C65C02B97A2F300D33F5F /* RelationsListCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E0C65C22B97A2FB00D33F5F /* RelationsListCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListCoordinatorView.swift; sourceTree = "<group>"; };
@@ -7085,7 +7083,6 @@
 			children = (
 				2E0C65B52B9786FF00D33F5F /* RelationValueCoordinatorView.swift */,
 				2E0C65B72B97870D00D33F5F /* RelationValueCoordinatorViewModel.swift */,
-				2E0C65B92B97871C00D33F5F /* RelationValueCoordinatorAssembly.swift */,
 				2E0C65BD2B9798D800D33F5F /* RelationValueProcessingService.swift */,
 			);
 			path = RelationValueCoordinator;
@@ -11437,7 +11434,6 @@
 				2E3E0DDE29F1F437009F68D8 /* View+KeyboardToolbar.swift in Sources */,
 				2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */,
 				2A29FD2F2A701BDD007A8549 /* ActiveWorkspaceStorage.swift in Sources */,
-				2E0C65BA2B97871C00D33F5F /* RelationValueCoordinatorAssembly.swift in Sources */,
 				12A4793527C38E6C00E62795 /* AnytypePopupLayout.swift in Sources */,
 				53FF7CB826FCDB4B00A5A592 /* ObjectActionsView.swift in Sources */,
 				2AFCEB3F29C8A76900841E13 /* WidgetObjectListCollectionsViewModel.swift in Sources */,

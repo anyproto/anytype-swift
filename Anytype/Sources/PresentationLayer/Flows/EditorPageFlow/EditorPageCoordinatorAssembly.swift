@@ -41,8 +41,7 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
                 data: data,
                 showHeader: showHeader,
                 setupEditorInput: setupEditorInput,
-                editorPageAssembly: self.coordinatorsID.editorPageModule(), 
-                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
+                editorPageAssembly: self.coordinatorsID.editorPageModule(),
                 relationValueProcessingService: self.serviceLocator.relationValueProcessingService()
             )
         ).eraseToAnyView()

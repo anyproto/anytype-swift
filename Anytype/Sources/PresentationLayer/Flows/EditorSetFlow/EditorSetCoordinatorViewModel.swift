@@ -22,7 +22,6 @@ final class EditorSetCoordinatorViewModel:
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     private let toastPresenter: ToastPresenterProtocol
@@ -45,7 +44,6 @@ final class EditorSetCoordinatorViewModel:
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         navigationContext: NavigationContextProtocol
@@ -55,7 +53,6 @@ final class EditorSetCoordinatorViewModel:
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.relationValueProcessingService = relationValueProcessingService
         self.toastPresenter = toastPresenter
         self.navigationContext = navigationContext
@@ -178,14 +175,14 @@ final class EditorSetCoordinatorViewModel:
         )
     }
     
-    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-        relationValueCoordinatorAssembly.make(
-            relation: data.relation,
-            objectDetails: data.objectDetails,
-            analyticsType: .dataview, 
-            output: self
-        )
-    }
+//    func relationValueCoordinator(data: RelationValueData) -> AnyView {
+//        relationValueCoordinatorAssembly.make(
+//            relation: data.relation,
+//            objectDetails: data.objectDetails,
+//            analyticsType: .dataview, 
+//            output: self
+//        )
+//    }
     
     func showSetObjectCreationSettings(
         document: SetDocumentProtocol,

@@ -35,7 +35,8 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
         case .status, .tag, .object, .date, .file, .text, .number, .url, .email, .phone:
             return RelationValueData(
                 relation: relation,
-                objectDetails: objectDetails
+                objectDetails: objectDetails, 
+                analyticsType: analyticsType
             )
         case .checkbox(let checkbox):
             guard relation.isEditable else { return nil }
@@ -60,6 +61,7 @@ struct RelationValueData: Identifiable {
     let id = UUID()
     let relation: Relation
     let objectDetails: ObjectDetails
+    let analyticsType: AnalyticsEventsRelationType
 }
 
 extension Container {

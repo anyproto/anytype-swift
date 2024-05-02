@@ -20,23 +20,16 @@ final class RelationValueCoordinatorViewModel:
     
     private let relation: Relation
     private let objectDetails: ObjectDetails
-    private let urlOpener: URLOpenerProtocol
     private let analyticsType: AnalyticsEventsRelationType
     private weak var output: RelationValueCoordinatorOutput?
 
     @Published var toastBarData: ToastBarData = .empty
+    @Published var safariUrl: URL?
     
-    init(
-        relation: Relation,
-        objectDetails: ObjectDetails,
-        urlOpener: URLOpenerProtocol,
-        analyticsType: AnalyticsEventsRelationType,
-        output: RelationValueCoordinatorOutput?
-    ) {
-        self.relation = relation
-        self.objectDetails = objectDetails
-        self.urlOpener = urlOpener
-        self.analyticsType = analyticsType
+    init(data: RelationValueData, output: RelationValueCoordinatorOutput?) {
+        self.relation = data.relation
+        self.objectDetails = data.objectDetails
+        self.analyticsType = data.analyticsType
         self.output = output
     }
     
@@ -232,11 +225,11 @@ final class RelationValueCoordinatorViewModel:
     // MARK: - TextRelationActionButtonViewModelDelegate
     
     func canOpenUrl(_ url: URL) -> Bool {
-        urlOpener.canOpenUrl(url)
+        UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
     }
     
     func openUrl(_ url: URL) {
-        urlOpener.openUrl(url)
+        safariUrl = url
     }
     
     func showActionSuccessMessage(_ text: String) {

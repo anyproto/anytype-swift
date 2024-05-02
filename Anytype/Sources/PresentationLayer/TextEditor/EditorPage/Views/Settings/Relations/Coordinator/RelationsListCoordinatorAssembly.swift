@@ -30,7 +30,6 @@ final class RelationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyPr
         RelationsListCoordinatorView(
             model: RelationsListCoordinatorViewModel(
                 document: document,
-                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
                 relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
                 output: output
             )

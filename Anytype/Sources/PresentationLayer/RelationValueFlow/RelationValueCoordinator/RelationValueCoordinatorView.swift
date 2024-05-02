@@ -3,7 +3,11 @@ import SwiftUI
 
 struct RelationValueCoordinatorView: View {
     
-    @StateObject var model: RelationValueCoordinatorViewModel
+    @StateObject private var model: RelationValueCoordinatorViewModel
+    
+    init(data: RelationValueData, output: RelationValueCoordinatorOutput?) {
+        _model = StateObject(wrappedValue: RelationValueCoordinatorViewModel(data: data, output: output))
+    }
     
     var body: some View {
         content
@@ -11,6 +15,7 @@ struct RelationValueCoordinatorView: View {
                 $0.mediumPresentationDetents()
             }
             .snackbar(toastBarData: $model.toastBarData)
+            .safariSheet(url: $model.safariUrl)
     }
     
     private var content: some View {

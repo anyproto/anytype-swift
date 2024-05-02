@@ -10,8 +10,8 @@ struct RelationsListCoordinatorView: View {
             document: model.document,
             output: model
         )
-        .sheet(item: $model.relationValueData) {
-            model.relationValueCoordinator(data: $0)
+        .sheet(item: $model.relationValueData) { data in
+            RelationValueCoordinatorView(data: data, output: model)
         }
         .sheet(item: $model.relationsSearchData) {
             RelationsSearchCoordinatorView(data: $0)
