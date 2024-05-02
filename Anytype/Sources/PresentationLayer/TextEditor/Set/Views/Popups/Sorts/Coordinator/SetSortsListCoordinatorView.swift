@@ -1,7 +1,11 @@
 import SwiftUI
 
 struct SetSortsListCoordinatorView: View {
-    @StateObject var model: SetSortsListCoordinatorViewModel
+    @StateObject private var model: SetSortsListCoordinatorViewModel
+    
+    init(setDocument: SetDocumentProtocol, viewId: String) {
+        _model = StateObject(wrappedValue: SetSortsListCoordinatorViewModel(setDocument: setDocument, viewId: viewId))
+    }
     
     var body: some View {
         SetSortsListView(
@@ -10,7 +14,7 @@ struct SetSortsListCoordinatorView: View {
             output: model
         )
         .sheet(item: $model.sortsSearchData) { data in
-            model.setSortsSearch(data: data)
+            SetRelationsDetailsLocalSearchView(data: data)
         }
         .sheet(item: $model.sortTypesData) { data in
             CheckPopupView(viewModel: SetSortTypesListViewModel(data: data))

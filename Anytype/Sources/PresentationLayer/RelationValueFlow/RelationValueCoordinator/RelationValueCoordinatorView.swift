@@ -10,6 +10,7 @@ struct RelationValueCoordinatorView: View {
             .if(model.mediumDetent) {
                 $0.mediumPresentationDetents()
             }
+            .snackbar(toastBarData: $model.toastBarData)
     }
     
     private var content: some View {

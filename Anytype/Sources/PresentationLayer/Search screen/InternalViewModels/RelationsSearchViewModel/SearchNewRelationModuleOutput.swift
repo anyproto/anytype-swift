@@ -1,6 +1,7 @@
 import Foundation
 import Services
 
+@MainActor
 protocol RelationSearchModuleOutput: AnyObject {
     
     func didAddRelation(_ relationDetails: RelationDetails)

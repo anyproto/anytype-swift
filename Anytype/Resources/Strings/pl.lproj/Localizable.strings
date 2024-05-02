@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "Adres mailowy";
 "Relation.Format.Phone.Title" = "Numer telefonu";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Schowek";
@@ -242,7 +244,7 @@
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Dalej";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Pomiń";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Skopiuj do schowka";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Zobacz więcej";
@@ -261,11 +263,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Bez nazwy";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Użyj pęku kluczy";
 "Auth.LoginFlow.Or" = "LUB";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Wejście w pustkę";
 
 // Object settings
@@ -361,6 +367,7 @@
 
 "TemplateEditing.Title" = "Edytuj szablon";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Nowy szablon został dodany do typu";
 "Templates.Popup.Duplicated" = "Szablon został zduplikowany";
 "Templates.Popup.Removed" = "Szablon został usunięty";
@@ -1055,6 +1062,8 @@
 "Min X characters" = "Minimalna liczba znaków %@";
 "Pending" = "Oczekujące...";
 "Manage payment" = "Manage payment";
+"This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Członkostwo";
@@ -1094,11 +1103,6 @@
 "Membership.NameForm.Validating" = "Zaraz, zaraz...";
 "Membership.NameForm.Validated" = "Ta nazwa jest do zgarnięcia";
 
-"Membership.NameForm.Error.TooShort" = "Za krotka nazwa";
-"Membership.NameForm.Error.TooLong" = "Imię jest zbyt długie";
-"Membership.NameForm.Error.HasInvalidChars" = "Nazwa użytkownika zawiera nieprawidłowe znaki";
-
-
 "Membership.Success.Title" = "Witaj w sieci, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";
 "Membership.Success.Support" = "Wielkie dzięki za Twoje wsparcie!";
@@ -1122,6 +1126,9 @@
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";

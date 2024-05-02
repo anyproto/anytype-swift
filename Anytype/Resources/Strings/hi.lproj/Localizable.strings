@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Phone number";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";
@@ -242,7 +244,7 @@
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Next";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
@@ -261,11 +263,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "अशीर्षित";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
 "Auth.LoginFlow.Or" = "OR";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "शून्य में प्रवेश करना";
 
 // Object settings
@@ -361,6 +367,7 @@
 
 "TemplateEditing.Title" = "Edit template";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "New template was added to the type";
 "Templates.Popup.Duplicated" = "The template was duplicated";
 "Templates.Popup.Removed" = "The template was removed";
@@ -1055,6 +1062,8 @@
 "Min X characters" = "Min %@ characters";
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
+"This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Membership";
@@ -1094,11 +1103,6 @@
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "This name is up for grabs";
 
-"Membership.NameForm.Error.TooShort" = "Name is too short";
-"Membership.NameForm.Error.TooLong" = "Name is too long";
-"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
-
-
 "Membership.Success.Title" = "Welcome to the network, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";
 "Membership.Success.Support" = "Big cheers for your support!";
@@ -1122,6 +1126,9 @@
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

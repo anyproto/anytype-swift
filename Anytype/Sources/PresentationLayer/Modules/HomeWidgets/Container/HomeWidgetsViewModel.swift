@@ -10,15 +10,23 @@ final class HomeWidgetsViewModel: ObservableObject {
     // MARK: - DI
     
     private let info: AccountInfo
-    private let widgetObject: BaseDocumentProtocol
     private let registry: HomeWidgetsRegistryProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
-    private let stateManager: HomeWidgetsStateManagerProtocol
-    private let objectActionService: ObjectActionsServiceProtocol
+    private lazy var widgetObject = documentService.document(objectId: info.widgetsId)
+    
+    @Injected(\.blockWidgetService)
+    private var blockWidgetService: BlockWidgetServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: ObjectActionsServiceProtocol
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: AccountParticipantsStorageProtocol
+    
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
-    private let documentService: OpenedDocumentsProviderProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let accountParticipantStorage: AccountParticipantsStorageProtocol
+    private let stateManager: HomeWidgetsStateManagerProtocol
+    
     private weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
@@ -33,25 +41,14 @@ final class HomeWidgetsViewModel: ObservableObject {
     init(
         info: AccountInfo,
         registry: HomeWidgetsRegistryProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
-        objectActionService: ObjectActionsServiceProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: OpenedDocumentsProviderProtocol,
-        accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.info = info
-        self.widgetObject = documentService.document(objectId: info.widgetsId)
         self.registry = registry
-        self.blockWidgetService = blockWidgetService
         self.stateManager = stateManager
-        self.objectActionService = objectActionService
         self.recentStateManagerProtocol = recentStateManagerProtocol
-        self.documentService = documentService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.accountParticipantStorage = accountParticipantStorage
         self.output = output
         subscribeOnWallpaper()
         setupInitialState()

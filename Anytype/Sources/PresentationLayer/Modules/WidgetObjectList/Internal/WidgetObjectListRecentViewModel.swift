@@ -10,8 +10,11 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     // MARK: - DI
     
     private let type: RecentWidgetType
-    private let recentSubscriptionService: RecentSubscriptionServiceProtocol
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
+    
+    @Injected(\.recentSubscriptionService)
+    private var recentSubscriptionService: RecentSubscriptionServiceProtocol
+    
     
     // MARK: - State
     
@@ -23,9 +26,8 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     private var details: [ObjectDetails] = []
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init(type: RecentWidgetType, recentSubscriptionService: RecentSubscriptionServiceProtocol) {
+    init(type: RecentWidgetType) {
         self.type = type
-        self.recentSubscriptionService = recentSubscriptionService
     }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol

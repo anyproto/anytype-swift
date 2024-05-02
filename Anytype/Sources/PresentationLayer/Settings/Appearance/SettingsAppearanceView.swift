@@ -3,7 +3,13 @@ import AnytypeCore
 
 struct SettingsAppearanceView: View {
     
-    @ObservedObject var model: SettingsAppearanceViewModel
+    @StateObject var model: SettingsAppearanceViewModel
+    
+    @Environment(\.appInterfaceStyle) private var appInterfaceStyle
+    
+    init() {
+        _model = StateObject(wrappedValue: SettingsAppearanceViewModel())
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,6 +29,7 @@ struct SettingsAppearanceView: View {
         
         .onAppear {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.appearanceSettingsShow)
+            model.setAppInterfaceStyle(appInterfaceStyle)
         }
     }
     
@@ -113,9 +120,7 @@ struct SettingsAppearanceView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.System.blue
-            SettingsAppearanceView(model: SettingsAppearanceViewModel(
-                viewControllerProvider: DI.preview.uihelpersDI.viewControllerProvider()
-            ))
+            SettingsAppearanceView()
         }
     }
 }

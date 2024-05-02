@@ -1,6 +1,7 @@
 import SwiftUI
 import Services
 import WrappingHStack
+import AnytypeCore
 
 
 struct ObjectTypeSearchView: View {
@@ -9,7 +10,23 @@ struct ObjectTypeSearchView: View {
     private typealias ObjectTypeData =  ObjectTypeSearchViewModel.ObjectTypeData
     
     let title: String
-    @StateObject var viewModel: ObjectTypeSearchViewModel
+    @StateObject private var viewModel: ObjectTypeSearchViewModel
+    
+    init(
+        title: String,
+        spaceId: String,
+        settings: ObjectTypeSearchViewSettings,
+        onSelect: @escaping (TypeSelectionResult) -> Void
+    ) {
+        self.title = title
+        _viewModel = StateObject(
+            wrappedValue: ObjectTypeSearchViewModel(
+                spaceId: spaceId,
+                settings: settings,
+                onSelect: onSelect
+            )
+        )
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -19,6 +36,7 @@ struct ObjectTypeSearchView: View {
             content
             pasteButton
         }
+        .snackbar(toastBarData: $viewModel.toastData)
         .background(Color.Background.secondary)
         
         .onChange(of: viewModel.searchText) { viewModel.search(text: $0) }
@@ -130,12 +148,12 @@ struct ObjectTypeSearchView: View {
     }
     
     private func shouldHighlightType(_ type: ObjectTypeData) -> Bool {
-        type.isDefault && viewModel.showPins
+        type.isDefault && viewModel.settings.showPins
     }
     
     @ViewBuilder
     private func contextMenu(section: SectionType, data: ObjectTypeData) -> some View {
-        if viewModel.showPins {
+        if viewModel.settings.showPins {
             if section == .pins {
                 Button(Loc.unpin) {
                     viewModel.removePinedType(data.type)
@@ -155,6 +173,24 @@ struct ObjectTypeSearchView: View {
         if !data.type.readonly {
             Button(Loc.delete, role: .destructive) {
                 viewModel.deleteType(data.type)
+            }
+        }
+    }
+}
+
+extension ObjectTypeSearchView {
+    init(
+        title: String,
+        spaceId: String,
+        settings: ObjectTypeSearchViewSettings,
+        onSelect: @escaping (_ type: ObjectType) -> Void
+    ) {
+        self.init(title: title, spaceId: spaceId, settings: settings) { result in
+            switch result {
+            case .objectType(let type):
+                onSelect(type)
+            case .createFromPasteboard:
+                anytypeAssertionFailure("Unsupported action createFromPasteboard")
             }
         }
     }

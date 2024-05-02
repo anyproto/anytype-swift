@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "E-Mail";
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Zwischenablage";
@@ -207,7 +209,7 @@
 // Keychain screen
 "Keychain.Key" = "Schlüssel";
 "Keychain.Key.Copy.Toast.title" = "Schlüssel kopiert";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Key.description" = "Du brauchst ihn um deinen Tresor zu öffnen. Bewahre ihn an einem sicheren Ort. Wenn du ihn verlierst, kannst du deinen Tresor nicht mehr öffnen.";
 "Keychain.Show and copy key" = "Schlüssel anzeigen und kopieren";
 "Keychain.Have you backed up your key?" = "Hast du deinen Schlüssel gesichert?";
 "Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
@@ -221,7 +223,7 @@
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
 "Restore key from keychain" = "Schlüssel aus dem Schlüsselbund wiederherstellen";
 "Auth.LogIn" = "Ich habe einen Schlüssel";
-"Auth.Button.Join" = "New Vault";
+"Auth.Button.Join" = "Neuer Tresor";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
@@ -242,7 +244,7 @@
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Meinen Schlüssel anzeigen";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Meinen Tresor betreten";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Weiter";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
@@ -256,16 +258,20 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Am einfachsten ist es, deinen Schlüssel in deinem Passwort-Manager zu speichern.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
+"Auth.JoinFlow.Soul.Title" = "Deinen Namen festlegen";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 "Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
+
+"Auth.JoinFlow.Vault.Title" = "Dies ist dein Tresor";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Meinen Schlüssel holen";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
 "Auth.LoginFlow.Or" = "ODER";
 "Auth.LoginFlow.Textfield.Placeholder" = "Gib deinen Schlüssel ein";
-"Auth.LoginFlow.Enter.Title" = "Meinen Tresor betreten";
+"Auth.LoginFlow.Enter.Title" = "Meinen Schlüssel holen";
 "Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
@@ -361,6 +367,7 @@
 
 "TemplateEditing.Title" = "Vorlage bearbeiten";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Neue Vorlage wurde zum Typ hinzugefügt";
 "Templates.Popup.Duplicated" = "Die Vorlage wurde Dupliziert";
 "Templates.Popup.Removed" = "Die Vorlage wurde entfernt";
@@ -886,7 +893,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Mehr Informationen";
 
 "SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Mitglieder";
@@ -1056,6 +1063,8 @@
 "Min X characters" = "Min. %@ Zeichen";
 "Pending" = "Ausstehend...";
 "Manage payment" = "Zahlung verwalten";
+"This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Mitgliedschaft";
@@ -1095,11 +1104,6 @@
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
 
-"Membership.NameForm.Error.TooShort" = "Name ist zu kurz";
-"Membership.NameForm.Error.TooLong" = "Name ist zu lang";
-"Membership.NameForm.Error.HasInvalidChars" = "Name enthält ungültige Zeichen";
-
-
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";
 "Membership.Success.Curiosity" = "Ein Hoch auf deine Neugierde!";
 "Membership.Success.Support" = "Ein Hoch auf deine Unterstützung!";
@@ -1123,6 +1127,9 @@
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-Typen - %@";

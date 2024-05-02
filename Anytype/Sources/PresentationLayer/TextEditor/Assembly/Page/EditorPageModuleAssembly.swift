@@ -78,16 +78,11 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             viewController: controller,
             navigationContext: navigationContext,
             document: document,
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
             urlOpener: uiHelpersDI.urlOpener(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
             objectSettingCoordinatorAssembly: coordinatorsDI.objectSettings(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
-            textIconPickerModuleAssembly: modulesDI.textIconPicker(),
             templateService: serviceLocator.templatesService,
             output: output
         )

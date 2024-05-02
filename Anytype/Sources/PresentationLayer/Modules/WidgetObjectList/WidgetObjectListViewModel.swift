@@ -16,12 +16,16 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     // MARK: - DI
     
     private let internalModel: WidgetObjectListInternalViewModelProtocol
-    private let objectActionService: ObjectActionsServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let accountParticipantStorage: AccountParticipantsStorageProtocol
     private let menuBuilder: WidgetObjectListMenuBuilderProtocol
-    private let alertOpener: AlertOpenerProtocol
     private weak var output: WidgetObjectListCommonModuleOutput?
+    
+    @Injected(\.objectActionsService)
+    private var objectActionService: ObjectActionsServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: AccountParticipantsStorageProtocol
+    
     
     // MARK: - State
     
@@ -37,6 +41,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     @Published var viewEditMode: EditMode = .inactive
     @Published private(set) var canEdit = false
     @Published var binAlertData: BinConfirmationAlertData? = nil
+    @Published var forceDeleteAlertData: ForceDeleteAlertData?
     
     private var rowDetails: [WidgetObjectListDetailsData] = []
     private var searchText: String?
@@ -53,20 +58,12 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     init(
         internalModel: WidgetObjectListInternalViewModelProtocol,
-        objectActionService: ObjectActionsServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        accountParticipantStorage: AccountParticipantsStorageProtocol,
         menuBuilder: WidgetObjectListMenuBuilderProtocol,
-        alertOpener: AlertOpenerProtocol,
         output: WidgetObjectListCommonModuleOutput?,
         isSheet: Bool = false
     ) {
         self.internalModel = internalModel
-        self.objectActionService = objectActionService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.accountParticipantStorage = accountParticipantStorage
         self.menuBuilder = menuBuilder
-        self.alertOpener = alertOpener
         self.output = output
         self.isSheet = isSheet
         internalModel.rowDetailsPublisher
@@ -135,30 +132,11 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     }
     
     func forceDelete(objectIds: [String]) {
-        AnytypeAnalytics.instance().logShowDeletionWarning(route: .settings)
-        let alert = BottomAlertLegacy(
-            title: internalModel.forceDeleteTitle,
-            message: Loc.WidgetObjectList.ForceDelete.message,
-            leftButton: BottomAlertButtonLegacy(title: Loc.cancel, action: { }),
-            rightButton: BottomAlertButtonLegacy(title: Loc.delete, isDistructive: true, action: { [weak self] in
-                self?.forceDeleteConfirmed(objectIds: objectIds)
-            })
-        )
-        alertOpener.showFloatAlert(model: alert)
+        forceDeleteAlertData = ForceDeleteAlertData(objectIds: objectIds)
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
     // MARK: - Private
-    
-    private func forceDeleteConfirmed(objectIds: [String]) {
-        Task {
-            AnytypeAnalytics.instance().logMoveToBin(true)
-            try await objectActionService.setArchive(objectIds: objectIds, true)
-            AnytypeAnalytics.instance().logDeletion(count: objectIds.count, route: .settings)
-            try await objectActionService.delete(objectIds: objectIds)
-        }
-        UISelectionFeedbackGenerator().selectionChanged()
-    }
     
     private func updateRows() {
         

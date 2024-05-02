@@ -11,6 +11,9 @@ struct SpaceSwitchCoordinatorView: View {
             .sheet(isPresented: $model.showSpaceCreate) {
                 SpaceCreateView(output: model)
             }
+            .sheet(isPresented: $model.showSettings) {
+                model.settingsView()
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }

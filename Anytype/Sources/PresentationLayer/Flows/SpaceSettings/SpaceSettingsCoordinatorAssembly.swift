@@ -32,10 +32,8 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
         return SpaceSettingsCoordinatorView(
             model: SpaceSettingsCoordinatorViewModel(
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
-                objectIconPickerModuleAssembly: self.modulesDI.objectIconPicker(),
                 widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
                 activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-                objectTypeSearchModuleAssembly: self.modulesDI.objectTypeSearch(),
                 objectTypeProvider: self.serviceLocator.objectTypeProvider(),
                 urlOpener: self.uiHelpersDI.urlOpener(),
                 documentService: self.serviceLocator.documentService()

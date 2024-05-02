@@ -10,17 +10,14 @@ protocol RelationsInteractorProtocol {
 final class RelationsInteractor: RelationsInteractorProtocol {
     
     private let objectId: String
-    private let relationsService: RelationsServiceProtocol
-    private let dataviewService: DataviewServiceProtocol
     
-    init(
-        objectId: String,
-        relationsService: RelationsServiceProtocol,
-        dataviewService: DataviewServiceProtocol
-    ) {
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    
+    init(objectId: String) {
         self.objectId = objectId
-        self.relationsService = relationsService
-        self.dataviewService = dataviewService
     }
     
     func createRelation(spaceId: String, relation: RelationDetails) async throws -> RelationDetails {

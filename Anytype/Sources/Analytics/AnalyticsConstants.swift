@@ -376,7 +376,7 @@ enum ShowDeletionWarningRoute: String {
 enum ScreenOnboardingStep: String {
     case void = "Void"
     case phrase = "Phrase"
-    case soul = "Soul"
+    case offline = "Offline"
 }
 
 enum ClickOnboardingButton: String {
@@ -482,6 +482,6 @@ enum ScreenQrAnalyticsType: String {
 
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
-    case payByCard = "PayByCard"
+    case payByCard = "Stripe"
     case managePayment = "ManagePayment"
 }

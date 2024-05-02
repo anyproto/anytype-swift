@@ -10,43 +10,27 @@ protocol SetFiltersListCoordinatorOutput: AnyObject {
 @MainActor
 final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersListCoordinatorOutput {
     @Published var filtersSelectionData: FiltersSelectionData?
-    @Published var filtersSearchData: FiltersSearchData?
+    @Published var filtersSearchData: SetRelationsDetailsLocalSearchData?
     
     let data: SetFiltersListModuleData
     let subscriptionDetailsStorage: ObjectDetailsStorage
-    private let setFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinatorAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     init(
         setDocument: SetDocumentProtocol,
         viewId: String,
-        subscriptionDetailsStorage: ObjectDetailsStorage,
-        setFiltersSelectionCoordinatorAssembly: SetFiltersSelectionCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        subscriptionDetailsStorage: ObjectDetailsStorage
     ) {
         self.data = SetFiltersListModuleData(setDocument: setDocument, viewId: viewId)
         self.subscriptionDetailsStorage = subscriptionDetailsStorage
-        self.setFiltersSelectionCoordinatorAssembly = setFiltersSelectionCoordinatorAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
     // MARK: - SetFiltersListCoordinatorOutput
     
     // MARK: - Filters search
     func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void) {
-        filtersSearchData = FiltersSearchData(
-            relationDetails: relationDetails,
-            completion: completion
-        )
-    }
-    
-    func setFiltersSearch(data: FiltersSearchData) -> NewSearchView {
-        newSearchModuleAssembly.setSortsSearchModule(
-            relationsDetails: data.relationDetails,
-            onSelect: { [weak self] relationDetails in
-                self?.filtersSearchData = nil
-                data.completion(relationDetails)
-            }
+        filtersSearchData = SetRelationsDetailsLocalSearchData(
+            relationsDetails: relationDetails,
+            onSelect: completion
         )
     }
     
@@ -55,17 +39,9 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     func onFilterTap(filter: SetFilter, completion: @escaping (SetFilter) -> Void) {
         filtersSelectionData = FiltersSelectionData(
             filter: filter,
-            completion: completion
-        )
-    }
-    
-    func setFiltersSelection(data: FiltersSelectionData) -> AnyView {
-        setFiltersSelectionCoordinatorAssembly.make(
-            with: self.data.setDocument.spaceId,
-            filter: data.filter,
             completion: { [weak self] filter in
                 self?.filtersSelectionData = nil
-                data.completion(filter)
+                completion(filter)
             }
         )
     }
@@ -77,11 +53,5 @@ extension SetFiltersListCoordinatorViewModel {
         let completion: (SetFilter) -> Void
         
         var id: String { filter.id }
-    }
-    
-    struct FiltersSearchData: Identifiable {
-        let id = UUID()
-        let relationDetails: [RelationDetails]
-        let completion: (RelationDetails) -> Void
     }
 }

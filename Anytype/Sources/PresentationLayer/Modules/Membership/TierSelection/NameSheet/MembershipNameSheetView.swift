@@ -36,7 +36,7 @@ struct MembershipNameSheetView: View {
                 style: .primaryLarge
             ) {
                 AnytypeAnalytics.instance().logClickMembership(type: .payByCard)
-                try await model.purchase()
+                try await model.purchase(name: name)
             }
             .disabled(!model.canBuyTier)
             Spacer.fixedHeight(40)
@@ -127,11 +127,3 @@ struct MembershipNameSheetView: View {
         .lineLimit(1)
     }
 }
-
-//#Preview {
-//    TabView {
-//        MembershipNameSheetView(tier: .mockBuilder, anyName: "")
-//        MembershipNameSheetView(tier: .mockCoCreator, anyName: "SonyaBlade")
-//        MembershipNameSheetView(tier: .mockBuilderTest, anyName: "")
-//    }.tabViewStyle(.page)
-//}

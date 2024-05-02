@@ -10,47 +10,38 @@ final class RelationsListCoordinatorViewModel:
     RelationValueCoordinatorOutput
 {
     @Published var relationValueData: RelationValueData?
+    @Published var relationsSearchData: RelationsSearchData?
     @Published var toastBarData: ToastBarData = .empty
     
-    private let document: BaseDocumentProtocol
-    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
+    let document: BaseDocumentProtocol
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
-    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     private weak var output: RelationValueCoordinatorOutput?
 
     init(
         document: BaseDocumentProtocol,
-        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
         legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol,
         output: RelationValueCoordinatorOutput?
     ) {
         self.document = document
-        self.relationsListModuleAssembly = relationsListModuleAssembly
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
-        self.addNewRelationCoordinator = addNewRelationCoordinator
         self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.relationValueProcessingService = relationValueProcessingService
         self.output = output
     }
     
-    func relationsList() -> AnyView {
-        relationsListModuleAssembly.make(document: document, output: self)
-    }
-    
     // MARK: - RelationsListModuleOutput
     
     func addNewRelationAction(document: BaseDocumentProtocol) {
-        addNewRelationCoordinator.showAddNewRelationView(
+        relationsSearchData = RelationsSearchData(
             document: document,
             excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
-            target: .object,
-            onCompletion: { [spaceId = document.spaceId] relation, isNew in
-                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .menu, spaceId: spaceId)
+            target: .object, 
+            onRelationSelect: { relationDetails, isNew in
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .menu, spaceId: document.spaceId)
             }
         )
     }
@@ -110,6 +101,7 @@ final class RelationsListCoordinatorViewModel:
     }
     
     // MARK: - RelationValueCoordinatorOutput
+    
     func showEditorScreen(data: EditorScreenData) {
         output?.showEditorScreen(data: data)
     }

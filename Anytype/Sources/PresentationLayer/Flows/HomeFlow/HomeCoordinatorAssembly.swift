@@ -48,8 +48,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             spaceSwitchCoordinatorAssembly: coordinatorsID.spaceSwitch(),
             spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
             editorCoordinatorAssembly: coordinatorsID.editor(),
-            homeBottomNavigationPanelModuleAssembly: modulesDI.homeBottomNavigationPanel(),
-            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
             workspacesStorage: serviceLocator.workspaceStorage(),
             documentsProvider: serviceLocator.documentsProvider,
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),

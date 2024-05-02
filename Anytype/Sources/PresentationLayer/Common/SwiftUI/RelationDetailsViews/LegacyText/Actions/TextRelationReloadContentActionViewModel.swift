@@ -6,10 +6,12 @@ import AnytypeCore
 
 final class TextRelationReloadContentActionViewModel: TextRelationActionViewModelProtocol {
     
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    
     private let objectDetails: ObjectDetails
     private let relationKey: String
-    private let bookmarkService: BookmarkServiceProtocol
-    private let alertOpener: AlertOpenerProtocol
+    private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     let id = UUID().uuidString
     var inputText: String = ""
@@ -19,8 +21,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     init?(
         objectDetails: ObjectDetails,
         relationKey: String,
-        bookmarkService: BookmarkServiceProtocol,
-        alertOpener: AlertOpenerProtocol
+        delegate: TextRelationActionButtonViewModelDelegate?
     ) {
         guard objectDetails.layoutValue == .bookmark,
               relationKey == BundledRelationKey.source.rawValue else { return nil }
@@ -28,7 +29,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
         self.objectDetails = objectDetails
         self.relationKey = relationKey
         self.bookmarkService = bookmarkService
-        self.alertOpener = alertOpener
+        self.delegate = delegate
     }
     
     var isActionAvailable: Bool {
@@ -44,7 +45,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
             
             UISelectionFeedbackGenerator().selectionChanged()
             try await bookmarkService.fetchBookmarkContent(bookmarkId: objectDetails.id, url: url)
-            alertOpener.showTopAlert(message: Loc.RelationAction.reloadingContent)
+            delegate?.showActionSuccessMessage(Loc.RelationAction.reloadingContent)
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
         }
     }

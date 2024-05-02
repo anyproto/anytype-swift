@@ -13,12 +13,10 @@ protocol HomeWidgetsModuleAssemblyProtocol {
 
 final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.serviceLocator = serviceLocator
+    init(uiHelpersDI: UIHelpersDIProtocol, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
         self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
@@ -50,21 +48,13 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsViewModel {
         let stateManager = HomeWidgetsStateManager()
-        let recentStateManagerProtocol = HomeWidgetsRecentStateManager(
-            loginStateService: serviceLocator.loginStateService(),
-            expandedService: serviceLocator.blockWidgetExpandedService()
-        )
+        let recentStateManagerProtocol = HomeWidgetsRecentStateManager()
         
         return HomeWidgetsViewModel(
             info: info,
             registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
-            blockWidgetService: serviceLocator.blockWidgetService(),
             stateManager: stateManager,
-            objectActionService: serviceLocator.objectActionsService(),
             recentStateManagerProtocol: recentStateManagerProtocol,
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(), 
-            documentService: serviceLocator.documentService(),
-            accountParticipantStorage: serviceLocator.accountParticipantStorage(),
             output: output
         )
     }

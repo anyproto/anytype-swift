@@ -16,7 +16,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let searchService: SearchServiceProtocol
-    private let alertOpener: AlertOpenerProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -36,7 +35,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         searchService: SearchServiceProtocol,
-        alertOpener: AlertOpenerProtocol,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?
     ) {
@@ -47,7 +45,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
         self.blockWidgetExpandedService = blockWidgetExpandedService
         self.objectActionsService = objectActionsService
         self.searchService = searchService
-        self.alertOpener = alertOpener
         self.contentModel = contentModel
         self.output = output
         

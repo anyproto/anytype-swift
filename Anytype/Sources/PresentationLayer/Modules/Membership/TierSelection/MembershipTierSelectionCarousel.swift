@@ -25,6 +25,7 @@ struct MembershipTierSelectionCarousel: View {
         self.showEmailVerification = showEmailVerification
         self.onSuccessfulPurchase = onSuccessfulPurchase
         _selection = State(initialValue: tierToDisplay.id)
+        AnytypeAnalytics.instance().logScreenMembership(tier: tierToDisplay)
     }
     
     var body: some View {
@@ -48,7 +49,13 @@ struct MembershipTierSelectionCarousel: View {
             )
             .padding()
         }
-        .ignoresSafeArea()
+        .ignoresSafeArea(.container)
+        
+        .onChange(of: selection) { selection in
+            if let tier = allTiers.first(where: { $0.id == selection }) {
+                AnytypeAnalytics.instance().logScreenMembership(tier: tier)
+            }
+        }
     }
 }
 

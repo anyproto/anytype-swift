@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "E-post";
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Utklippstavle";
@@ -242,7 +244,7 @@
 "Auth.JoinFlow.Key.Title" = "This is your Key";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Neste";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Hopp over";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopier til utklippstavlen";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Les mer";
@@ -261,11 +263,15 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Uten tittel";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
+"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Button" = "Get my Key";
+
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Bruk nøkkelring";
 "Auth.LoginFlow.Or" = "ELLER";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Går inn i Void";
 
 // Object settings
@@ -361,6 +367,7 @@
 
 "TemplateEditing.Title" = "Rediger mal";
 
+"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
 "Templates.Popup.WasAddedTo" = "Ny mal ble lagt til typen";
 "Templates.Popup.Duplicated" = "Malen ble duplisert";
 "Templates.Popup.Removed" = "Malen ble fjernet";
@@ -1055,6 +1062,8 @@
 "Min X characters" = "Minst %@ tegn";
 "Pending" = "Venter...";
 "Manage payment" = "Administrer betaling";
+"This name is not availabe" = "This name is not availabe";
+"Purchase cancelled" = "Purchase cancelled";
 
 
 "Membership.Ad.Title" = "Medlemskap";
@@ -1094,11 +1103,6 @@
 "Membership.NameForm.Validating" = "Vent et øyeblikk...";
 "Membership.NameForm.Validated" = "Dette navnet er ledig";
 
-"Membership.NameForm.Error.TooShort" = "Navnet er for kort";
-"Membership.NameForm.Error.TooLong" = "Navnet er for langt";
-"Membership.NameForm.Error.HasInvalidChars" = "Navnet har ugyldige tegn";
-
-
 "Membership.Success.Title" = "Velkommen til nettverket, %@";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";
 "Membership.Success.Support" = "Big cheers for your support!";
@@ -1122,6 +1126,9 @@
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";

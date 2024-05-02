@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
+"NSFaceIDUsageDescription" = "Face ID 用於擷取安全儲存在鑰匙圈中的助記詞";
 "NSCameraUsageDescription" = "採用照相機掃描二維碼，安全便捷的登入體驗";
 "NSLocalNetworkUsageDescription" = "本地網路存取用於直接在附近的設備之間同步數據";
 "NSPhotoLibraryAddUsageDescription" = "需要存取權限才能將選定的圖像儲存到您的庫中";

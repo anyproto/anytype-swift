@@ -8,7 +8,6 @@ import AnytypeCore
 final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     @Published var shouldDismiss = false
     
-    private let objectTypeSearchAssembly: ObjectTypeSearchModuleAssemblyProtocol
     private let pasteboardBlockService: PasteboardBlockServiceProtocol
     private let objectActionsService: ObjectActionsServiceProtocol
     private let blockService: BlockServiceProtocol
@@ -19,7 +18,6 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     private let openObject: (ObjectDetails)->()
     
     init(
-        objectTypeSearchAssembly: ObjectTypeSearchModuleAssemblyProtocol,
         pasteboardBlockService: PasteboardBlockServiceProtocol,
         objectActionsService: ObjectActionsServiceProtocol,
         blockService: BlockServiceProtocol,
@@ -28,7 +26,6 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
         typeProvider: ObjectTypeProviderProtocol,
         openObject: @escaping (ObjectDetails)->()
     ) {
-        self.objectTypeSearchAssembly = objectTypeSearchAssembly
         self.pasteboardBlockService = pasteboardBlockService
         self.objectActionsService = objectActionsService
         self.blockService = blockService
@@ -38,10 +35,11 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
         self.openObject = openObject
     }
     
-    func typeSearchModule() -> some View {
-        return objectTypeSearchAssembly.makeTypeSearchForNewObjectCreation(
+    func typeSearchModule() -> ObjectTypeSearchView {
+        ObjectTypeSearchView(
             title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            settings: .newObjectCreation
         ) { [weak self] result in
             guard let self else { return }
             shouldDismiss = true

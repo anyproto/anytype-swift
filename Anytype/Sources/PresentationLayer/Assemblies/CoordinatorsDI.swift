@@ -46,10 +46,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
     }
     
-    func addNewRelation() -> AddNewRelationCoordinatorAssemblyProtocol {
-        return AddNewRelationCoordinatorAssembly(uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
-    }
-    
     @MainActor
     func home() -> HomeCoordinatorAssemblyProtocol {
         return HomeCoordinatorAssembly(
@@ -61,7 +57,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func application() -> ApplicationCoordinatorAssemblyProtocol {
-        return ApplicationCoordinatorAssembly(coordinatorsDI: self, uiHelpersDI: uiHelpersDI, modulesDI: modulesDI)
+        return ApplicationCoordinatorAssembly(coordinatorsDI: self, uiHelpersDI: uiHelpersDI)
     }
     
     func settings() -> SettingsCoordinatorAssemblyProtocol {
@@ -71,37 +67,12 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
         return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
-    
-    func setViewSettings() -> SetViewSettingsCoordinatorAssemblyProtocol {
-        return SetViewSettingsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-    
-    func setSortsList() -> SetSortsListCoordinatorAssemblyProtocol {
-        return SetSortsListCoordinatorAssembly(modulesDI: modulesDI)
-    }
-    
-    func setFiltersSelection() -> SetFiltersSelectionCoordinatorAssemblyProtocol {
-        SetFiltersSelectionCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-    
-    func setFiltersList() -> SetFiltersListCoordinatorAssemblyProtocol {
-        SetFiltersListCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-    
-    func setRelations() -> SetRelationsCoordinatorAssemblyProtocol {
-        SetRelationsCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-    
-    func setViewPicker() -> SetViewPickerCoordinatorAssemblyProtocol {
-        SetViewPickerCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
-    }
-
     func editor() -> EditorCoordinatorAssemblyProtocol {
         EditorCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI)
     }
 
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
-        EditorSetCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        EditorSetCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
     }
 
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
@@ -109,7 +80,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
-        SetObjectCreationSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+        SetObjectCreationSettingsCoordinatorAssembly(uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
 
     func editorPageModule() -> EditorPageModuleAssemblyProtocol {

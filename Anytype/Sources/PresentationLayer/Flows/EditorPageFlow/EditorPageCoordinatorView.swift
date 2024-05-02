@@ -30,6 +30,21 @@ struct EditorPageCoordinatorView: View {
                     model.showEditorScreen(data: data)
                 }
             }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
+            }
+            .sheet(item: $model.textIconPickerData) {
+                TextIconPickerView(data: $0)
+            }
+            .sheet(item: $model.blockObjectSearchData) {
+                BlockObjectSearchView(data: $0)
+            }
+            .sheet(item: $model.relationsSearchData) {
+                RelationsSearchCoordinatorView(data: $0)
+            }
+            .anytypeSheet(item: $model.undoRedoObjectId) {
+                UndoRedoView(objectId: $0.value)
+            }
             .snackbar(toastBarData: $model.toastBarData)
     }
 }

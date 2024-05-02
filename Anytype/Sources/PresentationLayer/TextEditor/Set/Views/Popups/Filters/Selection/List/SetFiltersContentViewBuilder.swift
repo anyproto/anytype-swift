@@ -7,16 +7,10 @@ import SwiftUI
 final class SetFiltersContentViewBuilder {
     private let spaceId: String
     private let filter: SetFilter
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
-    init(
-        spaceId: String,
-        filter: SetFilter,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    ) {
+    init(spaceId: String, filter: SetFilter) {
         self.spaceId = spaceId
         self.filter = filter
-        self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
     @MainActor
@@ -61,6 +55,7 @@ final class SetFiltersContentViewBuilder {
     
     // MARK: - Private methods: Search
     
+    // TODO: Migrate from NewSearchView
     private func buildSearchView(
         with format: RelationFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
@@ -83,14 +78,53 @@ final class SetFiltersContentViewBuilder {
         let selectedTagIds = selectedIds(
             from: filter.filter.value
         )
-        return newSearchModuleAssembly.tagsSearchModule(
-            style: .embedded,
-            selectionMode: .multipleItems(preselectedIds: selectedTagIds),
-            spaceId: spaceId,
-            relationKey: filter.relationDetails.key,
-            selectedTagIds: [],
-            onSelect: onSelect,
-            onCreate: { _ in }
+        let selectionMode = NewSearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedTagIds)
+        let style = NewSearchView.Style.embedded
+        
+        return NewSearchView(
+            viewModel: NewSearchViewModel(
+                style: style,
+                itemCreationMode: style.isCreationModeAvailable ? .available(action: { _ in } ) : .unavailable,
+                selectionMode: selectionMode,
+                internalViewModel: TagsSearchViewModel(
+                    selectionMode: selectionMode,
+                    interactor: TagsSearchInteractor(
+                        spaceId: self.spaceId,
+                        relationKey: self.filter.relationDetails.key,
+                        selectedTagIds: selectedTagIds,
+                        isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
+                    ),
+                    onSelect: onSelect
+                )
+            )
+        ).eraseToAnyView()
+    }
+    
+    private func buildStatusesSearchView(
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) -> AnyView {
+        let selectedStatusesIds = selectedIds(
+            from: filter.filter.value
+        )
+        let selectionMode = NewSearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedStatusesIds)
+        let style = NewSearchView.Style.embedded
+
+        return NewSearchView(
+            viewModel: NewSearchViewModel(
+                style: style,
+                itemCreationMode: style.isCreationModeAvailable ? .available(action: { _ in }) : .unavailable,
+                selectionMode: selectionMode,
+                internalViewModel: StatusSearchViewModel(
+                    selectionMode: selectionMode,
+                    interactor: StatusSearchInteractor(
+                        spaceId: self.spaceId,
+                        relationKey: self.filter.relationDetails.key,
+                        selectedStatusesIds: selectedStatusesIds,
+                        isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
+                    ),
+                    onSelect: onSelect
+                )
+            )
         ).eraseToAnyView()
     }
     
@@ -108,30 +142,24 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
-        return newSearchModuleAssembly.objectsSearchModule(
-            spaceId: spaceId,
-            style: .embedded,
-            selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
-            excludedObjectIds: [],
-            limitedObjectType: filter.relationDetails.objectTypes,
-            onSelect: { details in onSelect(details.map(\.id)) }
-        ).eraseToAnyView()
-    }
-    
-    private func buildStatusesSearchView(
-        onSelect: @escaping (_ ids: [String]) -> Void
-    ) -> AnyView {
-        let selectedStatusesIds = selectedIds(
-            from: filter.filter.value
-        )
-        return newSearchModuleAssembly.statusSearchModule(
-            style: .embedded,
-            selectionMode: .multipleItems(preselectedIds: selectedStatusesIds),
-            spaceId: spaceId,
-            relationKey: filter.relationDetails.key,
-            selectedStatusesIds: [],
-            onSelect: onSelect,
-            onCreate: { _ in }
+        let selectionMode = NewSearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedObjectsIds)
+        
+        return NewSearchView(
+            viewModel: NewSearchViewModel(
+                title: nil,
+                style: .embedded,
+                itemCreationMode: .unavailable,
+                selectionMode: selectionMode,
+                internalViewModel: ObjectsSearchViewModel(
+                    selectionMode: selectionMode,
+                    interactor: ObjectsSearchInteractor(
+                        spaceId: self.spaceId,
+                        excludedObjectIds: [],
+                        limitedObjectType: self.filter.relationDetails.objectTypes
+                    ),
+                    onSelect: { details in onSelect(details.map(\.id)) }
+                )
+            )
         ).eraseToAnyView()
     }
     

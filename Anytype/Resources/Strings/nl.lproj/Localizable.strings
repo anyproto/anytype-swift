@@ -8,11 +8,11 @@
 "TextStyle.Title.Title" = "Titel";
 "TextStyle.Title.Subtitle" = "Grote sectie koptekst";
 
-"TextStyle.Heading.Title" = "Koptitel";
+"TextStyle.Heading.Title" = "Kop";
 "TextStyle.Heading.Subtitle" = "Middelgrote titel";
 
-"TextStyle.Subheading.Title" = "Subkoptitel";
-"TextStyle.Subheading.Subtitle" = "Kleine titel";
+"TextStyle.Subheading.Title" = "Subkop";
+"TextStyle.Subheading.Subtitle" = "Kleine kop";
 
 "TextStyle.Highlighted.Title" = "Gemarkeerd";
 "TextStyle.Highlighted.Subtitle" = "Spotlight dat speciale aandacht verdient";
@@ -49,8 +49,8 @@
 "BlockText.ContentType.Numbered.Placeholder" = "Item van genummerde lijst";
 "BlockText.ContentType.Quote.Placeholder" = "Gemarkeerde tekst";
 "BlockText.ContentType.Header.Placeholder" = "Titel";
-"BlockText.ContentType.Header2.Placeholder" = "Koptitel";
-"BlockText.ContentType.Header3.Placeholder" = "Subkoptitel";
+"BlockText.ContentType.Header2.Placeholder" = "Kop";
+"BlockText.ContentType.Header3.Placeholder" = "Subkop";
 
 // MARK: - Block Link
 
@@ -103,6 +103,8 @@
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "E-mailadres";
 "Relation.Format.Phone.Title" = "Telefoonnummer";
+
+"Relation.Search.View.Placeholder" = "Zoek of maak een nieuwe relatie aan";
 
 // Origin Relation
 
@@ -205,11 +207,11 @@
 "Restore" = "Herstel";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Key" = "Sleutel";
+"Keychain.Key.Copy.Toast.title" = "Sleutel gekopieerd";
+"Keychain.Key.description" = "Je zult dit nodig hebben om in jouw kluis in te loggen. Bewaar het op een veilige plaats. Als je het verliest, heb je niet langer toegang tot jouw kluis.";
+"Keychain.Show and copy key" = "Toon en kopieer sleutel";
+"Keychain.Have you backed up your key?" = "Heb je een back-up van jouw sleutel gemaakt?";
 "Keychain.Error.String to Data conversion error" = "Tekst-naar-data conversiefout";
 "Keychain.Error.Data to String conversion error" = "Data-naar-tekst conversiefout";
 "Keychain.Error.Unknown Keychain Error" = "Onbekende fout door keychain";
@@ -219,53 +221,57 @@
 "Create" = "Maak";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Geef toegang";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
+"Restore key from keychain" = "Herstel sleutel vanuit de sleutelhanger";
+"Auth.LogIn" = "Ik heb een sleutel";
+"Auth.Button.Join" = "Nieuwe kluis";
+"Auth.Welcome.Subtitle" = "Maak aan & werk samen in jouw ruimten. Versleuteld, offline & [open](%@).";
 "Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Fout bij herstellen van kluis, probeer het opnieuw";
+"Vault recover error no internet" = "Fout bij herstellen van kluis, waarschijnlijk geen internetverbinding";
 
 // Auth Errors
 "Error creating wallet" = "Fout bij aanmaken wallet";
-"Error select vault" = "Error select vault";
-"Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Error select vault" = "Fout, selecteer kluis";
+"Error wallet recover vault" = "Fout, herstellen kluis uit portemonnee";
+"Wallet.Recovery.Error.description" = "Ongeldige sleutel";
 
 "Search for language" = "Zoek naar taal";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Enter my Vault";
+"Auth.JoinFlow.Key.Title" = "Dit is jouw sleutel";
+"Auth.JoinFlow.Key.Description" = "Het geeft je het volledige eigendom over jouw kluis..\nIHet kan niet worden hersteld.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Toon mijn sleutel";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Volgende";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Sla over";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Kopieer naar klembord";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Lees meer";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Je kunt deze sleutel later terugvinden in de Anytype instellingen";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Wat is de sleutel?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Het bestaat uit een herstelzin –  12 willekeurige woorden van waaruit jouw kluis op magische wijze wordt aangemaakt op dit apparaat.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wie de combinatie van deze woorden kent, is eigenaar van jouw kluis. **Op dit moment ben jij de enige persoon in de wereld die deze kent.**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Alle rekenmiddelen op aarde zijn niet genoeg om in te breken. Als je het verliest, kan het niet worden hersteld. Dus sla het ergens veilig op!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Hoe bewaar ik mijn sleutel?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "De eenvoudigste manier om jouw sleutel op te slaan is door deze op te slaan in jouw wachtwoordmanager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "De meest veilige manier is om het op papier op te schrijven en het offline te houden, op een veilige plek. ";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "Voer jouw naam in";
+"Auth.JoinFlow.Soul.Description" = "Alleen zichtbaar voor mensen met wie je iets deelt. Er is geen centraal register van deze namen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Naamloos";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
+
+"Auth.JoinFlow.Vault.Title" = "Dit is jouw kluis";
+"Auth.JoinFlow.Vault.Description" = "Alles hierbinnen is versleuteld. \nHet is local-first – alles werkt offline. \nAlleen jij hebt de sleutel.";
+"Auth.JoinFlow.Vault.Button" = "Verkrijg mijn sleutel";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gebruik sleutelhanger";
 "Auth.LoginFlow.Or" = "OF";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Textfield.Placeholder" = "Voer je sleutel in";
+"Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "De Void binnengaan";
 
 // Object settings
@@ -327,8 +333,8 @@
 "There is no object named" = "Er is geen object genaamd %@";
 "There is no type named" = "Er is geen type genaamd %@";
 "Create a new one or search for something else" = "Maak een nieuwe aan of zoek naar iets anders";
-"Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: %@";
+"Search.Backlinks.Show.title" = "Toon backlinks";
+"Search.Backlinks.Header.title" = "Backlinks van: %@";
 "Search.Backlinks.Swipe.title" = "Backlinks";
 
 // MARK: - Home
@@ -340,7 +346,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype heeft toegang nodig tot je camera om QR-codes te scannen.\n\nGa naar de instellingen van je apparaat -> Privacy -> Camera en zet Anytype naar AAN";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "We vinden het jammer dat je vertrekt. Je hebt 30 dagen om dit verzoek te annuleren. Na 30 dagen worden jouw versleutelde kluisgegevens permanent verwijderd uit de backup node.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Ongedaan maken / Opnieuw doen";
@@ -361,6 +367,7 @@
 
 "TemplateEditing.Title" = "Sjabloon bewerken";
 
+"Templates.Popup.WasAddedTo.title" = "Nieuw sjabloon werd toegevoegd aan het type %@";
 "Templates.Popup.WasAddedTo" = "Nieuw sjabloon is toegevoegd aan het type";
 "Templates.Popup.Duplicated" = "Dit sjabloon is gedupliceerd";
 "Templates.Popup.Removed" = "Dit sjabloon is verwijderd";
@@ -560,18 +567,18 @@
 "Mode" = "Instelling";
 "copied to clipboard" = "%@ gekopieerd naar klembord";
 "Create object from clipboard" = "Maak object aan vanaf klembord";
-"Access to key from keychain" = "Access to key from keychain";
-"Back up your key" = "Back up your key";
-"Vault" = "Vault";
+"Access to key from keychain" = "Toegang tot sleutel vanuit sleutelhanger";
+"Back up your key" = "Maak een backup van jouw sleutel";
+"Vault" = "Kluis";
 "Access" = "Toegang";
-"Back up key" = "Back up key";
+"Back up key" = "Backup sleutel";
 "Removing cache" = "Cache wordt verwijderd";
 "Deletion error" = "Fout bij het verwijderen";
 "Start" = "Start";
 "On analytics" = "On analytics";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
+"Select vault error" = "Selecteer kluis fout";
+"Vault deleted" = "Kluis verwijderd";
+"Vault.Select.Incompatible.Version.Error.Text" = "We konden jouw kluisgegevens niet ophalen omdat jouw versie verouderd is. Update Anytype naar de nieuwste versie.";
 "Restore from keychain" = "Herstellen vanuit de sleutelhanger";
 "Edit" = "Bewerk";
 "In this object" = "Binnen dit object";
@@ -653,14 +660,14 @@
 "This object doesn't exist" = "Dit object bestaat niet";
 "Setting up encrypted storage\nPlease wait" = "Versleutelde opslag\n wordt aangemaakt,  een ogenblik geduld";
 "These objects will be deleted irrevocably" = "Deze objecten zullen permanent worden verwijderd. Je kunt dit niet ongedaan maken.";
-"Delete vault" = "Delete vault";
+"Delete vault" = "Verwijder kluis";
 "Cancel deletion" = "Annuleer verwijdering";
 "Logout and clear data" = "Log uit en wis gegevens";
 "New" = "Nieuw";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";
+"DeletionAlert.description" = "Je zult op alle andere apparaten worden uitgelogd. Je hebt 30 dagen om jouw kluis te herstellen. Daarna zal deze permanent worden verwijderd.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Raster";
@@ -808,7 +815,7 @@
 "About.TermsOfUse" = "Gebruikersvoorwaarden";
 "About.PrivacyPolicy" = "Privacybeleid";
 "About.TechInfo" = "Technische informatie";
-"About.Mail.Subject" = "Support request, Vault ID %@";
+"About.Mail.Subject" = "Ondersteuningsverzoek, kluis ID %@";
 "About.Mail.Body" = "\n\nTechnische informatie\n%@";
 
 // MARK: - Cache
@@ -818,8 +825,8 @@
 // MARK: - Settings
 "Settings.Title" = "Instellingen";
 "Settings.SpaceName" = "Naam ruimte";
-"Settings.SpaceType" = "Space type";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceType" = "Ruimte type";
+"Settings.VaultAndAccess" = "Kluis en toegang";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Bestandsopslag";
@@ -827,8 +834,8 @@
 "FileStorage.Space.Instruction" = "Je kunt maximaal %@ van je bestanden gratis opslaan op onze versleutelde back-up node. Als je de limiet bereikt, zullen bestanden alleen lokaal worden opgeslagen.";
 "FileStorage.Space.Used" = "%@ van %@ gebruikt";
 "FileStorage.Space.GetMore" = "Krijg meer ruimte";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Subject" = "Krijg meer opslagruimte, kluis %@";
+"FileStorage.Space.Mail.Body" = "Hallo, Anytype team. Ik neem contact op met het verzoek om de opslagcapaciteit van mijn bestanden uit te breiden, omdat ik geen opslagruimte meer heb. Mijn huidige limiet is %@. Mijn kluis id is %@. Groeten, %@.";
 "FileStorage.Local.Title" = "Lokale opslag";
 "FileStorage.Local.Instruction" = "Om ruimte op jouw lokale apparaat te besparen, kun je al jouw bestanden naar onze versleutelde back-up node verplaatsen. De bestanden worden opnieuw geladen wanneer je ze opent.";
 "FileStorage.Local.Used" = "%@ gebruikt";
@@ -880,15 +887,15 @@
 "SpaceSettings.DeleteAlert.Message" = "Deze ruimte zal onherroepelijk worden verwijderd. Je kunt deze actie niet ongedaan maken.";
 "SpaceSettings.DeleteButton" = "Verwijder ruimte";
 "SpaceSettings.Share" = "Deel";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveButton" = "Verlaat";
+"SpaceSettings.LeaveAlert.Title" = "Verlaat een ruimte";
 "SpaceSettings.LeaveAlert.Message" = "%@ ruimte zal worden verwijderd van jouw apparaten en je hebt er dan geen toegang meer toe";
-"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+"SpaceSettings.LeaveAlert.Toast" = "Je hebt de %@ verlaten.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Meer informatie";
 
-"SpaceShare.Title" = "Sharing";
+"SpaceShare.Title" = "Aan het delen";
 "SpaceShare.Members" = "Leden";
 "SpaceShare.Permissions.Owner" = "Eigenaar";
 "SpaceShare.Permissions.Reader" = "Lezer";
@@ -896,20 +903,20 @@
 "SpaceShare.Permissions.Grand.Edit" = "Bewerk";
 "SpaceShare.Permissions.Grand.View" = "Weergave";
 "SpaceShare.Invite.Title" = "Uitnodigingslink";
-"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
-"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
-"SpaceShare.JoinRequest" = "Join request";
-"SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
+"SpaceShare.Invite.Description" = "Deel deze uitnodigingslink zodat anderen zich bij jouw ruimte kunnen aansluiten. Zodra ze op jouw link klikken en toegang vragen, kun je hun toegangsrechten instellen.";
+"SpaceShare.Invite.Share" = "Deel uitnodigingslink";
+"SpaceShare.Invite.Generate" = "Genereer uitnodigingslink";
+"SpaceShare.Invite.Empty" = "Maak uitnodigingslink aan om ruimte te delen en nieuwe leden toe te voegen";
+"SpaceShare.JoinRequest" = "Deelnameverzoek";
+"SpaceShare.LeaveRequest" = "Afmeldverzoek";
+"SpaceShare.Action.ViewRequest" = "Bekijk verzoek";
 "SpaceShare.Action.Approve" = "Goedkeuren";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
+"SpaceShare.DeleteSharingLink.Title" = "Verwijder link";
+"SpaceShare.DeleteSharingLink.Message" = "Nieuwe leden zullen niet kunnen deelnemen aan de ruimte. Je kunt op elk gewenst moment een nieuwe link genereren";
 "SpaceShare.Approve.Toast" = "Je hebt het verzoek van %@ goedgekeurd.";
 "SpaceShare.ViewRequest.Title" = "%@ heeft verzocht om zich aan te sluiten bij de ruimte %@";
-"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
-"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.ViewAccess" = "Voeg toe als lezer";
+"SpaceShare.ViewRequest.EditAccess" = "Voeg toe als schrijver";
 "SpaceShare.ViewRequest.Reject" = "Weiger";
 "SpaceShare.RemoveMember.Title" = "Verwijder lid";
 "SpaceShare.RemoveMember.Message" = "%@ zal worden verwijderd uit de ruimte.";
@@ -918,42 +925,42 @@
 "SpaceShare.Join.CommentPlaceholder" = "Laat een persoonlijk bericht achter voor een eigenaar van de ruimte";
 "SpaceShare.Join.Button" = "Verzoek om aan te sluiten";
 "SpaceShare.Join.Info" = "Zodra de eigenaar van de ruimte jouw verzoek heeft goedgekeurd, zul je toetreden tot de ruimte met de toegangsrechten die door de eigenaar zijn bepaald.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.Message" = "Je bent uitgenodigd om je aan te sluiten bij ** %@** ruimte, aangemaakt door **%@**. Stuur een verzoek zodat de eigenaar van de ruimte je kan toelaten. ";
+"SpaceShare.Join.InviteNotFound" = "Deze link lijkt niet te werken";
 "SpaceShare.JoinConfirmation.Title" = "Verzoek verzonden";
 "SpaceShare.JoinConfirmation.Message" = "Je zult een melding ontvangen wanneer de eigenaar van de ruimte je verzoek zal goedkeuren.";
 "SpaceShare.YouSuffix" = "%@ (jij)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.ManageSpaces" = "Beheer ruimten";
+"SpaceShare.AccessChanged" = "De toegangsrechten zijn gewijzigd.";
 "SpaceShare.StopSharing.Action" = "Stop met delen";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
-"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
-"SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.StopSharing.Title" = "Stop met delen van de ruimte";
+"SpaceShare.StopSharing.Message" = "Leden zullen niet langer synchroniseren met deze ruimte en de deellink zal worden gedeactiveerd.";
+"SpaceShare.StopSharing.Toast" = "De ruimte wordt niet langer gedeeld";
+"SpaceShare.QR.Title" = "QR-code voor het deelnemen aan een ruimte";
+"SpaceShare.QR.Button" = "Toon QR-code";
+"SpaceShare.HowToShare.Title" = "Hoe deel je een ruimte?";
+"SpaceShare.HowToShare.Step1" = "Geef alsjeblieft een link naar de persoon met wie je wilt samenwerken.";
+"SpaceShare.HowToShare.Step2" = "Door op de link te klikken, vraagt een persoon om aan de ruimte deel te nemen.";
+"SpaceShare.HowToShare.Step3" = "Na goedkeuring van het verzoek, kun je de toegangsrechten voor deze persoon kiezen.";
 "SpaceShare.Manage" = "Beheer";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.Title" = "Je bent al lid van deze ruimte.";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Open ruimte";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"PermissionChangeNotification.Text" = "Jouw toegangsrechten werden veranderd naar  **%@** in de ruimte **%@**.";
+"ParticipantRequestApprovedNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte **%@** is goedgekeurd met **%@** toegangsrechten. De ruimte zal binnenkort beschikbaar zijn op jouw apparaat.";
+"ParticipantRequestDeclineNotification.Text" = "Jouw verzoek om deel te nemen aan de ruimte**%@** is afgewezen.";
+"RequestToLeaveNotification.Text" = "**%@** wil de ruimte **%@** verlaten.";
+"ParticipantRemoveNotification.Text" = "Je werd verwijderd uit de ruimte, of de ruimte werd verwijderd door de eigenaar.";
+"RequestToJoinNotification.Text" = "**%@** heeft verzocht om aan de ruimte **%@** deel te nemen.";
+"RequestToJoinNotification.GoToSpace" = "Ga naar ruimte";
+"RequestToJoinNotification.ViewRequest" = "Bekijk verzoek";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Join Request";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequest" = "Annuleer deelnameverzoek";
+"SpaceManager.DoNotCancel" = "Annuleer niet";
+"SpaceManager.CancelRequestAlert.Title" = "Je zult het toegangsverzoek opnieuw moeten sturen";
+"SpaceManager.CancelRequestAlert.Toast" = "Het verzoek werd geannuleerd.";
 
 
 
@@ -990,11 +997,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
+"Initial.UnstableMiddle.Message" = "Je start de app op met instabiele middleware. Gebruik niet jouw productie kluis. Jouw kluis kan beschadigd zijn.";
 "Initial.UnstableMiddle.Title" = "Waarschuwing";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Logout" = "Meld af bij de huidige kluis";
+"Initial.UnstableMiddle.Continue" = "Ga verder met huidige kluis";
+"Initial.UnstableMiddle.WontUseProd" = "Ik zal niet mijn productie kluis gebruiken";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Maak objecten aan met specifiek type";
@@ -1006,7 +1013,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Updaten";
 "Error.UnableToConnect" = "Maak alsjeblieft verbinding met het internet";
 "Error.Common.Title" = "Oeps!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
+"Error.Common.Message" = "Controleer alsjeblieft jouw internetverbinding en probeer het opnieuw of [rapporteer op forum](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Probeer opnieuw";
 
 // MARK: - Relative date formatter
@@ -1037,7 +1044,7 @@
 "E-mail" = "E-mailadres";
 "Learn more" = "Ontdek meer";
 "per" = "per";
-"unlimited" = "Unlimited";
+"unlimited" = "Onbeperkt";
 
 
 "What’s included" = "Wat is inbegrepen";
@@ -1054,20 +1061,22 @@
 "Myself" = "Mijzelf";
 "Pay by Card" = "Betaal met kaart";
 "Min X characters" = "Min %@ tekens";
-"Pending" = "Pending...";
+"Pending" = "In behandeling...";
 "Manage payment" = "Beheer betaling";
+"This name is not availabe" = "Deze naam is niet beschikbaar";
+"Purchase cancelled" = "Aankoop geannuleerd";
 
 
 "Membership.Ad.Title" = "Lidmaatschap";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
 
-"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Details" = "Lidmaatschap details";
 "Membership.Legal.Privacy" = "Privacybeleid";
 "Membership.Legal.Terms" = "Algemene voorwaarden";
 "Membership.Legal.WouldYouLike" = "Wil je Anytype gebruiken voor werk, opleiding, etc.?";
 "Membership.Legal.LetUsKnow" = "Laat het ons hier weten.";
-"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
-"Membership.Legal.RestorePurchases" = "Restore purchases";
+"Membership.Legal.AlreadyPurchasedTier" = "Al een abonnement aangeschaft?";
+"Membership.Legal.RestorePurchases" = "Herstel aankopen";
 
 "Membership.Email.Subject" = "Speciale prijsaanvraag";
 "Membership.Email.Body" = "Specificeer alsjeblieft jouw verzoek:
@@ -1076,10 +1085,10 @@
 - geef aanvulende informatie over hoe jouw organisatie Anytype gebruikt";
 
 
-"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Title1" = "Bouw de visie samen";
 "Membership.Banner.Subtitle1" = "Als een gewaardeerd lid doet jouw mening er te! Neem deel aan exclusieve evenementen, vorm strategische keuzes en beïnvloed onze routekaart.";
 "Membership.Banner.Title2" = "Ontgrendel ledenvoordelen";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Subtitle2" = "Leden hebben meer backup opslagcapaciteit & synchronisatielimieten, uitnodigingen voor meerdere gasten om samen te werken in gedeelde ruimten, en een unieke identiteit in het Anytype netwerk.";
 "Membership.Banner.Title3" = "Ondersteun digitale onafhankelijkheid ";
 "Membership.Banner.Subtitle3" = "Jouw bijdrage steunt ons team en ondersteunt onze visie op een gebruiker-geëigende , veilige en gezamenlijke digitale omgeving.";
 "Membership.Banner.Title4" = "Investeer in verbinding";
@@ -1095,34 +1104,32 @@
 "Membership.NameForm.Validating" = "Even geduld...";
 "Membership.NameForm.Validated" = "Deze naam is voor het grijpen";
 
-"Membership.NameForm.Error.TooShort" = "Name is too short";
-"Membership.NameForm.Error.TooLong" = "Name is too long";
-"Membership.NameForm.Error.HasInvalidChars" = "Name has invalid characters";
-
-
 "Membership.Success.Title" = "Welkom bij het netwerk, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Curiosity" = "Hulde voor jouw nieuwsgierigheid!";
+"Membership.Success.Support" = "Hulde voor jouw ondersteuning!";
 
 "Membership.Payment.Card" = "Kaart";
 "Membership.Payment.Crypto" = "Crypto";
-"Membership.Payment.Apple subscription" = "Apple subscription";
-"Membership.Payment.Google subscription" = "Google subscription";
+"Membership.Payment.Apple subscription" = "Apple abonnement";
+"Membership.Payment.Google subscription" = "Google abonnement";
 
 
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+"Membership.Explorer.Subtitle" = "Synchroniseer jouw apparaten, verkrijg backup opslag, en ga op in samenwerking.";
+"Membership.Builder.Subtitle" = "Ontgrendel samenwerking met meerdere partijen en breid je netwerkopslag uit.";
+"Membership.CoCreator.Subtitle" = "Ondersteun ons avontuur en ontgrendel exclusieve toegang en voordelen.";
+"Membership.Custom.Subtitle" = "Aangepaste voorwaarden voor lidmaatschap. Als je vragen hebt, neem dan contact op met support.";
 
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+"Membership.Feature.LocalName" = "Locale, niet-unieke naam";
+"Membership.Feature.UniqueName" = "Unieke netwerknaam (%@+ tekens)";
+"Membership.Feature.StorageGB" = "%@ GB aan backup- & synchronisatieruimte op het Anytype netwerk";
+"Membership.Feature.Invites" = "%@ Uitnodigingen";
+"Membership.Feature.SpaceWriters" = "%@ Bewerkers per gedeelde ruimte";
+"Membership.Feature.UnlimitedViewers" = "Onbeperkt aantal Lezers voor gedeelde ruimten";
+"Membership.Feature.Viewers" = "%@ Lezers voor gedeelde ruimten";
+"Membership.Feature.SharedSpaces" = "Tot %@ Gedeelde ruimten";
+
+"MembershipServiceError.tierNotFound" = "Abonnementsgegevens niet gevonden, herstart app en probeer het opnieuw";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS AAN 🫵🐭. Schakel uit in Debug instellingen";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";

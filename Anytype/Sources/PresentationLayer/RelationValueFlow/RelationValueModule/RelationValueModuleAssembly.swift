@@ -5,12 +5,10 @@ import UIKit
 final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
-    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(modulesDI: ModulesDIProtocol, serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    init(modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
         self.modulesDI = modulesDI
-        self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
     }
     
@@ -25,16 +23,7 @@ final class RelationValueModuleAssembly: RelationValueModuleAssemblyProtocol {
         output: RelationValueViewModelOutput
     ) -> UIViewController? {
         
-        let contentViewModel = RelationEditingViewModelBuilder(
-            delegate: delegate,
-            newSearchModuleAssembly: modulesDI.newSearch(), 
-            textRelationEditingService: serviceLocator.textRelationEditingService(),
-            searchService: serviceLocator.searchService(),
-            systemURLService: serviceLocator.systemURLService(),
-            alertOpener: uiHelpersDI.alertOpener(),
-            bookmarkService: serviceLocator.bookmarkService(),
-            relationsService: serviceLocator.relationService()
-        )
+        let contentViewModel = RelationEditingViewModelBuilder(delegate: delegate)
             .buildViewModel(
                 objectDetails: objectDetails,
                 relation: relation,

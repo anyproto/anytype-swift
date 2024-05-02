@@ -4,7 +4,7 @@ import AnytypeCore
 import StoreKit
 
 
-enum MembershipNameSheetViewState {
+enum MembershipNameSheetViewState: Equatable {
     case `default`
     case validating
     case error(text: String)
@@ -34,6 +34,8 @@ final class MembershipNameSheetViewModel: ObservableObject {
     
     @Injected(\.storeKitService)
     private var storeKitService: StoreKitServiceProtocol
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     
     var anyNameAvailability: MembershipAnyNameAvailability {
         switch tier.anyName {
@@ -69,6 +71,8 @@ final class MembershipNameSheetViewModel: ObservableObject {
     
     @Injected(\.membershipService)
     private var memberhsipService: MembershipServiceProtocol
+    @Injected(\.nameService)
+    private var nameService: NameServiceProtocol
     
     private var validationTask: Task<(), any Error>?
     private let product: Product
@@ -94,25 +98,29 @@ final class MembershipNameSheetViewModel: ObservableObject {
         state = .validating
         
         validationTask = Task {
-            try await Task.sleep(seconds: 0.5)
+            try await Task.sleep(seconds: 0.3)
             try Task.checkCancellation()
             
             do {
                 try await memberhsipService.validateName(name: name, tierType: tier.type)
-                state = .validated
-            } catch let error as MembershipServiceProtocol.ValidateNameError {
-                state = .error(text: error.validateNameSheetError)
+                if try await nameService.isNameAvailable(name: name) {
+                    state = .validated
+                } else {
+                    state = .error(text: Loc.thisNameIsNotAvailabe)
+                }
             } catch let error {
                 state = .error(text: error.localizedDescription)
             }
         }
     }
         
-    func purchase() async throws {
-        try await storeKitService.purchase(product: product)
+    func purchase(name: String) async throws {
+        guard state == .validated else { return }
         
-        AnytypeAnalytics.instance().logChangePlan(tier: tier)
+        let billingId = try await membershipService.getBillingId(name: name, tier: tier)
+        let result = try await storeKitService.purchase(product: product, billingId: billingId)
         
         onSuccessfulPurchase(tier)
+        try result.throwErrorIfNeeded()
     }
 }

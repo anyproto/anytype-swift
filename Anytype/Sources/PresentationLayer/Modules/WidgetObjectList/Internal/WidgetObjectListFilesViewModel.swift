@@ -7,7 +7,8 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     
     // MARK: - DI
     
-    private let subscriptionService: FilesSubscriptionServiceProtocol
+    @Injected(\.filesSubscriptionManager)
+    private var subscriptionService: FilesSubscriptionServiceProtocol
     private let formatter = ByteCountFormatter.fileFormatter
     // MARK: - State
     
@@ -16,16 +17,13 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .editOnly
     let availableMenuItems: [WidgetObjectListMenuItem] = [.forceDelete]
-    let forceDeleteTitle: String = Loc.FilesList.ForceDelete.title
     
     private var details: [ObjectDetails] = [] {
         didSet { rowDetails = [WidgetObjectListDetailsData(details: details)] }
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init(subscriptionService: FilesSubscriptionServiceProtocol) {
-        self.subscriptionService = subscriptionService
-    }
+    init() { }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     

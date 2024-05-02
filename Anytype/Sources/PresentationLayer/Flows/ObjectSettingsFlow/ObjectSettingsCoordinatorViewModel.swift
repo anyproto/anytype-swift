@@ -1,6 +1,7 @@
 import Foundation
 import Services
 import AnytypeCore
+import SwiftUI
 
 @MainActor
 final class ObjectSettingsCoordinatorViewModel: ObservableObject,
@@ -11,42 +12,37 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     private weak var output: ObjectSettingsCoordinatorOutput?
     
     private let navigationContext: NavigationContextProtocol
-    private let objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
     private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
     
     @Published var coverPickerData: ObjectCoverPickerData?
+    @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var layoutPickerObjectId: StringIdentifiable?
+    @Published var blockObjectSearchData: BlockObjectSearchData?
+    @Published var dismiss = false
     
     init(
         objectId: String,
         output: ObjectSettingsCoordinatorOutput?,
         navigationContext: NavigationContextProtocol,
-        objectLayoutPickerModuleAssembly: ObjectLayoutPickerModuleAssemblyProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
+        relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     ) {
         self.objectId = objectId
         self.output = output
         self.navigationContext = navigationContext
-        self.objectLayoutPickerModuleAssembly = objectLayoutPickerModuleAssembly
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
         self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
-        self.newSearchModuleAssembly = newSearchModuleAssembly
     }
     
     // MARK: - ObjectSettingsModelOutput
     
     func undoRedoAction(objectId: String) {
-        // TODO: Move to editor
-        navigationContext.dismissTopPresented(animated: false)
-        navigationContext.present(UndoRedoViewController(objectId: objectId))
+        withAnimation(nil) {
+            dismiss.toggle()
+        }
+        output?.didUndoRedo()
     }
     
     func layoutPickerAction(document: BaseDocumentProtocol) {
-        let moduleViewController = objectLayoutPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        layoutPickerObjectId = document.objectId.identifiable
     }
     
     func showCoverPicker(document: BaseDocumentGeneralProtocol) {
@@ -54,8 +50,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func showIconPicker(document: BaseDocumentGeneralProtocol) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
     func relationsAction(document: BaseDocumentProtocol) {
@@ -71,18 +66,15 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     
     func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
         let excludedLayouts = DetailsLayout.fileLayouts + [.set, .participant]
-        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
+        blockObjectSearchData = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: excludedLayouts
-        ) { [weak navigationContext] details in
-            navigationContext?.dismissAllPresented(animated: true) {
+            excludedLayouts: excludedLayouts,
+            onSelect: { details in
                 onSelect(details.id)
             }
-        }
-
-        navigationContext.presentSwiftUIView(view: moduleView)
+        )
     }
     
     func closeEditorAction() {

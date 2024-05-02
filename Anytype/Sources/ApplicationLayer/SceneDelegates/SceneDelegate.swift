@@ -40,6 +40,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let applicationView = di.coordinatorsDI.application().makeView()
             .setKeyboardDismissEnv(window: window)
             .setPresentedDismissEnv(window: window)
+            .setAppInterfaceStyleEnv(window: window)
         window.rootViewController = UIHostingController(rootView: applicationView)
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle

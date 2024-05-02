@@ -4,20 +4,20 @@ struct DashboardAccountDeletionAlert: View {
     
     @StateObject private var model = DashboardAccountDeletionAlertModel()
 
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        FloaterAlertView(
+        BottomAlertView(
             title: Loc.DeletionAlert.title,
-            description: Loc.DeletionAlert.description,
-            leftButtonData: StandardButtonModel(text: Loc.back, style: .secondaryLarge) {
-                presentationMode.wrappedValue.dismiss()
-            },
-            rightButtonData: StandardButtonModel(text: Loc.delete, style: .warningLarge) {
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                model.accountDeletionConfirm()
+            message: Loc.DeletionAlert.description
+        ) {
+            BottomAlertButton(text: Loc.back, style: .secondary) {
+                dismiss()
             }
-        )
+            BottomAlertButton(text: Loc.delete, style: .warning) {
+                await model.accountDeletionConfirm()
+            }
+        }
         .onAppear {
             AnytypeAnalytics.instance().logScreenSettingsDelete()
         }

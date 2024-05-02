@@ -2,35 +2,46 @@ import Combine
 import Services
 import Foundation
 
+struct TextRelationEditingViewData {
+    let text: String?
+    let type: TextRelationViewType
+    let config: RelationModuleConfiguration
+    let objectDetails: ObjectDetails
+    let output: TextRelationActionButtonViewModelDelegate?
+}
+
 @MainActor
 final class TextRelationEditingViewModel: ObservableObject {
     
     @Published var text: String
     @Published var dismiss = false
     @Published var textFocused = true
-    @Published var actionsViewModel: [TextRelationActionViewModelProtocol]
+    @Published var actionsViewModels: [TextRelationActionViewModelProtocol] = []
     @Published var showPaste = false
     
     let config: RelationModuleConfiguration
     let type: TextRelationViewType
-    private let service: TextRelationEditingServiceProtocol
-    private let pasteboardHelper: PasteboardHelperProtocol
     
-    init(
-        text: String?,
-        type: TextRelationViewType,
-        config: RelationModuleConfiguration,
-        actionsViewModel: [TextRelationActionViewModelProtocol],
-        service: TextRelationEditingServiceProtocol,
-        pasteboardHelper: PasteboardHelperProtocol
-    ) {
-        self.text = text ?? ""
-        self.config = config
-        self.type = type
-        self.actionsViewModel = actionsViewModel
-        self.service = service
-        self.pasteboardHelper = pasteboardHelper
-        self.textFocused = config.isEditable
+    @Injected(\.textRelationEditingService)
+    private var service: TextRelationEditingServiceProtocol
+    @Injected(\.pasteboardHelper)
+    private var pasteboardHelper: PasteboardHelperProtocol
+    @Injected(\.textRelationActionViewModelBuilder)
+    private var builder: TextRelationActionViewModelBuilder
+    
+    init(data: TextRelationEditingViewData) {
+        self.text = data.text ?? ""
+        self.config = data.config
+        self.type = data.type
+        self.textFocused = data.config.isEditable
+        
+        self.actionsViewModels = builder.buildActionsViewModels(
+            text: data.text,
+            for: data.type,
+            relationKey: data.config.relationKey,
+            objectDetails: data.objectDetails,
+            output: data.output
+        )
         
         pasteboardHelper.startSubscription { [weak self] in
             self?.updatePasteState()
@@ -82,10 +93,10 @@ final class TextRelationEditingViewModel: ObservableObject {
     }
     
     func handleTextUpdate(text: String) {
-        for actionViewModel in actionsViewModel {
+        for actionViewModel in actionsViewModels {
             actionViewModel.inputText = text
         }
-        self.actionsViewModel = actionsViewModel
+        self.actionsViewModels = actionsViewModels
     }
     
     private func logEvent() {

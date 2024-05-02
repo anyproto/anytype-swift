@@ -5,32 +5,15 @@ final class RelationEditingViewModelBuilder {
     
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let textRelationEditingService: TextRelationEditingServiceProtocol
-    private let searchService: SearchServiceProtocol
-    private let systemURLService: SystemURLServiceProtocol
-    private let alertOpener: AlertOpenerProtocol
-    private let bookmarkService: BookmarkServiceProtocol
-    private let relationsService: RelationsServiceProtocol
+    @Injected(\.textRelationEditingService)
+    private var textRelationEditingService: TextRelationEditingServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
     
-    init(
-        delegate: TextRelationActionButtonViewModelDelegate?,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        textRelationEditingService: TextRelationEditingServiceProtocol,
-        searchService: SearchServiceProtocol,
-        systemURLService: SystemURLServiceProtocol,
-        alertOpener: AlertOpenerProtocol,
-        bookmarkService: BookmarkServiceProtocol,
-        relationsService: RelationsServiceProtocol
-    ) {
+    init(delegate: TextRelationActionButtonViewModelDelegate?) {
         self.delegate = delegate
-        self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.textRelationEditingService = textRelationEditingService
-        self.searchService = searchService
-        self.systemURLService = systemURLService
-        self.alertOpener = alertOpener
-        self.bookmarkService = bookmarkService
-        self.relationsService = relationsService
     }
     
 }
@@ -77,12 +60,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .phone,
-                        systemURLService: systemURLService,
                         delegate: delegate
                     ),
                     TextRelationCopyActionViewModel(
                         type: .phone,
-                        alertOpener: alertOpener,
                         delegate: delegate
                     )
                 ]
@@ -99,12 +80,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 actionsViewModel: [
                     TextRelationURLActionViewModel(
                         type: .email,
-                        systemURLService: systemURLService,
                         delegate: delegate
                     ),
                     TextRelationCopyActionViewModel(
                         type: .email,
-                        alertOpener: alertOpener,
                         delegate: delegate
                     )
                 ]
@@ -113,19 +92,16 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             let actions: [TextRelationActionViewModelProtocol?] = [
                 TextRelationURLActionViewModel(
                     type: .url,
-                    systemURLService: systemURLService,
                     delegate: delegate
                 ),
                 TextRelationCopyActionViewModel(
                     type: .url,
-                    alertOpener: alertOpener,
                     delegate: delegate
                 ),
                 TextRelationReloadContentActionViewModel(
                     objectDetails: objectDetails,
                     relationKey: relation.key,
-                    bookmarkService: bookmarkService,
-                    alertOpener: alertOpener
+                    delegate: delegate
                 )
             ]
             return TextRelationDetailsViewModel(
