@@ -73,15 +73,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-//    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-//        relationValueCoordinatorAssembly.make(
-//            relation: data.relation,
-//            objectDetails: data.objectDetails,
-//            analyticsType: .dataview, 
-//            output: self
-//        )
-//    }
-    
     func onSelectCodeLanguage(objectId: String, blockId: String) {
         codeLanguageData = CodeLanguageListData(documentId: objectId, blockId: blockId)
     }

@@ -175,15 +175,6 @@ final class EditorSetCoordinatorViewModel:
         )
     }
     
-//    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-//        relationValueCoordinatorAssembly.make(
-//            relation: data.relation,
-//            objectDetails: data.objectDetails,
-//            analyticsType: .dataview, 
-//            output: self
-//        )
-//    }
-    
     func showSetObjectCreationSettings(
         document: SetDocumentProtocol,
         viewId: String,

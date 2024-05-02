@@ -55,15 +55,6 @@ final class RelationsListCoordinatorViewModel:
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-//    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-//        relationValueCoordinatorAssembly.make(
-//            relation: data.relation,
-//            objectDetails: data.objectDetails,
-//            analyticsType: .menu,
-//            output: self
-//        )
-//    }
-    
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
         relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
