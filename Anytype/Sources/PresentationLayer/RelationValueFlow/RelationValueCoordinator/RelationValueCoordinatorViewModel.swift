@@ -41,7 +41,8 @@ final class RelationValueCoordinatorViewModel:
     }
     
     func relationModule() -> AnyView {
-        if case .date(let date) = relation {
+        switch relation {
+        case .date(let date):
             let dateValue = date.value?.date
             let configuration = RelationModuleConfiguration(
                 title: date.name,
@@ -55,9 +56,7 @@ final class RelationValueCoordinatorViewModel:
                 date: dateValue,
                 configuration: configuration
             ).eraseToAnyView()
-        }
-        
-        if case .status(let status) = relation {
+        case .status(let status):
             let configuration = RelationModuleConfiguration(
                 title: status.name,
                 isEditable: relation.isEditable,
@@ -79,9 +78,7 @@ final class RelationValueCoordinatorViewModel:
                     )
                 )
             ).eraseToAnyView()
-        }
-        
-        if case .tag(let tag) = relation {
+        case .tag(let tag):
             let configuration = RelationModuleConfiguration(
                 title: tag.name,
                 isEditable: relation.isEditable,
@@ -103,9 +100,7 @@ final class RelationValueCoordinatorViewModel:
                     )
                 )
             ).eraseToAnyView()
-        }
-        
-        if case .object(let object) = relation {
+        case .object(let object):
             let configuration = RelationModuleConfiguration(
                 title: object.name,
                 isEditable: relation.isEditable,
@@ -124,15 +119,13 @@ final class RelationValueCoordinatorViewModel:
                         limitedObjectTypes: obtainLimitedObjectTypes(with: object.limitedObjectTypes)
                     ),
                     relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                        config: configuration, 
+                        config: configuration,
                         selectedOptionsIds: object.selectedObjects.compactMap { $0.id }
                     )
                 ),
                 output: self
             ).eraseToAnyView()
-        }
-        
-        if case .file(let file) = relation {
+        case .file(let file):
             let configuration = RelationModuleConfiguration(
                 title: file.name,
                 isEditable: relation.isEditable,
@@ -150,62 +143,51 @@ final class RelationValueCoordinatorViewModel:
                         spaceId: configuration.spaceId
                     ),
                     relationSelectedOptionsModel: RelationSelectedOptionsModel(
-                        config: configuration, 
+                        config: configuration,
                         selectedOptionsIds: file.files.compactMap { $0.id }
                     )
                 ),
                 output: self
             ).eraseToAnyView()
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .text(let text) = relation {
+        case .text(let text):
             return textRelationEditingModule(
                 value: text.value,
                 name: text.name,
                 relationKey: text.key,
                 type: .text
             )
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .number(let number) = relation {
+        case .number(let number):
             return textRelationEditingModule(
                 value: number.value,
                 name: number.name,
                 relationKey: number.key,
                 type: .number
             )
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .email(let email) = relation {
-            return textRelationEditingModule(
-                value: email.value,
-                name: email.name,
-                relationKey: email.key,
-                type: .email
-            )
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .phone(let phone) = relation {
-            return textRelationEditingModule(
-                value: phone.value,
-                name: phone.name,
-                relationKey: phone.key,
-                type: .phone
-            )
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .url(let url) = relation {
+        case .url(let url):
             return textRelationEditingModule(
                 value: url.value,
                 name: url.name,
                 relationKey: url.key,
                 type: .url
             )
+        case .email(let email):
+            return textRelationEditingModule(
+                value: email.value,
+                name: email.name,
+                relationKey: email.key,
+                type: .email
+            )
+        case .phone(let phone):
+            return textRelationEditingModule(
+                value: phone.value,
+                name: phone.name,
+                relationKey: phone.key,
+                type: .phone
+            )
+        case .unknown, .checkbox:
+            anytypeAssertionFailure("There is no module for this relation", info: ["relation": relation.name])
+            return EmptyView().eraseToAnyView()
         }
-        
-        anytypeAssertionFailure("There is no new module for this relation", info: ["relation": relation.name])
-        
-        return EmptyView().eraseToAnyView()
     }
     
     private func textRelationEditingModule(

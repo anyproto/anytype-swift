@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .galleryInstallation)
     }
 
-    static var newTextEditingRelationView: Bool {
-        value(for: .newTextEditingRelationView)
-    }
-
     static var multiplayer: Bool {
         value(for: .multiplayer)
     }
@@ -92,7 +88,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .galleryInstallation,
-        .newTextEditingRelationView,
         .multiplayer,
         .universalLinks,
         .membership,

@@ -10,7 +10,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     private let showHeader: Bool
     private let setupEditorInput: (EditorPageModuleInput, String) -> Void
     private let editorPageAssembly: EditorPageModuleAssemblyProtocol
-    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     
@@ -32,7 +31,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         showHeader: Bool,
         setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void,
         editorPageAssembly: EditorPageModuleAssemblyProtocol,
-        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol
     ) {
@@ -40,7 +38,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         self.showHeader = showHeader
         self.setupEditorInput = setupEditorInput
         self.editorPageAssembly = editorPageAssembly
-        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.relationValueProcessingService = relationValueProcessingService
     }
@@ -124,32 +121,13 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     // MARK: - Private
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        let analyticsType = AnalyticsEventsRelationType.block
-        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
-            relationValueData = RelationValueData(
-                relation: relation,
-                objectDetails: objectDetails
-            )
-            return
-        }
-        
-        let result = relationValueProcessingService.relationProcessedSeparately(
+        relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
-            objectId: objectDetails.id,
-            spaceId: objectDetails.spaceId,
-            analyticsType: analyticsType,
+            objectDetails: objectDetails,
+            analyticsType: .block,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
-        
-        if !result {
-            legacyRelationValueCoordinator.startFlow(
-                objectDetails: objectDetails,
-                relation: relation,
-                analyticsType: analyticsType,
-                output: self
-            )
-        }
     }
 }

@@ -15,20 +15,17 @@ final class RelationsListCoordinatorViewModel:
     
     let document: BaseDocumentProtocol
     private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
-    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     private weak var output: RelationValueCoordinatorOutput?
 
     init(
         document: BaseDocumentProtocol,
         relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
-        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol,
         output: RelationValueCoordinatorOutput?
     ) {
         self.document = document
         self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
-        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.relationValueProcessingService = relationValueProcessingService
         self.output = output
     }
@@ -71,33 +68,14 @@ final class RelationsListCoordinatorViewModel:
     }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        let analyticsType = AnalyticsEventsRelationType.menu
-        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
-            relationValueData = RelationValueData(
-                relation: relation,
-                objectDetails: objectDetails
-            )
-            return
-        }
-        
-        let result = relationValueProcessingService.relationProcessedSeparately(
+        relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
-            objectId: objectDetails.id,
-            spaceId: objectDetails.spaceId,
-            analyticsType: analyticsType,
+            objectDetails: objectDetails,
+            analyticsType: .menu,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
-        
-        if !result {
-            legacyRelationValueCoordinator.startFlow(
-                objectDetails: objectDetails,
-                relation: relation,
-                analyticsType: analyticsType,
-                output: self
-            )
-        }
     }
     
     // MARK: - RelationValueCoordinatorOutput

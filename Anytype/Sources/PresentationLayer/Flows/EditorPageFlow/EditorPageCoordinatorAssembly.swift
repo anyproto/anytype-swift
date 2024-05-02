@@ -42,7 +42,6 @@ final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
                 showHeader: showHeader,
                 setupEditorInput: setupEditorInput,
                 editorPageAssembly: self.coordinatorsID.editorPageModule(), 
-                legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
                 relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(),
                 relationValueProcessingService: self.serviceLocator.relationValueProcessingService()
             )

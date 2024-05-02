@@ -4,14 +4,12 @@ import Services
 
 @MainActor
 protocol RelationValueProcessingServiceProtocol {
-    func canOpenRelationInNewModule(_ relation: Relation) -> Bool
-    func relationProcessedSeparately(
+    func handleRelationValue(
         relation: Relation,
-        objectId: String,
-        spaceId: String,
+        objectDetails: ObjectDetails,
         analyticsType: AnalyticsEventsRelationType,
-        onToastShow: ((String) -> Void)
-    ) -> Bool
+        onToastShow: (String) -> Void
+    ) -> RelationValueData?
 }
 
 @MainActor
@@ -22,78 +20,39 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     
     nonisolated init() {}
     
-    func canOpenRelationInNewModule(_ relation: Relation) -> Bool {
-        if case .date = relation, relation.isEditable {
-            return true
-        }
-        
-        if case .status = relation {
-            return true
-        }
-        
-        if case .tag = relation {
-            return true
-        }
-        
-        if case .object = relation {
-            return true
-        }
-        
-        if case .file = relation {
-            return true
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .text = relation {
-            return true
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .number = relation {
-            return true
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .email = relation {
-            return true
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .phone = relation {
-            return true
-        }
-        
-        if FeatureFlags.newTextEditingRelationView, case .url = relation {
-            return true
-        }
-        
-        return false
-    }
-    
-    func relationProcessedSeparately(
+    func handleRelationValue(
         relation: Relation,
-        objectId: String,
-        spaceId: String,
+        objectDetails: ObjectDetails,
         analyticsType: AnalyticsEventsRelationType,
-        onToastShow: ((String) -> Void)
-    ) -> Bool {
+        onToastShow: (String) -> Void
+    ) -> RelationValueData? {
         if case .date = relation, !relation.isEditable {
             onToastShow(Loc.Relation.Date.Locked.Alert.title(relation.name))
-            return true
+            return nil
         }
         
-        guard relation.isEditable || relation.hasDetails else { return false }
-        
-        if case .checkbox(let checkbox) = relation {
+        switch relation {
+        case .status, .tag, .object, .date, .file, .text, .number, .url, .email, .phone:
+            return RelationValueData(
+                relation: relation,
+                objectDetails: objectDetails
+            )
+        case .checkbox(let checkbox):
+            guard relation.isEditable else { return nil }
             let newValue = !checkbox.value
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: !newValue,
                 type: analyticsType,
-                spaceId: spaceId
+                spaceId: objectDetails.spaceId
             )
             Task {
-                try await relationsService.updateRelation(objectId: objectId, relationKey: checkbox.key, value: newValue.protobufValue)
+                try await relationsService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
             }
-            return true
+        case .unknown:
+            return nil
         }
         
-        return false
+        return nil
     }
 }
 

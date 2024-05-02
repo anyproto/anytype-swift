@@ -12,10 +12,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     // MARK: - ModulesDIProtocol
     
-    func relationValue() -> RelationValueModuleAssemblyProtocol {
-        return RelationValueModuleAssembly(modulesDI: self, uiHelpersDI: uiHelpersDI)
-    }
-    
     func createObject() -> CreateObjectModuleAssemblyProtocol {
         return CreateObjectModuleAssembly()
     }
