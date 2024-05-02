@@ -12,24 +12,22 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     private weak var output: ObjectSettingsCoordinatorOutput?
     
     private let navigationContext: NavigationContextProtocol
-    private let relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
     
     @Published var coverPickerData: ObjectCoverPickerData?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var blockObjectSearchData: BlockObjectSearchData?
+    @Published var relationsListData: RelationsListData?
     @Published var dismiss = false
     
     init(
         objectId: String,
         output: ObjectSettingsCoordinatorOutput?,
-        navigationContext: NavigationContextProtocol,
-        relationsListCoordinatorAssembly: RelationsListCoordinatorAssemblyProtocol
+        navigationContext: NavigationContextProtocol
     ) {
         self.objectId = objectId
         self.output = output
         self.navigationContext = navigationContext
-        self.relationsListCoordinatorAssembly = relationsListCoordinatorAssembly
     }
     
     // MARK: - ObjectSettingsModelOutput
@@ -55,9 +53,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     
     func relationsAction(document: BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
-        
-        let view = relationsListCoordinatorAssembly.make(document: document, output: self)
-        navigationContext.present(view)
+        relationsListData = RelationsListData(document: document)
     }
     
     func openPageAction(screenData: EditorScreenData) {

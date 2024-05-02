@@ -15,14 +15,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     // MARK: - CoordinatorsDIProtocol
     
-    func relationsList() -> RelationsListCoordinatorAssemblyProtocol {
-        RelationsListCoordinatorAssembly(
-            coordinatorsID: self,
-            modulesDI: modulesDI,
-            serviceLocator: serviceLocator
-        )
-    }
-    
     func templates() -> TemplatesCoordinatorAssemblyProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }

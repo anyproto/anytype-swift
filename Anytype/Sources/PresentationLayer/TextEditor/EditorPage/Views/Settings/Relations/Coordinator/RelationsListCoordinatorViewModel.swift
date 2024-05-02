@@ -2,6 +2,10 @@ import SwiftUI
 import Services
 import AnytypeCore
 
+struct RelationsListData: Identifiable {
+    let document: BaseDocumentProtocol
+    var id: String { document.objectId }
+}
 
 @MainActor
 final class RelationsListCoordinatorViewModel:
@@ -14,16 +18,14 @@ final class RelationsListCoordinatorViewModel:
     @Published var toastBarData: ToastBarData = .empty
     
     let document: BaseDocumentProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
+    
     private weak var output: RelationValueCoordinatorOutput?
 
-    init(
-        document: BaseDocumentProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol,
-        output: RelationValueCoordinatorOutput?
-    ) {
+    init(document: BaseDocumentProtocol, output: RelationValueCoordinatorOutput?) {
         self.document = document
-        self.relationValueProcessingService = relationValueProcessingService
         self.output = output
     }
     

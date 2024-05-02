@@ -39,8 +39,7 @@ final class ObjectSettingsCoordinatorAssembly: ObjectSettingsCoordinatorAssembly
             model: ObjectSettingsCoordinatorViewModel(
                 objectId: objectId,
                 output: output,
-                navigationContext: self.uiHelpersDI.commonNavigationContext(),
-                relationsListCoordinatorAssembly: self.coordinatorsDI.relationsList()
+                navigationContext: self.uiHelpersDI.commonNavigationContext()
             )
         ).eraseToAnyView()
     }
