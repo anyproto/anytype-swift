@@ -191,7 +191,7 @@
 "Anytype Library" = "Anytype Library";
 "Copied" = "Copied";
 "Share" = "Share";
-"Okay" = "Okay";
+"Okay" = "好的";
 "Join" = "加入";
 
 // Home
@@ -1091,7 +1091,7 @@
 "Membership.Banner.Title3" = "Support Digital Independence";
 "Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
 "Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+"Membership.Banner.Subtitle4" = "我們網絡的價值超過其各部分的總和。 作為會員，您的加入為網絡的發展奠定了基礎。";
 
 "Membership.EmailForm.Title" = "Get your free membership";
 "Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
@@ -1099,7 +1099,7 @@
 "Membership.EmailValidation" = "Enter the code sent to your email";
 
 "Membership.NameForm.Title" = "Pick your unique name";
-"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Subtitle" = "這是您在Anytype網絡的專屬用戶名，以確認您的會員身份。它是您的個人域名，不可更改。";
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "This name is up for grabs";
 

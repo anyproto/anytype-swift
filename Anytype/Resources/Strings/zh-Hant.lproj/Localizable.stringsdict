@@ -55,7 +55,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d 關聯</string>
+        <string>%d 個連結</string>
       </dict>
     </dict>
     <key>Backlinks count</key>
@@ -69,13 +69,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d 反向關聯</string>
+        <string>%d 個反向連結</string>
       </dict>
     </dict>
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>該保險庫將在 %#@days@ 後刪除</string>
+      <string>該文件庫將在 %#@days@ 後刪除</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d 天</string>
+        <string>在 %d 天後</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
