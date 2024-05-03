@@ -31,10 +31,8 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
                 data: data,
                 editorSetAssembly: self.coordinatorsID.editorSetModule(),
                 setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(), 
-                objectSettingCoordinatorAssembly: self.coordinatorsID.objectSettings(),
-                legacyRelationValueCoordinator: self.coordinatorsID.legacyRelationValue().make(), 
+                objectSettingCoordinatorAssembly: self.coordinatorsID.objectSettings(), 
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
-                relationValueCoordinatorAssembly: self.coordinatorsID.relationValue(), 
                 relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
                 toastPresenter: self.uiHelpersDI.toastPresenter(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext()

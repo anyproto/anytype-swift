@@ -20,6 +20,9 @@ struct ObjectSettingsCoordinatorView: View {
             .sheet(item: $model.blockObjectSearchData) {
                 BlockObjectSearchView(data: $0)
             }
+            .sheet(item: $model.relationsListData) {
+                RelationsListCoordinatorView(document: $0.document, output: model)
+            }
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }

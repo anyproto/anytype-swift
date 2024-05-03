@@ -21,9 +21,7 @@ final class EditorSetCoordinatorViewModel:
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
-    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     private let toastPresenter: ToastPresenterProtocol
@@ -45,9 +43,7 @@ final class EditorSetCoordinatorViewModel:
         editorSetAssembly: EditorSetModuleAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
-        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         navigationContext: NavigationContextProtocol
@@ -56,9 +52,7 @@ final class EditorSetCoordinatorViewModel:
         self.editorSetAssembly = editorSetAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
-        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.relationValueProcessingService = relationValueProcessingService
         self.toastPresenter = toastPresenter
         self.navigationContext = navigationContext
@@ -171,41 +165,13 @@ final class EditorSetCoordinatorViewModel:
     }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        let analyticsType = AnalyticsEventsRelationType.dataview
-        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
-            relationValueData = RelationValueData(
-                relation: relation,
-                objectDetails: objectDetails
-            )
-            return
-        }
-        
-        let result = relationValueProcessingService.relationProcessedSeparately(
+        relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
-            objectId: objectDetails.id,
-            spaceId: objectDetails.spaceId,
-            analyticsType: analyticsType,
+            objectDetails: objectDetails,
+            analyticsType: .dataview,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
-        )
-        
-        if !result {
-            legacyRelationValueCoordinator.startFlow(
-                objectDetails: objectDetails,
-                relation: relation,
-                analyticsType: analyticsType,
-                output: self
-            )
-        }
-    }
-    
-    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-        relationValueCoordinatorAssembly.make(
-            relation: data.relation,
-            objectDetails: data.objectDetails,
-            analyticsType: .dataview, 
-            output: self
         )
     }
     
