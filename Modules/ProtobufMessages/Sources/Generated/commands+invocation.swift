@@ -362,6 +362,11 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response: ResultWithError {}
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.BlockImage.SetName.Response: ResultWithError {}
 extension Anytype_Rpc.BlockImage.SetName.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -888,6 +893,11 @@ extension Anytype_Rpc.Object.ListDuplicate.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.ListExport.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ListExport.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Object.ListSetDetails.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ListSetDetails.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

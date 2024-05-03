@@ -1177,6 +1177,7 @@ public struct Anytype_Model_Block {
     case left // = 0
     case center // = 1
     case right // = 2
+    case justify // = 3
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -1188,6 +1189,7 @@ public struct Anytype_Model_Block {
       case 0: self = .left
       case 1: self = .center
       case 2: self = .right
+      case 3: self = .justify
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -1197,6 +1199,7 @@ public struct Anytype_Model_Block {
       case .left: return 0
       case .center: return 1
       case .right: return 2
+      case .justify: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -2905,6 +2908,7 @@ extension Anytype_Model_Block.Align: CaseIterable {
     .left,
     .center,
     .right,
+    .justify,
   ]
 }
 
@@ -5651,6 +5655,30 @@ extension Anytype_Model_MembershipTierData.PeriodType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public struct Anytype_Model_Detail {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var key: String = String()
+
+  /// NUll - removes key
+  public var value: SwiftProtobuf.Google_Protobuf_Value {
+    get {return _value ?? SwiftProtobuf.Google_Protobuf_Value()}
+    set {_value = newValue}
+  }
+  /// Returns true if `value` has been explicitly set.
+  public var hasValue: Bool {return self._value != nil}
+  /// Clears the value of `value`. Subsequent reads from it will return its default value.
+  public mutating func clearValue() {self._value = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
@@ -5798,6 +5826,7 @@ extension Anytype_Model_Membership.PaymentMethod: @unchecked Sendable {}
 extension Anytype_Model_Membership.EmailVerificationStatus: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
+extension Anytype_Model_Detail: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -6482,6 +6511,7 @@ extension Anytype_Model_Block.Align: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "AlignLeft"),
     1: .same(proto: "AlignCenter"),
     2: .same(proto: "AlignRight"),
+    3: .same(proto: "AlignJustify"),
   ]
 }
 
@@ -11487,4 +11517,46 @@ extension Anytype_Model_MembershipTierData.PeriodType: SwiftProtobuf._ProtoNameP
     4: .same(proto: "PeriodTypeMonths"),
     5: .same(proto: "PeriodTypeYears"),
   ]
+}
+
+extension Anytype_Model_Detail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Detail"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "key"),
+    2: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
+    }
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Detail, rhs: Anytype_Model_Detail) -> Bool {
+    if lhs.key != rhs.key {return false}
+    if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }

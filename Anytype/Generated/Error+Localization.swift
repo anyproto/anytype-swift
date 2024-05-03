@@ -1885,6 +1885,30 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "BlockFile.SetTargetObjectId.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "BlockFile.SetTargetObjectId.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.BlockImage.SetName.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -4702,6 +4726,30 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "Object.ListExport.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Object.ListExport.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Object.ListSetDetails.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.ListSetDetails.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.ListSetDetails.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

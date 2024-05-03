@@ -28,7 +28,7 @@ final class RelationsService: RelationsServiceProtocol {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = objectId
             $0.details = [
-                Anytype_Rpc.Object.SetDetails.Detail.with {
+                Anytype_Model_Detail.with {
                     $0.key = relationKey
                     $0.value = value
                 }
@@ -40,12 +40,12 @@ final class RelationsService: RelationsServiceProtocol {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = id
             $0.details = .builder {
-                Anytype_Rpc.Object.SetDetails.Detail.with {
+                Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.name.rawValue
                     $0.value = text.protobufValue
                 }
                 if let color {
-                    Anytype_Rpc.Object.SetDetails.Detail.with {
+                    Anytype_Model_Detail.with {
                         $0.key = BundledRelationKey.relationOptionColor.rawValue
                         $0.value = color.protobufValue
                     }
