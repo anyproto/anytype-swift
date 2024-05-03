@@ -99,8 +99,8 @@ struct MembershipModuleView: View {
     private var contactUs: some View {
         Button {
             let mailLink = MailUrl(
-                to: AboutApp.licenseMailTo,
-                subject: "\(Loc.Membership.Email.subject) \(accountManager.account.id)",
+                to: AboutApp.membershipUpgradeMailTo,
+                subject: "\(Loc.upgrade) \(accountManager.account.id)",
                 body: Loc.Membership.Email.body
             )
             guard let mailUrl = mailLink.url else { return }

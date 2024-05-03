@@ -322,6 +322,7 @@ internal enum Loc {
   internal static let unsplash = Loc.tr("Localizable", "Unsplash")
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value")
+  internal static let upgrade = Loc.tr("Localizable", "Upgrade")
   internal static let upload = Loc.tr("Localizable", "Upload")
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio")
   internal static let validUntil = Loc.tr("Localizable", "Valid until")
@@ -937,7 +938,6 @@ internal enum Loc {
     }
     internal enum Email {
       internal static let body = Loc.tr("Localizable", "Membership.Email.Body")
-      internal static let subject = Loc.tr("Localizable", "Membership.Email.Subject")
     }
     internal enum EmailForm {
       internal static let newsletter = Loc.tr("Localizable", "Membership.EmailForm.Newsletter")
