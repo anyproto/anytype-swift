@@ -5,7 +5,7 @@ import ProtobufMessages
 public extension Anytype_Model_Block.Align {
     var asBlockModel: LayoutAlignment? {
         switch self {
-        case .left: return .left
+        case .left, .justify: return .left
         case .center: return .center
         case .right: return .right
         case .UNRECOGNIZED: return nil

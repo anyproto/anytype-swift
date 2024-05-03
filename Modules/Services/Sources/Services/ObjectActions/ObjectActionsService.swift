@@ -108,7 +108,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         try await ClientCommands.objectSetDetails(.with {
             $0.contextID = contextID
             $0.details = details.map { details in
-                Anytype_Rpc.Object.SetDetails.Detail.with {
+                Anytype_Model_Detail.with {
                     $0.key = details.key
                     $0.value = details.value
                 }
@@ -137,7 +137,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         _ = try await ClientCommands.objectSetDetails(.with {
             $0.contextID = contextId
             $0.details = [
-                Anytype_Rpc.Object.SetDetails.Detail.with {
+                Anytype_Model_Detail.with {
                     $0.key = relationKey
                     $0.value = protobufValue
                 }

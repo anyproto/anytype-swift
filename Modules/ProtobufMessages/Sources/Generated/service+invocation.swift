@@ -724,6 +724,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectListSetDetails(
+        _ request: Anytype_Rpc.Object.ListSetDetails.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ListSetDetails.Request, Anytype_Rpc.Object.ListSetDetails.Response> {
+        return Invocation(messageName: "ObjectListSetDetails", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectListSetDetails(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ListSetDetails.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectApplyTemplate(
         _ request: Anytype_Rpc.Object.ApplyTemplate.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ApplyTemplate.Request, Anytype_Rpc.Object.ApplyTemplate.Response> {
@@ -1551,6 +1561,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockFileSetName(requestData) ?? Data()
             return try Anytype_Rpc.BlockFile.SetName.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockFileSetTargetObjectId(
+        _ request: Anytype_Rpc.BlockFile.SetTargetObjectId.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockFile.SetTargetObjectId.Request, Anytype_Rpc.BlockFile.SetTargetObjectId.Response> {
+        return Invocation(messageName: "BlockFileSetTargetObjectId", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockFileSetTargetObjectId(requestData) ?? Data()
+            return try Anytype_Rpc.BlockFile.SetTargetObjectId.Response(serializedData: responseData)
         }
     }
 

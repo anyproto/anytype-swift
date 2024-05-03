@@ -54,7 +54,7 @@ final class TemplatesService: TemplatesServiceProtocol {
             $0.contextID = objectTypeId
             
             $0.details = [
-                Anytype_Rpc.Object.SetDetails.Detail.with {
+                Anytype_Model_Detail.with {
                     $0.key = BundledRelationKey.defaultTemplateId.rawValue
                     $0.value = templateId.protobufValue
                 }
