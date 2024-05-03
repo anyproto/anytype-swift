@@ -54,18 +54,10 @@ struct MembershipCoordinator: View {
             userMembership: model.userMembership,
             allTiers: model.tiers,
             tierToDisplay: tier,
-            showEmailVerification: { data in
-                model.onEmailDataSubmit(data: data)
-            },
             onSuccessfulPurchase: { tier in
                 model.onSuccessfulPurchase(tier: tier)
             }
         )
-        .sheet(item: $model.emailVerificationData) { data in
-            EmailVerificationView(data: data) {
-                model.onSuccessfulValidation(data: data)
-            }
-        }
     }
     
     func showEmail(url: URL?) {

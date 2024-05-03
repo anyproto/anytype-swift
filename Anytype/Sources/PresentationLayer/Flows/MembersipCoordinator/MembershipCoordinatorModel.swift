@@ -10,7 +10,6 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var showTiersLoadingError = false
     @Published var showTier: MembershipTier?
     @Published var showSuccess: MembershipTier?
-    @Published var emailVerificationData: EmailVerificationData?
     @Published var emailUrl: URL?
     
     @Injected(\.membershipService)
@@ -38,15 +37,6 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     func onTierSelected(tier: MembershipTier) {
         showTier = tier
-    }
-    
-    func onEmailDataSubmit(data: EmailVerificationData) {
-        emailVerificationData = data
-    }
-    
-    func onSuccessfulValidation(data: EmailVerificationData) {
-        emailVerificationData = nil
-        showSuccessScreen(tier: data.tier)
     }
     
     func onSuccessfulPurchase(tier: MembershipTier) {

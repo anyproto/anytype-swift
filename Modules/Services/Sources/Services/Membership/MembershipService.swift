@@ -17,7 +17,7 @@ public protocol MembershipServiceProtocol {
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier]    
     
-    func getVerificationEmail(data: EmailVerificationData) async throws
+    func getVerificationEmail(email: String) async throws
     func verifyEmailCode(code: String) async throws
     
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
@@ -79,10 +79,10 @@ final class MembershipService: MembershipServiceProtocol {
         .asyncMap { await buildMemberhsipTier(tier: $0) }.compactMap { $0 }
     }
     
-    public func getVerificationEmail(data: EmailVerificationData) async throws {
+    public func getVerificationEmail(email: String) async throws {
         try await ClientCommands.membershipGetVerificationEmail(.with {
-            $0.email = data.email
-            $0.subscribeToNewsletter = data.subscribeToNewsletter
+            $0.email = email
+            $0.subscribeToNewsletter = true
         }).invoke(ignoreLogErrors: .canNotConnect)
     }
     
@@ -131,14 +131,15 @@ final class MembershipService: MembershipServiceProtocol {
             status: membership.status,
             dateEnds: Date(timeIntervalSince1970: TimeInterval(membership.dateEnds)),
             paymentMethod: membership.paymentMethod,
-            anyName: AnyName(handle: membership.nsName, extension: membership.nsNameType)
+            anyName: AnyName(handle: membership.nsName, extension: membership.nsNameType),
+            email: membership.userEmail
         )
     }
 
     private func buildMemberhsipTier(tier: Anytype_Model_MembershipTierData) async -> MembershipTier? {
         guard let type = MembershipTierType(intId: tier.id) else { return nil } // ignore 0 tier
-        guard let paymentType = await buildMembershipPaymentType(type: type, tier: tier) else { return nil }
         
+        let paymentType = await buildMembershipPaymentType(type: type, tier: tier)
         let anyName: MembershipAnyName = tier.anyNamesCountIncluded > 0 ? .some(minLenght: tier.anyNameMinLength) : .none
         
         return MembershipTier(
@@ -155,7 +156,7 @@ final class MembershipService: MembershipServiceProtocol {
         type: MembershipTierType,
         tier: Anytype_Model_MembershipTierData
     ) async -> MembershipTierPaymentType? {
-        guard type != .explorer else { return .email }
+        guard type != .explorer else { return nil }
         
         if tier.iosProductID.isNotEmpty {
             return await buildAppStorePayment(tier: tier)

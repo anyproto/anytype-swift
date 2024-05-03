@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 struct MembershipPricingView: View {
@@ -7,9 +8,6 @@ struct MembershipPricingView: View {
     
     var body: some View {
         switch tier.paymentType {
-        case .email:
-            AnytypeText(Loc.justEMail, style: .bodySemibold)
-                .foregroundColor(.Text.primary)
         case .appStore(let product):
             AnytypeText("\(product.anytypeDisplayPrice) ", style: .bodySemibold)
                 .foregroundColor(.Text.primary) +
@@ -20,6 +18,13 @@ struct MembershipPricingView: View {
                 .foregroundColor(.Text.primary) +
             AnytypeText(info.localizedPeriod ?? "", style: .caption1Regular)
                 .foregroundColor(.Text.primary)
+        case nil:
+            Rectangle().hidden().onAppear {
+                anytypeAssertionFailure(
+                    "No pricing view for empty payment info",
+                    info: ["Tier": String(reflecting: tier)]
+                )
+            }
         }
     }
 }

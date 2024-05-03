@@ -55,6 +55,7 @@ internal enum Loc {
   internal static let cancel = Loc.tr("Localizable", "Cancel")
   internal static let cancelDeletion = Loc.tr("Localizable", "Cancel deletion")
   internal static let changeCover = Loc.tr("Localizable", "Change cover")
+  internal static let changeEmail = Loc.tr("Localizable", "Change email")
   internal static let changeIcon = Loc.tr("Localizable", "Change icon")
   internal static let changeType = Loc.tr("Localizable", "Change type")
   internal static let changeWallpaper = Loc.tr("Localizable", "Change wallpaper")
@@ -106,6 +107,7 @@ internal enum Loc {
   internal static let duplicate = Loc.tr("Localizable", "Duplicate")
   internal static let eMail = Loc.tr("Localizable", "E-mail")
   internal static let edit = Loc.tr("Localizable", "Edit")
+  internal static let emailSuccessfullyValidated = Loc.tr("Localizable", "Email successfully validated")
   internal static let emoji = Loc.tr("Localizable", "Emoji")
   internal static let emojiOrImageForObject = Loc.tr("Localizable", "Emoji or image for object")
   internal static let empty = Loc.tr("Localizable", "Empty")
@@ -940,7 +942,6 @@ internal enum Loc {
       internal static let body = Loc.tr("Localizable", "Membership.Email.Body")
     }
     internal enum EmailForm {
-      internal static let newsletter = Loc.tr("Localizable", "Membership.EmailForm.Newsletter")
       internal static let subtitle = Loc.tr("Localizable", "Membership.EmailForm.Subtitle")
       internal static let title = Loc.tr("Localizable", "Membership.EmailForm.Title")
     }

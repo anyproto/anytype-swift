@@ -24,7 +24,6 @@ public struct StripePaymentInfo: Hashable, Equatable {
 }
 
 public enum MembershipTierPaymentType: Hashable, Equatable {
-    case email
     case appStore(product: Product)
     case external(info: StripePaymentInfo)
 }

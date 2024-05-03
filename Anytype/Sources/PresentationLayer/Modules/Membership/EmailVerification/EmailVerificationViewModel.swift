@@ -9,6 +9,8 @@ final class EmailVerificationViewModel: ObservableObject {
     @Published var loading = false
     @Published var timeRemaining = 60
     
+    @Binding private var email: String
+    
     var number1: String { text.letterAtIndex(0) }
     var number2: String { text.letterAtIndex(1) }
     var number3: String { text.letterAtIndex(2) }
@@ -17,14 +19,13 @@ final class EmailVerificationViewModel: ObservableObject {
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
     
-    private let data: EmailVerificationData
     private let onSuccessfulValidation: () -> ()
     
     init(
-        data: EmailVerificationData,
+        email: Binding<String>,
         onSuccessfulValidation: @escaping () -> ()
     ) {
-        self.data = data
+        _email = email
         self.onSuccessfulValidation = onSuccessfulValidation
     }
     
@@ -48,7 +49,7 @@ final class EmailVerificationViewModel: ObservableObject {
     func resendEmail() {
         asyncAction {
             UISelectionFeedbackGenerator().selectionChanged()
-            try await self.membershipService.getVerificationEmail(data: self.data)
+            try await self.membershipService.getVerificationEmail(email: self.email)
             self.timeRemaining = 60
         }
     }
