@@ -17,7 +17,7 @@ struct EditorPageCoordinatorView: View {
                 dismiss()
             }
             .sheet(item: $model.relationValueData) { data in
-                model.relationValueCoordinator(data: data)
+                RelationValueCoordinatorView(data: data, output: model)
             }
             .sheet(item: $model.codeLanguageData) {
                 CodeLanguageListView(data: $0)

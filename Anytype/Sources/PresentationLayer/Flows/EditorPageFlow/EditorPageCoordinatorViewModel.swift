@@ -10,7 +10,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     private let showHeader: Bool
     private let setupEditorInput: (EditorPageModuleInput, String) -> Void
     private let editorPageAssembly: EditorPageModuleAssemblyProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
@@ -31,14 +30,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         showHeader: Bool,
         setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void,
         editorPageAssembly: EditorPageModuleAssemblyProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol
     ) {
         self.data = data
         self.showHeader = showHeader
         self.setupEditorInput = setupEditorInput
         self.editorPageAssembly = editorPageAssembly
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
         self.relationValueProcessingService = relationValueProcessingService
     }
     
@@ -74,15 +71,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showCoverPicker(document: BaseDocumentGeneralProtocol) {
         covertPickerData = ObjectCoverPickerData(document: document)
-    }
-    
-    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-        relationValueCoordinatorAssembly.make(
-            relation: data.relation,
-            objectDetails: data.objectDetails,
-            analyticsType: .dataview, 
-            output: self
-        )
     }
     
     func onSelectCodeLanguage(objectId: String, blockId: String) {
