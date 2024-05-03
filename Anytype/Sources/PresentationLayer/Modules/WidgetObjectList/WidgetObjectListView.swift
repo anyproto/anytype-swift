@@ -72,8 +72,8 @@ struct WidgetObjectListView: View {
             }
             AnytypeNavigationSpacer(minHeight: 130)
         }
-        .hideScrollIndicatorLegacy()
-        .hideKeyboardOnScrollLegacy()
+        .scrollIndicators(.never)
+        .scrollDismissesKeyboard(.immediately)
     }
     
     @ViewBuilder

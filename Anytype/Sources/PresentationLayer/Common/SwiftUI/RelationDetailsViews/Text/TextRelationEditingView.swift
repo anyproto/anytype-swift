@@ -76,13 +76,8 @@ struct TextRelationEditingView: View {
     
     @ViewBuilder
     private var textField: some View {
-        if #available(iOS 16.0, *) {
-            TextField(viewModel.type.placeholder, text: $viewModel.text, axis: .vertical)
-                .lineLimit(1...10)
-        } else {
-            TextField(viewModel.type.placeholder, text: $viewModel.text)
-                .frame(height: 48)
-        }
+        TextField(viewModel.type.placeholder, text: $viewModel.text, axis: .vertical)
+            .lineLimit(1...10)
     }
     
     @ViewBuilder
