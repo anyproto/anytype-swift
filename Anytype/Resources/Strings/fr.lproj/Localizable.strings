@@ -104,7 +104,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "N° de téléphone";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "Chercher ou créer une nouvelle relation";
 
 // Origin Relation
 
@@ -207,11 +207,11 @@
 "Restore" = "Restaurer";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Key" = "Clé";
+"Keychain.Key.Copy.Toast.title" = "Clé copiée";
+"Keychain.Key.description" = "Vous en aurez besoin pour accéder à votre coffre. Conservez-la dans un lieu sûr. Si vous la perdez, vous ne pourrez plus accéder à votre coffre.";
+"Keychain.Show and copy key" = "Afficher et copier la clé";
+"Keychain.Have you backed up your key?" = "Avez-vous sauvegardé votre clé ?";
 "Keychain.Error.String to Data conversion error" = "Erreur de conversion de chaîne de. caractères en données";
 "Keychain.Error.Data to String conversion error" = "Erreur de conversion de données en chaîne de caractères";
 "Keychain.Error.Unknown Keychain Error" = "Erreur de trousseau inconnue";
@@ -221,20 +221,20 @@
 "Create" = "Créer";
 "Scan QR code" = "Scanner un QR code";
 "Auth.CameraPermissionTitle" = "Veuillez autoriser l'accès";
-"Restore key from keychain" = "Restore Key from the keychain";
+"Restore key from keychain" = "Restaurer la clé depuis le trousseau";
 "Auth.LogIn" = "J'ai une clé";
 "Auth.Button.Join" = "Nouveau coffre-fort";
 "Auth.Welcome.Subtitle" = "Créez et collaborez dans des espaces que vous possédez. Crypté, hors ligne & [open](%@).";
 "Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Erreur de récupération du coffre, veuillez réessayer";
+"Vault recover error no internet" = "Erreur de récupération du coffre, probablement pas de connexion internet";
 
 // Auth Errors
 "Error creating wallet" = "Erreur lors de la création du portefeuille";
-"Error select vault" = "Error select vault";
-"Error wallet recover vault" = "Error wallet recover vault";
+"Error select vault" = "Erreur de sélection du coffre";
+"Error wallet recover vault" = "Erreur de récupération du coffre";
 "Wallet.Recovery.Error.description" = "Clé invalide";
 
 "Search for language" = "Rechercher une langue…";
@@ -346,7 +346,7 @@
 "Alert.CameraPermissions.GoToSettings" = "Anytype a besoin d'accéder à votre caméra pour scanner les QR codes.\n\nAllez dans les paramètres de votre appareil -> Confidentialité -> Caméra et donnez accès à Anytype";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "Nous sommes désolés de vous voir partir. Vous avez 30 jours pour annuler cette demande. Après 30 jours, les données de votre coffre chiffré sont définitivement supprimées du nœud de sauvegarde.";
 
 // MARK: - Object Settings
 "Undo/Redo" = "Annuler/Rétablir";
@@ -567,17 +567,17 @@
 "Mode" = "Mode";
 "copied to clipboard" = "%@ copié dans le presse-papier";
 "Create object from clipboard" = "Créer un objet depuis le presse-papiers";
-"Access to key from keychain" = "Access to key from keychain";
-"Back up your key" = "Back up your key";
-"Vault" = "Vault";
+"Access to key from keychain" = "Accéder à la clé depuis le trousseau";
+"Back up your key" = "Sauvegarder votre clé";
+"Vault" = "Coffre";
 "Access" = "Accès";
-"Back up key" = "Back up key";
+"Back up key" = "Sauvegarder la clé";
 "Removing cache" = "Suppression du cache";
 "Deletion error" = "Erreur lors de la suppression";
 "Start" = "Commencer";
 "On analytics" = "On analytics";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
+"Select vault error" = "Erreur de sélection du coffre";
+"Vault deleted" = "Le coffre a été supprimé";
 "Vault.Select.Incompatible.Version.Error.Text" = "Nous n'avons pas pu récupérer les données de votre coffre car votre version est obsolète. Veuillez mettre à jour Anytype vers la dernière version.";
 "Restore from keychain" = "Restaurer depuis le trousseau";
 "Edit" = "Éditer";
@@ -660,14 +660,14 @@
 "This object doesn't exist" = "Cet objet n'existe pas";
 "Setting up encrypted storage\nPlease wait" = "Configuration du stockage chiffré\nVeuillez patienter";
 "These objects will be deleted irrevocably" = "Ces objets seront supprimés définitivement. Cette action est irrévocable.";
-"Delete vault" = "Delete vault";
+"Delete vault" = "Supprimer le coffre";
 "Cancel deletion" = "Annuler la suppression";
 "Logout and clear data" = "Se déconnecter et effacer les données";
 "New" = "Nouveau";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
+"DeletionAlert.description" = "Vous serez déconnecté·e sur tous les autres appareils. Vous aurez 30 jours pour récupérer votre coffre. Ensuite, il sera définitivement supprimé.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Grille";
@@ -814,7 +814,7 @@
 "About.TermsOfUse" = "Conditions d'utilisation";
 "About.PrivacyPolicy" = "Politique de confidentialité";
 "About.TechInfo" = "Informations techniques";
-"About.Mail.Subject" = "Support request, Vault ID %@";
+"About.Mail.Subject" = "Demande d'assistance, ID du coffre %@";
 "About.Mail.Body" = "\n\nInformations techniques\n%@";
 
 // MARK: - Cache
@@ -825,7 +825,7 @@
 "Settings.Title" = "Paramètres";
 "Settings.SpaceName" = "Nom de l'espace";
 "Settings.SpaceType" = "Type d'espace";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.VaultAndAccess" = "Coffre et accès";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Stockage des fichiers";
@@ -833,8 +833,8 @@
 "FileStorage.Space.Instruction" = "Vous pouvez stocker gratuitement jusqu'à %@ de vos fichiers sur notre nœud de sauvegarde chiffré. Si vous atteignez la limite, les fichiers ne seront stockés que localement.";
 "FileStorage.Space.Used" = "%@ sur %@ utilisé";
 "FileStorage.Space.GetMore" = "Obtenir plus d’espace";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
+"FileStorage.Space.Mail.Subject" = "Obtenir plus de stockage, coffre %@";
+"FileStorage.Space.Mail.Body" = "Bonjour, l'équipe Anytype. Je vous contacte pour demander une augmentation de ma capacité de stockage de fichiers car mon coffre est plein. Mes limites actuelles sont %@. Mon identifiant de coffre est %@. À bientôt, %@.";
 "FileStorage.Local.Title" = "Stockage local";
 "FileStorage.Local.Instruction" = "Afin d'économiser de l'espace sur votre appareil, vous pouvez décharger tous vos fichiers vers notre nœud de sauvegarde chiffré. Les fichiers seront rechargés lorsque vous les ouvrirez.";
 "FileStorage.Local.Used" = "%@ utilisé";
@@ -996,11 +996,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Attention";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
+"Initial.UnstableMiddle.Message" = "Vous lancez l'application avec un middleware instable. N’utilisez pas votre coffre de production. Votre coffre risquerait d'être cassé.";
 "Initial.UnstableMiddle.Title" = "Attention";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Logout" = "Déconnexion du coffre actuel";
+"Initial.UnstableMiddle.Continue" = "Continuer avec le coffre actuel";
+"Initial.UnstableMiddle.WontUseProd" = "Je n'utiliserai pas mon coffre de production";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Créer des objets avec un type spécifique";
@@ -1127,8 +1127,8 @@
 "Membership.Feature.Viewers" = "%@ Lecteurs pour les espaces partagés";
 "Membership.Feature.SharedSpaces" = "Jusqu'à %@ Espaces partagés";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.tierNotFound" = "Données de niveau introuvables, redémarrez l'application et réessayez";
+"MembershipServiceError.forcefullyFailedValidation" = "LE MODE FAIL EST ACTIVÉ 🫵🐭. Désactivez-le dans les paramètres de débogage";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";
