@@ -85,7 +85,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Ce coffre sera supprimé %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>demain</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>dans %d jours</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -191,7 +191,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Vous avez atteint la limite de %d membres. Les nouveaux membres ne pourront pas vous rejoindre.</string>
       </dict>
     </dict>
     <key>Space.MembersCount</key>
@@ -239,7 +239,7 @@
         <key>one</key>
         <string>mois</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d mois</string>
       </dict>
     </dict>
     <key>Per Week</key>
@@ -255,7 +255,7 @@
         <key>one</key>
         <string>semaine</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d semaines</string>
       </dict>
     </dict>
     <key>Per Year</key>
@@ -271,7 +271,7 @@
         <key>one</key>
         <string>année</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d années</string>
       </dict>
     </dict>
     <key>Per Day</key>
@@ -287,7 +287,7 @@
         <key>one</key>
         <string>jour</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d jours</string>
       </dict>
     </dict>
   </dict>
