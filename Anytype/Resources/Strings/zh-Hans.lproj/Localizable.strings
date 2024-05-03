@@ -104,7 +104,7 @@
 "Relation.Format.Email.Title" = "电子邮件";
 "Relation.Format.Phone.Title" = "电话号码";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "搜索或创建新关系";
 
 // Origin Relation
 
@@ -1131,8 +1131,8 @@
 "Membership.Feature.Viewers" = "共享空间有 %@ 个查看者";
 "Membership.Feature.SharedSpaces" = "最多 %@ 个共享空间";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.tierNotFound" = "找不到层数据，重启应用并重试";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL 模式开启 🫵🐭关闭在调试设置";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";
