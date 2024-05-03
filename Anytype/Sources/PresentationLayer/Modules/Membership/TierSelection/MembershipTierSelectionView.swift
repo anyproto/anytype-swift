@@ -32,28 +32,15 @@ struct MembershipTierSelectionView: View {
     }
     
     private var scrollView: some View {
-        Group {
-            if #available(iOS 16.0, *) {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        MembershipTierInfoView(tier: model.tierToDisplay)
-                        sheet
-                            .cornerRadius(12, corners: .top)
-                            .background(sheetBackground)
-                    }
-                }
-                .scrollIndicators(.never)
-            } else {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        MembershipTierInfoView(tier: model.tierToDisplay)
-                        sheet
-                            .cornerRadius(12, corners: .top)
-                            .background(sheetBackground)
-                    }
-                }
+        ScrollView {
+            VStack(spacing: 0) {
+                MembershipTierInfoView(tier: model.tierToDisplay)
+                sheet
+                    .cornerRadius(12, corners: .top)
+                    .background(sheetBackground)
             }
         }
+        .hideScrollIndicatorLegacy()
     }
     
     var sheet: some View {
