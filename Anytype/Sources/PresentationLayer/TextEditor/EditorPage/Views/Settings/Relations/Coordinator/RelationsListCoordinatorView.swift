@@ -3,7 +3,11 @@ import SwiftUI
 
 struct RelationsListCoordinatorView: View {
     
-    @StateObject var model: RelationsListCoordinatorViewModel
+    @StateObject private var model: RelationsListCoordinatorViewModel
+    
+    init(document: BaseDocumentProtocol, output: RelationValueCoordinatorOutput?) {
+        _model = StateObject(wrappedValue: RelationsListCoordinatorViewModel(document: document, output: output))
+    }
     
     var body: some View {
         RelationsListView(
