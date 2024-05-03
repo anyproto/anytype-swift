@@ -13,7 +13,7 @@ extension MembershipTier {
                 Loc.Membership.Feature.spaceWriters(3),
                 Loc.Membership.Feature.viewers(3)
             ],
-            paymentType: .email,
+            paymentType: nil,
             color: .green
         )
     }

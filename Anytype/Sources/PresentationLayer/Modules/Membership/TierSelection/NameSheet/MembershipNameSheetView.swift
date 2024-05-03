@@ -26,9 +26,9 @@ struct MembershipNameSheetView: View {
             Spacer.fixedHeight(26)
             info
             nameView
-            AnytypeText("\(model.tier.paymentType.displayPrice ?? "") ", style: .title)
+            AnytypeText("\(model.tier.paymentType?.displayPrice ?? "") ", style: .title)
                 .foregroundColor(.Text.primary) +
-            AnytypeText(model.tier.paymentType.localizedPeriod ?? "", style: .relation1Regular)
+            AnytypeText(model.tier.paymentType?.localizedPeriod ?? "", style: .relation1Regular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(15)
             AsyncStandardButton(

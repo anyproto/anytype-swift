@@ -71,7 +71,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
     public let name: String
     public let anyName: MembershipAnyName
     public let features: [String]
-    public let paymentType: MembershipTierPaymentType
+    public let paymentType: MembershipTierPaymentType?
     public let color: MembershipColor
     
     public var id: MembershipTierType { type }
@@ -81,7 +81,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
         name: String,
         anyName: MembershipAnyName,
         features: [String],
-        paymentType: MembershipTierPaymentType,
+        paymentType: MembershipTierPaymentType?,
         color: MembershipColor
     ) {
         self.type = type

@@ -18,14 +18,16 @@ public extension MembershipStatus {
         tier: MembershipTier?,
         status: MembershipSubscriptionStatus = .active,
         paymentMethod: MembershipPaymentMethod = .methodInappApple,
-        anyName: AnyName = .mockEmpty
+        anyName: AnyName = .mockEmpty,
+        email: String = ""
     ) -> MembershipStatus {
         MembershipStatus(
             tier: tier,
             status: status,
             dateEnds: .tomorrow,
             paymentMethod: paymentMethod,
-            anyName: anyName
+            anyName: anyName,
+            email: email
         )
     }
 }

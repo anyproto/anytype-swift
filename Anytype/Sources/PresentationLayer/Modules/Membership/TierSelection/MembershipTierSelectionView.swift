@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 struct MembershipTierSelectionView: View {
@@ -10,7 +11,6 @@ struct MembershipTierSelectionView: View {
     init(
         userMembership: MembershipStatus,
         tierToDisplay: MembershipTier,
-        showEmailVerification: @escaping (EmailVerificationData) -> (),
         onSuccessfulPurchase: @escaping (MembershipTier) -> ()
         
     ) {
@@ -18,24 +18,41 @@ struct MembershipTierSelectionView: View {
             wrappedValue: MembershipTierSelectionViewModel(
                 userMembership: userMembership,
                 tierToDisplay: tierToDisplay,
-                showEmailVerification: showEmailVerification,
                 onSuccessfulPurchase: onSuccessfulPurchase
             )
         )
     }
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                MembershipTierInfoView(tier: model.tierToDisplay)
-                sheet
-                    .cornerRadius(12, corners: .top)
-                    .background(sheetBackground)
-            }
-        }
+        scrollView
         .safariSheet(url: $safariUrl)
         .task {
             await model.onAppear()
+        }
+    }
+    
+    private var scrollView: some View {
+        Group {
+            if #available(iOS 16.0, *) {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        MembershipTierInfoView(tier: model.tierToDisplay)
+                        sheet
+                            .cornerRadius(12, corners: .top)
+                            .background(sheetBackground)
+                    }
+                }
+                .scrollIndicators(.never)
+            } else {
+                ScrollView {
+                    VStack(spacing: 0) {
+                        MembershipTierInfoView(tier: model.tierToDisplay)
+                        sheet
+                            .cornerRadius(12, corners: .top)
+                            .background(sheetBackground)
+                    }
+                }
+            }
         }
     }
     
@@ -43,15 +60,11 @@ struct MembershipTierSelectionView: View {
         Group {
             switch model.state {
             case .owned:
-                MembershipOwnerInfoSheetView(membership: model.userMembership)
+                MembershipOwnerInfoSheetView()
             case .pending:
                 MembershipPendingInfoSheetView(membership: model.userMembership)
             case .unowned:
                 switch model.tierToDisplay.paymentType {
-                case .email:
-                    MembershipEmailSheetView { email, subscribeToNewsletter in
-                        try await model.getVerificationEmail(email: email, subscribeToNewsletter: subscribeToNewsletter)
-                    }
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
                 case .external(let info):
@@ -65,6 +78,13 @@ struct MembershipTierSelectionView: View {
                     }
                     .background(Color.Background.primary)
                     .cornerRadius(16, corners: .top)
+                case nil:
+                    Rectangle().hidden().onAppear {
+                        anytypeAssertionFailure(
+                            "No unowned view for empty payment info",
+                            info: ["Tier": String(reflecting: model.tierToDisplay)]
+                        )
+                    }
                 }
             }
         }
@@ -88,37 +108,31 @@ struct MembershipTierSelectionView: View {
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockExplorer),
             tierToDisplay: .mockExplorer,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: nil),
             tierToDisplay: .mockExplorer,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockExplorer),
             tierToDisplay: .mockBuilder,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockBuilder, anyName: .mock),
             tierToDisplay: .mockBuilder,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockBuilder, anyName: .mock),
             tierToDisplay: .mockCoCreator,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockCoCreator, anyName: .mock),
             tierToDisplay: .mockCoCreator,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
     }.tabViewStyle(.page)

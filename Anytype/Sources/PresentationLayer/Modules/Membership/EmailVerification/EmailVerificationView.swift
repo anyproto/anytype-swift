@@ -8,9 +8,9 @@ struct EmailVerificationView: View {
     @State private var textFocused = true
     private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    init(data: EmailVerificationData, onSuccessfulValidation: @escaping () -> ()) {
+    init(email: Binding<String>, onSuccessfulValidation: @escaping () -> ()) {
         _model = StateObject(
-            wrappedValue: EmailVerificationViewModel(data: data, onSuccessfulValidation: onSuccessfulValidation)
+            wrappedValue: EmailVerificationViewModel(email: email, onSuccessfulValidation: onSuccessfulValidation)
         )
     }
     
@@ -89,9 +89,6 @@ struct EmailVerificationView: View {
 
 #Preview {
     VStack {
-        EmailVerificationView(
-            data: EmailVerificationData(email: "", subscribeToNewsletter: true, tier: .mockExplorer),
-            onSuccessfulValidation: {}
-        )
+        EmailVerificationView(email: .constant(""), onSuccessfulValidation: {})
     }
 }

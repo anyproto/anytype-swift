@@ -1064,7 +1064,8 @@
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
 "Purchase cancelled" = "Purchase cancelled";
-
+"Change email" = "Change email";
+"Email successfully validated" = "Email successfully validated";
 
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
@@ -1093,9 +1094,8 @@
 "Membership.Banner.Title4" = "Invest in Connectivity";
 "Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
-"Membership.EmailForm.Title" = "Get your free membership";
-"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
-"Membership.EmailForm.Newsletter" ="I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Enter the code sent to your email";
 
 "Membership.NameForm.Title" = "Pick your unique name";
