@@ -233,7 +233,7 @@
 
 // Auth Errors
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
-"Error select vault" = "Error select vault";
+"Error select vault" = "Fehler bei der Auswahl des Tresors";
 "Error wallet recover vault" = "Error wallet recover vault";
 "Wallet.Recovery.Error.description" = "Ungültiger Schlüssel";
 
@@ -568,7 +568,7 @@
 "copied to clipboard" = "%@ in die Zwischenanlage kopiert";
 "Create object from clipboard" = "Objekt aus der Zwischenablage erstellen";
 "Access to key from keychain" = "Zugriff auf Schlüssel vom Schlüsselbund";
-"Back up your key" = "Back up your key";
+"Back up your key" = "Sichere deinen Schlüssel";
 "Vault" = "Tresor";
 "Access" = "Zugriff";
 "Back up key" = "Back up key";
@@ -999,8 +999,8 @@
 "Initial.UnstableMiddle.Title" = "Warnung";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Warnung";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.Logout" = "Vom aktuellen Tresor abmelden";
+"Initial.UnstableMiddle.Continue" = "Mit aktuellem Tresor fortfahren";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
@@ -1047,6 +1047,7 @@
 "unlimited" = "Unbegrenzt";
 
 
+"Upgrade" = "Upgrade";
 "What’s included" = "Was ist inbegriffen?";
 "Submit" = "Absenden";
 "Resend" = "Erneut senden";
@@ -1064,8 +1065,9 @@
 "Pending" = "Ausstehend...";
 "Manage payment" = "Zahlung verwalten";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Purchase cancelled";
-
+"Purchase cancelled" = "Kauf abgebrochen";
+"Change email" = "E-Mail-Adresse ändern";
+"Email successfully validated" = "E-Mail-Adresse erfolgreich validiert";
 
 "Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";
@@ -1078,11 +1080,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
 "Membership.Legal.RestorePurchases" = "Käufe wiederherstellen";
 
-"Membership.Email.Subject" = "Spezielle Preisanfrage";
-"Membership.Email.Body" = "Bitte konkretisiere deine Anfrage:
-- hebe hervor, wenn du eine Bildungs-, Regierungs- oder gemeinnützige Organisation vertrittst
-- erzähl uns mehr über deine Organisation: Anzahl der Mitarbeiter und zukünftigen Anytype-Nutzer, Märkte, auf denen du arbeitest, usw.,
-- zusätzliche Details darüber, wie deine Organisation Anytype benutzt";
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
@@ -1094,9 +1097,8 @@
 "Membership.Banner.Title4" = "In Konnektivität investieren";
 "Membership.Banner.Subtitle4" = "Der Wert unseres Netzwerks ist größer als die Summe seiner Teile. Durch deine Mitgliedschaft wird die Infrastruktur für sein Wachstum aufrechterhalten, die dieses Netzwerk trägt.";
 
-"Membership.EmailForm.Title" = "Hol dir deine kostenlose Mitgliedschaft";
-"Membership.EmailForm.Subtitle" = "Wir brauchen deine E-Mail-Adresse, um Spam in Schach zu halten und den Spaß am Spiel zu erhalten!";
-"Membership.EmailForm.Newsletter" = "Ich möchte über Neuigkeiten zu Produkten informiert werden und kostenlose Vergünstigungen erhalten!";
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Gib den an deine E-Mail-Adresse gesendeten Code ein";
 
 "Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
