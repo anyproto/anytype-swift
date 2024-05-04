@@ -1046,6 +1046,7 @@
 "unlimited" = "Tanpa batas";
 
 
+"Upgrade" = "Upgrade";
 "What’s included" = "Apa saja yang termasuk";
 "Submit" = "Kirim";
 "Resend" = "Kirim ulang";
@@ -1064,7 +1065,8 @@
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
 "Purchase cancelled" = "Pembelian dibatalkan";
-
+"Change email" = "Change email";
+"Email successfully validated" = "Email successfully validated";
 
 "Membership.Ad.Title" = "Langganan";
 "Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";
@@ -1077,11 +1079,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
 "Membership.Legal.RestorePurchases" = "Pulihkan pembelian";
 
-"Membership.Email.Subject" = "Permintaan Harga Khusus";
-"Membership.Email.Body" = "Silakan jelaskan permintaan Anda:
-- jelaskan jika Anda mewakili organisasi pendidikan, pemerintah, atau nirlaba
-- ceritakan organisasi Anda: jumlah pegawai dan pengguna Anytype dalam waktu mendatang, pasaran yang sedang dikerjakan, dll.
-- jelaskan detail tambahan tentang bagaimana organisasi Anda menggunakan Anytype";
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Membangun Visi Bersama";
@@ -1093,9 +1096,8 @@
 "Membership.Banner.Title4" = "Berinvestasilah pada Konektivitas";
 "Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
-"Membership.EmailForm.Title" = "Dapatkan keanggotaan gratis Anda";
-"Membership.EmailForm.Subtitle" = "Kami memerlukan surel Anda untuk mencegah spam dan membuat keseruan!";
-"Membership.EmailForm.Newsletter" = "Saya ingin mendapatkan pembaruan pada produk-produk dan menikmati manfaat gratis!";
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Masukkan kode yang dikirim ke surelmu";
 
 "Membership.NameForm.Title" = "Pilih nama unikmu";

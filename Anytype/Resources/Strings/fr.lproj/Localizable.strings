@@ -1046,6 +1046,7 @@
 "unlimited" = "Illimité";
 
 
+"Upgrade" = "Passer à un abonnement supérieur";
 "What’s included" = "Qu'est-ce qui est inclus ?";
 "Submit" = "Soumettre";
 "Resend" = "Renvoyer";
@@ -1064,7 +1065,8 @@
 "Manage payment" = "Gérer un paiement";
 "This name is not availabe" = "Ce nom n'est pas disponible";
 "Purchase cancelled" = "Achat annulé";
-
+"Change email" = "Modifier l'adresse e-mail";
+"Email successfully validated" = "E-mail validé avec succès";
 
 "Membership.Ad.Title" = "Adhésion";
 "Membership.Ad.Subtitle" = "Rejoindre le réseau Anytype signifie contribuer à son histoire";
@@ -1077,11 +1079,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Vous avez déjà acheté le niveau ?";
 "Membership.Legal.RestorePurchases" = "Restaurer les achats";
 
-"Membership.Email.Subject" = "Demande de prix spécial";
-"Membership.Email.Body" = "Merci de préciser votre requête :
-- choisissez si vous représentez une organisation éducative, gouvernementale, ou un organisme à but non-lucratif
-- dites-nous en plus à propos de votre organisme : numbre d'employés et futurs utilisateurs Anytype, marchés sur lesquels vous travaillez, etc.,
-- précisez des détails complémentaires sur la manière dont votre organisme utilise Anytype";
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Construire la Vision ensemble";
@@ -1093,9 +1096,8 @@
 "Membership.Banner.Title4" = "Investir dans la connectivité";
 "Membership.Banner.Subtitle4" = "La valeur de notre réseau dépasse la somme de ses participants. Votre adhésion soutient l'infrastructure pour sa croissance qui sous-tend ce réseau.";
 
-"Membership.EmailForm.Title" = "Obtenez votre adhésion gratuite";
-"Membership.EmailForm.Subtitle" = "Nous avons besoin de votre email pour garder le spam à distance et le plaisir du jeu !";
-"Membership.EmailForm.Newsletter" = "J'aimerais recevoir des mises à jour sur les produits et profiter d'avantages gratuits !";
+"Membership.EmailForm.Title" = "Recevez les actualités et profitez d'avantages gratuits !";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Entrez le code envoyé à votre adresse e-mail";
 
 "Membership.NameForm.Title" = "Choisissez votre nom unique";

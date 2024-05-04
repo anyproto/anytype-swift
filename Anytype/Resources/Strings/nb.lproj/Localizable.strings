@@ -1046,6 +1046,7 @@
 "unlimited" = "Ubegrenset";
 
 
+"Upgrade" = "Upgrade";
 "What’s included" = "Hva er inkludert";
 "Submit" = "Send inn";
 "Resend" = "Send på nytt";
@@ -1064,7 +1065,8 @@
 "Manage payment" = "Administrer betaling";
 "This name is not availabe" = "This name is not availabe";
 "Purchase cancelled" = "Purchase cancelled";
-
+"Change email" = "Change email";
+"Email successfully validated" = "Email successfully validated";
 
 "Membership.Ad.Title" = "Medlemskap";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
@@ -1077,11 +1079,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
 "Membership.Legal.RestorePurchases" = "Restore purchases";
 
-"Membership.Email.Subject" = "Forespørsel om spesialpris";
-"Membership.Email.Body" = "Please specify your request:
-- highlight if you represent an educational, governmental, or non-profit organization
-- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
-- provide additional details about how your organization uses Anytype";
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
@@ -1093,9 +1096,8 @@
 "Membership.Banner.Title4" = "Invest in Connectivity";
 "Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
-"Membership.EmailForm.Title" = "Få ditt gratis medlemskap";
-"Membership.EmailForm.Subtitle" = "We need your email to keep spam at bay and the fun in play!";
-"Membership.EmailForm.Newsletter" = "I'd like to get updates on products and enjoy free perks!";
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Skriv inn koden som er sendt til deg på e-post";
 
 "Membership.NameForm.Title" = "Velg ditt unike navn";

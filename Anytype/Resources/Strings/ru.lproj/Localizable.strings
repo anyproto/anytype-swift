@@ -1046,6 +1046,7 @@
 "unlimited" = "Unlimited";
 
 
+"Upgrade" = "Upgrade";
 "What’s included" = "Что включено";
 "Submit" = "Отправить";
 "Resend" = "Отправить ещё раз";
@@ -1064,7 +1065,8 @@
 "Manage payment" = "Управление платежами";
 "This name is not availabe" = "This name is not availabe";
 "Purchase cancelled" = "Purchase cancelled";
-
+"Change email" = "Change email";
+"Email successfully validated" = "Email successfully validated";
 
 "Membership.Ad.Title" = "Членство";
 "Membership.Ad.Subtitle" = "Присоединение к сети Anytype означает внесение вклада в её историю";
@@ -1077,11 +1079,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
 "Membership.Legal.RestorePurchases" = "Restore purchases";
 
-"Membership.Email.Subject" = "Запрос на специальную цену";
-"Membership.Email.Body" = "Пожалуйста, уточните ваш запрос:
-- доложите, представляете ли вы образовательную, правительственную, или некоммерческую организацию
-- расскажите больше о вашей организации: количество сотрудников и будущих пользователей Anytype, рынках, на которых вы работаете, и т.д.
-- предоставьте дополнительную информацию о том, как ваша организация использует Anytype";
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
@@ -1093,9 +1096,8 @@
 "Membership.Banner.Title4" = "Инвестировать в Соединение";
 "Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
-"Membership.EmailForm.Title" = "Получите ваше бесплатное членство";
-"Membership.EmailForm.Subtitle" = "Нам нужна ваша электронная почта чтобы держать спам вдали а веселье вблизи!";
-"Membership.EmailForm.Newsletter" = "Я бы хотел получать новости о продуктах и пользоваться бесплатными преимуществами!";
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Введите код, отправленный на вашу электронную почту";
 
 "Membership.NameForm.Title" = "Выберите ваше уникальное имя";
