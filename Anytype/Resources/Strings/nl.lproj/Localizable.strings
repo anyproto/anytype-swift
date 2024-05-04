@@ -1047,6 +1047,7 @@
 "unlimited" = "Onbeperkt";
 
 
+"Upgrade" = "Upgrade";
 "What’s included" = "Wat is inbegrepen";
 "Submit" = "Verstuur";
 "Resend" = "Verstuur opnieuw";
@@ -1065,7 +1066,8 @@
 "Manage payment" = "Beheer betaling";
 "This name is not availabe" = "Deze naam is niet beschikbaar";
 "Purchase cancelled" = "Aankoop geannuleerd";
-
+"Change email" = "Change email";
+"Email successfully validated" = "Email successfully validated";
 
 "Membership.Ad.Title" = "Lidmaatschap";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
@@ -1078,11 +1080,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Al een abonnement aangeschaft?";
 "Membership.Legal.RestorePurchases" = "Herstel aankopen";
 
-"Membership.Email.Subject" = "Speciale prijsaanvraag";
-"Membership.Email.Body" = "Specificeer alsjeblieft jouw verzoek:
-- markeer als je een onderwijs-, overheids- of non-profit organisatie vertegenwoordigt
-- vertel ons meer over jouw organisatie: aantal medewerkers en toekomstige Anytype gebruikers, markten waar je in werkt, enz.
-- geef aanvulende informatie over hoe jouw organisatie Anytype gebruikt";
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Bouw de visie samen";
@@ -1094,9 +1097,8 @@
 "Membership.Banner.Title4" = "Investeer in verbinding";
 "Membership.Banner.Subtitle4" = "De waarde van ons netwerk overschrijdt de som van zijn onderdelen. Jouw lidmaatschap houdt de infrastructuur in stand voor de groei die aan dit netwerk ten grondslag ligt.";
 
-"Membership.EmailForm.Title" = "Verkrijg jouw gratis lidmaatschap";
-"Membership.EmailForm.Subtitle" = "We hebben je e-mail nodig om spam op afstand te houden en het plezier te behouden!";
-"Membership.EmailForm.Newsletter" = "Ik zou graag updates over producten willen ontvangen en genieten van gratis voordelen!";
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Voer de code in die naar jouw e-mailadres is verstuurd";
 
 "Membership.NameForm.Title" = "Kies jouw unieke naam";
