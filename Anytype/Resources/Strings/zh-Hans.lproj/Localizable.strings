@@ -1049,6 +1049,7 @@
 "unlimited" = "无限的";
 
 
+"Upgrade" = "升级";
 "What’s included" = "包含的内容";
 "Submit" = "提交";
 "Resend" = "重新发送";
@@ -1067,7 +1068,8 @@
 "Manage payment" = "管理付款";
 "This name is not availabe" = "该名称不可用";
 "Purchase cancelled" = "购买已取消";
-
+"Change email" = "更换邮箱";
+"Email successfully validated" = "邮箱验证成功";
 
 "Membership.Ad.Title" = "会员
 ";
@@ -1081,11 +1083,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "已经购买了级别吗？";
 "Membership.Legal.RestorePurchases" = "恢复购买";
 
-"Membership.Email.Subject" = "特殊定价请求";
-"Membership.Email.Body" = "Please specify your request:
-- highlight if you represent an educational, governmental, or non-profit organization
-- tell us more about your organization: number of employees and future Anytype users, markets you're working on, etc.,
-- provide additional details about how your organization uses Anytype";
+"Membership.Email.Body" = "您好 Anytype 团队！我想要延长我当前的会员资格(请选择一个选项)：
+- 额外远程存储
+- 更多空间编辑者
+- 额外的共享空间
+具体来说，
+请在这里提供您需要的具体细节。";
 
 
 "Membership.Banner.Title1" = "一起构建愿景";
@@ -1097,9 +1100,8 @@
 "Membership.Banner.Title4" = "对连接的投资";
 "Membership.Banner.Subtitle4" = "我们的网络的价值超过了其各部分的总和。您的会员资格维持了用于支撑这个网络增长的基础设施。";
 
-"Membership.EmailForm.Title" = "获得您的免费会员资格";
-"Membership.EmailForm.Subtitle" = "我们需要您的邮箱来隔绝垃圾信息以及使用时的乐趣！";
-"Membership.EmailForm.Newsletter" = "我想获得产品的更新并享受免费优惠！";
+"Membership.EmailForm.Title" = "获得升级并享受免费优惠！";
+"Membership.EmailForm.Subtitle" = "它没有以任何方式链接到您的帐户。";
 "Membership.EmailValidation" = "输入发送到您邮箱的代码";
 
 "Membership.NameForm.Title" = "选择您独有的名字";
