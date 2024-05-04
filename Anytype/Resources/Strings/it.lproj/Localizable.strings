@@ -104,7 +104,7 @@
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Numero di telefono";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "Cerca o crea una nuova relazione";
 
 // Origin Relation
 
@@ -1046,6 +1046,7 @@
 "unlimited" = "Illimitato";
 
 
+"Upgrade" = "Aggiorna";
 "What’s included" = "Cosa è incluso";
 "Submit" = "Invia";
 "Resend" = "Invia di nuovo";
@@ -1064,7 +1065,8 @@
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "Questo nome non è disponibile";
 "Purchase cancelled" = "Acquisto annullato";
-
+"Change email" = "Cambia e-mail";
+"Email successfully validated" = "Email convalidata con successo";
 
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
@@ -1077,11 +1079,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Hai già acquistato il livello?";
 "Membership.Legal.RestorePurchases" = "Ripristina gli acquisti";
 
-"Membership.Email.Subject" = "Richiesta di prezzi speciali";
-"Membership.Email.Body" = "Si prega di specificare la richiesta:
-- evidenziare se si rappresenta un'organizzazione educativa, governativa o senza scopo di lucro
-- fornire maggiori informazioni sulla vostra organizzazione: numero di dipendenti e futuri utenti Anytype, mercati su cui si opera, ecc.,
-- fornire dettagli aggiuntivi su come la vostra organizzazione utilizza Anytype";
+"Membership.Email.Body" = "Ciao team di Anytype! Vorrei estendere la mia attuale adesione per ulteriori informazioni (si prega di scegliere un'opzione):
+- Archiviazione remota
+- Più editor di spazio
+- Ulteriori spazi condivisi
+Specificamente,
+Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 
 "Membership.Banner.Title1" = "Costruire insieme la visione";
@@ -1093,9 +1096,8 @@
 "Membership.Banner.Title4" = "Investi nella connettività";
 "Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
-"Membership.EmailForm.Title" = "Ottieni il tuo abbonamento gratuito";
-"Membership.EmailForm.Subtitle" = "Abbiamo bisogno della tua email per tenere lontano lo spam e mantenere vivo il divertimento!";
-"Membership.EmailForm.Newsletter" = "Vorrei ottenere aggiornamenti sui prodotti e godere di vantaggi gratuiti!";
+"Membership.EmailForm.Title" = "Ricevi aggiornamenti e goditi vantaggi gratuiti!";
+"Membership.EmailForm.Subtitle" = "Non è collegato in alcun modo al tuo account";
 "Membership.EmailValidation" = "Inserisci il codice inviato alla tua email";
 
 "Membership.NameForm.Title" = "Scegli il tuo nome unico";
@@ -1127,8 +1129,8 @@
 "Membership.Feature.Viewers" = "%@ Visualizzatori per spazi condivisi";
 "Membership.Feature.SharedSpaces" = "Fino a %@ Spazi condivisi";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.tierNotFound" = "Dati del livello non trovati, riavviare l'app e riprovare";
+"MembershipServiceError.forcefullyFailedValidation" = "LA MODALITÀ FAIL È ATTIVA 🫵🐭. Disattivare in Impostazioni di Debug";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipi MIME - %@";
