@@ -73,7 +73,7 @@
 "Create relation" = "創建關聯 \"%@\"";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的關聯";
-"Relation.AddedToLibrary" = "關聯 \"%@\" 已加入到您的資料庫";
+"Relation.AddedToLibrary" = "關聯 \"%@\" 已加入到您的筆記庫";
 "Relation.Deleted" = "已刪除的關聯";
 "Relation.From.Type" = "來自類別 %@";
 "Relation.EmptyState.title" = "無選項";
@@ -83,7 +83,7 @@
 "Relation.View.Create.title" = "創建選項";
 "Relation.View.Edit.title" = "編輯選項";
 "Relation.Create.Textfield.placeholder" = "輸入名稱...";
-"Relation.Edit.Button.title" = "Apply";
+"Relation.Edit.Button.title" = "應用";
 "Relation.Date.Locked.Alert.title" = "關聯 \"%@\" 已鎖定";
 "Relation.ObjectTypes.Header.title" = "物件類別：";
 "Relation.ObjectType.Header.title" = "物件類別：";
@@ -114,8 +114,8 @@
 "Relation.Origin.WebClipper" = "網頁裁剪";
 "Relation.Origin.SharingExtension" = "手機共享擴充";
 "Relation.Origin.UseCase" = "使用案例";
-"Relation.Origin.Builtin" = "資料庫已安裝";
-"Relation.Origin.Bookmark" = "Bookmark";
+"Relation.Origin.Builtin" = "筆記庫已安裝";
+"Relation.Origin.Bookmark" = "書籤";
 
 // MARK: - Import Type Relation
 
@@ -188,14 +188,14 @@
 "Name" = "名稱";
 "Description" = "描述";
 "Paste processing..." = "貼上處理...";
-"Anytype Library" = "Anytype 資料庫";
+"Anytype Library" = "Anytype 筆記庫";
 "Copied" = "已複製";
 "Share" = "Share";
 "Okay" = "好的";
 "Join" = "加入";
 
 // Home
-"Favorites" = "我的最愛";
+"Favorites" = "收藏夾";
 "Recent" = "最近";
 "Bin" = "垃圾桶";
 
@@ -225,432 +225,432 @@
 "Auth.LogIn" = "我有一個密鑰";
 "Auth.Button.Join" = "新資料庫";
 "Auth.Welcome.Subtitle" = "在您自己的空間中創建與協作。加密，離線及[開源](%@)";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Auth.Caption.Privacy.Text" = "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)";
 "Auth.Next" = "繼續";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "資料庫復原失敗，請再試一次";
+"Vault recover error no internet" = "資料庫復原失敗，可能是沒有網路連線";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
-"Error select vault" = "Error select vault";
-"Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Error creating wallet" = "錢包創建失敗";
+"Error select vault" = "資料庫選取失敗";
+"Error wallet recover vault" = "錢包錯誤資料庫復原失敗";
+"Wallet.Recovery.Error.description" = "無效的密鑰";
 
-"Search for language" = "Search for language";
+"Search for language" = "搜尋語言";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Title" = "這是您的密鑰";
+"Auth.JoinFlow.Key.Description" = "它賦予您資料庫的所有權。\n它無法復原。";
+"Auth.JoinFlow.Key.Button.Show.Title" = "顯示我的密鑰";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "繼續";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Later.Title" = "略過";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "複製到剪貼簿";
+"Auth.JoinFlow.Key.Button.Info.Title" = "更多資訊";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "您稍後可以在 Anytype 的設定中找到此密鑰";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "什麼是密鑰？";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "密鑰是由 12 個隨機單詞產生的助記詞，您的資料庫將在此裝置上神奇地生成。";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "誰知道這些單詞的組合，誰就能擁有該資料庫。 此時此刻，你是世界上唯一知道的人。";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "地球上的所有電腦資源都不足以破解。 如果您丟失了密鑰，它將無法復原。所以，請將它保存在安全的地方！";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "如何保存我的密鑰？";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存密鑰最簡單的方式是將其保存在您的密碼管理器中。";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最安全的方法是將其寫在紙上並離線保存在安全可靠的地方。";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "設置您的名字";
+"Auth.JoinFlow.Soul.Description" = "只有被您分享內容的人才能查看。這裡沒有中心化的管理。";
 "Auth.JoinFlow.Soul.Placeholder" = "未命名";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Vault.Title" = "這是您的資料庫";
+"Auth.JoinFlow.Vault.Description" = "所有內容都經過加密處理。\n資料以本地為主，即使是離線狀態也能正常運作。\n僅有您持有密鑰。";
+"Auth.JoinFlow.Vault.Button" = "獲取我的密鑰";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Use.Keychain.Title" = "使用鑰匙圈";
+"Auth.LoginFlow.Or" = "或";
+"Auth.LoginFlow.Textfield.Placeholder" = "輸入您的密鑰";
 "Auth.LoginFlow.Enter.Title" = "Get my Key";
-"Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
+"Auth.LoginFlow.Entering.Void.Title" = "正在進入 Void 身份集錦圖表";
 
 // Object settings
 
-"Icon" = "Icon";
-"Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
-"Background picture" = "Background picture";
-"Layout" = "Layout";
-"Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"Icon" = "圖示";
+"Emoji or image for object" = "物件的 Emoji 或圖像";
+"Cover" = "封面";
+"Background picture" = "背景圖片";
+"Layout" = "佈局";
+"Arrangement of objects on a canvas" = "畫布上的物件排列";
 
-"Search" = "Search";
-"There is no emoji named" = "There is no emoji named";
-"Try to find a new one or upload your image" = "Try to find a new one or upload your image";
+"Search" = "搜尋";
+"There is no emoji named" = "尚無命名的 Emoji";
+"Try to find a new one or upload your image" = "嘗試尋找新的或上傳您的圖片";
 
 "Emoji" = "Emoji";
-"Random" = "Random";
-"Upload" = "Upload";
-"Change icon" = "Change icon";
-"Change cover" = "Change cover";
-"Remove" = "Remove";
+"Random" = "隨機";
+"Upload" = "上傳";
+"Change icon" = "更改圖示";
+"Change cover" = "更改封面";
+"Remove" = "移除";
 
-"Solid colors" = "Solid colors";
-"Gradients" = "Gradients";
-"Gallery" = "Gallery";
+"Solid colors" = "純色";
+"Gradients" = "漸層";
+"Gallery" = "畫廊";
 
-"Remove photo" = "Remove photo";
-"Basic" = "Basic";
-"Profile" = "Profile";
-"Task" = "Task";
-"Note" = "Note";
-"Choose layout type" = "Choose layout type";
+"Remove photo" = "移除照片";
+"Basic" = "默認";
+"Profile" = "設定檔";
+"Task" = "任務";
+"Note" = "筆記";
+"Choose layout type" = "選擇佈局類型";
 
-"Undo typing" = "Undo typing";
-"Undo" = "Undo";
+"Undo typing" = "撤銷輸入";
+"Undo" = "復原";
 "Redo" = "重做";
-"Actions.LinkItself" = "Link to";
-"Actions.MakeAsTemplate" = "Make template";
-"Actions.TemplateMakeDefault" = "Make default";
-"Actions.CreateWidget.Title" = "To widgets";
-"Actions.CreateWidget.Success" = "New widget was created";
-"Actions.CopyLink" = "Copy link";
+"Actions.LinkItself" = "連結到";
+"Actions.MakeAsTemplate" = "製作成範本";
+"Actions.TemplateMakeDefault" = "設為預設";
+"Actions.CreateWidget.Title" = "到小工具";
+"Actions.CreateWidget.Success" = "新的小工具已創建";
+"Actions.CopyLink" = "複製連結";
 
 // Object Type
-"Set" = "Set";
-"Collection" = "Collection";
+"Set" = "集合";
+"Collection" = "集錦";
 
-"Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
+"Editor.MovingState.ScrollToSelectedPlace" = "滾動以選取位置";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.SearchPlaceholder" = "貼上連結或搜尋物件";
+"Editor.LinkToObject.PasteFromClipboard" = "從剪貼簿貼上";
+"Editor.LinkToObject.LinkedTo" = "連結至";
+"Editor.LinkToObject.CopyLink" = "複製連結";
+"Editor.LinkToObject.RemoveLink" = "移除連結";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
-"Create a new one or search for something else" = "Create a new one or search for something else";
-"Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"There is no object named" = "沒有名為 \"%@\" 的物件";
+"There is no type named" = "沒有名為 \"%@\" 的類別";
+"Create a new one or search for something else" = "建立一個新的或搜尋其他內容";
+"Search.Backlinks.Show.title" = "顯示反向連結";
+"Search.Backlinks.Header.title" = "反向連結：%@";
+"Search.Backlinks.Swipe.title" = "反向連結";
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Library is available in desktop app";
+"Home.Snackbar.Library" = "筆記庫在電腦端程式中可用";
 
 // MARK: - Alerts
-"Alert.CameraPermissions.Settings" = "Settings";
+"Alert.CameraPermissions.Settings" = "設置";
 "Alert.CameraPermissions.GoToSettings" = "Anytype 需要存取您的相機才能掃描 QR 碼。\n\n請前往您裝置的設定 -> Anytype 並將相機設置為開啟";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "看到您的離開我們感到很遺憾。 您有 30 天的時間取消此請求。 30 天後，您的加密帳戶資料將從備份節點永久刪除。";
 
 // MARK: - Object Settings
-"Undo/Redo" = "Undo/Redo";
+"Undo/Redo" = "撤消/重做";
 
 
 // MARK: - Templates
-"TemplateSelection.Available.Title" = "This type has %d templates";
-"TemplatePicker.ChooseTemplate" = "Choose template";
-"TemplatePicker.Buttons.UseTemplate" = "Use template";
-"TemplateSelection.SelectTemplate" = "Select template";
-"TemplateSelection.blankTemplate" = "Blank";
-"TemplateSelection.Template.Subtitle" = "Template";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplateSelection.Available.Title" = "此類別有 %d 個範本";
+"TemplatePicker.ChooseTemplate" = "選擇範本";
+"TemplatePicker.Buttons.UseTemplate" = "使用範本";
+"TemplateSelection.SelectTemplate" = "選取範本";
+"TemplateSelection.blankTemplate" = "空白";
+"TemplateSelection.Template.Subtitle" = "範本";
+"TemplateSelection.ObjectType.Subtitle" = "物件類別";
 
-"TemplateOptions.Alert.EditTemplate" = "Edit template";
+"TemplateOptions.Alert.EditTemplate" = "編輯範本";
 "TemplateOptions.Alert.Duplicate" = "建立副本";
 "TemplateOptions.Alert.Delete" = "刪除";
 
-"TemplateEditing.Title" = "Edit template";
+"TemplateEditing.Title" = "編輯範本";
 
-"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
-"Templates.Popup.WasAddedTo" = "New template was added to the type";
-"Templates.Popup.Duplicated" = "The template was duplicated";
-"Templates.Popup.Removed" = "The template was removed";
-"Templates.Popup.Default" = "The template was set as default";
+"Templates.Popup.WasAddedTo.title" = "新範本已新增至 %@ 類別";
+"Templates.Popup.WasAddedTo" = "新範本已新增至類別";
+"Templates.Popup.Duplicated" = "範本已建立副本";
+"Templates.Popup.Removed" = "範本已被刪除";
+"Templates.Popup.Default" = "範本已被設置為預設";
 
-"To Bin" = "To Bin";
-"Set as default" = "Set as default";
+"To Bin" = "到垃圾桶";
+"Set as default" = "設為預設";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
-"Add To Favorite" = "Add To Favorite";
-"Move To Bin" = "Move To Bin";
+"Remove From Favorite" = "從收藏夾中移除";
+"Add To Favorite" = "添加到收藏夾";
+"Move To Bin" = "移動到垃圾桶";
 
 
 "LinkAppearance.Description.None.Title" = "無";
-"LinkAppearance.Description.Object.Title" = "Object description";
-"LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.Description.Object.Title" = "物件描述";
+"LinkAppearance.Description.Content.Title" = "內容預覽";
+"LinkAppearance.ObjectType.Title" = "物件類別";
 
 // MARK: - Sets: Sorts
-"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
-"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sorts.NavigationView.Title" = "排序";
+"EditSet.Popup.Sorts.EmptyView.Title" = "尚無排序。您可以新增一些";
+"EditSet.Popup.Sort.Types.Ascending" = "升序";
+"EditSet.Popup.Sort.Types.Descending" = "降序";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "選擇一個關聯以進行排序";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
-"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.NavigationView.Title" = "篩選";
+"EditSet.Popup.Filters.EmptyView.Title" = "尚無篩選。您可以新增一些";
+"EditSet.Popup.Filters.TextView.Placeholder" = "值";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "是";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "不是";
+"EditSet.Popup.Filter.Condition.Text.Like" = "包含";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "不包含";
 
-"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "等於";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "不等於";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "大於";
+"EditSet.Popup.Filter.Condition.Number.Less" = "小於";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "大於或等於";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "小於或等於";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "是";
+"EditSet.Popup.Filter.Condition.Date.After" = "在之後";
+"EditSet.Popup.Filter.Condition.Date.Before" = "在之前";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "在之前（包含當前）";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "在之後（包含當前）";
+"EditSet.Popup.Filter.Condition.Date.In" = "在內";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "滿足任一";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "滿足全部";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "不滿足任何";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "完全符合";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "是";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "不是";
 
-"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSet.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.General.Empty" = "是空的";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "不是空的";
+"EditSet.Popup.Filter.Condition.General.None" = "全部";
 
-"EditSet.Popup.Filter.Value.Checked" = "Checked";
-"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "已勾選";
+"EditSet.Popup.Filter.Value.Unchecked" = "未勾選";
 
-"EditSet.Popup.Filter.Date.Option.Today" = "Today";
-"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
-"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
-"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
-"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
-"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
-"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
-"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
-"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
-"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+"EditSet.Popup.Filter.Date.Option.Today" = "今天";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "昨天";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "明天";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "上週";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "本週";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "下週";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "上個月";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "本月";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "下個月";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "幾天前";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "幾天後";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "確切日期";
 
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ 天前";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ 天後";
 
 // MARK: - Sets. Create object
 "Set.Create.ObjectTitle.Placeholder" = "未命名";
 
 // MARK: - Sets: Featured relations
-"Set.FeaturedRelations.Query" = "Query";
-"Set.FeaturedRelations.RelationsList" = "Relations:";
-"Set.FeaturedRelations.Relation" = "Relation:";
-"Set.FeaturedRelations.Type" = "Type:";
+"Set.FeaturedRelations.Query" = "查詢";
+"Set.FeaturedRelations.RelationsList" = "關聯：";
+"Set.FeaturedRelations.Relation" = "關聯：";
+"Set.FeaturedRelations.Type" = "類別：";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "Apply";
+"Set.Button.Title.Apply" = "應用";
 
 // MARK: - Set.Bookmarks
-"Set.Bookmark.Create.Placeholder" = "Paste link";
-"Set.Bookmark.Error.Message" = "Oops - something went wrong. Please try again";
+"Set.Bookmark.Create.Placeholder" = "貼上連結";
+"Set.Bookmark.Error.Message" = "哎呀，出了點問題。請再試一次。";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
-"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.ImageFit.Title" = "符合圖像";
+"Set.View.Settings.CardSize.Title" = "卡片大小";
 "Set.View.Settings.CardSize.Small.Title" = "小";
-"Set.View.Settings.CardSize.Large.Title" = "Large";
-"Set.View.Settings.ImagePreview.Title" = "Image preview";
-"Set.View.Settings.GroupBy.Title" = "Group by";
-"Set.View.Settings.GroupBackgroundColors.Title" = "Color columns";
+"Set.View.Settings.CardSize.Large.Title" = "大";
+"Set.View.Settings.ImagePreview.Title" = "圖片預覽";
+"Set.View.Settings.GroupBy.Title" = "群組";
+"Set.View.Settings.GroupBackgroundColors.Title" = "顏色欄";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
-"Set.View.Settings.NoSorts.Placeholder" = "No sorts";
-"Set.View.Settings.Objects.Applied.Title" = "%d applied";
+"Set.View.Settings.NoRelations.Placeholder" = "沒有關聯";
+"Set.View.Settings.NoFilters.Placeholder" = "沒有篩選";
+"Set.View.Settings.NoSorts.Placeholder" = "沒有排序";
+"Set.View.Settings.Objects.Applied.Title" = "%d 已套用";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
-"Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Title.Uncategorized" = "未分類";
+"Set.View.Kanban.Column.Title.Checked" = "%@ 已勾選";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ 未勾選";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "顯示更多物件";
+"Set.View.Kanban.Column.Settings.Color.Title" = "欄位顏色";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "隱藏欄";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Title" = "未指定查詢";
+"Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類別和關聯的物件";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "指定查詢";
+"Set.SourceType.Cancel.Toast.Title" = "此查詢只能在電腦端更改";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "將集合轉換為集錦";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "更改查詢";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Title" = "沒有物件";
+"Collection.View.Empty.Subtitle" = "創建第一個物件以繼續";
+"Collection.View.Empty.Button.Title" = "創建物件";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
-"SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.DotsDivider" = "圓點分隔線";
+"SlashMenu.LineDivider" = "分隔線";
+"SlashMenu.TableOfContents" = "目錄";
+"SlashMenu.Table" = "表格";
 
-"Error" = "Error";
-"Unknown error" = "Unknown error";
-"Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
-"Close" = "Close";
-"Add phone" = "Add phone";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
-"Progress..." = "Progress...";
-"Grey" = "Grey";
-"Sky" = "Sky";
-"Yellow" = "Yellow";
-"Grey background" = "Grey background";
-"Teal background" = "Teal background";
-"Sky background" = "Sky background";
-"Yellow background" = "Yellow background";
-"Enter value" = "Enter value";
-"Select object" = "Select object";
-"Select file" = "Select file";
-"Select options" = "Select options";
-"Select option" = "Select option";
-"Select date" = "Select date";
-"Add email" = "Add email";
-"Add link" = "Add link";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
-"Unsupported value" = "Unsupported value";
-"Select relation type" = "Select relation type";
-"CommonOpenErrorView.Message" = "No data found";
+"Error" = "錯誤";
+"Unknown error" = "未知錯誤";
+"Open Type Error" = "不支持的類別 \"%@\"。您可以使用電腦端開啟。";
+"Close" = "關閉";
+"Add phone" = "新增電話號碼";
+"Nothing to redo" = "沒有可以重做的操作";
+"Nothing to undo" = "沒有可以復原的操作";
+"Progress..." = "進度...";
+"Grey" = "灰色";
+"Sky" = "天藍色";
+"Yellow" = "黃色";
+"Grey background" = "灰色背景";
+"Teal background" = "青色背景";
+"Sky background" = "天空藍背景";
+"Yellow background" = "黃色背景";
+"Enter value" = "輸入值";
+"Select object" = "選取物件";
+"Select file" = "選擇檔案";
+"Select options" = "選擇選項";
+"Select option" = "選擇選項";
+"Select date" = "選擇日期";
+"Add email" = "新增電子郵件";
+"Add link" = "添加連結";
+"Enter number" = "輸入數字";
+"Enter text" = "輸入文本";
+"Unsupported value" = "不支援的值";
+"Select relation type" = "選擇關聯類別";
+"CommonOpenErrorView.Message" = "尚無資料";
 "AreYouSure" = "Are you sure?";
-"Nothing found" = "Nothing found";
-"No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"Nothing found" = "未找到任何內容";
+"No type found text" = "找不到 \"%@\" 類別。請更改您的請求或創建新的類別。";
+"Create type" = "建立類別";
 
 
-"Limit object types" = "Limit object types";
-"Type" = "Type";
-"No name" = "No name";
-"New relation" = "New relation";
-"Non-existent object" = "Non-existent object";
+"Limit object types" = "限制物件類別";
+"Type" = "類別";
+"No name" = "無名稱";
+"New relation" = "新增關聯";
+"Non-existent object" = "不存在的物件";
 
-"Select all" = "Select all";
-"Unselect all" = "Unselect all";
-"Deselect all" = "Deselect all";
-"Shared" = "Shared";
-"Sets" = "Sets";
-"Collections" = "Collections";
-"Default object type" = "Default object type";
-"Personalization" = "Personalization";
-"Choose default object type" = "Choose default object type";
-"About" = "About";
-"Appearance" = "Appearance";
+"Select all" = "選取全部";
+"Unselect all" = "取消全選";
+"Deselect all" = "取消全選";
+"Shared" = "分享";
+"Sets" = "集合";
+"Collections" = "集錦";
+"Default object type" = "預設物件類別";
+"Personalization" = "個人化";
+"Choose default object type" = "選擇預設物件類別";
+"About" = "關於";
+"Appearance" = "外觀";
 "Change wallpaper" = "變更桌布";
-"Application icon" = "Application icon";
-"Mode" = "Mode";
-"copied to clipboard" = "%@ copied to clipboard";
-"Create object from clipboard" = "Create object from clipboard";
-"Access to key from keychain" = "Access to key from keychain";
-"Back up your key" = "Back up your key";
-"Vault" = "Vault";
-"Access" = "Access";
-"Back up key" = "Back up key";
-"Removing cache" = "Removing cache";
-"Deletion error" = "Deletion error";
-"Start" = "Start";
+"Application icon" = "應用程式圖示";
+"Mode" = "模式";
+"copied to clipboard" = "%@ 已複製到剪貼簿";
+"Create object from clipboard" = "從剪貼簿建立物件";
+"Access to key from keychain" = "從鑰匙圈存取密鑰";
+"Back up your key" = "備份您的密鑰";
+"Vault" = "資料庫";
+"Access" = "存取";
+"Back up key" = "備份密鑰";
+"Removing cache" = "清除緩存";
+"Deletion error" = "刪除錯誤";
+"Start" = "開始";
 "On analytics" = "On analytics";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
-"Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
-"Other relations" = "Other relations";
-"Collection of objects" = "Collection of objects";
-"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
-"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
-"Unsplash" = "Unsplash";
-"Go back" = "Go back";
+"Select vault error" = "資料庫選擇錯誤";
+"Vault deleted" = "資料庫已刪除";
+"Vault.Select.Incompatible.Version.Error.Text" = "我們無法檢索您的資料庫數據，因為您的版本已過時。請將 Anytype 更新到最新版本。";
+"Restore from keychain" = "從鑰匙圈復原";
+"Edit" = "編輯";
+"In this object" = "在此物件內";
+"Other relations" = "其他關聯";
+"Collection of objects" = "物件集錦";
+"Designed to capture thoughts quickly" = "專為快速捕捉想法而設計";
+"Action-focused layout with a checkbox" = "具有複選框的操作重點佈局";
+"Standard layout for canvas blocks" = "畫布區塊的標準佈局";
+"List of related objects" = "關聯物件列表";
+"Lock" = "鎖定";
+"Unlock" = "解除鎖定";
+"Favorite" = "收藏";
+"Unfavorite" = "取消收藏";
+"Unsplash" = "Unsplash 圖庫";
+"Go back" = "返回";
 "SyncStatus.LocalOnly.Title" = "Local-only";
-"SyncStatus.LocalOnly.Description" = "Local only";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Node is not connected" = "Node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
-"No connection" = "No connection";
-"Preparing..." = "Preparing...";
-"Deleted" = "Deleted";
-"Download" = "Download";
-"Open object" = "Open object";
-"Open source" = "Open source";
-"Into object" = "Into object";
-"Add below" = "Add below";
-"Change type" = "Change type";
-"Show types" = "Show types";
-"Hide types" = "Hide types";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
-"Bookmark" = "Bookmark";
-"Audio" = "Audio";
-"Video" = "Video";
-"Picture" = "Picture";
-"File" = "File";
-"No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
-"Link to" = "Link to";
-"Unknown" = "Unknown";
-"Settings" = "Settings";
-"Views" = "Views";
-"Filter" = "Filter";
-"Sort" = "Sort";
+"SyncStatus.LocalOnly.Description" = "僅限本機";
+"SyncStatus.Synced.Anytype.Description" = "備份到 Anytype 網路";
+"SyncStatus.Synced.AnytypeStaging.Description" = "備份到 Anytype Staging";
+"SyncStatus.Synced.SelfHosted.Description" = "備份到您自行部署的網絡";
+"Downloading or uploading data to some node" = "向某個節點下載或上傳資料";
+"Node is not connected" = "節點未連接";
+"Initializing sync" = "初始化同步中";
+"Not syncing" = "尚未同步";
+"Synced" = "已同步";
+"Syncing..." = "同步中...";
+"No connection" = "沒有連線";
+"Preparing..." = "準備中...";
+"Deleted" = "已刪除";
+"Download" = "已下載";
+"Open object" = "開啟物件";
+"Open source" = "開源";
+"Into object" = "轉為物件";
+"Add below" = "在下方添加";
+"Change type" = "變更類別";
+"Show types" = "顯示類別";
+"Hide types" = "隱藏類別";
+"SlashMenu.LinkTo.Description" = "建立連結至其他物件";
+"Upload playable audio" = "上傳音訊檔案";
+"Code snippet" = "程式碼片段";
+"Bookmark" = "書籤";
+"Audio" = "音訊";
+"Video" = "影片";
+"Picture" = "圖片";
+"File" = "檔案";
+"No related options here" = "尚無關聯選項。您可以新增一些";
+"Empty" = "空的";
+"Link to" = "連結到";
+"Unknown" = "未知";
+"Settings" = "設置";
+"Views" = "檢視";
+"Filter" = "篩選";
+"Sort" = "排序";
 "View" = "檢視";
-"Home" = "Home";
-"Highlight" = "Highlight";
-"Create object" = "Create object";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
-"Tomorrow" = "Tomorrow";
-"Yesterday" = "Yesterday";
-"Today" = "Today";
-"No date" = "No date";
-"Clear" = "Clear";
+"Home" = "首頁";
+"Highlight" = "螢光筆";
+"Create object" = "創建物件";
+"Web pages" = "網頁";
+"Preview layout" = "預覽佈局";
+"Everywhere" = "任何位置";
+"Exact day" = "確切日期";
+"Tomorrow" = "明天";
+"Yesterday" = "昨天";
+"Today" = "今天";
+"No date" = "無指定日期";
+"Clear" = "清除";
 "Create option with" = "Create option ‘%@’";
 "Enter URL" = "Enter URL";
 "Enter email" = "Enter email";
 "Enter phone number" = "Enter phone number";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
+"Enter number" = "輸入數字";
+"Enter text" = "輸入文本";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Error occurred. Please try again";
 "Add" = "Add";
@@ -672,7 +672,7 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Grid";
 "DataviewType.list" = "List";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "畫廊";
 "DataviewType.kanban" = "Kanban";
 "DataviewType.calendar" = "Calendar";
 "DataviewType.graph" = "Graph";
@@ -701,7 +701,7 @@
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "清除";
 "SimpleTableMenu.Item.color" = "顏色";
 "SimpleTableMenu.Item.style" = "樣式";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
@@ -712,7 +712,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "建立副本";
 "SimpleTableMenu.Item.Delete" = "刪除";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "排序";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
@@ -729,7 +729,7 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "複製電話號碼";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
+"RelationAction.CopyLink" = "複製連結";
 "RelationAction.Copied" = "已複製";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
@@ -759,11 +759,11 @@
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
 "Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
+"Content.DataView.InlineCollection.Subtitle" = "內嵌集錦";
 "Content.DataView.InlineSet.NoSource" = "No source";
 "Content.DataView.InlineSet.NoData" = "No data";
 "Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
+"Content.DataView.InlineCollection.Untitled" = "未命名集錦";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Toast
@@ -822,7 +822,7 @@
 "ClearCache.Error" = "Error, try again later";
 
 // MARK: - Settings
-"Settings.Title" = "Settings";
+"Settings.Title" = "設置";
 "Settings.SpaceName" = "空間名稱";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
@@ -865,14 +865,14 @@
 "Spaces.Info.Network" = "Network:";
 
 // MARK: - Space
-"Space.Status.Unknown" = "Unknown";
+"Space.Status.Unknown" = "未知";
 "Space.Status.Loading" = "Loading";
 "Space.Status.Ok" = "Ok";
 "Space.Status.Missing" = "Missing";
-"Space.Status.Error" = "Error";
+"Space.Status.Error" = "錯誤";
 "Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
 "Space.Status.RemoteDeleted" = "Remote Deleted";
-"Space.Status.SpaceDeleted" = "Deleted";
+"Space.Status.SpaceDeleted" = "已刪除";
 "Space.Status.SpaceActive" = "Active";
 "Space.Status.SpaceJoining" = "Joining";
 "Space.Status.SpaceRemoving" = "Removing";
@@ -899,7 +899,7 @@
 "SpaceShare.Permissions.Owner" = "Owner";
 "SpaceShare.Permissions.Reader" = "Viewer";
 "SpaceShare.Permissions.Writer" = "Editor";
-"SpaceShare.Permissions.Grand.Edit" = "Edit";
+"SpaceShare.Permissions.Grand.Edit" = "編輯";
 "SpaceShare.Permissions.Grand.View" = "檢視";
 "SpaceShare.Invite.Title" = "Invite link";
 "SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
@@ -974,7 +974,7 @@
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.SelectSpace" = "Space";
 "Sharing.AddTo" = "Add to";
-"Sharing.LinkTo" = "Link to";
+"Sharing.LinkTo" = "連結到";
 
 "Sharing.Text.NoteObject" = "Note object";
 "Sharing.Text.TextBlock" = "Blocks";
