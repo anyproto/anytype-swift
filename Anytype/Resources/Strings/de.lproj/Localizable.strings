@@ -242,7 +242,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Description" = "Damit hast du die volle Kontrolle über deinen Tresor.\nEr kann nicht wiederhergestellt werden.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Meinen Schlüssel anzeigen";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Weiter";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
@@ -252,19 +252,19 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Was ist der Schlüssel?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Sie wird durch eine Wiederherstellungsphrase dargestellt - 12 zufällige Wörter, aus denen dein Tresor auf magische Weise auf diesem Gerät generiert wird.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wer auch immer die Kombination dieser Worte kennt, dem gehört dein Tresor. **Im Moment bist du die einzige Person auf der Welt, die sie kennt.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Alle Rechenressourcen der Welt reichen nicht aus, um ihn zu knacken. Wenn du ihn verlierst, kann er nicht wiederhergestellt werden. Bewahre ihn also an einem sicheren Ort auf!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meinen Schlüssel speichern?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Am einfachsten ist es, deinen Schlüssel in deinem Passwort-Manager zu speichern.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
 "Auth.JoinFlow.Soul.Title" = "Deinen Namen festlegen";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Description" = "Nur von Leuten gesehen, mit denen du etwas teilst. Es gibt kein zentrales Register dieser Namen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 "Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
 
 "Auth.JoinFlow.Vault.Title" = "Dies ist dein Tresor";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Description" = "Alles darin ist verschlüsselt.\nEs ist zuerst lokal – alles funktioniert offline.\nNur du hast den Schlüssel.";
 "Auth.JoinFlow.Vault.Button" = "Meinen Schlüssel holen";
 
 // Auth - Login flow
@@ -367,7 +367,7 @@
 
 "TemplateEditing.Title" = "Vorlage bearbeiten";
 
-"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
+"Templates.Popup.WasAddedTo.title" = "Neue Vorlage wurde zum Typ %@ hinzugefügt";
 "Templates.Popup.WasAddedTo" = "Neue Vorlage wurde zum Typ hinzugefügt";
 "Templates.Popup.Duplicated" = "Die Vorlage wurde Dupliziert";
 "Templates.Popup.Removed" = "Die Vorlage wurde entfernt";
