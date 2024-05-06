@@ -3,11 +3,9 @@ import SwiftUI
 
 final class ObjectTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(serviceLocator: ServiceLocator, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.serviceLocator = serviceLocator
+    init(widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
     

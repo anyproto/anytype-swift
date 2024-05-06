@@ -126,11 +126,11 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return ObjectTreeWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return ObjectTreeWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return FavoriteTreeWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return FavoriteTreeWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     func recentEditTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
@@ -152,7 +152,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     func favoriteListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return FavoriteListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return FavoriteListWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     func recentEditListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
@@ -178,7 +178,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     func favoriteCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return FavoriteCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return FavoriteCompactListWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     func recentEditCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {

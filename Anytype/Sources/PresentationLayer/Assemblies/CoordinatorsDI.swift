@@ -40,7 +40,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
-        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+        return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
     func editor() -> EditorCoordinatorAssemblyProtocol {
         EditorCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI)

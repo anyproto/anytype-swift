@@ -728,8 +728,8 @@ extension EditorSetViewModel {
         setDocument: SetDocument(
             document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
             inlineParameters: nil,
-            relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
-            objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
+            relationDetailsStorage: Container.shared.relationDetailsStorage.resolve(),
+            objectTypeProvider: Container.shared.objectTypeProvider.resolve(),
             accountParticipantsStorage: DI.preview.serviceLocator.accountParticipantStorage(),
             permissionsBuilder: SetPermissionsBuilder()
         ),

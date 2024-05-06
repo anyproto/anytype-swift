@@ -9,18 +9,15 @@ protocol SpaceSettingsCoordinatorAssemblyProtocol: AnyObject {
 final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
-    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     private let coordinatorsDI: CoordinatorsDIProtocol
     
     init(
         modulesDI: ModulesDIProtocol,
-        serviceLocator: ServiceLocator,
         uiHelpersDI: UIHelpersDIProtocol,
         coordinatorsDI: CoordinatorsDIProtocol
     ) {
         self.modulesDI = modulesDI
-        self.serviceLocator = serviceLocator
         self.uiHelpersDI = uiHelpersDI
         self.coordinatorsDI = coordinatorsDI
     }
@@ -33,10 +30,7 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
             model: SpaceSettingsCoordinatorViewModel(
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
                 widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
-                activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-                objectTypeProvider: self.serviceLocator.objectTypeProvider(),
-                urlOpener: self.uiHelpersDI.urlOpener(),
-                documentService: self.serviceLocator.documentService()
+                urlOpener: self.uiHelpersDI.urlOpener()
             )
         ).eraseToAnyView()
     }

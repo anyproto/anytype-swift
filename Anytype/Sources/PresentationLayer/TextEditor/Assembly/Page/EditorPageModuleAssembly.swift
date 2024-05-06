@@ -83,7 +83,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             urlOpener: uiHelpersDI.urlOpener(),
             objectSettingCoordinatorAssembly: coordinatorsDI.objectSettings(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
-            templateService: serviceLocator.templatesService,
             output: output
         )
 
@@ -164,8 +163,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
-            document: document,
-            typesService: serviceLocator.typesService()
+            document: document
         )
         
         let markdownListener = MarkdownListenerImpl(
