@@ -41,29 +41,15 @@ struct BottomAlertButtonView: View {
     
     @ViewBuilder
     private var buttonsView: some View {
-        if #available(iOS 16.0, *) {
-            BottomAlertButttonStack {
-                ForEach(0..<buttons.count, id: \.self) { index in
-                    let button = buttons[index]
-                    AsyncStandardButton(
-                        text: button.text,
-                        style: button.standartStyle,
-                        action: button.action
-                    )
-                    .disabled(button.disable)
-                }
-            }
-        } else {
-            VStack(spacing: 10) {
-                ForEach(0..<buttons.count, id: \.self) { index in
-                    let button = buttons[index]
-                    AsyncStandardButton(
-                        text: button.text,
-                        style: button.standartStyle,
-                        action: button.action
-                    )
-                    .disabled(button.disable)
-                }
+        BottomAlertButttonStack {
+            ForEach(0..<buttons.count, id: \.self) { index in
+                let button = buttons[index]
+                AsyncStandardButton(
+                    text: button.text,
+                    style: button.standartStyle,
+                    action: button.action
+                )
+                .disabled(button.disable)
             }
         }
     }
