@@ -86,11 +86,4 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
             navigationContext: uiHelpersDI.commonNavigationContext()
         )
     }
-    
-    func typeSearchForNewObject() -> TypeSearchForNewObjectCoordinatorAssemblyProtocol {
-        TypeSearchForNewObjectCoordinatorAssembly(
-            serviceLocator: serviceLocator,
-            modulesDI: modulesDI
-        )
-    }
 }

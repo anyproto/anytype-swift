@@ -28,7 +28,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
-    private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
     
     // MARK: - State
     
@@ -87,8 +86,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         workspacesStorage: WorkspacesStorageProtocol,
         documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
-        sharingTipCoordinator: SharingTipCoordinatorProtocol,
-        typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
+        sharingTipCoordinator: SharingTipCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.activeWorkspaceStorage = activeWorkspaceStorage
@@ -105,7 +103,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
-        self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
     }
 
     func onAppear() {
@@ -152,8 +149,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return editorCoordinatorAssembly.make(data: data)
     }
 
-    func typeSearchForObjectCreationModule() -> AnyView {
-        typeSearchCoordinatorAssembly.make { [weak self] details in
+    func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
+        TypeSearchForNewObjectCoordinatorView { [weak self] details in
             guard let self else { return }
             openObject(screenData: details.editorScreenData())
         }

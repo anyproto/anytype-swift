@@ -51,8 +51,7 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
             workspacesStorage: serviceLocator.workspaceStorage(),
             documentsProvider: serviceLocator.documentsProvider,
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
-            sharingTipCoordinator: coordinatorsID.sharingTip(),
-            typeSearchCoordinatorAssembly: coordinatorsID.typeSearchForNewObject()
+            sharingTipCoordinator: coordinatorsID.sharingTip()
         )
     }
 }
