@@ -7,7 +7,6 @@ import AnytypeCore
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let router: EditorRouterProtocol
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
@@ -31,12 +30,13 @@ final class BlockViewModelBuilder {
     private var audioSessionService: AudioSessionServiceProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.pasteboardBlockDocumentService)
+    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
     
     
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         router: EditorRouterProtocol,
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
@@ -54,7 +54,6 @@ final class BlockViewModelBuilder {
     ) {
         self.document = document
         self.handler = handler
-        self.pasteboardService = pasteboardService
         self.router = router
         self.markdownListener = markdownListener
         self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder

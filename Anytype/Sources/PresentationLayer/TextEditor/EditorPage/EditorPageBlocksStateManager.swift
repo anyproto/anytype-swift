@@ -66,13 +66,17 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
     private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()
+    
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.pasteboardBlockDocumentService)
+    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
-    private let blockService: BlockServiceProtocol
     private let toastPresenter: ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
     private let documentsProvider: DocumentsProviderProtocol
@@ -87,10 +91,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        blockService: BlockServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
         viewInput: EditorPageViewInput,
@@ -100,10 +102,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.document = document
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
-        self.blockService = blockService
         self.toastPresenter = toastPresenter
         self.actionHandler = actionHandler
-        self.pasteboardService = pasteboardService
         self.router = router
         self.editingState = initialEditingState
         self.viewInput = viewInput

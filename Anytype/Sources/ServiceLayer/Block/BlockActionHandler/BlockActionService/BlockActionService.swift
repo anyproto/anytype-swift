@@ -7,37 +7,31 @@ import AnytypeCore
 
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: String
-
-    private let objectActionService: ObjectActionsServiceProtocol
-    private let textServiceHandler: TextServiceProtocol
-    private let blockService: BlockServiceProtocol
-    private let bookmarkService: BookmarkServiceProtocol
-    private let fileService: FileActionsServiceProtocol
     private let cursorManager: EditorCursorManager
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+
+    @Injected(\.objectActionsService)
+    private var objectActionService: ObjectActionsServiceProtocol
+    @Injected(\.textServiceHandler)
+    private var textServiceHandler: TextServiceProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
     
     private weak var modelsHolder: EditorMainItemModelsHolder?
 
     init(
         documentId: String,
-        blockService: BlockServiceProtocol,
-        objectActionService: ObjectActionsServiceProtocol,
-        textServiceHandler: TextServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
-        bookmarkService: BookmarkServiceProtocol,
-        fileService: FileActionsServiceProtocol,
-        cursorManager: EditorCursorManager,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        cursorManager: EditorCursorManager
     ) {
         self.documentId = documentId
-        self.blockService = blockService
-        self.objectActionService = objectActionService
-        self.textServiceHandler = textServiceHandler
         self.modelsHolder = modelsHolder
-        self.bookmarkService = bookmarkService
-        self.fileService = fileService
         self.cursorManager = cursorManager
-        self.objectTypeProvider = objectTypeProvider
     }
 
     // MARK: Actions

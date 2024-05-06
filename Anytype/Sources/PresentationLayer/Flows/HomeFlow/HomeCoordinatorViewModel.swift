@@ -13,19 +13,29 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - DI
     
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.pasteboardBlockService)
+    private var pasteboardBlockService: PasteboardBlockServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var typeProvider: ObjectTypeProviderProtocol
+    @Injected(\.appActionStorage)
+    private var appActionsStorage: AppActionStorage
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
+    
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let defaultObjectService: DefaultObjectCreationServiceProtocol
-    private let blockService: BlockServiceProtocol
-    private let pasteboardBlockService: PasteboardBlockServiceProtocol
-    private let typeProvider: ObjectTypeProviderProtocol
-    private let appActionsStorage: AppActionStorage
     private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
-    private let workspacesStorage: WorkspacesStorageProtocol
-    private let documentsProvider: DocumentsProviderProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     
@@ -73,34 +83,16 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        defaultObjectService: DefaultObjectCreationServiceProtocol,
-        blockService: BlockServiceProtocol,
-        pasteboardBlockService: PasteboardBlockServiceProtocol,
-        typeProvider: ObjectTypeProviderProtocol,
-        appActionsStorage: AppActionStorage,
         spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        workspacesStorage: WorkspacesStorageProtocol,
-        documentsProvider: DocumentsProviderProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectActionsService = objectActionsService
-        self.defaultObjectService = defaultObjectService
-        self.blockService = blockService
-        self.pasteboardBlockService = pasteboardBlockService
-        self.typeProvider = typeProvider
-        self.appActionsStorage = appActionsStorage
         self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
-        self.workspacesStorage = workspacesStorage
-        self.documentsProvider = documentsProvider
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
     }
