@@ -17,11 +17,13 @@ final class SimpleTableDependenciesBuilder {
     private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let markdownListener: MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
-    private let tableService: BlockTableServiceProtocol
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let defaultObjectService: DefaultObjectCreationServiceProtocol
     private let typesService: TypesServiceProtocol
     private let accessoryStateManager: AccessoryViewStateManager
+    
+    @Injected(\.blockTableService)
+    private var tableService: BlockTableServiceProtocol
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     
@@ -37,8 +39,7 @@ final class SimpleTableDependenciesBuilder {
         responderScrollViewHelper: ResponderScrollViewHelper,
         defaultObjectService: DefaultObjectCreationServiceProtocol,
         typesService: TypesServiceProtocol,
-        accessoryStateManager: AccessoryViewStateManager,
-        tableService: BlockTableServiceProtocol
+        accessoryStateManager: AccessoryViewStateManager
     ) {
         self.document = document
         self.router = router
@@ -51,7 +52,6 @@ final class SimpleTableDependenciesBuilder {
         self.defaultObjectService = defaultObjectService
         self.typesService = typesService
         self.accessoryStateManager = accessoryStateManager
-        self.tableService = tableService
         
         self.cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
     }
