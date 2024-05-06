@@ -1079,12 +1079,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Vous avez déjà acheté le niveau ?";
 "Membership.Legal.RestorePurchases" = "Restaurer les achats";
 
-"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
-- Extra remote storage
-- More space editors
-- Additional shared spaces
-Specifically,
-Please provide specific details of your needs here.";
+"Membership.Email.Body" = "Salut équipe Anytype ! Je voudrais étendre mon abonnement actuel pour plus de (choisissez une option) :
+- Plus de stockage distant
+- Plus d'éditeurs d'espaces
+- Plus d'espaces partagés
+Précisions,
+Merci de fournir ici des détails plus précis de vos besoins.";
 
 
 "Membership.Banner.Title1" = "Construire la Vision ensemble";
@@ -1097,7 +1097,7 @@ Please provide specific details of your needs here.";
 "Membership.Banner.Subtitle4" = "La valeur de notre réseau dépasse la somme de ses participants. Votre adhésion soutient l'infrastructure pour sa croissance qui sous-tend ce réseau.";
 
 "Membership.EmailForm.Title" = "Recevez les actualités et profitez d'avantages gratuits !";
-"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
+"Membership.EmailForm.Subtitle" = "Il n'est lié d'aucune manière  à votre coffre-fort.";
 "Membership.EmailValidation" = "Entrez le code envoyé à votre adresse e-mail";
 
 "Membership.NameForm.Title" = "Choisissez votre nom unique";

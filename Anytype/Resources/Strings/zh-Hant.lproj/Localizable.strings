@@ -88,7 +88,7 @@
 "Relation.ObjectTypes.Header.title" = "物件類別：";
 "Relation.ObjectType.Header.title" = "物件類別：";
 
-"Relation.Delete.Alert.Title" = "Are you sure?";
+"Relation.Delete.Alert.Title" = "您確定嗎?";
 "Relation.Delete.Alert.Description" = "該選項將從您的空間中永久刪除.";
 "Relation.Object.Delete.Alert.Description" = "該物件將被移至垃圾桶。";
 
@@ -190,7 +190,7 @@
 "Paste processing..." = "貼上處理...";
 "Anytype Library" = "Anytype 筆記庫";
 "Copied" = "已複製";
-"Share" = "Share";
+"Share" = "分享";
 "Okay" = "好的";
 "Join" = "加入";
 
@@ -539,7 +539,7 @@
 "Unsupported value" = "不支援的值";
 "Select relation type" = "選擇關聯類別";
 "CommonOpenErrorView.Message" = "尚無資料";
-"AreYouSure" = "Are you sure?";
+"AreYouSure" = "您確定嗎?";
 "Nothing found" = "未找到任何內容";
 "No type found text" = "找不到 \"%@\" 類別。請更改您的請求或創建新的類別。";
 "Create type" = "建立類別";
@@ -594,7 +594,7 @@
 "Unfavorite" = "取消收藏";
 "Unsplash" = "Unsplash 圖庫";
 "Go back" = "返回";
-"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Title" = "僅限本機";
 "SyncStatus.LocalOnly.Description" = "僅限本機";
 "SyncStatus.Synced.Anytype.Description" = "備份到 Anytype 網路";
 "SyncStatus.Synced.AnytypeStaging.Description" = "備份到 Anytype Staging";
@@ -645,493 +645,495 @@
 "Today" = "今天";
 "No date" = "無指定日期";
 "Clear" = "清除";
-"Create option with" = "Create option ‘%@’";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
+"Create option with" = "建立 \"%@\" 選項";
+"Enter URL" = "輸入 URL";
+"Enter email" = "輸入電子郵件";
+"Enter phone number" = "輸入電話號碼";
 "Enter number" = "輸入數字";
 "Enter text" = "輸入文本";
-"Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
-"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
-"Failed to sync, trying again..." = "Failed to sync, trying again...";
-"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
-"This object doesn't exist" = "This object doesn't exist";
-"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
-"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
-"Delete vault" = "Delete vault";
-"Cancel deletion" = "Cancel deletion";
-"Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"Ok" = "好的";
+"Error occurred. Please try again" = "發生錯誤，請重試";
+"Add" = "添加";
+"Companies, contacts, friends and family" = "公司、聯絡人，朋友和家人";
+"Failed to sync, trying again..." = "同步失敗，正在重試...";
+"Sync.Status.Version.Outdated.Description" = "版本已過時，請更新 Anytype";
+"This object doesn't exist" = "此物件不存在";
+"Setting up encrypted storage\nPlease wait" = "正在設置加密儲存中\n請稍後";
+"These objects will be deleted irrevocably" = "這些物件將被永久刪除。您無法撤銷此操作。";
+"Delete vault" = "刪除資料庫";
+"Cancel deletion" = "取消刪除";
+"Logout and clear data" = "登出並清除資料";
+"New" = "新增";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.title" = "您確定要刪除您的資料庫嗎？";
+"DeletionAlert.description" = "您將在其他裝置上登出。您將有 30 天的時間來復原資料庫。之後它將永久刪除。";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
+"DataviewType.grid" = "網格";
+"DataviewType.list" = "列表";
 "DataviewType.gallery" = "畫廊";
-"DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
-"DataviewType.graph" = "Graph";
+"DataviewType.kanban" = "看板";
+"DataviewType.calendar" = "行事曆";
+"DataviewType.graph" = "圖表";
 
 // MARK: - ObjectType
-"ObjectType.fallbackDescription" = "Blank canvas with no title";
-"ObjectType.SearchOrInstall" = "Search or install a new type";
-"ObjectType.Search" = "Search for Type";
-"ObjectType.MyTypes" = "My Types";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
-"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.fallbackDescription" = "沒有標題的空白畫布";
+"ObjectType.SearchOrInstall" = "搜尋或安裝新類別";
+"ObjectType.Search" = "搜尋類別";
+"ObjectType.MyTypes" = "我的類別";
+"ObjectType.AddedToLibrary" = "類別 \"%@\" 已加入到您的筆記庫";
+"ObjectType.DeletedName" = "已刪除類別";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "創建 \"%@\"";
 
 // MARK: - RedactedText
-"RedactedText.pageTitle" = "Wake up, Neo";
-"RedactedText.pageType" = "Red pill";
+"RedactedText.pageTitle" = "醒來吧，Neo";
+"RedactedText.pageType" = "紅色藥丸";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
-"InterfaceStyle.system" = "System";
+"InterfaceStyle.light" = "亮色";
+"InterfaceStyle.dark" = "深色";
+"InterfaceStyle.system" = "跟隨系統";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+"TalbeOfContents.Empty" = "新增標題以建立目錄";
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "清除";
 "SimpleTableMenu.Item.color" = "顏色";
 "SimpleTableMenu.Item.style" = "樣式";
-"SimpleTableMenu.Item.clearStyle" = "Reset style";
+"SimpleTableMenu.Item.clearStyle" = "重置樣式";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.InsertLeft" = "插入左側";
+"SimpleTableMenu.Item.InsertRight" = "插入右側";
+"SimpleTableMenu.Item.MoveLeft" = "左移";
+"SimpleTableMenu.Item.MoveRight" = "右移";
 "SimpleTableMenu.Item.Duplicate" = "建立副本";
 "SimpleTableMenu.Item.Delete" = "刪除";
 "SimpleTableMenu.Item.Sort" = "排序";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertAbove" = "插入上方";
+"SimpleTableMenu.Item.InsertBelow" = "插入下方";
+"SimpleTableMenu.Item.MoveUp" = "上移";
+"SimpleTableMenu.Item.MoveDown" = "下移";
 
-"DebugMenu.ToggleAuthor" = "Release: %@, %@";
+"DebugMenu.ToggleAuthor" = "發行版本：%@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.text" = "以文本貼上";
+"LinkPaste.link" = "以連結貼上";
+"LinkPaste.bookmark" = "創建書簽";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "複製電話號碼";
-"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyEmail" = "複製電子郵件";
 "RelationAction.CopyLink" = "複製連結";
 "RelationAction.Copied" = "已複製";
-"RelationAction.ReloadingContent" = "Reloading content";
-"RelationAction.ReloadContent" = "Reload object content";
-"RelationAction.CallPhone" = "Call phone numbler";
-"RelationAction.SendEmail" = "Send email";
-"RelationAction.OpenLink" = "Open link";
+"RelationAction.ReloadingContent" = "重新載入內容";
+"RelationAction.ReloadContent" = "重新載入物件內容";
+"RelationAction.CallPhone" = "撥打電話號碼";
+"RelationAction.SendEmail" = "傳送電子郵件";
+"RelationAction.OpenLink" = "開啟連結";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Title" = "編輯檢視";
+"SetViewTypesPicker.New.Title" = "新增檢視";
+"SetViewTypesPicker.Section.Types.Title" = "檢視為";
 "SetViewTypesPicker.Settings.Duplicate.View" = "建立副本";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "刪除檢視";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "新增檢視";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "未命名";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "不支援";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
+"Content.File.Upload" = "上傳檔案";
+"Content.Audio.Upload" = "上傳音訊";
+"Content.Video.Upload" = "上傳影片";
+"Content.Picture.Upload" = "上傳圖片";
+"Content.Common.Uploading" = "上傳中...";
+"Content.Common.Error" = "出了點問題，再試一次";
+"Content.Bookmark.Add" = "添加網頁書籤";
+"Content.Bookmark.Loading" = "正在載入，請稍候...";
+"Content.DataView.InlineSet.Subtitle" = "內嵌集合";
 "Content.DataView.InlineCollection.Subtitle" = "內嵌集錦";
-"Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
+"Content.DataView.InlineSet.NoSource" = "沒有來源";
+"Content.DataView.InlineSet.NoData" = "無資料";
+"Content.DataView.InlineSet.Untitled" = "未命名的集合";
 "Content.DataView.InlineCollection.Untitled" = "未命名集錦";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.DataView.InlineSet.Toast.Failure" = "此內嵌集合沒有來源";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "連結至";
+"Editor.Toast.MovedTo" = "區塊移動至";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "不支持掃描";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
-"Widgets.Actions.EmptyBin" = "Empty Bin";
-"Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Actions.NewObject" = "New Object";
-"Widgets.Layout.Screen.Title" = "Widget type";
+"Widgets.SourceSearch" = "小工具來源";
+"Widgets.Actions.ChangeSource" = "變更來源";
+"Widgets.Actions.ChangeWidgetType" = "變更小工具類別";
+"Widgets.Actions.RemoveWidget" = "移除小工具";
+"Widgets.Actions.EditWidgets" = "編輯小工具";
+"Widgets.Actions.EmptyBin" = "清空垃圾桶";
+"Widgets.Actions.AddBelow" = "在下方添加";
+"Widgets.Actions.NewObject" = "建立新物件";
+"Widgets.Layout.Screen.Title" = "小工具類型";
 "Widgets.Layout.Link.Title" = "連結";
-"Widgets.Layout.Tree.Title" = "Tree";
-"Widgets.Layout.List.Title" = "List";
-"Widgets.Layout.CompactList.Title" = "Сompact list";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Layout.Tree.Title" = "樹狀圖";
+"Widgets.Layout.List.Title" = "列表";
+"Widgets.Layout.CompactList.Title" = "緊湊型列表";
+"Widgets.Layout.Link.Description" = "緊湊型物件";
+"Widgets.Layout.Tree.Description" = "物件的階層結構";
+"Widgets.Layout.List.Description" = "具有物件集合列表視圖的小工具";
+"Widgets.Layout.CompactList.Description" = "具有物件集合列表視圖的小工具";
+"Widgets.Empty.Title" = "該資料檢視內沒有物件";
+"Widgets.Library.RecentlyEdited.Name" = "最近編輯";
+"Widgets.Library.RecentlyOpened.Name" = "最近開啟";
+"Widgets.Library.RecentlyOpened.Description" = "在此裝置上";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
+"About.AppVersion" = "應用程式版本：%@";
+"About.BuildNumber" = "建置版本：%@";
+"About.Library" = "筆記庫版本：%@";
 "About.anytypeId" = "Anytype ID: %@";
-"About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
-"About.Device" = "Device: %@";
-"About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
-"About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
-"About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
-"About.TechInfo" = "Tech Info";
-"About.Mail.Subject" = "Support request, Vault ID %@";
-"About.Mail.Body" = "\n\nTechnical information\n%@";
+"About.analyticsId" = "分析 ID：%@";
+"About.deviceId" = "裝置 ID：%@
+";
+"About.Device" = "裝置：%@
+";
+"About.OSVersion" = "作業系統版本：%@";
+"About.HelpCommunity" = "幫助 & 社區";
+"About.WhatsNew" = "最新消息";
+"About.AnytypeCommunity" = "Anytype 社區";
+"About.HelpTutorials" = "幫助與教學";
+"About.ContactUs" = "聯繫我們";
+"About.Legal" = "法律資訊";
+"About.TermsOfUse" = "使用條款";
+"About.PrivacyPolicy" = "隱私政策";
+"About.TechInfo" = "技術資訊";
+"About.Mail.Subject" = "請求支援，資料庫 ID %@";
+"About.Mail.Body" = "\n\n技術資訊\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
-"ClearCache.Error" = "Error, try again later";
+"ClearCache.Success" = "緩存已清除成功";
+"ClearCache.Error" = "發生錯誤，請稍後重試";
 
 // MARK: - Settings
 "Settings.Title" = "設置";
 "Settings.SpaceName" = "空間名稱";
-"Settings.SpaceType" = "Space type";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceType" = "空間類別";
+"Settings.VaultAndAccess" = "資料庫與存取權";
 
 // MARK: - File Storage
-"FileStorage.Title" = "File storage";
-"FileStorage.Space.Title" = "Remote storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
-"FileStorage.Space.Used" = "%@ of %@ used";
-"FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
-"FileStorage.Local.Title" = "Local storage";
-"FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
-"FileStorage.Local.Used" = "%@ used";
-"FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.Title" = "檔案儲存空間";
+"FileStorage.Space.Title" = "遠端儲存空間";
+"FileStorage.Space.Instruction" = "您可以在我們的加密備份節點上免費儲存最多 %@ 個檔案。 如果達到限制，檔案將僅儲存在本機。";
+"FileStorage.Space.Used" = "已使用 %@；總共 %@";
+"FileStorage.Space.GetMore" = "獲取更多空間";
+"FileStorage.Space.Mail.Subject" = "為資料庫 %@ 獲取更多儲存空間";
+"FileStorage.Space.Mail.Body" = "您好，Anytype 團隊。我聯繫你們是因為我的儲存容量不足了，因此想請求增加儲存容量。當前的儲存容量限制為 %@。我的資料庫 ID 是 %@。謝謝，%@.";
+"FileStorage.Local.Title" = "本機儲存";
+"FileStorage.Local.Instruction" = "為了節省本地設備上的空間，您可以將所有檔案傳輸到我們的加密備份節點。 當您打開這些檔案時，它們將被重新載入。";
+"FileStorage.Local.Used" = "已使用 %@";
+"FileStorage.OffloadTitle" = "刪除本地檔案";
+"FileStorage.ManageFiles" = "管理檔案";
+"FileStorage.LimitError" = "您已超出檔案上傳限制";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
-"FileStorage.LimitLegend.Other" = "Other spaces | %@";
-"FileStorage.LimitLegend.Free" = "Free | %@";
+"FileStorage.LimitLegend.Other" = "其他空間 | %@";
+"FileStorage.LimitLegend.Free" = "可用空間 | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.Title" = "已同步的檔案";
+"FilesList.ForceDelete.Title" = "您確定要永久刪除此檔案嗎？";
 
 // MARK: - Widget object list
-"WidgetObjectList.ForceDelete.Message" = "You can’t undo this action.";
+"WidgetObjectList.ForceDelete.Message" = "您無法撤銷此操作。";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Are you sure?";
-"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+"ClearCacheAlert.Title" = "您確定嗎?";
+"ClearCacheAlert.Description" = "儲存在 Anytype 中的所有媒體檔案將從您目前的裝置中刪除。 您可以從備份節點或其他裝置上再次下載它們。";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Shared" = "共享空間";
+"Spaces.Accessibility.Private" = "私人空間";
 "Spaces.Accessibility.Personal" = "初始空間";
-"Spaces.Search.Title" = "Search spaces";
-"Spaces.Title" = "Spaces";
-"Spaces.Info.Network" = "Network:";
+"Spaces.Search.Title" = "搜尋空間";
+"Spaces.Title" = "空間";
+"Spaces.Info.Network" = "網路：";
 
 // MARK: - Space
 "Space.Status.Unknown" = "未知";
-"Space.Status.Loading" = "Loading";
-"Space.Status.Ok" = "Ok";
-"Space.Status.Missing" = "Missing";
+"Space.Status.Loading" = "載入中";
+"Space.Status.Ok" = "好的";
+"Space.Status.Missing" = "遺失";
 "Space.Status.Error" = "錯誤";
-"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
-"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.RemoteWaitingDeletion" = "等待刪除";
+"Space.Status.RemoteDeleted" = "遠端已刪除";
 "Space.Status.SpaceDeleted" = "已刪除";
-"Space.Status.SpaceActive" = "Active";
-"Space.Status.SpaceJoining" = "Joining";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceActive" = "使用中";
+"Space.Status.SpaceJoining" = "正在加入";
+"Space.Status.SpaceRemoving" = "移除中";
 
 // MARK: - Space Settings
-"SpaceSettings.Title" = "Space settings";
-"SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
-"SpaceSettings.NetworkId" = "Network ID";
-"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
-"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
-"SpaceSettings.DeleteButton" = "Delete space";
-"SpaceSettings.Share" = "Share";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
-"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+"SpaceSettings.Title" = "空間設置";
+"SpaceSettings.RemoteStorage" = "遠端儲存空間";
+"SpaceSettings.Info" = "空間資訊";
+"SpaceSettings.NetworkId" = "網路 ID";
+"SpaceSettings.DeleteAlert.Title" = "刪除 \"%@\" 空間";
+"SpaceSettings.DeleteAlert.Message" = "此空間將被永久刪除，您無法撤銷此操作！";
+"SpaceSettings.DeleteButton" = "刪除空間";
+"SpaceSettings.Share" = "分享";
+"SpaceSettings.LeaveButton" = "離開";
+"SpaceSettings.LeaveAlert.Title" = "離開空間";
+"SpaceSettings.LeaveAlert.Message" = "%@ 空間將從您的裝置中刪除，您將無法再存取它";
+"SpaceSettings.LeaveAlert.Toast" = "您離開了 %@。";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "更多資訊";
 
-"SpaceShare.Title" = "Sharing";
-"SpaceShare.Members" = "Members";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Title" = "分享中";
+"SpaceShare.Members" = "成員";
+"SpaceShare.Permissions.Owner" = "擁有者";
+"SpaceShare.Permissions.Reader" = "瀏覽者";
+"SpaceShare.Permissions.Writer" = "編輯者";
 "SpaceShare.Permissions.Grand.Edit" = "編輯";
 "SpaceShare.Permissions.Grand.View" = "檢視";
-"SpaceShare.Invite.Title" = "Invite link";
-"SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
-"SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
-"SpaceShare.JoinRequest" = "Join request";
-"SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
-"SpaceShare.Action.Approve" = "Approve";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
-"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
-"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
-"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
-"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.Invite.Title" = "邀請連結";
+"SpaceShare.Invite.Description" = "分享此邀請連結，以便其他人可以加入您的空間。 一旦他們點擊您的連結並請求存取，您就可以設置他們的存取權限。";
+"SpaceShare.Invite.Share" = "分享邀請連結";
+"SpaceShare.Invite.Generate" = "產生邀請連結";
+"SpaceShare.Invite.Empty" = "建立邀請連結以分享空間並新增成員";
+"SpaceShare.JoinRequest" = "加入請求";
+"SpaceShare.LeaveRequest" = "離開請求";
+"SpaceShare.Action.ViewRequest" = "查看請求";
+"SpaceShare.Action.Approve" = "批准";
+"SpaceShare.DeleteSharingLink.Title" = "刪除連結";
+"SpaceShare.DeleteSharingLink.Message" = "新成員將無法加入該空間。 您可以隨時產生一個新連結。";
+"SpaceShare.Approve.Toast" = "您批准了 %@ 的請求。";
+"SpaceShare.ViewRequest.Title" = "%@ 請求加入 %@ 空間";
+"SpaceShare.ViewRequest.ViewAccess" = "新增為瀏覽者";
+"SpaceShare.ViewRequest.EditAccess" = "新增為編輯者";
+"SpaceShare.ViewRequest.Reject" = "拒絕";
 "SpaceShare.RemoveMember.Title" = "移除成員";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
-"SpaceShare.Join.Title" = "Join a space";
-"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
-"SpaceShare.Join.Button" = "Request to join";
-"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
-"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
-"SpaceShare.YouSuffix" = "%@ (you)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.RemoveMember.Message" = "%@ 將從空間中移除。";
+"SpaceShare.ChangePermissions" = "%@ 將成為 %@ 存取空間";
+"SpaceShare.Join.Title" = "加入空間";
+"SpaceShare.Join.CommentPlaceholder" = "向空間擁有者留下私人留言";
+"SpaceShare.Join.Button" = "請求加入";
+"SpaceShare.Join.Info" = "一旦空間擁有者批准了您的請求，您將加入空間並擁有指定的存取權限。";
+"SpaceShare.Join.Message" = "您已被邀請加入由 **%@** 創建的 **%@** 空間。 發送請求，以便空間所有者可以讓​​您加入。";
+"SpaceShare.Join.InviteNotFound" = "這個連結似乎不起作用";
+"SpaceShare.JoinConfirmation.Title" = "已送出請求";
+"SpaceShare.JoinConfirmation.Message" = "當空間所有者批准您的請求後，您將會收到通知。";
+"SpaceShare.YouSuffix" = "%@ (您)";
+"SpaceShare.ManageSpaces" = "管理空間";
+"SpaceShare.AccessChanged" = "存取權限已變更";
 "SpaceShare.StopSharing.Action" = "停止共享";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
-"SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
-"SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
-"SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
-"SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
-"SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
+"SpaceShare.StopSharing.Title" = "停止共享此空間";
+"SpaceShare.StopSharing.Message" = "成員將不再同步到此空間，並且共享連結將被停用。";
+"SpaceShare.StopSharing.Toast" = "此空間將不再共享";
+"SpaceShare.QR.Title" = "加入空間的 QR 碼";
+"SpaceShare.QR.Button" = "顯示 QR 碼";
+"SpaceShare.HowToShare.Title" = "如何共享一個空間？";
+"SpaceShare.HowToShare.Step1" = "請向您想要協作的人提供此連結。";
+"SpaceShare.HowToShare.Step2" = "某人透過點擊連結，請求加入該空間。";
+"SpaceShare.HowToShare.Step3" = "批准請求後，您可以分配此人的存取權限。";
 "SpaceShare.Manage" = "管理";
 "SpaceShare.AlreadyJoin.Title" = "您已經是此空間的成員。";
 "SpaceShare.AlreadyJoin.OpenSpace" = "開放空間";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
-"ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
-"ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
-"RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
-"ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
-"RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"PermissionChangeNotification.Text" = "您在 **%@** 空間的存取權限已變更為 **%@**。";
+"ParticipantRequestApprovedNotification.Text" = "您請求加入的 **%@** 空間已獲得批准，並具有 **%@** 存取權限。 該空間很快就可以在您的裝置上使用。";
+"ParticipantRequestDeclineNotification.Text" = "您請求加入的 **%@** 空間已被拒絕。";
+"RequestToLeaveNotification.Text" = "**%@** 想要離開 **%@** 空間。";
+"ParticipantRemoveNotification.Text" = "您已從該空間中移除，或該空間已被擁有者刪除。";
+"RequestToJoinNotification.Text" = "**%@** 請求加入 **%@** 空間。";
+"RequestToJoinNotification.GoToSpace" = "前往空間";
+"RequestToJoinNotification.ViewRequest" = "查看請求";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Join Request";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequest" = "取消加入請求";
+"SpaceManager.DoNotCancel" = "不要取消";
+"SpaceManager.CancelRequestAlert.Title" = "您將需要再次發送存取請求";
+"SpaceManager.CancelRequestAlert.Toast" = "請求已取消。";
 
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Create a space";
+"SpaceCreate.Title" = "創建空間";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.title" = "添加到 Anytype";
 "Sharing.Navigation.LeftButton.Title" = "取消";
 "Sharing.Navigation.RightButton.Title" = "完成";
 
-"Sharing.SaveAs" = "SAVE AS";
-"Sharing.SelectSpace" = "Space";
-"Sharing.AddTo" = "Add to";
+"Sharing.SaveAs" = "另存新檔";
+"Sharing.SelectSpace" = "空間";
+"Sharing.AddTo" = "添加到";
 "Sharing.LinkTo" = "連結到";
 
-"Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.NoteObject" = "筆記物件";
+"Sharing.Text.TextBlock" = "區塊";
+"Sharing.Any.Block" = "區塊";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "共享延伸模組";
+"Sharing.Tip.Button.title" = "顯示分享選單";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+"Sharing.Tip.Steps.1" = "點擊 iOS 分享按鈕";
+"Sharing.Tip.Steps.2" = "滾動應用程式並點擊更多";
+"Sharing.Tip.Steps.3" = "點擊編輯找到 \"Anytype\"，然後點擊";
 
 // MARK: - Swipe tips
-"Swipe.Tip.Title" = "Swipe to Create Objects";
-"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+"Swipe.Tip.Title" = "滑動來創建物件";
+"Swipe.Tip.Subtitle" = "向左輕滑即可在小工具內建立物件。";
 
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Title" = "警告";
+"Initial.UnstableMiddle.Message" = "您啟動了一個不穩定的中繼軟體。 不要使用您的主要生產力資料庫。 你的資料庫可能已被損毀了。";
+"Initial.UnstableMiddle.Title" = "警告";
+"Initial.UnstableMiddle.Logout" = "從當前的資料庫登出";
+"Initial.UnstableMiddle.Continue" = "繼續使用當前的資料庫";
+"Initial.UnstableMiddle.WontUseProd" = "我不再使用我的主要生產力資料庫";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Create Objects with specific Type";
-"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+"LongTapCreateTip.Title" = "創建特定類別的物件";
+"LongTapCreateTip.Message" = "長按「創建物件」按鈕可開啟包含類別的選單";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
-"Error.UnableToConnect" = "Please connect to the internet";
-"Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
-"Error.Common.TryAgain" = "Try again";
+"Error.AnytypeNeedsUpgrate.Title" = "更新您的應用程式";
+"Error.AnytypeNeedsUpgrate.Message" = "該物件已在較新版本的 Anytype 中進行了修改。 請更新應用程式以在此裝置上打開它";
+"Error.AnytypeNeedsUpgrate.Confirm" = "更新";
+"Error.UnableToConnect" = "請連線至網際網路";
+"Error.Common.Title" = "哎呀!";
+"Error.Common.Message" = "請檢查您的網路連線並重試或 [在論壇上發表報告] (http://community.anytype.io/report-bug)。";
+"Error.Common.TryAgain" = "請再試一次";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "以往 7 天";
+"RelativeFormatter.days30" = "以往 30 天";
+"RelativeFormatter.older" = "較早的";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "網路";
+"Server.Networks" = "網路";
+"Server.AddButton" = "添加自行部署的網路";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "僅限本機";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
-"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+"Gallery.Unavailable.Title" = "即將支援畫廊";
+"Gallery.Unavailable.Message" = "當前請使用電腦版應用";
+"Gallery.Author" = "@%@ 製作";
+"Gallery.Install" = "安裝";
+"Gallery.InstallToNew" = "安裝到新的空間";
+"Gallery.Notification.Success" = "體驗包已成功安裝到 \"%@\" 空間。 現在您可以開啟並開始使用它。";
+"Gallery.Notification.Button" = "前往空間";
+"Gallery.Notification.Error" = "哎呀！ 未安裝 \"%@\"。 請檢查您的網路連線並重試或在論壇上發表報告。";
 
 // MARK: - Membership
-"Membership" = "Membership";
-"Just e-mail" = "Just e-mail";
-"E-mail" = "E-mail";
-"Learn more" = "Learn more";
-"per" = "per";
-"unlimited" = "Unlimited";
+"Membership" = "會員";
+"Just e-mail" = "只需電子郵件";
+"E-mail" = "電子郵件";
+"Learn more" = "了解更多";
+"per" = "每";
+"unlimited" = "無限制";
 
 
-"Upgrade" = "Upgrade";
-"What’s included" = "What’s included";
-"Submit" = "Submit";
-"Resend" = "Resend";
-"Resend in" = "Resend in %@ sec";
-"Current" = "Current";
-"Forever free" = "Forever free";
-"Forever" = "Forever";
-"Valid until date" = "Valid until %@";
-"Your current status" = "Your current status:";
-"Valid until" = "Valid until:";
-"Paid by" = "Paid by %@";
-"Myself" = "Myself";
-"Pay by Card" = "Pay by Card";
-"Min X characters" = "Min %@ characters";
-"Pending" = "Pending...";
+"Upgrade" = "升級";
+"What’s included" = "包含的內容";
+"Submit" = "提交";
+"Resend" = "重新傳送";
+"Resend in" = "在 %@ 秒內重新傳送";
+"Current" = "當前";
+"Forever free" = "永久免費";
+"Forever" = "永久";
+"Valid until date" = "有效期至 %@";
+"Your current status" = "您當前的狀態：";
+"Valid until" = "有效期限至：";
+"Paid by" = "由 %@ 支付";
+"Myself" = "個人使用";
+"Pay by Card" = "刷卡付款";
+"Min X characters" = "最少 %@ 個字元";
+"Pending" = "等候中...";
 "Manage payment" = "管理付款方式";
 "This name is not availabe" = "此用戶名無法使用";
-"Purchase cancelled" = "Purchase cancelled";
-"Change email" = "Change email";
-"Email successfully validated" = "Email successfully validated";
+"Purchase cancelled" = "已取消購買";
+"Change email" = "更改電子郵件";
+"Email successfully validated" = "電子郵件已驗證成功";
 
-"Membership.Ad.Title" = "Membership";
-"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+"Membership.Ad.Title" = "會員";
+"Membership.Ad.Subtitle" = "成為 Anytype 網絡的一員，您就是它故事的一部分。";
 
-"Membership.Legal.Details" = "Membership plan details";
-"Membership.Legal.Privacy" = "Privacy policy";
-"Membership.Legal.Terms" = "Terms and conditions";
-"Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
-"Membership.Legal.LetUsKnow" = "Please let us know here.";
-"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
-"Membership.Legal.RestorePurchases" = "Restore purchases";
+"Membership.Legal.Details" = "會員方案詳情";
+"Membership.Legal.Privacy" = "隱私政策";
+"Membership.Legal.Terms" = "條款和細則";
+"Membership.Legal.WouldYouLike" = "您想將 Anytype 用於商業、教育或其他用途嗎？";
+"Membership.Legal.LetUsKnow" = "請在這裡告訴我們。";
+"Membership.Legal.AlreadyPurchasedTier" = "已經購買會員了嗎？";
+"Membership.Legal.RestorePurchases" = "恢復購買";
 
-"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
-- Extra remote storage
-- More space editors
-- Additional shared spaces
-Specifically,
-Please provide specific details of your needs here.";
+"Membership.Email.Body" = "你好，Anytype 團隊！ 我想延長我目前的會員資格以獲得更多（請選擇一個選項）：
+ - 額外的遠端儲存
+ - 更多空間編輯者
+ - 額外的共享空間
+ 具體來說，
+ 請在此提供您需求的具體細節。";
 
 
-"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Title1" = "一起創建願景";
 "Membership.Banner.Subtitle1" = "作為尊貴的會員，您的聲音至關重要！ 參與獨家活動、制定策略選擇，並影響我們的路線圖。";
 "Membership.Banner.Title2" = "解鎖會員權益";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Subtitle2" = "會員可享受更高的備份儲存空間和同步額度、邀請多位訪客在共享空間中協作，並在 Anytype 網絡上擁有獨一無二的身份。";
 "Membership.Banner.Title3" = "支持數位獨立";
 "Membership.Banner.Subtitle3" = "您的貢獻支持我們的團隊，並認可我們對於用戶擁有、安全以及協作的數位網路願景。";
-"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Title4" = "為互聯互通投資";
 "Membership.Banner.Subtitle4" = "我們網絡的價值超過其各部分的總和。 作為會員，您的加入為網絡的發展奠定了基礎。";
 
-"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
-"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
-"Membership.EmailValidation" = "Enter the code sent to your email";
+"Membership.EmailForm.Title" = "獲得升級並享有免費福利！";
+"Membership.EmailForm.Subtitle" = "這與您的帳戶沒有任何關聯。";
+"Membership.EmailValidation" = "請輸入發送到您電子郵件的兌換代碼";
 
-"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Title" = "取一個獨特的名字";
 "Membership.NameForm.Subtitle" = "這是您在Anytype網絡的專屬用戶名，以確認您的會員身份。它是您的個人域名，不可更改。";
-"Membership.NameForm.Validating" = "Wait a second...";
-"Membership.NameForm.Validated" = "This name is up for grabs";
+"Membership.NameForm.Validating" = "請稍後...";
+"Membership.NameForm.Validated" = "此名稱可以使用！";
 
-"Membership.Success.Title" = "Welcome to the network, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Title" = "歡迎來到 Anytype 網絡，%@";
+"Membership.Success.Curiosity" = "為你的好奇心喝彩！";
+"Membership.Success.Support" = "為你的支持點贊！";
 
 "Membership.Payment.Card" = "卡片";
-"Membership.Payment.Crypto" = "Crypto";
-"Membership.Payment.Apple subscription" = "Apple subscription";
-"Membership.Payment.Google subscription" = "Google subscription";
+"Membership.Payment.Crypto" = "加密貨幣";
+"Membership.Payment.Apple subscription" = "Apple 訂閱";
+"Membership.Payment.Google subscription" = "Google 訂閱";
 
 
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+"Membership.Explorer.Subtitle" = "同步您的裝置、取得備份儲存空間並進行協作。";
+"Membership.Builder.Subtitle" = "解鎖多人協作並擴展您的網路儲存空間。";
+"Membership.CoCreator.Subtitle" = "協助我們的冒險，解鎖特權和福利。";
+"Membership.Custom.Subtitle" = "會員資格的自訂條件。 如果您有任何疑問，請聯絡客服。";
 
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+"Membership.Feature.LocalName" = "在地的、不獨特的名稱";
+"Membership.Feature.UniqueName" = "獨特的網路名稱 (%@ 個字元以上)";
+"Membership.Feature.StorageGB" = "Anytype 網路上的 %@ GB 備份和同步儲存空間";
+"Membership.Feature.Invites" = "%@ 邀請";
+"Membership.Feature.SpaceWriters" = "每個共享空間 %@ 個編輯者";
+"Membership.Feature.UnlimitedViewers" = "每個共享空間無限多個瀏覽者";
+"Membership.Feature.Viewers" = "每個共享空間 %@ 個瀏覽者";
+"Membership.Feature.SharedSpaces" = "最多 %@ 個共享空間";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.tierNotFound" = "未找到該階段數據，請重新啟動應用程式並重試";
+"MembershipServiceError.forcefullyFailedValidation" = "失效故障模式已開啟🫵🐭。 在除錯設定中可關閉";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.MimeTypes" = "MIME 多用途網際網路郵件擴展類別 - %@";
+"Debug.Info" = "除錯訊息";
