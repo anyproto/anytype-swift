@@ -75,7 +75,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>該文件庫將在 %#@days@ 後刪除</string>
+      <string>該資料庫將在 %#@days@ 後刪除</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -111,7 +111,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d 個文件</string>
+        <string>%d 個檔案物件</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -139,7 +139,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d 書籤</string>
+        <string>%d 書籤物件</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>

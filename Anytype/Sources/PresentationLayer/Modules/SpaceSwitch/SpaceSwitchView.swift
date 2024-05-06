@@ -33,12 +33,10 @@ struct SpaceSwitchView: View {
                 .presentationDetents([.height(380), .large])
                 .presentationDragIndicator(.hidden)
                 .presentationCornerRadius(16)
-        } else if #available(iOS 16.0, *) {
+        } else {
             contentContainer
                 .presentationDetents([.height(380), .large])
                 .presentationDragIndicator(.hidden)
-        } else {
-            contentContainer
         }
     }
     
@@ -53,7 +51,7 @@ struct SpaceSwitchView: View {
                 } content: {
                     content
                 }
-                .hideScrollIndicatorLegacy()
+                .scrollIndicators(.never)
                 .onChange(of: model.scrollToRowId) { rowId in
                     reader.scrollTo(rowId)
                 }

@@ -40,7 +40,7 @@ struct MembershipTierSelectionView: View {
                     .background(sheetBackground)
             }
         }
-        .hideScrollIndicatorLegacy()
+        .scrollIndicators(.never)
     }
     
     var sheet: some View {

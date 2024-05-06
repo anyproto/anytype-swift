@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-@available(iOS 16.0, *)
+
 struct BottomAlertButttonStack: Layout {
     
     private let horizontalSpacing: CGFloat = 10
@@ -89,64 +89,48 @@ struct BottomAlertButttonStack: Layout {
 }
 
 #Preview("Horizontal") {
-    if #available(iOS 16.0, *) {
-        BottomAlertButttonStack {
-            Color.red
-                .frame(idealWidth: 50)
-                .frame(height: 50)
-            Color.green
-                .frame(idealWidth: 30)
-                .frame(height: 30)
-            Color.blue
-                .frame(idealWidth: 10)
-                .frame(height: 30)
-        }
-        .frame(width: 250, height: 150)
-        .background(Color.gray)
-    } else {
-        EmptyView()
+    BottomAlertButttonStack {
+        Color.red
+            .frame(idealWidth: 50)
+            .frame(height: 50)
+        Color.green
+            .frame(idealWidth: 30)
+            .frame(height: 30)
+        Color.blue
+            .frame(idealWidth: 10)
+            .frame(height: 30)
     }
+    .frame(width: 250, height: 150)
+    .background(Color.gray)
 }
 
 #Preview("Vertical") {
-    if #available(iOS 16.0, *) {
-        BottomAlertButttonStack {
-            Color.red
-                .frame(idealWidth: 80, idealHeight: 50)
-            Color.green
-                .frame(idealWidth: 30, idealHeight: 30)
-            Color.blue
-                .frame(idealWidth: 10, idealHeight: 30)
-        }
-        .frame(width: 100, height: 150)
-        .background(Color.gray)
-    } else {
-        EmptyView()
+    BottomAlertButttonStack {
+        Color.red
+            .frame(idealWidth: 80, idealHeight: 50)
+        Color.green
+            .frame(idealWidth: 30, idealHeight: 30)
+        Color.blue
+            .frame(idealWidth: 10, idealHeight: 30)
     }
+    .frame(width: 100, height: 150)
+    .background(Color.gray)
 }
 
 #Preview("Horizontal Buttons") {
-    if #available(iOS 16.0, *) {
-        BottomAlertButttonStack {
-            StandardButton(.text("A"), style: .primaryLarge, action: {})
-            StandardButton(.text("DEF"), style: .primaryLarge, action: {})
-        }
-        .background(Color.gray)
-    } else {
-        EmptyView()
+    BottomAlertButttonStack {
+        StandardButton(.text("A"), style: .primaryLarge, action: {})
+        StandardButton(.text("DEF"), style: .primaryLarge, action: {})
     }
+    .background(Color.gray)
 }
 
 
 #Preview("Vertical Buttons") {
-    if #available(iOS 16.0, *) {
-        BottomAlertButttonStack {
-            StandardButton(.text("ABCABCABCABC"), style: .primaryLarge, action: {})
-            StandardButton(.text("DEFDEFDEFDEFDEF"), style: .primaryLarge, action: {})
-        }
-        .frame(width: 300)
-        .background(Color.gray)
-    } else {
-        EmptyView()
+    BottomAlertButttonStack {
+        StandardButton(.text("ABCABCABCABC"), style: .primaryLarge, action: {})
+        StandardButton(.text("DEFDEFDEFDEFDEF"), style: .primaryLarge, action: {})
     }
+    .frame(width: 300)
+    .background(Color.gray)
 }

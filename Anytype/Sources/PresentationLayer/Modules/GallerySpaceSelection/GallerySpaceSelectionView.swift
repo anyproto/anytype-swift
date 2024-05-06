@@ -21,8 +21,8 @@ struct GallerySpaceSelectionView: View {
             }
         }
         .presentationCornerRadiusLegacy(16)
-        .presentationDetentsHeightAndLargeLegacy(height: 250)
-        .presentationDragIndicatorHiddenLegacy()
+        .presentationDetents([.height(250), .large])
+        .presentationDragIndicator(.hidden)
     }
     
     @ViewBuilder
