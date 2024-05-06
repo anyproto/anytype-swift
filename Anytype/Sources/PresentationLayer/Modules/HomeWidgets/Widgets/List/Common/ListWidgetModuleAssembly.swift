@@ -100,8 +100,6 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
         let contentView = ListWidgetView(model: contentModel)
         
         let containerModel = WidgetContainerViewModel(
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI,
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             stateManager: stateManager,

@@ -10,11 +10,16 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let subscriptionManager: TreeSubscriptionManagerProtocol
-    private let defaultObjectService: DefaultObjectCreationServiceProtocol
-    private let documentsProvider: DocumentsProviderProtocol
-    private let blockService: BlockServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
+    
+    @Injected(\.treeSubscriptionManager)
+    private var subscriptionManager: TreeSubscriptionManagerProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
     
     // MARK: - State
     
@@ -30,18 +35,10 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
-        subscriptionManager: TreeSubscriptionManagerProtocol,
-        defaultObjectService: DefaultObjectCreationServiceProtocol,
-        documentsProvider: DocumentsProviderProtocol,
-        blockService: BlockServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.subscriptionManager = subscriptionManager
-        self.defaultObjectService = defaultObjectService
-        self.documentsProvider = documentsProvider
-        self.blockService = blockService
         self.output = output
     }
     

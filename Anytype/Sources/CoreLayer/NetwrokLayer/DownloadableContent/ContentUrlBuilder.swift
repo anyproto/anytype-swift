@@ -5,7 +5,7 @@ import UIKit
 final class ContentUrlBuilder {
     
     private static var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
-        return ServiceLocator.shared.middlewareConfigurationProvider()
+        return Container.shared.middlewareConfigurationProvider.resolve()
     }
     
     static func fileUrl(fileId: String) -> URL? {

@@ -35,7 +35,7 @@ final class DebugMenuViewModel: ObservableObject {
             do {
                 try await ServiceLocator.shared.authService().logout(removeData: false)
                 try ServiceLocator.shared.seedService().removeSeed()
-                ServiceLocator.shared.applicationStateService().state = .auth
+                applicationStateService.state = .auth
             } catch {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
             }

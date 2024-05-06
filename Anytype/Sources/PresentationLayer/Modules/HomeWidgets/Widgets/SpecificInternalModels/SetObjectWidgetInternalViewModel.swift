@@ -12,10 +12,14 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     private let widgetObject: BaseDocumentProtocol
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionStorage: SubscriptionStorageProtocol
-    private let documentService: DocumentsProviderProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
+    
+    @Injected(\.documentsProvider)
+    private var documentService: DocumentsProviderProtocol
+    @Injected(\.blockWidgetService)
+    private var blockWidgetService: BlockWidgetServiceProtocol
+    
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
@@ -41,18 +45,15 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        documentService: DocumentsProviderProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-        self.documentService = documentService
-        self.blockWidgetService = blockWidgetService
         self.output = output
+        
+        let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
+        self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
     }
     
     func startHeaderSubscription() {

@@ -17,8 +17,11 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     @Published var selectedTab = 0
     @Published var showBlankSettings = false
     private let document: BaseDocumentProtocol
-    private let objectService: ObjectActionsServiceProtocol
-    private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    
+    @Injected(\.objectActionsService)
+    private var objectService: ObjectActionsServiceProtocol
+    @Injected(\.templatesSubscription)
+    private var templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
     
     private weak var output: TemplatePickerViewModuleOutput?
     
@@ -29,14 +32,10 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
 
     init(
         output: TemplatePickerViewModuleOutput?,
-        document: BaseDocumentProtocol,
-        objectService: ObjectActionsServiceProtocol,
-        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+        document: BaseDocumentProtocol
     ) {
         self.output = output
         self.document = document
-        self.objectService = objectService
-        self.templatesSubscriptionService = templatesSubscriptionService
         self.options = buildBlankOptions()
         self.loadTemplates()
     }

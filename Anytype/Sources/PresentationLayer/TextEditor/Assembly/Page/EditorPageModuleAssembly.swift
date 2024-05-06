@@ -237,13 +237,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             headerModel: headerModel,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
-            objectActionsService: serviceLocator.objectActionsService(),
-            searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             configuration: configuration,
-            templatesSubscriptionService: serviceLocator.templatesSubscription(),
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
             output: output
         )
 

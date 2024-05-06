@@ -27,9 +27,6 @@ final class SetListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(
                 activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()
             ),
-            subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
-            documentService: serviceLocator.documentsProvider,
-            blockWidgetService: serviceLocator.blockWidgetService(),
             output: output
         )
      

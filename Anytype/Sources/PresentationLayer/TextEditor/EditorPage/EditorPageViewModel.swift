@@ -14,19 +14,24 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     let document: BaseDocumentProtocol
     let modelsHolder: EditorMainItemModelsHolder
     let router: EditorRouterProtocol
-    
     let actionHandler: BlockActionHandlerProtocol
-    let objectActionsService: ObjectActionsServiceProtocol
-    let objectTypeProvider: ObjectTypeProviderProtocol
     
-    private let searchService: SearchServiceProtocol
+    @Injected(\.objectActionsService)
+    var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.objectTypeProvider)
+    var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    @Injected(\.templatesSubscription)
+    private var templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
@@ -48,13 +53,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         headerModel: ObjectHeaderViewModel,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
-        objectActionsService: ObjectActionsServiceProtocol,
-        searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         configuration: EditorPageViewModelConfiguration,
-        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewInput = viewInput
@@ -65,13 +65,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.headerModel = headerModel
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
-        self.objectActionsService = objectActionsService
-        self.searchService = searchService
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.configuration = configuration
-        self.templatesSubscriptionService = templatesSubscriptionService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectTypeProvider = objectTypeProvider
         self.output = output
         self.actionHandler = actionHandler
         

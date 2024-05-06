@@ -14,11 +14,9 @@ protocol TreeWidgetModuleAssemblyProtocol: AnyObject {
 
 final class TreeWidgetModuleAssembly: TreeWidgetModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
-        self.serviceLocator = serviceLocator
+    init(uiHelpersDI: UIHelpersDIProtocol) {
         self.uiHelpersDI = uiHelpersDI
     }
     
@@ -36,15 +34,11 @@ final class TreeWidgetModuleAssembly: TreeWidgetModuleAssemblyProtocol {
         let contentModel = TreeWidgetViewModel(
             widgetBlockId: widgetBlockId,
             internalModel: internalModel,
-            subscriptionManager: serviceLocator.treeSubscriptionManager(),
-            objectActionsService: serviceLocator.objectActionsService(),
             output: output
         )
         let contentView = TreeWidgetView(model: contentModel)
         
         let containerModel = WidgetContainerViewModel(
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI,
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             stateManager: stateManager,

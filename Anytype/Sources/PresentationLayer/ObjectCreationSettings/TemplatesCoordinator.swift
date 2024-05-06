@@ -34,12 +34,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
 
         self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
         let picker = TemplatePickerView(
-            viewModel: .init(
-                output: self,
-                document: document,
-                objectService: ServiceLocator.shared.objectActionsService(), 
-                templatesSubscriptionService: ServiceLocator.shared.templatesSubscription()
-            )
+            viewModel: .init(output: self, document: document)
         )
         let hostViewController = UIHostingController(rootView: picker)
         hostViewController.modalPresentationStyle = .fullScreen
