@@ -1350,6 +1350,7 @@
 		3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */; };
 		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
+		3DF266E12BE9382F0038249A /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 3DF266E02BE9382F0038249A /* Factory */; };
 		3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */; };
 		3DF58C522BD2CD780056D0BB /* MembershipTier+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF58C512BD2CD780056D0BB /* MembershipTier+Mocks.swift */; };
 		3DF58C542BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF58C532BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift */; };
@@ -3113,6 +3114,7 @@
 		3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewType.swift; sourceTree = "<group>"; };
 		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
+		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSwipeTip.swift; sourceTree = "<group>"; };
 		3DF58C512BD2CD780056D0BB /* MembershipTier+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipTier+Mocks.swift"; sourceTree = "<group>"; };
 		3DF58C532BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipStatus+Mocks.swift"; sourceTree = "<group>"; };
@@ -3466,6 +3468,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A90C46D285B5A9100B6B44E /* ProtobufMessages in Frameworks */,
+				3DF266E12BE9382F0038249A /* Factory in Frameworks */,
 				2A90C46A285B5A9100B6B44E /* Services in Frameworks */,
 				2A90C466285B5A9100B6B44E /* AnytypeCore in Frameworks */,
 				2A90C470285B5AA700B6B44E /* SwiftProtobuf in Frameworks */,
@@ -10313,6 +10316,7 @@
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3DF266E22BE93A710038249A /* CoreAudioTypes.framework */,
 				0A0AA73023FB25DA003A2935 /* Lib.framework */,
 				0318D575230186CA000527B1 /* LocalAuthentication.framework */,
 				03C5C53A22DF785000DD91DE /* Security.framework */,
@@ -10394,6 +10398,7 @@
 				2A90C469285B5A9100B6B44E /* Services */,
 				2A90C46C285B5A9100B6B44E /* ProtobufMessages */,
 				2A90C46F285B5AA700B6B44E /* SwiftProtobuf */,
+				3DF266E02BE9382F0038249A /* Factory */,
 			);
 			productName = AnytypeTests;
 			productReference = 03C5C54022DFD90C00DD91DE /* AnytypeTests.xctest */;
@@ -13247,6 +13252,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
 			productName = WrappingHStack;
+		};
+		3DF266E02BE9382F0038249A /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 		5333421B262E249100238121 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
