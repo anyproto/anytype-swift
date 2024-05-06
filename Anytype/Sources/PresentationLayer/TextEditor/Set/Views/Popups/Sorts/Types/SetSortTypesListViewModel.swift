@@ -10,7 +10,7 @@ final class SetSortTypesListViewModel: ObservableObject {
 
     private let sort: SetSort
     private var selectedSort: DataviewSort
-    private let completion: (SetSort) -> Void
+    private let completion: (SetSort, String) -> Void
 
     // MARK: - Initializer
 
@@ -55,7 +55,8 @@ final class SetSortTypesListViewModel: ObservableObject {
             SetSort(
                 relationDetails: sort.relationDetails,
                 sort: selectedSort
-            )
+            ),
+            item.analyticValue
         )
         typeItems = buildTypeItems()
     }
@@ -70,7 +71,8 @@ final class SetSortTypesListViewModel: ObservableObject {
             SetSort(
                 relationDetails: sort.relationDetails,
                 sort: selectedSort
-            )
+            ),
+            item.analyticValue
         )
         emptyTypeItems = buildEmptyTypeItems()
     }
