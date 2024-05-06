@@ -27,9 +27,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func home() -> HomeCoordinatorAssemblyProtocol {
         return HomeCoordinatorAssembly(
             coordinatorsID: self,
-            modulesDI: modulesDI,
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI
+            modulesDI: modulesDI
         )
     }
 
@@ -74,10 +72,8 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol {
         SetObjectCreationCoordinatorAssembly(
-            serviceLocator: serviceLocator,
             modulesDI: modulesDI,
-            uiHelpersDI: uiHelpersDI,
-            coordinatorsDI: self
+            uiHelpersDI: uiHelpersDI
         )
     }
     

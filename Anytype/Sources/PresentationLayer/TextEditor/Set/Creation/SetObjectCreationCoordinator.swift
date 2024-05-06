@@ -15,20 +15,20 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
     private let navigationContext: NavigationContextProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let objectCreationHelper: SetObjectCreationHelperProtocol
     private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private weak var output: SetObjectCreationCoordinatorOutput?
     private var customAnalyticsRoute: AnalyticsEventsRouteKind?
     
+    @Injected(\.setObjectCreationHelper)
+    private var objectCreationHelper: SetObjectCreationHelperProtocol
+    
     nonisolated init(
         navigationContext: NavigationContextProtocol,
         toastPresenter: ToastPresenterProtocol,
-        objectCreationHelper: SetObjectCreationHelperProtocol,
         createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     ) {
         self.navigationContext = navigationContext
         self.toastPresenter = toastPresenter
-        self.objectCreationHelper = objectCreationHelper
         self.createObjectModuleAssembly = createObjectModuleAssembly
     }
     

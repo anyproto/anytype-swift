@@ -29,7 +29,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatusData: SyncStatusData
+    @Published var syncStatusData = SyncStatusData(status: .unknown, networkId: "")
     
     var isUpdating = false
 
@@ -137,59 +137,51 @@ final class EditorSetViewModel: ObservableObject {
     let setDocument: SetDocumentProtocol
     let paginationHelper = EditorSetPaginationHelper()
 
-    private let subscriptionStorageProvider: SubscriptionStorageProviderProtocol
-    private let dataviewService: DataviewServiceProtocol
-    private let searchService: SearchServiceProtocol
-    private let detailsService: DetailsServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let relationsService: RelationsServiceProtocol
-    private let textServiceHandler: TextServiceProtocol
-    private let groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
+    @Injected(\.subscriptionStorageProvider)
+    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    @Injected(\.dataviewService)
+    private var dataviewService: DataviewServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    @Injected(\.detailsService)
+    private var detailsService: DetailsServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.relationsService)
+    private var relationsService: RelationsServiceProtocol
+    @Injected(\.textServiceHandler)
+    private var textServiceHandler: TextServiceProtocol
+    @Injected(\.groupsSubscriptionsHandler)
+    private var groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
     private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     private var titleSubscription: AnyCancellable?
     private weak var output: EditorSetModuleOutput?
 
     init(
         setDocument: SetDocumentProtocol,
         headerViewModel: ObjectHeaderViewModel,
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
-        dataviewService: DataviewServiceProtocol,
-        searchService: SearchServiceProtocol,
-        detailsService: DetailsServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        relationsService: RelationsServiceProtocol,
-        textServiceHandler: TextServiceProtocol,
-        groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol,
         setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
         setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
         output: EditorSetModuleOutput?
     ) {
         self.setDocument = setDocument
         self.headerModel = headerViewModel
-        self.subscriptionStorageProvider = subscriptionStorageProvider
-        self.dataviewService = dataviewService
-        self.searchService = searchService
-        self.detailsService = detailsService
-        self.objectActionsService = objectActionsService
-        self.relationsService = relationsService
-        self.textServiceHandler = textServiceHandler
-        self.groupsSubscriptionsHandler = groupsSubscriptionsHandler
         self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
         self.setGroupSubscriptionDataBuilder = setGroupSubscriptionDataBuilder
         self.titleString = setDocument.details?.pageCellTitle ?? ""
-        self.activeWorkspaceStorage = activeWorkspaceStorage
         self.output = output
-        self.syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
         self.setup()
     }
     
     private func setup() {
+        syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
+        
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
                 await self?.onDataChange(update)
@@ -750,18 +742,8 @@ extension EditorSetViewModel {
             ),
             output: nil
         ),
-        subscriptionStorageProvider: DI.preview.serviceLocator.subscriptionStorageProvider(),
-        dataviewService: DI.preview.serviceLocator.dataviewService(),
-        searchService: DI.preview.serviceLocator.searchService(),
-        detailsService: DI.preview.serviceLocator.detailsService(),
-        objectActionsService: DI.preview.serviceLocator.objectActionsService(),
-        relationsService: DI.preview.serviceLocator.relationService(),
-        textServiceHandler: DI.preview.serviceLocator.textServiceHandler(),
-        groupsSubscriptionsHandler: DI.preview.serviceLocator.groupsSubscriptionsHandler(),
         setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
         setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
-        objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-        activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage(),
         output: nil
     )
 }

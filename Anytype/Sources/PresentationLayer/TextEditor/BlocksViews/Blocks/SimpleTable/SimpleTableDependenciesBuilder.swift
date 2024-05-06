@@ -14,43 +14,39 @@ final class SimpleTableDependenciesBuilder {
     private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let markdownListener: MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
     private let responderScrollViewHelper: ResponderScrollViewHelper
-    private let defaultObjectService: DefaultObjectCreationServiceProtocol
-    private let typesService: TypesServiceProtocol
     private let accessoryStateManager: AccessoryViewStateManager
     
     @Injected(\.blockTableService)
     private var tableService: BlockTableServiceProtocol
-
-    weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
+    @Injected(\.pasteboardBlockDocumentService)
+    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
     
+    weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
 
     init(
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         markdownListener: MarkdownListener,
         focusSubjectHolder: FocusSubjectsHolder,
         mainEditorSelectionManager: SimpleTableSelectionHandler?,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        defaultObjectService: DefaultObjectCreationServiceProtocol,
-        typesService: TypesServiceProtocol,
         accessoryStateManager: AccessoryViewStateManager
     ) {
         self.document = document
         self.router = router
         self.handler = handler
-        self.pasteboardService = pasteboardService
         self.markdownListener = markdownListener
         self.focusSubjectHolder = focusSubjectHolder
         self.mainEditorSelectionManager = mainEditorSelectionManager
         self.responderScrollViewHelper = responderScrollViewHelper
-        self.defaultObjectService = defaultObjectService
-        self.typesService = typesService
         self.accessoryStateManager = accessoryStateManager
         
         self.cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)

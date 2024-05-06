@@ -127,23 +127,15 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let focusSubjectHolder = FocusSubjectsHolder()
         
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-        let blockService = serviceLocator.blockService()
         let blockActionService = BlockActionService(
             documentId: document.objectId,
-            blockService: blockService,
-            objectActionService: serviceLocator.objectActionsService(),
-            textServiceHandler: serviceLocator.textServiceHandler(),
             modelsHolder: modelsHolder,
-            bookmarkService: serviceLocator.bookmarkService(),
-            fileService: serviceLocator.fileService(),
-            cursorManager: cursorManager,
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            cursorManager: cursorManager
         )
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,
             spaceId: document.spaceId,
             service: blockActionService,
-            blockService: blockService,
             toggleStorage: ToggleStorage.shared,
             container: document.infoContainer,
             modelsHolder: modelsHolder,
@@ -156,15 +148,12 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             service: blockActionService
         )
         
-        let pasteboardService = serviceLocator.pasteboardBlockDocumentService()
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockService: serviceLocator.blockService(),
             toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
-            pasteboardService: pasteboardService,
             router: router,
             initialEditingState: configuration.isOpenedForPreview ? .readonly : .editing,
             viewInput: viewInput,
@@ -200,13 +189,10 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             router: router,
             handler: actionHandler,
-            pasteboardService: pasteboardService,
             markdownListener: markdownListener,
             focusSubjectHolder: focusSubjectHolder,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            defaultObjectService: serviceLocator.defaultObjectCreationService(),
-            typesService: serviceLocator.typesService(),
             accessoryStateManager: accessoryState.0
         )
         
@@ -214,14 +200,12 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             actionHandler: actionHandler,
             router: router,
-            pasteboardService: pasteboardService,
             cursorManager: cursorManager
         )
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             handler: actionHandler,
-            pasteboardService: pasteboardService,
             router: router,
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,

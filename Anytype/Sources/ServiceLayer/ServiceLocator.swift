@@ -193,38 +193,6 @@ final class ServiceLocator {
         Container.shared.templatesSubscription()
     }
     
-    func setObjectCreationHelper() -> SetObjectCreationHelperProtocol {
-        Container.shared.setObjectCreationHelper()
-    }
-    
-    func serverConfigurationStorage() -> ServerConfigurationStorageProtocol {
-        Container.shared.serverConfigurationStorage()
-    }
-    
-    func middlewareConfigurationService() -> MiddlewareConfigurationServiceProtocol {
-        Container.shared.middlewareConfigurationService()
-    }
-    
-    func textServiceHandler() -> TextServiceProtocol {
-        Container.shared.textServiceHandler()
-    }
-    
-    func pasteboardMiddlewareService() -> PasteboardMiddlewareServiceProtocol {
-        Container.shared.pasteboardMiddleService()
-    }
-    
-    func pasteboardHelper() -> PasteboardHelperProtocol {
-        Container.shared.pasteboardHelper()
-    }
-    
-    func pasteboardBlockDocumentService() -> PasteboardBlockDocumentServiceProtocol {
-        Container.shared.pasteboardBlockDocumentService()
-    }
-    
-    func pasteboardBlockService() -> PasteboardBlockServiceProtocol {
-        Container.shared.pasteboardBlockService()
-    }
-    
     func deepLinkParser() -> DeepLinkParserProtocol {
         Container.shared.deepLinkParser()
     }

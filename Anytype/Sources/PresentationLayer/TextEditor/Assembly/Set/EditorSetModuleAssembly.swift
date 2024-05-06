@@ -55,18 +55,8 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
         let model = EditorSetViewModel(
             setDocument: setDocument,
             headerViewModel: headerModel,
-            subscriptionStorageProvider: serviceLocator.subscriptionStorageProvider(),
-            dataviewService: serviceLocator.dataviewService(),
-            searchService: serviceLocator.searchService(),
-            detailsService: serviceLocator.detailsService(),
-            objectActionsService: serviceLocator.objectActionsService(), 
-            relationsService: serviceLocator.relationService(),
-            textServiceHandler: serviceLocator.textServiceHandler(),
-            groupsSubscriptionsHandler: serviceLocator.groupsSubscriptionsHandler(),
             setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
             setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
             output: output
         )
         
