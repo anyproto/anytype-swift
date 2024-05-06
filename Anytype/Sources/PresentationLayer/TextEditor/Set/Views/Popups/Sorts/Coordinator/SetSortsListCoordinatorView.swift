@@ -17,9 +17,8 @@ struct SetSortsListCoordinatorView: View {
             SetRelationsDetailsLocalSearchView(data: data)
         }
         .sheet(item: $model.sortTypesData) { data in
-            CheckPopupView(viewModel: SetSortTypesListViewModel(data: data))
+            SetSortTypesListView(data: data)
                 .fitPresentationDetents()
-                .background(Color.Background.secondary)
         }
     }
 }
