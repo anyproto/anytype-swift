@@ -12,11 +12,7 @@ final class BlockViewModelBuilder {
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-    private let detailsService: DetailsServiceProtocol
-    private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
-    private let tableService: BlockTableServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockCollectionController: EditorBlockCollectionController
     private let accessoryStateManager: AccessoryViewStateManager
@@ -27,6 +23,16 @@ final class BlockViewModelBuilder {
     private let slashMenuActionHandler: SlashMenuActionHandler
     private weak var output: EditorPageModuleOutput?
     
+    @Injected(\.blockTableService)
+    private var tableService: BlockTableServiceProtocol
+    @Injected(\.detailsService)
+    private var detailsService: DetailsServiceProtocol
+    @Injected(\.audioSessionService)
+    private var audioSessionService: AudioSessionServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    
+    
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
@@ -35,11 +41,7 @@ final class BlockViewModelBuilder {
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        detailsService: DetailsServiceProtocol,
-        audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockCollectionController: EditorBlockCollectionController,
         accessoryStateManager: AccessoryViewStateManager,
@@ -57,11 +59,7 @@ final class BlockViewModelBuilder {
         self.markdownListener = markdownListener
         self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder
         self.subjectsHolder = subjectsHolder
-        self.detailsService = detailsService
-        self.audioSessionService = audioSessionService
         self.infoContainer = infoContainer
-        self.tableService = tableService
-        self.objectTypeProvider = objectTypeProvider
         self.modelsHolder = modelsHolder
         self.blockCollectionController = blockCollectionController
         self.accessoryStateManager = accessoryStateManager
