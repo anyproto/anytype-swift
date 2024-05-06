@@ -134,7 +134,7 @@ struct SetViewSettingsList: View {
                 IconView(icon: .asset(.X24.more))
                     .frame(width: 24, height: 24)
             }
-            .fixMenuOrder()
+            .menuOrder(.fixed)
         }
     }
     
