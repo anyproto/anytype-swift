@@ -726,6 +726,13 @@ internal enum Loc {
         internal enum Add {
           internal static let searchPlaceholder = Loc.tr("Localizable", "EditSet.Popup.Sort.Add.SearchPlaceholder")
         }
+        internal enum EmptyTypes {
+          internal static let end = Loc.tr("Localizable", "EditSet.Popup.Sort.EmptyTypes.End")
+          internal static let start = Loc.tr("Localizable", "EditSet.Popup.Sort.EmptyTypes.Start")
+          internal enum Section {
+            internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sort.EmptyTypes.Section.Title")
+          }
+        }
         internal enum Types {
           internal static let ascending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Ascending")
           internal static let descending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Descending")

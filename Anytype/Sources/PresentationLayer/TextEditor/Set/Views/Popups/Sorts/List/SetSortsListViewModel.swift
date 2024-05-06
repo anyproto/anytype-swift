@@ -116,7 +116,7 @@ extension SetSortsListViewModel {
             SetSortRowConfiguration(
                 id: "\(sort.relationDetails.id)_\(index)",
                 title: sort.relationDetails.name,
-                subtitle: sort.typeTitle(),
+                subtitle: sort.typeTitle() ?? "",
                 iconAsset: sort.relationDetails.format.iconAsset,
                 onTap: { [weak self] in
                     self?.rowTapped(sort.relationDetails.id, index: index)
@@ -136,7 +136,7 @@ extension SetSortsListViewModel {
                 viewId: viewId
             )
             AnytypeAnalytics.instance().logChangeSortValue(
-                type: setSort.sort.type.stringValue,
+                type: setSort.sort.type.analyticValue,
                 objectType: setDocument.analyticsType
             )
         }

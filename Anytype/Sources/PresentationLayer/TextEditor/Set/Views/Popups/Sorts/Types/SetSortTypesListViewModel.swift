@@ -2,9 +2,11 @@ import Services
 import Combine
 
 @MainActor
-final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
+final class SetSortTypesListViewModel: ObservableObject {
+    
     let title: String
-    @Published private(set) var items: [CheckPopupItem] = []
+    @Published private(set) var typeItems: [SetSortTypeItem] = []
+    @Published private(set) var emptyTypeItems: [SetSortTypeItem] = []
 
     private let sort: SetSort
     private var selectedSort: DataviewSort
@@ -17,39 +19,59 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
         self.sort = data.setSort
         self.selectedSort = data.setSort.sort
         self.completion = data.completion
-        self.items = self.buildPopupItems()
+        self.typeItems = buildTypeItems()
+        self.emptyTypeItems = buildEmptyTypeItems()
     }
     
-    func buildPopupItems() -> [CheckPopupItem] {
+    func buildTypeItems() -> [SetSortTypeItem] {
         DataviewSort.TypeEnum.allAvailableCases.compactMap { type in
-            CheckPopupItem(
-                id: String(type.rawValue),
-                iconAsset: nil,
-                title: sort.typeTitle(for: type),
-                subtitle: nil,
+            guard let title = sort.typeTitle(for: type) else { return nil }
+            return SetSortTypeItem(
+                title: title,
                 isSelected: type == selectedSort.type,
-                onTap: { [weak self] in self?.onTap(item: type) }
+                onTap: { [weak self] in self?.onTypeTap(item: type) }
+            )
+        }
+    }
+    
+    func buildEmptyTypeItems() -> [SetSortTypeItem] {
+        DataviewSort.EmptyType.allAvailableCases.compactMap { type in
+            guard let title = sort.emptyTypeTitle(for: type) else { return nil }
+            return SetSortTypeItem(
+                title: title,
+                isSelected: type == selectedSort.emptyPlacement,
+                onTap: { [weak self] in self?.onEmptyTap(item: type) }
             )
         }
     }
 
-    private func onTap(item: DataviewSort.TypeEnum) {
+    private func onTypeTap(item: DataviewSort.TypeEnum) {
         guard item != selectedSort.type else {
             return
         }
 
-        let dataviewSort = DataviewSort(
-            id: selectedSort.id,
-            relationKey: selectedSort.relationKey,
-            type: item
-        )
-        selectedSort = dataviewSort
+        selectedSort.type = item
         completion(
             SetSort(
                 relationDetails: sort.relationDetails,
-                sort: dataviewSort
+                sort: selectedSort
             )
         )
-        items = buildPopupItems()
+        typeItems = buildTypeItems()
+    }
+    
+    private func onEmptyTap(item: DataviewSort.EmptyType) {
+        guard item != selectedSort.emptyPlacement else {
+            return
+        }
+
+        selectedSort.emptyPlacement = item
+        completion(
+            SetSort(
+                relationDetails: sort.relationDetails,
+                sort: selectedSort
+            )
+        )
+        emptyTypeItems = buildEmptyTypeItems()
     }
 }

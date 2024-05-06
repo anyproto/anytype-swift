@@ -911,6 +911,8 @@
 		2E2A22FE2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */; };
 		2E2A23002A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */; };
 		2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */; };
+		2E2D23E22BE8F11F005AC828 /* SetSortTypesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D23E12BE8F11F005AC828 /* SetSortTypesListView.swift */; };
+		2E2D23E42BE8F371005AC828 /* SetSortTypeItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D23E32BE8F371005AC828 /* SetSortTypeItem.swift */; };
 		2E2D255D28880C8D00E3DFD1 /* SetFiltersSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */; };
 		2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */; };
 		2E2D255F28880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */; };
@@ -1349,6 +1351,7 @@
 		3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */; };
 		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
 		3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */; };
+		3DF266E12BE9382F0038249A /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 3DF266E02BE9382F0038249A /* Factory */; };
 		3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */; };
 		3DF58C522BD2CD780056D0BB /* MembershipTier+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF58C512BD2CD780056D0BB /* MembershipTier+Mocks.swift */; };
 		3DF58C542BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF58C532BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift */; };
@@ -2673,6 +2676,8 @@
 		2E2A22FD2A9E462100745D78 /* SetLayoutSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorView.swift; sourceTree = "<group>"; };
 		2E2A22FF2A9E463700745D78 /* SetLayoutSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E2A23032A9F746D00745D78 /* SetLayoutSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetLayoutSettings.swift; sourceTree = "<group>"; };
+		2E2D23E12BE8F11F005AC828 /* SetSortTypesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypesListView.swift; sourceTree = "<group>"; };
+		2E2D23E32BE8F371005AC828 /* SetSortTypeItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypeItem.swift; sourceTree = "<group>"; };
 		2E2D255428880C8D00E3DFD1 /* SetFiltersSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionView.swift; sourceTree = "<group>"; };
 		2E2D255528880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSelectionViewModel.swift; sourceTree = "<group>"; };
 		2E2D255628880C8D00E3DFD1 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
@@ -3111,6 +3116,7 @@
 		3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewType.swift; sourceTree = "<group>"; };
 		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
 		3DE6E3BF26542151008FB0AF /* UIVIewController+Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIVIewController+Child.swift"; sourceTree = "<group>"; };
+		3DF266E22BE93A710038249A /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		3DF418BA2B7CEF8B00C414D6 /* WidgetSwipeTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSwipeTip.swift; sourceTree = "<group>"; };
 		3DF58C512BD2CD780056D0BB /* MembershipTier+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipTier+Mocks.swift"; sourceTree = "<group>"; };
 		3DF58C532BD2CD9E0056D0BB /* MembershipStatus+Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipStatus+Mocks.swift"; sourceTree = "<group>"; };
@@ -3464,6 +3470,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A90C46D285B5A9100B6B44E /* ProtobufMessages in Frameworks */,
+				3DF266E12BE9382F0038249A /* Factory in Frameworks */,
 				2A90C46A285B5A9100B6B44E /* Services in Frameworks */,
 				2A90C466285B5A9100B6B44E /* AnytypeCore in Frameworks */,
 				2A90C470285B5AA700B6B44E /* SwiftProtobuf in Frameworks */,
@@ -7610,6 +7617,8 @@
 			children = (
 				2E975EE8287C23DA004DE574 /* SetSortTypesListViewModel.swift */,
 				2E083E5C2BAB635A0099A41C /* SetSortTypesData.swift */,
+				2E2D23E12BE8F11F005AC828 /* SetSortTypesListView.swift */,
+				2E2D23E32BE8F371005AC828 /* SetSortTypeItem.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -10310,6 +10319,7 @@
 		ED79E6F7693FFE933050D8BC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3DF266E22BE93A710038249A /* CoreAudioTypes.framework */,
 				0A0AA73023FB25DA003A2935 /* Lib.framework */,
 				0318D575230186CA000527B1 /* LocalAuthentication.framework */,
 				03C5C53A22DF785000DD91DE /* Security.framework */,
@@ -10391,6 +10401,7 @@
 				2A90C469285B5A9100B6B44E /* Services */,
 				2A90C46C285B5A9100B6B44E /* ProtobufMessages */,
 				2A90C46F285B5AA700B6B44E /* SwiftProtobuf */,
+				3DF266E02BE9382F0038249A /* Factory */,
 			);
 			productName = AnytypeTests;
 			productReference = 03C5C54022DFD90C00DD91DE /* AnytypeTests.xctest */;
@@ -11152,6 +11163,7 @@
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */,
 				2A4C7FFC2A823CB300201946 /* DateFormatter+Relation.swift in Sources */,
+				2E2D23E42BE8F371005AC828 /* SetSortTypeItem.swift in Sources */,
 				2ACDC9BA2B5670650063BFBD /* ShareOptionsViewModel.swift in Sources */,
 				1247BC7E27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
@@ -11775,6 +11787,7 @@
 				2ADA60EB2A681A7E0044164D /* IconViewUIKit.swift in Sources */,
 				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
 				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
+				2E2D23E22BE8F11F005AC828 /* SetSortTypesListView.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
@@ -12414,7 +12427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -12472,7 +12485,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
@@ -12507,7 +12520,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12552,7 +12565,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12581,7 +12594,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnytypeTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12607,7 +12620,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnytypeTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12673,7 +12686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
@@ -12709,7 +12722,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "Anytype/Supporting files/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12738,7 +12751,7 @@
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = AnytypeTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12771,7 +12784,7 @@
 				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Anytype. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12803,7 +12816,7 @@
 				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Anytype. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -12836,7 +12849,7 @@
 				INFOPLIST_FILE = AnytypeShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AnytypeShareExtension;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Anytype. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -13243,6 +13256,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */;
 			productName = WrappingHStack;
+		};
+		3DF266E02BE9382F0038249A /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
 		};
 		5333421B262E249100238121 /* FloatingPanel */ = {
 			isa = XCSwiftPackageProductDependency;
