@@ -1,5 +1,6 @@
 import Services
 import Combine
+import AnytypeCore
 
 @MainActor
 final class SetSortTypesListViewModel: ObservableObject {
@@ -20,7 +21,9 @@ final class SetSortTypesListViewModel: ObservableObject {
         self.selectedSort = data.setSort.sort
         self.completion = data.completion
         self.typeItems = buildTypeItems()
-        self.emptyTypeItems = buildEmptyTypeItems()
+        if FeatureFlags.setEmptyValuesSorting {
+            self.emptyTypeItems = buildEmptyTypeItems()
+        }
     }
     
     func buildTypeItems() -> [SetSortTypeItem] {
