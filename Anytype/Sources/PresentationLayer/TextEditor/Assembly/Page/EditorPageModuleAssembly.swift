@@ -153,14 +153,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
-            service: blockActionService,
-            blockService: blockService,
-            blockTableService: serviceLocator.blockTableService(),
-            fileService: serviceLocator.fileService(),
-            objectService: serviceLocator.objectActionsService(),
-            pasteboardBlockService: serviceLocator.pasteboardBlockService(),
-            bookmarkService: serviceLocator.bookmarkService(),
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            service: blockActionService
         )
         
         let pasteboardService = serviceLocator.pasteboardBlockDocumentService()
@@ -214,8 +207,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             responderScrollViewHelper: responderScrollViewHelper,
             defaultObjectService: serviceLocator.defaultObjectCreationService(),
             typesService: serviceLocator.typesService(),
-            accessoryStateManager: accessoryState.0,
-            tableService: serviceLocator.blockTableService()
+            accessoryStateManager: accessoryState.0
         )
         
         let slashMenuActionHandler = SlashMenuActionHandler(
@@ -234,11 +226,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            detailsService: serviceLocator.detailsService(),
-            audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: serviceLocator.blockTableService(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
             modelsHolder: modelsHolder,
             blockCollectionController: .init(viewInput: viewInput),
             accessoryStateManager: accessoryState.0,

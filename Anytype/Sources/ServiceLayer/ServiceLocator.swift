@@ -225,43 +225,15 @@ final class ServiceLocator {
         Container.shared.pasteboardBlockService()
     }
     
-    func galleryService() -> GalleryServiceProtocol {
-        Container.shared.galleryService()
-    }
-    
     func deepLinkParser() -> DeepLinkParserProtocol {
         Container.shared.deepLinkParser()
-    }
-    
-    func processSubscriptionService() -> ProcessSubscriptionServiceProtocol {
-        Container.shared.processSubscriptionService()
-    }
-    
-    func blockTableService() -> BlockTableServiceProtocol {
-        Container.shared.blockTableService()
     }
     
     func relationValueProcessingService() -> RelationValueProcessingServiceProtocol {
         Container.shared.relationValueProcessingService()
     }
     
-    func membershipService() -> MembershipServiceProtocol {
-        Container.shared.membershipService()
-    }
-    
-    func textRelationEditingService() -> TextRelationEditingServiceProtocol {
-        Container.shared.textRelationEditingService()
-    }
-    
     func accountParticipantStorage() -> AccountParticipantsStorageProtocol {
         Container.shared.accountParticipantsStorage()
-    }
-    
-    func activeSpaceParticipantStorage() -> ActiveSpaceParticipantStorageProtocol {
-        Container.shared.activeSpaceParticipantStorage()
-    }
-
-    func participantSpacesStorage() -> ParticipantSpacesStorageProtocol {
-        Container.shared.participantSpacesStorage()
     }
 }

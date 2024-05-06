@@ -23,15 +23,7 @@ final class TypeSearchForNewObjectCoordinatorAssembly: TypeSearchForNewObjectCoo
     
     func make(openObject: @escaping (ObjectDetails)->()) -> AnyView {
         return TypeSearchForNewObjectCoordinatorView(
-            model: TypeSearchForNewObjectCoordinatorViewModel(
-                pasteboardBlockService: self.serviceLocator.pasteboardBlockService(),
-                objectActionsService: self.serviceLocator.objectActionsService(),
-                blockService: self.serviceLocator.blockService(),
-                bookmarkService: self.serviceLocator.bookmarkService(),
-                activeWorkspaceStorage: self.serviceLocator.activeWorkspaceStorage(),
-                typeProvider: self.serviceLocator.objectTypeProvider(),
-                openObject: openObject
-            )
+            model: TypeSearchForNewObjectCoordinatorViewModel(openObject: openObject)
         ).eraseToAnyView()
     }
 }
