@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Burada sıralama yok. Kendin ekleyebilirsin";
 "EditSet.Popup.Sort.Types.Ascending" = "Artan";
 "EditSet.Popup.Sort.Types.Descending" = "Azalan";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Sıralamak için bir bağıntı seç";
 
 // MARK: - Sets: Filters
