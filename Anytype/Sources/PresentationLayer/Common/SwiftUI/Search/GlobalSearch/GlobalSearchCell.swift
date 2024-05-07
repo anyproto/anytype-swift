@@ -34,11 +34,10 @@ struct GlobalSearchCell: View {
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
             
-            if data.description.isNotEmpty {
-                AnytypeText(data.description, style: .relation2Regular)
-                    .foregroundColor(.Text.primary)
+            if let textWithHighlight = data.textWithHighlight {
+                Text(textWithHighlight)
+                    .anytypeFontStyle(.relation2Regular)
                     .multilineTextAlignment(.leading)
-                    .lineLimit(2)
             }
             
             if data.objectTypeName.isNotEmpty {
