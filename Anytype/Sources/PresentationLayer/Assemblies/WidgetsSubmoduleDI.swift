@@ -122,7 +122,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     // MARK: - Tree
     
     func treeWidgetModuleAssembly() -> TreeWidgetModuleAssemblyProtocol {
-        return TreeWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return TreeWidgetModuleAssembly(uiHelpersDI: uiHelpersDI)
     }
     
     func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
@@ -134,11 +134,11 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     func recentEditTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentTreeWidgetModuleAssembly(type: .recentEdit, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return RecentTreeWidgetModuleAssembly(type: .recentEdit, widgetsSubmoduleDI: self)
     }
     
     func recentOpenTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentTreeWidgetModuleAssembly(type: .recentOpen, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return RecentTreeWidgetModuleAssembly(type: .recentOpen, widgetsSubmoduleDI: self)
     }
     
     // MARK: - List
@@ -156,11 +156,11 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     func recentEditListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentListWidgetModuleAssembly(type: .recentEdit, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return RecentListWidgetModuleAssembly(type: .recentEdit, widgetsSubmoduleDI: self)
     }
     
     func recentOpenListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentListWidgetModuleAssembly(type: .recentOpen, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return RecentListWidgetModuleAssembly(type: .recentOpen, widgetsSubmoduleDI: self)
     }
     
     func setsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
@@ -168,7 +168,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return CollectionsListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return CollectionsListWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     // MARK: - CompactList
@@ -182,19 +182,19 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     func recentEditCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentCompactListWidgetModuleAssembly(type: .recentEdit, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return RecentCompactListWidgetModuleAssembly(type: .recentEdit, widgetsSubmoduleDI: self)
     }
     
     func recentOpenCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentCompactListWidgetModuleAssembly(type: .recentOpen, serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return RecentCompactListWidgetModuleAssembly(type: .recentOpen, widgetsSubmoduleDI: self)
     }
     
     func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return SetsCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return SetsCompactListWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     func collectionsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return CollectionsCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
+        return CollectionsCompactListWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     // MARK: - Link

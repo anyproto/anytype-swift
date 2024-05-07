@@ -24,10 +24,6 @@ final class ObjectTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         let model = ObjectWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            subscriptionManager: serviceLocator.treeSubscriptionManager(),
-            defaultObjectService: serviceLocator.defaultObjectCreationService(),
-            documentsProvider: serviceLocator.documentsProvider,
-            blockService: serviceLocator.blockService(),
             output: output
         )
      

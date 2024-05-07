@@ -10,9 +10,12 @@ final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol 
     
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let subscriptionService: CollectionsSubscriptionServiceProtocol
-    private let objectService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
+    
+    @Injected(\.collectionsSubscriptionService)
+    private var subscriptionService: CollectionsSubscriptionServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectService: ObjectActionsServiceProtocol
 
     // MARK: - State
     
@@ -27,14 +30,10 @@ final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol 
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
-        subscriptionService: CollectionsSubscriptionServiceProtocol,
-        objectService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.subscriptionService = subscriptionService
-        self.objectService = objectService
         self.output = output
     }
     

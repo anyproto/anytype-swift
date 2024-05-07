@@ -11,12 +11,17 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
     private let stateManager: HomeWidgetsStateManagerProtocol
-    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let searchService: SearchServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
+    
+    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    @Injected(\.blockWidgetService)
+    private var blockWidgetService: BlockWidgetServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    
     
     // MARK: - State
     
@@ -30,23 +35,17 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
-        blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        searchService: SearchServiceProtocol,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.blockWidgetService = blockWidgetService
         self.stateManager = stateManager
-        self.blockWidgetExpandedService = blockWidgetExpandedService
-        self.objectActionsService = objectActionsService
-        self.searchService = searchService
         self.contentModel = contentModel
         self.output = output
+        
+        blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
         
         isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
         

@@ -29,8 +29,6 @@ final class LinkWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         let contentView = EmptyView()
         
         let containerModel = WidgetContainerViewModel(
-            serviceLocator: serviceLocator,
-            uiHelpersDI: uiHelpersDI,
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             stateManager: stateManager,

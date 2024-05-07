@@ -105,92 +105,24 @@ final class ServiceLocator {
         Container.shared.favoriteSubscriptionService()
     }
     
-    func recentSubscriptionService() -> RecentSubscriptionServiceProtocol {
-        Container.shared.recentSubscriptionService()
-    }
-    
-    func setsSubscriptionService() -> SetsSubscriptionServiceProtocol {
-        Container.shared.setsSubscriptionService()
-    }
-    
-    func collectionsSubscriptionService() -> CollectionsSubscriptionServiceProtocol {
-        Container.shared.collectionsSubscriptionService()
-    }
-    
-    func binSubscriptionService() -> BinSubscriptionServiceProtocol {
-        Container.shared.binSubscriptionService()
-    }
-    
-    func treeSubscriptionManager() -> TreeSubscriptionManagerProtocol {
-        Container.shared.treeSubscriptionManager()
-    }
-    
-    func filesSubscriptionManager() -> FilesSubscriptionServiceProtocol {
-        Container.shared.filesSubscriptionManager()
-    }
-    
-    func middlewareConfigurationProvider() -> MiddlewareConfigurationProviderProtocol {
-        Container.shared.middlewareConfigurationProvider()
-    }
-    
     func documentService() -> OpenedDocumentsProviderProtocol {
         Container.shared.documentService()
-    }
-    
-    func blockWidgetExpandedService() -> BlockWidgetExpandedServiceProtocol {
-        Container.shared.blockWidgetExpandedService()
-    }
-    
-    func applicationStateService() -> ApplicationStateServiceProtocol {
-        Container.shared.applicationStateService()
-    }
-    
-    func appActionStorage() -> AppActionStorage {
-        Container.shared.appActionStorage()
-    }
-    
-    func singleObjectSubscriptionService() -> SingleObjectSubscriptionServiceProtocol {
-        Container.shared.singleObjectSubscriptionService()
     }
     
     func fileErrorEventHandler() -> FileErrorEventHandlerProtocol {
         Container.shared.fileErrorEventHandler()
     }
     
-    func appErrorLoggerConfiguration() -> AppErrorLoggerConfigurationProtocol {
-        Container.shared.appErrorLoggerConfiguration()
-    }
-    
-    func dataviewService() -> DataviewServiceProtocol {
-        Container.shared.dataviewService()
-    }
-    
     func deviceSceneStateListener() -> DeviceSceneStateListenerProtocol {
         Container.shared.deviceSceneStateListener()
-    }
-    
-    func audioSessionService() -> AudioSessionServiceProtocol {
-        Container.shared.audioSessionService()
     }
     
     func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
         Container.shared.activeWorkspaceStorage()
     }
     
-    func workspaceStorage() -> WorkspacesStorageProtocol {
-        Container.shared.workspaceStorage()
-    }
-    
     func quickActionShortcutBuilder() -> QuickActionShortcutBuilderProtocol {
         Container.shared.quickActionShortcutBuilder()
-    }
-    
-    func subscriptionStorageProvider() -> SubscriptionStorageProviderProtocol {
-        Container.shared.subscriptionStorageProvider()
-    }
-    
-    func templatesSubscription() -> TemplatesSubscriptionServiceProtocol {
-        Container.shared.templatesSubscription()
     }
     
     func deepLinkParser() -> DeepLinkParserProtocol {

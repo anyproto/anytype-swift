@@ -19,9 +19,12 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     // MARK: - DI
 
     private let internalModel: any WidgetInternalViewModelProtocol
-    private let subscriptionManager: TreeSubscriptionManagerProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
+    
+    @Injected(\.treeSubscriptionManager)
+    private var subscriptionManager: TreeSubscriptionManagerProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
     
     // MARK: - State
 
@@ -40,8 +43,6 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     init(
         widgetBlockId: String,
         internalModel: any WidgetInternalViewModelProtocol,
-        subscriptionManager: TreeSubscriptionManagerProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.dragId = widgetBlockId

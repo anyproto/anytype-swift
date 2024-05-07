@@ -10,7 +10,9 @@ final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     private let type: RecentWidgetType
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let recentSubscriptionService: RecentSubscriptionServiceProtocol
+    
+    @Injected(\.recentSubscriptionService)
+    private var recentSubscriptionService: RecentSubscriptionServiceProtocol
     
     // MARK: - State
     
@@ -24,14 +26,12 @@ final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     init(
         type: RecentWidgetType,
         widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        recentSubscriptionService: RecentSubscriptionServiceProtocol
+        widgetObject: BaseDocumentProtocol
     ) {
         self.type = type
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
         self.name = type.title
-        self.recentSubscriptionService = recentSubscriptionService
     }
     
     // MARK: - WidgetInternalViewModelProtocol

@@ -3,11 +3,9 @@ import SwiftUI
 
 final class CollectionsCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(serviceLocator: ServiceLocator, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.serviceLocator = serviceLocator
+    init(widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
     
@@ -24,8 +22,6 @@ final class CollectionsCompactListWidgetModuleAssembly: HomeWidgetCommonAssembly
         let model = CollectionsWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            subscriptionService: serviceLocator.collectionsSubscriptionService(),
-            objectService: serviceLocator.objectActionsService(),
             output: output
         )
      
