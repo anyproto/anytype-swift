@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Geen sorteringen hier. Je kunt er een paar toevoegen";
 "EditSet.Popup.Sort.Types.Ascending" = "Oplopend";
 "EditSet.Popup.Sort.Types.Descending" = "Aflopend";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een relatie om te sorteren";
 
 // MARK: - Sets: Filters
