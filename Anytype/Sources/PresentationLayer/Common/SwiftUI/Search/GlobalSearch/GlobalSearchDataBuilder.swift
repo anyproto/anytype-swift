@@ -28,6 +28,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
     }
     
     private func buildTextWithHighlight(with meta: [SearchMeta]) -> AttributedString? {
+        // takes only the first match for now
         guard let metaItem = meta.first, metaItem.blockID.isNotEmpty, metaItem.highlight.isNotEmpty else { return nil }
         return AttributedString(metaItem.highlight)
     }
