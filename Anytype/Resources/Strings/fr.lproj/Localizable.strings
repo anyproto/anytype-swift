@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Pas de tri ici. Vous pouvez en ajouter";
 "EditSet.Popup.Sort.Types.Ascending" = "Tri croissant";
 "EditSet.Popup.Sort.Types.Descending" = "Tri décroissant";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "En haut";
+"EditSet.Popup.Sort.EmptyTypes.End" = "En bas";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Afficher les valeurs vides";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Choisir la relation à trier";
 
 // MARK: - Sets: Filters
