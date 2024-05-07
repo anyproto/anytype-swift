@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Тут немає сортування. Ви можете додати деякі";
 "EditSet.Popup.Sort.Types.Ascending" = "За зростанням";
 "EditSet.Popup.Sort.Types.Descending" = "За спаданням";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Оберіть відношення для сортування";
 
 // MARK: - Sets: Filters
