@@ -178,7 +178,12 @@ final class MembershipService: MembershipServiceProtocol {
                 return buildStripePayment(tier: tier)
             }
             
-            return .appStore(product: product)
+            let info = AppStorePaymentInfo(
+                product: product,
+                fallbackPaymentUrl: buildPaymentUrl(tier: tier)
+            )
+            
+            return .appStore(info: info)
         } catch {
             anytypeAssertionFailure("Get products error", info: ["error": error.localizedDescription])
             return buildStripePayment(tier: tier)
@@ -190,8 +195,12 @@ final class MembershipService: MembershipServiceProtocol {
             periodType: tier.periodType,
             periodValue: tier.periodValue,
             priceInCents: tier.priceStripeUsdCents,
-            paymentUrl: URL(string: tier.iosManageURL) ?? URL(string: "https://anytype.io/pricing")!
+            paymentUrl: buildPaymentUrl(tier: tier)
         )
         return .external(info: info)
+    }
+    
+    private func buildPaymentUrl(tier: Anytype_Model_MembershipTierData) -> URL {
+        return URL(string: tier.iosManageURL) ?? URL(string: "https://anytype.io/pricing")!
     }
 }
