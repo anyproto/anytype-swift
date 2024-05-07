@@ -13,20 +13,20 @@ final class ChangeTypeAccessoryViewModel {
 
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
-    private let typesService: TypesServiceProtocol
     private let document: BaseDocumentProtocol
 
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
+    
     private var cancellables = [AnyCancellable]()
 
     init(
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
-        typesService: TypesServiceProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
-        self.typesService = typesService
         self.document = document
 
         subscribeOnDocumentChanges()

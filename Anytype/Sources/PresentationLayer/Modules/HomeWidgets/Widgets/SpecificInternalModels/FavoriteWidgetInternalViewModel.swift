@@ -10,10 +10,14 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
-    private let defaultObjectService: DefaultObjectCreationServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
+    
+    @Injected(\.favoriteSubscriptionService)
+    private var favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
     
     // MARK: - State
     
@@ -29,20 +33,15 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
-        favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: OpenedDocumentsProviderProtocol,
-        defaultObjectService: DefaultObjectCreationServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.favoriteSubscriptionService = favoriteSubscriptionService
-        self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
-        self.defaultObjectService = defaultObjectService
-        self.objectActionsService = objectActionsService
         self.output = output
+        
+        let documentService = Container.shared.documentService.resolve()
+        let activeWorkspaceStorage = Container.shared.activeWorkspaceStorage.resolve()
+        self.document = documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
     }
     
     // MARK: - WidgetInternalViewModelProtocol

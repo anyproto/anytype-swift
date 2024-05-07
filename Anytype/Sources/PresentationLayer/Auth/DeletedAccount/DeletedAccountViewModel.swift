@@ -4,7 +4,8 @@ import UIKit
 @MainActor
 final class DeletedAccountViewModel: ObservableObject {
     
-    private let service = ServiceLocator.shared.authService()
+    @Injected(\.authService)
+    private var service: AuthServiceProtocol
     private let deadline: Date
     
     @Injected(\.applicationStateService)

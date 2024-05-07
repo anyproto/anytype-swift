@@ -15,8 +15,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let urlOpener: URLOpenerProtocol
     private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
-    private let templateService: TemplatesServiceProtocol
     private weak var output: EditorPageModuleOutput?
+    
+    @Injected(\.templatesService)
+    private var templateService: TemplatesServiceProtocol
 
     init(
         viewController: UIViewController,
@@ -27,7 +29,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         urlOpener: URLOpenerProtocol,
         objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
-        templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewController = viewController
@@ -39,7 +40,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.urlOpener = urlOpener
         self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
-        self.templateService = templateService
         self.output = output
         
         super.init()

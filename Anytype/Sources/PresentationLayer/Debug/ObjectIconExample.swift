@@ -4,7 +4,8 @@ import AnytypeCore
 struct ObjectIconExample: View {
     
     private let emojiExamples: [CGFloat] = [16, 18, 40, 48, 64, 80, 96]
-    private let seearchService = ServiceLocator.shared.searchService()
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
     
     @State private var iconId: String = ""
     
@@ -55,7 +56,7 @@ struct ObjectIconExample: View {
             }
         }
         .task {
-            let files = try? await seearchService.searchImages()
+            let files = try? await searchService.searchImages()
             iconId = files?.first?.iconImage ?? ""
         }
     }

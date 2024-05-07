@@ -10,7 +10,7 @@ enum ObjectTypeError: Error {
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
-        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: ServiceLocator.shared.accountManager())
+        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: Container.shared.accountManager.resolve())
     )
     
     static let subscriptionId = "SubscriptionId.ObjectType"

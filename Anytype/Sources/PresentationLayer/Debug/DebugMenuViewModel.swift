@@ -23,7 +23,9 @@ final class DebugMenuViewModel: ObservableObject {
     @Injected(\.applicationStateService)
     private var applicationStateService: ApplicationStateServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol   
+    @Injected(\.seedService)
+    private var seedService: SeedServiceProtocol
     
     init() {
         updateFlags()
@@ -33,8 +35,8 @@ final class DebugMenuViewModel: ObservableObject {
         isRemovingRecoveryPhraseInProgress = true
         Task {
             do {
-                try await ServiceLocator.shared.authService().logout(removeData: false)
-                try ServiceLocator.shared.seedService().removeSeed()
+                try await authService.logout(removeData: false)
+                try seedService.removeSeed()
                 applicationStateService.state = .auth
             } catch {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)

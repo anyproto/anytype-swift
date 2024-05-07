@@ -8,10 +8,13 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
 
     private let navigationContext: NavigationContextProtocol
     private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let urlOpener: URLOpenerProtocol
-    private let documentService: OpenedDocumentsProviderProtocol
+    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
     
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false
@@ -28,17 +31,12 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     init(
         navigationContext: NavigationContextProtocol,
         widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        urlOpener: URLOpenerProtocol,
-        documentService: OpenedDocumentsProviderProtocol
+        urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
         self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectTypeProvider = objectTypeProvider
         self.urlOpener = urlOpener
-        self.documentService = documentService
+        self.activeWorkspaceStorage = Container.shared.activeWorkspaceStorage.resolve()
         self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
     }

@@ -3,11 +3,9 @@ import SwiftUI
 
 final class FavoriteCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(serviceLocator: ServiceLocator, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.serviceLocator = serviceLocator
+    init(widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
     
@@ -24,11 +22,6 @@ final class FavoriteCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyPro
         let model = FavoriteWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            favoriteSubscriptionService: serviceLocator.favoriteSubscriptionService(),
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            documentService: serviceLocator.documentService(),
-            defaultObjectService: serviceLocator.defaultObjectCreationService(),
-            objectActionsService: serviceLocator.objectActionsService(),
             output: output
         )
      
