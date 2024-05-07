@@ -4,8 +4,8 @@ import Combine
 @MainActor
 final class GlobalSearchViewModel: ObservableObject {
     
-    @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    @Injected(\.searchWithMetaService)
+    private var searchWithMetaService: SearchWithMetaServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -22,15 +22,15 @@ final class GlobalSearchViewModel: ObservableObject {
     
     func search() async {
         do {
-            let result: [ObjectDetails]
+            let result: [SearchResultWithMeta]
             switch state.mode {
             case .default:
-                result = try await searchService.search(text: state.searchText, spaceId: moduleData.spaceId)
+                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
             case .filtered(_, let limitObjectIds):
-                result = try await searchService.search(text: state.searchText, limitObjectIds: limitObjectIds)
+                result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: limitObjectIds)
             }
             
-            let objectsSearchData = result.compactMap { GlobalSearchData(details: $0) }
+            let objectsSearchData = result.compactMap { GlobalSearchData(details: $0.objectDetails) }
             
             guard objectsSearchData.isNotEmpty else {
                 searchData = []

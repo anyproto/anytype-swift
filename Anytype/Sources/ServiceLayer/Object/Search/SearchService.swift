@@ -3,11 +3,11 @@ import Services
 import AnytypeCore
 
 
+enum SearchDefaults {
+    static let objectsLimit = 100
+}
+
 final class SearchService: SearchServiceProtocol {
-    
-    private enum Constants {
-        static let defaultLimit = 100
-    }
     
     @Injected(\.searchMiddleService)
     private var searchMiddleService: SearchMiddleServiceProtocol
@@ -31,7 +31,7 @@ final class SearchService: SearchServiceProtocol {
             SearchHelper.spaceId(spaceId)
         }
         
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
     
     func searchImages() async throws -> [ObjectDetails] {
@@ -45,7 +45,7 @@ final class SearchService: SearchServiceProtocol {
             SearchHelper.layoutFilter([DetailsLayout.image])
         }
         
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: "", limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: "", limit: SearchDefaults.objectsLimit)
     }
     
     func search(text: String, limitObjectIds: [String]) async throws -> [ObjectDetails] {
@@ -101,7 +101,7 @@ final class SearchService: SearchServiceProtocol {
             SearchHelper.excludedLayoutFilter(excludedLayouts)
         }
         
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
 
     func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String], spaceId: String) async throws -> [RelationOption] {
@@ -186,6 +186,6 @@ final class SearchService: SearchServiceProtocol {
         
         let filters = SearchFiltersBuilder.build(isArchived: false, spaceId: spaceId, layouts: layouts)
         
-        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: Constants.defaultLimit)
+        return try await searchMiddleService.search(filters: filters, sorts: [sort], fullText: text, limit: SearchDefaults.objectsLimit)
     }
 }

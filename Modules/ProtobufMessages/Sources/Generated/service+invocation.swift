@@ -544,6 +544,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectSearchWithMeta(
+        _ request: Anytype_Rpc.Object.SearchWithMeta.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.SearchWithMeta.Request, Anytype_Rpc.Object.SearchWithMeta.Response> {
+        return Invocation(messageName: "ObjectSearchWithMeta", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectSearchWithMeta(requestData) ?? Data()
+            return try Anytype_Rpc.Object.SearchWithMeta.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectSearchSubscribe(
         _ request: Anytype_Rpc.Object.SearchSubscribe.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.SearchSubscribe.Request, Anytype_Rpc.Object.SearchSubscribe.Response> {

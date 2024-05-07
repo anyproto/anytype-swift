@@ -946,6 +946,11 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.SearchWithMeta.Response: ResultWithError {}
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.SetBreadcrumbs.Response: ResultWithError {}
 extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
