@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
 "EditSet.Popup.Sort.Types.Ascending" = "Stigande";
 "EditSet.Popup.Sort.Types.Descending" = "Fallande";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
