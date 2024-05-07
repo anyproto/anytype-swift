@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "尚無排序。您可以新增一些";
 "EditSet.Popup.Sort.Types.Ascending" = "升序";
 "EditSet.Popup.Sort.Types.Descending" = "降序";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "在頂部";
+"EditSet.Popup.Sort.EmptyTypes.End" = "在底部";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "顯示空值";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "選擇一個關聯以進行排序";
 
 // MARK: - Sets: Filters
