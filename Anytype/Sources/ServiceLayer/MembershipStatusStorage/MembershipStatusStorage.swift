@@ -33,6 +33,8 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     private var membershipService: MembershipServiceProtocol
     @Injected(\.storeKitService)
     private var storeKitService: StoreKitServiceProtocol
+    @Injected(\.membershipModelBuilder)
+    private var builder: MembershipModelBuilderProtocol
     
     
     var status: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
@@ -89,7 +91,9 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
             switch event.value {
             case .membershipUpdate(let update):
                 Task {
-                    _status = try await membershipService.makeMembershipFromMiddlewareModel(membership: update.data)
+                    let allTiers = try await membershipService.getTiers()
+                    
+                    _status = try builder.buildMembershipStatus(membership: update.data, allTiers: allTiers)
                     _status.tier.flatMap { AnytypeAnalytics.instance().logChangePlan(tier: $0) }
                     
                     await AnytypeAnalytics.instance().setMembershipTier(tier: _status.tier)
