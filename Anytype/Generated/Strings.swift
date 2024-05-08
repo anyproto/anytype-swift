@@ -70,6 +70,7 @@ internal enum Loc {
   internal static let collections = Loc.tr("Localizable", "Collections")
   internal static let color = Loc.tr("Localizable", "Color")
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family")
+  internal static let confirm = Loc.tr("Localizable", "Confirm")
   internal static let copied = Loc.tr("Localizable", "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
