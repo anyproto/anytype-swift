@@ -80,13 +80,8 @@ final class StoreKitService: StoreKitServiceProtocol {
     }
     
     func purchase(product: Product, billingId: String) async throws -> StoreKitPurchaseSuccess {
-        guard let billingUUID = UUID(uuidString: billingId) else {
-            anytypeAssertionFailure("BillingId is not in UUID format", info: [ "BillingId": billingId ])
-            throw StoreKitServiceError.wrongBillingId
-        }
-        
         let result = try await product.purchase(options: [
-            .appAccountToken(billingUUID),
+            .custom(key: "BillingId", value: billingId), // Is not working in current API
             .custom(key: "AnytypeId", value: accountManager.account.id), // Is not working in current API
         ])
         
