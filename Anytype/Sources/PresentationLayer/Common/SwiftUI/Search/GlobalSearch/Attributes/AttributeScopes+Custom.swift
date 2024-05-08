@@ -4,13 +4,12 @@ import SwiftUI
 extension AttributeScopes {
     struct CustomAttributes: AttributeScope {
         let backgroundHighlight: BackgroundHighlightColorAttributes
-        let swiftUI: SwiftUIAttributes //??
     }
     
     var customAttributes: CustomAttributes.Type { CustomAttributes.self }
 }
 
-extension AttributeDynamicLookup { //??
+extension AttributeDynamicLookup {
     subscript<T: AttributedStringKey>(dynamicMember keyPath: KeyPath<AttributeScopes.CustomAttributes, T>) -> T {
         self[T.self]
     }
