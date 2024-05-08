@@ -1,6 +1,7 @@
 import SwiftUI
 import Services
 import AnytypeCore
+import StoreKit
 
 
 struct MembershipTierSelectionView: View {
@@ -52,19 +53,14 @@ struct MembershipTierSelectionView: View {
                 MembershipPendingInfoSheetView(membership: model.userMembership)
             case .unowned:
                 switch model.tierToDisplay.paymentType {
-                case .appStore(let product):
-                    MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
-                case .external(let info):
-                    VStack {
-                        StandardButton(Loc.moreInfo, style: .primaryLarge) {
-                            AnytypeAnalytics.instance().logClickMembership(type: .moreInfo)
-                            safariUrl = info.paymentUrl
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 34)
+                case .appStore(let info):
+                    if AppStore.canMakePayments {
+                        MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: info.product, onSuccessfulPurchase: model.onSuccessfulPurchase)
+                    } else {
+                        moreInfoButton(url: info.fallbackPaymentUrl)
                     }
-                    .background(Color.Background.primary)
-                    .cornerRadius(16, corners: .top)
+                case .external(let info):
+                    moreInfoButton(url: info.paymentUrl)
                 case nil:
                     Rectangle().hidden().onAppear {
                         anytypeAssertionFailure(
@@ -75,6 +71,19 @@ struct MembershipTierSelectionView: View {
                 }
             }
         }
+    }
+    
+    func moreInfoButton(url: URL) -> some View {
+        VStack {
+            StandardButton(Loc.moreInfo, style: .primaryLarge) {
+                AnytypeAnalytics.instance().logClickMembership(type: .moreInfo)
+                safariUrl = url
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 34)
+        }
+        .background(Color.Background.primary)
+        .cornerRadius(16, corners: .top)
     }
     
     // To mimic sheet overlay style

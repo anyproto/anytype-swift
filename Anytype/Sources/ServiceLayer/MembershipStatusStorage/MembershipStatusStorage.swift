@@ -52,8 +52,8 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
         }
         
         // validate AppStore purchase in case middleware is still processing
-        if case let .appStore(product) = tier.paymentType {
-            if ((try? await storeKitService.isPurchased(product: product)) ?? false) {
+        if case let .appStore(info) = tier.paymentType {
+            if ((try? await storeKitService.isPurchased(product: info.product)) ?? false) {
                 return .pending
             }
         }

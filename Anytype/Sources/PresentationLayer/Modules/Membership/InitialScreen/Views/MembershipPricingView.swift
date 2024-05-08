@@ -8,10 +8,10 @@ struct MembershipPricingView: View {
     
     var body: some View {
         switch tier.paymentType {
-        case .appStore(let product):
-            AnytypeText("\(product.anytypeDisplayPrice) ", style: .bodySemibold)
+        case .appStore(let info):
+            AnytypeText("\(info.product.anytypeDisplayPrice) ", style: .bodySemibold)
                 .foregroundColor(.Text.primary) +
-            AnytypeText(product.localizedPeriod ?? "", style: .caption1Regular)
+            AnytypeText(info.product.localizedPeriod ?? "", style: .caption1Regular)
                 .foregroundColor(.Text.primary)
         case .external(let info):
             AnytypeText("\(info.displayPrice) ", style: .bodySemibold)
