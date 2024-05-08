@@ -57,6 +57,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showSharing: Bool = false
     @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
+    @Published var showMembershipNameSheet: MembershipTier?
+    
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
@@ -80,6 +82,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             }
         )
     }
+    
+    private var membershipStatusSubscription: AnyCancellable?
 
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
@@ -95,6 +99,15 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
+        
+        membershipStatusSubscription = Container.shared
+            .membershipStatusStorage.resolve()
+            .status.receiveOnMain()
+            .sink { [weak self] membership in
+                guard membership.status == .pendingRequiresFinalization else { return }
+                
+                self?.showMembershipNameSheet = membership.tier
+            }
     }
 
     func onAppear() {

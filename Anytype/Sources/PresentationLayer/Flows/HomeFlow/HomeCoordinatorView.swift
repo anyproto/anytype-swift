@@ -75,6 +75,9 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showSpaceManager) {
             SpacesManagerView()
         }
+        .sheet(item: $model.showMembershipNameSheet) {
+            MembershipNameFinalizationView(tier: $0)
+        }
         .anytypeSheet(item: $model.spaceJoinData) {
             SpaceJoinView(data: $0, onManageSpaces: {
                 model.onManageSpacesSelected()

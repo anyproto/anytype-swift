@@ -22,6 +22,8 @@ public protocol MembershipServiceProtocol {
     
     func getBillingId(name: String, tier: MembershipTier) async throws -> String
     func verifyReceipt(billingId: String, receipt: String) async throws
+    
+    func finalizeMembership(name: String) async throws
 }
 
 public extension MembershipServiceProtocol {
@@ -93,6 +95,13 @@ final class MembershipService: MembershipServiceProtocol {
         try await ClientCommands.membershipVerifyAppStoreReceipt(.with {
             $0.billingID = billingId
             $0.receipt = receipt
+        }).invoke()
+    }
+    
+    public func finalizeMembership(name: String) async throws {
+        try await ClientCommands.membershipFinalize(.with {
+            $0.nsName = name
+            $0.nsNameType = .anyName
         }).invoke()
     }
 }
