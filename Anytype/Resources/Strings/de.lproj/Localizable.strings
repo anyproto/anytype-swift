@@ -392,9 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Keine Sorten hier. Sie können einige hinzufügen";
 "EditSet.Popup.Sort.Types.Ascending" = "Aufsteigend";
 "EditSet.Popup.Sort.Types.Descending" = "Absteigend";
-"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
-"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
-"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Ganz oben";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Ganz unten";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Leere Werte anzeigen";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Wählen sie eine Beziehung zum Sortieren";
 
 // MARK: - Sets: Filters
@@ -1068,9 +1068,12 @@
 "Pending" = "Ausstehend...";
 "Manage payment" = "Zahlung verwalten";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Kauf abgebrochen";
 "Change email" = "E-Mail-Adresse ändern";
 "Email successfully validated" = "E-Mail-Adresse erfolgreich validiert";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
+"StoreKitServiceError.wrongBillingId" = "Problem on our side, try again later";
 
 "Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";

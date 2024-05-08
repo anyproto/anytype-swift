@@ -1068,9 +1068,12 @@
 "Pending" = "In behandeling...";
 "Manage payment" = "Beheer betaling";
 "This name is not availabe" = "Deze naam is niet beschikbaar";
-"Purchase cancelled" = "Aankoop geannuleerd";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
+"StoreKitServiceError.wrongBillingId" = "Problem on our side, try again later";
 
 "Membership.Ad.Title" = "Lidmaatschap";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";

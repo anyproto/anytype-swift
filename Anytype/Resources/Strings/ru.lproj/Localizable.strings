@@ -1067,9 +1067,12 @@
 "Pending" = "Ожидание...";
 "Manage payment" = "Управление платежами";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Purchase cancelled";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
+"StoreKitServiceError.wrongBillingId" = "Problem on our side, try again later";
 
 "Membership.Ad.Title" = "Членство";
 "Membership.Ad.Subtitle" = "Присоединение к сети Anytype означает внесение вклада в её историю";

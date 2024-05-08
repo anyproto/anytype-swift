@@ -280,7 +280,7 @@
 "Emoji or image for object" = "物件的 Emoji 或圖像";
 "Cover" = "封面";
 "Background picture" = "背景圖片";
-"Layout" = "佈局";
+"Layout" = "版型";
 "Arrangement of objects on a canvas" = "畫布上的物件排列";
 
 "Search" = "搜尋";
@@ -303,7 +303,7 @@
 "Profile" = "設定檔";
 "Task" = "任務";
 "Note" = "筆記";
-"Choose layout type" = "選擇佈局類型";
+"Choose layout type" = "選擇版型類型";
 
 "Undo typing" = "撤銷輸入";
 "Undo" = "復原";
@@ -588,8 +588,8 @@
 "Other relations" = "其他關聯";
 "Collection of objects" = "物件集錦";
 "Designed to capture thoughts quickly" = "專為快速捕捉想法而設計";
-"Action-focused layout with a checkbox" = "具有複選框的操作重點佈局";
-"Standard layout for canvas blocks" = "畫布區塊的標準佈局";
+"Action-focused layout with a checkbox" = "具有複選框的操作重點版型";
+"Standard layout for canvas blocks" = "畫布區塊的標準版型";
 "List of related objects" = "關聯物件列表";
 "Lock" = "鎖定";
 "Unlock" = "解除鎖定";
@@ -640,7 +640,7 @@
 "Highlight" = "螢光筆";
 "Create object" = "創建物件";
 "Web pages" = "網頁";
-"Preview layout" = "預覽佈局";
+"Preview layout" = "預覽版型";
 "Everywhere" = "任何位置";
 "Exact day" = "確切日期";
 "Tomorrow" = "明天";
@@ -1069,9 +1069,12 @@
 "Pending" = "等候中...";
 "Manage payment" = "管理付款方式";
 "This name is not availabe" = "此用戶名無法使用";
-"Purchase cancelled" = "已取消購買";
 "Change email" = "更改電子郵件";
 "Email successfully validated" = "電子郵件已驗證成功";
+
+"StoreKitServiceError.userCancelled" = "已取消購買";
+"StoreKitServiceError.needUserAction" = "付款失敗，需要用戶在蘋果端操作以完成付款。";
+"StoreKitServiceError.wrongBillingId" = "我們這邊出錯了，請稍後再試。";
 
 "Membership.Ad.Title" = "會員";
 "Membership.Ad.Subtitle" = "成為 Anytype 網絡的一員，您就是它故事的一部分。";
