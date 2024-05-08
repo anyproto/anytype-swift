@@ -3,19 +3,19 @@ import Foundation
 import ProtobufMessages
 import StoreKit
 
-public typealias MiddlewareMemberhsipStatus = Anytype_Model_Membership
-public typealias MiddlewareMemberhsipTier = Anytype_Model_MembershipTierData
+public typealias MiddlewareMembershipStatus = Anytype_Model_Membership
+public typealias MiddlewareMembershipTier = Anytype_Model_MembershipTierData
 
 public protocol MembershipModelBuilderProtocol {
-    func buildMembershipStatus(membership: MiddlewareMemberhsipStatus, tier: MembershipTier?) -> MembershipStatus
-    func buildMembershipStatus(membership: MiddlewareMemberhsipStatus, allTiers: [MembershipTier]) throws -> MembershipStatus
+    func buildMembershipStatus(membership: MiddlewareMembershipStatus, tier: MembershipTier?) -> MembershipStatus
+    func buildMembershipStatus(membership: MiddlewareMembershipStatus, allTiers: [MembershipTier]) throws -> MembershipStatus
     
-    func buildMemberhsipTier(tier: MiddlewareMemberhsipTier) async -> MembershipTier?
+    func buildMembershipTier(tier: MiddlewareMembershipTier) async -> MembershipTier?
 }
 
 
 final class MembershipModelBuilder: MembershipModelBuilderProtocol {
-    func buildMembershipStatus(membership: MiddlewareMemberhsipStatus, allTiers: [MembershipTier]) throws -> MembershipStatus {
+    func buildMembershipStatus(membership: MiddlewareMembershipStatus, allTiers: [MembershipTier]) throws -> MembershipStatus {
         let tier = allTiers.first { $0.type.id == membership.tier }
         
         if tier == nil, membership.tier != 0 {
@@ -32,7 +32,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         return buildMembershipStatus(membership: membership, tier: tier)
     }
     
-    func buildMembershipStatus(membership: MiddlewareMemberhsipStatus, tier: MembershipTier?) -> MembershipStatus {
+    func buildMembershipStatus(membership: MiddlewareMembershipStatus, tier: MembershipTier?) -> MembershipStatus {
         if let tier {
             anytypeAssert(tier.type.id == membership.tier, "\(tier) and \(membership) does not match an id")
         }
@@ -47,7 +47,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         )
     }
 
-    func buildMemberhsipTier(tier: Anytype_Model_MembershipTierData) async -> MembershipTier? {
+    func buildMembershipTier(tier: Anytype_Model_MembershipTierData) async -> MembershipTier? {
         guard let type = MembershipTierType(intId: tier.id) else { return nil } // ignore 0 tier
         
         let paymentType = await buildMembershipPaymentType(type: type, tier: tier)

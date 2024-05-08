@@ -54,7 +54,7 @@ final class MembershipService: MembershipServiceProtocol {
         })
         .invoke(ignoreLogErrors: .canNotConnect).tiers
         .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
-        .asyncMap { await builder.buildMemberhsipTier(tier: $0) }.compactMap { $0 }
+        .asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
     }
     
     public func getVerificationEmail(email: String) async throws {
