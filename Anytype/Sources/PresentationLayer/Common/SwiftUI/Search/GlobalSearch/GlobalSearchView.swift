@@ -87,7 +87,7 @@ struct GlobalSearchView: View {
     
     private var emptyState: some View {
         EmptyStateView(
-            title: Loc.thereIsNoObjectNamed(model.state.searchText),
+            title: Loc.nothingFound,
             subtitle: Loc.createANewOneOrSearchForSomethingElse
         )
     }
