@@ -60,7 +60,7 @@ struct MembershipNameValidationView: View {
             
             Spacer()
         }
-        .lineLimit(1)
+        .lineLimit(2)
     }
 
 }

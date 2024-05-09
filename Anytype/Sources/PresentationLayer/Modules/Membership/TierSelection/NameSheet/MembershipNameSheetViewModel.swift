@@ -56,7 +56,7 @@ final class MembershipNameSheetViewModel: ObservableObject {
     }
         
     func purchase(name: String) async throws {
-        guard isNameValidated else { return }
+        guard canBuyTier else { return }
         
         let billingId = try await membershipService.getBillingId(name: name, tier: tier)
         let result = try await storeKitService.purchase(product: product, billingId: billingId)

@@ -5,7 +5,6 @@ import Services
 enum StoreKitServiceError: String, LocalizedError {
     case userCancelled
     case needUserAction
-    case wrongBillingId
     
     var errorDescription: String? {
         switch self {
@@ -13,8 +12,6 @@ enum StoreKitServiceError: String, LocalizedError {
             Loc.StoreKitServiceError.userCancelled
         case .needUserAction:
             Loc.StoreKitServiceError.needUserAction
-        case .wrongBillingId:
-            Loc.StoreKitServiceError.wrongBillingId
         }
     }
 }
