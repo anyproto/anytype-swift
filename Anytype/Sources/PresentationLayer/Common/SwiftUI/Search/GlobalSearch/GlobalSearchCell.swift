@@ -29,17 +29,12 @@ struct GlobalSearchCell: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(8)
             
-            AnytypeText(data.title, style: .previewTitle2Medium)
+            AnytypeText(data.title, style: .previewTitle2Regular)
                 .foregroundColor(.Text.primary)
                 .multilineTextAlignment(.leading)
                 .lineLimit(2)
             
-            if data.description.isNotEmpty {
-                AnytypeText(data.description, style: .relation2Regular)
-                    .foregroundColor(.Text.primary)
-                    .multilineTextAlignment(.leading)
-                    .lineLimit(2)
-            }
+            highlights
             
             if data.objectTypeName.isNotEmpty {
                 AnytypeText(data.objectTypeName, style: .relation2Regular)
@@ -48,6 +43,17 @@ struct GlobalSearchCell: View {
             }
             
             Spacer.fixedHeight(8)
+        }
+    }
+    
+    private var highlights: some View {
+        ForEach(data.highlights) { data in
+            switch data {
+            case .text(let text):
+                Text(text)
+                    .anytypeStyle(.relation2Regular)
+                    .multilineTextAlignment(.leading)
+            }
         }
     }
 }

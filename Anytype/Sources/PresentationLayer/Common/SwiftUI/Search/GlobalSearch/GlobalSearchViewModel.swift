@@ -6,6 +6,8 @@ final class GlobalSearchViewModel: ObservableObject {
     
     @Injected(\.searchWithMetaService)
     private var searchWithMetaService: SearchWithMetaServiceProtocol
+    @Injected(\.globalSearchDataBuilder)
+    private var globalSearchDataBuilder: GlobalSearchDataBuilderProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -30,7 +32,9 @@ final class GlobalSearchViewModel: ObservableObject {
                 result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: limitObjectIds)
             }
             
-            let objectsSearchData = result.compactMap { GlobalSearchData(details: $0.objectDetails) }
+            let objectsSearchData = result.compactMap { [weak self] result in
+                self?.globalSearchDataBuilder.buildData(with: result)
+            }
             
             guard objectsSearchData.isNotEmpty else {
                 searchData = []
