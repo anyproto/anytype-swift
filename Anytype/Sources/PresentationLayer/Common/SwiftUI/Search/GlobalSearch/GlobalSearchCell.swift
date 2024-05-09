@@ -67,7 +67,7 @@ struct GlobalSearchCell: View {
     
     private func statusHighlight(name : String, option: Relation.Status.Option) -> some View {
         HStack(spacing: 4) {
-            AnytypeText("\(name): ", style: .relation2Regular)
+            AnytypeText("\(name):", style: .relation2Regular)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)
             StatusRelationView(
@@ -80,7 +80,7 @@ struct GlobalSearchCell: View {
     
     private func tagHighlight(name : String, option: Relation.Tag.Option) -> some View {
         HStack(spacing: 4) {
-            AnytypeText("\(name): ", style: .relation2Regular)
+            AnytypeText("\(name):", style: .relation2Regular)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)
             TagRelationView(
