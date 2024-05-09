@@ -21,8 +21,14 @@ struct GlobalSearchData: Identifiable {
     let id = UUID()
     let iconImage: Icon?
     let title: String
-    let textWithHighlight: AttributedString?
+    let highlights: [HighlightsData]
     let objectTypeName: String
     let backlinks: [String]
     let editorScreenData: EditorScreenData
+}
+
+enum HighlightsData: Identifiable, Hashable {
+    case text(AttributedString)
+    
+    var id: Int { hashValue }
 }

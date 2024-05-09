@@ -55,6 +55,13 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         return details
     }
     
+    func relationsDetails(for key: String, spaceId: String) throws -> RelationDetails {
+        guard let details = searchDetailsByKey[RelationDetailsKey(key: key, spaceId: spaceId)] else {
+            throw RelationDetailsStorageError.relationNotFound
+        }
+        return details
+    }
+    
     func startSubscription() async {
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionDataBuilder.build()) { [weak self] data in
             self?.updateaData(data: data)
