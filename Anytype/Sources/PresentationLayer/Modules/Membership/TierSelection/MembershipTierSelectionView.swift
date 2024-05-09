@@ -47,6 +47,8 @@ struct MembershipTierSelectionView: View {
     var sheet: some View {
         Group {
             switch model.state {
+            case nil:
+                EmptyView()
             case .owned:
                 MembershipOwnerInfoSheetView()
             case .pending:

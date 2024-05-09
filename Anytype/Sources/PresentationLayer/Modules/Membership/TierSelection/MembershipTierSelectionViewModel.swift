@@ -5,7 +5,7 @@ import Services
 @MainActor
 final class MembershipTierSelectionViewModel: ObservableObject {
     
-    @Published var state: MembershipTierOwningState = .pending
+    @Published var state: MembershipTierOwningState?
     
     let userMembership: MembershipStatus
     let tierToDisplay: MembershipTier

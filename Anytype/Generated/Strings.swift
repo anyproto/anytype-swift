@@ -1641,7 +1641,6 @@ internal enum Loc {
   internal enum StoreKitServiceError {
     internal static let needUserAction = Loc.tr("Localizable", "StoreKitServiceError.needUserAction")
     internal static let userCancelled = Loc.tr("Localizable", "StoreKitServiceError.userCancelled")
-    internal static let wrongBillingId = Loc.tr("Localizable", "StoreKitServiceError.wrongBillingId")
   }
   internal enum StyleMenu {
     internal enum Color {
