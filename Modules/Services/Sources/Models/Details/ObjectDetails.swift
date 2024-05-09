@@ -66,4 +66,13 @@ public extension ObjectDetails {
         
         self.init(id: id, values: fields)
     }
+    
+    // temp - will de deleted
+    init(protobufStructNoChecks: Google_Protobuf_Struct) throws {
+        let fields = protobufStructNoChecks.fields
+        
+        let id = fields["id"]?.stringValue ?? UUID().uuidString
+        
+        self.init(id: id, values: fields)
+    }
 }

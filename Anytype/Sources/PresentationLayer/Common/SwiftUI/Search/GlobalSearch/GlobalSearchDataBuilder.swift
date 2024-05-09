@@ -56,25 +56,39 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
     }
     
     private func buildRelationData(with item: SearchMeta) -> HighlightsData? {
-        guard item.relationKey != BundledRelationKey.name.rawValue, item.highlight.isNotEmpty else {
+        guard item.relationKey != BundledRelationKey.name.rawValue else {
             return nil
         }
-        if let relationDetails = try? relationDetailsStorage.relationsDetails(for: item.relationKey, spaceId: workspaceInfo.accountSpaceId) {
-            
-            let highlight: String
-            switch relationDetails.format {
-            case .longText, .shortText:
-                highlight = item.highlight.replacingMarksWithBackgroundHighlight
-            default:
-                highlight = item.highlight.removeMarks
-            }
-            
-            let text = relationDetails.name + ": " + highlight
-            let attrText = text.customMarkdownAttributedString.annotateCustomAttributes
-            return .text(attrText)
-        } else {
+        
+        guard let relationDetails = try? relationDetailsStorage.relationsDetails(for: item.relationKey, spaceId: workspaceInfo.accountSpaceId) else {
             return nil
         }
+        
+        switch relationDetails.format {
+        case .longText, .shortText:
+            let highlight = item.highlight.replacingMarksWithBackgroundHighlight
+            return textHighlightsData(with: relationDetails, highlight: highlight)
+        case .status:
+            guard let details = item.relationDetails.asDetailsNoChecks else { return nil }
+            let option = RelationOption(details: details)
+            let relationStatusOption = Relation.Status.Option(option: option)
+            return .status(name: relationDetails.name, option: relationStatusOption)
+        case .tag:
+            guard let details = item.relationDetails.asDetailsNoChecks else { return nil }
+            let option = RelationOption(details: details)
+            let relationTagOption = Relation.Tag.Option(option: option)
+            return .tag(name: relationDetails.name, option: relationTagOption)
+        default:
+            let highlight = item.highlight.removeMarks
+            return textHighlightsData(with: relationDetails, highlight: highlight)
+        }
+    }
+    
+    private func textHighlightsData(with relationDetails: RelationDetails, highlight: String) -> HighlightsData? {
+        guard highlight.isNotEmpty else { return nil }
+        let text = relationDetails.name + ": " + highlight
+        let attrText = text.customMarkdownAttributedString.annotateCustomAttributes
+        return .text(attrText)
     }
 }
 
