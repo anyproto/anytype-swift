@@ -1069,6 +1069,7 @@
 "This name is not availabe" = "Ce nom n'est pas disponible";
 "Change email" = "Modifier l'adresse e-mail";
 "Email successfully validated" = "E-mail validé avec succès";
+"Confirm" = "Confirm";
 
 "StoreKitServiceError.userCancelled" = "Achat annulé";
 "StoreKitServiceError.needUserAction" = "Paiement échoué, les actions utilisateur de côté Apple sont requises pour payer.";

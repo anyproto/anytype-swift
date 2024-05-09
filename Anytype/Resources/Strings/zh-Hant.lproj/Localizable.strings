@@ -1071,6 +1071,7 @@
 "This name is not availabe" = "此用戶名無法使用";
 "Change email" = "更改電子郵件";
 "Email successfully validated" = "電子郵件已驗證成功";
+"Confirm" = "確認";
 
 "StoreKitServiceError.userCancelled" = "已取消購買";
 "StoreKitServiceError.needUserAction" = "付款失敗，需要用戶在蘋果端操作以完成付款。";

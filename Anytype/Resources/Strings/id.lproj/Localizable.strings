@@ -392,9 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Tidak ada urutan disini. Kamu dapat menambahkan beberapa";
 "EditSet.Popup.Sort.Types.Ascending" = "Urutan naik";
 "EditSet.Popup.Sort.Types.Descending" = "Urutan turun";
-"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
-"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
-"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Di atas";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Di bawah";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Tampilkan nilai kosong";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Pilih sebuah relasi untuk diurutkan ";
 
 // MARK: - Sets: Filters
@@ -1067,10 +1067,11 @@
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
-"Change email" = "Change email";
-"Email successfully validated" = "Email successfully validated";
+"Change email" = "Ubah surel";
+"Email successfully validated" = "Surel berhasil divalidasi";
+"Confirm" = "Konfirmasi";
 
-"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.userCancelled" = "Pembelian dibatalkan";
 "StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 "StoreKitServiceError.wrongBillingId" = "Problem on our side, try again later";
 

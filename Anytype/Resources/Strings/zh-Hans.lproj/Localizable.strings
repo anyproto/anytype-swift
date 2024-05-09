@@ -121,7 +121,7 @@
 
 "Relation.ImportType.Notion" = "Notion";
 "Relation.ImportType.Markdown" = "Markdown";
-"Relation.ImportType.Html" = "HTML";
+"Relation.ImportType.Html" = "超文本";
 "Relation.ImportType.Text" = "纯文本(.txt)";
 "Relation.ImportType.Protobuf" = "Any-Block";
 "Relation.ImportType.Csv" = "CSV";
@@ -245,12 +245,12 @@
 "Auth.JoinFlow.Key.Description" = "它赋予您对数据的所有权限。\n它无法被恢复。 ";
 "Auth.JoinFlow.Key.Button.Show.Title" = "显示我的密钥";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "下一步";
-"Auth.JoinFlow.Key.Button.Later.Title" = "以后再做吧";
+"Auth.JoinFlow.Key.Button.Later.Title" = "跳过";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "复制到剪贴板";
 "Auth.JoinFlow.Key.Button.Info.Title" = "了解更多";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "稍后你可以在 Anytype 设置里找到这个密钥";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "密钥是什么？
+"Auth.JoinFlow.Key.ReadMore.Title" = "什么是密钥？
 ";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是 12 个单词的随机组合，您的数据库在此设备上神奇般地生成。";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "知道这些密钥词组的人即可拥有你的数据库。**现在，你是世界上唯一知道它的人**。";
@@ -259,10 +259,10 @@
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存密钥最简单的方法是将其保存在您的密码管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最可靠的方法是现实中在纸面上写下，并放在一个安全可靠的地方。";
 
-"Auth.JoinFlow.Soul.Title" = "设置名称";
+"Auth.JoinFlow.Soul.Title" = "设置昵称";
 "Auth.JoinFlow.Soul.Description" = "只有被您分享的用户可以查看。这里没有中心化的管理员。";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
-"Auth.JoinFlow.Soul.Button" = "获得我的密钥";
+"Auth.JoinFlow.Soul.Button" = "进入我的库";
 
 "Auth.JoinFlow.Vault.Title" = "这是您的库";
 "Auth.JoinFlow.Vault.Description" = "所有数据均为加密存储。\n本地优先——所有操作均可离线进行。\n只有您本人拥有这段密钥。";
@@ -272,8 +272,8 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
 "Auth.LoginFlow.Or" = "或者";
 "Auth.LoginFlow.Textfield.Placeholder" = "输入您的密钥";
-"Auth.LoginFlow.Enter.Title" = "获得我的密钥";
-"Auth.LoginFlow.Entering.Void.Title" = "无效的输入";
+"Auth.LoginFlow.Enter.Title" = "进入我的库";
+"Auth.LoginFlow.Entering.Void.Title" = "输入无效";
 
 // Object settings
 
@@ -297,7 +297,7 @@
 
 "Solid colors" = "纯色";
 "Gradients" = "渐变";
-"Gallery" = "相簿";
+"Gallery" = "相册";
 
 "Remove photo" = "移除照片";
 "Basic" = "基本";
@@ -676,7 +676,7 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "网格";
 "DataviewType.list" = "列表";
-"DataviewType.gallery" = "相簿";
+"DataviewType.gallery" = "相册";
 "DataviewType.kanban" = "看板";
 "DataviewType.calendar" = "日历";
 "DataviewType.graph" = "关联图";
@@ -727,7 +727,7 @@
 
 // MARK: Link Past Actions
 "LinkPaste.text" = "粘贴为正文";
-"LinkPaste.link" = "粘贴为链接";
+"LinkPaste.link" = "粘贴链接";
 "LinkPaste.bookmark" = "创建书签";
 
 // Relation Actions
@@ -1020,8 +1020,8 @@
 "Error.Common.TryAgain" = "请再试一次";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "过去 7 天";
-"RelativeFormatter.days30" = "过去 30 天";
+"RelativeFormatter.days7" = "7天前";
+"RelativeFormatter.days30" = "30天前";
 "RelativeFormatter.older" = "较早的";
 
 // MARK: - Server
@@ -1072,6 +1072,7 @@
 "This name is not availabe" = "该名称不可用";
 "Change email" = "更换邮箱";
 "Email successfully validated" = "邮箱验证成功";
+"Confirm" = "确认";
 
 "StoreKitServiceError.userCancelled" = "购买已取消";
 "StoreKitServiceError.needUserAction" = "支付失败，需要用户在苹果端操作支付。";
