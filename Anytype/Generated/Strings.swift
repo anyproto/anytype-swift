@@ -857,6 +857,11 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Gallery.Unavailable.Title")
     }
   }
+  internal enum GlobalSearch {
+    internal enum EmptyState {
+      internal static let subtitle = Loc.tr("Localizable", "GlobalSearch.EmptyState.subtitle")
+    }
+  }
   internal enum Home {
     internal enum Snackbar {
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library")
