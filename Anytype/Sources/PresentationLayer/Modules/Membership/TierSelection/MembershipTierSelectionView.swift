@@ -25,10 +25,17 @@ struct MembershipTierSelectionView: View {
     }
     
     var body: some View {
-        scrollView
+        content
         .safariSheet(url: $safariUrl)
         .task {
             await model.onAppear()
+        }
+    }
+    
+    private var content: some View {
+        ZStack {
+            scrollView
+            dragOverlay
         }
     }
     
@@ -42,6 +49,14 @@ struct MembershipTierSelectionView: View {
             }
         }
         .scrollIndicators(.never)
+    }
+    
+    var dragOverlay: some View {
+        VStack {
+            // fixTappableArea() do not work inside TabView
+            Color.black.opacity(0.0001).frame(height: 100)
+            Spacer()
+        }
     }
     
     var sheet: some View {
