@@ -11,11 +11,6 @@ public extension Google_Protobuf_Struct {
     var asDetails: ObjectDetails? {
         try? ObjectDetails(protobufStruct: self)
     }
-    
-    // temp - will de deleted
-    var asDetailsNoChecks: ObjectDetails? {
-        try? ObjectDetails(protobufStructNoChecks: self)
-    }
 
 	func toDetails() throws -> ObjectDetails {
 		try ObjectDetails(protobufStruct: self)

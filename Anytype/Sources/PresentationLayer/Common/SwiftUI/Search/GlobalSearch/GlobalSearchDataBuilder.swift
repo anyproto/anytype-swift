@@ -77,12 +77,12 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
             let highlight = item.highlight.replacingMarksWithBackgroundHighlight
             return textHighlightsData(with: relationDetails, highlight: highlight)
         case .status:
-            guard let details = item.relationDetails.asDetailsNoChecks else { return nil }
+            guard let details = item.relationDetails.asDetails else { return nil }
             let option = RelationOption(details: details)
             let relationStatusOption = Relation.Status.Option(option: option)
             return .status(name: relationDetails.name, option: relationStatusOption)
         case .tag:
-            guard let details = item.relationDetails.asDetailsNoChecks else { return nil }
+            guard let details = item.relationDetails.asDetails else { return nil }
             let option = RelationOption(details: details)
             let relationTagOption = Relation.Tag.Option(option: option)
             return .tag(name: relationDetails.name, option: relationTagOption)
