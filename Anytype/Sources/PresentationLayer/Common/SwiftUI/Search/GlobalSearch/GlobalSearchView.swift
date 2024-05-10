@@ -46,6 +46,7 @@ struct GlobalSearchView: View {
                 }
             }
         }
+        .scrollIndicators(.never)
     }
     
     @ViewBuilder
