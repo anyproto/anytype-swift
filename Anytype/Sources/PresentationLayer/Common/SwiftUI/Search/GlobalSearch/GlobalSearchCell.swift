@@ -37,9 +37,18 @@ struct GlobalSearchCell: View {
             highlights
             
             if data.objectTypeName.isNotEmpty {
-                AnytypeText(data.objectTypeName, style: .relation2Regular)
-                    .foregroundColor(.Text.secondary)
-                    .lineLimit(1)
+                HStack(spacing: 0) {
+                    AnytypeText(data.objectTypeName, style: .relation2Regular)
+                        .foregroundColor(.Text.secondary)
+                        .lineLimit(1)
+                    
+                    if FeatureFlags.showGlobalSearchScore, data.score.isNotEmpty {
+                        Spacer()
+                        AnytypeText(data.score, style: .relation2Regular)
+                            .foregroundColor(.Text.secondary)
+                            .lineLimit(1)
+                    }
+                }
             }
             
             Spacer.fixedHeight(8)

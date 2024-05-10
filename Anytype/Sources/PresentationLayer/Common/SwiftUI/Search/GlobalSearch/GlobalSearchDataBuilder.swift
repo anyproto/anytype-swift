@@ -1,5 +1,6 @@
 import Services
 import Foundation
+import AnytypeCore
 
 @MainActor
 protocol GlobalSearchDataBuilderProtocol {
@@ -25,13 +26,20 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
         
         let highlights = buildHighlightsData(with: meta)
         
+        // just for debug
+        var score = ""
+        if FeatureFlags.showGlobalSearchScore, let scoreDouble = details.values["_score"]?.safeDoubleValue {
+            score = "\(scoreDouble)"
+        }
+        
         return GlobalSearchData(
             iconImage: details.objectIconImage,
             title: details.title,
             highlights: highlights,
             objectTypeName: details.objectType.name,
             backlinks: details.backlinks,
-            editorScreenData: details.editorScreenData()
+            editorScreenData: details.editorScreenData(),
+            score: score
         )
     }
     

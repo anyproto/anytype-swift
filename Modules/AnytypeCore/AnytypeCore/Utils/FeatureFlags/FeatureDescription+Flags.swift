@@ -130,4 +130,11 @@ public extension FeatureDescription {
         defaultValue: false,
         debugValue: false
     )
+    
+    static let showGlobalSearchScore = FeatureDescription(
+        title: "Show global search score",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
 }

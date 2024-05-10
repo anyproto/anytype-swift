@@ -82,6 +82,10 @@ public extension FeatureFlags {
         value(for: .failReceiptValidation)
     }
 
+    static var showGlobalSearchScore: Bool {
+        value(for: .showGlobalSearchScore)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -102,6 +106,7 @@ public extension FeatureFlags {
         .sharingExtensionShowContentTypes,
         .homeTestSwipeGeature,
         .membershipTestTiers,
-        .failReceiptValidation
+        .failReceiptValidation,
+        .showGlobalSearchScore
     ]
 }

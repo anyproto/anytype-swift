@@ -25,6 +25,7 @@ struct GlobalSearchData: Identifiable {
     let objectTypeName: String
     let backlinks: [String]
     let editorScreenData: EditorScreenData
+    let score: String
 }
 
 enum HighlightsData: Identifiable, Hashable {
