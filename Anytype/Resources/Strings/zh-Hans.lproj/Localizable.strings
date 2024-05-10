@@ -1076,7 +1076,6 @@
 
 "StoreKitServiceError.userCancelled" = "购买已取消";
 "StoreKitServiceError.needUserAction" = "支付失败，需要用户在苹果端操作支付。";
-"StoreKitServiceError.wrongBillingId" = "我们这边出错了，请稍后再试";
 
 "Membership.Ad.Title" = "会员
 ";
