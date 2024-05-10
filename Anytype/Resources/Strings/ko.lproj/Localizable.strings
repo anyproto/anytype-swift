@@ -1073,7 +1073,6 @@
 
 "StoreKitServiceError.userCancelled" = "구매 취소됨";
 "StoreKitServiceError.needUserAction" = "결제에 실패했습니다. 결제를 위해 Apple 측에서 사용자 조치가 필요합니다.";
-"StoreKitServiceError.wrongBillingId" = "저희 측에 문제가 발생했습니다. 나중에 다시 시도하세요.";
 
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
