@@ -1073,7 +1073,6 @@
 
 "StoreKitServiceError.userCancelled" = "Achat annulé";
 "StoreKitServiceError.needUserAction" = "Paiement échoué, les actions utilisateur de côté Apple sont requises pour payer.";
-"StoreKitServiceError.wrongBillingId" = "Erreur de notre côté, réessayez plus tard";
 
 "Membership.Ad.Title" = "Adhésion";
 "Membership.Ad.Subtitle" = "Rejoindre le réseau Anytype signifie contribuer à son histoire";

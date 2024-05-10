@@ -1075,7 +1075,6 @@
 
 "StoreKitServiceError.userCancelled" = "已取消購買";
 "StoreKitServiceError.needUserAction" = "付款失敗，需要用戶在蘋果端操作以完成付款。";
-"StoreKitServiceError.wrongBillingId" = "我們這邊出錯了，請稍後再試。";
 
 "Membership.Ad.Title" = "會員";
 "Membership.Ad.Subtitle" = "成為 Anytype 網絡的一員，您就是它故事的一部分。";
