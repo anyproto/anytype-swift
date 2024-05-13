@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "No tienes clasificaciones. Puedes añadir alguna";
 "EditSet.Popup.Sort.Types.Ascending" = "Ascendente";
 "EditSet.Popup.Sort.Types.Descending" = "Descendente";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Seleccione una relación para ordenar";
 
 // MARK: - Sets: Filters
@@ -1064,9 +1067,12 @@
 "Pending" = "Procesando...";
 "Manage payment" = "Gestionar pagos";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Purchase cancelled";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
+"Confirm" = "Confirmar";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Membresía";
 "Membership.Ad.Subtitle" = "Unirse a la red Anytype significa contribuir a su historia";

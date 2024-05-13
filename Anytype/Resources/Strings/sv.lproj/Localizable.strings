@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
 "EditSet.Popup.Sort.Types.Ascending" = "Stigande";
 "EditSet.Popup.Sort.Types.Descending" = "Fallande";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
@@ -1064,9 +1067,12 @@
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Purchase cancelled";
 "Change email" = "Ändra e-postadress";
 "Email successfully validated" = "Email successfully validated";
+"Confirm" = "Bekräfta";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";

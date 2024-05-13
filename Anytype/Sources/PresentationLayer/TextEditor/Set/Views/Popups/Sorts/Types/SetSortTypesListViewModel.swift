@@ -1,5 +1,6 @@
 import Services
 import Combine
+import AnytypeCore
 
 @MainActor
 final class SetSortTypesListViewModel: ObservableObject {
@@ -10,7 +11,7 @@ final class SetSortTypesListViewModel: ObservableObject {
 
     private let sort: SetSort
     private var selectedSort: DataviewSort
-    private let completion: (SetSort) -> Void
+    private let completion: (SetSort, String) -> Void
 
     // MARK: - Initializer
 
@@ -20,7 +21,9 @@ final class SetSortTypesListViewModel: ObservableObject {
         self.selectedSort = data.setSort.sort
         self.completion = data.completion
         self.typeItems = buildTypeItems()
-        self.emptyTypeItems = buildEmptyTypeItems()
+        if FeatureFlags.setEmptyValuesSorting {
+            self.emptyTypeItems = buildEmptyTypeItems()
+        }
     }
     
     func buildTypeItems() -> [SetSortTypeItem] {
@@ -55,7 +58,8 @@ final class SetSortTypesListViewModel: ObservableObject {
             SetSort(
                 relationDetails: sort.relationDetails,
                 sort: selectedSort
-            )
+            ),
+            item.analyticValue
         )
         typeItems = buildTypeItems()
     }
@@ -70,7 +74,8 @@ final class SetSortTypesListViewModel: ObservableObject {
             SetSort(
                 relationDetails: sort.relationDetails,
                 sort: selectedSort
-            )
+            ),
+            item.analyticValue
         )
         emptyTypeItems = buildEmptyTypeItems()
     }

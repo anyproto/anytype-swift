@@ -4,7 +4,7 @@ import Services
 @MainActor
 protocol SetSortsListCoordinatorOutput: AnyObject {
     func onAddButtonTap(relationDetails: [RelationDetails], completion: @escaping (RelationDetails) -> Void)
-    func onSetSortTap(_ setSort: SetSort, completion: @escaping (SetSort) -> Void)
+    func onSetSortTap(_ setSort: SetSort, completion: @escaping (SetSort, String) -> Void)
 }
 
 @MainActor
@@ -36,11 +36,11 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     
     // MARK: - Sort types
     
-    func onSetSortTap(_ setSort: SetSort, completion: @escaping (SetSort) -> Void) {
+    func onSetSortTap(_ setSort: SetSort, completion: @escaping (SetSort, String) -> Void) {
         sortTypesData = SetSortTypesData(
             setSort: setSort,
-            completion: { [weak self] setSort in
-                completion(setSort)
+            completion: { [weak self] setSort, type in
+                completion(setSort, type)
                 self?.sortTypesData = nil
             }
         )

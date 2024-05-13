@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Sem ordenações aqui. Você pode adicionar alguns";
 "EditSet.Popup.Sort.Types.Ascending" = "Crescente";
 "EditSet.Popup.Sort.Types.Descending" = "Decrescente";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Escolha uma relação para classificar";
 
 // MARK: - Sets: Filters
@@ -1065,9 +1068,12 @@
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Purchase cancelled";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
+"Confirm" = "Confirmar";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Associação";
 "Membership.Ad.Subtitle" = "Juntar-se a rede Anytype representa contribuir para essa história";

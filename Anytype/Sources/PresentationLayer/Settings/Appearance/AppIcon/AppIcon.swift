@@ -1,11 +1,11 @@
 import Foundation
 import SwiftUI
 
-enum AppIcon {
-    case oldSchool
+enum AppIcon: CaseIterable {
     case smile
     case standart
     case classic
+    case oldSchool
     
     var previewAsset: ImageAsset {
         switch self {
@@ -23,13 +23,5 @@ enum AppIcon {
         case .classic: return "AppIconClassic"
         case .smile: return "AppIconSmile"
         }
-    }
-    
-    static var availableCases: [AppIcon] {
-        #if DEBUG
-        [.smile, .standart, .classic]
-        #else
-        [.oldSchool, .standart, .classic]
-        #endif
     }
 }

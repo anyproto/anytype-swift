@@ -29,14 +29,11 @@ struct SettingsView: View {
                         onTap: { model.onAppearanceTap() }
                     )
                     
-                    
-                    if FeatureFlags.multiplayer {
-                        SettingsSectionItemView(
-                            name: Loc.Spaces.title,
-                            imageAsset: .Settings.spaces,
-                            onTap: { model.onSpacesTap() }
-                        )
-                    }
+                    SettingsSectionItemView(
+                        name: Loc.Spaces.title,
+                        imageAsset: .Settings.spaces,
+                        onTap: { model.onSpacesTap() }
+                    )
                     
                     SettingsSectionItemView(
                         name: Loc.FileStorage.Local.title,

@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Keine Sorten hier. Sie können einige hinzufügen";
 "EditSet.Popup.Sort.Types.Ascending" = "Aufsteigend";
 "EditSet.Popup.Sort.Types.Descending" = "Absteigend";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Ganz oben";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Ganz unten";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Leere Werte anzeigen";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Wählen sie eine Beziehung zum Sortieren";
 
 // MARK: - Sets: Filters
@@ -666,7 +669,7 @@
 "New" = "Neu";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
 "DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
@@ -1064,10 +1067,13 @@
 "Min X characters" = "Min. %@ Zeichen";
 "Pending" = "Ausstehend...";
 "Manage payment" = "Zahlung verwalten";
-"This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Kauf abgebrochen";
+"This name is not availabe" = "Dieser Name ist nicht verfügbar";
 "Change email" = "E-Mail-Adresse ändern";
 "Email successfully validated" = "E-Mail-Adresse erfolgreich validiert";
+"Confirm" = "Bestätige";
+
+"StoreKitServiceError.userCancelled" = "Kauf abgebrochen";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";

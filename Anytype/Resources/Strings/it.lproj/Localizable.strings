@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Nessun ordinamento qui. Puoi aggiungerne alcuni";
 "EditSet.Popup.Sort.Types.Ascending" = "Ascendente";
 "EditSet.Popup.Sort.Types.Descending" = "Discendente";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Scegli una relazione per ordinare";
 
 // MARK: - Sets: Filters
@@ -931,7 +934,7 @@
 "SpaceShare.YouSuffix" = "%@ (tu)";
 "SpaceShare.ManageSpaces" = "Gestisci Spazi";
 "SpaceShare.AccessChanged" = "I diritti di accesso sono stati modificati.";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Action" = "Interrompi condivisione";
 "SpaceShare.StopSharing.Title" = "Smetti di condividere lo spazio";
 "SpaceShare.StopSharing.Message" = "I membri non si sincronizzeranno più con questo spazio e il link di condivisione verrà disattivato.";
 "SpaceShare.StopSharing.Toast" = "Lo spazio non è più condiviso";
@@ -941,7 +944,7 @@
 "SpaceShare.HowToShare.Step1" = "Si prega di fornire il link alla persona con cui si desidera collaborare.";
 "SpaceShare.HowToShare.Step2" = "Cliccando sul link, una persona richiede di unirsi allo spazio.";
 "SpaceShare.HowToShare.Step3" = "Dopo aver approvato la richiesta, puoi scegliere i diritti di accesso per quella persona.";
-"SpaceShare.Manage" = "Manage";
+"SpaceShare.Manage" = "Gestisci";
 "SpaceShare.AlreadyJoin.Title" = "Sei già membro di questo spazio";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
 
@@ -1062,11 +1065,14 @@
 "Pay by Card" = "Paga con carta";
 "Min X characters" = "Minimo %@ caratteri";
 "Pending" = "In attesa...";
-"Manage payment" = "Manage payment";
+"Manage payment" = "Gestisci pagamento";
 "This name is not availabe" = "Questo nome non è disponibile";
-"Purchase cancelled" = "Acquisto annullato";
 "Change email" = "Cambia e-mail";
 "Email successfully validated" = "Email convalidata con successo";
+"Confirm" = "Conferma";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
@@ -1088,11 +1094,11 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 
 "Membership.Banner.Title1" = "Costruire insieme la visione";
-"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
-"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle1" = "In qualità di membro apprezzato, la tua voce conta! Partecipa a eventi esclusivi, contribuisci a scelte strategiche e influenza la nostra roadmap.";
+"Membership.Banner.Title2" = "Sblocca i vantaggi per i membri";
 "Membership.Banner.Subtitle2" = "I membri godono di limiti più elevati di archiviazione e sincronizzazione dei backup, di inviti per più ospiti a collaborare in spazi condivisi e di un'identità unica sulla Rete Anytype.";
-"Membership.Banner.Title3" = "Support Digital Independence";
-"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
+"Membership.Banner.Title3" = "Sostenere l'indipendenza digitale";
+"Membership.Banner.Subtitle3" = "Il tuo contributo sostiene il nostro team e avvalora la nostra visione di una rete digitale di proprietà degli utenti, sicura e collaborativa.";
 "Membership.Banner.Title4" = "Investi nella connettività";
 "Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
 
@@ -1101,7 +1107,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Membership.EmailValidation" = "Inserisci il codice inviato alla tua email";
 
 "Membership.NameForm.Title" = "Scegli il tuo nome unico";
-"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Subtitle" = "Questo è il tuo nome univoco sulla rete Anytype, che conferma la vostra iscrizione. Funge da dominio personale e non può essere cambiato.";
 "Membership.NameForm.Validating" = "Aspetta un secondo...";
 "Membership.NameForm.Validated" = "Questo nome è disponibile";
 

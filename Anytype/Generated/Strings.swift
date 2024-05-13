@@ -70,6 +70,7 @@ internal enum Loc {
   internal static let collections = Loc.tr("Localizable", "Collections")
   internal static let color = Loc.tr("Localizable", "Color")
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family")
+  internal static let confirm = Loc.tr("Localizable", "Confirm")
   internal static let copied = Loc.tr("Localizable", "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
@@ -241,7 +242,6 @@ internal enum Loc {
   internal static let previewLayout = Loc.tr("Localizable", "Preview layout")
   internal static let profile = Loc.tr("Localizable", "Profile")
   internal static let progress = Loc.tr("Localizable", "Progress...")
-  internal static let purchaseCancelled = Loc.tr("Localizable", "Purchase cancelled")
   internal static let purple = Loc.tr("Localizable", "Purple")
   internal static let purpleBackground = Loc.tr("Localizable", "Purple background")
   internal static let random = Loc.tr("Localizable", "Random")
@@ -851,10 +851,6 @@ internal enum Loc {
       internal static func success(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Gallery.Notification.Success", String(describing: p1))
       }
-    }
-    internal enum Unavailable {
-      internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message")
-      internal static let title = Loc.tr("Localizable", "Gallery.Unavailable.Title")
     }
   }
   internal enum GlobalSearch {
@@ -1642,6 +1638,10 @@ internal enum Loc {
     internal enum Search {
       internal static let title = Loc.tr("Localizable", "Spaces.Search.Title")
     }
+  }
+  internal enum StoreKitServiceError {
+    internal static let needUserAction = Loc.tr("Localizable", "StoreKitServiceError.needUserAction")
+    internal static let userCancelled = Loc.tr("Localizable", "StoreKitServiceError.userCancelled")
   }
   internal enum StyleMenu {
     internal enum Color {

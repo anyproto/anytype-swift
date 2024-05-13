@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
 "EditSet.Popup.Sort.Types.Ascending" = "Ascending";
 "EditSet.Popup.Sort.Types.Descending" = "Descending";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
@@ -1064,9 +1067,12 @@
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Purchase cancelled";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
+"Confirm" = "확인";
+
+"StoreKitServiceError.userCancelled" = "구매 취소됨";
+"StoreKitServiceError.needUserAction" = "결제에 실패했습니다. 결제를 위해 Apple 측에서 사용자 조치가 필요합니다.";
 
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";

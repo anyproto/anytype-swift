@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Pas de tri ici. Vous pouvez en ajouter";
 "EditSet.Popup.Sort.Types.Ascending" = "Tri croissant";
 "EditSet.Popup.Sort.Types.Descending" = "Tri décroissant";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "En haut";
+"EditSet.Popup.Sort.EmptyTypes.End" = "En bas";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Afficher les valeurs vides";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Choisir la relation à trier";
 
 // MARK: - Sets: Filters
@@ -1064,9 +1067,12 @@
 "Pending" = "En attente…";
 "Manage payment" = "Gérer un paiement";
 "This name is not availabe" = "Ce nom n'est pas disponible";
-"Purchase cancelled" = "Achat annulé";
 "Change email" = "Modifier l'adresse e-mail";
 "Email successfully validated" = "E-mail validé avec succès";
+"Confirm" = "Confirm";
+
+"StoreKitServiceError.userCancelled" = "Achat annulé";
+"StoreKitServiceError.needUserAction" = "Paiement échoué, les actions utilisateur de côté Apple sont requises pour payer.";
 
 "Membership.Ad.Title" = "Adhésion";
 "Membership.Ad.Subtitle" = "Rejoindre le réseau Anytype signifie contribuer à son histoire";

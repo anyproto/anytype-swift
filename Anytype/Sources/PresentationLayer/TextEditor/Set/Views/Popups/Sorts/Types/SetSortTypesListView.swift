@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct SetSortTypesListView: View {
     @StateObject private var model: SetSortTypesListViewModel
@@ -12,7 +13,9 @@ struct SetSortTypesListView: View {
             DragIndicator()
             TitleView(title: model.title)
             typeSection
-            emptyTypeSection
+            if FeatureFlags.setEmptyValuesSorting {
+                emptyTypeSection
+            }
         }
         .padding(.horizontal, 20)
         .background(Color.Background.secondary)

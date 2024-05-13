@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Tidak ada urutan disini. Kamu dapat menambahkan beberapa";
 "EditSet.Popup.Sort.Types.Ascending" = "Urutan naik";
 "EditSet.Popup.Sort.Types.Descending" = "Urutan turun";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Di atas";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Di bawah";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Tampilkan nilai kosong";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Pilih sebuah relasi untuk diurutkan ";
 
 // MARK: - Sets: Filters
@@ -1064,9 +1067,12 @@
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
 "This name is not availabe" = "This name is not availabe";
-"Purchase cancelled" = "Pembelian dibatalkan";
-"Change email" = "Change email";
-"Email successfully validated" = "Email successfully validated";
+"Change email" = "Ubah surel";
+"Email successfully validated" = "Surel berhasil divalidasi";
+"Confirm" = "Konfirmasi";
+
+"StoreKitServiceError.userCancelled" = "Pembelian dibatalkan";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Langganan";
 "Membership.Ad.Subtitle" = "Bergabung dengan jaringan Anytype berarti turut berkontribusi pada kisahnya";

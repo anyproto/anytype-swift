@@ -4,11 +4,14 @@ import Services
 
 enum StoreKitServiceError: String, LocalizedError {
     case userCancelled
+    case needUserAction
     
     var errorDescription: String? {
         switch self {
         case .userCancelled:
-            Loc.purchaseCancelled
+            Loc.StoreKitServiceError.userCancelled
+        case .needUserAction:
+            Loc.StoreKitServiceError.needUserAction
         }
     }
 }
@@ -75,8 +78,8 @@ final class StoreKitService: StoreKitServiceProtocol {
     
     func purchase(product: Product, billingId: String) async throws -> StoreKitPurchaseSuccess {
         let result = try await product.purchase(options: [
-            .custom(key: "AnytypeId", value: accountManager.account.id),
-            .custom(key: "BillingId", value: billingId)
+            .custom(key: "BillingId", value: billingId), // Is not working in current API
+            .custom(key: "AnytypeId", value: accountManager.account.id), // Is not working in current API
         ])
         
         switch result {
@@ -96,7 +99,7 @@ final class StoreKitService: StoreKitServiceProtocol {
         case .userCancelled:
             throw StoreKitServiceError.userCancelled
         case .pending:
-            fatalError() // TODO support pending state
+            throw StoreKitServiceError.needUserAction
         @unknown default:
             anytypeAssertionFailure("Unsupported purchase result \(result)")
             fatalError()

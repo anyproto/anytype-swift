@@ -392,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Geen sorteringen hier. Je kunt er een paar toevoegen";
 "EditSet.Popup.Sort.Types.Ascending" = "Oplopend";
 "EditSet.Popup.Sort.Types.Descending" = "Aflopend";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een relatie om te sorteren";
 
 // MARK: - Sets: Filters
@@ -1065,9 +1068,12 @@
 "Pending" = "In behandeling...";
 "Manage payment" = "Beheer betaling";
 "This name is not availabe" = "Deze naam is niet beschikbaar";
-"Purchase cancelled" = "Aankoop geannuleerd";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
+"Confirm" = "Bevestigen";
+
+"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Lidmaatschap";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";

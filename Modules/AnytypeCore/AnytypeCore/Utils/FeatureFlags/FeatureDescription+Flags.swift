@@ -24,24 +24,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let galleryInstallation = FeatureDescription(
-        title: "Gallery / Experience installation - IOS-1805",
-        type: .feature(author: "m@anytype.io", releaseVersion: "3"),
-        defaultValue: true
-    )
-    
-    static let multiplayer = FeatureDescription(
-        title: "Multiplayer",
-        type: .feature(author: "m@anytype.io", releaseVersion: "4"),
-        defaultValue: true
-    )
-    
-    static let universalLinks = FeatureDescription(
-        title: "Universal Links",
-        type: .feature(author: "m@anytype.io", releaseVersion: "4"),
-        defaultValue: true
-    )
-    
     static let membership = FeatureDescription(
         title: "Membership 💸",
         type: .feature(author: "vova@anytype.io", releaseVersion: "5"),
@@ -50,6 +32,12 @@ public extension FeatureDescription {
     
     static let newGlobalSearch = FeatureDescription(
         title: "New global search",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
+        defaultValue: false
+    )
+    
+    static let setEmptyValuesSorting = FeatureDescription(
+        title: "Set empty values sorting - IOS-2810",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
         defaultValue: false
     )
