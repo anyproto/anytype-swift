@@ -23,7 +23,7 @@ final class MembershipTierViewModel: ObservableObject {
         self.tierToDisplay = tierToDisplay
         self.onTap = onTap
         
-        membershipStatusStorage.status.receiveOnMain().assign(to: &$userMembership)
+        membershipStatusStorage.statusPublisher.receiveOnMain().assign(to: &$userMembership)
     }
     
     func updateState() {

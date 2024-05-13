@@ -41,3 +41,15 @@ public struct MembershipStatus: Equatable {
         self.email = email
     }
 }
+
+extension MembershipStatus: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        """
+Tier: \(tier?.name ?? "None")
+Status: \(status)
+PaymentMethod: \(paymentMethod)
+AnyName: \(anyName.handle)
+Email: \(email)
+"""
+    }
+}

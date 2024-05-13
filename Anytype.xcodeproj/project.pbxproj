@@ -1149,6 +1149,7 @@
 		3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */; };
 		3D26AA7E2B9768F500D61479 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */; };
 		3D26AA802B976AE400D61479 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */; };
+		3D283A552BF23C3600BA90A9 /* MembershipDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D283A542BF23C3600BA90A9 /* MembershipDebugView.swift */; };
 		3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C5A27BA54030070A4C6 /* Divider.swift */; };
 		3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */; };
 		3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */; };
@@ -2918,6 +2919,7 @@
 		3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierInfoView.swift; sourceTree = "<group>"; };
 		3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
+		3D283A542BF23C3600BA90A9 /* MembershipDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipDebugView.swift; sourceTree = "<group>"; };
 		3D2D4C5A27BA54030070A4C6 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouterProtocol.swift; sourceTree = "<group>"; };
 		3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetConstants.swift; sourceTree = "<group>"; };
@@ -8064,6 +8066,27 @@
 			path = EmailVerification;
 			sourceTree = "<group>";
 		};
+		3D283A522BF23BC900BA90A9 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				1247BCAB27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift */,
+				2AE6E29229DDB62C00B5AAD3 /* GradientIconsExamples.swift */,
+				2A00A4E829E811FD00C5FCC3 /* ControlsExample.swift */,
+				1247BCA627FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift */,
+				2AEAA48629F6A3D6009ACA00 /* ColorsExample.swift */,
+				2A6574672A4456F6002F568C /* ObjectIconExample.swift */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		3D283A532BF23C1F00BA90A9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D283A542BF23C3600BA90A9 /* MembershipDebugView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		3D29AFEF26A5D2640095BA18 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -9904,15 +9927,11 @@
 		C91AFEEB270B4C9C005F9386 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
+				3D283A532BF23C1F00BA90A9 /* Views */,
+				3D283A522BF23BC900BA90A9 /* Examples */,
 				0A996BAD23EDBC09000FDC9C /* FeatureFlags */,
-				1247BCA627FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift */,
-				1247BCAB27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift */,
 				3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */,
 				2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */,
-				2AE6E29229DDB62C00B5AAD3 /* GradientIconsExamples.swift */,
-				2A00A4E829E811FD00C5FCC3 /* ControlsExample.swift */,
-				2AEAA48629F6A3D6009ACA00 /* ColorsExample.swift */,
-				2A6574672A4456F6002F568C /* ObjectIconExample.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -11680,6 +11699,7 @@
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
 				2E7E50452B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift in Sources */,
 				2E1AA80C2BD95A2B0089B136 /* RelationFormatsData.swift in Sources */,
+				3D283A552BF23C3600BA90A9 /* MembershipDebugView.swift in Sources */,
 				2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
