@@ -16,8 +16,6 @@ final class SpaceShareViewModel: ObservableObject {
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: WorkspacesStorageProtocol
-    @Injected(\.deepLinkParser)
-    private var deppLinkParser: DeepLinkParserProtocol
     @Injected(\.universalLinkParser)
     private var universalLinkParser: UniversalLinkParserProtocol
     @Injected(\.workspaceStorage)
@@ -44,7 +42,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var showStopSharingAlert = false
     @Published var canStopShare = false
     
-    nonisolated init(onMoreInfo: @escaping () -> Void) {
+    init(onMoreInfo: @escaping () -> Void) {
         self.onMoreInfo = onMoreInfo
     }
     
@@ -66,11 +64,7 @@ final class SpaceShareViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsSpaceShare()
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            if FeatureFlags.universalLinks {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-            }
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } catch {}
     }
     
@@ -100,11 +94,7 @@ final class SpaceShareViewModel: ObservableObject {
         }
         
         let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
-        if FeatureFlags.universalLinks {
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-        } else {
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-        }
+        inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
     }
     
     func onDeleteLinkCompleted() {

@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var universalLinks: Bool {
-        value(for: .universalLinks)
-    }
-
     static var membership: Bool {
         value(for: .membership)
     }
@@ -83,7 +79,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .universalLinks,
         .membership,
         .newGlobalSearch,
         .setEmptyValuesSorting,
