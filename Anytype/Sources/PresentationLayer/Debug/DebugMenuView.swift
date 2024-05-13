@@ -153,24 +153,27 @@ struct DebugMenuView: View {
         }
     }
     
+    
+    @State private var expanded = true
     var toggles: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(model.flags, id: \.title) { section in
-                AnytypeText(section.title, style: .heading)
-                    .foregroundColor(.Text.primary)
-                    .padding()
-                VStack(spacing: 0) {
-                    ForEach(section.rows, id: \.description.title) { row in
-                        FeatureFlagView(model: row)
+                DisclosureGroup(isExpanded: $expanded) {
+                    VStack(spacing: 0) {
+                        ForEach(section.rows, id: \.description.title) { row in
+                            FeatureFlagView(model: row)
+                        }
                     }
+                } label: {
+                    AnytypeText(section.title, style: .heading)
+                        .foregroundColor(.Text.primary)
+                        .padding()
                 }
-                .padding(.horizontal)
-                .background(UIColor.secondarySystemGroupedBackground.suColor)
-                .cornerRadius(20, style: .continuous)
             }
         }
         .padding(.horizontal, 20)
         .background(UIColor.systemGroupedBackground.suColor)
+        .cornerRadius(20, corners: .top)
     }
     
     @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
@@ -201,6 +204,7 @@ struct DebugMenuView: View {
         }
         .padding()
         .background(UIColor.systemGroupedBackground.suColor)
+        .cornerRadius(20, corners: .bottom)
     }
 }
 
