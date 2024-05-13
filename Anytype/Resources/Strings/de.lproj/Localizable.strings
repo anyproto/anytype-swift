@@ -1072,7 +1072,7 @@
 "Email successfully validated" = "E-Mail-Adresse erfolgreich validiert";
 "Confirm" = "Bestätige";
 
-"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.userCancelled" = "Kauf abgebrochen";
 "StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Mitgliedschaft";
