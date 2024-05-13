@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var multiplayer: Bool {
-        value(for: .multiplayer)
-    }
-
     static var universalLinks: Bool {
         value(for: .universalLinks)
     }
@@ -87,7 +83,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .multiplayer,
         .universalLinks,
         .membership,
         .newGlobalSearch,

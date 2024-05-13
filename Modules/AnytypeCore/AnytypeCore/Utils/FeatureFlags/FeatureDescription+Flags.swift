@@ -24,12 +24,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let multiplayer = FeatureDescription(
-        title: "Multiplayer",
-        type: .feature(author: "m@anytype.io", releaseVersion: "4"),
-        defaultValue: true
-    )
-    
     static let universalLinks = FeatureDescription(
         title: "Universal Links",
         type: .feature(author: "m@anytype.io", releaseVersion: "4"),

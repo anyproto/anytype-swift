@@ -348,9 +348,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
-            if FeatureFlags.multiplayer {
-                spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
-            }
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
         case .object(let objectId, _):
             let document = documentsProvider.document(objectId: objectId, forPreview: true)
             try await document.openForPreview()
