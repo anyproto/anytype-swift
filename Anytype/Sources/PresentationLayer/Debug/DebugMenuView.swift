@@ -13,6 +13,7 @@ struct DebugMenuView: View {
     @State private var showControls = false
     @State private var showColors = false
     @State private var showObjectIcons = false
+    @State private var showMembershipDebug = false
     
     init() {
         _model = StateObject(wrappedValue: DebugMenuViewModel())
@@ -65,6 +66,7 @@ struct DebugMenuView: View {
         .sheet(isPresented: $showControls) { ControlsExample() }
         .sheet(isPresented: $showColors) { ColorsExample() }
         .sheet(isPresented: $showObjectIcons) { ObjectIconExample() }
+        .sheet(isPresented: $showMembershipDebug) { MembershipDebugView() }
         .sheet(item: $model.shareUrlFile) { url in
             ActivityViewController(activityItems: [url], applicationActivities: nil)
         }
@@ -100,6 +102,11 @@ struct DebugMenuView: View {
                 StandardButton("Assert 🥲", style: .secondaryLarge) {
                     anytypeAssertionFailure("Test assert")
                 }
+            }
+            
+            StandardButton("Membership debug 💸", style: .secondaryLarge) {
+                UISelectionFeedbackGenerator().selectionChanged()
+                showMembershipDebug.toggle()
             }
             
             StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {

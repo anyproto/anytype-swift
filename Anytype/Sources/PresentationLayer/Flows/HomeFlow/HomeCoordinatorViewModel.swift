@@ -102,7 +102,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
-            .status.receiveOnMain()
+            .statusPublisher.receiveOnMain()
             .sink { [weak self] membership in
                 guard membership.status == .pendingRequiresFinalization else { return }
                 

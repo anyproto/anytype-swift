@@ -19,7 +19,8 @@ enum MembershipTierOwningState {
 
 @MainActor
 protocol MembershipStatusStorageProtocol {
-    var status: AnyPublisher<MembershipStatus, Never> { get }
+    var statusPublisher: AnyPublisher<MembershipStatus, Never> { get }
+    var currentStatus: MembershipStatus { get }
     
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState
     
@@ -37,7 +38,8 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     private var builder: MembershipModelBuilderProtocol
     
     
-    var status: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
+    var statusPublisher: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
+    var currentStatus: MembershipStatus { _status }
     @Published var _status: MembershipStatus = .empty
     
     private var subscription: AnyCancellable?

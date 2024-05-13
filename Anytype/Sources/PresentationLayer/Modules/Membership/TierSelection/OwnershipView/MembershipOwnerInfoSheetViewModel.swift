@@ -13,7 +13,7 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
     private var membershipStatusStorage: MembershipStatusStorageProtocol
     
     init() {
-        membershipStatusStorage.status.receiveOnMain().assign(to: &$membership)
+        membershipStatusStorage.statusPublisher.receiveOnMain().assign(to: &$membership)
     }
     
     func getVerificationEmail(email: String) async throws {
