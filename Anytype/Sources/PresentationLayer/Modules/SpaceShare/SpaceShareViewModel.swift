@@ -14,16 +14,14 @@ final class SpaceShareViewModel: ObservableObject {
     private var workspaceService: WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
     @Injected(\.universalLinkParser)
     private var universalLinkParser: UniversalLinkParserProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
-    private var spaceView: SpaceView?
+    private var participantSpaceView: ParticipantSpaceView?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
     private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
@@ -54,8 +52,8 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func startSpaceViewTask() async {
-        for await spaceView in workspacesStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
-            self.spaceView = spaceView
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: accountSpaceId).values {
+            self.participantSpaceView = participantSpaceView
             updateView()
         }
     }
@@ -85,7 +83,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onGenerateInvite() async throws {
-        guard let spaceView else { return }
+        guard let spaceView = participantSpaceView?.spaceView else { return }
         
         AnytypeAnalytics.instance().logShareSpace()
         
@@ -122,11 +120,11 @@ final class SpaceShareViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateView() {
-        guard let spaceView else { return }
+        guard let participantSpaceView else { return }
         
-        canStopShare = spaceView.canStopShare
-        canChangeReaderToWriter = spaceView.canChangeReaderToWriter(participants: participants)
-        canChangeWriterToReader = spaceView.canChangeWriterToReader(participants: participants)
+        canStopShare = participantSpaceView.canStopShare
+        canChangeReaderToWriter = participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
+        canChangeWriterToReader = participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         
         rows = participants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
@@ -205,7 +203,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     private func showRequestAlert(participant: Participant) {
-        guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
+        guard let spaceView = participantSpaceView?.spaceView else { return }
         
         requestAlertModel = SpaceRequestAlertData(
             spaceId: spaceView.targetSpaceId,
