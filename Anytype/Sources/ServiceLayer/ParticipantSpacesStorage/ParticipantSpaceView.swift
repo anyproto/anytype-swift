@@ -4,29 +4,42 @@ import Services
 struct ParticipantSpaceView: Equatable, Identifiable {
     let spaceView: SpaceView
     let participant: Participant?
+    let permissions: SpacePermissions
     
     var id: String { spaceView.id }
 }
 
 extension ParticipantSpaceView {
     var canBeShared: Bool {
-        spaceView.canBeShared(isOwner: isOwner)
+        permissions.canBeShared
     }
     
     var canStopSharing: Bool {
-        spaceView.canStopShating(isOwner: isOwner)
+        permissions.canStopSharing
     }
     
     var canEdit: Bool {
-        participant?.canEdit ?? false
+        permissions.canEdit
     }
     
     var canLeave: Bool {
-        spaceView.canLeave(isOwner: isOwner)
+        permissions.canLeave
     }
     
     var canBeDelete: Bool {
-        spaceView.canBeDelete(isOwner: isOwner)
+        permissions.canBeDelete
+    }
+    
+    var canCancelJoinRequest: Bool {
+        permissions.canCancelJoinRequest
+    }
+    
+    var canStopShare: Bool {
+        permissions.canStopShare
+    }
+    
+    var canBeArchive: Bool {
+        permissions.canBeArchive
     }
     
     var isOwner: Bool {
