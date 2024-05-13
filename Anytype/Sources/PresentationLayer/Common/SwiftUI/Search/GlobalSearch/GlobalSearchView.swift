@@ -46,6 +46,7 @@ struct GlobalSearchView: View {
                 }
             }
         }
+        .scrollIndicators(.never)
     }
     
     @ViewBuilder
@@ -87,8 +88,8 @@ struct GlobalSearchView: View {
     
     private var emptyState: some View {
         EmptyStateView(
-            title: Loc.thereIsNoObjectNamed(model.state.searchText),
-            subtitle: Loc.createANewOneOrSearchForSomethingElse
+            title: Loc.nothingFound,
+            subtitle: Loc.GlobalSearch.EmptyState.subtitle
         )
     }
 }

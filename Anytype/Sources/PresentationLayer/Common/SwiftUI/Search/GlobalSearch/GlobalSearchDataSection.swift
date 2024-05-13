@@ -25,10 +25,13 @@ struct GlobalSearchData: Identifiable {
     let objectTypeName: String
     let backlinks: [String]
     let editorScreenData: EditorScreenData
+    let score: String
 }
 
 enum HighlightsData: Identifiable, Hashable {
     case text(AttributedString)
+    case status(name: String, option: Relation.Status.Option)
+    case tag(name: String, option: Relation.Tag.Option)
     
     var id: Int { hashValue }
 }

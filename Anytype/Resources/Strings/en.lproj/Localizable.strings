@@ -336,6 +336,7 @@
 "Search.Backlinks.Show.title" = "Show backlinks";
 "Search.Backlinks.Header.title" = "Backlinks of: %@";
 "Search.Backlinks.Swipe.title" = "Backlinks";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
 
 // MARK: - Home
 
