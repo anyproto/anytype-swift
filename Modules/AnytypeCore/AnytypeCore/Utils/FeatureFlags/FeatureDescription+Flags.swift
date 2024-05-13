@@ -24,12 +24,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let galleryInstallation = FeatureDescription(
-        title: "Gallery / Experience installation - IOS-1805",
-        type: .feature(author: "m@anytype.io", releaseVersion: "3"),
-        defaultValue: true
-    )
-    
     static let multiplayer = FeatureDescription(
         title: "Multiplayer",
         type: .feature(author: "m@anytype.io", releaseVersion: "4"),

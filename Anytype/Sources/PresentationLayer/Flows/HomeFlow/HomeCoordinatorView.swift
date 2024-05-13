@@ -83,15 +83,9 @@ struct HomeCoordinatorView: View {
                 model.onManageSpacesSelected()
             })
         }
-        .if(FeatureFlags.galleryInstallation, if: {
-            $0.sheet(item: $model.showGalleryImport) { data in
-                GalleryInstallationCoordinatorView(data: data)
-            }
-        }, else: {
-            $0.anytypeSheet(item: $model.showGalleryImport) { _ in
-                GalleryUnavailableView()
-            }
-        })
+        .sheet(item: $model.showGalleryImport) { data in
+            GalleryInstallationCoordinatorView(data: data)
+        }
     }
 }
 
