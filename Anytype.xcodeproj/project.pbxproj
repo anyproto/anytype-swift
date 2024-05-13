@@ -532,7 +532,6 @@
 		2A78A95C2B9F36D300396B82 /* MockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9582B9F36D300396B82 /* MockView.swift */; };
 		2A794B422AD53D3A00BA160F /* SubscriptionStorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */; };
 		2A794B442AD53D4400BA160F /* SubscriptionStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */; };
-		2A7B124E2B19CC5600E14578 /* GalleryUnavailableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */; };
 		2A7BC27B2B1DE54700EB96EB /* NetworkServerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27A2B1DE54700EB96EB /* NetworkServerConfig.swift */; };
 		2A7BC27D2B1DF25F00EB96EB /* NetworkServerConfig+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */; };
 		2A7BC27F2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */; };
@@ -2286,7 +2285,6 @@
 		2A78A9582B9F36D300396B82 /* MockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockView.swift; sourceTree = "<group>"; };
 		2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageProvider.swift; sourceTree = "<group>"; };
 		2A794B432AD53D4400BA160F /* SubscriptionStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorage.swift; sourceTree = "<group>"; };
-		2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryUnavailableView.swift; sourceTree = "<group>"; };
 		2A7BC27A2B1DE54700EB96EB /* NetworkServerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServerConfig.swift; sourceTree = "<group>"; };
 		2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkServerConfig+View.swift"; sourceTree = "<group>"; };
 		2A7BC27E2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerConfigurationViewModel.swift; sourceTree = "<group>"; };
@@ -6017,7 +6015,6 @@
 			isa = PBXGroup;
 			children = (
 				3DEFBB612BEB9E9E0076832B /* MembershipNameFinalization */,
-				2A7B124D2B19CC5600E14578 /* GalleryUnavailableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -10932,7 +10929,6 @@
 				C96B6C9D27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift in Sources */,
 				3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */,
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
-				2A7B124E2B19CC5600E14578 /* GalleryUnavailableView.swift in Sources */,
 				1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */,
 				2A9D2B362B85DFFD0085EEFC /* SpacesManagerView.swift in Sources */,
 				2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */,
