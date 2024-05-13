@@ -25,9 +25,11 @@ struct DebugMenuView: View {
                 .foregroundColor(.Text.primary)
             ScrollView {
                 VStack(spacing: 0) {
-                    buttons
-                    setPageCounter
+                    buttonsMenu
+                    Spacer.fixedHeight(20)
                     toggles
+                    setPageCounter
+                    removeKey
                 }
             }
         }
@@ -36,99 +38,26 @@ struct DebugMenuView: View {
         .embedInNavigation()
     }
     
-    @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
-    private var setPageCounter: some View {
-        HStack {
-            AnytypeText("Number of rows per page in set", style: .bodyRegular)
-                .foregroundColor(.Text.primary)
-                .frame(maxWidth: .infinity)
-            TextField("Pages", text: $rowsPerPageInSet)
-                .textFieldStyle(.roundedBorder)
-                .frame(width: 100)
-        }
-        .padding(20)
-        .onChange(of: rowsPerPageInSet) { count in
-            guard let count = Int(count) else { return }
-            UserDefaultsConfig.rowsPerPageInSet = count
-        }
-    }
-    
-    private var buttons: some View {
+    private var buttonsMenu: some View {
         VStack {
-            HStack {
-                StandardButton("Logs 🧻", style: .secondaryLarge) {
-                    showLogs.toggle()
-                }
-                StandardButton("Typography 🦭", style: .secondaryLarge) {
-                    showTypography.toggle()
-                }
-            }
-            HStack {
-                StandardButton("Crash 🔥", style: .primaryLarge) {
-                    let crash: [Int] = []
-                    _ = crash[1]
-                }
-                StandardButton("Assert 🥲", style: .secondaryLarge) {
-                    anytypeAssertionFailure("Test assert")
-                }
-            }
+            mainActions
             
             HStack {
-                StandardButton("Controls 🎛️", style: .secondaryLarge) {
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    showControls.toggle()
-                }
-                StandardButton("Space icons 🟣", style: .secondaryLarge) {
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    showGradientIcons.toggle()
-                }
-            }
-            
-            HStack {
-                StandardButton("Colors 🌈", style: .secondaryLarge) {
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    showColors.toggle()
+                Menu {
+                    moreActions
+                } label: {
+                    StandardButton("More actions ℹ️", style: .borderlessLarge) {}
                 }
                 
-                StandardButton("Object icons 📸", style: .secondaryLarge) {
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    showObjectIcons.toggle()
+                Menu {
+                    designSystem
+                } label: {
+                    StandardButton("Design sysyem 💅", style: .borderlessLarge) {}
                 }
-            }
-            StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                showFeedbackGenerators.toggle()
-            }
-            StandardButton("Export localstore data as json 📁", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.getLocalStoreData()
-            }
-            StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.getGoroutinesData()
-            }
-            AsyncStandardButton(text: "Space debug 🪐", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                try await model.onSpaceDebug()
-            }
-            StandardButton("Export full directory 🤐", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.zipWorkingDirectory()
-            }
-            StandardButton("Import full directory 📲", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                model.unzipWorkingDirectory()
-            }
-            StandardButton(
-                "Remove Key from device",
-                inProgress: model.isRemovingRecoveryPhraseInProgress,
-                style: .warningLarge
-            ) {
-                model.removeRecoveryPhraseFromDevice()
             }
         }
         .padding(.horizontal)
-        .padding()
+        
         .sheet(isPresented: $showLogs) { LoggerUI.makeView() }
         .sheet(isPresented: $showTypography) { TypographyExample() }
         .sheet(isPresented: $showFeedbackGenerators) { FeedbackGeneratorExamplesView() }
@@ -146,27 +75,143 @@ struct DebugMenuView: View {
         }
     }
     
+    private var mainActions: some View {
+        VStack {
+            HStack {
+                StandardButton("Logs 🧻", style: .secondaryLarge) {
+                    showLogs.toggle()
+                }
+            }
+            
+            StandardButton("Export localstore 📁", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.getLocalStoreData()
+            }
+        }
+    }
+    
+    private var moreActions: some View {
+        VStack {
+            HStack {
+                StandardButton("Crash 🔥", style: .primaryLarge) {
+                    let crash: [Int] = []
+                    _ = crash[1]
+                }
+                StandardButton("Assert 🥲", style: .secondaryLarge) {
+                    anytypeAssertionFailure("Test assert")
+                }
+            }
+            
+            StandardButton("Debug stack Goroutines 💤", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.getGoroutinesData()
+            }
+            AsyncStandardButton(text: "Space debug 🪐", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.onSpaceDebug()
+            }
+            StandardButton("Export full directory 🤐", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.zipWorkingDirectory()
+            }
+            StandardButton("Import full directory 📲", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.unzipWorkingDirectory()
+            }
+        }
+    }
+    
+    private var designSystem: some View {
+        VStack {
+            StandardButton("Typography 🦭", style: .secondaryLarge) {
+                showTypography.toggle()
+            }
+            
+            StandardButton("Controls 🎛️", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showControls.toggle()
+            }
+            StandardButton("Space icons 🟣", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showGradientIcons.toggle()
+            }
+            
+            StandardButton("Colors 🌈", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showColors.toggle()
+            }
+            
+            StandardButton("Object icons 📸", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showObjectIcons.toggle()
+            }
+            
+            StandardButton("Feedback Generator 🃏", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                showFeedbackGenerators.toggle()
+            }
+        }
+    }
+    
+    
+    @State private var expanded = true
     var toggles: some View {
         VStack(alignment: .leading, spacing: 0) {
             ForEach(model.flags, id: \.title) { section in
-                AnytypeText(section.title, style: .heading)
-                    .foregroundColor(.Text.primary)
-                    .padding()
-                VStack(spacing: 0) {
-                    ForEach(section.rows, id: \.description.title) { row in
-                        FeatureFlagView(model: row)
+                DisclosureGroup(isExpanded: $expanded) {
+                    VStack(spacing: 0) {
+                        ForEach(section.rows, id: \.description.title) { row in
+                            FeatureFlagView(model: row)
+                        }
                     }
+                } label: {
+                    AnytypeText(section.title, style: .heading)
+                        .foregroundColor(.Text.primary)
+                        .padding()
                 }
-                .padding(.horizontal)
-                .background(UIColor.secondarySystemGroupedBackground.suColor)
-                .cornerRadius(20, style: .continuous)
             }
         }
         .padding(.horizontal, 20)
         .background(UIColor.systemGroupedBackground.suColor)
+        .cornerRadius(20, corners: .top)
+    }
+    
+    @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
+    private var setPageCounter: some View {
+        HStack {
+            AnytypeText("Number of rows per page in set", style: .bodyRegular)
+                .foregroundColor(.Text.primary)
+                .frame(maxWidth: .infinity)
+            TextField("Pages", text: $rowsPerPageInSet)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 100)
+        }
+        .padding(20)
+        .onChange(of: rowsPerPageInSet) { count in
+            guard let count = Int(count) else { return }
+            UserDefaultsConfig.rowsPerPageInSet = count
+        }
+        .background(UIColor.systemGroupedBackground.suColor)
+    }
+    
+    private var removeKey: some View {
+        StandardButton(
+            "Remove Key from device",
+            inProgress: model.isRemovingRecoveryPhraseInProgress,
+            style: .warningLarge
+        ) {
+            model.removeRecoveryPhraseFromDevice()
+        }
+        .padding()
+        .background(UIColor.systemGroupedBackground.suColor)
+        .cornerRadius(20, corners: .bottom)
     }
 }
 
 extension URL: Identifiable {
     public var id: String { absoluteString }
+}
+
+#Preview {
+    DebugMenuView()
 }
