@@ -852,10 +852,6 @@ internal enum Loc {
         return Loc.tr("Localizable", "Gallery.Notification.Success", String(describing: p1))
       }
     }
-    internal enum Unavailable {
-      internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message")
-      internal static let title = Loc.tr("Localizable", "Gallery.Unavailable.Title")
-    }
   }
   internal enum Home {
     internal enum Snackbar {

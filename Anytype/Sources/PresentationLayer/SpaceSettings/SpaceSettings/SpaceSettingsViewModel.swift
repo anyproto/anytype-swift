@@ -52,9 +52,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     init(output: SpaceSettingsModuleOutput?) {
         self.output = output
-        Task {
-            try await setupData()
-        }
     }
     
     func onChangeIconTap() {
@@ -97,18 +94,14 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Private
-    
-    private func setupData() async throws {
-        participantSpacesStorage
-            .activeParticipantSpacesPublisher
-            .receiveOnMain()
-            .sink { [weak self] participantSpaceViews in
-                self?.participantSpaceView = participantSpaceViews.first { $0.spaceView.targetSpaceId == self?.workspaceInfo.accountSpaceId }
-                self?.updateViewState()
-            }
-            .store(in: &subscriptions)
+    func startParticipantTask() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            self.participantSpaceView = participantSpaceView
+            updateViewState()
+        }
     }
+    
+    // MARK: - Private
     
     private func updateViewState() {
         guard let participantSpaceView else { return }
@@ -123,16 +116,17 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
         
-        if participantSpaceView.canBeShared {
-            if participantSpaceView.spaceView.spaceAccessType == .shared {
+        if participantSpaceView.isOwner {
+            switch participantSpaceView.spaceView.spaceAccessType {
+            case .personal, .UNRECOGNIZED, .none:
+                shareSection = .personal
+            case .private:
+                shareSection = .private(active: participantSpaceView.canBeShared && participantSpacesStorage.canShareSpace())
+            case .shared:
                 shareSection = .owner(joiningCount: joiningCount)
-            } else {
-                shareSection = .private(active: participantSpacesStorage.canShareSpace())
             }
-        } else if !participantSpaceView.isOwner {
-            shareSection = .member
         } else {
-            shareSection = .personal
+            shareSection = .member
         }
         
         if !dataLoaded {

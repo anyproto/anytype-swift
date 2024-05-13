@@ -73,6 +73,9 @@ struct SpaceSettingsView: View {
         .task {
             await model.startJoiningTask()
         }
+        .task {
+            await model.startParticipantTask()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
@@ -88,32 +91,28 @@ struct SpaceSettingsView: View {
     private var spaceSection: some View {
         SectionHeaderView(title: Loc.Settings.spaceType)
         
-        if FeatureFlags.multiplayer {
-            switch model.shareSection {
-            case .personal:
-                SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
-            case .private(let active):
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.share),
-                    onTap: { model.onShareTap() }
-                )
-                .disabled(!active)
-            case .owner(let joiningCount):
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
-                    onTap: { model.onShareTap() }
-                )
-            case .member:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.SpaceShare.members),
-                    onTap: { model.onMembersTap() }
-                )
-            }
-        } else {
-            SpaceTypeView(name: model.spaceAccessType)
+        switch model.shareSection {
+        case .personal:
+            SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
+        case .private(let active):
+            SettingsSectionItemView(
+                name: model.spaceAccessType,
+                decoration: .arrow(text: Loc.share),
+                onTap: { model.onShareTap() }
+            )
+            .disabled(!active)
+        case .owner(let joiningCount):
+            SettingsSectionItemView(
+                name: model.spaceAccessType,
+                decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
+                onTap: { model.onShareTap() }
+            )
+        case .member:
+            SettingsSectionItemView(
+                name: model.spaceAccessType,
+                decoration: .arrow(text: Loc.SpaceShare.members),
+                onTap: { model.onMembersTap() }
+            )
         }
     }
 }

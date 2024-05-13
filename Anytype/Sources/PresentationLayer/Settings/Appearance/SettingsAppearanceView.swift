@@ -79,15 +79,18 @@ struct SettingsAppearanceView: View {
         VStack(alignment: .center) {
             AnytypeText(Loc.applicationIcon, style: .caption1Medium)
                 .foregroundColor(.Text.secondary).padding(.bottom, 6)
-            HStack {
-                ForEach(AppIcon.availableCases, id: \.self) { icon in
-                    appIcon(icon)
+            ScrollView(.horizontal) {
+                HStack(spacing: 16) {
+                    Spacer.fixedWidth(20)
+                    ForEach(AppIcon.allCases, id: \.self) { icon in
+                        appIcon(icon)
+                    }
+                    Spacer.fixedWidth(20)
                 }
+                .padding(.vertical, 14)
             }
         }
-        .padding(.vertical, 14)
         .divider()
-        .padding(.horizontal, 20)
     }
 
     private func appIcon(_ icon: AppIcon) -> some View {
