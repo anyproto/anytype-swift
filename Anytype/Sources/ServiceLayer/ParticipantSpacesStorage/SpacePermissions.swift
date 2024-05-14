@@ -21,7 +21,7 @@ extension SpacePermissions {
         canStopSharing = isOwner && (spaceView.spaceAccessType == .shared)
         canEdit = participant?.canEdit ?? false
         canLeave = !isOwner && spaceView.isActive
-        canBeDelete = (isOwner && spaceView.spaceAccessType == .private)
+        canBeDelete = (isOwner && (spaceView.spaceAccessType == .private || spaceView.spaceAccessType == .shared))
                         || (!isOwner && spaceView.accountStatus == .spaceRemoving)
         canBeArchive = spaceView.accountStatus == .spaceRemoving
         canCancelJoinRequest = spaceView.accountStatus == .spaceJoining
