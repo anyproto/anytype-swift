@@ -10,6 +10,8 @@ struct SpaceIconView: View {
         switch icon {
         case .name(let name):
             ImageCharIconView(text: name.withPlaceholder)
+                .background(Color.Shape.secondary)
+                .cornerRadius(2, style: .continuous)
         case .gradient(let gradientId):
             CircleGradientView(gradientId: gradientId)
                 .scaleEffect(0.75)
