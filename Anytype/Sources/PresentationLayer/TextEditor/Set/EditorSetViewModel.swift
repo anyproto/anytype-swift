@@ -29,7 +29,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatusData = SyncStatusData(status: .unknown, networkId: "")
+    @Published var syncStatusData = SyncStatusData(status: .unknown, networkId: "", isHidden: true)
     
     var isUpdating = false
 
@@ -180,7 +180,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func setup() {
-        syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
+        syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
         
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
@@ -274,8 +274,9 @@ final class EditorSetViewModel: ObservableObject {
             await onDataviewUpdate(clearState: clearState)
         case .syncStatus(let status):
             syncStatusData = SyncStatusData(
-                status: status,
-                networkId: activeWorkspaceStorage.workspaceInfo.networkId
+                status: status.syncStatus,
+                networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+                isHidden: false
             )
         }
     }
