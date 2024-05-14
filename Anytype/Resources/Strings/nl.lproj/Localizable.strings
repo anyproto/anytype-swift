@@ -1032,8 +1032,6 @@
 "Server.LocalOnly" = "Alleen lokaal";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
-"Gallery.Unavailable.Message" = "Gebruik voorlopig alsjeblieft de desktop app";
 "Gallery.Author" = "Gemaakt door @%@";
 "Gallery.Install" = "Installeer";
 "Gallery.InstallToNew" = "Installeer in nieuwe ruimte";
