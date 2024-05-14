@@ -46,7 +46,8 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
             document: setDocument,
             targetObjectId: setDocument.targetObjectId,
             configuration: .init(
-                isOpenedForPreview: false,
+                isOpenedForPreview: false, 
+                blockId: nil,
                 usecase: .editor
             ),
             output: output

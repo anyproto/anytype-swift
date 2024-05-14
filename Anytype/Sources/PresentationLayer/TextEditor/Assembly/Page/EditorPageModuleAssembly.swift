@@ -96,7 +96,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
-                isOpenedForPreview: data.isOpenedForPreview,
+                isOpenedForPreview: data.isOpenedForPreview, 
+                blockId: data.blockId,
                 usecase: data.usecase
             ),
             output: output

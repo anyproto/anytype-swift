@@ -4,6 +4,7 @@ import UIKit
 protocol EditorCollectionReloadable: AnyObject {
     func reconfigure(items: [EditorItem])
     func itemDidChangeFrame(item: EditorItem)
+    func scrollToItem(_ item: EditorItem)
     func scrollToTopBlock(blockId: String) // Change to editorItem
     
     func scrollToTextViewIfNotVisible(textView: UITextView)
