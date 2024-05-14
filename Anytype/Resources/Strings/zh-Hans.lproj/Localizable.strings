@@ -1033,8 +1033,6 @@
 "Server.LocalOnly" = "仅本地";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "即将支持画廊";
-"Gallery.Unavailable.Message" = "目前请使用桌面应用";
 "Gallery.Author" = "作者：@%@";
 "Gallery.Install" = "安装";
 "Gallery.InstallToNew" = "安装至新的空间";
