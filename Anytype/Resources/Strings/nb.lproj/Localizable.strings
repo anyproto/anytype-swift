@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Kun lokalt";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galleri vil bli støttet snart";
-"Gallery.Unavailable.Message" = "Vennligst bruk skrivebordsappen for nå";
 "Gallery.Author" = "Laget av @%@";
 "Gallery.Install" = "Installer";
 "Gallery.InstallToNew" = "Installer til nytt rom";
