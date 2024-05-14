@@ -29,7 +29,7 @@ extension AttributedString {
 
         for run in attrString.runs {
             if let background = run.backgroundHighlight, background == .sky {
-                attrString[run.range].backgroundColor = Color.VeryLight.sky
+                attrString[run.range].backgroundColor = Color.Light.sky
             }
         }
         
