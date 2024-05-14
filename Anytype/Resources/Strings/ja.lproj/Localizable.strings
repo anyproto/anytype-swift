@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Local-only";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "ギャラリーはまもなくサポートされます";
-"Gallery.Unavailable.Message" = "現時点ではデスクトップアプリをご利用ください";
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
