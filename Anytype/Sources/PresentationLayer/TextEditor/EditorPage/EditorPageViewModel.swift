@@ -35,7 +35,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
-    private var initialBlockId: String?
+    private var didScrollToInitialBlock = false
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
@@ -70,7 +70,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.configuration = configuration
         self.output = output
         self.actionHandler = actionHandler
-        self.initialBlockId = configuration.blockId
         
         setupLoadingState()
     }
@@ -141,13 +140,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     }
     
     private func initialScrollToBlockIfNeeded() {
-        guard 
-            let initialBlockId,
-            let index = modelsHolder.items.firstIndex(blockId: initialBlockId) else { return }
+        guard
+            !didScrollToInitialBlock,
+            let blockId = configuration.blockId,
+            let index = modelsHolder.items.firstIndex(blockId: blockId) else { return }
         
         let item = modelsHolder.items[index]
         viewInput?.scrollToItem(item)
-        self.initialBlockId = nil
+        didScrollToInitialBlock = true
     }
     
     private func difference(
