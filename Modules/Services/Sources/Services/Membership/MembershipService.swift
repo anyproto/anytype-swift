@@ -79,7 +79,7 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     public func getBillingId(name: String, tier: MembershipTier) async throws -> String {
-        try await ClientCommands.membershipGetPaymentUrl(.with {
+        try await ClientCommands.membershipRegisterPaymentRequest(.with {
             $0.nsName = name
             $0.nsNameType = .anyName
             $0.paymentMethod = .methodInappApple

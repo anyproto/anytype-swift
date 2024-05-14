@@ -24,6 +24,7 @@ struct DebugMenuView: View {
             DragIndicator()
             AnytypeText("Debug menu 👻", style: .title)
                 .foregroundColor(.Text.primary)
+                .padding()
             ScrollView {
                 VStack(spacing: 0) {
                     buttonsMenu

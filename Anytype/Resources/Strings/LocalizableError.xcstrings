@@ -814,7 +814,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "eo" : {
@@ -837,7 +837,7 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Ce nom n'est pas disponible"
           }
         },
@@ -885,7 +885,7 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "Questo nome non è disponibile"
           }
         },
@@ -1017,7 +1017,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "该名称不可用"
           }
         },
@@ -1176,6 +1176,12 @@
             "value" : "Name has invalid characters"
           }
         },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet har ugyldige tegn"
+          }
+        },
         "ne" : {
           "stringUnit" : {
             "state" : "new",
@@ -1186,12 +1192,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Name has invalid characters"
-          }
-        },
-        "no" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Navnet har ugyldige tegn"
           }
         },
         "or" : {
@@ -1282,6 +1282,17 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Name has invalid characters"
+          }
+        }
+      }
+    },
+    "Membership.IsNameValid.nameIsReserved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This name is already reserved"
           }
         }
       }
@@ -2461,6 +2472,12 @@
             "value" : "Name is too long"
           }
         },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet er for langt"
+          }
+        },
         "ne" : {
           "stringUnit" : {
             "state" : "new",
@@ -2471,12 +2488,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is too long"
-          }
-        },
-        "no" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Navnet er for langt"
           }
         },
         "or" : {
@@ -2718,6 +2729,12 @@
             "value" : "Name is too short"
           }
         },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet er for kort"
+          }
+        },
         "ne" : {
           "stringUnit" : {
             "state" : "new",
@@ -2728,12 +2745,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is too short"
-          }
-        },
-        "no" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Navnet er for kort"
           }
         },
         "or" : {
