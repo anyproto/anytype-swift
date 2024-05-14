@@ -1033,8 +1033,6 @@
 "Server.LocalOnly" = "僅限本機";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "即將支援畫廊";
-"Gallery.Unavailable.Message" = "當前請使用電腦版應用";
 "Gallery.Author" = "@%@ 製作";
 "Gallery.Install" = "安裝";
 "Gallery.InstallToNew" = "安裝到新的空間";

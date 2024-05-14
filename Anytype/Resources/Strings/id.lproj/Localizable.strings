@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Hanya Lokal";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galeri sedang dalam pengembangan";
-"Gallery.Unavailable.Message" = "Tolong gunakan aplikasi desktop untuk sekarang";
 "Gallery.Author" = "Dibuat oleh @%@";
 "Gallery.Install" = "Pasang";
 "Gallery.InstallToNew" = "Pasang ke ruang baru";

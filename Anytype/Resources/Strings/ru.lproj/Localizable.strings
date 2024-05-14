@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Только локально";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Вскоре будет поддерживаться галерея";
-"Gallery.Unavailable.Message" = "Пожалуйста, используйте приложение для компьютера";
 "Gallery.Author" = "Создано @%@";
 "Gallery.Install" = "Установить";
 "Gallery.InstallToNew" = "Установить в новое пространство";
