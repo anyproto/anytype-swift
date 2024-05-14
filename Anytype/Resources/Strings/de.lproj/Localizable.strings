@@ -1032,8 +1032,6 @@
 "Server.LocalOnly" = "Nur lokal";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galerie wird bald unterstützt";
-"Gallery.Unavailable.Message" = "Bitte verwende die Desktop-App vorläufig";
 "Gallery.Author" = "Erstellt von @%@";
 "Gallery.Install" = "Installieren";
 "Gallery.InstallToNew" = "In neuen Space installieren";
