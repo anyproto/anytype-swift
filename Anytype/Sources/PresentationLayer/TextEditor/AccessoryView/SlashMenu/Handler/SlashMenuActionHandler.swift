@@ -60,9 +60,7 @@ final class SlashMenuActionHandler {
                     )
                     .flatMap { objectId in
                         AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, spaceId: object.spaceId, route: .powertool)
-                        router.showEditorScreen(
-                            data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false))
-                        )
+                        router.showEditorScreen(data: editorScreenData(objectId: objectId, objectDetails: object))
                     }
             }
         case let .relations(action):
@@ -96,6 +94,15 @@ final class SlashMenuActionHandler {
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
         case let .background(color):
             actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id])
+        }
+    }
+    
+    private func editorScreenData(objectId: String, objectDetails: ObjectDetails) -> EditorScreenData {
+        let objectType = ObjectType(details: objectDetails)
+        if objectType.isListType {
+            return .set(EditorSetObject(objectId: objectId, spaceId: objectType.spaceId))
+        } else {
+            return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId, isOpenedForPreview: false))
         }
     }
     

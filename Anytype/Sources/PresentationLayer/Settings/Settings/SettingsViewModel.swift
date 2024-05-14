@@ -76,7 +76,7 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - Private
     
     private func setupSubscription() async {
-        membershipStatusStorage.status.assign(to: &$membership)
+        membershipStatusStorage.statusPublisher.assign(to: &$membership)
         
         await subscriptionService.startSubscription(
             subId: subAccountId,

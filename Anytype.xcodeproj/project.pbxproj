@@ -298,6 +298,7 @@
 		2A0F40382BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F40372BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift */; };
 		2A0F403C2BADAF16002D8D37 /* StopSharingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F403B2BADAF16002D8D37 /* StopSharingAlert.swift */; };
 		2A0F403E2BADAF20002D8D37 /* StopSharingAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F403D2BADAF20002D8D37 /* StopSharingAlertModel.swift */; };
+		2A0F6C402BF219BA0041176E /* SpacePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */; };
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
 		2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */; };
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
@@ -1149,6 +1150,7 @@
 		3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */; };
 		3D26AA7E2B9768F500D61479 /* EmailVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */; };
 		3D26AA802B976AE400D61479 /* EmailVerificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */; };
+		3D283A552BF23C3600BA90A9 /* MembershipDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D283A542BF23C3600BA90A9 /* MembershipDebugView.swift */; };
 		3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C5A27BA54030070A4C6 /* Divider.swift */; };
 		3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */; };
 		3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */; };
@@ -2048,6 +2050,7 @@
 		2A0F40372BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceLeaveAlertModel.swift; sourceTree = "<group>"; };
 		2A0F403B2BADAF16002D8D37 /* StopSharingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSharingAlert.swift; sourceTree = "<group>"; };
 		2A0F403D2BADAF20002D8D37 /* StopSharingAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSharingAlertModel.swift; sourceTree = "<group>"; };
+		2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacePermissions.swift; sourceTree = "<group>"; };
 		2A1331462B03681D00E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2A1331472B03682100E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationURLActionViewModel.swift; sourceTree = "<group>"; };
@@ -2918,6 +2921,7 @@
 		3D26AA7A2B97505300D61479 /* MembershipTierInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierInfoView.swift; sourceTree = "<group>"; };
 		3D26AA7D2B9768F500D61479 /* EmailVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationView.swift; sourceTree = "<group>"; };
 		3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVerificationViewModel.swift; sourceTree = "<group>"; };
+		3D283A542BF23C3600BA90A9 /* MembershipDebugView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipDebugView.swift; sourceTree = "<group>"; };
 		3D2D4C5A27BA54030070A4C6 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouterProtocol.swift; sourceTree = "<group>"; };
 		3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetConstants.swift; sourceTree = "<group>"; };
@@ -6654,6 +6658,7 @@
 		2ACB79822BA9C333003A2A56 /* ParticipantSpacesStorage */ = {
 			isa = PBXGroup;
 			children = (
+				2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */,
 				2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */,
 				2ACB79852BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift */,
 			);
@@ -8062,6 +8067,27 @@
 				3D26AA7F2B976AE400D61479 /* EmailVerificationViewModel.swift */,
 			);
 			path = EmailVerification;
+			sourceTree = "<group>";
+		};
+		3D283A522BF23BC900BA90A9 /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				1247BCAB27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift */,
+				2AE6E29229DDB62C00B5AAD3 /* GradientIconsExamples.swift */,
+				2A00A4E829E811FD00C5FCC3 /* ControlsExample.swift */,
+				1247BCA627FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift */,
+				2AEAA48629F6A3D6009ACA00 /* ColorsExample.swift */,
+				2A6574672A4456F6002F568C /* ObjectIconExample.swift */,
+			);
+			path = Examples;
+			sourceTree = "<group>";
+		};
+		3D283A532BF23C1F00BA90A9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D283A542BF23C3600BA90A9 /* MembershipDebugView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		3D29AFEF26A5D2640095BA18 /* Models */ = {
@@ -9904,15 +9930,11 @@
 		C91AFEEB270B4C9C005F9386 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
+				3D283A532BF23C1F00BA90A9 /* Views */,
+				3D283A522BF23BC900BA90A9 /* Examples */,
 				0A996BAD23EDBC09000FDC9C /* FeatureFlags */,
-				1247BCA627FF3827005F2DB4 /* FeedbackGeneratorExamplesView.swift */,
-				1247BCAB27FF3A0C005F2DB4 /* FeedbackGeneratorExample.swift */,
 				3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */,
 				2AA1652529D4711B0093DB12 /* DebugMenuViewModel.swift */,
-				2AE6E29229DDB62C00B5AAD3 /* GradientIconsExamples.swift */,
-				2A00A4E829E811FD00C5FCC3 /* ControlsExample.swift */,
-				2AEAA48629F6A3D6009ACA00 /* ColorsExample.swift */,
-				2A6574672A4456F6002F568C /* ObjectIconExample.swift */,
 			);
 			path = Debug;
 			sourceTree = "<group>";
@@ -11176,6 +11198,7 @@
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
 				3D547B852B988BDE000B030A /* MembershipTierSuccessView.swift in Sources */,
+				2A0F6C402BF219BA0041176E /* SpacePermissions.swift in Sources */,
 				2EA9D72B2B3093FE001CF0DE /* EventsBunch.swift in Sources */,
 				867580042A58306A0008566A /* TemplatePreview.swift in Sources */,
 				2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */,
@@ -11680,6 +11703,7 @@
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
 				2E7E50452B6D65DF003867A3 /* ObjectRelationListCoordinatorView.swift in Sources */,
 				2E1AA80C2BD95A2B0089B136 /* RelationFormatsData.swift in Sources */,
+				3D283A552BF23C3600BA90A9 /* MembershipDebugView.swift in Sources */,
 				2E8387BA291A51A000506766 /* SetCardDropData.swift in Sources */,
 				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
@@ -12540,7 +12564,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12585,7 +12609,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12742,7 +12766,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12809,7 +12833,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12841,7 +12865,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12874,7 +12898,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12908,7 +12932,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12942,7 +12966,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12976,7 +13000,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

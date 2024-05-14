@@ -73,6 +73,9 @@ struct SpaceSettingsView: View {
         .task {
             await model.startJoiningTask()
         }
+        .task {
+            await model.startParticipantTask()
+        }
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }

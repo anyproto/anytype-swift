@@ -20,7 +20,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     private var accountManager: AccountManagerProtocol
     
     init() {
-        membershipStatusStorage.status.assign(to: &$userMembership)
+        membershipStatusStorage.statusPublisher.assign(to: &$userMembership)
         loadTiers()
     }
     

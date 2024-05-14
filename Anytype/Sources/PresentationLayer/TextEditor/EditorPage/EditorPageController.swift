@@ -300,14 +300,13 @@ final class EditorPageController: UIViewController {
     }
 
     func bindViewModel() {
-        viewModel.blocksStateManager.editorEditingStatePublisher.sink { [weak self] state in
+        viewModel.blocksStateManager.editorEditingStatePublisher.receiveOnMain().sink { [weak self] state in
             self?.handleState(state: state)
         }.store(in: &cancellables)
 
-        viewModel.blocksStateManager.editorSelectedBlocks.sink { blockIds in
-            blockIds.forEach { [weak self] id in
-                self?.selectBlock(blockId: id)
-            }
+        viewModel.blocksStateManager.editorSelectedBlocks.receiveOnMain().sink { [weak self] blockIds in
+            guard let self else { return }
+            blockIds.forEach(selectBlock)
         }.store(in: &cancellables)
     }
 
