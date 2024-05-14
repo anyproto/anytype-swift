@@ -4,8 +4,8 @@ import AnytypeCore
 import Foundation
 
 final class BaseDocument: BaseDocumentProtocol {
-    var syncStatus: AnyPublisher<SyncStatus, Never> { $_syncStatus.eraseToAnyPublisher() }
-    @Published private var _syncStatus: SyncStatus = .unknown
+    
+    var syncStatus: SyncStatus = .unknown
     
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { $_children.eraseToAnyPublisher() }
     @Published private var _children = [BlockInformation]()
@@ -228,7 +228,7 @@ final class BaseDocument: BaseDocumentProtocol {
             case .unhandled(let blockIds):
                 blockIds.forEach { infoContainer.publishValue(for: $0) }
             case .syncStatus(let status):
-                _syncStatus = status
+                syncStatus = status
             case .details:
                 break // Sync will be send always
             }

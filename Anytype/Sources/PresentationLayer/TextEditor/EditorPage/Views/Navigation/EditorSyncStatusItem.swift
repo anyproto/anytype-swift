@@ -82,8 +82,8 @@ final class EditorSyncStatusItem: UIView {
         
         configuration?.image = statusData.image
         button.menu = UIMenu(title: "", children: [ UIAction(title: statusData.description) { _ in } ] )
-        
         button.configuration = configuration
+        isHidden = statusData.isHidden
     }
     
     private func updateState() {

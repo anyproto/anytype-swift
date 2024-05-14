@@ -64,7 +64,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
             bottomNavigationManager: bottomNavigationManager, 
-            syncStatusData: SyncStatusData(status: .unknown, networkId: networkId),
+            syncStatusData: SyncStatusData(status: .unknown, networkId: networkId, isHidden: true),
             keyboardListener: uiHelpersDI.keyboardListener,
             showHeader: showHeader
         )
