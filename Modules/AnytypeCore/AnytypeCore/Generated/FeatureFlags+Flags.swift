@@ -26,6 +26,10 @@ public extension FeatureFlags {
         value(for: .newGlobalSearch)
     }
 
+    static var scrollToBlockFromSearch: Bool {
+        value(for: .scrollToBlockFromSearch)
+    }
+
     static var setEmptyValuesSorting: Bool {
         value(for: .setEmptyValuesSorting)
     }
@@ -85,6 +89,7 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .membership,
         .newGlobalSearch,
+        .scrollToBlockFromSearch,
         .setEmptyValuesSorting,
         .rainbowViews,
         .showAlertOnAssert,

@@ -737,7 +737,8 @@ extension EditorSetViewModel {
             document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
             targetObjectId: "",
             configuration: .init(
-                isOpenedForPreview: false,
+                isOpenedForPreview: false, 
+                blockId: nil,
                 usecase: .editor
             ),
             output: nil
