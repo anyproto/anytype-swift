@@ -1127,6 +1127,7 @@ public struct Anytype_Rpc {
             case requestFailed // = 105
             case limitReached // = 106
             case notShareable // = 107
+            case differentNetwork // = 108
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -1145,6 +1146,7 @@ public struct Anytype_Rpc {
               case 105: self = .requestFailed
               case 106: self = .limitReached
               case 107: self = .notShareable
+              case 108: self = .differentNetwork
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -1161,6 +1163,7 @@ public struct Anytype_Rpc {
               case .requestFailed: return 105
               case .limitReached: return 106
               case .notShareable: return 107
+              case .differentNetwork: return 108
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -16227,6 +16230,8 @@ public struct Anytype_Rpc {
 
         public var objectTypeUniqueKey: String = String()
 
+        public var templateID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -26691,7 +26696,7 @@ public struct Anytype_Rpc {
     }
 
     ///*
-    /// Check if the requested name is valid for the requested tier
+    /// Check if the requested name is valid and vacant for the requested tier
     /// before requesting a payment link and paying
     public struct IsNameValid {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -26763,6 +26768,10 @@ public struct Anytype_Rpc {
             /// for some probable future use (if needed)
             case canNotReserve // = 11
             case canNotConnect // = 12
+
+            /// Same as if NameService.ResolveName returned that name is already
+            /// occupied by some user
+            case nameIsReserved // = 13
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26784,6 +26793,7 @@ public struct Anytype_Rpc {
               case 10: self = .cacheError
               case 11: self = .canNotReserve
               case 12: self = .canNotConnect
+              case 13: self = .nameIsReserved
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26803,6 +26813,7 @@ public struct Anytype_Rpc {
               case .cacheError: return 10
               case .canNotReserve: return 11
               case .canNotConnect: return 12
+              case .nameIsReserved: return 13
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -26824,7 +26835,7 @@ public struct Anytype_Rpc {
     /// Generate a unique id for payment request (for mobile clients)
     /// Generate a link to Stripe where user can pay for the membership (for desktop client)
     /// TODO: GO-3347 rename GetPaymentUrl to RegisterPaymentRequest
-    public struct GetPaymentUrl {
+    public struct RegisterPaymentRequest {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
@@ -26856,8 +26867,8 @@ public struct Anytype_Rpc {
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
 
-        public var error: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error {
-          get {return _error ?? Anytype_Rpc.Membership.GetPaymentUrl.Response.Error()}
+        public var error: Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error {
+          get {return _error ?? Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error()}
           set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
@@ -26879,7 +26890,7 @@ public struct Anytype_Rpc {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var code: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code = .null
+          public var code: Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code = .null
 
           public var description_p: String = String()
 
@@ -26948,7 +26959,7 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _error: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error? = nil
+        fileprivate var _error: Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error? = nil
       }
 
       public init() {}
@@ -27677,6 +27688,7 @@ public struct Anytype_Rpc {
             case notLoggedIn // = 3
             case paymentNodeError // = 4
             case cacheError // = 5
+            case invalidReceipt // = 6
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27691,6 +27703,7 @@ public struct Anytype_Rpc {
               case 3: self = .notLoggedIn
               case 4: self = .paymentNodeError
               case 5: self = .cacheError
+              case 6: self = .invalidReceipt
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27703,6 +27716,7 @@ public struct Anytype_Rpc {
               case .notLoggedIn: return 3
               case .paymentNodeError: return 4
               case .cacheError: return 5
+              case .invalidReceipt: return 6
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -28415,6 +28429,7 @@ extension Anytype_Rpc.Space.Join.Response.Error.Code: CaseIterable {
     .requestFailed,
     .limitReached,
     .notShareable,
+    .differentNetwork,
   ]
 }
 
@@ -30738,12 +30753,13 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: CaseIterable {
     .cacheError,
     .canNotReserve,
     .canNotConnect,
+    .nameIsReserved,
   ]
 }
 
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: CaseIterable {
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code] = [
+  public static let allCases: [Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -30858,6 +30874,7 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error.Code: Case
     .notLoggedIn,
     .paymentNodeError,
     .cacheError,
+    .invalidReceipt,
   ]
 }
 
@@ -32223,11 +32240,11 @@ extension Anytype_Rpc.Membership.IsNameValid.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.IsNameValid.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.GetPaymentUrl: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.GetPaymentUrl.Request: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: @unchecked Sendable {}
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.GetPortalLinkUrl: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.GetPortalLinkUrl.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response: @unchecked Sendable {}
@@ -33969,6 +33986,7 @@ extension Anytype_Rpc.Space.Join.Response.Error.Code: SwiftProtobuf._ProtoNamePr
     105: .same(proto: "REQUEST_FAILED"),
     106: .same(proto: "LIMIT_REACHED"),
     107: .same(proto: "NOT_SHAREABLE"),
+    108: .same(proto: "DIFFERENT_NETWORK"),
   ]
 }
 
@@ -55462,6 +55480,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
     1: .same(proto: "contextId"),
     2: .same(proto: "blockIds"),
     3: .same(proto: "objectTypeUniqueKey"),
+    4: .same(proto: "templateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -55473,6 +55492,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.objectTypeUniqueKey) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       default: break
       }
     }
@@ -55488,6 +55508,9 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
     if !self.objectTypeUniqueKey.isEmpty {
       try visitor.visitSingularStringField(value: self.objectTypeUniqueKey, fieldNumber: 3)
     }
+    if !self.templateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -55495,6 +55518,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request: SwiftProtobuf.Message,
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockIds != rhs.blockIds {return false}
     if lhs.objectTypeUniqueKey != rhs.objectTypeUniqueKey {return false}
+    if lhs.templateID != rhs.templateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -70971,11 +70995,12 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error.Code: SwiftProtobuf.
     10: .same(proto: "CACHE_ERROR"),
     11: .same(proto: "CAN_NOT_RESERVE"),
     12: .same(proto: "CAN_NOT_CONNECT"),
+    13: .same(proto: "NAME_IS_RESERVED"),
   ]
 }
 
-extension Anytype_Rpc.Membership.GetPaymentUrl: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".GetPaymentUrl"
+extension Anytype_Rpc.Membership.RegisterPaymentRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.protoMessageName + ".RegisterPaymentRequest"
   public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -70987,14 +71012,14 @@ extension Anytype_Rpc.Membership.GetPaymentUrl: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl, rhs: Anytype_Rpc.Membership.GetPaymentUrl) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPaymentUrl.protoMessageName + ".Request"
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.RegisterPaymentRequest.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "requestedTier"),
     2: .same(proto: "paymentMethod"),
@@ -71033,7 +71058,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Request, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Request) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Request, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Request) -> Bool {
     if lhs.requestedTier != rhs.requestedTier {return false}
     if lhs.paymentMethod != rhs.paymentMethod {return false}
     if lhs.nsName != rhs.nsName {return false}
@@ -71043,8 +71068,8 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Request: SwiftProtobuf.Message, S
   }
 }
 
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPaymentUrl.protoMessageName + ".Response"
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.RegisterPaymentRequest.protoMessageName + ".Response"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "paymentUrl"),
@@ -71082,7 +71107,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response: SwiftProtobuf.Message, 
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Response, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Response) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.paymentURL != rhs.paymentURL {return false}
     if lhs.billingID != rhs.billingID {return false}
@@ -71091,8 +71116,8 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response: SwiftProtobuf.Message, 
   }
 }
 
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Rpc.Membership.GetPaymentUrl.Response.protoMessageName + ".Error"
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Membership.RegisterPaymentRequest.Response.protoMessageName + ".Error"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "code"),
     2: .same(proto: "description"),
@@ -71121,7 +71146,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error, rhs: Anytype_Rpc.Membership.GetPaymentUrl.Response.Error) -> Bool {
+  public static func ==(lhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error, rhs: Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error) -> Bool {
     if lhs.code != rhs.code {return false}
     if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -71129,7 +71154,7 @@ extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: SwiftProtobuf.Mes
   }
 }
 
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
@@ -72129,6 +72154,7 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error.Code: Swif
     3: .same(proto: "NOT_LOGGED_IN"),
     4: .same(proto: "PAYMENT_NODE_ERROR"),
     5: .same(proto: "CACHE_ERROR"),
+    6: .same(proto: "INVALID_RECEIPT"),
   ]
 }
 

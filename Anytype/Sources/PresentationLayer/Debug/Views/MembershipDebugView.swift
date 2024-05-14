@@ -46,7 +46,7 @@ struct MembershipDebugView: View {
                     }
                     
                     return DebugTierData(title: tier.name, subtitle: "AppStore subscription:\n\(isPurchasedString)", image: tier.smallIcon)
-                case .external(let info):
+                case .external:
                     return DebugTierData(title: tier.name, subtitle: "Stripe payment", image: tier.smallIcon)
                 case .none:
                     return DebugTierData(title: tier.name, subtitle: "No payment", image: tier.smallIcon)
