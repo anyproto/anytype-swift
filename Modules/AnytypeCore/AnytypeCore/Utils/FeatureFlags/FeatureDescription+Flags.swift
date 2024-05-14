@@ -36,6 +36,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let scrollToBlockFromSearch = FeatureDescription(
+        title: "Scroll to block from Global search - IOS-2845",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
+        defaultValue: false
+    )
+    
     static let setEmptyValuesSorting = FeatureDescription(
         title: "Set empty values sorting - IOS-2810",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
