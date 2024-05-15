@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct SettingsView: View {
     
-    @StateObject var model: SettingsViewModel
+    @StateObject private var model: SettingsViewModel
     
     init(output: SettingsModuleOutput) {
         _model = StateObject(wrappedValue: SettingsViewModel(output: output))
