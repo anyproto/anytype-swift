@@ -10,6 +10,9 @@ struct SpaceSettingsCoordinatorView: View {
         SpaceSettingsView(output: model)
         .sheet(isPresented: $model.showRemoteStorage) {
             RemoteStorageView(output: model)
+                .sheet(isPresented: $model.showFiles) {
+                    WidgetObjectListFilesView()
+                }
         }
         .sheet(isPresented: $model.showPersonalization) {
             PersonalizationView(spaceId: model.accountSpaceId, output: model)
