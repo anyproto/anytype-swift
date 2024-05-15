@@ -10,7 +10,7 @@ struct SpacePlusRow: View {
             .frame(width: 96, height: 96)
             .foregroundColor(.Text.white)
             .background(.white.opacity(0.2))
-            .cornerRadius(2, style: .continuous)
+            .spaceIconCornerRadius()
             .onTapGesture {
                 onTap()
             }

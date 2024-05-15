@@ -38,12 +38,12 @@ struct SpaceRowView: View {
                     .if(model.isSelected) {
                         $0.padding(Constants.lineWidth / 2)
                             .overlay(
-                                RoundedRectangle(cornerRadius: 4)
+                                RoundedRectangle(cornerRadius: 9, style: .continuous)
                                     .stroke(Color.Text.white, lineWidth: Constants.lineWidth)
                         )
                     }
                     .frame(width: Self.width + additionalSize, height: Self.width + additionalSize)
-                    .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 2))
+                    .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 9, style: .continuous))
                     .contextMenu {
                         if let onDelete = model.onDelete {
                             Button(Loc.SpaceSettings.deleteButton, role: .destructive) {

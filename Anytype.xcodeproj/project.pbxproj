@@ -672,6 +672,7 @@
 		2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */; };
 		2ABAAE322BC9608500603DDA /* BlockText+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAAE312BC9608500603DDA /* BlockText+Style.swift */; };
 		2ABAF2C1293DED8C003C4730 /* CreateObjectModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABAF2C0293DED8C003C4730 /* CreateObjectModuleAssembly.swift */; };
+		2ABBAEC82BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEC72BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
 		2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */; };
@@ -2432,6 +2433,7 @@
 		2ABA0E06283BC420008369DC /* BlockObjectsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockObjectsSearchInteractor.swift; sourceTree = "<group>"; };
 		2ABAAE312BC9608500603DDA /* BlockText+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockText+Style.swift"; sourceTree = "<group>"; };
 		2ABAF2C0293DED8C003C4730 /* CreateObjectModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectModuleAssembly.swift; sourceTree = "<group>"; };
+		2ABBAEC72BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceIconCornerRadiusModifier.swift; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
 		2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardClearCacheAlertModel.swift; sourceTree = "<group>"; };
@@ -5705,9 +5707,9 @@
 		2A5025192BC028C400A141B8 /* Object */ = {
 			isa = PBXGroup;
 			children = (
+				2ABBAEC62BF4CF0900EBA8FA /* SpaceIconView */,
 				2A5025082BBFF2D400A141B8 /* ProfileIconView.swift */,
 				2A5025112BC01C6400A141B8 /* EmojiIconView.swift */,
-				2A5025132BC01E8400A141B8 /* SpaceIconView.swift */,
 				2A5025172BC026BC00A141B8 /* BookmarkIconView.swift */,
 				2A50251A2BC028EB00A141B8 /* TodoIconView.swift */,
 				2A50251C2BC0294D00A141B8 /* PlaceholderIconView.swift */,
@@ -6475,6 +6477,15 @@
 				2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */,
 			);
 			path = CodeLanguage;
+			sourceTree = "<group>";
+		};
+		2ABBAEC62BF4CF0900EBA8FA /* SpaceIconView */ = {
+			isa = PBXGroup;
+			children = (
+				2A5025132BC01E8400A141B8 /* SpaceIconView.swift */,
+				2ABBAEC72BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift */,
+			);
+			path = SpaceIconView;
 			sourceTree = "<group>";
 		};
 		2ABF214429B204E900E872D9 /* DashboardLogoutAlert */ = {
@@ -11841,6 +11852,7 @@
 				53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */,
 				2A2872312B4D8B8E007B3D59 /* GalleryInstallationPreviewView.swift in Sources */,
 				2ADA60EB2A681A7E0044164D /* IconViewUIKit.swift in Sources */,
+				2ABBAEC82BF4CF1F00EBA8FA /* SpaceIconCornerRadiusModifier.swift in Sources */,
 				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
 				2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */,
 				2E2D23E22BE8F11F005AC828 /* SetSortTypesListView.swift in Sources */,
