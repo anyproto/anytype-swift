@@ -44,16 +44,12 @@ final class UIKitAnytypeText: Hashable {
     func typingAttributes(for cursorPosition: Int) -> [NSAttributedString.Key : Any] {
         // setup typingAttributes
         let font: UIFont
+        let indexBeforeCursor = cursorPosition - 1
         
-        if cursorPosition == .zero {
-            font = anytypeFont.uiKitFont
+        if indexBeforeCursor >= 0, indexBeforeCursor < attrString.length {
+            font = (attrString.attribute(.font, at: indexBeforeCursor, effectiveRange: nil) as? UIFont) ?? anytypeFont.uiKitFont
         } else {
-            let indexBeforeCursor = cursorPosition - 1
-            if attrString.length > indexBeforeCursor {
-                font = (attrString.attribute(.font, at: indexBeforeCursor, effectiveRange: nil) as? UIFont) ?? anytypeFont.uiKitFont
-            } else {
-                font = anytypeFont.uiKitFont
-            }
+            font = anytypeFont.uiKitFont
         }
         
         return [
