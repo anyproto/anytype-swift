@@ -68,23 +68,12 @@ struct MembershipTierSelectionView: View {
                 MembershipOwnerInfoSheetView()
             case .pending:
                 MembershipPendingInfoSheetView(membership: model.userMembership)
-            case .unowned:
-                switch model.tierToDisplay.paymentType {
-                case .appStore(let info):
-                    if AppStore.canMakePayments {
-                        MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: info.product, onSuccessfulPurchase: model.onSuccessfulPurchase)
-                    } else {
-                        moreInfoButton(url: info.fallbackPaymentUrl)
-                    }
-                case .external(let info):
-                    moreInfoButton(url: info.paymentUrl)
-                case nil:
-                    Rectangle().hidden().onAppear {
-                        anytypeAssertionFailure(
-                            "No unowned view for empty payment info",
-                            info: ["Tier": String(reflecting: model.tierToDisplay)]
-                        )
-                    }
+            case .unowned(let availablitiy):
+                switch availablitiy {
+                case .appStore(let product):
+                    MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
+                case .external(let url):
+                    moreInfoButton(url: url)
                 }
             }
         }

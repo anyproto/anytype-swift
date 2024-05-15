@@ -16,6 +16,26 @@ struct MembershipOwnerInfoSheetView: View {
     @StateObject private var model = MembershipOwnerInfoSheetViewModel()
     
     var body: some View {
+        content
+            .onAppear {
+                model.updateState()
+            }
+            .onChange(of: model.membership) { _ in
+                model.updateState()
+            }
+        
+            .snackbar(toastBarData: $toastData)
+            .sheet(isPresented: $showEmailVerification) {
+                EmailVerificationView(email: $email) {
+                    showEmailVerification = false
+                    changeEmail = false
+                    justUpdatedEmail = true
+                    toastData = ToastBarData(text: Loc.emailSuccessfullyValidated, showSnackBar: true)
+                }
+            }
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(34)
             AnytypeText(Loc.yourCurrentStatus, style: .bodySemibold)
@@ -28,19 +48,9 @@ struct MembershipOwnerInfoSheetView: View {
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
         .cornerRadius(16, corners: .top)
-        
-        .sheet(isPresented: $showEmailVerification) {
-            EmailVerificationView(email: $email) {
-                showEmailVerification = false
-                changeEmail = false
-                justUpdatedEmail = true
-                toastData = ToastBarData(text: Loc.emailSuccessfullyValidated, showSnackBar: true)
-            }
-        }
-        .snackbar(toastBarData: $toastData)
     }
     
-    var info: some View {
+    private var info: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.validUntil, style: .relation2Regular)
                 .foregroundColor(.Text.primary)
@@ -64,7 +74,7 @@ struct MembershipOwnerInfoSheetView: View {
         .cornerRadius(12, style: .continuous)
     }
     
-    var paymentText: some View {
+    private var paymentText: some View {
         Group {
             if let paymentMethod = model.membership.localizablePaymentMethod {
                 Spacer.fixedHeight(23)
@@ -121,7 +131,7 @@ struct MembershipOwnerInfoSheetView: View {
     
     private var managePaymentButton: some View {
         Group {
-            if model.membership.paymentMethod == .methodInappApple {
+            if model.showMangeButton {
                 VStack(spacing: 0) {
                     Spacer.fixedHeight(20)
                     StandardButton(Loc.managePayment, style: .secondaryLarge) {
