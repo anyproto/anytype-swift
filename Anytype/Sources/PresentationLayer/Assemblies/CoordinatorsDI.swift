@@ -31,10 +31,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
         return ApplicationCoordinatorAssembly(coordinatorsDI: self, uiHelpersDI: uiHelpersDI)
     }
     
-    func settings() -> SettingsCoordinatorAssemblyProtocol {
-        return SettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
-    }
-    
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol {
         return SpaceSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
     }
@@ -60,10 +56,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
 
     func editorSetModule() -> EditorSetModuleAssemblyProtocol {
         EditorSetModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
-    }
-
-    func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol {
-        SpaceSwitchCoordinatorAssembly(modulesDI: modulesDI, coordinatorsDI: self)
     }
     
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol {

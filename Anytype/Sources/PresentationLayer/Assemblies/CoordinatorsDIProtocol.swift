@@ -4,13 +4,11 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func templates() -> TemplatesCoordinatorAssemblyProtocol
     func home() -> HomeCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
-    func settings() -> SettingsCoordinatorAssemblyProtocol
     func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
     func editor() -> EditorCoordinatorAssemblyProtocol
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
-    func spaceSwitch() -> SpaceSwitchCoordinatorAssemblyProtocol
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol
     

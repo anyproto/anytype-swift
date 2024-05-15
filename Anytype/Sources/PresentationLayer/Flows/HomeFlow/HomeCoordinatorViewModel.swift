@@ -33,7 +33,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var documentsProvider: DocumentsProviderProtocol
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
     private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
@@ -87,14 +86,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
         spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
-        self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
         self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
@@ -140,10 +137,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func homeWidgetsModule(info: AccountInfo) -> AnyView? {
         return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
-    }
-    
-    func createSpaceSwitchModule() -> AnyView {
-        return spaceSwitchCoordinatorAssembly.make()
     }
     
     func createSpaceSeetingsModule() -> AnyView {

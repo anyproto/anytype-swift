@@ -11,6 +11,7 @@ extension View {
     func safariSheet(url: Binding<URL?>, preferredColorScheme: UIUserInterfaceStyle? = nil) -> some View {
         self.sheet(item: url) {
             SafariWebView(url: $0, preferredColorScheme: preferredColorScheme)
+                .ignoresSafeArea()
         }
     }
 }

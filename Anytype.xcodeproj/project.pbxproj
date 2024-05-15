@@ -493,7 +493,6 @@
 		2A6693812A71057D007747DD /* ObjectIconImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693802A71057D007747DD /* ObjectIconImageModel.swift */; };
 		2A6693852A71168B007747DD /* Kingfisher+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6693842A71168B007747DD /* Kingfisher+Async.swift */; };
 		2A673C0B29B0B26D00E3D672 /* SettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0A29B0B26D00E3D672 /* SettingsCoordinatorViewModel.swift */; };
-		2A673C0F29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */; };
 		2A673C1129B0BC3E00E3D672 /* SettingsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */; };
 		2A673C1729B0D7B700E3D672 /* SettingsAccountModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */; };
 		2A673C1929B0D7CD00E3D672 /* SettingsAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */; };
@@ -644,7 +643,6 @@
 		2AA8E8242AD852E600950427 /* SubscriptionStorageState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA8E8232AD852E600950427 /* SubscriptionStorageState.swift */; };
 		2AAA09042AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */; };
 		2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */; };
-		2AAA09062AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */; };
 		2AAA09AD2AEBF2D200A446B8 /* BlockContentType+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
 		2AAEAB572BD7F3FC00E88767 /* BlockObjectSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */; };
@@ -679,6 +677,7 @@
 		2ABBAED72BF4EE6300EBA8FA /* WidgetObjectListSetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAED62BF4EE6300EBA8FA /* WidgetObjectListSetsView.swift */; };
 		2ABBAEDA2BF4EE8E00EBA8FA /* WidgetObjectListCollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAED92BF4EE8E00EBA8FA /* WidgetObjectListCollectionsView.swift */; };
 		2ABBAEDD2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEDC2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift */; };
+		2ABBAEDF2BF500DF00EBA8FA /* View+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
 		2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */; };
@@ -2260,7 +2259,6 @@
 		2A6693802A71057D007747DD /* ObjectIconImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectIconImageModel.swift; sourceTree = "<group>"; };
 		2A6693842A71168B007747DD /* Kingfisher+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Kingfisher+Async.swift"; sourceTree = "<group>"; };
 		2A673C0A29B0B26D00E3D672 /* SettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A673C1029B0BC3E00E3D672 /* SettingsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModuleOutput.swift; sourceTree = "<group>"; };
 		2A673C1629B0D7B700E3D672 /* SettingsAccountModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountModuleOutput.swift; sourceTree = "<group>"; };
 		2A673C1829B0D7CD00E3D672 /* SettingsAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountViewModel.swift; sourceTree = "<group>"; };
@@ -2398,7 +2396,6 @@
 		2AA8E8232AD852E600950427 /* SubscriptionStorageState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageState.swift; sourceTree = "<group>"; };
 		2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorView.swift; sourceTree = "<group>"; };
-		2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceSwitchCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AAA09AC2AEBF2D200A446B8 /* BlockContentType+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockContentType+Analytics.swift"; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
 		2AAEAB562BD7F3FC00E88767 /* BlockObjectSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockObjectSearchView.swift; sourceTree = "<group>"; };
@@ -2445,6 +2442,7 @@
 		2ABBAED62BF4EE6300EBA8FA /* WidgetObjectListSetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListSetsView.swift; sourceTree = "<group>"; };
 		2ABBAED92BF4EE8E00EBA8FA /* WidgetObjectListCollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListCollectionsView.swift; sourceTree = "<group>"; };
 		2ABBAEDC2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFilesView.swift; sourceTree = "<group>"; };
+		2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+URL.swift"; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
 		2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardClearCacheAlertModel.swift; sourceTree = "<group>"; };
@@ -5921,7 +5919,6 @@
 			isa = PBXGroup;
 			children = (
 				2A673C0A29B0B26D00E3D672 /* SettingsCoordinatorViewModel.swift */,
-				2A673C0E29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift */,
 				2AAEAB592BD8019200E88767 /* SettingsCoordinatorView.swift */,
 			);
 			path = Coordinator;
@@ -6343,7 +6340,6 @@
 		2AAA08FE2AEAB6DC00A446B8 /* SpaceSwitchCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				2AAA09032AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift */,
 				2AAA09022AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift */,
 				2AAA09012AEAB71900A446B8 /* SpaceSwitchCoordinatorViewModel.swift */,
 			);
@@ -8517,6 +8513,7 @@
 				1256840B27E1D904003A8251 /* Configurations */,
 				1247BC8327FE0933005F2DB4 /* TransparencyEffect */,
 				3D30426D2BD148FA0098F80F /* AnytypeIndexView.swift */,
+				2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -10824,6 +10821,7 @@
 				8624C8612A6E577E0065CBC0 /* EditorPageViewModelConfiguration.swift in Sources */,
 				3DDC9F262B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift in Sources */,
 				2A8A2DCA2AB9956000105549 /* AppAction.swift in Sources */,
+				2ABBAEDF2BF500DF00EBA8FA /* View+URL.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
 				2E1AA8082BD92EF40089B136 /* NewRelationCoordinatorView.swift in Sources */,
 				1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */,
@@ -11782,7 +11780,6 @@
 				539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */,
 				2E2D256328880C8D00E3DFD1 /* SetFiltersSelectionHeaderView.swift in Sources */,
 				3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */,
-				2AAA09062AEAB71900A446B8 /* SpaceSwitchCoordinatorAssembly.swift in Sources */,
 				120E817F26A026F5006FE84E /* ObjectSettingRow.swift in Sources */,
 				129C54CB27FC694A00C390C7 /* NewRelationSectionView.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
@@ -11996,7 +11993,6 @@
 				3D24913127BD271900821595 /* SubscriptionToggler.swift in Sources */,
 				3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */,
 				867519E22A669146001C2346 /* TemplateEditingViewController.swift in Sources */,
-				2A673C0F29B0B39300E3D672 /* SettingsCoordinatorAssembly.swift in Sources */,
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				2A2B33292A7B9C5E004BD906 /* SpaceSwitchView.swift in Sources */,
 				2A50251D2BC0294D00A141B8 /* PlaceholderIconView.swift in Sources */,

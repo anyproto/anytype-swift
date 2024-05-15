@@ -61,7 +61,7 @@ struct HomeCoordinatorView: View {
             CreateWidgetCoordinatorView(data: $0)
         }
         .sheet(isPresented: $model.showSpaceSwitch) {
-            model.createSpaceSwitchModule()
+            SpaceSwitchCoordinatorView()
         }
         .sheet(isPresented: $model.showSpaceSettings) {
             model.createSpaceSeetingsModule()
