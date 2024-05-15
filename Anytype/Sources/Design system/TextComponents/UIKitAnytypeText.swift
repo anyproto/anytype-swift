@@ -48,10 +48,9 @@ final class UIKitAnytypeText: Hashable {
         if cursorPosition == .zero {
             font = anytypeFont.uiKitFont
         } else {
-            let characterBeforeCursor = cursorPosition - 1
-            
-            if attrString.isRangeValid(.init(location: characterBeforeCursor, length: 0)) {
-                font = (attrString.attribute(.font, at: characterBeforeCursor, effectiveRange: nil) as? UIFont) ?? anytypeFont.uiKitFont
+            let indexBeforeCursor = cursorPosition - 1
+            if attrString.length > indexBeforeCursor {
+                font = (attrString.attribute(.font, at: indexBeforeCursor, effectiveRange: nil) as? UIFont) ?? anytypeFont.uiKitFont
             } else {
                 font = anytypeFont.uiKitFont
             }
