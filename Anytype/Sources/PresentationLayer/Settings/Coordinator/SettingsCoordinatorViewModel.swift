@@ -7,9 +7,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
                                     SettingsAccountModuleOutput,
                                     AboutModuleOutput {
     
-    private let navigationContext: NavigationContextProtocol
-    private let urlOpener: URLOpenerProtocol
-    
     @Injected(\.documentService)
     private var documentService: OpenedDocumentsProviderProtocol
     @Injected(\.activeWorkspaceStorage)
@@ -21,25 +18,20 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     @Published var showAppearance = false
     @Published var showLogoutAlert = false
     @Published var showSettingsAccount = false
-    @Published var showKeychainPhrase = false
+    @Published var showKeychainPhraseForLogout = false
     @Published var showDeleteAccountAlert = false
-    
-    init(
-        navigationContext: NavigationContextProtocol,
-        urlOpener: URLOpenerProtocol
-    ) {
-        self.navigationContext = navigationContext
-        self.urlOpener = urlOpener
-    }
-    
-    func startFlow() {
-        navigationContext.present(SettingsView(output: self))
-    }
+    @Published var showAbout = false
+    @Published var showDebugMenuForAbout = false
+    @Published var showDebugMenu = false
+    @Published var showSpaceManager = false
+    @Published var showMembership = false
+    @Published var showKeychainPhraseForSettings = false
+    @Published var objectIconPickerData: ObjectIconPickerData?
     
     // MARK: - SettingsModuleOutput
     
     func onDebugMenuSelected() {
-        navigationContext.present(DebugMenuView())
+        showDebugMenu = true
     }
     
     func onAppearanceSelected() {
@@ -51,7 +43,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onAboutSelected() {
-        navigationContext.present(AboutView(output: self))
+        showAbout = true
     }
     
     func onAccountDataSelected() {
@@ -60,20 +52,19 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     func onChangeIconSelected(objectId: String) {
         let document = documentService.document(objectId: objectId, forPreview: true)
-        let module = ObjectIconPicker(data: ObjectIconPickerData(document: document))
-        navigationContext.present(module)
+        objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
     func onSpacesSelected() {
-        navigationContext.present(SpacesManagerView())
+        showSpaceManager = true
     }
     
     func onMembershipSelected() {
-        navigationContext.present(MembershipCoordinator())
+        showMembership = true
     }
     
     func onBackupTap() {
-        showKeychainPhrase = true
+        showKeychainPhraseForLogout = true
     }
     
     func onLogoutConfirmTap() {
@@ -83,7 +74,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     // MARK: - SettingsAccountModuleOutput
     
     func onRecoveryPhraseSelected() {
-        navigationContext.present(KeychainPhraseView(context: .settings))
+        showKeychainPhraseForSettings = true
     }
     
     func onLogoutSelected() {
@@ -96,7 +87,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     // MARK: - AboutModuleOutput
     
-    func onLinkOpen(url: URL) {
-        urlOpener.openUrl(url, presentationStyle: .pageSheet)
+    func onDebugMenuForAboutSelected() {
+        showDebugMenuForAbout = true
     }
 }

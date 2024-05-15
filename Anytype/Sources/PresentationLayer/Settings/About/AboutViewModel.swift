@@ -23,6 +23,8 @@ final class AboutViewModel: ObservableObject {
     
     @Published var info: String = ""
     @Published var snackBarData = ToastBarData.empty
+    @Published var safariUrl: URL?
+    @Published var openUrl: URL?
     
     init(output: AboutModuleOutput?) {
         self.output = output
@@ -55,8 +57,7 @@ final class AboutViewModel: ObservableObject {
             subject: Loc.About.Mail.subject(accountManager.account.id),
             body: Loc.About.Mail.body(fullInfo())
         )
-        guard let mailLinkString = mailLink.string else { return }
-        handleUrl(string: mailLinkString)
+        openUrl = mailLink.url
     }
     
     func onTermOfUseTap() {
@@ -77,7 +78,7 @@ final class AboutViewModel: ObservableObject {
     
     func onDebugMenuTap() {
         AudioServicesPlaySystemSound(1109)
-        output?.onDebugMenuSelected()
+        output?.onDebugMenuForAboutSelected()
     }
     
     // MARK: - Private
@@ -98,8 +99,7 @@ final class AboutViewModel: ObservableObject {
     }
     
     private func handleUrl(string: String) {
-        guard let url = URL(string: string) else { return }
-        output?.onLinkOpen(url: url)
+        safariUrl = URL(string: string)
     }
     
     private func fullInfo() -> String {
