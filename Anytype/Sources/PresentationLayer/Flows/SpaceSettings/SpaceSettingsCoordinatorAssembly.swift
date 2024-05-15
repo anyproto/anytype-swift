@@ -29,7 +29,6 @@ final class SpaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyPr
         return SpaceSettingsCoordinatorView(
             model: SpaceSettingsCoordinatorViewModel(
                 navigationContext: self.uiHelpersDI.commonNavigationContext(),
-                widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
                 urlOpener: self.uiHelpersDI.urlOpener()
             )
         ).eraseToAnyView()

@@ -7,10 +7,10 @@ import AnytypeCore
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
     private let navigationContext: NavigationContextProtocol
-    private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: ObjectTypeProviderProtocol
     @Injected(\.documentService)
@@ -21,23 +21,22 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showWallpaperPicker = false
     @Published var showSpaceShare = false
     @Published var showSpaceMembers = false
+    @Published var showFiles = false
     @Published var dismiss = false
     @Published var showIconPickerSpaceViewId: StringIdentifiable?
     
-    var accountSpaceId: String
+    lazy var accountSpaceId: String = {
+        activeWorkspaceStorage.workspaceInfo.accountSpaceId
+    }()
     
     private var subscriptions = [AnyCancellable]()
     
     init(
         navigationContext: NavigationContextProtocol,
-        widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
         urlOpener: URLOpenerProtocol
     ) {
         self.navigationContext = navigationContext
-        self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
         self.urlOpener = urlOpener
-        self.activeWorkspaceStorage = Container.shared.activeWorkspaceStorage.resolve()
-        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
     }
     
@@ -66,8 +65,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     // MARK: - RemoteStorageModuleOutput
     
     func onManageFilesSelected() {
-        let module = widgetObjectListModuleAssembly.makeFiles()
-        navigationContext.present(module)
+        showFiles = true
     }
     
     func onLinkOpen(url: URL) {

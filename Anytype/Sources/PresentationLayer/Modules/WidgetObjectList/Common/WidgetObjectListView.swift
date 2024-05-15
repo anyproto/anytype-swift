@@ -1,5 +1,6 @@
 import SwiftUI
 
+// TODO: Make common module without model
 struct WidgetObjectListView: View {
     
     @StateObject var model: WidgetObjectListViewModel

@@ -22,8 +22,4 @@ final class ModulesDI: ModulesDIProtocol {
             widgetsSubmoduleDI:  widgetsSubmoduleDI
         )
     }
-    
-    func widgetObjectList() -> WidgetObjectListModuleAssemblyProtocol {
-        return WidgetObjectListModuleAssembly(uiHelpersDI: uiHelpersDI)
-    }
 }

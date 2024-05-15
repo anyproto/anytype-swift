@@ -23,7 +23,6 @@ final class EditorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol {
         return EditorCoordinatorView(
             model: EditorCoordinatorViewModel(
                 data: data,
-                widgetObjectListModuleAssembly: self.modulesDI.widgetObjectList(),
                 editorPageCoordinatorAssembly: self.coordinatorsID.editorPage(),
                 editorSetCoordinatorAssembly: self.coordinatorsID.editorSet()
             )
