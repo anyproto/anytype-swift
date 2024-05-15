@@ -78,7 +78,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
             setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
-            urlOpener: uiHelpersDI.urlOpener(),
             toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             output: output
         )
@@ -187,7 +186,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             focusSubjectHolder: focusSubjectHolder,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            accessoryStateManager: accessoryState.0
+            accessoryStateManager: accessoryState.0,
+            moduleOutput: output
         )
         
         let slashMenuActionHandler = SlashMenuActionHandler(

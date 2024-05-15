@@ -13,6 +13,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showTextIconPicker(data: TextIconPickerData)
     func showBlockObjectSearch(data: BlockObjectSearchData)
     func didUndoRedo()
+    func openUrl(_ url: URL)
     func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     // TODO: Refactoring templates. Delete it
     func setModuleInput(input: EditorPageModuleInput, objectId: String)

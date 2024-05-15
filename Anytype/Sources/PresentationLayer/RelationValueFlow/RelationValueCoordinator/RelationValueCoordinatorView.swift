@@ -15,7 +15,7 @@ struct RelationValueCoordinatorView: View {
                 $0.mediumPresentationDetents()
             }
             .snackbar(toastBarData: $model.toastBarData)
-            .safariSheet(url: $model.safariUrl)
+            .openUrl(url: $model.safariUrl)
     }
     
     private var content: some View {

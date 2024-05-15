@@ -16,7 +16,6 @@ protocol EditorRouterProtocol:
     func showEditorScreen(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
-    func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
     func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)
     

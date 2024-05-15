@@ -18,6 +18,7 @@ final class SimpleTableDependenciesBuilder {
     private let focusSubjectHolder: FocusSubjectsHolder
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let accessoryStateManager: AccessoryViewStateManager
+    private weak var moduleOutput: EditorPageModuleOutput?
     
     @Injected(\.blockTableService)
     private var tableService: BlockTableServiceProtocol
@@ -29,7 +30,7 @@ final class SimpleTableDependenciesBuilder {
     private var typesService: TypesServiceProtocol
     
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
-
+    
     init(
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
@@ -38,7 +39,8 @@ final class SimpleTableDependenciesBuilder {
         focusSubjectHolder: FocusSubjectsHolder,
         mainEditorSelectionManager: SimpleTableSelectionHandler?,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        accessoryStateManager: AccessoryViewStateManager
+        accessoryStateManager: AccessoryViewStateManager,
+        moduleOutput: EditorPageModuleOutput?
     ) {
         self.document = document
         self.router = router
@@ -48,6 +50,7 @@ final class SimpleTableDependenciesBuilder {
         self.mainEditorSelectionManager = mainEditorSelectionManager
         self.responderScrollViewHelper = responderScrollViewHelper
         self.accessoryStateManager = accessoryStateManager
+        self.moduleOutput = moduleOutput
         
         self.cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
     }
@@ -84,7 +87,8 @@ final class SimpleTableDependenciesBuilder {
             stateManager: stateManager,
             accessoryStateManager: accessoryStateManager,
             blockMarkupChanger: BlockMarkupChanger(),
-            blockTableService: tableService
+            blockTableService: tableService,
+            moduleOutput: moduleOutput
         )
 
         let viewModel = SimpleTableViewModel(

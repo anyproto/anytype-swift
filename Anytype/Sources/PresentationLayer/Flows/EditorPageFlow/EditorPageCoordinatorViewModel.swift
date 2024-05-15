@@ -25,6 +25,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var undoRedoObjectId: StringIdentifiable?
     @Published var relationsSearchData: RelationsSearchData?
+    @Published var openUrlData: URL?
     
     init(
         data: EditorPageObject,
@@ -103,6 +104,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
             target: .object, 
             onRelationSelect: onSelect
         )
+    }
+    
+    func openUrl(_ url: URL) {
+        openUrlData = url
     }
     
     // MARK: - Private

@@ -12,7 +12,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let document: BaseDocumentProtocol
     private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let urlOpener: URLOpenerProtocol
     private let toastPresenter: ToastPresenterProtocol
     private weak var output: EditorPageModuleOutput?
     
@@ -25,7 +24,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         document: BaseDocumentProtocol,
         templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        urlOpener: URLOpenerProtocol,
         toastPresenter: ToastPresenterProtocol,
         output: EditorPageModuleOutput?
     ) {
@@ -35,7 +33,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.templatesCoordinator = templatesCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.urlOpener = urlOpener
         self.toastPresenter = toastPresenter
         self.output = output
         
@@ -91,10 +88,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             popoverPresentationController.permittedArrowDirections = [.up, .down]
             navigationContext.present(hostViewController)
         }
-    }
-    
-    func openUrl(_ url: URL) {
-        urlOpener.openUrl(url)
     }
     
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ()) {
