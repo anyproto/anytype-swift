@@ -3,16 +3,6 @@ import Services
 
 
 struct MembershipOwnerInfoSheetView: View {    
-    @State private var showManageSubscriptions = false
-    
-    @State private var email: String = ""
-    @State private var showEmailVerification = false
-    @State private var changeEmail = false
-    @State private var toastData: ToastBarData = .empty
-    
-    // remove after middleware start to send update membership event
-    @State private var justUpdatedEmail = false
-    
     @StateObject private var model = MembershipOwnerInfoSheetViewModel()
     
     var body: some View {
@@ -24,13 +14,10 @@ struct MembershipOwnerInfoSheetView: View {
                 model.updateState()
             }
         
-            .snackbar(toastBarData: $toastData)
-            .sheet(isPresented: $showEmailVerification) {
-                EmailVerificationView(email: $email) {
-                    showEmailVerification = false
-                    changeEmail = false
-                    justUpdatedEmail = true
-                    toastData = ToastBarData(text: Loc.emailSuccessfullyValidated, showSnackBar: true)
+            .snackbar(toastBarData: $model.toastData)
+            .sheet(isPresented: $model.showEmailVerification) {
+                EmailVerificationView(email: $model.email) {
+                    model.onSuccessfullEmailVerification()
                 }
             }
     }
@@ -100,19 +87,15 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var alreadyHaveEmail: Bool {
-        model.membership.email.isNotEmpty || justUpdatedEmail
-    }
-    
     private var explorerActions: some View {
         Group {
-            if alreadyHaveEmail && !changeEmail {
+            if model.alreadyHaveEmail && !model.changeEmail {
                 VStack(spacing: 0) {
                     Spacer.fixedHeight(20)
                     StandardButton(Loc.changeEmail, style: .secondaryLarge) {
                         withAnimation {
                             UISelectionFeedbackGenerator().selectionChanged()
-                            changeEmail = true
+                            model.changeEmail = true
                         }
                     }
                 }
@@ -121,8 +104,6 @@ struct MembershipOwnerInfoSheetView: View {
                     Spacer.fixedHeight(40)
                     MembershipEmailActionView { email in
                         try await model.getVerificationEmail(email: email)
-                        self.email = email
-                        showEmailVerification = true
                     }
                 }
             }
@@ -136,10 +117,10 @@ struct MembershipOwnerInfoSheetView: View {
                     Spacer.fixedHeight(20)
                     StandardButton(Loc.managePayment, style: .secondaryLarge) {
                         AnytypeAnalytics.instance().logClickMembership(type: .managePayment)
-                        showManageSubscriptions = true
+                        model.showManageSubscriptions = true
                     }
                 }
-                .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
+                .manageSubscriptionsSheet(isPresented: $model.showManageSubscriptions)
             }
         }
     }
