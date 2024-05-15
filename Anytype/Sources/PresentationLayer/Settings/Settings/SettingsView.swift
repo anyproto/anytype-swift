@@ -3,10 +3,10 @@ import AnytypeCore
 
 struct SettingsView: View {
     
-    @ObservedObject var model: SettingsViewModel
+    @StateObject var model: SettingsViewModel
     
     init(output: SettingsModuleOutput) {
-        _model = ObservedObject(initialValue: SettingsViewModel(output: output))
+        _model = StateObject(wrappedValue: SettingsViewModel(output: output))
     }
     
     var body: some View {
