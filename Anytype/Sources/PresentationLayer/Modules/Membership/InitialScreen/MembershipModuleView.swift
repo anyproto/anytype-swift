@@ -71,7 +71,7 @@ struct MembershipModuleView: View {
             switch membership.tier?.type {
             case .explorer, nil:
                 MembershipBannersView()
-            case .builder, .coCreator, .custom:
+            case .builder, .coCreator, .custom, .anyTeam:
                 EmptyView()
             }
         }

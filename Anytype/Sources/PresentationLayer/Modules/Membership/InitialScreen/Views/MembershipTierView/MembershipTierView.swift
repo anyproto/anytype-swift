@@ -85,7 +85,7 @@ struct MembershipTierView: View {
             case .explorer:
                 return AnytypeText(Loc.foreverFree, style: .caption1Regular)
                     .foregroundColor(.Text.primary)
-            case .builder, .coCreator, .custom:
+            case .builder, .coCreator, .custom, .anyTeam:
                 return AnytypeText(Loc.validUntilDate(model.userMembership.formattedDateEnds), style: .caption1Regular)
                     .foregroundColor(.Text.primary)
             }

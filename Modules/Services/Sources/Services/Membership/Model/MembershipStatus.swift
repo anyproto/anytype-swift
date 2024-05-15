@@ -46,6 +46,7 @@ extension MembershipStatus: CustomDebugStringConvertible {
     public var debugDescription: String {
         """
 Tier: \(tier?.name ?? "None")
+TierId: \(tier?.type.id ?? 0)
 Status: \(status)
 PaymentMethod: \(paymentMethod)
 AnyName: \(anyName.handle)

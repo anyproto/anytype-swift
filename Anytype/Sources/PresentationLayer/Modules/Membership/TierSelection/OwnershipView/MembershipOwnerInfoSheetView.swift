@@ -51,6 +51,13 @@ struct MembershipOwnerInfoSheetView: View {
                 AnytypeText(model.membership.formattedDateEnds, style: .title)
                     .foregroundColor(.Text.primary)
                 paymentText
+            case .anyTeam:
+                AnytypeText(model.membership.formattedDateEnds, style: .title)
+                    .foregroundColor(.Text.primary)
+                Spacer.fixedHeight(23)
+                AnytypeText(Loc.paidBy("your faith and love"), style: .relation2Regular)
+                    .foregroundColor(.Text.secondary)
+                Spacer.fixedHeight(15)
             case .none:
                 EmptyView()
             }
@@ -79,7 +86,7 @@ struct MembershipOwnerInfoSheetView: View {
             switch model.membership.tier?.type {
             case .explorer:
                 explorerActions
-            case .builder, .coCreator, .custom:
+            case .builder, .coCreator, .custom, .anyTeam:
                 managePaymentButton
             case nil:
                 EmptyView()
