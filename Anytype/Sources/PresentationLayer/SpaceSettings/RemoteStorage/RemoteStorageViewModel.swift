@@ -38,6 +38,7 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
     @Published var segmentInfo = RemoteStorageSegmentInfo()
+    @Published var openUrl: URL?
     
     init(output: RemoteStorageModuleOutput?) {
         self.output = output
@@ -70,8 +71,7 @@ final class RemoteStorageViewModel: ObservableObject {
                 subject: Loc.FileStorage.Space.Mail.subject(accountManager.account.id),
                 body: Loc.FileStorage.Space.Mail.body(limit, accountManager.account.id, profileDocument.details?.name ?? "")
             )
-            guard let mailLinkUrl = mailLink.url else { return }
-            output?.onLinkOpen(url: mailLinkUrl)
+            openUrl = mailLink.url
         }
     }
     

@@ -46,5 +46,6 @@ struct RemoteStorageView: View {
         .onAppear {
             model.onAppear()
         }
+        .openUrl(url: $model.openUrl)
     }
 }

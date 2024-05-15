@@ -33,7 +33,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var documentsProvider: DocumentsProviderProtocol
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
@@ -86,13 +85,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
         setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
-        self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
@@ -139,10 +136,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
     }
     
-    func createSpaceSeetingsModule() -> AnyView {
-        return spaceSettingsCoordinatorAssembly.make()
-    }
-
     func editorModule(data: EditorScreenData) -> AnyView {
         return editorCoordinatorAssembly.make(data: data)
     }

@@ -4,7 +4,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func templates() -> TemplatesCoordinatorAssemblyProtocol
     func home() -> HomeCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
-    func spaceSettings() -> SpaceSettingsCoordinatorAssemblyProtocol
     func editor() -> EditorCoordinatorAssemblyProtocol
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol

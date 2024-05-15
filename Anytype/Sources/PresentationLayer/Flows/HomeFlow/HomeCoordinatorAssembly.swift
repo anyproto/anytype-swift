@@ -32,7 +32,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
     private func makeModel() -> HomeCoordinatorViewModel {
         HomeCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
-            spaceSettingsCoordinatorAssembly: coordinatorsID.spaceSettings(),
             editorCoordinatorAssembly: coordinatorsID.editor(),
             setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
             sharingTipCoordinator: coordinatorsID.sharingTip()
