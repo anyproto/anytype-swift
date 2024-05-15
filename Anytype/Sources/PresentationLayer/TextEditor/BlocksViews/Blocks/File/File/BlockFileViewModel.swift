@@ -9,28 +9,41 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     
     let informationProvider: BlockModelInfomationProvider
     let handler: BlockActionHandlerProtocol
+    let documentId: String
     let showFilePicker: (String) -> ()
     let onFileOpen: (FilePreviewContext) -> ()
+    
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    
+    private var document: BaseDocumentProtocol?
     
     init(
         informationProvider: BlockModelInfomationProvider,
         handler: BlockActionHandlerProtocol,
+        documentId: String,
         showFilePicker: @escaping (String) -> (),
         onFileOpen: @escaping (FilePreviewContext) -> ()
     ) {
         self.informationProvider = informationProvider
         self.handler = handler
+        self.documentId = documentId
         self.showFilePicker = showFilePicker
         self.onFileOpen = onFileOpen
+        self.document = documentService.document(objectId: documentId)
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         guard case let .file(fileData) = info.content else { return }
         switch fileData.state {
         case .done:
+            guard let fileDetails = document?.targetFileDetails(targetObjectId: fileData.metadata.targetObjectId) else {
+                anytypeAssertionFailure("File details not found")
+                return
+            }
             onFileOpen(
-                .init(
-                    file: FilePreviewMedia(file: fileData, blockId: info.id),
+                FilePreviewContext(
+                    file: FilePreviewMedia(file: fileData, blockId: info.id, fileDetails: fileDetails),
                     sourceView: nil,
                     previewImage: nil,
                     onDidEditFile: { [weak self] url in
@@ -61,7 +74,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .done:
-            return BlockFileConfiguration(data: fileData.mediaData).cellBlockConfiguration(
+            return BlockFileConfiguration(data: fileData.mediaData(documentId: documentId)).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),
                 styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
             )

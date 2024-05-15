@@ -190,7 +190,12 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
             position: .bottom
         )
         if logAnalytics {
-            AnytypeAnalytics.instance().logCreateBlock(type: blockInformation.content.type, spaceId: addToObject.spaceId, route: .sharingExtension)
+            AnytypeAnalytics.instance().logCreateFileBlock(
+                type: blockInformation.content.type,
+                spaceId: addToObject.spaceId,
+                route: .sharingExtension,
+                fileExtension: fileDetails.fileExt.lowercased()
+            )
         }
     }
     

@@ -2,11 +2,10 @@ import Services
 import Foundation
 
 extension BlockFile {
-    var mediaData: BlockFileMediaData {
+    func mediaData(documentId: String) -> BlockFileMediaData {
         BlockFileMediaData(
-            size: ByteCountFormatter.fileFormatter.string(fromByteCount: metadata.size),
-            name: metadata.name,
-            iconImageName: FileIconBuilder.convert(mime: metadata.mime, fileName: metadata.name)
+            targetObjectId: metadata.targetObjectId,
+            documentId: documentId
         )
     }
 }

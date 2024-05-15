@@ -41,8 +41,22 @@ extension Publisher {
     }
 }
 
+extension Publisher where Self.Failure == Never {
+    // receiveOnMain always call on main thread asynchronyously.
+    // If we subscribe from main thread on view, async call can make empty view state. User can see ugly updates.
+    // This method call on main thread synchronyously if current thread is main.
+    func sinkOnMain(receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
+        if Thread.isMainThread {
+            return self.sink(receiveValue: receiveValue)
+        } else {
+            return self
+                .receiveOnMain()
+                .sink(receiveValue: receiveValue)
+        }
+    }
+}
+
 // MARK: AnyPublisher extensions
 extension AnyPublisher {
     static func empty() -> AnyPublisher<Output, Failure> { Empty().eraseToAnyPublisher() }
 }
-

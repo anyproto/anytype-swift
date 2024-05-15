@@ -13,6 +13,14 @@ import AnytypeCore
 
 
 final class AudioBlockContentView: UIView, BlockContentView {
+    
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    
+    private var document: BaseDocumentProtocol?
+    private var targetObjectId: String?
+    private var cancellable: AnyCancellable?
+    
     // MARK: - Views
     let audioPlayerView = AudioPlayerView()
     let backgroundView = UIView()
@@ -49,9 +57,20 @@ final class AudioBlockContentView: UIView, BlockContentView {
     }
 
     private func apply(configuration: AudioBlockContentConfiguration) {
-        audioPlayerView.setDelegate(delegate: configuration.audioPlayerViewDelegate)
-        audioPlayerView.updateAudioInformation(delegate: configuration.audioPlayerViewDelegate)
-        audioPlayerView.trackNameLabel.setText(configuration.file.metadata.name)
+        
+        if document?.objectId != configuration.documentId {
+             document = documentService.document(objectId: configuration.documentId)
+        }
+        
+        if targetObjectId != configuration.file.metadata.targetObjectId {
+            targetObjectId = configuration.file.metadata.targetObjectId
+            cancellable = document?.targetDetailsPublisher(targetObjectId: configuration.file.metadata.targetObjectId)
+                .sinkOnMain { [weak self] fileDetails in
+                    self?.audioPlayerView.setDelegate(delegate: configuration.audioPlayerViewDelegate)
+                    self?.audioPlayerView.updateAudioInformation(delegate: configuration.audioPlayerViewDelegate)
+                    self?.audioPlayerView.trackNameLabel.setText(fileDetails.fileName)
+                }
+        }
     }
 }
 
