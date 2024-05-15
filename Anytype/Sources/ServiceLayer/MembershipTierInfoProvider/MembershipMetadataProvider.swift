@@ -7,7 +7,7 @@ protocol MembershipMetadataProviderProtocol {
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState
     
     func purchaseType(status: MembershipStatus) async -> MembershipPurchaseType
-    func purchaseAvailablitiy(tier: MembershipTier) -> MembershipPurchaseAvailablitiy
+    func purchaseAvailablitiy(tier: MembershipTier) async -> MembershipPurchaseAvailablitiy
 }
 
 final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
@@ -28,7 +28,7 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
             }
         }
         
-        let purchaseAvailablitiy = purchaseAvailablitiy(tier: tier)
+        let purchaseAvailablitiy = await purchaseAvailablitiy(tier: tier)
         return .unowned(purchaseAvailablitiy)
     }
     
@@ -50,14 +50,10 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
         }
     }
     
-    func purchaseAvailablitiy(tier: MembershipTier) -> MembershipPurchaseAvailablitiy {
+    func purchaseAvailablitiy(tier: MembershipTier) async -> MembershipPurchaseAvailablitiy {
         switch tier.paymentType {
         case .appStore(let info):
-            if AppStore.canMakePayments {
-                return .appStore(product: info.product)
-            } else {
-                return .external(url: info.fallbackPaymentUrl)
-            }
+            return await appStoreAvailability(info: info)
         case .external(let info):
                 return .external(url: info.paymentUrl)
         case nil:
@@ -66,6 +62,24 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
                 info: ["Tier": String(reflecting: tier)]
             )
             return .external(url: URL(string: AboutApp.pricingLink)!)
+        }
+    }
+    
+    private func appStoreAvailability(info: AppStorePaymentInfo) async -> MembershipPurchaseAvailablitiy {
+        guard AppStore.canMakePayments else {
+            return .external(url: info.fallbackPaymentUrl)
+        }
+        
+        guard let isAlreadyPurchased = try? await storeKitService.isPurchased(product: info.product) else {
+            return .external(url: info.fallbackPaymentUrl)
+        }
+        
+        
+        if isAlreadyPurchased {
+            // In case you have already purchased subscription for other Anytype account
+            return .external(url: info.fallbackPaymentUrl)
+        } else {
+            return .appStore(product: info.product)
         }
     }
 }
