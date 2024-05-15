@@ -30,8 +30,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Etwas stimmt nicht mit der Eingabe, versuche es erneut"
           }
         },
         "el" : {
@@ -156,8 +156,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
           }
         },
         "no" : {
@@ -252,8 +252,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "輸入錯誤，請再試一次。"
           }
         }
       }
@@ -287,8 +287,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fehler auf unserer Seite, versuche es später noch erneut"
           }
         },
         "el" : {
@@ -413,8 +413,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fout aan onze kant, probeer het later opnieuw"
           }
         },
         "no" : {
@@ -485,8 +485,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Bizim tarafımızda hata oluştu, daha sonra tekrar deneyin"
           }
         },
         "uk" : {
@@ -509,8 +509,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我們這邊出錯了，請稍後再試。"
           }
         }
       }
@@ -670,8 +670,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Kan niet verbinden, controleer jouw internetverbinding"
           }
         },
         "no" : {
@@ -742,8 +742,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Bağlanılamıyor, internet bağlantınızı kontrol edin"
           }
         },
         "uk" : {
@@ -766,8 +766,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "無法連線，請檢查您的網路狀態。"
           }
         }
       }
@@ -778,37 +778,37 @@
         "am" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "da" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "el" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "en" : {
@@ -820,211 +820,211 @@
         "eo" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ce nom n'est pas disponible"
+            "state" : "translated",
+            "value" : "Ce nom ne peut pas être réservé"
           }
         },
         "fy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "gu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "hu" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "hy" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "is" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Questo nome non è disponibile"
+            "state" : "translated",
+            "value" : "Questo nome non può essere riservato"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "jv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "ky" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "lt" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "no" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "or" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "pt-PT" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "ro" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "sk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "sl" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "This name is not availabe"
+            "value" : "This name cannot be reserved"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "该名称不可用"
+            "state" : "new",
+            "value" : "This name cannot be reserved"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is not availabe"
+            "state" : "translated",
+            "value" : "此名稱無法使用"
           }
         }
       }
@@ -1176,12 +1176,6 @@
             "value" : "Name has invalid characters"
           }
         },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Navnet har ugyldige tegn"
-          }
-        },
         "ne" : {
           "stringUnit" : {
             "state" : "new",
@@ -1190,8 +1184,14 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name has invalid characters"
+            "state" : "translated",
+            "value" : "Naam bevat ongeldige tekens"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet har ugyldige tegn"
           }
         },
         "or" : {
@@ -1256,8 +1256,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name has invalid characters"
+            "state" : "translated",
+            "value" : "İsim geçersiz karakterler içeriyor"
           }
         },
         "uk" : {
@@ -1280,8 +1280,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name has invalid characters"
+            "state" : "translated",
+            "value" : "用戶名包含無效字符"
           }
         }
       }
@@ -1289,10 +1289,256 @@
     "Membership.IsNameValid.nameIsReserved" : {
       "extractionState" : "manual",
       "localizations" : {
+        "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "This name is already reserved"
+          }
+        },
+        "eo" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ce nom est déjà réservé"
+          }
+        },
+        "fy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Questo nome è già stato riservato"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "ky" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "pt-PT" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "此名稱已被使用"
           }
         }
       }
@@ -1452,8 +1698,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Je bent niet ingelogd! 😵‍💫"
           }
         },
         "no" : {
@@ -1524,8 +1770,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Giriş yapmadınız! 😵‍💫"
           }
         },
         "uk" : {
@@ -1548,8 +1794,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "您尚未登入😵‍💫"
           }
         }
       }
@@ -1583,8 +1829,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fehler auf unserer Seite, versuche es später noch erneut"
           }
         },
         "el" : {
@@ -1709,8 +1955,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fout aan onze kant, probeer het later opnieuw"
           }
         },
         "no" : {
@@ -1781,8 +2027,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Bizim tarafımızda hata oluştu, daha sonra tekrar deneyin"
           }
         },
         "uk" : {
@@ -1805,8 +2051,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我們這邊出錯了，請稍後再試。"
           }
         }
       }
@@ -1876,8 +2122,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
+            "state" : "translated",
+            "value" : "Le nom n’est pas disponible pour ce niveau"
           }
         },
         "fy" : {
@@ -1966,8 +2212,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
+            "state" : "translated",
+            "value" : "Naam is niet beschikbaar voor dit abonnement"
           }
         },
         "no" : {
@@ -2062,8 +2308,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
+            "state" : "translated",
+            "value" : "用戶名無法在此階段使用"
           }
         }
       }
@@ -2133,8 +2379,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
+            "state" : "translated",
+            "value" : "Niveau introuvable, veuillez réessayer plus tard"
           }
         },
         "fy" : {
@@ -2223,8 +2469,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
+            "state" : "translated",
+            "value" : "Abonnement niet gevonden, probeer het later opnieuw"
           }
         },
         "no" : {
@@ -2319,8 +2565,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
+            "state" : "translated",
+            "value" : "找不到此層級，請稍後再試。"
           }
         }
       }
@@ -2472,12 +2718,6 @@
             "value" : "Name is too long"
           }
         },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Navnet er for langt"
-          }
-        },
         "ne" : {
           "stringUnit" : {
             "state" : "new",
@@ -2486,8 +2726,14 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
+            "state" : "translated",
+            "value" : "Naam is te lang"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet er for langt"
           }
         },
         "or" : {
@@ -2552,8 +2798,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
+            "state" : "translated",
+            "value" : "İsim çok uzun"
           }
         },
         "uk" : {
@@ -2576,8 +2822,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
+            "state" : "translated",
+            "value" : "用戶名過長"
           }
         }
       }
@@ -2729,12 +2975,6 @@
             "value" : "Name is too short"
           }
         },
-        "nb" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Navnet er for kort"
-          }
-        },
         "ne" : {
           "stringUnit" : {
             "state" : "new",
@@ -2743,8 +2983,14 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
+            "state" : "translated",
+            "value" : "Naam is te kort"
+          }
+        },
+        "no" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navnet er for kort"
           }
         },
         "or" : {
@@ -2809,8 +3055,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
+            "state" : "translated",
+            "value" : "İsim çok kısa"
           }
         },
         "uk" : {
@@ -2833,8 +3079,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
+            "state" : "translated",
+            "value" : "用戶名過短"
           }
         }
       }
@@ -2868,8 +3114,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Etwas stimmt nicht mit der Eingabe, versuche es erneut"
           }
         },
         "el" : {
@@ -2994,8 +3240,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
           }
         },
         "no" : {
@@ -3090,8 +3336,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "輸入錯誤，請再試一次。"
           }
         }
       }
@@ -3125,8 +3371,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fehler auf unserer Seite, versuche es später noch erneut"
           }
         },
         "el" : {
@@ -3251,8 +3497,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fout aan onze kant, probeer het later opnieuw"
           }
         },
         "no" : {
@@ -3323,8 +3569,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Bizim tarafımızda hata oluştu, daha sonra tekrar deneyin"
           }
         },
         "uk" : {
@@ -3347,8 +3593,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我們這邊出錯了，請稍後再試。"
           }
         }
       }
@@ -3508,8 +3754,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Je bent niet ingelogd! 😵‍💫"
           }
         },
         "no" : {
@@ -3580,8 +3826,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Giriş yapmadınız! 😵‍💫"
           }
         },
         "uk" : {
@@ -3604,8 +3850,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "您尚未登入😵‍💫"
           }
         }
       }
@@ -3639,8 +3885,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fehler auf unserer Seite, versuche es später noch erneut"
           }
         },
         "el" : {
@@ -3765,8 +4011,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Fout aan onze kant, probeer het later opnieuw"
           }
         },
         "no" : {
@@ -3837,8 +4083,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Bizim tarafımızda hata oluştu, daha sonra tekrar deneyin"
           }
         },
         "uk" : {
@@ -3861,8 +4107,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "我們這邊出錯了，請稍後再試。"
           }
         }
       }
@@ -3896,8 +4142,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Etwas stimmt nicht mit der Eingabe, versuche es erneut"
           }
         },
         "el" : {
@@ -4022,8 +4268,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
           }
         },
         "no" : {
@@ -4118,8 +4364,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "輸入錯誤，請再試一次。"
           }
         }
       }
@@ -4279,8 +4525,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Kan niet verbinden, controleer jouw internetverbinding"
           }
         },
         "no" : {
@@ -4351,8 +4597,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Bağlanılamıyor, internet bağlantınızı kontrol edin"
           }
         },
         "uk" : {
@@ -4375,8 +4621,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "無法連線，請檢查您的網路狀態。"
           }
         }
       }
@@ -4410,8 +4656,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Etwas stimmt nicht mit der Eingabe, versuche es erneut"
           }
         },
         "el" : {
@@ -4536,8 +4782,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
           }
         },
         "no" : {
@@ -4632,8 +4878,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "輸入錯誤，請再試一次。"
           }
         }
       }
@@ -4793,8 +5039,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Kan niet verbinden, controleer jouw internetverbinding"
           }
         },
         "no" : {
@@ -4865,8 +5111,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Bağlanılamıyor, internet bağlantınızı kontrol edin"
           }
         },
         "uk" : {
@@ -4889,8 +5135,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "無法連線，請檢查您的網路狀態。"
           }
         }
       }
@@ -4924,8 +5170,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Etwas stimmt nicht mit der Eingabe, versuche es erneut"
           }
         },
         "el" : {
@@ -5050,8 +5296,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
           }
         },
         "no" : {
@@ -5146,8 +5392,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "輸入錯誤，請再試一次。"
           }
         }
       }
@@ -5307,8 +5553,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Kan niet verbinden, controleer jouw internetverbinding"
           }
         },
         "no" : {
@@ -5379,8 +5625,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Bağlanılamıyor, internet bağlantınızı kontrol edin"
           }
         },
         "uk" : {
@@ -5403,8 +5649,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "無法連線，請檢查您的網路狀態。"
           }
         }
       }
@@ -5438,8 +5684,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Etwas stimmt nicht mit der Eingabe, versuche es erneut"
           }
         },
         "el" : {
@@ -5564,8 +5810,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "Er ging iets mis met invoeren, probeer het opnieuw"
           }
         },
         "no" : {
@@ -5660,8 +5906,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
+            "state" : "translated",
+            "value" : "輸入錯誤，請再試一次。"
           }
         }
       }
@@ -5821,8 +6067,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Je bent niet ingelogd! 😵‍💫"
           }
         },
         "no" : {
@@ -5893,8 +6139,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Giriş yapmadınız! 😵‍💫"
           }
         },
         "uk" : {
@@ -5917,8 +6163,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "您尚未登入😵‍💫"
           }
         }
       }
@@ -6078,8 +6324,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -6150,8 +6396,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -6174,8 +6420,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -6209,8 +6455,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -6335,8 +6581,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -6407,8 +6653,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -6431,8 +6677,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -6592,8 +6838,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -6664,8 +6910,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -6688,8 +6934,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -6723,8 +6969,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -6849,8 +7095,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -6921,8 +7167,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -6945,8 +7191,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -7106,8 +7352,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -7178,8 +7424,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -7202,8 +7448,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -7363,8 +7609,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -7435,8 +7681,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -7459,8 +7705,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -7494,8 +7740,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -7620,8 +7866,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -7692,8 +7938,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -7716,8 +7962,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -7877,8 +8123,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -7949,8 +8195,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -7973,8 +8219,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -8008,8 +8254,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -8134,8 +8380,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -8206,8 +8452,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -8230,8 +8476,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -8391,8 +8637,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -8463,8 +8709,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -8487,8 +8733,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -8522,8 +8768,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Die Einladung existiert nicht. Bitte stelle sicher, dass deine Geräte synchronisiert sind."
           }
         },
         "el" : {
@@ -8648,8 +8894,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "De uitnodiging bestaat niet. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -8720,8 +8966,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Davetiye mevcut değil. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -8744,8 +8990,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "邀請不存在。請確保您的裝置已同步。"
           }
         }
       }
@@ -8905,8 +9151,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -8977,8 +9223,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -9001,8 +9247,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -9036,8 +9282,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -9162,8 +9408,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -9234,8 +9480,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -9258,8 +9504,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -9419,8 +9665,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -9491,8 +9737,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -9515,8 +9761,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -9550,8 +9796,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -9676,8 +9922,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -9748,8 +9994,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -9772,8 +10018,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -9933,8 +10179,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -10005,8 +10251,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -10029,8 +10275,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -10064,8 +10310,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Der Einladungslink konnte nicht geparst werden. Er kann Fehler im Format oder ungültige Daten enthalten."
           }
         },
         "el" : {
@@ -10190,8 +10436,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "De uitnodigingslink kon niet worden doorgezet. Het zou fouten in het formaat of ongeldige gegevens kunnen bevatten."
           }
         },
         "no" : {
@@ -10286,8 +10532,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "無法辨認邀請連結。可能是格式錯誤或無效的資料。"
           }
         }
       }
@@ -10321,8 +10567,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Die Einladung existiert nicht. Bitte stelle sicher, dass deine Geräte synchronisiert sind."
           }
         },
         "el" : {
@@ -10447,8 +10693,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "De uitnodiging bestaat niet. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -10519,8 +10765,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Davetiye mevcut değil. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -10543,8 +10789,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "邀請不存在。請確保您的裝置已同步。"
           }
         }
       }
@@ -10578,8 +10824,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "Der Einladungslink konnte nicht geparst werden. Er kann Fehler im Format oder ungültige Daten enthalten."
           }
         },
         "el" : {
@@ -10704,8 +10950,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "De uitnodigingslink kon niet worden doorgezet. Het zou fouten in het formaat of ongeldige gegevens kunnen bevatten."
           }
         },
         "no" : {
@@ -10800,8 +11046,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+            "state" : "translated",
+            "value" : "無法辨認邀請連結。可能是格式錯誤或無效的資料。"
           }
         }
       }
@@ -10835,8 +11081,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Die Einladung existiert nicht. Bitte stelle sicher, dass deine Geräte synchronisiert sind."
           }
         },
         "el" : {
@@ -10961,8 +11207,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "De uitnodiging bestaat niet. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -11033,8 +11279,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Davetiye mevcut değil. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -11057,8 +11303,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "邀請不存在。請確保您的裝置已同步。"
           }
         }
       }
@@ -11218,8 +11464,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -11290,8 +11536,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -11314,8 +11560,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -11349,8 +11595,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -11475,8 +11721,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -11547,8 +11793,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -11571,8 +11817,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -11732,8 +11978,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -11804,8 +12050,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -11828,8 +12074,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -11863,8 +12109,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -11989,8 +12235,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -12061,8 +12307,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -12085,8 +12331,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -12246,8 +12492,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -12318,8 +12564,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -12342,8 +12588,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -12503,8 +12749,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -12575,8 +12821,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -12599,8 +12845,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -12634,8 +12880,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Die Anfrage existiert nicht mehr. Es sind keine Maßnahmen erforderlich, aber bitte stelle sicher, dass deine Geräte synchronisiert sind."
           }
         },
         "el" : {
@@ -12760,8 +13006,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -12832,8 +13078,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "İstek artık mevcut değil. Herhangi bir işlem gerekmiyor, ancak lütfen cihazlarınızın senkronize edildiğinden emin olun."
           }
         },
         "uk" : {
@@ -12856,8 +13102,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "該請求已失效。無需採取任何行動，但請確保您的裝置已同步。"
           }
         }
       }
@@ -12891,8 +13137,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -13017,8 +13263,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -13089,8 +13335,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -13113,8 +13359,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -13274,8 +13520,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -13346,8 +13592,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -13370,8 +13616,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -13405,8 +13651,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -13531,8 +13777,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -13603,8 +13849,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -13627,8 +13873,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -13788,8 +14034,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -13860,8 +14106,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -13884,8 +14130,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -14045,8 +14291,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -14117,8 +14363,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -14141,8 +14387,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -14176,8 +14422,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Die Anfrage existiert nicht mehr. Es sind keine Maßnahmen erforderlich, aber bitte stelle sicher, dass deine Geräte synchronisiert sind."
           }
         },
         "el" : {
@@ -14302,8 +14548,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -14374,8 +14620,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "İstek artık mevcut değil. Herhangi bir işlem gerekmiyor, ancak lütfen cihazlarınızın senkronize edildiğinden emin olun."
           }
         },
         "uk" : {
@@ -14398,8 +14644,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "該請求已失效。無需採取任何行動，但請確保您的裝置已同步。"
           }
         }
       }
@@ -14433,8 +14679,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -14559,8 +14805,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -14631,8 +14877,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -14655,8 +14901,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -14816,8 +15062,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -14888,8 +15134,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -14912,8 +15158,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -14947,8 +15193,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -15073,8 +15319,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -15145,8 +15391,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -15169,8 +15415,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -15330,8 +15576,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -15402,8 +15648,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -15426,8 +15672,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -15461,8 +15707,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -15587,8 +15833,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -15659,8 +15905,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -15683,8 +15929,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -15718,8 +15964,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -15844,8 +16090,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -15916,8 +16162,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -15940,8 +16186,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -15975,8 +16221,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -16101,8 +16347,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -16173,8 +16419,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -16197,8 +16443,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -16358,8 +16604,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -16430,8 +16676,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -16454,8 +16700,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -16615,8 +16861,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "Toegangsrechten konden niet worden toegewezen aan het lid van de ruimte. Zorg er alsjeblieft voor dat de juiste toegangsrechten zijn toegewezen."
           }
         },
         "no" : {
@@ -16711,8 +16957,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "無法將存取權限指派給空間的成員。請確保已指派正確的存取權限。"
           }
         }
       }
@@ -16872,8 +17118,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -16944,8 +17190,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -16968,8 +17214,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -17003,8 +17249,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -17129,8 +17375,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -17201,8 +17447,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -17225,8 +17471,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -17386,8 +17632,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -17458,8 +17704,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -17482,8 +17728,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -17643,8 +17889,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lid van de ruimte kon niet worden gevonden. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -17715,8 +17961,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan üyesi bulunamadı. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -17739,8 +17985,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "無法找到該空間的成員。請確保您的裝置已同步。"
           }
         }
       }
@@ -17774,8 +18020,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -17900,8 +18146,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -17972,8 +18218,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -17996,8 +18242,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -18157,8 +18403,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -18229,8 +18475,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -18253,8 +18499,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -18414,8 +18660,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -18486,8 +18732,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -18510,8 +18756,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -18545,8 +18791,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -18671,8 +18917,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -18743,8 +18989,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -18767,8 +19013,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -18928,8 +19174,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -19000,8 +19246,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -19024,8 +19270,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -19185,8 +19431,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lid van de ruimte kon niet worden gevonden. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -19257,8 +19503,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan üyesi bulunamadı. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -19281,8 +19527,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "無法找到該空間的成員。請確保您的裝置已同步。"
           }
         }
       }
@@ -19316,8 +19562,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -19442,8 +19688,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -19514,8 +19760,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -19538,8 +19784,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -19699,8 +19945,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -19771,8 +20017,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -19795,8 +20041,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -19830,8 +20076,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "Der Antrag konnte mit diesen Zugriffsrechten nicht genehmigt werden. Bitte stelle sicher, dass die richtigen Zugriffsrechte zugewiesen sind."
           }
         },
         "el" : {
@@ -19956,8 +20202,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "Het verzoek kon niet worden goedgekeurd met deze toegangsrechten. Zorg er alsjeblieft voor dat de juiste toegangsrechten zijn toegewezen."
           }
         },
         "no" : {
@@ -20052,8 +20298,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+            "state" : "translated",
+            "value" : "無法使用目前存取權限批准該請求。請確保已指派正確的存取權限。"
           }
         }
       }
@@ -20213,8 +20459,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -20285,8 +20531,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -20309,8 +20555,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -20344,8 +20590,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Die Anfrage existiert nicht mehr. Es sind keine Maßnahmen erforderlich, aber bitte stelle sicher, dass deine Geräte synchronisiert sind."
           }
         },
         "el" : {
@@ -20470,8 +20716,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -20542,8 +20788,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "İstek artık mevcut değil. Herhangi bir işlem gerekmiyor, ancak lütfen cihazlarınızın senkronize edildiğinden emin olun."
           }
         },
         "uk" : {
@@ -20566,8 +20812,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "該請求已失效。無需採取任何行動，但請確保您的裝置已同步。"
           }
         }
       }
@@ -20601,8 +20847,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -20727,8 +20973,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -20799,8 +21045,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -20823,8 +21069,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -20984,8 +21230,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -21056,8 +21302,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -21080,8 +21326,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -21115,8 +21361,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -21241,8 +21487,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -21313,8 +21559,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -21337,8 +21583,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -21498,8 +21744,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -21570,8 +21816,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -21594,8 +21840,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -21755,8 +22001,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -21827,8 +22073,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -21851,8 +22097,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -21886,8 +22132,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Die Anfrage existiert nicht mehr. Es sind keine Maßnahmen erforderlich, aber bitte stelle sicher, dass deine Geräte synchronisiert sind."
           }
         },
         "el" : {
@@ -22012,8 +22258,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het verzoek bestaat niet meer. Er zijn geen acties nodig, maar zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -22084,8 +22330,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "İstek artık mevcut değil. Herhangi bir işlem gerekmiyor, ancak lütfen cihazlarınızın senkronize edildiğinden emin olun."
           }
         },
         "uk" : {
@@ -22108,8 +22354,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "該請求已失效。無需採取任何行動，但請確保您的裝置已同步。"
           }
         }
       }
@@ -22143,8 +22389,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -22269,8 +22515,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -22341,8 +22587,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -22365,8 +22611,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -22526,8 +22772,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte niet meer wordt gedeeld. Zorg er alsjeblieft voor dat jouw apparaten zijn gesynchroniseerd."
           }
         },
         "no" : {
@@ -22598,8 +22844,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -22622,8 +22868,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已不再共享。請確保您的裝置已同步。"
           }
         }
       }
@@ -22657,8 +22903,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -22783,8 +23029,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -22855,8 +23101,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -22879,8 +23125,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -23040,8 +23286,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -23112,8 +23358,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -23136,8 +23382,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
@@ -23297,8 +23543,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Limiet bereikt voor deze ruimte. Upgrade alsjeblieft jouw lidmaatschap of neem contact op met ondersteuning voor hulp."
           }
         },
         "no" : {
@@ -23369,8 +23615,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "Bu alan için sınıra ulaşıldı. Lütfen üyeliğinizi yükseltin veya yardım için destek ekibiyle iletişime geçin."
           }
         },
         "uk" : {
@@ -23393,8 +23639,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+            "state" : "translated",
+            "value" : "此空間容量已達上限。請升級您的會員資格或聯繫支援部門尋求協助。"
           }
         }
       }
@@ -23428,8 +23674,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Ups! Etwas ist schiefgelaufen. Bitte versuche es später noch einmal."
           }
         },
         "el" : {
@@ -23554,8 +23800,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Oeps! Er ging iets mis. Probeer het alsjeblieft later nog eens."
           }
         },
         "no" : {
@@ -23626,8 +23872,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "Üzgünüz, bir sorun oluştu. Lütfen daha sonra yeniden deneyin."
           }
         },
         "uk" : {
@@ -23650,8 +23896,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
+            "state" : "translated",
+            "value" : "哎呀！某些地方出錯了。請稍後再試。"
           }
         }
       }
@@ -23685,8 +23931,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Hoppla! Die Anfrage ist fehlgeschlagen. Bitte überprüfe deine Internetverbindung und versuche es erneut."
           }
         },
         "el" : {
@@ -23811,8 +24057,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oeps! De aanvraag is mislukt. Controleer jouw internetverbinding en probeer het opnieuw."
           }
         },
         "no" : {
@@ -23883,8 +24129,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "Oops! İstek başarısız oldu. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin."
           }
         },
         "uk" : {
@@ -23907,8 +24153,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+            "state" : "translated",
+            "value" : "哎呀！請求失敗了。請檢查您的網路連線後再試一次。"
           }
         }
       }
@@ -24068,8 +24314,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Het lijkt erop dat de ruimte is verwijderd. Zorg er alsjeblieft voor dat jouw apparaten worden gesynchroniseerd."
           }
         },
         "no" : {
@@ -24140,8 +24386,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "Alan artık paylaşılmıyor gibi görünüyor. Lütfen cihazlarınızın senkronize olduğundan emin olun."
           }
         },
         "uk" : {
@@ -24164,8 +24410,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+            "state" : "translated",
+            "value" : "此空間似乎已被刪除。請確保您的裝置已同步。"
           }
         }
       }
