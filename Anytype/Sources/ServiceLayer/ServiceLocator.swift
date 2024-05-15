@@ -18,8 +18,4 @@ final class ServiceLocator {
     func documentService() -> OpenedDocumentsProviderProtocol {
         Container.shared.documentService()
     }
-    
-    func activeWorkspaceStorage() -> ActiveWorkpaceStorageProtocol {
-        Container.shared.activeWorkspaceStorage()
-    }
 }

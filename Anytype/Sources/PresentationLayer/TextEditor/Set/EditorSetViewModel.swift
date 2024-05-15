@@ -736,7 +736,7 @@ extension EditorSetViewModel {
             ),
             output: nil
         ),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
+        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(),
         setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
         output: nil
     )

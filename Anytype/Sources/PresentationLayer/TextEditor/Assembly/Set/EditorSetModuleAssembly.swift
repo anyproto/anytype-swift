@@ -55,7 +55,7 @@ final class EditorSetModuleAssembly: EditorSetModuleAssemblyProtocol {
         let model = EditorSetViewModel(
             setDocument: setDocument,
             headerViewModel: headerModel,
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()),
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(),
             setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
             output: output
         )

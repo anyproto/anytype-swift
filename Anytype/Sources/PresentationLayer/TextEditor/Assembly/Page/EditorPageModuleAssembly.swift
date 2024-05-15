@@ -60,11 +60,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
         let bottomNavigationManager = EditorBottomNavigationManager()
         
-        let networkId = serviceLocator.activeWorkspaceStorage().workspaceInfo.networkId
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
             bottomNavigationManager: bottomNavigationManager, 
-            syncStatusData: SyncStatusData(status: .unknown, networkId: networkId, isHidden: true),
             keyboardListener: uiHelpersDI.keyboardListener,
             showHeader: showHeader
         )

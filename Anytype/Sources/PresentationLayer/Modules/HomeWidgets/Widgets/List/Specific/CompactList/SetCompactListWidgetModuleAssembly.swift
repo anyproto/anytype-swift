@@ -24,9 +24,7 @@ final class SetCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol
         let model = SetObjectWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(
-                activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage()
-            ),
+            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(),
             output: output
         )
      
