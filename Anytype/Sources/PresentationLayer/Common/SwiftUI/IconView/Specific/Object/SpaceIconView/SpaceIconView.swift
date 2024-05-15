@@ -11,12 +11,15 @@ struct SpaceIconView: View {
         case .name(let name):
             ImageCharIconView(text: name.withPlaceholder)
                 .background(Color.Shape.secondary)
-                .cornerRadius(2, style: .continuous)
+                .spaceIconCornerRadius()
         case .gradient(let gradientId):
             CircleGradientView(gradientId: gradientId)
                 .scaleEffect(0.75)
                 .background(Color.Additional.space)
-                .cornerRadius(2, style: .continuous)
+                .spaceIconCornerRadius()
+        case .imageId(let imageId):
+            ImageIdIconView(imageId: imageId)
+                .spaceIconCornerRadius()
         }
     }
 }

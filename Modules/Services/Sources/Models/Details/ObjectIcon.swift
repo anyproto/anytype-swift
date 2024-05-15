@@ -27,5 +27,6 @@ public extension ObjectIcon {
     enum Space: Hashable {
         case name(String)
         case gradient(GradientId)
+        case imageId(_ imageId: String)
     }
 }
