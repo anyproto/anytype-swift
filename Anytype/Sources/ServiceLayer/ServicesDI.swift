@@ -260,6 +260,10 @@ extension Container {
         self { MembershipStatusStorage() }.singleton
     }
     
+    var membershipMetadataProvider: Factory<MembershipMetadataProviderProtocol> {
+        self { MembershipMetadataProvider() }.shared
+    }
+    
     var objectHeaderUploadingService: Factory<ObjectHeaderUploadingServiceProtocol> {
         self { ObjectHeaderUploadingService() }.shared
     }

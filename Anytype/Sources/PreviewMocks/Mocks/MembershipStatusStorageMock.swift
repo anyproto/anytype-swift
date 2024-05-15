@@ -11,8 +11,8 @@ final class MembershipStatusStorageMock: MembershipStatusStorageProtocol {
     var statusPublisher: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
     var currentStatus: MembershipStatus { _status }
     
-    func owningState(tier: Services.MembershipTier) async -> MembershipTierOwningState {
-        .owned
+    func owningState(tier: Services.MembershipTier) -> MembershipTierOwningState {
+        .owned(.purchasedElsewhere)
     }
     
     func startSubscription() async {
