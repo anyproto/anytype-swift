@@ -2,13 +2,11 @@ import Foundation
 import SwiftUI
 import Combine
 import AnytypeCore
+import Services
 
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
-    private let navigationContext: NavigationContextProtocol
-    private let urlOpener: URLOpenerProtocol
-    
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.objectTypeProvider)
@@ -22,6 +20,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showSpaceShare = false
     @Published var showSpaceMembers = false
     @Published var showFiles = false
+    @Published var showObjectTypeSearch = false
     @Published var dismiss = false
     @Published var showIconPickerSpaceViewId: StringIdentifiable?
     
@@ -31,12 +30,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     
     private var subscriptions = [AnyCancellable]()
     
-    init(
-        navigationContext: NavigationContextProtocol,
-        urlOpener: URLOpenerProtocol
-    ) {
-        self.navigationContext = navigationContext
-        self.urlOpener = urlOpener
+    init() {
         startSubscriptions()
     }
     
@@ -62,28 +56,21 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         showSpaceMembers.toggle()
     }
     
+    func onSelectDefaultObjectType(type: ObjectType) {
+        objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
+        showObjectTypeSearch = false
+    }
+    
     // MARK: - RemoteStorageModuleOutput
     
     func onManageFilesSelected() {
         showFiles = true
     }
     
-    func onLinkOpen(url: URL) {
-        urlOpener.openUrl(url, presentationStyle: .pageSheet)
-    }
-    
     // MARK: - PersonalizationModuleOutput
     
     func onDefaultTypeSelected() {
-        let view = ObjectTypeSearchView(
-            title: Loc.chooseDefaultObjectType,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            settings: .spaceDefaultObject
-        ) { [weak self] type in
-            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
-            self?.navigationContext.dismissTopPresented(animated: true)
-        }
-        navigationContext.present(view)
+        showObjectTypeSearch = true
     }
     
     func onWallpaperChangeSelected() {

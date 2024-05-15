@@ -453,7 +453,6 @@
 		2A5B53B32A80DBAA00BC993B /* SpaceSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B53B22A80DBAA00BC993B /* SpaceSettingsViewModel.swift */; };
 		2A5B53B92A80DCA500BC993B /* SpaceSettingsCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B53B82A80DCA500BC993B /* SpaceSettingsCoordinatorView.swift */; };
 		2A5B53BB2A80DCB200BC993B /* SpaceSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B53BA2A80DCB200BC993B /* SpaceSettingsCoordinatorViewModel.swift */; };
-		2A5B53BD2A80DCBF00BC993B /* SpaceSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B53BC2A80DCBF00BC993B /* SpaceSettingsCoordinatorAssembly.swift */; };
 		2A5B53BF2A80E2B100BC993B /* SpaceSettingsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5B53BE2A80E2B100BC993B /* SpaceSettingsModuleOutput.swift */; };
 		2A5BA75F2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */; };
 		2A5BC4C92A791AED004FAABF /* ViewProvidersConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */; };
@@ -2219,7 +2218,6 @@
 		2A5B53B22A80DBAA00BC993B /* SpaceSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsViewModel.swift; sourceTree = "<group>"; };
 		2A5B53B82A80DCA500BC993B /* SpaceSettingsCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsCoordinatorView.swift; sourceTree = "<group>"; };
 		2A5B53BA2A80DCB200BC993B /* SpaceSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2A5B53BC2A80DCBF00BC993B /* SpaceSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A5B53BE2A80E2B100BC993B /* SpaceSettingsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsModuleOutput.swift; sourceTree = "<group>"; };
 		2A5BA75E2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeErrorLoggerConfiguration.swift; sourceTree = "<group>"; };
 		2A5BC4C82A791AED004FAABF /* ViewProvidersConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProvidersConfigurator.swift; sourceTree = "<group>"; };
@@ -5787,7 +5785,6 @@
 			children = (
 				2A5B53B82A80DCA500BC993B /* SpaceSettingsCoordinatorView.swift */,
 				2A5B53BA2A80DCB200BC993B /* SpaceSettingsCoordinatorViewModel.swift */,
-				2A5B53BC2A80DCBF00BC993B /* SpaceSettingsCoordinatorAssembly.swift */,
 			);
 			path = SpaceSettings;
 			sourceTree = "<group>";
@@ -11200,7 +11197,6 @@
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
 				125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */,
 				2A5024FF2BBE9A4700A141B8 /* ObjectSearchView.swift in Sources */,
-				2A5B53BD2A80DCBF00BC993B /* SpaceSettingsCoordinatorAssembly.swift in Sources */,
 				C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */,
 				2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */,
 				1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */,
