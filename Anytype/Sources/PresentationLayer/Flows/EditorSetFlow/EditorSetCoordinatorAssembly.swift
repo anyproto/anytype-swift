@@ -30,8 +30,7 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
             model: EditorSetCoordinatorViewModel(
                 data: data,
                 editorSetAssembly: self.coordinatorsID.editorSetModule(),
-                setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(), 
-                objectSettingCoordinatorAssembly: self.coordinatorsID.objectSettings(), 
+                setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(),
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
                 relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
                 toastPresenter: self.uiHelpersDI.toastPresenter(),

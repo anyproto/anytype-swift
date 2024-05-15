@@ -13,7 +13,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     private let templatesCoordinator: TemplatesCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let urlOpener: URLOpenerProtocol
-    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let toastPresenter: ToastPresenterProtocol
     private weak var output: EditorPageModuleOutput?
     
@@ -27,7 +26,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         templatesCoordinator: TemplatesCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         urlOpener: URLOpenerProtocol,
-        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         toastPresenter: ToastPresenterProtocol,
         output: EditorPageModuleOutput?
     ) {
@@ -38,7 +36,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         self.templatesCoordinator = templatesCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.urlOpener = urlOpener
-        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.toastPresenter = toastPresenter
         self.output = output
         
@@ -285,7 +282,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     // MARK: - Settings
     func showSettings() {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: self
         )
@@ -294,7 +291,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showSettings(output: ObjectSettingsCoordinatorOutput?) {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: output
         )

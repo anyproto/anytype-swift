@@ -18,10 +18,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func templates() -> TemplatesCoordinatorAssemblyProtocol {
         return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }
-
-    func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol {
-        return ObjectSettingsCoordinatorAssembly(modulesDI: modulesDI, uiHelpersDI: uiHelpersDI, coordinatorsDI: self, serviceLocator: serviceLocator)
-    }
     
     @MainActor
     func home() -> HomeCoordinatorAssemblyProtocol {

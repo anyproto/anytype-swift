@@ -2,7 +2,6 @@ import Foundation
 
 protocol CoordinatorsDIProtocol: AnyObject {
     func templates() -> TemplatesCoordinatorAssemblyProtocol
-    func objectSettings() -> ObjectSettingsCoordinatorAssemblyProtocol
     func home() -> HomeCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func settings() -> SettingsCoordinatorAssemblyProtocol

@@ -3,11 +3,19 @@ import SwiftUI
 
 struct ObjectSettingsCoordinatorView: View {
     
-    @StateObject var model: ObjectSettingsCoordinatorViewModel
+    @StateObject private var model: ObjectSettingsCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismissAllPresented) private var dismissAllPresented
+    
+    init(objectId: String, output: ObjectSettingsCoordinatorOutput?) {
+        self._model = StateObject(wrappedValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, output: output))
+    }
     
     var body: some View {
         ObjectSettingsView(objectId: model.objectId, output: model)
+            .onAppear {
+                model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
+            }
             .sheet(item: $model.coverPickerData) {
                 ObjectCoverPicker(data: $0)
             }
