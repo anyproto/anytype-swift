@@ -13,19 +13,15 @@ final class MentionsViewModel {
     var onSelect: RoutingAction<MentionObject>?
     
     private let document: BaseDocumentProtocol
-    private let mentionService: MentionObjectsServiceProtocol
-    private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    @Injected(\.mentionObjectsService)
+    private var mentionService: MentionObjectsServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: DefaultObjectCreationServiceProtocol
     private var searchTask: Task<(), Error>?
     private var searchString = ""
     
-    init(
-        document: BaseDocumentProtocol,
-        mentionService: MentionObjectsServiceProtocol,
-        defaultObjectService: DefaultObjectCreationServiceProtocol
-    ) {
+    init(document: BaseDocumentProtocol) {
         self.document = document
-        self.mentionService = mentionService
-        self.defaultObjectService = defaultObjectService
     }
     
     func obtainMentions(filterString: String) {

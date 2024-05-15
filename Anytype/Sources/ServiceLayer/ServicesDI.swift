@@ -271,4 +271,8 @@ extension Container {
     var storeKitService: Factory<StoreKitServiceProtocol> {
         self { StoreKitService() }.singleton
     }
+    
+    var mentionObjectsService: Factory<MentionObjectsServiceProtocol> {
+        self { MentionObjectsService() }.shared
+    }
 }

@@ -10,7 +10,8 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     private let showHeader: Bool
     private let setupEditorInput: (EditorPageModuleInput, String) -> Void
     private let editorPageAssembly: EditorPageModuleAssemblyProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
@@ -29,14 +30,12 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         data: EditorPageObject,
         showHeader: Bool,
         setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void,
-        editorPageAssembly: EditorPageModuleAssemblyProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol
+        editorPageAssembly: EditorPageModuleAssemblyProtocol
     ) {
         self.data = data
         self.showHeader = showHeader
         self.setupEditorInput = setupEditorInput
         self.editorPageAssembly = editorPageAssembly
-        self.relationValueProcessingService = relationValueProcessingService
     }
     
     func pageModule() -> AnyView {
