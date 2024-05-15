@@ -337,6 +337,7 @@ internal extension ImageAsset {
     static let tierBuilderSmall = ImageAsset.bundle(name: "Membership/tier_builder_small")
     static let tierCocreatorMedium = ImageAsset.bundle(name: "Membership/tier_cocreator_medium")
     static let tierCocreatorSmall = ImageAsset.bundle(name: "Membership/tier_cocreator_small")
+    static let tierCustomMedium = ImageAsset.bundle(name: "Membership/tier_custom_medium")
     static let tierCustomSmall = ImageAsset.bundle(name: "Membership/tier_custom_small")
     static let tierExplorerMedium = ImageAsset.bundle(name: "Membership/tier_explorer_medium")
     static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
