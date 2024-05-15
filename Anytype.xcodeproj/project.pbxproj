@@ -378,7 +378,6 @@
 		2A35FF922AAF20FD00D6006D /* CodeLanguageRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */; };
 		2A360F972BCE778C002ADD3B /* AttributedString+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360F962BCE778C002ADD3B /* AttributedString+Style.swift */; };
 		2A360FA12BCE8A33002ADD3B /* Text+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A360FA02BCE8A33002ADD3B /* Text+Style.swift */; };
-		2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */; };
 		2A376F5A2B85F30600CF444A /* SpacesManagerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */; };
 		2A376F5F2B861D7100CF444A /* SpaceStatus+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */; };
 		2A377E3E2A82564E00EA856B /* SpaceTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */; };
@@ -2151,7 +2150,6 @@
 		2A35FF912AAF20FD00D6006D /* CodeLanguageRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeLanguageRowModel.swift; sourceTree = "<group>"; };
 		2A360F962BCE778C002ADD3B /* AttributedString+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributedString+Style.swift"; sourceTree = "<group>"; };
 		2A360FA02BCE8A33002ADD3B /* Text+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Style.swift"; sourceTree = "<group>"; };
-		2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A376F592B85F30600CF444A /* SpacesManagerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacesManagerRowView.swift; sourceTree = "<group>"; };
 		2A376F5E2B861D7100CF444A /* SpaceStatus+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceStatus+Localize.swift"; sourceTree = "<group>"; };
 		2A377E3D2A82564E00EA856B /* SpaceTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceTypeView.swift; sourceTree = "<group>"; };
@@ -7035,7 +7033,6 @@
 			isa = PBXGroup;
 			children = (
 				2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinatorViewModel.swift */,
-				2A3629A6292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift */,
 				2A7466A92A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift */,
 				2AE276232BD0270000E0244A /* ObjectSettingsCoordinatorView.swift */,
 			);
@@ -12313,7 +12310,6 @@
 				0ACDB07C255AA40900B8B0D8 /* FileActionsServiceProtocol.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				2A01A4F62A1F9FA1002042FB /* MailToUrl.swift in Sources */,
-				2A3629A7292E2BB200C02EC3 /* ObjectSettingsCoordinatorAssembly.swift in Sources */,
 				2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */,

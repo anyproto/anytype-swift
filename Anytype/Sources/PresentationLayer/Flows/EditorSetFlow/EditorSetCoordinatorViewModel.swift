@@ -20,7 +20,6 @@ final class EditorSetCoordinatorViewModel:
     private let data: EditorSetObject
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     private let relationValueProcessingService: RelationValueProcessingServiceProtocol
     
@@ -42,7 +41,6 @@ final class EditorSetCoordinatorViewModel:
         data: EditorSetObject,
         editorSetAssembly: EditorSetModuleAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
-        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         relationValueProcessingService: RelationValueProcessingServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
@@ -51,7 +49,6 @@ final class EditorSetCoordinatorViewModel:
         self.data = data
         self.editorSetAssembly = editorSetAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
-        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.relationValueProcessingService = relationValueProcessingService
         self.toastPresenter = toastPresenter
@@ -144,7 +141,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showSettings() {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: data.objectId,
             output: self
         )
