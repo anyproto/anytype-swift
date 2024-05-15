@@ -26,8 +26,7 @@ extension MembershipTier {
         case .red:
             return .Membership.tierCocreatorMedium
         case .purple:
-            anytypeAssertionFailure("Unsupported asset mediumIcon for custom tier")
-            return .ghost
+            return .Membership.tierCustomMedium
         }
     }
     

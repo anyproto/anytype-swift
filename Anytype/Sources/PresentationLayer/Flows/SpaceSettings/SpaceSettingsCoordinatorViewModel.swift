@@ -7,8 +7,7 @@ import Services
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol = Container.shared.activeWorkspaceStorage.resolve()
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: ObjectTypeProviderProtocol
     @Injected(\.documentService)
@@ -24,13 +23,12 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var dismiss = false
     @Published var showIconPickerSpaceViewId: StringIdentifiable?
     
-    lazy var accountSpaceId: String = {
-        activeWorkspaceStorage.workspaceInfo.accountSpaceId
-    }()
+    let accountSpaceId: String
     
     private var subscriptions = [AnyCancellable]()
     
     init() {
+        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
     }
     
