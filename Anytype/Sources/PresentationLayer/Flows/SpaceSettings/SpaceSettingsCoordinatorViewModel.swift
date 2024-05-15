@@ -9,8 +9,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     private let navigationContext: NavigationContextProtocol
     private let urlOpener: URLOpenerProtocol
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol = Container.shared.activeWorkspaceStorage.resolve()
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: ObjectTypeProviderProtocol
     @Injected(\.documentService)
@@ -25,9 +24,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var dismiss = false
     @Published var showIconPickerSpaceViewId: StringIdentifiable?
     
-    lazy var accountSpaceId: String = {
-        activeWorkspaceStorage.workspaceInfo.accountSpaceId
-    }()
+    let accountSpaceId: String
     
     private var subscriptions = [AnyCancellable]()
     
@@ -37,6 +34,7 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     ) {
         self.navigationContext = navigationContext
         self.urlOpener = urlOpener
+        self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
     }
     
