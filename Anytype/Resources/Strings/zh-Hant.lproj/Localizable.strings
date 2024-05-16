@@ -70,23 +70,23 @@
 
 // MARK: - Relation
 "Featured relations" = "精選關聯";
-"Create relation" = "創建關聯 \"%@\"";
+"Create relation" = "建立關聯 \"%@\"";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的關聯";
 "Relation.AddedToLibrary" = "關聯 \"%@\" 已加入到您的筆記庫";
 "Relation.Deleted" = "已刪除的關聯";
-"Relation.From.Type" = "來自類別 %@";
+"Relation.From.Type" = "來自類型 %@";
 "Relation.EmptyState.title" = "無選項";
-"Relation.EmptyState.description" = "什麼也沒有。 創建第一個選項以開始。";
+"Relation.EmptyState.description" = "什麼也沒有。建立第一個選項以開始。";
 "Relation.EmptyState.Blocked.title" = "關聯是空的";
-"Relation.Create.Row.title" = "創建 \"%@\"";
-"Relation.View.Create.title" = "創建選項";
+"Relation.Create.Row.title" = "建立 \"%@\"";
+"Relation.View.Create.title" = "建立選項";
 "Relation.View.Edit.title" = "編輯選項";
 "Relation.Create.Textfield.placeholder" = "輸入名稱...";
 "Relation.Edit.Button.title" = "應用";
 "Relation.Date.Locked.Alert.title" = "關聯 \"%@\" 已鎖定";
-"Relation.ObjectTypes.Header.title" = "物件類別：";
-"Relation.ObjectType.Header.title" = "物件類別：";
+"Relation.ObjectTypes.Header.title" = "物件類型：";
+"Relation.ObjectType.Header.title" = "物件類型：";
 
 "Relation.Delete.Alert.Title" = "您確定嗎?";
 "Relation.Delete.Alert.Description" = "該選項將從您的空間中永久刪除.";
@@ -180,7 +180,7 @@
 "Purple background" = "紫色背景";
 "Blue background" = "藍色背景";
 "Green background" = "綠色背景";
-"Create new object" = "建立新物件";
+"Create new object" = "新建物件";
 "Cancel" = "取消";
 "Paste or type URL" = "貼上或輸入 URL";
 "No items match filter" = "没有匹配的篩選項目";
@@ -218,13 +218,13 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Create" = "創建";
+"Create" = "建立";
 "Scan QR code" = "掃描 QR 碼";
 "Auth.CameraPermissionTitle" = "請允許存取";
 "Restore key from keychain" = "從鑰匙圈復原密鑰";
 "Auth.LogIn" = "我有一個密鑰";
 "Auth.Button.Join" = "新資料庫";
-"Auth.Welcome.Subtitle" = "在您自己的空間中創建與協作。加密，離線及[開源](%@)";
+"Auth.Welcome.Subtitle" = "在您自己的空間中創建與協作。加密、離線且[開源](%@)";
 "Auth.Caption.Privacy.Text" = "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)";
 "Auth.Next" = "繼續";
 
@@ -232,7 +232,7 @@
 "Vault recover error no internet" = "資料庫復原失敗，可能是沒有網路連線";
 
 // Auth Errors
-"Error creating wallet" = "錢包創建失敗";
+"Error creating wallet" = "錢包建立失敗";
 "Error select vault" = "資料庫選取失敗";
 "Error wallet recover vault" = "錢包錯誤資料庫復原失敗";
 "Wallet.Recovery.Error.description" = "無效的密鑰";
@@ -303,7 +303,7 @@
 "Profile" = "設定檔";
 "Task" = "任務";
 "Note" = "筆記";
-"Choose layout type" = "選擇版型類型";
+"Choose layout type" = "選擇佈局類型";
 
 "Undo typing" = "撤銷輸入";
 "Undo" = "復原";
@@ -312,7 +312,7 @@
 "Actions.MakeAsTemplate" = "製作成範本";
 "Actions.TemplateMakeDefault" = "設為預設";
 "Actions.CreateWidget.Title" = "到小工具";
-"Actions.CreateWidget.Success" = "新的小工具已創建";
+"Actions.CreateWidget.Success" = "新的小工具已建立";
 "Actions.CopyLink" = "複製連結";
 
 // Object Type
@@ -331,7 +331,7 @@
 
 // MARK: - Main search
 "There is no object named" = "沒有名為 \"%@\" 的物件";
-"There is no type named" = "沒有名為 \"%@\" 的類別";
+"There is no type named" = "沒有名為 \"%@\" 的類型";
 "Create a new one or search for something else" = "建立一個新的或搜尋其他內容";
 "Search.Backlinks.Show.title" = "顯示反向連結";
 "Search.Backlinks.Header.title" = "反向連結：%@";
@@ -353,13 +353,13 @@
 
 
 // MARK: - Templates
-"TemplateSelection.Available.Title" = "此類別有 %d 個範本";
+"TemplateSelection.Available.Title" = "此類型有 %d 個範本";
 "TemplatePicker.ChooseTemplate" = "選擇範本";
 "TemplatePicker.Buttons.UseTemplate" = "使用範本";
 "TemplateSelection.SelectTemplate" = "選取範本";
 "TemplateSelection.blankTemplate" = "空白";
 "TemplateSelection.Template.Subtitle" = "範本";
-"TemplateSelection.ObjectType.Subtitle" = "物件類別";
+"TemplateSelection.ObjectType.Subtitle" = "物件類型";
 
 "TemplateOptions.Alert.EditTemplate" = "編輯範本";
 "TemplateOptions.Alert.Duplicate" = "建立副本";
@@ -367,8 +367,8 @@
 
 "TemplateEditing.Title" = "編輯範本";
 
-"Templates.Popup.WasAddedTo.title" = "新範本已新增至 %@ 類別";
-"Templates.Popup.WasAddedTo" = "新範本已新增至類別";
+"Templates.Popup.WasAddedTo.title" = "新範本已新增至 %@ 類型";
+"Templates.Popup.WasAddedTo" = "新範本已新增至類型";
 "Templates.Popup.Duplicated" = "範本已建立副本";
 "Templates.Popup.Removed" = "範本已被刪除";
 "Templates.Popup.Default" = "範本已被設置為預設";
@@ -385,7 +385,7 @@
 "LinkAppearance.Description.None.Title" = "無";
 "LinkAppearance.Description.Object.Title" = "物件描述";
 "LinkAppearance.Description.Content.Title" = "內容預覽";
-"LinkAppearance.ObjectType.Title" = "物件類別";
+"LinkAppearance.ObjectType.Title" = "物件類型";
 
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "排序";
@@ -460,7 +460,7 @@
 "Set.FeaturedRelations.Query" = "查詢";
 "Set.FeaturedRelations.RelationsList" = "關聯：";
 "Set.FeaturedRelations.Relation" = "關聯：";
-"Set.FeaturedRelations.Type" = "類別：";
+"Set.FeaturedRelations.Type" = "類型：";
 
 // MARK: - Sets: Filters search
 "Set.Button.Title.Apply" = "應用";
@@ -493,7 +493,7 @@
 
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "未指定查詢";
-"Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類別和關聯的物件";
+"Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類型和關聯的物件";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "指定查詢";
@@ -505,8 +505,8 @@
 
 // MARK: - Collection: empty view
 "Collection.View.Empty.Title" = "沒有物件";
-"Collection.View.Empty.Subtitle" = "創建第一個物件以繼續";
-"Collection.View.Empty.Button.Title" = "創建物件";
+"Collection.View.Empty.Subtitle" = "建立第一個物件以繼續";
+"Collection.View.Empty.Button.Title" = "建立物件";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "圓點分隔線";
@@ -516,7 +516,7 @@
 
 "Error" = "錯誤";
 "Unknown error" = "未知錯誤";
-"Open Type Error" = "不支持的類別 \"%@\"。您可以使用電腦端開啟。";
+"Open Type Error" = "不支持的類型 \"%@\"。您可以使用電腦端開啟。";
 "Close" = "關閉";
 "Add phone" = "新增電話號碼";
 "Nothing to redo" = "沒有可以重做的操作";
@@ -540,16 +540,16 @@
 "Enter number" = "輸入數字";
 "Enter text" = "輸入文本";
 "Unsupported value" = "不支援的值";
-"Select relation type" = "選擇關聯類別";
+"Select relation type" = "選擇關聯類型";
 "CommonOpenErrorView.Message" = "尚無資料";
 "AreYouSure" = "您確定嗎?";
 "Nothing found" = "未找到任何內容";
-"No type found text" = "找不到 \"%@\" 類別。請更改您的請求或創建新的類別。";
-"Create type" = "建立類別";
+"No type found text" = "找不到 \"%@\" 類型。請更改您的請求或新建類型。";
+"Create type" = "建立類型";
 
 
-"Limit object types" = "限制物件類別";
-"Type" = "類別";
+"Limit object types" = "限制物件類型";
+"Type" = "類型";
 "No name" = "無名稱";
 "New relation" = "新增關聯";
 "Non-existent object" = "不存在的物件";
@@ -560,9 +560,9 @@
 "Shared" = "分享";
 "Sets" = "集合";
 "Collections" = "集錦";
-"Default object type" = "預設物件類別";
+"Default object type" = "預設物件類型";
 "Personalization" = "個人化";
-"Choose default object type" = "選擇預設物件類別";
+"Choose default object type" = "選擇預設物件類型";
 "About" = "關於";
 "Appearance" = "外觀";
 "Change wallpaper" = "變更桌布";
@@ -616,9 +616,9 @@
 "Open source" = "開源";
 "Into object" = "轉為物件";
 "Add below" = "在下方添加";
-"Change type" = "變更類別";
-"Show types" = "顯示類別";
-"Hide types" = "隱藏類別";
+"Change type" = "變更類型";
+"Show types" = "顯示類型";
+"Hide types" = "隱藏類型";
 "SlashMenu.LinkTo.Description" = "建立連結至其他物件";
 "Upload playable audio" = "上傳音訊檔案";
 "Code snippet" = "程式碼片段";
@@ -638,7 +638,7 @@
 "View" = "檢視";
 "Home" = "首頁";
 "Highlight" = "螢光筆";
-"Create object" = "創建物件";
+"Create object" = "建立物件";
 "Web pages" = "網頁";
 "Preview layout" = "預覽版型";
 "Everywhere" = "任何位置";
@@ -678,18 +678,18 @@
 "DataviewType.gallery" = "畫廊";
 "DataviewType.kanban" = "看板";
 "DataviewType.calendar" = "行事曆";
-"DataviewType.graph" = "圖表";
+"DataviewType.graph" = "關聯圖";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "沒有標題的空白畫布";
-"ObjectType.SearchOrInstall" = "搜尋或安裝新類別";
-"ObjectType.Search" = "搜尋類別";
-"ObjectType.MyTypes" = "我的類別";
-"ObjectType.AddedToLibrary" = "類別 \"%@\" 已加入到您的筆記庫";
-"ObjectType.DeletedName" = "已刪除類別";
+"ObjectType.SearchOrInstall" = "搜尋或安裝新類型";
+"ObjectType.Search" = "搜尋類型";
+"ObjectType.MyTypes" = "我的類型";
+"ObjectType.AddedToLibrary" = "類型 \"%@\" 已添加至您的筆記庫";
+"ObjectType.DeletedName" = "已刪除類型";
 
 // MARK: - QuickAction
-"QuickAction.create" = "創建 \"%@\"";
+"QuickAction.create" = "建立 \"%@\"";
 
 // MARK: - RedactedText
 "RedactedText.pageTitle" = "醒來吧，Neo";
@@ -727,7 +727,7 @@
 // MARK: Link Past Actions
 "LinkPaste.text" = "以文本貼上";
 "LinkPaste.link" = "以連結貼上";
-"LinkPaste.bookmark" = "創建書簽";
+"LinkPaste.bookmark" = "建立書籤";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "複製電話號碼";
@@ -779,7 +779,7 @@
 // MARK: - Widgets
 "Widgets.SourceSearch" = "小工具來源";
 "Widgets.Actions.ChangeSource" = "變更來源";
-"Widgets.Actions.ChangeWidgetType" = "變更小工具類別";
+"Widgets.Actions.ChangeWidgetType" = "變更小工具類型";
 "Widgets.Actions.RemoveWidget" = "移除小工具";
 "Widgets.Actions.EditWidgets" = "編輯小工具";
 "Widgets.Actions.EmptyBin" = "清空垃圾桶";
@@ -829,7 +829,7 @@
 // MARK: - Settings
 "Settings.Title" = "設置";
 "Settings.SpaceName" = "空間名稱";
-"Settings.SpaceType" = "空間類別";
+"Settings.SpaceType" = "空間類型";
 "Settings.VaultAndAccess" = "資料庫與存取權";
 
 // MARK: - File Storage
@@ -929,7 +929,7 @@
 "SpaceShare.Join.CommentPlaceholder" = "向空間擁有者留下私人留言";
 "SpaceShare.Join.Button" = "請求加入";
 "SpaceShare.Join.Info" = "一旦空間擁有者批准了您的請求，您將加入空間並擁有指定的存取權限。";
-"SpaceShare.Join.Message" = "您已被邀請加入由 **%@** 創建的 **%@** 空間。 發送請求，以便空間所有者可以讓​​您加入。";
+"SpaceShare.Join.Message" = "您已被邀請加入由 **%@** 建立的 **%@** 空間。 發送請求，以便空間所有者可以讓​​您加入。";
 "SpaceShare.Join.InviteNotFound" = "這個連結似乎不起作用";
 "SpaceShare.JoinConfirmation.Title" = "已送出請求";
 "SpaceShare.JoinConfirmation.Message" = "當空間所有者批准您的請求後，您將會收到通知。";
@@ -969,7 +969,7 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "創建空間";
+"SpaceCreate.Title" = "建立空間";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "添加到 Anytype";
@@ -994,7 +994,7 @@
 "Sharing.Tip.Steps.3" = "點擊編輯找到 \"Anytype\"，然後點擊";
 
 // MARK: - Swipe tips
-"Swipe.Tip.Title" = "滑動來創建物件";
+"Swipe.Tip.Title" = "滑動以建立物件";
 "Swipe.Tip.Subtitle" = "向左輕滑即可在小工具內建立物件。";
 
 
@@ -1008,15 +1008,15 @@
 "Initial.UnstableMiddle.WontUseProd" = "我不再使用我的主要生產力資料庫";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "創建特定類別的物件";
-"LongTapCreateTip.Message" = "長按「創建物件」按鈕可開啟包含類別的選單";
+"LongTapCreateTip.Title" = "建立特定類型的物件";
+"LongTapCreateTip.Message" = "長按「建立物件」按鈕可開啟包含類型的選單";
 
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "更新您的應用程式";
 "Error.AnytypeNeedsUpgrate.Message" = "該物件已在較新版本的 Anytype 中進行了修改。 請更新應用程式以在此裝置上打開它";
 "Error.AnytypeNeedsUpgrate.Confirm" = "更新";
 "Error.UnableToConnect" = "請連線至網際網路";
-"Error.Common.Title" = "哎呀!";
+"Error.Common.Title" = "哎呀！";
 "Error.Common.Message" = "請檢查您的網路連線並重試或 [在論壇上發表報告] (http://community.anytype.io/report-bug)。";
 "Error.Common.TryAgain" = "請再試一次";
 
@@ -1138,5 +1138,5 @@
 "MembershipServiceError.forcefullyFailedValidation" = "失效故障模式已開啟🫵🐭。 在除錯設定中可關閉";
 
 // MARK: - Debug
-"Debug.MimeTypes" = "MIME 多用途網際網路郵件擴展類別 - %@";
+"Debug.MimeTypes" = "MIME 類型 - %@";
 "Debug.Info" = "除錯訊息";
