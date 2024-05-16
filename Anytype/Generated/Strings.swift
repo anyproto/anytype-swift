@@ -21,6 +21,9 @@ internal enum Loc {
   internal static let addLink = Loc.tr("Localizable", "Add link")
   internal static let addPhone = Loc.tr("Localizable", "Add phone")
   internal static let addToFavorite = Loc.tr("Localizable", "Add To Favorite")
+  internal static func agreementDisclamer(_ p1: Any, _ p2: Any) -> String {
+    return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2))
+  }
   internal static let alignCenter = Loc.tr("Localizable", "Align center")
   internal static let alignLeft = Loc.tr("Localizable", "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right")
@@ -410,13 +413,6 @@ internal enum Loc {
     internal static let next = Loc.tr("Localizable", "Auth.Next")
     internal enum Button {
       internal static let join = Loc.tr("Localizable", "Auth.Button.Join")
-    }
-    internal enum Caption {
-      internal enum Privacy {
-        internal static func text(_ p1: Any, _ p2: Any) -> String {
-          return Loc.tr("Localizable", "Auth.Caption.Privacy.Text", String(describing: p1), String(describing: p2))
-        }
-      }
     }
     internal enum JoinFlow {
       internal enum Key {
