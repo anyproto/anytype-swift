@@ -355,7 +355,6 @@
 		2A2B33352A7BE5E0004BD906 /* SpaceWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B33342A7BE5E0004BD906 /* SpaceWidgetViewModel.swift */; };
 		2A2B33372A7BE5E8004BD906 /* SpaceWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2B33362A7BE5E8004BD906 /* SpaceWidgetView.swift */; };
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
-		2A2C330928928C02008BC326 /* UrlOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330828928C02008BC326 /* UrlOpener.swift */; };
 		2A2C330D28928DA7008BC326 /* CoordinatorsDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330C28928DA7008BC326 /* CoordinatorsDI.swift */; };
 		2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C3310289294B8008BC326 /* ModulesDI.swift */; };
 		2A2C33132892A161008BC326 /* TemplatesCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33122892A161008BC326 /* TemplatesCoordinatorAssembly.swift */; };
@@ -2126,7 +2125,6 @@
 		2A2B33342A7BE5E0004BD906 /* SpaceWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceWidgetViewModel.swift; sourceTree = "<group>"; };
 		2A2B33362A7BE5E8004BD906 /* SpaceWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceWidgetView.swift; sourceTree = "<group>"; };
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
-		2A2C330828928C02008BC326 /* UrlOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlOpener.swift; sourceTree = "<group>"; };
 		2A2C330C28928DA7008BC326 /* CoordinatorsDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorsDI.swift; sourceTree = "<group>"; };
 		2A2C3310289294B8008BC326 /* ModulesDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesDI.swift; sourceTree = "<group>"; };
 		2A2C33122892A161008BC326 /* TemplatesCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesCoordinatorAssembly.swift; sourceTree = "<group>"; };
@@ -3743,7 +3741,6 @@
 				C91AFEEB270B4C9C005F9386 /* Debug */,
 				1289C50E2810278F005085E2 /* FileDownloading flow */,
 				0331BBD822E5D8AB002AD179 /* Settings */,
-				2A2C330728928BF7008BC326 /* Openers */,
 				2A2C330128928633008BC326 /* RelationValueFlow */,
 				3D2F00272B67D7EA009F3AA5 /* ObjectTypeSearch */,
 				1244790F27D8A35800581174 /* Search screen */,
@@ -5428,14 +5425,6 @@
 				12F14CD42758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift */,
 			);
 			path = RelationEditingViewModelBuilder;
-			sourceTree = "<group>";
-		};
-		2A2C330728928BF7008BC326 /* Openers */ = {
-			isa = PBXGroup;
-			children = (
-				2A2C330828928C02008BC326 /* UrlOpener.swift */,
-			);
-			path = Openers;
 			sourceTree = "<group>";
 		};
 		2A2C330A28928D5F008BC326 /* Assemblies */ = {
@@ -10948,7 +10937,6 @@
 				3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */,
 				2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */,
 				EAADB1A52678CD6E004B0AF2 /* MentionTextDetector.swift in Sources */,
-				2A2C330928928C02008BC326 /* UrlOpener.swift in Sources */,
 				3D88217C26F3722600A41E75 /* BlockText+AnytypeText.swift in Sources */,
 				3DA4149E2B72627D00960748 /* SearchServiceProtocol.swift in Sources */,
 				12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */,

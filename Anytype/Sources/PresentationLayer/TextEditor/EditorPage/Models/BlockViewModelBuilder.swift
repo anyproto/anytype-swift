@@ -133,8 +133,8 @@ final class BlockViewModelBuilder {
                     showPage: { [weak self] objectId in
                         self?.router.showPage(objectId: objectId)
                     },
-                    openURL: { [weak router] url in
-                        router?.openUrl(url)
+                    openURL: { [weak output] url in
+                        output?.openUrl(url)
                     },
                     onShowStyleMenu: { [weak self] blockInformation in
                         Task { @MainActor [weak self] in
@@ -246,7 +246,7 @@ final class BlockViewModelBuilder {
                 },
                 openUrl: { [weak self] url in
                     AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
-                    self?.router.openUrl(url.url)
+                    self?.output?.openUrl(url.url)
                 }
             )
         case let .link(content):

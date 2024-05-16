@@ -46,5 +46,6 @@ struct EditorPageCoordinatorView: View {
                 UndoRedoView(objectId: $0.value)
             }
             .snackbar(toastBarData: $model.toastBarData)
+            .openUrl(url: $model.openUrlData)
     }
 }
