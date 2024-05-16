@@ -248,7 +248,7 @@ private extension Participant {
             return 3
         }
         
-        if status == .declined {
+        if status == .removing {
             return 2
         }
         
