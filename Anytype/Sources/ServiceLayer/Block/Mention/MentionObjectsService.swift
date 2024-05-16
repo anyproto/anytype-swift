@@ -6,11 +6,8 @@ protocol MentionObjectsServiceProtocol: AnyObject {
 
 final class MentionObjectsService: MentionObjectsServiceProtocol {
     
-    private let searchService: SearchServiceProtocol
-    
-    init(searchService: SearchServiceProtocol) {
-        self.searchService = searchService
-    }
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
     
     func searchMentions(spaceId: String, text: String, excludedObjectIds: [String]) async throws -> [MentionObject] {
         let details = try await searchService.searchObjects(

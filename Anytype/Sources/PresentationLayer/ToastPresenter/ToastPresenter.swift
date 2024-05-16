@@ -31,19 +31,18 @@ class ToastPresenter: ToastPresenterProtocol {
     private weak var containerViewController: UIViewController?
     
     private let keyboardHeightListener: KeyboardHeightListener
-    private let documentsProvider: DocumentsProviderProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
     private var cancellable: AnyCancellable?
 
     nonisolated init(
         viewControllerProvider: ViewControllerProviderProtocol,
         containerViewController: UIViewController? = nil,
-        keyboardHeightListener: KeyboardHeightListener,
-        documentsProvider: DocumentsProviderProtocol
+        keyboardHeightListener: KeyboardHeightListener
     ) {
         self.viewControllerProvider = viewControllerProvider
         self.containerViewController = containerViewController
         self.keyboardHeightListener = keyboardHeightListener
-        self.documentsProvider = documentsProvider
     }
 
     // MARK: - ToastPresenterProtocol

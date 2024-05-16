@@ -155,8 +155,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             router: router,
             initialEditingState: configuration.isOpenedForPreview ? .readonly : .editing,
             viewInput: viewInput,
-            bottomNavigationManager: bottomNavigationManager,
-            documentsProvider: serviceLocator.documentsProvider
+            bottomNavigationManager: bottomNavigationManager
         )
  
         let accessoryState = AccessoryViewBuilder.accessoryState(

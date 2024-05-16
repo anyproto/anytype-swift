@@ -32,7 +32,6 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
                 editorSetAssembly: self.coordinatorsID.editorSetModule(),
                 setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(),
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
-                relationValueProcessingService: self.serviceLocator.relationValueProcessingService(),
                 toastPresenter: self.uiHelpersDI.toastPresenter(),
                 navigationContext: self.uiHelpersDI.commonNavigationContext()
             )

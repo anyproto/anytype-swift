@@ -33,8 +33,7 @@ final class UIHelpersDI: UIHelpersDIProtocol {
         ToastPresenter(
             viewControllerProvider: viewControllerProvider(),
             containerViewController: containerViewController,
-            keyboardHeightListener: KeyboardHeightListener(),
-            documentsProvider: serviceLocator.documentsProvider
+            keyboardHeightListener: KeyboardHeightListener()
         )
     }
     

@@ -21,7 +21,8 @@ final class EditorSetCoordinatorViewModel:
     private let editorSetAssembly: EditorSetModuleAssemblyProtocol
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     private let toastPresenter: ToastPresenterProtocol
     private let navigationContext: NavigationContextProtocol
@@ -42,7 +43,6 @@ final class EditorSetCoordinatorViewModel:
         editorSetAssembly: EditorSetModuleAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol,
         toastPresenter: ToastPresenterProtocol,
         navigationContext: NavigationContextProtocol
     ) {
@@ -50,7 +50,6 @@ final class EditorSetCoordinatorViewModel:
         self.editorSetAssembly = editorSetAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.relationValueProcessingService = relationValueProcessingService
         self.toastPresenter = toastPresenter
         self.navigationContext = navigationContext
     }

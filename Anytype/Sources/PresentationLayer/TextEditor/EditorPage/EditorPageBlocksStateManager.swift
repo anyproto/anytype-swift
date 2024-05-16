@@ -71,7 +71,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private var blockService: BlockServiceProtocol
     @Injected(\.pasteboardBlockDocumentService)
     private var pasteboardService: PasteboardBlockDocumentServiceProtocol
-    
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
@@ -79,7 +80,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
-    private let documentsProvider: DocumentsProviderProtocol
     
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
@@ -96,8 +96,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
         viewInput: EditorPageViewInput,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        documentsProvider: DocumentsProviderProtocol
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -108,8 +107,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.editingState = initialEditingState
         self.viewInput = viewInput
         self.bottomNavigationManager = bottomNavigationManager
-        self.documentsProvider = documentsProvider
-
+        
         setupEditingHandlers()
     }
 

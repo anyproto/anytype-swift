@@ -24,9 +24,9 @@ final class DI: DIProtocol {
         return UIHelpersDI(viewControllerProvider: viewControllerProvider, serviceLocator: serviceLocator)
     }()
     
-    var serviceLocator: ServiceLocator {
-        return ServiceLocator.shared
-    }
+    lazy var serviceLocator: ServiceLocator = {
+        return ServiceLocator()
+    }()
     
     lazy var widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol = {
         return WidgetsSubmoduleDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI)

@@ -94,7 +94,6 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
             style: style,
             internalModel: internalModel,
             internalHeaderModel: internalHeaderModel,
-            objectActionsService: serviceLocator.objectActionsService(),
             output: output
         )
         let contentView = ListWidgetView(model: contentModel)
