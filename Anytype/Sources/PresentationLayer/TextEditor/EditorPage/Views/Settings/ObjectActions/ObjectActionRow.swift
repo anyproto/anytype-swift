@@ -80,7 +80,7 @@ private extension ObjectAction {
         case .duplicate:
             return .X32.duplicate
         case .linkItself:
-            return .linkToItself
+            return .X32.linkTo
         case .makeAsTemplate:
             return .makeAsTemplate
         case .templateSetAsDefault:

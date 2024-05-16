@@ -232,6 +232,7 @@ internal extension ImageAsset {
       static let `left` = ImageAsset.bundle(name: "x32/Insert/Left")
       static let `right` = ImageAsset.bundle(name: "x32/Insert/Right")
     }
+    static let linkTo = ImageAsset.bundle(name: "x32/Link to")
     enum Lock {
       static let lock = ImageAsset.bundle(name: "x32/Lock/Lock")
       static let unlock = ImageAsset.bundle(name: "x32/Lock/Unlock")
@@ -343,7 +344,6 @@ internal extension ImageAsset {
     static let tierExplorerSmall = ImageAsset.bundle(name: "Membership/tier_explorer_small")
   }
   static let createNewObject = ImageAsset.bundle(name: "createNewObject")
-  static let linkToItself = ImageAsset.bundle(name: "link_to_itself")
   static let makeAsTemplate = ImageAsset.bundle(name: "make_as_template")
   static let templateMakeDefault = ImageAsset.bundle(name: "template_make_default")
   static let relationAddToFeatured = ImageAsset.bundle(name: "relation_add_to_featured")
