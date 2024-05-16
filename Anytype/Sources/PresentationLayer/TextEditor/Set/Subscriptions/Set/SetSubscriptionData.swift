@@ -11,6 +11,7 @@ struct SetSubscriptionData: Hashable {
     let coverRelationKey: String
     let numberOfRowsPerPage: Int
     let collectionId: String?
+    let spaceId: String
     
     init(
         identifier: String,
@@ -54,5 +55,6 @@ struct SetSubscriptionData: Hashable {
         self.coverRelationKey = view.coverRelationKey
         self.numberOfRowsPerPage = numberOfRowsPerPage
         self.collectionId = collectionId
+        self.spaceId = document.spaceId
     }
 }

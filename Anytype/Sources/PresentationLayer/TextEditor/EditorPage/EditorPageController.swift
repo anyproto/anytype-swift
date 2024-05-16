@@ -54,7 +54,6 @@ final class EditorPageController: UIViewController {
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
         navigationBarView: navigationBarView,
         navigationBarBackgroundView: navigationBarBackgroundView, 
-        syncStatusData: syncStatusData,
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
@@ -81,8 +80,6 @@ final class EditorPageController: UIViewController {
     private var selectingRangeEditorItem: EditorItem?
     private var selectingRangeTextView: UITextView?
     
-    private let syncStatusData: SyncStatusData
-    
     private var cancellables = [AnyCancellable]()
     private var applyAnimationConfig = false
     private var dataSourceAnimationEnabled: Bool {
@@ -93,13 +90,11 @@ final class EditorPageController: UIViewController {
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
         bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        syncStatusData: SyncStatusData,
         keyboardListener: KeyboardHeightListener,
         showHeader: Bool
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
-        self.syncStatusData = syncStatusData
         self.keyboardListener = keyboardListener
         self.showHeader = showHeader
         
