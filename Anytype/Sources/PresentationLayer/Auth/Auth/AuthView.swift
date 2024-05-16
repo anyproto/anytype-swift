@@ -111,7 +111,7 @@ struct AuthView: View {
     
     private var privacyPolicy: some View {
         AnytypeText(
-            Loc.Auth.Caption.Privacy.text(AboutApp.termsLink, AboutApp.privacyPolicyLink),
+            Loc.agreementDisclamer(AboutApp.termsLink, AboutApp.privacyPolicyLink),
             style: .authCaption,
             enableMarkdown: true
         )
