@@ -333,9 +333,9 @@
 "There is no object named" = "There is no object named %@";
 "There is no type named" = "There is no type named %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
-"Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
 "GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
 
 // MARK: - Home
