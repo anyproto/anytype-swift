@@ -193,6 +193,7 @@
 "Share" = "Dela";
 "Okay" = "Okay";
 "Join" = "Join";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
 "Favorites" = "Favoriter";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "I have a Key";
 "Auth.Button.Join" = "New Vault";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 "Auth.Next" = "Nästa";
 
 "Vault recover error" = "Vault recover error, try again";
