@@ -25,6 +25,8 @@ final class SpaceJoinViewModel: ObservableObject {
     private var workspaceStorage: WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: AccountManagerProtocol
     
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void
@@ -49,7 +51,12 @@ final class SpaceJoinViewModel: ObservableObject {
             anytypeAssertionFailure("Try to join without invite")
             throw CommonError.undefined
         }
-        try await workspaceService.join(spaceId: inviteView.spaceId, cid: data.cid, key: data.key)
+        try await workspaceService.join(
+            spaceId: inviteView.spaceId,
+            cid: data.cid,
+            key: data.key,
+            networkId: accountManager.account.info.networkId
+        )
         showSuccessAlert.toggle()
     }
     

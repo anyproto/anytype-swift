@@ -12,7 +12,7 @@ public protocol WorkspaceServiceProtocol {
     func workspaceExport(spaceId: String, path: String) async throws -> String
     func deleteSpace(spaceId: String) async throws
     func inviteView(cid: String, key: String) async throws -> SpaceInviteView
-    func join(spaceId: String, cid: String, key: String) async throws
+    func join(spaceId: String, cid: String, key: String, networkId: String) async throws
     func joinCancel(spaceId: String) async throws
     func generateInvite(spaceId: String) async throws -> SpaceInvite
     func revokeInvite(spaceId: String) async throws
@@ -101,11 +101,12 @@ final class WorkspaceService: WorkspaceServiceProtocol {
         return result.asModel()
     }
     
-    public func join(spaceId: String, cid: String, key: String) async throws {
+    public func join(spaceId: String, cid: String, key: String, networkId: String) async throws {
         try await ClientCommands.spaceJoin(.with {
             $0.spaceID = spaceId
             $0.inviteCid = cid
             $0.inviteFileKey = key
+            $0.networkID = networkId
         }).invoke()
     }
     
