@@ -31,19 +31,23 @@ struct ListWidgetView: View {
     private var content: some View {
         ZStack {
             if let rows = model.rows {
-                VStack(spacing: 0) {
-                    WidgetEmptyView(title: model.emptyTitle)
-                        .frame(height: 72)
-                    Spacer.fixedHeight(8)
-                }
-                .opacity(rows.isEmpty ? 1 : 0)
-                VStack(spacing: 0) {
-                    ForEach(rows) {
-                        rowView(row: $0, showDivider: $0.id != rows.last?.id)
+                if rows.isEmpty {
+                    VStack(spacing: 0) {
+                        WidgetEmptyView(title: model.emptyTitle)
+                            .frame(height: 72)
+                        Spacer.fixedHeight(8)
                     }
-                    Spacer.fixedHeight(8)
+                    .transition(.opacity)
                 }
-                .opacity(rows.isEmpty ? 0 : 1)
+                else {
+                    VStack(spacing: 0) {
+                        ForEach(rows) {
+                            rowView(row: $0, showDivider: $0.id != rows.last?.id)
+                        }
+                        Spacer.fixedHeight(8)
+                    }
+                    .transition(.opacity)
+                }
             }
         }
         // This fixes the tap area for header in bottom side
