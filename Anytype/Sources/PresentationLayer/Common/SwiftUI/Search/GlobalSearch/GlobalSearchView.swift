@@ -89,7 +89,14 @@ struct GlobalSearchView: View {
     private var emptyState: some View {
         EmptyStateView(
             title: Loc.nothingFound,
-            subtitle: Loc.GlobalSearch.EmptyState.subtitle
+            subtitle: Loc.GlobalSearch.EmptyState.subtitle,
+            buttonData: EmptyStateView.ButtonData(
+                title: Loc.createObject,
+                action: {
+                    dismiss()
+                    model.createObject()
+                }
+            )
         )
     }
 }

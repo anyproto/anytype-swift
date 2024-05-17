@@ -8,6 +8,8 @@ final class GlobalSearchViewModel: ObservableObject {
     private var searchWithMetaService: SearchWithMetaServiceProtocol
     @Injected(\.globalSearchDataBuilder)
     private var globalSearchDataBuilder: GlobalSearchDataBuilderProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectCreationService: DefaultObjectCreationServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -72,6 +74,25 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .default
         )
+    }
+    
+    func createObject() {
+        Task { [weak self] in
+            guard let self else { return }
+            
+            let objectDetails = try? await defaultObjectCreationService.createDefaultObject(
+                name: state.searchText,
+                shouldDeleteEmptyObject: false,
+                spaceId: moduleData.spaceId
+            )
+            
+            guard let objectDetails else { return }
+            
+            
+            AnytypeAnalytics.instance().logCreateObject(objectType: objectDetails.analyticsType, spaceId: objectDetails.spaceId, route: .search)
+            
+            moduleData.onSelect(objectDetails.editorScreenData())
+        }
     }
     
     private func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
