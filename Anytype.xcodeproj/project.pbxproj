@@ -1110,6 +1110,7 @@
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
+		3D052AED2BF7881900F611F6 /* FileLimitsStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D052AEC2BF7881900F611F6 /* FileLimitsStorageMock.swift */; };
 		3D05C8092B91E47E008E7252 /* BannerGradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D05C8082B91E47E008E7252 /* BannerGradient.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */; };
@@ -2886,6 +2887,7 @@
 		2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetDragAndDropView.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
+		3D052AEC2BF7881900F611F6 /* FileLimitsStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLimitsStorageMock.swift; sourceTree = "<group>"; };
 		3D05C8082B91E47E008E7252 /* BannerGradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerGradient.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED6B261F49ED00C007E2 /* DividerBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerBlockViewModel.swift; sourceTree = "<group>"; };
@@ -6008,6 +6010,7 @@
 				2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */,
 				2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */,
 				3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */,
+				3D052AEC2BF7881900F611F6 /* FileLimitsStorageMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -10807,6 +10810,7 @@
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				2A6693792A7104EA007747DD /* ObjectIconImageUsecase+Font.swift in Sources */,
 				2AD48D522B7F57B80077C53B /* SpaceJoinView.swift in Sources */,
+				3D052AED2BF7881900F611F6 /* FileLimitsStorageMock.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
