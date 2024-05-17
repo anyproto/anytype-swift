@@ -49,3 +49,11 @@ struct RemoteStorageView: View {
         .openUrl(url: $model.openUrl)
     }
 }
+
+#Preview {
+    MockView {
+
+    } content: {
+        RemoteStorageView(output: nil)
+    }
+}

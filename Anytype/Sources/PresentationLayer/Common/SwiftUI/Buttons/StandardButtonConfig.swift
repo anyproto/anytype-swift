@@ -220,6 +220,25 @@ extension StandardButtonStyle {
                 radius: 6,
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall
             )
+        case .upgradeBadge:
+            return StandardButtonConfig(
+                normal: StandardButtonConfig.Style(
+                    textColor: .Text.labelInversion,
+                    backgroundColor: .Button.button
+                ),
+                higlighted: StandardButtonConfig.Style(
+                    overlayBackgroundColor: Color(light: .white.opacity(0.15), dark: .black.opacity(0.15))
+                ),
+                disabled: StandardButtonConfig.Style(
+                    textColor: .Text.tertiary,
+                    backgroundColor: .Shape.tertiary
+                ),
+                textFont: .calloutRegular,
+                height: 32,
+                stretchSize: true,
+                radius: 18,
+                loadingIndicatorSize: .ButtonLoadingIndicator.large
+            )
         }
     }
 }

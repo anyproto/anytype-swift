@@ -6,7 +6,7 @@ struct DotsView: View {
         static let countDots = 3
     }
     
-    private let timer = Timer.publish(every: 0.15, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
     @State private var activeDot: Int = 0
     
     var body: some View {
@@ -25,7 +25,7 @@ struct DotsView: View {
                     }
                 }
             }
-            
+            .animation(.easeOut(duration: 0.19), value: activeDot)
         }
         .onReceive(timer) { _ in
             activeDot = (activeDot + 1) % Constants.countDots
@@ -37,5 +37,8 @@ struct DotsView: View {
 struct DotsView_Previews: PreviewProvider {
     static var previews: some View {
         DotsView()
+            .foregroundColor(.Text.primary)
+            .frame(width: 80, height: 8)
+            .padding()
     }
 }
