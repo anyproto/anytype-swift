@@ -279,6 +279,7 @@ enum AnalyticsEventsRouteKind: String {
     case sharingExtension = "SharingExtension"
     case homeScreen = "HomeScreen"
     case clipboard = "Clipboard"
+    case search = "Search"
 }
 
 enum AnalyticsEventsRelationType: String {
