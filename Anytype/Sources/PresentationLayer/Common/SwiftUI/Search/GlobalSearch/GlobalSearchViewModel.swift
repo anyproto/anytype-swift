@@ -60,7 +60,7 @@ final class GlobalSearchViewModel: ObservableObject {
         moduleData.onSelect(searchData.editorScreenData)
     }
     
-    func showBacklinks(_ data: GlobalSearchData) {
+    func showRelatedObjects(_ data: GlobalSearchData) {
         state = GlobalSearchState(
             searchText: "",
             mode: .filtered(name: data.title, limitObjectIds: data.relatedLinks)

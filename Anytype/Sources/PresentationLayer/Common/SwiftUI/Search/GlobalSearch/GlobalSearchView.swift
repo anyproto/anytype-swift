@@ -74,12 +74,12 @@ struct GlobalSearchView: View {
         .if(data.relatedLinks.isNotEmpty) {
             $0.contextMenu {
                 Button(Loc.Search.Links.Show.title) {
-                    model.showBacklinks(data)
+                    model.showRelatedObjects(data)
                 }
             }
             .swipeActions {
                 Button(Loc.Search.Links.Swipe.title) {
-                    model.showBacklinks(data)
+                    model.showRelatedObjects(data)
                 }
                 .tint(Color.Button.active)
             }
