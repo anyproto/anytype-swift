@@ -198,6 +198,7 @@ internal extension ImageAsset {
     static let addNew = ImageAsset.bundle(name: "x32/Add New")
     enum Align {
       static let center = ImageAsset.bundle(name: "x32/Align/Center")
+      static let justify = ImageAsset.bundle(name: "x32/Align/Justify")
       static let `left` = ImageAsset.bundle(name: "x32/Align/Left")
       static let `right` = ImageAsset.bundle(name: "x32/Align/Right")
     }
