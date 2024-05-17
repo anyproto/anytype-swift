@@ -75,12 +75,12 @@ public enum IndentationBuilder {
             return child.updated(content: content)
         // Ignore reset value between items in one level.
         // Example. Two div, but there are one numeric list.
-        // div(2)
-        //   text num
-        //   text num
-        // div(3) <- Don't reset num value here for use numberValue in childs
-        //   text num
-        //   text num
+        // div(2) <- This item contains text num(2) value
+        //   text num(1)
+        //   text num(2)
+        // div(3) <- This item using div(1) final num value for child items.
+        //   text num(3)
+        //   text num(4)
         case let .layout(style) where style == BlockLayout(style: .div):
             break
         default:
