@@ -77,9 +77,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func createObject() {
-        Task { [weak self] in
-            guard let self else { return }
-            
+        Task {            
             let objectDetails = try? await defaultObjectCreationService.createDefaultObject(
                 name: state.searchText,
                 shouldDeleteEmptyObject: false,
