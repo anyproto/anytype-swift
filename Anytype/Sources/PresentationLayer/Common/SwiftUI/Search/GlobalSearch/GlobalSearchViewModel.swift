@@ -88,7 +88,6 @@ final class GlobalSearchViewModel: ObservableObject {
             
             guard let objectDetails else { return }
             
-            
             AnytypeAnalytics.instance().logCreateObject(objectType: objectDetails.analyticsType, spaceId: objectDetails.spaceId, route: .search)
             
             moduleData.onSelect(objectDetails.editorScreenData())
