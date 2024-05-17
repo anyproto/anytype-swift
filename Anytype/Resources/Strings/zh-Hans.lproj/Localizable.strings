@@ -193,6 +193,7 @@
 "Share" = "分享";
 "Okay" = "好的";
 "Join" = "加入";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
 "Favorites" = "收藏夹";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "我有一个密钥";
 "Auth.Button.Join" = "新建库";
 "Auth.Welcome.Subtitle" = "在您自己的空间中进行创建和协作。加密，离线与[开源](%@)";
-"Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
 
 "Vault recover error" = "库恢复错误，请重试";
