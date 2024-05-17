@@ -51,9 +51,9 @@ extension DataviewSort.EmptyType {
     
     var analyticValue: String {
         switch self {
-        case .start: return "EmptyTop"
-        case .end: return "EmptyBottom"
-        case .notSpecified: return "Not specified"
+        case .start: return "Start"
+        case .end: return "End"
+        case .notSpecified: return "None"
         case .UNRECOGNIZED(let value): return "UNRECOGNIZED \(value)"
         }
     }
