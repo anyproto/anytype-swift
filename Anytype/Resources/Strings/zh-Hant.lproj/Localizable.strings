@@ -15,15 +15,15 @@
 "TextStyle.Subheading.Subtitle" = "小標題";
 
 "TextStyle.Highlighted.Title" = "螢光筆";
-"TextStyle.Highlighted.Subtitle" = "聚焦文字，需要特別注意";
+"TextStyle.Highlighted.Subtitle" = "關鍵部分，需要特別注意";
 
-"TextStyle.Callout.Title" = "標注";
+"TextStyle.Callout.Title" = "引用區塊";
 "TextStyle.Callout.Subtitle" = "帶有圖示的邊框文本";
 
-"TextStyle.Checkbox.Title" = "核取方塊";
+"TextStyle.Checkbox.Title" = "核取方塊列表";
 "TextStyle.Checkbox.Subtitle" = "使用待辦清單建立和追蹤任務";
 
-"TextStyle.Bulleted.Title" = "項目符號";
+"TextStyle.Bulleted.Title" = "符號列表";
 "TextStyle.Bulleted.Subtitle" = "簡易列表";
 
 "TextStyle.Numbered.Title" = "編號列表";
@@ -43,10 +43,10 @@
 
 "BlockText.ContentType.Title.Placeholder" = "未命名";
 "BlockText.ContentType.Description.Placeholder" = "新增描述";
-"BlockText.ContentType.Toggle.Placeholder" = "切換區塊";
-"BlockText.ContentType.Bulleted.Placeholder" = "項目列表項";
-"BlockText.ContentType.Checkbox.Placeholder" = "核取方塊";
-"BlockText.ContentType.Numbered.Placeholder" = "編號列表項";
+"BlockText.ContentType.Toggle.Placeholder" = "摺疊區塊";
+"BlockText.ContentType.Bulleted.Placeholder" = "符號列表內容";
+"BlockText.ContentType.Checkbox.Placeholder" = "核取方塊列表";
+"BlockText.ContentType.Numbered.Placeholder" = "編號列表內容";
 "BlockText.ContentType.Quote.Placeholder" = "螢光文字";
 "BlockText.ContentType.Header.Placeholder" = "標題";
 "BlockText.ContentType.Header2.Placeholder" = "標題";
@@ -73,7 +73,7 @@
 "Create relation" = "建立關聯 \"%@\"";
 "Relation.View.Hint.Empty" = "空的";
 "Relation.MyRelations" = "我的關聯";
-"Relation.AddedToLibrary" = "關聯 \"%@\" 已加入到您的筆記庫";
+"Relation.AddedToLibrary" = "關聯 \"%@\" 已加入到您的資料庫";
 "Relation.Deleted" = "已刪除的關聯";
 "Relation.From.Type" = "來自類型 %@";
 "Relation.EmptyState.title" = "無選項";
@@ -83,25 +83,25 @@
 "Relation.View.Create.title" = "建立選項";
 "Relation.View.Edit.title" = "編輯選項";
 "Relation.Create.Textfield.placeholder" = "輸入名稱...";
-"Relation.Edit.Button.title" = "應用";
+"Relation.Edit.Button.title" = "套用";
 "Relation.Date.Locked.Alert.title" = "關聯 \"%@\" 已鎖定";
 "Relation.ObjectTypes.Header.title" = "物件類型：";
 "Relation.ObjectType.Header.title" = "物件類型：";
 
 "Relation.Delete.Alert.Title" = "您確定嗎?";
-"Relation.Delete.Alert.Description" = "該選項將從您的空間中永久刪除.";
-"Relation.Object.Delete.Alert.Description" = "該物件將被移至垃圾桶。";
+"Relation.Delete.Alert.Description" = "該選項將從您的空間中永久刪除";
+"Relation.Object.Delete.Alert.Description" = "該物件將被移至垃圾桶";
 
 "Relation.Format.Object.Title" = "物件";
 "Relation.Format.Text.Title" = "文字";
 "Relation.Format.Number.Title" = "數字";
-"Relation.Format.Status.Title" = "選擇";
-"Relation.Format.Tag.Title" = "選取多項";
+"Relation.Format.Status.Title" = "選項";
+"Relation.Format.Tag.Title" = "多重選項";
 "Relation.Format.Date.Title" = "日期";
 "Relation.Format.FileMedia.Title" = "檔案與媒體";
-"Relation.Format.Checkbox.Title" = "核取方塊";
+"Relation.Format.Checkbox.Title" = "核取方塊列表";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "電子信箱";
+"Relation.Format.Email.Title" = "email";
 "Relation.Format.Phone.Title" = "電話號碼";
 
 "Relation.Search.View.Placeholder" = "搜尋或建立新關聯";
@@ -114,7 +114,7 @@
 "Relation.Origin.WebClipper" = "網頁裁剪";
 "Relation.Origin.SharingExtension" = "手機共享擴充";
 "Relation.Origin.UseCase" = "使用案例";
-"Relation.Origin.Builtin" = "筆記庫已安裝";
+"Relation.Origin.Builtin" = "資料庫已安裝";
 "Relation.Origin.Bookmark" = "書籤";
 
 // MARK: - Import Type Relation
@@ -130,9 +130,9 @@
 "Mention.Subtitle.Placeholder" = "物件";
 
 "None" = "無";
-"Callout" = "標注";
-"Toggle empty. Tap to create block." = "切換為空。 點擊以建立區塊。";
-"Loading, please wait" = "正在載入，請稍候";
+"Callout" = "引用區塊";
+"Toggle empty. Tap to create block." = "摺疊為空， 點擊以建立區塊。";
+"Loading, please wait" = "載入中，請稍候";
 "Done" = "完成";
 "Style" = "樣式";
 "Color" = "顏色";
@@ -158,7 +158,7 @@
 "Unpin" = "取消釘選";
 "Pin on top" = "置頂";
 "File block subtitle" = "以原始狀態儲存檔案";
-"Picture block subtitle" = "上傳並用圖像豐富頁面";
+"Picture block subtitle" = "上傳圖像以豐富頁面";
 "Video block subtitle" = "上傳可播放的影片";
 "Bookmark block subtitle" = "儲存您的最愛連結(包含摘要)";
 "Code block subtitle" = "擷取程式碼片段";
@@ -180,22 +180,23 @@
 "Purple background" = "紫色背景";
 "Blue background" = "藍色背景";
 "Green background" = "綠色背景";
-"Create new object" = "新建物件";
+"Create new object" = "建立新物件";
 "Cancel" = "取消";
 "Paste or type URL" = "貼上或輸入 URL";
-"No items match filter" = "没有匹配的篩選項目";
+"No items match filter" = "没有符合篩選的項目";
 "Unsupported block" = "不支援的區塊";
 "Name" = "名稱";
 "Description" = "描述";
-"Paste processing..." = "貼上處理...";
-"Anytype Library" = "Anytype 筆記庫";
+"Paste processing..." = "貼上處理中...";
+"Anytype Library" = "Anytype 資料庫";
 "Copied" = "已複製";
 "Share" = "分享";
 "Okay" = "好的";
 "Join" = "加入";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
-"Favorites" = "收藏夾";
+"Favorites" = "我的最愛";
 "Recent" = "最近";
 "Bin" = "垃圾桶";
 
@@ -209,7 +210,7 @@
 // Keychain screen
 "Keychain.Key" = "密鑰";
 "Keychain.Key.Copy.Toast.title" = "密鑰已複製";
-"Keychain.Key.description" = "您將需要使用它來登入您的資料庫。請將其保存在安全的地方。 若遺失了，您將無法再存取您的資料庫。";
+"Keychain.Key.description" = "您將需要使用它來登入您的帳號。請將其保存在安全的地方。 若遺失了，您將無法再登入您的帳號。";
 "Keychain.Show and copy key" = "顯示並複製密鑰";
 "Keychain.Have you backed up your key?" = "您備份好您的密鑰了嗎？";
 "Keychain.Error.String to Data conversion error" = "字串轉換到資料發生錯誤";
@@ -219,22 +220,21 @@
 
 // Auth
 "Create" = "建立";
-"Scan QR code" = "掃描 QR 碼";
+"Scan QR code" = "掃描 QR code";
 "Auth.CameraPermissionTitle" = "請允許存取";
 "Restore key from keychain" = "從鑰匙圈復原密鑰";
-"Auth.LogIn" = "我有一個密鑰";
-"Auth.Button.Join" = "新資料庫";
+"Auth.LogIn" = "我有密鑰";
+"Auth.Button.Join" = "新帳號";
 "Auth.Welcome.Subtitle" = "在您自己的空間中創建與協作。加密、離線且[開源](%@)";
-"Auth.Caption.Privacy.Text" = "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)";
 "Auth.Next" = "繼續";
 
-"Vault recover error" = "資料庫復原失敗，請再試一次";
-"Vault recover error no internet" = "資料庫復原失敗，可能是沒有網路連線";
+"Vault recover error" = "帳戶復原失敗，請再試一次";
+"Vault recover error no internet" = "帳戶復原失敗，可能是沒有網路連線";
 
 // Auth Errors
 "Error creating wallet" = "錢包建立失敗";
-"Error select vault" = "資料庫選取失敗";
-"Error wallet recover vault" = "錢包錯誤資料庫復原失敗";
+"Error select vault" = "選取帳戶失敗";
+"Error wallet recover vault" = "錢包恢復帳戶失敗";
 "Wallet.Recovery.Error.description" = "無效的密鑰";
 
 "Search for language" = "搜尋語言";
@@ -242,7 +242,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "這是您的密鑰";
-"Auth.JoinFlow.Key.Description" = "它賦予您資料庫的所有權。\n它無法復原。";
+"Auth.JoinFlow.Key.Description" = "它賦予您帳戶的完整所有權。\n它無法被復原。";
 "Auth.JoinFlow.Key.Button.Show.Title" = "顯示我的密鑰";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "繼續";
 "Auth.JoinFlow.Key.Button.Later.Title" = "略過";
@@ -251,19 +251,20 @@
 "Auth.JoinFlow.Key.Button.Tip.Title" = "您稍後可以在 Anytype 的設定中找到此密鑰";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "什麼是密鑰？";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "密鑰是由 12 個隨機單詞產生的助記詞，您的資料庫將在此裝置上神奇地生成。";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "誰知道這些單詞的組合，誰就能擁有該資料庫。 此時此刻，你是世界上唯一知道的人。";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "地球上的所有電腦資源都不足以破解。 如果您丟失了密鑰，它將無法復原。所以，請將它保存在安全的地方！";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "密鑰是由 12 個隨機單詞產生的助記詞，您的帳戶將在此裝置上神奇地產生。";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "一旦誰知道了這些單詞的組合，誰就能擁有您的帳戶。 
+**現在您是世界上唯一知道這組密鑰的人**";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "地球上的所有電腦資源都不足以破解。 但如果您丟失了密鑰，它將無法復原，所以請將它保存在安全的地方！";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "如何保存我的密鑰？";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存密鑰最簡單的方式是將其保存在您的密碼管理器中。";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "最安全的方法是將其寫在紙上並離線保存在安全可靠的地方。";
 
 "Auth.JoinFlow.Soul.Title" = "設置您的名字";
-"Auth.JoinFlow.Soul.Description" = "只有被您分享內容的人才能查看。這裡沒有中心化的管理。";
+"Auth.JoinFlow.Soul.Description" = "只有被您分享內容的人才能查看。這裡沒有中心化的管理名稱。";
 "Auth.JoinFlow.Soul.Placeholder" = "未命名";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Button" = "進入我的帳戶";
 
-"Auth.JoinFlow.Vault.Title" = "這是您的資料庫";
+"Auth.JoinFlow.Vault.Title" = "這是您的帳戶";
 "Auth.JoinFlow.Vault.Description" = "所有內容都經過加密處理。\n資料以本地為主，即使是離線狀態也能正常運作。\n僅有您持有密鑰。";
 "Auth.JoinFlow.Vault.Button" = "獲取我的密鑰";
 
@@ -271,7 +272,7 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "使用鑰匙圈";
 "Auth.LoginFlow.Or" = "或";
 "Auth.LoginFlow.Textfield.Placeholder" = "輸入您的密鑰";
-"Auth.LoginFlow.Enter.Title" = "Get my Key";
+"Auth.LoginFlow.Enter.Title" = "進入我的帳戶";
 "Auth.LoginFlow.Entering.Void.Title" = "正在進入 Void 身份集錦圖表";
 
 // Object settings
@@ -306,12 +307,12 @@
 "Choose layout type" = "選擇佈局類型";
 
 "Undo typing" = "撤銷輸入";
-"Undo" = "復原";
+"Undo" = "撤銷";
 "Redo" = "重做";
 "Actions.LinkItself" = "連結到";
 "Actions.MakeAsTemplate" = "製作成範本";
 "Actions.TemplateMakeDefault" = "設為預設";
-"Actions.CreateWidget.Title" = "到小工具";
+"Actions.CreateWidget.Title" = "設置到小工具";
 "Actions.CreateWidget.Success" = "新的小工具已建立";
 "Actions.CopyLink" = "複製連結";
 
@@ -339,11 +340,11 @@
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "筆記庫在電腦端程式中可用";
+"Home.Snackbar.Library" = "資料庫可以在電腦端程式中使用";
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "設置";
-"Alert.CameraPermissions.GoToSettings" = "Anytype 需要存取您的相機才能掃描 QR 碼。\n\n請前往您裝置的設定 -> Anytype 並將相機設置為開啟";
+"Alert.CameraPermissions.GoToSettings" = "Anytype 需要存取您的相機才能掃描 QR code。\n\n請前往您裝置的設定 -> Anytype 並將相機設置為開啟";
 
 // MARK: - Deletion
 "Pending deletion text" = "看到您的離開我們感到很遺憾。 您有 30 天的時間取消此請求。 30 天後，您的加密帳戶資料將從備份節點永久刪除。";
@@ -377,8 +378,8 @@
 "Set as default" = "設為預設";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "從收藏夾中移除";
-"Add To Favorite" = "添加到收藏夾";
+"Remove From Favorite" = "從我的最愛中移除";
+"Add To Favorite" = "添加到我的最愛";
 "Move To Bin" = "移動到垃圾桶";
 
 
@@ -463,7 +464,7 @@
 "Set.FeaturedRelations.Type" = "類型：";
 
 // MARK: - Sets: Filters search
-"Set.Button.Title.Apply" = "應用";
+"Set.Button.Title.Apply" = "套用";
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "貼上連結";
@@ -520,8 +521,8 @@
 "Close" = "關閉";
 "Add phone" = "新增電話號碼";
 "Nothing to redo" = "沒有可以重做的操作";
-"Nothing to undo" = "沒有可以復原的操作";
-"Progress..." = "進度...";
+"Nothing to undo" = "沒有可以撤銷的操作";
+"Progress..." = "進行中...";
 "Grey" = "灰色";
 "Sky" = "天藍色";
 "Yellow" = "黃色";
@@ -535,7 +536,7 @@
 "Select options" = "選擇選項";
 "Select option" = "選擇選項";
 "Select date" = "選擇日期";
-"Add email" = "新增電子郵件";
+"Add email" = "新增 email";
 "Add link" = "添加連結";
 "Enter number" = "輸入數字";
 "Enter text" = "輸入文本";
@@ -572,23 +573,23 @@
 "Create object from clipboard" = "從剪貼簿建立物件";
 "Access to key from keychain" = "從鑰匙圈存取密鑰";
 "Back up your key" = "備份您的密鑰";
-"Vault" = "資料庫";
+"Vault" = "帳戶";
 "Access" = "存取";
 "Back up key" = "備份密鑰";
 "Removing cache" = "清除緩存";
 "Deletion error" = "刪除錯誤";
 "Start" = "開始";
 "On analytics" = "On analytics";
-"Select vault error" = "資料庫選擇錯誤";
-"Vault deleted" = "資料庫已刪除";
-"Vault.Select.Incompatible.Version.Error.Text" = "我們無法檢索您的資料庫數據，因為您的版本已過時。請將 Anytype 更新到最新版本。";
+"Select vault error" = "帳戶選擇錯誤";
+"Vault deleted" = "帳戶已刪除";
+"Vault.Select.Incompatible.Version.Error.Text" = "我們無法取得您的帳戶數據，因為您的版本已過時。請將 Anytype 更新到最新版本。";
 "Restore from keychain" = "從鑰匙圈復原";
 "Edit" = "編輯";
 "In this object" = "在此物件內";
 "Other relations" = "其他關聯";
 "Collection of objects" = "物件集錦";
 "Designed to capture thoughts quickly" = "專為快速捕捉想法而設計";
-"Action-focused layout with a checkbox" = "具有複選框的操作重點版型";
+"Action-focused layout with a checkbox" = "具有核取方塊的操作重點版型";
 "Standard layout for canvas blocks" = "畫布區塊的標準版型";
 "List of related objects" = "關聯物件列表";
 "Lock" = "鎖定";
@@ -650,7 +651,7 @@
 "Clear" = "清除";
 "Create option with" = "建立 \"%@\" 選項";
 "Enter URL" = "輸入 URL";
-"Enter email" = "輸入電子郵件";
+"Enter email" = "輸入email";
 "Enter phone number" = "輸入電話號碼";
 "Enter number" = "輸入數字";
 "Enter text" = "輸入文本";
@@ -663,14 +664,15 @@
 "This object doesn't exist" = "此物件不存在";
 "Setting up encrypted storage\nPlease wait" = "正在設置加密儲存中\n請稍後";
 "These objects will be deleted irrevocably" = "這些物件將被永久刪除。您無法撤銷此操作。";
-"Delete vault" = "刪除資料庫";
+"Delete vault" = "刪除帳戶";
 "Cancel deletion" = "取消刪除";
 "Logout and clear data" = "登出並清除資料";
 "New" = "新增";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "您確定要刪除您的資料庫嗎？";
-"DeletionAlert.description" = "您將在其他裝置上登出。您將有 30 天的時間來復原資料庫。之後它將永久刪除。";
+"DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";
+"DeletionAlert.description" = "您將在其他裝置上登出。
+您將有 30 天的時間可以復原帳戶，之後它將永久刪除。";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "網格";
@@ -731,13 +733,13 @@
 
 // Relation Actions
 "RelationAction.CopyPhone" = "複製電話號碼";
-"RelationAction.CopyEmail" = "複製電子郵件";
+"RelationAction.CopyEmail" = "複製 email";
 "RelationAction.CopyLink" = "複製連結";
 "RelationAction.Copied" = "已複製";
 "RelationAction.ReloadingContent" = "重新載入內容";
 "RelationAction.ReloadContent" = "重新載入物件內容";
 "RelationAction.CallPhone" = "撥打電話號碼";
-"RelationAction.SendEmail" = "傳送電子郵件";
+"RelationAction.SendEmail" = "傳送 email";
 "RelationAction.OpenLink" = "開啟連結";
 
 // MARK: Edit view type
@@ -774,7 +776,7 @@
 "Editor.Toast.MovedTo" = "區塊移動至";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "不支持掃描";
+"Scanner.Error.Scanning not supported" = "不支援掃描";
 
 // MARK: - Widgets
 "Widgets.SourceSearch" = "小工具來源";
@@ -802,7 +804,7 @@
 // MARK: - About
 "About.AppVersion" = "應用程式版本：%@";
 "About.BuildNumber" = "建置版本：%@";
-"About.Library" = "筆記庫版本：%@";
+"About.Library" = "資料庫版本：%@";
 "About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "分析 ID：%@";
 "About.deviceId" = "裝置 ID：%@
@@ -830,7 +832,7 @@
 "Settings.Title" = "設置";
 "Settings.SpaceName" = "空間名稱";
 "Settings.SpaceType" = "空間類型";
-"Settings.VaultAndAccess" = "資料庫與存取權";
+"Settings.VaultAndAccess" = "帳戶與存取權";
 
 // MARK: - File Storage
 "FileStorage.Title" = "檔案儲存空間";
@@ -838,8 +840,8 @@
 "FileStorage.Space.Instruction" = "您可以在我們的加密備份節點上免費儲存最多 %@ 個檔案。 如果達到限制，檔案將僅儲存在本機。";
 "FileStorage.Space.Used" = "已使用 %@；總共 %@";
 "FileStorage.Space.GetMore" = "獲取更多空間";
-"FileStorage.Space.Mail.Subject" = "為資料庫 %@ 獲取更多儲存空間";
-"FileStorage.Space.Mail.Body" = "您好，Anytype 團隊。我聯繫你們是因為我的儲存容量不足了，因此想請求增加儲存容量。當前的儲存容量限制為 %@。我的資料庫 ID 是 %@。謝謝，%@.";
+"FileStorage.Space.Mail.Subject" = "為帳戶 %@ 獲取更多儲存空間";
+"FileStorage.Space.Mail.Body" = "您好，Anytype 團隊。我聯繫你們是因為我的儲存容量不足了，因此想請求增加儲存容量。當前的儲存容量限制為 %@。我的帳戶 ID 是 %@。謝謝，%@.";
 "FileStorage.Local.Title" = "本機儲存";
 "FileStorage.Local.Instruction" = "為了節省本地設備上的空間，您可以將所有檔案傳輸到我們的加密備份節點。 當您打開這些檔案時，它們將被重新載入。";
 "FileStorage.Local.Used" = "已使用 %@";
@@ -940,11 +942,11 @@
 "SpaceShare.StopSharing.Title" = "停止共享此空間";
 "SpaceShare.StopSharing.Message" = "成員將不再同步到此空間，並且共享連結將被停用。";
 "SpaceShare.StopSharing.Toast" = "此空間將不再共享";
-"SpaceShare.QR.Title" = "加入空間的 QR 碼";
-"SpaceShare.QR.Button" = "顯示 QR 碼";
+"SpaceShare.QR.Title" = "加入空間的 QR code";
+"SpaceShare.QR.Button" = "顯示 QR code";
 "SpaceShare.HowToShare.Title" = "如何共享一個空間？";
-"SpaceShare.HowToShare.Step1" = "請向您想要協作的人提供此連結。";
-"SpaceShare.HowToShare.Step2" = "某人透過點擊連結，請求加入該空間。";
+"SpaceShare.HowToShare.Step1" = "請提供此連結給您想要協作的人。";
+"SpaceShare.HowToShare.Step2" = "他人可以透過點擊連結請求加入空間。";
 "SpaceShare.HowToShare.Step3" = "批准請求後，您可以分配此人的存取權限。";
 "SpaceShare.Manage" = "管理";
 "SpaceShare.AlreadyJoin.Title" = "您已經是此空間的成員。";
@@ -1001,11 +1003,11 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Message" = "您啟動了一個不穩定的中繼軟體。 不要使用您的主要生產力資料庫。 你的資料庫可能已被損毀了。";
+"Initial.UnstableMiddle.Message" = "您啟動了一個不穩定的中繼軟體。 不要使用您的主要生產力帳戶。 你的帳戶可能被損毀。";
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Logout" = "從當前的資料庫登出";
-"Initial.UnstableMiddle.Continue" = "繼續使用當前的資料庫";
-"Initial.UnstableMiddle.WontUseProd" = "我不再使用我的主要生產力資料庫";
+"Initial.UnstableMiddle.Logout" = "從當前帳戶登出";
+"Initial.UnstableMiddle.Continue" = "繼續使用當前帳戶";
+"Initial.UnstableMiddle.WontUseProd" = "我不再使用我的主要生產力帳戶";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "建立特定類型的物件";
@@ -1021,9 +1023,9 @@
 "Error.Common.TryAgain" = "請再試一次";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "以往 7 天";
-"RelativeFormatter.days30" = "以往 30 天";
-"RelativeFormatter.older" = "較早的";
+"RelativeFormatter.days7" = "過去 7 天";
+"RelativeFormatter.days30" = "過去 30 天";
+"RelativeFormatter.older" = "較舊的";
 
 // MARK: - Server
 "Server.Network" = "網路";
@@ -1066,8 +1068,8 @@
 "Min X characters" = "最少 %@ 個字元";
 "Pending" = "等候中...";
 "Manage payment" = "管理付款方式";
-"Change email" = "更改電子郵件";
-"Email successfully validated" = "電子郵件已驗證成功";
+"Change email" = "更改 email";
+"Email successfully validated" = "email 已驗證成功";
 "Confirm" = "確認";
 
 "StoreKitServiceError.userCancelled" = "已取消購買";
@@ -1103,7 +1105,7 @@
 
 "Membership.EmailForm.Title" = "獲得升級並享有免費福利！";
 "Membership.EmailForm.Subtitle" = "這與您的帳戶沒有任何關聯。";
-"Membership.EmailValidation" = "請輸入發送到您電子郵件的兌換代碼";
+"Membership.EmailValidation" = "請輸入發送到您 email 的兌換代碼";
 
 "Membership.NameForm.Title" = "取一個獨特的名字";
 "Membership.NameForm.Subtitle" = "這是您在Anytype網絡的專屬用戶名，以確認您的會員身份。它是您的個人域名，不可更改。";

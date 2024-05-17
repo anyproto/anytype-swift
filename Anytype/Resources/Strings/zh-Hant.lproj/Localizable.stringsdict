@@ -75,7 +75,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>該資料庫將在 %#@days@ 後刪除</string>
+      <string>該帳戶將在 %#@days@ 後刪除</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>

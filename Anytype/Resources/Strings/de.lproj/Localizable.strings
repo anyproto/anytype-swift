@@ -193,6 +193,7 @@
 "Share" = "Teilen";
 "Okay" = "Okay";
 "Join" = "Beitreten";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
 "Favorites" = "Favoriten";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "Ich habe einen Schlüssel";
 "Auth.Button.Join" = "Neuer Tresor";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
-"Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
 "Vault recover error" = "Fehler beim Wiederherstellen des Tresors, versuche es erneut";

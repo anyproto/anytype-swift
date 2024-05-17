@@ -193,6 +193,7 @@
 "Share" = "Condividi";
 "Okay" = "Okay";
 "Join" = "Unisciti";
+"Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 
 // Home
 "Favorites" = "Preferiti";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "Ho una Chiave";
 "Auth.Button.Join" = "Nuova Cassaforte";
 "Auth.Welcome.Subtitle" = "Crea e collabora negli spazi che possiedi.Crittografati, offline & [open source](%@).";
-"Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
 
 "Vault recover error" = "Errore recupero cassaforte, riprova";

@@ -193,6 +193,7 @@
 "Share" = "Partager";
 "Okay" = "D'accord";
 "Join" = "Rejoindre";
+"Agreement Disclamer" = "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)";
 
 // Home
 "Favorites" = "Favoris";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "J'ai une clé";
 "Auth.Button.Join" = "Nouveau coffre-fort";
 "Auth.Welcome.Subtitle" = "Créez et collaborez dans des espaces que vous possédez. Crypté, hors ligne & [open](%@).";
-"Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
 
 "Vault recover error" = "Erreur de récupération du coffre, veuillez réessayer";
