@@ -23,7 +23,7 @@ struct GlobalSearchData: Identifiable {
     let title: String
     let highlights: [HighlightsData]
     let objectTypeName: String
-    let backlinks: [String]
+    let relatedLinks: [String]
     let editorScreenData: EditorScreenData
     let score: String
 }

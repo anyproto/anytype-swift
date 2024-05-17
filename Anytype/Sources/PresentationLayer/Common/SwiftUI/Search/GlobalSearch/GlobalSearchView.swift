@@ -71,14 +71,14 @@ struct GlobalSearchView: View {
         } label: {
             GlobalSearchCell(data: data)
         }
-        .if(data.backlinks.isNotEmpty) {
+        .if(data.relatedLinks.isNotEmpty) {
             $0.contextMenu {
-                Button(Loc.Search.Backlinks.Show.title) {
+                Button(Loc.Search.Links.Show.title) {
                     model.showBacklinks(data)
                 }
             }
             .swipeActions {
-                Button(Loc.Search.Backlinks.Swipe.title) {
+                Button(Loc.Search.Links.Swipe.title) {
                     model.showBacklinks(data)
                 }
                 .tint(Color.Button.active)
