@@ -193,7 +193,7 @@
 "Share" = "分享";
 "Okay" = "好的";
 "Join" = "加入";
-"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Agreement Disclamer" = "繼續即表示同意 [使用條款](%@) 與 [隱私政策](%@)";
 
 // Home
 "Favorites" = "我的最愛";
