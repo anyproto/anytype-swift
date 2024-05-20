@@ -27,7 +27,9 @@ struct GlobalSearchView: View {
     
     @ViewBuilder
     private var content: some View {
-        if model.searchData.isEmpty {
+        if model.state.isInitial {
+            Spacer()
+        } else if model.searchData.isEmpty {
             emptyState
         } else {
             searchResults
