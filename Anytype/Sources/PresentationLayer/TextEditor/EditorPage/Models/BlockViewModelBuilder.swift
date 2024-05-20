@@ -194,6 +194,7 @@ final class BlockViewModelBuilder {
                 return BlockFileViewModel(
                     informationProvider: blockInformationProvider,
                     handler: handler,
+                    documentId: documentId,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
@@ -203,6 +204,7 @@ final class BlockViewModelBuilder {
                 )
             case .image:
                 return BlockImageViewModel(
+                    documentId: documentId,
                     blockInformationProvider: blockInformationProvider,
                     handler: handler,
                     showIconPicker: { [weak self] blockId in
@@ -220,6 +222,7 @@ final class BlockViewModelBuilder {
                 )
             case .audio:
                 return AudioBlockViewModel(
+                    documentId: documentId,
                     informationProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in

@@ -16,15 +16,18 @@ struct AudioBlockContentConfiguration: BlockConfiguration {
 
     let file: BlockFile
     let trackId: String
+    let documentId: String
     weak var audioPlayerViewDelegate: AudioPlayerViewDelegate?
 
     static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
         lhs.trackId == rhs.trackId &&
-        lhs.audioPlayerViewDelegate === rhs.audioPlayerViewDelegate
+        lhs.audioPlayerViewDelegate === rhs.audioPlayerViewDelegate &&
+        lhs.documentId == rhs.documentId
     }
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(trackId)
+        hasher.combine(documentId)
     }
 }
 

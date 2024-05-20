@@ -1,25 +1,13 @@
 public struct FileMetadata: Hashable {
-    public var name: String
-    public var size: Int64
     public var targetObjectId: String
-    public var mime: String
-    public var addedAt: Int64
     
     public static func empty() -> Self {
-        .init(name: "", size: 0, targetObjectId: "", mime: "", addedAt: 0)
+        .init(targetObjectId: "")
     }
     
     // MARK: - Memberwise initializer
-    public init(name: String, size: Int64, targetObjectId: String, mime: String, addedAt: Int64) {
-        self.name = name
-        self.size = size
+    public init(targetObjectId: String) {
         self.targetObjectId = targetObjectId
-        self.mime = mime
-        self.addedAt = addedAt
-    }
-    
-    public var fileExt: String {
-        mime.components(separatedBy: "/").last ?? ""
     }
 }
 

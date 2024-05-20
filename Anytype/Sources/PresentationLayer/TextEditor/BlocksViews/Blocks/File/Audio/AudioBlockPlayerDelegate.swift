@@ -31,7 +31,7 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
             setAudioSessionCategorypPlayback()
             audioPlayer.play(
                 audioId: info.id,
-                name: fileData.metadata.name,
+                name: document.targetFileDetails(targetObjectId: fileData.metadata.targetObjectId)?.name ?? "",
                 playerItem: playerItem,
                 seekTime: sliderValue,
                 delegate: self
