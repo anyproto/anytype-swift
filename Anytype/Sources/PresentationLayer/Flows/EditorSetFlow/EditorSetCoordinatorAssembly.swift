@@ -29,7 +29,6 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
         EditorSetCoordinatorView(
             model: EditorSetCoordinatorViewModel(
                 data: data,
-                editorSetAssembly: self.coordinatorsID.editorSetModule(),
                 setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(),
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make(with: nil), 
                 toastPresenter: self.uiHelpersDI.toastPresenter(),

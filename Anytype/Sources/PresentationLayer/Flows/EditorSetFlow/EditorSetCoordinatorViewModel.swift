@@ -17,8 +17,7 @@ final class EditorSetCoordinatorViewModel:
     ObjectSettingsCoordinatorOutput,
     RelationValueCoordinatorOutput
 {
-    private let data: EditorSetObject
-    private let editorSetAssembly: EditorSetModuleAssemblyProtocol
+    let data: EditorSetObject
     private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.relationValueProcessingService)
@@ -40,22 +39,16 @@ final class EditorSetCoordinatorViewModel:
     
     init(
         data: EditorSetObject,
-        editorSetAssembly: EditorSetModuleAssemblyProtocol,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
         toastPresenter: ToastPresenterProtocol,
         navigationContext: NavigationContextProtocol
     ) {
         self.data = data
-        self.editorSetAssembly = editorSetAssembly
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
         self.toastPresenter = toastPresenter
         self.navigationContext = navigationContext
-    }
-    
-    func setModule() -> AnyView {
-        editorSetAssembly.make(data: data, output: self)
     }
     
     // MARK: - EditorSetModuleOutput

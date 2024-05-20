@@ -50,10 +50,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func editorPageModule() -> EditorPageModuleAssemblyProtocol {
         EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
     }
-
-    func editorSetModule() -> EditorSetModuleAssemblyProtocol {
-        EditorSetModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
-    }
     
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol {
         SetObjectCreationCoordinatorAssembly(

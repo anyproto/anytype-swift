@@ -8,4 +8,12 @@ extension Container {
     var setObjectCreationHelper: Factory<SetObjectCreationHelperProtocol> {
         self { SetObjectCreationHelper() }.shared
     }
+    
+    var setSubscriptionDataBuilder: Factory<SetSubscriptionDataBuilderProtocol> {
+        self { SetSubscriptionDataBuilder() }
+    }
+    
+    var setGroupSubscriptionDataBuilder: Factory<SetGroupSubscriptionDataBuilderProtocol> {
+        self { SetGroupSubscriptionDataBuilder() }
+    }
 }
