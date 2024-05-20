@@ -36,7 +36,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
+    @Injected(\.legacySharingTip)
+    private var sharingTipCoordinator: SharingTipCoordinatorProtocol
     
     // MARK: - State
     
@@ -85,12 +86,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        sharingTipCoordinator: SharingTipCoordinatorProtocol
+        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
-        self.sharingTipCoordinator = sharingTipCoordinator
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()

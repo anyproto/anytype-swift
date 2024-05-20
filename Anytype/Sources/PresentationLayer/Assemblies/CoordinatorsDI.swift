@@ -48,14 +48,14 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func editorPageModule() -> EditorPageModuleAssemblyProtocol {
         EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI)
     }
-    
-    func sharingTip() -> SharingTipCoordinatorProtocol {
-        SharingTipCoordinator()
-    }
 }
 
 extension Container {
     var legacySetObjectCreationCoordinator: Factory<SetObjectCreationCoordinatorProtocol> {
         self { SetObjectCreationCoordinator() }
+    }
+    
+    var legacySharingTip: Factory<SharingTipCoordinatorProtocol> {
+        self { SharingTipCoordinator() }
     }
 }
