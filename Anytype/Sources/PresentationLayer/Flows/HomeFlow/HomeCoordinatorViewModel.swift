@@ -36,7 +36,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
+    @Injected(\.legacySharingTip)
+    private var sharingTipCoordinator: SharingTipCoordinatorProtocol
     
     // MARK: - State
     
