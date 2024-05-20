@@ -11,7 +11,7 @@ struct FavoriteTreeWidgetsubmoduleView: View {
     }
 }
 
-struct FavoriteTreeWidgetsubmoduleInternalView: View {
+private struct FavoriteTreeWidgetsubmoduleInternalView: View {
     
     @StateObject private var model: FavoriteWidgetInternalViewModel
     let data: WidgetSubmoduleData

@@ -1,31 +1,34 @@
 import Foundation
 import SwiftUI
 
-struct CollectionsCompactListWidgetSubmoduleView: View {
+struct CollectionsCommonListWidgetSubmoduleView: View {
     
     let data: WidgetSubmoduleData
+    let style: ListWidgetStyle
     
     var body: some View {
-        CollectionsCompactListWidgetSubmoduleInternalView(data: data)
-            .id(data.widgetBlockId)
+        CollectionsCommonListWidgetSubmoduleInternalView(data: data, style: style)
+            .id(data.widgetBlockId + style.rawValue)
     }
 }
 
-private struct CollectionsCompactListWidgetSubmoduleInternalView: View {
+private struct CollectionsCommonListWidgetSubmoduleInternalView: View {
     
     let data: WidgetSubmoduleData
+    let style: ListWidgetStyle
     
     @StateObject private var model: CollectionsWidgetInternalViewModel
     
-    init(data: WidgetSubmoduleData) {
+    init(data: WidgetSubmoduleData, style: ListWidgetStyle) {
         self.data = data
+        self.style = style
         self._model = StateObject(wrappedValue: CollectionsWidgetInternalViewModel(data: data))
     }
     
     var body: some View {
         ListWidgetView(
             data: data,
-            style: .compactList,
+            style: style,
             internalModel: model,
             internalHeaderModel: nil
         )
