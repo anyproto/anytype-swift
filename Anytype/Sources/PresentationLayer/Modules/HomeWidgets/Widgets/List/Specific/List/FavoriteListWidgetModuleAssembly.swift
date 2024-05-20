@@ -23,13 +23,10 @@ final class FavoriteListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         let model = FavoriteWidgetInternalViewModel(data: data)
         
         return ListWidgetView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
+            data: data,
             style: .list,
-            stateManager: stateManager,
             internalModel: model,
-            internalHeaderModel: nil,
-            output: output
+            internalHeaderModel: nil
         ).eraseToAnyView()
     }
 }

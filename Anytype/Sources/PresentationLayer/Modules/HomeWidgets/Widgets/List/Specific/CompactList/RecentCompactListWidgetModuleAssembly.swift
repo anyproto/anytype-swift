@@ -25,13 +25,10 @@ final class RecentCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProto
         let model = RecentWidgetInternalViewModel(data: data, type: type)
      
         return ListWidgetView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
+            data: data,
             style: .compactList,
-            stateManager: stateManager,
             internalModel: model,
-            internalHeaderModel: nil,
-            output: output
+            internalHeaderModel: nil
         ).eraseToAnyView()
     }
 }

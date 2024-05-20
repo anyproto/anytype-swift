@@ -19,6 +19,7 @@ final class SetsCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
+        let data =  WidgetSubmoduleData(widgetBlockId: widgetBlockId, widgetObject: widgetObject, stateManager: stateManager, output: output)
         let model = SetsWidgetInternalViewModel(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
@@ -26,13 +27,10 @@ final class SetsCompactListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
         )
      
         return ListWidgetView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
+            data: data,
             style: .compactList,
-            stateManager: stateManager,
             internalModel: model,
-            internalHeaderModel: nil,
-            output: output
+            internalHeaderModel: nil
         ).eraseToAnyView()
     }
 }

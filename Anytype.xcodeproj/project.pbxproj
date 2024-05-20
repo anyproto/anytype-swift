@@ -680,6 +680,7 @@
 		2ABBAEED2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEEC2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift */; };
 		2ABBAEEF2BFB896A00EBA8FA /* ObjectTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEEE2BFB896900EBA8FA /* ObjectTreeWidgetSubmoduleView.swift */; };
 		2ABBAEF12BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */; };
+		2ABBAEF32BFB8FCF00EBA8FA /* CollectionsCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF22BFB8FCF00EBA8FA /* CollectionsCompactListWidgetSubmoduleView.swift */; };
 		2ABBAEF72BFB918100EBA8FA /* WidgetSubmoduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
@@ -786,7 +787,6 @@
 		2AE155932A31BDF50049C387 /* FavoriteCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558E2A31BDF40049C387 /* FavoriteCompactListWidgetModuleAssembly.swift */; };
 		2AE155942A31BDF50049C387 /* SetsCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */; };
 		2AE155952A31BDF50049C387 /* SetCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */; };
-		2AE155962A31BDF50049C387 /* CollectionsCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */; };
 		2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */; };
 		2AE2761E2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2761D2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift */; };
 		2AE276222BD0153700E0244A /* ObjectActionsOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE276212BD0153700E0244A /* ObjectActionsOutput.swift */; };
@@ -2443,6 +2443,7 @@
 		2ABBAEEC2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTreeWidgetsubmoduleView.swift; sourceTree = "<group>"; };
 		2ABBAEEE2BFB896900EBA8FA /* ObjectTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
+		2ABBAEF22BFB8FCF00EBA8FA /* CollectionsCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSubmoduleData.swift; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
@@ -2550,7 +2551,6 @@
 		2AE1558E2A31BDF40049C387 /* FavoriteCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetsCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
-		2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetCompactRow.swift; sourceTree = "<group>"; };
 		2AE2761D2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceAccessType+Analytics.swift"; sourceTree = "<group>"; };
 		2AE276212BD0153700E0244A /* ObjectActionsOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsOutput.swift; sourceTree = "<group>"; };
@@ -6921,11 +6921,11 @@
 		2AE155982A31BE080049C387 /* CompactList */ = {
 			isa = PBXGroup;
 			children = (
-				2AE155912A31BDF40049C387 /* CollectionsCompactListWidgetModuleAssembly.swift */,
 				2AE1558E2A31BDF40049C387 /* FavoriteCompactListWidgetModuleAssembly.swift */,
 				2AE1558D2A31BDF40049C387 /* RecentCompactListWidgetModuleAssembly.swift */,
 				2AE155902A31BDF40049C387 /* SetCompactListWidgetModuleAssembly.swift */,
 				2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */,
+				2ABBAEF22BFB8FCF00EBA8FA /* CollectionsCompactListWidgetSubmoduleView.swift */,
 			);
 			path = CompactList;
 			sourceTree = "<group>";
@@ -10920,6 +10920,7 @@
 				3D1CEC2227F38871000D36BA /* DashboardAccountDeletionAlert.swift in Sources */,
 				2A28D03D297E8C4C00E55E15 /* SetsSubscriptionService.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
+				2ABBAEF32BFB8FCF00EBA8FA /* CollectionsCompactListWidgetSubmoduleView.swift in Sources */,
 				2EDC2B062A13E4E00065E009 /* KeyPhraseViewModel.swift in Sources */,
 				2EAA14062AA63918000A712A /* SetViewSettingsItem.swift in Sources */,
 				2EAA13FB2AA63918000A712A /* SetRelationsView.swift in Sources */,
@@ -12059,7 +12060,6 @@
 				12C8440226FCE92200D64B8D /* ObjectHeaderEmptyConfiguration.swift in Sources */,
 				3D8D41BB274297FF00F8EBF3 /* EditorSetViewModel.swift in Sources */,
 				1223C8FE272693E600C34616 /* FeaturedRelationsBlockViewModel.swift in Sources */,
-				2AE155962A31BDF50049C387 /* CollectionsCompactListWidgetModuleAssembly.swift in Sources */,
 				3D24912F27BD271900821595 /* MiddlewareEventConverter.swift in Sources */,
 				2A617BCC2A49E5B400725152 /* BlockWidget+Limits.swift in Sources */,
 				3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */,

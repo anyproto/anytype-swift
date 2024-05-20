@@ -34,7 +34,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let stateManager: HomeWidgetsStateManagerProtocol
     private var providersCache: [ProviderCache] = []
@@ -51,7 +50,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.setListWidgetProviderAssembly = setListWidgetProviderAssembly
@@ -65,7 +63,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.recentEditCompactListWidgetProviderAssembly = recentEditCompactListWidgetProviderAssembly
         self.recentOpenCompactListWidgetProviderAssembly = recentOpenCompactListWidgetProviderAssembly
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
-        self.collectionsCompactListWidgetProviderAssembly = collectionsCompactListWidgetProviderAssembly
         self.stateManager = stateManager
     }
     
@@ -169,11 +166,13 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.sets, .compactList):
             return setsCompactListWidgetProviderAssembly
         case (.collections, .tree):
-            return collectionsCompactListWidgetProviderAssembly
+            let view = CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.collections, .list):
             return collectionsListWidgetProviderAssembly
         case (.collections, .compactList):
-            return collectionsCompactListWidgetProviderAssembly
+            let view = CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (_, .link):
             return nil
         }
