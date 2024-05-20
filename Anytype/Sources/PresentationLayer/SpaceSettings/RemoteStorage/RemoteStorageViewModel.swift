@@ -9,7 +9,7 @@ final class RemoteStorageViewModel: ObservableObject {
     
     private enum Constants {
         
-        static let warningPercent = 0.9
+        static let warningPercent = 0.7
         static let mailTo = "storage@anytype.io"
     }
     

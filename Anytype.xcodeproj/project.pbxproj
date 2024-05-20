@@ -1240,6 +1240,7 @@
 		3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */; };
 		3D6F758B2BD0286F00F6C01E /* MembershipBannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
+		3D7C52CD2BFB3F1A00D1278C /* MembershipConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */; };
 		3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8D0268F636300C76974 /* BlockBookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */; };
@@ -3016,6 +3017,7 @@
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannersView.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipConstants.swift; sourceTree = "<group>"; };
 		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -8697,6 +8699,7 @@
 				3D611E952B93779900B33305 /* MembershipTierExtensions.swift */,
 				3DFD50A32BA0B114002E51F7 /* MembershipStatusExtension.swift */,
 				3DE3DE662BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift */,
+				3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -10969,6 +10972,7 @@
 				2E52DE6E2A1CE7E700F16815 /* SoulViewModel.swift in Sources */,
 				2AFCEB4329CC808D00841E13 /* HomeWidgetsRecentStateManager.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
+				3D7C52CD2BFB3F1A00D1278C /* MembershipConstants.swift in Sources */,
 				0311612E22DE0D1700885211 /* SettingsViewModel.swift in Sources */,
 				C9099607281AD5220011682F /* RelationItemModel.swift in Sources */,
 				12195395278DA46E00D53653 /* TextRelationViewType.swift in Sources */,

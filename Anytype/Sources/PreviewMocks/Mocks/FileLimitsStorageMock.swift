@@ -5,13 +5,16 @@ import Combine
 final class FileLimitsStorageMock:  FileLimitsStorageProtocol {
     static let shared = FileLimitsStorageMock()
     
-    @Published var usageInfoMockedValue: Services.NodeUsageInfo = .mock()
-    var nodeUsage: AnyPublisher<Services.NodeUsageInfo, Never> { $usageInfoMockedValue.eraseToAnyPublisher() }
+    @Published var nodeUsageMockedValue: Services.NodeUsageInfo = .mock()
+    var nodeUsage: AnyPublisher<Services.NodeUsageInfo, Never> { $nodeUsageMockedValue.eraseToAnyPublisher() }
     
 }
 
+let KB: Int64 = 1024
+let MB: Int64 = KB*KB
+let GB: Int64 = MB*KB
+
 extension Services.NodeUsageInfo {
-    static let MB: Int64 = 1024*1024
     static func mock(
         filesCount: Int64 = 10,
         cidsCount: Int64 =  5,
@@ -37,7 +40,6 @@ extension Services.NodeUsageInfo {
 
 
 extension SpaceUsage {
-    static let MB: Int64 = 1024*1024
     static func mock(
         spaceId: String = UUID().uuidString,
         filesCount: Int64 = 10,
