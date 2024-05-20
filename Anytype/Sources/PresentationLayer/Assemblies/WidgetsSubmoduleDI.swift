@@ -6,7 +6,6 @@ protocol WidgetsSubmoduleDIProtocol {
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol
     // MARK: - Tree
-    func treeWidgetModuleAssembly() -> TreeWidgetModuleAssemblyProtocol
     func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentEditTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -112,10 +111,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     // MARK: - Tree
-    
-    func treeWidgetModuleAssembly() -> TreeWidgetModuleAssemblyProtocol {
-        return TreeWidgetModuleAssembly()
-    }
     
     func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return ObjectTreeWidgetModuleAssembly(widgetsSubmoduleDI: self)

@@ -25,12 +25,12 @@ final class ObjectTreeWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             output: output
         )
      
-        return widgetsSubmoduleDI.treeWidgetModuleAssembly().make(
+        return TreeWidgetView(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             stateManager: stateManager,
             internalModel: model,
             output: output
-        )
+        ).eraseToAnyView()
     }
 }
