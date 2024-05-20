@@ -86,12 +86,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        sharingTipCoordinator: SharingTipCoordinatorProtocol
+        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
-        self.sharingTipCoordinator = sharingTipCoordinator
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
