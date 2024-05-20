@@ -26,7 +26,6 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
         EditorSetCoordinatorView(
             model: EditorSetCoordinatorViewModel(
                 data: data,
-                setObjectCreationCoordinator: self.coordinatorsID.setObjectCreation().make(),
                 setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make()
             )
         ).eraseToAnyView()

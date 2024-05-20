@@ -8,7 +8,6 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol
-    func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol
     func sharingTip() -> SharingTipCoordinatorProtocol
     
     // Now like a coordinator. Migrate to isolated modules

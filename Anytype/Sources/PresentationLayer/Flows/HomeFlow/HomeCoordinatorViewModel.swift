@@ -34,7 +34,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
-    private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
+    @Injected(\.legacySetObjectCreationCoordinator)
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let sharingTipCoordinator: SharingTipCoordinatorProtocol
     
     // MARK: - State
@@ -42,7 +43,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
     private var paths = [String: HomePath]()
-    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol?
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
@@ -86,12 +86,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
     init(
         homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
         sharingTipCoordinator: SharingTipCoordinatorProtocol
     ) {
         self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
-        self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
         self.sharingTipCoordinator = sharingTipCoordinator
         
         membershipStatusSubscription = Container.shared
@@ -199,8 +197,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
-        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make()
-        setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     
     func onManageSpacesSelected() {

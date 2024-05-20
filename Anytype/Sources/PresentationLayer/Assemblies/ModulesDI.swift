@@ -10,13 +10,16 @@ final class ModulesDI: ModulesDIProtocol {
     
     // MARK: - ModulesDIProtocol
     
-    func createObject() -> CreateObjectModuleAssemblyProtocol {
-        return CreateObjectModuleAssembly()
-    }
-    
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol {
         return HomeWidgetsModuleAssembly(
             widgetsSubmoduleDI:  widgetsSubmoduleDI
         )
+    }
+}
+
+extension Container {
+
+    var legacyCreateObjectModuleAssembly: Factory<CreateObjectModuleAssemblyProtocol> {
+        self { CreateObjectModuleAssembly() }
     }
 }

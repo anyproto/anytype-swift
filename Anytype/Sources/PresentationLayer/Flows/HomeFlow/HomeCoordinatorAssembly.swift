@@ -33,7 +33,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
         HomeCoordinatorViewModel(
             homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             editorCoordinatorAssembly: coordinatorsID.editor(),
-            setObjectCreationCoordinatorAssembly: coordinatorsID.setObjectCreation(),
             sharingTipCoordinator: coordinatorsID.sharingTip()
         )
     }
