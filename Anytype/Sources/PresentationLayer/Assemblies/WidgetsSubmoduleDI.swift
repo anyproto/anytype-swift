@@ -14,7 +14,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - CompactList
     func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func favoriteCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentEditCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentOpenCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -63,10 +62,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: setCompactListWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            favoriteCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: favoriteCompactListWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
             recentEditCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: recentEditCompactListWidgetModuleAssembly(),
                 output: widgetOutput
@@ -113,10 +108,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return SetCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
-    }
-    
-    func favoriteCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return FavoriteCompactListWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
     
     func recentEditCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {

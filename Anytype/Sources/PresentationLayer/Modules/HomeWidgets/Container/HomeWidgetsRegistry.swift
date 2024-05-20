@@ -30,7 +30,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - CompactList
     private let setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let favoriteCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
@@ -46,7 +45,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        favoriteCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
@@ -59,7 +57,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.setsListWidgetProviderAssembly = setsListWidgetProviderAssembly
         self.collectionsListWidgetProviderAssembly = collectionsListWidgetProviderAssembly
         self.setCompactListWidgetProviderAssembly = setCompactListWidgetProviderAssembly
-        self.favoriteCompactListWidgetProviderAssembly = favoriteCompactListWidgetProviderAssembly
         self.recentEditCompactListWidgetProviderAssembly = recentEditCompactListWidgetProviderAssembly
         self.recentOpenCompactListWidgetProviderAssembly = recentOpenCompactListWidgetProviderAssembly
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
@@ -144,7 +141,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.favorite, .list):
             return favoriteListWidgetProviderAssembly
         case (.favorite, .compactList):
-            return favoriteCompactListWidgetProviderAssembly
+            let view = FavoriteCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recent, .tree):
             let view = RecentTreeWidgetSubmoduleView(data: widgetData, type: .recentEdit)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
