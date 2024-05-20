@@ -3,9 +3,45 @@ import SwiftUI
 
 struct TreeWidgetView: View {
     
-    @ObservedObject var model: TreeWidgetViewModel
+    let widgetBlockId: String
+    let widgetObject: BaseDocumentProtocol
+    let stateManager: HomeWidgetsStateManagerProtocol
+    let output: CommonWidgetModuleOutput?
+    
+    @StateObject private var model: TreeWidgetViewModel
+    
+    init(
+        widgetBlockId: String,
+        widgetObject: BaseDocumentProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        internalModel: WidgetInternalViewModelProtocol,
+        output: CommonWidgetModuleOutput?
+    ) {
+        self.widgetBlockId = widgetBlockId
+        self.widgetObject = widgetObject
+        self.stateManager = stateManager
+        self.output = output
+        self._model = StateObject(
+            wrappedValue: TreeWidgetViewModel(
+                widgetBlockId: widgetBlockId,
+                internalModel: internalModel,
+                output: output
+            )
+        )
+    }
     
     var body: some View {
+        WidgetContainerView(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            stateManager: stateManager,
+            contentModel: model,
+            output: output,
+            content: content
+        )
+    }
+    
+    var content: some View {
         ZStack {
             if let rows = model.rows {
                 VStack(spacing: 0) {

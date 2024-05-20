@@ -86,28 +86,14 @@ final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let contentModel = ListWidgetViewModel(
+        return ListWidgetView(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             style: style,
+            stateManager: stateManager,
             internalModel: internalModel,
             internalHeaderModel: internalHeaderModel,
             output: output
-        )
-        let contentView = ListWidgetView(model: contentModel)
-        
-        let containerModel = WidgetContainerViewModel(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            stateManager: stateManager,
-            contentModel: contentModel,
-            output: output
-        )
-        let containterView = WidgetContainerView(
-            model: containerModel,
-            contentModel: contentModel,
-            content: contentView
-        )
-        return containterView.eraseToAnyView()
+        ).eraseToAnyView()
     }
 }
