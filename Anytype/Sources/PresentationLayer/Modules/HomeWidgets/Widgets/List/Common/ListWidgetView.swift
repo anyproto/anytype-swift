@@ -5,6 +5,30 @@ struct ListWidgetView: View {
     
     let widgetBlockId: String
     let widgetObject: BaseDocumentProtocol
+    let style: ListWidgetStyle
+    let stateManager: HomeWidgetsStateManagerProtocol
+    let internalModel: WidgetInternalViewModelProtocol
+    let internalHeaderModel: WidgetDataviewInternalViewModelProtocol?
+    let output: CommonWidgetModuleOutput?
+    
+    var body: some View {
+        ListWidgetInternalView(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            style: style,
+            stateManager: stateManager,
+            internalModel: internalModel,
+            internalHeaderModel: internalHeaderModel,
+            output: output
+        )
+        .id(widgetBlockId + style.rawValue)
+    }
+}
+
+private struct ListWidgetInternalView: View {
+    
+    let widgetBlockId: String
+    let widgetObject: BaseDocumentProtocol
     let stateManager: HomeWidgetsStateManagerProtocol
     let output: CommonWidgetModuleOutput?
     

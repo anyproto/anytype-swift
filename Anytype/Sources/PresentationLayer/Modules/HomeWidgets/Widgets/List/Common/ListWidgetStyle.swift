@@ -1,6 +1,6 @@
 import Foundation
 
-enum ListWidgetStyle {
+enum ListWidgetStyle: String {
     case list
     case compactList
 }
