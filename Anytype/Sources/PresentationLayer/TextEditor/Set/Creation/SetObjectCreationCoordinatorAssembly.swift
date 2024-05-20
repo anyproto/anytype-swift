@@ -9,22 +9,17 @@ protocol SetObjectCreationCoordinatorAssemblyProtocol {
 final class SetObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol {
     
     private let modulesDI: ModulesDIProtocol
-    private let uiHelpersDI: UIHelpersDIProtocol
     
     init(
-        modulesDI: ModulesDIProtocol,
-        uiHelpersDI: UIHelpersDIProtocol
+        modulesDI: ModulesDIProtocol
     ) {
         self.modulesDI = modulesDI
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - SetObjectCreationCoordinatorAssemblyProtocol
     
     func make() -> SetObjectCreationCoordinatorProtocol {
         SetObjectCreationCoordinator(
-            navigationContext: uiHelpersDI.commonNavigationContext(),
-            toastPresenter: uiHelpersDI.toastPresenter(),
             createObjectModuleAssembly: modulesDI.createObject()
         )
     }

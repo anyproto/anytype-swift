@@ -13,11 +13,9 @@ protocol HomeWidgetsModuleAssemblyProtocol {
 
 final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
-    private let uiHelpersDI: UIHelpersDIProtocol
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(uiHelpersDI: UIHelpersDIProtocol, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.uiHelpersDI = uiHelpersDI
+    init(widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
     

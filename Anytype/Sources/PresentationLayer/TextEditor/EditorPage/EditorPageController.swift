@@ -14,8 +14,9 @@ final class EditorPageController: UIViewController {
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     private weak var firstResponderView: UIView?
     private let layout = EditorCollectionFlowLayout()
-    private let keyboardListener: KeyboardHeightListener
-    private lazy var responderScrollViewHelper = ResponderScrollViewHelper(scrollView: collectionView, keyboardListener: keyboardListener)
+    @Injected(\.keyboardHeightListener)
+    private var keyboardListener: KeyboardHeightListener
+    private lazy var responderScrollViewHelper = ResponderScrollViewHelper(scrollView: collectionView)
 
     lazy var collectionView: EditorCollectionView = {
         let collectionView = EditorCollectionView(
@@ -90,12 +91,10 @@ final class EditorPageController: UIViewController {
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
         bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        keyboardListener: KeyboardHeightListener,
         showHeader: Bool
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
-        self.keyboardListener = keyboardListener
         self.showHeader = showHeader
         
         super.init(nibName: nil, bundle: nil)

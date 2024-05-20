@@ -27,18 +27,15 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     // TODO: Delete coordinator dependency
     private let coordinatorsDI: CoordinatorsDIProtocol
     private let modulesDI: ModulesDIProtocol
-    private let uiHelpersDI: UIHelpersDIProtocol
     
     nonisolated init(
         serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol,
-        uiHelpersDI: UIHelpersDIProtocol
+        modulesDI: ModulesDIProtocol
     ) {
         self.serviceLocator = serviceLocator
         self.coordinatorsDI = coordinatorsDI
         self.modulesDI = modulesDI
-        self.uiHelpersDI = uiHelpersDI
     }
 
     func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView {
@@ -62,8 +59,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
-            bottomNavigationManager: bottomNavigationManager, 
-            keyboardListener: uiHelpersDI.keyboardListener,
+            bottomNavigationManager: bottomNavigationManager,
             showHeader: showHeader
         )
 
@@ -71,14 +67,11 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             objectId: data.objectId,
             forPreview: data.isOpenedForPreview
         )
-        let navigationContext = NavigationContext(rootViewController: controller)
         let router = EditorRouter(
             viewController: controller,
-            navigationContext: navigationContext,
             document: document,
             templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
-            toastPresenter: uiHelpersDI.toastPresenter(using: nil),
+            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(),
             output: output
         )
 
@@ -147,7 +140,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
             router: router,
             initialEditingState: configuration.isOpenedForPreview ? .readonly : .editing,
@@ -176,7 +168,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
         
-        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView, keyboardListener: uiHelpersDI.keyboardListener)
+        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,

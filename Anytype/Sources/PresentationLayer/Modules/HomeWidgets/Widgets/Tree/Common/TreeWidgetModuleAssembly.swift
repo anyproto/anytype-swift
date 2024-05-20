@@ -14,10 +14,7 @@ protocol TreeWidgetModuleAssemblyProtocol: AnyObject {
 
 final class TreeWidgetModuleAssembly: TreeWidgetModuleAssemblyProtocol {
     
-    private let uiHelpersDI: UIHelpersDIProtocol
-    
-    init(uiHelpersDI: UIHelpersDIProtocol) {
-        self.uiHelpersDI = uiHelpersDI
+    init() {
     }
     
     // MARK: - TreeWidgetModuleAssemblyProtocol
