@@ -11,27 +11,27 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private let info: AccountInfo
     private let registry: HomeWidgetsRegistryProtocol
-    private lazy var widgetObject = documentService.document(objectId: info.widgetsId)
+    
+    var widgetObject: BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
     private var blockWidgetService: BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: ObjectActionsServiceProtocol
-    @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage: AccountParticipantsStorageProtocol
     
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
-    private let stateManager: HomeWidgetsStateManagerProtocol
+    let stateManager: HomeWidgetsStateManagerProtocol
     
-    private weak var output: HomeWidgetsModuleOutput?
+    weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
     
-    @Published var models: [HomeWidgetSubmoduleModel] = []
+    @Published var widgetBlocks: [BlockWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: BackgroundType = .default
@@ -50,6 +50,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         self.stateManager = stateManager
         self.recentStateManagerProtocol = recentStateManagerProtocol
         self.output = output
+        self.widgetObject = documentService.document(objectId: info.widgetsId)
         subscribeOnWallpaper()
         setupInitialState()
     }
@@ -58,11 +59,12 @@ final class HomeWidgetsViewModel: ObservableObject {
         for await _ in widgetObject.syncPublisher.values {
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
-            let providers = registry.providers(blocks: blocks, widgetObject: widgetObject, output: output)
             
-            guard providers != models else { continue }
+            let newWidgetBlocks = blocks.compactMap { widgetObject.widgetInfo(block: $0) }
             
-            models = providers
+            guard widgetBlocks != newWidgetBlocks else { continue }
+            
+            widgetBlocks = newWidgetBlocks
             dataLoaded = true
         }
     }
@@ -78,19 +80,17 @@ final class HomeWidgetsViewModel: ObservableObject {
         stateManager.setHomeState(.editWidgets)
     }
     
-    func dropUpdate(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
-        models.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
+    func dropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
+        widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
     
-    func dropFinish(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
-        if let info = widgetObject.widgetInfo(blockId: from.data.blockId) {
-            AnytypeAnalytics.instance().logReorderWidget(source: info.source.analyticsSource)
-        }
+    func dropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
+        AnytypeAnalytics.instance().logReorderWidget(source: from.data.source.analyticsSource)
         Task {
             try? await objectActionService.move(
                 dashboadId: widgetObject.objectId,
-                blockId: from.data.blockId,
-                dropPositionblockId: to.data.blockId,
+                blockId: from.data.id,
+                dropPositionblockId: to.data.id,
                 position: to.index > from.index ? .bottom : .top
             )
         }

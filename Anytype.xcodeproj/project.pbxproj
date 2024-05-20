@@ -316,6 +316,7 @@
 		2A0F66532BFBA14100F34BBD /* SetsCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66522BFBA14100F34BBD /* SetsCompactListWidgetSubmoduleView.swift */; };
 		2A0F66552BFBA44800F34BBD /* RecentOpenTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66542BFBA44800F34BBD /* RecentOpenTreeWidgetSubmoduleView.swift */; };
 		2A0F66572BFBA45100F34BBD /* RecentEditTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66562BFBA45100F34BBD /* RecentEditTreeWidgetSubmoduleView.swift */; };
+		2A0F66592BFBA51B00F34BBD /* HomeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66582BFBA51B00F34BBD /* HomeWidgetSubmoduleView.swift */; };
 		2A0F6C402BF219BA0041176E /* SpacePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */; };
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
 		2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */; };
@@ -2080,6 +2081,7 @@
 		2A0F66522BFBA14100F34BBD /* SetsCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66542BFBA44800F34BBD /* RecentOpenTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentOpenTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66562BFBA45100F34BBD /* RecentEditTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentEditTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
+		2A0F66582BFBA51B00F34BBD /* HomeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacePermissions.swift; sourceTree = "<group>"; };
 		2A1331462B03681D00E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2A1331472B03682100E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -6452,6 +6454,7 @@
 				2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */,
 				2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */,
 				2AA8108D29A6697A007DD64B /* HomeWidgetSubmoduleModel.swift */,
+				2A0F66582BFBA51B00F34BBD /* HomeWidgetSubmoduleView.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -12076,6 +12079,7 @@
 				2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
 				2A80D04A2ABADD4600DB0513 /* EditorCoordinatorAssembly.swift in Sources */,
+				2A0F66592BFBA51B00F34BBD /* HomeWidgetSubmoduleView.swift in Sources */,
 				C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */,
 				3D3040CE27DF664600FFE0EB /* ObjectSettingBuilder.swift in Sources */,
 				3D26AA802B976AE400D61479 /* EmailVerificationViewModel.swift in Sources */,
