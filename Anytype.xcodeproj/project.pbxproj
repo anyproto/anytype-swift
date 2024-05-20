@@ -1095,7 +1095,6 @@
 		2EE33DC52B55832300D0CDDB /* DateRelationCalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE33DC42B55832300D0CDDB /* DateRelationCalendarViewModel.swift */; };
 		2EE33DC92B5800A100D0CDDB /* DateRelationCalendarQuickOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE33DC82B5800A100D0CDDB /* DateRelationCalendarQuickOption.swift */; };
 		2EE36CD62AF532B70043AA8D /* SetObjectCreationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE36CD52AF532B70043AA8D /* SetObjectCreationCoordinator.swift */; };
-		2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE36CD72AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift */; };
 		2EE6160E2B6CFEBD000236A8 /* SelectRelationListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6160D2B6CFEBD000236A8 /* SelectRelationListStyle.swift */; };
 		2EE616102B6D02FB000236A8 /* RelationSelectionOptionsMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6160F2B6D02FB000236A8 /* RelationSelectionOptionsMode.swift */; };
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
@@ -2870,7 +2869,6 @@
 		2EE33DC42B55832300D0CDDB /* DateRelationCalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationCalendarViewModel.swift; sourceTree = "<group>"; };
 		2EE33DC82B5800A100D0CDDB /* DateRelationCalendarQuickOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationCalendarQuickOption.swift; sourceTree = "<group>"; };
 		2EE36CD52AF532B70043AA8D /* SetObjectCreationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationCoordinator.swift; sourceTree = "<group>"; };
-		2EE36CD72AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2EE6160D2B6CFEBD000236A8 /* SelectRelationListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListStyle.swift; sourceTree = "<group>"; };
 		2EE6160F2B6D02FB000236A8 /* RelationSelectionOptionsMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSelectionOptionsMode.swift; sourceTree = "<group>"; };
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
@@ -7846,7 +7844,6 @@
 			children = (
 				2EA18B082AF132A10096B137 /* SetObjectCreationHelper.swift */,
 				2EE36CD52AF532B70043AA8D /* SetObjectCreationCoordinator.swift */,
-				2EE36CD72AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift */,
 				2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */,
 			);
 			path = Creation;
@@ -11933,7 +11930,6 @@
 				3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				2E22F9EA2B6167AE001EFCF3 /* SelectRelationListCoordinatorView.swift in Sources */,
-				2EE36CD82AF535C30043AA8D /* SetObjectCreationCoordinatorAssembly.swift in Sources */,
 				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
 				2AE85FE92B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,

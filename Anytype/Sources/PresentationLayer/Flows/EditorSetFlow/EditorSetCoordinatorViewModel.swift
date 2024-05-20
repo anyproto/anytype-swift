@@ -18,7 +18,8 @@ final class EditorSetCoordinatorViewModel:
     RelationValueCoordinatorOutput
 {
     let data: EditorSetObject
-    private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationCoordinator)
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: RelationValueProcessingServiceProtocol
@@ -41,11 +42,9 @@ final class EditorSetCoordinatorViewModel:
     
     init(
         data: EditorSetObject,
-        setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
         setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     ) {
         self.data = data
-        self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
 
     }

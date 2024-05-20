@@ -17,18 +17,15 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     private var navigationContext: NavigationContextProtocol
     @Injected(\.legacyToastPresenter)
     private var toastPresenter: ToastPresenterProtocol
-    private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
+    @Injected(\.legacyCreateObjectModuleAssembly)
+    private var createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private weak var output: SetObjectCreationCoordinatorOutput?
     private var customAnalyticsRoute: AnalyticsEventsRouteKind?
     
     @Injected(\.setObjectCreationHelper)
     private var objectCreationHelper: SetObjectCreationHelperProtocol
     
-    nonisolated init(
-        createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
-    ) {
-        self.createObjectModuleAssembly = createObjectModuleAssembly
-    }
+    nonisolated init() {}
     
     func startCreateObject(
         setDocument: SetDocumentProtocol,
