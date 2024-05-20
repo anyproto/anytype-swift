@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 @MainActor
-final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
@@ -30,14 +30,10 @@ final class FavoriteWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     var allowCreateObject = true
     
-    init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        output: CommonWidgetModuleOutput?
-    ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.output = output
+    init(data: WidgetSubmoduleData) {
+        self.widgetBlockId = data.widgetBlockId
+        self.widgetObject = data.widgetObject
+        self.output = data.output
         
         let documentService = Container.shared.documentService.resolve()
         let activeWorkspaceStorage = Container.shared.activeWorkspaceStorage.resolve()

@@ -19,12 +19,9 @@ final class FavoriteListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = FavoriteWidgetInternalViewModel(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            output: output
-        )
-     
+        let data =  WidgetSubmoduleData(widgetBlockId: widgetBlockId, widgetObject: widgetObject, stateManager: stateManager, output: output)
+        let model = FavoriteWidgetInternalViewModel(data: data)
+        
         return ListWidgetView(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,

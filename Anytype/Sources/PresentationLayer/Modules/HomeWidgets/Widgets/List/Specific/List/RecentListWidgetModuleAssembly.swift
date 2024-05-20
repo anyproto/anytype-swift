@@ -21,11 +21,8 @@ final class RecentListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = RecentWidgetInternalViewModel(
-            type: type,
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject
-        )
+        let data =  WidgetSubmoduleData(widgetBlockId: widgetBlockId, widgetObject: widgetObject, stateManager: stateManager, output: output)
+        let model = RecentWidgetInternalViewModel(data: data, type: type)
      
         return ListWidgetView(
             widgetBlockId: widgetBlockId,

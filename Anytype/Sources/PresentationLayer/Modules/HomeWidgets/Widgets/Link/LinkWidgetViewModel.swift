@@ -20,14 +20,10 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     let allowContent = false
     var dragId: String? { widgetBlockId }
     
-    init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        output: CommonWidgetModuleOutput?
-    ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.output = output
+    init(data: WidgetSubmoduleData) {
+        self.widgetBlockId = data.widgetBlockId
+        self.widgetObject = data.widgetObject
+        self.output = data.output
     }
     
     // MARK: - WidgetContainerContentViewModelProtocol

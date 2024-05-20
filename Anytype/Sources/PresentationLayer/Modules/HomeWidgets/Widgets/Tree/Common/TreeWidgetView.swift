@@ -3,40 +3,31 @@ import SwiftUI
 
 struct TreeWidgetView: View {
     
-    let widgetBlockId: String
-    let widgetObject: BaseDocumentProtocol
-    let stateManager: HomeWidgetsStateManagerProtocol
-    let output: CommonWidgetModuleOutput?
+    let data: WidgetSubmoduleData
     
     @StateObject private var model: TreeWidgetViewModel
     
     init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        internalModel:  @autoclosure @escaping () -> WidgetInternalViewModelProtocol,
-        output: CommonWidgetModuleOutput?
+        data: WidgetSubmoduleData,
+        internalModel: WidgetInternalViewModelProtocol
     ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.stateManager = stateManager
-        self.output = output
+        self.data = data
         self._model = StateObject(
             wrappedValue: TreeWidgetViewModel(
-                widgetBlockId: widgetBlockId,
-                internalModel: internalModel(),
-                output: output
+                widgetBlockId: data.widgetBlockId,
+                internalModel: internalModel,
+                output: data.output
             )
         )
     }
     
     var body: some View {
         WidgetContainerView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            stateManager: stateManager,
+            widgetBlockId: data.widgetBlockId,
+            widgetObject: data.widgetObject,
+            stateManager: data.stateManager,
             contentModel: model,
-            output: output,
+            output: data.output,
             content: content
         )
     }

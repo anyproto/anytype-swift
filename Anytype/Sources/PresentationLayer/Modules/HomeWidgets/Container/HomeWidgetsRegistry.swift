@@ -139,40 +139,24 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     }
     
     private func providerForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId, widgetInfo: BlockWidgetInfo, widgetObject: BaseDocumentProtocol, output: CommonWidgetModuleOutput?) -> HomeWidgetProviderAssemblyProtocol? {
+        let widgetData = WidgetSubmoduleData(widgetBlockId: widgetInfo.id, widgetObject: widgetObject, stateManager: stateManager, output: output)
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
         case (.favorite, .tree):
-            let view = FavoriteTreeWidgetsubmoduleView(
-                widgetBlockId: widgetInfo.id,
-                widgetObject: widgetObject,
-                stateManager: stateManager,
-                output: output
-            )
+            let view = FavoriteTreeWidgetsubmoduleView(data: widgetData)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.favorite, .list):
             return favoriteListWidgetProviderAssembly
         case (.favorite, .compactList):
             return favoriteCompactListWidgetProviderAssembly
         case (.recent, .tree):
-            let view = RecentTreeWidgetSubmoduleView(
-                widgetBlockId: widgetInfo.id,
-                widgetObject: widgetObject,
-                stateManager: stateManager,
-                type: .recentEdit,
-                output: output
-            )
+            let view = RecentTreeWidgetSubmoduleView(data: widgetData, type: .recentEdit)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recent, .list):
             return recentEditListWidgetProviderAssembly
         case (.recent, .compactList):
             return recentEditCompactListWidgetProviderAssembly
         case (.recentOpen, .tree):
-            let view = RecentTreeWidgetSubmoduleView(
-                widgetBlockId: widgetInfo.id,
-                widgetObject: widgetObject,
-                stateManager: stateManager,
-                type: .recentOpen,
-                output: output
-            )
+            let view = RecentTreeWidgetSubmoduleView(data: widgetData, type: .recentOpen)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recentOpen, .list):
             return recentOpenListWidgetProviderAssembly
@@ -198,24 +182,14 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private func providerForObject(_ objectDetails: ObjectDetails, widgetInfo: BlockWidgetInfo, widgetObject: BaseDocumentProtocol, output: CommonWidgetModuleOutput?) -> HomeWidgetProviderAssemblyProtocol? {
         
         guard objectDetails.isNotDeletedAndVisibleForEdit else { return nil }
-        
+        let widgetData = WidgetSubmoduleData(widgetBlockId: widgetInfo.id, widgetObject: widgetObject, stateManager: stateManager, output: output)
         switch widgetInfo.fixedLayout {
         case .link:
-            let view = LinkWidgetView(
-                widgetBlockId: widgetInfo.id,
-                widgetObject: widgetObject,
-                stateManager: stateManager,
-                output: output
-            )
+            let view = LinkWidgetView(data: widgetData)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case .tree:
             guard objectDetails.editorViewType == .page else { return nil }
-            let view = ObjectTreeWidgetSubmoduleView(
-                widgetBlockId: widgetInfo.id,
-                widgetObject: widgetObject,
-                stateManager: stateManager,
-                output: output
-            )
+            let view = ObjectTreeWidgetSubmoduleView(data: widgetData)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case .list:
             guard objectDetails.editorViewType == .set else { return nil }
