@@ -359,10 +359,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
     }
     
-    func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
-    }
-    
     @MainActor
     func showTemplatesPicker() {
         templatesCoordinator.showTemplatesPicker(

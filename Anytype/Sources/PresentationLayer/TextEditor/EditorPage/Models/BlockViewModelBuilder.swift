@@ -343,7 +343,7 @@ final class BlockViewModelBuilder {
                 objectDetailsProvider: objectDetailsProvider,
                 reloadable: blockCollectionController,
                 showFailureToast: { [weak self] message in
-                    self?.router.showFailureToast(message: message)
+                    self?.output?.showFailureToast(message: message)
                 },
                 openSet: { [weak self] data in
                     self?.router.showEditorScreen(data: data)

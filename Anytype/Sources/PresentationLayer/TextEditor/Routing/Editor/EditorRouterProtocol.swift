@@ -66,8 +66,6 @@ protocol EditorRouterProtocol:
         selectedBackgroundColor: UIColor?
     )
     
-    func showFailureToast(message: String)
-    
     @MainActor
     func showTemplatesPicker()
 }
