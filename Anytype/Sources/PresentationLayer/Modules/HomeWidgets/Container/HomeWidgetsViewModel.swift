@@ -10,15 +10,14 @@ final class HomeWidgetsViewModel: ObservableObject {
     // MARK: - DI
     
     private let info: AccountInfo
-    private let registry: HomeWidgetsRegistryProtocol
     
-    var widgetObject: BaseDocumentProtocol
+    let widgetObject: BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
     private var blockWidgetService: BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: ObjectActionsServiceProtocol
-    private var documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
@@ -40,13 +39,11 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        registry: HomeWidgetsRegistryProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.info = info
-        self.registry = registry
         self.stateManager = stateManager
         self.recentStateManagerProtocol = recentStateManagerProtocol
         self.output = output

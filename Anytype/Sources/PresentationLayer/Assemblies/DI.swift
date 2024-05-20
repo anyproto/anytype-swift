@@ -11,15 +11,11 @@ final class DI: DIProtocol {
     }()
     
     lazy var modulesDI: ModulesDIProtocol = {
-        return ModulesDI(widgetsSubmoduleDI: widgetsSubmoduleDI)
+        return ModulesDI()
     }()
     
     lazy var serviceLocator: ServiceLocator = {
         return ServiceLocator()
-    }()
-    
-    lazy var widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol = {
-        return WidgetsSubmoduleDI(serviceLocator: serviceLocator)
     }()
 }
 
