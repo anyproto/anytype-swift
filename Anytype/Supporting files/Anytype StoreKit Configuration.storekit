@@ -1,5 +1,5 @@
 {
-  "identifier" : "EAB7B9CD",
+  "identifier" : "37A1325F",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -7,7 +7,12 @@
 
   ],
   "settings" : {
+    "_applicationInternalID" : "6449487029",
+    "_developerTeamID" : "J3NXTX3T5S",
     "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 737884999.68150795,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
     "_storeKitErrors" : [
       {
         "current" : null,
@@ -58,7 +63,7 @@
   },
   "subscriptionGroups" : [
     {
-      "id" : "22608A4E",
+      "id" : "21478052",
       "localizations" : [
 
       ],
@@ -74,19 +79,19 @@
           "displayPrice" : "134.99",
           "familyShareable" : false,
           "groupNumber" : 1,
-          "internalID" : "A68C4FE9",
+          "internalID" : "6498927047",
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "Multiparty collaboration and extended storage",
+              "displayName" : "Builder",
               "locale" : "en_US"
             }
           ],
-          "productID" : "io.anytype.dev.membership.builder",
+          "productID" : "io.anytype.membership.builder",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Builder",
-          "subscriptionGroupID" : "22608A4E",
+          "subscriptionGroupID" : "21478052",
           "type" : "RecurringSubscription"
         }
       ]
