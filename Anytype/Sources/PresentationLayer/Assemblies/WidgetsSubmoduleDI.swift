@@ -6,7 +6,6 @@ protocol WidgetsSubmoduleDIProtocol {
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol
     // MARK: - List
-    func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func favoriteListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func recentEditListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -90,10 +89,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     // MARK: - List
-    
-    func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol {
-        return ListWidgetModuleAssembly(serviceLocator: serviceLocator)
-    }
     
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return SetListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)

@@ -27,13 +27,14 @@ final class RecentListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
             widgetObject: widgetObject
         )
      
-        return widgetsSubmoduleDI.listWidgetModuleAssembly().make(
+        return ListWidgetView(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             style: .list,
             stateManager: stateManager,
             internalModel: model,
+            internalHeaderModel: nil,
             output: output
-        )
+        ).eraseToAnyView()
     }
 }
