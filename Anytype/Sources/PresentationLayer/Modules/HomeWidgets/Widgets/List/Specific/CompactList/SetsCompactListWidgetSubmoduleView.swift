@@ -1,25 +1,25 @@
 import Foundation
 import SwiftUI
 
-struct SetCompactListWidgetSubmoduleView: View {
+struct SetsCompactListWidgetSubmoduleView: View {
     
     let data: WidgetSubmoduleData
     
     var body: some View {
-        SetCompactListWidgetSubmoduleInternalView(data: data)
+        SetsCompactListWidgetSubmoduleInternalView(data: data)
             .id(data.widgetBlockId)
     }
 }
 
-private struct SetCompactListWidgetSubmoduleInternalView: View {
+private struct SetsCompactListWidgetSubmoduleInternalView: View {
     
     let data: WidgetSubmoduleData
     
-    @StateObject private var model: SetObjectWidgetInternalViewModel
+    @StateObject private var model: SetsWidgetInternalViewModel
     
     init(data: WidgetSubmoduleData) {
         self.data = data
-        self._model = StateObject(wrappedValue: SetObjectWidgetInternalViewModel(data: data))
+        self._model = StateObject(wrappedValue: SetsWidgetInternalViewModel(data: data))
     }
     
     var body: some View {
@@ -27,7 +27,7 @@ private struct SetCompactListWidgetSubmoduleInternalView: View {
             data: data,
             style: .compactList,
             internalModel: model,
-            internalHeaderModel: model
+            internalHeaderModel: nil
         )
     }
 }

@@ -12,8 +12,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func recentOpenListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func setsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    // MARK: - CompactList
-    func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
 }
 
 final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
@@ -55,10 +53,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: collectionsListWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            setsCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: setsCompactListWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
             stateManager: stateManager
         )
     }
@@ -87,11 +81,5 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return CollectionsListWidgetModuleAssembly(widgetsSubmoduleDI: self)
-    }
-    
-    // MARK: - CompactList
-    
-    func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return SetsCompactListWidgetModuleAssembly(widgetsSubmoduleDI: self)
     }
 }

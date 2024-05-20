@@ -300,7 +300,8 @@
 		2A0F403E2BADAF20002D8D37 /* StopSharingAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F403D2BADAF20002D8D37 /* StopSharingAlertModel.swift */; };
 		2A0F66262BFB98B000F34BBD /* FavoriteCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66252BFB98B000F34BBD /* FavoriteCompactListWidgetSubmoduleView.swift */; };
 		2A0F66282BFB994A00F34BBD /* RecentCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66272BFB994A00F34BBD /* RecentCompactListWidgetSubmoduleView.swift */; };
-		2A0F662A2BFB9A3700F34BBD /* SetCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66292BFB9A3700F34BBD /* SetCompactListWidgetSubmoduleView.swift */; };
+		2A0F662A2BFB9A3700F34BBD /* SetObjectCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66292BFB9A3700F34BBD /* SetObjectCompactListWidgetSubmoduleView.swift */; };
+		2A0F662C2BFB9B7200F34BBD /* SetsCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F662B2BFB9B7200F34BBD /* SetsCompactListWidgetSubmoduleView.swift */; };
 		2A0F6C402BF219BA0041176E /* SpacePermissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */; };
 		2A150BE028AA8E9700F2E569 /* TextRelationURLActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */; };
 		2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1731B92B9A0A6400FD990D /* AudioSessionService.swift */; };
@@ -786,7 +787,6 @@
 		2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */; };
 		2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */; };
 		2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558B2A31BB220049C387 /* ListWidgetStyle.swift */; };
-		2AE155942A31BDF50049C387 /* SetsCompactListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */; };
 		2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */; };
 		2AE2761E2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE2761D2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift */; };
 		2AE276222BD0153700E0244A /* ObjectActionsOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE276212BD0153700E0244A /* ObjectActionsOutput.swift */; };
@@ -2055,7 +2055,8 @@
 		2A0F403D2BADAF20002D8D37 /* StopSharingAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSharingAlertModel.swift; sourceTree = "<group>"; };
 		2A0F66252BFB98B000F34BBD /* FavoriteCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66272BFB994A00F34BBD /* RecentCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
-		2A0F66292BFB9A3700F34BBD /* SetCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
+		2A0F66292BFB9A3700F34BBD /* SetObjectCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
+		2A0F662B2BFB9B7200F34BBD /* SetsCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacePermissions.swift; sourceTree = "<group>"; };
 		2A1331462B03681D00E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2A1331472B03682100E8F3A5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = de; path = de.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
@@ -2550,7 +2551,6 @@
 		2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitModule.swift; sourceTree = "<group>"; };
 		2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+LegacyAdopt.swift"; sourceTree = "<group>"; };
 		2AE1558B2A31BB220049C387 /* ListWidgetStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetStyle.swift; sourceTree = "<group>"; };
-		2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetsCompactListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetCompactRow.swift; sourceTree = "<group>"; };
 		2AE2761D2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceAccessType+Analytics.swift"; sourceTree = "<group>"; };
 		2AE276212BD0153700E0244A /* ObjectActionsOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectActionsOutput.swift; sourceTree = "<group>"; };
@@ -6921,11 +6921,11 @@
 		2AE155982A31BE080049C387 /* CompactList */ = {
 			isa = PBXGroup;
 			children = (
-				2AE1558F2A31BDF40049C387 /* SetsCompactListWidgetModuleAssembly.swift */,
 				2ABBAEF22BFB8FCF00EBA8FA /* CollectionsCompactListWidgetSubmoduleView.swift */,
 				2A0F66252BFB98B000F34BBD /* FavoriteCompactListWidgetSubmoduleView.swift */,
 				2A0F66272BFB994A00F34BBD /* RecentCompactListWidgetSubmoduleView.swift */,
-				2A0F66292BFB9A3700F34BBD /* SetCompactListWidgetSubmoduleView.swift */,
+				2A0F66292BFB9A3700F34BBD /* SetObjectCompactListWidgetSubmoduleView.swift */,
+				2A0F662B2BFB9B7200F34BBD /* SetsCompactListWidgetSubmoduleView.swift */,
 			);
 			path = CompactList;
 			sourceTree = "<group>";
@@ -11314,7 +11314,6 @@
 				2E9BF63F28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift in Sources */,
 				2AD7412C2993E1C9004BD223 /* HomeWidgetCommonProvider.swift in Sources */,
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
-				2AE155942A31BDF50049C387 /* SetsCompactListWidgetModuleAssembly.swift in Sources */,
 				3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */,
 				2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */,
 				2E101CB72B98EF3900D03821 /* TextRelationEditingView.swift in Sources */,
@@ -11602,7 +11601,7 @@
 				1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */,
 				2ABBAEEF2BFB896A00EBA8FA /* ObjectTreeWidgetSubmoduleView.swift in Sources */,
 				2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */,
-				2A0F662A2BFB9A3700F34BBD /* SetCompactListWidgetSubmoduleView.swift in Sources */,
+				2A0F662A2BFB9A3700F34BBD /* SetObjectCompactListWidgetSubmoduleView.swift in Sources */,
 				2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */,
 				3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */,
 				2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */,
@@ -11926,6 +11925,7 @@
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
+				2A0F662C2BFB9B7200F34BBD /* SetsCompactListWidgetSubmoduleView.swift in Sources */,
 				2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
