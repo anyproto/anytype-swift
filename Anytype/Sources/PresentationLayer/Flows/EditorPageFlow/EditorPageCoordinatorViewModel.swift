@@ -110,6 +110,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         openUrlData = url
     }
     
+    func showFailureToast(message: String) {
+        toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
+    }
+    
     // MARK: - Private
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
