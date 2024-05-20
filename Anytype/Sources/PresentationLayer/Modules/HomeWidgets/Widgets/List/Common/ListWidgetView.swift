@@ -3,9 +3,50 @@ import SwiftUI
 
 struct ListWidgetView: View {
     
-    @ObservedObject var model: ListWidgetViewModel
+    let widgetBlockId: String
+    let widgetObject: BaseDocumentProtocol
+    let stateManager: HomeWidgetsStateManagerProtocol
+    let output: CommonWidgetModuleOutput?
+    
+    @StateObject private var model: ListWidgetViewModel
+    
+    init(
+        widgetBlockId: String,
+        widgetObject: BaseDocumentProtocol,
+        style: ListWidgetStyle,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        internalModel: WidgetInternalViewModelProtocol,
+        internalHeaderModel: WidgetDataviewInternalViewModelProtocol?,
+        output: CommonWidgetModuleOutput?
+    ) {
+        self.widgetBlockId = widgetBlockId
+        self.widgetObject = widgetObject
+        self.stateManager = stateManager
+        self.output = output
+        self._model = StateObject(
+            wrappedValue: ListWidgetViewModel(
+                widgetBlockId: widgetBlockId,
+                widgetObject: widgetObject,
+                style: style,
+                internalModel: internalModel,
+                internalHeaderModel: internalHeaderModel,
+                output: output
+            )
+        )
+    }
     
     var body: some View {
+        WidgetContainerView(
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            stateManager: stateManager,
+            contentModel: model,
+            output: output,
+            content: bodyContent
+        )
+    }
+    
+    private var bodyContent: some View {
         VStack(spacing: 0) {
             header
             content

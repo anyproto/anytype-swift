@@ -27,26 +27,12 @@ final class TreeWidgetModuleAssembly: TreeWidgetModuleAssemblyProtocol {
         internalModel: WidgetInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
-        
-        let contentModel = TreeWidgetViewModel(
-            widgetBlockId: widgetBlockId,
-            internalModel: internalModel,
-            output: output
-        )
-        let contentView = TreeWidgetView(model: contentModel)
-        
-        let containerModel = WidgetContainerViewModel(
+        return TreeWidgetView(
             widgetBlockId: widgetBlockId,
             widgetObject: widgetObject,
             stateManager: stateManager,
-            contentModel: contentModel,
+            internalModel: internalModel,
             output: output
-        )
-        let containterView = WidgetContainerView(
-            model: containerModel,
-            contentModel: contentModel,
-            content: contentView
-        )
-        return containterView.eraseToAnyView()
+        ).eraseToAnyView()
     }
 }

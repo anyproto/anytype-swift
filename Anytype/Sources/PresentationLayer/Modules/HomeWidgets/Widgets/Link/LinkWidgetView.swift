@@ -31,14 +31,11 @@ struct LinkWidgetView: View {
     
     var body: some View {
         WidgetContainerView(
-            model: WidgetContainerViewModel(
-                widgetBlockId: widgetBlockId,
-                widgetObject: widgetObject,
-                stateManager: stateManager,
-                contentModel: model,
-                output: output
-            ),
+            widgetBlockId: widgetBlockId,
+            widgetObject: widgetObject,
+            stateManager: stateManager,
             contentModel: model,
+            output: output,
             content: EmptyView()
         )
     }

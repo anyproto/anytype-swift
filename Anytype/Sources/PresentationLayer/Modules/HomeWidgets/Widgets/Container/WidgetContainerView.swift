@@ -12,10 +12,31 @@ enum WidgetMenuItem: String {
 // TODO: Delete in after migration
 struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
     
-    @StateObject var model: WidgetContainerViewModel<ContentVM>
+    @StateObject private var model: WidgetContainerViewModel<ContentVM>
     @ObservedObject var contentModel: ContentVM
     var content: Content
-        
+    
+    init(
+        widgetBlockId: String,
+        widgetObject: BaseDocumentProtocol,
+        stateManager: HomeWidgetsStateManagerProtocol,
+        contentModel: ContentVM,
+        output: CommonWidgetModuleOutput?,
+        content: Content
+    ) {
+        self.contentModel = contentModel
+        self.content = content
+        self._model = StateObject(
+            wrappedValue: WidgetContainerViewModel(
+                widgetBlockId: widgetBlockId,
+                widgetObject: widgetObject,
+                stateManager: stateManager,
+                contentModel: contentModel,
+                output: output
+            )
+        )
+    }
+    
     var body: some View {
         WidgetSwipeActionView(
             isEnable: contentModel.allowCreateObject && model.homeState.isReadWrite,
