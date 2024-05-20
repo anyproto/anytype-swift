@@ -677,6 +677,9 @@
 		2ABBAEDF2BF500DF00EBA8FA /* View+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */; };
 		2ABBAEE52BFB63A900EBA8FA /* LinkWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEE42BFB63A900EBA8FA /* LinkWidgetView.swift */; };
 		2ABBAEE72BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEE62BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift */; };
+		2ABBAEED2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEEC2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift */; };
+		2ABBAEEF2BFB896A00EBA8FA /* ObjectTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEEE2BFB896900EBA8FA /* ObjectTreeWidgetSubmoduleView.swift */; };
+		2ABBAEF12BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
 		2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */; };
@@ -703,9 +706,7 @@
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
 		2AC906C729B601C200209E39 /* FavoriteWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C629B601C200209E39 /* FavoriteWidgetInternalViewModel.swift */; };
-		2AC906CA29B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C929B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift */; };
 		2AC906CC29B61A9700209E39 /* RecentWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906CB29B61A9700209E39 /* RecentWidgetInternalViewModel.swift */; };
-		2AC906CE29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906CD29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift */; };
 		2AC906D029B61DAC00209E39 /* SetsWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906CF29B61DAC00209E39 /* SetsWidgetInternalViewModel.swift */; };
 		2AC906D829B6233700209E39 /* ListWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906D729B6233700209E39 /* ListWidgetViewModel.swift */; };
 		2AC906DC29B6276A00209E39 /* ListWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */; };
@@ -829,7 +830,6 @@
 		2AF4261629AF4ECE00753B17 /* PersonalizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */; };
 		2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */; };
 		2AF4C3DE295D82A700FD7153 /* WidgetsSubmoduleDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */; };
-		2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */; };
 		2AF605A128F417210078213D /* EditorBottomNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */; };
 		2AF8755A2BCD23C200FB1532 /* LocalizableWidget.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACE06512B7CD96D009AA7B6 /* LocalizableWidget.strings */; };
 		2AF875612BCD560100FB1532 /* ParticipantPermissions+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF875602BCD560100FB1532 /* ParticipantPermissions+Analytics.swift */; };
@@ -2442,6 +2442,9 @@
 		2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+URL.swift"; sourceTree = "<group>"; };
 		2ABBAEE42BFB63A900EBA8FA /* LinkWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetView.swift; sourceTree = "<group>"; };
 		2ABBAEE62BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgeMigrationProviderAssembly.swift; sourceTree = "<group>"; };
+		2ABBAEEC2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTreeWidgetsubmoduleView.swift; sourceTree = "<group>"; };
+		2ABBAEEE2BFB896900EBA8FA /* ObjectTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
+		2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
 		2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardClearCacheAlertModel.swift; sourceTree = "<group>"; };
@@ -2470,9 +2473,7 @@
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2AC906C629B601C200209E39 /* FavoriteWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetInternalViewModel.swift; sourceTree = "<group>"; };
-		2AC906C929B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906CB29B61A9700209E39 /* RecentWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWidgetInternalViewModel.swift; sourceTree = "<group>"; };
-		2AC906CD29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906CF29B61DAC00209E39 /* SetsWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2AC906D729B6233700209E39 /* ListWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AC906DB29B6276A00209E39 /* ListWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetModuleAssembly.swift; sourceTree = "<group>"; };
@@ -2595,7 +2596,6 @@
 		2AF4261529AF4ECE00753B17 /* PersonalizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationViewModel.swift; sourceTree = "<group>"; };
 		2AF4261929AF50C900753B17 /* PersonalizationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationModuleOutput.swift; sourceTree = "<group>"; };
 		2AF4C3DD295D82A700FD7153 /* WidgetsSubmoduleDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsSubmoduleDI.swift; sourceTree = "<group>"; };
-		2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AF605A028F417210078213D /* EditorBottomNavigationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorBottomNavigationManager.swift; sourceTree = "<group>"; };
 		2AF875542BCD23AC00FB1532 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LocalizableWidget.strings"; sourceTree = "<group>"; };
 		2AF875552BCD23AE00FB1532 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/LocalizableWidget.strings; sourceTree = "<group>"; };
@@ -6640,9 +6640,9 @@
 		2AC906BE29B5F7D700209E39 /* Specific */ = {
 			isa = PBXGroup;
 			children = (
-				2AF4C3DF295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift */,
-				2AC906C929B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift */,
-				2AC906CD29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift */,
+				2ABBAEEE2BFB896900EBA8FA /* ObjectTreeWidgetSubmoduleView.swift */,
+				2ABBAEEC2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift */,
+				2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */,
 			);
 			path = Specific;
 			sourceTree = "<group>";
@@ -11228,6 +11228,7 @@
 				2EC669212A166FD1001F71BC /* JoinFlowStepOutput.swift in Sources */,
 				0AD7695925D5908E00669F8C /* FileActionsService.swift in Sources */,
 				125B6EC226F235F400BCD7D6 /* CursorModeAccessoryViewDelegate.swift in Sources */,
+				2ABBAEED2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift in Sources */,
 				2AA4C26F2A70287100C2EC66 /* WorkspacesSubscriptionBuilder.swift in Sources */,
 				2A7466AA2A9DFDF400D73F63 /* ObjectSettingsCoordinatorOutput.swift in Sources */,
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
@@ -11608,6 +11609,7 @@
 				EA3D1E6426D0091C001A31D9 /* MentionAttributeSelectionHandler.swift in Sources */,
 				2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */,
 				1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */,
+				2ABBAEEF2BFB896A00EBA8FA /* ObjectTreeWidgetSubmoduleView.swift in Sources */,
 				2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */,
 				2AAF343E29559DA600921320 /* HomeWidgetsRegistry.swift in Sources */,
 				3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */,
@@ -11900,7 +11902,6 @@
 				3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				2E6CF1602BE111C7002C7023 /* RelationsSearchCoordinatorView.swift in Sources */,
-				2AC906CE29B61B1F00209E39 /* RecentTreeWidgetModuleAssembly.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
 				53F7441927F4A119005C9BB0 /* AnytypePopupViewModel.swift in Sources */,
 				EA54129C26C6856B00C9B6F3 /* AttributedStringChange.swift in Sources */,
@@ -12244,6 +12245,7 @@
 				2A2B331E2A7AA7A6004BD906 /* CreateWidgetCoordinatorView.swift in Sources */,
 				2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */,
 				2ACE879B29F2B23B00C2B2A9 /* StandardButtonConfig.swift in Sources */,
+				2ABBAEF12BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift in Sources */,
 				2E7E503E2B6D5756003867A3 /* ObjectRelationListView.swift in Sources */,
 				3DE0CFD426F8593D003A606A /* SlashMenuItem.swift in Sources */,
 				2A377E472A82703500EA856B /* RemoteStorageModuleOutput.swift in Sources */,
@@ -12297,7 +12299,6 @@
 				C9C536AB276C86DD003CD3F3 /* UIColor+Assets.swift in Sources */,
 				C9D655E427B4D10D00E09F38 /* EditorContextualMenu.swift in Sources */,
 				3D5A413D2702CBBE00F1F6A1 /* ToastBarData.swift in Sources */,
-				2AC906CA29B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift in Sources */,
 				3DB1CA5C272BF2C3000D2779 /* BackgroundType.swift in Sources */,
 				3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */,
 				3DA6DBD92746569200516E75 /* PositionCatcher.swift in Sources */,
@@ -12334,7 +12335,6 @@
 				2ABF8F5F2B7FB982004B8FB8 /* AsyncStandardButton.swift in Sources */,
 				2AA42CF12B1737C800CA20D4 /* BottomAlertView.swift in Sources */,
 				3D3040AD27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift in Sources */,
-				2AF4C3E0295D837C00FD7153 /* ObjectTreeWidgetModuleAssembly.swift in Sources */,
 				2AFEED1B2A73B84100D7A45B /* WidgetChangeSourceSearchModuleModel.swift in Sources */,
 				125683DA27DF1BFB003A8251 /* ObjectsSearchViewModel.swift in Sources */,
 				3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */,

@@ -14,7 +14,7 @@ struct TreeWidgetView: View {
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         stateManager: HomeWidgetsStateManagerProtocol,
-        internalModel: WidgetInternalViewModelProtocol,
+        internalModel:  @autoclosure @escaping () -> WidgetInternalViewModelProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
@@ -24,7 +24,7 @@ struct TreeWidgetView: View {
         self._model = StateObject(
             wrappedValue: TreeWidgetViewModel(
                 widgetBlockId: widgetBlockId,
-                internalModel: internalModel,
+                internalModel: internalModel(),
                 output: output
             )
         )

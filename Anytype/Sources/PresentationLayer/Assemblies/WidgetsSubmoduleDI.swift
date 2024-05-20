@@ -5,11 +5,6 @@ protocol WidgetsSubmoduleDIProtocol {
         stateManager: HomeWidgetsStateManagerProtocol,
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol
-    // MARK: - Tree
-    func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func recentEditTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func recentOpenTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - List
     func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
@@ -42,22 +37,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsRegistryProtocol {
         return HomeWidgetsRegistry(
-            objectTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: objectTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            favoriteTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: favoriteTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            recentEditTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: recentEditTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            recentOpenTreeWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: recentOpenTreeWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
             setListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: setListWidgetModuleAssembly(),
                 output: widgetOutput
@@ -108,24 +87,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
             ),
             stateManager: stateManager
         )
-    }
-    
-    // MARK: - Tree
-    
-    func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return ObjectTreeWidgetModuleAssembly(widgetsSubmoduleDI: self)
-    }
-    
-    func favoriteTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return FavoriteTreeWidgetModuleAssembly(widgetsSubmoduleDI: self)
-    }
-    
-    func recentEditTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentTreeWidgetModuleAssembly(type: .recentEdit, widgetsSubmoduleDI: self)
-    }
-    
-    func recentOpenTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentTreeWidgetModuleAssembly(type: .recentOpen, widgetsSubmoduleDI: self)
     }
     
     // MARK: - List

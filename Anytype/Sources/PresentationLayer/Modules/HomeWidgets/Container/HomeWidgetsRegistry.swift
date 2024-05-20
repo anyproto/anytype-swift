@@ -21,11 +21,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     }
     
     // MARK: - DI
-    // MARK: - Tree
-    private let objectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - List
     private let setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
@@ -45,10 +40,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private var providersCache: [ProviderCache] = []
     
     init(
-        objectTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        favoriteTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentEditTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentOpenTreeWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         favoriteListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         recentEditListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
@@ -63,10 +54,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
-        self.objectTreeWidgetProviderAssembly = objectTreeWidgetProviderAssembly
-        self.favoriteTreeWidgetProviderAssembly = favoriteTreeWidgetProviderAssembly
-        self.recentEditTreeWidgetProviderAssembly = recentEditTreeWidgetProviderAssembly
-        self.recentOpenTreeWidgetProviderAssembly = recentOpenTreeWidgetProviderAssembly
         self.setListWidgetProviderAssembly = setListWidgetProviderAssembly
         self.favoriteListWidgetProviderAssembly = favoriteListWidgetProviderAssembly
         self.recentEditListWidgetProviderAssembly = recentEditListWidgetProviderAssembly
@@ -147,26 +134,46 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case .object(let objectDetails):
             return providerForObject(objectDetails, widgetInfo: widgetInfo, widgetObject: widgetObject, output: output)
         case .library(let anytypeWidgetId):
-            return providerForAnytypeWidgetId(anytypeWidgetId, widgetInfo: widgetInfo)
+            return providerForAnytypeWidgetId(anytypeWidgetId, widgetInfo: widgetInfo, widgetObject: widgetObject, output: output)
         }
     }
     
-    private func providerForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId, widgetInfo: BlockWidgetInfo) -> HomeWidgetProviderAssemblyProtocol? {
+    private func providerForAnytypeWidgetId(_ anytypeWidgetId: AnytypeWidgetId, widgetInfo: BlockWidgetInfo, widgetObject: BaseDocumentProtocol, output: CommonWidgetModuleOutput?) -> HomeWidgetProviderAssemblyProtocol? {
         switch (anytypeWidgetId, widgetInfo.fixedLayout) {
         case (.favorite, .tree):
-            return favoriteTreeWidgetProviderAssembly
+            let view = FavoriteTreeWidgetsubmoduleView(
+                widgetBlockId: widgetInfo.id,
+                widgetObject: widgetObject,
+                stateManager: stateManager,
+                output: output
+            )
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.favorite, .list):
             return favoriteListWidgetProviderAssembly
         case (.favorite, .compactList):
             return favoriteCompactListWidgetProviderAssembly
         case (.recent, .tree):
-            return recentEditTreeWidgetProviderAssembly
+            let view = RecentTreeWidgetSubmoduleView(
+                widgetBlockId: widgetInfo.id,
+                widgetObject: widgetObject,
+                stateManager: stateManager,
+                type: .recentEdit,
+                output: output
+            )
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recent, .list):
             return recentEditListWidgetProviderAssembly
         case (.recent, .compactList):
             return recentEditCompactListWidgetProviderAssembly
         case (.recentOpen, .tree):
-            return recentOpenTreeWidgetProviderAssembly
+            let view = RecentTreeWidgetSubmoduleView(
+                widgetBlockId: widgetInfo.id,
+                widgetObject: widgetObject,
+                stateManager: stateManager,
+                type: .recentOpen,
+                output: output
+            )
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recentOpen, .list):
             return recentOpenListWidgetProviderAssembly
         case (.recentOpen, .compactList):
@@ -203,7 +210,13 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case .tree:
             guard objectDetails.editorViewType == .page else { return nil }
-            return objectTreeWidgetProviderAssembly
+            let view = ObjectTreeWidgetSubmoduleView(
+                widgetBlockId: widgetInfo.id,
+                widgetObject: widgetObject,
+                stateManager: stateManager,
+                output: output
+            )
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case .list:
             guard objectDetails.editorViewType == .set else { return nil }
             return setListWidgetProviderAssembly
