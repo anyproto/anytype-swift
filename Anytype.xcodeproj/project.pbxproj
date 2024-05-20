@@ -3016,6 +3016,8 @@
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannersView.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
+		3D7C52CA2BFB3B1C00D1278C /* Anytype Dev StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype Dev StoreKit Configuration.storekit"; sourceTree = "<group>"; };
+		3D7C52CB2BFB3B4400D1278C /* Anytype StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype StoreKit Configuration.storekit"; sourceTree = "<group>"; };
 		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -3129,7 +3131,6 @@
 		3DE0CFE026F860EF003A606A /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
-		3DE3DE632BBD7E6F00C9E6D3 /* LocalStoreKitConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = LocalStoreKitConfiguration.storekit; sourceTree = "<group>"; };
 		3DE3DE642BBDBAA300C9E6D3 /* MembershipPricingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipPricingView.swift; sourceTree = "<group>"; };
 		3DE3DE662BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierPaymentTypeExtension.swift; sourceTree = "<group>"; };
 		3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseDocumentProtocol.swift; path = Anytype/Sources/Models/Documents/Document/BaseDocumentProtocol.swift; sourceTree = SOURCE_ROOT; };
@@ -3722,9 +3723,10 @@
 		038FB5C522D8F2A0002B90B8 /* Supporting files */ = {
 			isa = PBXGroup;
 			children = (
-				3DE3DE632BBD7E6F00C9E6D3 /* LocalStoreKitConfiguration.storekit */,
 				0303ED0922D8EDAD005C552B /* LaunchScreen.storyboard */,
 				0303ED0C22D8EDAD005C552B /* Info.plist */,
+				3D7C52CA2BFB3B1C00D1278C /* Anytype Dev StoreKit Configuration.storekit */,
+				3D7C52CB2BFB3B4400D1278C /* Anytype StoreKit Configuration.storekit */,
 			);
 			path = "Supporting files";
 			sourceTree = "<group>";
