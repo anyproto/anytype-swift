@@ -9,14 +9,11 @@ protocol ApplicationCoordinatorAssemblyProtocol: AnyObject {
 final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtocol {
     
     private let coordinatorsDI: CoordinatorsDIProtocol
-    private let uiHelpersDI: UIHelpersDIProtocol
 
     init(
-        coordinatorsDI: CoordinatorsDIProtocol,
-        uiHelpersDI: UIHelpersDIProtocol
+        coordinatorsDI: CoordinatorsDIProtocol
     ) {
         self.coordinatorsDI = coordinatorsDI
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - ApplicationCoordinatorAssemblyProtocol
@@ -25,8 +22,7 @@ final class ApplicationCoordinatorAssembly: ApplicationCoordinatorAssemblyProtoc
     func makeView() -> AnyView {
         return ApplicationCoordinatorView(
             model: ApplicationCoordinatorViewModel(
-                homeCoordinatorAssembly: self.coordinatorsDI.home(),
-                navigationContext: self.uiHelpersDI.commonNavigationContext()
+                homeCoordinatorAssembly: self.coordinatorsDI.home()
             )
         ).eraseToAnyView()
     }

@@ -4,24 +4,14 @@ import AnytypeCore
 
 final class DI: DIProtocol {
     
-    private let viewControllerProvider: ViewControllerProviderProtocol
-    
-    init(viewControllerProvider: ViewControllerProviderProtocol) {
-        self.viewControllerProvider = viewControllerProvider
-    }
-    
     // MARK: - DIProtocol
     
     lazy var coordinatorsDI: CoordinatorsDIProtocol = {
-        return CoordinatorsDI(serviceLocator: serviceLocator, modulesDI: modulesDI, uiHelpersDI: uihelpersDI)
+        return CoordinatorsDI(serviceLocator: serviceLocator, modulesDI: modulesDI)
     }()
     
     lazy var modulesDI: ModulesDIProtocol = {
-        return ModulesDI(uiHelpersDI: uihelpersDI, widgetsSubmoduleDI: widgetsSubmoduleDI)
-    }()
-    
-    lazy var uihelpersDI: UIHelpersDIProtocol = {
-        return UIHelpersDI(viewControllerProvider: viewControllerProvider, serviceLocator: serviceLocator)
+        return ModulesDI(widgetsSubmoduleDI: widgetsSubmoduleDI)
     }()
     
     lazy var serviceLocator: ServiceLocator = {
@@ -29,7 +19,7 @@ final class DI: DIProtocol {
     }()
     
     lazy var widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol = {
-        return WidgetsSubmoduleDI(serviceLocator: serviceLocator, uiHelpersDI: uihelpersDI)
+        return WidgetsSubmoduleDI(serviceLocator: serviceLocator)
     }()
 }
 
@@ -39,6 +29,6 @@ extension DI {
         if !AppContext.isPreview {
             anytypeAssertionFailure("Preview DI available only in debug")
         }
-        return DI(viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()))
+        return DI()
     }
 }

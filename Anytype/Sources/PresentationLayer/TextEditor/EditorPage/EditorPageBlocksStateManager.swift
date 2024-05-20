@@ -76,7 +76,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
-    private let toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
@@ -91,7 +92,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        toastPresenter: ToastPresenterProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
@@ -101,7 +101,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.document = document
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
-        self.toastPresenter = toastPresenter
         self.actionHandler = actionHandler
         self.router = router
         self.editingState = initialEditingState

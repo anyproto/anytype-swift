@@ -26,11 +26,9 @@ protocol ListWidgetModuleAssemblyProtocol: AnyObject {
 final class ListWidgetModuleAssembly: ListWidgetModuleAssemblyProtocol {
     
     private let serviceLocator: ServiceLocator
-    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - TreeWidgetModuleAssemblyProtocol

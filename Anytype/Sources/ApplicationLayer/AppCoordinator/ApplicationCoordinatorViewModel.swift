@@ -20,7 +20,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     private var fileErrorEventHandler: FileErrorEventHandlerProtocol
     
     private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
-    private let navigationContext: NavigationContextProtocol
     
     private var authCoordinator: AuthCoordinatorProtocol?
     private var dismissAllPresented: DismissAllPresented?
@@ -33,11 +32,9 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     // MARK: - Initializers
     
     init(
-        homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol,
-        navigationContext: NavigationContextProtocol
+        homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
     ) {
         self.homeCoordinatorAssembly = homeCoordinatorAssembly
-        self.navigationContext = navigationContext
     }
     
     func onAppear() {

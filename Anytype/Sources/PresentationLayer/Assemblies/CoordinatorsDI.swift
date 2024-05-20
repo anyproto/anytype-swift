@@ -5,12 +5,10 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     private let serviceLocator: ServiceLocator
     private let modulesDI: ModulesDIProtocol
-    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol, uiHelpersDI: UIHelpersDIProtocol) {
+    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol) {
         self.serviceLocator = serviceLocator
         self.modulesDI = modulesDI
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - CoordinatorsDIProtocol
@@ -28,7 +26,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func application() -> ApplicationCoordinatorAssemblyProtocol {
-        return ApplicationCoordinatorAssembly(coordinatorsDI: self, uiHelpersDI: uiHelpersDI)
+        return ApplicationCoordinatorAssembly(coordinatorsDI: self)
     }
     
     func editor() -> EditorCoordinatorAssemblyProtocol {
@@ -36,7 +34,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
-        EditorSetCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        EditorSetCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator)
     }
 
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
@@ -44,23 +42,20 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
-        SetObjectCreationSettingsCoordinatorAssembly(uiHelpersDI: uiHelpersDI, coordinatorsDI: self)
+        SetObjectCreationSettingsCoordinatorAssembly(coordinatorsDI: self)
     }
 
     func editorPageModule() -> EditorPageModuleAssemblyProtocol {
-        EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI, uiHelpersDI: uiHelpersDI)
+        EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI)
     }
     
     func setObjectCreation() -> SetObjectCreationCoordinatorAssemblyProtocol {
         SetObjectCreationCoordinatorAssembly(
-            modulesDI: modulesDI,
-            uiHelpersDI: uiHelpersDI
+            modulesDI: modulesDI
         )
     }
     
     func sharingTip() -> SharingTipCoordinatorProtocol {
-        SharingTipCoordinator(
-            navigationContext: uiHelpersDI.commonNavigationContext()
-        )
+        SharingTipCoordinator()
     }
 }

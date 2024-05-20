@@ -23,8 +23,10 @@ final class EditorSetCoordinatorViewModel:
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
-    private let toastPresenter: ToastPresenterProtocol
-    private let navigationContext: NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
@@ -40,15 +42,12 @@ final class EditorSetCoordinatorViewModel:
     init(
         data: EditorSetObject,
         setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        navigationContext: NavigationContextProtocol
+        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     ) {
         self.data = data
         self.setObjectCreationCoordinator = setObjectCreationCoordinator
         self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.toastPresenter = toastPresenter
-        self.navigationContext = navigationContext
+
     }
     
     // MARK: - EditorSetModuleOutput

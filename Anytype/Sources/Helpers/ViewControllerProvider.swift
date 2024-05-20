@@ -9,11 +9,9 @@ protocol ViewControllerProviderProtocol {
 
 final class ViewControllerProvider: ViewControllerProviderProtocol {
     
-    private weak var sceneWindow: UIWindow?
+    weak var sceneWindow: UIWindow?
     
-    init(sceneWindow: UIWindow) {
-        self.sceneWindow = sceneWindow
-    }
+    static let shared = ViewControllerProvider()
     
     // MARK: - ViewControllerProviderProtocol
     

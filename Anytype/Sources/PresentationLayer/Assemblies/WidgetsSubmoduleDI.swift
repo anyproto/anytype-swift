@@ -33,11 +33,9 @@ protocol WidgetsSubmoduleDIProtocol {
 final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     private let serviceLocator: ServiceLocator
-    private let uiHelpersDI: UIHelpersDIProtocol
     
-    init(serviceLocator: ServiceLocator, uiHelpersDI: UIHelpersDIProtocol) {
+    init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
-        self.uiHelpersDI = uiHelpersDI
     }
     
     // MARK: - WidgetsSubmoduleDIProtocol
@@ -122,7 +120,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     // MARK: - Tree
     
     func treeWidgetModuleAssembly() -> TreeWidgetModuleAssemblyProtocol {
-        return TreeWidgetModuleAssembly(uiHelpersDI: uiHelpersDI)
+        return TreeWidgetModuleAssembly()
     }
     
     func objectTreeWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
@@ -144,7 +142,7 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     // MARK: - List
     
     func listWidgetModuleAssembly() -> ListWidgetModuleAssemblyProtocol {
-        return ListWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return ListWidgetModuleAssembly(serviceLocator: serviceLocator)
     }
     
     func setListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
@@ -200,6 +198,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     // MARK: - Link
     
     func linkWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return LinkWidgetModuleAssembly(serviceLocator: serviceLocator, uiHelpersDI: uiHelpersDI)
+        return LinkWidgetModuleAssembly(serviceLocator: serviceLocator)
     }
 }

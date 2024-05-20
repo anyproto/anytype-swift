@@ -2,11 +2,9 @@ import Foundation
 
 final class ModulesDI: ModulesDIProtocol {
     
-    private let uiHelpersDI: UIHelpersDIProtocol
     private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
     
-    init(uiHelpersDI: UIHelpersDIProtocol, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.uiHelpersDI = uiHelpersDI
+    init(widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
         self.widgetsSubmoduleDI = widgetsSubmoduleDI
     }
     
@@ -18,7 +16,6 @@ final class ModulesDI: ModulesDIProtocol {
     
     func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol {
         return HomeWidgetsModuleAssembly(
-            uiHelpersDI: uiHelpersDI,
             widgetsSubmoduleDI:  widgetsSubmoduleDI
         )
     }

@@ -24,7 +24,8 @@ final class SetObjectCreationSettingsCoordinator:
     ObjectSettingsCoordinatorOutput,
     SetObjectCreationSettingsOutput
 {
-    private let navigationContext: NavigationContextProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
@@ -33,10 +34,8 @@ final class SetObjectCreationSettingsCoordinator:
     private var editorModuleInput: EditorPageModuleInput?
     
     init(
-        navigationContext: NavigationContextProtocol,
         editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
     ) {
-        self.navigationContext = navigationContext
         self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
     }
     

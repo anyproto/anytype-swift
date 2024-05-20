@@ -27,9 +27,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
+        ViewControllerProvider.shared.sceneWindow = window
         
-        let viewControllerProvider = ViewControllerProvider(sceneWindow: window)
-        let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
+        let di: DIProtocol = DI()
         self.di = di
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
@@ -47,10 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
         
-        ToastPresenter.shared = ToastPresenter(
-            viewControllerProvider: ViewControllerProvider(sceneWindow: window),
-            keyboardHeightListener: KeyboardHeightListener()
-        )
+        ToastPresenter.shared = ToastPresenter()
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
