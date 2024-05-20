@@ -3,37 +3,34 @@ import SwiftUI
 
 struct RecentTreeWidgetSubmoduleView: View {
     
-    let widgetBlockId: String
-    let widgetObject: BaseDocumentProtocol
-    let stateManager: HomeWidgetsStateManagerProtocol
+    let data: WidgetSubmoduleData
     let type: RecentWidgetType
-    let output: CommonWidgetModuleOutput?
+    
+    var body: some View {
+        RecentTreeWidgetSubmoduleInternalView(data: data, type: type)
+            .id(data.widgetBlockId + type.rawValue)
+    }
+}
+
+struct RecentTreeWidgetSubmoduleInternalView: View {
+    
+    @StateObject private var model: RecentWidgetInternalViewModel
+    let data: WidgetSubmoduleData
+    let type: RecentWidgetType
     
     init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        type: RecentWidgetType,
-        output: CommonWidgetModuleOutput?
+        data: WidgetSubmoduleData,
+        type: RecentWidgetType
     ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.stateManager = stateManager
+        self.data = data
         self.type = type
-        self.output = output
+        self._model = StateObject(wrappedValue: RecentWidgetInternalViewModel(data: data, type: type))
     }
     
     var body: some View {
         TreeWidgetView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            stateManager: stateManager,
-            internalModel: RecentWidgetInternalViewModel(
-                type: type,
-                widgetBlockId: widgetBlockId,
-                widgetObject: widgetObject
-            ),
-            output: output
+            data: data,
+            internalModel: model
         )
     }
 }

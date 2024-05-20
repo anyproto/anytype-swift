@@ -3,39 +3,32 @@ import SwiftUI
 
 struct LinkWidgetView: View {
     
-    let widgetBlockId: String
-    let widgetObject: BaseDocumentProtocol
-    let stateManager: HomeWidgetsStateManagerProtocol
-    let output: CommonWidgetModuleOutput?
+    let data: WidgetSubmoduleData
+    
+    var body: some View {
+        LinkWidgetInternalView(data: data)
+            .id(data.widgetBlockId)
+    }
+}
+
+struct LinkWidgetInternalView: View {
+    
+    let data: WidgetSubmoduleData
     
     @StateObject private var model: LinkWidgetViewModel
     
-    init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol, 
-        output: CommonWidgetModuleOutput?
-    ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.stateManager = stateManager
-        self.output = output
-        self._model = StateObject(
-            wrappedValue: LinkWidgetViewModel(
-                widgetBlockId: widgetBlockId,
-                widgetObject: widgetObject,
-                output: output
-            )
-        )
+    init(data: WidgetSubmoduleData) {
+        self.data = data
+        self._model = StateObject(wrappedValue: LinkWidgetViewModel(data: data))
     }
     
     var body: some View {
         WidgetContainerView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            stateManager: stateManager,
+            widgetBlockId: data.widgetBlockId,
+            widgetObject: data.widgetObject,
+            stateManager: data.stateManager,
             contentModel: model,
-            output: output,
+            output: data.output,
             content: EmptyView()
         )
     }

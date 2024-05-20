@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 @MainActor
-final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
@@ -32,14 +32,10 @@ final class ObjectWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     @Published var allowCreateObject = true
     
-    init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        output: CommonWidgetModuleOutput?
-    ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.output = output
+    init(data: WidgetSubmoduleData) {
+        self.widgetBlockId = data.widgetBlockId
+        self.widgetObject = data.widgetObject
+        self.output = data.output
     }
     
     func startHeaderSubscription() {

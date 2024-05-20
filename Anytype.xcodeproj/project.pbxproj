@@ -680,6 +680,7 @@
 		2ABBAEED2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEEC2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift */; };
 		2ABBAEEF2BFB896A00EBA8FA /* ObjectTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEEE2BFB896900EBA8FA /* ObjectTreeWidgetSubmoduleView.swift */; };
 		2ABBAEF12BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */; };
+		2ABBAEF72BFB918100EBA8FA /* WidgetSubmoduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
 		2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */; };
@@ -2444,6 +2445,7 @@
 		2ABBAEEC2BFB893600EBA8FA /* FavoriteTreeWidgetsubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTreeWidgetsubmoduleView.swift; sourceTree = "<group>"; };
 		2ABBAEEE2BFB896900EBA8FA /* ObjectTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
+		2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSubmoduleData.swift; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
 		2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardClearCacheAlertModel.swift; sourceTree = "<group>"; };
@@ -5590,6 +5592,7 @@
 				2A1F94922979579B00E25782 /* CommonWidgetModuleOutput.swift */,
 				2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */,
 				2ABBAEE62BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift */,
+				2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -11331,6 +11334,7 @@
 				2EE6160E2B6CFEBD000236A8 /* SelectRelationListStyle.swift in Sources */,
 				2AA8107A29A3D329007DD64B /* ListSectionData.swift in Sources */,
 				2A62B71A2BA83AD6001EAD28 /* ParticipantDeclineNotificationView.swift in Sources */,
+				2ABBAEF72BFB918100EBA8FA /* WidgetSubmoduleData.swift in Sources */,
 				2AD98618289AA23900F5DF73 /* SelectionOptionsViewModel.swift in Sources */,
 				2AFCEB3729C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift in Sources */,
 				2ABFED9628C9DAA4008B5C03 /* RelationDetails+Extensions.swift in Sources */,
