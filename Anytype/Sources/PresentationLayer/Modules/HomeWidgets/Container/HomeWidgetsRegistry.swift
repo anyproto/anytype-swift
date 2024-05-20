@@ -30,8 +30,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - CompactList
     private let setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let stateManager: HomeWidgetsStateManagerProtocol
@@ -45,8 +43,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
@@ -57,8 +53,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.setsListWidgetProviderAssembly = setsListWidgetProviderAssembly
         self.collectionsListWidgetProviderAssembly = collectionsListWidgetProviderAssembly
         self.setCompactListWidgetProviderAssembly = setCompactListWidgetProviderAssembly
-        self.recentEditCompactListWidgetProviderAssembly = recentEditCompactListWidgetProviderAssembly
-        self.recentOpenCompactListWidgetProviderAssembly = recentOpenCompactListWidgetProviderAssembly
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
         self.stateManager = stateManager
     }
@@ -149,14 +143,16 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.recent, .list):
             return recentEditListWidgetProviderAssembly
         case (.recent, .compactList):
-            return recentEditCompactListWidgetProviderAssembly
+            let view = RecentCompactListWidgetSubmoduleView(data: widgetData, type: .recentEdit)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recentOpen, .tree):
             let view = RecentTreeWidgetSubmoduleView(data: widgetData, type: .recentOpen)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recentOpen, .list):
             return recentOpenListWidgetProviderAssembly
         case (.recentOpen, .compactList):
-            return recentOpenCompactListWidgetProviderAssembly
+            let view = RecentCompactListWidgetSubmoduleView(data: widgetData, type: .recentOpen)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.sets, .tree):
             return setsCompactListWidgetProviderAssembly
         case (.sets, .list):

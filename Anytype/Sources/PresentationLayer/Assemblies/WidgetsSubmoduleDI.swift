@@ -14,8 +14,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - CompactList
     func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func recentEditCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
-    func recentOpenCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
 }
 
@@ -62,14 +60,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: setCompactListWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            recentEditCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: recentEditCompactListWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
-            recentOpenCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: recentOpenCompactListWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
             setsCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: setsCompactListWidgetModuleAssembly(),
                 output: widgetOutput
@@ -108,14 +98,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     
     func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return SetCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
-    }
-    
-    func recentEditCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentCompactListWidgetModuleAssembly(type: .recentEdit, widgetsSubmoduleDI: self)
-    }
-    
-    func recentOpenCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return RecentCompactListWidgetModuleAssembly(type: .recentOpen, widgetsSubmoduleDI: self)
     }
     
     func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
