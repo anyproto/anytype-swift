@@ -22,12 +22,7 @@ final class SetListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
     ) -> AnyView {
         
         let data =  WidgetSubmoduleData(widgetBlockId: widgetBlockId, widgetObject: widgetObject, stateManager: stateManager, output: output)
-        let model = SetObjectWidgetInternalViewModel(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(),
-            output: output
-        )
+        let model = SetObjectWidgetInternalViewModel(data: data)
      
         return ListWidgetView(
             data: data,

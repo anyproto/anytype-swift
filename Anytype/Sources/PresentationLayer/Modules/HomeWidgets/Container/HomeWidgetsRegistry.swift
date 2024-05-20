@@ -29,7 +29,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     // MARK: - CompactList
-    private let setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let stateManager: HomeWidgetsStateManagerProtocol
@@ -42,7 +41,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         recentOpenListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
@@ -52,7 +50,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.recentOpenListWidgetProviderAssembly = recentOpenListWidgetProviderAssembly
         self.setsListWidgetProviderAssembly = setsListWidgetProviderAssembly
         self.collectionsListWidgetProviderAssembly = collectionsListWidgetProviderAssembly
-        self.setCompactListWidgetProviderAssembly = setCompactListWidgetProviderAssembly
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
         self.stateManager = stateManager
     }
@@ -189,7 +186,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             return setListWidgetProviderAssembly
         case .compactList:
             guard objectDetails.editorViewType == .set else { return nil }
-            return setCompactListWidgetProviderAssembly
+            let view = SetCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         }
     }
 }

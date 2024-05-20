@@ -13,7 +13,6 @@ protocol WidgetsSubmoduleDIProtocol {
     func setsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func collectionsListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     // MARK: - CompactList
-    func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
     func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol
 }
 
@@ -56,10 +55,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
                 widgetAssembly: collectionsListWidgetModuleAssembly(),
                 output: widgetOutput
             ),
-            setCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
-                widgetAssembly: setCompactListWidgetModuleAssembly(),
-                output: widgetOutput
-            ),
             setsCompactListWidgetProviderAssembly: HomeWidgetCommonProviderAssembly(
                 widgetAssembly: setsCompactListWidgetModuleAssembly(),
                 output: widgetOutput
@@ -95,10 +90,6 @@ final class WidgetsSubmoduleDI: WidgetsSubmoduleDIProtocol {
     }
     
     // MARK: - CompactList
-    
-    func setCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
-        return SetCompactListWidgetModuleAssembly(serviceLocator: serviceLocator, widgetsSubmoduleDI: self)
-    }
     
     func setsCompactListWidgetModuleAssembly() -> HomeWidgetCommonAssemblyProtocol {
         return SetsCompactListWidgetModuleAssembly(widgetsSubmoduleDI: self)
