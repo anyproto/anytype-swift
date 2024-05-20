@@ -34,6 +34,8 @@ final class GlobalSearchViewModel: ObservableObject {
                 result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: limitObjectIds)
             }
             
+            updateInitialStateIfNeeded()
+            
             let objectsSearchData = result.compactMap { [weak self] result in
                 self?.globalSearchDataBuilder.buildData(with: result)
             }
@@ -102,5 +104,10 @@ final class GlobalSearchViewModel: ObservableObject {
                 buttonTitle: Loc.clear
             )
         }
+    }
+    
+    private func updateInitialStateIfNeeded() {
+        guard state.isInitial else { return }
+        state.isInitial = false
     }
 }
