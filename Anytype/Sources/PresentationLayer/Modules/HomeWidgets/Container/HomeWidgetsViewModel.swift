@@ -58,7 +58,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         for await _ in widgetObject.syncPublisher.values {
             let blocks = widgetObject.children.filter(\.isWidget)
             recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
-            let providers = registry.providers(blocks: blocks, widgetObject: widgetObject)
+            let providers = registry.providers(blocks: blocks, widgetObject: widgetObject, output: output)
             
             guard providers != models else { continue }
             

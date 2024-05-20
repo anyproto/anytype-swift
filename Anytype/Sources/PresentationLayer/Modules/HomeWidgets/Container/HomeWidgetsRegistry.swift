@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 
 protocol HomeWidgetsRegistryProtocol {
-    func providers(blocks: [BlockInformation], widgetObject: BaseDocumentProtocol) -> [HomeWidgetSubmoduleModel]
+    func providers(blocks: [BlockInformation], widgetObject: BaseDocumentProtocol, output: CommonWidgetModuleOutput?) -> [HomeWidgetSubmoduleModel]
 }
 
 final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
@@ -41,8 +41,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
-    private let linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    
     private let stateManager: HomeWidgetsStateManagerProtocol
     private var providersCache: [ProviderCache] = []
     
@@ -63,7 +61,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        linkWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.objectTreeWidgetProviderAssembly = objectTreeWidgetProviderAssembly
@@ -82,7 +79,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.recentOpenCompactListWidgetProviderAssembly = recentOpenCompactListWidgetProviderAssembly
         self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
         self.collectionsCompactListWidgetProviderAssembly = collectionsCompactListWidgetProviderAssembly
-        self.linkWidgetProviderAssembly = linkWidgetProviderAssembly
         self.stateManager = stateManager
     }
     
@@ -90,14 +86,15 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     
     func providers(
         blocks: [BlockInformation],
-        widgetObject: BaseDocumentProtocol
+        widgetObject: BaseDocumentProtocol,
+        output: CommonWidgetModuleOutput?
     ) -> [HomeWidgetSubmoduleModel] {
         
         var newProvidersCache: [ProviderCache] = []
         
         let blockWidgets = blocks.compactMap { block -> ProviderCache? in
             guard let widgetInfo = widgetObject.widgetInfo(block: block),
-                  let provider = providerForInfo(widgetInfo) else { return nil }
+                  let provider = providerForInfo(widgetInfo, widgetObject: widgetObject, output: output) else { return nil }
             
             return createProviderCache(
                 source: provider,
@@ -145,10 +142,10 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         return newCache
     }
     
-    private func providerForInfo(_ widgetInfo: BlockWidgetInfo) -> HomeWidgetProviderAssemblyProtocol? {
+    private func providerForInfo(_ widgetInfo: BlockWidgetInfo, widgetObject: BaseDocumentProtocol, output: CommonWidgetModuleOutput?) -> HomeWidgetProviderAssemblyProtocol? {
         switch widgetInfo.source {
         case .object(let objectDetails):
-            return providerForObject(objectDetails, widgetInfo: widgetInfo)
+            return providerForObject(objectDetails, widgetInfo: widgetInfo, widgetObject: widgetObject, output: output)
         case .library(let anytypeWidgetId):
             return providerForAnytypeWidgetId(anytypeWidgetId, widgetInfo: widgetInfo)
         }
@@ -191,13 +188,19 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         }
     }
     
-    private func providerForObject(_ objectDetails: ObjectDetails, widgetInfo: BlockWidgetInfo) -> HomeWidgetProviderAssemblyProtocol? {
+    private func providerForObject(_ objectDetails: ObjectDetails, widgetInfo: BlockWidgetInfo, widgetObject: BaseDocumentProtocol, output: CommonWidgetModuleOutput?) -> HomeWidgetProviderAssemblyProtocol? {
         
         guard objectDetails.isNotDeletedAndVisibleForEdit else { return nil }
         
         switch widgetInfo.fixedLayout {
         case .link:
-            return linkWidgetProviderAssembly
+            let view = LinkWidgetView(
+                widgetBlockId: widgetInfo.id,
+                widgetObject: widgetObject,
+                stateManager: stateManager,
+                output: output
+            )
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case .tree:
             guard objectDetails.editorViewType == .page else { return nil }
             return objectTreeWidgetProviderAssembly

@@ -12,7 +12,7 @@ enum WidgetMenuItem: String {
 // TODO: Delete in after migration
 struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
     
-    @ObservedObject var model: WidgetContainerViewModel<ContentVM>
+    @StateObject var model: WidgetContainerViewModel<ContentVM>
     @ObservedObject var contentModel: ContentVM
     var content: Content
         
