@@ -12,7 +12,7 @@ struct RecentTreeWidgetSubmoduleView: View {
     }
 }
 
-struct RecentTreeWidgetSubmoduleInternalView: View {
+private struct RecentTreeWidgetSubmoduleInternalView: View {
     
     @StateObject private var model: RecentWidgetInternalViewModel
     let data: WidgetSubmoduleData

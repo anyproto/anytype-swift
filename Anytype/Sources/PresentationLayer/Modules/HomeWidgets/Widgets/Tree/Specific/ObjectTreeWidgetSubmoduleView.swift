@@ -11,7 +11,7 @@ struct ObjectTreeWidgetSubmoduleView: View {
     }
 }
 
-struct ObjectTreeWidgetSubmoduleInternalView: View {
+private struct ObjectTreeWidgetSubmoduleInternalView: View {
     
     @StateObject private var model: ObjectWidgetInternalViewModel
     let data: WidgetSubmoduleData
