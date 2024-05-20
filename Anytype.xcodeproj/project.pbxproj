@@ -702,7 +702,6 @@
 		2AC6B2112B99C931000C6C88 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC6B2102B99C931000C6C88 /* AsyncButton.swift */; };
 		2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */; };
 		2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */; };
-		2AC906C529B5FFD600209E39 /* TreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C429B5FFD600209E39 /* TreeWidgetModuleAssembly.swift */; };
 		2AC906C729B601C200209E39 /* FavoriteWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C629B601C200209E39 /* FavoriteWidgetInternalViewModel.swift */; };
 		2AC906CA29B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906C929B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift */; };
 		2AC906CC29B61A9700209E39 /* RecentWidgetInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC906CB29B61A9700209E39 /* RecentWidgetInternalViewModel.swift */; };
@@ -2468,7 +2467,6 @@
 		2AC6B2102B99C931000C6C88 /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
 		2AC906C029B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetInternalViewModelProtocol.swift; sourceTree = "<group>"; };
 		2AC906C229B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWidgetInternalViewModel.swift; sourceTree = "<group>"; };
-		2AC906C429B5FFD600209E39 /* TreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906C629B601C200209E39 /* FavoriteWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteWidgetInternalViewModel.swift; sourceTree = "<group>"; };
 		2AC906C929B609FB00209E39 /* FavoriteTreeWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTreeWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2AC906CB29B61A9700209E39 /* RecentWidgetInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentWidgetInternalViewModel.swift; sourceTree = "<group>"; };
@@ -6628,7 +6626,6 @@
 				2AF4C3D7295C3E8300FD7153 /* Rows */,
 				2AAF34362954C86800921320 /* TreeWidgetView.swift */,
 				2AAF343B29559BF700921320 /* TreeWidgetViewModel.swift */,
-				2AC906C429B5FFD600209E39 /* TreeWidgetModuleAssembly.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -10941,7 +10938,6 @@
 				2A55F1F12B738484009DB80A /* NotificationPayload.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationValuePlaceholderView.swift in Sources */,
 				2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */,
-				2AC906C529B5FFD600209E39 /* TreeWidgetModuleAssembly.swift in Sources */,
 				2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */,
 				2A2B331A2A7AA525004BD906 /* WidgetTypeCreateData.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
