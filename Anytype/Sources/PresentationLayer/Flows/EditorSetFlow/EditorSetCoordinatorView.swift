@@ -8,7 +8,7 @@ struct EditorSetCoordinatorView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        model.setModule()
+        EditorSetView(data: model.data, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

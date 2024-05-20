@@ -13,5 +13,4 @@ protocol CoordinatorsDIProtocol: AnyObject {
     
     // Now like a coordinator. Migrate to isolated modules
     func editorPageModule() -> EditorPageModuleAssemblyProtocol
-    func editorSetModule() -> EditorSetModuleAssemblyProtocol
 }

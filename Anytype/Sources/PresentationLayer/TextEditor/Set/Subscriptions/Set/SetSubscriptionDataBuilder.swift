@@ -13,7 +13,9 @@ protocol SetSubscriptionDataBuilderProtocol: AnyObject {
 final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
     let subscriptionId = "Set-\(UUID().uuidString)"
-        
+    
+    nonisolated init() {}
+    
     // MARK: - SetSubscriptionDataBuilderProtocol
     
     func set(_ data: SetSubscriptionData) -> SubscriptionData {
