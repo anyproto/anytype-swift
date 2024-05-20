@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 @MainActor
-final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
@@ -27,14 +27,10 @@ final class CollectionsWidgetInternalViewModel: WidgetInternalViewModelProtocol 
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     var allowCreateObject = true
     
-    init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        output: CommonWidgetModuleOutput?
-    ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.output = output
+    init(data: WidgetSubmoduleData) {
+        self.widgetBlockId = data.widgetBlockId
+        self.widgetObject = data.widgetObject
+        self.output = data.output
     }
     
     // MARK: - WidgetInternalViewModelProtocol

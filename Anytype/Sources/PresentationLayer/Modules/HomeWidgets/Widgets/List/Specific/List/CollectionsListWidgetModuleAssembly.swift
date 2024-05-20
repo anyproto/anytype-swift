@@ -19,20 +19,14 @@ final class CollectionsListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtoco
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = CollectionsWidgetInternalViewModel(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            output: output
-        )
+        let data =  WidgetSubmoduleData(widgetBlockId: widgetBlockId, widgetObject: widgetObject, stateManager: stateManager, output: output)
+        let model = CollectionsWidgetInternalViewModel(data: data)
      
         return ListWidgetView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
+            data: data,
             style: .list,
-            stateManager: stateManager,
             internalModel: model,
-            internalHeaderModel: nil,
-            output: output
+            internalHeaderModel: nil
         ).eraseToAnyView()
     }
 }

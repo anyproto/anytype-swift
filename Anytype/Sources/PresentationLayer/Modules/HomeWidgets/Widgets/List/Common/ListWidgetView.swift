@@ -3,69 +3,54 @@ import SwiftUI
 
 struct ListWidgetView: View {
     
-    let widgetBlockId: String
-    let widgetObject: BaseDocumentProtocol
+    let data: WidgetSubmoduleData
     let style: ListWidgetStyle
-    let stateManager: HomeWidgetsStateManagerProtocol
     let internalModel: WidgetInternalViewModelProtocol
     let internalHeaderModel: WidgetDataviewInternalViewModelProtocol?
-    let output: CommonWidgetModuleOutput?
     
     var body: some View {
         ListWidgetInternalView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
+            data: data,
             style: style,
-            stateManager: stateManager,
             internalModel: internalModel,
-            internalHeaderModel: internalHeaderModel,
-            output: output
+            internalHeaderModel: internalHeaderModel
         )
-        .id(widgetBlockId + style.rawValue)
+        .id(data.widgetBlockId + style.rawValue)
     }
 }
 
 private struct ListWidgetInternalView: View {
     
-    let widgetBlockId: String
-    let widgetObject: BaseDocumentProtocol
-    let stateManager: HomeWidgetsStateManagerProtocol
-    let output: CommonWidgetModuleOutput?
+    let data: WidgetSubmoduleData
     
     @StateObject private var model: ListWidgetViewModel
     
     init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
+        data: WidgetSubmoduleData,
         style: ListWidgetStyle,
-        stateManager: HomeWidgetsStateManagerProtocol,
         internalModel: WidgetInternalViewModelProtocol,
-        internalHeaderModel: WidgetDataviewInternalViewModelProtocol?,
-        output: CommonWidgetModuleOutput?
+        internalHeaderModel: WidgetDataviewInternalViewModelProtocol?
     ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.stateManager = stateManager
-        self.output = output
+        self.data = data
         self._model = StateObject(
             wrappedValue: ListWidgetViewModel(
-                widgetBlockId: widgetBlockId,
-                widgetObject: widgetObject,
+                widgetBlockId: data.widgetBlockId,
+                widgetObject: data.widgetObject,
                 style: style,
                 internalModel: internalModel,
                 internalHeaderModel: internalHeaderModel,
-                output: output
+                output: data.output
             )
         )
     }
     
     var body: some View {
         WidgetContainerView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            stateManager: stateManager,
+            widgetBlockId: data.widgetBlockId,
+            widgetObject: data.widgetObject,
+            stateManager: data.stateManager,
             contentModel: model,
-            output: output,
+            output: data.output,
             content: bodyContent
         )
     }

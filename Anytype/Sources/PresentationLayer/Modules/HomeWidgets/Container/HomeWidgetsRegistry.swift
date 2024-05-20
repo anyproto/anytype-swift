@@ -28,13 +28,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
     private let recentOpenListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     private let collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    // MARK: - CompactList
-    private let setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let favoriteCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
-    private let collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol
     
     private let stateManager: HomeWidgetsStateManagerProtocol
     private var providersCache: [ProviderCache] = []
@@ -46,12 +39,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         recentOpenListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         setsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         collectionsListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        setCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        favoriteCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentEditCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        recentOpenCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        setsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
-        collectionsCompactListWidgetProviderAssembly: HomeWidgetProviderAssemblyProtocol,
         stateManager: HomeWidgetsStateManagerProtocol
     ) {
         self.setListWidgetProviderAssembly = setListWidgetProviderAssembly
@@ -60,12 +47,6 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         self.recentOpenListWidgetProviderAssembly = recentOpenListWidgetProviderAssembly
         self.setsListWidgetProviderAssembly = setsListWidgetProviderAssembly
         self.collectionsListWidgetProviderAssembly = collectionsListWidgetProviderAssembly
-        self.setCompactListWidgetProviderAssembly = setCompactListWidgetProviderAssembly
-        self.favoriteCompactListWidgetProviderAssembly = favoriteCompactListWidgetProviderAssembly
-        self.recentEditCompactListWidgetProviderAssembly = recentEditCompactListWidgetProviderAssembly
-        self.recentOpenCompactListWidgetProviderAssembly = recentOpenCompactListWidgetProviderAssembly
-        self.setsCompactListWidgetProviderAssembly = setsCompactListWidgetProviderAssembly
-        self.collectionsCompactListWidgetProviderAssembly = collectionsCompactListWidgetProviderAssembly
         self.stateManager = stateManager
     }
     
@@ -147,33 +128,40 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
         case (.favorite, .list):
             return favoriteListWidgetProviderAssembly
         case (.favorite, .compactList):
-            return favoriteCompactListWidgetProviderAssembly
+            let view = FavoriteCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recent, .tree):
             let view = RecentTreeWidgetSubmoduleView(data: widgetData, type: .recentEdit)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recent, .list):
             return recentEditListWidgetProviderAssembly
         case (.recent, .compactList):
-            return recentEditCompactListWidgetProviderAssembly
+            let view = RecentCompactListWidgetSubmoduleView(data: widgetData, type: .recentEdit)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recentOpen, .tree):
             let view = RecentTreeWidgetSubmoduleView(data: widgetData, type: .recentOpen)
             return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.recentOpen, .list):
             return recentOpenListWidgetProviderAssembly
         case (.recentOpen, .compactList):
-            return recentOpenCompactListWidgetProviderAssembly
+            let view = RecentCompactListWidgetSubmoduleView(data: widgetData, type: .recentOpen)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.sets, .tree):
-            return setsCompactListWidgetProviderAssembly
+            let view = SetsCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.sets, .list):
             return setsListWidgetProviderAssembly
         case (.sets, .compactList):
-            return setsCompactListWidgetProviderAssembly
+            let view = SetsCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.collections, .tree):
-            return collectionsCompactListWidgetProviderAssembly
+            let view = CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (.collections, .list):
             return collectionsListWidgetProviderAssembly
         case (.collections, .compactList):
-            return collectionsCompactListWidgetProviderAssembly
+            let view = CollectionsCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         case (_, .link):
             return nil
         }
@@ -196,7 +184,8 @@ final class HomeWidgetsRegistry: HomeWidgetsRegistryProtocol {
             return setListWidgetProviderAssembly
         case .compactList:
             guard objectDetails.editorViewType == .set else { return nil }
-            return setCompactListWidgetProviderAssembly
+            let view = SetObjectCompactListWidgetSubmoduleView(data: widgetData)
+            return HomeWidgeMigrationProviderAssembly(view: view.eraseToAnyView(), componentId: widgetInfo.id)
         }
     }
 }

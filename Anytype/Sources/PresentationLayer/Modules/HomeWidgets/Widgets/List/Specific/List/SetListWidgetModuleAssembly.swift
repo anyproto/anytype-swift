@@ -21,21 +21,14 @@ final class SetListWidgetModuleAssembly: HomeWidgetCommonAssemblyProtocol {
         output: CommonWidgetModuleOutput?
     ) -> AnyView {
         
-        let model = SetObjectWidgetInternalViewModel(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
-            setSubscriptionDataBuilder: SetSubscriptionDataBuilder(),
-            output: output
-        )
+        let data =  WidgetSubmoduleData(widgetBlockId: widgetBlockId, widgetObject: widgetObject, stateManager: stateManager, output: output)
+        let model = SetObjectWidgetInternalViewModel(data: data)
      
         return ListWidgetView(
-            widgetBlockId: widgetBlockId,
-            widgetObject: widgetObject,
+            data: data,
             style: .list,
-            stateManager: stateManager,
             internalModel: model,
-            internalHeaderModel: model,
-            output: output
+            internalHeaderModel: model
         ).eraseToAnyView()
     }
 }
