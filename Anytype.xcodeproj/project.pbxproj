@@ -675,6 +675,8 @@
 		2ABBAEDA2BF4EE8E00EBA8FA /* WidgetObjectListCollectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAED92BF4EE8E00EBA8FA /* WidgetObjectListCollectionsView.swift */; };
 		2ABBAEDD2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEDC2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift */; };
 		2ABBAEDF2BF500DF00EBA8FA /* View+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */; };
+		2ABBAEE52BFB63A900EBA8FA /* LinkWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEE42BFB63A900EBA8FA /* LinkWidgetView.swift */; };
+		2ABBAEE72BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEE62BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
 		2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */; };
@@ -772,7 +774,6 @@
 		2ADA60EB2A681A7E0044164D /* IconViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADA60EA2A681A7E0044164D /* IconViewUIKit.swift */; };
 		2ADD14EF2AE2B9A50060BC33 /* HomeCreateObjectTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD14EE2AE2B9A50060BC33 /* HomeCreateObjectTip.swift */; };
 		2ADD556E2987CDDE009AFCB1 /* LinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */; };
-		2ADD55742987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */; };
 		2ADD66732A6ECA0100266F57 /* CoreGraphics+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADD66722A6ECA0100266F57 /* CoreGraphics+Hash.swift */; };
 		2ADF008F2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */; };
 		2ADF00912ACD66D4000D01F8 /* NavigationGestureModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */; };
@@ -2440,6 +2441,8 @@
 		2ABBAED92BF4EE8E00EBA8FA /* WidgetObjectListCollectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListCollectionsView.swift; sourceTree = "<group>"; };
 		2ABBAEDC2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListFilesView.swift; sourceTree = "<group>"; };
 		2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+URL.swift"; sourceTree = "<group>"; };
+		2ABBAEE42BFB63A900EBA8FA /* LinkWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetView.swift; sourceTree = "<group>"; };
+		2ABBAEE62BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgeMigrationProviderAssembly.swift; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
 		2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardClearCacheAlertModel.swift; sourceTree = "<group>"; };
@@ -2538,7 +2541,6 @@
 		2ADA60EA2A681A7E0044164D /* IconViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconViewUIKit.swift; sourceTree = "<group>"; };
 		2ADD14EE2AE2B9A50060BC33 /* HomeCreateObjectTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCreateObjectTip.swift; sourceTree = "<group>"; };
 		2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetViewModel.swift; sourceTree = "<group>"; };
-		2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkWidgetModuleAssembly.swift; sourceTree = "<group>"; };
 		2ADD66722A6ECA0100266F57 /* CoreGraphics+Hash.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CoreGraphics+Hash.swift"; sourceTree = "<group>"; };
 		2ADF008E2ACD5DAC000D01F8 /* StatusBarStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarStyleModifier.swift; sourceTree = "<group>"; };
 		2ADF00902ACD66D4000D01F8 /* NavigationGestureModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationGestureModifier.swift; sourceTree = "<group>"; };
@@ -5591,6 +5593,7 @@
 				2AAF344C2959B71C00921320 /* HomeWidgetProviderAssemblyProtocol.swift */,
 				2A1F94922979579B00E25782 /* CommonWidgetModuleOutput.swift */,
 				2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */,
+				2ABBAEE62BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -6900,7 +6903,7 @@
 			isa = PBXGroup;
 			children = (
 				2ADD556D2987CDDE009AFCB1 /* LinkWidgetViewModel.swift */,
-				2ADD55732987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift */,
+				2ABBAEE42BFB63A900EBA8FA /* LinkWidgetView.swift */,
 			);
 			path = Link;
 			sourceTree = "<group>";
@@ -11161,7 +11164,6 @@
 				86760D112A666F4400E915C9 /* HeaderViewSizeConfiguration.swift in Sources */,
 				534785622743D4550097CA30 /* RelationsSectionBuilder.swift in Sources */,
 				125B6ED526F235F400BCD7D6 /* SlashMenuViewController+TableView.swift in Sources */,
-				2ADD55742987CE65009AFCB1 /* LinkWidgetModuleAssembly.swift in Sources */,
 				2A03FD562A7A46C500CB7191 /* WidgetTypeChangeData.swift in Sources */,
 				12FD9D27276717B200991886 /* RelationObject.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
@@ -11545,6 +11547,7 @@
 				2E3E0DDC29F1C2C9009F68D8 /* KeyboardToolbarView.swift in Sources */,
 				53D4088627EC9D0A00495335 /* ObjectPreviewViewModel.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
+				2ABBAEE72BFB673900EBA8FA /* HomeWidgeMigrationProviderAssembly.swift in Sources */,
 				2ECF1DC12BBC113C007C68E2 /* SetFiltersSelectionHeaderData.swift in Sources */,
 				2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */,
 				53F64294284E4CDF005D4E50 /* ObjectPreviewDescriptionMenuViewModel.swift in Sources */,
@@ -12032,6 +12035,7 @@
 				3D26AA802B976AE400D61479 /* EmailVerificationViewModel.swift in Sources */,
 				3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */,
 				2A56C1682ACB0BAE001677E1 /* EditorPageModuleAssembly.swift in Sources */,
+				2ABBAEE52BFB63A900EBA8FA /* LinkWidgetView.swift in Sources */,
 				2EA9D72E2B3097C7001CF0DE /* TextServiceHandler.swift in Sources */,
 				127EABF42739440200C731F2 /* TagRelationView.swift in Sources */,
 				3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */,

@@ -2,6 +2,7 @@ import Foundation
 import Services
 
 struct BlockWidgetInfo: Equatable {
+    let id: String
     let block: BlockWidget
     let source: WidgetSource
 }
