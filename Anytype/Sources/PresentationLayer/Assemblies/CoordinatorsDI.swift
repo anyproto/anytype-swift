@@ -19,10 +19,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func editor() -> EditorCoordinatorAssemblyProtocol {
         EditorCoordinatorAssembly(coordinatorsID: self)
     }
-
-    func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
-        EditorSetCoordinatorAssembly(coordinatorsID: self)
-    }
 }
 
 extension Container {

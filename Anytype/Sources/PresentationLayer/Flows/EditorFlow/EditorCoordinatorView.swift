@@ -31,7 +31,7 @@ struct EditorCoordinatorView: View {
         case .page(let data):
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case .set(let data):
-            model.makeSet(data: data)
+            EditorSetCoordinatorView(data: data)
         }
     }
 }

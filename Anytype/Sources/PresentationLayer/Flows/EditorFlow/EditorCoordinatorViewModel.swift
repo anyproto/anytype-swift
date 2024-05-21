@@ -7,18 +7,9 @@ final class EditorCoordinatorViewModel: ObservableObject, WidgetObjectListCommon
     var pageNavigation: PageNavigation?
     
     let data: EditorScreenData
-    private let editorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol
     
-    init(
-        data: EditorScreenData,
-        editorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol
-    ) {
+    init(data: EditorScreenData) {
         self.data = data
-        self.editorSetCoordinatorAssembly = editorSetCoordinatorAssembly
-    }
-    
-    func makeSet(data: EditorSetObject) -> AnyView {
-        editorSetCoordinatorAssembly.make(data: data)
     }
     
     // MARK: - WidgetObjectListCommonModuleOutput

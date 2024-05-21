@@ -20,8 +20,7 @@ final class EditorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol {
     func make(data: EditorScreenData) -> AnyView {
         return EditorCoordinatorView(
             model: EditorCoordinatorViewModel(
-                data: data,
-                editorSetCoordinatorAssembly: self.coordinatorsID.editorSet()
+                data: data
             )
         ).eraseToAnyView()
     }
