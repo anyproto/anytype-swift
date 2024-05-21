@@ -6,7 +6,6 @@ import DeepLinks
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var di: DIProtocol?
 
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
@@ -29,9 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         ViewControllerProvider.shared.sceneWindow = window
         
-        let di: DIProtocol = DI()
-        self.di = di
-        
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         if let userActivity = connectionOptions.userActivities.first {
             handleUserActivity(userActivity)
@@ -39,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
         
         
-        let applicationView = di.coordinatorsDI.application().makeView()
+        let applicationView = ApplicationCoordinatorView()
             .setKeyboardDismissEnv(window: window)
             .setPresentedDismissEnv(window: window)
             .setAppInterfaceStyleEnv(window: window)

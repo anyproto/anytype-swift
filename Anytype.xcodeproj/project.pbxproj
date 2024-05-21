@@ -375,7 +375,6 @@
 		2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */; };
 		2A2C330D28928DA7008BC326 /* CoordinatorsDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C330C28928DA7008BC326 /* CoordinatorsDI.swift */; };
 		2A2C3311289294B8008BC326 /* ModulesDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C3310289294B8008BC326 /* ModulesDI.swift */; };
-		2A2C33182892B3BB008BC326 /* DI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33172892B3BB008BC326 /* DI.swift */; };
 		2A30B2022BB40E3400206806 /* BlockFields+Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */; };
 		2A30B2082BB44A0C00206806 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 2A30B2072BB44A0C00206806 /* QRCode */; };
 		2A30B20B2BB44BC800206806 /* QrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B20A2BB44BC800206806 /* QrCodeView.swift */; };
@@ -556,7 +555,6 @@
 		2A7CCC1C2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7CCC1B2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift */; };
 		2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A7DCDDF292E4AC5001919B4 /* RelationsListModuleOutput.swift */; };
 		2A80D0422AB9EB2000DB0513 /* HomeBottomPanelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */; };
-		2A80D04A2ABADD4600DB0513 /* EditorCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */; };
 		2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */; };
 		2A80D04E2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */; };
 		2A80D0562ABAE17F00DB0513 /* EditorPageCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0532ABAE17F00DB0513 /* EditorPageCoordinatorView.swift */; };
@@ -609,7 +607,6 @@
 		2A947B422A30E3EC00119140 /* ListWidgetRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B412A30E3EC00119140 /* ListWidgetRowModel.swift */; };
 		2A9486562950A41B007A5586 /* HomeWidgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486552950A41B007A5586 /* HomeWidgetsView.swift */; };
 		2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */; };
-		2A94865D2950A59D007A5586 /* HomeCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A94865C2950A59D007A5586 /* HomeCoordinatorAssembly.swift */; };
 		2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */; };
 		2A94B5D329B88E95009AE2A7 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 2A94B5D229B88E95009AE2A7 /* Sentry */; };
 		2A95A26C29DD94F4009637C9 /* IconGradientStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A95A26B29DD94F4009637C9 /* IconGradientStorage.swift */; };
@@ -769,7 +766,6 @@
 		2AD5EFCB2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD5EFCA2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift */; };
 		2AD741292993DB27004BD223 /* BinLinkWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */; };
 		2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD741342994F19B004BD223 /* ApplicationStateService.swift */; };
-		2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */; };
 		2AD7E2E52BB1768600F2CDA1 /* StringIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD7E2E42BB1768600F2CDA1 /* StringIdentifiable.swift */; };
 		2AD8AFD52A83E60400F12D54 /* SpaceSwitchModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8AFD42A83E60400F12D54 /* SpaceSwitchModuleOutput.swift */; };
 		2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8AFD62A851CC400F12D54 /* BlockWidgetExpandedService.swift */; };
@@ -814,8 +810,6 @@
 		2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */; };
 		2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */; };
 		2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEB0C252B7231B7007BB10C /* NotificationDismissEnvironment.swift */; };
-		2AECFD37289939DE000E9CFB /* DIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD36289939DE000E9CFB /* DIProtocol.swift */; };
-		2AECFD3B28993B19000E9CFB /* CoordinatorsDIProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AECFD3A28993B19000E9CFB /* CoordinatorsDIProtocol.swift */; };
 		2AEDACC42B9F3A4600FA757A /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDACC32B9F3A4600FA757A /* AppContext.swift */; };
 		2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinatorViewModel.swift */; };
 		2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF109552A02639700EDDE26 /* FileIconBuilder.swift */; };
@@ -2141,7 +2135,6 @@
 		2A2C32FF28919576008BC326 /* RelationMetadataFormat+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationMetadataFormat+Extensions.swift"; sourceTree = "<group>"; };
 		2A2C330C28928DA7008BC326 /* CoordinatorsDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorsDI.swift; sourceTree = "<group>"; };
 		2A2C3310289294B8008BC326 /* ModulesDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesDI.swift; sourceTree = "<group>"; };
-		2A2C33172892B3BB008BC326 /* DI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DI.swift; sourceTree = "<group>"; };
 		2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockFields+Fields.swift"; sourceTree = "<group>"; };
 		2A30B20A2BB44BC800206806 /* QrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeView.swift; sourceTree = "<group>"; };
 		2A30B20C2BB44C7900206806 /* QrCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeViewModel.swift; sourceTree = "<group>"; };
@@ -2313,7 +2306,6 @@
 		2A7CCC1B2B6A92B200F2E98B /* GalleryInstallationPreviewManifestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryInstallationPreviewManifestView.swift; sourceTree = "<group>"; };
 		2A7DCDDF292E4AC5001919B4 /* RelationsListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListModuleOutput.swift; sourceTree = "<group>"; };
 		2A80D0412AB9EB2000DB0513 /* HomeBottomPanelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelContainer.swift; sourceTree = "<group>"; };
-		2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorView.swift; sourceTree = "<group>"; };
 		2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A80D0532ABAE17F00DB0513 /* EditorPageCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorView.swift; sourceTree = "<group>"; };
@@ -2359,7 +2351,6 @@
 		2A947B412A30E3EC00119140 /* ListWidgetRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetRowModel.swift; sourceTree = "<group>"; };
 		2A9486552950A41B007A5586 /* HomeWidgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsView.swift; sourceTree = "<group>"; };
 		2A9486572950A494007A5586 /* HomeWidgetsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsViewModel.swift; sourceTree = "<group>"; };
-		2A94865C2950A59D007A5586 /* HomeCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A9486602950B193007A5586 /* HomeWidgetsModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsModuleOutput.swift; sourceTree = "<group>"; };
 		2A95A26B29DD94F4009637C9 /* IconGradientStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconGradientStorage.swift; sourceTree = "<group>"; };
 		2A96148A2A6981DF00E50D0A /* IconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconView.swift; sourceTree = "<group>"; };
@@ -2531,7 +2522,6 @@
 		2AD5EFCA2B17559D00FAA908 /* DocumentCommonOpenErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentCommonOpenErrorView.swift; sourceTree = "<group>"; };
 		2AD741242993DB27004BD223 /* BinLinkWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetViewModel.swift; sourceTree = "<group>"; };
 		2AD741342994F19B004BD223 /* ApplicationStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationStateService.swift; sourceTree = "<group>"; };
-		2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2AD7E2E42BB1768600F2CDA1 /* StringIdentifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringIdentifiable.swift; sourceTree = "<group>"; };
 		2AD8AFD42A83E60400F12D54 /* SpaceSwitchModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSwitchModuleOutput.swift; sourceTree = "<group>"; };
 		2AD8AFD62A851CC400F12D54 /* BlockWidgetExpandedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockWidgetExpandedService.swift; sourceTree = "<group>"; };
@@ -2576,8 +2566,6 @@
 		2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventsBunch.swift; sourceTree = "<group>"; };
 		2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventConverter.swift; sourceTree = "<group>"; };
 		2AEB0C252B7231B7007BB10C /* NotificationDismissEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDismissEnvironment.swift; sourceTree = "<group>"; };
-		2AECFD36289939DE000E9CFB /* DIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIProtocol.swift; sourceTree = "<group>"; };
-		2AECFD3A28993B19000E9CFB /* CoordinatorsDIProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorsDIProtocol.swift; sourceTree = "<group>"; };
 		2AEDACC32B9F3A4600FA757A /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2AF109552A02639700EDDE26 /* FileIconBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileIconBuilder.swift; sourceTree = "<group>"; };
@@ -5474,9 +5462,6 @@
 			isa = PBXGroup;
 			children = (
 				2A2C330C28928DA7008BC326 /* CoordinatorsDI.swift */,
-				2AECFD3A28993B19000E9CFB /* CoordinatorsDIProtocol.swift */,
-				2A2C33172892B3BB008BC326 /* DI.swift */,
-				2AECFD36289939DE000E9CFB /* DIProtocol.swift */,
 				2A2C3310289294B8008BC326 /* ModulesDI.swift */,
 				2AFFFB832924DFC600A487E1 /* UIHelpersDI.swift */,
 			);
@@ -6102,7 +6087,6 @@
 		2A80D0432ABADCA800DB0513 /* EditorFlow */ = {
 			isa = PBXGroup;
 			children = (
-				2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */,
 				2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */,
 				2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */,
 			);
@@ -6258,7 +6242,6 @@
 			isa = PBXGroup;
 			children = (
 				2A7B124C2B19CC4700E14578 /* Views */,
-				2A94865C2950A59D007A5586 /* HomeCoordinatorAssembly.swift */,
 				2AFEED152A73AE8C00D7A45B /* HomeCoordinatorView.swift */,
 				2AFEED172A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift */,
 				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
@@ -8036,7 +8019,6 @@
 			children = (
 				2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */,
 				2A85B0412AA637F100988ABD /* ApplicationCoordinatorViewModel.swift */,
-				2AD7413629951C43004BD223 /* ApplicationCoordinatorAssembly.swift */,
 			);
 			path = AppCoordinator;
 			sourceTree = "<group>";
@@ -11487,7 +11469,6 @@
 				2A6693812A71057D007747DD /* ObjectIconImageModel.swift in Sources */,
 				2AA2291E29C47F4F0047B245 /* HomeTopShadow.swift in Sources */,
 				123949EE279FD7320080E1CF /* FullScreenHeightPopupLayout.swift in Sources */,
-				2A94865D2950A59D007A5586 /* HomeCoordinatorAssembly.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				2ABAAE322BC9608500603DDA /* BlockText+Style.swift in Sources */,
 				12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */,
@@ -11508,7 +11489,6 @@
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
 				2A80D0622ABAFE9200DB0513 /* EditorNavigationBarView.swift in Sources */,
 				1211AF7B27F4B84800BACB88 /* KFProcessorBuilder.swift in Sources */,
-				2AECFD3B28993B19000E9CFB /* CoordinatorsDIProtocol.swift in Sources */,
 				2ACDC9D32B57C22D0063BFBD /* ShareContentModels.swift in Sources */,
 				3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */,
 				2E0DAF2128A26F1600F43320 /* DataviewViewSize+Value.swift in Sources */,
@@ -11529,7 +11509,6 @@
 				2AA8108829A66831007DD64B /* DragAndDropVerticalDelegate.swift in Sources */,
 				2E0C65C12B97A2F300D33F5F /* RelationsListCoordinatorViewModel.swift in Sources */,
 				2AD276442B6D22C500112215 /* GallerySpaceSelectionViewModel.swift in Sources */,
-				2AECFD37289939DE000E9CFB /* DIProtocol.swift in Sources */,
 				2A8A2DD32AB99B1800105549 /* ShareCoordinatorViewModel.swift in Sources */,
 				2ECF1DC82BBEE2EC007C68E2 /* GlobalSearchViewModel.swift in Sources */,
 				EAED57AA269F375B00374A46 /* TextBlockContentConfiguration.swift in Sources */,
@@ -11917,7 +11896,6 @@
 				0AD6B24A24CF5DC00097A841 /* BlockBookmarkViewModel.swift in Sources */,
 				129C54C427FC4CF600C390C7 /* NewRelationViewModel.swift in Sources */,
 				3D5A41492702E4E400F1F6A1 /* SlashMenuItemsBuilder.swift in Sources */,
-				2A2C33182892B3BB008BC326 /* DI.swift in Sources */,
 				125BD57327CF4C95006D8227 /* CreateAccountServiceError.swift in Sources */,
 				53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */,
 				2A2872312B4D8B8E007B3D59 /* GalleryInstallationPreviewView.swift in Sources */,
@@ -11930,7 +11908,6 @@
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				2A0F662C2BFB9B7200F34BBD /* SetsCommonListWidgetSubmoduleView.swift in Sources */,
-				2AD7413729951C43004BD223 /* ApplicationCoordinatorAssembly.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */,
@@ -12020,7 +11997,6 @@
 				3D2F9C44271F106A0043C326 /* DashboardLogoutAlert.swift in Sources */,
 				2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
-				2A80D04A2ABADD4600DB0513 /* EditorCoordinatorAssembly.swift in Sources */,
 				2A0F66592BFBA51B00F34BBD /* HomeWidgetSubmoduleView.swift in Sources */,
 				C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */,
 				3D3040CE27DF664600FFE0EB /* ObjectSettingBuilder.swift in Sources */,
