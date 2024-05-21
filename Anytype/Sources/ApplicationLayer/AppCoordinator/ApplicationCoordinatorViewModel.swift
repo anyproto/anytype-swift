@@ -19,8 +19,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Injected(\.fileErrorEventHandler)
     private var fileErrorEventHandler: FileErrorEventHandlerProtocol
     
-    private let homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
-    
     private var authCoordinator: AuthCoordinatorProtocol?
     private var dismissAllPresented: DismissAllPresented?
     
@@ -30,12 +28,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Published var toastBarData: ToastBarData = .empty
     
     // MARK: - Initializers
-    
-    init(
-        homeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol
-    ) {
-        self.homeCoordinatorAssembly = homeCoordinatorAssembly
-    }
     
     func onAppear() {
         runAtFirstLaunch()
@@ -52,10 +44,6 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
         )
         self.authCoordinator = coordinator
         return coordinator.startFlow()
-    }
-
-    func homeView() -> AnyView {
-        return homeCoordinatorAssembly.make()
     }
 
     func deleteAccount() -> AnyView? {

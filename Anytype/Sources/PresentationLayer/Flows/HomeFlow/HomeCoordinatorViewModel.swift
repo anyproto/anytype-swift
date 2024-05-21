@@ -32,7 +32,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Injected(\.documentsProvider)
     private var documentsProvider: DocumentsProviderProtocol
     
-    private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
     @Injected(\.legacySharingTip)
@@ -83,10 +82,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init(
-        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
-    ) {
-        self.editorCoordinatorAssembly = editorCoordinatorAssembly
+    init() {
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
@@ -126,10 +122,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.dismissAllPresented = dismissAllPresented
     }
     
-    func editorModule(data: EditorScreenData) -> AnyView {
-        return editorCoordinatorAssembly.make(data: data)
-    }
-
     func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
         TypeSearchForNewObjectCoordinatorView { [weak self] details in
             guard let self else { return }
