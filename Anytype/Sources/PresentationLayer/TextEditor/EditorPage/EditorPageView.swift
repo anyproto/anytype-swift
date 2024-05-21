@@ -3,10 +3,16 @@ import SwiftUI
 
 struct EditorPageView: View {
     
-    @StateObject var stateModel: EditorPageViewState
+    @StateObject private var stateModel: EditorPageViewState
     @Environment(\.dismiss) private var dismiss
     
     private var model: EditorPageViewModel { stateModel.model }
+    
+    init(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) {
+        self._stateModel = StateObject(
+            wrappedValue: Container.shared.legacyEditorPageModuleAssembly().buildStateModel(data: data, output: output, showHeader: showHeader)
+        )
+    }
     
     var body: some View {
         GenericUIKitToSwiftUIView(viewController: stateModel.viewController)

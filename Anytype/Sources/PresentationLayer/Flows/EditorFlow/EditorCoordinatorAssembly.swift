@@ -21,7 +21,6 @@ final class EditorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol {
         return EditorCoordinatorView(
             model: EditorCoordinatorViewModel(
                 data: data,
-                editorPageCoordinatorAssembly: self.coordinatorsID.editorPage(),
                 editorSetCoordinatorAssembly: self.coordinatorsID.editorSet()
             )
         ).eraseToAnyView()

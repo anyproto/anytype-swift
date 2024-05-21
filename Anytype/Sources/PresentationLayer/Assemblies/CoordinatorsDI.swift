@@ -3,17 +3,7 @@ import UIKit
 
 final class CoordinatorsDI: CoordinatorsDIProtocol {
     
-    private let serviceLocator: ServiceLocator
-    
-    init(serviceLocator: ServiceLocator) {
-        self.serviceLocator = serviceLocator
-    }
-    
     // MARK: - CoordinatorsDIProtocol
-    
-    func templates() -> TemplatesCoordinatorAssemblyProtocol {
-        return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
-    }
     
     @MainActor
     func home() -> HomeCoordinatorAssemblyProtocol {
@@ -31,19 +21,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
-        EditorSetCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator)
-    }
-
-    func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        EditorPageCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator)
-    }
-
-    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
-        SetObjectCreationSettingsCoordinatorAssembly(coordinatorsDI: self)
-    }
-
-    func editorPageModule() -> EditorPageModuleAssemblyProtocol {
-        EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
+        EditorSetCoordinatorAssembly(coordinatorsID: self)
     }
 }
 
@@ -54,5 +32,13 @@ extension Container {
     
     var legacySharingTip: Factory<SharingTipCoordinatorProtocol> {
         self { SharingTipCoordinator() }
+    }
+    
+    var legacyTemplatesCoordinator: Factory<TemplatesCoordinatorProtocol> {
+        self { TemplatesCoordinator() }
+    }
+    
+    var legacySetObjectCreationSettingsCoordinator: Factory<SetObjectCreationSettingsCoordinatorProtocol> {
+        self { SetObjectCreationSettingsCoordinator() }
     }
 }

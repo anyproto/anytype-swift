@@ -9,14 +9,11 @@ protocol EditorSetCoordinatorAssemblyProtocol {
 final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
-    private let serviceLocator: ServiceLocator
     
     init(
-        coordinatorsID: CoordinatorsDIProtocol,
-        serviceLocator: ServiceLocator
-    ) {
+        coordinatorsID: CoordinatorsDIProtocol
+   ) {
         self.coordinatorsID = coordinatorsID
-        self.serviceLocator = serviceLocator
     }
     
     // MARK: - EditorSetCoordinatorAssemblyProtocol
@@ -25,8 +22,7 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     func make(data: EditorSetObject) -> AnyView {
         EditorSetCoordinatorView(
             model: EditorSetCoordinatorViewModel(
-                data: data,
-                setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make()
+                data: data
             )
         ).eraseToAnyView()
     }
