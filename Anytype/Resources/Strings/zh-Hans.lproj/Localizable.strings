@@ -114,7 +114,7 @@
 "Relation.Origin.WebClipper" = "网页剪藏器";
 "Relation.Origin.SharingExtension" = "手机共享扩展";
 "Relation.Origin.UseCase" = "使用案例";
-"Relation.Origin.Builtin" = "库已安装";
+"Relation.Origin.Builtin" = "文库已安装";
 "Relation.Origin.Bookmark" = "书签";
 
 // MARK: - Import Type Relation
@@ -193,6 +193,7 @@
 "Share" = "分享";
 "Okay" = "好的";
 "Join" = "加入";
+"Agreement Disclamer" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 
 // Home
 "Favorites" = "收藏夹";
@@ -209,7 +210,7 @@
 // Keychain screen
 "Keychain.Key" = "密钥";
 "Keychain.Key.Copy.Toast.title" = "密钥已复制";
-"Keychain.Key.description" = "您将需要短语才能进入您的库。将其保存在安全的地方。如果您丢失了它，您将无法再进入您的库。";
+"Keychain.Key.description" = "您将需要恢复短语才能进入您的文库。将其保存在安全的地方。如果您丢失了它，您将无法再进入您的文库。";
 "Keychain.Show and copy key" = "显示和复制密钥";
 "Keychain.Have you backed up your key?" = "您是否备份了密钥？";
 "Keychain.Error.String to Data conversion error" = "字符串到数据转换错误";
@@ -223,18 +224,17 @@
 "Auth.CameraPermissionTitle" = "请允许访问";
 "Restore key from keychain" = "从钥匙串恢复密钥";
 "Auth.LogIn" = "我有一个密钥";
-"Auth.Button.Join" = "新建库";
+"Auth.Button.Join" = "新建文库";
 "Auth.Welcome.Subtitle" = "在您自己的空间中进行创建和协作。加密，离线与[开源](%@)";
-"Auth.Caption.Privacy.Text" = "继续即表示您同意 [使用条款](%@) 和 [隐私策略](%@)";
 "Auth.Next" = "下一步";
 
-"Vault recover error" = "库恢复错误，请重试";
+"Vault recover error" = "文库恢复错误，请重试";
 "Vault recover error no internet" = "库恢复错误，可能没有互联网连接";
 
 // Auth Errors
 "Error creating wallet" = "创建钱包时出错";
-"Error select vault" = "选择库时出错";
-"Error wallet recover vault" = "错误的钱包的恢复库";
+"Error select vault" = "选择文库时出错";
+"Error wallet recover vault" = "错误，钱包恢复文库";
 "Wallet.Recovery.Error.description" = "无效密钥";
 
 "Search for language" = "搜索语言";
@@ -252,8 +252,8 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "什么是密钥？
 ";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是 12 个单词的随机组合，您的数据库在此设备上神奇般地生成。";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "知道这些密钥词组的人即可拥有你的数据库。**现在，你是世界上唯一知道它的人**。";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "恢复短语是 12 个单词的随机组合，您的文库数据在此设备上神奇般地生成。";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "知道这些密钥词组的人即可拥有你的文库数据。**现在，你是世界上唯一知道它的人**。";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "地球上所有的计算机都无法获取。如果你失去了它，它就无法恢复。所以，把它存放在安全的地方！";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "怎么储存我的密钥？";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "保存密钥最简单的方法是将其保存在您的密码管理器中。";
@@ -262,9 +262,9 @@
 "Auth.JoinFlow.Soul.Title" = "设置昵称";
 "Auth.JoinFlow.Soul.Description" = "只有被您分享的用户可以查看。这里没有中心化的管理员。";
 "Auth.JoinFlow.Soul.Placeholder" = "无标题";
-"Auth.JoinFlow.Soul.Button" = "进入我的库";
+"Auth.JoinFlow.Soul.Button" = "进入我的文库";
 
-"Auth.JoinFlow.Vault.Title" = "这是您的库";
+"Auth.JoinFlow.Vault.Title" = "这是您的文库";
 "Auth.JoinFlow.Vault.Description" = "所有数据均为加密存储。\n本地优先——所有操作均可离线进行。\n只有您本人拥有这段密钥。";
 "Auth.JoinFlow.Vault.Button" = "获得我的密钥";
 
@@ -272,7 +272,7 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "使用钥匙串";
 "Auth.LoginFlow.Or" = "或者";
 "Auth.LoginFlow.Textfield.Placeholder" = "输入您的密钥";
-"Auth.LoginFlow.Enter.Title" = "进入我的库";
+"Auth.LoginFlow.Enter.Title" = "进入我的文库";
 "Auth.LoginFlow.Entering.Void.Title" = "输入无效";
 
 // Object settings
@@ -580,9 +580,9 @@
 "Deletion error" = "删除错误";
 "Start" = "开始";
 "On analytics" = "关于分析";
-"Select vault error" = "库选择发生错误";
-"Vault deleted" = "库已删除";
-"Vault.Select.Incompatible.Version.Error.Text" = "我们无法检索您的库数据，因为您的版本已过时。请更新 Anytype 到最新版本。";
+"Select vault error" = "文库选择发生错误";
+"Vault deleted" = "文库已删除";
+"Vault.Select.Incompatible.Version.Error.Text" = "我们无法检索您的文库数据，因为您的版本已过时。请更新 Anytype 到最新版本。";
 "Restore from keychain" = "从钥匙串恢复";
 "Edit" = "编辑";
 "In this object" = "在此对象中";
@@ -664,14 +664,14 @@
 "This object doesn't exist" = "此对象不存在";
 "Setting up encrypted storage\nPlease wait" = "设置加密存储\n请稍候";
 "These objects will be deleted irrevocably" = "这些对象将被删除且不可撤销。您无法撤销此操作。";
-"Delete vault" = "删除库";
+"Delete vault" = "删除文库";
 "Cancel deletion" = "取消删除";
 "Logout and clear data" = "注销并清除数据";
 "New" = "新建";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "您确定要删除您的库吗？";
-"DeletionAlert.description" = "您将在所有其他设备上登出。您将有 30 天来恢复您的库。再然后它们将被永久删除。";
+"DeletionAlert.title" = "您确定要删除您的文库吗？";
+"DeletionAlert.description" = "您将在所有其他设备上登出。您将有 30 天来恢复您的文库。再然后它们将被永久删除。";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "网格";
@@ -829,7 +829,7 @@
 "Settings.Title" = "设置";
 "Settings.SpaceName" = "空间名称";
 "Settings.SpaceType" = "空间类型";
-"Settings.VaultAndAccess" = "库与访问权限";
+"Settings.VaultAndAccess" = "文库与访问权限";
 
 // MARK: - File Storage
 "FileStorage.Title" = "文件存储";
@@ -837,7 +837,7 @@
 "FileStorage.Space.Instruction" = "您可以在我们的节点上免费加密备份存储多达 %@ 的文件。如果达到限制，文件将仅存储在本地。";
 "FileStorage.Space.Used" = "已使用 %@ ,总共有 %@ ";
 "FileStorage.Space.GetMore" = "获取更多空间";
-"FileStorage.Space.Mail.Subject" = "为 %@ 库获取更多存储空间";
+"FileStorage.Space.Mail.Subject" = "为 %@ 文库获取更多存储空间";
 "FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "本地存储";
 "FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被重新加载。";
@@ -1000,10 +1000,10 @@
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Message" = "您启动了一个不稳定的中间程序。不要使用您的生产库。您的库可能已损坏。";
+"Initial.UnstableMiddle.Message" = "您启动了一个不稳定的中间程序。不要使用您的生产文库。您的文库可能已损坏。";
 "Initial.UnstableMiddle.Title" = "警告";
-"Initial.UnstableMiddle.Logout" = "退出当前库";
-"Initial.UnstableMiddle.Continue" = "继续使用当前库";
+"Initial.UnstableMiddle.Logout" = "退出当前文库";
+"Initial.UnstableMiddle.Continue" = "继续使用当前文库";
 "Initial.UnstableMiddle.WontUseProd" = "我不会使用我用于生产的库";
 
 // MARK: - Create tip
@@ -1033,8 +1033,6 @@
 "Server.LocalOnly" = "仅本地";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "即将支持画廊";
-"Gallery.Unavailable.Message" = "目前请使用桌面应用";
 "Gallery.Author" = "作者：@%@";
 "Gallery.Install" = "安装";
 "Gallery.InstallToNew" = "安装至新的空间";
@@ -1069,7 +1067,6 @@
 "Min X characters" = "最小 %@ 个字符";
 "Pending" = "待定…";
 "Manage payment" = "管理付款";
-"This name is not availabe" = "该名称不可用";
 "Change email" = "更换邮箱";
 "Email successfully validated" = "邮箱验证成功";
 "Confirm" = "确认";

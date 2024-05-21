@@ -3,12 +3,20 @@ import SwiftUI
 
 struct EditorPageCoordinatorView: View {
     
-    @StateObject var model: EditorPageCoordinatorViewModel
+    @StateObject private var model: EditorPageCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
     
+    init(
+        data: EditorPageObject,
+        showHeader: Bool,
+        setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void
+    ) {
+        self._model = StateObject(wrappedValue: EditorPageCoordinatorViewModel(data: data, showHeader: showHeader, setupEditorInput: setupEditorInput))
+    }
+    
     var body: some View {
-        model.pageModule()
+        EditorPageView(data: model.data, output: model, showHeader: model.showHeader)
             .ignoresSafeArea()
             .onAppear {
                 model.pageNavigation = pageNavigation
@@ -46,5 +54,6 @@ struct EditorPageCoordinatorView: View {
                 UndoRedoView(objectId: $0.value)
             }
             .snackbar(toastBarData: $model.toastBarData)
+            .openUrl(url: $model.openUrlData)
     }
 }

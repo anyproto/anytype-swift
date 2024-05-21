@@ -38,11 +38,7 @@ public extension BlockInformation {
         let content = BlockContent.file(
             BlockFile(
                 metadata: FileMetadata(
-                    name: fileDetails.fileName,
-                    size: Int64(fileDetails.sizeInBytes),
-                    targetObjectId: fileDetails.id,
-                    mime: fileDetails.fileMimeType,
-                    addedAt: 0
+                    targetObjectId: fileDetails.id
                 ),
                 contentType: fileDetails.fileContentType,
                 state: .done

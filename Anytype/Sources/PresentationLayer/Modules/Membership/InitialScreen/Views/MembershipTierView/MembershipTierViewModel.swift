@@ -5,16 +5,14 @@ import SwiftUI
 @MainActor
 final class MembershipTierViewModel: ObservableObject {
     
-    @Published var state: MembershipTierOwningState = .owned
+    @Published var state: MembershipTierOwningState?
     @Published var userMembership: MembershipStatus = .empty
     
     let tierToDisplay: MembershipTier
     let onTap: () -> ()
     
-    @Injected(\.storeKitService)
-    private var storeKitService: StoreKitServiceProtocol
-    @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    @Injected(\.membershipMetadataProvider)
+    private var tierMetadataProvider: MembershipMetadataProviderProtocol
     
     init(
         tierToDisplay: MembershipTier,
@@ -23,12 +21,13 @@ final class MembershipTierViewModel: ObservableObject {
         self.tierToDisplay = tierToDisplay
         self.onTap = onTap
         
-        membershipStatusStorage.status.receiveOnMain().assign(to: &$userMembership)
+        let storage = Container.shared.membershipStatusStorage.resolve()
+        storage.statusPublisher.receiveOnMain().assign(to: &$userMembership)
     }
     
     func updateState() {
         Task {
-            state = await membershipStatusStorage.owningState(tier: tierToDisplay)
+            state = await tierMetadataProvider.owningState(tier: tierToDisplay)
         }
     }
 }

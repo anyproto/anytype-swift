@@ -193,6 +193,7 @@
 "Share" = "Condividi";
 "Okay" = "Okay";
 "Join" = "Unisciti";
+"Agreement Disclamer" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 
 // Home
 "Favorites" = "Preferiti";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "Ho una Chiave";
 "Auth.Button.Join" = "Nuova Cassaforte";
 "Auth.Welcome.Subtitle" = "Crea e collabora negli spazi che possiedi.Crittografati, offline & [open source](%@).";
-"Auth.Caption.Privacy.Text" = "Continuando accetti i [Termini d'uso](%@) e [Informativa sulla privacy](%@)";
 "Auth.Next" = "Avanti";
 
 "Vault recover error" = "Errore recupero cassaforte, riprova";
@@ -392,9 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Nessun ordinamento qui. Puoi aggiungerne alcuni";
 "EditSet.Popup.Sort.Types.Ascending" = "Ascendente";
 "EditSet.Popup.Sort.Types.Descending" = "Discendente";
-"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
-"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
-"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "In alto";
+"EditSet.Popup.Sort.EmptyTypes.End" = "In basso";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Mostra valori vuoti";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Scegli una relazione per ordinare";
 
 // MARK: - Sets: Filters
@@ -946,7 +946,7 @@
 "SpaceShare.HowToShare.Step3" = "Dopo aver approvato la richiesta, puoi scegliere i diritti di accesso per quella persona.";
 "SpaceShare.Manage" = "Gestisci";
 "SpaceShare.AlreadyJoin.Title" = "Sei già membro di questo spazio";
-"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Apri spazio";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "I tuoi diritti di accesso sono stati modificati in **%@** nello spazio **%@**.";
@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Solo-locale";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "La galleria sarà supportata presto";
-"Gallery.Unavailable.Message" = "Per favore usa l'applicazione desktop per ora";
 "Gallery.Author" = "Realizzato da @%@";
 "Gallery.Install" = "Installa";
 "Gallery.InstallToNew" = "Installa in un nuovo spazio";
@@ -1066,13 +1064,12 @@
 "Min X characters" = "Minimo %@ caratteri";
 "Pending" = "In attesa...";
 "Manage payment" = "Gestisci pagamento";
-"This name is not availabe" = "Questo nome non è disponibile";
 "Change email" = "Cambia e-mail";
 "Email successfully validated" = "Email convalidata con successo";
 "Confirm" = "Conferma";
 
-"StoreKitServiceError.userCancelled" = "Purchase cancelled";
-"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
+"StoreKitServiceError.userCancelled" = "Acquisto annullato";
+"StoreKitServiceError.needUserAction" = "Pagamento non riuscito, è richiesta l'azione dell'utente da parte di Apple per pagare.";
 
 "Membership.Ad.Title" = "Membership";
 "Membership.Ad.Subtitle" = "Unire alla rete di Anytype significa contribuire alla sua storia";
@@ -1100,7 +1097,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Membership.Banner.Title3" = "Sostenere l'indipendenza digitale";
 "Membership.Banner.Subtitle3" = "Il tuo contributo sostiene il nostro team e avvalora la nostra visione di una rete digitale di proprietà degli utenti, sicura e collaborativa.";
 "Membership.Banner.Title4" = "Investi nella connettività";
-"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+"Membership.Banner.Subtitle4" = "Il valore della nostra rete supera la somma delle sue parti. La tua iscrizione sostiene l'infrastruttura per la sua crescita, che è alla base di questa rete.";
 
 "Membership.EmailForm.Title" = "Ricevi aggiornamenti e goditi vantaggi gratuiti!";
 "Membership.EmailForm.Subtitle" = "Non è collegato in alcun modo al tuo account";
@@ -1113,7 +1110,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 "Membership.Success.Title" = "Benvenuto/a nella rete, %@";
 "Membership.Success.Curiosity" = "Un grande applauso per la tua curiosità!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Support" = "Grazie mille per il tuo supporto!";
 
 "Membership.Payment.Card" = "Scheda";
 "Membership.Payment.Crypto" = "Cripto";

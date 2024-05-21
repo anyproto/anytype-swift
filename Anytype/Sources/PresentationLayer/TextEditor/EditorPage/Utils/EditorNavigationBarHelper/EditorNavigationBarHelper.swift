@@ -33,7 +33,6 @@ final class EditorNavigationBarHelper {
     init(
         navigationBarView: EditorNavigationBarView,
         navigationBarBackgroundView: UIView,
-        syncStatusData: SyncStatusData,
         onSettingsBarButtonItemTap: @escaping () -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
         onTemplatesButtonTap: @escaping () -> Void
@@ -41,7 +40,7 @@ final class EditorNavigationBarHelper {
         self.navigationBarView = navigationBarView
         self.navigationBarBackgroundView = navigationBarBackgroundView
         self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
-        self.syncStatusItem = EditorSyncStatusItem(statusData: syncStatusData)
+        self.syncStatusItem = EditorSyncStatusItem()
 
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = Loc.done

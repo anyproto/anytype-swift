@@ -71,15 +71,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private var blockService: BlockServiceProtocol
     @Injected(\.pasteboardBlockDocumentService)
     private var pasteboardService: PasteboardBlockDocumentServiceProtocol
-    
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
-    private let toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
-    private let documentsProvider: DocumentsProviderProtocol
     
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
@@ -91,25 +92,21 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        toastPresenter: ToastPresenterProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
         viewInput: EditorPageViewInput,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        documentsProvider: DocumentsProviderProtocol
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
-        self.toastPresenter = toastPresenter
         self.actionHandler = actionHandler
         self.router = router
         self.editingState = initialEditingState
         self.viewInput = viewInput
         self.bottomNavigationManager = bottomNavigationManager
-        self.documentsProvider = documentsProvider
-
+        
         setupEditingHandlers()
     }
 

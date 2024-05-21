@@ -12,33 +12,27 @@ protocol TemplatesCoordinatorProtocol {
 }
 
 final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
-    private weak var rootViewController: UIViewController?
-    private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
+    
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
+    
     private var editorModuleInputs = [String: EditorPageModuleInput]()
     private var onSetAsDefaultTempalte: ((String) -> Void)?
     
-    init(
-        rootViewController: UIViewController,
-        editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
-    ) {
-        self.rootViewController = rootViewController
-        self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
-    }
-
+    nonisolated init() {}
+    
     @MainActor
     func showTemplatesPicker(
         document: BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void
     ) {
-        guard let rootViewController else { return }
-
         self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
         let picker = TemplatePickerView(
             viewModel: .init(output: self, document: document)
         )
         let hostViewController = UIHostingController(rootView: picker)
         hostViewController.modalPresentationStyle = .fullScreen
-        rootViewController.present(hostViewController, animated: true, completion: nil)
+        navigationContext.present(hostViewController, animated: true, completion: nil)
     }
 }
 
@@ -46,7 +40,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void) {
         editorModuleInputs.removeAll()
         let editorsViews = templates.map { template in
-            let editorView = editorPageCoordinatorAssembly.make(
+            let editorView = EditorPageCoordinatorView(
                 data: EditorPageObject(
                     objectId: template.id,
                     spaceId: template.spaceId,
@@ -57,7 +51,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
                 setupEditorInput: { [weak self] input, objectId in
                     self?.editorModuleInputs[objectId] = input
                 }
-            )
+            ).eraseToAnyView()
             return TemplatePickerData(template: template, editorView: editorView)
         }
         completion(editorsViews)
@@ -77,7 +71,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
     }
     
     func onClose() {
-        rootViewController?.dismiss(animated: true, completion: nil)
+        navigationContext.dismissTopPresented(animated: true, completion: nil)
     }
     
     // MARK: - ObjectSettingsCoordinatorOutput

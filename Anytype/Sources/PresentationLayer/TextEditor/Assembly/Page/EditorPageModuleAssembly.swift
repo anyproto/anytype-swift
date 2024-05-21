@@ -17,39 +17,18 @@ struct EditorPageModuleInputContainer: EditorPageModuleInput {
 
 @MainActor
 protocol EditorPageModuleAssemblyProtocol: AnyObject {
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView
+    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState
 }
 
 @MainActor
 final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
-    // TODO: Delete coordinator dependency
-    private let coordinatorsDI: CoordinatorsDIProtocol
-    private let modulesDI: ModulesDIProtocol
-    private let uiHelpersDI: UIHelpersDIProtocol
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
     
-    nonisolated init(
-        serviceLocator: ServiceLocator,
-        coordinatorsDI: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol,
-        uiHelpersDI: UIHelpersDIProtocol
-    ) {
-        self.serviceLocator = serviceLocator
-        self.coordinatorsDI = coordinatorsDI
-        self.modulesDI = modulesDI
-        self.uiHelpersDI = uiHelpersDI
-    }
-
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView {
-        return EditorPageView(
-            stateModel: self.buildStateModel(data: data, output: output, showHeader: showHeader)
-        ).eraseToAnyView()
-    }
+    nonisolated init() {}
     
-    // MARK: - Private
-    
-    private func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
+    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
         
@@ -60,29 +39,19 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
         let bottomNavigationManager = EditorBottomNavigationManager()
         
-        let networkId = serviceLocator.activeWorkspaceStorage().workspaceInfo.networkId
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
-            bottomNavigationManager: bottomNavigationManager, 
-            syncStatusData: SyncStatusData(status: .unknown, networkId: networkId),
-            keyboardListener: uiHelpersDI.keyboardListener,
+            bottomNavigationManager: bottomNavigationManager,
             showHeader: showHeader
         )
 
-        let document = serviceLocator.documentService().document(
+        let document = documentService.document(
             objectId: data.objectId,
             forPreview: data.isOpenedForPreview
         )
-        let navigationContext = NavigationContext(rootViewController: controller)
         let router = EditorRouter(
             viewController: controller,
-            navigationContext: navigationContext,
             document: document,
-            templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
-            urlOpener: uiHelpersDI.urlOpener(),
-            objectSettingCoordinatorAssembly: coordinatorsDI.objectSettings(),
-            toastPresenter: uiHelpersDI.toastPresenter(using: nil),
             output: output
         )
 
@@ -152,13 +121,11 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
             router: router,
             initialEditingState: configuration.isOpenedForPreview ? .readonly : .editing,
             viewInput: viewInput,
-            bottomNavigationManager: bottomNavigationManager,
-            documentsProvider: serviceLocator.documentsProvider
+            bottomNavigationManager: bottomNavigationManager
         )
  
         let accessoryState = AccessoryViewBuilder.accessoryState(
@@ -182,7 +149,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
         
-        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView, keyboardListener: uiHelpersDI.keyboardListener)
+        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
@@ -192,7 +159,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             focusSubjectHolder: focusSubjectHolder,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            accessoryStateManager: accessoryState.0
+            accessoryStateManager: accessoryState.0,
+            moduleOutput: output
         )
         
         let slashMenuActionHandler = SlashMenuActionHandler(

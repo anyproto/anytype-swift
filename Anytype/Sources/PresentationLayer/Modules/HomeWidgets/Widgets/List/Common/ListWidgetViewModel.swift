@@ -13,7 +13,8 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     private let widgetObject: BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
     private let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
-    private let objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
@@ -38,7 +39,6 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         style: ListWidgetStyle,
         internalModel: any WidgetInternalViewModelProtocol,
         internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?,
-        objectActionsService: ObjectActionsServiceProtocol,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
@@ -46,7 +46,6 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         self.style = style
         self.internalModel = internalModel
         self.internalHeaderModel = internalHeaderModel
-        self.objectActionsService = objectActionsService
         self.output = output
     }
     

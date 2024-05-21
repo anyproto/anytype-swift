@@ -3,19 +3,26 @@ import Services
 
 
 struct MembershipOwnerInfoSheetView: View {    
-    @State private var showManageSubscriptions = false
-    
-    @State private var email: String = ""
-    @State private var showEmailVerification = false
-    @State private var changeEmail = false
-    @State private var toastData: ToastBarData = .empty
-    
-    // remove after middleware start to send update membership event
-    @State private var justUpdatedEmail = false
-    
     @StateObject private var model = MembershipOwnerInfoSheetViewModel()
     
     var body: some View {
+        content
+            .onAppear {
+                model.updateState()
+            }
+            .onChange(of: model.membership) { _ in
+                model.updateState()
+            }
+        
+            .snackbar(toastBarData: $model.toastData)
+            .sheet(isPresented: $model.showEmailVerification) {
+                EmailVerificationView(email: $model.email) {
+                    model.onSuccessfullEmailVerification()
+                }
+            }
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(34)
             AnytypeText(Loc.yourCurrentStatus, style: .bodySemibold)
@@ -28,19 +35,9 @@ struct MembershipOwnerInfoSheetView: View {
         .padding(.horizontal, 20)
         .background(Color.Background.primary)
         .cornerRadius(16, corners: .top)
-        
-        .sheet(isPresented: $showEmailVerification) {
-            EmailVerificationView(email: $email) {
-                showEmailVerification = false
-                changeEmail = false
-                justUpdatedEmail = true
-                toastData = ToastBarData(text: Loc.emailSuccessfullyValidated, showSnackBar: true)
-            }
-        }
-        .snackbar(toastBarData: $toastData)
     }
     
-    var info: some View {
+    private var info: some View {
         VStack(spacing: 0) {
             AnytypeText(Loc.validUntil, style: .relation2Regular)
                 .foregroundColor(.Text.primary)
@@ -54,6 +51,13 @@ struct MembershipOwnerInfoSheetView: View {
                 AnytypeText(model.membership.formattedDateEnds, style: .title)
                     .foregroundColor(.Text.primary)
                 paymentText
+            case .anyTeam:
+                AnytypeText(model.membership.formattedDateEnds, style: .title)
+                    .foregroundColor(.Text.primary)
+                Spacer.fixedHeight(23)
+                AnytypeText(Loc.paidBy("your faith and love"), style: .relation2Regular)
+                    .foregroundColor(.Text.secondary)
+                Spacer.fixedHeight(15)
             case .none:
                 EmptyView()
             }
@@ -64,7 +68,7 @@ struct MembershipOwnerInfoSheetView: View {
         .cornerRadius(12, style: .continuous)
     }
     
-    var paymentText: some View {
+    private var paymentText: some View {
         Group {
             if let paymentMethod = model.membership.localizablePaymentMethod {
                 Spacer.fixedHeight(23)
@@ -82,7 +86,7 @@ struct MembershipOwnerInfoSheetView: View {
             switch model.membership.tier?.type {
             case .explorer:
                 explorerActions
-            case .builder, .coCreator, .custom:
+            case .builder, .coCreator, .custom, .anyTeam:
                 managePaymentButton
             case nil:
                 EmptyView()
@@ -90,19 +94,15 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var alreadyHaveEmail: Bool {
-        model.membership.email.isNotEmpty || justUpdatedEmail
-    }
-    
     private var explorerActions: some View {
         Group {
-            if alreadyHaveEmail && !changeEmail {
+            if model.alreadyHaveEmail && !model.changeEmail {
                 VStack(spacing: 0) {
                     Spacer.fixedHeight(20)
                     StandardButton(Loc.changeEmail, style: .secondaryLarge) {
                         withAnimation {
                             UISelectionFeedbackGenerator().selectionChanged()
-                            changeEmail = true
+                            model.changeEmail = true
                         }
                     }
                 }
@@ -111,8 +111,6 @@ struct MembershipOwnerInfoSheetView: View {
                     Spacer.fixedHeight(40)
                     MembershipEmailActionView { email in
                         try await model.getVerificationEmail(email: email)
-                        self.email = email
-                        showEmailVerification = true
                     }
                 }
             }
@@ -121,15 +119,15 @@ struct MembershipOwnerInfoSheetView: View {
     
     private var managePaymentButton: some View {
         Group {
-            if model.membership.paymentMethod == .methodInappApple {
+            if model.showMangeButton {
                 VStack(spacing: 0) {
                     Spacer.fixedHeight(20)
                     StandardButton(Loc.managePayment, style: .secondaryLarge) {
                         AnytypeAnalytics.instance().logClickMembership(type: .managePayment)
-                        showManageSubscriptions = true
+                        model.showManageSubscriptions = true
                     }
                 }
-                .manageSubscriptionsSheet(isPresented: $showManageSubscriptions)
+                .manageSubscriptionsSheet(isPresented: $model.showManageSubscriptions)
             }
         }
     }

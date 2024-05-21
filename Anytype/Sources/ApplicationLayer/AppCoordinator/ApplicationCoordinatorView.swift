@@ -3,7 +3,7 @@ import SwiftUI
 
 struct ApplicationCoordinatorView: View {
     
-    @StateObject var model: ApplicationCoordinatorViewModel
+    @StateObject private var model = ApplicationCoordinatorViewModel()
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     var body: some View {
@@ -39,7 +39,7 @@ struct ApplicationCoordinatorView: View {
                 DebugMenuView()
             }
         case .home:
-            model.homeView()
+            HomeCoordinatorView()
         case .delete:
             model.deleteAccount()
         }

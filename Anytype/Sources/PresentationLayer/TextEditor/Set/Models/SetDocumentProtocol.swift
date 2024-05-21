@@ -3,7 +3,7 @@ import Combine
 
 enum SetDocumentUpdate {
     case dataviewUpdated(clearState: Bool)
-    case syncStatus(SyncStatus)
+    case syncStatus(DocumentSyncStatusData)
 }
 
 protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {

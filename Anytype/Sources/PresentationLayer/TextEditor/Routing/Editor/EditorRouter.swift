@@ -7,14 +7,16 @@ import AnytypeCore
 
 final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var viewController: UIViewController?
-    private let navigationContext: NavigationContextProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
     private let document: BaseDocumentProtocol
-    private let templatesCoordinator: TemplatesCoordinatorProtocol
-    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let urlOpener: URLOpenerProtocol
-    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
-    private let toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyTemplatesCoordinator)
+    private var templatesCoordinator: TemplatesCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationSettingsCoordinator)
+    private var setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
     private weak var output: EditorPageModuleOutput?
     
     @Injected(\.templatesService)
@@ -22,24 +24,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     init(
         viewController: UIViewController,
-        navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
-        templatesCoordinator: TemplatesCoordinatorProtocol,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        urlOpener: URLOpenerProtocol,
-        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
-        toastPresenter: ToastPresenterProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewController = viewController
-        self.navigationContext = navigationContext
         self.document = document
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
-        self.templatesCoordinator = templatesCoordinator
-        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.urlOpener = urlOpener
-        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
-        self.toastPresenter = toastPresenter
         self.output = output
         
         super.init()
@@ -94,10 +84,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             popoverPresentationController.permittedArrowDirections = [.up, .down]
             navigationContext.present(hostViewController)
         }
-    }
-    
-    func openUrl(_ url: URL) {
-        urlOpener.openUrl(url)
     }
     
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ()) {
@@ -285,7 +271,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     // MARK: - Settings
     func showSettings() {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: self
         )
@@ -294,7 +280,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showSettings(output: ObjectSettingsCoordinatorOutput?) {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: output
         )
@@ -367,10 +353,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             $0.centerX.equal(to: controller.view.centerXAnchor, constant: 10)
             $0.bottom.equal(to: controller.view.bottomAnchor, constant: -50)
         }
-    }
-    
-    func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
     }
     
     @MainActor

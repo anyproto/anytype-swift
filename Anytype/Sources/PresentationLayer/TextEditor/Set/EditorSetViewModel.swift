@@ -29,7 +29,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatusData = SyncStatusData(status: .unknown, networkId: "")
+    @Published var syncStatusData = SyncStatusData(status: .unknown, networkId: "", isHidden: true)
     
     var isUpdating = false
 
@@ -155,32 +155,45 @@ final class EditorSetViewModel: ObservableObject {
     private var groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.setSubscriptionDataBuilder)
+    private var setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+    @Injected(\.setGroupSubscriptionDataBuilder)
+    private var setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol
+    private let documentsProvider: DocumentsProviderProtocol = Container.shared.documentsProvider()
     
-    private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
     private weak var output: EditorSetModuleOutput?
 
-    init(
-        setDocument: SetDocumentProtocol,
-        headerViewModel: ObjectHeaderViewModel,
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol,
-        output: EditorSetModuleOutput?
-    ) {
-        self.setDocument = setDocument
-        self.headerModel = headerViewModel
-        self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.setGroupSubscriptionDataBuilder = setGroupSubscriptionDataBuilder
+    init(data: EditorSetObject, output: EditorSetModuleOutput?) {
+        self.setDocument = documentsProvider.setDocument(
+            objectId: data.objectId,
+            forPreview: false,
+            inlineParameters: data.inline
+        )
+        self.headerModel = ObjectHeaderViewModel(
+            document: setDocument,
+            targetObjectId: setDocument.targetObjectId,
+            configuration: EditorPageViewModelConfiguration(
+                isOpenedForPreview: false, 
+                blockId: nil,
+                usecase: .editor
+            ),
+            output: output
+        )
         self.titleString = setDocument.details?.pageCellTitle ?? ""
         self.output = output
         self.setup()
     }
     
     private func setup() {
-        syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId)
+        
+        headerModel.onIconPickerTap = { [weak self] document in
+            self?.output?.showIconPicker(document: document)
+        }
+        
+        syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
         
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
@@ -274,8 +287,9 @@ final class EditorSetViewModel: ObservableObject {
             await onDataviewUpdate(clearState: clearState)
         case .syncStatus(let status):
             syncStatusData = SyncStatusData(
-                status: status,
-                networkId: activeWorkspaceStorage.workspaceInfo.networkId
+                status: status.syncStatus,
+                networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+                isHidden: false
             )
         }
     }
@@ -725,26 +739,7 @@ extension EditorSetViewModel {
 
 extension EditorSetViewModel {
     static let emptyPreview = EditorSetViewModel(
-        setDocument: SetDocument(
-            document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
-            inlineParameters: nil,
-            relationDetailsStorage: Container.shared.relationDetailsStorage.resolve(),
-            objectTypeProvider: Container.shared.objectTypeProvider.resolve(),
-            accountParticipantsStorage: DI.preview.serviceLocator.accountParticipantStorage(),
-            permissionsBuilder: SetPermissionsBuilder()
-        ),
-        headerViewModel: ObjectHeaderViewModel(
-            document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
-            targetObjectId: "",
-            configuration: .init(
-                isOpenedForPreview: false, 
-                blockId: nil,
-                usecase: .editor
-            ),
-            output: nil
-        ),
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilder(activeWorkspaceStorage: DI.preview.serviceLocator.activeWorkspaceStorage()),
-        setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilder(),
+        data: EditorSetObject(objectId: "", spaceId: ""),
         output: nil
     )
 }

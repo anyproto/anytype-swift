@@ -14,6 +14,8 @@ final class SetGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProt
     
     let groupSubscriptionId = "Set.Groups-\(UUID().uuidString)"
     
+    nonisolated init() {}
+    
     func groupsData(_ setDocument: SetDocumentProtocol) -> GroupsSubscriptionData {
         GroupsSubscriptionData(
             identifier: groupSubscriptionId,

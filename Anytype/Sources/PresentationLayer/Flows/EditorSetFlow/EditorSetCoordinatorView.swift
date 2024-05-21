@@ -3,12 +3,16 @@ import SwiftUI
 
 struct EditorSetCoordinatorView: View {
     
-    @StateObject var model: EditorSetCoordinatorViewModel
+    @StateObject private var model: EditorSetCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
     
+    init(data: EditorSetObject) {
+        self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data))
+    }
+    
     var body: some View {
-        model.setModule()
+        EditorSetView(data: model.data, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

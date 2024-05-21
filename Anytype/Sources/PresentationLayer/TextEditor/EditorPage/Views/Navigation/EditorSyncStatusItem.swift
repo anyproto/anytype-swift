@@ -9,7 +9,7 @@ final class EditorSyncStatusItem: UIView {
         return UIButton(configuration: configuration)
     }()
     
-    private var statusData: SyncStatusData
+    private var statusData: SyncStatusData?
     private var state = EditorBarItemState.initial
     
     private let height: CGFloat = 28
@@ -39,7 +39,7 @@ final class EditorSyncStatusItem: UIView {
         updateIntristicSize()
     }
     
-    init(statusData: SyncStatusData) {
+    init(statusData: SyncStatusData? = nil) {
         self.statusData = statusData
         super.init(frame: .zero)
         setup()
@@ -80,10 +80,10 @@ final class EditorSyncStatusItem: UIView {
         updateTitle()
         var configuration = button.configuration
         
-        configuration?.image = statusData.image
-        button.menu = UIMenu(title: "", children: [ UIAction(title: statusData.description) { _ in } ] )
-        
+        configuration?.image = statusData?.image
+        button.menu = UIMenu(title: "", children: [ UIAction(title: statusData?.description ?? "") { _ in } ] )
         button.configuration = configuration
+        isHidden = statusData?.isHidden ?? true
     }
     
     private func updateState() {
@@ -97,7 +97,7 @@ final class EditorSyncStatusItem: UIView {
         button.setTitleColor(state.hiddableTextColor, for: .normal)
 
         configuration?.attributedTitle = buttonAttributedString(
-            with: state.textIsHidden ? nil : statusData.title,
+            with: state.textIsHidden ? nil : statusData?.title,
             textColor: state.hiddableTextColor
         )
         

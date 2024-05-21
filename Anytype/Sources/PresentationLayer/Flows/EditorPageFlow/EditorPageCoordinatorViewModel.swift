@@ -6,11 +6,11 @@ import Services
 @MainActor
 final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, RelationValueCoordinatorOutput {
     
-    private let data: EditorPageObject
-    private let showHeader: Bool
+    let data: EditorPageObject
+    let showHeader: Bool
     private let setupEditorInput: (EditorPageModuleInput, String) -> Void
-    private let editorPageAssembly: EditorPageModuleAssemblyProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
@@ -24,23 +24,16 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var undoRedoObjectId: StringIdentifiable?
     @Published var relationsSearchData: RelationsSearchData?
+    @Published var openUrlData: URL?
     
     init(
         data: EditorPageObject,
         showHeader: Bool,
-        setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void,
-        editorPageAssembly: EditorPageModuleAssemblyProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol
+        setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void
     ) {
         self.data = data
         self.showHeader = showHeader
         self.setupEditorInput = setupEditorInput
-        self.editorPageAssembly = editorPageAssembly
-        self.relationValueProcessingService = relationValueProcessingService
-    }
-    
-    func pageModule() -> AnyView {
-        return editorPageAssembly.make(data: data, output: self, showHeader: showHeader)
     }
     
     // MARK: - EditorPageModuleOutput
@@ -104,6 +97,14 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
             target: .object, 
             onRelationSelect: onSelect
         )
+    }
+    
+    func openUrl(_ url: URL) {
+        openUrlData = url
+    }
+    
+    func showFailureToast(message: String) {
+        toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
     }
     
     // MARK: - Private

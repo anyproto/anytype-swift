@@ -11,7 +11,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     let objectId: String
     private weak var output: ObjectSettingsCoordinatorOutput?
     
-    private let navigationContext: NavigationContextProtocol
+    private var dismissAllPresented: DismissAllPresented?
     
     @Published var coverPickerData: ObjectCoverPickerData?
     @Published var objectIconPickerData: ObjectIconPickerData?
@@ -20,14 +20,13 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     @Published var relationsListData: RelationsListData?
     @Published var dismiss = false
     
-    init(
-        objectId: String,
-        output: ObjectSettingsCoordinatorOutput?,
-        navigationContext: NavigationContextProtocol
-    ) {
+    init(objectId: String, output: ObjectSettingsCoordinatorOutput?) {
         self.objectId = objectId
         self.output = output
-        self.navigationContext = navigationContext
+    }
+    
+    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
+        self.dismissAllPresented = dismissAllPresented
     }
     
     // MARK: - ObjectSettingsModelOutput
@@ -92,8 +91,9 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     // MARK: - RelationValueCoordinatorOutput
     
     func showEditorScreen(data: EditorScreenData) {
-        navigationContext.dismissAllPresented(animated: true) { [weak self] in
-            self?.output?.showEditorScreen(data: data)
+        Task { @MainActor in
+            await dismissAllPresented?()
+            output?.showEditorScreen(data: data)
         }
     }
 }

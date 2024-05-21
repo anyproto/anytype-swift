@@ -17,15 +17,18 @@ final class EditorSetCoordinatorViewModel:
     ObjectSettingsCoordinatorOutput,
     RelationValueCoordinatorOutput
 {
-    private let data: EditorSetObject
-    private let editorSetAssembly: EditorSetModuleAssemblyProtocol
-    private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
-    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    let data: EditorSetObject
+    @Injected(\.legacySetObjectCreationCoordinator)
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationSettingsCoordinator)
+    private var setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
-    private let toastPresenter: ToastPresenterProtocol
-    private let navigationContext: NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
@@ -38,28 +41,8 @@ final class EditorSetCoordinatorViewModel:
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     
-    init(
-        data: EditorSetObject,
-        editorSetAssembly: EditorSetModuleAssemblyProtocol,
-        setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
-        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        navigationContext: NavigationContextProtocol
-    ) {
+    init(data: EditorSetObject) {
         self.data = data
-        self.editorSetAssembly = editorSetAssembly
-        self.setObjectCreationCoordinator = setObjectCreationCoordinator
-        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
-        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.relationValueProcessingService = relationValueProcessingService
-        self.toastPresenter = toastPresenter
-        self.navigationContext = navigationContext
-    }
-    
-    func setModule() -> AnyView {
-        editorSetAssembly.make(data: data, output: self)
     }
     
     // MARK: - EditorSetModuleOutput
@@ -144,7 +127,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showSettings() {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: data.objectId,
             output: self
         )

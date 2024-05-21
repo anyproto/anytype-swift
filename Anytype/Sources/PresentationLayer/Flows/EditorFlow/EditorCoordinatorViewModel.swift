@@ -6,42 +6,10 @@ final class EditorCoordinatorViewModel: ObservableObject, WidgetObjectListCommon
     
     var pageNavigation: PageNavigation?
     
-    private let data: EditorScreenData
-    private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
-    private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
-    private let editorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol
+    let data: EditorScreenData
     
-    init(
-        data: EditorScreenData,
-        widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
-        editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol,
-        editorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol
-    ) {
+    init(data: EditorScreenData) {
         self.data = data
-        self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
-        self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
-        self.editorSetCoordinatorAssembly = editorSetCoordinatorAssembly
-    }
-    
-    func makeView() -> AnyView {
-        switch data {
-        case .favorites:
-            return widgetObjectListModuleAssembly.makeFavorites(output: self)
-        case .recentEdit:
-            return widgetObjectListModuleAssembly.makeRecentEdit(output: self)
-        case .recentOpen:
-            return widgetObjectListModuleAssembly.makeRecentOpen(output: self)
-        case .sets:
-            return widgetObjectListModuleAssembly.makeSets(output: self)
-        case .collections:
-            return widgetObjectListModuleAssembly.makeCollections(output: self)
-        case .bin:
-            return widgetObjectListModuleAssembly.makeBin(output: self)
-        case .page(let data):
-            return editorPageCoordinatorAssembly.make(data: data, showHeader: true, setupEditorInput: { _, _ in })
-        case .set(let data):
-            return editorSetCoordinatorAssembly.make(data: data)
-        }
     }
     
     // MARK: - WidgetObjectListCommonModuleOutput

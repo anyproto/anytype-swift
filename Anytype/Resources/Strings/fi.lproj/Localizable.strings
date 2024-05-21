@@ -2,120 +2,120 @@
 "StyleMenu.Color.TextColor.Placeholder" = "A";
 
 // MARK: Text Style in Slash and Style menu
-"TextStyle.Text.Title" = "Text";
-"TextStyle.Text.Subtitle" = "Just start writing with a plain text";
+"TextStyle.Text.Title" = "Teksti";
+"TextStyle.Text.Subtitle" = "Ala vain kirjoittamaan leipätekstillä";
 
 "TextStyle.Title.Title" = "Otsikko";
-"TextStyle.Title.Subtitle" = "Big section heading";
+"TextStyle.Title.Subtitle" = "Iso osio-otsikko";
 
-"TextStyle.Heading.Title" = "Heading";
-"TextStyle.Heading.Subtitle" = "Medium headline";
+"TextStyle.Heading.Title" = "Otsikko";
+"TextStyle.Heading.Subtitle" = "Keski-iso otsikko";
 
-"TextStyle.Subheading.Title" = "Subheading";
-"TextStyle.Subheading.Subtitle" = "Small headline";
+"TextStyle.Subheading.Title" = "Alaotsikko";
+"TextStyle.Subheading.Subtitle" = "Pieni otsikko";
 
 "TextStyle.Highlighted.Title" = "Korostettu";
-"TextStyle.Highlighted.Subtitle" = "Spotlight, that needs special attention";
+"TextStyle.Highlighted.Subtitle" = "Korostus, joka vaatii erityis huomiota";
 
-"TextStyle.Callout.Title" = "Callout";
-"TextStyle.Callout.Subtitle" = "Bordered text with icon";
+"TextStyle.Callout.Title" = "Nosto";
+"TextStyle.Callout.Subtitle" = "Rajattu teksti kuvakkeella";
 
-"TextStyle.Checkbox.Title" = "Checkbox";
-"TextStyle.Checkbox.Subtitle" = "Create and track task with to-do list";
+"TextStyle.Checkbox.Title" = "Tarkastuslaatikko";
+"TextStyle.Checkbox.Subtitle" = "Luo ja seuraa tehtäviä tehtävälistan avulla";
 
-"TextStyle.Bulleted.Title" = "Bulleted";
-"TextStyle.Bulleted.Subtitle" = "Simple list";
+"TextStyle.Bulleted.Title" = "Lista";
+"TextStyle.Bulleted.Subtitle" = "Yksinkertainen lista";
 
-"TextStyle.Numbered.Title" = "Numbered list";
-"TextStyle.Numbered.Subtitle" = "Numbered list";
+"TextStyle.Numbered.Title" = "Numeroitu lista";
+"TextStyle.Numbered.Subtitle" = "Numeroitu lista";
 
-"TextStyle.Toggle.Title" = "Toggle";
-"TextStyle.Toggle.Subtitle" = "Hide and show content inside";
+"TextStyle.Toggle.Title" = "Kytkin";
+"TextStyle.Toggle.Subtitle" = "Piilota ja näytä sisältö";
 
-"TextStyle.Bold.Title" = "Bold";
-"TextStyle.Italic.Title" = "Italic";
-"TextStyle.Strikethrough.Title" = "Strikethrough";
-"TextStyle.Code.Title" = "Code";
-"TextStyle.Link.Title" = "Link";
+"TextStyle.Bold.Title" = "Lihavointi";
+"TextStyle.Italic.Title" = "Kursivoitu";
+"TextStyle.Strikethrough.Title" = "Läpiviiva";
+"TextStyle.Code.Title" = "Koodi";
+"TextStyle.Link.Title" = "Linkki";
 
 // MARK: - Block Text
-"BlockText.Content.Placeholder" = "Untitled";
+"BlockText.Content.Placeholder" = "Nimetön";
 
-"BlockText.ContentType.Title.Placeholder" = "Untitled";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
-"BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
-"BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
-"BlockText.ContentType.Checkbox.Placeholder" = "Checkbox";
-"BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
-"BlockText.ContentType.Quote.Placeholder" = "Highlighted text";
+"BlockText.ContentType.Title.Placeholder" = "Nimetön";
+"BlockText.ContentType.Description.Placeholder" = "Lisää kuvaus";
+"BlockText.ContentType.Toggle.Placeholder" = "Kytkin pala";
+"BlockText.ContentType.Bulleted.Placeholder" = "Lista kohta";
+"BlockText.ContentType.Checkbox.Placeholder" = "Tarkastuslaatikko";
+"BlockText.ContentType.Numbered.Placeholder" = "Numeroitu lista kohta";
+"BlockText.ContentType.Quote.Placeholder" = "Korostettu teksti";
 "BlockText.ContentType.Header.Placeholder" = "Otsikko";
-"BlockText.ContentType.Header2.Placeholder" = "Heading";
-"BlockText.ContentType.Header3.Placeholder" = "Subheading";
+"BlockText.ContentType.Header2.Placeholder" = "Otsikko";
+"BlockText.ContentType.Header3.Placeholder" = "Alaotsikko";
 
 // MARK: - Block Link
 
-"BlockLink.PreviewSettings.IconSize.None" = "None";
-"BlockLink.PreviewSettings.IconSize.Small" = "Small";
-"BlockLink.PreviewSettings.IconSize.Medium" = "Medium";
+"BlockLink.PreviewSettings.IconSize.None" = "Ei mitään";
+"BlockLink.PreviewSettings.IconSize.Small" = "Pieni";
+"BlockLink.PreviewSettings.IconSize.Medium" = "Keskikokoinen";
 
-"BlockLink.PreviewSettings.Layout.Card.Title" = "Card";
-"BlockLink.PreviewSettings.Layout.Text.Title" = "Text";
+"BlockLink.PreviewSettings.Layout.Card.Title" = "Kortti";
+"BlockLink.PreviewSettings.Layout.Text.Title" = "Teksti";
 
 // MARK: - Settings
-"Settings.SpaceName" = "Space name";
+"Settings.SpaceName" = "Tilan nimi";
 
 // MARK: - Object
-"Object.Title.Placeholder" = "Untitled";
-"Object.Deleted.Placeholder" = "Deleted object";
+"Object.Title.Placeholder" = "Nimetön";
+"Object.Deleted.Placeholder" = "Poistettu kohde";
 
 // MARK: - Relation
-"Featured relations" = "Featured relations";
-"Create relation" = "Create relation ‘%@’";
-"Relation.View.Hint.Empty" = "empty";
-"Relation.MyRelations" = "My relations";
-"Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
-"Relation.Deleted" = "Deleted relation";
-"Relation.From.Type" = "From type %@";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Featured relations" = "Poimitut suhteet";
+"Create relation" = "Luo suhde ‘%@’";
+"Relation.View.Hint.Empty" = "tyhjä";
+"Relation.MyRelations" = "Suhteeni";
+"Relation.AddedToLibrary" = "Suhde ‘%@’ lisätty kirjastoosi";
+"Relation.Deleted" = "Poistettu suhde";
+"Relation.From.Type" = "Tyypistä %@";
+"Relation.EmptyState.title" = "Ei valintoja";
+"Relation.EmptyState.description" = "Mitään ei löytynyt. Luo ensimmäinen valinta aloittaaksesi.";
+"Relation.EmptyState.Blocked.title" = "Tämä suhde on tyhjä";
+"Relation.Create.Row.title" = "Luo “%@”";
+"Relation.View.Create.title" = "Luo valinta";
+"Relation.View.Edit.title" = "Muokkaa valintaa";
+"Relation.Create.Textfield.placeholder" = "Anna nimi...";
 "Relation.Edit.Button.title" = "Apply";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
-"Relation.ObjectTypes.Header.title" = "Object types:";
-"Relation.ObjectType.Header.title" = "Object type:";
+"Relation.Date.Locked.Alert.title" = "Suhde “%@” on lukittu";
+"Relation.ObjectTypes.Header.title" = "Objekti tyypit:";
+"Relation.ObjectType.Header.title" = "Objekti tyyppi:";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Delete.Alert.Description" = "Tämä vaihtoehto poistetaan pysyvästi tilastasi.";
+"Relation.Object.Delete.Alert.Description" = "Tämä vaihtoehto siirretään roskakoriin.";
 
-"Relation.Format.Object.Title" = "Object";
-"Relation.Format.Text.Title" = "Text";
-"Relation.Format.Number.Title" = "Number";
-"Relation.Format.Status.Title" = "Select";
-"Relation.Format.Tag.Title" = "Multi-select";
-"Relation.Format.Date.Title" = "Date";
-"Relation.Format.FileMedia.Title" = "File & Media";
-"Relation.Format.Checkbox.Title" = "Checkbox";
+"Relation.Format.Object.Title" = "Objekti";
+"Relation.Format.Text.Title" = "Teksti";
+"Relation.Format.Number.Title" = "Numero";
+"Relation.Format.Status.Title" = "Valitse";
+"Relation.Format.Tag.Title" = "Monivalinta";
+"Relation.Format.Date.Title" = "Päivämäärä";
+"Relation.Format.FileMedia.Title" = "Tiedosto & Media";
+"Relation.Format.Checkbox.Title" = "Tarkastuslaatikko";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
-"Relation.Format.Phone.Title" = "Phone number";
+"Relation.Format.Phone.Title" = "Puhelinnumero";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "Etsi tai luo uusi suhde";
 
 // Origin Relation
 
-"Relation.Origin.Clipboard" = "Clipboard";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
-"Relation.Origin.Import" = "Imported object";
-"Relation.Origin.WebClipper" = "Web clipper";
-"Relation.Origin.SharingExtension" = "Mobile sharing extension";
-"Relation.Origin.UseCase" = "Use case";
-"Relation.Origin.Builtin" = "Library installed";
-"Relation.Origin.Bookmark" = "Bookmark";
+"Relation.Origin.Clipboard" = "Leikepöytä";
+"Relation.Origin.DragAndDrop" = "Raahaa ja tiputa";
+"Relation.Origin.Import" = "Tuotu objekti";
+"Relation.Origin.WebClipper" = "Netti nipsutin";
+"Relation.Origin.SharingExtension" = "Mobiilijakolisäosa";
+"Relation.Origin.UseCase" = "Käyttökohde";
+"Relation.Origin.Builtin" = "Kirjasto asennettu";
+"Relation.Origin.Bookmark" = "Kirjanmerkki";
 
 // MARK: - Import Type Relation
 
@@ -127,10 +127,10 @@
 "Relation.ImportType.Csv" = "CSV";
 
 // MARK: - Mention
-"Mention.Subtitle.Placeholder" = "Object";
+"Mention.Subtitle.Placeholder" = "Objekti";
 
-"None" = "None";
-"Callout" = "Callout";
+"None" = "Ei mitään";
+"Callout" = "Nosto";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
@@ -150,7 +150,7 @@
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
 "Preview" = "Preview";
-"View" = "View";
+"View" = "Näkymä";
 "Paste" = "Paste";
 "Move" = "Move";
 "Move to" = "Move to";
@@ -180,77 +180,77 @@
 "Purple background" = "Purple background";
 "Blue background" = "Blue background";
 "Green background" = "Green background";
-"Create new object" = "Create new object";
-"Cancel" = "Cancel";
-"Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
-"Unsupported block" = "Unsupported block";
-"Name" = "Name";
-"Description" = "Description";
-"Paste processing..." = "Paste processing...";
-"Anytype Library" = "Anytype Library";
-"Copied" = "Copied";
+"Create new object" = "Luo uusi objekti";
+"Cancel" = "Peruuta";
+"Paste or type URL" = "Sijoita tai kirjoita URL";
+"No items match filter" = "Yksikään kohde ei vastaa filtteröintiä";
+"Unsupported block" = "Tukematon pala";
+"Name" = "Nimi";
+"Description" = "Kuvaus";
+"Paste processing..." = "Sijoitus käynnissä...";
+"Anytype Library" = "Anytype Kirjasto";
+"Copied" = "Kopioitu";
 "Share" = "Share";
 "Okay" = "Okay";
 "Join" = "Join";
+"Agreement Disclamer" = "Jatkamalla hyväksyt [Käyttösopimuksen](%@) ja [Tietoturvaselosteen](%@)";
 
 // Home
-"Favorites" = "Favorites";
-"Recent" = "Recent";
-"Bin" = "Bin";
+"Favorites" = "Suosikit";
+"Recent" = "Viime aikaiset";
+"Bin" = "Roskakori";
 
 // Settings
-"Wallpaper" = "Wallpaper";
-"Log out" = "Log out";
+"Wallpaper" = "Taustakuva";
+"Log out" = "Kirjaudu ulos";
 
 // Action
-"Restore" = "Restore";
+"Restore" = "Palauta";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
-"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Key" = "Avain";
+"Keychain.Key.Copy.Toast.title" = "Avain kopioitu";
+"Keychain.Key.description" = "Tarvitset sitä holviisi pääsemiseksi. Säilytä se turvallisessa paikassa. Jos menetät sen, et enää pääse holviisi.";
+"Keychain.Show and copy key" = "Näytä ja kopioi avain";
+"Keychain.Have you backed up your key?" = "Oletko varmuuskopioinut avaimesi?";
+"Keychain.Error.String to Data conversion error" = "Kääntövirhe merkkijonosta dataksi";
+"Keychain.Error.Data to String conversion error" = "Kääntövirhe datasta merkkijonoksi";
+"Keychain.Error.Unknown Keychain Error" = "Tuntematon Avainnippu virhe";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Create" = "Create";
-"Scan QR code" = "Scan QR code";
-"Auth.CameraPermissionTitle" = "Please allow access";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
-"Auth.Caption.Privacy.Text" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
-"Auth.Next" = "Next";
+"Create" = "Luo";
+"Scan QR code" = "Skannaa QR-koodi";
+"Auth.CameraPermissionTitle" = "Myönnä pääsy, ole hyvä";
+"Restore key from keychain" = "Palauta Avain avainnipusta";
+"Auth.LogIn" = "Minulla on Avain";
+"Auth.Button.Join" = "Uusi Holvi";
+"Auth.Welcome.Subtitle" = "Luo & tee yhteistyötä omistamissasi tiloissa. Salattuna, ilman yhteyttä & [avoimena](%@).";
+"Auth.Next" = "Seuraava";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "Holvin palautus virhe, kokeile uudestaan";
+"Vault recover error no internet" = "Holvin palautus virhe, todennäköisesti ei nettiyhteyttä";
 
 // Auth Errors
-"Error creating wallet" = "Error creating wallet";
-"Error select vault" = "Error select vault";
+"Error creating wallet" = "Virhe lompakkoa luodessa";
+"Error select vault" = "Virhe holvia valittaessa";
 "Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Wallet.Recovery.Error.description" = "Virheellinen Avain";
 
-"Search for language" = "Search for language";
+"Search for language" = "Hae kieltä";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Next";
-"Auth.JoinFlow.Key.Button.Later.Title" = "Skip";
-"Auth.JoinFlow.Key.Button.Copy.Title" = "Copy to clipboard";
-"Auth.JoinFlow.Key.Button.Info.Title" = "Read more";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Title" = "Tämä on Avaimesi";
+"Auth.JoinFlow.Key.Description" = "Se antaa sinulle täyden omistajuuden holvistasi.\nSitä ei voi palauttaa.";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Näytä Avaimeni";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Seuraava";
+"Auth.JoinFlow.Key.Button.Later.Title" = "Ohita";
+"Auth.JoinFlow.Key.Button.Copy.Title" = "Kopioi leikepöydälle";
+"Auth.JoinFlow.Key.Button.Info.Title" = "Lue lisää";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Voit löytää tämän avaimen myöhemmin Anytype:n asetuksista";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Mikä on se Avain?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
@@ -260,7 +260,7 @@
 
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
-"Auth.JoinFlow.Soul.Placeholder" = "Untitled";
+"Auth.JoinFlow.Soul.Placeholder" = "Nimetön";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
@@ -313,7 +313,7 @@
 "Actions.TemplateMakeDefault" = "Make default";
 "Actions.CreateWidget.Title" = "To widgets";
 "Actions.CreateWidget.Success" = "New widget was created";
-"Actions.CopyLink" = "Copy link";
+"Actions.CopyLink" = "Kopioi linkki";
 
 // Object Type
 "Set" = "Set";
@@ -323,14 +323,14 @@
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
-"Editor.LinkToObject.CopyLink" = "Copy link";
-"Editor.LinkToObject.RemoveLink" = "Remove link";
+"Editor.LinkToObject.SearchPlaceholder" = "Sijoita linkki tai etsi objekteista";
+"Editor.LinkToObject.PasteFromClipboard" = "Sijoita leikepöydältä";
+"Editor.LinkToObject.LinkedTo" = "Yhdistetty";
+"Editor.LinkToObject.CopyLink" = "Kopioi linkki";
+"Editor.LinkToObject.RemoveLink" = "Poista linkki";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
+"There is no object named" = "Ei ole objektia nimeltä %@";
 "There is no type named" = "There is no type named %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
 "Search.Backlinks.Show.title" = "Show backlinks";
@@ -382,7 +382,7 @@
 "Move To Bin" = "Move To Bin";
 
 
-"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.None.Title" = "Ei mitään";
 "LinkAppearance.Description.Object.Title" = "Object description";
 "LinkAppearance.Description.Content.Title" = "Content preview";
 "LinkAppearance.ObjectType.Title" = "Object type";
@@ -454,7 +454,7 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
 
 // MARK: - Sets. Create object
-"Set.Create.ObjectTitle.Placeholder" = "Untitled";
+"Set.Create.ObjectTitle.Placeholder" = "Nimetön";
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Query";
@@ -472,7 +472,7 @@
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
 "Set.View.Settings.CardSize.Title" = "Card size";
-"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Small.Title" = "Pieni";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
 "Set.View.Settings.GroupBy.Title" = "Group by";
@@ -489,69 +489,69 @@
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Piilota sarake";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
+"Set.View.Empty.Title" = "Ei kyselyä valittuna";
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
 // MARK: - Set source type
-"Set.SourceType.SelectQuery" = "Select query";
-"Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
+"Set.SourceType.SelectQuery" = "Valitse kysely";
+"Set.SourceType.Cancel.Toast.Title" = "Tämä kysely voidaan vaihtaa vain tietokoneella";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
-"Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Muunna Sarja Kokoelmaksi";
+"Set.TypeRelation.ContextMenu.ChangeQuery" = "Vaihda kysely";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Title" = "Ei objekteja";
+"Collection.View.Empty.Subtitle" = "Luo ensimmäinen objekti jatkaaksesi";
+"Collection.View.Empty.Button.Title" = "Luo objekti";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
-"SlashMenu.LineDivider" = "Line divider";
-"SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.DotsDivider" = "Pilkullinen jakaja";
+"SlashMenu.LineDivider" = "Viivajakaja";
+"SlashMenu.TableOfContents" = "Sisällysluettelo";
+"SlashMenu.Table" = "Taulukko";
 
-"Error" = "Error";
-"Unknown error" = "Unknown error";
+"Error" = "Virhe";
+"Unknown error" = "Tuntematon virhe";
 "Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
-"Close" = "Close";
-"Add phone" = "Add phone";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
-"Progress..." = "Progress...";
-"Grey" = "Grey";
-"Sky" = "Sky";
-"Yellow" = "Yellow";
-"Grey background" = "Grey background";
-"Teal background" = "Teal background";
-"Sky background" = "Sky background";
-"Yellow background" = "Yellow background";
-"Enter value" = "Enter value";
-"Select object" = "Select object";
-"Select file" = "Select file";
-"Select options" = "Select options";
-"Select option" = "Select option";
-"Select date" = "Select date";
-"Add email" = "Add email";
-"Add link" = "Add link";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
-"Unsupported value" = "Unsupported value";
-"Select relation type" = "Select relation type";
-"CommonOpenErrorView.Message" = "No data found";
+"Close" = "Sulje";
+"Add phone" = "Lisää puhelin";
+"Nothing to redo" = "Ei mitään uudelleen tehtävää";
+"Nothing to undo" = "Ei mitään kumottavaa";
+"Progress..." = "Edistys...";
+"Grey" = "Harmaa";
+"Sky" = "Taivaansininen";
+"Yellow" = "Keltainen";
+"Grey background" = "Harmaa tausta";
+"Teal background" = "Sinivihreä tausta";
+"Sky background" = "Taivaansininen tausta";
+"Yellow background" = "Keltainen tausta";
+"Enter value" = "Syötä arvo";
+"Select object" = "Valitse objekti";
+"Select file" = "Valitse tiedosto";
+"Select options" = "Valitse vaihtoehdot";
+"Select option" = "Valitse vaihtoehto";
+"Select date" = "Valitse päivämäärä";
+"Add email" = "Lisää sähköposti";
+"Add link" = "Lisää linkki";
+"Enter number" = "Syötä numero";
+"Enter text" = "Syötä teksti";
+"Unsupported value" = "Ei tuettu arvo";
+"Select relation type" = "Valitse suhteen tyyppi";
+"CommonOpenErrorView.Message" = "Tietoja ei löytynyt";
 "AreYouSure" = "Are you sure?";
-"Nothing found" = "Nothing found";
+"Nothing found" = "Mitään ei löytynyt";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"Create type" = "Luo tyyppi";
 
 
-"Limit object types" = "Limit object types";
-"Type" = "Type";
-"No name" = "No name";
-"New relation" = "New relation";
+"Limit object types" = "Rajoita objekti tyyppejä";
+"Type" = "Tyyppi";
+"No name" = "Ei nimeä";
+"New relation" = "Uusi suhde";
 "Non-existent object" = "Non-existent object";
 
 "Select all" = "Select all";
@@ -602,64 +602,64 @@
 "SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Node is not connected" = "Node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
-"Synced" = "Synced";
-"Syncing..." = "Syncing...";
-"No connection" = "No connection";
-"Preparing..." = "Preparing...";
-"Deleted" = "Deleted";
-"Download" = "Download";
-"Open object" = "Open object";
-"Open source" = "Open source";
-"Into object" = "Into object";
-"Add below" = "Add below";
-"Change type" = "Change type";
-"Show types" = "Show types";
-"Hide types" = "Hide types";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
-"Bookmark" = "Bookmark";
-"Audio" = "Audio";
+"Downloading or uploading data to some node" = "Ladataan dataa solmuun tai solmusta";
+"Node is not connected" = "Solmu ei ole yhteydessä";
+"Initializing sync" = "Käynnistetään synkronointia";
+"Not syncing" = "Ei synkronoida";
+"Synced" = "Synkronoitu";
+"Syncing..." = "Synkronoidaan...";
+"No connection" = "Ei yhteyttä";
+"Preparing..." = "Valmistellaan...";
+"Deleted" = "Poistettu";
+"Download" = "Ladataan";
+"Open object" = "Avoin objekti";
+"Open source" = "Avoimen lähteen";
+"Into object" = "Objektiin";
+"Add below" = "Lisää alapuolelle";
+"Change type" = "Vaihda tyyppiä";
+"Show types" = "Näytä tyypit";
+"Hide types" = "Piilota tyypit";
+"SlashMenu.LinkTo.Description" = "Luo linkki toiseen objektiin";
+"Upload playable audio" = "Lähetä toistettava ääni";
+"Code snippet" = "Koodinpala";
+"Bookmark" = "Kirjanmerkki";
+"Audio" = "Ääni";
 "Video" = "Video";
-"Picture" = "Picture";
-"File" = "File";
-"No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
+"Picture" = "Kuva";
+"File" = "Tiedosto";
+"No related options here" = "Ei yhteenkuuluvia vaihtoehtoja täällä. Voit lisätä muutaman";
+"Empty" = "Tyhjä";
 "Link to" = "Link to";
-"Unknown" = "Unknown";
+"Unknown" = "Tuntematon";
 "Settings" = "Settings";
-"Views" = "Views";
-"Filter" = "Filter";
-"Sort" = "Sort";
-"View" = "View";
-"Home" = "Home";
-"Highlight" = "Highlight";
-"Create object" = "Create object";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
+"Views" = "Näyttökerrat";
+"Filter" = "Suodatin";
+"Sort" = "Järjestä";
+"View" = "Näkymä";
+"Home" = "Koti";
+"Highlight" = "Korostus";
+"Create object" = "Luo objekti";
+"Web pages" = "Nettisivut";
+"Preview layout" = "Esikatsele asettelua";
+"Everywhere" = "Kaikki alla";
+"Exact day" = "Tarkka päivä";
 "Tomorrow" = "Tomorrow";
 "Yesterday" = "Yesterday";
 "Today" = "Today";
-"No date" = "No date";
-"Clear" = "Clear";
-"Create option with" = "Create option ‘%@’";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
-"Enter phone number" = "Enter phone number";
-"Enter number" = "Enter number";
-"Enter text" = "Enter text";
+"No date" = "Ei päivämäärää";
+"Clear" = "Tyhjennä";
+"Create option with" = "Luo vaihtoehto ‘%@’";
+"Enter URL" = "Syötä URL";
+"Enter email" = "Syötä sähköposti";
+"Enter phone number" = "Syötä puhelinnumero";
+"Enter number" = "Syötä numero";
+"Enter text" = "Syötä teksti";
 "Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
-"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
-"Failed to sync, trying again..." = "Failed to sync, trying again...";
-"Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
+"Error occurred. Please try again" = "Virhe ilmeni. Kokeilethan uudestaan";
+"Add" = "Lisää";
+"Companies, contacts, friends and family" = "Yritykset, kontaktit, ystävät ja perhe";
+"Failed to sync, trying again..." = "Synkronointi epäonnistui, kokeillaan uudelleen...";
+"Sync.Status.Version.Outdated.Description" = "Versio vanhentunut. Päivitäthän Anytype:n";
 "This object doesn't exist" = "This object doesn't exist";
 "Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
 "These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
@@ -704,7 +704,7 @@
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Tyhjennä";
 "SimpleTableMenu.Item.color" = "Color";
 "SimpleTableMenu.Item.style" = "Style";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
@@ -715,7 +715,7 @@
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Duplicate";
 "SimpleTableMenu.Item.Delete" = "Delete";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "Järjestä";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
@@ -732,8 +732,8 @@
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
-"RelationAction.CopyLink" = "Copy link";
-"RelationAction.Copied" = "Copied";
+"RelationAction.CopyLink" = "Kopioi linkki";
+"RelationAction.Copied" = "Kopioitu";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
 "RelationAction.CallPhone" = "Call phone numbler";
@@ -747,57 +747,57 @@
 "SetViewTypesPicker.Settings.Duplicate.View" = "Duplicate";
 "SetViewTypesPicker.Settings.Delete.View" = "Delete view";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Untitled";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Nimetön";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Ei tuettu";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
-"Content.Bookmark.Add" = "Add a web bookmark";
-"Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
-"Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
-"Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
+"Content.File.Upload" = "Lähetä tiedosto";
+"Content.Audio.Upload" = "Lähetä ääni";
+"Content.Video.Upload" = "Lähetä video";
+"Content.Picture.Upload" = "Lähetä kuva";
+"Content.Common.Uploading" = "Lähetetään";
+"Content.Common.Error" = "Jotain meni pieleen, kokeile uudelleen";
+"Content.Bookmark.Add" = "Lisää verkkokirjanmerkki";
+"Content.Bookmark.Loading" = "Ladataan, odotathan...";
+"Content.DataView.InlineSet.Subtitle" = "Sisällytetty sarja";
+"Content.DataView.InlineCollection.Subtitle" = "Sisällytetty kokoelma";
+"Content.DataView.InlineSet.NoSource" = "Ei lähdettä";
+"Content.DataView.InlineSet.NoData" = "Ei dataa";
+"Content.DataView.InlineSet.Untitled" = "Nimetön sarja";
+"Content.DataView.InlineCollection.Untitled" = "Nimetön kokoelma";
+"Content.DataView.InlineSet.Toast.Failure" = "Tällä sisällytetyllä sarjalla ei ole lähdettä";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
-"Editor.Toast.MovedTo" = "Block moved to";
+"Editor.Toast.LinkedTo" = "linkitetty";
+"Editor.Toast.MovedTo" = "Pala siirretty";
 
 // MARK: - Scanner
-"Scanner.Error.Scanning not supported" = "Scanning not supported";
+"Scanner.Error.Scanning not supported" = "Skannaaminen ei ole tuettu";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
-"Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
-"Widgets.Actions.EmptyBin" = "Empty Bin";
-"Widgets.Actions.AddBelow" = "Add Below";
-"Widgets.Actions.NewObject" = "New Object";
-"Widgets.Layout.Screen.Title" = "Widget type";
-"Widgets.Layout.Link.Title" = "Link";
-"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.SourceSearch" = "Vempainlähde";
+"Widgets.Actions.ChangeSource" = "Vaihda lähdettä";
+"Widgets.Actions.ChangeWidgetType" = "Muuta vempaimen tyyppiä";
+"Widgets.Actions.RemoveWidget" = "Poista vempain";
+"Widgets.Actions.EditWidgets" = "Muokkaa vempaimia";
+"Widgets.Actions.EmptyBin" = "Tyhjennä roskakori";
+"Widgets.Actions.AddBelow" = "Lisää alapuolelle";
+"Widgets.Actions.NewObject" = "Uusi objekti";
+"Widgets.Layout.Screen.Title" = "Vempaimen tyyppi";
+"Widgets.Layout.Link.Title" = "Linkki";
+"Widgets.Layout.Tree.Title" = "Puu";
 "Widgets.Layout.List.Title" = "List";
-"Widgets.Layout.CompactList.Title" = "Сompact list";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Layout.CompactList.Title" = "Tiivis lista";
+"Widgets.Layout.Link.Description" = "Tiivis versio objektista";
+"Widgets.Layout.Tree.Description" = "Hierarkinen objektien rakenne";
+"Widgets.Layout.List.Description" = "Vempain lista näkymällä asetetusta objektista";
+"Widgets.Layout.CompactList.Description" = "Vempain lista näkymällä asetetusta objektista";
+"Widgets.Empty.Title" = "Tämä data näkymä ei sisällä objekteja";
+"Widgets.Library.RecentlyEdited.Name" = "Viimeksi muokatut";
+"Widgets.Library.RecentlyOpened.Name" = "Viimeksi avatut";
+"Widgets.Library.RecentlyOpened.Description" = "Laitteella";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
@@ -808,8 +808,8 @@
 "About.deviceId" = "Device ID: %@";
 "About.Device" = "Device: %@";
 "About.OSVersion" = "OS version: %@";
-"About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
+"About.HelpCommunity" = "Tuki & Yhteisö";
+"About.WhatsNew" = "Mitä uutta";
 "About.AnytypeCommunity" = "Anytype Community";
 "About.HelpTutorials" = "Help & Tutorials";
 "About.ContactUs" = "Contact Us";
@@ -826,7 +826,7 @@
 
 // MARK: - Settings
 "Settings.Title" = "Settings";
-"Settings.SpaceName" = "Space name";
+"Settings.SpaceName" = "Tilan nimi";
 "Settings.SpaceType" = "Space type";
 "Settings.VaultAndAccess" = "Vault and access";
 
@@ -868,14 +868,14 @@
 "Spaces.Info.Network" = "Network:";
 
 // MARK: - Space
-"Space.Status.Unknown" = "Unknown";
+"Space.Status.Unknown" = "Tuntematon";
 "Space.Status.Loading" = "Loading";
 "Space.Status.Ok" = "Ok";
 "Space.Status.Missing" = "Missing";
-"Space.Status.Error" = "Error";
+"Space.Status.Error" = "Virhe";
 "Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
 "Space.Status.RemoteDeleted" = "Remote Deleted";
-"Space.Status.SpaceDeleted" = "Deleted";
+"Space.Status.SpaceDeleted" = "Poistettu";
 "Space.Status.SpaceActive" = "Active";
 "Space.Status.SpaceJoining" = "Joining";
 "Space.Status.SpaceRemoving" = "Removing";
@@ -903,7 +903,7 @@
 "SpaceShare.Permissions.Reader" = "Viewer";
 "SpaceShare.Permissions.Writer" = "Editor";
 "SpaceShare.Permissions.Grand.Edit" = "Edit";
-"SpaceShare.Permissions.Grand.View" = "View";
+"SpaceShare.Permissions.Grand.View" = "Näkymä";
 "SpaceShare.Invite.Title" = "Invite link";
 "SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
 "SpaceShare.Invite.Share" = "Share invite link";
@@ -971,7 +971,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.LeftButton.Title" = "Peruuta";
 "Sharing.Navigation.RightButton.Title" = "Done";
 
 "Sharing.SaveAs" = "SAVE AS";
@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Local-only";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Gallery will be supported soon";
-"Gallery.Unavailable.Message" = "Please use the desktop app for now";
 "Gallery.Author" = "Made by @%@";
 "Gallery.Install" = "Install";
 "Gallery.InstallToNew" = "Install to new space";
@@ -1066,7 +1064,6 @@
 "Min X characters" = "Min %@ characters";
 "Pending" = "Pending...";
 "Manage payment" = "Manage payment";
-"This name is not availabe" = "This name is not availabe";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
 "Confirm" = "Confirm";
@@ -1115,7 +1112,7 @@ Please provide specific details of your needs here.";
 "Membership.Success.Curiosity" = "Big cheers for your curiosity!";
 "Membership.Success.Support" = "Big cheers for your support!";
 
-"Membership.Payment.Card" = "Card";
+"Membership.Payment.Card" = "Kortti";
 "Membership.Payment.Crypto" = "Crypto";
 "Membership.Payment.Apple subscription" = "Apple subscription";
 "Membership.Payment.Google subscription" = "Google subscription";

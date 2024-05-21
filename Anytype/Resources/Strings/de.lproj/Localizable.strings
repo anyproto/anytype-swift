@@ -193,6 +193,7 @@
 "Share" = "Teilen";
 "Okay" = "Okay";
 "Join" = "Beitreten";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
 "Favorites" = "Favoriten";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "Ich habe einen Schlüssel";
 "Auth.Button.Join" = "Neuer Tresor";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
-"Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
 "Vault recover error" = "Fehler beim Wiederherstellen des Tresors, versuche es erneut";
@@ -929,7 +929,7 @@
 "SpaceShare.Join.Button" = "Beitrittsanfrage stellen";
 "SpaceShare.Join.Info" = "Sobald der Spacebesitzer Ihre Anfrage genehmigt, werden Sie dem Space beitreten, wobei der Eigentümer die Zugriffsrechte festgelegt.";
 "SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.InviteNotFound" = "Dieser Link scheint nicht zu funktionieren";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
 "SpaceShare.YouSuffix" = "%@ (du)";
@@ -1032,8 +1032,6 @@
 "Server.LocalOnly" = "Nur lokal";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galerie wird bald unterstützt";
-"Gallery.Unavailable.Message" = "Bitte verwende die Desktop-App vorläufig";
 "Gallery.Author" = "Erstellt von @%@";
 "Gallery.Install" = "Installieren";
 "Gallery.InstallToNew" = "In neuen Space installieren";
@@ -1067,7 +1065,6 @@
 "Min X characters" = "Min. %@ Zeichen";
 "Pending" = "Ausstehend...";
 "Manage payment" = "Zahlung verwalten";
-"This name is not availabe" = "Dieser Name ist nicht verfügbar";
 "Change email" = "E-Mail-Adresse ändern";
 "Email successfully validated" = "E-Mail-Adresse erfolgreich validiert";
 "Confirm" = "Bestätige";

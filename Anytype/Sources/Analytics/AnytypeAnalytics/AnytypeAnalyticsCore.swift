@@ -28,7 +28,7 @@ actor AnytypeAnalyticsCore {
             Amplitude.instance().setTrackingOptions(trackingOptions)
         }
         
-        userProperties[Keys.interfaceLang] = Locale.current.languageCode
+        userProperties[Keys.interfaceLang] = Locale.current.language.languageCode?.identifier
     }
 
     static func instance() -> AnytypeAnalyticsCore {

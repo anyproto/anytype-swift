@@ -4,6 +4,7 @@ import UIKit
 struct SyncStatusData {
     let status: SyncStatus
     let networkId: String
+    let isHidden: Bool
     
     var title: String {
         guard networkId.isNotEmpty else { return Loc.SyncStatus.LocalOnly.title }

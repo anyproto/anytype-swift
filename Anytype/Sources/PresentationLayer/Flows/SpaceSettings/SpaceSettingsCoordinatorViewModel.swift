@@ -2,15 +2,12 @@ import Foundation
 import SwiftUI
 import Combine
 import AnytypeCore
+import Services
 
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
-    private let navigationContext: NavigationContextProtocol
-    private let widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol
-    private let urlOpener: URLOpenerProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol = Container.shared.activeWorkspaceStorage.resolve()
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: ObjectTypeProviderProtocol
     @Injected(\.documentService)
@@ -21,22 +18,16 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
     @Published var showWallpaperPicker = false
     @Published var showSpaceShare = false
     @Published var showSpaceMembers = false
+    @Published var showFiles = false
+    @Published var showObjectTypeSearch = false
     @Published var dismiss = false
     @Published var showIconPickerSpaceViewId: StringIdentifiable?
     
-    var accountSpaceId: String
+    let accountSpaceId: String
     
     private var subscriptions = [AnyCancellable]()
     
-    init(
-        navigationContext: NavigationContextProtocol,
-        widgetObjectListModuleAssembly: WidgetObjectListModuleAssemblyProtocol,
-        urlOpener: URLOpenerProtocol
-    ) {
-        self.navigationContext = navigationContext
-        self.widgetObjectListModuleAssembly = widgetObjectListModuleAssembly
-        self.urlOpener = urlOpener
-        self.activeWorkspaceStorage = Container.shared.activeWorkspaceStorage.resolve()
+    init() {
         self.accountSpaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         startSubscriptions()
     }
@@ -63,29 +54,21 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
         showSpaceMembers.toggle()
     }
     
+    func onSelectDefaultObjectType(type: ObjectType) {
+        objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
+        showObjectTypeSearch = false
+    }
+    
     // MARK: - RemoteStorageModuleOutput
     
     func onManageFilesSelected() {
-        let module = widgetObjectListModuleAssembly.makeFiles()
-        navigationContext.present(module)
-    }
-    
-    func onLinkOpen(url: URL) {
-        urlOpener.openUrl(url, presentationStyle: .pageSheet)
+        showFiles = true
     }
     
     // MARK: - PersonalizationModuleOutput
     
     func onDefaultTypeSelected() {
-        let view = ObjectTypeSearchView(
-            title: Loc.chooseDefaultObjectType,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            settings: .spaceDefaultObject
-        ) { [weak self] type in
-            self?.objectTypeProvider.setDefaultObjectType(type: type, spaceId: type.spaceId, route: .settings)
-            self?.navigationContext.dismissTopPresented(animated: true)
-        }
-        navigationContext.present(view)
+        showObjectTypeSearch = true
     }
     
     func onWallpaperChangeSelected() {

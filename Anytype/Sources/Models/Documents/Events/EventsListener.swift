@@ -94,13 +94,13 @@ final class EventsListener: EventsListenerProtocol {
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
 
-        let updates = middlewareUpdates + markupUpdates + localUpdates
-        
-        IndentationBuilder.build(
+        let builderChangedIds = IndentationBuilder.build(
             container: infoContainer,
             id: objectId
         )
-
+        let builderUpdates: [DocumentUpdate] = builderChangedIds.isNotEmpty ? [.blocks(blockIds: Set(builderChangedIds))] : []
+    
+        let updates = middlewareUpdates + markupUpdates + localUpdates + builderUpdates
         receiveUpdates(updates.filteredUpdates)
     }
     

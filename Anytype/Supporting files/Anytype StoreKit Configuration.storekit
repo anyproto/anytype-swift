@@ -1,0 +1,104 @@
+{
+  "identifier" : "37A1325F",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6449487029",
+    "_developerTeamID" : "J3NXTX3T5S",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 737884999.68150795,
+    "_locale" : "en_US",
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Subscription Status"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Transaction"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Manage Subscriptions Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Refund Request Sheet"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Offer Code Redeem Sheet"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "21478052",
+      "localizations" : [
+
+      ],
+      "name" : "Membership",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "134.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "6498927047",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Multiparty collaboration and extended storage",
+              "displayName" : "Builder",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "io.anytype.membership.builder",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Builder",
+          "subscriptionGroupID" : "21478052",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

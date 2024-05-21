@@ -240,6 +240,7 @@ enum AnalyticsEventsPropertiesKey {
     static let blockType = "type"
     static let documentId = "documentId"
     static let count = "count"
+    static let fileExtension = "fileExtension"
 
     static let tab = "tab"
     static let route = "route"

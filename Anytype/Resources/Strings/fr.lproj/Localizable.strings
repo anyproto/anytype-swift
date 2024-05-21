@@ -193,6 +193,7 @@
 "Share" = "Partager";
 "Okay" = "D'accord";
 "Join" = "Rejoindre";
+"Agreement Disclamer" = "En continuant, vous acceptez [Conditions d’utilisation](%@) et [Politique de confidentialité](%@)";
 
 // Home
 "Favorites" = "Favoris";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "J'ai une clé";
 "Auth.Button.Join" = "Nouveau coffre-fort";
 "Auth.Welcome.Subtitle" = "Créez et collaborez dans des espaces que vous possédez. Crypté, hors ligne & [open](%@).";
-"Auth.Caption.Privacy.Text" = "En continuant, vous acceptez [Conditions d'utilisation](%@) et [Politique de confidentialité](%@)";
 "Auth.Next" = "Suivant";
 
 "Vault recover error" = "Erreur de récupération du coffre, veuillez réessayer";
@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Local seulement";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "La galerie sera bientôt prise en charge";
-"Gallery.Unavailable.Message" = "Veuillez utiliser l'application de bureau pour le moment";
 "Gallery.Author" = "Fait par @%@";
 "Gallery.Install" = "Installer";
 "Gallery.InstallToNew" = "Installer dans un nouvel espace";
@@ -1066,7 +1064,6 @@
 "Min X characters" = "Min %@ caractères";
 "Pending" = "En attente…";
 "Manage payment" = "Gérer un paiement";
-"This name is not availabe" = "Ce nom n'est pas disponible";
 "Change email" = "Modifier l'adresse e-mail";
 "Email successfully validated" = "E-mail validé avec succès";
 "Confirm" = "Confirm";

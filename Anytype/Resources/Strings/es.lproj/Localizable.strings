@@ -193,6 +193,7 @@
 "Share" = "Compartir";
 "Okay" = "Ok";
 "Join" = "Unirse";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
 "Favorites" = "Favoritos";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "I have a Key";
 "Auth.Button.Join" = "New Vault";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
-"Auth.Caption.Privacy.Text" = "Al continuar aceptas las [Condiciones de uso](%@) y la [Política de privacidad](%@)";
 "Auth.Next" = "Siguiente";
 
 "Vault recover error" = "Vault recover error, try again";
@@ -1031,8 +1031,6 @@
 "Server.LocalOnly" = "Sólo local";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "La galería será compatible pronto";
-"Gallery.Unavailable.Message" = "Por favor, use la aplicación de escritorio por ahora";
 "Gallery.Author" = "Creado por: %@";
 "Gallery.Install" = "Instalar";
 "Gallery.InstallToNew" = "Instalar en un nuevo espacio";
@@ -1066,7 +1064,6 @@
 "Min X characters" = "Mín. %@ caracteres";
 "Pending" = "Procesando...";
 "Manage payment" = "Gestionar pagos";
-"This name is not availabe" = "This name is not availabe";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
 "Confirm" = "Confirmar";

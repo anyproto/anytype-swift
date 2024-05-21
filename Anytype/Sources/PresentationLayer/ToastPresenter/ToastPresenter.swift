@@ -21,31 +21,26 @@ protocol ToastPresenterProtocol: AnyObject {
 
 enum ToastPresenterMode {
     case aboveKeyboard
+    // TODO: Broken. Support in new SwiftUI Implementation
     case aboveView(UIView)
 }
 
 class ToastPresenter: ToastPresenterProtocol {
     static var shared: ToastPresenter? // Used only for SwiftUI
 
-    private let viewControllerProvider: ViewControllerProviderProtocol
-    private weak var containerViewController: UIViewController?
-    
-    private let keyboardHeightListener: KeyboardHeightListener
-    private let documentsProvider: DocumentsProviderProtocol
+    @Injected(\.legacyViewControllerProvider)
+    private var viewControllerProvider: ViewControllerProviderProtocol
+    @Injected(\.keyboardHeightListener)
+    private var keyboardHeightListener: KeyboardHeightListener
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
     private var cancellable: AnyCancellable?
 
-    nonisolated init(
-        viewControllerProvider: ViewControllerProviderProtocol,
-        containerViewController: UIViewController? = nil,
-        keyboardHeightListener: KeyboardHeightListener,
-        documentsProvider: DocumentsProviderProtocol
-    ) {
-        self.viewControllerProvider = viewControllerProvider
-        self.containerViewController = containerViewController
-        self.keyboardHeightListener = keyboardHeightListener
-        self.documentsProvider = documentsProvider
-    }
-
+    // TODO: Needs to support something in new SwiftUI Implementation
+    private weak var containerViewController: UIViewController?
+    
+    nonisolated init() {}
+    
     // MARK: - ToastPresenterProtocol
     
     func show(message: String) {

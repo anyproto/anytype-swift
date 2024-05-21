@@ -33,8 +33,6 @@ final class MembershipNameValidationViewModel: ObservableObject {
         }
     }
     
-    @Injected(\.nameService)
-    private var nameService: NameServiceProtocol
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
     
@@ -62,11 +60,7 @@ final class MembershipNameValidationViewModel: ObservableObject {
             
             do {
                 try await membershipService.validateName(name: name, tierType: tier.type)
-                if try await nameService.isNameAvailable(name: name) {
-                    state = .validated
-                } else {
-                    state = .error(text: Loc.thisNameIsNotAvailabe)
-                }
+                state = .validated
             } catch let error {
                 state = .error(text: error.localizedDescription)
             }

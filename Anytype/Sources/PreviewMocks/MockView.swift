@@ -48,5 +48,8 @@ struct MockView<Content: View>: View {
         Container.shared.membershipStatusStorage.onPreview {
             MembershipStatusStorageMock.shared
         }
+        Container.shared.fileLimitsStorage.onPreview {
+            FileLimitsStorageMock.shared
+        }
     }
 }

@@ -193,6 +193,7 @@
 "Share" = "Deel";
 "Okay" = "Okay";
 "Join" = "Neem deel";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
 "Favorites" = "Favorieten";
@@ -225,7 +226,6 @@
 "Auth.LogIn" = "Ik heb een sleutel";
 "Auth.Button.Join" = "Nieuwe kluis";
 "Auth.Welcome.Subtitle" = "Maak aan & werk samen in jouw ruimten. Versleuteld, offline & [open](%@).";
-"Auth.Caption.Privacy.Text" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 "Auth.Next" = "Volgende";
 
 "Vault recover error" = "Fout bij herstellen van kluis, probeer het opnieuw";
@@ -1032,8 +1032,6 @@
 "Server.LocalOnly" = "Alleen lokaal";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galerij wordt binnenkort ondersteund";
-"Gallery.Unavailable.Message" = "Gebruik voorlopig alsjeblieft de desktop app";
 "Gallery.Author" = "Gemaakt door @%@";
 "Gallery.Install" = "Installeer";
 "Gallery.InstallToNew" = "Installeer in nieuwe ruimte";
@@ -1067,7 +1065,6 @@
 "Min X characters" = "Min %@ tekens";
 "Pending" = "In behandeling...";
 "Manage payment" = "Beheer betaling";
-"This name is not availabe" = "Deze naam is niet beschikbaar";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
 "Confirm" = "Bevestigen";

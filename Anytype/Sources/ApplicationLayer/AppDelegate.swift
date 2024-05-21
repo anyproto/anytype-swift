@@ -9,6 +9,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var eventListener = MiddlewareEventsListener()
     private lazy var configurator = AppConfigurator()
     
+    @Injected(\.accountEventHandler)
+    private var accountEventHandler: AccountEventHandlerProtocol
+    @Injected(\.fileErrorEventHandler)
+    private var fileErrorEventHandler: FileErrorEventHandlerProtocol
+    @Injected(\.deviceSceneStateListener)
+    private var deviceSceneStateListener: DeviceSceneStateListenerProtocol
+    
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
@@ -23,9 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configurator.configure()
         // Global listeners
         eventListener.startListening()
-        ServiceLocator.shared.accountEventHandler().startSubscription()
-        ServiceLocator.shared.fileErrorEventHandler().startSubscription()
-        ServiceLocator.shared.deviceSceneStateListener().start()
+        accountEventHandler.startSubscription()
+        fileErrorEventHandler.startSubscription()
+        deviceSceneStateListener.start()
 
         return true
     }

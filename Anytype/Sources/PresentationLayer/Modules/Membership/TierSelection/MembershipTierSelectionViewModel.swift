@@ -14,8 +14,8 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     
     @Injected(\.membershipService)
     private var membershipService: MembershipServiceProtocol
-    @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    @Injected(\.membershipMetadataProvider)
+    private var membershipMetadataProvider: MembershipMetadataProviderProtocol
     
     init(
         userMembership: MembershipStatus,
@@ -28,6 +28,6 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     }
     
     func onAppear() async {        
-        state = await membershipStatusStorage.owningState(tier: tierToDisplay)
+        state = await membershipMetadataProvider.owningState(tier: tierToDisplay)
     }
 }

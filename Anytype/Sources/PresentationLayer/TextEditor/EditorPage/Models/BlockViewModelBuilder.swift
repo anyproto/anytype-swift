@@ -133,8 +133,8 @@ final class BlockViewModelBuilder {
                     showPage: { [weak self] objectId in
                         self?.router.showPage(objectId: objectId)
                     },
-                    openURL: { [weak router] url in
-                        router?.openUrl(url)
+                    openURL: { [weak output] url in
+                        output?.openUrl(url)
                     },
                     onShowStyleMenu: { [weak self] blockInformation in
                         Task { @MainActor [weak self] in
@@ -194,6 +194,7 @@ final class BlockViewModelBuilder {
                 return BlockFileViewModel(
                     informationProvider: blockInformationProvider,
                     handler: handler,
+                    documentId: documentId,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
@@ -203,6 +204,7 @@ final class BlockViewModelBuilder {
                 )
             case .image:
                 return BlockImageViewModel(
+                    documentId: documentId,
                     blockInformationProvider: blockInformationProvider,
                     handler: handler,
                     showIconPicker: { [weak self] blockId in
@@ -220,6 +222,7 @@ final class BlockViewModelBuilder {
                 )
             case .audio:
                 return AudioBlockViewModel(
+                    documentId: documentId,
                     informationProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in
@@ -246,7 +249,7 @@ final class BlockViewModelBuilder {
                 },
                 openUrl: { [weak self] url in
                     AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
-                    self?.router.openUrl(url.url)
+                    self?.output?.openUrl(url.url)
                 }
             )
         case let .link(content):
@@ -343,7 +346,7 @@ final class BlockViewModelBuilder {
                 objectDetailsProvider: objectDetailsProvider,
                 reloadable: blockCollectionController,
                 showFailureToast: { [weak self] message in
-                    self?.router.showFailureToast(message: message)
+                    self?.output?.showFailureToast(message: message)
                 },
                 openSet: { [weak self] data in
                     self?.router.showEditorScreen(data: data)

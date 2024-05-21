@@ -16,8 +16,8 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
         return audioPlayer.rate != 0 && audioPlayer.error == nil
     }
 
-    var duration: Double? {
-        return audioPlayer.currentItem?.asset.duration.seconds
+    func duration() async -> Double? {
+        return try? await audioPlayer.currentItem?.asset.load(.duration).seconds
     }
 
     var currentTime: Double {

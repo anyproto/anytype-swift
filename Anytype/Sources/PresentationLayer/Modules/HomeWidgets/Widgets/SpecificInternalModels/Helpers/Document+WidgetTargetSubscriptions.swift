@@ -23,4 +23,19 @@ extension BaseDocumentProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func targetDetailsPublisher(targetObjectId: String) -> AnyPublisher<FileDetails, Never> {
+        syncPublisher
+            .compactMap { [weak self] _ -> ObjectDetails? in
+                guard let self else { return nil }
+                return detailsStorage.get(id: targetObjectId)
+            }
+            .removeDuplicates()
+            .map { FileDetails(objectDetails: $0) }
+            .eraseToAnyPublisher()
+    }
+    
+    func targetFileDetails(targetObjectId: String) -> FileDetails? {
+        detailsStorage.get(id: targetObjectId).map { FileDetails(objectDetails: $0) }
+    }
 }

@@ -77,25 +77,25 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     func setupSubscriptions() {
         subscriptions = []
         
-        document.syncStatus.sink { [weak self] status in
-            self?.handleSyncStatus(status: status)
+        document.syncStatusPublisher.receiveOnMain().sink { [weak self] data in
+            self?.handleSyncStatus(data: data)
         }.store(in: &subscriptions)
         
         document.flattenBlockIds.receiveOnMain().sink { [weak self] ids in
             self?.handleUpdate(ids: ids)
         }.store(in: &subscriptions)
         
-        document.detailsPublisher.sink { [weak self] _ in
+        document.detailsPublisher.receiveOnMain().sink { [weak self] _ in
             self?.handleTemplatesIfNeeded()
         }.store(in: &subscriptions)
         
-        document.permissionsPublisher.sink { [weak self] permissions in
+        document.permissionsPublisher.receiveOnMain().sink { [weak self] permissions in
             self?.handleTemplatesIfNeeded()
             self?.viewInput?.update(permissions: permissions)
             self?.blocksStateManager.checkOpenedState()
         }.store(in: &subscriptions)
         
-        headerModel.$header.sink { [weak self] value in
+        headerModel.$header.receiveOnMain().sink { [weak self] value in
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
@@ -200,10 +200,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         }
     }
     
-    private func handleSyncStatus(status: SyncStatus) {
+    private func handleSyncStatus(data: DocumentSyncStatusData) {
         let data = SyncStatusData(
-            status: status,
-            networkId: activeWorkspaceStorage.workspaceInfo.networkId
+            status: data.syncStatus,
+            networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+            isHidden: data.layout == .participant
         )
         viewInput?.update(syncStatusData: data)
     }
