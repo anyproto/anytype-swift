@@ -32,7 +32,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Injected(\.documentsProvider)
     private var documentsProvider: DocumentsProviderProtocol
     
-    private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
     private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
@@ -85,10 +84,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var membershipStatusSubscription: AnyCancellable?
 
     init(
-        homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
         editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
     ) {
-        self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
         self.editorCoordinatorAssembly = editorCoordinatorAssembly
         
         membershipStatusSubscription = Container.shared
@@ -127,10 +124,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
         self.dismissAllPresented = dismissAllPresented
-    }
-    
-    func homeWidgetsModule(info: AccountInfo) -> AnyView? {
-        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
     }
     
     func editorModule(data: EditorScreenData) -> AnyView {

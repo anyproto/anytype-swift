@@ -7,11 +7,7 @@ final class DI: DIProtocol {
     // MARK: - DIProtocol
     
     lazy var coordinatorsDI: CoordinatorsDIProtocol = {
-        return CoordinatorsDI(serviceLocator: serviceLocator, modulesDI: modulesDI)
-    }()
-    
-    lazy var modulesDI: ModulesDIProtocol = {
-        return ModulesDI()
+        return CoordinatorsDI(serviceLocator: serviceLocator)
     }()
     
     lazy var serviceLocator: ServiceLocator = {

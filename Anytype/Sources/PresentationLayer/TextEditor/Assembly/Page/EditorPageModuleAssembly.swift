@@ -26,16 +26,13 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     private let serviceLocator: ServiceLocator
     // TODO: Delete coordinator dependency
     private let coordinatorsDI: CoordinatorsDIProtocol
-    private let modulesDI: ModulesDIProtocol
     
     nonisolated init(
         serviceLocator: ServiceLocator,
-        coordinatorsDI: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol
+        coordinatorsDI: CoordinatorsDIProtocol
     ) {
         self.serviceLocator = serviceLocator
         self.coordinatorsDI = coordinatorsDI
-        self.modulesDI = modulesDI
     }
 
     func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView {

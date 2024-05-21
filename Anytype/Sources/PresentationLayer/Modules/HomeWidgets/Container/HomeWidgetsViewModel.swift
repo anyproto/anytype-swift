@@ -22,8 +22,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage: AccountParticipantsStorageProtocol
-    
-    private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
+    @Injected(\.homeWidgetsRecentStateManager)
+    private var recentStateManager: HomeWidgetsRecentStateManagerProtocol
     
     weak var output: HomeWidgetsModuleOutput?
     
@@ -38,11 +38,9 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.info = info
-        self.recentStateManagerProtocol = recentStateManagerProtocol
         self.output = output
         self.widgetObject = documentService.document(objectId: info.widgetsId)
         subscribeOnWallpaper()
@@ -51,7 +49,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
             let blocks = widgetObject.children.filter(\.isWidget)
-            recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
+            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
             
             let newWidgetBlocks = blocks.compactMap { widgetObject.widgetInfo(block: $0) }
             
