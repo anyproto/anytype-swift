@@ -559,7 +559,6 @@
 		2A80D04A2ABADD4600DB0513 /* EditorCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */; };
 		2A80D04C2ABADD5800DB0513 /* EditorSetCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */; };
 		2A80D04E2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */; };
-		2A80D0502ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */; };
 		2A80D0562ABAE17F00DB0513 /* EditorPageCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0532ABAE17F00DB0513 /* EditorPageCoordinatorView.swift */; };
 		2A80D0572ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0542ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift */; };
 		2A80D0622ABAFE9200DB0513 /* EditorNavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */; };
@@ -2317,7 +2316,6 @@
 		2A80D0492ABADD4600DB0513 /* EditorCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorView.swift; sourceTree = "<group>"; };
 		2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorViewModel.swift; sourceTree = "<group>"; };
-		2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetCoordinatorAssembly.swift; sourceTree = "<group>"; };
 		2A80D0532ABAE17F00DB0513 /* EditorPageCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorView.swift; sourceTree = "<group>"; };
 		2A80D0542ABAE17F00DB0513 /* EditorPageCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A80D0612ABAFE9200DB0513 /* EditorNavigationBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarView.swift; sourceTree = "<group>"; };
@@ -6125,7 +6123,6 @@
 			children = (
 				2A80D04B2ABADD5800DB0513 /* EditorSetCoordinatorView.swift */,
 				2A80D04D2ABADD6000DB0513 /* EditorSetCoordinatorViewModel.swift */,
-				2A80D04F2ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift */,
 			);
 			path = EditorSetFlow;
 			sourceTree = "<group>";
@@ -11292,7 +11289,6 @@
 				3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */,
 				53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */,
 				2EED4F562B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift in Sources */,
-				2A80D0502ABADD6C00DB0513 /* EditorSetCoordinatorAssembly.swift in Sources */,
 				2A5B53B92A80DCA500BC993B /* SpaceSettingsCoordinatorView.swift in Sources */,
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,

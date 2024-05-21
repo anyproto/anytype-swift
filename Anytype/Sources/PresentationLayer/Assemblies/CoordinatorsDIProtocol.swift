@@ -4,5 +4,4 @@ protocol CoordinatorsDIProtocol: AnyObject {
     func home() -> HomeCoordinatorAssemblyProtocol
     func application() -> ApplicationCoordinatorAssemblyProtocol
     func editor() -> EditorCoordinatorAssemblyProtocol
-    func editorSet() -> EditorSetCoordinatorAssemblyProtocol
 }
