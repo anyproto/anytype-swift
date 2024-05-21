@@ -23,15 +23,14 @@ protocol EditorPageModuleAssemblyProtocol: AnyObject {
 @MainActor
 final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
-    // TODO: Delete coordinator dependency
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    
     private let coordinatorsDI: CoordinatorsDIProtocol
     
     nonisolated init(
-        serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol
     ) {
-        self.serviceLocator = serviceLocator
         self.coordinatorsDI = coordinatorsDI
     }
 
@@ -60,7 +59,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             showHeader: showHeader
         )
 
-        let document = serviceLocator.documentService().document(
+        let document = documentService.document(
             objectId: data.objectId,
             forPreview: data.isOpenedForPreview
         )

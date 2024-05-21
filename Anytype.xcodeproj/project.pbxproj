@@ -1349,7 +1349,6 @@
 		3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFD226F8593D003A606A /* SlashAction.swift */; };
 		3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFD326F8593D003A606A /* SlashMenuItemFilterMatch.swift */; };
 		3DE0CFE126F860EF003A606A /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0CFE026F860EF003A606A /* StringExtension.swift */; };
-		3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE296462617439C00EADB0A /* ServiceLocator.swift */; };
 		3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */; };
 		3DE3DE652BBDBAA300C9E6D3 /* MembershipPricingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3DE642BBDBAA300C9E6D3 /* MembershipPricingView.swift */; };
 		3DE3DE672BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3DE662BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift */; };
@@ -3123,7 +3122,6 @@
 		3DE0CFD226F8593D003A606A /* SlashAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashAction.swift; sourceTree = "<group>"; };
 		3DE0CFD326F8593D003A606A /* SlashMenuItemFilterMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuItemFilterMatch.swift; sourceTree = "<group>"; };
 		3DE0CFE026F860EF003A606A /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		3DE296462617439C00EADB0A /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; };
 		3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		3DE3DE632BBD7E6F00C9E6D3 /* LocalStoreKitConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = LocalStoreKitConfiguration.storekit; sourceTree = "<group>"; };
 		3DE3DE642BBDBAA300C9E6D3 /* MembershipPricingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipPricingView.swift; sourceTree = "<group>"; };
@@ -3796,7 +3794,6 @@
 				2A8DCACF28C635B90029B914 /* RelationStorage */,
 				2E6F3E1B2A4DB160002F4278 /* SceneState */,
 				2A816AC52AD7DC0D00975BCA /* ServerConfigirationStorage */,
-				3DE296462617439C00EADB0A /* ServiceLocator.swift */,
 				2A82AB372B9754CB00AA8E18 /* ServicesDI.swift */,
 				2A29FD2D2A701BBB007A8549 /* SpaceStorage */,
 				3D66BBFA2BD90AC6006B5930 /* StoreKitService */,
@@ -10913,7 +10910,6 @@
 				2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */,
 				2A6693732A7104EA007747DD /* BasicIconImageGuideline.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
-				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,

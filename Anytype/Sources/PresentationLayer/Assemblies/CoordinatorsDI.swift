@@ -3,16 +3,10 @@ import UIKit
 
 final class CoordinatorsDI: CoordinatorsDIProtocol {
     
-    private let serviceLocator: ServiceLocator
-    
-    init(serviceLocator: ServiceLocator) {
-        self.serviceLocator = serviceLocator
-    }
-    
     // MARK: - CoordinatorsDIProtocol
     
     func templates() -> TemplatesCoordinatorAssemblyProtocol {
-        return TemplatesCoordinatorAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
+        return TemplatesCoordinatorAssembly(coordinatorsDI: self)
     }
     
     @MainActor
@@ -31,11 +25,11 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
-        EditorSetCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator)
+        EditorSetCoordinatorAssembly(coordinatorsID: self)
     }
 
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        EditorPageCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator)
+        EditorPageCoordinatorAssembly(coordinatorsID: self)
     }
 
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
@@ -43,7 +37,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorPageModule() -> EditorPageModuleAssemblyProtocol {
-        EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
+        EditorPageModuleAssembly(coordinatorsDI: self)
     }
 }
 

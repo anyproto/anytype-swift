@@ -9,14 +9,11 @@ protocol EditorSetCoordinatorAssemblyProtocol {
 final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
-    private let serviceLocator: ServiceLocator
     
     init(
-        coordinatorsID: CoordinatorsDIProtocol,
-        serviceLocator: ServiceLocator
-    ) {
+        coordinatorsID: CoordinatorsDIProtocol
+   ) {
         self.coordinatorsID = coordinatorsID
-        self.serviceLocator = serviceLocator
     }
     
     // MARK: - EditorSetCoordinatorAssemblyProtocol

@@ -8,14 +8,11 @@ protocol TemplatesCoordinatorAssemblyProtocol: AnyObject {
 
 final class TemplatesCoordinatorAssembly: TemplatesCoordinatorAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
     private let coordinatorsDI: CoordinatorsDIProtocol
     
     init(
-        serviceLocator: ServiceLocator,
         coordinatorsDI: CoordinatorsDIProtocol
     ) {
-        self.serviceLocator = serviceLocator
         self.coordinatorsDI = coordinatorsDI
     }
     
