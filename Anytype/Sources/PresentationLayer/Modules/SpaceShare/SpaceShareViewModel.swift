@@ -39,6 +39,8 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     @Published var canStopShare = false
+    @Published var canDeleteLink = false
+    @Published var canRemoveMember = false
     
     init(onMoreInfo: @escaping () -> Void) {
         self.onMoreInfo = onMoreInfo
@@ -122,9 +124,12 @@ final class SpaceShareViewModel: ObservableObject {
     private func updateView() {
         guard let participantSpaceView else { return }
         
-        canStopShare = participantSpaceView.canStopShare
-        canChangeReaderToWriter = participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
-        canChangeWriterToReader = participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
+        canStopShare = participantSpaceView.canStopSharing
+        canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions
+            && participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
+        canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions 
+            && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
+        canRemoveMember = participantSpaceView.permissions.canEditPermissions
         
         rows = participants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
@@ -176,7 +181,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.Permissions.reader,
                 isSelected: participant.permission == .reader,
                 destructive: false,
-                disabled: !canChangeWriterToReader && participant.permission != .reader,
+                enabled: canChangeWriterToReader || participant.permission == .reader,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .reader)
                 }
@@ -185,7 +190,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.Permissions.writer,
                 isSelected: participant.permission == .writer,
                 destructive: false,
-                disabled: !canChangeReaderToWriter && participant.permission != .writer,
+                enabled: canChangeReaderToWriter || participant.permission == .writer,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .writer)
                 }
@@ -194,7 +199,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.RemoveMember.title,
                 isSelected: false,
                 destructive: true,
-                disabled: false,
+                enabled: canRemoveMember,
                 action: { [weak self] in
                     self?.showRemoveAlert(participant: participant)
                 }
