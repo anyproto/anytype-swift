@@ -14,23 +14,25 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     
     @StateObject private var model: WidgetContainerViewModel<ContentVM>
     @ObservedObject var contentModel: ContentVM
+    @Binding private var homeState: HomeWidgetsState
+    
     var content: Content
     
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
+        homeState: Binding<HomeWidgetsState>,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?,
         content: Content
     ) {
         self.contentModel = contentModel
         self.content = content
+        self._homeState = homeState
         self._model = StateObject(
             wrappedValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
-                stateManager: stateManager,
                 contentModel: contentModel,
                 output: output
             )
@@ -74,6 +76,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             }
             .snackbar(toastBarData: $model.toastData)
         }
+        .twoWayBinding(viewState: $homeState, modelState: $model.homeState)
     }
     
     @ViewBuilder

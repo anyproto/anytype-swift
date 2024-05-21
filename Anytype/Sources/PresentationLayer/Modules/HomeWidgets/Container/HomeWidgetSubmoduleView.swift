@@ -6,7 +6,7 @@ struct HomeWidgetSubmoduleView: View {
     
     let widgetInfo: BlockWidgetInfo
     let widgetObject: BaseDocumentProtocol
-    let stateManager: HomeWidgetsStateManagerProtocol
+    @Binding var homeState: HomeWidgetsState
     let output: CommonWidgetModuleOutput?
     
     var body: some View {
@@ -89,6 +89,6 @@ struct HomeWidgetSubmoduleView: View {
     }
     
     private var widgetData: WidgetSubmoduleData {
-        WidgetSubmoduleData(widgetBlockId: widgetInfo.id, widgetObject: widgetObject, stateManager: stateManager, output: output)
+        WidgetSubmoduleData(widgetBlockId: widgetInfo.id, widgetObject: widgetObject, homeState: $homeState, output: output)
     }
 }

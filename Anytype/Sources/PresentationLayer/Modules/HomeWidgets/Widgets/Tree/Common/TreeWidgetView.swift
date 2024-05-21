@@ -25,7 +25,7 @@ struct TreeWidgetView: View {
         WidgetContainerView(
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
-            stateManager: data.stateManager,
+            homeState: data.homeState,
             contentModel: model,
             output: data.output,
             content: content

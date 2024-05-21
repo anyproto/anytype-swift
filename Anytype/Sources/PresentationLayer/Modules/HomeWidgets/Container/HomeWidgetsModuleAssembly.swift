@@ -42,12 +42,10 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
         output: HomeWidgetsModuleOutput,
         widgetOutput: CommonWidgetModuleOutput?
     ) -> HomeWidgetsViewModel {
-        let stateManager = HomeWidgetsStateManager()
         let recentStateManagerProtocol = HomeWidgetsRecentStateManager()
         
         return HomeWidgetsViewModel(
             info: info,
-            stateManager: stateManager,
             recentStateManagerProtocol: recentStateManagerProtocol,
             output: output
         )

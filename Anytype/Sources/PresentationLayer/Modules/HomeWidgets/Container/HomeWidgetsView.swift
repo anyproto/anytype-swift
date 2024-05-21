@@ -20,7 +20,7 @@ struct HomeWidgetsView: View {
                             WidgetSwipeTipView()
                         }
                         ForEach(model.widgetBlocks) { widgetInfo in
-                            HomeWidgetSubmoduleView(widgetInfo: widgetInfo, widgetObject: model.widgetObject, stateManager: model.stateManager, output: model.output)
+                            HomeWidgetSubmoduleView(widgetInfo: widgetInfo, widgetObject: model.widgetObject, homeState: $model.homeState, output: model.output)
                         }
                         BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                         HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
@@ -53,9 +53,6 @@ struct HomeWidgetsView: View {
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
-        }
-        .onChange(of: model.homeState) { _ in
-            model.onHomeStateChanged()
         }
     }
 }
