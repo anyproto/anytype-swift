@@ -13,10 +13,7 @@ protocol HomeWidgetsModuleAssemblyProtocol {
 
 final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
     
-    private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
-    
-    init(widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.widgetsSubmoduleDI = widgetsSubmoduleDI
+    init() {
     }
     
     // MARK: - HomeWidgetsModuleAssemblyProtocol
@@ -50,7 +47,6 @@ final class HomeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol {
         
         return HomeWidgetsViewModel(
             info: info,
-            registry: widgetsSubmoduleDI.homeWidgetsRegistry(stateManager: stateManager, widgetOutput: widgetOutput),
             stateManager: stateManager,
             recentStateManagerProtocol: recentStateManagerProtocol,
             output: output
