@@ -20,7 +20,8 @@ final class EditorSetCoordinatorViewModel:
     let data: EditorSetObject
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationSettingsCoordinator)
+    private var setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
@@ -40,13 +41,8 @@ final class EditorSetCoordinatorViewModel:
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     
-    init(
-        data: EditorSetObject,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    ) {
+    init(data: EditorSetObject) {
         self.data = data
-        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-
     }
     
     // MARK: - EditorSetModuleOutput

@@ -17,7 +17,7 @@ struct EditorPageModuleInputContainer: EditorPageModuleInput {
 
 @MainActor
 protocol EditorPageModuleAssemblyProtocol: AnyObject {
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView
+    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState
 }
 
 @MainActor
@@ -26,23 +26,9 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     @Injected(\.documentService)
     private var documentService: OpenedDocumentsProviderProtocol
     
-    private let coordinatorsDI: CoordinatorsDIProtocol
+    nonisolated init() {}
     
-    nonisolated init(
-        coordinatorsDI: CoordinatorsDIProtocol
-    ) {
-        self.coordinatorsDI = coordinatorsDI
-    }
-
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView {
-        return EditorPageView(
-            stateModel: self.buildStateModel(data: data, output: output, showHeader: showHeader)
-        ).eraseToAnyView()
-    }
-    
-    // MARK: - Private
-    
-    private func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
+    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
         
@@ -66,8 +52,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let router = EditorRouter(
             viewController: controller,
             document: document,
-            templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(),
             output: output
         )
 

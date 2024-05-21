@@ -29,7 +29,7 @@ struct EditorCoordinatorView: View {
         case .bin:
             WidgetObjectListBinView(output: model)
         case .page(let data):
-            model.makePage(data: data)
+            EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case .set(let data):
             model.makeSet(data: data)
         }

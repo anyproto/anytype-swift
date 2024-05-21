@@ -22,8 +22,7 @@ final class EditorSetCoordinatorAssembly: EditorSetCoordinatorAssemblyProtocol {
     func make(data: EditorSetObject) -> AnyView {
         EditorSetCoordinatorView(
             model: EditorSetCoordinatorViewModel(
-                data: data,
-                setObjectCreationSettingsCoordinator: self.coordinatorsID.setObjectCreationSettings().make()
+                data: data
             )
         ).eraseToAnyView()
     }

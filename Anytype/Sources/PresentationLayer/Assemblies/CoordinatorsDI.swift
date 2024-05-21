@@ -5,10 +5,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     // MARK: - CoordinatorsDIProtocol
     
-    func templates() -> TemplatesCoordinatorAssemblyProtocol {
-        return TemplatesCoordinatorAssembly(coordinatorsDI: self)
-    }
-    
     @MainActor
     func home() -> HomeCoordinatorAssemblyProtocol {
         return HomeCoordinatorAssembly(
@@ -27,18 +23,6 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
         EditorSetCoordinatorAssembly(coordinatorsID: self)
     }
-
-    func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        EditorPageCoordinatorAssembly(coordinatorsID: self)
-    }
-
-    func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
-        SetObjectCreationSettingsCoordinatorAssembly(coordinatorsDI: self)
-    }
-
-    func editorPageModule() -> EditorPageModuleAssemblyProtocol {
-        EditorPageModuleAssembly(coordinatorsDI: self)
-    }
 }
 
 extension Container {
@@ -48,5 +32,13 @@ extension Container {
     
     var legacySharingTip: Factory<SharingTipCoordinatorProtocol> {
         self { SharingTipCoordinator() }
+    }
+    
+    var legacyTemplatesCoordinator: Factory<TemplatesCoordinatorProtocol> {
+        self { TemplatesCoordinator() }
+    }
+    
+    var legacySetObjectCreationSettingsCoordinator: Factory<SetObjectCreationSettingsCoordinatorProtocol> {
+        self { SetObjectCreationSettingsCoordinator() }
     }
 }
