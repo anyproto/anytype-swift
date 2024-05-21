@@ -24,7 +24,6 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var accountParticipantStorage: AccountParticipantsStorageProtocol
     
     private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
-    let stateManager: HomeWidgetsStateManagerProtocol
     
     weak var output: HomeWidgetsModuleOutput?
     
@@ -39,17 +38,14 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        stateManager: HomeWidgetsStateManagerProtocol,
         recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.info = info
-        self.stateManager = stateManager
         self.recentStateManagerProtocol = recentStateManagerProtocol
         self.output = output
         self.widgetObject = documentService.document(objectId: info.widgetsId)
         subscribeOnWallpaper()
-        setupInitialState()
     }
     
     func startWidgetObjectTask() async {
@@ -68,13 +64,13 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
-            stateManager.setHomeState(canEdit ? .readwrite : .readonly)
+            homeState = canEdit ? .readwrite : .readonly
         }
     }
     
     func onEditButtonTap() {
         AnytypeAnalytics.instance().logEditWidget()
-        stateManager.setHomeState(.editWidgets)
+        homeState = .editWidgets
     }
     
     func dropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
@@ -105,20 +101,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onCreateWidgetSelected(context: .editor)
     }
     
-    // TODO: Delete after migration.
-    func onHomeStateChanged() {
-        if stateManager.homeState != homeState {
-            stateManager.setHomeState(homeState)
-        }
-    }
-    
     // MARK: - Private
-    
-    private func setupInitialState() {
-        stateManager.homeStatePublisher
-            .receiveOnMain()
-            .assign(to: &$homeState)
-    }
     
     private func subscribeOnWallpaper() {
         UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)
