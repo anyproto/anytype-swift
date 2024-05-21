@@ -1,4 +1,5 @@
 import Services
+import SwiftUI
 import Foundation
 import AnytypeCore
 
@@ -58,72 +59,54 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
         }
     }
     
-    private func buildTextBlockHighlights(with item: SearchMeta) -> HighlightsData? {
-        guard item.highlight.isNotEmpty else { return nil }
-        let text = item.highlight.replacingMarksWithBackgroundHighlight
-        let attrText = text.customMarkdownAttributedString.annotateCustomAttributes
-        return .text(attrText)
-    }
-    
-    private func buildRelationData(with item: SearchMeta) -> HighlightsData? {
-        guard item.relationKey != BundledRelationKey.name.rawValue else {
+    private func buildRelationData(with meta: SearchMeta) -> HighlightsData? {
+        guard meta.relationKey != BundledRelationKey.name.rawValue else {
             return nil
         }
         
-        guard let relationDetails = try? relationDetailsStorage.relationsDetails(for: item.relationKey, spaceId: workspaceInfo.accountSpaceId) else {
+        guard let relationDetails = try? relationDetailsStorage.relationsDetails(for: meta.relationKey, spaceId: workspaceInfo.accountSpaceId) else {
             return nil
         }
         
         switch relationDetails.format {
         case .longText, .shortText:
-            let highlight = item.highlight.replacingMarksWithBackgroundHighlight
-            return textHighlightsData(with: relationDetails, highlight: highlight)
+            return textHighlightsData(with: relationDetails, meta: meta)
         case .status:
-            guard let details = item.relationDetails.asDetails else { return nil }
+            guard let details = meta.relationDetails.asDetails else { return nil }
             let option = RelationOption(details: details)
             let relationStatusOption = Relation.Status.Option(option: option)
             return .status(name: relationDetails.name, option: relationStatusOption)
         case .tag:
-            guard let details = item.relationDetails.asDetails else { return nil }
+            guard let details = meta.relationDetails.asDetails else { return nil }
             let option = RelationOption(details: details)
             let relationTagOption = Relation.Tag.Option(option: option)
             return .tag(name: relationDetails.name, option: relationTagOption)
         default:
-            let highlight = item.highlight.removeMarks
-            return textHighlightsData(with: relationDetails, highlight: highlight)
+            return nil
         }
     }
     
-    private func textHighlightsData(with relationDetails: RelationDetails, highlight: String) -> HighlightsData? {
-        guard highlight.isNotEmpty else { return nil }
-        let text = relationDetails.name + ": " + highlight
-        let attrText = text.customMarkdownAttributedString.annotateCustomAttributes
-        return .text(attrText)
-    }
-}
-
-enum GlobalSearchDataTag {
-    static let start = "<mark>"
-    static let end = "</mark>"
-}
-
-private extension String {
-    var replacingMarksWithBackgroundHighlight: String {
-        replacingOccurrences(of: GlobalSearchDataTag.start, with: BackgroundHighlightAttributeSkyTag.start)
-            .replacingOccurrences(of: GlobalSearchDataTag.end, with: BackgroundHighlightAttributeSkyTag.end)
-    }
-
-    var removeMarks: String {
-        replacingOccurrences(of: GlobalSearchDataTag.start, with: "")
-            .replacingOccurrences(of: GlobalSearchDataTag.end, with: "")
+    private func buildTextBlockHighlights(with meta: SearchMeta) -> HighlightsData? {
+        guard let attributedString = attributedString(for: meta) else { return nil }
+        return .text(attributedString)
     }
     
-    var customMarkdownAttributedString: AttributedString {
-        (try? AttributedString(
-            markdown: self,
-            including: AttributeScopes.CustomAttributes.self,
-            options: AttributedString.MarkdownParsingOptions(allowsExtendedAttributes: true))
-        ) ?? AttributedString(self)
+    private func textHighlightsData(with relationDetails: RelationDetails, meta: SearchMeta) -> HighlightsData? {
+        guard let attributedString = attributedString(for: meta) else { return nil }
+        let result = AttributedString(relationDetails.name + ":") + attributedString
+        return .text(result)
+    }
+    
+    private func attributedString(for meta: SearchMeta) -> AttributedString? {
+        guard meta.highlight.isNotEmpty else { return nil }
+        var attrAtring = AttributedString(meta.highlight)
+        for range in meta.highlightRanges where range.from < range.to  {
+            let length = range.to - range.from
+            if let r = Range<AttributedString.Index>(NSRange(location: Int(range.from), length: Int(length)), in: attrAtring) {
+                attrAtring[r].backgroundColor = Color.Light.sky
+            }
+        }
+        return attrAtring
     }
 }
 
