@@ -15,16 +15,13 @@ protocol EditorPageCoordinatorAssemblyProtocol {
 final class EditorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
-    private let modulesDI: ModulesDIProtocol
     private let serviceLocator: ServiceLocator
     
     nonisolated init(
         coordinatorsID: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol,
         serviceLocator: ServiceLocator
     ) {
         self.coordinatorsID = coordinatorsID
-        self.modulesDI = modulesDI
         self.serviceLocator = serviceLocator
     }
     

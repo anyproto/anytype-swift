@@ -19,7 +19,7 @@ struct HomeCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: AccountInfo.self) { info in
-                            model.homeWidgetsModule(info: info)
+                            HomeWidgetsView(info: info, output: model)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             model.editorModule(data: data)

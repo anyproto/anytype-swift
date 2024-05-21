@@ -1,9 +1,24 @@
 import Foundation
 import SwiftUI
+import Services
 
-struct HomeWidgetsView: View {    
-    @StateObject var model: HomeWidgetsViewModel
+struct HomeWidgetsView: View {
+    let info: AccountInfo
+    let output: HomeWidgetsModuleOutput?
+    
+    var body: some View {
+        HomeWidgetsInternalView(info: info, output: output)
+            .id(info.hashValue)
+    }
+}
+
+private struct HomeWidgetsInternalView: View {
+    @StateObject private var model: HomeWidgetsViewModel
     @State var dndState = DragState()
+    
+    init(info: AccountInfo, output: HomeWidgetsModuleOutput?) {
+        self._model = StateObject(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
+    }
     
     var body: some View {
         ZStack(alignment: .bottom) {

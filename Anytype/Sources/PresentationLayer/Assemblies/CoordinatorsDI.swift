@@ -4,11 +4,9 @@ import UIKit
 final class CoordinatorsDI: CoordinatorsDIProtocol {
     
     private let serviceLocator: ServiceLocator
-    private let modulesDI: ModulesDIProtocol
     
-    init(serviceLocator: ServiceLocator, modulesDI: ModulesDIProtocol) {
+    init(serviceLocator: ServiceLocator) {
         self.serviceLocator = serviceLocator
-        self.modulesDI = modulesDI
     }
     
     // MARK: - CoordinatorsDIProtocol
@@ -20,8 +18,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     @MainActor
     func home() -> HomeCoordinatorAssemblyProtocol {
         return HomeCoordinatorAssembly(
-            coordinatorsID: self,
-            modulesDI: modulesDI
+            coordinatorsID: self
         )
     }
 
@@ -30,7 +27,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
     
     func editor() -> EditorCoordinatorAssemblyProtocol {
-        EditorCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI)
+        EditorCoordinatorAssembly(coordinatorsID: self)
     }
 
     func editorSet() -> EditorSetCoordinatorAssemblyProtocol {
@@ -38,7 +35,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorPage() -> EditorPageCoordinatorAssemblyProtocol {
-        EditorPageCoordinatorAssembly(coordinatorsID: self, modulesDI: modulesDI, serviceLocator: serviceLocator)
+        EditorPageCoordinatorAssembly(coordinatorsID: self, serviceLocator: serviceLocator)
     }
 
     func setObjectCreationSettings() -> SetObjectCreationSettingsCoordinatorAssemblyProtocol {
@@ -46,7 +43,7 @@ final class CoordinatorsDI: CoordinatorsDIProtocol {
     }
 
     func editorPageModule() -> EditorPageModuleAssemblyProtocol {
-        EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self, modulesDI: modulesDI)
+        EditorPageModuleAssembly(serviceLocator: serviceLocator, coordinatorsDI: self)
     }
 }
 

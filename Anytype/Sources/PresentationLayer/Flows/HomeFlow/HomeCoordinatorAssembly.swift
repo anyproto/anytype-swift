@@ -9,14 +9,11 @@ protocol HomeCoordinatorAssemblyProtocol {
 final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
-    private let modulesDI: ModulesDIProtocol
     
     init(
-        coordinatorsID: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol
+        coordinatorsID: CoordinatorsDIProtocol
     ) {
         self.coordinatorsID = coordinatorsID
-        self.modulesDI = modulesDI
     }
     
     // MARK: - HomeCoordinatorAssemblyProtocol
@@ -31,7 +28,6 @@ final class HomeCoordinatorAssembly: HomeCoordinatorAssemblyProtocol {
     @MainActor
     private func makeModel() -> HomeCoordinatorViewModel {
         HomeCoordinatorViewModel(
-            homeWidgetsModuleAssembly: modulesDI.homeWidgets(),
             editorCoordinatorAssembly: coordinatorsID.editor()
         )
     }

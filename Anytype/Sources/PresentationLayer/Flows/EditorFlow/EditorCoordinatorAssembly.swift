@@ -10,11 +10,9 @@ protocol EditorCoordinatorAssemblyProtocol {
 final class EditorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol {
     
     private let coordinatorsID: CoordinatorsDIProtocol
-    private let modulesDI: ModulesDIProtocol
     
-    nonisolated init(coordinatorsID: CoordinatorsDIProtocol, modulesDI: ModulesDIProtocol) {
+    nonisolated init(coordinatorsID: CoordinatorsDIProtocol) {
         self.coordinatorsID = coordinatorsID
-        self.modulesDI = modulesDI
     }
     
     // MARK: - EditorCoordinatorAssemblyProtocol
