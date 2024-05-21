@@ -34,10 +34,6 @@ extension ParticipantSpaceView {
         permissions.canCancelJoinRequest
     }
     
-    var canStopShare: Bool {
-        permissions.canStopShare
-    }
-    
     var canBeArchive: Bool {
         permissions.canBeArchive
     }
