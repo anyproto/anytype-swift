@@ -861,6 +861,8 @@ public struct Anytype_Model_Search {
 
     public var highlight: String = String()
 
+    public var highlightRanges: [Anytype_Model_Range] = []
+
     public var blockID: String = String()
 
     public var relationKey: String = String()
@@ -6201,9 +6203,10 @@ extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._Messa
   public static let protoMessageName: String = Anytype_Model_Search.protoMessageName + ".Meta"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "highlight"),
-    2: .same(proto: "blockId"),
-    3: .same(proto: "relationKey"),
-    4: .same(proto: "relationDetails"),
+    2: .same(proto: "highlightRanges"),
+    3: .same(proto: "blockId"),
+    4: .same(proto: "relationKey"),
+    5: .same(proto: "relationDetails"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6213,9 +6216,10 @@ extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._Messa
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.highlight) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
-      case 4: try { try decoder.decodeSingularMessageField(value: &self._relationDetails) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.highlightRanges) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._relationDetails) }()
       default: break
       }
     }
@@ -6229,20 +6233,24 @@ extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.highlight.isEmpty {
       try visitor.visitSingularStringField(value: self.highlight, fieldNumber: 1)
     }
+    if !self.highlightRanges.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.highlightRanges, fieldNumber: 2)
+    }
     if !self.blockID.isEmpty {
-      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 3)
     }
     if !self.relationKey.isEmpty {
-      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 3)
+      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 4)
     }
     try { if let v = self._relationDetails {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Search.Meta, rhs: Anytype_Model_Search.Meta) -> Bool {
     if lhs.highlight != rhs.highlight {return false}
+    if lhs.highlightRanges != rhs.highlightRanges {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs._relationDetails != rhs._relationDetails {return false}

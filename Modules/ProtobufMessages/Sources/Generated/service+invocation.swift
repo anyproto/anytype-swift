@@ -2314,13 +2314,13 @@ public struct ClientCommands {
         }
     }
 
-    public static func membershipGetPaymentUrl(
-        _ request: Anytype_Rpc.Membership.GetPaymentUrl.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Membership.GetPaymentUrl.Request, Anytype_Rpc.Membership.GetPaymentUrl.Response> {
-        return Invocation(messageName: "MembershipGetPaymentUrl", request: request) { request in
+    public static func membershipRegisterPaymentRequest(
+        _ request: Anytype_Rpc.Membership.RegisterPaymentRequest.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.RegisterPaymentRequest.Request, Anytype_Rpc.Membership.RegisterPaymentRequest.Response> {
+        return Invocation(messageName: "MembershipRegisterPaymentRequest", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceMembershipGetPaymentUrl(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.GetPaymentUrl.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipRegisterPaymentRequest(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.RegisterPaymentRequest.Response(serializedData: responseData)
         }
     }
 
