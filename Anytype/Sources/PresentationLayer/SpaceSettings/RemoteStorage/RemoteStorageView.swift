@@ -15,6 +15,12 @@ struct RemoteStorageView: View {
                 model.onAppear()
             }
             .openUrl(url: $model.openUrl)
+            .sheet(isPresented: $model.showMembershipScreen) {
+                MembershipCoordinator()
+            }
+            .anytypeSheet(isPresented: $model.showMembershipEmailAlert) {
+                emailAlert
+            }
     }
     
     private var content: some View {
@@ -47,6 +53,20 @@ struct RemoteStorageView: View {
             .if(!model.contentLoaded) {
                 $0.redacted(reason: .placeholder)
                   .allowsHitTesting(false)
+            }
+        }
+    }
+    
+    private var emailAlert: some View {
+        BottomAlertView(
+            title: Loc.Membership.Upgrade.title,
+            message: Loc.Membership.Upgrade.text
+        ) {
+            BottomAlertButton(
+                text: Loc.Membership.Upgrade.text,
+                style: .primary
+            ) {
+                model.onTapContactAnytype()
             }
         }
     }

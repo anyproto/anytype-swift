@@ -8,6 +8,7 @@ struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
     @State private var safariUrl: URL?
     @Injected(\.accountManager) private var accountManager: AccountManagerProtocol
+    @Injected(\.mailUrlBuilder) private var mailUrlBuilder: MailUrlBuilderProtocol
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
@@ -77,6 +78,7 @@ struct MembershipModuleView: View {
         }
     }
     
+    @MainActor
     var legal: some View {
         VStack(alignment: .leading) {
             MembershipLegalButton(text: Loc.Membership.Legal.details) {
@@ -96,14 +98,10 @@ struct MembershipModuleView: View {
         }
     }
     
+    @MainActor
     private var contactUs: some View {
         Button {
-            let mailLink = MailUrl(
-                to: AboutApp.membershipUpgradeMailTo,
-                subject: "\(Loc.upgrade) \(accountManager.account.id)",
-                body: Loc.Membership.Email.body
-            )
-            guard let mailUrl = mailLink.url else { return }
+            guard let mailUrl = mailUrlBuilder.membershipUpgrateUrl() else { return }
             openURL(mailUrl)
         } label: {
             Group {
