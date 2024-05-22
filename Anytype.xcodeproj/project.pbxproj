@@ -2996,9 +2996,9 @@
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannersView.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipConstants.swift; sourceTree = "<group>"; };
 		3D7C52CA2BFB3B1C00D1278C /* Anytype Dev StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype Dev StoreKit Configuration.storekit"; sourceTree = "<group>"; };
 		3D7C52CB2BFB3B4400D1278C /* Anytype StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype StoreKit Configuration.storekit"; sourceTree = "<group>"; };
+		3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipConstants.swift; sourceTree = "<group>"; };
 		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -12621,7 +12621,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12638,7 +12638,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -12666,7 +12666,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12683,7 +12683,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app;
@@ -12713,7 +12713,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -12739,7 +12739,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -12840,7 +12840,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_SWIFT_FLAGS = "-enable-upcoming-feature ConciseMagicFile";
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev;
@@ -12870,7 +12870,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AnytypeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -12903,7 +12903,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -12935,7 +12935,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -12968,7 +12968,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.AnytypeShareExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -13002,7 +13002,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -13036,7 +13036,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -13070,7 +13070,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.30.0;
+				MARKETING_VERSION = 0.31.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.anytype.app.dev.homewidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
