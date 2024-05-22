@@ -278,7 +278,7 @@
 		2A00A73529D19051007BE598 /* ReadableContentGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A73429D19051007BE598 /* ReadableContentGuide.swift */; };
 		2A00A74029D33AA7007BE598 /* TappableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A73F29D33AA7007BE598 /* TappableArea.swift */; };
 		2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */; };
-		2A01A4F62A1F9FA1002042FB /* MailToUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01A4F52A1F9FA1002042FB /* MailToUrl.swift */; };
+		2A01A4F62A1F9FA1002042FB /* MailUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01A4F52A1F9FA1002042FB /* MailUrl.swift */; };
 		2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A01A4F82A1FB507002042FB /* DeviceKit */; };
 		2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03039728ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift */; };
 		2A03039A28ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03039928ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift */; };
@@ -1231,6 +1231,7 @@
 		3D6F758B2BD0286F00F6C01E /* MembershipBannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7C52CD2BFB3F1A00D1278C /* MembershipConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */; };
+		3D7C52D02BFB6B0600D1278C /* MailUrlComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C52CF2BFB6B0600D1278C /* MailUrlComposer.swift */; };
 		3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */; };
 		3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */; };
 		3D7EA8D0268F636300C76974 /* BlockBookmarkConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */; };
@@ -2021,7 +2022,7 @@
 		2A00A73429D19051007BE598 /* ReadableContentGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadableContentGuide.swift; sourceTree = "<group>"; };
 		2A00A73F29D33AA7007BE598 /* TappableArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableArea.swift; sourceTree = "<group>"; };
 		2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+Helpers.swift"; sourceTree = "<group>"; };
-		2A01A4F52A1F9FA1002042FB /* MailToUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailToUrl.swift; sourceTree = "<group>"; };
+		2A01A4F52A1F9FA1002042FB /* MailUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailUrl.swift; sourceTree = "<group>"; };
 		2A03039728ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationActionViewModelProtocol.swift; sourceTree = "<group>"; };
 		2A03039928ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationCopyActionViewModel.swift; sourceTree = "<group>"; };
 		2A03039B28ABAC92002EFC46 /* TextRelationReloadContentActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationReloadContentActionViewModel.swift; sourceTree = "<group>"; };
@@ -2999,6 +3000,7 @@
 		3D7C52CA2BFB3B1C00D1278C /* Anytype Dev StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype Dev StoreKit Configuration.storekit"; sourceTree = "<group>"; };
 		3D7C52CB2BFB3B4400D1278C /* Anytype StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype StoreKit Configuration.storekit"; sourceTree = "<group>"; };
 		3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipConstants.swift; sourceTree = "<group>"; };
+		3D7C52CF2BFB6B0600D1278C /* MailUrlComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailUrlComposer.swift; sourceTree = "<group>"; };
 		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -3659,15 +3661,15 @@
 		03746CF722DE504600380AA1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				3D7C52CE2BFB6AEF00D1278C /* MailUrl */,
+				12DE403B264AD14E007B5074 /* Extensions */,
+				C92EA51927A7B74500D1306E /* PropertyWrappers */,
 				2AFF7AC6299CFB8B00B7746B /* Formatters */,
 				2AFFFB852924EE1000A487E1 /* ViewControllerProvider.swift */,
-				C92EA51927A7B74500D1306E /* PropertyWrappers */,
 				12426A2926DCFA1300693B1F /* KFScalingType.swift */,
 				1211AF7A27F4B84800BACB88 /* KFProcessorBuilder.swift */,
-				12DE403B264AD14E007B5074 /* Extensions */,
 				3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */,
 				531F0DE9283CCD8D000A0B31 /* Debouncer.swift */,
-				2A01A4F52A1F9FA1002042FB /* MailToUrl.swift */,
 				2AD934072A8F5C880093B6BF /* SwiftEntryKit+DebugError.swift */,
 			);
 			path = Helpers;
@@ -8728,6 +8730,15 @@
 			path = MembershipBannersView;
 			sourceTree = "<group>";
 		};
+		3D7C52CE2BFB6AEF00D1278C /* MailUrl */ = {
+			isa = PBXGroup;
+			children = (
+				2A01A4F52A1F9FA1002042FB /* MailUrl.swift */,
+				3D7C52CF2BFB6B0600D1278C /* MailUrlComposer.swift */,
+			);
+			path = MailUrl;
+			sourceTree = "<group>";
+		};
 		3D7DC2C12BB2D3F100A4F114 /* MembershipStatusStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -10932,6 +10943,7 @@
 				2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */,
 				2A2B331A2A7AA525004BD906 /* WidgetTypeCreateData.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
+				3D7C52D02BFB6B0600D1278C /* MailUrlComposer.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
 				2AC4349E2B7A074B006166BF /* SpaceShareCoordinatorView.swift in Sources */,
 				2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */,
@@ -12264,7 +12276,7 @@
 				2A00A73529D19051007BE598 /* ReadableContentGuide.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* FileActionsServiceProtocol.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
-				2A01A4F62A1F9FA1002042FB /* MailToUrl.swift in Sources */,
+				2A01A4F62A1F9FA1002042FB /* MailUrl.swift in Sources */,
 				2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */,

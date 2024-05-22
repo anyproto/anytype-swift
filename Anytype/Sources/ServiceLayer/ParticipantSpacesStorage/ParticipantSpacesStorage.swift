@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Services
 
+
 @MainActor
 protocol ParticipantSpacesStorageProtocol: AnyObject {
     var allParticipantSpaces: [ParticipantSpaceView] { get }
