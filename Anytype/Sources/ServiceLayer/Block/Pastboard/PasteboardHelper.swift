@@ -23,7 +23,7 @@ protocol PasteboardHelperProtocol {
     
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?)
     
-    var isPasteboardEmpty: Bool { get }
+    var isPasteboardEmpty: Bool { get } // Shows user dialog
     var numberOfItems: Int { get }
     var hasValidURL: Bool { get }
     var hasStrings: Bool { get }
