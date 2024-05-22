@@ -68,7 +68,7 @@ struct SpaceShareView: View {
     }
     
     private var inviteView: some View {
-        InviteLinkView(invite: model.inviteLink) {
+        InviteLinkView(invite: model.inviteLink, canDeleteLink: model.canDeleteLink) {
             model.onShareInvite()
         } onCopyLink: {
             model.onCopyLink()
@@ -86,11 +86,10 @@ struct SpaceShareView: View {
             Button(Loc.moreInfo) {
                 model.onMoreInfoTap()
             }
-            if model.canStopShare {
-                Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
-                    model.onStopSharing()
-                }
+            Button(Loc.SpaceShare.StopSharing.action, role: .destructive) {
+                model.onStopSharing()
             }
+            .disabled(!model.canStopShare)
         } label: {
             IconView(icon: .asset(.X24.more))
                 .frame(width: 24, height: 24)
