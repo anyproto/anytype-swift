@@ -890,7 +890,6 @@
 		2E1AA8082BD92EF40089B136 /* NewRelationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8072BD92EF40089B136 /* NewRelationCoordinatorView.swift */; };
 		2E1AA80A2BD92F060089B136 /* NewRelationCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8092BD92F060089B136 /* NewRelationCoordinatorViewModel.swift */; };
 		2E1AA80C2BD95A2B0089B136 /* RelationFormatsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA80B2BD95A2B0089B136 /* RelationFormatsData.swift */; };
-		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */; };
 		2E22F9E72B615053001EFCF3 /* SelectRelationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */; };
@@ -2659,7 +2658,6 @@
 		2E1AA8072BD92EF40089B136 /* NewRelationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCoordinatorView.swift; sourceTree = "<group>"; };
 		2E1AA8092BD92F060089B136 /* NewRelationCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E1AA80B2BD95A2B0089B136 /* RelationFormatsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsData.swift; sourceTree = "<group>"; };
-		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationModuleConfiguration.swift; sourceTree = "<group>"; };
 		2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationOption.swift; sourceTree = "<group>"; };
@@ -4090,7 +4088,6 @@
 				2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */,
 				2A6688922A1CCB1100D80CED /* AboutView.swift */,
 				2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */,
-				2E1C80E42A2F6EF000217C47 /* AboutApp.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -11474,7 +11471,6 @@
 				3DEFBB6F2BEBBAC00076832B /* MembershipNameValidationView.swift in Sources */,
 				2E6CF1672BE115CB002C7023 /* RelationsSearchData.swift in Sources */,
 				1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */,
-				2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */,
 				2A5B53B12A80DBA200BC993B /* SpaceSettingsView.swift in Sources */,
 				2A8302B52B075892002D6655 /* AnytypeNavigationViewBridge.swift in Sources */,
 				2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */,
