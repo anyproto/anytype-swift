@@ -867,6 +867,7 @@ public struct Anytype_Model_Search {
 
     public var relationKey: String = String()
 
+    /// todo: rename to dependantDetails
     public var relationDetails: SwiftProtobuf.Google_Protobuf_Struct {
       get {return _relationDetails ?? SwiftProtobuf.Google_Protobuf_Struct()}
       set {_relationDetails = newValue}
