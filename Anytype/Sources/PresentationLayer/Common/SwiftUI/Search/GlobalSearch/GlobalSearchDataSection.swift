@@ -2,9 +2,10 @@ import Foundation
 import Services
 
 struct GlobalSearchDataSection: Identifiable, Hashable {
-    let id = UUID()
     let searchData: [GlobalSearchData]
     let sectionConfig: SectionConfig?
+    
+    var id: Int { hashValue }
     
     init(searchData: [GlobalSearchData], sectionConfig: SectionConfig? = nil) {
         self.searchData = searchData
