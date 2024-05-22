@@ -26833,8 +26833,7 @@ public struct Anytype_Rpc {
 
     ///*
     /// Generate a unique id for payment request (for mobile clients)
-    /// Generate a link to Stripe where user can pay for the membership (for desktop client)
-    /// TODO: GO-3347 rename GetPaymentUrl to RegisterPaymentRequest
+    /// Generate a link to Stripe/Crypto where user can pay for the membership (for desktop client)
     public struct RegisterPaymentRequest {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -26856,6 +26855,12 @@ public struct Anytype_Rpc {
         public var nsName: String = String()
 
         public var nsNameType: Anytype_Model_NameserviceNameType = .anyName
+
+        /// for some tiers and payment methods (like crypto) we need an e-mail
+        /// please get if either from:
+        /// 1. Membership.GetStatus() -> anytype.model.Membership.userEmail field
+        /// 2. Ask user from the UI
+        public var userEmail: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -26910,6 +26915,9 @@ public struct Anytype_Rpc {
             case badAnyname // = 9
             case membershipAlreadyExists // = 10
             case canNotConnect // = 11
+
+            /// for tiers and payment methods that require that
+            case emailWrongFormat // = 12
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -26930,6 +26938,7 @@ public struct Anytype_Rpc {
               case 9: self = .badAnyname
               case 10: self = .membershipAlreadyExists
               case 11: self = .canNotConnect
+              case 12: self = .emailWrongFormat
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -26948,6 +26957,7 @@ public struct Anytype_Rpc {
               case .badAnyname: return 9
               case .membershipAlreadyExists: return 10
               case .canNotConnect: return 11
+              case .emailWrongFormat: return 12
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -27641,9 +27651,6 @@ public struct Anytype_Rpc {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
         // methods supported on all messages.
-
-        /// billingId is used to identify payment request on payment node side
-        public var billingID: String = String()
 
         /// receipt is a JWT-encoded string including info about subscription purchase
         public var receipt: String = String()
@@ -30772,6 +30779,7 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: Cas
     .badAnyname,
     .membershipAlreadyExists,
     .canNotConnect,
+    .emailWrongFormat,
   ]
 }
 
@@ -71025,6 +71033,7 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: SwiftProtobuf.M
     2: .same(proto: "paymentMethod"),
     3: .same(proto: "nsName"),
     4: .same(proto: "nsNameType"),
+    5: .same(proto: "userEmail"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -71037,6 +71046,7 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: SwiftProtobuf.M
       case 2: try { try decoder.decodeSingularEnumField(value: &self.paymentMethod) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.nsName) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.nsNameType) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.userEmail) }()
       default: break
       }
     }
@@ -71055,6 +71065,9 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: SwiftProtobuf.M
     if self.nsNameType != .anyName {
       try visitor.visitSingularEnumField(value: self.nsNameType, fieldNumber: 4)
     }
+    if !self.userEmail.isEmpty {
+      try visitor.visitSingularStringField(value: self.userEmail, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -71063,6 +71076,7 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Request: SwiftProtobuf.M
     if lhs.paymentMethod != rhs.paymentMethod {return false}
     if lhs.nsName != rhs.nsName {return false}
     if lhs.nsNameType != rhs.nsNameType {return false}
+    if lhs.userEmail != rhs.userEmail {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -71168,6 +71182,7 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error.Code: Swi
     9: .same(proto: "BAD_ANYNAME"),
     10: .same(proto: "MEMBERSHIP_ALREADY_EXISTS"),
     11: .same(proto: "CAN_NOT_CONNECT"),
+    12: .same(proto: "EMAIL_WRONG_FORMAT"),
   ]
 }
 
@@ -72037,8 +72052,7 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt: SwiftProtobuf.Message, S
 extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Rpc.Membership.VerifyAppStoreReceipt.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "billingId"),
-    2: .same(proto: "receipt"),
+    1: .same(proto: "receipt"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -72047,25 +72061,20 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Request: SwiftProtobuf.Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.billingID) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.receipt) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.receipt) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.billingID.isEmpty {
-      try visitor.visitSingularStringField(value: self.billingID, fieldNumber: 1)
-    }
     if !self.receipt.isEmpty {
-      try visitor.visitSingularStringField(value: self.receipt, fieldNumber: 2)
+      try visitor.visitSingularStringField(value: self.receipt, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Membership.VerifyAppStoreReceipt.Request, rhs: Anytype_Rpc.Membership.VerifyAppStoreReceipt.Request) -> Bool {
-    if lhs.billingID != rhs.billingID {return false}
     if lhs.receipt != rhs.receipt {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

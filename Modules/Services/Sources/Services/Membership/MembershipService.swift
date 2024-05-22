@@ -7,6 +7,7 @@ import StoreKit
 public enum MembershipServiceError: Error {
     case tierNotFound
     case forcefullyFailedValidation
+    case invalidBillingIdFormat
 }
 
 public protocol MembershipServiceProtocol {
@@ -20,8 +21,8 @@ public protocol MembershipServiceProtocol {
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
     func validateName(name: String, tierType: MembershipTierType) async throws
     
-    func getBillingId(name: String, tier: MembershipTier) async throws -> String
-    func verifyReceipt(billingId: String, receipt: String) async throws
+    func getBillingId(name: String, tier: MembershipTier) async throws -> UUID
+    func verifyReceipt(receipt: String) async throws
     
     func finalizeMembership(name: String) async throws
 }
@@ -78,22 +79,29 @@ final class MembershipService: MembershipServiceProtocol {
         }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort, .canNotConnect)
     }
     
-    public func getBillingId(name: String, tier: MembershipTier) async throws -> String {
-        try await ClientCommands.membershipRegisterPaymentRequest(.with {
+    public func getBillingId(name: String, tier: MembershipTier) async throws -> UUID {
+        let billingId = try await ClientCommands.membershipRegisterPaymentRequest(.with {
             $0.nsName = name
             $0.nsNameType = .anyName
             $0.paymentMethod = .methodInappApple
             $0.requestedTier = tier.type.id
-        }).invoke(ignoreLogErrors: .canNotConnect).billingID
+        })
+        .invoke(ignoreLogErrors: .canNotConnect)
+        .billingID
+        
+        guard let uuid = UUID(uuidString: billingId) else {
+            throw MembershipServiceError.invalidBillingIdFormat
+        }
+        
+        return uuid
     }
     
-    public func verifyReceipt(billingId: String, receipt: String) async throws {
+    public func verifyReceipt(receipt: String) async throws {
         guard !FeatureFlags.failReceiptValidation else {
             throw MembershipServiceError.forcefullyFailedValidation
         }
         
         try await ClientCommands.membershipVerifyAppStoreReceipt(.with {
-            $0.billingID = billingId
             $0.receipt = receipt
         }).invoke()
     }
