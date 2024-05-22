@@ -68,25 +68,25 @@ struct GlobalSearchView: View {
     }
     
     private func itemRow(for data: GlobalSearchData) -> some View {
-        Button {
-            dismiss()
-            model.onSelect(searchData: data)
-        } label: {
-            GlobalSearchCell(data: data)
-        }
-        .if(data.relatedLinks.isNotEmpty) {
-            $0.contextMenu {
-                Button(Loc.Search.Links.Show.title) {
-                    model.showRelatedObjects(data)
+        GlobalSearchCell(data: data)
+            .fixTappableArea()
+            .onTapGesture {
+                dismiss()
+                model.onSelect(searchData: data)
+            }
+            .if(data.relatedLinks.isNotEmpty) {
+                $0.contextMenu {
+                    Button(Loc.Search.Links.Show.title) {
+                        model.showRelatedObjects(data)
+                    }
+                }
+                .swipeActions {
+                    Button(Loc.Search.Links.Swipe.title) {
+                        model.showRelatedObjects(data)
+                    }
+                    .tint(Color.Button.active)
                 }
             }
-            .swipeActions {
-                Button(Loc.Search.Links.Swipe.title) {
-                    model.showRelatedObjects(data)
-                }
-                .tint(Color.Button.active)
-            }
-        }
     }
     
     @ViewBuilder
