@@ -24,21 +24,15 @@ final class SetObjectCreationSettingsCoordinator:
     ObjectSettingsCoordinatorOutput,
     SetObjectCreationSettingsOutput
 {
-    private let navigationContext: NavigationContextProtocol
-    private let editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
     private var onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     
     private var editorModuleInput: EditorPageModuleInput?
     
-    init(
-        navigationContext: NavigationContextProtocol,
-        editorPageCoordinatorAssembly: EditorPageCoordinatorAssemblyProtocol
-    ) {
-        self.navigationContext = navigationContext
-        self.editorPageCoordinatorAssembly = editorPageCoordinatorAssembly
-    }
+    nonisolated init() {}
     
     func showSetObjectCreationSettings(
         setDocument: SetDocumentProtocol,
@@ -74,7 +68,7 @@ final class SetObjectCreationSettingsCoordinator:
         onSetAsDefaultTempalte: @escaping (String) -> Void,
         completion: (() -> Void)?
     ) {
-        let editorView = editorPageCoordinatorAssembly.make(
+        let editorView = EditorPageCoordinatorView(
             data: EditorPageObject(
                 objectId: setting.templateId,
                 spaceId: setting.spaceId,

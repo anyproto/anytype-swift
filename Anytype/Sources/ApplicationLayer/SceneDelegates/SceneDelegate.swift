@@ -6,7 +6,6 @@ import DeepLinks
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var di: DIProtocol?
 
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
@@ -27,10 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
-        
-        let viewControllerProvider = ViewControllerProvider(sceneWindow: window)
-        let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
-        self.di = di
+        ViewControllerProvider.shared.sceneWindow = window
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         if let userActivity = connectionOptions.userActivities.first {
@@ -39,7 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
         
         
-        let applicationView = di.coordinatorsDI.application().makeView()
+        let applicationView = ApplicationCoordinatorView()
             .setKeyboardDismissEnv(window: window)
             .setPresentedDismissEnv(window: window)
             .setAppInterfaceStyleEnv(window: window)
@@ -47,10 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
         
-        ToastPresenter.shared = ToastPresenter(
-            viewControllerProvider: ViewControllerProvider(sceneWindow: window),
-            keyboardHeightListener: KeyboardHeightListener()
-        )
+        ToastPresenter.shared = ToastPresenter()
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {

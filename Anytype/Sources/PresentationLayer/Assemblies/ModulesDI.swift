@@ -1,25 +1,12 @@
 import Foundation
 
-final class ModulesDI: ModulesDIProtocol {
-    
-    private let uiHelpersDI: UIHelpersDIProtocol
-    private let widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol
-    
-    init(uiHelpersDI: UIHelpersDIProtocol, widgetsSubmoduleDI: WidgetsSubmoduleDIProtocol) {
-        self.uiHelpersDI = uiHelpersDI
-        self.widgetsSubmoduleDI = widgetsSubmoduleDI
+extension Container {
+
+    var legacyCreateObjectModuleAssembly: Factory<CreateObjectModuleAssemblyProtocol> {
+        self { CreateObjectModuleAssembly() }
     }
     
-    // MARK: - ModulesDIProtocol
-    
-    func createObject() -> CreateObjectModuleAssemblyProtocol {
-        return CreateObjectModuleAssembly()
-    }
-    
-    func homeWidgets() -> HomeWidgetsModuleAssemblyProtocol {
-        return HomeWidgetsModuleAssembly(
-            uiHelpersDI: uiHelpersDI,
-            widgetsSubmoduleDI:  widgetsSubmoduleDI
-        )
+    var legacyEditorPageModuleAssembly: Factory<EditorPageModuleAssemblyProtocol> {
+        self { EditorPageModuleAssembly() }
     }
 }

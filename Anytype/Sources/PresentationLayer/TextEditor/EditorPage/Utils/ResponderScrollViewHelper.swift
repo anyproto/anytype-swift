@@ -1,16 +1,15 @@
 import Foundation
 import UIKit
 
-
 @MainActor
 final class ResponderScrollViewHelper {
 
-    private let keyboardListener: KeyboardHeightListener
+    @Injected(\.keyboardHeightListener)
+    private var keyboardListener: KeyboardHeightListener
     private weak var scrollView: UIScrollView?
 
-    init(scrollView: UIScrollView, keyboardListener: KeyboardHeightListener) {
+    init(scrollView: UIScrollView) {
         self.scrollView = scrollView
-        self.keyboardListener = keyboardListener
     }
 
     func scrollBlockToVisibleArea(textView: UITextView) {

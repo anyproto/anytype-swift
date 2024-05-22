@@ -32,17 +32,16 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Injected(\.documentsProvider)
     private var documentsProvider: DocumentsProviderProtocol
     
-    private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
-    private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
-    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationCoordinator)
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    @Injected(\.legacySharingTip)
+    private var sharingTipCoordinator: SharingTipCoordinatorProtocol
     
     // MARK: - State
     
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
     private var paths = [String: HomePath]()
-    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol?
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
@@ -83,16 +82,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init(
-        homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
-        sharingTipCoordinator: SharingTipCoordinatorProtocol
-    ) {
-        self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
-        self.editorCoordinatorAssembly = editorCoordinatorAssembly
-        self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
-        self.sharingTipCoordinator = sharingTipCoordinator
+    init() {
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
@@ -132,14 +122,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.dismissAllPresented = dismissAllPresented
     }
     
-    func homeWidgetsModule(info: AccountInfo) -> AnyView? {
-        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
-    }
-    
-    func editorModule(data: EditorScreenData) -> AnyView {
-        return editorCoordinatorAssembly.make(data: data)
-    }
-
     func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
         TypeSearchForNewObjectCoordinatorView { [weak self] details in
             guard let self else { return }
@@ -199,8 +181,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
-        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make()
-        setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     
     func onManageSpacesSelected() {

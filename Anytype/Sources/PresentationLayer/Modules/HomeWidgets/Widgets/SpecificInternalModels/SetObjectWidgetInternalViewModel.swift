@@ -4,13 +4,14 @@ import Combine
 import UIKit
 
 @MainActor
-final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelProtocol {
+final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewInternalViewModelProtocol {
     
     // MARK: - DI
     
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+    @Injected(\.setSubscriptionDataBuilder)
+    private var setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
     private let subscriptionStorage: SubscriptionStorageProtocol
     private weak var output: CommonWidgetModuleOutput?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
@@ -41,16 +42,10 @@ final class SetObjectWidgetInternalViewModel: WidgetDataviewInternalViewModelPro
     var dataviewPublisher: AnyPublisher<WidgetDataviewState?, Never> { $dataview.eraseToAnyPublisher() }
     var allowCreateObject = true
     
-    init(
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol,
-        output: CommonWidgetModuleOutput?
-    ) {
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
-        self.setSubscriptionDataBuilder = setSubscriptionDataBuilder
-        self.output = output
+    init(data: WidgetSubmoduleData) {
+        self.widgetBlockId = data.widgetBlockId
+        self.widgetObject = data.widgetObject
+        self.output = data.output
         
         let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)

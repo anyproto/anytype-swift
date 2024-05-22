@@ -1,7 +1,8 @@
 import Foundation
 import Services
 
-struct BlockWidgetInfo: Equatable {
+struct BlockWidgetInfo: Equatable, Identifiable {
+    let id: String
     let block: BlockWidget
     let source: WidgetSource
 }

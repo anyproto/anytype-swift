@@ -13,24 +13,19 @@ protocol SetObjectCreationCoordinatorProtocol {
 @MainActor
 final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
-    private let navigationContext: NavigationContextProtocol
-    private let toastPresenter: ToastPresenterProtocol
-    private let createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyCreateObjectModuleAssembly)
+    private var createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
     private weak var output: SetObjectCreationCoordinatorOutput?
     private var customAnalyticsRoute: AnalyticsEventsRouteKind?
     
     @Injected(\.setObjectCreationHelper)
     private var objectCreationHelper: SetObjectCreationHelperProtocol
     
-    nonisolated init(
-        navigationContext: NavigationContextProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        createObjectModuleAssembly: CreateObjectModuleAssemblyProtocol
-    ) {
-        self.navigationContext = navigationContext
-        self.toastPresenter = toastPresenter
-        self.createObjectModuleAssembly = createObjectModuleAssembly
-    }
+    nonisolated init() {}
     
     func startCreateObject(
         setDocument: SetDocumentProtocol,

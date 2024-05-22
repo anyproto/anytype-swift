@@ -5,7 +5,7 @@ import AnytypeCore
 
 struct HomeCoordinatorView: View {
     
-    @StateObject var model: HomeCoordinatorViewModel
+    @StateObject private var model = HomeCoordinatorViewModel()
     @Environment(\.keyboardDismiss) var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
@@ -19,10 +19,10 @@ struct HomeCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: AccountInfo.self) { info in
-                            model.homeWidgetsModule(info: info)
+                            HomeWidgetsView(info: info, output: model)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
-                            model.editorModule(data: data)
+                            EditorCoordinatorView(data: data)
                         }
                     }
                 },
@@ -90,5 +90,5 @@ struct HomeCoordinatorView: View {
 }
 
 #Preview {
-    DI.preview.coordinatorsDI.home().make()
+    HomeCoordinatorView()
 }

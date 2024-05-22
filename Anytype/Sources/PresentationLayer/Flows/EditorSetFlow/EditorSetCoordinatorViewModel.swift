@@ -18,13 +18,17 @@ final class EditorSetCoordinatorViewModel:
     RelationValueCoordinatorOutput
 {
     let data: EditorSetObject
-    private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationCoordinator)
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationSettingsCoordinator)
+    private var setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
-    private let toastPresenter: ToastPresenterProtocol
-    private let navigationContext: NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
@@ -37,18 +41,8 @@ final class EditorSetCoordinatorViewModel:
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
     
-    init(
-        data: EditorSetObject,
-        setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        navigationContext: NavigationContextProtocol
-    ) {
+    init(data: EditorSetObject) {
         self.data = data
-        self.setObjectCreationCoordinator = setObjectCreationCoordinator
-        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.toastPresenter = toastPresenter
-        self.navigationContext = navigationContext
     }
     
     // MARK: - EditorSetModuleOutput

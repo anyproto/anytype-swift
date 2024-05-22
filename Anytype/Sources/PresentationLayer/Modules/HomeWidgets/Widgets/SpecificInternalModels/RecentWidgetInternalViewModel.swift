@@ -3,7 +3,7 @@ import Services
 import Combine
 
 @MainActor
-final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
@@ -24,13 +24,12 @@ final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     
     init(
-        type: RecentWidgetType,
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol
+        data: WidgetSubmoduleData,
+        type: RecentWidgetType
     ) {
         self.type = type
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
+        self.widgetBlockId = data.widgetBlockId
+        self.widgetObject = data.widgetObject
         self.name = type.title
     }
     

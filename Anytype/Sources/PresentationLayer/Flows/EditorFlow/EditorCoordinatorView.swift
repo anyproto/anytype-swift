@@ -3,8 +3,12 @@ import SwiftUI
 
 struct EditorCoordinatorView: View {
     
-    @StateObject var model: EditorCoordinatorViewModel
+    @StateObject private var model: EditorCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
+    
+    init(data: EditorScreenData) {
+        self._model = StateObject(wrappedValue: EditorCoordinatorViewModel(data: data))
+    }
     
     var body: some View {
         mainView
@@ -29,9 +33,9 @@ struct EditorCoordinatorView: View {
         case .bin:
             WidgetObjectListBinView(output: model)
         case .page(let data):
-            model.makePage(data: data)
+            EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case .set(let data):
-            model.makeSet(data: data)
+            EditorSetCoordinatorView(data: data)
         }
     }
 }

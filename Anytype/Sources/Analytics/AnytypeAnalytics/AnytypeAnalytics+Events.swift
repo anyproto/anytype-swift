@@ -136,11 +136,19 @@ extension AnytypeAnalytics {
         logCreateBlock(type: type.analyticsValue, spaceId: spaceId, route: route, style: type.styleAnalyticsValue)
     }
     
-    func logCreateBlock(type: String, spaceId: String, route: AnalyticsEventsRouteKind? = nil, style: String? = nil) {
+    func logCreateFileBlock(type: BlockContentType, spaceId: String, route: AnalyticsEventsRouteKind, fileExtension: String) {
+        logCreateBlock(type: type.analyticsValue, spaceId: spaceId, route: route, fileExtension: fileExtension)
+    }
+    
+    func logCreateBlock(type: String, spaceId: String, route: AnalyticsEventsRouteKind? = nil, style: String? = nil, fileExtension: String? = nil) {
         var props = [String: String]()
         props[AnalyticsEventsPropertiesKey.type] = type
         if let style = style {
             props[AnalyticsEventsPropertiesKey.blockStyle] = style
+        }
+        
+        if let fileExtension {
+            props[AnalyticsEventsPropertiesKey.fileExtension] = fileExtension
         }
         
         if let route {

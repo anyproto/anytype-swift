@@ -1,7 +1,7 @@
 import Foundation
 import AnytypeCore
 
-enum RecentWidgetType {
+enum RecentWidgetType: String {
     case recentEdit
     case recentOpen
 }

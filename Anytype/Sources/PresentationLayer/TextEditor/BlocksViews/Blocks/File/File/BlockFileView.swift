@@ -1,14 +1,21 @@
 import UIKit
 import Combine
+import Services
 
 struct BlockFileMediaData: Hashable {
-    let size: String
-    let name: String
-    let iconImageName: ImageAsset
+    let targetObjectId: String
+    let documentId: String
 }
 
 final class BlockFileView: UIView, BlockContentView {
 
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    
+    private var document: BaseDocumentProtocol?
+    private var targetObjectId: String?
+    private var cancellable: AnyCancellable?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -20,7 +27,17 @@ final class BlockFileView: UIView, BlockContentView {
     }
 
     func update(with configuration: BlockFileConfiguration) {
-        handle(data: configuration.data)
+       if document?.objectId != configuration.data.documentId {
+            document = documentService.document(objectId: configuration.data.documentId)
+        }
+        
+        if targetObjectId != configuration.data.targetObjectId {
+            targetObjectId = configuration.data.targetObjectId
+            cancellable = document?.targetDetailsPublisher(targetObjectId: configuration.data.targetObjectId)
+                .sinkOnMain { [weak self] fileDetails in
+                    self?.handle(fileDetails: fileDetails)
+                }
+        }
     }
 
     func setup() {
@@ -48,10 +65,13 @@ final class BlockFileView: UIView, BlockContentView {
         translatesAutoresizingMaskIntoConstraints = true
     }
     
-    func handle(data: BlockFileMediaData) {
-        titleView.text = data.name
-        imageView.image = UIImage(asset: data.iconImageName)
-        sizeView.text = data.size
+    // MARK: - Private
+    
+    private func handle(fileDetails: FileDetails) {
+        titleView.text = fileDetails.fileName
+        let icon = FileIconBuilder.convert(mime: fileDetails.fileMimeType, fileName: fileDetails.fileName)
+        imageView.image = UIImage(asset: icon)
+        sizeView.text = ByteCountFormatter.fileFormatter.string(fromByteCount: Int64(fileDetails.sizeInBytes))
     }
     
     // MARK: - Views

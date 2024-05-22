@@ -11,7 +11,7 @@ public struct FileDetails {
     public let type: String
     public let spaceId: String
     
-    init(objectDetails: ObjectDetails) {
+    public init(objectDetails: ObjectDetails) {
         self.name = objectDetails.name
         self.fileExt = objectDetails.fileExt
         self.id = objectDetails.id
