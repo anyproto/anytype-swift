@@ -44,7 +44,7 @@ struct GlobalSearchView: View {
                         itemRow(for: data)
                     }
                 } header: {
-                    sectionHeader(for: section)
+                    sectionHeader(for: section.sectionConfig)
                 }
             }
         }
@@ -52,8 +52,8 @@ struct GlobalSearchView: View {
     }
     
     @ViewBuilder
-    private func sectionHeader(for section: GlobalSearchDataSection) -> some View {
-        if let sectionConfig = section.sectionConfig {
+    private func sectionHeader(for sectionConfig: GlobalSearchDataSection.SectionConfig?) -> some View {
+        if let sectionConfig {
             ListSectionHeaderView(title: sectionConfig.title, increasedTopPadding: false) {
                 Button {
                     model.clear()
@@ -88,7 +88,17 @@ struct GlobalSearchView: View {
         }
     }
     
+    @ViewBuilder
     private var emptyState: some View {
+        switch model.state.mode {
+        case .default:
+            defaultEmptyState
+        case .filtered:
+            filteredEmptyState
+        }
+    }
+    
+    private var defaultEmptyState: some View {
         EmptyStateView(
             title: Loc.nothingFound,
             subtitle: Loc.GlobalSearch.EmptyState.subtitle,
@@ -100,5 +110,16 @@ struct GlobalSearchView: View {
                 }
             )
         )
+    }
+    
+    private var filteredEmptyState: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(22)
+            sectionHeader(for: model.sectionConfig())
+            Spacer()
+            AnytypeText(Loc.GlobalSearch.EmptyFilteredState.title, style: .calloutRegular)
+                .foregroundColor(.Text.primary)
+            Spacer()
+        }
     }
 }

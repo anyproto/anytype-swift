@@ -94,7 +94,7 @@ final class GlobalSearchViewModel: ObservableObject {
         }
     }
     
-    private func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
+    func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
         switch state.mode {
         case .default:
             return nil
