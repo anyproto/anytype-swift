@@ -17,15 +17,11 @@ struct DropDataElement<Data> {
     var index: Int
 }
 
-final class DragState: ObservableObject {
-    @Published var dragInitiateId: String? = nil
-    @Published var dragInProgress: Bool = false
+struct DragState {
+    var dragInitiateId: String? = nil
+    var dragInProgress: Bool = false
     
-    // Not make Published, will be affect ui update.
-    // When one view set frame, all other view with DragState will be updated.
-    var frames: [String: CGRect] = [:]
-    
-    func resetState() {
+    mutating func resetState() {
         dragInitiateId = nil
         dragInProgress = false
     }

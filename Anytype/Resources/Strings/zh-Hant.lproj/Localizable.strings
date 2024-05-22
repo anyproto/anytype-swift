@@ -821,7 +821,7 @@
 "About.TermsOfUse" = "使用條款";
 "About.PrivacyPolicy" = "隱私政策";
 "About.TechInfo" = "技術資訊";
-"About.Mail.Subject" = "請求支援，資料庫 ID %@";
+"About.Mail.Subject" = "請求支援，筆記庫 ID %@";
 "About.Mail.Body" = "\n\n技術資訊\n%@";
 
 // MARK: - Cache
@@ -840,8 +840,6 @@
 "FileStorage.Space.Instruction" = "您可以在我們的加密備份節點上免費儲存最多 %@ 個檔案。 如果達到限制，檔案將僅儲存在本機。";
 "FileStorage.Space.Used" = "已使用 %@；總共 %@";
 "FileStorage.Space.GetMore" = "獲取更多空間";
-"FileStorage.Space.Mail.Subject" = "為帳戶 %@ 獲取更多儲存空間";
-"FileStorage.Space.Mail.Body" = "您好，Anytype 團隊。我聯繫你們是因為我的儲存容量不足了，因此想請求增加儲存容量。當前的儲存容量限制為 %@。我的帳戶 ID 是 %@。謝謝，%@.";
 "FileStorage.Local.Title" = "本機儲存";
 "FileStorage.Local.Instruction" = "為了節省本地設備上的空間，您可以將所有檔案傳輸到我們的加密備份節點。 當您打開這些檔案時，它們將被重新載入。";
 "FileStorage.Local.Used" = "已使用 %@";
@@ -1092,6 +1090,11 @@
  - 額外的共享空間
  具體來說，
  請在此提供您需求的具體細節。";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
 
 
 "Membership.Banner.Title1" = "一起創建願景";

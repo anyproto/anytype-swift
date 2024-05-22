@@ -26,8 +26,8 @@ public extension FeatureDescription {
     
     static let membership = FeatureDescription(
         title: "Membership 💸",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "5"),
-        defaultValue: false
+        type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
+        defaultValue: true
     )
     
     static let newGlobalSearch = FeatureDescription(
