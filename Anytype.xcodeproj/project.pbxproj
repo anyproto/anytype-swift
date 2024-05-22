@@ -1266,6 +1266,7 @@
 		3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */; };
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
 		3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */; };
+		3D9EEC382BFE4B06006F24AD /* AccountDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */; };
 		3DA414972B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */; };
 		3DA4149C2B70FF2F00960748 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */; };
 		3DA4149E2B72627D00960748 /* SearchServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4149D2B72627D00960748 /* SearchServiceProtocol.swift */; };
@@ -3034,6 +3035,7 @@
 		3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorMainItemModelsHolder.swift; sourceTree = "<group>"; };
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
 		3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdown.swift; sourceTree = "<group>"; };
+		3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataExtension.swift; sourceTree = "<group>"; };
 		3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangeTypeAccessoryView+Views.swift"; sourceTree = "<group>"; };
 		3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		3DA4149D2B72627D00960748 /* SearchServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceProtocol.swift; sourceTree = "<group>"; };
@@ -7086,6 +7088,7 @@
 			children = (
 				2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */,
 				3DB1CA0E27293733000D2779 /* AccountManager.swift */,
+				3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -10962,6 +10965,7 @@
 				C9099607281AD5220011682F /* RelationItemModel.swift in Sources */,
 				12195395278DA46E00D53653 /* TextRelationViewType.swift in Sources */,
 				127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */,
+				3D9EEC382BFE4B06006F24AD /* AccountDataExtension.swift in Sources */,
 				53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */,
 				2E975EF2287C23DA004DE574 /* SetSortRow.swift in Sources */,
 				3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */,

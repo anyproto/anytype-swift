@@ -25,6 +25,11 @@ final class SettingsViewModel: ObservableObject {
     private var subscriptions: [AnyCancellable] = []
     private var profileDataLoaded: Bool = false
     private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
+    private let isInAnytypeNetwork: Bool
+    
+    var canShowMemberhip: Bool {
+        isInAnytypeNetwork && FeatureFlags.membership
+    }
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
@@ -32,6 +37,10 @@ final class SettingsViewModel: ObservableObject {
     
     init(output: SettingsModuleOutput) {
         self.output = output
+        
+        let accountManager = Container.shared.accountManager.resolve()
+        isInAnytypeNetwork = accountManager.account.isInAnytypeNetwork
+        
         Task {
             await setupSubscription()
         }
