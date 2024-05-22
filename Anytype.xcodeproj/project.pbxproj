@@ -1041,7 +1041,6 @@
 		2EAA140C2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */; };
 		2EAFEE5C2BEA655D00DB190C /* SearchWithMetaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAFEE5B2BEA655D00DB190C /* SearchWithMetaService.swift */; };
 		2EAFEE5E2BEA751100DB190C /* GlobalSearchDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAFEE5D2BEA751100DB190C /* GlobalSearchDataBuilder.swift */; };
-		2EAFEE612BEBF2DD00DB190C /* AttributeScopes+Custom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAFEE602BEBF2DD00DB190C /* AttributeScopes+Custom.swift */; };
 		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2EC46DD72ABE000D00DEA4BD /* ObjectTypesConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */; };
 		2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */; };
@@ -2811,7 +2810,6 @@
 		2EAA140B2AA63C0B000A712A /* SetRelationsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelationsCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2EAFEE5B2BEA655D00DB190C /* SearchWithMetaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchWithMetaService.swift; sourceTree = "<group>"; };
 		2EAFEE5D2BEA751100DB190C /* GlobalSearchDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchDataBuilder.swift; sourceTree = "<group>"; };
-		2EAFEE602BEBF2DD00DB190C /* AttributeScopes+Custom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AttributeScopes+Custom.swift"; sourceTree = "<group>"; };
 		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2EC46DD62ABE000D00DEA4BD /* ObjectTypesConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesConfiguration.swift; sourceTree = "<group>"; };
 		2EC46DD82ABE081800DEA4BD /* InstalledObjectTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledObjectTypeView.swift; sourceTree = "<group>"; };
@@ -3000,9 +2998,9 @@
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannersView.swift; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
-		3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipConstants.swift; sourceTree = "<group>"; };
 		3D7C52CA2BFB3B1C00D1278C /* Anytype Dev StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype Dev StoreKit Configuration.storekit"; sourceTree = "<group>"; };
 		3D7C52CB2BFB3B4400D1278C /* Anytype StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype StoreKit Configuration.storekit"; sourceTree = "<group>"; };
+		3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipConstants.swift; sourceTree = "<group>"; };
 		3D7DC2C22BB2D40B00A4F114 /* MembershipStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusStorage.swift; sourceTree = "<group>"; };
 		3D7EA8A5268EF38D00C76974 /* BlockFileConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D7EA8CF268F636300C76974 /* BlockBookmarkConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockBookmarkConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Bookmark/View/FullData/BlockBookmarkConfiguration.swift; sourceTree = SOURCE_ROOT; };
@@ -7649,14 +7647,6 @@
 			path = SearchWithMeta;
 			sourceTree = "<group>";
 		};
-		2EAFEE5F2BEBF2A600DB190C /* Attributes */ = {
-			isa = PBXGroup;
-			children = (
-				2EAFEE602BEBF2DD00DB190C /* AttributeScopes+Custom.swift */,
-			);
-			path = Attributes;
-			sourceTree = "<group>";
-		};
 		2EC669222A167513001F71BC /* Transition */ = {
 			isa = PBXGroup;
 			children = (
@@ -7781,7 +7771,6 @@
 		2ECF1DC42BBEDE6A007C68E2 /* GlobalSearch */ = {
 			isa = PBXGroup;
 			children = (
-				2EAFEE5F2BEBF2A600DB190C /* Attributes */,
 				2ECF1DC52BBEE2AC007C68E2 /* GlobalSearchView.swift */,
 				2ECF1DC72BBEE2EC007C68E2 /* GlobalSearchViewModel.swift */,
 				2ECF1DC92BBEE2F8007C68E2 /* GlobalSearchModuleData.swift */,
@@ -11502,7 +11491,6 @@
 				2A673C1129B0BC3E00E3D672 /* SettingsModuleOutput.swift in Sources */,
 				2A28723A2B4D8C30007B3D59 /* GalleryInstallationCoordinatorViewModel.swift in Sources */,
 				86C4B36B2B21CD63003B8C51 /* SharingTip.swift in Sources */,
-				2EAFEE612BEBF2DD00DB190C /* AttributeScopes+Custom.swift in Sources */,
 				2E975EDB287C2325004DE574 /* SetFiltersListViewModel.swift in Sources */,
 				2A536E602BAB13D500CF2FF3 /* SpaceCancelRequestAlert.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
