@@ -837,8 +837,6 @@
 "FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Space.GetMore" = "Daha fazla alan alın";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Yerel depolama";
 "FileStorage.Local.Instruction" = "Cihazınızda yer kazanmak için tüm dosyalarınızı şifrelenmiş yedek düğümümüze taşıyabilirsiniz. Açtığınızda bu dosyalar tekrar geri yüklenecektir.";
 "FileStorage.Local.Used" = "Kullanılan %@";
@@ -1089,6 +1087,11 @@
 - Additional shared spaces
 Specifically,
 Please provide specific details of your needs here.";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
