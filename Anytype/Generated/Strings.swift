@@ -849,6 +849,9 @@ internal enum Loc {
     }
   }
   internal enum GlobalSearch {
+    internal enum EmptyFilteredState {
+      internal static let title = Loc.tr("Localizable", "GlobalSearch.EmptyFilteredState.title")
+    }
     internal enum EmptyState {
       internal static let subtitle = Loc.tr("Localizable", "GlobalSearch.EmptyState.subtitle")
     }

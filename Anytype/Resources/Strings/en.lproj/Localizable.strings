@@ -337,6 +337,7 @@
 "Search.Links.Header.title" = "Related to: %@";
 "Search.Links.Swipe.title" = "Related to";
 "GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 
 // MARK: - Home
 
