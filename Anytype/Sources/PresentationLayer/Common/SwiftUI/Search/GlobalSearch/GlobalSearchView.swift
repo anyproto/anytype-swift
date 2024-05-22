@@ -49,6 +49,7 @@ struct GlobalSearchView: View {
             }
         }
         .scrollIndicators(.never)
+        .id(model.state)
     }
     
     @ViewBuilder
