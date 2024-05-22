@@ -3832,6 +3832,9 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: Localize
             case .canNotConnect:
                 return String(localized: "Membership.RegisterPaymentRequest.canNotConnect", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.RegisterPaymentRequest.canNotConnect")
+            case .emailWrongFormat:
+                return String(localized: "Membership.RegisterPaymentRequest.emailWrongFormat", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.emailWrongFormat")
             case .UNRECOGNIZED:
                 return ""
         }
