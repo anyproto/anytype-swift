@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct GlobalSearchDataSection: Identifiable {
+struct GlobalSearchDataSection: Identifiable, Hashable {
     let id = UUID()
     let searchData: [GlobalSearchData]
     let sectionConfig: SectionConfig?
@@ -11,13 +11,13 @@ struct GlobalSearchDataSection: Identifiable {
         self.sectionConfig = sectionConfig
     }
     
-    struct SectionConfig {
+    struct SectionConfig: Hashable {
         let title: String
         let buttonTitle: String
     }
 }
 
-struct GlobalSearchData: Identifiable {
+struct GlobalSearchData: Identifiable, Hashable {
     let id = UUID()
     let iconImage: Icon?
     let title: String
