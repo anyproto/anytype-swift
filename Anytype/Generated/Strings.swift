@@ -816,14 +816,6 @@ internal enum Loc {
       internal static func used(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Space.Used", String(describing: p1), String(describing: p2))
       }
-      internal enum Mail {
-        internal static func body(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
-          return Loc.tr("Localizable", "FileStorage.Space.Mail.Body", String(describing: p1), String(describing: p2), String(describing: p3))
-        }
-        internal static func subject(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "FileStorage.Space.Mail.Subject", String(describing: p1))
-        }
-      }
     }
   }
   internal enum FilesList {
@@ -1004,9 +996,15 @@ internal enum Loc {
         return Loc.tr("Localizable", "Membership.Success.Title", String(describing: p1))
       }
     }
+    internal enum Upgrade {
+      internal static let button = Loc.tr("Localizable", "Membership.Upgrade.Button")
+      internal static let text = Loc.tr("Localizable", "Membership.Upgrade.Text")
+      internal static let title = Loc.tr("Localizable", "Membership.Upgrade.Title")
+    }
   }
   internal enum MembershipServiceError {
     internal static let forcefullyFailedValidation = Loc.tr("Localizable", "MembershipServiceError.forcefullyFailedValidation")
+    internal static let invalidBillingIdFormat = Loc.tr("Localizable", "MembershipServiceError.invalidBillingIdFormat")
     internal static let tierNotFound = Loc.tr("Localizable", "MembershipServiceError.tierNotFound")
   }
   internal enum Mention {

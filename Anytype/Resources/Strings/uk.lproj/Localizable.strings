@@ -837,8 +837,6 @@
 "FileStorage.Space.Instruction" = "Ви можете зберегти до %@ ваших файлів на нашому зашифрованому резервному вузлі безплатно. Якщо ви досягнете ліміту, файли будуть збережені лише локально.";
 "FileStorage.Space.Used" = "%@ з %@ використано";
 "FileStorage.Space.GetMore" = "Отримати більше місця для зберігання";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Локальне сховище";
 "FileStorage.Local.Instruction" = "Щоб заощадити місце на вашому локальному пристрої, ви можете вивантажити всі ваші файли на наш зашифрований вузол резервного копіювання. Файли будуть завантажені назад, коли ви їх відкриєте.";
 "FileStorage.Local.Used" = "%@ використано";
@@ -1089,6 +1087,11 @@
 - Additional shared spaces
 Specifically,
 Please provide specific details of your needs here.";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

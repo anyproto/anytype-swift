@@ -4,6 +4,7 @@ import SwiftUI
 struct InviteLinkView: View {
     
     let invite: URL?
+    let canDeleteLink: Bool
     let onShareInvite: () -> Void
     let onCopyLink: () -> Void
     let onDeleteSharingLink: () -> Void
@@ -38,6 +39,7 @@ struct InviteLinkView: View {
                     } label: {
                         Text(Loc.SpaceShare.DeleteSharingLink.title)
                     }
+                    .disabled(!canDeleteLink)
                 } label: {
                     IconView(icon: .asset(.X24.more))
                         .frame(width: 24, height: 24)

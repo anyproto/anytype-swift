@@ -87,10 +87,12 @@ struct SettingsAppearanceView: View {
                     }
                     Spacer.fixedWidth(20)
                 }
-                .padding(.vertical, 14)
+                .padding(.top, 16)
             }
         }
+        .padding(.vertical, 14)
         .divider()
+        .padding(.horizontal, 20)
     }
 
     private func appIcon(_ icon: AppIcon) -> some View {

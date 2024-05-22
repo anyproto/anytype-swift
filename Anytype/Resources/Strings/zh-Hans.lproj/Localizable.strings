@@ -837,8 +837,6 @@
 "FileStorage.Space.Instruction" = "您可以在我们的节点上免费加密备份存储多达 %@ 的文件。如果达到限制，文件将仅存储在本地。";
 "FileStorage.Space.Used" = "已使用 %@ ,总共有 %@ ";
 "FileStorage.Space.GetMore" = "获取更多空间";
-"FileStorage.Space.Mail.Subject" = "为 %@ 文库获取更多存储空间";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "本地存储";
 "FileStorage.Local.Instruction" = "为了节省本地设备上的空间，您可以将所有文件卸载到我们的加密备份节点。打开文件时，文件将被重新加载。";
 "FileStorage.Local.Used" = "%@ 已使用";
@@ -1092,6 +1090,11 @@
 - 额外的共享空间
 具体来说，
 请在这里提供您需要的具体细节。";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
 
 
 "Membership.Banner.Title1" = "一起构建愿景";
