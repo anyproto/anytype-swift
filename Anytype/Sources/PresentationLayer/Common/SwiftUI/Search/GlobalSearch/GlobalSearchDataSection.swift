@@ -1,24 +1,23 @@
 import Foundation
 import Services
 
-struct GlobalSearchDataSection: Identifiable, Hashable {
+struct GlobalSearchDataSection: Identifiable {
+    let id = UUID()
     let searchData: [GlobalSearchData]
     let sectionConfig: SectionConfig?
-    
-    var id: Int { hashValue }
     
     init(searchData: [GlobalSearchData], sectionConfig: SectionConfig? = nil) {
         self.searchData = searchData
         self.sectionConfig = sectionConfig
     }
     
-    struct SectionConfig: Hashable {
+    struct SectionConfig {
         let title: String
         let buttonTitle: String
     }
 }
 
-struct GlobalSearchData: Identifiable, Hashable {
+struct GlobalSearchData: Identifiable {
     let id = UUID()
     let iconImage: Icon?
     let title: String
