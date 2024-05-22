@@ -836,8 +836,6 @@
 "FileStorage.Space.Instruction" = "Você pode armazenar até %@ de seus arquivos em nosso nó de backup criptografado gratuitamente. Se você atingir o limite, os arquivos serão armazenados apenas localmente.";
 "FileStorage.Space.Used" = "%@ de %@ usados";
 "FileStorage.Space.GetMore" = "Obtenha mais espaço";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Armazenamento local";
 "FileStorage.Local.Instruction" = "Para economizar espaço no seu dispositivo local, você pode descarregar todos os seus arquivos no nosso servidor de backup criptografado. Os arquivos serão carregados novamente quando forem abertos.";
 "FileStorage.Local.Used" = "%@ usados";
@@ -1089,6 +1087,11 @@
 - Additional shared spaces
 Specifically,
 Please provide specific details of your needs here.";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

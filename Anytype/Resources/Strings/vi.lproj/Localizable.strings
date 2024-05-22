@@ -837,8 +837,6 @@
 "FileStorage.Space.Instruction" = "Bạn có thể lưu miễn phí tối đa %@ tập tin trên điểm sao lưu bảo mật của chúng tôi. Khi chạm ngưỡng giới hạn, các tệp sẽ chỉ được lưu cục bộ.";
 "FileStorage.Space.Used" = "%@ trên %@ đã dùng";
 "FileStorage.Space.GetMore" = "Thêm bộ nhớ";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Bộ nhớ cục bộ";
 "FileStorage.Local.Instruction" = "Để tiết kiệm bộ nhớ trống trên thiết bị cục bộ của bạn, bạn có thể san hết tất cả tập tin lên điểm sao lưu bảo mật của chúng tôi. Các tệp này sẽ được tải lại khi bạn mở chúng.";
 "FileStorage.Local.Used" = "Đã dùng %@";
@@ -1089,6 +1087,11 @@
 - Additional shared spaces
 Specifically,
 Please provide specific details of your needs here.";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

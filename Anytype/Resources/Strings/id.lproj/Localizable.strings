@@ -836,8 +836,6 @@
 "FileStorage.Space.Instruction" = "Kamu bisa menyimpan berkasmu hingga %@ di simpul cadangan terenkripsi kami secara gratis. Jika kamu mencapai limit, berkas hanya akan disimpan secara lokal.";
 "FileStorage.Space.Used" = "%@ dari %@ digunakan";
 "FileStorage.Space.GetMore" = "Dapatkan ruang tambahan";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Halo, tim Anytype. Aku mengontak untuk meminta penambahan ruang penyimpanan karena penyimpananku sudah habis. Batas penyimpananku saat ini adalah %@. ID vault-ku adalah %@. Salam, %@.";
 "FileStorage.Local.Title" = "Penyimpanan lokal";
 "FileStorage.Local.Instruction" = "Untuk menghemat penyimpanan ruang pada perangkat lokal, anda dapat melepaskan semua berkas ke simpul cadangan terenkripsi kami. Berkas - berkas akan diunduh kembali saat kamu membuka mereka. ";
 "FileStorage.Local.Used" = "%@ digunakan";
@@ -1088,6 +1086,11 @@
 - Additional shared spaces
 Specifically,
 Please provide specific details of your needs here.";
+
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
 
 
 "Membership.Banner.Title1" = "Membangun Visi Bersama";
