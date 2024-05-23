@@ -82,6 +82,14 @@ final class MarkupsViewController: UIViewController {
         }), for: .touchUpInside)
         return button
     }()
+    private lazy var justifyAlignButton: ButtonWithImage = {
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextStyles.Align.justify))
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.viewModel.handle(action: .selectAlignment(.justify))
+            UISelectionFeedbackGenerator().selectionChanged()
+        }), for: .touchUpInside)
+        return button
+    }()
 
     private let viewModel: MarkupViewModelProtocol
     private let viewDidCloseHandler: () -> Void
@@ -139,6 +147,7 @@ final class MarkupsViewController: UIViewController {
         bottomStackView.addArrangedSubview(leftAlignButton)
         bottomStackView.addArrangedSubview(centerAlignButton)
         bottomStackView.addArrangedSubview(rightAlignButton)
+        bottomStackView.addArrangedSubview(justifyAlignButton)
 
         codeButton.label.font = .uxBodyRegular
         codeButton.setTextColor(.Text.primary, state: .normal)
@@ -185,6 +194,7 @@ extension MarkupsViewController: MarkupViewProtocol {
             self.setup(button: self.leftAlignButton, with: state.alignment[.left, default: .disabled])
             self.setup(button: self.centerAlignButton, with: state.alignment[.center, default: .disabled])
             self.setup(button: self.rightAlignButton, with: state.alignment[.right, default: .disabled])
+            self.setup(button: self.justifyAlignButton, with: state.alignment[.justify, default: .disabled])
         }
     }
     

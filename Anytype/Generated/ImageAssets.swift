@@ -97,6 +97,7 @@ internal extension ImageAsset {
   enum TextStyles {
     enum Align {
       static let center = ImageAsset.bundle(name: "TextStyles/Align/Center")
+      static let justify = ImageAsset.bundle(name: "TextStyles/Align/Justify")
       static let `left` = ImageAsset.bundle(name: "TextStyles/Align/Left")
       static let `right` = ImageAsset.bundle(name: "TextStyles/Align/Right")
     }
