@@ -49,7 +49,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func split(
-        _ string: NSAttributedString,
+        _ string: SafeNSAttributedString,
         blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
