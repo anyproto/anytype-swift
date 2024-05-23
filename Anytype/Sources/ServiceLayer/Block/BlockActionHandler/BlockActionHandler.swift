@@ -186,10 +186,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         _ attribute: MarkupType,
         range: NSRange,
         blockId: String,
-        currentText: NSAttributedString?,
+        currentText: NSAttributedString,
         contentType: BlockContentType
-    ) async throws {
-        guard let currentText else { return }
+    )  async throws -> NSAttributedString {
+        
         let newText = markupChanger.setMarkup(
             attribute,
             range: range,
@@ -200,6 +200,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         AnytypeAnalytics.instance().logChangeTextStyle(attribute)
 
         try await changeText(newText, blockId: blockId)
+        
+        return newText
     }
     
     func changeText(_ text: NSAttributedString, blockId: String) async throws {

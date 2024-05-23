@@ -39,9 +39,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
         _ attribute: MarkupType,
         range: NSRange,
         blockId: String,
-        currentText: NSAttributedString?,
+        currentText: NSAttributedString,
         contentType: BlockContentType
-    ) async throws
+    ) async throws -> NSAttributedString
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String)
     func uploadFileAt(localPath: String, blockId: String)
     func createAndFetchBookmark(
