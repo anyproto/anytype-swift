@@ -107,14 +107,7 @@ final class SlashMenuActionHandler {
     }
     
     private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [String]) {
-        switch alignment {
-        case .left :
-            actionHandler.setAlignment(.left, blockIds: blockIds)
-        case .right:
-            actionHandler.setAlignment(.right, blockIds: blockIds)
-        case .center:
-            actionHandler.setAlignment(.center, blockIds: blockIds)
-        }
+        actionHandler.setAlignment(alignment.blockAlignment, blockIds: blockIds)
     }
     
     private func handleStyle(
