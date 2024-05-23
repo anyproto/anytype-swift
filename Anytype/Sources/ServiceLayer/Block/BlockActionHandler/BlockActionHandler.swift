@@ -188,7 +188,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockId: String,
         currentText: NSAttributedString,
         contentType: BlockContentType
-    )  async throws -> NSAttributedString {
+    ) async throws -> NSAttributedString {
         
         let newText = markupChanger.setMarkup(
             attribute,

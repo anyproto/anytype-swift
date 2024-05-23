@@ -203,7 +203,13 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 }
             case let .addStyle(style, currentText, styleRange, focusRange):
                 Task { @MainActor in
-                    let newText = try await actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: currentText, contentType: info.content.type)
+                    let newText = try await actionHandler.setTextStyle(
+                        style,
+                        range: styleRange,
+                        blockId: info.id,
+                        currentText: currentText,
+                        contentType: info.content.type
+                    )
                     resetSubject.send(newText)
                     textView.setFocus(.at(focusRange))
                 }
