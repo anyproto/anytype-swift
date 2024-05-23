@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import StoreKit
 
 fileprivate struct DebugTierData {
     let title: String
@@ -17,19 +18,130 @@ struct MembershipDebugView: View {
     private var storeKitService: StoreKitServiceProtocol
     
     @State private var tiers: [DebugTierData] = []
+    @State private var transactions: [StoreKit.Transaction] = []
+    @State private var toastBarData = ToastBarData.empty
+    
+    @State private var refundId: StoreKit.Transaction.ID?
+    @State private var showRefund = false
     
     var body: some View {
         ScrollView {
             membershipInfo
             tiersInfo
+            transactionsView
         }
         .frame(maxWidth: .infinity)
         .background(storage.currentStatus.tier?.gradient.ignoresSafeArea())
+        
+        .snackbar(toastBarData: $toastBarData)
+        .refundRequestSheet(for: refundId ?? 0, isPresented: $showRefund)
+        
         .task {
             await loadTiers()
+            await loadTransactions()
         }
     }
     
+    @MainActor
+    private var membershipInfo: some View {
+        VStack(alignment: .center) {
+            AnytypeText("Current tier", style: .heading)
+            if let mediumIcon = storage.currentStatus.tier?.mediumIcon {
+                Image(asset: mediumIcon)
+            }
+            AnytypeText(storage.currentStatus.debugDescription, style: .codeBlock)
+            Spacer()
+        }
+        .padding()
+    }
+    
+    private var tiersInfo: some View {
+        DisclosureGroup(
+            content: {
+                VStack(alignment: .leading) {
+                    ForEach(tiers, id: \.title) { tier in
+                        tierInfo(tier).newDivider()
+                    }
+                }
+            },
+            label: {
+                AnytypeText("All Tiers info", style: .heading)
+                    .foregroundColor(.Text.primary)
+                    .padding()
+            }
+        ).padding()
+    }
+    
+    private func tierInfo(_ tier: DebugTierData) -> some View {
+        HStack {
+            Image(asset: tier.image)
+            VStack(alignment: .leading) {
+                AnytypeText(tier.title, style: .codeBlock)
+                AnytypeText(tier.subtitle, style: .codeBlock)
+            }
+            Spacer()
+        }
+        .padding()
+    }
+    
+    private var transactionsView: some View {
+        DisclosureGroup(
+            content: {
+                if transactions.isNotEmpty {
+                    VStack(alignment: .leading) {
+                        ForEach(transactions) { transaction in
+                            transactionView(transaction: transaction)
+                        }
+                    }
+                } else {
+                    AnytypeText("No transactions 🫵😵‍💫", style: .heading)
+                        .foregroundColor(.Text.secondary)
+                        .padding()
+                }
+            },
+            label: {
+                AnytypeText("Transactions", style: .heading)
+                    .foregroundColor(.Text.primary)
+                    .padding()
+            }
+        ).padding()
+    }
+    
+    private func transactionView(transaction: StoreKit.Transaction) -> some View {
+        VStack(alignment: .center) {
+            AnytypeText("\(transaction.productID)", style: .bodyRegular)
+            AnytypeText("\(transaction.ownershipType.rawValue)", style: .bodyRegular)
+            if #available(iOS 17.0, *) {
+                AnytypeText("Transaction reason: \(transaction.reason.rawValue)", style: .bodyRegular)
+            }
+            AnytypeText("Purchase date: \(transaction.purchaseDate.description)", style: .caption1Medium)
+            if let expirationDate = transaction.expirationDate {
+                AnytypeText("Expires: \(expirationDate.description)", style: .caption1Medium)
+            }
+            AnytypeText("Environment: \(transaction.environment.rawValue)", style: .caption1Medium)
+            if let revocationReason = transaction.revocationReason {
+                AnytypeText("Revocation reason: \(revocationReason.localizedDescription)", style: .caption1Medium)
+                    .foregroundStyle(Color.System.red)
+            }
+            if let revocationDate = transaction.revocationDate {
+                AnytypeText("Revocation data: \(revocationDate)", style: .caption1Medium)
+                    .foregroundStyle(Color.System.red)
+            }
+            StandardButton("Copy to clipboard", style: .secondaryLarge) {
+                UIPasteboard.general.string = transaction.debugDescription
+                toastBarData = ToastBarData(text: "Copied debug info to clipboard", showSnackBar: true)
+            }
+            StandardButton("Refund", style: .warningLarge) {
+                refundId = transaction.id
+                showRefund = true
+            }
+        }
+        .padding()
+        .background(Color.Button.inactive.gradient)
+        .cornerRadius(18, style: .continuous)
+    }
+    
+    // MARK: - Logic
     func loadTiers() async {
         guard let tiersData = try? await service.getTiers(noCache: true) else { return }
         
@@ -55,39 +167,21 @@ struct MembershipDebugView: View {
             .compactMap { $0 }
     }
     
-    @MainActor
-    var membershipInfo: some View {
-        VStack(alignment: .center) {
-            AnytypeText("Current tier", style: .heading)
-            if let mediumIcon = storage.currentStatus.tier?.mediumIcon {
-                Image(asset: mediumIcon)
-            }
-            AnytypeText(storage.currentStatus.debugDescription, style: .codeBlock)
-            Spacer()
-        }
-        .padding()
-    }
-    
-    private var tiersInfo: some View {
-        VStack(alignment: .leading) {
-            AnytypeText("All Tiers info", style: .heading).padding()
-            
-            ForEach(tiers, id: \.title) { tier in
-                tierInfo(tier).newDivider()
+    func loadTransactions() async {
+        for await transaction in Transaction.all {
+            (try? checkVerified(transaction)).flatMap {
+                transactions.append($0)
             }
         }
     }
     
-    private func tierInfo(_ tier: DebugTierData) -> some View {
-        HStack {
-            Image(asset: tier.image)
-            VStack(alignment: .leading) {
-                AnytypeText(tier.title, style: .codeBlock)
-                AnytypeText(tier.subtitle, style: .codeBlock)
-            }
-            Spacer()
+    private func checkVerified<T>(_ verificationResult: VerificationResult<T>) throws -> T {
+        switch verificationResult {
+        case .unverified(_, let verificationError):
+            throw verificationError
+        case .verified(let signedType):
+            return signedType
         }
-        .padding()
     }
 }
 
