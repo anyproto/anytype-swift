@@ -66,9 +66,9 @@ struct SyncStatusData {
     }
     
     private var syncedDescription: String {
-        if networkId == Constants.anytypeNetworkId {
+        if networkId == NetworkIds.anytype {
             return Loc.SyncStatus.Synced.Anytype.description
-        } else if networkId == Constants.anytypeStagingNetworkId {
+        } else if networkId == NetworkIds.anytypeStaging {
             return Loc.SyncStatus.Synced.AnytypeStaging.description
         } else {
             return Loc.SyncStatus.Synced.SelfHosted.description
@@ -76,9 +76,3 @@ struct SyncStatusData {
     }
 }
 
-extension SyncStatusData {
-    enum Constants {
-        static let anytypeNetworkId = "N83gJpVd9MuNRZAuJLZ7LiMntTThhPc6DtzWWVjb1M3PouVU"
-        static let anytypeStagingNetworkId = "N9DU6hLkTAbvcpji3TCKPPd3UQWKGyzUxGmgJEyvhByqAjfD"
-    }
-}
