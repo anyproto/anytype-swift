@@ -161,6 +161,14 @@ final class SlashMenuActionHandler {
             )
             
             modifiedAttributedString.map(modifiedStringHandler)
+        case .underline:
+            let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
+                attributedString,
+                markup: .underscored,
+                info: blockInformation
+            )
+            
+            modifiedAttributedString.map(modifiedStringHandler)
         case .code:
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,

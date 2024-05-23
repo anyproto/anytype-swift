@@ -49,6 +49,10 @@ final class MarkupsViewController: UIViewController {
     private lazy var strikethroughButton = makeButton(image: UIImage(asset: .TextStyles.strikethrough)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
     }.addBorders(edges: [.bottom], width: 1, color: .Shape.primary)
+    
+    private lazy var underlineButton = makeButton(image: UIImage(asset: .TextStyles.underline)) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.underline))
+    }.addBorders(edges: [.bottom], width: 1, color: .Shape.primary)
 
     private lazy var codeButton = makeButton(text: Loc.TextStyle.Code.title) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
@@ -140,6 +144,7 @@ final class MarkupsViewController: UIViewController {
         topStackView.addArrangedSubview(boldButton)
         topStackView.addArrangedSubview(italicButton)
         topStackView.addArrangedSubview(strikethroughButton)
+        topStackView.addArrangedSubview(underlineButton)
 
         middleStackView.addArrangedSubview(codeButton)
         middleStackView.addArrangedSubview(urlButton)
@@ -188,6 +193,7 @@ extension MarkupsViewController: MarkupViewProtocol {
             self.setup(button: self.boldButton, with: state.markup[.bold, default: .disabled])
             self.setup(button: self.italicButton, with: state.markup[.italic, default: .disabled])
             self.setup(button: self.strikethroughButton, with: state.markup[.strikethrough, default: .disabled])
+            self.setup(button: self.underlineButton, with: state.markup[.underline, default: .disabled])
             self.setup(button: self.codeButton, with: state.markup[.keyboard, default: .disabled])
             self.setup(button: self.urlButton, with: state.markup[.link, default: .disabled])
             
