@@ -165,6 +165,7 @@
 "Align right" = "Allinea a destra";
 "Align left" = "Allinea a sinistra";
 "Align center" = "Allinea al centro";
+"Align justify" = "Align justify";
 "Black" = "Nero";
 "Amber" = "Ambra";
 "Red" = "Rosso";
@@ -1087,9 +1088,9 @@
 Specificamente,
 Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
-"Membership.Upgrade.Title" = "Membership upgrade";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+"Membership.Upgrade.Title" = "Aggiornamento Membership";
+"Membership.Upgrade.Text" = "Contattaci per ottenere più spazio di archiviazione, editor di spazi o più spazi condivisi. Il team di Anytype fornirà dettagli e condizioni su misura per le tue esigenze.";
+"Membership.Upgrade.Button" = "Contatta il Team Anytype";
 
 
 
@@ -1137,6 +1138,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 
 "MembershipServiceError.tierNotFound" = "Dati del livello non trovati, riavviare l'app e riprovare";
 "MembershipServiceError.forcefullyFailedValidation" = "LA MODALITÀ FAIL È ATTIVA 🫵🐭. Disattivare in Impostazioni di Debug";
+"MembershipServiceError.invalidBillingIdFormat" = "Problema interno con il formato di fatturazione, stiamo lavorando per risolverlo. Riprova più tardi o contatta l'assistenza.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipi MIME - %@";
