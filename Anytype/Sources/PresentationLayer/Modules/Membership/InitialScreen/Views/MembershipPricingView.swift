@@ -22,7 +22,10 @@ struct MembershipPricingView: View {
             Rectangle().hidden().onAppear {
                 anytypeAssertionFailure(
                     "No pricing view for empty payment info",
-                    info: ["Tier": String(reflecting: tier)]
+                    info: [
+                        "Tier": String(reflecting: tier),
+                        "Status": String(reflecting: Container.shared.membershipStatusStorage.resolve().currentStatus)
+                    ]
                 )
             }
         }
