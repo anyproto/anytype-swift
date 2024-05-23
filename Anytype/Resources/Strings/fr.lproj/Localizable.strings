@@ -165,6 +165,7 @@
 "Align right" = "Aligner à droite";
 "Align left" = "Aligner à gauche";
 "Align center" = "Aligner au centre";
+"Align justify" = "Align justify";
 "Black" = "Noir";
 "Amber" = "Ambre";
 "Red" = "Rouge";
@@ -1087,9 +1088,9 @@
 Précisions,
 Merci de fournir ici des détails plus précis de vos besoins.";
 
-"Membership.Upgrade.Title" = "Membership upgrade";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+"Membership.Upgrade.Title" = "Mise à niveau de l'abonnement";
+"Membership.Upgrade.Text" = "Contactez-nous pour obtenir du stockage supplémentaire, plus de rédacteurs, ou davantage d'espaces partagés. L'équipe d'Anytype vous fournira l'offre adaptée à vos besoins.";
+"Membership.Upgrade.Button" = "Contacter l'équipe d'Anytype";
 
 
 
@@ -1137,6 +1138,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 "MembershipServiceError.tierNotFound" = "Données de niveau introuvables, redémarrez l'application et réessayez";
 "MembershipServiceError.forcefullyFailedValidation" = "LE MODE FAIL EST ACTIVÉ 🫵🐭. Désactivez-le dans les paramètres de débogage";
+"MembershipServiceError.invalidBillingIdFormat" = "Problème interne avec le format de facturation, nous travaillons sur ceci. Réessayez plus tard ou contactez le support.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";
