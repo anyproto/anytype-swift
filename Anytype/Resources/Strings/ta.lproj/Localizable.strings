@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Bold";
 "TextStyle.Italic.Title" = "Italic";
 "TextStyle.Strikethrough.Title" = "Strikethrough";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "இணைப்பு";
 
