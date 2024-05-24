@@ -18,6 +18,10 @@ platform :ios do
     match(force: true)
   end
 
+  lane :delete_dev_certs do
+    match_nuke()
+  end
+
   lane :delete_appstore_certs do
     match_nuke()
   end
