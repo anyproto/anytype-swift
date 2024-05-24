@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Tučné";
 "TextStyle.Italic.Title" = "Kurzíva";
 "TextStyle.Strikethrough.Title" = "Preškrtnuté";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Kód";
 "TextStyle.Link.Title" = "Odkaz";
 
