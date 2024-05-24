@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Negrito";
 "TextStyle.Italic.Title" = "Itálico";
 "TextStyle.Strikethrough.Title" = "Rasurado";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Ligação";
 
