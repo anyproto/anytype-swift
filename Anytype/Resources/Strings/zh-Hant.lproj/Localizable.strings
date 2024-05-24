@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "粗體";
 "TextStyle.Italic.Title" = "斜體";
 "TextStyle.Strikethrough.Title" = "刪除線";
+"TextStyle.Underline.Title" = "底線";
 "TextStyle.Code.Title" = "代碼";
 "TextStyle.Link.Title" = "連結";
 
