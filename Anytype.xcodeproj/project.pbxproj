@@ -513,6 +513,7 @@
 		2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D562B7B694800456E08 /* Text+Markdown.swift */; };
 		2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2A685D592B7B855300456E08 /* ZIPFoundation */; };
 		2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */; };
+		2A6C3ED62C008DAF00B8D57C /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6C3ED52C008DAF00B8D57C /* AnytypeCore */; };
 		2A6C75C429FC03D4002BD440 /* SingleObjectSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */; };
 		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */; };
 		2A6E04A6298D05AF0023B33D /* OpenedDocumentsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A5298D05AF0023B33D /* OpenedDocumentsProvider.swift */; };
@@ -3490,6 +3491,7 @@
 			files = (
 				2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */,
 				2ACDC9B42B553F840063BFBD /* SharedContentManager in Frameworks */,
+				2A6C3ED62C008DAF00B8D57C /* AnytypeCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -10547,6 +10549,7 @@
 			packageProductDependencies = (
 				2ACDC9B32B553F840063BFBD /* SharedContentManager */,
 				2A41A6792B84E59B00EAE6E6 /* DeepLinks */,
+				2A6C3ED52C008DAF00B8D57C /* AnytypeCore */,
 			);
 			productName = AnytypeShareExtension;
 			productReference = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */;
@@ -13324,6 +13327,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		2A6C3ED52C008DAF00B8D57C /* AnytypeCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnytypeCore;
 		};
 		2A6ED165285B44DB00AAA21C /* AnytypeCore */ = {
 			isa = XCSwiftPackageProductDependency;

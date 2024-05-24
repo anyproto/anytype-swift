@@ -147,11 +147,18 @@ private enum SharingTipStep: Int {
     }
 }
 
-#Preview {
-    if #available(iOS 17.0, *) {
-        SharingTipView()
-    } else {
-        EmptyView()
+// Fix Xcode warning
+struct SharingTipPreviewView: View {
+    var body: some View {
+        if #available(iOS 17.0, *) {
+            SharingTipView()
+        } else {
+            EmptyView()
+        }
     }
+}
+
+#Preview {
+    SharingTipPreviewView()
 }
 

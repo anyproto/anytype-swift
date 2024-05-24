@@ -7,20 +7,19 @@ protocol SharingTipCoordinatorProtocol {
 
 @MainActor
 final class SharingTipCoordinator: SharingTipCoordinatorProtocol {
-    private var sharingTipPerformer: UIKitTipPerformer
+    
+    private let sharingTipPerformer: UIKitTipPerformer = {
+        if #available(iOS 17.0, *) {
+            return UIKitTipPerformer(tip: SharingTip())
+        } else {
+            return UIKitTipPerformer(tip: nil)
+        }
+    }()
+    
     @Injected(\.legacyNavigationContext)
     private var navigationContext: NavigationContextProtocol
     
-    nonisolated init() {
-        let tipPerformer: UIKitTipPerformer
-        if #available(iOS 17.0, *) {
-            tipPerformer = UIKitTipPerformer(tip: SharingTip())
-        } else {
-            tipPerformer = UIKitTipPerformer(tip: nil)
-        }
-        
-        self.sharingTipPerformer = tipPerformer
-    }
+    nonisolated init() {}
     
     func startObservingTips() {
         sharingTipPerformer.presentHandler = { [weak self] in

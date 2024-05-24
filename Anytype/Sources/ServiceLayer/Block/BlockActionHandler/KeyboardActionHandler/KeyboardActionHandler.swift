@@ -27,7 +27,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private var blockService: BlockServiceProtocol
     
     
-    nonisolated init(
+    init(
         documentId: String,
         spaceId: String,
         service: BlockActionServiceProtocol,

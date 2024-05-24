@@ -1,8 +1,9 @@
 import Foundation
 import UIKit
+import AnytypeCore
 
 public protocol SharedContentManagerProtocol: AnyObject {
-    func importAndSaveItem(item: NSExtensionItem) async -> SharedContent
+    func importAndSaveItem(item: SafeSendable<NSExtensionItem>) async -> SharedContent
     func saveSharedContent(content: SharedContent) throws
     func getSharedContent() throws -> SharedContent
     func clearSharedContent() throws
@@ -21,7 +22,8 @@ final class SharedContentManager: SharedContentManagerProtocol {
         self.sharedContentImporter = sharedContentImporter
     }
     
-    func importAndSaveItem(item: NSExtensionItem) async -> SharedContent {
+    func importAndSaveItem(item safeItem: SafeSendable<NSExtensionItem>) async -> SharedContent {
+        let item = safeItem.value
         try? clearSharedContent()
         let attachments = item.attachments ?? []
         let sharedContentItems = await sharedContentImporter.importData(items: item.attachments ?? [])
