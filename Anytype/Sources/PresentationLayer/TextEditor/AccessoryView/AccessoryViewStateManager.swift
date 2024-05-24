@@ -313,10 +313,10 @@ extension AccessoryViewStateManagerImpl {
             try await configuration.output?.setNewText(attributedString: attrString.sendable())
             
             guard let triggerSymbolPosition,
-                  let range = configuration.textView.textRange(
+                  configuration.textView.textRange(
                     from: triggerSymbolPosition,
                     to: triggerSymbolPosition
-                  ) else { return }
+                  ).isNotNil else { return }
             
             let nsrange = NSRange(location: configuration.textView.offsetFromBegining(triggerSymbolPosition) - 1, length: 0)
             

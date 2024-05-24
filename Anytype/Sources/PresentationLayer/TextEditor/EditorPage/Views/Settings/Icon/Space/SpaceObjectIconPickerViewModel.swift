@@ -41,7 +41,7 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
             return
         }
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-        let safeSendableItemProvider = SafeSendable(value: itemProvider)
+        let safeSendableItemProvider = itemProvider.sendable()
         Task {
             let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
             let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)

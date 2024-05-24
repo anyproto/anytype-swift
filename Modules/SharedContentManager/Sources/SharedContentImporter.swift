@@ -38,17 +38,18 @@ final class SharedContentImporter: SharedContentImporterProtocol {
         let importDate = Date()
         return await withSortedTaskGroup(of: SharedContentItem?.self, returning: [SharedContentItem].self) { taskGroup in
             items.enumerated().forEach { index, itemProvider in
+                let safeItemProvider = itemProvider.sendable()
                 // Should be sort by UTType hierarchy from child to parent
                 if itemProvider.hasItemConformingToTypeIdentifier(typeFileUrl.identifier) {
-                    taskGroup.addTask { try? await self.handleFileUtl(itemProvider: itemProvider) }
+                    taskGroup.addTask { try? await self.handleFileUtl(itemProvider: safeItemProvider.value) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeImage.identifier) {
-                    taskGroup.addTask { try? await self.handleImage(itemProvider: itemProvider, index: index, importDate: importDate) }
+                    taskGroup.addTask { try? await self.handleImage(itemProvider: safeItemProvider.value, index: index, importDate: importDate) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeVisualContent.identifier) {
-                    taskGroup.addTask { try? await self.handleAudioAndVideo(itemProvider: itemProvider) }
+                    taskGroup.addTask { try? await self.handleAudioAndVideo(itemProvider: safeItemProvider.value) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeURL.identifier) {
-                    taskGroup.addTask { try? await self.handleURL(itemProvider: itemProvider) }
+                    taskGroup.addTask { try? await self.handleURL(itemProvider: safeItemProvider.value) }
                 } else if itemProvider.hasItemConformingToTypeIdentifier(typeText.identifier) {
-                    taskGroup.addTask { try? await self.handleText(itemProvider: itemProvider) }
+                    taskGroup.addTask { try? await self.handleText(itemProvider: safeItemProvider.value) }
                 }
             }
             

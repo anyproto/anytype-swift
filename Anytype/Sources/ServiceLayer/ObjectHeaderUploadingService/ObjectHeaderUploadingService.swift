@@ -52,7 +52,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
                     bundledDetails: [.coverType(CoverType.gradient), .coverId(gradientName)]
                 )
             case let .upload(itemProvider):
-                let safeSendableItemProvider = SafeSendable(value: itemProvider)
+                let safeSendableItemProvider = itemProvider.sendable()
                 guard let data = try? await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value)) else {
                     anytypeAssertionFailure("Can't load image from item provider")
                     return
@@ -96,7 +96,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
                 )
             case .upload(let itemProvider):
                 AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-                let safeSendableItemProvider = SafeSendable(value: itemProvider)
+                let safeSendableItemProvider = itemProvider.sendable()
                 let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
                 let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
                 try await detailsService.updateBundledDetails(objectId: objectId, bundledDetails: [.iconEmoji(""), .iconObjectId(fileDetails.id)])
