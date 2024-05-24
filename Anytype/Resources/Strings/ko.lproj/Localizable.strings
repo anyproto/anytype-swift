@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "굵게";
 "TextStyle.Italic.Title" = "기울임";
 "TextStyle.Strikethrough.Title" = "취소선";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "코드";
 "TextStyle.Link.Title" = "링크";
 
