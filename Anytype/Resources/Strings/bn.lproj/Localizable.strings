@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "গাঢ়";
 "TextStyle.Italic.Title" = "তির্যক";
 "TextStyle.Strikethrough.Title" = "রেখান্বিত";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "কোড";
 "TextStyle.Link.Title" = "লিঙ্ক";
 
