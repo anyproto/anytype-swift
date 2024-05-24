@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Gras";
 "TextStyle.Italic.Title" = "Italique";
 "TextStyle.Strikethrough.Title" = "Barré";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Lien";
 
@@ -165,7 +166,7 @@
 "Align right" = "Aligner à droite";
 "Align left" = "Aligner à gauche";
 "Align center" = "Aligner au centre";
-"Align justify" = "Align justify";
+"Align justify" = "Justifier";
 "Black" = "Noir";
 "Amber" = "Ambre";
 "Red" = "Rouge";
