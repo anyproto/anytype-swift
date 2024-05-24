@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "बोल्ड";
 "TextStyle.Italic.Title" = "इटालिक";
 "TextStyle.Strikethrough.Title" = "आरपार काटें";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "कोड";
 "TextStyle.Link.Title" = "लिंक";
 

@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Îngroşat";
 "TextStyle.Italic.Title" = "Cursiv";
 "TextStyle.Strikethrough.Title" = "Tăiat cu o linie";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Cod";
 "TextStyle.Link.Title" = "Link";
 

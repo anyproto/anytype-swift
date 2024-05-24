@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "ବୋଲ୍ଡ";
 "TextStyle.Italic.Title" = "ଇଟାଲିକ୍";
 "TextStyle.Strikethrough.Title" = "ଷ୍ଟ୍ରାଇକ";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "କୋଡ଼";
 "TextStyle.Link.Title" = "ଲିଙ୍କ";
 

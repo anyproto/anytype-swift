@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Pogrubienie";
 "TextStyle.Italic.Title" = "Kursywa";
 "TextStyle.Strikethrough.Title" = "Przekreślenie";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Kod";
 "TextStyle.Link.Title" = "Link";
 

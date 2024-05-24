@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Fett";
 "TextStyle.Italic.Title" = "Kursiv";
 "TextStyle.Strikethrough.Title" = "Durchgestrichen";
+"TextStyle.Underline.Title" = "Unterstrich";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Link";
 
@@ -956,7 +957,7 @@
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 "ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.GoToSpace" = "Zu Space wechseln";
 "RequestToJoinNotification.ViewRequest" = "Anfrage ansehen";
 
 // MARK: - Space manager
@@ -1060,7 +1061,7 @@
 "Your current status" = "Dein aktueller Status:";
 "Valid until" = "Gültig bis:";
 "Paid by" = "Bezahlt von %@";
-"Myself" = "Myself";
+"Myself" = "Ich";
 "Pay by Card" = "Mit Karte bezahlen";
 "Min X characters" = "Min. %@ Zeichen";
 "Pending" = "Ausstehend...";
@@ -1092,7 +1093,7 @@ Please provide specific details of your needs here.";
 
 "Membership.Upgrade.Title" = "Membership upgrade";
 "Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+"Membership.Upgrade.Button" = "Anytype-Team kontaktieren";
 
 
 
@@ -1111,7 +1112,7 @@ Please provide specific details of your needs here.";
 
 "Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
 "Membership.NameForm.Subtitle" = "Dies ist dein eindeutiger Name im Anytype-Netzwerk, der deine Mitgliedschaft bestätigt. Er dient als deine persönliche Domain und kann nicht geändert werden.";
-"Membership.NameForm.Validating" = "Wait a second...";
+"Membership.NameForm.Validating" = "Einen Moment bitte...";
 "Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
 
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";

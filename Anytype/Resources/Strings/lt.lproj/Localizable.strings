@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Paryškintas";
 "TextStyle.Italic.Title" = "Pasviręs";
 "TextStyle.Strikethrough.Title" = "Perbrauktas";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Kodas";
 "TextStyle.Link.Title" = "Nuoroda";
 

@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Vet";
 "TextStyle.Italic.Title" = "Cursief";
 "TextStyle.Strikethrough.Title" = "Doorhalen";
+"TextStyle.Underline.Title" = "Onderstrepen";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Link";
 

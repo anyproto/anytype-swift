@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "粗体";
 "TextStyle.Italic.Title" = "斜体";
 "TextStyle.Strikethrough.Title" = "删除线";
+"TextStyle.Underline.Title" = "下划线";
 "TextStyle.Code.Title" = "代码";
 "TextStyle.Link.Title" = "链接";
 
@@ -165,7 +166,7 @@
 "Align right" = "右对齐";
 "Align left" = "左对齐";
 "Align center" = "居中对齐";
-"Align justify" = "Align justify";
+"Align justify" = "两端对齐";
 "Black" = "黑色";
 "Amber" = "琥珀色";
 "Red" = "朱红色";
