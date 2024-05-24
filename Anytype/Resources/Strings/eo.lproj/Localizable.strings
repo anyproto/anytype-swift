@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Grasa";
 "TextStyle.Italic.Title" = "Kursiva";
 "TextStyle.Strikethrough.Title" = "Trastreki";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Kodo";
 "TextStyle.Link.Title" = "Ligilo";
 
