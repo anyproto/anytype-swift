@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Жирный";
 "TextStyle.Italic.Title" = "Курсив";
 "TextStyle.Strikethrough.Title" = "Зачёркнутый";
+"TextStyle.Underline.Title" = "Подчёркнутый";
 "TextStyle.Code.Title" = "Код";
 "TextStyle.Link.Title" = "Ссылка";
 
