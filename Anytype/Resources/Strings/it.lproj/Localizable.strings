@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Grassetto";
 "TextStyle.Italic.Title" = "Corsivo";
 "TextStyle.Strikethrough.Title" = "Barrato";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Codice";
 "TextStyle.Link.Title" = "Collegamento";
 
@@ -165,7 +166,7 @@
 "Align right" = "Allinea a destra";
 "Align left" = "Allinea a sinistra";
 "Align center" = "Allinea al centro";
-"Align justify" = "Align justify";
+"Align justify" = "Giustifica testo";
 "Black" = "Nero";
 "Amber" = "Ambra";
 "Red" = "Rosso";
