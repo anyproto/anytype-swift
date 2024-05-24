@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Lihavointi";
 "TextStyle.Italic.Title" = "Kursivoitu";
 "TextStyle.Strikethrough.Title" = "Läpiviiva";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Koodi";
 "TextStyle.Link.Title" = "Linkki";
 
