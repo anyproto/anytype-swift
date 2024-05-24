@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Fet";
 "TextStyle.Italic.Title" = "Kursiv";
 "TextStyle.Strikethrough.Title" = "Genomstruken";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Länk";
 
