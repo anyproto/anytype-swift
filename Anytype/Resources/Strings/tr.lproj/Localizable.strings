@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Kalın";
 "TextStyle.Italic.Title" = "İtalik";
 "TextStyle.Strikethrough.Title" = "Üstü çizili";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Kod";
 "TextStyle.Link.Title" = "Bağlantı";
 
