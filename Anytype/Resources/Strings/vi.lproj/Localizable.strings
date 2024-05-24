@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "In đậm";
 "TextStyle.Italic.Title" = "In nghiêng";
 "TextStyle.Strikethrough.Title" = "Gạch đè";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Liên kết";
 
