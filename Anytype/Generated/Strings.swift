@@ -1774,6 +1774,9 @@ internal enum Loc {
       internal static let subtitle = Loc.tr("Localizable", "TextStyle.Toggle.Subtitle")
       internal static let title = Loc.tr("Localizable", "TextStyle.Toggle.Title")
     }
+    internal enum Underline {
+      internal static let title = Loc.tr("Localizable", "TextStyle.Underline.Title")
+    }
   }
   internal enum ToggleEmpty {
     internal static let tapToCreateBlock = Loc.tr("Localizable", "Toggle empty. Tap to create block.")

@@ -171,7 +171,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         
         if mentionDetecter.removeMentionIfNeeded(textView: textView, replacementText: replacementText) {
             Task { @MainActor in
-                try await actionHandler.changeText(textView.attributedText, blockId: info.id)
+                try await actionHandler.changeText(textView.attributedText.sendable(), blockId: info.id)
             }
             return false
         }
@@ -192,13 +192,13 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                 
                 Task { @MainActor in
                     try await actionHandler.turnInto(style, blockId: info.id)
-                    try await setNewText(attributedString: newText)
+                    try await setNewText(attributedString: newText.sendable())
                     textView.setFocus(.beginning)
                 }
             case let .addBlock(type, newText):
                 Task { @MainActor in
-                    try await setNewText(attributedString: newText)
-                    actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top, spaceId: document.spaceId)
+                    try await setNewText(attributedString: newText.sendable())
+                    actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top, spaceId: document.spaceId)
                     resetSubject.send(nil)
                 }
             case let .addStyle(style, currentText, styleRange, focusRange):
@@ -207,10 +207,10 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         style,
                         range: styleRange,
                         blockId: info.id,
-                        currentText: currentText,
+                        currentText: currentText.sendable(),
                         contentType: info.content.type
                     )
-                    resetSubject.send(newText)
+                    resetSubject.send(newText.value)
                     textView.setFocus(.at(focusRange))
                 }
             }
@@ -269,7 +269,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         )
         
         Task { @MainActor in
-            try await changeTextAndReset(newTextWithLink)
+            try await changeTextAndReset(newTextWithLink.sendable())
             
             let replacementRange = NSRange(location: range.location, length: trimmedText.count)
             
@@ -291,7 +291,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                                 url: url
                             )
                             if let value = safeSendableAttributedString.value {
-                                try await self?.changeTextAndReset(value)
+                                try await self?.changeTextAndReset(value.sendable())
                             }
                         }
                     case .pasteAsLink:
@@ -305,7 +305,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                         )
                         if let newText {
                             Task {
-                                try await self?.changeTextAndReset(newText)
+                                try await self?.changeTextAndReset(newText.sendable())
                             }
                         }
                         
@@ -322,9 +322,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         return true
     }
     
-    private func changeTextAndReset(_ text: NSAttributedString) async throws {
+    private func changeTextAndReset(_ text: SafeNSAttributedString) async throws {
         try await actionHandler.changeText(text, blockId: info.id)
-        resetSubject.send(text)
+        resetSubject.send(text.value)
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
@@ -395,8 +395,9 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     @MainActor
     private func textViewDidChangeText(textView: UITextView) {
         changeType.map { accessoryViewStateManager.textDidChange(changeType: $0) }
+        let text = textView.attributedText.sendable()
         Task {
-            try await actionHandler.changeText(textView.attributedText, blockId: info.id)
+            try await actionHandler.changeText(text, blockId: info.id)
         }
     }
 
@@ -485,14 +486,14 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         openLinkToObject(data)
     }
     
-    func setNewText(attributedString: NSAttributedString) async throws {
-        resetSubject.send(attributedString)
+    func setNewText(attributedString: SafeNSAttributedString) async throws {
+        resetSubject.send(attributedString.value)
         try await actionHandler.changeText(attributedString, blockId: info.id)
         
         viewModel.map { collectionController.itemDidChangeFrame(item: .block($0)) }
     }
     
-    func changeText(attributedString: NSAttributedString) {
+    func changeText(attributedString: SafeNSAttributedString) {
         Task { @MainActor in
             try await actionHandler.changeText(attributedString, blockId: info.id)
         }
@@ -501,11 +502,11 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     func didSelectAddMention(
         _ mention: MentionObject,
         at position: Int,
-        attributedString: NSAttributedString
+        attributedString: SafeNSAttributedString
     ) async throws {
         guard let textContent = info.textContent else { return }
         
-        let mutableString = NSMutableAttributedString(attributedString: attributedString)
+        let mutableString = NSMutableAttributedString(attributedString: attributedString.value)
         
         mutableString.replaceCharacters(in: .init(location: position, length: 0), with: mention.name)
         
@@ -520,7 +521,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
         
         let newAttributedString = anytypeText.attrString
                 
-        try await setNewText(attributedString: newAttributedString)
+        try await setNewText(attributedString: newAttributedString.sendable())
         focusSubject.send(.at(.init(location: position + mention.name.count + 2, length: 0)))
     }
     
@@ -533,7 +534,7 @@ extension TextBlockActionHandler: AccessoryViewOutput {
             action,
             textView: textView,
             blockInformation: info) { [weak resetSubject] modifiedAttributedString in
-                resetSubject?.send(modifiedAttributedString)
+                resetSubject?.send(modifiedAttributedString.value)
             }
     }
     
@@ -546,6 +547,6 @@ extension TextBlockActionHandler: AccessoryViewOutput {
     }
     
     private func setNewTextSync(attributedString: NSAttributedString) {
-        Task { try await setNewText(attributedString: attributedString) }
+        Task { try await setNewText(attributedString: attributedString.sendable()) }
     }
 }

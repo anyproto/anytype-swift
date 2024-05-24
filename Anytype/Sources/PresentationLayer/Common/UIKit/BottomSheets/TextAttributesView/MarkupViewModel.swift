@@ -57,6 +57,8 @@ final class MarkupViewModel: MarkupViewModelProtocol {
             actionHandler.changeMarkup(blockIds: blockIds, markType: .keyboard)
         case .strikethrough:
             actionHandler.changeMarkup(blockIds: blockIds, markType: .strikethrough)
+        case .underline:
+            actionHandler.changeMarkup(blockIds: blockIds, markType: .underscored)
         case .link:
             let urlLink = selectedMarkups.keys.compactMap { $0.urlLink }.first
             let blokcLink = selectedMarkups.keys.compactMap { $0.blokcLink }.first
