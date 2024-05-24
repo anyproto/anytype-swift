@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Tebal";
 "TextStyle.Italic.Title" = "Miring";
 "TextStyle.Strikethrough.Title" = "Coret";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Kode";
 "TextStyle.Link.Title" = "Tautan";
 
