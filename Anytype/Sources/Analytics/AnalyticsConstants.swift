@@ -6,14 +6,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {    
-    // Templating
-    static let selectTemplate = "SelectTemplate"
-    static let changeDefaultTemplate = "ChangeDefaultTemplate"
-    static let templateEditing = "EditTemplate"
-    static let duplicateTemplate = "DuplicateTemplate"
-    static let createTemplate = "CreateTemplate"
-
+enum AnalyticsEventsName {
     // Object events
     static let createObject = "CreateObject"
     static let addToFavorites = "AddToFavorites"

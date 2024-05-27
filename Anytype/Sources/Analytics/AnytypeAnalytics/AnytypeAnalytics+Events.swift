@@ -710,7 +710,7 @@ extension AnytypeAnalytics {
     
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
-            AnalyticsEventsName.selectTemplate,
+            "SelectTemplate",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: objectType?.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -720,7 +720,7 @@ extension AnytypeAnalytics {
     
     func logChangeDefaultTemplate(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
         logEvent(
-            AnalyticsEventsName.changeDefaultTemplate,
+            "ChangeDefaultTemplate",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: objectType?.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -730,7 +730,7 @@ extension AnytypeAnalytics {
     
     func logTemplateEditing(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
         logEvent(
-            AnalyticsEventsName.templateEditing,
+            "EditTemplate",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -740,7 +740,7 @@ extension AnytypeAnalytics {
     
     func logTemplateDuplicate(objectType: AnalyticsObjectType, route: AnalyticsEventsRouteKind) {
         logEvent(
-            AnalyticsEventsName.duplicateTemplate,
+            "DuplicateTemplate",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -750,7 +750,7 @@ extension AnytypeAnalytics {
     
     func logTemplateCreate(objectType: AnalyticsObjectType, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.createTemplate,
+            "CreateTemplate",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId
