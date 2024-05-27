@@ -71,7 +71,7 @@ extension ObjectType {
             spaceId: details.spaceId,
             uniqueKey: details.uniqueKeyValue,
             defaultTemplateId: details.defaultTemplateId,
-            canCreateObjectOfThisType: details.restrictionsValue.contains(.createObjectOfThisType),
+            canCreateObjectOfThisType: !details.restrictionsValue.contains(.createObjectOfThisType),
             recommendedRelations: details.recommendedRelations,
             recommendedLayout: details.recommendedLayoutValue
         )
