@@ -45,6 +45,7 @@ struct HomeCoordinatorView: View {
             keyboardDismiss()
         }
         .handleSpaceShareTip()
+        .handleSharingTip()
         .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) {
             WidgetChangeSourceSearchView(data: $0)

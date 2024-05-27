@@ -34,8 +34,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    @Injected(\.legacySharingTip)
-    private var sharingTipCoordinator: SharingTipCoordinatorProtocol
     
     // MARK: - State
     
@@ -106,8 +104,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 self?.switchSpace(info: newInfo)
             }
             .store(in: &subscriptions)
-        
-        sharingTipCoordinator.startObservingTips()
     }
     
     func startDeepLinkTask() async {

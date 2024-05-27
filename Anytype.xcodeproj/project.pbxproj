@@ -416,7 +416,8 @@
 		2A446D4E2C049910002E39AD /* SpaceShareTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */; };
 		2A446D502C049A5C002E39AD /* SpaceShareTipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */; };
 		2A446D522C04B2E3002E39AD /* SpaceShareTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */; };
-		2A446D542C04B52E002E39AD /* SpaceShareTipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D532C04B52E002E39AD /* SpaceShareTipCoordinator.swift */; };
+		2A446D542C04B52E002E39AD /* TipCustomViewPresentationModifiert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D532C04B52E002E39AD /* TipCustomViewPresentationModifiert.swift */; };
+		2A446D562C04C8B4002E39AD /* SpaceShareHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D552C04C8B4002E39AD /* SpaceShareHandler.swift */; };
 		2A45A37A2BC4170200F5CAED /* SpaceSettingsShareSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45A3792BC4170200F5CAED /* SpaceSettingsShareSection.swift */; };
 		2A475F172AFE47BE00E8C6D5 /* AnytypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */; };
 		2A48F3D82BD66247000510CD /* AnytypeAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48F3D72BD66247000510CD /* AnytypeAnalytics.swift */; };
@@ -1509,8 +1510,7 @@
 		86C4B36B2B21CD63003B8C51 /* SharingTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B36A2B21CD63003B8C51 /* SharingTip.swift */; };
 		86C4B3702B21DC61003B8C51 /* SharingTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B36F2B21DC61003B8C51 /* SharingTipView.swift */; };
 		86C4B3722B22FD9C003B8C51 /* SharingTipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3712B22FD9C003B8C51 /* SharingTipViewModel.swift */; };
-		86C4B3742B244A4A003B8C51 /* UIKitTipPerformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */; };
-		86C4B3782B246141003B8C51 /* SharingTipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */; };
+		86C4B3782B246141003B8C51 /* SharingTipHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86C4B3772B246141003B8C51 /* SharingTipHandler.swift */; };
 		86E69DD62A938CE8009F2221 /* SecureService in Frameworks */ = {isa = PBXBuildFile; productRef = 86E69DD52A938CE8009F2221 /* SecureService */; };
 		86E69DD72A938CE8009F2221 /* SecureService in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 86E69DD52A938CE8009F2221 /* SecureService */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		95A38D3A2A03F17700D06C96 /* Riccione-Xlight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95A38D392A03F17700D06C96 /* Riccione-Xlight.ttf */; };
@@ -2180,7 +2180,8 @@
 		2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipView.swift; sourceTree = "<group>"; };
 		2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipViewModel.swift; sourceTree = "<group>"; };
 		2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTip.swift; sourceTree = "<group>"; };
-		2A446D532C04B52E002E39AD /* SpaceShareTipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipCoordinator.swift; sourceTree = "<group>"; };
+		2A446D532C04B52E002E39AD /* TipCustomViewPresentationModifiert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCustomViewPresentationModifiert.swift; sourceTree = "<group>"; };
+		2A446D552C04C8B4002E39AD /* SpaceShareHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareHandler.swift; sourceTree = "<group>"; };
 		2A45A3792BC4170200F5CAED /* SpaceSettingsShareSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsShareSection.swift; sourceTree = "<group>"; };
 		2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeNavigationView.swift; sourceTree = "<group>"; };
 		2A48F3D72BD66247000510CD /* AnytypeAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeAnalytics.swift; sourceTree = "<group>"; };
@@ -3280,8 +3281,7 @@
 		86C4B36A2B21CD63003B8C51 /* SharingTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTip.swift; sourceTree = "<group>"; };
 		86C4B36F2B21DC61003B8C51 /* SharingTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipView.swift; sourceTree = "<group>"; };
 		86C4B3712B22FD9C003B8C51 /* SharingTipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipViewModel.swift; sourceTree = "<group>"; };
-		86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitTipPerformer.swift; sourceTree = "<group>"; };
-		86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipCoordinator.swift; sourceTree = "<group>"; };
+		86C4B3772B246141003B8C51 /* SharingTipHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingTipHandler.swift; sourceTree = "<group>"; };
 		86D7255F2A94EDB0008DF702 /* Anytype.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Anytype.entitlements; sourceTree = "<group>"; };
 		86D725602A94EFB8008DF702 /* AnytypeShareExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AnytypeShareExtension.entitlements; sourceTree = "<group>"; };
 		86E69DD42A9389DC009F2221 /* SecureService */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SecureService; path = Modules/SecureService; sourceTree = "<group>"; };
@@ -5610,7 +5610,7 @@
 				2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */,
 				2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */,
 				2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */,
-				2A446D532C04B52E002E39AD /* SpaceShareTipCoordinator.swift */,
+				2A446D552C04C8B4002E39AD /* SpaceShareHandler.swift */,
 			);
 			path = SpaceShareTip;
 			sourceTree = "<group>";
@@ -8484,7 +8484,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */,
+				2A446D532C04B52E002E39AD /* TipCustomViewPresentationModifiert.swift */,
 				3D3B350F2BCEBB59008456F8 /* SafariWebView */,
 				2A30B2092BB44BBC00206806 /* QrCode */,
 				3D26AA732B9738F900D61479 /* Checkbox */,
@@ -9957,7 +9957,7 @@
 				86C4B36A2B21CD63003B8C51 /* SharingTip.swift */,
 				86C4B36F2B21DC61003B8C51 /* SharingTipView.swift */,
 				86C4B3712B22FD9C003B8C51 /* SharingTipViewModel.swift */,
-				86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */,
+				86C4B3772B246141003B8C51 /* SharingTipHandler.swift */,
 			);
 			path = SharingTip;
 			sourceTree = "<group>";
@@ -10802,7 +10802,7 @@
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				2A2B332B2A7BAEBA004BD906 /* SpaceSwitchViewModel.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
-				86C4B3782B246141003B8C51 /* SharingTipCoordinator.swift in Sources */,
+				86C4B3782B246141003B8C51 /* SharingTipHandler.swift in Sources */,
 				2AA8108029A3D8E8007DD64B /* WidgetObjectListRowModel.swift in Sources */,
 				3D2F00292B6814CC009F3AA5 /* ObjectTypeSearchView.swift in Sources */,
 				2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */,
@@ -11489,7 +11489,6 @@
 				2E1146D2293125610057C753 /* SetKanbanColumnSettingsView.swift in Sources */,
 				2A7BC2812B1E2C7100EB96EB /* ServerConfigurationRow.swift in Sources */,
 				C961582027AC2AD400AE8848 /* FocusSubjectsHolder.swift in Sources */,
-				86C4B3742B244A4A003B8C51 /* UIKitTipPerformer.swift in Sources */,
 				1247BC8727FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift in Sources */,
 				2AC906C129B5F8EF00209E39 /* WidgetInternalViewModelProtocol.swift in Sources */,
 				3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */,
@@ -11539,7 +11538,7 @@
 				2A0F40312BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift in Sources */,
 				2E56F1362A0D43BB00031167 /* LoopingPlayerView.swift in Sources */,
 				C99DCE8B283B5BDE0051F99D /* KeyboardHeightListener.swift in Sources */,
-				2A446D542C04B52E002E39AD /* SpaceShareTipCoordinator.swift in Sources */,
+				2A446D542C04B52E002E39AD /* TipCustomViewPresentationModifiert.swift in Sources */,
 				2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */,
 				C9EA69D328C7412A003F488C /* SimpleTableBlockView+UICollectionViewDelegate.swift in Sources */,
 				2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */,
@@ -11784,6 +11783,7 @@
 				2AD239092A8A05C800F7697A /* SpaceCreateViewModel.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				2A40F59F2BB1997D00F0220E /* PresentedDismiss.swift in Sources */,
+				2A446D562C04C8B4002E39AD /* SpaceShareHandler.swift in Sources */,
 				2AF4260729AF402200753B17 /* WallpaperPickerViewModel.swift in Sources */,
 				2E04201A2BA894C500F36637 /* ObjectRelationListData.swift in Sources */,
 				2A298E3C2BC83FC100F1194C /* UniversalLink.swift in Sources */,
