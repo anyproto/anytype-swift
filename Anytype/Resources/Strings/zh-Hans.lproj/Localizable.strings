@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "切换为空。点击以创建块。";
 "Loading, please wait" = "正在加载中，请稍候";
 "Done" = "完成";
+"Next" = "下一步";
 "Style" = "样式";
 "Color" = "颜色";
 "Background" = "背景";
@@ -336,9 +337,11 @@
 "There is no object named" = "没有命名为 %@ 的对象";
 "There is no type named" = "没有命名为 %@ 的类型";
 "Create a new one or search for something else" = "创建一个新的或搜索其他内容";
-"Search.Backlinks.Show.title" = "显示反向链接";
-"Search.Backlinks.Header.title" = "反向链接：%@";
-"Search.Backlinks.Swipe.title" = "个反向链接";
+"Search.Links.Show.title" = "显示相关对象";
+"Search.Links.Header.title" = "与之相关的：%@";
+"Search.Links.Swipe.title" = "相关的";
+"GlobalSearch.EmptyState.subtitle" = "创建新的对象或搜索一下";
+"GlobalSearch.EmptyFilteredState.title" = "没有找到相关对象";
 
 // MARK: - Home
 
@@ -996,6 +999,11 @@
 "Swipe.Tip.Title" = "滑动来创建对象";
 "Swipe.Tip.Subtitle" = "向左轻划就可以在部件内创建对象。";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "在空间中协作";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 
@@ -1093,9 +1101,9 @@
 具体来说，
 请在这里提供您需要的具体细节。";
 
-"Membership.Upgrade.Title" = "Membership upgrade";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+"Membership.Upgrade.Title" = "会员升级";
+"Membership.Upgrade.Text" = "联系我们以获取额外的存储空间、空间编辑器或更多共享空间。任何类型的团队都将根据您的需求提供量身定制的细节和条件。";
+"Membership.Upgrade.Button" = "联系Anytype团队";
 
 
 
