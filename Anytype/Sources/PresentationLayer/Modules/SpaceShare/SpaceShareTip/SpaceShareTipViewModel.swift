@@ -1,10 +1,7 @@
 import AnytypeCore
 import Foundation
 
-@available(iOS 17.0, *)
 final class SpaceShareTipViewModel: ObservableObject {
-    
-    let tip = SpaceShareTip()
     
     @Published var dismiss: Bool = false
     
@@ -20,6 +17,8 @@ final class SpaceShareTipViewModel: ObservableObject {
     }
     
     func onDisappear() {
-        tip.invalidate(reason: .tipClosed)
+        if #available(iOS 17.0, *) {
+            SpaceShareTip().invalidate(reason: .tipClosed)
+        }
     }
 }

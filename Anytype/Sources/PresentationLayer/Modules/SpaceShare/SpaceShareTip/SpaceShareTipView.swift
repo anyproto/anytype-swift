@@ -1,6 +1,5 @@
 import SwiftUI
 
-@available(iOS 17.0, *)
 struct SpaceShareTipView: View {
     @StateObject private var model = SpaceShareTipViewModel()
     @Environment(\.dismiss) private var dismiss

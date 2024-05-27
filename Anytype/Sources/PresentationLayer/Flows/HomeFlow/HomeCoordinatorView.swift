@@ -87,6 +87,9 @@ struct HomeCoordinatorView: View {
         .sheet(item: $model.showGalleryImport) { data in
             GalleryInstallationCoordinatorView(data: data)
         }
+        .sheet(isPresented: $model.showSpaceShareTip) {
+            SpaceShareTipView()
+        }
     }
 }
 
