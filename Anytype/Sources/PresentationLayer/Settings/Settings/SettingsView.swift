@@ -47,7 +47,7 @@ struct SettingsView: View {
                         onTap: { model.onAccountDataTap() }
                     )
                     
-                    if FeatureFlags.membership {
+                    if model.canShowMemberhip {
                         SettingsSectionItemView(
                             name: Loc.membership,
                             imageAsset: .Settings.membership,

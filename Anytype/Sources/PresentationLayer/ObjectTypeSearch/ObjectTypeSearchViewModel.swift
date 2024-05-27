@@ -29,7 +29,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?
     
-    nonisolated init(
+    init(
         spaceId: String,
         settings: ObjectTypeSearchViewSettings,
         onSelect: @escaping (TypeSelectionResult) -> Void
@@ -38,12 +38,8 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         self.spaceId = spaceId
         self.onSelect = onSelect
         
-        Task {
-            await pasteboardHelper.startSubscription { [weak self] in
-                Task { [self] in
-                    await self?.updatePasteButton()
-                }
-            }
+        pasteboardHelper.startSubscription { [weak self] in
+            self?.updatePasteButton()
         }
     }
     
@@ -57,7 +53,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func updatePasteButton() {
         withAnimation {
-            showPasteButton = settings.allowPaste && !pasteboardHelper.isPasteboardEmpty
+            showPasteButton = settings.allowPaste && pasteboardHelper.hasSlots
         }
     }
     

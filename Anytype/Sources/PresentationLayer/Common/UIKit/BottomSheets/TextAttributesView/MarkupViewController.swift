@@ -40,23 +40,27 @@ final class MarkupsViewController: UIViewController {
     
     private lazy var boldButton = makeButton(image: UIImage(asset: .TextStyles.bold)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.bold))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .Shape.primary)
+    }
 
     private lazy var italicButton = makeButton(image: UIImage(asset: .TextStyles.italic)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.italic))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .Shape.primary)
+    }
 
     private lazy var strikethroughButton = makeButton(image: UIImage(asset: .TextStyles.strikethrough)) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
-    }.addBorders(edges: [.bottom], width: 1, color: .Shape.primary)
+    }
+    
+    private lazy var underlineButton = makeButton(image: UIImage(asset: .TextStyles.underline)) { [weak self] in
+        self?.viewModel.handle(action: .toggleMarkup(.underline))
+    }
 
     private lazy var codeButton = makeButton(text: Loc.TextStyle.Code.title) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .Shape.primary)
+    }
 
     private lazy var urlButton = makeButton(text: Loc.TextStyle.Link.title) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.link))
-    }.addBorders(edges: [.bottom], width: 1, color: .Shape.primary)
+    }
 
     private lazy var leftAlignButton: ButtonWithImage = {
         let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextStyles.Align.left))
@@ -78,6 +82,14 @@ final class MarkupsViewController: UIViewController {
         let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextStyles.Align.right))
         button.addAction(UIAction(handler: { [weak self] _ in
             self?.viewModel.handle(action: .selectAlignment(.right))
+            UISelectionFeedbackGenerator().selectionChanged()
+        }), for: .touchUpInside)
+        return button
+    }()
+    private lazy var justifyAlignButton: ButtonWithImage = {
+        let button = ButtonsFactory.makeButton(image: UIImage(asset: .TextStyles.Align.justify))
+        button.addAction(UIAction(handler: { [weak self] _ in
+            self?.viewModel.handle(action: .selectAlignment(.justify))
             UISelectionFeedbackGenerator().selectionChanged()
         }), for: .touchUpInside)
         return button
@@ -108,7 +120,7 @@ final class MarkupsViewController: UIViewController {
     // MARK: -  Setup views
 
     private func setupViews() {
-        containerStackView.backgroundColor = .Background.secondary
+        containerStackView.backgroundColor = .Shape.primary
 
         containerShadowView.view.layer.cornerRadius = 12
         containerShadowView.view.layer.masksToBounds = true
@@ -128,17 +140,21 @@ final class MarkupsViewController: UIViewController {
         containerStackView.addArrangedSubview(topStackView)
         containerStackView.addArrangedSubview(middleStackView)
         containerStackView.addArrangedSubview(bottomStackView)
+        containerStackView.spacing = 1
 
         topStackView.addArrangedSubview(boldButton)
         topStackView.addArrangedSubview(italicButton)
         topStackView.addArrangedSubview(strikethroughButton)
+        topStackView.addArrangedSubview(underlineButton)
 
         middleStackView.addArrangedSubview(codeButton)
         middleStackView.addArrangedSubview(urlButton)
+        middleStackView.spacing = 1
 
         bottomStackView.addArrangedSubview(leftAlignButton)
         bottomStackView.addArrangedSubview(centerAlignButton)
         bottomStackView.addArrangedSubview(rightAlignButton)
+        bottomStackView.addArrangedSubview(justifyAlignButton)
 
         codeButton.label.font = .uxBodyRegular
         codeButton.setTextColor(.Text.primary, state: .normal)
@@ -179,12 +195,14 @@ extension MarkupsViewController: MarkupViewProtocol {
             self.setup(button: self.boldButton, with: state.markup[.bold, default: .disabled])
             self.setup(button: self.italicButton, with: state.markup[.italic, default: .disabled])
             self.setup(button: self.strikethroughButton, with: state.markup[.strikethrough, default: .disabled])
+            self.setup(button: self.underlineButton, with: state.markup[.underline, default: .disabled])
             self.setup(button: self.codeButton, with: state.markup[.keyboard, default: .disabled])
             self.setup(button: self.urlButton, with: state.markup[.link, default: .disabled])
             
             self.setup(button: self.leftAlignButton, with: state.alignment[.left, default: .disabled])
             self.setup(button: self.centerAlignButton, with: state.alignment[.center, default: .disabled])
             self.setup(button: self.rightAlignButton, with: state.alignment[.right, default: .disabled])
+            self.setup(button: self.justifyAlignButton, with: state.alignment[.justify, default: .disabled])
         }
     }
     

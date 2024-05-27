@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "粗體";
 "TextStyle.Italic.Title" = "斜體";
 "TextStyle.Strikethrough.Title" = "刪除線";
+"TextStyle.Underline.Title" = "底線";
 "TextStyle.Code.Title" = "代碼";
 "TextStyle.Link.Title" = "連結";
 
@@ -165,6 +166,7 @@
 "Align right" = "靠右";
 "Align left" = "靠左";
 "Align center" = "置中";
+"Align justify" = "分散對齊";
 "Black" = "黑色";
 "Amber" = "琥珀色";
 "Red" = "紅色";
@@ -1091,9 +1093,9 @@
  具體來說，
  請在此提供您需求的具體細節。";
 
-"Membership.Upgrade.Title" = "Membership upgrade";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+"Membership.Upgrade.Title" = "會員升級";
+"Membership.Upgrade.Text" = "如需更多額外的儲存容量、更多空間編輯者或更多共享空間，請與我們聯絡。 Anytype 團隊將根據您的需求和條件為您量身定製。";
+"Membership.Upgrade.Button" = "聯絡 Anytype 團隊";
 
 
 
@@ -1141,6 +1143,7 @@
 
 "MembershipServiceError.tierNotFound" = "未找到該階段數據，請重新啟動應用程式並重試";
 "MembershipServiceError.forcefullyFailedValidation" = "失效故障模式已開啟🫵🐭。 在除錯設定中可關閉";
+"MembershipServiceError.invalidBillingIdFormat" = "帳單格式存在內部問題，我們正在處理中。請稍後再試，或聯絡客服支援。";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME 類型 - %@";

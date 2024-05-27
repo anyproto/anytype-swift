@@ -2,7 +2,7 @@ import UIKit
 import Combine
 
 @MainActor
-final class EditorContentInsetsHelper: KeyboardEventsListnerHelper {
+final class EditorContentInsetsHelper {
     @MainActor
     private struct EditorScrollViewConstants {
         static let bottomEditorInsets: CGFloat = 150
@@ -16,16 +16,17 @@ final class EditorContentInsetsHelper: KeyboardEventsListnerHelper {
     }
     private weak var scrollView: UIScrollView?
     private var cancellables = [AnyCancellable]()
-
+    private let keyboardListener: KeyboardEventsListnerHelper?
+    
     init?(scrollView: UIScrollView, stateManager: EditorPageBlocksStateManagerProtocol) {
         scrollView.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
-        let showAction: Action = { [weak scrollView] event in
+        let showAction: KeyboardEventsListnerHelper.Action = { [weak scrollView] event in
             guard let keyboardRect = event.endFrame else { return }
             scrollView?.handleBottomInsetChange(keyboardRect.height)
             scrollView?.verticalScrollIndicatorInsets.bottom = keyboardRect.height
 
         }
-        let willHideAction: Action = { [weak scrollView] _ in
+        let willHideAction: KeyboardEventsListnerHelper.Action = { [weak scrollView] _ in
             scrollView?.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
             scrollView?.verticalScrollIndicatorInsets.bottom = 0
         }
@@ -40,9 +41,11 @@ final class EditorContentInsetsHelper: KeyboardEventsListnerHelper {
         }.store(in: &cancellables)
         self.scrollView = scrollView
 
-        super.init(willShowAction: showAction,
-                   willChangeFrame: showAction,
-                   willHideAction: willHideAction)
+        self.keyboardListener = KeyboardEventsListnerHelper(
+            willShowAction: showAction,
+            willChangeFrame: showAction,
+            willHideAction: willHideAction
+        )
     }
 
     func restoreEditingOffset() {

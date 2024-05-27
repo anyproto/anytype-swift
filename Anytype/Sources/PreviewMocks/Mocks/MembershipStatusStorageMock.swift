@@ -5,7 +5,9 @@ import Combine
 
 final class MembershipStatusStorageMock: MembershipStatusStorageProtocol {
     
-    static let shared = MembershipStatusStorageMock()
+    nonisolated static let shared = MembershipStatusStorageMock()
+    
+    nonisolated init() {}
     
     @Published var _status: MembershipStatus = .empty
     var statusPublisher: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }

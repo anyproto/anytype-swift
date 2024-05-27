@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Vet";
 "TextStyle.Italic.Title" = "Cursief";
 "TextStyle.Strikethrough.Title" = "Doorhalen";
+"TextStyle.Underline.Title" = "Onderstrepen";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Link";
 
@@ -165,6 +166,7 @@
 "Align right" = "Lijn rechts uit";
 "Align left" = "Lijn links uit";
 "Align center" = "Centreer";
+"Align justify" = "Align justify";
 "Black" = "Zwart";
 "Amber" = "Amber";
 "Red" = "Rood";
@@ -1138,6 +1140,7 @@ Please provide specific details of your needs here.";
 
 "MembershipServiceError.tierNotFound" = "Abonnementsgegevens niet gevonden, herstart app en probeer het opnieuw";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS AAN 🫵🐭. Schakel uit in Debug instellingen";
+"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";

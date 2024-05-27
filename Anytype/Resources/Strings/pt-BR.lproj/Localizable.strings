@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Negrito";
 "TextStyle.Italic.Title" = "Itálico";
 "TextStyle.Strikethrough.Title" = "Tachado";
+"TextStyle.Underline.Title" = "Sublinhado";
 "TextStyle.Code.Title" = "Código";
 "TextStyle.Link.Title" = "Link";
 
@@ -165,6 +166,7 @@
 "Align right" = "Alinhar à direita";
 "Align left" = "Alinhar à esquerda";
 "Align center" = "Alinhar ao centro";
+"Align justify" = "Align justify";
 "Black" = "Preto";
 "Amber" = "Âmbar";
 "Red" = "Vermelho";
@@ -1138,6 +1140,7 @@ Please provide specific details of your needs here.";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipos de MIME - %@";

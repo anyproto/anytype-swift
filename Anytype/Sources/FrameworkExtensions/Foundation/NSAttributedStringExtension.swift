@@ -1,5 +1,7 @@
 import UIKit
+import AnytypeCore
 
+typealias SafeNSAttributedString = SafeSendable<NSAttributedString>
 
 extension NSAttributedString {
     
@@ -98,6 +100,10 @@ extension NSAttributedString {
             ranges.append(subrange)
         }
         return ranges
+    }
+    
+    func sendable() -> SafeNSAttributedString {
+        SafeSendable(value: self.copy() as? NSAttributedString ?? NSAttributedString())
     }
 }
 

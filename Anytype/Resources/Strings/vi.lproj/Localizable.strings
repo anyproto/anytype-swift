@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "In đậm";
 "TextStyle.Italic.Title" = "In nghiêng";
 "TextStyle.Strikethrough.Title" = "Gạch đè";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Liên kết";
 
@@ -165,6 +166,7 @@
 "Align right" = "Căn phải";
 "Align left" = "Căn trái";
 "Align center" = "Căn giữa";
+"Align justify" = "Align justify";
 "Black" = "Đen";
 "Amber" = "Hổ phách";
 "Red" = "Đỏ";
@@ -1138,6 +1140,7 @@ Please provide specific details of your needs here.";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

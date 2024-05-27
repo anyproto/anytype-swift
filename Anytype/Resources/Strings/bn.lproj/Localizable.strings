@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "গাঢ়";
 "TextStyle.Italic.Title" = "তির্যক";
 "TextStyle.Strikethrough.Title" = "রেখান্বিত";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "কোড";
 "TextStyle.Link.Title" = "লিঙ্ক";
 
@@ -165,6 +166,7 @@
 "Align right" = "ডান সারিবদ্ধ করুন";
 "Align left" = "Align left";
 "Align center" = "Align center";
+"Align justify" = "Align justify";
 "Black" = "Black";
 "Amber" = "Amber";
 "Red" = "লাল";
@@ -1137,6 +1139,7 @@ Please provide specific details of your needs here.";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

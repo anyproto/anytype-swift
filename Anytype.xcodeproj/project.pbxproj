@@ -513,6 +513,7 @@
 		2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D562B7B694800456E08 /* Text+Markdown.swift */; };
 		2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = 2A685D592B7B855300456E08 /* ZIPFoundation */; };
 		2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A685D5B2B7B9E1500456E08 /* FileManager+Extension.swift */; };
+		2A6C3ED62C008DAF00B8D57C /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6C3ED52C008DAF00B8D57C /* AnytypeCore */; };
 		2A6C75C429FC03D4002BD440 /* SingleObjectSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */; };
 		2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A1298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift */; };
 		2A6E04A6298D05AF0023B33D /* OpenedDocumentsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A6E04A5298D05AF0023B33D /* OpenedDocumentsProvider.swift */; };
@@ -890,7 +891,6 @@
 		2E1AA8082BD92EF40089B136 /* NewRelationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8072BD92EF40089B136 /* NewRelationCoordinatorView.swift */; };
 		2E1AA80A2BD92F060089B136 /* NewRelationCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA8092BD92F060089B136 /* NewRelationCoordinatorViewModel.swift */; };
 		2E1AA80C2BD95A2B0089B136 /* RelationFormatsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1AA80B2BD95A2B0089B136 /* RelationFormatsData.swift */; };
-		2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1C80E42A2F6EF000217C47 /* AboutApp.swift */; };
 		2E21599D28EC619E0042B205 /* EditorPageTemplatesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */; };
 		2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */; };
 		2E22F9E72B615053001EFCF3 /* SelectRelationOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */; };
@@ -1269,6 +1269,7 @@
 		3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */; };
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
 		3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */; };
+		3D9EEC382BFE4B06006F24AD /* AccountDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */; };
 		3DA414972B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */; };
 		3DA4149C2B70FF2F00960748 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */; };
 		3DA4149E2B72627D00960748 /* SearchServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4149D2B72627D00960748 /* SearchServiceProtocol.swift */; };
@@ -2661,7 +2662,6 @@
 		2E1AA8072BD92EF40089B136 /* NewRelationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCoordinatorView.swift; sourceTree = "<group>"; };
 		2E1AA8092BD92F060089B136 /* NewRelationCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2E1AA80B2BD95A2B0089B136 /* RelationFormatsData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsData.swift; sourceTree = "<group>"; };
-		2E1C80E42A2F6EF000217C47 /* AboutApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutApp.swift; sourceTree = "<group>"; };
 		2E21599C28EC619E0042B205 /* EditorPageTemplatesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageTemplatesHandler.swift; sourceTree = "<group>"; };
 		2E22F9E22B600F91001EFCF3 /* RelationModuleConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationModuleConfiguration.swift; sourceTree = "<group>"; };
 		2E22F9E62B615053001EFCF3 /* SelectRelationOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationOption.swift; sourceTree = "<group>"; };
@@ -3040,6 +3040,7 @@
 		3D93D56D270C9E4D00614E29 /* EditorMainItemModelsHolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorMainItemModelsHolder.swift; sourceTree = "<group>"; };
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
 		3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdown.swift; sourceTree = "<group>"; };
+		3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataExtension.swift; sourceTree = "<group>"; };
 		3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangeTypeAccessoryView+Views.swift"; sourceTree = "<group>"; };
 		3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		3DA4149D2B72627D00960748 /* SearchServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceProtocol.swift; sourceTree = "<group>"; };
@@ -3494,6 +3495,7 @@
 			files = (
 				2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */,
 				2ACDC9B42B553F840063BFBD /* SharedContentManager in Frameworks */,
+				2A6C3ED62C008DAF00B8D57C /* AnytypeCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4094,7 +4096,6 @@
 				2AF4260C29AF471C00753B17 /* AboutModuleOutput.swift */,
 				2A6688922A1CCB1100D80CED /* AboutView.swift */,
 				2A6688942A1CCB3D00D80CED /* AboutViewModel.swift */,
-				2E1C80E42A2F6EF000217C47 /* AboutApp.swift */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -7086,6 +7087,7 @@
 			children = (
 				2AFFFB9E2927B05700A487E1 /* AccountEventHandler.swift */,
 				3DB1CA0E27293733000D2779 /* AccountManager.swift */,
+				3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -10553,6 +10555,7 @@
 			packageProductDependencies = (
 				2ACDC9B32B553F840063BFBD /* SharedContentManager */,
 				2A41A6792B84E59B00EAE6E6 /* DeepLinks */,
+				2A6C3ED52C008DAF00B8D57C /* AnytypeCore */,
 			);
 			productName = AnytypeShareExtension;
 			productReference = 862D55902A8F78330018103F /* AnytypeShareExtension.appex */;
@@ -10972,6 +10975,7 @@
 				C9099607281AD5220011682F /* RelationItemModel.swift in Sources */,
 				12195395278DA46E00D53653 /* TextRelationViewType.swift in Sources */,
 				127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */,
+				3D9EEC382BFE4B06006F24AD /* AccountDataExtension.swift in Sources */,
 				53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */,
 				2E975EF2287C23DA004DE574 /* SetSortRow.swift in Sources */,
 				3DB98100274E86AA00ECC882 /* Array+Emoji.swift in Sources */,
@@ -11481,7 +11485,6 @@
 				3DEFBB6F2BEBBAC00076832B /* MembershipNameValidationView.swift in Sources */,
 				2E6CF1672BE115CB002C7023 /* RelationsSearchData.swift in Sources */,
 				1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */,
-				2E1C80E52A2F6EF000217C47 /* AboutApp.swift in Sources */,
 				2A5B53B12A80DBA200BC993B /* SpaceSettingsView.swift in Sources */,
 				2A8302B52B075892002D6655 /* AnytypeNavigationViewBridge.swift in Sources */,
 				2AF4261A29AF50C900753B17 /* PersonalizationModuleOutput.swift in Sources */,
@@ -12641,7 +12644,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12686,7 +12689,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12843,7 +12846,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -12910,7 +12913,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12942,7 +12945,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -12975,7 +12978,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13009,7 +13012,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13043,7 +13046,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13077,7 +13080,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13332,6 +13335,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
 			productName = ZIPFoundation;
+		};
+		2A6C3ED52C008DAF00B8D57C /* AnytypeCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AnytypeCore;
 		};
 		2A6ED165285B44DB00AAA21C /* AnytypeCore */ = {
 			isa = XCSwiftPackageProductDependency;

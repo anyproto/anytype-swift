@@ -25,6 +25,7 @@ internal enum Loc {
     return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2))
   }
   internal static let alignCenter = Loc.tr("Localizable", "Align center")
+  internal static let alignJustify = Loc.tr("Localizable", "Align justify")
   internal static let alignLeft = Loc.tr("Localizable", "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right")
   internal static let alignment = Loc.tr("Localizable", "Alignment")
@@ -1780,6 +1781,9 @@ internal enum Loc {
     internal enum Toggle {
       internal static let subtitle = Loc.tr("Localizable", "TextStyle.Toggle.Subtitle")
       internal static let title = Loc.tr("Localizable", "TextStyle.Toggle.Title")
+    }
+    internal enum Underline {
+      internal static let title = Loc.tr("Localizable", "TextStyle.Underline.Title")
     }
   }
   internal enum ToggleEmpty {
