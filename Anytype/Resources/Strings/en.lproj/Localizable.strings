@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
+"Next" = "Next";
 "Style" = "Style";
 "Color" = "Color";
 "Background" = "Background";
@@ -995,6 +996,11 @@
 "Swipe.Tip.Title" = "Swipe to Create Objects";
 "Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 

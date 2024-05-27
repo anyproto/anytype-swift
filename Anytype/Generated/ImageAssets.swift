@@ -375,6 +375,11 @@ internal extension ImageAsset {
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")
   }
+  enum SpaceShareTip {
+    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
+  }
   enum StyleBottomSheet {
     static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")
     static let checkbox = ImageAsset.bundle(name: "StyleBottomSheet/checkbox")
