@@ -33,12 +33,7 @@ final class DeletedAccountViewModel: ObservableObject {
     // MARK: - Internal funcs
     
     func logOut() {
-        AnytypeAnalytics.instance().logEvent(
-            AnalyticsEventsName.logout,
-            withEventProperties: [
-                AnalyticsEventsPropertiesKey.route: AnalyticsEventsName.screenDeletion
-            ]
-        )
+        AnytypeAnalytics.instance().logLogout(route: .screenDeletion)
         Task {
             do {
                 try await service.logout(removeData: true)
@@ -50,7 +45,7 @@ final class DeletedAccountViewModel: ObservableObject {
     }
     
     func cancel() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.cancelDeletion)
+        AnytypeAnalytics.instance().logCancelDeletion()
         Task { @MainActor in
             guard let status = try? await service.restoreAccount() else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
