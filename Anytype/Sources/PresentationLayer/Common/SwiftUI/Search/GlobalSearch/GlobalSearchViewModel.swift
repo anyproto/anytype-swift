@@ -69,6 +69,7 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .filtered(name: data.title, limitObjectIds: data.relatedLinks)
         )
+        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)
     }
     
     func clear() {

@@ -527,6 +527,10 @@ extension AnytypeAnalytics {
         logEvent(AnalyticsEventsName.searchResult, spaceId: spaceId)
     }
     
+    func logSearchBacklink(spaceId: String) {
+        logEvent("SearchBacklink", spaceId: spaceId)
+    }
+    
     func logLockPage(_ isLocked: Bool) {
         if isLocked {
             logLockPage()
