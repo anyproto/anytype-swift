@@ -7,12 +7,6 @@ enum AnalyticsConfiguration {
 // MARK: - Events name
 
 enum AnalyticsEventsName {    
-    // Relation events
-    static let addExistingRelation = "AddExistingRelation"
-    static let createRelation = "CreateRelation"
-    static let changeRelationValue = "ChangeRelationValue"
-    static let deleteRelationValue = "DeleteRelationValue"
-    
     // Templating
     static let selectTemplate = "SelectTemplate"
     static let changeDefaultTemplate = "ChangeDefaultTemplate"

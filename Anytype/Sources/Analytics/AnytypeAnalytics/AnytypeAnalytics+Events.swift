@@ -219,7 +219,7 @@ extension AnytypeAnalytics {
         spaceId: String
     ) {
         logEvent(
-            isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation,
+            isNew ? "CreateRelation" : "AddExistingRelation",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.format: format.analyticsName,
@@ -230,7 +230,7 @@ extension AnytypeAnalytics {
 
     func logChangeOrDeleteRelationValue(isEmpty: Bool, type: AnalyticsEventsRelationType, spaceId: String) {
         logEvent(
-            isEmpty ? AnalyticsEventsName.deleteRelationValue : AnalyticsEventsName.changeRelationValue,
+            isEmpty ? "DeleteRelationValue" : "ChangeRelationValue",
             spaceId: spaceId,
             withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
         )
