@@ -4993,6 +4993,30 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.SearchWithMeta.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.SearchWithMeta.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Object.SetBreadcrumbs.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
