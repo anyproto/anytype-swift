@@ -85,14 +85,14 @@ public extension FeatureDescription {
     )
     
     static let resetTips = FeatureDescription(
-        title: "Reset tips 💭 on launch",
+        title: "Tips 💭 - reset on launch",
         type: .debug,
         defaultValue: false,
         debugValue: false
     )
     
     static let showAllTips = FeatureDescription(
-        title: "Show all tips 💭 for testing (ignore rules)",
+        title: "Tips 💭 - show immediate (ignore time rules)",
         type: .debug,
         defaultValue: false,
         debugValue: false

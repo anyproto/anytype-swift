@@ -70,8 +70,8 @@ struct SharingTipView: View {
         LinearGradient(
             gradient: Gradient(
                 colors: [
-                    UIColor.Text.labelInversion.suColor,
-                    UIColor.Additional.gradient.suColor
+                    .Gradients.white,
+                    .Gradients.green
                 ]
             ),
             startPoint: .init(x: 0.8, y: 0.8),

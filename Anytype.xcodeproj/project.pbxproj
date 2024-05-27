@@ -413,6 +413,10 @@
 		2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */; };
 		2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */; };
 		2A43EAC72A98A18500DA4AAE /* QuickActionShortcutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43EAC62A98A18500DA4AAE /* QuickActionShortcutBuilder.swift */; };
+		2A446D4E2C049910002E39AD /* SpaceShareTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */; };
+		2A446D502C049A5C002E39AD /* SpaceShareTipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */; };
+		2A446D522C04B2E3002E39AD /* SpaceShareTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */; };
+		2A446D542C04B52E002E39AD /* SpaceShareTipCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D532C04B52E002E39AD /* SpaceShareTipCoordinator.swift */; };
 		2A45A37A2BC4170200F5CAED /* SpaceSettingsShareSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A45A3792BC4170200F5CAED /* SpaceSettingsShareSection.swift */; };
 		2A475F172AFE47BE00E8C6D5 /* AnytypeNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */; };
 		2A48F3D82BD66247000510CD /* AnytypeAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A48F3D72BD66247000510CD /* AnytypeAnalytics.swift */; };
@@ -2175,6 +2179,10 @@
 		2A41A6762B84D43C00EAE6E6 /* DeepLinks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DeepLinks; path = Modules/DeepLinks; sourceTree = "<group>"; };
 		2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdownListener.swift; sourceTree = "<group>"; };
 		2A43EAC62A98A18500DA4AAE /* QuickActionShortcutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionShortcutBuilder.swift; sourceTree = "<group>"; };
+		2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipView.swift; sourceTree = "<group>"; };
+		2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipViewModel.swift; sourceTree = "<group>"; };
+		2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTip.swift; sourceTree = "<group>"; };
+		2A446D532C04B52E002E39AD /* SpaceShareTipCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipCoordinator.swift; sourceTree = "<group>"; };
 		2A45A3792BC4170200F5CAED /* SpaceSettingsShareSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSettingsShareSection.swift; sourceTree = "<group>"; };
 		2A475F162AFE47BE00E8C6D5 /* AnytypeNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeNavigationView.swift; sourceTree = "<group>"; };
 		2A48F3D72BD66247000510CD /* AnytypeAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeAnalytics.swift; sourceTree = "<group>"; };
@@ -5600,6 +5608,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2A446D4C2C049901002E39AD /* SpaceShareTip */ = {
+			isa = PBXGroup;
+			children = (
+				2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */,
+				2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */,
+				2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */,
+				2A446D532C04B52E002E39AD /* SpaceShareTipCoordinator.swift */,
+			);
+			path = SpaceShareTip;
+			sourceTree = "<group>";
+		};
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -6601,6 +6620,7 @@
 		2AC434952B7A064F006166BF /* SpaceShare */ = {
 			isa = PBXGroup;
 			children = (
+				2A446D4C2C049901002E39AD /* SpaceShareTip */,
 				2AC434A82B7A15AD006166BF /* Subviews */,
 				2AC434962B7A0683006166BF /* SpaceShareView.swift */,
 				2AC434982B7A068B006166BF /* SpaceShareViewModel.swift */,
@@ -8470,6 +8490,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */,
 				3D3B350F2BCEBB59008456F8 /* SafariWebView */,
 				2A30B2092BB44BBC00206806 /* QrCode */,
 				3D26AA732B9738F900D61479 /* Checkbox */,
@@ -9940,7 +9961,6 @@
 			isa = PBXGroup;
 			children = (
 				86C4B36A2B21CD63003B8C51 /* SharingTip.swift */,
-				86C4B3732B244A4A003B8C51 /* UIKitTipPerformer.swift */,
 				86C4B36F2B21DC61003B8C51 /* SharingTipView.swift */,
 				86C4B3712B22FD9C003B8C51 /* SharingTipViewModel.swift */,
 				86C4B3772B246141003B8C51 /* SharingTipCoordinator.swift */,
@@ -11118,6 +11138,7 @@
 				2A7BC27F2B1E2C4700EB96EB /* ServerConfigurationViewModel.swift in Sources */,
 				2A7208B72AF3B67D006D88CF /* SegmentLine.swift in Sources */,
 				2ABF39402B8398FB00EF9DA1 /* BottomAlertButttonStack.swift in Sources */,
+				2A446D4E2C049910002E39AD /* SpaceShareTipView.swift in Sources */,
 				866B43082ABAE4C10028DDAE /* ObjectHeaderUploadingService.swift in Sources */,
 				3DD0CEBB2B90E6BB00657402 /* MembershipBannerView.swift in Sources */,
 				2A6693712A7104EA007747DD /* SpaceIconImageGuideline.swift in Sources */,
@@ -11525,6 +11546,7 @@
 				2A0F40312BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift in Sources */,
 				2E56F1362A0D43BB00031167 /* LoopingPlayerView.swift in Sources */,
 				C99DCE8B283B5BDE0051F99D /* KeyboardHeightListener.swift in Sources */,
+				2A446D542C04B52E002E39AD /* SpaceShareTipCoordinator.swift in Sources */,
 				2E52DE712A1CEAF700F16815 /* SoulView.swift in Sources */,
 				C9EA69D328C7412A003F488C /* SimpleTableBlockView+UICollectionViewDelegate.swift in Sources */,
 				2ACD86F229C2181B0082E861 /* NewSearchErrorView.swift in Sources */,
@@ -11689,6 +11711,7 @@
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */,
 				2ACB79862BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift in Sources */,
+				2A446D522C04B2E3002E39AD /* SpaceShareTip.swift in Sources */,
 				2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */,
 				2EA18B092AF132A10096B137 /* SetObjectCreationHelper.swift in Sources */,
 				3D3B35112BCEBBAA008456F8 /* SafariWebView.swift in Sources */,
@@ -12018,6 +12041,7 @@
 				3DA6DBDB2746582300516E75 /* View+ReadSize.swift in Sources */,
 				3D30426E2BD148FA0098F80F /* AnytypeIndexView.swift in Sources */,
 				2A9C187A2BA0A95900DFE560 /* AccountParticipantsStorage.swift in Sources */,
+				2A446D502C049A5C002E39AD /* SpaceShareTipViewModel.swift in Sources */,
 				2ABBAECB2BF4EB6900EBA8FA /* WidgetObjectListBinView.swift in Sources */,
 				2AA0C43F2A013EF800B9C108 /* FilesSubscriptionService.swift in Sources */,
 				2A0F66532BFBA14100F34BBD /* SetsCompactListWidgetSubmoduleView.swift in Sources */,

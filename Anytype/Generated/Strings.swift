@@ -182,6 +182,7 @@ internal enum Loc {
   internal static let name = Loc.tr("Localizable", "Name")
   internal static let new = Loc.tr("Localizable", "New")
   internal static let newRelation = Loc.tr("Localizable", "New relation")
+  internal static let next = Loc.tr("Localizable", "Next")
   internal static let noConnection = Loc.tr("Localizable", "No connection")
   internal static let noDate = Loc.tr("Localizable", "No date")
   internal static let noItemsMatchFilter = Loc.tr("Localizable", "No items match filter")
@@ -1612,6 +1613,14 @@ internal enum Loc {
       internal static let message = Loc.tr("Localizable", "SpaceShare.StopSharing.Message")
       internal static let title = Loc.tr("Localizable", "SpaceShare.StopSharing.Title")
       internal static let toast = Loc.tr("Localizable", "SpaceShare.StopSharing.Toast")
+    }
+    internal enum Tip {
+      internal static let title = Loc.tr("Localizable", "SpaceShare.Tip.Title")
+      internal enum Steps {
+        internal static let _1 = Loc.tr("Localizable", "SpaceShare.Tip.Steps.1")
+        internal static let _2 = Loc.tr("Localizable", "SpaceShare.Tip.Steps.2")
+        internal static let _3 = Loc.tr("Localizable", "SpaceShare.Tip.Steps.3")
+      }
     }
     internal enum ViewRequest {
       internal static let editAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.EditAccess")

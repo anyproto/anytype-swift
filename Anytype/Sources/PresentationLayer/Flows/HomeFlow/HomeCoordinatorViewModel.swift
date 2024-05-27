@@ -55,6 +55,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var showMembershipNameSheet: MembershipTier?
+    @Published var showSpaceShareTip: Bool = false
     
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
@@ -321,6 +322,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             try await document.openForPreview()
             guard let editorData = document.details?.editorScreenData() else { return }
             try await push(data: editorData)
+        case .spaceShareTip:
+            showSpaceShareTip = true
         }
     }
     
