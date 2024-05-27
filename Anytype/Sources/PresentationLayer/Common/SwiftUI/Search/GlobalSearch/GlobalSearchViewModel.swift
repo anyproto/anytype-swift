@@ -57,6 +57,8 @@ final class GlobalSearchViewModel: ObservableObject {
         } catch {
             searchData = []
         }
+        
+        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
     func onSelect(searchData: GlobalSearchData) {
@@ -69,6 +71,7 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .filtered(name: data.title, limitObjectIds: data.relatedLinks)
         )
+        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)
     }
     
     func clear() {
