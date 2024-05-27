@@ -30,7 +30,7 @@ public struct StoreKitPurchaseSuccess {
 }
 
 public protocol StoreKitServiceProtocol {
-    func purchase(product: Product, billingId: String) async throws -> StoreKitPurchaseSuccess
+    func purchase(product: Product, billingId: UUID) async throws -> StoreKitPurchaseSuccess
     func isPurchased(product: Product) async throws -> Bool
     
     func startListenForTransactions()
@@ -53,7 +53,7 @@ final class StoreKitService: StoreKitServiceProtocol {
                     let transaction = try self.checkVerified(verificationResult)
                     
                     ///Deliver products to the user.
-                    try await self.membershipService.verifyReceipt(billingId: "", receipt: verificationResult.jwsRepresentation)
+                    try await self.membershipService.verifyReceipt(receipt: verificationResult.jwsRepresentation)
                     
                     ///Always finish a transaction.
                     await transaction.finish()
@@ -76,9 +76,10 @@ final class StoreKitService: StoreKitServiceProtocol {
         return transaction.revocationDate.isNil  
     }
     
-    func purchase(product: Product, billingId: String) async throws -> StoreKitPurchaseSuccess {
+    func purchase(product: Product, billingId: UUID) async throws -> StoreKitPurchaseSuccess {
         let result = try await product.purchase(options: [
-            .custom(key: "BillingId", value: billingId), // Is not working in current API
+            .appAccountToken(billingId),
+            .custom(key: "BillingId", value: billingId.uuidString), // Is not working in current API
             .custom(key: "AnytypeId", value: accountManager.account.id), // Is not working in current API
         ])
         
@@ -87,7 +88,7 @@ final class StoreKitService: StoreKitServiceProtocol {
             let transaction = try checkVerified(verificationResult)
 
             do {
-                try await membershipService.verifyReceipt(billingId: billingId, receipt: verificationResult.jwsRepresentation)
+                try await membershipService.verifyReceipt(receipt: verificationResult.jwsRepresentation)
             } catch let error {
                 // purchase successfull and verified, but still need validation from middleware
                 // it will happen in startListenForTransactions asynchronously

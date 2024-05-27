@@ -3832,6 +3832,9 @@ extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: Localize
             case .canNotConnect:
                 return String(localized: "Membership.RegisterPaymentRequest.canNotConnect", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.RegisterPaymentRequest.canNotConnect")
+            case .emailWrongFormat:
+                return String(localized: "Membership.RegisterPaymentRequest.emailWrongFormat", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.emailWrongFormat")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -4984,6 +4987,30 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "Object.SearchUnsubscribe.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Object.SearchUnsubscribe.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.SearchWithMeta.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.SearchWithMeta.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
