@@ -7,17 +7,6 @@ enum AnalyticsConfiguration {
 // MARK: - Events name
 
 enum AnalyticsEventsName {
-    // Auth events
-    static let createAccount = "CreateAccount"
-    static let openAccount = "OpenAccount"
-    static let logout = "LogOut"
-    static let deleteAccount = "DeleteAccount"
-    static let cancelDeletion = "CancelDeletion"
-    static let screenOnboarding = "ScreenOnboarding"
-    static let clickOnboarding = "ClickOnboarding"
-    static let clickLogin = "ClickLogin"
-    static let onboardingSkipName = "ScreenOnboardingSkipName"
-
     // Block events
     static let blockCreate = "CreateBlock"
     static let blockDelete = "DeleteBlock"
@@ -98,7 +87,6 @@ enum AnalyticsEventsName {
     static let screenAuthRegistration = "ScreenAuthRegistration"
 
     static let homeShow = "ScreenHome"
-    static let screenDeletion = "ScreenDeletion"
 
     static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
     static let screenSettingsAccount = "ScreenSettingsAccount"
@@ -368,6 +356,10 @@ enum AnalyticsWidgetContext: String, Hashable {
 enum RemoveCompletelyRoute: String {
     case bin = "Bin"
     case settings = "Settings"
+}
+
+enum LogoutRoute: String {
+    case screenDeletion = "ScreenDeletion"
 }
 
 enum ShowDeletionWarningRoute: String {

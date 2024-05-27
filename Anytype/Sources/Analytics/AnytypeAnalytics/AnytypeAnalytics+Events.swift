@@ -5,7 +5,7 @@ extension AnytypeAnalytics {
     func logAccountCreate(analyticsId: String, middleTime: Int) {
 
         logEvent(
-            AnalyticsEventsName.createAccount,
+            "CreateAccount",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.accountId : analyticsId,
                 AnalyticsEventsPropertiesKey.middleTime : middleTime
@@ -15,9 +15,26 @@ extension AnytypeAnalytics {
     
     func logAccountOpen(analyticsId: String) {
         logEvent(
-            AnalyticsEventsName.openAccount,
+            "OpenAccount",
             withEventProperties: [AnalyticsEventsPropertiesKey.accountId : analyticsId]
         )
+    }
+    
+    func logLogout(route: LogoutRoute? = nil) {
+        logEvent(
+            "LogOut",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
+        )
+    }
+    
+    func logDeleteAccount() {
+        logEvent("DeleteAccount")
+    }
+    
+    func logCancelDeletion() {
+        logEvent("CancelDeletion")
     }
     
     func logDeletion(count: Int, route: RemoveCompletelyRoute) {
@@ -649,14 +666,14 @@ extension AnytypeAnalytics {
     
     func logScreenOnboarding(step: ScreenOnboardingStep) {
         logEvent(
-            AnalyticsEventsName.screenOnboarding,
+            "ScreenOnboarding",
             withEventProperties: [AnalyticsEventsPropertiesKey.step: step.rawValue]
         )
     }
     
     func logClickOnboarding(step: ScreenOnboardingStep, button: ClickOnboardingButton) {
         logEvent(
-            AnalyticsEventsName.clickOnboarding,
+            "ClickOnboarding",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: button.rawValue,
                 AnalyticsEventsPropertiesKey.step: step.rawValue
@@ -666,13 +683,13 @@ extension AnytypeAnalytics {
     
     func logClickLogin(button: ClickLoginButton) {
         logEvent(
-            AnalyticsEventsName.clickLogin,
+            "ClickLogin",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: button.rawValue]
         )
     }
     
     func logOnboardingSkipName() {
-        logEvent(AnalyticsEventsName.onboardingSkipName)
+        logEvent("ScreenOnboardingSkipName")
     }
     
     func logTemplateSelection(objectType: AnalyticsObjectType?, route: AnalyticsEventsRouteKind) {
