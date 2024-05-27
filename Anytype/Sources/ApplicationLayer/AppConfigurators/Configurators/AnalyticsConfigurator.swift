@@ -19,7 +19,7 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
             }
         })
         
-        AnytypeAnalytics.instance().setEventConfiguartion(event: AnalyticsEventsName.blockSetTextText,
+        AnytypeAnalytics.instance().setEventConfiguartion(event: "Writing",
                                                           configuation: .init(threshold: .notInRow))
         
         // Initialize SDK

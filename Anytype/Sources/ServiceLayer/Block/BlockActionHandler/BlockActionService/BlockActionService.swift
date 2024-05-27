@@ -134,7 +134,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockIds: [String]) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
+        AnytypeAnalytics.instance().logDeleteBlock()
         Task {
             try await blockService.delete(contextId: documentId, blockIds: blockIds)
         }

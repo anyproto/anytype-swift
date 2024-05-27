@@ -49,23 +49,35 @@ extension AnytypeAnalytics {
     
     func logChangeBlockStyle(_ style: BlockText.Style) {
         logEvent(
-            AnalyticsEventsName.changeBlockStyle,
+            "ChangeBlockStyle",
             withEventProperties: [AnalyticsEventsPropertiesKey.blockStyle: style.analyticsValue]
         )
     }
 
     func logChangeBlockStyle(_ markupType: MarkupType) {
         logEvent(
-            AnalyticsEventsName.changeBlockStyle,
+            "ChangeBlockStyle",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: markupType.analyticsValue]
         )
     }
 
     func logChangeTextStyle(_ markupType: MarkupType) {
         logEvent(
-            AnalyticsEventsName.changeTextStyle,
+            "ChangeTextStyle",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: markupType.analyticsValue]
         )
+    }
+    
+    func logBlockBookmarkOpenUrl() {
+        logEvent("BlockBookmarkOpenUrl")
+    }
+    
+    func logOpenAsObject() {
+        logEvent("OpenAsObject")
+    }
+    
+    func logOpenAsSource() {
+        logEvent("OpenAsSource")
     }
 
     func logAddToFavorites(_ isFavorites: Bool) {
@@ -141,7 +153,7 @@ extension AnytypeAnalytics {
 
     func logSetAlignment(_ alignment: LayoutAlignment, isBlock: Bool) {
         if isBlock {
-            logEvent(AnalyticsEventsName.blockListSetAlign,
+            logEvent("ChangeBlockAlign",
                      withEventProperties: [AnalyticsEventsPropertiesKey.align: alignment.analyticsValue])
         } else {
             logEvent(AnalyticsEventsName.setLayoutAlign,
@@ -172,9 +184,13 @@ extension AnytypeAnalytics {
             props[AnalyticsEventsPropertiesKey.route] = route.rawValue
         }
 
-        logEvent(AnalyticsEventsName.blockCreate, spaceId: spaceId, withEventProperties: props)
+        logEvent("CreateBlock", spaceId: spaceId, withEventProperties: props)
     }
-
+    
+    func logDeleteBlock() {
+        logEvent("DeleteBlock")
+    }
+    
     func logUploadMedia(type: FileContentType, spaceId: String) {
         logEvent(
             "UploadMedia",
@@ -192,7 +208,7 @@ extension AnytypeAnalytics {
     }
 
     func logReorderBlock(count: Int) {
-        logEvent(AnalyticsEventsName.reorderBlock,
+        logEvent("ReorderBlock",
                  withEventProperties: [AnalyticsEventsPropertiesKey.count: count])
     }
     
@@ -588,15 +604,15 @@ extension AnytypeAnalytics {
     }
     
     func logCopyBlock(spaceId: String) {
-        logEvent(AnalyticsEventsName.copyBlock, spaceId: spaceId)
+        logEvent("CopyBlock", spaceId: spaceId)
     }
     
     func logPasteBlock(spaceId: String) {
-        logEvent(AnalyticsEventsName.pasteBlock, spaceId: spaceId)
+        logEvent("PasteBlock", spaceId: spaceId)
     }
     
     func logSetObjectDescription() {
-        logEvent(AnalyticsEventsName.setObjectDescription)
+        logEvent("SetObjectDescription")
     }
     
     func logMoveBlock() {
@@ -604,7 +620,7 @@ extension AnytypeAnalytics {
     }
     
     func logChangeBlockBackground(color: MiddlewareColor) {
-        logEvent(AnalyticsEventsName.changeBlockBackground, withEventProperties: [
+        logEvent("ChangeBlockBackground", withEventProperties: [
             AnalyticsEventsPropertiesKey.color: color.rawValue
         ])
     }
@@ -760,7 +776,7 @@ extension AnytypeAnalytics {
     }
     
     func logCreateLink(spaceId: String) {
-        logEvent(AnalyticsEventsName.createLink, spaceId: spaceId)
+        logEvent("CreateLink", spaceId: spaceId)
     }
     
     func logScreenSettingsSpaceCreate() {

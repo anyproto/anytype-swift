@@ -6,27 +6,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {
-    // Block events
-    static let blockCreate = "CreateBlock"
-    static let blockDelete = "DeleteBlock"
-    static let createLink = "CreateLink"
-
-    static let blockListSetAlign = "ChangeBlockAlign"
-    static let changeBlockBackground = "ChangeBlockBackground"
-    
-    static let blockSetTextText = "Writing"
-    static let changeBlockStyle = "ChangeBlockStyle"
-    static let changeTextStyle = "ChangeTextStyle"
-
-    static let reorderBlock = "ReorderBlock"
-    static let blockBookmarkOpenUrl = "BlockBookmarkOpenUrl"
-    static let openAsObject = "OpenAsObject"
-    static let openAsSource = "OpenAsSource"
-    static let copyBlock = "CopyBlock"
-    static let pasteBlock = "PasteBlock"
-    static let setObjectDescription = "SetObjectDescription"
-    
+enum AnalyticsEventsName {    
     // Relation events
     static let addExistingRelation = "AddExistingRelation"
     static let createRelation = "CreateRelation"
