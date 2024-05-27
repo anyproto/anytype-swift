@@ -40,13 +40,13 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
         case .setCover(let coverSource):
             switch coverSource {
             case let .color(colorName):
-                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                AnytypeAnalytics.instance().logSetCover()
                 try? await detailsService.updateBundledDetails(
                     objectId: objectId,
                     bundledDetails: [.coverType(CoverType.color), .coverId(colorName)]
                 )
             case let .gradient(gradientName):
-                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                AnytypeAnalytics.instance().logSetCover()
                 try? await detailsService.updateBundledDetails(
                     objectId: objectId,
                     bundledDetails: [.coverType(CoverType.gradient), .coverId(gradientName)]
@@ -60,7 +60,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
                 
                 coverUploadSubject.send((objectId, spaceId, .coverUploading(.bundleImagePath(data.path))))
                 
-                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                AnytypeAnalytics.instance().logSetCover()
                 
                 try await detailsService.setCover(
                     objectId: objectId,
@@ -68,7 +68,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
                     source: .itemProvider(safeSendableItemProvider.value)
                 )
             case let .unsplash(unsplashItem):
-                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
+                AnytypeAnalytics.instance().logSetCover()
                 
                 coverUploadSubject.send((objectId, spaceId, .coverUploading(.remotePreviewURL(unsplashItem.url))))
                 
@@ -76,7 +76,7 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
                 try await detailsService.setCover(objectId: objectId, imageObjectId: imageObjectId)
             }
         case .removeCover:
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeCover)
+            AnytypeAnalytics.instance().logRemoveCover()
             try? await detailsService.updateBundledDetails(
                 objectId: objectId,
                 bundledDetails: [.coverType(CoverType.none), .coverId("")]
@@ -89,20 +89,20 @@ final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
         case .setIcon(let iconSource):
             switch iconSource {
             case .emoji(let emojiUnicode):
-                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
+                AnytypeAnalytics.instance().logSetIcon()
                 try await detailsService.updateBundledDetails(
                     objectId: objectId,
                     bundledDetails: [.iconEmoji(emojiUnicode), .iconObjectId("")]
                 )
             case .upload(let itemProvider):
-                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
+                AnytypeAnalytics.instance().logSetIcon()
                 let safeSendableItemProvider = itemProvider.sendable()
                 let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
                 let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
                 try await detailsService.updateBundledDetails(objectId: objectId, bundledDetails: [.iconEmoji(""), .iconObjectId(fileDetails.id)])
             }
         case .removeIcon:
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
+            AnytypeAnalytics.instance().logRemoveIcon()
             try await detailsService.updateBundledDetails(
                 objectId: objectId,
                 bundledDetails: [.iconEmoji(""), .iconObjectId("")]

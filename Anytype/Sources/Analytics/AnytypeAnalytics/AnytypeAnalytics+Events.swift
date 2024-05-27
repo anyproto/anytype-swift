@@ -39,7 +39,7 @@ extension AnytypeAnalytics {
     
     func logDeletion(count: Int, route: RemoveCompletelyRoute) {
         logEvent(
-            AnalyticsEventsName.objectListDelete,
+            "RemoveCompletely",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.count: count,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -82,17 +82,17 @@ extension AnytypeAnalytics {
 
     func logAddToFavorites(_ isFavorites: Bool) {
         if isFavorites {
-            logEvent(AnalyticsEventsName.addToFavorites)
+            logEvent("AddToFavorites")
         } else {
-            logEvent(AnalyticsEventsName.removeFromFavorites)
+            logEvent("RemoveFromFavorites")
         }
     }
 
     func logMoveToBin(_ isArchived: Bool) {
         if isArchived {
-            logEvent(AnalyticsEventsName.moveToBin)
+            logEvent("MoveToBin")
         } else {
-            logEvent(AnalyticsEventsName.restoreFromBin)
+            logEvent("RestoreFromBin")
         }
     }
 
@@ -107,7 +107,7 @@ extension AnytypeAnalytics {
     }
 
     func logDefaultObjectTypeChange(_ type: AnalyticsObjectType, route: AnalyticsDefaultObjectTypeChangeRoute) {
-        logEvent(AnalyticsEventsName.defaultObjectTypeChange,
+        logEvent("DefaultTypeChange",
                  withEventProperties: [
                     AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
                     AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -138,7 +138,7 @@ extension AnytypeAnalytics {
     
     func logSelectObjectType(_ type: AnalyticsObjectType, route: SelectObjectTypeRoute) {
         logEvent(
-            AnalyticsEventsName.selectObjectType,
+            "SelectObjectType",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -156,9 +156,25 @@ extension AnytypeAnalytics {
             logEvent("ChangeBlockAlign",
                      withEventProperties: [AnalyticsEventsPropertiesKey.align: alignment.analyticsValue])
         } else {
-            logEvent(AnalyticsEventsName.setLayoutAlign,
+            logEvent("SetLayoutAlign",
                      withEventProperties: [AnalyticsEventsPropertiesKey.align: alignment.analyticsValue])
         }
+    }
+    
+    func logSetIcon() {
+        logEvent("SetIcon")
+    }
+    
+    func logRemoveIcon() {
+        logEvent("RemoveIcon")
+    }
+    
+    func logSetCover() {
+        logEvent("SetCover")
+    }
+    
+    func logRemoveCover() {
+        logEvent("RemoveCover")
     }
 
     func logCreateBlock(type: BlockContentType, spaceId: String, route: AnalyticsEventsRouteKind? = nil) {
@@ -241,12 +257,12 @@ extension AnytypeAnalytics {
             AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
             AnalyticsEventsPropertiesKey.route: route.rawValue
         ]
-        logEvent(AnalyticsEventsName.createObject, spaceId: spaceId, withEventProperties: properties)
+        logEvent("CreateObject", spaceId: spaceId, withEventProperties: properties)
     }
     
     func logLinkToObject(type: AnalyticsEventsLinkToObjectType, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.linkToObject,
+            "LinkToObject",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.linkType: type.rawValue
@@ -577,24 +593,24 @@ extension AnytypeAnalytics {
     }
     
     func logLockPage() {
-        logEvent(AnalyticsEventsName.lockPage)
+        logEvent("LockPage")
     }
     
     func logUnlockPage() {
-        logEvent(AnalyticsEventsName.unlockPage)
+        logEvent("UnlockPage")
     }
     
     func logUndo() {
-        logEvent(AnalyticsEventsName.undo)
+        logEvent("Undo")
     }
     
     func logRedo() {
-        logEvent(AnalyticsEventsName.redo)
+        logEvent("Redo")
     }
     
     func logDuplicateObject(count: Int, objectType: AnalyticsObjectType, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.duplicateObject,
+            "DuplicateObject",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.count: count,
@@ -616,7 +632,7 @@ extension AnytypeAnalytics {
     }
     
     func logMoveBlock() {
-        logEvent(AnalyticsEventsName.moveBlock)
+        logEvent("MoveBlock")
     }
     
     func logChangeBlockBackground(color: MiddlewareColor) {

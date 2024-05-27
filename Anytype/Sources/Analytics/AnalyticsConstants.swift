@@ -2,33 +2,12 @@
 
 enum AnalyticsConfiguration {
     static let apiKey = "AmplitudeApiKey"
+    static let blockEvent = "Writing"
 }
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {
-    // Object events
-    static let createObject = "CreateObject"
-    static let addToFavorites = "AddToFavorites"
-    static let removeFromFavorites = "RemoveFromFavorites"
-    static let moveToBin = "MoveToBin"
-    static let restoreFromBin = "RestoreFromBin"
-    static let objectListDelete = "RemoveCompletely"
-    static let defaultObjectTypeChange = "DefaultTypeChange"
-    static let selectObjectType = "SelectObjectType"
-    static let setLayoutAlign = "SetLayoutAlign"
-    static let setIcon = "SetIcon"
-    static let removeIcon = "RemoveIcon"
-    static let setCover = "SetCover"
-    static let removeCover = "RemoveCover"
-    static let linkToObject = "LinkToObject"
-    static let lockPage = "LockPage"
-    static let unlockPage = "UnlockPage"
-    static let undo = "Undo"
-    static let redo = "Redo"
-    static let duplicateObject = "DuplicateObject"
-    static let moveBlock = "MoveBlock"
-    
+enum AnalyticsEventsName {    
     // Type picker
     static let pinObjectType = "PinObjectType"
     static let unpinObjectType = "UnpinObjectType"
