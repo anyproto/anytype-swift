@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "Bukaan kosong. Sentuh untuk membuat balok.";
 "Loading, please wait" = "Memuat, harap tunggu";
 "Done" = "Selesai";
+"Next" = "Lanjut";
 "Style" = "Gaya";
 "Color" = "Warna";
 "Background" = "Latar belakang";
@@ -335,9 +336,11 @@
 "There is no object named" = "Tidak ada objek bernama %@";
 "There is no type named" = "Tidak ada tipe bernama %@";
 "Create a new one or search for something else" = "Buat baru atau telusuri yang lain";
-"Search.Backlinks.Show.title" = "Tampilkan taut balik";
-"Search.Backlinks.Header.title" = "Taut balik dari: %@";
-"Search.Backlinks.Swipe.title" = "Tautan balik";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 
 // MARK: - Home
 
@@ -995,6 +998,11 @@
 "Swipe.Tip.Title" = "Usap untuk Membuat Objek";
 "Swipe.Tip.Subtitle" = "Buat objek dalam widget dengan mengusap ke kiri dengan mudah.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 
