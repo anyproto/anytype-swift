@@ -72,8 +72,8 @@ struct SpaceShareTipView: View {
         LinearGradient(
             gradient: Gradient(
                 colors: [
-                    Color.Text.labelInversion,
-                    Color.Additional.gradient
+                    .Gradients.white,
+                    .Gradients.orange
                 ]
             ),
             startPoint: .init(x: 0.8, y: 0.8),

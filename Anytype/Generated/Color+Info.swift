@@ -34,6 +34,7 @@ extension UIColor {
                 UIColor.Background.collectionInfo, 
                 UIColor.BottomAlert.collectionInfo, 
                 UIColor.Button.collectionInfo, 
+                UIColor.CoverGradients.collectionInfo, 
                 UIColor.Gradients.collectionInfo, 
                 UIColor.ModalScreen.collectionInfo, 
                 UIColor.Navigation.collectionInfo, 
@@ -123,7 +124,6 @@ extension UIColor.Additional {
     static let collectionInfo = ColorCollectionInfo(
         name: "Additional",
         colors: [
-            ColorInfo(name: "gradient", color: UIColor.Additional.gradient), 
             ColorInfo(name: "separator", color: UIColor.Additional.separator), 
             ColorInfo(name: "space", color: UIColor.Additional.space)
         ]
@@ -182,14 +182,33 @@ extension UIColor.Button {
         ]
     )
 }
+extension UIColor.CoverGradients {
+    static let collectionInfo = ColorCollectionInfo(
+        name: "CoverGradients",
+        colors: [
+            ColorInfo(name: "blueEnd", color: UIColor.CoverGradients.blueEnd), 
+            ColorInfo(name: "bluePinkEnd", color: UIColor.CoverGradients.bluePinkEnd), 
+            ColorInfo(name: "bluePinkStart", color: UIColor.CoverGradients.bluePinkStart), 
+            ColorInfo(name: "blueStart", color: UIColor.CoverGradients.blueStart), 
+            ColorInfo(name: "greenOrangeEnd", color: UIColor.CoverGradients.greenOrangeEnd), 
+            ColorInfo(name: "greenOrangeStart", color: UIColor.CoverGradients.greenOrangeStart), 
+            ColorInfo(name: "pinkOrangeEnd", color: UIColor.CoverGradients.pinkOrangeEnd), 
+            ColorInfo(name: "pinkOrangeStart", color: UIColor.CoverGradients.pinkOrangeStart), 
+            ColorInfo(name: "redEnd", color: UIColor.CoverGradients.redEnd), 
+            ColorInfo(name: "redStart", color: UIColor.CoverGradients.redStart), 
+            ColorInfo(name: "skyEnd", color: UIColor.CoverGradients.skyEnd), 
+            ColorInfo(name: "skyStart", color: UIColor.CoverGradients.skyStart), 
+            ColorInfo(name: "tealEnd", color: UIColor.CoverGradients.tealEnd), 
+            ColorInfo(name: "tealStart", color: UIColor.CoverGradients.tealStart), 
+            ColorInfo(name: "yellowEnd", color: UIColor.CoverGradients.yellowEnd), 
+            ColorInfo(name: "yellowStart", color: UIColor.CoverGradients.yellowStart)
+        ]
+    )
+}
 extension UIColor.Gradients {
     static let collectionInfo = ColorCollectionInfo(
         name: "Gradients",
         colors: [
-            ColorInfo(name: "blueEnd", color: UIColor.Gradients.blueEnd), 
-            ColorInfo(name: "bluePinkEnd", color: UIColor.Gradients.bluePinkEnd), 
-            ColorInfo(name: "bluePinkStart", color: UIColor.Gradients.bluePinkStart), 
-            ColorInfo(name: "blueStart", color: UIColor.Gradients.blueStart), 
             ColorInfo(name: "fadingBlue", color: UIColor.Gradients.fadingBlue), 
             ColorInfo(name: "fadingGreen", color: UIColor.Gradients.fadingGreen), 
             ColorInfo(name: "fadingPink", color: UIColor.Gradients.fadingPink), 
@@ -198,18 +217,9 @@ extension UIColor.Gradients {
             ColorInfo(name: "fadingSky", color: UIColor.Gradients.fadingSky), 
             ColorInfo(name: "fadingTeal", color: UIColor.Gradients.fadingTeal), 
             ColorInfo(name: "fadingYellow", color: UIColor.Gradients.fadingYellow), 
-            ColorInfo(name: "greenOrangeEnd", color: UIColor.Gradients.greenOrangeEnd), 
-            ColorInfo(name: "greenOrangeStart", color: UIColor.Gradients.greenOrangeStart), 
-            ColorInfo(name: "pinkOrangeEnd", color: UIColor.Gradients.pinkOrangeEnd), 
-            ColorInfo(name: "pinkOrangeStart", color: UIColor.Gradients.pinkOrangeStart), 
-            ColorInfo(name: "redEnd", color: UIColor.Gradients.redEnd), 
-            ColorInfo(name: "redStart", color: UIColor.Gradients.redStart), 
-            ColorInfo(name: "skyEnd", color: UIColor.Gradients.skyEnd), 
-            ColorInfo(name: "skyStart", color: UIColor.Gradients.skyStart), 
-            ColorInfo(name: "tealEnd", color: UIColor.Gradients.tealEnd), 
-            ColorInfo(name: "tealStart", color: UIColor.Gradients.tealStart), 
-            ColorInfo(name: "yellowEnd", color: UIColor.Gradients.yellowEnd), 
-            ColorInfo(name: "yellowStart", color: UIColor.Gradients.yellowStart)
+            ColorInfo(name: "green", color: UIColor.Gradients.green), 
+            ColorInfo(name: "orange", color: UIColor.Gradients.orange), 
+            ColorInfo(name: "white", color: UIColor.Gradients.white)
         ]
     )
 }
