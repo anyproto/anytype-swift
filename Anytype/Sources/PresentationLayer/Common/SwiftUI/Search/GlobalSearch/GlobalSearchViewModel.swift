@@ -57,6 +57,8 @@ final class GlobalSearchViewModel: ObservableObject {
         } catch {
             searchData = []
         }
+        
+        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
     func onSelect(searchData: GlobalSearchData) {
