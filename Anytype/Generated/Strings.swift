@@ -841,6 +841,14 @@ internal enum Loc {
       }
     }
   }
+  internal enum GlobalSearch {
+    internal enum EmptyFilteredState {
+      internal static let title = Loc.tr("Localizable", "GlobalSearch.EmptyFilteredState.title")
+    }
+    internal enum EmptyState {
+      internal static let subtitle = Loc.tr("Localizable", "GlobalSearch.EmptyState.subtitle")
+    }
+  }
   internal enum Home {
     internal enum Snackbar {
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library")
@@ -1219,17 +1227,17 @@ internal enum Loc {
     }
   }
   internal enum Search {
-    internal enum Backlinks {
+    internal enum Links {
       internal enum Header {
         internal static func title(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "Search.Backlinks.Header.title", String(describing: p1))
+          return Loc.tr("Localizable", "Search.Links.Header.title", String(describing: p1))
         }
       }
       internal enum Show {
-        internal static let title = Loc.tr("Localizable", "Search.Backlinks.Show.title")
+        internal static let title = Loc.tr("Localizable", "Search.Links.Show.title")
       }
       internal enum Swipe {
-        internal static let title = Loc.tr("Localizable", "Search.Backlinks.Swipe.title")
+        internal static let title = Loc.tr("Localizable", "Search.Links.Swipe.title")
       }
     }
   }

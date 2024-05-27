@@ -68,6 +68,10 @@ extension Container {
         self { SearchService() }.shared
     }
     
+    var searchWithMetaService: Factory<SearchWithMetaServiceProtocol> {
+        self { SearchWithMetaService() }.shared
+    }
+    
     var subscriptionStorageProvider: Factory<SubscriptionStorageProviderProtocol> {
         self { SubscriptionStorageProvider() }.singleton
     }
