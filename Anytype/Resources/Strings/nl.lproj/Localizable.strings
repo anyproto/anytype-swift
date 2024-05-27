@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "Uitvouwbare lijst is leeg. Tik om nieuw blok aan te maken.";
 "Loading, please wait" = "Bezig met laden, een ogenblik geduld";
 "Done" = "Gereed";
+"Next" = "Volgende";
 "Style" = "Stijl";
 "Color" = "Kleur";
 "Background" = "Achtergrond";
@@ -335,9 +336,11 @@
 "There is no object named" = "Er is geen object genaamd %@";
 "There is no type named" = "Er is geen type genaamd %@";
 "Create a new one or search for something else" = "Maak een nieuwe aan of zoek naar iets anders";
-"Search.Backlinks.Show.title" = "Toon backlinks";
-"Search.Backlinks.Header.title" = "Backlinks van: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 
 // MARK: - Home
 
@@ -996,6 +999,11 @@
 "Swipe.Tip.Title" = "Swipe om objecten aan te maken";
 "Swipe.Tip.Subtitle" = "Maak objecten binnen widgets aan door ze naar links te swipen.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 

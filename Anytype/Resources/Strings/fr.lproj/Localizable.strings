@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "Activer/désactiver vide. Touchez pour créer un bloc.";
 "Loading, please wait" = "Chargement, veuillez patienter...";
 "Done" = "Fait";
+"Next" = "Suivant";
 "Style" = "Style";
 "Color" = "Couleur ";
 "Background" = "Arrière-plan";
@@ -335,9 +336,11 @@
 "There is no object named" = "Il n'y a aucun objet nommé %@";
 "There is no type named" = "Il n'y a aucun type nommé %@";
 "Create a new one or search for something else" = "Créer un nouveau ou rechercher autre chose";
-"Search.Backlinks.Show.title" = "Afficher les rétroliens";
-"Search.Backlinks.Header.title" = "Rétroliens de : %@";
-"Search.Backlinks.Swipe.title" = "Rétroliens";
+"Search.Links.Show.title" = "Afficher les objets associés";
+"Search.Links.Header.title" = "Associé à : %@";
+"Search.Links.Swipe.title" = "Associé à";
+"GlobalSearch.EmptyState.subtitle" = "Créer un nouvel objet ou rechercher autre chose";
+"GlobalSearch.EmptyFilteredState.title" = "Aucun objet associé trouvé";
 
 // MARK: - Home
 
@@ -995,6 +998,11 @@
 "Swipe.Tip.Title" = "Glisser pour créer des objets";
 "Swipe.Tip.Subtitle" = "Créez des objets à l'intérieur de widgets en les glissant facilement à gauche.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborez dans les espaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 

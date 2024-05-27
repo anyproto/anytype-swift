@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "Пусто. Нажмите, чтобы создать блок.";
 "Loading, please wait" = "Подождите, выполняется загрузка";
 "Done" = "Готово";
+"Next" = "Далее";
 "Style" = "Внешний вид";
 "Color" = "Цвет";
 "Background" = "Фон";
@@ -335,9 +336,11 @@
 "There is no object named" = "Нет объекта с именем %@";
 "There is no type named" = "Нет типа с именем %@";
 "Create a new one or search for something else" = "Создайте новый или найдите что-то другое";
-"Search.Backlinks.Show.title" = "Показать обратные ссылки";
-"Search.Backlinks.Header.title" = "Обратные ссылки: %@";
-"Search.Backlinks.Swipe.title" = "Обратные ссылки";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 
 // MARK: - Home
 
@@ -995,6 +998,11 @@
 "Swipe.Tip.Title" = "Смахните для создания объектов";
 "Swipe.Tip.Subtitle" = "Создавайте объекты внутри виджетов, перемещая их влево.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 

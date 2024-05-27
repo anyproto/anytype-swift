@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "ଖାଲି ଟୋଗଲ୍ କରନ୍ତୁ | ବ୍ଲକ ସୃଷ୍ଟି କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |";
 "Loading, please wait" = "ଲୋଡି ହଉଛି, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ |";
 "Done" = "ହେଲା";
+"Next" = "ପରବର୍ତ୍ତୀ";
 "Style" = "ଷ୍ଟାଇଲ";
 "Color" = "ରଙ୍ଗ";
 "Background" = "ପୃଷ୍ଠଭୂମି";
@@ -337,9 +338,11 @@
 "There is no object named" = "%@ ନାମକ କୌ ଣସି ବସ୍ତୁ ନାହିଁ ";
 "There is no type named" = "%@ ନାମକ କୌଣସି ପ୍ରକାର ନାହିଁ";
 "Create a new one or search for something else" = "ଏକ ନୂତନ ସୃଷ୍ଟି କରନ୍ତୁ କିମ୍ବା ଅନ୍ୟ କିଛି ଖୋଜନ୍ତୁ";
-"Search.Backlinks.Show.title" = "ବ୍ୟାକଲିଙ୍କ ଦେଖାନ୍ତୁ ";
-"Search.Backlinks.Header.title" = "%@ର ବ୍ୟାକଲିଙ୍କ";
-"Search.Backlinks.Swipe.title" = "ବ୍ୟାକଲିଙ୍କଗୁଡ଼ିକ";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 
 // MARK: - Home
 
@@ -997,6 +1000,11 @@
 "Swipe.Tip.Title" = "Swipe to Create Objects";
 "Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 

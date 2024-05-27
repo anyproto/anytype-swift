@@ -135,6 +135,7 @@
 "Toggle empty. Tap to create block." = "摺疊為空， 點擊以建立區塊。";
 "Loading, please wait" = "載入中，請稍候";
 "Done" = "完成";
+"Next" = "繼續";
 "Style" = "樣式";
 "Color" = "顏色";
 "Background" = "背景";
@@ -336,9 +337,11 @@
 "There is no object named" = "沒有名為 \"%@\" 的物件";
 "There is no type named" = "沒有名為 \"%@\" 的類型";
 "Create a new one or search for something else" = "建立一個新的或搜尋其他內容";
-"Search.Backlinks.Show.title" = "顯示反向連結";
-"Search.Backlinks.Header.title" = "反向連結：%@";
-"Search.Backlinks.Swipe.title" = "反向連結";
+"Search.Links.Show.title" = "顯示關聯物件";
+"Search.Links.Header.title" = "關聯到： %@";
+"Search.Links.Swipe.title" = "關聯到";
+"GlobalSearch.EmptyState.subtitle" = "建立一個新的或搜尋其他內容";
+"GlobalSearch.EmptyFilteredState.title" = "找不到關聯的物件";
 
 // MARK: - Home
 
@@ -999,6 +1002,11 @@
 "Swipe.Tip.Title" = "滑動以建立物件";
 "Swipe.Tip.Subtitle" = "向左輕滑即可在小工具內建立物件。";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "在空間進行協作";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 
