@@ -1332,6 +1332,7 @@
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
 		3DDC9F262B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC9F252B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift */; };
+		3DDCC8CE2C00AEC20074613C /* SpaceSharingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDCC8CD2C00AEC20074613C /* SpaceSharingInfo.swift */; };
 		3DDD3D0E26AEB55700B5673A /* BlockFileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */; };
 		3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */; };
 		3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */; };
@@ -3101,6 +3102,7 @@
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
 		3DDC9F252B694D5500A00C99 /* ObjectTypeSearchViewModel+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectTypeSearchViewModel+State.swift"; sourceTree = "<group>"; };
+		3DDCC8CD2C00AEC20074613C /* SpaceSharingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSharingInfo.swift; sourceTree = "<group>"; };
 		3DDD3D0C26AEB55700B5673A /* BlockFileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockFileView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileView.swift; sourceTree = SOURCE_ROOT; };
 		3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BlockFile+MediaData.swift"; path = "Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/Utils/BlockFile+MediaData.swift"; sourceTree = SOURCE_ROOT; };
 		3DDD3D1326AED74E00B5673A /* CodeLanguage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CodeLanguage.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/Text/Code/Support/CodeLanguage.swift; sourceTree = SOURCE_ROOT; };
@@ -6757,9 +6759,8 @@
 		2ACB79822BA9C333003A2A56 /* ParticipantSpacesStorage */ = {
 			isa = PBXGroup;
 			children = (
-				2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */,
-				2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */,
 				2ACB79852BA9D4E4003A2A56 /* ParticipantSpacesStorage.swift */,
+				3DDCC8CC2C00AE790074613C /* Model */,
 			);
 			path = ParticipantSpacesStorage;
 			sourceTree = "<group>";
@@ -9285,6 +9286,16 @@
 				3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */,
 			);
 			path = Link;
+			sourceTree = "<group>";
+		};
+		3DDCC8CC2C00AE790074613C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2A0F6C3F2BF219BA0041176E /* SpacePermissions.swift */,
+				2ACB79832BA9C363003A2A56 /* ParticipantSpaceView.swift */,
+				3DDCC8CD2C00AEC20074613C /* SpaceSharingInfo.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3DDD3D1226AED61700B5673A /* Support */ = {
@@ -12190,6 +12201,7 @@
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
 				2AE7ECA2298816F30079F12B /* WidgetObjectListView.swift in Sources */,
 				2A8C00F529C48CB000309C14 /* WidgetSource.swift in Sources */,
+				3DDCC8CE2C00AEC20074613C /* SpaceSharingInfo.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */,
 				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,

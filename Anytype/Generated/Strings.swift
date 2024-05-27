@@ -990,6 +990,10 @@ internal enum Loc {
     }
     internal enum Upgrade {
       internal static let button = Loc.tr("Localizable", "Membership.Upgrade.Button")
+      internal static let moreSpaces = Loc.tr("Localizable", "Membership.Upgrade.MoreSpaces")
+      internal static func spacesLimit(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Upgrade.SpacesLimit", p1)
+      }
       internal static let text = Loc.tr("Localizable", "Membership.Upgrade.Text")
       internal static let title = Loc.tr("Localizable", "Membership.Upgrade.Title")
     }
