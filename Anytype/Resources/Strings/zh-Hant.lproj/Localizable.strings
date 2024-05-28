@@ -1004,9 +1004,9 @@
 
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "在空間進行協作";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Steps.1" = "點擊空間小工具來進行設置";
+"SpaceShare.Tip.Steps.2" = "開放共享區塊";
+"SpaceShare.Tip.Steps.3" = "產生邀請連結並分享";
 
 // MARK: - Initial
 
@@ -1105,6 +1105,7 @@
 "Membership.Upgrade.Text" = "如需更多額外的儲存容量、更多空間編輯者或更多共享空間，請與我們聯絡。 Anytype 團隊將根據您的需求和條件為您量身定製。";
 "Membership.Upgrade.Button" = "聯絡 Anytype 團隊";
 
+"Membership.Upgrade.MoreSpaces" = "升級以使用更多空間";
 
 
 "Membership.Banner.Title1" = "一起創建願景";
