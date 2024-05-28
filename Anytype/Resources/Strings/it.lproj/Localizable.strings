@@ -336,11 +336,11 @@
 "There is no object named" = "Non c'è nessun oggetto denominato %@";
 "There is no type named" = "Non c'è nessun tipo denominato %@";
 "Create a new one or search for something else" = "Creane uno nuovo o cerca qualcos'altro";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
-"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
+"Search.Links.Show.title" = "Mostra oggetti correlati";
+"Search.Links.Header.title" = "Correlato a: %@";
+"Search.Links.Swipe.title" = "Correlato a";
+"GlobalSearch.EmptyState.subtitle" = "Crea un nuovo oggetto o cerca qualcos'altro";
+"GlobalSearch.EmptyFilteredState.title" = "Nessun oggetto correlato trovato";
 
 // MARK: - Home
 
@@ -999,10 +999,10 @@
 "Swipe.Tip.Subtitle" = "Crea oggetti all'interno dei widget scorrendoli facilmente verso sinistra.";
 
 // MARK: - Space Share Tip
-"SpaceShare.Tip.Title" = "Collaborate on spaces";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Title" = "Collabora sugli spazi";
+"SpaceShare.Tip.Steps.1" = "Tocca il widget Spazio per accedere alle impostazioni";
+"SpaceShare.Tip.Steps.2" = "Apri sezione Condividi";
+"SpaceShare.Tip.Steps.3" = "Genera un link di invito e condividilo";
 
 // MARK: - Initial
 
@@ -1101,6 +1101,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Membership.Upgrade.Text" = "Contattaci per ottenere più spazio di archiviazione, editor di spazi o più spazi condivisi. Il team di Anytype fornirà dettagli e condizioni su misura per le tue esigenze.";
 "Membership.Upgrade.Button" = "Contatta il Team Anytype";
 
+"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 
 
 "Membership.Banner.Title1" = "Costruire insieme la visione";
