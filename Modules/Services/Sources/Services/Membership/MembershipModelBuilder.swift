@@ -84,7 +84,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
             guard let product = products.first else {
                 
                 // If dev app uses prod middleware it will receive prod product id, skip this error
-                if tier.iosProductID != "io.anytype.membership.builder" {
+                if tier.iosProductID != "io.anytype.membership.tier.builder" {
                     anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
                 }
                 
