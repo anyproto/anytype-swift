@@ -133,7 +133,7 @@ extension AnytypeAnalytics {
     }
 
     func logSelectTheme(_ userInterfaceStyle: UIUserInterfaceStyle) {
-        logEvent(AnalyticsEventsName.selectTheme,
+        logEvent("ThemeSet",
                  withEventProperties: [AnalyticsEventsPropertiesKey.id: userInterfaceStyle.analyticsId])
     }
 
@@ -165,7 +165,7 @@ extension AnytypeAnalytics {
     }
 
     func logLayoutChange(_ layout: DetailsLayout) {
-        logEvent(AnalyticsEventsName.changeLayout,
+        logEvent("ChangeLayout",
                  withEventProperties: [AnalyticsEventsPropertiesKey.layout: layout.rawValue])
     }
 
@@ -668,11 +668,11 @@ extension AnytypeAnalytics {
     }
     
     func logScreenFileOffloadWarning() {
-        logEvent(AnalyticsEventsName.screenFileOffloadWarning)
+        logEvent("ScreenFileOffloadWarning")
     }
     
     func logSettingsStorageOffload() {
-        logEvent(AnalyticsEventsName.settingsStorageOffload)
+        logEvent("SettingsStorageOffload")
     }
     
     func logShowDeletionWarning(route: ShowDeletionWarningRoute) {
@@ -1023,5 +1023,9 @@ extension AnytypeAnalytics {
     
     func logChangePlan(tier: MembershipTier) {
         logEvent("ChangePlan", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])
+    }
+    
+    func logFileOffload() {
+        logEvent("FileOffload")
     }
 }

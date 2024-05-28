@@ -8,15 +8,6 @@ enum AnalyticsConfiguration {
 // MARK: - Events name
 
 enum AnalyticsEventsName {
-    // Details events
-    static let changeLayout = "ChangeLayout"
-
-    // App settings events
-    static let selectTheme = "ThemeSet"
-    static let screenFileOffloadWarning = "ScreenFileOffloadWarning"
-    static let fileCacheCleared = "FileOffload"
-    static let settingsStorageOffload = "SettingsStorageOffload"
-
     // Dashboard view events
     static let selectHomeTab = "SelectHomeTab"
     static let reorderObjects = "ReorderObjects" // reorder in favorite tab
