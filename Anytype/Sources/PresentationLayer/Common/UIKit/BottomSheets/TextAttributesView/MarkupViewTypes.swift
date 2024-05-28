@@ -17,6 +17,7 @@ enum MarkupViewType {
     case keyboard
     case strikethrough
     case link
+    case underline
 }
 
 extension MarkupType {
@@ -33,7 +34,9 @@ extension MarkupType {
             return .strikethrough
         case .link, .linkToObject:
             return .link
-        case .emoji, .underscored, .textColor, .backgroundColor, .mention:
+        case .underscored:
+            return .underline
+        case .emoji, .textColor, .backgroundColor, .mention:
             return nil
         }
     }

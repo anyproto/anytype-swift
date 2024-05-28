@@ -10,9 +10,11 @@ struct SearchBar: View {
             if focused {
                 AutofocusedTextField(placeholder: placeholder, placeholderFont: .uxBodyRegular, text: $text)
                     .disableAutocorrection(true)
+                    .autocapitalization(.none)
             } else {
                 AnytypeTextField(placeholder: placeholder, placeholderFont: .uxBodyRegular, text: $text)
                     .disableAutocorrection(true)
+                    .autocapitalization(.none)
             }
         }
         .padding(8)
