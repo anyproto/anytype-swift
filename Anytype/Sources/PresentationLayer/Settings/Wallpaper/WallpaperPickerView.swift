@@ -24,7 +24,7 @@ struct WallpaperPickerView: View {
         }
         .background(Color.Background.secondary)
         .onAppear {
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.wallpaperSettingsShow)
+            AnytypeAnalytics.instance().logScreenSettingsWallpaper()
         }
     }
 }

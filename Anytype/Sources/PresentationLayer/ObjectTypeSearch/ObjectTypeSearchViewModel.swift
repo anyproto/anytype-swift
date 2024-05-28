@@ -45,7 +45,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     
     func onAppear() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.screenObjectTypeSearch)
+        AnytypeAnalytics.instance().logScreenObjectTypeSearch()
         
         search(text: searchText)
         updatePasteButton()

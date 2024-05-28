@@ -496,7 +496,7 @@ extension AnytypeAnalytics {
     
     func logSelectHomeTab(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.selectHomeTab,
+            "SelectHomeTab",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.tab: source.analyticsId
             ]
@@ -504,7 +504,7 @@ extension AnytypeAnalytics {
     }
     
     func logShowHome() {
-        logEvent(AnalyticsEventsName.homeShow)
+        logEvent("ScreenHome")
     }
     
     func logChangeWidgetSource(source: AnalyticsWidgetSource, route: AnalyticsWidgetRoute, context: AnalyticsWidgetContext) {
@@ -563,27 +563,27 @@ extension AnytypeAnalytics {
     }
     
     func logScreenAuthRegistration() {
-        logEvent(AnalyticsEventsName.screenAuthRegistration)
+        logEvent("ScreenAuthRegistration")
     }
     
     func logMainAuthScreenShow() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.mainAuthScreenShow)
+        AnytypeAnalytics.instance().logEvent("ScreenIndex")
     }
     
     func logLoginScreenShow() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.loginScreenShow)
+        AnytypeAnalytics.instance().logEvent("ScreenLogin")
     }
     
     func logScreenSettingsPersonal() {
-        logEvent(AnalyticsEventsName.screenSettingsPersonal)
+        logEvent("ScreenSettingsPersonal")
     }
     
     func logScreenSettingsDelete() {
-        logEvent(AnalyticsEventsName.screenSettingsDelete)
+        logEvent("ScreenSettingsDelete")
     }
     
     func logSettingsWallpaperSet() {
-        logEvent(AnalyticsEventsName.settingsWallpaperSet)
+        logEvent("SettingsWallpaperSet")
     }
     
     func logScreenSearch() {
@@ -660,11 +660,11 @@ extension AnytypeAnalytics {
     }
     
     func logScreenSettingsStorageIndex() {
-        logEvent(AnalyticsEventsName.screenSettingsStorageIndex)
+        logEvent("ScreenSettingsStorageIndex")
     }
     
     func logScreenSettingsStorageManager() {
-        logEvent(AnalyticsEventsName.screenSettingsStorageManager)
+        logEvent("ScreenSettingsStorageManager")
     }
     
     func logScreenFileOffloadWarning() {
@@ -683,7 +683,7 @@ extension AnytypeAnalytics {
     }
     
     func logMenuHelp() {
-        logEvent(AnalyticsEventsName.menuHelp)
+        logEvent("MenuHelp")
     }
     
     func logWhatsNew() {
@@ -847,11 +847,11 @@ extension AnytypeAnalytics {
     }
     
     func logScreenSettingsAccount() {
-        logEvent(AnalyticsEventsName.screenSettingsAccount)
+        logEvent("ScreenSettingsAccount")
     }
     
     func logScreenSettingsAccountAccess() {
-        logEvent(AnalyticsEventsName.screenSettingsAccountAccess)
+        logEvent("ScreenSettingsAccountAccess")
     }
     
     func logSelectNetwork(type: SelectNetworkType, route: SelectNetworkRoute) {
@@ -1027,5 +1027,17 @@ extension AnytypeAnalytics {
     
     func logFileOffload() {
         logEvent("FileOffload")
+    }
+    
+    func logScreenSettingsWallpaper() {
+        logEvent("ScreenSettingsWallpaper")
+    }
+    
+    func logScreenSettingsAppearance() {
+        logEvent("ScreenSettingsAppearance")
+    }
+    
+    func logScreenObjectTypeSearch() {
+        logEvent("ScreenObjectTypeSearch")
     }
 }

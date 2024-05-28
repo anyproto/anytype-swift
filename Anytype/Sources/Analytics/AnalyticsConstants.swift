@@ -8,30 +8,6 @@ enum AnalyticsConfiguration {
 // MARK: - Events name
 
 enum AnalyticsEventsName {
-    // Dashboard view events
-    static let selectHomeTab = "SelectHomeTab"
-    static let reorderObjects = "ReorderObjects" // reorder in favorite tab
-
-    // Screen show events
-    static let disclaimerShow = "ScreenDisclaimer"
-    static let mainAuthScreenShow = "ScreenIndex"
-    static let loginScreenShow = "ScreenLogin"
-    static let screenAuthRegistration = "ScreenAuthRegistration"
-
-    static let homeShow = "ScreenHome"
-
-    static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
-    static let screenSettingsAccount = "ScreenSettingsAccount"
-    static let screenSettingsAccountAccess = "ScreenSettingsAccountAccess"
-    static let screenSettingsPersonal = "ScreenSettingsPersonal"
-    static let appearanceSettingsShow = "ScreenSettingsAppearance"
-    static let menuHelp = "MenuHelp"
-    static let screenSettingsDelete = "ScreenSettingsDelete"
-    static let settingsWallpaperSet = "SettingsWallpaperSet"
-    static let screenSettingsStorageIndex = "ScreenSettingsStorageIndex"
-    static let screenSettingsStorageManager = "ScreenSettingsStorageManager"
-    static let screenObjectTypeSearch = "ScreenObjectTypeSearch"
-    
     static let showDeletionWarning = "ShowDeletionWarning"
 
     static let keychainPhraseScreenShow = "ScreenKeychain"
