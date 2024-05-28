@@ -176,7 +176,8 @@ final class EditorSetViewModel: ObservableObject {
             document: setDocument,
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
-                isOpenedForPreview: false,
+                isOpenedForPreview: false, 
+                blockId: nil,
                 usecase: .editor
             ),
             output: output

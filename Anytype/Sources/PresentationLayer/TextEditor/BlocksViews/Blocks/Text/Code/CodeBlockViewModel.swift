@@ -31,7 +31,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
                 becomeFirstResponder: { becomeFirstResponder(info) },
                 textDidChange: { textView in
                     Task {
-                        try await handler.changeText(textView.attributedText, blockId: info.id)
+                        try await handler.changeText(textView.attributedText.sendable(), blockId: info.id)
                     }
                 },
                 showCodeSelection: { showCodeSelection(info) }, 

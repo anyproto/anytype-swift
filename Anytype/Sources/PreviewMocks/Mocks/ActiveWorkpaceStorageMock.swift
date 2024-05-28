@@ -4,7 +4,9 @@ import Combine
 
 final class ActiveWorkpaceStorageMock: ActiveWorkpaceStorageProtocol {
     
-    static let shared = ActiveWorkpaceStorageMock()
+    nonisolated static let shared = ActiveWorkpaceStorageMock()
+    
+    nonisolated init() {}
     
     var workspaceInfo: AccountInfo = .empty
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {

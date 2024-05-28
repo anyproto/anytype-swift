@@ -11,6 +11,7 @@ class KeyboardActionHandlerTests: XCTestCase {
     private var toggleStorage: ToggleStorage!
     private var textView: UITextView!
     
+    @MainActor 
     override func setUpWithError() throws {
         Container.shared.blockService.register { [weak self] in self!.blockService }
         

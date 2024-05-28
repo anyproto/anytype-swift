@@ -3,7 +3,9 @@ import Foundation
 import Combine
 
 final class FileLimitsStorageMock:  FileLimitsStorageProtocol {
-    static let shared = FileLimitsStorageMock()
+    nonisolated static let shared = FileLimitsStorageMock()
+    
+    nonisolated init() {}
     
     @Published var nodeUsageMockedValue: Services.NodeUsageInfo = .mock()
     var nodeUsage: AnyPublisher<Services.NodeUsageInfo, Never> { $nodeUsageMockedValue.eraseToAnyPublisher() }

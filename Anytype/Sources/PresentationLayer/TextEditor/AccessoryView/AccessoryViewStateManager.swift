@@ -20,11 +20,11 @@ protocol AccessoryViewOutput: AnyObject {
     var accessoryState: AccessoryViewInputState { get set }
     
     func showLinkToSearch(range: NSRange, text: NSAttributedString)
-    func setNewText(attributedString: NSAttributedString) async throws
+    func setNewText(attributedString: SafeNSAttributedString) async throws
     func didSelectAddMention(
         _ mention: MentionObject,
         at position: Int,
-        attributedString: NSAttributedString
+        attributedString: SafeNSAttributedString
     ) async throws
     
     func didSelectSlashAction(
@@ -310,13 +310,13 @@ extension AccessoryViewStateManagerImpl {
             guard let (attrString, index) = attributedStringWithoutSearchSymbols(),
                   let configuration else { return }
             
-            try await configuration.output?.setNewText(attributedString: attrString)
+            try await configuration.output?.setNewText(attributedString: attrString.sendable())
             
             guard let triggerSymbolPosition,
-                  let range = configuration.textView.textRange(
+                  configuration.textView.textRange(
                     from: triggerSymbolPosition,
                     to: triggerSymbolPosition
-                  ) else { return }
+                  ).isNotNil else { return }
             
             let nsrange = NSRange(location: configuration.textView.offsetFromBegining(triggerSymbolPosition) - 1, length: 0)
             
@@ -345,7 +345,7 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
               let configuration else { return }
         
         Task { @MainActor in
-            try await configuration.output?.didSelectAddMention(mention, at: index, attributedString: attrString)
+            try await configuration.output?.didSelectAddMention(mention, at: index, attributedString: attrString.sendable())
             
             switcher.showDefaultView()
             mentionsViewModel.setFilterString("")
@@ -377,7 +377,7 @@ extension AccessoryViewStateManagerImpl {
                 markup: fontMarkup.markupType,
                 range: configuration.textView.selectedRange,
                 contentType: configuration.contentType
-            )
+            ).sendable()
             
             try await configuration.output?.setNewText(attributedString: newAttributedString)
         }
@@ -399,7 +399,7 @@ extension AccessoryViewStateManagerImpl {
             markup: markup,
             range: configuration.textView.selectedRange,
             contentType: configuration.contentType
-        )
+        ).sendable()
         
         try await configuration.output?.setNewText(attributedString: newAttributedString)
     }

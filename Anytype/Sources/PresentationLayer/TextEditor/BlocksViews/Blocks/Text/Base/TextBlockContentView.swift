@@ -98,7 +98,7 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         textView.textView.textStorage.setAttributedString(configuration.attributedString)
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
         
-        textBlockLeadingView.update(style: TextBlockLeadingStyle(with: configuration))
+        textBlockLeadingView.update(blockId: configuration.blockId, style: TextBlockLeadingStyle(with: configuration))
     
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: configuration, restrictions: restrictions)

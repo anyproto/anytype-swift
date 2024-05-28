@@ -106,7 +106,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                 shimmerRectangle.padding(.horizontal, 12)
             case .right:
                 shimmerRectangle.padding(.leading, 24)
-            case .left:
+            case .left, .justify, .UNRECOGNIZED:
                 shimmerRectangle.padding(.trailing, 24)
             }
         }
@@ -156,7 +156,7 @@ struct TemplatePreview_Previews: PreviewProvider {
 extension LayoutAlignment {
     var horizontalAlignment: HorizontalAlignment {
         switch self {
-        case .left:
+        case .left, .justify, .UNRECOGNIZED:
             return .leading
         case .center:
             return .center

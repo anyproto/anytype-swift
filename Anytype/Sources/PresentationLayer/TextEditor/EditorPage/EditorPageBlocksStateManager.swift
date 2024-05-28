@@ -414,7 +414,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 "Number of elements should be 1"
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
+            AnytypeAnalytics.instance().logOpenAsObject()
             router.showPage(objectId: bookmark.targetObjectID)
         case .openSource:
             anytypeAssert(
@@ -422,7 +422,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 "Number of elements should be 1"
             )
             guard case let .dataView(data) = elements.first?.content else { return }
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
+            AnytypeAnalytics.instance().logOpenAsSource()
             router.showPage(objectId: data.targetObjectID)
         case .style:
             let elements = elements.map { $0.info }

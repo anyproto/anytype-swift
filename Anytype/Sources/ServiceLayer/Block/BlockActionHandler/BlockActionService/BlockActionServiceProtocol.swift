@@ -13,7 +13,7 @@ protocol BlockActionServiceProtocol {
     func delete(blockIds: [String])
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String
     func split(
-        _ string: NSAttributedString,
+        _ string: SafeNSAttributedString,
         blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,

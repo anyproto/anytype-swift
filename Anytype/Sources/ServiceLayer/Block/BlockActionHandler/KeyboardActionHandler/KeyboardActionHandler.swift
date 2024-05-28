@@ -27,7 +27,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private var blockService: BlockServiceProtocol
     
     
-    nonisolated init(
+    init(
         documentId: String,
         spaceId: String,
         service: BlockActionServiceProtocol,
@@ -73,7 +73,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 try await service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
             } else {
                 try await service.split(
-                    .init(string: ""),
+                    NSAttributedString(string: "").sendable(),
                     blockId: info.id,
                     mode: .bottom,
                     range: NSRange(location: 0, length: 0),
@@ -86,7 +86,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             let newBlockContentType = contentTypeForSplit(text.contentType, blockId: info.id)
 
             try await service.split(
-                string,
+                string.sendable(),
                 blockId: info.id,
                 mode: splitMode(info),
                 range: range,
@@ -100,7 +100,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 try await enterForEmpty(text: text, info: info)
                 return
             }
-            try await onEnterAtTheEndOfContent(info: info, text: text, range: range, action: action, newString: string)
+            try await onEnterAtTheEndOfContent(info: info, text: text, range: range, action: action, newString: string.sendable())
             editorCollectionController.scrollToTextViewIfNotVisible(textView: textView)
         case .enterAtTheBegining:
             try await service.add(
@@ -168,7 +168,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         text: BlockText,
         range: NSRange,
         action: CustomTextView.KeyboardAction,
-        newString: NSAttributedString
+        newString: SafeNSAttributedString
     ) async throws {
         let needChildForToggle = text.contentType == .toggle && toggleStorage.isToggled(blockId: info.id)
         let needChildForList = text.contentType != .toggle && text.contentType.isList && info.childrenIds.isNotEmpty

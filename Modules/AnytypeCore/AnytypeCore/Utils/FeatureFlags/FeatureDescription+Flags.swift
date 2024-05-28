@@ -36,6 +36,12 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
+    static let scrollToBlockFromSearch = FeatureDescription(
+        title: "Scroll to block from Global search - IOS-2845",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
+        defaultValue: false
+    )
+    
     static let setEmptyValuesSorting = FeatureDescription(
         title: "Set empty values sorting - IOS-2810",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
@@ -79,14 +85,14 @@ public extension FeatureDescription {
     )
     
     static let resetTips = FeatureDescription(
-        title: "Reset tips 💭 on launch",
+        title: "Tips 💭 - reset on launch",
         type: .debug,
         defaultValue: false,
         debugValue: false
     )
     
     static let showAllTips = FeatureDescription(
-        title: "Show all tips 💭 for testing (ignore rules)",
+        title: "Tips 💭 - show immediate (ignore time rules)",
         type: .debug,
         defaultValue: false,
         debugValue: false
@@ -114,6 +120,13 @@ public extension FeatureDescription {
     
     static let failReceiptValidation = FeatureDescription(
         title: "Fail receipt validaton of Memebership",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let showGlobalSearchScore = FeatureDescription(
+        title: "Show global search score",
         type: .debug,
         defaultValue: false,
         debugValue: false

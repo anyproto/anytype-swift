@@ -66,4 +66,5 @@ public extension ObjectDetails {
         
         self.init(id: id, values: fields)
     }
+    
 }

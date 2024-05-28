@@ -353,13 +353,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>день</string>
         <key>few</key>
-        <string>%d days</string>
+        <string>%d дней</string>
         <key>many</key>
-        <string>%d days</string>
+        <string>%d дней</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d дней</string>
       </dict>
     </dict>
   </dict>
