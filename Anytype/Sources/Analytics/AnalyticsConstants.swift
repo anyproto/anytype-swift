@@ -7,16 +7,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {    
-    enum Widget {
-        static let edit = "EditWidget"
-        static let add = "AddWidget"
-        static let delete = "DeleteWidget"
-        static let changeSource = "ChangeWidgetSource"
-        static let changeLayout = "ChangeWidgetLayout"
-        static let reorderWidget = "ReorderWidget"
-    }
-    
+enum AnalyticsEventsName {
     enum Sidebar {
         static let openGroupToggle = "OpenSidebarGroupToggle"
         static let closeGroupToggle = "CloseSidebarGroupToggle"

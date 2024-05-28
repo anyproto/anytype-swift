@@ -472,12 +472,12 @@ extension AnytypeAnalytics {
     }
     
     func logEditWidget() {
-        logEvent(AnalyticsEventsName.Widget.edit)
+        logEvent("EditWidget")
     }
     
     func logAddWidget(context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.add,
+            "AddWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.context: context.rawValue
             ]
@@ -486,7 +486,7 @@ extension AnytypeAnalytics {
     
     func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.delete,
+            "DeleteWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
                 AnalyticsEventsPropertiesKey.context: context.rawValue
@@ -509,7 +509,7 @@ extension AnytypeAnalytics {
     
     func logChangeWidgetSource(source: AnalyticsWidgetSource, route: AnalyticsWidgetRoute, context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.changeSource,
+            "ChangeWidgetSource",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue,
@@ -525,7 +525,7 @@ extension AnytypeAnalytics {
         context: AnalyticsWidgetContext
     ) {
         logEvent(
-            AnalyticsEventsName.Widget.changeLayout,
+            "ChangeWidgetLayout",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.layout: layout.analyticsValue,
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
@@ -537,7 +537,7 @@ extension AnytypeAnalytics {
     
     func logReorderWidget(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Widget.reorderWidget,
+            "ReorderWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
