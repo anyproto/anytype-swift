@@ -99,14 +99,14 @@ extension AnytypeAnalytics {
     func logPinObjectType(analyticsType: AnalyticsObjectType) {
         logEvent(
             "PinObjectType",
-            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType]
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType.analyticsId]
         )
     }
     
     func logUnpinObjectType(analyticsType: AnalyticsObjectType) {
         logEvent(
             "UnpinObjectType",
-            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType]
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType.analyticsId]
         )
     }
     
