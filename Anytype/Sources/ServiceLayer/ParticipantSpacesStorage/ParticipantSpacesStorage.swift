@@ -7,7 +7,7 @@ import Services
 protocol ParticipantSpacesStorageProtocol: AnyObject {
     var allParticipantSpaces: [ParticipantSpaceView] { get }
     var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> { get }
-    func canShareSpace() -> Bool
+    var spaceSharingInfo: SpaceSharingInfo? { get }
     
     func startSubscription() async
     func stopSubscription() async
@@ -58,9 +58,10 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
     nonisolated init() {}
     
-    func canShareSpace() -> Bool {
-        guard let limit = workspaceStorage.allWorkspaces.first(where: { $0.spaceAccessType == .personal })?.sharedSpacesLimit else { return false }
-        return allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count < limit
+    var spaceSharingInfo: SpaceSharingInfo? {
+        guard let sharedSpacesLimit = workspaceStorage.allWorkspaces.first(where: { $0.spaceAccessType == .personal })?.sharedSpacesLimit else { return nil }
+        let sharedSpacesCount = allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count
+        return SpaceSharingInfo(sharedSpacesLimit: sharedSpacesLimit, sharedSpacesCount: sharedSpacesCount)
     }
     
     func startSubscription() async {

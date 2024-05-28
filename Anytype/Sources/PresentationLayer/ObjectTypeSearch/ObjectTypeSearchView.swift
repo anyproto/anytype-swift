@@ -164,7 +164,7 @@ struct ObjectTypeSearchView: View {
                 }
             }
         }
-        if !data.isDefault {
+        if !data.isDefault && data.type.canCreateObjectOfThisType {
             Button(Loc.setAsDefault) {
                 viewModel.setDefaultType(data.type)
             }
