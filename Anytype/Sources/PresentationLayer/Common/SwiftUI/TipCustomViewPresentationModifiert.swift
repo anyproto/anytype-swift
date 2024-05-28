@@ -1,10 +1,12 @@
 import Foundation
 import SwiftUI
+import TipKit
 
 @available(iOS 17.0, *)
-private struct SpaceShareTipCoordinator: ViewModifier {
+struct TipCustomViewPresentationModifiert<TipType: Tip, Screen: View>: ViewModifier {
     
-    private let tip = SpaceShareTip()
+    let tip: TipType
+    let view: () -> Screen
     
     @Environment(\.keyboardDismiss) private var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
@@ -21,17 +23,7 @@ private struct SpaceShareTipCoordinator: ViewModifier {
                 }
             }
             .sheet(isPresented: $showView) {
-                SpaceShareTipView()
+                view()
             }
-    }
-}
-
-extension View {
-    func handleSpaceShareTip() -> some View {
-        if #available(iOS 17.0, *) {
-            return self.modifier(SpaceShareTipCoordinator())
-        } else {
-            return self
-        }
     }
 }

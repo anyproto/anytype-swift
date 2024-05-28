@@ -48,11 +48,15 @@ struct SharingTipView: View {
             Spacer.fixedHeight(39)
             carouselImages
             Spacer.fixedHeight(32)
-            VStack(alignment: .leading) {
-                ForEach(1...4, id: \.self) { i in
-                    stepTextView(step: i)
+            HStack {
+                VStack(alignment: .leading) {
+                    ForEach(1...4, id: \.self) { i in
+                        stepTextView(step: i)
+                    }
                 }
-            }.padding(.leading, 24)
+                Spacer()
+            }
+            .padding(.leading, 24)
             Spacer.fixedHeight(36)
             StandardButton(
                 Loc.Sharing.Tip.Button.title,
