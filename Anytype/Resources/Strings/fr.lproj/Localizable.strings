@@ -1000,9 +1000,9 @@
 
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "Collaborez dans les espaces";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Steps.1" = ". Appuyez sur le widget de l’Espace pour accéder aux paramètres";
+"SpaceShare.Tip.Steps.2" = "Ouvrez la section Partage";
+"SpaceShare.Tip.Steps.3" = "Générez un lien d’invitation et partagez-le";
 
 // MARK: - Initial
 
@@ -1101,6 +1101,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Membership.Upgrade.Text" = "Contactez-nous pour obtenir du stockage supplémentaire, plus de rédacteurs, ou davantage d'espaces partagés. L'équipe d'Anytype vous fournira l'offre adaptée à vos besoins.";
 "Membership.Upgrade.Button" = "Contacter l'équipe d'Anytype";
 
+"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 
 
 "Membership.Banner.Title1" = "Construire la Vision ensemble";
