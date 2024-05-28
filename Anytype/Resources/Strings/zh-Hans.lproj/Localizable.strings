@@ -1105,6 +1105,7 @@
 "Membership.Upgrade.Text" = "联系我们以获取额外的存储空间、空间编辑器或更多共享空间。任何类型的团队都将根据您的需求提供量身定制的细节和条件。";
 "Membership.Upgrade.Button" = "联系Anytype团队";
 
+"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 
 
 "Membership.Banner.Title1" = "一起构建愿景";
