@@ -7,19 +7,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {
-    // Migration
-    static let migrationGoneWrong = "MigrationGoneWrong"
-    
-    // Space
-    static let screenSettingsSpaceCreate = "ScreenSettingsSpaceCreate"
-    static let createSpace = "CreateSpace"
-    static let switchSpace = "SwitchSpace"
-    static let clickDeleteSpace = "ClickDeleteSpace"
-    static let clickDeleteSpaceWarning = "ClickDeleteSpaceWarning"
-    static let deleteSpace = "DeleteSpace"
-    static let screenSettingsSpaceIndex = "ScreenSettingsSpaceIndex"
-    
+enum AnalyticsEventsName {    
     // Hosting
     static let selectNetwork = "SelectNetwork"
     static let uploadNetworkConfiguration = "UploadNetworkConfiguration"

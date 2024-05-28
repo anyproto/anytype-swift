@@ -814,12 +814,12 @@ extension AnytypeAnalytics {
     }
     
     func logScreenSettingsSpaceCreate() {
-        logEvent(AnalyticsEventsName.screenSettingsSpaceCreate)
+        logEvent("ScreenSettingsSpaceCreate")
     }
     
     func logCreateSpace(route: CreateSpaceRoute) {
         logEvent(
-            AnalyticsEventsName.createSpace,
+            "CreateSpace",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.route: route.rawValue
             ]
@@ -827,23 +827,23 @@ extension AnytypeAnalytics {
     }
     
     func logSwitchSpace() {
-        logEvent(AnalyticsEventsName.switchSpace)
+        logEvent("SwitchSpace")
     }
     
     func logClickDeleteSpace(route: ClickDeleteSpaceRoute) {
-        logEvent(AnalyticsEventsName.clickDeleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+        logEvent("ClickDeleteSpace", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
     
     func logClickDeleteSpaceWarning(type: ClickDeleteSpaceWarningType) {
-        logEvent(AnalyticsEventsName.clickDeleteSpaceWarning, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+        logEvent("ClickDeleteSpaceWarning", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
     func logDeleteSpace(type: SpaceAccessAnalyticsType) {
-        logEvent(AnalyticsEventsName.deleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+        logEvent("DeleteSpace", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
     func logScreenSettingsSpaceIndex() {
-        logEvent(AnalyticsEventsName.screenSettingsSpaceIndex)
+        logEvent("ScreenSettingsSpaceIndex")
     }
     
     func logScreenSettingsAccount() {
