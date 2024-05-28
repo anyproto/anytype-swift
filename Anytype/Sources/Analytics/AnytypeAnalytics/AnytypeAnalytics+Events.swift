@@ -711,7 +711,7 @@ extension AnytypeAnalytics {
     }
     
     func logGetMoreSpace() {
-        logEvent(AnalyticsEventsName.FileStorage.getMoreSpace)
+        logEvent("GetMoreSpace")
     }
     
     func logScreenOnboarding(step: ScreenOnboardingStep) {

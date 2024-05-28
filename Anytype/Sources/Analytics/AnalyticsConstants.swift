@@ -5,14 +5,6 @@ enum AnalyticsConfiguration {
     static let blockEvent = "Writing"
 }
 
-// MARK: - Events name
-
-enum AnalyticsEventsName {    
-    enum FileStorage {
-        static let getMoreSpace = "GetMoreSpace"
-    }
-}
-
 // MARK: - Keychain showing context
 
 enum AnalyticsEventsKeychainContext: String {
