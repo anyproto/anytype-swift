@@ -856,7 +856,7 @@ extension AnytypeAnalytics {
     
     func logSelectNetwork(type: SelectNetworkType, route: SelectNetworkRoute) {
         logEvent(
-            AnalyticsEventsName.selectNetwork,
+            "SelectNetwork",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -865,30 +865,30 @@ extension AnytypeAnalytics {
     }
     
     func logUploadNetworkConfiguration() {
-        logEvent(AnalyticsEventsName.uploadNetworkConfiguration)
+        logEvent("UploadNetworkConfiguration")
     }
     
     func logScreenGalleryInstall(name: String) {
         logEvent(
-            AnalyticsEventsName.screenGalleryInstall,
+            "ScreenGalleryInstall",
             withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
         )
     }
     
     func logClickGalleryInstall() {
-        logEvent(AnalyticsEventsName.clickGalleryInstall)
+        logEvent("ClickGalleryInstall")
     }
     
     func logClickGalleryInstallSpace(type: ClickGalleryInstallSpaceType) {
         logEvent(
-            AnalyticsEventsName.clickGalleryInstallSpace,
+            "ClickGalleryInstallSpace",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
         )
     }
     
     func logGalleryInstall(name: String) {
         logEvent(
-            AnalyticsEventsName.galleryInstall,
+            "GalleryInstall",
             withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
         )
     }

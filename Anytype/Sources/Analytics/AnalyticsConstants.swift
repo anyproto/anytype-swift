@@ -8,16 +8,6 @@ enum AnalyticsConfiguration {
 // MARK: - Events name
 
 enum AnalyticsEventsName {    
-    // Hosting
-    static let selectNetwork = "SelectNetwork"
-    static let uploadNetworkConfiguration = "UploadNetworkConfiguration"
-    
-    // Gallery
-    static let screenGalleryInstall = "ScreenGalleryInstall"
-    static let clickGalleryInstall = "ClickGalleryInstall"
-    static let clickGalleryInstallSpace = "ClickGalleryInstallSpace"
-    static let galleryInstall = "GalleryInstall"
-    
     // Keyboard bar actions
     enum KeyboardBarAction {
         static let slashMenu = "KeyboardBarSlashMenu"
