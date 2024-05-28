@@ -88,11 +88,11 @@ final class MembershipService: MembershipServiceProtocol {
         })
         .invoke(ignoreLogErrors: .canNotConnect)
         .billingID
-        
+
         guard let uuid = UUID(uuidString: billingId) else {
             throw MembershipServiceError.invalidBillingIdFormat
         }
-        
+
         return uuid
     }
     
