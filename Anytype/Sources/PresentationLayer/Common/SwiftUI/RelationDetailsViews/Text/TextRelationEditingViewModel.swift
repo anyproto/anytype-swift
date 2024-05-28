@@ -102,7 +102,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     private func logEvent() {
         switch type {
         case .url:
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlEditMobile)
+            AnytypeAnalytics.instance().logRelationUrlEditMobile()
         default:
             break
         }

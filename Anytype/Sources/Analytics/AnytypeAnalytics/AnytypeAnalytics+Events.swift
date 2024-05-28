@@ -1044,4 +1044,24 @@ extension AnytypeAnalytics {
     func logScreenObjectRelation() {
         logEvent("ScreenObjectRelation")
     }
+    
+    func logBlockAction(type: String) {
+        logEvent("BlockAction", withEventProperties: [AnalyticsEventsPropertiesKey.type:  type])
+    }
+    
+    func logReloadSourceData() {
+        logEvent("ReloadSourceData")
+    }
+    
+    func logRelationUrlOpen() {
+        logEvent("RelationUrlOpen")
+    }
+    
+    func logRelationUrlCopy() {
+        logEvent("RelationUrlCopy")
+    }
+    
+    func logRelationUrlEditMobile() {
+        logEvent("RelationUrlEditMobile")
+    }
 }
