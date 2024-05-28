@@ -8,11 +8,6 @@ enum AnalyticsConfiguration {
 // MARK: - Events name
 
 enum AnalyticsEventsName {
-    enum Sidebar {
-        static let openGroupToggle = "OpenSidebarGroupToggle"
-        static let closeGroupToggle = "CloseSidebarGroupToggle"
-    }
-    
     enum About {        
         static let whatIsNew = "MenuHelpWhatsNew"
         static let anytypeCommunity = "MenuHelpCommunity"

@@ -546,7 +546,7 @@ extension AnytypeAnalytics {
     
     func logOpenSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Sidebar.openGroupToggle,
+            "OpenSidebarGroupToggle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
@@ -555,7 +555,7 @@ extension AnytypeAnalytics {
     
     func logCloseSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Sidebar.closeGroupToggle,
+            "CloseSidebarGroupToggle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
