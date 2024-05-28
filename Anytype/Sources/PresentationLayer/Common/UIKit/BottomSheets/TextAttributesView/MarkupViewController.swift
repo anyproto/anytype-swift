@@ -146,7 +146,8 @@ final class MarkupsViewController: UIViewController {
         topStackView.addArrangedSubview(italicButton)
         topStackView.addArrangedSubview(strikethroughButton)
         topStackView.addArrangedSubview(underlineButton)
-
+        topStackView.spacing = 1
+        
         middleStackView.addArrangedSubview(codeButton)
         middleStackView.addArrangedSubview(urlButton)
         middleStackView.spacing = 1
