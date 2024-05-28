@@ -7,19 +7,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {
-    static let showDeletionWarning = "ShowDeletionWarning"
-
-    static let keychainPhraseScreenShow = "ScreenKeychain"
-    static let keychainPhraseCopy = "KeychainCopy"
-
-    static let screenSearch = "ScreenSearch"
-    static let searchResult = "SearchResult"
-    static let objectRelationShow = "ScreenObjectRelation"
-
-    static let onboardingTooltip = "OnboardingTooltip"
-    static let clickOnboardingTooltip = "ClickOnboardingTooltip"
-    
+enum AnalyticsEventsName {    
     // Navigation events
     static let goBack = "HistoryBack"
     static let goForward = "HistoryForward"

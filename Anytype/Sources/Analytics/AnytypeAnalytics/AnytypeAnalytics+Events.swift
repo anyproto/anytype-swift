@@ -115,12 +115,12 @@ extension AnytypeAnalytics {
     }
 
     func logKeychainPhraseShow(_ context: AnalyticsEventsKeychainContext) {
-        logEvent(AnalyticsEventsName.keychainPhraseScreenShow,
+        logEvent("ScreenKeychain",
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: context.rawValue])
     }
 
     func logKeychainPhraseCopy(_ context: AnalyticsEventsKeychainContext) {
-        logEvent(AnalyticsEventsName.keychainPhraseCopy,
+        logEvent("KeychainCopy",
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: context.rawValue])
     }
 
@@ -587,11 +587,11 @@ extension AnytypeAnalytics {
     }
     
     func logScreenSearch() {
-        logEvent(AnalyticsEventsName.screenSearch)
+        logEvent("ScreenSearch")
     }
     
     func logSearchResult(spaceId: String) {
-        logEvent(AnalyticsEventsName.searchResult, spaceId: spaceId)
+        logEvent("SearchResult", spaceId: spaceId)
     }
     
     func logSearchBacklink(spaceId: String) {
@@ -677,7 +677,7 @@ extension AnytypeAnalytics {
     
     func logShowDeletionWarning(route: ShowDeletionWarningRoute) {
         logEvent(
-            AnalyticsEventsName.showDeletionWarning,
+            "ShowDeletionWarning",
             withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue]
         )
     }
@@ -794,14 +794,14 @@ extension AnytypeAnalytics {
     
     func logOnboardingTooltip(tooltip: OnboardingTooltip) {
         logEvent(
-            AnalyticsEventsName.onboardingTooltip,
+            "OnboardingTooltip",
             withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
         )
     }
     
     func logClickOnboardingTooltip(tooltip: OnboardingTooltip, type: ClickOnboardingTooltipType) {
         logEvent(
-            AnalyticsEventsName.clickOnboardingTooltip,
+            "ClickOnboardingTooltip",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.id: tooltip.rawValue,
                 AnalyticsEventsPropertiesKey.type: type.rawValue
@@ -1039,5 +1039,9 @@ extension AnytypeAnalytics {
     
     func logScreenObjectTypeSearch() {
         logEvent("ScreenObjectTypeSearch")
+    }
+    
+    func logScreenObjectRelation() {
+        logEvent("ScreenObjectRelation")
     }
 }
