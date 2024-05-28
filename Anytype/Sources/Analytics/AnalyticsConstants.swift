@@ -7,12 +7,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {    
-    // Type picker
-    static let pinObjectType = "PinObjectType"
-    static let unpinObjectType = "UnpinObjectType"
-    static let typeSearchResult = "TypeSearchResult"
-
+enum AnalyticsEventsName {
     // Details events
     static let changeLayout = "ChangeLayout"
 

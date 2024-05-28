@@ -95,6 +95,24 @@ extension AnytypeAnalytics {
             logEvent("RestoreFromBin")
         }
     }
+    
+    func logPinObjectType(analyticsType: AnalyticsObjectType) {
+        logEvent(
+            "PinObjectType",
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType]
+        )
+    }
+    
+    func logUnpinObjectType(analyticsType: AnalyticsObjectType) {
+        logEvent(
+            "UnpinObjectType",
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType]
+        )
+    }
+    
+    func logTypeSearchResult() {
+        logEvent("TypeSearchResult")
+    }
 
     func logKeychainPhraseShow(_ context: AnalyticsEventsKeychainContext) {
         logEvent(AnalyticsEventsName.keychainPhraseScreenShow,
