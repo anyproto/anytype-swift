@@ -291,7 +291,7 @@ extension AnytypeAnalytics {
     // MARK: - Collection
     func logScreenCollection(with type: String, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.screenCollection,
+            "ScreenCollection",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
@@ -303,7 +303,7 @@ extension AnytypeAnalytics {
     // MARK: - Set
     func logScreenSet(with type: String, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.screenSet,
+            "ScreenSet",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
@@ -314,7 +314,7 @@ extension AnytypeAnalytics {
     
     func logSetSelectQuery() {
         logEvent(
-            AnalyticsEventsName.setSelectQuery,
+            "SetSelectQuery",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: AnalyticsEventsSetQueryType.type,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -324,7 +324,7 @@ extension AnytypeAnalytics {
     
     func logSetTurnIntoCollection() {
         logEvent(
-            AnalyticsEventsName.setTurnIntoCollection,
+            "SetTurnIntoCollection",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
             ]
@@ -334,7 +334,7 @@ extension AnytypeAnalytics {
     // MARK: - Set/Collection views
     func logAddView(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.addView,
+            "AddView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -345,7 +345,7 @@ extension AnytypeAnalytics {
     
     func logSwitchView(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.switchView,
+            "SwitchView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -356,7 +356,7 @@ extension AnytypeAnalytics {
     
     func logRepositionView(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.repositionView,
+            "RepositionView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -366,7 +366,7 @@ extension AnytypeAnalytics {
     
     func logRemoveView(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.removeView,
+            "RemoveView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -376,7 +376,7 @@ extension AnytypeAnalytics {
     
     func logChangeViewType(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.changeViewType,
+            "ChangeViewType",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -387,7 +387,7 @@ extension AnytypeAnalytics {
     
     func logDuplicateView(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.duplicateView,
+            "DuplicateView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -399,7 +399,7 @@ extension AnytypeAnalytics {
     // MARK: - Set/Collection filters
     func logAddFilter(condition: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.addFilter,
+            "AddFilter",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.condition: condition,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -410,7 +410,7 @@ extension AnytypeAnalytics {
     
     func logChangeFilterValue(condition: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.сhangeFilterValue,
+            "ChangeFilterValue",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.condition: condition,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -421,7 +421,7 @@ extension AnytypeAnalytics {
     
     func logFilterRemove(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.removeFilter,
+            "RemoveFilter",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -432,7 +432,7 @@ extension AnytypeAnalytics {
     // MARK: - Set/Collection sorts
     func logAddSort(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.addSort,
+            "AddSort",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -442,7 +442,7 @@ extension AnytypeAnalytics {
     
     func logChangeSortValue(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.changeSortValue,
+            "ChangeSortValue",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -453,7 +453,7 @@ extension AnytypeAnalytics {
     
     func logRepositionSort(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.repositionSort,
+            "RepositionSort",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -463,7 +463,7 @@ extension AnytypeAnalytics {
     
     func logSortRemove(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.removeSort,
+            "RemoveSort",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object

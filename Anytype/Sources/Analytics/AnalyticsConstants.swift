@@ -7,34 +7,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {    
-    // Collection
-    static let screenCollection = "ScreenCollection"
-    
-    // Set
-    static let screenSet = "ScreenSet"
-    static let setSelectQuery = "SetSelectQuery"
-    static let setTurnIntoCollection = "SetTurnIntoCollection"
-    
-    // Set/Collection: Views
-    static let addView = "AddView"
-    static let switchView = "SwitchView"
-    static let repositionView = "RepositionView"
-    static let duplicateView = "DuplicateView"
-    static let changeViewType = "ChangeViewType"
-    static let removeView = "RemoveView"
-    
-    // Set/Collection: Filters
-    static let addFilter = "AddFilter"
-    static let сhangeFilterValue = "ChangeFilterValue"
-    static let removeFilter = "RemoveFilter"
-    
-    // Set/Collection: Sorts
-    static let addSort = "AddSort"
-    static let changeSortValue = "ChangeSortValue"
-    static let repositionSort = "RepositionSort"
-    static let removeSort = "RemoveSort"
-
+enum AnalyticsEventsName {
     // Migration
     static let migrationGoneWrong = "MigrationGoneWrong"
     
