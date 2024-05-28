@@ -5,48 +5,6 @@ enum AnalyticsConfiguration {
     static let blockEvent = "Writing"
 }
 
-// MARK: - Events name
-
-enum AnalyticsEventsName {    
-    // Keyboard bar actions
-    enum KeyboardBarAction {
-        static let slashMenu = "KeyboardBarSlashMenu"
-        static let styleMenu = "KeyboardBarStyleMenu"
-        static let selectionMenu = "KeyboardBarSelectionMenu"
-        static let mentionMenu = "KeyboardBarMentionMenu"
-        static let hideKeyboard = "KeyboardBarHideKeyboardMenu"
-    }
-    
-    enum Widget {
-        static let edit = "EditWidget"
-        static let add = "AddWidget"
-        static let delete = "DeleteWidget"
-        static let changeSource = "ChangeWidgetSource"
-        static let changeLayout = "ChangeWidgetLayout"
-        static let reorderWidget = "ReorderWidget"
-    }
-    
-    enum Sidebar {
-        static let openGroupToggle = "OpenSidebarGroupToggle"
-        static let closeGroupToggle = "CloseSidebarGroupToggle"
-    }
-    
-    enum About {        
-        static let whatIsNew = "MenuHelpWhatsNew"
-        static let anytypeCommunity = "MenuHelpCommunity"
-        static let helpAndTutorials = "MenuHelpTutorial"
-        static let contactUs = "MenuHelpContact"
-
-        static let termsOfUse = "MenuHelpTerms"
-        static let privacyPolicy = "MenuHelpPrivacy"
-        static let acknowledgments = "acknowledgments"
-    }
-    
-    enum FileStorage {
-        static let getMoreSpace = "GetMoreSpace"
-    }
-}
-
 // MARK: - Keychain showing context
 
 enum AnalyticsEventsKeychainContext: String {

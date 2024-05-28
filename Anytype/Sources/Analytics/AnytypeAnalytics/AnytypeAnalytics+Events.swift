@@ -99,14 +99,14 @@ extension AnytypeAnalytics {
     func logPinObjectType(analyticsType: AnalyticsObjectType) {
         logEvent(
             "PinObjectType",
-            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType]
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType.analyticsId]
         )
     }
     
     func logUnpinObjectType(analyticsType: AnalyticsObjectType) {
         logEvent(
             "UnpinObjectType",
-            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType]
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType.analyticsId]
         )
     }
     
@@ -472,12 +472,12 @@ extension AnytypeAnalytics {
     }
     
     func logEditWidget() {
-        logEvent(AnalyticsEventsName.Widget.edit)
+        logEvent("EditWidget")
     }
     
     func logAddWidget(context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.add,
+            "AddWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.context: context.rawValue
             ]
@@ -486,7 +486,7 @@ extension AnytypeAnalytics {
     
     func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.delete,
+            "DeleteWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
                 AnalyticsEventsPropertiesKey.context: context.rawValue
@@ -509,7 +509,7 @@ extension AnytypeAnalytics {
     
     func logChangeWidgetSource(source: AnalyticsWidgetSource, route: AnalyticsWidgetRoute, context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.changeSource,
+            "ChangeWidgetSource",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue,
@@ -525,7 +525,7 @@ extension AnytypeAnalytics {
         context: AnalyticsWidgetContext
     ) {
         logEvent(
-            AnalyticsEventsName.Widget.changeLayout,
+            "ChangeWidgetLayout",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.layout: layout.analyticsValue,
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
@@ -537,7 +537,7 @@ extension AnytypeAnalytics {
     
     func logReorderWidget(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Widget.reorderWidget,
+            "ReorderWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
@@ -546,7 +546,7 @@ extension AnytypeAnalytics {
     
     func logOpenSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Sidebar.openGroupToggle,
+            "OpenSidebarGroupToggle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
@@ -555,7 +555,7 @@ extension AnytypeAnalytics {
     
     func logCloseSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Sidebar.closeGroupToggle,
+            "CloseSidebarGroupToggle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
@@ -687,31 +687,31 @@ extension AnytypeAnalytics {
     }
     
     func logWhatsNew() {
-        logEvent(AnalyticsEventsName.About.whatIsNew)
+        logEvent("MenuHelpWhatsNew")
     }
     
     func logAnytypeCommunity() {
-        logEvent(AnalyticsEventsName.About.anytypeCommunity)
+        logEvent("MenuHelpCommunity")
     }
     
     func logHelpAndTutorials() {
-        logEvent(AnalyticsEventsName.About.helpAndTutorials)
+        logEvent("MenuHelpTutorial")
     }
     
     func logContactUs() {
-        logEvent(AnalyticsEventsName.About.contactUs)
+        logEvent("MenuHelpContact")
     }
     
     func logTermsOfUse() {
-        logEvent(AnalyticsEventsName.About.termsOfUse)
+        logEvent("MenuHelpTerms")
     }
     
     func logPrivacyPolicy() {
-        logEvent(AnalyticsEventsName.About.privacyPolicy)
+        logEvent("MenuHelpPrivacy")
     }
     
     func logGetMoreSpace() {
-        logEvent(AnalyticsEventsName.FileStorage.getMoreSpace)
+        logEvent("GetMoreSpace")
     }
     
     func logScreenOnboarding(step: ScreenOnboardingStep) {
@@ -1063,5 +1063,25 @@ extension AnytypeAnalytics {
     
     func logRelationUrlEditMobile() {
         logEvent("RelationUrlEditMobile")
+    }
+    
+    func logKeyboardBarSlashMenu() {
+        logEvent("KeyboardBarSlashMenu")
+    }
+    
+    func logKeyboardBarStyleMenu() {
+        logEvent("KeyboardBarStyleMenu")
+    }
+    
+    func logKeyboardBarSelectionMenu() {
+        logEvent("KeyboardBarSelectionMenu")
+    }
+    
+    func logKeyboardBarMentionMenu() {
+        logEvent("KeyboardBarMentionMenu")
+    }
+    
+    func logKeyboardBarHideKeyboardMenu() {
+        logEvent("KeyboardBarHideKeyboardMenu")
     }
 }

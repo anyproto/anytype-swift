@@ -408,7 +408,7 @@ extension AccessoryViewStateManagerImpl {
 // MARK: - CursorMode Action handler
 extension AccessoryViewStateManagerImpl {
     func handle(_ action: CursorModeAccessoryViewAction) {
-        AnytypeAnalytics.instance().logEvent(action.analyticsEvent)
+        logEvent(for: action)
         
         switch action {
         case .showStyleMenu:
@@ -442,5 +442,20 @@ extension AccessoryViewStateManagerImpl {
     
     private func isAvailableBlockContentType(_ configuration: TextViewAccessoryConfiguration) -> Bool {
         configuration.contentType != .text(.title) && configuration.contentType != .text(.description)
+    }
+    
+    private func logEvent(for action: CursorModeAccessoryViewAction) {
+        switch action {
+        case .slashMenu:
+            AnytypeAnalytics.instance().logKeyboardBarSlashMenu()
+        case .keyboardDismiss:
+            AnytypeAnalytics.instance().logKeyboardBarHideKeyboardMenu()
+        case .showStyleMenu:
+            AnytypeAnalytics.instance().logKeyboardBarStyleMenu()
+        case .mention:
+            AnytypeAnalytics.instance().logKeyboardBarMentionMenu()
+        case .editingMode:
+            AnytypeAnalytics.instance().logKeyboardBarSelectionMenu()
+        }
     }
 }
