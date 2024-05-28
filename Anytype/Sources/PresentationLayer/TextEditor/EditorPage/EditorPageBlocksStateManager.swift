@@ -343,10 +343,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let elements = sortedElements.compactMap {
             modelsHolder.blockViewModel(at: $0.row)
         }
-        AnytypeAnalytics.instance().logEvent(
-            AnalyticsEventsName.blockAction,
-            withEventProperties: ["type": item.analyticsEventValue]
-        )
+        AnytypeAnalytics.instance().logBlockAction(type: item.analyticsEventValue)
 
         switch item {
         case .delete:

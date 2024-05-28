@@ -45,7 +45,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     
     func onAppear() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.screenObjectTypeSearch)
+        AnytypeAnalytics.instance().logScreenObjectTypeSearch()
         
         search(text: searchText)
         updatePasteButton()
@@ -125,7 +125,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.name), showSnackBar: true)
             }
             
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.typeSearchResult)
+            AnytypeAnalytics.instance().logTypeSearchResult()
             
             onSelect(.objectType(type: type))
         }
@@ -167,10 +167,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func addPinedType(_ type: ObjectType) {
         do {
             try typesService.addPinedType(type, spaceId: spaceId)
-            AnytypeAnalytics.instance().logEvent(
-                AnalyticsEventsName.pinObjectType,
-                withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsType]                
-            )
+            AnytypeAnalytics.instance().logPinObjectType(analyticsType: type.analyticsType)
             search(text: searchText)
         } catch { }
     }
@@ -178,10 +175,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     func removePinedType(_ type: ObjectType) {
         do {
             try typesService.removePinedType(typeId: type.id, spaceId: spaceId)
-            AnytypeAnalytics.instance().logEvent(
-                AnalyticsEventsName.unpinObjectType,
-                withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsType]
-            )
+            AnytypeAnalytics.instance().logUnpinObjectType(analyticsType: type.analyticsType)
             search(text: searchText)
         } catch { }
     }

@@ -95,14 +95,32 @@ extension AnytypeAnalytics {
             logEvent("RestoreFromBin")
         }
     }
+    
+    func logPinObjectType(analyticsType: AnalyticsObjectType) {
+        logEvent(
+            "PinObjectType",
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType.analyticsId]
+        )
+    }
+    
+    func logUnpinObjectType(analyticsType: AnalyticsObjectType) {
+        logEvent(
+            "UnpinObjectType",
+            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: analyticsType.analyticsId]
+        )
+    }
+    
+    func logTypeSearchResult() {
+        logEvent("TypeSearchResult")
+    }
 
     func logKeychainPhraseShow(_ context: AnalyticsEventsKeychainContext) {
-        logEvent(AnalyticsEventsName.keychainPhraseScreenShow,
+        logEvent("ScreenKeychain",
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: context.rawValue])
     }
 
     func logKeychainPhraseCopy(_ context: AnalyticsEventsKeychainContext) {
-        logEvent(AnalyticsEventsName.keychainPhraseCopy,
+        logEvent("KeychainCopy",
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: context.rawValue])
     }
 
@@ -115,7 +133,7 @@ extension AnytypeAnalytics {
     }
 
     func logSelectTheme(_ userInterfaceStyle: UIUserInterfaceStyle) {
-        logEvent(AnalyticsEventsName.selectTheme,
+        logEvent("ThemeSet",
                  withEventProperties: [AnalyticsEventsPropertiesKey.id: userInterfaceStyle.analyticsId])
     }
 
@@ -147,7 +165,7 @@ extension AnytypeAnalytics {
     }
 
     func logLayoutChange(_ layout: DetailsLayout) {
-        logEvent(AnalyticsEventsName.changeLayout,
+        logEvent("ChangeLayout",
                  withEventProperties: [AnalyticsEventsPropertiesKey.layout: layout.rawValue])
     }
 
@@ -273,7 +291,7 @@ extension AnytypeAnalytics {
     // MARK: - Collection
     func logScreenCollection(with type: String, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.screenCollection,
+            "ScreenCollection",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
@@ -285,7 +303,7 @@ extension AnytypeAnalytics {
     // MARK: - Set
     func logScreenSet(with type: String, spaceId: String) {
         logEvent(
-            AnalyticsEventsName.screenSet,
+            "ScreenSet",
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object,
@@ -296,7 +314,7 @@ extension AnytypeAnalytics {
     
     func logSetSelectQuery() {
         logEvent(
-            AnalyticsEventsName.setSelectQuery,
+            "SetSelectQuery",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: AnalyticsEventsSetQueryType.type,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -306,7 +324,7 @@ extension AnytypeAnalytics {
     
     func logSetTurnIntoCollection() {
         logEvent(
-            AnalyticsEventsName.setTurnIntoCollection,
+            "SetTurnIntoCollection",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
             ]
@@ -316,7 +334,7 @@ extension AnytypeAnalytics {
     // MARK: - Set/Collection views
     func logAddView(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.addView,
+            "AddView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -327,7 +345,7 @@ extension AnytypeAnalytics {
     
     func logSwitchView(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.switchView,
+            "SwitchView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -338,7 +356,7 @@ extension AnytypeAnalytics {
     
     func logRepositionView(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.repositionView,
+            "RepositionView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -348,7 +366,7 @@ extension AnytypeAnalytics {
     
     func logRemoveView(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.removeView,
+            "RemoveView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -358,7 +376,7 @@ extension AnytypeAnalytics {
     
     func logChangeViewType(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.changeViewType,
+            "ChangeViewType",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -369,7 +387,7 @@ extension AnytypeAnalytics {
     
     func logDuplicateView(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.duplicateView,
+            "DuplicateView",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -381,7 +399,7 @@ extension AnytypeAnalytics {
     // MARK: - Set/Collection filters
     func logAddFilter(condition: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.addFilter,
+            "AddFilter",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.condition: condition,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -392,7 +410,7 @@ extension AnytypeAnalytics {
     
     func logChangeFilterValue(condition: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.сhangeFilterValue,
+            "ChangeFilterValue",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.condition: condition,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -403,7 +421,7 @@ extension AnytypeAnalytics {
     
     func logFilterRemove(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.removeFilter,
+            "RemoveFilter",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -414,7 +432,7 @@ extension AnytypeAnalytics {
     // MARK: - Set/Collection sorts
     func logAddSort(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.addSort,
+            "AddSort",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -424,7 +442,7 @@ extension AnytypeAnalytics {
     
     func logChangeSortValue(type: String, objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.changeSortValue,
+            "ChangeSortValue",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type,
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
@@ -435,7 +453,7 @@ extension AnytypeAnalytics {
     
     func logRepositionSort(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.repositionSort,
+            "RepositionSort",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -445,7 +463,7 @@ extension AnytypeAnalytics {
     
     func logSortRemove(objectType: AnalyticsObjectType) {
         logEvent(
-            AnalyticsEventsName.removeSort,
+            "RemoveSort",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: objectType.analyticsId,
                 AnalyticsEventsPropertiesKey.embedType: AnalyticsEventsSetCollectionEmbedType.object
@@ -454,12 +472,12 @@ extension AnytypeAnalytics {
     }
     
     func logEditWidget() {
-        logEvent(AnalyticsEventsName.Widget.edit)
+        logEvent("EditWidget")
     }
     
     func logAddWidget(context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.add,
+            "AddWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.context: context.rawValue
             ]
@@ -468,7 +486,7 @@ extension AnytypeAnalytics {
     
     func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.delete,
+            "DeleteWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
                 AnalyticsEventsPropertiesKey.context: context.rawValue
@@ -478,7 +496,7 @@ extension AnytypeAnalytics {
     
     func logSelectHomeTab(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.selectHomeTab,
+            "SelectHomeTab",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.tab: source.analyticsId
             ]
@@ -486,12 +504,12 @@ extension AnytypeAnalytics {
     }
     
     func logShowHome() {
-        logEvent(AnalyticsEventsName.homeShow)
+        logEvent("ScreenHome")
     }
     
     func logChangeWidgetSource(source: AnalyticsWidgetSource, route: AnalyticsWidgetRoute, context: AnalyticsWidgetContext) {
         logEvent(
-            AnalyticsEventsName.Widget.changeSource,
+            "ChangeWidgetSource",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue,
@@ -507,7 +525,7 @@ extension AnytypeAnalytics {
         context: AnalyticsWidgetContext
     ) {
         logEvent(
-            AnalyticsEventsName.Widget.changeLayout,
+            "ChangeWidgetLayout",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.layout: layout.analyticsValue,
                 AnalyticsEventsPropertiesKey.type: source.analyticsId,
@@ -519,7 +537,7 @@ extension AnytypeAnalytics {
     
     func logReorderWidget(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Widget.reorderWidget,
+            "ReorderWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
@@ -528,7 +546,7 @@ extension AnytypeAnalytics {
     
     func logOpenSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Sidebar.openGroupToggle,
+            "OpenSidebarGroupToggle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
@@ -537,7 +555,7 @@ extension AnytypeAnalytics {
     
     func logCloseSidebarGroupToggle(source: AnalyticsWidgetSource) {
         logEvent(
-            AnalyticsEventsName.Sidebar.closeGroupToggle,
+            "CloseSidebarGroupToggle",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: source.analyticsId
             ]
@@ -545,35 +563,35 @@ extension AnytypeAnalytics {
     }
     
     func logScreenAuthRegistration() {
-        logEvent(AnalyticsEventsName.screenAuthRegistration)
+        logEvent("ScreenAuthRegistration")
     }
     
     func logMainAuthScreenShow() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.mainAuthScreenShow)
+        AnytypeAnalytics.instance().logEvent("ScreenIndex")
     }
     
     func logLoginScreenShow() {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.loginScreenShow)
+        AnytypeAnalytics.instance().logEvent("ScreenLogin")
     }
     
     func logScreenSettingsPersonal() {
-        logEvent(AnalyticsEventsName.screenSettingsPersonal)
+        logEvent("ScreenSettingsPersonal")
     }
     
     func logScreenSettingsDelete() {
-        logEvent(AnalyticsEventsName.screenSettingsDelete)
+        logEvent("ScreenSettingsDelete")
     }
     
     func logSettingsWallpaperSet() {
-        logEvent(AnalyticsEventsName.settingsWallpaperSet)
+        logEvent("SettingsWallpaperSet")
     }
     
     func logScreenSearch() {
-        logEvent(AnalyticsEventsName.screenSearch)
+        logEvent("ScreenSearch")
     }
     
     func logSearchResult(spaceId: String) {
-        logEvent(AnalyticsEventsName.searchResult, spaceId: spaceId)
+        logEvent("SearchResult", spaceId: spaceId)
     }
     
     func logSearchBacklink(spaceId: String) {
@@ -642,58 +660,58 @@ extension AnytypeAnalytics {
     }
     
     func logScreenSettingsStorageIndex() {
-        logEvent(AnalyticsEventsName.screenSettingsStorageIndex)
+        logEvent("ScreenSettingsStorageIndex")
     }
     
     func logScreenSettingsStorageManager() {
-        logEvent(AnalyticsEventsName.screenSettingsStorageManager)
+        logEvent("ScreenSettingsStorageManager")
     }
     
     func logScreenFileOffloadWarning() {
-        logEvent(AnalyticsEventsName.screenFileOffloadWarning)
+        logEvent("ScreenFileOffloadWarning")
     }
     
     func logSettingsStorageOffload() {
-        logEvent(AnalyticsEventsName.settingsStorageOffload)
+        logEvent("SettingsStorageOffload")
     }
     
     func logShowDeletionWarning(route: ShowDeletionWarningRoute) {
         logEvent(
-            AnalyticsEventsName.showDeletionWarning,
+            "ShowDeletionWarning",
             withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue]
         )
     }
     
     func logMenuHelp() {
-        logEvent(AnalyticsEventsName.menuHelp)
+        logEvent("MenuHelp")
     }
     
     func logWhatsNew() {
-        logEvent(AnalyticsEventsName.About.whatIsNew)
+        logEvent("MenuHelpWhatsNew")
     }
     
     func logAnytypeCommunity() {
-        logEvent(AnalyticsEventsName.About.anytypeCommunity)
+        logEvent("MenuHelpCommunity")
     }
     
     func logHelpAndTutorials() {
-        logEvent(AnalyticsEventsName.About.helpAndTutorials)
+        logEvent("MenuHelpTutorial")
     }
     
     func logContactUs() {
-        logEvent(AnalyticsEventsName.About.contactUs)
+        logEvent("MenuHelpContact")
     }
     
     func logTermsOfUse() {
-        logEvent(AnalyticsEventsName.About.termsOfUse)
+        logEvent("MenuHelpTerms")
     }
     
     func logPrivacyPolicy() {
-        logEvent(AnalyticsEventsName.About.privacyPolicy)
+        logEvent("MenuHelpPrivacy")
     }
     
     func logGetMoreSpace() {
-        logEvent(AnalyticsEventsName.FileStorage.getMoreSpace)
+        logEvent("GetMoreSpace")
     }
     
     func logScreenOnboarding(step: ScreenOnboardingStep) {
@@ -776,14 +794,14 @@ extension AnytypeAnalytics {
     
     func logOnboardingTooltip(tooltip: OnboardingTooltip) {
         logEvent(
-            AnalyticsEventsName.onboardingTooltip,
+            "OnboardingTooltip",
             withEventProperties: [AnalyticsEventsPropertiesKey.id: tooltip.rawValue]
         )
     }
     
     func logClickOnboardingTooltip(tooltip: OnboardingTooltip, type: ClickOnboardingTooltipType) {
         logEvent(
-            AnalyticsEventsName.clickOnboardingTooltip,
+            "ClickOnboardingTooltip",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.id: tooltip.rawValue,
                 AnalyticsEventsPropertiesKey.type: type.rawValue
@@ -796,12 +814,12 @@ extension AnytypeAnalytics {
     }
     
     func logScreenSettingsSpaceCreate() {
-        logEvent(AnalyticsEventsName.screenSettingsSpaceCreate)
+        logEvent("ScreenSettingsSpaceCreate")
     }
     
     func logCreateSpace(route: CreateSpaceRoute) {
         logEvent(
-            AnalyticsEventsName.createSpace,
+            "CreateSpace",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.route: route.rawValue
             ]
@@ -809,36 +827,36 @@ extension AnytypeAnalytics {
     }
     
     func logSwitchSpace() {
-        logEvent(AnalyticsEventsName.switchSpace)
+        logEvent("SwitchSpace")
     }
     
     func logClickDeleteSpace(route: ClickDeleteSpaceRoute) {
-        logEvent(AnalyticsEventsName.clickDeleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
+        logEvent("ClickDeleteSpace", withEventProperties: [AnalyticsEventsPropertiesKey.route: route.rawValue])
     }
     
     func logClickDeleteSpaceWarning(type: ClickDeleteSpaceWarningType) {
-        logEvent(AnalyticsEventsName.clickDeleteSpaceWarning, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+        logEvent("ClickDeleteSpaceWarning", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
     func logDeleteSpace(type: SpaceAccessAnalyticsType) {
-        logEvent(AnalyticsEventsName.deleteSpace, withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
+        logEvent("DeleteSpace", withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
     
     func logScreenSettingsSpaceIndex() {
-        logEvent(AnalyticsEventsName.screenSettingsSpaceIndex)
+        logEvent("ScreenSettingsSpaceIndex")
     }
     
     func logScreenSettingsAccount() {
-        logEvent(AnalyticsEventsName.screenSettingsAccount)
+        logEvent("ScreenSettingsAccount")
     }
     
     func logScreenSettingsAccountAccess() {
-        logEvent(AnalyticsEventsName.screenSettingsAccountAccess)
+        logEvent("ScreenSettingsAccountAccess")
     }
     
     func logSelectNetwork(type: SelectNetworkType, route: SelectNetworkRoute) {
         logEvent(
-            AnalyticsEventsName.selectNetwork,
+            "SelectNetwork",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.type: type.rawValue,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
@@ -847,30 +865,30 @@ extension AnytypeAnalytics {
     }
     
     func logUploadNetworkConfiguration() {
-        logEvent(AnalyticsEventsName.uploadNetworkConfiguration)
+        logEvent("UploadNetworkConfiguration")
     }
     
     func logScreenGalleryInstall(name: String) {
         logEvent(
-            AnalyticsEventsName.screenGalleryInstall,
+            "ScreenGalleryInstall",
             withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
         )
     }
     
     func logClickGalleryInstall() {
-        logEvent(AnalyticsEventsName.clickGalleryInstall)
+        logEvent("ClickGalleryInstall")
     }
     
     func logClickGalleryInstallSpace(type: ClickGalleryInstallSpaceType) {
         logEvent(
-            AnalyticsEventsName.clickGalleryInstallSpace,
+            "ClickGalleryInstallSpace",
             withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
         )
     }
     
     func logGalleryInstall(name: String) {
         logEvent(
-            AnalyticsEventsName.galleryInstall,
+            "GalleryInstall",
             withEventProperties: [AnalyticsEventsPropertiesKey.name: name]
         )
     }
@@ -1005,5 +1023,65 @@ extension AnytypeAnalytics {
     
     func logChangePlan(tier: MembershipTier) {
         logEvent("ChangePlan", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])
+    }
+    
+    func logFileOffload() {
+        logEvent("FileOffload")
+    }
+    
+    func logScreenSettingsWallpaper() {
+        logEvent("ScreenSettingsWallpaper")
+    }
+    
+    func logScreenSettingsAppearance() {
+        logEvent("ScreenSettingsAppearance")
+    }
+    
+    func logScreenObjectTypeSearch() {
+        logEvent("ScreenObjectTypeSearch")
+    }
+    
+    func logScreenObjectRelation() {
+        logEvent("ScreenObjectRelation")
+    }
+    
+    func logBlockAction(type: String) {
+        logEvent("BlockAction", withEventProperties: [AnalyticsEventsPropertiesKey.type:  type])
+    }
+    
+    func logReloadSourceData() {
+        logEvent("ReloadSourceData")
+    }
+    
+    func logRelationUrlOpen() {
+        logEvent("RelationUrlOpen")
+    }
+    
+    func logRelationUrlCopy() {
+        logEvent("RelationUrlCopy")
+    }
+    
+    func logRelationUrlEditMobile() {
+        logEvent("RelationUrlEditMobile")
+    }
+    
+    func logKeyboardBarSlashMenu() {
+        logEvent("KeyboardBarSlashMenu")
+    }
+    
+    func logKeyboardBarStyleMenu() {
+        logEvent("KeyboardBarStyleMenu")
+    }
+    
+    func logKeyboardBarSelectionMenu() {
+        logEvent("KeyboardBarSelectionMenu")
+    }
+    
+    func logKeyboardBarMentionMenu() {
+        logEvent("KeyboardBarMentionMenu")
+    }
+    
+    func logKeyboardBarHideKeyboardMenu() {
+        logEvent("KeyboardBarHideKeyboardMenu")
     }
 }

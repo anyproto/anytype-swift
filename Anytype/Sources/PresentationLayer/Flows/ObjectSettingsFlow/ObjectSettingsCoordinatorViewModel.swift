@@ -51,7 +51,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func relationsAction(document: BaseDocumentProtocol) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
+        AnytypeAnalytics.instance().logScreenObjectRelation()
         relationsListData = RelationsListData(document: document)
     }
     
