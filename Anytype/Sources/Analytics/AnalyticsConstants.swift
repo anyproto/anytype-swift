@@ -7,18 +7,7 @@ enum AnalyticsConfiguration {
 
 // MARK: - Events name
 
-enum AnalyticsEventsName {
-    enum About {        
-        static let whatIsNew = "MenuHelpWhatsNew"
-        static let anytypeCommunity = "MenuHelpCommunity"
-        static let helpAndTutorials = "MenuHelpTutorial"
-        static let contactUs = "MenuHelpContact"
-
-        static let termsOfUse = "MenuHelpTerms"
-        static let privacyPolicy = "MenuHelpPrivacy"
-        static let acknowledgments = "acknowledgments"
-    }
-    
+enum AnalyticsEventsName {    
     enum FileStorage {
         static let getMoreSpace = "GetMoreSpace"
     }

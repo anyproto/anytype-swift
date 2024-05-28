@@ -687,27 +687,27 @@ extension AnytypeAnalytics {
     }
     
     func logWhatsNew() {
-        logEvent(AnalyticsEventsName.About.whatIsNew)
+        logEvent("MenuHelpWhatsNew")
     }
     
     func logAnytypeCommunity() {
-        logEvent(AnalyticsEventsName.About.anytypeCommunity)
+        logEvent("MenuHelpCommunity")
     }
     
     func logHelpAndTutorials() {
-        logEvent(AnalyticsEventsName.About.helpAndTutorials)
+        logEvent("MenuHelpTutorial")
     }
     
     func logContactUs() {
-        logEvent(AnalyticsEventsName.About.contactUs)
+        logEvent("MenuHelpContact")
     }
     
     func logTermsOfUse() {
-        logEvent(AnalyticsEventsName.About.termsOfUse)
+        logEvent("MenuHelpTerms")
     }
     
     func logPrivacyPolicy() {
-        logEvent(AnalyticsEventsName.About.privacyPolicy)
+        logEvent("MenuHelpPrivacy")
     }
     
     func logGetMoreSpace() {
