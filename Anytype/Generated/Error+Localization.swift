@@ -3871,6 +3871,12 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: Localized
             case .invalidReceipt:
                 return String(localized: "Membership.VerifyAppStoreReceipt.invalidReceipt", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.VerifyAppStoreReceipt.invalidReceipt")
+            case .purchaseRegistrationError:
+                return String(localized: "Membership.VerifyAppStoreReceipt.purchaseRegistrationError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.purchaseRegistrationError")
+            case .subscriptionRenewError:
+                return String(localized: "Membership.VerifyAppStoreReceipt.subscriptionRenewError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.subscriptionRenewError")
             case .UNRECOGNIZED:
                 return ""
         }
