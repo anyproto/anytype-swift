@@ -27813,6 +27813,8 @@ public struct Anytype_Rpc {
             case paymentNodeError // = 4
             case cacheError // = 5
             case invalidReceipt // = 6
+            case purchaseRegistrationError // = 7
+            case subscriptionRenewError // = 8
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -27828,6 +27830,8 @@ public struct Anytype_Rpc {
               case 4: self = .paymentNodeError
               case 5: self = .cacheError
               case 6: self = .invalidReceipt
+              case 7: self = .purchaseRegistrationError
+              case 8: self = .subscriptionRenewError
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -27841,6 +27845,8 @@ public struct Anytype_Rpc {
               case .paymentNodeError: return 4
               case .cacheError: return 5
               case .invalidReceipt: return 6
+              case .purchaseRegistrationError: return 7
+              case .subscriptionRenewError: return 8
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -31009,6 +31015,8 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error.Code: Case
     .paymentNodeError,
     .cacheError,
     .invalidReceipt,
+    .purchaseRegistrationError,
+    .subscriptionRenewError,
   ]
 }
 
@@ -72494,6 +72502,8 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error.Code: Swif
     4: .same(proto: "PAYMENT_NODE_ERROR"),
     5: .same(proto: "CACHE_ERROR"),
     6: .same(proto: "INVALID_RECEIPT"),
+    7: .same(proto: "PURCHASE_REGISTRATION_ERROR"),
+    8: .same(proto: "SUBSCRIPTION_RENEW_ERROR"),
   ]
 }
 
