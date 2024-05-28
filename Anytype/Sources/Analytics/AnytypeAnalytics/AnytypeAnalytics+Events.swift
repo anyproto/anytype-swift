@@ -1064,4 +1064,24 @@ extension AnytypeAnalytics {
     func logRelationUrlEditMobile() {
         logEvent("RelationUrlEditMobile")
     }
+    
+    func logKeyboardBarSlashMenu() {
+        logEvent("KeyboardBarSlashMenu")
+    }
+    
+    func logKeyboardBarStyleMenu() {
+        logEvent("KeyboardBarStyleMenu")
+    }
+    
+    func logKeyboardBarSelectionMenu() {
+        logEvent("KeyboardBarSelectionMenu")
+    }
+    
+    func logKeyboardBarMentionMenu() {
+        logEvent("KeyboardBarMentionMenu")
+    }
+    
+    func logKeyboardBarHideKeyboardMenu() {
+        logEvent("KeyboardBarHideKeyboardMenu")
+    }
 }

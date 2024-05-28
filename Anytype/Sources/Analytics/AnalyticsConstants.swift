@@ -8,15 +8,6 @@ enum AnalyticsConfiguration {
 // MARK: - Events name
 
 enum AnalyticsEventsName {    
-    // Keyboard bar actions
-    enum KeyboardBarAction {
-        static let slashMenu = "KeyboardBarSlashMenu"
-        static let styleMenu = "KeyboardBarStyleMenu"
-        static let selectionMenu = "KeyboardBarSelectionMenu"
-        static let mentionMenu = "KeyboardBarMentionMenu"
-        static let hideKeyboard = "KeyboardBarHideKeyboardMenu"
-    }
-    
     enum Widget {
         static let edit = "EditWidget"
         static let add = "AddWidget"
