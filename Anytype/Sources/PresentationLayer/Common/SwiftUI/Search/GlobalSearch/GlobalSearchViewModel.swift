@@ -26,6 +26,8 @@ final class GlobalSearchViewModel: ObservableObject {
     
     func search() async {
         do {
+            try await Task.sleep(seconds: 0.3)
+            
             let result: [SearchResultWithMeta]
             switch state.mode {
             case .default:
@@ -52,13 +54,13 @@ final class GlobalSearchViewModel: ObservableObject {
                 )
             ]
             
+            AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
+            
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
         } catch {
             searchData = []
         }
-        
-        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
     func onSelect(searchData: GlobalSearchData) {
