@@ -10,7 +10,7 @@
     "_applicationInternalID" : "6449487029",
     "_developerTeamID" : "J3NXTX3T5S",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 737884999.68150795,
+    "_lastSynchronizedDate" : 738682265.50798702,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
@@ -79,7 +79,7 @@
           "displayPrice" : "134.99",
           "familyShareable" : false,
           "groupNumber" : 1,
-          "internalID" : "6498927047",
+          "internalID" : "6503295022",
           "introductoryOffer" : null,
           "localizations" : [
             {
@@ -88,7 +88,7 @@
               "locale" : "en_US"
             }
           ],
-          "productID" : "io.anytype.membership.builder",
+          "productID" : "io.anytype.membership.tier.builder",
           "recurringSubscriptionPeriod" : "P1Y",
           "referenceName" : "Builder",
           "subscriptionGroupID" : "21478052",
