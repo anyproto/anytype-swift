@@ -1106,6 +1106,7 @@
 "Membership.Upgrade.Button" = "联系Anytype团队";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
+"Membership.Upgrade.MoreMembers" = "You can’t add more members";
 
 
 "Membership.Banner.Title1" = "一起构建愿景";
