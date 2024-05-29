@@ -1120,6 +1120,7 @@
 		3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17023E2715D0D80079B65B /* EditorSyncStatusItem.swift */; };
 		3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1702552716D1C30079B65B /* UIButton+ImageTitleSpacing.swift */; };
 		3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17025B2716E4F60079B65B /* EditorBarItemState.swift */; };
+		3D19BEF32C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19BEF22C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift */; };
 		3D1B5F4C274BDE5D007D97AE /* SetContentViewItemConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F4B274BDE5D007D97AE /* SetContentViewItemConfiguration.swift */; };
 		3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */; };
 		3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */; };
@@ -1236,6 +1237,7 @@
 		3D6F2D722B87983500AA667B /* PasteboardBlockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */; };
 		3D6F2D752B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */; };
 		3D6F758B2BD0286F00F6C01E /* MembershipBannersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */; };
+		3D75CAE02C04CDC500295428 /* MembershipTier+Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D75CADF2C04CDC500295428 /* MembershipTier+Upgrade.swift */; };
 		3D7C08212684B68600E2168D /* BlockFileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C08202684B68600E2168D /* BlockFileViewModel.swift */; };
 		3D7C52CD2BFB3F1A00D1278C /* MembershipConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */; };
 		3D7C52D02BFB6B0600D1278C /* MailUrlComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7C52CF2BFB6B0600D1278C /* MailUrlComposer.swift */; };
@@ -2895,6 +2897,7 @@
 		3D17023E2715D0D80079B65B /* EditorSyncStatusItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSyncStatusItem.swift; sourceTree = "<group>"; };
 		3D1702552716D1C30079B65B /* UIButton+ImageTitleSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageTitleSpacing.swift"; sourceTree = "<group>"; };
 		3D17025B2716E4F60079B65B /* EditorBarItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBarItemState.swift; sourceTree = "<group>"; };
+		3D19BEF22C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipUpgradeEmailBottomAlert.swift; sourceTree = "<group>"; };
 		3D1B5F4B274BDE5D007D97AE /* SetContentViewItemConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewItemConfiguration.swift; sourceTree = "<group>"; };
 		3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewRow.swift; sourceTree = "<group>"; };
 		3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFullHeader.swift; sourceTree = "<group>"; };
@@ -3010,6 +3013,7 @@
 		3D6F2D712B87983500AA667B /* PasteboardBlockService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockService.swift; sourceTree = "<group>"; };
 		3D6F2D742B87A00B00AA667B /* PasteboardBlockServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardBlockServiceProtocol.swift; sourceTree = "<group>"; };
 		3D6F758A2BD0286F00F6C01E /* MembershipBannersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipBannersView.swift; sourceTree = "<group>"; };
+		3D75CADF2C04CDC500295428 /* MembershipTier+Upgrade.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipTier+Upgrade.swift"; sourceTree = "<group>"; };
 		3D7C08202684B68600E2168D /* BlockFileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockFileViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/File/BlockFileViewModel.swift; sourceTree = SOURCE_ROOT; };
 		3D7C52CA2BFB3B1C00D1278C /* Anytype Dev StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype Dev StoreKit Configuration.storekit"; sourceTree = "<group>"; };
 		3D7C52CB2BFB3B4400D1278C /* Anytype StoreKit Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Anytype StoreKit Configuration.storekit"; sourceTree = "<group>"; };
@@ -3732,6 +3736,7 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3D19BEF12C064DB7009C64D6 /* Membership */,
 				2AD8E94C2B679D0F00AADB9E /* Notifications */,
 				2A5B53AE2A80DB8900BC993B /* SpaceSettings */,
 				957A2A252A01707400F81076 /* Auth */,
@@ -8008,6 +8013,14 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3D19BEF12C064DB7009C64D6 /* Membership */ = {
+			isa = PBXGroup;
+			children = (
+				3D19BEF22C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift */,
+			);
+			path = Membership;
+			sourceTree = "<group>";
+		};
 		3D1B5F67274C0D1B007D97AE /* Row */ = {
 			isa = PBXGroup;
 			children = (
@@ -8708,6 +8721,7 @@
 			children = (
 				3DF58C502BD2CD6A0056D0BB /* Mocks */,
 				3D611E952B93779900B33305 /* MembershipTierExtensions.swift */,
+				3D75CADF2C04CDC500295428 /* MembershipTier+Upgrade.swift */,
 				3DFD50A32BA0B114002E51F7 /* MembershipStatusExtension.swift */,
 				3DE3DE662BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift */,
 				3D7C52CC2BFB3F1A00D1278C /* MembershipConstants.swift */,
@@ -12219,6 +12233,7 @@
 				3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */,
+				3D75CAE02C04CDC500295428 /* MembershipTier+Upgrade.swift in Sources */,
 				1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */,
 				2AF2C6B928BD104B00F8612B /* UIAnytypeActivityIndicator.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
@@ -12242,6 +12257,7 @@
 				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,
 				2E2D256B288ACA3400E3DFD1 /* SetFiltersCheckboxView.swift in Sources */,
 				C92EA51E27A7B75900D1306E /* EquatableNoop.swift in Sources */,
+				3D19BEF32C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift in Sources */,
 				12C2A5822756342F00311854 /* DateExtension.swift in Sources */,
 				2A8DCAD228C635CE0029B914 /* RelationDetailsStorage.swift in Sources */,
 				3D7F718627A190C6003FE893 /* EditorSetPaginationHelper.swift in Sources */,

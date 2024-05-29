@@ -45,6 +45,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
+    @Published var showEmailAlert = false
     @Published var dismiss = false
     @Published var allowDelete = false
     @Published var allowLeave = false
@@ -91,7 +92,12 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onMembershipUpgradeTap() {
+        showEmailAlert = true
+    }
+    
+    func onContactAnytypeTap() {
         openUrl = mailUrlBuilder.membershipUpgrateUrl()
+        showEmailAlert = false
     }
     
     func startJoiningTask() async {

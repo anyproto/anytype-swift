@@ -33,6 +33,11 @@ struct SpaceSettingsView: View {
             .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
                 SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
+            .anytypeSheet(isPresented: $model.showEmailAlert) {
+                MembershipUpgradeEmailBottomAlert {
+                    model.onContactAnytypeTap()
+                }
+            }
     }
     
     private var content: some View {
