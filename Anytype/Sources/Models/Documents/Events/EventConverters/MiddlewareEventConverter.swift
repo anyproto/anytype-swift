@@ -33,7 +33,7 @@ final class MiddlewareEventConverter {
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(data):
             infoContainer.setFields(data: data)
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
         case let .blockAdd(data):
             infoContainer.add(data: data)
             // Because blockAdd message will always come together with blockSetChildrenIds
@@ -48,19 +48,15 @@ final class MiddlewareEventConverter {
         case let .blockSetChildrenIds(data):
             infoContainer
                 .setChildren(ids: data.childrenIds, parentId: data.id)
-            return .children(blockIds: [data.id])
+            return .children(blockId: data.id)
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(data):
             infoContainer.setBackgroundColor(data: data)
-            
-            var childIds = infoContainer.recursiveChildren(of: data.id).map { $0.id }
-            childIds.append(data.id)
-            return .blocks(blockIds: Set(childIds))
-            
+            return .block(blockId: data.id)
         case let .blockSetAlign(value):
             infoContainer.setAlign(data: value)
-            return .blocks(blockIds: [value.id])
+            return .block(blockId: value.id)
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }
@@ -113,10 +109,10 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
         case let .blockSetBookmark(data):
             infoContainer.setBookmark(data: data)
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
             
         case let .blockSetDiv(data):
             infoContainer.setDiv(data: data)
@@ -125,10 +121,10 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
         case .blockSetLink(let data):
             infoContainer.setLink(data: data)
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
             
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
@@ -226,14 +222,6 @@ final class MiddlewareEventConverter {
         }
         infoContainer.add(newInformation)
 
-        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
-        childIds.append(newData.id)
-        
-        if let newInformationContentType = newInformation.textContent?.contentType,
-           newInformationContentType != oldText.contentType {
-            return .children(blockIds: Set(childIds))
-        } else {
-            return .blocks(blockIds: Set(childIds))
-        }
+        return .block(blockId: newData.id)
     }
 }

@@ -213,22 +213,23 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func triggerSync(updates: [DocumentUpdate]) {
-        for update in updates.merged {
-            guard update.hasUpdate else { return }
-            
+        var resetBlockIds = [String]()
+        var hasChildren = false
+        
+        for update in Set(updates) {
             switch update {
             case .general:
                 infoContainer.publishAllValues()
                 reorderChilder()
-            case .children(let blockIds):
-                blockIds.forEach { infoContainer.publishValue(for: $0) }
-                _resetBlocksSubject.send(blockIds)
-                reorderChilder()
-            case .blocks(let blockIds):
-                blockIds.forEach { infoContainer.publishValue(for: $0) }
-                _resetBlocksSubject.send(blockIds)
-            case .unhandled(let blockIds):
-                blockIds.forEach { infoContainer.publishValue(for: $0) }
+            case .children(let blockId):
+                infoContainer.publishValue(for: blockId)
+                resetBlockIds.append(blockId)
+                hasChildren = true
+            case .block(let blockId):
+                infoContainer.publishValue(for: blockId)
+                resetBlockIds.append(blockId)
+            case .unhandled(let blockId):
+                infoContainer.publishValue(for: blockId)
             case .syncStatus(let status):
                 syncStatus = status
             case .details:
@@ -236,9 +237,14 @@ final class BaseDocument: BaseDocumentProtocol {
             }
         }
         
+        if hasChildren {
+            reorderChilder()
+        }
+        
+        _resetBlocksSubject.send(Set(resetBlockIds))
         parsedRelationsSubject.send(parsedRelations)
-        syncSubject.send(updates)
         sync = ()
+        syncSubject.send(updates)
     }
     
     func subscibeFor(update: [DocumentUpdate]) -> AnyPublisher<[DocumentUpdate], Never> {
@@ -266,47 +272,5 @@ final class BaseDocument: BaseDocumentProtocol {
             self?.participantIsEditor = canEdit
             self?.triggerSync(updates: [.general])
         }.store(in: &subscriptions)
-    }
-}
-
-private extension Array where Element == DocumentUpdate {
-    var merged: Self {
-        if contains(.general) { return [.general] }
-        var childIds = Set<String>()
-        var blockIds = Set<String>()
-        var unhandled = Set<String>()
-        
-        var output = [DocumentUpdate]()
-        
-        self.forEach { update in
-            switch update {
-            case let .blocks(ids):
-                blockIds.formUnion(ids)
-            case let .children(ids):
-                childIds.formUnion(ids)
-            case let .unhandled(ids):
-                unhandled.formUnion(ids)
-            case .details, .syncStatus:
-                output.append(update)
-            case .general:
-                break
-            }
-        }
-        
-        
-        if childIds.isNotEmpty {
-            childIds.formUnion(blockIds)
-            output.append(.children(blockIds: childIds))
-        } else {
-            if blockIds.isNotEmpty {
-                output.append(.blocks(blockIds: blockIds))
-            }
-        }
-        
-        if unhandled.isNotEmpty {
-            output.append(.unhandled(blockIds: unhandled))
-        }
-        
-        return output
     }
 }
