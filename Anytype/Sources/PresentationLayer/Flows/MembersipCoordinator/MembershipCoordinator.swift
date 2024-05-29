@@ -24,7 +24,7 @@ struct MembershipCoordinator: View {
             }
         }
         .animation(.default, value: model.userMembership)
-        
+        .background(Color.Background.secondary)
         
         .sheet(item: $model.showTier) { tier in
             tierSelection(tier: tier)

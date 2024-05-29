@@ -10,6 +10,53 @@ struct SpaceShareView: View {
     }
     
     var body: some View {
+        content
+            .task {
+                await model.startParticipantsTask()
+            }
+            .task {
+                await model.startSpaceViewTask()
+            }
+            .task {
+                await model.onAppear()
+            }
+            .anytypeShareView(item: $model.shareInviteLink)
+            .snackbar(toastBarData: $model.toastBarData)
+            .anytypeSheet(item: $model.requestAlertModel) { model in
+                SpaceRequestAlert(data: model)
+            }
+            .anytypeSheet(item: $model.changeAccessAlertModel) { model in
+                SpaceChangeAccessView(model: model)
+            }
+            .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
+                SpaceParticipantRemoveView(model: model)
+            }
+            .anytypeSheet(isPresented: $model.showDeleteLinkAlert) {
+                DeleteSharingLinkAlert(spaceId: model.accountSpaceId) {
+                    model.onDeleteLinkCompleted()
+                }
+            }
+            .anytypeSheet(isPresented: $model.showStopSharingAlert) {
+                StopSharingAlert(spaceId: model.accountSpaceId) {
+                    model.onStopSharingCompleted()
+                }
+            }
+            .anytypeSheet(isPresented: $model.showEmailAlert) {
+                MembershipUpgradeEmailBottomAlert {
+                    model.onContactAnytypeTap()
+                }
+            }
+            .anytypeSheet(item: $model.qrCodeInviteLink) {
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+            }
+            .sheet(isPresented: $model.showMembershipScreen) {
+                MembershipCoordinator()
+            }
+            .openUrl(url: $model.openUrl)
+            .ignoresSafeArea()
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.SpaceShare.title) {
@@ -20,6 +67,9 @@ struct SpaceShareView: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         SectionHeaderView(title: Loc.SpaceShare.members)
+                        if model.showUpgradeBadge {
+                            upgradeView
+                        }
                         ForEach(model.rows) { participant in
                             SpaceShareParticipantView(participant: participant)
                         }
@@ -31,40 +81,19 @@ struct SpaceShareView: View {
                 }
             }
         }
-        .task {
-            await model.startParticipantsTask()
-        }
-        .task {
-            await model.startSpaceViewTask()
-        }
-        .task {
-            await model.onAppear()
-        }
-        .anytypeShareView(item: $model.shareInviteLink)
-        .snackbar(toastBarData: $model.toastBarData)
-        .anytypeSheet(item: $model.requestAlertModel) { model in
-            SpaceRequestAlert(data: model)
-        }
-        .anytypeSheet(item: $model.changeAccessAlertModel) { model in
-            SpaceChangeAccessView(model: model)
-        }
-        .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
-            SpaceParticipantRemoveView(model: model)
-        }
-        .anytypeSheet(isPresented: $model.showDeleteLinkAlert) {
-            DeleteSharingLinkAlert(spaceId: model.accountSpaceId) {
-                model.onDeleteLinkCompleted()
+        .animation(.default, value: model.showUpgradeBadge)
+    }
+    
+    private var upgradeView: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            AnytypeText(Loc.Membership.Upgrade.moreMembers, style: .caption1Regular)
+                .foregroundColor(Color.Text.primary)
+            Spacer.fixedHeight(12)
+            StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)", style: .upgradeBadge) {
+                model.onUpgradeTap()
             }
+            Spacer.fixedHeight(24)
         }
-        .anytypeSheet(isPresented: $model.showStopSharingAlert) {
-            StopSharingAlert(spaceId: model.accountSpaceId) {
-                model.onStopSharingCompleted()
-            }
-        }
-        .anytypeSheet(item: $model.qrCodeInviteLink) {
-            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
-        }
-        .ignoresSafeArea()
     }
     
     private var inviteView: some View {
