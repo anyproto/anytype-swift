@@ -82,12 +82,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         do {
             let products = try await Product.products(for: [tier.iosProductID])
             guard let product = products.first else {
-                
-                // If dev app uses prod middleware it will receive prod product id, skip this error
-                if tier.iosProductID != "io.anytype.membership.tier.builder" {
-                    anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
-                }
-                
+                validateMissingProductId(tier.iosProductID)
                 return buildStripePayment(tier: tier)
             }
             
@@ -101,6 +96,20 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
             anytypeAssertionFailure("Get products error", info: ["error": error.localizedDescription])
             return buildStripePayment(tier: tier)
         }
+    }
+    
+    private func validateMissingProductId(_ productId: String) {
+        #if DEBUG
+        // If dev app uses prod middleware it will receive prod product id, skip this error
+        if productId != "io.anytype.membership.tier.builder" {
+            anytypeAssertionFailure("Not found product for id \(productId)")
+        }
+        #else
+        // If prod app uses staging middleware it will receive stage product id, skip this error
+        if productId != "io.anytype.dev.membership.builder" {
+            anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
+        }
+        #endif
     }
     
     private func buildStripePayment(tier: Anytype_Model_MembershipTierData) -> MembershipTierPaymentType {
