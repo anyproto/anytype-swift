@@ -1106,6 +1106,7 @@
 "Membership.Upgrade.Button" = "聯絡 Anytype 團隊";
 
 "Membership.Upgrade.MoreSpaces" = "升級以使用更多空間";
+"Membership.Upgrade.MoreMembers" = "You can’t add more members";
 
 
 "Membership.Banner.Title1" = "一起創建願景";

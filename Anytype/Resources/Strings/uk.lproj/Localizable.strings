@@ -1103,6 +1103,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.Button" = "Contact Anytype Team";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
+"Membership.Upgrade.MoreMembers" = "You can’t add more members";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
