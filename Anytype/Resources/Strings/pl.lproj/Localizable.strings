@@ -1102,6 +1102,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Upgrade.Button" = "Skontaktuj się z zespołem Anytype";
 
 "Membership.Upgrade.MoreSpaces" = "Ulepsz, aby dodać więcej przestrzeni";
+"Membership.Upgrade.MoreMembers" = "You can’t add more members";
 
 
 "Membership.Banner.Title1" = "Zbuduj wizję razem";
@@ -1137,18 +1138,18 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
 "Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
 
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+"Membership.Feature.LocalName" = "Lokalna, nieunikalna nazwa";
+"Membership.Feature.UniqueName" = "Unikalna nazwa sieci (%@+ znaków)";
+"Membership.Feature.StorageGB" = "%@ GB przestrzeni zapasowej i synchronizacji w sieci Anytype";
+"Membership.Feature.Invites" = "%@ Zaproszeń";
+"Membership.Feature.SpaceWriters" = "%@ Edytorów na wspólny obszar";
+"Membership.Feature.UnlimitedViewers" = "Nieograniczona liczba widzów dla współdzielonych obszarów";
+"Membership.Feature.Viewers" = "%@ Widzów współdzielonych obszarów";
+"Membership.Feature.SharedSpaces" = "Do %@ współdzielonych obszarów";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.tierNotFound" = "Nie znaleziono danych poziomu, zrestartuj aplikację i spróbuj ponownie";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
-"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+"MembershipServiceError.invalidBillingIdFormat" = "Wewnętrzny problem z formatem rozliczeniowym, pracujemy nad tym. Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";
