@@ -243,7 +243,7 @@ final class BlockViewModelBuilder {
             return BlockBookmarkViewModel(
                 editorCollectionController: blockCollectionController,
                 infoProvider: blockInformationProvider, 
-                detailsStorage: document.detailsStorage,
+                document: document,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -262,11 +262,7 @@ final class BlockViewModelBuilder {
             
             return BlockLinkViewModel(
                 informationProvider: blockInformationProvider,
-                objectDetailsProvider: ObjectDetailsInfomationProvider(
-                    detailsStorage: document.detailsStorage,
-                    targetObjectId: content.targetBlockID,
-                    details: details
-                ),
+                document: document,
                 blocksController: blockCollectionController,
                 detailsService: detailsService,
                 openLink: { [weak self] data in
@@ -332,18 +328,12 @@ final class BlockViewModelBuilder {
                 focusSubject: subjectsHolder.focusSubject(for: info.id)
             )
         case let .dataView(data):
-            let objectDetailsProvider = ObjectDetailsInfomationProvider(
-                detailsStorage: document.detailsStorage,
-                targetObjectId: data.targetObjectID,
-                details: document.detailsStorage.get(id: data.targetObjectID)
-            )
-            
             return DataViewBlockViewModel(
                 blockInformationProvider: BlockModelInfomationProvider(
                     infoContainer: infoContainer,
                     info: info
                 ),
-                objectDetailsProvider: objectDetailsProvider,
+                document: document,
                 reloadable: blockCollectionController,
                 showFailureToast: { [weak self] message in
                     self?.output?.showFailureToast(message: message)

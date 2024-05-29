@@ -39,6 +39,8 @@ final class BaseDocument: BaseDocumentProtocol {
         return $sync.compactMap { $0 }.eraseToAnyPublisher()
     }
     
+    private var syncSubject = PassthroughSubject<[DocumentUpdate], Never>()
+    
     // MARK: - State
     private var parsedRelationsSubject = CurrentValueSubject<ParsedRelations, Never>(.empty)
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
@@ -235,8 +237,21 @@ final class BaseDocument: BaseDocumentProtocol {
         }
         
         parsedRelationsSubject.send(parsedRelations)
-    
+        syncSubject.send(updates)
         sync = ()
+    }
+    
+    func subscibeFor(update: [DocumentUpdate]) -> AnyPublisher<[DocumentUpdate], Never> {
+        return syncSubject
+            .merge(with: Just(update))
+            .map { syncUpdate in
+                if syncUpdate.contains(.general) {
+                    return update
+                }
+                return update.filter { syncUpdate.contains($0) }
+            }
+            .filter { $0.isNotEmpty }
+            .eraseToAnyPublisher()
     }
     
     private func setupView(_ model: ObjectViewModel) async {
