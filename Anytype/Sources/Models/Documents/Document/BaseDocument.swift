@@ -219,17 +219,14 @@ final class BaseDocument: BaseDocumentProtocol {
         for update in Set(updates) {
             switch update {
             case .general:
-                infoContainer.publishAllValues()
                 reorderChilder()
             case .children(let blockId):
-                infoContainer.publishValue(for: blockId)
                 resetBlockIds.append(blockId)
                 hasChildren = true
             case .block(let blockId):
-                infoContainer.publishValue(for: blockId)
                 resetBlockIds.append(blockId)
-            case .unhandled(let blockId):
-                infoContainer.publishValue(for: blockId)
+            case .unhandled:
+                break
             case .syncStatus(let status):
                 syncStatus = status
             case .details:

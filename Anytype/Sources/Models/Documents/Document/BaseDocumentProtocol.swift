@@ -48,4 +48,13 @@ extension BaseDocumentProtocol {
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
+    
+    func subscribeForBlockInfo(blockId: String) -> AnyPublisher<BlockInformation, Never> {
+        subscibeFor(update: [.block(blockId: objectId), .children(blockId: blockId), .unhandled(blockId: blockId)])
+            .compactMap { [weak self] _ in
+                self?.infoContainer.get(id: blockId)
+            }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }

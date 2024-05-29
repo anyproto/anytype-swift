@@ -109,7 +109,7 @@ final class BlockViewModelBuilder {
         }
         
         let documentId = document.objectId
-        let blockInformationProvider = BlockModelInfomationProvider(infoContainer: infoContainer, info: info)
+        let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
   
         switch info.content {
         case let .text(content):
@@ -330,7 +330,7 @@ final class BlockViewModelBuilder {
         case let .dataView(data):
             return DataViewBlockViewModel(
                 blockInformationProvider: BlockModelInfomationProvider(
-                    infoContainer: infoContainer,
+                    document: document,
                     info: info
                 ),
                 document: document,

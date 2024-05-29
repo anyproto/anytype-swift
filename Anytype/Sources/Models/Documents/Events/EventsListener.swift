@@ -90,7 +90,7 @@ final class EventsListener: EventsListenerProtocol {
     }
     
     private func handle(events: EventsBunch) {
-        let middlewareUpdates = events.middlewareEvents.compactMap(\.value).flatMap { middlewareConverter.convert($0) }
+        let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = mentionMarkupEventProvider.updateMentionsEvent()
 
