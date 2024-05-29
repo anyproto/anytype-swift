@@ -5,7 +5,7 @@ import Foundation
 
 final class BaseDocument: BaseDocumentProtocol {
     
-    var syncStatus: SyncStatus = .unknown
+    var syncStatus: SyncStatus { statusStorage.status }
     
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { $_children.eraseToAnyPublisher() }
     @Published private var _children = [BlockInformation]()
@@ -29,6 +29,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private let statusStorage: DocumentStatusStorageProtocol
     private let viewModelSetter: DocumentViewModelSetterProtocol
     
     private var participantIsEditor: Bool = false
@@ -105,7 +106,8 @@ final class BaseDocument: BaseDocumentProtocol {
         objectLifecycleService: ObjectLifecycleServiceProtocol,
         relationDetailsStorage: RelationDetailsStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
-        accountParticipantsStorage: AccountParticipantsStorageProtocol
+        accountParticipantsStorage: AccountParticipantsStorageProtocol,
+        statusStorage: DocumentStatusStorageProtocol
     ) {
         self.objectId = objectId
         self.forPreview = forPreview
@@ -115,7 +117,8 @@ final class BaseDocument: BaseDocumentProtocol {
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
             restrictionsContainer: restrictionsContainer,
-            detailsStorage: detailsStorage
+            detailsStorage: detailsStorage,
+            statusStorage: statusStorage
         )
         
         self.viewModelSetter = DocumentViewModelSetter(
@@ -130,6 +133,7 @@ final class BaseDocument: BaseDocumentProtocol {
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
+        self.statusStorage = statusStorage
         
         setup()
     }
@@ -227,8 +231,8 @@ final class BaseDocument: BaseDocumentProtocol {
                 resetBlockIds.append(blockId)
             case .unhandled:
                 break
-            case .syncStatus(let status):
-                syncStatus = status
+            case .syncStatus:
+                break
             case .details:
                 break // Sync will be send always
             }

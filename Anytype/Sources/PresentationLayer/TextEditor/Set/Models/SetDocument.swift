@@ -4,6 +4,7 @@ import Combine
 import AnytypeCore
 
 final class SetDocument: SetDocumentProtocol {
+    
     let document: BaseDocumentProtocol
     
     var objectId: String { document.objectId }
@@ -234,7 +235,7 @@ final class SetDocument: SetDocumentProtocol {
         }
         .store(in: &subscriptions)
         
-        document.syncStatusPublisher.sink { [weak self] status in
+        document.syncStatusDataPublisher.sink { [weak self] status in
             self?.updateSubject.send(.syncStatus(status))
         }
         .store(in: &subscriptions)

@@ -68,7 +68,8 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             objectLifecycleService: objectLifecycleService,
             relationDetailsStorage: relationDetailsStorage, 
             objectTypeProvider: objectTypeProvider,
-            accountParticipantsStorage: accountParticipantsStorage
+            accountParticipantsStorage: accountParticipantsStorage,
+            statusStorage: DocumentStatusStorage()
         )
     }
 }

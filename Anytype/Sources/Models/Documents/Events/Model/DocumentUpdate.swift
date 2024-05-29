@@ -3,7 +3,7 @@ import AnytypeCore
 
 enum DocumentUpdate: Hashable {
     case general
-    case syncStatus(SyncStatus)
+    case syncStatus
     case block(blockId: String)
     case children(blockId: String)
     case details(id: String)

@@ -17,7 +17,7 @@ struct SyncStatusData {
             return Loc.syncing
         case .synced:
             return Loc.synced
-        case .failed, .incompatibleVersion:
+        case .failed, .incompatibleVersion, .UNRECOGNIZED:
             return Loc.notSyncing
         }
     }
@@ -35,7 +35,7 @@ struct SyncStatusData {
             return syncedDescription
         case .failed:
             return Loc.failedToSyncTryingAgain
-        case .incompatibleVersion:
+        case .incompatibleVersion, .UNRECOGNIZED:
             return Loc.Sync.Status.Version.Outdated.description
         }
     }
@@ -60,7 +60,7 @@ struct SyncStatusData {
             return UIColor.System.amber100
         case .synced:
             return UIColor.System.green
-        case .unknown, .offline:
+        case .unknown, .offline, .UNRECOGNIZED:
             return nil
         }
     }

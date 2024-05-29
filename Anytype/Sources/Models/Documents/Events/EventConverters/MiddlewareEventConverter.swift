@@ -11,26 +11,29 @@ final class MiddlewareEventConverter {
     private let restrictionsContainer: ObjectRestrictionsContainer
     
     private let informationCreator: BlockInformationCreator
-    
+    private let statusStorage: DocumentStatusStorageProtocol
     
     init(
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage,
-        restrictionsContainer: ObjectRestrictionsContainer
+        restrictionsContainer: ObjectRestrictionsContainer,
+        statusStorage: DocumentStatusStorageProtocol
     ) {
         self.infoContainer = infoContainer
         self.relationLinksStorage = relationLinksStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
+        self.statusStorage = statusStorage
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> DocumentUpdate? {
         switch event {
         case let .threadStatus(status):
-            return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
+            statusStorage.status = status.summary.status
+            return .syncStatus
         case let .blockSetFields(data):
             infoContainer.setFields(data: data)
             return .block(blockId: data.id)

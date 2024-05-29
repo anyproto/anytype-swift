@@ -77,7 +77,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     func setupSubscriptions() {
         subscriptions = []
         
-        document.syncStatusPublisher.receiveOnMain().sink { [weak self] data in
+        document.syncStatusDataPublisher.receiveOnMain().sink { [weak self] data in
             self?.handleSyncStatus(data: data)
         }.store(in: &subscriptions)
         
