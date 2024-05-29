@@ -35,4 +35,17 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var syncPublisher: AnyPublisher<Void, Never> { get }
     var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { get }
     var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> { get }
+    
+    func subscibeFor(update: [DocumentUpdate]) -> AnyPublisher<[DocumentUpdate], Never>
+}
+
+extension BaseDocumentProtocol {
+    func subscibeForDetails(objectId: String) -> AnyPublisher<ObjectDetails, Never> {
+        subscibeFor(update: [.details(id: objectId)])
+            .compactMap { [weak self] _ in
+                self?.detailsStorage.get(id: objectId)
+            }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }
