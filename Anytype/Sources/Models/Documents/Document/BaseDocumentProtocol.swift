@@ -32,9 +32,8 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { get }
-    var syncPublisher: AnyPublisher<Void, Never> { get }
-    var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { get }
     var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> { get }
     
     func subscibeFor(update: [DocumentUpdate]) -> AnyPublisher<[DocumentUpdate], Never>
+    var syncDocPublisher: AnyPublisher<[DocumentUpdate], Never> { get }
 }

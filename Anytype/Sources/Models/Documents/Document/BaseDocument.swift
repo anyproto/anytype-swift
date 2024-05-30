@@ -10,9 +10,6 @@ final class BaseDocument: BaseDocumentProtocol {
     var childrenPublisher: AnyPublisher<[BlockInformation], Never> { $_children.eraseToAnyPublisher() }
     @Published private var _children = [BlockInformation]()
     
-    private var _resetBlocksSubject = PassthroughSubject<Set<String>, Never>()
-    var resetBlocksSubject: PassthroughSubject<Set<String>, Never> { _resetBlocksSubject }
-    
     let objectId: String
     private(set) var isOpened = false
     let forPreview: Bool
@@ -35,9 +32,17 @@ final class BaseDocument: BaseDocumentProtocol {
     private var participantIsEditor: Bool = false
     private var subscriptions = [AnyCancellable]()
     
-    @Published private var sync: Void?
     var syncPublisher: AnyPublisher<Void, Never> {
-        return $sync.compactMap { $0 }.eraseToAnyPublisher()
+        return syncDocPublisher
+            .map { _ in Void() }
+            .eraseToAnyPublisher()
+    }
+    
+    var syncDocPublisher: AnyPublisher<[DocumentUpdate], Never> {
+        return syncSubject
+            .merge(with: Just(isOpened ? [.general] : []))
+            .filter { $0.isNotEmpty }
+            .eraseToAnyPublisher()
     }
     
     private var syncSubject = PassthroughSubject<[DocumentUpdate], Never>()
@@ -217,7 +222,6 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func triggerSync(updates: [DocumentUpdate]) {
-        var resetBlockIds = [String]()
         var hasChildren = false
         
         for update in Set(updates) {
@@ -225,10 +229,9 @@ final class BaseDocument: BaseDocumentProtocol {
             case .general:
                 reorderChilder()
             case .children(let blockId):
-                resetBlockIds.append(blockId)
                 hasChildren = true
             case .block(let blockId):
-                resetBlockIds.append(blockId)
+                break
             case .unhandled:
                 break
             case .syncStatus:
@@ -242,15 +245,13 @@ final class BaseDocument: BaseDocumentProtocol {
             reorderChilder()
         }
         
-        _resetBlocksSubject.send(Set(resetBlockIds))
         parsedRelationsSubject.send(parsedRelations)
-        sync = ()
         syncSubject.send(updates)
     }
     
     func subscibeFor(update: [DocumentUpdate]) -> AnyPublisher<[DocumentUpdate], Never> {
         return syncSubject
-            .merge(with: Just(update))
+            .merge(with: Just(isOpened ? update : []))
             .map { syncUpdate in
                 if syncUpdate.contains(.general) {
                     return update

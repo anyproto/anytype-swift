@@ -28,11 +28,11 @@ final class TableOfContentsContentProvider {
     private func startUpdateContent() {
         updateContent()
         
-        document.flattenBlockIds.sink { [weak self] _ in
+        document.flattenBlockIds.receiveOnMain().sink { [weak self] _ in
             self?.updateContent()
         }.store(in: &subscriptions)
         
-        document.resetBlocksSubject.sink { [weak self] _ in
+        document.resetBlocksPublisher.receiveOnMain().sink { [weak self] _ in
             self?.updateContent()
         }.store(in: &subscriptions)
     }
