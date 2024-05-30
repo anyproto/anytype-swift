@@ -818,6 +818,7 @@
 		2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */; };
 		2AEAEE502C07773A0060FE4C /* DocumentStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAEE4F2C07773A0060FE4C /* DocumentStatusStorage.swift */; };
 		2AEAEE542C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAEE532C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift */; };
+		2AEAEE582C08AB7E0060FE4C /* BaseDocumentUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAEE572C08AB7E0060FE4C /* BaseDocumentUpdate.swift */; };
 		2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEB0C252B7231B7007BB10C /* NotificationDismissEnvironment.swift */; };
 		2AEDACC42B9F3A4600FA757A /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEDACC32B9F3A4600FA757A /* AppContext.swift */; };
 		2AEE49EE292E27FA00EA53AA /* ObjectSettingsCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinatorViewModel.swift */; };
@@ -2589,6 +2590,7 @@
 		2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventConverter.swift; sourceTree = "<group>"; };
 		2AEAEE4F2C07773A0060FE4C /* DocumentStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStatusStorage.swift; sourceTree = "<group>"; };
 		2AEAEE532C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Sync.swift"; sourceTree = "<group>"; };
+		2AEAEE572C08AB7E0060FE4C /* BaseDocumentUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDocumentUpdate.swift; sourceTree = "<group>"; };
 		2AEB0C252B7231B7007BB10C /* NotificationDismissEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDismissEnvironment.swift; sourceTree = "<group>"; };
 		2AEDACC32B9F3A4600FA757A /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		2AEE49ED292E27FA00EA53AA /* ObjectSettingsCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsCoordinatorViewModel.swift; sourceTree = "<group>"; };
@@ -4024,6 +4026,7 @@
 				2A07E7C32BF270BF00BCFFA3 /* DocumentSyncStatusData.swift */,
 				2AEAEE4F2C07773A0060FE4C /* DocumentStatusStorage.swift */,
 				2AEAEE532C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift */,
+				2AEAEE572C08AB7E0060FE4C /* BaseDocumentUpdate.swift */,
 			);
 			path = Document;
 			sourceTree = "<group>";
@@ -11896,6 +11899,7 @@
 				3D1B5F4C274BDE5D007D97AE /* SetContentViewItemConfiguration.swift in Sources */,
 				3D44984526D53D61005A3E06 /* EditorPageViewModelProtocol.swift in Sources */,
 				2A8A2DCC2AB9960F00105549 /* AppActionStorage.swift in Sources */,
+				2AEAEE582C08AB7E0060FE4C /* BaseDocumentUpdate.swift in Sources */,
 				2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */,
 				1211AF6627F338EC00BACB88 /* AnytypeImageDownloader.swift in Sources */,
 				2AA8108A29A66854007DD64B /* View+DragAndDrop.swift in Sources */,

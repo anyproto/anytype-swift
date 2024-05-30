@@ -37,7 +37,7 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
         
         
         objectDetailsSubscription = document
-            .subscibeForDetails(objectId: content.targetBlockID)
+            .subscribeForDetails(objectId: content.targetBlockID)
             .sinkOnMain { [weak self] details in
                 guard let self else { return }
                 self.targetDetails = details

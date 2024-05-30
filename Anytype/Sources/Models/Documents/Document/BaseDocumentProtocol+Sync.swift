@@ -13,7 +13,7 @@ extension BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    func subscibeForDetails(objectId: String) -> AnyPublisher<ObjectDetails, Never> {
+    func subscribeForDetails(objectId: String) -> AnyPublisher<ObjectDetails, Never> {
         subscibeFor(update: [.details(id: objectId)])
             .compactMap { [weak self] _ in
                 self?.detailsStorage.get(id: objectId)
@@ -24,7 +24,7 @@ extension BaseDocumentProtocol {
     
     func subscribeForBlockInfo(blockId: String) -> AnyPublisher
     <BlockInformation, Never> {
-        subscibeFor(update: [.block(blockId: objectId), .children(blockId: blockId), .unhandled(blockId: blockId)])
+        subscibeFor(update: [.block(blockId: objectId), .unhandled(blockId: blockId)])
             .compactMap { [weak self] _ in
                 self?.infoContainer.get(id: blockId)
             }
@@ -39,8 +39,6 @@ extension BaseDocumentProtocol {
                     switch update {
                     case .block(let blockId):
                         return blockId
-                    case .children(let blockId):
-                        return blockId
                     default:
                         return nil
                     }
@@ -49,5 +47,17 @@ extension BaseDocumentProtocol {
             }
             .filter { $0.isNotEmpty }
             .eraseToAnyPublisher()
+    }
+    
+    var childrenPublisher: AnyPublisher<[BlockInformation], Never> {
+        subscibeFor(update: [.children])
+            .compactMap { [weak self] _ in
+                self?.children
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
+        subscribeForDetails(objectId: objectId)
     }
 }

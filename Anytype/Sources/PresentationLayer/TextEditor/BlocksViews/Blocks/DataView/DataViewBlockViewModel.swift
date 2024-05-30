@@ -41,7 +41,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
         self.openSet = openSet
         
         detailsSubscription = document
-            .subscibeForDetails(objectId: blockData.targetObjectID)
+            .subscribeForDetails(objectId: blockData.targetObjectID)
             .sinkOnMain { [weak self] _ in
                 guard let self = self else { return }
                 self.targetDetails = targetDetails

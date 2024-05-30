@@ -9,3 +9,14 @@ enum DocumentUpdate: Hashable {
     case details(id: String)
     case unhandled(blockId: String)
 }
+
+extension DocumentUpdate {
+    var isChildren: Bool {
+        switch self {
+        case .children(blockId: _):
+            return true
+        default:
+            return false
+        }
+    }
+}

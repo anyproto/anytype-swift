@@ -10,7 +10,7 @@ struct DocumentSyncStatusData: Equatable {
 extension BaseDocumentProtocol {
     
     var syncStatusDataPublisher: AnyPublisher<DocumentSyncStatusData, Never> {
-        subscibeForDetails(objectId: objectId)
+        subscribeForDetails(objectId: objectId)
             .map { $0.layoutValue }
             .combineLatest(syncStatusPublisher)
             .map { DocumentSyncStatusData(syncStatus: $1, layout: $0) }

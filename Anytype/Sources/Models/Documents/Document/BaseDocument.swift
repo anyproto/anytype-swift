@@ -6,9 +6,7 @@ import Foundation
 final class BaseDocument: BaseDocumentProtocol {
     
     var syncStatus: SyncStatus { statusStorage.status }
-    
-    var childrenPublisher: AnyPublisher<[BlockInformation], Never> { $_children.eraseToAnyPublisher() }
-    @Published private var _children = [BlockInformation]()
+    private(set) var children = [BlockInformation]()
     
     let objectId: String
     private(set) var isOpened = false
@@ -38,14 +36,14 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     
-    var syncDocPublisher: AnyPublisher<[DocumentUpdate], Never> {
+    var syncDocPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
         return syncSubject
             .merge(with: Just(isOpened ? [.general] : []))
             .filter { $0.isNotEmpty }
             .eraseToAnyPublisher()
     }
     
-    private var syncSubject = PassthroughSubject<[DocumentUpdate], Never>()
+    private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
     
     // MARK: - State
     private var parsedRelationsSubject = CurrentValueSubject<ParsedRelations, Never>(.empty)
@@ -94,17 +92,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var details: ObjectDetails? {
         detailsStorage.get(id: objectId)
     }
-    
-    var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
-        syncPublisher
-            .receiveOnMain()
-            .compactMap { [weak self, objectId] in
-                self?.detailsStorage.get(id: objectId)
-            }
-            .removeDuplicates()
-            .eraseToAnyPublisher()
-    }
-    
+        
     init(
         objectId: String,
         forPreview: Bool,
@@ -186,15 +174,11 @@ final class BaseDocument: BaseDocumentProtocol {
         isOpened = false
     }
     
-    var children: [BlockInformation] {
-        return _children
-    }
-    
     var isEmpty: Bool {
-        let filteredBlocks = _children.filter { $0.isFeaturedRelations || $0.isText }
+        let filteredBlocks = children.filter { $0.isFeaturedRelations || $0.isText }
         
         if filteredBlocks.count > 0 { return false }
-        let allTextChilds = _children.filter(\.isText)
+        let allTextChilds = children.filter(\.isText)
         
         if allTextChilds.count > 1 { return false }
         
@@ -218,38 +202,20 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let flatten = model.flatChildrenTree(container: infoContainer)
-        _children = flatten
+        children = flatten
     }
     
     private func triggerSync(updates: [DocumentUpdate]) {
-        var hasChildren = false
         
-        for update in Set(updates) {
-            switch update {
-            case .general:
-                reorderChilder()
-            case .children(let blockId):
-                hasChildren = true
-            case .block(let blockId):
-                break
-            case .unhandled:
-                break
-            case .syncStatus:
-                break
-            case .details:
-                break // Sync will be send always
-            }
-        }
-        
-        if hasChildren {
+        if updates.contains(where: { $0 == .general || $0.isChildren }) {
             reorderChilder()
         }
         
         parsedRelationsSubject.send(parsedRelations)
-        syncSubject.send(updates)
+        syncSubject.send(updates.flatMap(\.toBaseDocumentUpdate))
     }
     
-    func subscibeFor(update: [DocumentUpdate]) -> AnyPublisher<[DocumentUpdate], Never> {
+    func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never> {
         return syncSubject
             .merge(with: Just(isOpened ? update : []))
             .map { syncUpdate in

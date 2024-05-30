@@ -42,7 +42,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
     }
     
     private func setupSubscription() {
-        document.subscibeForDetails(objectId: bookmarkData.targetObjectID)
+        document.subscribeForDetails(objectId: bookmarkData.targetObjectID)
             .receiveOnMain()
             .sink { [weak editorCollectionController, weak self] details in
                 guard let self else { return }
