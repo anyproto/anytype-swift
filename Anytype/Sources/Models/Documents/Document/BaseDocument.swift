@@ -5,19 +5,25 @@ import Foundation
 
 final class BaseDocument: BaseDocumentProtocol {
     
-    var syncStatus: SyncStatus { statusStorage.status }
-    private(set) var children = [BlockInformation]()
-    
+    // Init state
     let objectId: String
-    private(set) var isOpened = false
     let forPreview: Bool
+    
+    // From Containers
+    var syncStatus: SyncStatus { statusStorage.status }
+    var isLocked: Bool { infoContainer.get(id: objectId)?.isLocked ?? false }
+    var details: ObjectDetails? { detailsStorage.get(id: objectId) }
+    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
+    
+    // Custom state
+    private(set) var children = [BlockInformation]()
+    private(set) var isOpened = false
     
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     let detailsStorage = ObjectDetailsStorage()
     
-    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
     private let objectLifecycleService: ObjectLifecycleServiceProtocol
     private let eventsListener: EventsListenerProtocol
     private let relationBuilder: RelationsBuilder
@@ -30,19 +36,13 @@ final class BaseDocument: BaseDocumentProtocol {
     private var participantIsEditor: Bool = false
     private var subscriptions = [AnyCancellable]()
     
-    var syncPublisher: AnyPublisher<Void, Never> {
-        return syncDocPublisher
-            .map { _ in Void() }
-            .eraseToAnyPublisher()
-    }
-    
+    // Sync Handle
     var syncDocPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
         return syncSubject
             .merge(with: Just(isOpened ? [.general] : []))
             .filter { $0.isNotEmpty }
             .eraseToAnyPublisher()
     }
-    
     private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
     
     // MARK: - State
@@ -83,14 +83,6 @@ final class BaseDocument: BaseDocumentProtocol {
         .removeDuplicates()
         .receiveOnMain()
         .eraseToAnyPublisher()
-    }
-    
-    var isLocked: Bool {
-        return infoContainer.get(id: objectId)?.isLocked ?? false
-    }
-    
-    var details: ObjectDetails? {
-        detailsStorage.get(id: objectId)
     }
         
     init(

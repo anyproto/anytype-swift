@@ -60,4 +60,10 @@ extension BaseDocumentProtocol {
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
         subscribeForDetails(objectId: objectId)
     }
+    
+    var syncPublisher: AnyPublisher<Void, Never> {
+        return syncDocPublisher
+            .map { _ in Void() }
+            .eraseToAnyPublisher()
+    }
 }
