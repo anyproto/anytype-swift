@@ -340,7 +340,7 @@
 "Search.Links.Header.title" = "Zugehörig zu: %@";
 "Search.Links.Swipe.title" = "Zugehörig zu";
 "GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
-"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
+"GlobalSearch.EmptyFilteredState.title" = "Keine zugehörigen Objekte gefunden";
 
 // MARK: - Home
 
@@ -1104,7 +1104,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.Button" = "Anytype-Team kontaktieren";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Du kannst keine weiteren Mitglieder hinzufügen";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
@@ -1116,8 +1116,8 @@ Please provide specific details of your needs here.";
 "Membership.Banner.Title4" = "In Konnektivität investieren";
 "Membership.Banner.Subtitle4" = "Der Wert unseres Netzwerks ist größer als die Summe seiner Teile. Durch deine Mitgliedschaft wird die Infrastruktur für sein Wachstum aufrechterhalten, die dieses Netzwerk trägt.";
 
-"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
-"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
+"Membership.EmailForm.Title" = "Erhalte Aktualisierungen und genieße kostenlose Vergünstigungen!";
+"Membership.EmailForm.Subtitle" = "Sie ist in keiner Weise mit deinem Konto verknüpft.";
 "Membership.EmailValidation" = "Gib den an deine E-Mail-Adresse gesendeten Code ein";
 
 "Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
