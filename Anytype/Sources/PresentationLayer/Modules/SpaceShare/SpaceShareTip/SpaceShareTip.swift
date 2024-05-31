@@ -7,7 +7,7 @@ struct SpaceShareTip: Tip {
     static var didOpenPrivateSpace: Bool = false
     
     var title: Text {
-        Text(verbatim: "")
+        Text(verbatim: Loc.unknown)
     }
     
     var options: [TipOption] {
