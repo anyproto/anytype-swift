@@ -1,5 +1,5 @@
 // style menu
-"StyleMenu.Color.TextColor.Placeholder" = "A";
+"StyleMenu.Color.TextColor.Placeholder" = "";
 
 // MARK: Text Style in Slash and Style menu
 "TextStyle.Text.Title" = "Tekst";
@@ -225,7 +225,7 @@
 "Create" = "Utwórz";
 "Scan QR code" = "Skanuj kod QR";
 "Auth.CameraPermissionTitle" = "Zezwól na dostęp";
-"Restore key from keychain" = "Restore Key from the keychain";
+"Restore key from keychain" = "Przywróć klucz z pęku kluczy";
 "Auth.LogIn" = "Posiadam klucz";
 "Auth.Button.Join" = "Nowy sejf";
 "Auth.Welcome.Subtitle" = "Twórz i działaj wspólnie w przestrzeniach, które posiadasz. Szyfrowane, offline i [otwartoźródłowe](%@).";
@@ -398,7 +398,7 @@
 "EditSet.Popup.Sort.Types.Ascending" = "Rosnąco";
 "EditSet.Popup.Sort.Types.Descending" = "Malejąco";
 "EditSet.Popup.Sort.EmptyTypes.Start" = "Na górze";
-"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Na dole";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Pokaż puste wartości";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Wybrać relację do sortowania";
 
@@ -575,7 +575,7 @@
 "Mode" = "Tryb";
 "copied to clipboard" = "%@ Skopiowano do schowka";
 "Create object from clipboard" = "Utwórz obiekt ze schowka";
-"Access to key from keychain" = "Access to key from keychain";
+"Access to key from keychain" = "Dostęp do klucza z pęku kluczy";
 "Back up your key" = "Utwórz kopię zapasową swojego klucza";
 "Vault" = "Sejf";
 "Access" = "Dostęp";
@@ -1051,7 +1051,7 @@
 "Just e-mail" = "Wystarczy wysłać e-mail";
 "E-mail" = "Adres e-mail";
 "Learn more" = "Dowiedz się więcej";
-"per" = "per";
+"per" = "na";
 "unlimited" = "Nieograniczony";
 
 
@@ -1102,7 +1102,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Upgrade.Button" = "Skontaktuj się z zespołem Anytype";
 
 "Membership.Upgrade.MoreSpaces" = "Ulepsz, aby dodać więcej przestrzeni";
-"Membership.Upgrade.MoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Nie możesz dodać więcej członków";
 
 
 "Membership.Banner.Title1" = "Zbuduj wizję razem";
@@ -1124,7 +1124,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.NameForm.Validated" = "Ta nazwa jest do zgarnięcia";
 
 "Membership.Success.Title" = "Witaj w sieci, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
+"Membership.Success.Curiosity" = "Wielkie brawa za ciekawość!";
 "Membership.Success.Support" = "Wielkie dzięki za Twoje wsparcie!";
 
 "Membership.Payment.Card" = "Karta";
@@ -1133,10 +1133,10 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Payment.Google subscription" = "Subskrypcja Google";
 
 
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+"Membership.Explorer.Subtitle" = "Synchronizuj swoje urządzenia, uzyskaj przestrzeń na kopię zapasową i zaangażuj się we współpracę.";
+"Membership.Builder.Subtitle" = "Odblokuj współpracę z wieloma użytkownikami i powiększ swoją pamięć sieciową.";
+"Membership.CoCreator.Subtitle" = "Wesprzyj naszą przygodę i odblokuj ekskluzywny dostęp, i korzyści.";
+"Membership.Custom.Subtitle" = "Niestandardowe warunki członkostwa. Jeśli masz jakieś pytania, skontaktuj się z pomocą techniczną.";
 
 "Membership.Feature.LocalName" = "Lokalna, nieunikalna nazwa";
 "Membership.Feature.UniqueName" = "Unikalna nazwa sieci (%@+ znaków)";
@@ -1148,7 +1148,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Feature.SharedSpaces" = "Do %@ współdzielonych obszarów";
 
 "MembershipServiceError.tierNotFound" = "Nie znaleziono danych poziomu, zrestartuj aplikację i spróbuj ponownie";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.forcefullyFailedValidation" = "TRYB AWARII JEST WŁĄCZONY 🫵🐭. Wyłącz w ustawieniach debugowania";
 "MembershipServiceError.invalidBillingIdFormat" = "Wewnętrzny problem z formatem rozliczeniowym, pracujemy nad tym. Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.";
 
 // MARK: - Debug
