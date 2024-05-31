@@ -1372,7 +1372,6 @@
 		3DF6F628262EDA31000E05A5 /* DebugMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */; };
 		3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */; };
 		3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */; };
-		3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */; };
 		3DF80F3E26EFA552000492F3 /* TextBlockTextViewStyler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */; };
 		3DF97C502B73BA7C00BBE91D /* TypesPinStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF97C4F2B73BA7C00BBE91D /* TypesPinStorage.swift */; };
 		3DFD50A42BA0B114002E51F7 /* MembershipStatusExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DFD50A32BA0B114002E51F7 /* MembershipStatusExtension.swift */; };
@@ -3150,7 +3149,6 @@
 		3DF6F627262EDA31000E05A5 /* DebugMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugMenuView.swift; sourceTree = "<group>"; };
 		3DF80F3226EF8552000492F3 /* EmptyToggleButtonBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyToggleButtonBuilder.swift; sourceTree = "<group>"; };
 		3DF80F3626EF8F5C000492F3 /* TextBlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayout.swift; sourceTree = "<group>"; };
-		3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeftViewStyler.swift; sourceTree = "<group>"; };
 		3DF80F3D26EFA552000492F3 /* TextBlockTextViewStyler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockTextViewStyler.swift; sourceTree = "<group>"; };
 		3DF97C4F2B73BA7C00BBE91D /* TypesPinStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypesPinStorage.swift; sourceTree = "<group>"; };
 		3DFD50A32BA0B114002E51F7 /* MembershipStatusExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipStatusExtension.swift; sourceTree = "<group>"; };
@@ -9409,7 +9407,6 @@
 		3DF80F3C26EFA365000492F3 /* Stylers */ = {
 			isa = PBXGroup;
 			children = (
-				3DF80F3A26EF9B37000492F3 /* TextBlockLeftViewStyler.swift */,
 				C9A59DEE27E0F4D30063D3E1 /* TextBlockLeadingView.swift */,
 				C9F44C7E27E351400078E709 /* TextBlockLeadingViewBuilder.swift */,
 				C9A59DE927E0F40B0063D3E1 /* TextBlockLeadingStyle.swift */,
@@ -11369,7 +11366,6 @@
 				3D6F758B2BD0286F00F6C01E /* MembershipBannersView.swift in Sources */,
 				2E9BF63F28B7D40A006D3CC2 /* SetViewTypeConfiguration.swift in Sources */,
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
-				3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */,
 				2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */,
 				2E101CB72B98EF3900D03821 /* TextRelationEditingView.swift in Sources */,
 				2A721F2F2BD6ADAD000A4672 /* SpaceObjectIconPickerView.swift in Sources */,
