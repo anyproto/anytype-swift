@@ -72,8 +72,11 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.startSubscription()
         await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
-        await membershipStatusStorage.startSubscription()
         storeKitService.startListenForTransactions()
+        
+        Task {
+            await membershipStatusStorage.startSubscription()
+        }
     }
     
     private func stopSubscriptions() async {
