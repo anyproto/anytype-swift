@@ -15,6 +15,7 @@ final class GlobalSearchViewModel: ObservableObject {
     
     @Published var state = GlobalSearchState()
     @Published var searchData: [GlobalSearchDataSection] = []
+    @Published var dismiss = false
     
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
@@ -64,8 +65,14 @@ final class GlobalSearchViewModel: ObservableObject {
         }
     }
     
+    func onKeyboardButtonTap() {
+        guard let firstObject = searchData.first?.searchData.first else { return }
+        onSelect(searchData: firstObject)
+    }
+    
     func onSelect(searchData: GlobalSearchData) {
         AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId)
+        dismiss.toggle()
         moduleData.onSelect(searchData.editorScreenData)
     }
     
@@ -96,6 +103,7 @@ final class GlobalSearchViewModel: ObservableObject {
             
             AnytypeAnalytics.instance().logCreateObject(objectType: objectDetails.analyticsType, spaceId: objectDetails.spaceId, route: .search)
             
+            dismiss.toggle()
             moduleData.onSelect(objectDetails.editorScreenData())
         }
     }
