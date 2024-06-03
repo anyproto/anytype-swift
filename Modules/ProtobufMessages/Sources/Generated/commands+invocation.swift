@@ -666,6 +666,11 @@ extension Anytype_Rpc.GenericErrorResponse.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.History.DiffVersions.Response: ResultWithError {}
+extension Anytype_Rpc.History.DiffVersions.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.History.GetVersions.Response: ResultWithError {}
 extension Anytype_Rpc.History.GetVersions.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

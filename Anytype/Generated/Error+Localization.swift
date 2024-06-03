@@ -3367,6 +3367,30 @@ extension Anytype_Rpc.GenericErrorResponse.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.History.DiffVersions.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "History.DiffVersions.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "History.DiffVersions.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.History.GetVersions.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
