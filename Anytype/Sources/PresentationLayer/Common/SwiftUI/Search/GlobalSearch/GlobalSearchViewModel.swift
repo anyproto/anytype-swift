@@ -55,14 +55,15 @@ final class GlobalSearchViewModel: ObservableObject {
                 )
             ]
             
-            if state.searchText.isNotEmpty {
-                AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
-            }
         } catch is CancellationError {
             // Ignore cancellations. That means we was run new search.
         } catch {
             searchData = []
         }
+    }
+    
+    func onSearchTextChanged() {
+        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
     func onKeyboardButtonTap() {
