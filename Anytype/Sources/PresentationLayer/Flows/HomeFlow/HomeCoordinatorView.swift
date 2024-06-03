@@ -44,6 +44,8 @@ struct HomeCoordinatorView: View {
         .onChange(of: model.keyboardToggle) { _ in
             keyboardDismiss()
         }
+        .handleSpaceShareTip()
+        .handleSharingTip()
         .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) {
             WidgetChangeSourceSearchView(data: $0)
@@ -85,6 +87,9 @@ struct HomeCoordinatorView: View {
         }
         .sheet(item: $model.showGalleryImport) { data in
             GalleryInstallationCoordinatorView(data: data)
+        }
+        .sheet(isPresented: $model.showSpaceShareTip) {
+            SpaceShareTipView()
         }
     }
 }

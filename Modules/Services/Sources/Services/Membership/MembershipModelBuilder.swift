@@ -107,7 +107,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
         #else
         // If prod app uses staging middleware it will receive stage product id, skip this error
         if productId != "io.anytype.dev.membership.builder" {
-            anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
+            anytypeAssertionFailure("Not found product for id \(productId)")
         }
         #endif
     }

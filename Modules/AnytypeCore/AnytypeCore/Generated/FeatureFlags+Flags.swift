@@ -30,6 +30,10 @@ public extension FeatureFlags {
         value(for: .newGlobalSearch)
     }
 
+    static var scrollToBlockFromSearch: Bool {
+        value(for: .scrollToBlockFromSearch)
+    }
+
     static var setEmptyValuesSorting: Bool {
         value(for: .setEmptyValuesSorting)
     }
@@ -78,6 +82,10 @@ public extension FeatureFlags {
         value(for: .failReceiptValidation)
     }
 
+    static var showGlobalSearchScore: Bool {
+        value(for: .showGlobalSearchScore)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -86,6 +94,7 @@ public extension FeatureFlags {
         .membership,
         .hideCoCreator,
         .newGlobalSearch,
+        .scrollToBlockFromSearch,
         .setEmptyValuesSorting,
         .rainbowViews,
         .showAlertOnAssert,
@@ -97,6 +106,7 @@ public extension FeatureFlags {
         .sharingExtensionShowContentTypes,
         .homeTestSwipeGeature,
         .membershipTestTiers,
-        .failReceiptValidation
+        .failReceiptValidation,
+        .showGlobalSearchScore
     ]
 }

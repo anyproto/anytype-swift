@@ -66,13 +66,4 @@ extension MembershipTier {
             Loc.Membership.Success.support
         }
     }
-    
-    var isPossibleToUpgrade: Bool {
-        switch self.type {
-        case .anyTeam, .builder, .explorer, .custom:
-            true
-        case .coCreator:
-            false
-        }
-    }
 }

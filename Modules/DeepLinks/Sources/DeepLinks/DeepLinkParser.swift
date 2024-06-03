@@ -14,6 +14,7 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         static let galleryImport = "main/import"
         static let invite = "invite"
         static let object = "object"
+        static let spaceShareTip = "spaceShareTip"
     }
 
     private let isDebug: Bool
@@ -67,6 +68,8 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             guard let objectId = queryItems.itemValue(key: "objectId"),
                   let spaceId = queryItems.itemValue(key: "spaceId") else { return nil }
             return .object(objectId: objectId, spaceId: spaceId)
+        case LinkPaths.spaceShareTip:
+            return .spaceShareTip
         default:
             return nil
         }
@@ -106,6 +109,8 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             ]
             
             return components.url
+        case .spaceShareTip:
+            return URL(string: host + LinkPaths.spaceShareTip)
         }
     }
 

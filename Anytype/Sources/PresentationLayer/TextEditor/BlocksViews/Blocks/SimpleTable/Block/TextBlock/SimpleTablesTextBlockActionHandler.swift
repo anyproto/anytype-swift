@@ -159,7 +159,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         
         if mentionDetecter.removeMentionIfNeeded(textView: textView, replacementText: replacementText) {
             Task { @MainActor in
-                try await actionHandler.changeText(textView.attributedText, blockId: info.id)
+                try await actionHandler.changeText(textView.attributedText.sendable(), blockId: info.id)
             }
             return false
         }
@@ -176,18 +176,25 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
                 guard BlockRestrictionsBuilder.build(content:  info.content).canApplyTextStyle(style) else { return true }
                 Task { @MainActor in
                     try await actionHandler.turnInto(style, blockId: info.id)
-                    try await setNewText(attributedString: newText)
+                    try await setNewText(attributedString: newText.sendable())
                     textView.setFocus(.beginning)
                 }
             case let .addBlock(type, newText):
                 Task { @MainActor in
-                    try await setNewText(attributedString: newText)
-                    actionHandler.addBlock(type, blockId: info.id, blockText: newText, position: .top, spaceId: document.spaceId)
+                    try await setNewText(attributedString: newText.sendable())
+                    actionHandler.addBlock(type, blockId: info.id, blockText: newText.sendable(), position: .top, spaceId: document.spaceId)
                     resetSubject.send(nil)
                 }
-            case let .addStyle(style, newText, styleRange, focusRange):
+            case let .addStyle(style, currentText, styleRange, focusRange):
                 Task { @MainActor in
-                    try await actionHandler.setTextStyle(style, range: styleRange, blockId: info.id, currentText: newText, contentType: info.content.type)
+                    let newText = try await actionHandler.setTextStyle(
+                        style,
+                        range: styleRange,
+                        blockId: info.id,
+                        currentText: currentText.sendable(),
+                        contentType: info.content.type
+                    )
+                    resetSubject.send(newText.value)
                     textView.setFocus(.at(focusRange))
                 }
             }
@@ -278,7 +285,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         switch accessoryState {
         case .none:
             Task {
-                try await actionHandler.changeText(textView.attributedText, blockId: info.id)
+                try await actionHandler.changeText(textView.attributedText.sendable(), blockId: info.id)
             }
         case .search:
             break
@@ -323,23 +330,23 @@ extension SimpleTablesTextBlockActionHandler: AccessoryViewOutput {
         return
     }
     
-    func setNewText(attributedString: NSAttributedString) async throws {
-        resetSubject.send(attributedString)
+    func setNewText(attributedString: SafeNSAttributedString) async throws {
+        resetSubject.send(attributedString.value)
         try await actionHandler.changeText(attributedString, blockId: info.id)
     }
     
-    func changeText(attributedString: NSAttributedString) async throws {
+    func changeText(attributedString: SafeNSAttributedString) async throws {
         try await actionHandler.changeText(attributedString, blockId: info.id)
     }
     
     func didSelectAddMention(
         _ mention: MentionObject,
         at position: Int,
-        attributedString: NSAttributedString
+        attributedString: SafeNSAttributedString
     ) async throws {
         guard let textContent = info.textContent else { return }
         
-        let mutableString = NSMutableAttributedString(attributedString: attributedString)
+        let mutableString = NSMutableAttributedString(attributedString: attributedString.value)
         
         mutableString.replaceCharacters(in: .init(location: position, length: 0), with: mention.name)
         
@@ -354,7 +361,7 @@ extension SimpleTablesTextBlockActionHandler: AccessoryViewOutput {
         
         let newAttributedString = anytypeText.attrString
         
-        try await setNewText(attributedString: newAttributedString)
+        try await setNewText(attributedString: newAttributedString.sendable())
         focusSubject.send(.at(.init(location: position + mention.name.count + 2, length: 0)))
     }
     

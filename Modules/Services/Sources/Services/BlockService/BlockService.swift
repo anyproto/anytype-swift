@@ -107,7 +107,7 @@ final class BlockService: BlockServiceProtocol {
         try await ClientCommands.blockListSetAlign(.with {
             $0.contextID = objectId
             $0.blockIds = blockIds
-            $0.align = alignment.asMiddleware
+            $0.align = alignment
         }).invoke()
     }
 

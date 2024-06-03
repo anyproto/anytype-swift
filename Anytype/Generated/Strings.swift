@@ -25,6 +25,7 @@ internal enum Loc {
     return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2))
   }
   internal static let alignCenter = Loc.tr("Localizable", "Align center")
+  internal static let alignJustify = Loc.tr("Localizable", "Align justify")
   internal static let alignLeft = Loc.tr("Localizable", "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right")
   internal static let alignment = Loc.tr("Localizable", "Alignment")
@@ -181,6 +182,7 @@ internal enum Loc {
   internal static let name = Loc.tr("Localizable", "Name")
   internal static let new = Loc.tr("Localizable", "New")
   internal static let newRelation = Loc.tr("Localizable", "New relation")
+  internal static let next = Loc.tr("Localizable", "Next")
   internal static let noConnection = Loc.tr("Localizable", "No connection")
   internal static let noDate = Loc.tr("Localizable", "No date")
   internal static let noItemsMatchFilter = Loc.tr("Localizable", "No items match filter")
@@ -840,6 +842,14 @@ internal enum Loc {
       }
     }
   }
+  internal enum GlobalSearch {
+    internal enum EmptyFilteredState {
+      internal static let title = Loc.tr("Localizable", "GlobalSearch.EmptyFilteredState.title")
+    }
+    internal enum EmptyState {
+      internal static let subtitle = Loc.tr("Localizable", "GlobalSearch.EmptyState.subtitle")
+    }
+  }
   internal enum Home {
     internal enum Snackbar {
       internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library")
@@ -990,6 +1000,7 @@ internal enum Loc {
     }
     internal enum Upgrade {
       internal static let button = Loc.tr("Localizable", "Membership.Upgrade.Button")
+      internal static let moreMembers = Loc.tr("Localizable", "Membership.Upgrade.MoreMembers")
       internal static let moreSpaces = Loc.tr("Localizable", "Membership.Upgrade.MoreSpaces")
       internal static func spacesLimit(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Membership.Upgrade.SpacesLimit", p1)
@@ -1222,17 +1233,17 @@ internal enum Loc {
     }
   }
   internal enum Search {
-    internal enum Backlinks {
+    internal enum Links {
       internal enum Header {
         internal static func title(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "Search.Backlinks.Header.title", String(describing: p1))
+          return Loc.tr("Localizable", "Search.Links.Header.title", String(describing: p1))
         }
       }
       internal enum Show {
-        internal static let title = Loc.tr("Localizable", "Search.Backlinks.Show.title")
+        internal static let title = Loc.tr("Localizable", "Search.Links.Show.title")
       }
       internal enum Swipe {
-        internal static let title = Loc.tr("Localizable", "Search.Backlinks.Swipe.title")
+        internal static let title = Loc.tr("Localizable", "Search.Links.Swipe.title")
       }
     }
   }
@@ -1608,6 +1619,14 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "SpaceShare.StopSharing.Title")
       internal static let toast = Loc.tr("Localizable", "SpaceShare.StopSharing.Toast")
     }
+    internal enum Tip {
+      internal static let title = Loc.tr("Localizable", "SpaceShare.Tip.Title")
+      internal enum Steps {
+        internal static let _1 = Loc.tr("Localizable", "SpaceShare.Tip.Steps.1")
+        internal static let _2 = Loc.tr("Localizable", "SpaceShare.Tip.Steps.2")
+        internal static let _3 = Loc.tr("Localizable", "SpaceShare.Tip.Steps.3")
+      }
+    }
     internal enum ViewRequest {
       internal static let editAccess = Loc.tr("Localizable", "SpaceShare.ViewRequest.EditAccess")
       internal static let reject = Loc.tr("Localizable", "SpaceShare.ViewRequest.Reject")
@@ -1776,6 +1795,9 @@ internal enum Loc {
     internal enum Toggle {
       internal static let subtitle = Loc.tr("Localizable", "TextStyle.Toggle.Subtitle")
       internal static let title = Loc.tr("Localizable", "TextStyle.Toggle.Title")
+    }
+    internal enum Underline {
+      internal static let title = Loc.tr("Localizable", "TextStyle.Underline.Title")
     }
   }
   internal enum ToggleEmpty {

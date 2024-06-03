@@ -61,7 +61,7 @@ final class RemoteStorageViewModel: ObservableObject {
         
         guard let currentTier = membershipStatusStorage.currentStatus.tier else { return }
         
-        if currentTier.isPossibleToUpgrade {
+        if currentTier.isPossibleToUpgrade(reason: .storageSpace) {
             showMembershipScreen = true
         } else {
             showMembershipEmailAlert = true

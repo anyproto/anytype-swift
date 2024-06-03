@@ -166,16 +166,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     // MARK: - Markup changer proxy
     func toggleWholeBlockMarkup(
-        _ attributedString: NSAttributedString?,
+        _ attributedString: SafeNSAttributedString?,
         markup: MarkupType,
         info: BlockInformation
-    ) async throws -> NSAttributedString? {
+    ) async throws -> SafeNSAttributedString? {
         guard let textContent = info.textContent, let attributedString else { return nil }
         let changedAttributedString = markupChanger.toggleMarkup(
-            attributedString,
+            attributedString.value,
             markup: markup,
             contentType: .text(textContent.contentType)
-        )
+        ).sendable()
         
         try await changeText(changedAttributedString, blockId: info.id)
         
@@ -186,26 +186,26 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         _ attribute: MarkupType,
         range: NSRange,
         blockId: String,
-        currentText: NSAttributedString?,
+        currentText: SafeNSAttributedString,
         contentType: BlockContentType
-    ) async throws {
-        guard let currentText else { return }
+    ) async throws -> SafeNSAttributedString {
+        
         let newText = markupChanger.setMarkup(
             attribute,
             range: range,
-            attributedString: currentText,
+            attributedString: currentText.value,
             contentType: contentType
-        )
+        ).sendable()
 
         AnytypeAnalytics.instance().logChangeTextStyle(attribute)
 
         try await changeText(newText, blockId: blockId)
+        
+        return newText
     }
     
-    func changeText(_ text: NSAttributedString, blockId: String) async throws {
-        let safeSendableText = SafeSendable(value: text)
-
-        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: safeSendableText.value)
+    func changeText(_ text: SafeNSAttributedString, blockId: String) async throws {
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text.value)
             
         await EventsBunch(
             contextId: document.objectId,
@@ -260,10 +260,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         blockId: String,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: SafeSendable<NSAttributedString?>,
+        blockText: SafeNSAttributedString?,
         spaceId: String
     ) async throws -> String {
-        guard let isTextAndEmpty = blockText.value?.string.isEmpty
+        guard let isTextAndEmpty = blockText?.value.string.isEmpty
                 ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return "" }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : .bottom
@@ -280,7 +280,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
 
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead")
             return
@@ -288,7 +288,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
 
-        guard let isTextAndEmpty = blockText?.string.isEmpty
+        guard let isTextAndEmpty = blockText?.value.string.isEmpty
             ?? document.infoContainer.get(id: blockId)?.isTextAndEmpty else { return }
         
         let position: BlockPosition = isTextAndEmpty ? .replace : (position ?? .bottom)
