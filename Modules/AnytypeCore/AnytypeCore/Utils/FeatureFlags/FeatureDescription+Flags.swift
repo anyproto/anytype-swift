@@ -30,6 +30,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let hideCoCreator = FeatureDescription(
+        title: "Hide CoCreator tier",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
+        defaultValue: true
+    )
+    
     static let newGlobalSearch = FeatureDescription(
         title: "New global search",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
