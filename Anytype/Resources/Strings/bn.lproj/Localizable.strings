@@ -102,7 +102,7 @@
 "Relation.Format.FileMedia.Title" = "ফাইল এবং মিডিয়া";
 "Relation.Format.Checkbox.Title" = "চেকবক্স";
 "Relation.Format.Url.Title" = "URL";
-"Relation.Format.Email.Title" = "Email";
+"Relation.Format.Email.Title" = "ইমেইল";
 "Relation.Format.Phone.Title" = "Phone number";
 
 "Relation.Search.View.Placeholder" = "Search or create a new relation";
