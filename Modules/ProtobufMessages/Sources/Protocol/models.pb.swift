@@ -4445,6 +4445,8 @@ public struct Anytype_Model_ObjectView {
   /// Clears the value of `history`. Subsequent reads from it will return its default value.
   public mutating func clearHistory() {self._history = nil}
 
+  public var blockParticipants: [Anytype_Model_ObjectView.BlockParticipant] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public struct DetailsSet {
@@ -4496,6 +4498,20 @@ public struct Anytype_Model_ObjectView {
     public var undo: Int32 = 0
 
     public var redo: Int32 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct BlockParticipant {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var blockID: String = String()
+
+    public var participantID: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5862,6 +5878,7 @@ extension Anytype_Model_ObjectView: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.DetailsSet: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.RelationWithValuePerObject: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.HistorySize: @unchecked Sendable {}
+extension Anytype_Model_ObjectView.BlockParticipant: @unchecked Sendable {}
 extension Anytype_Model_ParticipantPermissionChange: @unchecked Sendable {}
 extension Anytype_Model_Metadata: @unchecked Sendable {}
 extension Anytype_Model_Metadata.OneOf_Payload: @unchecked Sendable {}
@@ -9914,6 +9931,7 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
     10: .same(proto: "relationLinks"),
     8: .same(proto: "restrictions"),
     9: .same(proto: "history"),
+    11: .same(proto: "blockParticipants"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9930,6 +9948,7 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 8: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
       case 9: try { try decoder.decodeSingularMessageField(value: &self._history) }()
       case 10: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 11: try { try decoder.decodeRepeatedMessageField(value: &self.blockParticipants) }()
       default: break
       }
     }
@@ -9964,6 +9983,9 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.relationLinks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 10)
     }
+    if !self.blockParticipants.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.blockParticipants, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9976,6 +9998,7 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs._restrictions != rhs._restrictions {return false}
     if lhs._history != rhs._history {return false}
+    if lhs.blockParticipants != rhs.blockParticipants {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -10100,6 +10123,44 @@ extension Anytype_Model_ObjectView.HistorySize: SwiftProtobuf.Message, SwiftProt
   public static func ==(lhs: Anytype_Model_ObjectView.HistorySize, rhs: Anytype_Model_ObjectView.HistorySize) -> Bool {
     if lhs.undo != rhs.undo {return false}
     if lhs.redo != rhs.redo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ObjectView.BlockParticipant: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".BlockParticipant"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "blockId"),
+    2: .same(proto: "participantId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.participantID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 1)
+    }
+    if !self.participantID.isEmpty {
+      try visitor.visitSingularStringField(value: self.participantID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ObjectView.BlockParticipant, rhs: Anytype_Model_ObjectView.BlockParticipant) -> Bool {
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.participantID != rhs.participantID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
