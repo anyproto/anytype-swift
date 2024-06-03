@@ -637,12 +637,12 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logCopyBlock(spaceId: String) {
-        logEvent("CopyBlock", spaceId: spaceId)
+    func logCopyBlock(spaceId: String, countBlocks: Int) {
+        logEvent("CopyBlock", spaceId: spaceId, withEventProperties: [AnalyticsEventsPropertiesKey.count: countBlocks])
     }
     
-    func logPasteBlock(spaceId: String) {
-        logEvent("PasteBlock", spaceId: spaceId)
+    func logPasteBlock(spaceId: String, countBlocks: Int) {
+        logEvent("PasteBlock", spaceId: spaceId, withEventProperties: [AnalyticsEventsPropertiesKey.count: countBlocks])
     }
     
     func logSetObjectDescription() {

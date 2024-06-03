@@ -256,7 +256,7 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
     
     private func copy(range: NSRange) {
-        AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId)
+        AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId, countBlocks: 1)
         Task {
             try await pasteboardService?.copy(document: document, blocksIds: [info.id], selectedTextRange: range)
         }
