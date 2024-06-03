@@ -41,8 +41,8 @@ platform :ios do
         File.write("#{working_dir}/release-utils/release_config.yaml", config.to_yaml)
 
         Dir.chdir("#{working_dir}/release-utils") do
-            sh("pip3 install -r requirements.txt")
-            sh("python3 release.py")
+            sh("python3 -m venv venv")
+            sh("source venv/bin/activate && pip3 install -r requirements.txt && python3 release.py")
         end
 
         FileUtils.rm_rf(working_dir)
