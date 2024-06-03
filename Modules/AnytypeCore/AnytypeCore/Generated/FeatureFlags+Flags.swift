@@ -22,6 +22,10 @@ public extension FeatureFlags {
         value(for: .membership)
     }
 
+    static var hideCoCreator: Bool {
+        value(for: .hideCoCreator)
+    }
+
     static var newGlobalSearch: Bool {
         value(for: .newGlobalSearch)
     }
@@ -88,6 +92,7 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .membership,
+        .hideCoCreator,
         .newGlobalSearch,
         .scrollToBlockFromSearch,
         .setEmptyValuesSorting,
