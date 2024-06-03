@@ -24,6 +24,7 @@ struct GlobalSearchView: View {
             await model.search()
         }
         .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.state.searchText) { _ in model.onSearchTextChanged() }
     }
     
     private var searchBar: some View {
