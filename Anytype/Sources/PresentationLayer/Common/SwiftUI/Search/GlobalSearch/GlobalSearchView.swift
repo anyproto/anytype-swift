@@ -13,7 +13,7 @@ struct GlobalSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
+            searchBar
             content
         }
         .background(Color.Background.secondary)
@@ -23,6 +23,16 @@ struct GlobalSearchView: View {
         .task(id: model.state) {
             await model.search()
         }
+        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.state.searchText) { _ in model.onSearchTextChanged() }
+    }
+    
+    private var searchBar: some View {
+        SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
+            .submitLabel(.go)
+            .onSubmit {
+                model.onKeyboardButtonTap()
+            }
     }
     
     @ViewBuilder
@@ -71,7 +81,6 @@ struct GlobalSearchView: View {
         GlobalSearchCell(data: data)
             .fixTappableArea()
             .onTapGesture {
-                dismiss()
                 model.onSelect(searchData: data)
             }
             .if(data.relatedLinks.isNotEmpty) {
@@ -106,7 +115,6 @@ struct GlobalSearchView: View {
             buttonData: EmptyStateView.ButtonData(
                 title: Loc.createObject,
                 action: {
-                    dismiss()
                     model.createObject()
                 }
             )
