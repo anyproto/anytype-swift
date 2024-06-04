@@ -1064,6 +1064,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func historyDiffVersions(
+        _ request: Anytype_Rpc.History.DiffVersions.Request = .init()
+    ) -> Invocation<Anytype_Rpc.History.DiffVersions.Request, Anytype_Rpc.History.DiffVersions.Response> {
+        return Invocation(messageName: "HistoryDiffVersions", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceHistoryDiffVersions(requestData) ?? Data()
+            return try Anytype_Rpc.History.DiffVersions.Response(serializedData: responseData)
+        }
+    }
+
     public static func fileOffload(
         _ request: Anytype_Rpc.File.Offload.Request = .init()
     ) -> Invocation<Anytype_Rpc.File.Offload.Request, Anytype_Rpc.File.Offload.Response> {
