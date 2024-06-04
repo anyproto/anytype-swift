@@ -7,7 +7,7 @@ struct GlobalSearchCell: View {
     let data: GlobalSearchData
 
     var body: some View {
-        HStack(spacing: 0) {
+        HStack(alignment: data.highlights.isEmpty ? .center : .top, spacing: 12) {
             icon
             content
         }
@@ -19,9 +19,12 @@ struct GlobalSearchCell: View {
     @ViewBuilder
     private var icon: some View {
         if let iconImage = data.iconImage {
-            IconView(icon: iconImage)
-                .frame(width: 48, height: 48)
-            Spacer.fixedWidth(12)
+            VStack {
+                Spacer.fixedHeight(8)
+                IconView(icon: iconImage)
+                    .frame(width: 48, height: 48)
+                Spacer.fixedHeight(8)
+            }
         }
     }
     
@@ -29,10 +32,9 @@ struct GlobalSearchCell: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(8)
             
-            AnytypeText(data.title, style: .previewTitle2Regular)
+            AnytypeText(data.title, style: .previewTitle2Medium)
                 .foregroundColor(.Text.primary)
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
+                .lineLimit(1)
             
             highlights
             
