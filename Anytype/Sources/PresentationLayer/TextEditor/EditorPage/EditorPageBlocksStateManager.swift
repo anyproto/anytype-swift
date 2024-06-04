@@ -448,7 +448,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 }
             }
 
-            AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId)
+            AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId, countBlocks: blocksIds.count)
             Task { @MainActor [blocksIds] in
                 try await pasteboardService.copy(document: document, blocksIds: blocksIds, selectedTextRange: NSRange())
                 toastPresenter.show(message: Loc.copied)
