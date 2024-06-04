@@ -31,8 +31,7 @@ struct GlobalSearchCell: View {
             
             AnytypeText(data.title, style: .previewTitle2Medium)
                 .foregroundColor(.Text.primary)
-                .multilineTextAlignment(.leading)
-                .lineLimit(2)
+                .lineLimit(1)
             
             highlights
             
