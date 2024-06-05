@@ -25,7 +25,7 @@ final class DashboardLogoutAlertModel: ObservableObject {
     }
     
     func onLogoutTap() async throws {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
+        AnytypeAnalytics.instance().logLogout()
 
         do {
             try await authService.logout(removeData: false)

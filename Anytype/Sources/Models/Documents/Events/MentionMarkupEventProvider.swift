@@ -54,7 +54,7 @@ final class MentionMarkupEventProvider {
             let mentionNameInDetails = details.mentionTitle
             
             
-            let previousString = string.substring(with: mentionRange)
+            let previousString = string[mentionRange]
             if previousString != mentionNameInDetails {
                 needUpdate = true
             }

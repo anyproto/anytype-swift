@@ -62,11 +62,12 @@ extension ObjectCoverPickerViewModel {
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
+        let safeItemProvoder = itemProvider.sendable()
         Task {
             try await objectHeaderUploadingService.handleCoverAction(
                 objectId: document.objectId,
                 spaceId: document.spaceId,
-                action: .setCover(.upload(itemProvider: itemProvider))
+                action: .setCover(.upload(itemProvider: safeItemProvoder.value))
             )
         }
     }

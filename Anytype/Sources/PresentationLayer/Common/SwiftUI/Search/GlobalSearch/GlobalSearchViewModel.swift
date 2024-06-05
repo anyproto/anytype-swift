@@ -4,13 +4,18 @@ import Combine
 @MainActor
 final class GlobalSearchViewModel: ObservableObject {
     
-    @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    @Injected(\.searchWithMetaService)
+    private var searchWithMetaService: SearchWithMetaServiceProtocol
+    @Injected(\.globalSearchDataBuilder)
+    private var globalSearchDataBuilder: GlobalSearchDataBuilderProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectCreationService: DefaultObjectCreationServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
     @Published var state = GlobalSearchState()
     @Published var searchData: [GlobalSearchDataSection] = []
+    @Published var dismiss = false
     
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
@@ -22,15 +27,21 @@ final class GlobalSearchViewModel: ObservableObject {
     
     func search() async {
         do {
-            let result: [ObjectDetails]
+            try await Task.sleep(seconds: 0.3)
+            
+            let result: [SearchResultWithMeta]
             switch state.mode {
             case .default:
-                result = try await searchService.search(text: state.searchText, spaceId: moduleData.spaceId)
+                result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
             case .filtered(_, let limitObjectIds):
-                result = try await searchService.search(text: state.searchText, limitObjectIds: limitObjectIds)
+                result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: limitObjectIds)
             }
             
-            let objectsSearchData = result.compactMap { GlobalSearchData(details: $0) }
+            updateInitialStateIfNeeded()
+            
+            let objectsSearchData = result.compactMap { [weak self] result in
+                self?.globalSearchDataBuilder.buildData(with: result)
+            }
             
             guard objectsSearchData.isNotEmpty else {
                 searchData = []
@@ -51,16 +62,27 @@ final class GlobalSearchViewModel: ObservableObject {
         }
     }
     
+    func onSearchTextChanged() {
+        AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
+    }
+    
+    func onKeyboardButtonTap() {
+        guard let firstObject = searchData.first?.searchData.first else { return }
+        onSelect(searchData: firstObject)
+    }
+    
     func onSelect(searchData: GlobalSearchData) {
         AnytypeAnalytics.instance().logSearchResult(spaceId: moduleData.spaceId)
+        dismiss.toggle()
         moduleData.onSelect(searchData.editorScreenData)
     }
     
-    func showBacklinks(_ data: GlobalSearchData) {
+    func showRelatedObjects(_ data: GlobalSearchData) {
         state = GlobalSearchState(
             searchText: "",
-            mode: .filtered(name: data.title, limitObjectIds: data.backlinks)
+            mode: .filtered(name: data.title, limitObjectIds: data.relatedLinks)
         )
+        AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)
     }
     
     func clear() {
@@ -70,15 +92,37 @@ final class GlobalSearchViewModel: ObservableObject {
         )
     }
     
-    private func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
+    func createObject() {
+        Task {            
+            let objectDetails = try? await defaultObjectCreationService.createDefaultObject(
+                name: state.searchText,
+                shouldDeleteEmptyObject: false,
+                spaceId: moduleData.spaceId
+            )
+            
+            guard let objectDetails else { return }
+            
+            AnytypeAnalytics.instance().logCreateObject(objectType: objectDetails.analyticsType, spaceId: objectDetails.spaceId, route: .search)
+            
+            dismiss.toggle()
+            moduleData.onSelect(objectDetails.editorScreenData())
+        }
+    }
+    
+    func sectionConfig() -> GlobalSearchDataSection.SectionConfig? {
         switch state.mode {
         case .default:
             return nil
         case .filtered(let name, _):
             return GlobalSearchDataSection.SectionConfig(
-                title: Loc.Search.Backlinks.Header.title(name),
+                title: Loc.Search.Links.Header.title(name),
                 buttonTitle: Loc.clear
             )
         }
+    }
+    
+    private func updateInitialStateIfNeeded() {
+        guard state.isInitial else { return }
+        state.isInitial = false
     }
 }

@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "ବୋଲ୍ଡ";
 "TextStyle.Italic.Title" = "ଇଟାଲିକ୍";
 "TextStyle.Strikethrough.Title" = "ଷ୍ଟ୍ରାଇକ";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "କୋଡ଼";
 "TextStyle.Link.Title" = "ଲିଙ୍କ";
 
@@ -76,27 +77,27 @@
 "Relation.AddedToLibrary" = "ଆପଣଙ୍କ ଲାଇବ୍ରେରୀକୁ ସମ୍ପର୍କ '%@' ଯୋଡାଯାଇଛି";
 "Relation.Deleted" = "ବିଲୋପ ହୋଇଥିବା ସମ୍ପର୍କ";
 "Relation.From.Type" = "%@ ପ୍ରକାରରୁ";
-"Relation.EmptyState.title" = "No options";
-"Relation.EmptyState.description" = "Nothing found. Create first option to start.";
-"Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.EmptyState.title" = "କୌଣସି ବିକଳ୍ପ ନାହିଁ";
+"Relation.EmptyState.description" = "କିଛି ମିଳିଲା ନାହିଁ। ଆରମ୍ଭ କରିବାକୁ ପ୍ରଥମ ବିକଳ୍ପ ସୃଷ୍ଟି କରନ୍ତୁ।";
+"Relation.EmptyState.Blocked.title" = "ସମ୍ପର୍କ ଖାଲି ଅଛି";
+"Relation.Create.Row.title" = "“%@” ତିଆରି କରନ୍ତୁ";
+"Relation.View.Create.title" = "ତିଆରି କରନ୍ତୁ ବିକଳ୍ପ";
+"Relation.View.Edit.title" = "ବିକଳ୍ପ ସମ୍ପାଦନ କରନ୍ତୁ";
+"Relation.Create.Textfield.placeholder" = "ନାମ ପ୍ରବେଶ କରନ୍ତୁ...";
 "Relation.Edit.Button.title" = "Apply";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
-"Relation.ObjectTypes.Header.title" = "Object types:";
-"Relation.ObjectType.Header.title" = "Object type:";
+"Relation.Date.Locked.Alert.title" = "ସମ୍ପର୍କ \"%@\" ଲକ୍ ହୋଇଛି";
+"Relation.ObjectTypes.Header.title" = "ଅବଜେକ୍ଟ ପ୍ରକାର:";
+"Relation.ObjectType.Header.title" = "ଅବଜେକ୍ଟ ପ୍ରକାର:";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Delete.Alert.Description" = "ବିକଳ୍ପ ଆପଣଙ୍କ ସ୍ଥାନରୁ ସ୍ଥାୟୀ ଭାବରେ ଅପସାରଣ ହେବ।";
+"Relation.Object.Delete.Alert.Description" = "ଅବଜେକ୍ଟକୁ ବିନ୍ କୁ ସ୍ଥାନାନ୍ତର କରାଯିବ।";
 
 "Relation.Format.Object.Title" = "ଅବଜେକ୍ଟ";
 "Relation.Format.Text.Title" = "ଲେଖା";
 "Relation.Format.Number.Title" = "ନମ୍ବର";
-"Relation.Format.Status.Title" = "Select";
-"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Status.Title" = "ଚୟନ କରନ୍ତୁ";
+"Relation.Format.Tag.Title" = "ବହୁ-ଚୟନ କରନ୍ତୁ";
 "Relation.Format.Date.Title" = "ତାରିଖ";
 "Relation.Format.FileMedia.Title" = "ଫାଇଲ୍ ଏବଂ ମିଡିଆ ";
 "Relation.Format.Checkbox.Title" = "ଚେକବାକ୍ସ";
@@ -104,26 +105,26 @@
 "Relation.Format.Email.Title" = "ଇମେଲ୍";
 "Relation.Format.Phone.Title" = "ଫୋନ୍ ନମ୍ବର";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "ସନ୍ଧାନ କରନ୍ତୁ କିମ୍ୱା ଏକ ନୂତନ ସମ୍ପର୍କ ସୃଷ୍ଟି କରନ୍ତୁ";
 
 // Origin Relation
 
-"Relation.Origin.Clipboard" = "Clipboard";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
-"Relation.Origin.Import" = "Imported object";
-"Relation.Origin.WebClipper" = "Web clipper";
-"Relation.Origin.SharingExtension" = "Mobile sharing extension";
-"Relation.Origin.UseCase" = "Use case";
-"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.Clipboard" = "କ୍ଲିପ୍ ବୋର୍ଡ";
+"Relation.Origin.DragAndDrop" = "ଡ୍ରାଗ ଓ ଡ୍ରପ";
+"Relation.Origin.Import" = "ଆମଦାନୀ ହୋଇଥିବା ଅବଜେକ୍ଟ";
+"Relation.Origin.WebClipper" = "ୱେବ୍ କ୍ଲିପର";
+"Relation.Origin.SharingExtension" = "ମୋବାଇଲ୍ ସେୟାରିଂ ସମ୍ପ୍ରସାରଣ";
+"Relation.Origin.UseCase" = "କେସ୍ ବ୍ୟବହାର କରନ୍ତୁ";
+"Relation.Origin.Builtin" = "ଲାଇବ୍ରେରୀ ସଂସ୍ଥାପିତ ହୋଇଛି";
 "Relation.Origin.Bookmark" = "Bookmark";
 
 // MARK: - Import Type Relation
 
-"Relation.ImportType.Notion" = "Notion";
-"Relation.ImportType.Markdown" = "Markdown";
+"Relation.ImportType.Notion" = "ଧାରଣା";
+"Relation.ImportType.Markdown" = "ମାର୍କଡାଉନ୍";
 "Relation.ImportType.Html" = "HTML";
 "Relation.ImportType.Text" = "TXT";
-"Relation.ImportType.Protobuf" = "Any-Block";
+"Relation.ImportType.Protobuf" = "ଏନି ବ୍ଲକ";
 "Relation.ImportType.Csv" = "CSV";
 
 // MARK: - Mention
@@ -134,6 +135,7 @@
 "Toggle empty. Tap to create block." = "ଖାଲି ଟୋଗଲ୍ କରନ୍ତୁ | ବ୍ଲକ ସୃଷ୍ଟି କରିବାକୁ ଟ୍ୟାପ୍ କରନ୍ତୁ |";
 "Loading, please wait" = "ଲୋଡି ହଉଛି, ଦୟାକରି ଅପେକ୍ଷା କରନ୍ତୁ |";
 "Done" = "ହେଲା";
+"Next" = "ପରବର୍ତ୍ତୀ";
 "Style" = "ଷ୍ଟାଇଲ";
 "Color" = "ରଙ୍ଗ";
 "Background" = "ପୃଷ୍ଠଭୂମି";
@@ -143,10 +145,10 @@
 "Actions" = "କାର୍ଯ୍ୟ";
 "Relations" = "ସମ୍ପର୍କ";
 "Objects" = "ଅବଜେକ୍ଟ";
-"Lists" = "Lists";
-"Pinned" = "Pinned";
+"Lists" = "ତାଲିକା";
+"Pinned" = "ପିନ୍ କରାଯାଇଛି";
 "Delete" = "ବିଲୋପ କରନ୍ତୁ";
-"Export" = "Export";
+"Export" = "ରପ୍ତାନି";
 "Duplicate" = "ନକଲ";
 "Copy" = "କପି କରନ୍ତୁ";
 "Preview" = "ପ୍ରିଭିଉ";
@@ -155,8 +157,8 @@
 "Move" = "ଘୁଞ୍ଚାନ୍ତୁ";
 "Move to" = "ଏଠାକୁ ସ୍ଥାନାନ୍ତର କରନ୍ତୁ";
 "Back" = "ପଛକୁ ଯାଅନ୍ତୁ";
-"Unpin" = "Unpin";
-"Pin on top" = "Pin on top";
+"Unpin" = "ପିନ କରନ୍ତୁ ନାହିଁ";
+"Pin on top" = "ଶୀର୍ଷରେ ପିନ୍";
 "File block subtitle" = "ଫାଇଲକୁ ମୂଳ ଅବସ୍ଥାରେ ଗଚ୍ଛିତ କରନ୍ତୁ";
 "Picture block subtitle" = "ପ୍ରତିଛବି ସହିତ ପୃଷ୍ଠା ଅପଲୋଡ୍ ଏବଂ ସମୃଦ୍ଧ କରନ୍ତୁ";
 "Video block subtitle" = "ଖେଳାଯିବାକୁ ଥିବା ଭିଡିଓ ଅପଲୋଡ୍ କରନ୍ତୁ";
@@ -165,6 +167,7 @@
 "Align right" = "ଡାହାଣକୁ ଆଲାଇନ୍ କରନ୍ତୁ";
 "Align left" = "ବାମକୁ ଆଲାଇନ୍ କରନ୍ତୁ";
 "Align center" = "କେନ୍ଦ୍ର ଆଲାଇନ୍ କରନ୍ତୁ";
+"Align justify" = "Align justify";
 "Black" = "କଳା";
 "Amber" = "ଅମ୍ବର";
 "Red" = "ନାଲି";
@@ -192,8 +195,8 @@
 "Copied" = "କପି ହେଲା";
 "Share" = "Share";
 "Okay" = "Okay";
-"Join" = "Join";
-"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Join" = "ଯୋଗ ଦିଅନ୍ତୁ";
+"Agreement Disclamer" = "ଜାରି ରଖିବା ଦ୍ୱାରା ଆପଣ [ବ୍ୟବହାର ସର୍ତ୍ତାବଳୀ](%@) ଏବଂ [ଗୋପନୀୟତା ନୀତି](%@) ସହ ରାଜି ହୁଅନ୍ତି।";
 
 // Home
 "Favorites" = "ପସନ୍ଦ";
@@ -208,11 +211,11 @@
 "Restore" = "ପୁନରୁଦ୍ଧାର କରନ୍ତୁ";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Key" = "ଚାବି";
+"Keychain.Key.Copy.Toast.title" = "ଚାବି କପି ହୋଇଛି";
+"Keychain.Key.description" = "ଆପଣଙ୍କ ଭଲ୍ଟରେ ପ୍ରବେଶ କରିବା ପାଇଁ ଆପଣଙ୍କୁ ଏହା ଆବଶ୍ୟକ ହେବ। ଏହାକୁ ସୁରକ୍ଷିତ ସ୍ଥାନରେ ରଖନ୍ତୁ। ଯଦି ଆପଣ ଏହାକୁ ହରାଇଦିଅନ୍ତି, ତେବେ ଆପଣ ଆଉ ଆପଣଙ୍କ ଭଲ୍ଟ ଭିତରକୁ ପ୍ରବେଶ କରିପାରିବେ ନାହିଁ।";
+"Keychain.Show and copy key" = "କୀ ଦେଖନ୍ତୁ ଏବଂ କପି କରନ୍ତୁ";
+"Keychain.Have you backed up your key?" = "ଆପଣ ଆପଣଙ୍କ ଚାବି ବ୍ୟାକଅପ୍ କରିଛନ୍ତି କି?";
 "Keychain.Error.String to Data conversion error" = "ଷ୍ଟ୍ରିଙ୍ଗରୁ ଡାଟା ରୂପାନ୍ତରଣରେ ତ୍ରୁଟି";
 "Keychain.Error.Data to String conversion error" = "ଡାଟାରୁ ଷ୍ଟ୍ରିଙ୍ଗ ରୂପାନ୍ତରଣରେ ତ୍ରୁଟି";
 "Keychain.Error.Unknown Keychain Error" = "ଅଜଣା କି ଚେନ ତ୍ରୁଟି";
@@ -222,55 +225,57 @@
 "Create" = "ତିଆରି କରନ୍ତୁ";
 "Scan QR code" = "QR କୋଡ୍‍ ସ୍କାନ୍‍ କରନ୍ତୁ";
 "Auth.CameraPermissionTitle" = "ଦୟାକରି ଆକସେସ୍ ଅନୁମତି ଦିଅନ୍ତୁ";
-"Restore key from keychain" = "Restore Key from the keychain";
-"Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
-"Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
+"Restore key from keychain" = "କୀଚେନ୍ ରୁ ଚାବି ପୁନରୁଦ୍ଧାର କରନ୍ତୁ";
+"Auth.LogIn" = "ମୋ ପାଖରେ ଏକ ଚାବି ଅଛି";
+"Auth.Button.Join" = "ନୂତନ ଭଲ୍ଟ";
+"Auth.Welcome.Subtitle" = "ଆପଣଙ୍କ ମାଲିକାନାରେ ଥିବା ସ୍ଥାନଗୁଡିକରେ ସୃଷ୍ଟି ଏବଂ ସହଯୋଗ କରନ୍ତୁ। ଏନକ୍ରିପ୍ଟେଡ୍, ଅଫ୍ଲାଇନ୍ ଏବଂ [ଖୋଲା](%@)।";
 "Auth.Next" = "ପରବର୍ତ୍ତୀ";
 
-"Vault recover error" = "Vault recover error, try again";
-"Vault recover error no internet" = "Vault recover error, probably no internet connection";
+"Vault recover error" = "ଭଲ୍ଟ ତ୍ରୁଟି ପୁନରୁଦ୍ଧାର କରନ୍ତୁ, ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ";
+"Vault recover error no internet" = "ଭଲ୍ଟ ପୁନରୁଦ୍ଧାର ତ୍ରୁଟି, ବୋଧହୁଏ କୌଣସି ଇଣ୍ଟର୍ନେଟ୍ ସଂଯୋଜନା ନାହିଁ";
 
 // Auth Errors
 "Error creating wallet" = "ୱାଲେଟ୍ ତିଆରିରେ ଅସୁବିଧା";
-"Error select vault" = "Error select vault";
-"Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Error select vault" = "ତ୍ରୁଟି ଭାଲ୍ଟ ଚୟନ କରନ୍ତୁ |";
+"Error wallet recover vault" = "ତ୍ରୁଟି ୱାଲେଟ୍ ପୁନରୁଦ୍ଧାର ଭାଲ୍ଟ |";
+"Wallet.Recovery.Error.description" = "ଅବୈଧ କି";
 
 "Search for language" = "ଭାଷା ଖୋଜନ୍ତୁ ";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Title" = "ଏହା ହେଉଛି ତୁମର ଚାବି |";
+"Auth.JoinFlow.Key.Description" = "ଏହା ତୁମର ଭାଲ୍ଟ ଉପରେ ସମ୍ପୂର୍ଣ୍ଣ ମାଲିକାନା ଦେଇଥାଏ | \n ଏହା ପୁନରୁଦ୍ଧାର ହୋଇପାରିବ ନାହିଁ |";
+"Auth.JoinFlow.Key.Button.Show.Title" = "ମୋ ଚାବି ଦେଖାନ୍ତୁ |";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "ପରବର୍ତ୍ତୀ";
 "Auth.JoinFlow.Key.Button.Later.Title" = "ବାଦ୍ ଦିଅ";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "କ୍ଲିପବୋର୍ଡକୁ କପି କରନ୍ତୁ";
 "Auth.JoinFlow.Key.Button.Info.Title" = "ଅଧିକ ପଢ";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "ଆପଣ ଏନିଟାଇପ ସେଟିଂସମୂହରେ ପରେ କି ପାଇପାରିବେ |";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "ଚାବି କ’ଣ?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "ଏହା ଏକ ପୁନରୁଦ୍ଧାର ବାକ୍ୟାଂଶ ଦ୍ୱାରା ଉପସ୍ଥାପିତ ହୋଇଛି - 12 ଟି ଅନିୟମିତ ଶବ୍ଦ ଯେଉଁଠାରୁ ଆପଣଙ୍କର ଭାଲ୍ଟ ଏହି ଉପକରଣରେ ଯାଦୁକରୀ ଭାବରେ ସୃଷ୍ଟି ହୋଇଥାଏ |";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "ଯିଏ ଜାଣେ ଏହି ଶବ୍ଦଗୁଡ଼ିକର ମିଶ୍ରଣ ତୁମର ଭାଲ୍ଟର ମାଲିକ | ** ବର୍ତ୍ତମାନ, ତୁମେ ଦୁନିଆର ଏକମାତ୍ର ବ୍ୟକ୍ତି ଯିଏ ଏହାକୁ ଜାଣେ | **";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "ପୃଥିବୀରେ ଥିବା ସମସ୍ତ ଗଣନା ସମ୍ବଳ ଭାଙ୍ଗିବା ପାଇଁ ଯଥେଷ୍ଟ ନୁହେଁ । ଯଦି ଆପଣ ଏହାକୁ ହରାଇଦିଅନ୍ତି, ତେବେ ଏହାକୁ ପୁନରୁଦ୍ଧାର କରାଯାଇପାରିବ ନାହିଁ। ତେଣୁ ଏହାକୁ ସୁରକ୍ଷିତ ସ୍ଥାନରେ ରଖନ୍ତୁ।";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "ମୋ ଚାବି କିପରି ସଞ୍ଚୟ କରିବେ?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "ଆପଣଙ୍କ ଚାବି ଷ୍ଟୋର୍ କରିବାର ସବୁଠାରୁ ସହଜ ଉପାୟ ହେଉଛି ଏହାକୁ ଆପଣଙ୍କ ପାସୱାର୍ଡ ମ୍ୟାନେଜରରେ ସଞ୍ଚୟ କରିବା |";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "ସବୁଠାରୁ ସୁରକ୍ଷିତ ଉପାୟ ହେଉଛି ଏହାକୁ କାଗଜରେ ଲେଖିବା ଏବଂ ଏହାକୁ ଅଫଲାଇନରେ, ଏକ ସୁରକ୍ଷିତ ଏବଂ ସୁରକ୍ଷିତ ସ୍ଥାନରେ ରଖିବା |";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "ଆପଣଙ୍କ ନାମ ସେଟ୍ କରନ୍ତୁ";
+"Auth.JoinFlow.Soul.Description" = "କେବଳ ସେହି ଲୋକମାନଙ୍କ ଦ୍ୱାରା ଦେଖନ୍ତି ଯେଉଁମାନଙ୍କ ସହିତ ଆପଣ କିଛି ଅଂଶୀଦାର କରନ୍ତି । ଏହି ନାମଗୁଡ଼ିକର କୌଣସି କେନ୍ଦ୍ରୀୟ ପଞ୍ଜୀକରଣ ନାହିଁ।";
 "Auth.JoinFlow.Soul.Placeholder" = "ଶୀର୍ଷକ ନଥିବା";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
-"Auth.JoinFlow.Vault.Button" = "Get my Key";
+"Auth.JoinFlow.Vault.Title" = "ଏହା ହେଉଛି ଆପଣଙ୍କ ଭଲ୍ଟ";
+"Auth.JoinFlow.Vault.Description" = "ଭିତରେ ଥିବା ସମସ୍ତ ଜିନିଷ ଏନକ୍ରିପ୍ଟ ହୋଇଛି।\n
+ଏହା ସ୍ଥାନୀୟ-ପ୍ରଥମ - ସବୁକିଛି ଅଫଲାଇନରେ କାର୍ଯ୍ୟ କରେ।\n
+କେବଳ ଆପଣଙ୍କ ପାଖରେ ଚାବି ଅଛି।";
+"Auth.JoinFlow.Vault.Button" = "ମୋ ଚାବି ପ୍ରାପ୍ତ କରନ୍ତୁ";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "କିଚେନ ବ୍ୟବହାର କରନ୍ତୁ";
 "Auth.LoginFlow.Or" = "କିମ୍ବା";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Textfield.Placeholder" = " ଆପଣଙ୍କ ଚାବି ଟାଇପ୍ କରନ୍ତୁ";
 "Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "ଶୂନ୍ୟସ୍ଥାନ ପ୍ରବେଶ କରୁଛି";
 
@@ -310,7 +315,7 @@
 "Redo" = "Redo";
 "Actions.LinkItself" = "ଲିଙ୍କ୍ କରନ୍ତୁ";
 "Actions.MakeAsTemplate" = "ଟେମ୍ପଲେଟ୍ ପ୍ରସ୍ତୁତ କରନ୍ତୁ";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "ଡିଫଲ୍ଟ କରନ୍ତୁ";
 "Actions.CreateWidget.Title" = "ୱିଜେଟ୍ ପାଇଁ";
 "Actions.CreateWidget.Success" = "ନୂତନ ୱିଜେଟ୍ ସୃଷ୍ଟି କରାଗଲା";
 "Actions.CopyLink" = "ଲିଙ୍କ୍ କପି କରନ୍ତୁ";
@@ -333,9 +338,11 @@
 "There is no object named" = "%@ ନାମକ କୌ ଣସି ବସ୍ତୁ ନାହିଁ ";
 "There is no type named" = "%@ ନାମକ କୌଣସି ପ୍ରକାର ନାହିଁ";
 "Create a new one or search for something else" = "ଏକ ନୂତନ ସୃଷ୍ଟି କରନ୍ତୁ କିମ୍ବା ଅନ୍ୟ କିଛି ଖୋଜନ୍ତୁ";
-"Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 
 // MARK: - Home
 
@@ -346,14 +353,14 @@
 "Alert.CameraPermissions.GoToSettings" = "QR କୋଡ୍ ସ୍କାନ୍ କରିବା ପାଇଁ ଏନିଟାଇପ ଆପଣଙ୍କ କ୍ୟାମେରାକୁ ପ୍ରବେଶ ଆବଶ୍ୟକ କରେ | \n\n ଦୟାକରି, ଆପଣଙ୍କର ଡିଭାଇସର ସେଟିଂସମୂହ ->ଏନିଟାଇପ ଯାଆନ୍ତୁ ଏବଂ କ୍ୟାମେରା ଅନ୍ ସେଟ୍ କରନ୍ତୁ |";
 
 // MARK: - Deletion
-"Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted vault data will be permanently removed from the backup node.";
+"Pending deletion text" = "ଆପଣଙ୍କ ଯିବା ଦେଖି ଆମେ ଦୁଖିତଃ | ଏହି ଅନୁରୋଧକୁ ବାତିଲ କରିବାକୁ ଆପଣଙ୍କର ୩୦ ଦିନ ଅଛି | ୩୦ ଦିନ ପରେ, ଆପଣଙ୍କର ଏନକ୍ରିପ୍ଟ ହୋଇଥିବା ଭାଲ୍ଟ ତଥ୍ୟ ବ୍ୟାକଅପ୍ ନୋଡରୁ ସ୍ଥାୟୀ ଭାବରେ ଅପସାରିତ ହୋଇଯିବ |";
 
 // MARK: - Object Settings
 "Undo/Redo" = "ଅଣ୍ଡୁ/ରିଡୁ";
 
 
 // MARK: - Templates
-"TemplateSelection.Available.Title" = "This type has %d templates";
+"TemplateSelection.Available.Title" = "ଏହି ପ୍ରକାରରେ %d ଟେମ୍ପ୍ଲେଟ୍ ଅଛି";
 "TemplatePicker.ChooseTemplate" = "ଟେମ୍ପଲେଟ୍ ବାଛନ୍ତୁ";
 "TemplatePicker.Buttons.UseTemplate" = "ଟେମ୍ପଲେଟ ବ୍ୟବହାର କରନ୍ତୁ";
 "TemplateSelection.SelectTemplate" = "ଟେମ୍ପଲେଟ୍ ଚୟନ କରନ୍ତୁ";
@@ -367,7 +374,7 @@
 
 "TemplateEditing.Title" = "ଟେମ୍ପଲେଟ୍ ସଂପାଦନ କରନ୍ତୁ";
 
-"Templates.Popup.WasAddedTo.title" = "New template was added to the type %@";
+"Templates.Popup.WasAddedTo.title" = "ପ୍ରକାର %@ ରେ ନୂତନ ଟେମ୍ପ୍ଲେଟ୍ ଯୋଡାଯାଇଥିଲା";
 "Templates.Popup.WasAddedTo" = "ପ୍ରକାରରେ ନୂତନ ଟେମ୍ପଲେଟ୍ ଯୋଡାଗଲା";
 "Templates.Popup.Duplicated" = "ଟେମ୍ପଲେଟ୍ ନକଲ କରାଗଲା";
 "Templates.Popup.Removed" = "ଟେମ୍ପଲେଟ୍ କଢାଗଲା";
@@ -836,8 +843,6 @@
 "FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Space.Mail.Subject" = "Get more storage, vault %@";
-"FileStorage.Space.Mail.Body" = "Hi, Anytype team. I am reaching out to request an increase in my file storage capacity as I have run out of storage. My current limits is %@. My vault id is %@. Cheers, %@.";
 "FileStorage.Local.Title" = "Local storage";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
@@ -995,6 +1000,11 @@
 "Swipe.Tip.Title" = "Swipe to Create Objects";
 "Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 
@@ -1089,6 +1099,13 @@
 Specifically,
 Please provide specific details of your needs here.";
 
+"Membership.Upgrade.Title" = "Membership upgrade";
+"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
+"Membership.Upgrade.Button" = "Contact Anytype Team";
+
+"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
+"Membership.Upgrade.MoreMembers" = "You can’t add more members";
+
 
 "Membership.Banner.Title1" = "Build the Vision Together";
 "Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
@@ -1134,6 +1151,7 @@ Please provide specific details of your needs here.";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
+"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

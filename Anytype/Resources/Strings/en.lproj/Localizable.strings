@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Bold";
 "TextStyle.Italic.Title" = "Italic";
 "TextStyle.Strikethrough.Title" = "Strikethrough";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Link";
 
@@ -134,6 +135,7 @@
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
 "Loading, please wait" = "Loading, please wait";
 "Done" = "Done";
+"Next" = "Next";
 "Style" = "Style";
 "Color" = "Color";
 "Background" = "Background";
@@ -165,6 +167,7 @@
 "Align right" = "Align right";
 "Align left" = "Align left";
 "Align center" = "Align center";
+"Align justify" = "Align justify";
 "Black" = "Black";
 "Amber" = "Amber";
 "Red" = "Red";
@@ -333,9 +336,11 @@
 "There is no object named" = "There is no object named %@";
 "There is no type named" = "There is no type named %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
-"Search.Backlinks.Show.title" = "Show backlinks";
-"Search.Backlinks.Header.title" = "Backlinks of: %@";
-"Search.Backlinks.Swipe.title" = "Backlinks";
+"Search.Links.Show.title" = "Show related objects";
+"Search.Links.Header.title" = "Related to: %@";
+"Search.Links.Swipe.title" = "Related to";
+"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 
 // MARK: - Home
 
@@ -993,6 +998,11 @@
 "Swipe.Tip.Title" = "Swipe to Create Objects";
 "Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
+"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
 
@@ -1092,6 +1102,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.Button" = "Contact Anytype Team";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
+"Membership.Upgrade.MoreMembers" = "You can’t add more members";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";

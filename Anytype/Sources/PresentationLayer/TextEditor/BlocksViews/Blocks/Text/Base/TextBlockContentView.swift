@@ -11,6 +11,7 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     
     // MARK: - Views
     private let contentView = UIView()
+    private let textContainerView = UIView()
     private(set) lazy var textView = CustomTextView()
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
         self?.actions?.createEmptyBlock()
@@ -18,10 +19,10 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     private lazy var textBlockLeadingView = TextBlockLeadingView()
     
     private let mainStackView: UIStackView = makeMainStackView()
-    private let contentStackView: UIStackView = makeContentStackView()
     
     private var topContentConstraint: NSLayoutConstraint?
     private var bottomContentnConstraint: NSLayoutConstraint?
+    private var contentSpacingConstraint: NSLayoutConstraint?
     private var focusSubscription: AnyCancellable?
     private var resetSubscription: AnyCancellable?
     
@@ -55,27 +56,22 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     // MARK: - Setup views
     
     private func setupLayout() {
-        contentStackView.addArrangedSubview(textBlockLeadingView)
-        contentStackView.addArrangedSubview(textView)
+        textContainerView.addSubview(textBlockLeadingView) {
+            $0.pinToSuperview(excluding: [.right])
+        }
+        textContainerView.addSubview(textView) {
+            $0.pinToSuperview(excluding: [.left])
+            // For textBlockLeadingView is visible
+            contentSpacingConstraint = $0.leading.equal(to: textBlockLeadingView.trailingAnchor, priority: .required)
+            // For textBlockLeadingView is hidden
+            $0.leading.equal(to: textContainerView.leadingAnchor, priority: .defaultHigh)
+        }
             
-        contentView.addSubview(contentStackView) {
+        contentView.addSubview(textContainerView) {
             topContentConstraint = $0.top.equal(to: contentView.topAnchor)
             bottomContentnConstraint = $0.bottom.greaterThanOrEqual(to: contentView.bottomAnchor)
             $0.leading.equal(to: contentView.leadingAnchor)
             $0.trailing.equal(to: contentView.trailingAnchor)
-        }
-        
-        // Double-check this anchors (we already have stack)
-        textBlockLeadingView.layoutUsing.anchors {
-            $0.top.equal(to: contentStackView.topAnchor)
-            $0.bottom.equal(to: contentStackView.bottomAnchor)
-        }
-        
-        // Double-check this anchors (we already have stack)
-        textView.layoutUsing.anchors {
-            $0.trailing.equal(to: contentStackView.trailingAnchor)
-            $0.top.equal(to: contentStackView.topAnchor)
-            $0.leading.equal(to: textBlockLeadingView.trailingAnchor)
         }
         
         createEmptyBlockButton.layoutUsing.anchors {
@@ -96,14 +92,13 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
     
     private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
         textView.textView.textStorage.setAttributedString(configuration.attributedString)
-        TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
-        
-        textBlockLeadingView.update(style: TextBlockLeadingStyle(with: configuration))
+                
+        textBlockLeadingView.update(blockId: configuration.blockId, style: TextBlockLeadingStyle(with: configuration))
     
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: configuration, restrictions: restrictions)
         
-        updateAllConstraint(blockTextStyle: configuration.content.contentType)
+        updateAllConstraint(configuration: configuration)
         textView.delegate = self
         
         let displayPlaceholder = configuration.content.contentType == .toggle && configuration.shouldDisplayPlaceholder
@@ -127,11 +122,19 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         }        
     }
     
-    private func updateAllConstraint(blockTextStyle: BlockText.Style) {
-        let contentInset = TextBlockLayout.contentInset(textBlockStyle: blockTextStyle)
+    private func updateAllConstraint(configuration: TextBlockContentConfiguration) {
+        let contentInset = TextBlockLayout.contentInset(textBlockStyle: configuration.content.contentType)
         
         topContentConstraint?.constant = contentInset.top
         bottomContentnConstraint?.constant = -contentInset.bottom
+        
+        if textBlockLeadingView.isHidden {
+            contentSpacingConstraint?.constant = 0
+        } else if configuration.content.contentType == .title, configuration.isCheckable {
+            contentSpacingConstraint?.constant = 8
+        } else {
+            contentSpacingConstraint?.constant = 4
+        }
     }
 }
 
@@ -143,14 +146,4 @@ private extension TextBlockContentView {
         mainStackView.alignment = .fill
         return mainStackView
     }
-    
-    static func makeContentStackView() -> UIStackView {
-        let contentStackView = UIStackView()
-        contentStackView.axis = .horizontal
-        contentStackView.distribution = .equalSpacing
-        contentStackView.spacing = 4
-        contentStackView.alignment = .leading
-        return contentStackView
-    }
-    
 }

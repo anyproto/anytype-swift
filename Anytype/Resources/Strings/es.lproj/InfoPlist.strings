@@ -1,4 +1,4 @@
-"NSFaceIDUsageDescription" = "Face ID is used to retrieve your Key securely stored in the keychain";
-"NSCameraUsageDescription" = "La cámara se utiliza para escanear códigos QR para una experiencia de inicio de sesión segura y conveniente";
-"NSLocalNetworkUsageDescription" = "El acceso a la red local se utiliza para sincronizar datos directamente entre sus dispositivos cercanos";
-"NSPhotoLibraryAddUsageDescription" = "Se necesita acceso para guardar las imágenes seleccionadas en su biblioteca";
+"NSFaceIDUsageDescription" = "Face ID se utiliza para recuperar tu clave almacenada de forma segura en el almacén de claves";
+"NSCameraUsageDescription" = "La cámara se utiliza para escanear códigos QR, una forma de inicio de sesión segura y cómoda";
+"NSLocalNetworkUsageDescription" = "El acceso a la red local se utiliza para sincronizar datos directamente entre tus dispositivos cercanos";
+"NSPhotoLibraryAddUsageDescription" = "Se necesita acceso para guardar las imágenes seleccionadas en tu biblioteca";

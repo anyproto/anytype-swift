@@ -13,7 +13,7 @@ struct GlobalSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
+            searchBar
             content
         }
         .background(Color.Background.secondary)
@@ -23,11 +23,23 @@ struct GlobalSearchView: View {
         .task(id: model.state) {
             await model.search()
         }
+        .onChange(of: model.dismiss) { _ in dismiss() }
+        .onChange(of: model.state.searchText) { _ in model.onSearchTextChanged() }
+    }
+    
+    private var searchBar: some View {
+        SearchBar(text: $model.state.searchText, focused: true, placeholder: Loc.search)
+            .submitLabel(.go)
+            .onSubmit {
+                model.onKeyboardButtonTap()
+            }
     }
     
     @ViewBuilder
     private var content: some View {
-        if model.searchData.isEmpty {
+        if model.state.isInitial {
+            Spacer()
+        } else if model.searchData.isEmpty {
             emptyState
         } else {
             searchResults
@@ -42,15 +54,17 @@ struct GlobalSearchView: View {
                         itemRow(for: data)
                     }
                 } header: {
-                    sectionHeader(for: section)
+                    sectionHeader(for: section.sectionConfig)
                 }
             }
         }
+        .scrollIndicators(.never)
+        .id(model.state)
     }
     
     @ViewBuilder
-    private func sectionHeader(for section: GlobalSearchDataSection) -> some View {
-        if let sectionConfig = section.sectionConfig {
+    private func sectionHeader(for sectionConfig: GlobalSearchDataSection.SectionConfig?) -> some View {
+        if let sectionConfig {
             ListSectionHeaderView(title: sectionConfig.title, increasedTopPadding: false) {
                 Button {
                     model.clear()
@@ -64,31 +78,57 @@ struct GlobalSearchView: View {
     }
     
     private func itemRow(for data: GlobalSearchData) -> some View {
-        Button {
-            dismiss()
-            model.onSelect(searchData: data)
-        } label: {
-            GlobalSearchCell(data: data)
-        }
-        .if(data.backlinks.isNotEmpty) {
-            $0.contextMenu {
-                Button(Loc.Search.Backlinks.Show.title) {
-                    model.showBacklinks(data)
+        GlobalSearchCell(data: data)
+            .fixTappableArea()
+            .onTapGesture {
+                model.onSelect(searchData: data)
+            }
+            .if(data.relatedLinks.isNotEmpty) {
+                $0.contextMenu {
+                    Button(Loc.Search.Links.Show.title) {
+                        model.showRelatedObjects(data)
+                    }
+                }
+                .swipeActions {
+                    Button(Loc.Search.Links.Swipe.title) {
+                        model.showRelatedObjects(data)
+                    }
+                    .tint(Color.Button.active)
                 }
             }
-            .swipeActions {
-                Button(Loc.Search.Backlinks.Swipe.title) {
-                    model.showBacklinks(data)
-                }
-                .tint(Color.Button.active)
-            }
+    }
+    
+    @ViewBuilder
+    private var emptyState: some View {
+        switch model.state.mode {
+        case .default:
+            defaultEmptyState
+        case .filtered:
+            filteredEmptyState
         }
     }
     
-    private var emptyState: some View {
+    private var defaultEmptyState: some View {
         EmptyStateView(
-            title: Loc.thereIsNoObjectNamed(model.state.searchText),
-            subtitle: Loc.createANewOneOrSearchForSomethingElse
+            title: Loc.nothingFound,
+            subtitle: Loc.GlobalSearch.EmptyState.subtitle,
+            buttonData: EmptyStateView.ButtonData(
+                title: Loc.createObject,
+                action: {
+                    model.createObject()
+                }
+            )
         )
+    }
+    
+    private var filteredEmptyState: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(22)
+            sectionHeader(for: model.sectionConfig())
+            Spacer()
+            AnytypeText(Loc.GlobalSearch.EmptyFilteredState.title, style: .calloutRegular)
+                .foregroundColor(.Text.primary)
+            Spacer()
+        }
     }
 }

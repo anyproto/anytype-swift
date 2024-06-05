@@ -19,7 +19,9 @@ struct RemoteStorageView: View {
                 MembershipCoordinator()
             }
             .anytypeSheet(isPresented: $model.showMembershipEmailAlert) {
-                emailAlert
+                MembershipUpgradeEmailBottomAlert {
+                    model.onTapContactAnytype()
+                }
             }
     }
     
@@ -53,20 +55,6 @@ struct RemoteStorageView: View {
             .if(!model.contentLoaded) {
                 $0.redacted(reason: .placeholder)
                   .allowsHitTesting(false)
-            }
-        }
-    }
-    
-    private var emailAlert: some View {
-        BottomAlertView(
-            title: Loc.Membership.Upgrade.title,
-            message: Loc.Membership.Upgrade.text
-        ) {
-            BottomAlertButton(
-                text: Loc.Membership.Upgrade.text,
-                style: .primary
-            ) {
-                model.onTapContactAnytype()
             }
         }
     }

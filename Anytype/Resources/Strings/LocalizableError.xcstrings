@@ -455,8 +455,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Ошибка на нашей стороне, попробуйте позже"
           }
         },
         "sk" : {
@@ -544,8 +544,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Verbindung fehlgeschlagen, überprüfen Sie Ihre Internetverbindung"
           }
         },
         "el" : {
@@ -712,8 +712,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Не удается подключиться, проверьте подключение к Интернету"
           }
         },
         "sk" : {
@@ -801,8 +801,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name cannot be reserved"
+            "state" : "translated",
+            "value" : "Dieser Name kann nicht reserviert werden"
           }
         },
         "el" : {
@@ -969,8 +969,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name cannot be reserved"
+            "state" : "translated",
+            "value" : "Это имя не может быть зарезервировано"
           }
         },
         "sk" : {
@@ -1017,8 +1017,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name cannot be reserved"
+            "state" : "translated",
+            "value" : "此名称不能被保留"
           }
         },
         "zh-Hant" : {
@@ -1315,8 +1315,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is already reserved"
+            "state" : "translated",
+            "value" : "Dieser Name ist bereits reserviert"
           }
         },
         "el" : {
@@ -1483,8 +1483,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is already reserved"
+            "state" : "translated",
+            "value" : "Это имя уже зарезервировано"
           }
         },
         "sk" : {
@@ -1531,8 +1531,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is already reserved"
+            "state" : "translated",
+            "value" : "这个名称已经被保留"
           }
         },
         "zh-Hant" : {
@@ -1740,8 +1740,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Вы не вошли в систему! 😵‍💫"
           }
         },
         "sk" : {
@@ -1997,8 +1997,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Ошибка на нашей стороне, попробуйте позже"
           }
         },
         "sk" : {
@@ -2254,8 +2254,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
+            "state" : "translated",
+            "value" : "Имя недоступно для этого уровня"
           }
         },
         "sk" : {
@@ -2511,8 +2511,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
+            "state" : "translated",
+            "value" : "Уровень не найден, попробуйте позже"
           }
         },
         "sk" : {
@@ -3539,8 +3539,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Ошибка на нашей стороне, попробуйте позже"
           }
         },
         "sk" : {
@@ -3796,8 +3796,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Вы не вошли в систему! 😵‍💫"
           }
         },
         "sk" : {
@@ -4053,8 +4053,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
+            "state" : "translated",
+            "value" : "Ошибка на нашей стороне, попробуйте позже"
           }
         },
         "sk" : {
@@ -4399,8 +4399,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Verbindung fehlgeschlagen, überprüfen Sie Ihre Internetverbindung"
           }
         },
         "el" : {
@@ -4567,8 +4567,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Не удается подключиться, проверьте подключение к Интернету"
           }
         },
         "sk" : {
@@ -4913,8 +4913,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Verbindung fehlgeschlagen, überprüfen Sie Ihre Internetverbindung"
           }
         },
         "el" : {
@@ -5081,8 +5081,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Не удается подключиться, проверьте подключение к Интернету"
           }
         },
         "sk" : {
@@ -5427,8 +5427,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Verbindung fehlgeschlagen, überprüfen Sie Ihre Internetverbindung"
           }
         },
         "el" : {
@@ -5595,8 +5595,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
+            "state" : "translated",
+            "value" : "Не удается подключиться, проверьте подключение к Интернету"
           }
         },
         "sk" : {
@@ -6109,8 +6109,8 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
+            "state" : "translated",
+            "value" : "Вы не вошли в систему! 😵‍💫"
           }
         },
         "sk" : {
