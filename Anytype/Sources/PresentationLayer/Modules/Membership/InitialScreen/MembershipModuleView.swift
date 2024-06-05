@@ -2,6 +2,7 @@ import SwiftUI
 import StoreKit
 import Services
 import Combine
+import AnytypeCore
 
 
 struct MembershipModuleView: View {
@@ -92,8 +93,10 @@ struct MembershipModuleView: View {
             }
             
             Spacer.fixedHeight(32)
-            contactUs
-            Spacer.fixedHeight(24)
+            if !FeatureFlags.hideCoCreator {
+                contactUs
+                Spacer.fixedHeight(24)
+            }
             restorePurchases
         }
     }
