@@ -16,6 +16,7 @@ final class GlobalSearchViewModel: ObservableObject {
     @Published var state = GlobalSearchState()
     @Published var searchData: [GlobalSearchDataSection] = []
     @Published var dismiss = false
+    private var modeChanged = false
     
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
@@ -27,7 +28,9 @@ final class GlobalSearchViewModel: ObservableObject {
     
     func search() async {
         do {
-            try await Task.sleep(seconds: 0.3)
+            if needDelay() {
+                try await Task.sleep(seconds: 0.3)
+            }
             
             let result: [SearchResultWithMeta]
             switch state.mode {
@@ -82,6 +85,7 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .filtered(name: data.title, limitObjectIds: data.relatedLinks)
         )
+        modeChanged = true
         AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)
     }
     
@@ -90,6 +94,7 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .default
         )
+        modeChanged = true
     }
     
     func createObject() {
@@ -124,5 +129,11 @@ final class GlobalSearchViewModel: ObservableObject {
     private func updateInitialStateIfNeeded() {
         guard state.isInitial else { return }
         state.isInitial = false
+    }
+    
+    private func needDelay() -> Bool {
+        guard modeChanged || state.isInitial else { return true }
+        modeChanged = false
+        return false
     }
 }
