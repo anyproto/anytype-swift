@@ -1099,11 +1099,11 @@
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
 		2EED4F562B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */; };
 		2EED4F592B6C31600076FAC6 /* RelationSelectedOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */; };
+		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
 		2EEFEADC2A93C39100AD5CDC /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEFEADB2A93C39100AD5CDC /* SheetView.swift */; };
 		2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1EE8F2B276BE2002AD836 /* SyncStatusData.swift */; };
 		2EFBBEFA2A41DBD900734A0B /* PhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEF92A41DBD900734A0B /* PhraseTextView.swift */; };
 		2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFBBEFB2A42512300734A0B /* UIPhraseTextView.swift */; };
-		2EFC94792C0F7B2400965544 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EFC94782C0F7B2400965544 /* CachedAsyncImage */; };
 		2EFFE5CF2BAB4597006DBE6D /* RelationListEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFE5CE2BAB4597006DBE6D /* RelationListEmptyState.swift */; };
 		2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EFFEB9529A52537002F5859 /* SetDragAndDropView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
@@ -3485,7 +3485,7 @@
 				2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */,
 				03C5C53B22DF785000DD91DE /* Security.framework in Frameworks */,
 				0318D576230186CA000527B1 /* LocalAuthentication.framework in Frameworks */,
-				2EFC94792C0F7B2400965544 /* CachedAsyncImage in Frameworks */,
+				2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */,
 				1259301126F3A6EC00B115CD /* SwiftUIVisualEffects in Frameworks */,
 				2A685D5A2B7B855300456E08 /* ZIPFoundation in Frameworks */,
 			);
@@ -10551,7 +10551,7 @@
 				2A41A6772B84E57B00EAE6E6 /* DeepLinks */,
 				2AC1262C2B90F65F003A4A8D /* Factory */,
 				2A30B2072BB44A0C00206806 /* QRCode */,
-				2EFC94782C0F7B2400965544 /* CachedAsyncImage */,
+				2EEE411D2C1080AD000AB88B /* CachedAsyncImage */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -10689,7 +10689,7 @@
 				2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */,
 				2A30B2062BB44A0C00206806 /* XCRemoteSwiftPackageReference "QRCode" */,
-				2EFC94772C0F7B2400965544 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -13294,9 +13294,9 @@
 				version = 2.3.1;
 			};
 		};
-		2EFC94772C0F7B2400965544 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+		2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:lorenzofiamingo/swiftui-cached-async-image.git";
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 2.1.1;
@@ -13452,9 +13452,9 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = SharedContentManager;
 		};
-		2EFC94782C0F7B2400965544 /* CachedAsyncImage */ = {
+		2EEE411D2C1080AD000AB88B /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2EFC94772C0F7B2400965544 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			package = 2EEE411C2C1080AD000AB88B /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
 		};
 		3D6381F62B6A61CF0026D071 /* WrappingHStack */ = {
