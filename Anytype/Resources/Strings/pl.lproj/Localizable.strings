@@ -35,7 +35,7 @@
 "TextStyle.Bold.Title" = "Pogrubienie";
 "TextStyle.Italic.Title" = "Kursywa";
 "TextStyle.Strikethrough.Title" = "Przekreślenie";
-"TextStyle.Underline.Title" = "Underline";
+"TextStyle.Underline.Title" = "Podkreślenie";
 "TextStyle.Code.Title" = "Kod";
 "TextStyle.Link.Title" = "Link";
 
@@ -194,7 +194,7 @@
 "Anytype Library" = "Biblioteka Anytype";
 "Copied" = "Skopiowano";
 "Share" = "Udostępnij";
-"Okay" = "Okay";
+"Okay" = "Ok";
 "Join" = "Dołącz";
 "Agreement Disclamer" = "Kontynuując, zgadzasz się na [Warunki użytkowania](%@) i [Politykę prywatności](%@)";
 
@@ -310,7 +310,7 @@
 
 "Undo typing" = "Cofnij wpisywanie";
 "Undo" = "Cofnij";
-"Redo" = "Redo";
+"Redo" = "Ponów";
 "Actions.LinkItself" = "Łącze do";
 "Actions.MakeAsTemplate" = "Utwórz szablon";
 "Actions.TemplateMakeDefault" = "Ustaw jako domyślne";
@@ -923,7 +923,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Dodaj jako przeglądający";
 "SpaceShare.ViewRequest.EditAccess" = "Dodaj jako edytora";
 "SpaceShare.ViewRequest.Reject" = "Odrzuć";
-"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Title" = "Usuń członka";
 "SpaceShare.RemoveMember.Message" = "%@ zostanie usunięty z przestrzeni.";
 "SpaceShare.ChangePermissions" = "Dostęp %@ do przestrzeni stanie się %@.";
 "SpaceShare.Join.Title" = "Dołącz do przestrzeni";
@@ -937,7 +937,7 @@
 "SpaceShare.YouSuffix" = "%@ (Państwo)";
 "SpaceShare.ManageSpaces" = "Zarządzanie przestrzeniami";
 "SpaceShare.AccessChanged" = "Zmieniono prawa dostępu.";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Action" = "Zatrzymywanie udostępniania";
 "SpaceShare.StopSharing.Title" = "Zatrzymywanie udostępniania przestrzeni";
 "SpaceShare.StopSharing.Message" = "Członkowie nie będą już synchronizowani z tą przestrzenią, a łącze udostępniania zostanie dezaktywowane.";
 "SpaceShare.StopSharing.Toast" = "Przestrzeń nie jest już współdzielona";
@@ -947,9 +947,9 @@
 "SpaceShare.HowToShare.Step1" = "Podaj link osobie, z którą chcesz współpracować.";
 "SpaceShare.HowToShare.Step2" = "Klikając na link, osoba prosi o dołączenie do przestrzeni.";
 "SpaceShare.HowToShare.Step3" = "Po zatwierdzeniu wniosku możesz wybrać prawa dostępu dla tej osoby.";
-"SpaceShare.Manage" = "Manage";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
-"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+"SpaceShare.Manage" = "Zarządzaj";
+"SpaceShare.AlreadyJoin.Title" = "Jesteś już członkiem tej przestrzeni";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Otwarta przestrzeń";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Twoje prawa dostępu zostały zmienione na **%@** w przestrzeni **%@**.";
@@ -999,7 +999,7 @@
 "Swipe.Tip.Subtitle" = "Twórz obiekty wewnątrz widżetów, łatwo przesuwając je w lewo.";
 
 // MARK: - Space Share Tip
-"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Title" = "Współpraca nad przestrzeniami";
 "SpaceShare.Tip.Steps.1" = "Kliknij widżet przestrzeni, aby uzyskać dostęp do ustawień";
 "SpaceShare.Tip.Steps.2" = "Otwórz sekcję udostępniania";
 "SpaceShare.Tip.Steps.3" = "Wygeneruj link zaproszenia i udostępnij go";
@@ -1071,10 +1071,10 @@
 "Pay by Card" = "Zapłać kartą";
 "Min X characters" = "Minimalna liczba znaków %@";
 "Pending" = "Oczekujące...";
-"Manage payment" = "Manage payment";
+"Manage payment" = "Zarządzaj płatnościami";
 "Change email" = "Zmień adres e-mail";
 "Email successfully validated" = "E-mail pomyślnie zweryfikowany";
-"Confirm" = "Confirm";
+"Confirm" = "Potwierdź";
 
 "StoreKitServiceError.userCancelled" = "Zakup anulowany";
 "StoreKitServiceError.needUserAction" = "Płatność nie powiodła się, wymagane są działania użytkownika po stronie Apple'a.";
@@ -1106,20 +1106,20 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 
 
 "Membership.Banner.Title1" = "Zbuduj wizję razem";
-"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
-"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle1" = "Jako ceniony członek, Twój głos ma znaczenie! Bierz udział w ekskluzywnych wydarzeniach, kształtuj strategiczne wybory i wpływaj na naszą mapę drogową.";
+"Membership.Banner.Title2" = "Odblokuj korzyści dla członków";
 "Membership.Banner.Subtitle2" = "Członkowie cieszą się wyższymi limitami pamięci zapasowej i synchronizacji, zaproszeniami dla wielu gości do współpracy we wspólnych przestrzeniach oraz unikalną tożsamością w sieci AnyType.";
-"Membership.Banner.Title3" = "Support Digital Independence";
-"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
+"Membership.Banner.Title3" = "Wspieraj niezależność cyfrową";
+"Membership.Banner.Subtitle3" = "Twój wkład wspiera nasz zespół i potwierdza naszą wizję bezpiecznej i współpracującej sieci cyfrowej należącej do użytkownika.";
 "Membership.Banner.Title4" = "Zainwestuj w łączność";
-"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+"Membership.Banner.Subtitle4" = "Wartość naszej sieci przewyższa sumę jej części. Twoje członkostwo utrzymuje infrastrukturę dla jej rozwoju, która stanowi podstawę tej sieci.";
 
 "Membership.EmailForm.Title" = "Pobierz aktualizacje i ciesz się darmowymi korzyściami!";
 "Membership.EmailForm.Subtitle" = "Nie jest to w żaden sposób powiązane z Twoim kontem.";
 "Membership.EmailValidation" = "Wpisz kod wysłany na Twój adres e-mail";
 
 "Membership.NameForm.Title" = "Wybierz swoją unikalną nazwę";
-"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Subtitle" = "Jest to Twoje unikalne imię i nazwisko w sieci Anytype, potwierdzające Twoje członkostwo. Działa jako Twoja domena osobista i nie można jej zmienić.";
 "Membership.NameForm.Validating" = "Zaraz, zaraz...";
 "Membership.NameForm.Validated" = "Ta nazwa jest do zgarnięcia";
 
