@@ -7,7 +7,7 @@ protocol MembershipMetadataProviderProtocol {
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState
     
     func purchaseType(status: MembershipStatus) async -> MembershipPurchaseType
-    func purchaseAvailablitiy(tier: MembershipTier) async -> MembershipPurchaseAvailablitiy
+    func purchaseAvailablitiy(tier: MembershipTier, status: MembershipStatus) async -> MembershipPurchaseAvailablitiy
 }
 
 final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
@@ -28,7 +28,7 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
             }
         }
         
-        let purchaseAvailablitiy = await purchaseAvailablitiy(tier: tier)
+        let purchaseAvailablitiy = await purchaseAvailablitiy(tier: tier, status: status)
         return .unowned(purchaseAvailablitiy)
     }
     
@@ -50,7 +50,7 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
         }
     }
     
-    func purchaseAvailablitiy(tier: MembershipTier) async -> MembershipPurchaseAvailablitiy {
+    func purchaseAvailablitiy(tier: MembershipTier, status: MembershipStatus) async -> MembershipPurchaseAvailablitiy {
         switch tier.paymentType {
         case .appStore(let info):
             return await appStoreAvailability(info: info)
@@ -59,7 +59,10 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
         case nil:
             anytypeAssertionFailure(
                 "No payment type for unowned tier",
-                info: ["Tier": String(reflecting: tier)]
+                info: [
+                    "Tier": String(reflecting: tier),
+                    "Status": String(reflecting: status)
+                ]
             )
             return .external(url: URL(string: AboutApp.pricingLink)!)
         }
