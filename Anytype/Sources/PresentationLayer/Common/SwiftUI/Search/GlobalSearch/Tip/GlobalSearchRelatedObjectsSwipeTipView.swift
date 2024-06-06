@@ -24,7 +24,7 @@ struct GlobalSearchRelatedObjectsSwipeTip: Tip {
 
 @available(iOS 17.0, *)
 struct GlobalSearchRelatedObjectsSwipeTipView: View {
-    let tip = GlobalSearchRelatedObjectsSwipeTip()
+    private let tip = GlobalSearchRelatedObjectsSwipeTip()
     
     var body: some View {
         TipView(tip)
