@@ -15,7 +15,7 @@ enum BaseDocumentUpdate: Hashable {
 extension DocumentUpdate {
     var toBaseDocumentUpdate: [BaseDocumentUpdate] {
         switch self {
-        case .general:
+        case .general, .relationLinks:
             return [.general]
         case .syncStatus:
             return [.syncStatus]

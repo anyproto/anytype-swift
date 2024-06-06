@@ -8,6 +8,7 @@ enum DocumentUpdate: Hashable {
     case children(blockId: String)
     case details(id: String)
     case unhandled(blockId: String)
+    case relationLinks
 }
 
 extension DocumentUpdate {

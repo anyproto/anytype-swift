@@ -99,11 +99,11 @@ final class MiddlewareEventConverter {
             
         case .objectRelationsAmend(let data):
             relationLinksStorage.ammend(data: data)
-            return .general
+            return .relationLinks
             
         case .objectRelationsRemove(let data):
             relationLinksStorage.remove(data: data)
-            return .general
+            return .relationLinks
             
         case let .blockSetFile(data):
             infoContainer.setFile(data: data)
