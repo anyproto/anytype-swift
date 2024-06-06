@@ -48,6 +48,7 @@ struct GlobalSearchView: View {
     
     private var searchResults: some View {
         PlainList {
+            tip
             ForEach(model.searchData) { section in
                 Section {
                     ForEach(section.searchData) { data in
@@ -60,6 +61,13 @@ struct GlobalSearchView: View {
         }
         .scrollIndicators(.never)
         .id(model.state)
+    }
+    
+    @ViewBuilder
+    private var tip: some View {
+        if #available(iOS 17.0, *) {
+            GlobalSearchRelatedObjectsSwipeTipView()
+        }
     }
     
     @ViewBuilder
@@ -91,6 +99,9 @@ struct GlobalSearchView: View {
                 }
                 .swipeActions {
                     Button(Loc.Search.Links.Swipe.title) {
+                        if #available(iOS 17.0, *) {
+                            GlobalSearchRelatedObjectsSwipeTip().invalidate(reason: .actionPerformed)
+                        }
                         model.showRelatedObjects(data)
                     }
                     .tint(Color.Button.active)
