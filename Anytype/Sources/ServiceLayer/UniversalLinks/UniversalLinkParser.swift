@@ -15,7 +15,7 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
     }
     
     func parse(url: URL) -> UniversalLink? {
-        guard let components = NSURLComponents(url: url, resolvingAgainstBaseURL: true) else { return nil }
+        guard let components = NSURLComponents(string: url.absoluteString.removingPercentEncoding ?? url.absoluteString) else { return nil }
         
         // Link: https://invite.any.coop/<inviteId>#<encryptionkey>
         if LinkPaths.inviteHosts.contains(components.host), var path = components.path, let fragment = components.fragment {
