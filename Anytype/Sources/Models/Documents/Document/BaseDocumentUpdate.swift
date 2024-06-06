@@ -11,4 +11,5 @@ enum BaseDocumentUpdate: Hashable {
     case unhandled(blockId: String)
     // Local State
     case relations
+    case permissions
 }

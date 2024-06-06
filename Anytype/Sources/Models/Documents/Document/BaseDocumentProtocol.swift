@@ -14,12 +14,8 @@ protocol BaseDocumentProtocol: AnyObject {
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
     var forPreview: Bool { get }
-    
     var details: ObjectDetails? { get }
-    var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
-    
     var permissions: ObjectPermissions { get }
-    var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> { get }
     
     func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never>
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> { get }

@@ -5,19 +5,24 @@ import Foundation
 
 final class BaseDocument: BaseDocumentProtocol {
     
-    // Init state
-    let objectId: String
-    let forPreview: Bool
+    // MARK: - State from Containers
     
-    // From Containers
     var syncStatus: SyncStatus { statusStorage.status }
     var isLocked: Bool { infoContainer.get(id: objectId)?.isLocked ?? false }
     var details: ObjectDetails? { detailsStorage.get(id: objectId) }
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
     
-    // Custom state
+    // MARK: - Local state
+    let objectId: String
+    let forPreview: Bool
+    @Atomic
     private(set) var children = [BlockInformation]()
+    @Atomic
     private(set) var isOpened = false
+    @Atomic
+    private(set) var parsedRelations = ParsedRelations.empty
+    @Atomic
+    private(set) var permissions = ObjectPermissions()
     
     let infoContainer: InfoContainerProtocol
     let relationLinksStorage: RelationLinksStorageProtocol
@@ -33,10 +38,14 @@ final class BaseDocument: BaseDocumentProtocol {
     private let statusStorage: DocumentStatusStorageProtocol
     private let viewModelSetter: DocumentViewModelSetterProtocol
     
+    // MARK: - Local private state
+    @Atomic
     private var participantIsEditor: Bool = false
     private var subscriptions = [AnyCancellable]()
+    @Atomic
+    private var parsedRelationDependedDetailsEvents = [DocumentUpdate]()
     
-    // Sync Handle
+    // MARK: - Sync Handle
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
         return syncSubject
             .merge(with: Just(isOpened ? [.general] : []))
@@ -44,29 +53,6 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
-    private var parsedRelationDependedDetailsEvents = [DocumentUpdate]()
-    
-    // MARK: - State
-    @Atomic
-    var parsedRelations: ParsedRelations = ParsedRelations(featuredRelations: [], deletedRelations: [], typeRelations: [], otherRelations: [])
-    
-    var permissions: ObjectPermissions {
-        ObjectPermissions(
-            details: details ?? ObjectDetails(id: ""),
-            isLocked: isLocked,
-            participantCanEdit: participantIsEditor,
-            objectRestrictions: objectRestrictions.objectRestriction
-        )
-    }
-    
-    var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> {
-        syncPublisher.compactMap { [weak self] _ in
-            self?.permissions
-        }
-        .removeDuplicates()
-        .receiveOnMain()
-        .eraseToAnyPublisher()
-    }
         
     init(
         objectId: String,
@@ -155,7 +141,21 @@ final class BaseDocument: BaseDocumentProtocol {
         return allTextChilds.first?.content.isEmpty ?? false
     }
     
+    func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never> {
+        return syncSubject
+            .merge(with: Just(isOpened ? update : []))
+            .map { syncUpdate in
+                if syncUpdate.contains(.general) {
+                    return update
+                }
+                return update.filter { syncUpdate.contains($0) }
+            }
+            .filter { $0.isNotEmpty }
+            .eraseToAnyPublisher()
+    }
+    
     // MARK: - Private methods
+    
     private func setup() {
         eventsListener.onUpdatesReceive = { [weak self] updates in
             DispatchQueue.main.async { [weak self] in
@@ -196,37 +196,17 @@ final class BaseDocument: BaseDocumentProtocol {
             }
         }
         
+        let permissioUpdates = triggerUpdatePermissions(updates: updates)
+        docUpdates.append(contentsOf: permissioUpdates)
+        
+        let relationUpdates = triggerUpdateRelations(updates: updates, permissionsChanged: permissioUpdates.isNotEmpty)
+        docUpdates.append(contentsOf: relationUpdates)
+        
         if updates.contains(where: { $0 == .general || $0.isChildren }) {
             reorderChilder()
         }
         
-        var updatesForRelations: [DocumentUpdate] = [.general, .relationLinks, .restrictions, .details(id: objectId)]
-        updatesForRelations.append(contentsOf: parsedRelationDependedDetailsEvents)
-        
-        if updates.contains(where: { updatesForRelations.contains($0) }) {
-            let newRelations = convertRelations()
-            let dependedObjectIds = newRelations.all.flatMap(\.dependedObjects)
-            parsedRelationDependedDetailsEvents = dependedObjectIds.map { .details(id: $0) }
-            if parsedRelations != newRelations {
-                parsedRelations = newRelations
-                docUpdates.append(.relations)
-            }
-        }
-        
         syncSubject.send(docUpdates)
-    }
-    
-    func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never> {
-        return syncSubject
-            .merge(with: Just(isOpened ? update : []))
-            .map { syncUpdate in
-                if syncUpdate.contains(.general) {
-                    return update
-                }
-                return update.filter { syncUpdate.contains($0) }
-            }
-            .filter { $0.isNotEmpty }
-            .eraseToAnyPublisher()
     }
     
     private func setupView(_ model: ObjectViewModel) async {
@@ -254,19 +234,53 @@ final class BaseDocument: BaseDocumentProtocol {
             .store(in: &subscriptions)
     }
     
-    private func convertRelations() -> ParsedRelations {
+    private func triggerUpdateRelations(updates: [DocumentUpdate], permissionsChanged: Bool) -> [BaseDocumentUpdate] {
+        
+        var updatesForRelations: [DocumentUpdate] = [.general, .relationLinks, .details(id: objectId)]
+        updatesForRelations.append(contentsOf: parsedRelationDependedDetailsEvents)
+        
+        guard updates.contains(where: { updatesForRelations.contains($0) }) || permissionsChanged else { return [] }
+        
         let objectRelationsDetails = relationDetailsStorage.relationsDetails(
             for: relationLinksStorage.relationLinks,
             spaceId: spaceId
         )
         let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
         let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
-        return relationBuilder.parsedRelations(
+        let newRelations = relationBuilder.parsedRelations(
             relationsDetails: objectRelationsDetails,
             typeRelationsDetails: typeRelationsDetails,
             objectId: objectId,
             relationValuesIsLocked: !permissions.canEditRelationValues,
             storage: detailsStorage
         )
+        
+        let dependedObjectIds = newRelations.all.flatMap(\.dependedObjects)
+        parsedRelationDependedDetailsEvents = dependedObjectIds.map { .details(id: $0) }
+        if parsedRelations != newRelations {
+            parsedRelations = newRelations
+            return [.relations]
+        }
+        
+        return []
+    }
+    
+    private func triggerUpdatePermissions(updates: [DocumentUpdate]) -> [BaseDocumentUpdate] {
+        let updatesForPermissions: [DocumentUpdate] = [.general, .details(id: objectId), .block(blockId: objectId), .restrictions]
+        guard updates.contains(where: { updatesForPermissions.contains($0) }) else { return [] }
+        
+        let newPermissios = ObjectPermissions(
+            details: details ?? ObjectDetails(id: ""),
+            isLocked: isLocked,
+            participantCanEdit: participantIsEditor,
+            objectRestrictions: objectRestrictions.objectRestriction
+        )
+        
+        if permissions != newPermissios {
+            permissions = newPermissios
+            return [.permissions]
+        }
+        
+        return []
     }
 }

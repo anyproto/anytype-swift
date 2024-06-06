@@ -68,4 +68,12 @@ extension BaseDocumentProtocol {
             }
             .eraseToAnyPublisher()
     }
+    
+    var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> {
+        subscibeFor(update: [.permissions])
+            .compactMap { [weak self] _ in
+                self?.permissions
+            }
+            .eraseToAnyPublisher()
+    }
 }
