@@ -44,28 +44,11 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
+    private var parsedRelationDependedDetailsEvents = [DocumentUpdate]()
     
     // MARK: - State
-    private var parsedRelationsSubject = CurrentValueSubject<ParsedRelations, Never>(.empty)
-    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
-        parsedRelationsSubject.eraseToAnyPublisher()
-    }
-    // All places, where parsedRelations used, should be subscribe on parsedRelationsPublisher.
-    var parsedRelations: ParsedRelations {
-        let objectRelationsDetails = relationDetailsStorage.relationsDetails(
-            for: relationLinksStorage.relationLinks,
-            spaceId: spaceId
-        )
-        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
-        let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
-        return relationBuilder.parsedRelations(
-            relationsDetails: objectRelationsDetails,
-            typeRelationsDetails: typeRelationsDetails,
-            objectId: objectId,
-            relationValuesIsLocked: !permissions.canEditRelationValues,
-            storage: detailsStorage
-        )
-    }
+    @Atomic
+    var parsedRelations: ParsedRelations = ParsedRelations(featuredRelations: [], deletedRelations: [], typeRelations: [], otherRelations: [])
     
     var permissions: ObjectPermissions {
         ObjectPermissions(
@@ -199,12 +182,43 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private func triggerSync(updates: [DocumentUpdate]) {
         
+        var docUpdates = updates.flatMap { update -> [BaseDocumentUpdate] in
+            switch update {
+            case .general:
+                return [.general]
+            case .syncStatus:
+                return [.syncStatus]
+            case .block(let blockId):
+                return [.block(blockId: blockId)]
+            case .children(let blockId):
+                return [.block(blockId: blockId), .children]
+            case .details(let id):
+                return [.details(id: id)]
+            case .unhandled(let blockId):
+                return [.unhandled(blockId: blockId)]
+            case .relationLinks, .restrictions:
+                return [] // A lot of casese for update relations
+            }
+        }
+        
         if updates.contains(where: { $0 == .general || $0.isChildren }) {
             reorderChilder()
         }
         
-        parsedRelationsSubject.send(parsedRelations)
-        syncSubject.send(updates.flatMap(\.toBaseDocumentUpdate))
+        var updatesForRelations: [DocumentUpdate] = [.general, .relationLinks, .restrictions, .details(id: objectId)]
+        updatesForRelations.append(contentsOf: parsedRelationDependedDetailsEvents)
+        
+        if updates.contains(where: { updatesForRelations.contains($0) }) {
+            let newRelations = convertRelations()
+            let dependedObjectIds = newRelations.all.flatMap(\.dependedObjects)
+            parsedRelationDependedDetailsEvents = dependedObjectIds.map { .details(id: $0) }
+            if parsedRelations != newRelations {
+                parsedRelations = newRelations
+                docUpdates.append(.relations)
+            }
+        }
+        
+        syncSubject.send(docUpdates)
     }
     
     func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never> {
@@ -230,7 +244,34 @@ final class BaseDocument: BaseDocumentProtocol {
     private func setupSubscriptions() async {
         await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
             self?.participantIsEditor = canEdit
-            self?.triggerSync(updates: [.general])
-        }.store(in: &subscriptions)
+            self?.triggerSync(updates: [.restrictions])
+        }
+        .store(in: &subscriptions)
+        
+        relationDetailsStorage.relationsDetailsPublisher(spaceId: spaceId)
+            .sink { [weak self] details in
+                guard let self else { return }
+                let contains = details.contains { self.relationLinksStorage.contains(relationKeys: [$0.key]) }
+                if contains {
+                    triggerSync(updates: [.relationLinks])
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func convertRelations() -> ParsedRelations {
+        let objectRelationsDetails = relationDetailsStorage.relationsDetails(
+            for: relationLinksStorage.relationLinks,
+            spaceId: spaceId
+        )
+        let recommendedRelations = relationDetailsStorage.relationsDetails(for: details?.objectType.recommendedRelations ?? [], spaceId: spaceId)
+        let typeRelationsDetails = recommendedRelations.filter { !objectRelationsDetails.contains($0) }
+        return relationBuilder.parsedRelations(
+            relationsDetails: objectRelationsDetails,
+            typeRelationsDetails: typeRelationsDetails,
+            objectId: objectId,
+            relationValuesIsLocked: !permissions.canEditRelationValues,
+            storage: detailsStorage
+        )
     }
 }

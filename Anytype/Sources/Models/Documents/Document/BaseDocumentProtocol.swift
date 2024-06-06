@@ -30,7 +30,6 @@ protocol BaseDocumentProtocol: AnyObject, BaseDocumentGeneralProtocol {
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
     
-    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> { get }
     var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> { get }
     
     func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never>

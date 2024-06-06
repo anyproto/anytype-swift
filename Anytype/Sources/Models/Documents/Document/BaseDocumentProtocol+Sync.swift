@@ -66,4 +66,12 @@ extension BaseDocumentProtocol {
             .map { _ in Void() }
             .eraseToAnyPublisher()
     }
+    
+    var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {
+        subscibeFor(update: [.relations])
+            .compactMap { [weak self] _ in
+                self?.parsedRelations
+            }
+            .eraseToAnyPublisher()
+    }
 }

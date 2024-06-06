@@ -20,4 +20,10 @@ extension RelationDetailsStorageProtocol {
     func relationsDetails(for links: [RelationLink], spaceId: String, includeDeleted: Bool = false) -> [RelationDetails] {
         return relationsDetails(for: links, spaceId: spaceId).filter { !$0.isDeleted }
     }
+    
+    func relationsDetailsPublisher(spaceId: String) -> AnyPublisher<[RelationDetails], Never> {
+        relationsDetailsPublisher
+            .map { $0.filter { $0.spaceId == spaceId } }
+            .eraseToAnyPublisher()
+    }
 }
