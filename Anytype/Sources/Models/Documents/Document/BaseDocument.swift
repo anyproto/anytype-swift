@@ -37,7 +37,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private var subscriptions = [AnyCancellable]()
     
     // Sync Handle
-    var syncDocPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
+    var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> {
         return syncSubject
             .merge(with: Just(isOpened ? [.general] : []))
             .filter { $0.isNotEmpty }
@@ -60,8 +60,8 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> {
-        syncPublisher.compactMap {
-            [weak self] in self?.permissions
+        syncPublisher.compactMap { [weak self] _ in
+            self?.permissions
         }
         .removeDuplicates()
         .receiveOnMain()

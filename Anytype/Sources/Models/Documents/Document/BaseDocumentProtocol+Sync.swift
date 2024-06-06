@@ -33,7 +33,7 @@ extension BaseDocumentProtocol {
     }
     
     var resetBlocksPublisher: AnyPublisher<Set<String>, Never> {
-        syncDocPublisher
+        syncPublisher
             .map { updates in
                 let ids = updates.compactMap { update in
                     switch update {
@@ -59,12 +59,6 @@ extension BaseDocumentProtocol {
     
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
         subscribeForDetails(objectId: objectId)
-    }
-    
-    var syncPublisher: AnyPublisher<Void, Never> {
-        return syncDocPublisher
-            .map { _ in Void() }
-            .eraseToAnyPublisher()
     }
     
     var parsedRelationsPublisher: AnyPublisher<ParsedRelations, Never> {

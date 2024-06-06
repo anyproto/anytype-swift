@@ -97,7 +97,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     }
     
     private func subscribeToPublishers() {
-        cancellable =  document.syncPublisher.sink { [weak self] in
+        cancellable = document.syncPublisher.sink { [weak self] _ in
             self?.updateState()
         }
     }

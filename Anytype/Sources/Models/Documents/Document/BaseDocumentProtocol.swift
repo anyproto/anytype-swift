@@ -22,7 +22,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var permissionsPublisher: AnyPublisher<ObjectPermissions, Never> { get }
     
     func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never>
-    var syncDocPublisher: AnyPublisher<[BaseDocumentUpdate], Never> { get }
+    var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> { get }
     
     @MainActor
     func open() async throws
