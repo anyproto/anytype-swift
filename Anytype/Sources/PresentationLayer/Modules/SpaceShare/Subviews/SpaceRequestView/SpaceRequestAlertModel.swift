@@ -12,13 +12,18 @@ final class SpaceRequestAlertModel: ObservableObject {
     private var workspaceStorage: WorkspacesStorageProtocol
     
     private let data: SpaceRequestAlertData
+    private let onMembershipUpgradeTap: () -> ()
     
     @Published var title = ""
     @Published var canAddReaded = false
     @Published var canAddWriter = false
+    var showUpgradeButton: Bool {
+        !canAddWriter && !canAddReaded
+    }
     
-    init(data: SpaceRequestAlertData) {
+    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping () -> ()) {
         self.data = data
+        self.onMembershipUpgradeTap = onMembershipUpgradeTap
         title = Loc.SpaceShare.ViewRequest.title(
             data.participantName.withPlaceholder,
             data.spaceName.withPlaceholder
@@ -62,5 +67,9 @@ final class SpaceRequestAlertModel: ObservableObject {
             spaceId: data.spaceId,
             identity: data.participantIdentity
         )
+    }
+    
+    func onMembershipUpgrade() {
+        onMembershipUpgradeTap()
     }
 }
