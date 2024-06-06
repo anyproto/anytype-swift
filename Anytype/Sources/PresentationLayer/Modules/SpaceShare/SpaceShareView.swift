@@ -22,8 +22,10 @@ struct SpaceShareView: View {
             }
             .anytypeShareView(item: $model.shareInviteLink)
             .snackbar(toastBarData: $model.toastBarData)
-            .anytypeSheet(item: $model.requestAlertModel) { model in
-                SpaceRequestAlert(data: model)
+            .anytypeSheet(item: $model.requestAlertModel) { alertModel in
+                SpaceRequestAlert(data: alertModel) {
+                    model.onUpgradeTap()
+                }
             }
             .anytypeSheet(item: $model.changeAccessAlertModel) { model in
                 SpaceChangeAccessView(model: model)
@@ -78,7 +80,7 @@ struct SpaceShareView: View {
     
     private var upgradeView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(Loc.Membership.Upgrade.moreMembers, style: .caption1Regular)
+            AnytypeText(Loc.Membership.Upgrade.noMoreMembers, style: .caption1Regular)
                 .foregroundColor(Color.Text.primary)
             Spacer.fixedHeight(12)
             StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)", style: .upgradeBadge) {

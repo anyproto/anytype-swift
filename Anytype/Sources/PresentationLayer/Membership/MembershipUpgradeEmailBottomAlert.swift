@@ -9,7 +9,7 @@ struct MembershipUpgradeEmailBottomAlert: View {
             message: Loc.Membership.Upgrade.text
         ) {
             BottomAlertButton(
-                text: Loc.Membership.Upgrade.text,
+                text: Loc.Membership.Upgrade.button,
                 style: .primary
             ) {
                 action()
