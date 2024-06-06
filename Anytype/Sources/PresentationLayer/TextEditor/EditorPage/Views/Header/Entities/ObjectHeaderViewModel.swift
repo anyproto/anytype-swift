@@ -67,7 +67,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     // MARK: - Private
     private func setupSubscription() {
-        subscription = document.detailsPublisher.sink { [weak self] details in
+        subscription = document.detailsPublisher.receiveOnMain().sink { [weak self] details in
             self?.onUpdate(details: details)
         }
     }

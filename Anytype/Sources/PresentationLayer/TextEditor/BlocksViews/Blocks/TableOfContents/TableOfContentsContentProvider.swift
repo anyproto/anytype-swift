@@ -79,7 +79,8 @@ final class TableOfContentsContentProvider {
     }
     
     private func setupSubsriptionFor(item: TableOfContentItem) {
-        blockSubscriptions[item.blockId] = document.subscribeForBlockInfo(blockId: item.blockId).sink { [weak item] information in
+        blockSubscriptions[item.blockId] = document.subscribeForBlockInfo(blockId: item.blockId)
+            .receiveOnMain().sink { [weak item] information in
             item?.title = information.textContent?.text ?? Loc.Object.Title.placeholder
         }
     }

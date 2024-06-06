@@ -81,7 +81,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
     }
     
     func startContentSubscription() async {
-        setDocument?.syncPublisher.sink { [weak self] in
+        setDocument?.syncPublisher.receiveOnMain().sink { [weak self] in
             self?.updateDataviewState()
             Task { await self?.updateViewSubscription() }
         }

@@ -230,7 +230,7 @@ final class SetDocument: SetDocumentProtocol {
     // MARK: - Private
     
     private func setup() async {
-        document.syncPublisher.sink { [weak self] update in
+        document.syncPublisher.receiveOnMain().sink { [weak self] update in
             self?.updateData()
         }
         .store(in: &subscriptions)
