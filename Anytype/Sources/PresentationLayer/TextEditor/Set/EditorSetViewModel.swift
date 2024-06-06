@@ -173,7 +173,7 @@ final class EditorSetViewModel: ObservableObject {
             inlineParameters: data.inline
         )
         self.headerModel = ObjectHeaderViewModel(
-            document: setDocument,
+            document: setDocument.document,
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
                 isOpenedForPreview: false, 
@@ -670,7 +670,7 @@ extension EditorSetViewModel {
     }
     
     func showIconPicker() {
-        output?.showIconPicker(document: setDocument)
+        output?.showIconPicker(document: setDocument.document)
     }
     
     func showSetOfTypeSelection() {

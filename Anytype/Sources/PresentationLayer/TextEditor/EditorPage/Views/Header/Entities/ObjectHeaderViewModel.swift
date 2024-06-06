@@ -5,12 +5,12 @@ import AnytypeCore
 
 @MainActor
 protocol ObjectHeaderRouterProtocol: AnyObject {
-    func showIconPicker(document: BaseDocumentGeneralProtocol)
+    func showIconPicker(document: BaseDocumentProtocol)
 }
 
 @MainActor
 protocol ObjectHeaderModuleOutput: AnyObject {
-    func showCoverPicker(document: BaseDocumentGeneralProtocol)
+    func showCoverPicker(document: BaseDocumentProtocol)
 }
 
 @MainActor
@@ -38,19 +38,19 @@ final class ObjectHeaderViewModel: ObservableObject {
         output?.showCoverPicker(document: document)
     }
     
-    private let document: BaseDocumentGeneralProtocol
+    private let document: BaseDocumentProtocol
     private let targetObjectId: String
     private var subscription: AnyCancellable?
     private var uploadingStatusSubscription: AnyCancellable?
     private let configuration: EditorPageViewModelConfiguration
     private weak var output: ObjectHeaderModuleOutput?
     
-    var onIconPickerTap: RoutingAction<BaseDocumentGeneralProtocol>?
+    var onIconPickerTap: RoutingAction<BaseDocumentProtocol>?
     
     // MARK: - Initializers
     
     init(
-        document: BaseDocumentGeneralProtocol,
+        document: BaseDocumentProtocol,
         targetObjectId: String,
         configuration: EditorPageViewModelConfiguration,
         output: ObjectHeaderModuleOutput?
