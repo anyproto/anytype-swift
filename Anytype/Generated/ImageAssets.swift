@@ -355,6 +355,7 @@ internal extension ImageAsset {
   static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
   static let relationNew = ImageAsset.bundle(name: "relation_new")
   static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
+  static let handPointLeft = ImageAsset.bundle(name: "HandPointLeft")
   static let webPage = ImageAsset.bundle(name: "web_page")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
