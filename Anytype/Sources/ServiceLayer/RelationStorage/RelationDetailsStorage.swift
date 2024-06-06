@@ -24,7 +24,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
         subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
     }()
     
-    private var details = SynchronizedArray<RelationDetails>()
+    private var details = [RelationDetails]()
     private var searchDetailsByKey = SynchronizedDictionary<RelationDetailsKey, RelationDetails>()
 
     private var relationsDetailsSubject = CurrentValueSubject<[RelationDetails], Never>([])

@@ -25,7 +25,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let subscriptionStorage: SubscriptionStorageProtocol
     private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     
-    private(set) var objectTypes = SynchronizedArray<ObjectType>()
+    private(set) var objectTypes = [ObjectType]()
     private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
     
     @Published var sync: () = ()
