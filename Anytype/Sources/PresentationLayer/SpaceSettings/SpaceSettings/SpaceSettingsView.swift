@@ -26,18 +26,13 @@ struct SpaceSettingsView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
-            .openUrl(url: $model.openUrl)
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
             .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
                 SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
-            .anytypeSheet(isPresented: $model.showEmailAlert) {
-                MembershipUpgradeEmailBottomAlert {
-                    model.onContactAnytypeTap()
-                }
-            }
+            .membershipUpgrade(isPresented: $model.showMembershipUpgrade, reason: .numberOfSharedSpaces)
     }
     
     private var content: some View {

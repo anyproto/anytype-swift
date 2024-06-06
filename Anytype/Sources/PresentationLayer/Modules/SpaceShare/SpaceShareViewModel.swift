@@ -42,10 +42,8 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
-    @Published var showMembershipScreen = false
     @Published var showUpgradeBadge = false
-    @Published var showEmailAlert = false
-    @Published var openUrl: URL?
+    @Published var showMembershipUpgrade = false
     @Published var canStopShare = false
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
@@ -128,18 +126,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onUpgradeTap() {
-        guard let currentTier = membershipStatusStorage.currentStatus.tier else { return }
-        
-        if currentTier.isPossibleToUpgrade(reason: .numberOfSpaceMembers) {
-            showMembershipScreen = true
-        } else {
-            showEmailAlert = true
-        }
-    }
-    
-    func onContactAnytypeTap() {
-        openUrl = mailUrlBuilder.membershipUpgrateUrl()
-        showEmailAlert = false
+        showMembershipUpgrade = true
     }
     
     // MARK: - Private

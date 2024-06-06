@@ -41,18 +41,10 @@ struct SpaceShareView: View {
                     model.onStopSharingCompleted()
                 }
             }
-            .anytypeSheet(isPresented: $model.showEmailAlert) {
-                MembershipUpgradeEmailBottomAlert {
-                    model.onContactAnytypeTap()
-                }
-            }
             .anytypeSheet(item: $model.qrCodeInviteLink) {
                 QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
             }
-            .sheet(isPresented: $model.showMembershipScreen) {
-                MembershipCoordinator()
-            }
-            .openUrl(url: $model.openUrl)
+            .membershipUpgrade(isPresented: $model.showMembershipUpgrade, reason: .numberOfSpaceMembers)
             .ignoresSafeArea()
     }
     
