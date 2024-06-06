@@ -1123,6 +1123,7 @@
 		3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1702552716D1C30079B65B /* UIButton+ImageTitleSpacing.swift */; };
 		3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17025B2716E4F60079B65B /* EditorBarItemState.swift */; };
 		3D19BEF32C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19BEF22C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift */; };
+		3D19BEF52C0794AE009C64D6 /* MembershipUpgradeViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D19BEF42C0794AE009C64D6 /* MembershipUpgradeViewModifier.swift */; };
 		3D1B5F4C274BDE5D007D97AE /* SetContentViewItemConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F4B274BDE5D007D97AE /* SetContentViewItemConfiguration.swift */; };
 		3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */; };
 		3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */; };
@@ -2900,6 +2901,7 @@
 		3D1702552716D1C30079B65B /* UIButton+ImageTitleSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageTitleSpacing.swift"; sourceTree = "<group>"; };
 		3D17025B2716E4F60079B65B /* EditorBarItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBarItemState.swift; sourceTree = "<group>"; };
 		3D19BEF22C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipUpgradeEmailBottomAlert.swift; sourceTree = "<group>"; };
+		3D19BEF42C0794AE009C64D6 /* MembershipUpgradeViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipUpgradeViewModifier.swift; sourceTree = "<group>"; };
 		3D1B5F4B274BDE5D007D97AE /* SetContentViewItemConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewItemConfiguration.swift; sourceTree = "<group>"; };
 		3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewRow.swift; sourceTree = "<group>"; };
 		3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFullHeader.swift; sourceTree = "<group>"; };
@@ -8028,6 +8030,7 @@
 			isa = PBXGroup;
 			children = (
 				3D19BEF22C064DDE009C64D6 /* MembershipUpgradeEmailBottomAlert.swift */,
+				3D19BEF42C0794AE009C64D6 /* MembershipUpgradeViewModifier.swift */,
 			);
 			path = Membership;
 			sourceTree = "<group>";
@@ -11627,6 +11630,7 @@
 				120E819726A06CFC006FE84E /* ObjectLayoutPickerViewModel.swift in Sources */,
 				2AE671E129018B0300118F56 /* TraitCollectionDidChangeNotification.swift in Sources */,
 				3DF97C502B73BA7C00BBE91D /* TypesPinStorage.swift in Sources */,
+				3D19BEF52C0794AE009C64D6 /* MembershipUpgradeViewModifier.swift in Sources */,
 				2E2D256028880C8D00E3DFD1 /* SetFiltersContentViewBuilder.swift in Sources */,
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,

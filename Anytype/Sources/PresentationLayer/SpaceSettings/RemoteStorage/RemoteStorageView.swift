@@ -14,15 +14,7 @@ struct RemoteStorageView: View {
             .onAppear {
                 model.onAppear()
             }
-            .openUrl(url: $model.openUrl)
-            .sheet(isPresented: $model.showMembershipScreen) {
-                MembershipCoordinator()
-            }
-            .anytypeSheet(isPresented: $model.showMembershipEmailAlert) {
-                MembershipUpgradeEmailBottomAlert {
-                    model.onTapContactAnytype()
-                }
-            }
+            .membershipUpgrade(isPresented: $model.showMembershipUpgrade, reason: .storageSpace)
     }
     
     private var content: some View {

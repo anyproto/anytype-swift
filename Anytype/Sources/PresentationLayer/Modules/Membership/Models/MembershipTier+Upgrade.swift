@@ -4,6 +4,7 @@ import Services
 enum MembershipUpgradeReason {
     case storageSpace
     case numberOfSpaceMembers
+    case numberOfSharedSpaces
 }
 
 extension MembershipTier {
@@ -13,6 +14,8 @@ extension MembershipTier {
             isPossibleToUpgradeStorageSpace
         case .numberOfSpaceMembers:
             isPossibleToUpgradeNumberOfSpaceMembers
+        case .numberOfSharedSpaces:
+            false
         }
     }
     
