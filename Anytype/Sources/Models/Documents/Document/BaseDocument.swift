@@ -19,10 +19,10 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var children = [BlockInformation]()
     private(set) var isOpened = false
     
-    let infoContainer: InfoContainerProtocol = InfoContainer()
-    let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
-    let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
-    let detailsStorage = ObjectDetailsStorage()
+    let infoContainer: InfoContainerProtocol
+    let relationLinksStorage: RelationLinksStorageProtocol
+    let restrictionsContainer: ObjectRestrictionsContainer
+    let detailsStorage: ObjectDetailsStorage
     
     private let objectLifecycleService: ObjectLifecycleServiceProtocol
     private let eventsListener: EventsListenerProtocol
@@ -75,33 +75,28 @@ final class BaseDocument: BaseDocumentProtocol {
         relationDetailsStorage: RelationDetailsStorageProtocol,
         objectTypeProvider: ObjectTypeProviderProtocol,
         accountParticipantsStorage: AccountParticipantsStorageProtocol,
-        statusStorage: DocumentStatusStorageProtocol
+        statusStorage: DocumentStatusStorageProtocol,
+        eventsListener: EventsListenerProtocol,
+        viewModelSetter: DocumentViewModelSetterProtocol,
+        infoContainer: InfoContainerProtocol,
+        relationLinksStorage: RelationLinksStorageProtocol,
+        restrictionsContainer: ObjectRestrictionsContainer,
+        detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
         self.forPreview = forPreview
-        
-        self.eventsListener = EventsListener(
-            objectId: objectId,
-            infoContainer: infoContainer,
-            relationLinksStorage: relationLinksStorage,
-            restrictionsContainer: restrictionsContainer,
-            detailsStorage: detailsStorage,
-            statusStorage: statusStorage
-        )
-        
-        self.viewModelSetter = DocumentViewModelSetter(
-            detailsStorage: detailsStorage,
-            relationLinksStorage: relationLinksStorage,
-            restrictionsContainer: restrictionsContainer,
-            infoContainer: infoContainer
-        )
-        
+        self.eventsListener = eventsListener
+        self.viewModelSetter = viewModelSetter
         self.objectLifecycleService = objectLifecycleService
         self.relationBuilder = RelationsBuilder()
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.statusStorage = statusStorage
+        self.infoContainer = infoContainer
+        self.relationLinksStorage = relationLinksStorage
+        self.restrictionsContainer = restrictionsContainer
+        self.detailsStorage = detailsStorage
         
         setup()
     }
