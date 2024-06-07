@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct SearchResultWithMeta {
+public struct SearchResultWithMeta: Sendable {
     public let objectDetails: ObjectDetails
     public let meta: [SearchMeta]
     

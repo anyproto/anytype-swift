@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct Process {
+public struct Process: Sendable {
     public var id: String
     public var type: Anytype_Model.Process.TypeEnum
     public var state: Anytype_Model.Process.State

@@ -54,7 +54,7 @@ public extension BlockLink {
     }
 }
 
-public struct BlockLink: Hashable, Equatable {
+public struct BlockLink: Hashable, Equatable, Sendable {
     public var targetBlockID: String
     public var appearance: Appearance
     

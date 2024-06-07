@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct SpaceInviteView {
+public struct SpaceInviteView: Sendable {
     public let spaceId: String
     public let spaceName: String
     public let spaceIconCid: String

@@ -30,7 +30,7 @@ public enum FileContentType: String, Hashable {
     }
 }
 
-public struct FileBlockContentData: Hashable {
+public struct FileBlockContentData: Hashable, Sendable {
     public let contentType: FileContentType
     
     public init(contentType: FileContentType) {

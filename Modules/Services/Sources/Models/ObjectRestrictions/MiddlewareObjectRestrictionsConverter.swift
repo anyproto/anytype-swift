@@ -2,7 +2,7 @@ import ProtobufMessages
 import AnytypeCore
 
 
-public enum MiddlewareObjectRestrictionsConverter {
+public enum MiddlewareObjectRestrictionsConverter: Sendable {
 
     public static func convertObjectRestrictions(middlewareRestrictions: Anytype_Model_Restrictions) -> ObjectRestrictions {
         let objectRestrictions: [ObjectRestriction] = middlewareRestrictions.object.compactMap { middleRestriction in

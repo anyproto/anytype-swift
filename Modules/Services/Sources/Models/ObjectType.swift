@@ -1,7 +1,7 @@
 import ProtobufMessages
 import AnytypeCore
 
-public struct ObjectType: Equatable, Hashable, Codable, Identifiable {
+public struct ObjectType: Equatable, Hashable, Codable, Identifiable, Sendable {
     
     public let id: String
     public let name: String

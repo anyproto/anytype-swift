@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct RelationLink: Hashable {
+public struct RelationLink: Hashable, Sendable {
     public let key: String
 }
 
