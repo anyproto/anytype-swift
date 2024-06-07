@@ -9,6 +9,7 @@ final class LoginViewModel: ObservableObject {
     @Published var autofocus = true
     
     @Published var loadingRoute = LoginLoadingRoute.none
+    @Published var accountSelectInProgress = false
     
     @Published var showQrCodeView: Bool = false
     @Published var openSettingsURL = false
@@ -23,6 +24,7 @@ final class LoginViewModel: ObservableObject {
         }
     }
     @Published var showError: Bool = false
+    @Published var dismiss = false
     
     var loginButtonDisabled: Bool {
         phrase.isEmpty || loadingRoute.isKeychainInProgress || loadingRoute.isQRInProgress
@@ -34,6 +36,10 @@ final class LoginViewModel: ObservableObject {
     
     var keychainButtonDisabled: Bool {
         loadingRoute.isQRInProgress || loadingRoute.isLoginInProgress
+    }
+    
+    var backButtonDisabled: Bool {
+        loadingRoute.isLoadingInProgress && !accountSelectInProgress
     }
     
     lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
@@ -91,6 +97,21 @@ final class LoginViewModel: ObservableObject {
     func onKeychainButtonAction() {
         AnytypeAnalytics.instance().logClickLogin(button: .keychain)
         restoreFromkeychain()
+    }
+    
+    func onbackButtonAction() {
+        guard accountSelectInProgress else {
+            dismiss.toggle()
+            return
+        }
+        logout()
+    }
+    
+    private func logout() {
+        Task {
+            try await authService.logout(removeData: false)
+            dismiss.toggle()
+        }
     }
     
     private func onEntropySet() {
@@ -160,8 +181,10 @@ final class LoginViewModel: ObservableObject {
         Task {
             defer {
                 stopButtonsLoading()
+                accountSelectInProgress = false
             }
             do {
+                accountSelectInProgress = true
                 let account = try await authService.selectAccount(id: id)
                 
                 switch account.status {
