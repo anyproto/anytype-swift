@@ -27,7 +27,7 @@ public extension FeatureDescription {
     static let membership = FeatureDescription(
         title: "Membership 💸",
         type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
-        defaultValue: true
+        defaultValue: false
     )
     
     static let hideCoCreator = FeatureDescription(
@@ -39,7 +39,7 @@ public extension FeatureDescription {
     static let newGlobalSearch = FeatureDescription(
         title: "New global search",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: false
+        defaultValue: true
     )
     
     static let scrollToBlockFromSearch = FeatureDescription(
