@@ -3,7 +3,7 @@
 * Row/Column layout blocks creates only automatically, after some of a D&D operations, for example
 */
 public struct BlockLayout: Hashable, Sendable {
-    public enum Style {
+    public enum Style: Sendable {
         case row
         case column
         case div
