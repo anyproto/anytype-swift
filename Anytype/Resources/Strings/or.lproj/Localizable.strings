@@ -343,6 +343,8 @@
 "Search.Links.Swipe.title" = "Related to";
 "GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
 "GlobalSearch.EmptyFilteredState.title" = "No related objects found";
+"GlobalSearch.Swipe.Tip.title" = "Related objects";
+"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
 
 // MARK: - Home
 
@@ -1104,7 +1106,8 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.Button" = "Contact Anytype Team";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
+"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
