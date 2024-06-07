@@ -5,8 +5,8 @@ import Services
 
 @MainActor
 protocol ParticipantSpacesStorageProtocol: AnyObject {
-    var allParticipantSpaces: [ParticipantSpaceView] { get }
-    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> { get }
+    var allParticipantSpaces: [ParticipantSpaceViewData] { get }
+    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> { get }
     var spaceSharingInfo: SpaceSharingInfo? { get }
     
     func startSubscription() async
@@ -15,21 +15,21 @@ protocol ParticipantSpacesStorageProtocol: AnyObject {
 
 extension ParticipantSpacesStorageProtocol {
     
-    var activeParticipantSpaces: [ParticipantSpaceView] {
+    var activeParticipantSpaces: [ParticipantSpaceViewData] {
         allParticipantSpaces.filter(\.spaceView.isActive)
     }
     
-    var activeParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> {
+    var activeParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> {
         allParticipantSpacesPublisher.map { $0.filter(\.spaceView.isActive) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
     
-    func participantSpaceView(spaceId: String) -> ParticipantSpaceView? {
+    func participantSpaceView(spaceId: String) -> ParticipantSpaceViewData? {
         allParticipantSpaces.first { $0.spaceView.targetSpaceId == spaceId }
     }
     
-    func participantSpaceViewPublisher(spaceId: String) -> AnyPublisher<ParticipantSpaceView, Never> {
+    func participantSpaceViewPublisher(spaceId: String) -> AnyPublisher<ParticipantSpaceViewData, Never> {
         allParticipantSpacesPublisher
             .compactMap { $0.first { $0.spaceView.targetSpaceId == spaceId } }
             .removeDuplicates()
@@ -53,8 +53,8 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
     // MARK: - State
     
-    @Published private(set) var allParticipantSpaces: [ParticipantSpaceView] = []
-    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> { $allParticipantSpaces.eraseToAnyPublisher() }
+    @Published private(set) var allParticipantSpaces: [ParticipantSpaceViewData] = []
+    var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> { $allParticipantSpaces.eraseToAnyPublisher() }
     
     nonisolated init() {}
     
@@ -86,7 +86,7 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
                 participant: participant,
                 isLocalMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode == .localOnly
             )
-            return ParticipantSpaceView(
+            return ParticipantSpaceViewData(
                 spaceView: space,
                 participant: participant,
                 permissions: permissions

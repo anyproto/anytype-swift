@@ -25,7 +25,7 @@ final class SpaceShareViewModel: ObservableObject {
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
-    private var participantSpaceView: ParticipantSpaceView?
+    private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
     private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
