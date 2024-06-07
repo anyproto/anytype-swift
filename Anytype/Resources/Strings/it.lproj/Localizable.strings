@@ -341,8 +341,8 @@
 "Search.Links.Swipe.title" = "Correlato a";
 "GlobalSearch.EmptyState.subtitle" = "Crea un nuovo oggetto o cerca qualcos'altro";
 "GlobalSearch.EmptyFilteredState.title" = "Nessun oggetto correlato trovato";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.title" = "Oggetti correlati";
+"GlobalSearch.Swipe.Tip.subtitle" = "Scorri a sinistra per vedere gli oggetti correlati. Nota, funziona solo per oggetti che hanno oggetti correlati.";
 
 // MARK: - Home
 
@@ -1104,8 +1104,8 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Membership.Upgrade.Button" = "Contatta il Team Anytype";
 
 "Membership.Upgrade.MoreSpaces" = "Fai l'upgrade per aggiungere più spazi";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Aggiorna per aggiungere più membri";
+"Membership.Upgrade.NoMoreMembers" = "Non puoi aggiungere altri membri";
 
 
 "Membership.Banner.Title1" = "Costruire insieme la visione";
