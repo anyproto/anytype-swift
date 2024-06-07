@@ -10,13 +10,10 @@ final class MembershipUpgradeViewModifierModel: ObservableObject {
     @Injected(\.mailUrlBuilder) private var mailUrlBuilder
     @Injected(\.membershipStatusStorage) private var statusStorage
     
-    private let reason: MembershipUpgradeReason
+    nonisolated init() { }
     
-    nonisolated init(reason: MembershipUpgradeReason) {
-        self.reason = reason
-    }
-    
-    func onPresented() {
+    func updateState(reason: MembershipUpgradeReason?) {
+        guard let reason else { return }
         guard let currentTier = statusStorage.currentStatus.tier else { return }
         
         if currentTier.isPossibleToUpgrade(reason: reason) {
@@ -34,44 +31,42 @@ final class MembershipUpgradeViewModifierModel: ObservableObject {
 
 struct MembershipUpgradeViewModifier: ViewModifier {
     
-    @StateObject private var model: MembershipUpgradeViewModifierModel
-    @Binding private var isPresented: Bool
+    @StateObject private var model = MembershipUpgradeViewModifierModel()
+    @Binding private var reason: MembershipUpgradeReason?
     
-    init(isPresented: Binding<Bool>, reason: MembershipUpgradeReason) {
-        _isPresented = isPresented
-        _model = StateObject(wrappedValue: MembershipUpgradeViewModifierModel(reason: reason))
+    init(reason: Binding<MembershipUpgradeReason?>) {
+        _reason = reason
     }
-
-
-     func body(content: Content) -> some View {
-         content
-             .openUrl(url: $model.openUrl)
-             .sheet(isPresented: $model.showMembershipScreen, onDismiss: {
-                 isPresented = false
-             }, content: {
-                 MembershipCoordinator()
-             })
-             .anytypeSheet(isPresented: $model.showMembershipEmailAlert, onDismiss: {
-                 isPresented = false
-             } ,content: {
-                 MembershipUpgradeEmailBottomAlert {
-                     model.onTapContactAnytype()
-                     isPresented = false
-                 }
-             })
-         
-             .onAppear {
-                 if isPresented { model.onPresented() }
-             }
-             .onChange(of: isPresented) { isPresented in
-                 if isPresented { model.onPresented() }
-             }
-     }
+    
+    func body(content: Content) -> some View {
+        content
+            .openUrl(url: $model.openUrl)
+            .sheet(isPresented: $model.showMembershipScreen, onDismiss: {
+                reason = nil
+            }, content: {
+                MembershipCoordinator()
+            })
+            .anytypeSheet(isPresented: $model.showMembershipEmailAlert, onDismiss: {
+                reason = nil
+            } ,content: {
+                MembershipUpgradeEmailBottomAlert {
+                    model.onTapContactAnytype()
+                    reason = nil
+                }
+            })
+        
+            .onAppear {
+                model.updateState(reason: reason)
+            }
+            .onChange(of: reason) { reason in
+                model.updateState(reason: reason)
+            }
+    }
 }
 
 
 extension View {
-    func membershipUpgrade(isPresented: Binding<Bool>, reason: MembershipUpgradeReason) -> some View {
-        modifier(MembershipUpgradeViewModifier(isPresented: isPresented, reason: reason))
-     }
+    func membershipUpgrade(reason: Binding<MembershipUpgradeReason?>) -> some View {
+        modifier(MembershipUpgradeViewModifier(reason: reason))
+    }
 }

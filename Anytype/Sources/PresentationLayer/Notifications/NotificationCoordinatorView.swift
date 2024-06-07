@@ -24,6 +24,6 @@ struct NotificationCoordinatorView: View {
                     model.onMembershipUpgrateTap()
                 }
             }
-            .membershipUpgrade(isPresented: $model.showMembershipUpgrade, reason: .numberOfSpaceMembers)
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
 }

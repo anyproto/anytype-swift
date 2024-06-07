@@ -43,10 +43,10 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     @Published var showUpgradeBadge = false
-    @Published var showMembershipUpgrade = false
     @Published var canStopShare = false
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
+    @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
     init(onMoreInfo: @escaping () -> Void) {
         self.onMoreInfo = onMoreInfo
@@ -126,7 +126,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onUpgradeTap() {
-        showMembershipUpgrade = true
+        membershipUpgradeReason = .numberOfSpaceMembers
     }
     
     // MARK: - Private
