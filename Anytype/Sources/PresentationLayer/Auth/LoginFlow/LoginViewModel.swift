@@ -189,8 +189,6 @@ final class LoginViewModel: ObservableObject {
                 accountSelectInProgress = true
                 let account = try await authService.selectAccount(id: id)
                 
-                try Task.checkCancellation()
-                
                 switch account.status {
                 case .active:
                     applicationStateService.state = .home
