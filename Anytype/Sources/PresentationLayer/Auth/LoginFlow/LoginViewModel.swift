@@ -58,6 +58,7 @@ final class LoginViewModel: ObservableObject {
     private var applicationStateService: ApplicationStateServiceProtocol
     private weak var output: LoginFlowOutput?
     
+    private var selectAccountTask: Task<(), any Error>?
     private var subscriptions = [AnyCancellable]()
     
     init(output: LoginFlowOutput?) {
@@ -104,6 +105,7 @@ final class LoginViewModel: ObservableObject {
             dismiss.toggle()
             return
         }
+        selectAccountTask?.cancel()
         logout()
     }
     
@@ -178,7 +180,7 @@ final class LoginViewModel: ObservableObject {
     }
     
     private func selectProfile(id: String) {
-        Task {
+        selectAccountTask = Task {
             defer {
                 stopButtonsLoading()
                 accountSelectInProgress = false
@@ -186,6 +188,8 @@ final class LoginViewModel: ObservableObject {
             do {
                 accountSelectInProgress = true
                 let account = try await authService.selectAccount(id: id)
+                
+                try Task.checkCancellation()
                 
                 switch account.status {
                 case .active:
@@ -195,6 +199,8 @@ final class LoginViewModel: ObservableObject {
                 case .deleted:
                     errorText = Loc.vaultDeleted
                 }
+            } catch is CancellationError {
+                // Ignore cancellations
             } catch SelectAccountError.accountIsDeleted {
                 errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {
