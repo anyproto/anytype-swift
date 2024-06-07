@@ -35,7 +35,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
-    private var participantSpaceView: ParticipantSpaceView?
+    private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     
     @Published var spaceName = ""
