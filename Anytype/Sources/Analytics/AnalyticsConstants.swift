@@ -485,4 +485,5 @@ enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
     case payByCard = "Stripe"
     case managePayment = "ManagePayment"
+    case sumbit = "Submit"
 }
