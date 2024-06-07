@@ -264,7 +264,7 @@
 "Auth.JoinFlow.Soul.Title" = "Установите ваше имя";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Button" = "Enter my Vault";
 
 "Auth.JoinFlow.Vault.Title" = "Это ваше Хранилище";
 "Auth.JoinFlow.Vault.Description" = "Все что внутри - зашифровано.\nИ автономно – все работает без сети.\nИ только у Вас есть ключ.";
@@ -274,7 +274,7 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
 "Auth.LoginFlow.Or" = "ИЛИ";
 "Auth.LoginFlow.Textfield.Placeholder" = "Введите свой ключ";
-"Auth.LoginFlow.Enter.Title" = "Get my Key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Входим в пустоту";
 
 // Object settings
