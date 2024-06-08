@@ -341,8 +341,8 @@
 "Search.Links.Swipe.title" = "Associé à";
 "GlobalSearch.EmptyState.subtitle" = "Créer un nouvel objet ou rechercher autre chose";
 "GlobalSearch.EmptyFilteredState.title" = "Aucun objet associé trouvé";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.title" = "Objets liés";
+"GlobalSearch.Swipe.Tip.subtitle" = "Glissez vers la gauche pour voir les objets liés. Notez que cela ne fonctionne que pour les objets qui ont des objets liés.";
 
 // MARK: - Home
 
@@ -1104,8 +1104,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Membership.Upgrade.Button" = "Contacter l'équipe d'Anytype";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Mettre à niveau pour ajouter plus de membres";
+"Membership.Upgrade.NoMoreMembers" = "Vous ne pouvez plus ajouter de membres";
 
 
 "Membership.Banner.Title1" = "Construire la Vision ensemble";
