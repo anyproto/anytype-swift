@@ -1104,8 +1104,8 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.Button" = "Contact Anytype Team";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Uppgradera för att lägga till fler medlemmar";
+"Membership.Upgrade.NoMoreMembers" = "Du kan inte lägga till fler medlemmar";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
