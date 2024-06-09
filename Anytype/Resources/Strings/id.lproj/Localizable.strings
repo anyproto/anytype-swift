@@ -341,8 +341,8 @@
 "Search.Links.Swipe.title" = "Related to";
 "GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
 "GlobalSearch.EmptyFilteredState.title" = "No related objects found";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.title" = "Objek terkait";
+"GlobalSearch.Swipe.Tip.subtitle" = "Gulir ke kiri untuk melihat objek terkait. Tindakan ini hanya bisa dilakukan pada objek yang memiliki objek terkait.";
 
 // MARK: - Home
 
