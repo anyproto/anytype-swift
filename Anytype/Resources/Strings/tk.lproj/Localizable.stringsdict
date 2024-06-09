@@ -14,10 +14,6 @@
         <string>d</string>
         <key>one</key>
         <string>%d object</string>
-        <key>few</key>
-        <string>%d objects</string>
-        <key>many</key>
-        <string>%d objects</string>
         <key>other</key>
         <string>%d objects</string>
       </dict>
@@ -34,10 +30,6 @@
         <string>d</string>
         <key>one</key>
         <string>%d object</string>
-        <key>few</key>
-        <string>%d objects</string>
-        <key>many</key>
-        <string>%d objects</string>
         <key>other</key>
         <string>%d objects</string>
       </dict>
@@ -54,10 +46,6 @@
         <string>d</string>
         <key>one</key>
         <string>%d selected block</string>
-        <key>few</key>
-        <string>%d selected blocks</string>
-        <key>many</key>
-        <string>%d selected blocks</string>
         <key>other</key>
         <string>%d selected blocks</string>
       </dict>
@@ -74,10 +62,6 @@
         <string>d</string>
         <key>one</key>
         <string>%d link</string>
-        <key>few</key>
-        <string>%d links</string>
-        <key>many</key>
-        <string>%d links</string>
         <key>other</key>
         <string>%d links</string>
       </dict>
@@ -94,10 +78,6 @@
         <string>d</string>
         <key>one</key>
         <string>%d backlink</string>
-        <key>few</key>
-        <string>%d backlinks</string>
-        <key>many</key>
-        <string>%d backlinks</string>
         <key>other</key>
         <string>%d backlinks</string>
       </dict>
@@ -114,10 +94,6 @@
         <string>d</string>
         <key>one</key>
         <string>tomorrow</string>
-        <key>few</key>
-        <string>in %d days</string>
-        <key>many</key>
-        <string>in %d days</string>
         <key>other</key>
         <string>in %d days</string>
       </dict>
@@ -134,10 +110,6 @@
         <string>d</string>
         <key>one</key>
         <string>One object deleted</string>
-        <key>few</key>
-        <string>%d objects deleted</string>
-        <key>many</key>
-        <string>%d objects deleted</string>
         <key>other</key>
         <string>%d objects deleted</string>
       </dict>
@@ -154,10 +126,6 @@
         <string>d</string>
         <key>one</key>
         <string>File Object</string>
-        <key>few</key>
-        <string>%d File Objects</string>
-        <key>many</key>
-        <string>%d File Objects</string>
         <key>other</key>
         <string>%d File Objects</string>
       </dict>
@@ -174,10 +142,6 @@
         <string>d</string>
         <key>one</key>
         <string>File Block</string>
-        <key>few</key>
-        <string>%d File Blocks</string>
-        <key>many</key>
-        <string>%d File Blocks</string>
         <key>other</key>
         <string>%d File Blocks</string>
       </dict>
@@ -194,10 +158,6 @@
         <string>d</string>
         <key>one</key>
         <string>You’ve reached the limit of %d space that can be shared</string>
-        <key>few</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
-        <key>many</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
         <key>other</key>
         <string>You’ve reached the limit of %d spaces that can be shared</string>
       </dict>
@@ -214,10 +174,6 @@
         <string>d</string>
         <key>one</key>
         <string>Bookmark Object</string>
-        <key>few</key>
-        <string>%d Bookmark Objects</string>
-        <key>many</key>
-        <string>%d Bookmark Objects</string>
         <key>other</key>
         <string>%d Bookmark Objects</string>
       </dict>
@@ -234,10 +190,6 @@
         <string>d</string>
         <key>one</key>
         <string>Link Block</string>
-        <key>few</key>
-        <string>Link %d Blocks</string>
-        <key>many</key>
-        <string>Link %d Blocks</string>
         <key>other</key>
         <string>Link %d Blocks</string>
       </dict>
@@ -249,10 +201,6 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
-        <key>few</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
-        <key>many</key>
         <string>You have reached the limit of %d members. New members will not be able to join.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
@@ -276,10 +224,6 @@
         <string>%d members</string>
         <key>one</key>
         <string>%d member</string>
-        <key>few</key>
-        <string>%d members</string>
-        <key>many</key>
-        <string>%d members</string>
       </dict>
     </dict>
     <key>SpaceShare.RequestsCount</key>
@@ -296,10 +240,6 @@
         <string>%d requests</string>
         <key>one</key>
         <string>%d request</string>
-        <key>few</key>
-        <string>%d requests</string>
-        <key>many</key>
-        <string>%d requests</string>
       </dict>
     </dict>
     <key>Per Month</key>
@@ -314,10 +254,6 @@
         <string>d</string>
         <key>one</key>
         <string>month</string>
-        <key>few</key>
-        <string>%d months</string>
-        <key>many</key>
-        <string>%d months</string>
         <key>other</key>
         <string>%d months</string>
       </dict>
@@ -334,10 +270,6 @@
         <string>d</string>
         <key>one</key>
         <string>week</string>
-        <key>few</key>
-        <string>%d weeks</string>
-        <key>many</key>
-        <string>%d weeks</string>
         <key>other</key>
         <string>%d weeks</string>
       </dict>
@@ -354,10 +286,6 @@
         <string>d</string>
         <key>one</key>
         <string>year</string>
-        <key>few</key>
-        <string>%d years</string>
-        <key>many</key>
-        <string>%d years</string>
         <key>other</key>
         <string>%d years</string>
       </dict>
@@ -374,10 +302,6 @@
         <string>d</string>
         <key>one</key>
         <string>day</string>
-        <key>few</key>
-        <string>%d days</string>
-        <key>many</key>
-        <string>%d days</string>
         <key>other</key>
         <string>%d days</string>
       </dict>
