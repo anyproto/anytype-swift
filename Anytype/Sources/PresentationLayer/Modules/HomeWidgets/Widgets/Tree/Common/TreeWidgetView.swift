@@ -26,6 +26,8 @@ struct TreeWidgetView: View {
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
             homeState: data.homeState,
+            name: model.name,
+            dragId: model.dragId,
             allowCreateObject: model.allowCreateObject,
             contentModel: model,
             output: data.output,

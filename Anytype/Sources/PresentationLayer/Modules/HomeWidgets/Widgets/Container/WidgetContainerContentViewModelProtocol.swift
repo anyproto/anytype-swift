@@ -3,12 +3,6 @@ import Combine
 
 @MainActor
 protocol WidgetContainerContentViewModelProtocol: AnyObject, ObservableObject {
-    var name: String { get }
-    var icon: ImageAsset? { get }
-    var dragId: String? { get }
-    var menuItems: [WidgetMenuItem] { get }
-    var allowContent: Bool { get }
-    
     func startHeaderSubscription()
     func startContentSubscription()
     func onHeaderTap()
@@ -18,8 +12,5 @@ protocol WidgetContainerContentViewModelProtocol: AnyObject, ObservableObject {
 // Default Implementation
 
 extension WidgetContainerContentViewModelProtocol {
-    var icon: ImageAsset? { nil }
-    var menuItems: [WidgetMenuItem] { [.addBelow, .changeSource, .changeType, .remove] }
-    var allowContent: Bool { true }
     func onCreateObjectTap() {}
 }

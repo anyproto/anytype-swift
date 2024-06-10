@@ -17,7 +17,6 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     private var linkedObjectDetails: ObjectDetails?
     
     @Published private(set) var name = ""
-    let allowContent = false
     var dragId: String? { widgetBlockId }
     
     init(data: WidgetSubmoduleData) {

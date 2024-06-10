@@ -17,12 +17,20 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     @Binding private var homeState: HomeWidgetsState
     
     var content: Content
+    let name: String
+    let icon: ImageAsset?
+    let dragId: String?
+    let menuItems: [WidgetMenuItem]
     let allowCreateObject: Bool
     
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         homeState: Binding<HomeWidgetsState>,
+        name: String,
+        icon: ImageAsset? = nil,
+        dragId: String?,
+        menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
         allowCreateObject: Bool,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?,
@@ -31,6 +39,10 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         self.contentModel = contentModel
         self.content = content
         self._homeState = homeState
+        self.name = name
+        self.icon = icon
+        self.dragId = dragId
+        self.menuItems = menuItems
         self.allowCreateObject = allowCreateObject
         self._model = StateObject(
             wrappedValue: WidgetContainerViewModel(
@@ -54,19 +66,19 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             }
         ) {
             LinkWidgetViewContainer(
-                title: contentModel.name,
-                icon: contentModel.icon,
+                title: name,
+                icon: icon,
                 isExpanded: $model.isExpanded,
-                dragId: contentModel.dragId,
+                dragId: dragId,
                 homeState: model.homeState,
-                allowMenuContent: contentModel.menuItems.isNotEmpty,
-                allowContent: contentModel.allowContent,
+                allowMenuContent: menuItems.isNotEmpty,
+                allowContent: Content.self != EmptyView.self,
                 headerAction: {
                     contentModel.onHeaderTap()
                 },
                 removeAction: removeAction(),
                 menu: {
-                    menuItems
+                    menuItemsView
                 },
                 content: {
                     content
@@ -85,7 +97,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     @ViewBuilder
     private var contextMenuItems: some View {
         if model.homeState.isReadWrite {
-            ForEach(contentModel.menuItems, id: \.self) {
+            ForEach(menuItems, id: \.self) {
                 menuItemToView(item: $0)
             }
             Divider()
@@ -98,8 +110,8 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     }
     
     @ViewBuilder
-    private var menuItems: some View {
-        ForEach(contentModel.menuItems, id: \.self) {
+    private var menuItemsView: some View {
+        ForEach(menuItems, id: \.self) {
             menuItemToView(item: $0)
         }
     }
@@ -133,7 +145,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             
     private func removeAction() -> (() -> Void)? {
         
-        guard contentModel.menuItems.contains(.remove) else { return nil }
+        guard menuItems.contains(.remove) else { return nil }
         
         return {
             model.onDeleteWidgetTap()
