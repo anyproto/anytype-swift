@@ -9,7 +9,6 @@ enum WidgetMenuItem: String {
     case remove
 }
 
-// TODO: Delete in after migration
 struct WidgetContainerView<Content: View>: View {
     
     @StateObject private var model: WidgetContainerViewModel
@@ -69,7 +68,7 @@ struct WidgetContainerView<Content: View>: View {
                 icon: icon,
                 isExpanded: $model.isExpanded,
                 dragId: dragId,
-                homeState: model.homeState,
+                homeState: $model.homeState,
                 allowMenuContent: menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
                 headerAction: {
@@ -83,29 +82,9 @@ struct WidgetContainerView<Content: View>: View {
                     content
                 }
             )
-            .if(model.homeState.isReadWrite) {
-                $0.contextMenu {
-                    contextMenuItems
-                }
-            }
             .snackbar(toastBarData: $model.toastData)
         }
         .twoWayBinding(viewState: $homeState, modelState: $model.homeState)
-    }
-    
-    @ViewBuilder
-    private var contextMenuItems: some View {
-        if model.homeState.isReadWrite {
-            ForEach(menuItems, id: \.self) {
-                menuItemToView(item: $0)
-            }
-            Divider()
-            Button(Loc.Widgets.Actions.editWidgets) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    model.onEditTap()
-                }
-            }
-        }
     }
     
     @ViewBuilder

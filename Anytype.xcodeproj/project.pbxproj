@@ -431,7 +431,6 @@
 		2A4DD28C2B8DF798005D22CF /* SpaceChangeAccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DD28B2B8DF798005D22CF /* SpaceChangeAccessView.swift */; };
 		2A4DD28E2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4DD28D2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift */; };
 		2A4E3F7D2BC6ECDA00724DBF /* BinLinkWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E3F7C2BC6ECDA00724DBF /* BinLinkWidgetView.swift */; };
-		2A4E3F7F2BC6EE1C00724DBF /* WidgetContainerViewNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E3F7E2BC6EE1C00724DBF /* WidgetContainerViewNew.swift */; };
 		2A4E3F832BC7C7AC00724DBF /* BinConfirmationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E3F822BC7C7AC00724DBF /* BinConfirmationAlert.swift */; };
 		2A4E3F862BC7C81200724DBF /* BinConfirmationAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E3F852BC7C81200724DBF /* BinConfirmationAlertModel.swift */; };
 		2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */; };
@@ -2204,7 +2203,6 @@
 		2A4DD28B2B8DF798005D22CF /* SpaceChangeAccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceChangeAccessView.swift; sourceTree = "<group>"; };
 		2A4DD28D2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParticipantRemoveView.swift; sourceTree = "<group>"; };
 		2A4E3F7C2BC6ECDA00724DBF /* BinLinkWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinLinkWidgetView.swift; sourceTree = "<group>"; };
-		2A4E3F7E2BC6EE1C00724DBF /* WidgetContainerViewNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContainerViewNew.swift; sourceTree = "<group>"; };
 		2A4E3F822BC7C7AC00724DBF /* BinConfirmationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinConfirmationAlert.swift; sourceTree = "<group>"; };
 		2A4E3F852BC7C81200724DBF /* BinConfirmationAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinConfirmationAlertModel.swift; sourceTree = "<group>"; };
 		2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelView.swift; sourceTree = "<group>"; };
@@ -5389,7 +5387,6 @@
 				2A28D04C297FCC1D00E55E15 /* WidgetContainerViewModel.swift */,
 				2A845D742B0D027300AFD252 /* WidgetSwipeActionView.swift */,
 				2A28D04F297FCFE400E55E15 /* WidgetContainerView.swift */,
-				2A4E3F7E2BC6EE1C00724DBF /* WidgetContainerViewNew.swift */,
 			);
 			path = Container;
 			sourceTree = "<group>";
@@ -11102,7 +11099,6 @@
 				129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */,
-				2A4E3F7F2BC6EE1C00724DBF /* WidgetContainerViewNew.swift in Sources */,
 				2A6476452B95B8A800389E62 /* SpaceMembersView.swift in Sources */,
 				2AA4E51B29E8547B008632EB /* BlockWidgetLayout+Analytics.swift in Sources */,
 				2ADF94D429CDAFB000F6FFCC /* EnvironmentConfiguration.swift in Sources */,
