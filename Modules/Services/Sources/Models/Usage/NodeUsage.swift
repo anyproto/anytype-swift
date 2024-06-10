@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct NodeUsage {
+public struct NodeUsage: Sendable {
     public var filesCount: Int64
     public var cidsCount: Int64
     public var bytesUsage: Int64

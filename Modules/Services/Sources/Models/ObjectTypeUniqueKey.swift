@@ -1,4 +1,4 @@
-public struct ObjectTypeUniqueKey: Equatable, Hashable, Codable {
+public struct ObjectTypeUniqueKey: Equatable, Hashable, Codable, Sendable {
     public let value: String
 }
 

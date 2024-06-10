@@ -1,6 +1,6 @@
 import AnytypeCore
 
-public struct BlockValidator {
+public struct BlockValidator: Sendable {
     
     public init() {}
     

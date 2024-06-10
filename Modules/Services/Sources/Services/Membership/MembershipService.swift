@@ -10,7 +10,7 @@ public enum MembershipServiceError: Error {
     case invalidBillingIdFormat
 }
 
-public protocol MembershipServiceProtocol {
+public protocol MembershipServiceProtocol: Sendable {
     func getMembership(noCache: Bool) async throws -> MembershipStatus
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier]    

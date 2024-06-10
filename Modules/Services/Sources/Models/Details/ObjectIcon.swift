@@ -1,6 +1,6 @@
 import AnytypeCore
 
-public enum ObjectIcon: Hashable {
+public enum ObjectIcon: Hashable, Sendable {
     case basic(_ imageId: String)
     case profile(Profile)
     case emoji(Emoji)
@@ -16,7 +16,7 @@ public enum ObjectIcon: Hashable {
 
 public extension ObjectIcon {
     
-    enum Profile: Hashable {
+    enum Profile: Hashable, Sendable {
         case imageId(String)
         case name(String)
     }
@@ -24,7 +24,7 @@ public extension ObjectIcon {
 }
 
 public extension ObjectIcon {
-    enum Space: Hashable {
+    enum Space: Hashable, Sendable {
         case name(String)
         case gradient(GradientId)
         case imageId(_ imageId: String)

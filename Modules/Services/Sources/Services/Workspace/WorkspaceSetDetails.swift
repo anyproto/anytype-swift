@@ -3,7 +3,7 @@ import ProtobufMessages
 import AnytypeCore
 import SwiftProtobuf
 
-public enum WorkspaceSetDetails {
+public enum WorkspaceSetDetails: Sendable {
     case name(String)
     case iconObjectId(String)
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct RelationOption: Hashable {
+public struct RelationOption: Hashable, Sendable {
     public let id: String
     public let text: String
     public let color: String

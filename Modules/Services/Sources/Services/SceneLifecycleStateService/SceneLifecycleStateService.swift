@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-public protocol SceneLifecycleStateServiceProtocol {
+public protocol SceneLifecycleStateServiceProtocol: Sendable {
     func handleStateTransition(_ transition: LifecycleStateTransition)
 }
 

@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public protocol SearchMiddleServiceProtocol: AnyObject {
+public protocol SearchMiddleServiceProtocol: AnyObject, Sendable {
     func search(data: SearchRequest) async throws -> [ObjectDetails]
 }
 

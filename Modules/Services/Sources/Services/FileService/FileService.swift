@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-public protocol FileServiceProtocol: AnyObject {
+public protocol FileServiceProtocol: AnyObject, Sendable {
     func uploadFileBlock(path: String, contextID: String, blockID: String) async throws
     func uploadFileObject(path: String, spaceId: String, origin: ObjectOrigin) async throws -> FileDetails
     func clearCache() async throws

@@ -4,7 +4,7 @@ import ProtobufMessages
 
 public typealias MemberhipTierPaymentPeriodType = Anytype_Model_MembershipTierData.PeriodType
 
-public struct StripePaymentInfo: Hashable, Equatable {
+public struct StripePaymentInfo: Hashable, Equatable, Sendable {
     public let periodType: MemberhipTierPaymentPeriodType
     public let periodValue: UInt32
     public let priceInCents: UInt32
@@ -23,12 +23,12 @@ public struct StripePaymentInfo: Hashable, Equatable {
     }
 }
 
-public struct AppStorePaymentInfo: Hashable, Equatable {
+public struct AppStorePaymentInfo: Hashable, Equatable, Sendable {
     public let product: Product
     public let fallbackPaymentUrl: URL
 }
 
-public enum MembershipTierPaymentType: Hashable, Equatable {
+public enum MembershipTierPaymentType: Hashable, Equatable, Sendable {
     case appStore(info: AppStorePaymentInfo)
     case external(info: StripePaymentInfo)
 }

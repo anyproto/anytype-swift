@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct NodeUsageInfo {
+public struct NodeUsageInfo: Sendable {
     public var node: NodeUsage
     public var spaces: [SpaceUsage]
     

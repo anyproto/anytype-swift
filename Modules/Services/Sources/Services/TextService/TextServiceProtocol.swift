@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import ProtobufMessages
 
-public protocol TextServiceProtocol {
+public protocol TextServiceProtocol: Sendable {
     typealias Style = BlockText.Style
     typealias SplitMode = Anytype_Rpc.Block.Split.Request.Mode
     

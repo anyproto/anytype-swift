@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol PasteboardMiddlewareServiceProtocol: AnyObject {
+public protocol PasteboardMiddlewareServiceProtocol: AnyObject, Sendable {
     
     func pasteText(_ text: String, objectId: String, context: PasteboardActionContext) async throws -> PasteboardPasteResult
 

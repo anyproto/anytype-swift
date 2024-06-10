@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AnytypeURL: Hashable {
+public struct AnytypeURL: Hashable, Sendable {
     
     private let sourceString: String
     private let sourceURL: URL

@@ -1,7 +1,7 @@
 import ProtobufMessages
 import SwiftProtobuf
 
-public enum BlockInformationConverter {
+public enum BlockInformationConverter: Sendable {
     
     public static func convert(block: Anytype_Model_Block) -> BlockInformation? {
         guard let content = block.content else {
