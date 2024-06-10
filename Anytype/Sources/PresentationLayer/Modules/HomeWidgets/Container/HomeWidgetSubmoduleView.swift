@@ -51,7 +51,7 @@ struct HomeWidgetSubmoduleView: View {
             CollectionsListWidgetSubmoduleView(data: widgetData)
         case (.collections, .compactList):
             CollectionsCompactListWidgetSubmoduleView(data: widgetData)
-        case (_, .link):
+        case _:
             EmptyView()
         }
     }
@@ -82,6 +82,8 @@ struct HomeWidgetSubmoduleView: View {
                 } else {
                     LinkWidgetView(data: widgetData)
                 }
+            case .UNRECOGNIZED:
+                EmptyView()
             }
         } else {
             EmptyView()
