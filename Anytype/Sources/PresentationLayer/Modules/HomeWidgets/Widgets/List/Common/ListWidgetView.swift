@@ -51,7 +51,9 @@ private struct ListWidgetInternalView: View {
             homeState: data.homeState,
             name: model.name,
             dragId: model.dragId,
-            allowCreateObject: model.allowCreateObject,
+            onCreateObjectTap: model.allowCreateObject ? {
+                model.onCreateObjectTap()
+            } : nil,
             contentModel: model,
             output: data.output,
             content: bodyContent

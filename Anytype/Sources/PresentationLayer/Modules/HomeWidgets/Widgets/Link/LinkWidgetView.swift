@@ -29,7 +29,7 @@ struct LinkWidgetInternalView: View {
             homeState: data.homeState,
             name: model.name,
             dragId: model.dragId,
-            allowCreateObject: false,
+            onCreateObjectTap: nil,
             contentModel: model,
             output: data.output,
             content: EmptyView()

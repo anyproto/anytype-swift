@@ -21,7 +21,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     let icon: ImageAsset?
     let dragId: String?
     let menuItems: [WidgetMenuItem]
-    let allowCreateObject: Bool
+    let onCreateObjectTap: (() -> Void)?
     
     init(
         widgetBlockId: String,
@@ -31,7 +31,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         icon: ImageAsset? = nil,
         dragId: String?,
         menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
-        allowCreateObject: Bool,
+        onCreateObjectTap: (() -> Void)?,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?,
         content: Content
@@ -43,7 +43,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         self.icon = icon
         self.dragId = dragId
         self.menuItems = menuItems
-        self.allowCreateObject = allowCreateObject
+        self.onCreateObjectTap = onCreateObjectTap
         self._model = StateObject(
             wrappedValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
@@ -56,13 +56,13 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     
     var body: some View {
         WidgetSwipeActionView(
-            isEnable: allowCreateObject && model.homeState.isReadWrite,
+            isEnable: onCreateObjectTap != nil && model.homeState.isReadWrite,
             showTitle: model.isExpanded,
             action: {
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTip().invalidate(reason: .actionPerformed)
                 }
-                contentModel.onCreateObjectTap()
+                onCreateObjectTap?()
             }
         ) {
             LinkWidgetViewContainer(
