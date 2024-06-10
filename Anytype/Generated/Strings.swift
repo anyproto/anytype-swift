@@ -326,6 +326,7 @@ internal enum Loc {
   internal static let unpin = Loc.tr("Localizable", "Unpin")
   internal static let unselectAll = Loc.tr("Localizable", "Unselect all")
   internal static let unsplash = Loc.tr("Localizable", "Unsplash")
+  internal static let unsupported = Loc.tr("Localizable", "Unsupported")
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value")
   internal static let upgrade = Loc.tr("Localizable", "Upgrade")
