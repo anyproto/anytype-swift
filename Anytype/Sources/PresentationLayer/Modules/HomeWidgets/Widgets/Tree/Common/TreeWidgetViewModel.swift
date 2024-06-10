@@ -5,7 +5,7 @@ import SwiftUI
 import AnytypeCore
 
 @MainActor
-final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {
+final class TreeWidgetViewModel: ObservableObject {
     
     private enum Constants {
         static let maxExpandableLevel = 3
@@ -50,20 +50,8 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
         self.subscriptionManager = subscriptionManager
         self.objectActionsService = objectActionsService
         self.output = output
-    }
-    
-    // MARK: - WidgetContainerContentViewModelProtocol
-    
-    func startHeaderSubscription() {
-        internalModel.startHeaderSubscription()
-        setupAllSubscriptions()
-    }
-    
-    func startContentSubscription() {
-        Task {
-            await internalModel.startContentSubscription()
-            await updateLinksSubscriptionsAndTree()
-        }
+        startHeaderSubscription()
+        startContentSubscription()
     }
     
     func onHeaderTap() {
@@ -77,6 +65,18 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     }
     
     // MARK: - Private
+    
+    private func startHeaderSubscription() {
+        internalModel.startHeaderSubscription()
+        setupAllSubscriptions()
+    }
+    
+    private func startContentSubscription() {
+        Task {
+            await internalModel.startContentSubscription()
+            await updateLinksSubscriptionsAndTree()
+        }
+    }
     
     private func onTapExpand(model: TreeWidgetRowViewModel) {
         expandedRowIds.append(ExpandedId(rowId: model.rowId, objectId: model.objectId))

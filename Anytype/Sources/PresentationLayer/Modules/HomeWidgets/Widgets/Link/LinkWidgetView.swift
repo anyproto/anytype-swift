@@ -30,9 +30,11 @@ struct LinkWidgetInternalView: View {
             name: model.name,
             dragId: model.dragId,
             onCreateObjectTap: nil,
-            contentModel: model,
+            onHeaderTap: {
+                model.onHeaderTap()
+            },
             output: data.output,
-            content: EmptyView()
+            content: { EmptyView() }
         )
     }
 }

@@ -54,9 +54,13 @@ private struct ListWidgetInternalView: View {
             onCreateObjectTap: model.allowCreateObject ? {
                 model.onCreateObjectTap()
             } : nil,
-            contentModel: model,
+            onHeaderTap: {
+                model.onHeaderTap()
+            },
             output: data.output,
-            content: bodyContent
+            content: {
+                bodyContent
+            }
         )
     }
     

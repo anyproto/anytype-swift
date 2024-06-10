@@ -10,18 +10,18 @@ enum WidgetMenuItem: String {
 }
 
 // TODO: Delete in after migration
-struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
+struct WidgetContainerView<Content: View>: View {
     
-    @StateObject private var model: WidgetContainerViewModel<ContentVM>
-    @ObservedObject var contentModel: ContentVM
+    @StateObject private var model: WidgetContainerViewModel
     @Binding private var homeState: HomeWidgetsState
     
-    var content: Content
     let name: String
     let icon: ImageAsset?
     let dragId: String?
     let menuItems: [WidgetMenuItem]
     let onCreateObjectTap: (() -> Void)?
+    let onHeaderTap: () -> Void
+    let content: Content
     
     init(
         widgetBlockId: String,
@@ -32,23 +32,22 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         dragId: String?,
         menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
         onCreateObjectTap: (() -> Void)?,
-        contentModel: ContentVM,
+        onHeaderTap: @escaping () -> Void,
         output: CommonWidgetModuleOutput?,
-        content: Content
+        @ViewBuilder content: () -> Content
     ) {
-        self.contentModel = contentModel
-        self.content = content
         self._homeState = homeState
         self.name = name
         self.icon = icon
         self.dragId = dragId
         self.menuItems = menuItems
         self.onCreateObjectTap = onCreateObjectTap
+        self.onHeaderTap = onHeaderTap
+        self.content = content()
         self._model = StateObject(
             wrappedValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
-                contentModel: contentModel,
                 output: output
             )
         )
@@ -74,7 +73,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
                 allowMenuContent: menuItems.isNotEmpty,
                 allowContent: Content.self != EmptyView.self,
                 headerAction: {
-                    contentModel.onHeaderTap()
+                    onHeaderTap()
                 },
                 removeAction: removeAction(),
                 menu: {
