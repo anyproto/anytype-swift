@@ -8,7 +8,6 @@ protocol WidgetContainerContentViewModelProtocol: AnyObject, ObservableObject {
     var dragId: String? { get }
     var menuItems: [WidgetMenuItem] { get }
     var allowContent: Bool { get }
-    var allowCreateObject: Bool { get }
     
     func startHeaderSubscription()
     func startContentSubscription()
@@ -22,6 +21,5 @@ extension WidgetContainerContentViewModelProtocol {
     var icon: ImageAsset? { nil }
     var menuItems: [WidgetMenuItem] { [.addBelow, .changeSource, .changeType, .remove] }
     var allowContent: Bool { true }
-    var allowCreateObject: Bool { false }
     func onCreateObjectTap() {}
 }

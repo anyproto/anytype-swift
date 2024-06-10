@@ -49,6 +49,7 @@ private struct ListWidgetInternalView: View {
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
             homeState: data.homeState,
+            allowCreateObject: model.allowCreateObject,
             contentModel: model,
             output: data.output,
             content: bodyContent

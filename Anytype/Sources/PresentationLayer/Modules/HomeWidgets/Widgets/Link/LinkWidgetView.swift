@@ -27,6 +27,7 @@ struct LinkWidgetInternalView: View {
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
             homeState: data.homeState,
+            allowCreateObject: false,
             contentModel: model,
             output: data.output,
             content: EmptyView()

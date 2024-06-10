@@ -17,11 +17,13 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     @Binding private var homeState: HomeWidgetsState
     
     var content: Content
+    let allowCreateObject: Bool
     
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         homeState: Binding<HomeWidgetsState>,
+        allowCreateObject: Bool,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?,
         content: Content
@@ -29,6 +31,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
         self.contentModel = contentModel
         self.content = content
         self._homeState = homeState
+        self.allowCreateObject = allowCreateObject
         self._model = StateObject(
             wrappedValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
@@ -41,7 +44,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     
     var body: some View {
         WidgetSwipeActionView(
-            isEnable: contentModel.allowCreateObject && model.homeState.isReadWrite,
+            isEnable: allowCreateObject && model.homeState.isReadWrite,
             showTitle: model.isExpanded,
             action: {
                 if #available(iOS 17.0, *) {
