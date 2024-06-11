@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 
+// Delete code after https://linear.app/anytype/issue/IOS-2990/delete-anytypewindow-fix-editor-kostyl
 final class AnytypeWindow: UIWindow {
     enum Constants {
         static let textRangeViewClass: AnyClass? = NSClassFromString("UITextRangeView")
