@@ -2047,11 +2047,11 @@ public struct Anytype_Model_Block {
 
       public var views: [Anytype_Model_Block.Content.Dataview.View] = []
 
+      /// do not generate changes for this field
+      public var activeView: String = String()
+
       /// deprecated
       public var relations: [Anytype_Model_Relation] = []
-
-      /// saved within a session
-      public var activeView: String = String()
 
       public var groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = []
 
@@ -7455,8 +7455,8 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "source"),
     2: .same(proto: "views"),
-    4: .same(proto: "relations"),
     3: .same(proto: "activeView"),
+    4: .same(proto: "relations"),
     12: .same(proto: "groupOrders"),
     13: .same(proto: "objectOrders"),
     5: .same(proto: "relationLinks"),
@@ -7518,8 +7518,8 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview, rhs: Anytype_Model_Block.Content.Dataview) -> Bool {
     if lhs.source != rhs.source {return false}
     if lhs.views != rhs.views {return false}
-    if lhs.relations != rhs.relations {return false}
     if lhs.activeView != rhs.activeView {return false}
+    if lhs.relations != rhs.relations {return false}
     if lhs.groupOrders != rhs.groupOrders {return false}
     if lhs.objectOrders != rhs.objectOrders {return false}
     if lhs.relationLinks != rhs.relationLinks {return false}

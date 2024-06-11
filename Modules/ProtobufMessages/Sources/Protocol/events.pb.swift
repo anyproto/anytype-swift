@@ -139,6 +139,14 @@ public struct Anytype_Event {
       set {value = .objectRemove(newValue)}
     }
 
+    public var objectClose: Anytype_Event.Object.Close {
+      get {
+        if case .objectClose(let v)? = value {return v}
+        return Anytype_Event.Object.Close()
+      }
+      set {value = .objectClose(newValue)}
+    }
+
     public var objectRestrictionsSet: Anytype_Event.Object.Restrictions.Set {
       get {
         if case .objectRestrictionsSet(let v)? = value {return v}
@@ -596,6 +604,7 @@ public struct Anytype_Event {
       case objectRelationsAmend(Anytype_Event.Object.Relations.Amend)
       case objectRelationsRemove(Anytype_Event.Object.Relations.Remove)
       case objectRemove(Anytype_Event.Object.Remove)
+      case objectClose(Anytype_Event.Object.Close)
       case objectRestrictionsSet(Anytype_Event.Object.Restrictions.Set)
       case subscriptionAdd(Anytype_Event.Object.Subscription.Add)
       case subscriptionRemove(Anytype_Event.Object.Subscription.Remove)
@@ -703,6 +712,10 @@ public struct Anytype_Event {
         }()
         case (.objectRemove, .objectRemove): return {
           guard case .objectRemove(let l) = lhs, case .objectRemove(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.objectClose, .objectClose): return {
+          guard case .objectClose(let l) = lhs, case .objectClose(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectRestrictionsSet, .objectRestrictionsSet): return {
@@ -1407,6 +1420,18 @@ public struct Anytype_Event {
 
         fileprivate var _restrictions: Anytype_Model_Restrictions? = nil
       }
+
+      public init() {}
+    }
+
+    public struct Close {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
     }
@@ -4929,6 +4954,7 @@ extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {}
 extension Anytype_Event.Object.Remove: @unchecked Sendable {}
 extension Anytype_Event.Object.Restrictions: @unchecked Sendable {}
 extension Anytype_Event.Object.Restrictions.Set: @unchecked Sendable {}
+extension Anytype_Event.Object.Close: @unchecked Sendable {}
 extension Anytype_Event.Block: @unchecked Sendable {}
 extension Anytype_Event.Block.Add: @unchecked Sendable {}
 extension Anytype_Event.Block.FilesUpload: @unchecked Sendable {}
@@ -5172,6 +5198,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     52: .same(proto: "objectRelationsAmend"),
     53: .same(proto: "objectRelationsRemove"),
     54: .same(proto: "objectRemove"),
+    65: .same(proto: "objectClose"),
     55: .same(proto: "objectRestrictionsSet"),
     60: .same(proto: "subscriptionAdd"),
     61: .same(proto: "subscriptionRemove"),
@@ -5807,6 +5834,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .subscriptionGroups(v)
         }
       }()
+      case 65: try {
+        var v: Anytype_Event.Object.Close?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .objectClose(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .objectClose(v)
+        }
+      }()
       case 100: try {
         var v: Anytype_Event.Ping?
         var hadOneofValue = false
@@ -6279,6 +6319,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .subscriptionGroups?: try {
       guard case .subscriptionGroups(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 64)
+    }()
+    case .objectClose?: try {
+      guard case .objectClose(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 65)
     }()
     case .ping?: try {
       guard case .ping(let v)? = self.value else { preconditionFailure() }
@@ -7314,6 +7358,38 @@ extension Anytype_Event.Object.Restrictions.Set: SwiftProtobuf.Message, SwiftPro
   public static func ==(lhs: Anytype_Event.Object.Restrictions.Set, rhs: Anytype_Event.Object.Restrictions.Set) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs._restrictions != rhs._restrictions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Object.Close: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Object.protoMessageName + ".Close"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Object.Close, rhs: Anytype_Event.Object.Close) -> Bool {
+    if lhs.id != rhs.id {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
