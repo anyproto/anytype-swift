@@ -164,18 +164,18 @@
 "Video block subtitle" = "Запампаваць прайграванае відэа";
 "Bookmark block subtitle" = "Захаваць вашу ўлюблёную спасылку з кароткім зместам";
 "Code block subtitle" = "Захапіць кавалак кода";
-"Align right" = "Align right";
-"Align left" = "Align left";
-"Align center" = "Align center";
+"Align right" = "Выраўнаваць па правым краі";
+"Align left" = "Выраўнаваць па левым краі";
+"Align center" = "Выраўнаваць па сярэдзіне";
 "Align justify" = "Align justify";
-"Black" = "Black";
-"Amber" = "Amber";
-"Red" = "Red";
-"Pink" = "Pink";
-"Purple" = "Purple";
-"Blue" = "Blue";
-"Teal" = "Teal";
-"Green" = "Green";
+"Black" = "Чорны";
+"Amber" = "Бурштынавы";
+"Red" = "Чырвоны";
+"Pink" = "Ружовы";
+"Purple" = "Фіялетавы";
+"Blue" = "Сіні";
+"Teal" = "Бірузовы";
+"Green" = "Зялёны";
 "Default background" = "Default background";
 "Amber background" = "Amber background";
 "Red background" = "Red background";
@@ -184,9 +184,9 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Create new object";
-"Cancel" = "Cancel";
+"Cancel" = "Скасаваць";
 "Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
+"No items match filter" = "Няма элементаў, якія супадаюць з фільтрам";
 "Unsupported block" = "Unsupported block";
 "Name" = "Назва";
 "Description" = "Апісанне";
@@ -246,15 +246,15 @@
 
 "Auth.JoinFlow.Key.Title" = "Гэта ваш Ключ";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Паказаць мой ключ";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Далей";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Прапусціць";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Капіяваць у буфер абмену";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Чытаць далей";
 "Auth.JoinFlow.Key.Button.Tip.Title" = "Вы можаце знайсці гэты ключ потым у наладах Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Што такое URL?";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Фраза аднаўлення - 12 выпадковых слоў, з якіх магічным чынам ствараецца ваша Сховішча на гэтай прыладзе.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Той, хто ведае камбінацыю гэтых слоў, валодае вашым сховішчам. **На дадзены момант вы адзіны чалавек у свеце, які ведае гэта.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Усіх вылічальных рэсурсаў на Зямлі недастаткова для ўзлому. Калі вы страціце яго, яго нельга будзе аднавіць. Такім чынам, захоўвайце яго ў бяспечным месцы!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Як захаваць мой ключ?";
@@ -272,7 +272,7 @@
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
+"Auth.LoginFlow.Or" = "АБО";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
 "Auth.LoginFlow.Enter.Title" = "Увайсці ў Сховішча";
 "Auth.LoginFlow.Entering.Void.Title" = "Entering the Void";
@@ -386,7 +386,7 @@
 // MARK: - Context Menu
 "Remove From Favorite" = "Remove From Favorite";
 "Add To Favorite" = "Дадаць У Абранае";
-"Move To Bin" = "Move To Bin";
+"Move To Bin" = "Перамясціць у Сметніцу";
 
 
 "LinkAppearance.Description.None.Title" = "Няма";
@@ -397,32 +397,32 @@
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
-"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSet.Popup.Sort.Types.Descending" = "Descending";
-"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
-"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
-"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
+"EditSet.Popup.Sort.Types.Ascending" = "Па ўзрастанні";
+"EditSet.Popup.Sort.Types.Descending" = "Па змяншэнні";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Зверху";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Знізу";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Паказаць пустыя значэнні";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
-"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
+"EditSet.Popup.Filters.NavigationView.Title" = "Фільтры";
 "EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
-"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Значэнне";
 
 // MARK: - Sets: Filters.Conditions
-"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "З'яўляецца";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Не з'яўляецца";
 "EditSet.Popup.Filter.Condition.Text.Like" = "Змяшчае";
 "EditSet.Popup.Filter.Condition.Text.NotLike" = "Не змяшчае";
 
 "EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
 "EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
 "EditSet.Popup.Filter.Condition.Number.Greater" = "Большы чым";
-"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Меншы чым";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Большы чым або роўны";
 "EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
 
-"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "З'яўляецца";
 "EditSet.Popup.Filter.Condition.Date.After" = "Is after";
 "EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
 "EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
@@ -434,8 +434,8 @@
 "EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
 "EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
 
-"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "З'яўляецца";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Не з'яўляецца";
 
 "EditSet.Popup.Filter.Condition.General.Empty" = "Пусты";
 "EditSet.Popup.Filter.Condition.General.NotEmpty" = "Не пусты";
@@ -976,7 +976,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.LeftButton.Title" = "Скасаваць";
 "Sharing.Navigation.RightButton.Title" = "Гатова";
 
 "Sharing.SaveAs" = "SAVE AS";

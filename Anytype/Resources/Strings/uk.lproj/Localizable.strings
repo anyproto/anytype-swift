@@ -264,7 +264,7 @@
 "Auth.JoinFlow.Soul.Title" = "Set your name";
 "Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без назви";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Button" = "Enter my Vault";
 
 "Auth.JoinFlow.Vault.Title" = "This is your Vault";
 "Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
@@ -274,7 +274,7 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Використотати в'язку ключів";
 "Auth.LoginFlow.Or" = "АБО";
 "Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
-"Auth.LoginFlow.Enter.Title" = "Get my Key";
+"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
 "Auth.LoginFlow.Entering.Void.Title" = "Входимо до порожнечі";
 
 // Object settings
