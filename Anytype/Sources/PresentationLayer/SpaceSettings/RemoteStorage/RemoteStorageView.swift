@@ -14,7 +14,7 @@ struct RemoteStorageView: View {
             .onAppear {
                 model.onAppear()
             }
-            .membershipUpgrade(isPresented: $model.showMembershipUpgrade, reason: .storageSpace)
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
     
     private var content: some View {

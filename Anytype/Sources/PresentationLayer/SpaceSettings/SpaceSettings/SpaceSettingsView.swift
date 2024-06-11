@@ -32,7 +32,7 @@ struct SpaceSettingsView: View {
             .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
                 SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
-            .membershipUpgrade(isPresented: $model.showMembershipUpgrade, reason: .numberOfSharedSpaces)
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
     
     private var content: some View {
