@@ -9,6 +9,8 @@ struct AnytypeApp: App {
     var body: some Scene {
         WindowGroup {
             ApplicationCoordinatorView()
+                .setupGlobalEnv()
+                .setupAppSceneHandler()
         }
     }
 }

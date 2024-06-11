@@ -14,6 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private var fileErrorEventHandler: FileErrorEventHandlerProtocol
     @Injected(\.deviceSceneStateListener)
     private var deviceSceneStateListener: DeviceSceneStateListenerProtocol
+    @Injected(\.quickActionShortcutBuilder)
+    private var quickActionShortcutBuilder: QuickActionShortcutBuilderProtocol
+    @Injected(\.appActionStorage)
+    private var appActionStorage: AppActionStorage
     
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
@@ -34,5 +38,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         deviceSceneStateListener.start()
         
         return true
+    }
+    
+    // MARK: UISceneSession Lifecycle
+    func application(
+        _ application: UIApplication,
+        configurationForConnecting connectingSceneSession: UISceneSession,
+        options: UIScene.ConnectionOptions
+    ) -> UISceneConfiguration {
+        
+        // Handle for launch
+        if let shortcutItem = options.shortcutItem,
+            let action = quickActionShortcutBuilder.buildAction(shortcutItem: shortcutItem) {
+            appActionStorage.action = action.toAppAction()
+        }
+        
+        let config = UISceneConfiguration(
+            name: "Default Configuration",
+            sessionRole: connectingSceneSession.role
+        )
+        config.delegateClass = SceneDelegate.self
+        return config
     }
 }
