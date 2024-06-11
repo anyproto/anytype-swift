@@ -22346,7 +22346,7 @@ public struct Anytype_Rpc {
         public init() {}
       }
 
-      /// set the current active view (persisted only within a session)
+      /// set the current active view locally
       public struct SetActive {
         // SwiftProtobuf.Message conformance is added in an extension below. See the
         // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -22366,10 +22366,6 @@ public struct Anytype_Rpc {
 
           /// id of active view
           public var viewID: String = String()
-
-          public var offset: UInt32 = 0
-
-          public var limit: UInt32 = 0
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -22416,8 +22412,6 @@ public struct Anytype_Rpc {
               public typealias RawValue = Int
               case null // = 0
               case unknownError // = 1
-
-              /// ...
               case badInput // = 2
               case UNRECOGNIZED(Int)
 
@@ -64839,8 +64833,6 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Request: SwiftProtobuf.Messag
     1: .same(proto: "contextId"),
     2: .same(proto: "blockId"),
     3: .same(proto: "viewId"),
-    4: .same(proto: "offset"),
-    5: .same(proto: "limit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -64852,8 +64844,6 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Request: SwiftProtobuf.Messag
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
-      case 4: try { try decoder.decodeSingularUInt32Field(value: &self.offset) }()
-      case 5: try { try decoder.decodeSingularUInt32Field(value: &self.limit) }()
       default: break
       }
     }
@@ -64869,12 +64859,6 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Request: SwiftProtobuf.Messag
     if !self.viewID.isEmpty {
       try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 3)
     }
-    if self.offset != 0 {
-      try visitor.visitSingularUInt32Field(value: self.offset, fieldNumber: 4)
-    }
-    if self.limit != 0 {
-      try visitor.visitSingularUInt32Field(value: self.limit, fieldNumber: 5)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -64882,8 +64866,6 @@ extension Anytype_Rpc.BlockDataview.View.SetActive.Request: SwiftProtobuf.Messag
     if lhs.contextID != rhs.contextID {return false}
     if lhs.blockID != rhs.blockID {return false}
     if lhs.viewID != rhs.viewID {return false}
-    if lhs.offset != rhs.offset {return false}
-    if lhs.limit != rhs.limit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
