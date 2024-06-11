@@ -13,7 +13,7 @@ struct MembershipBannerView: View {
             Image(asset: image)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(24)
-            AnytypeText(title, style: .bodyRegular)
+            AnytypeText(title, style: .bodySemibold)
                 .foregroundColor(.Text.primary)
                 .lineLimit(1)
             Spacer.fixedHeight(6)

@@ -198,6 +198,18 @@ extension StandardButtonStyle {
                 loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
                 horizontalPadding: 10
             )
+        case .primaryXSmallStretched:
+            return StandardButtonConfig(
+                normal: StandardButtonStyle.primaryLarge.config.normal,
+                higlighted: StandardButtonStyle.primaryLarge.config.higlighted,
+                disabled: StandardButtonStyle.primaryLarge.config.disabled,
+                textFont: .caption1Medium,
+                height: 28,
+                stretchSize: true,
+                radius: 6,
+                loadingIndicatorSize: .ButtonLoadingIndicator.xsmall,
+                horizontalPadding: 10
+            )
         case .secondaryXSmall:
             return StandardButtonConfig(
                 normal: StandardButtonStyle.secondaryLarge.config.normal,
