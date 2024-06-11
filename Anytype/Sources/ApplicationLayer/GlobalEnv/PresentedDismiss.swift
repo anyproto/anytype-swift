@@ -12,9 +12,13 @@ struct DismissAllPresented {
     func callAsFunction(animated: Bool = true) async {
         await withCheckedContinuation { continuation in
             Task { @MainActor [weak window] in
-                window?.rootViewController?.dismiss(animated: animated, completion: {
+                if let root = window?.rootViewController {
+                    root.dismiss(animated: animated, completion: {
+                        continuation.resume()
+                    })
+                } else {
                     continuation.resume()
-                })
+                }
             }
         }
     }
