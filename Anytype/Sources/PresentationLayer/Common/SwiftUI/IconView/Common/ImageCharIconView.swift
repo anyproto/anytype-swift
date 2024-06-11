@@ -30,6 +30,8 @@ struct ImageCharIconView: View {
             }
             .frame(width: reader.size.width, height: reader.size.height)
         }
+        // Component doesn't support dynamic type size
+        .dynamicTypeSize(.large)
     }
     
     private func font(size: CGSize) -> Font {
