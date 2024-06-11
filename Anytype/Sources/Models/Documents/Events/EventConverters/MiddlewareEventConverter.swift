@@ -132,34 +132,34 @@ final class MiddlewareEventConverter {
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
             infoContainer.dataviewViewSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewViewOrder(let data):
             infoContainer.dataviewViewOrder(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewViewDelete(let data):
             infoContainer.dataviewViewDelete(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewRelationDelete(let data):
             infoContainer.dataviewRelationDelete(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewRelationSet(let data):
             infoContainer.dataviewRelationSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataViewGroupOrderUpdate(let data):
             infoContainer.dataViewGroupOrderUpdate(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataViewObjectOrderUpdate(let data):
             infoContainer.dataViewObjectOrderUpdate(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewTargetObjectIDSet(let data):
             infoContainer.dataviewTargetObjectIDSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewIsCollectionSet(let data):
             infoContainer.dataviewIsCollectionSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewViewUpdate(let data):
             infoContainer.dataviewViewUpdate(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockSetRelation(let data):
             infoContainer.setRelation(data: data)
             return .general // Relace to `.blocks(blockIds: [data.id])` after implment task https://linear.app/anytype/issue/IOS-914
@@ -168,7 +168,7 @@ final class MiddlewareEventConverter {
             return nil
         case .blockSetWidget(let data):
             infoContainer.setWidget(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
