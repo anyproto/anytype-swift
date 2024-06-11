@@ -11,6 +11,7 @@ struct AnytypeApp: App {
             ApplicationCoordinatorView()
                 .setupGlobalEnv()
                 .setupAppSceneHandler()
+                .setupTraitCollectionNotifier()
         }
     }
 }
