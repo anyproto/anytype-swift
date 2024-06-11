@@ -48,14 +48,4 @@ final class AnytypeWindow: UIWindow {
 
         textRangeTouch = nil
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            NotificationCenter.default.post(
-                name: .traitCollectionDidChangeNotification,
-                object: self
-            )
-        }
-   }
 }
