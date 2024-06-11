@@ -14,14 +14,14 @@ struct MembershipTierInfoView: View {
             Spacer.fixedHeight(14)
             AnytypeText(tier.name, style: .title)
                 .foregroundColor(.Text.primary)
-            Spacer.fixedHeight(6)
+            Spacer.fixedHeight(4)
             AnytypeText(tier.subtitle, style: .calloutRegular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(22)
             whatsIncluded
-            Spacer.fixedHeight(30)
+            Spacer.fixedHeight(25)
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 20)
         .background(
             Group {
@@ -49,6 +49,7 @@ struct MembershipTierInfoView: View {
                         .foregroundColor(.Text.primary)
                         .lineLimit(2)
                 }
+                Spacer.fixedHeight(5)
             }
         }
     }

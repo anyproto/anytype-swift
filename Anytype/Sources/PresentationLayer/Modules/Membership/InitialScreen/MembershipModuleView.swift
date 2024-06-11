@@ -30,7 +30,7 @@ struct MembershipModuleView: View {
             DragIndicator()
             ScrollView {
                 VStack {
-                    Spacer.fixedHeight(40)
+                    Spacer.fixedHeight(35)
                     title
                     AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular)
                         .foregroundColor(.Text.primary)
@@ -43,7 +43,8 @@ struct MembershipModuleView: View {
                         UISelectionFeedbackGenerator().selectionChanged()
                         onTierTap($0)
                     }
-                    .padding(.vertical, 32)
+                    .padding(.top, 20)
+                    .padding(.bottom, 32)
                     
                     legal
                 }
