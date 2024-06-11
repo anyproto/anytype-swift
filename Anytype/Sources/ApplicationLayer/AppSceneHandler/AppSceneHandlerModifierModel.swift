@@ -13,14 +13,12 @@ final class AppSceneHandlerModifierModel: ObservableObject {
     private var deepLinkParser: DeepLinkParserProtocol
     
     func onOpenURL(_ url: URL) {
-        guard let deepLink = deepLinkParser.parse(url: url) else { return }
-        appActionStorage.action = .deepLink(deepLink)
-    }
-    
-    func onContinueWebUserActivity(_ userActivity: NSUserActivity) {
-        guard let url = userActivity.webpageURL,
-              let link = universalLinkParser.parse(url: url) else { return }
+        if let deepLink = deepLinkParser.parse(url: url) {
+            appActionStorage.action = .deepLink(deepLink)
+        }
         
-        appActionStorage.action = .deepLink(link.toDeepLink())
+        if let link = universalLinkParser.parse(url: url) {
+            appActionStorage.action = .deepLink(link.toDeepLink())
+        }
     }
 }

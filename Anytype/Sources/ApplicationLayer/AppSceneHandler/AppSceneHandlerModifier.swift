@@ -10,9 +10,6 @@ private struct AppSceneHandlerModifier: ViewModifier {
             .onOpenURL { url in
                 model.onOpenURL(url)
             }
-            .onContinueUserActivity(NSUserActivityTypeBrowsingWeb) { userActivity in
-                model.onContinueWebUserActivity(userActivity)
-            }
     }
 }
 
