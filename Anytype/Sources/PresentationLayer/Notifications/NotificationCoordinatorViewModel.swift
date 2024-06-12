@@ -39,8 +39,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         self.dismissAllPresented = dismissAllPresented
     }
     
-    func onMembershipUpgrateTap() {
-        membershipUpgradeReason = .numberOfSpaceMembers
+    func onMembershipUpgrateTap(reason: MembershipUpgradeReason) {
+        membershipUpgradeReason = reason
     }
     
     // MARK: - Private

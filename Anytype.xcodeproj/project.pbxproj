@@ -1360,6 +1360,7 @@
 		3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */; };
 		3DE3DE652BBDBAA300C9E6D3 /* MembershipPricingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3DE642BBDBAA300C9E6D3 /* MembershipPricingView.swift */; };
 		3DE3DE672BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE3DE662BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift */; };
+		3DE50F952C130F5C00B92C1F /* SpaceShareUpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE50F942C130F5C00B92C1F /* SpaceShareUpgradeView.swift */; };
 		3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */; };
 		3DE6924F27301C3E00A4CD4E /* AccessoryViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */; };
 		3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */; };
@@ -3139,6 +3140,7 @@
 		3DE3C91926F464BF0012AF51 /* MentionObjectsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObjectsService.swift; sourceTree = "<group>"; };
 		3DE3DE642BBDBAA300C9E6D3 /* MembershipPricingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipPricingView.swift; sourceTree = "<group>"; };
 		3DE3DE662BBDBC1F00C9E6D3 /* MembershipTierPaymentTypeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierPaymentTypeExtension.swift; sourceTree = "<group>"; };
+		3DE50F942C130F5C00B92C1F /* SpaceShareUpgradeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareUpgradeView.swift; sourceTree = "<group>"; };
 		3DE5121526728C0F00153962 /* BaseDocumentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BaseDocumentProtocol.swift; path = Anytype/Sources/Models/Documents/Document/BaseDocumentProtocol.swift; sourceTree = SOURCE_ROOT; };
 		3DE6924E27301C3E00A4CD4E /* AccessoryViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewType.swift; sourceTree = "<group>"; };
 		3DE6926727302D5800A4CD4E /* AccessoryViewStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessoryViewStateManager.swift; sourceTree = "<group>"; };
@@ -6658,6 +6660,7 @@
 				2A5EC77F2B7D166F00DD7D89 /* InviteLinkView.swift */,
 				2A4DD28B2B8DF798005D22CF /* SpaceChangeAccessView.swift */,
 				2A4DD28D2B8DFC32005D22CF /* SpaceParticipantRemoveView.swift */,
+				3DE50F942C130F5C00B92C1F /* SpaceShareUpgradeView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -11466,6 +11469,7 @@
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				2A176C482BA9A52300F5036D /* ParticipantRemoveNotificationView.swift in Sources */,
 				2AE276242BD0270000E0244A /* ObjectSettingsCoordinatorView.swift in Sources */,
+				3DE50F952C130F5C00B92C1F /* SpaceShareUpgradeView.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2A845D752B0D027300AFD252 /* WidgetSwipeActionView.swift in Sources */,
