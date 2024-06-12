@@ -341,8 +341,8 @@
 "Search.Links.Swipe.title" = "Relacionado con";
 "GlobalSearch.EmptyState.subtitle" = "Crea un objeto nuevo o busca otra cosa.";
 "GlobalSearch.EmptyFilteredState.title" = "No se ha encontrado ningún objeto relacionado.";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.title" = "Objetos relacionados";
+"GlobalSearch.Swipe.Tip.subtitle" = "Desliza a la izquierda para ver los objetos relacionados. Ten en cuenta que solo funciona con objetos que tienen algún objeto relacionado.";
 
 // MARK: - Home
 
@@ -1104,8 +1104,8 @@ En concreto,
 "Membership.Upgrade.Button" = "Hablar con el equipo de Anytype";
 
 "Membership.Upgrade.MoreSpaces" = "Amplía tu suscripción para añadir más espacios";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Amplía tu suscripción para añadir más miembros";
+"Membership.Upgrade.NoMoreMembers" = "No puedes añadir más miembros";
 
 
 "Membership.Banner.Title1" = "Construyamos esta visión juntos";

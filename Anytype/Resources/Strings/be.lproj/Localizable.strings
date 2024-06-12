@@ -245,7 +245,7 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Гэта ваш Ключ";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Description" = "Дае поўны доступ да вашага Сховішча.\nНемагчыма аднавіць.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Паказаць мой ключ";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Далей";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Прапусціць";
@@ -267,7 +267,7 @@
 "Auth.JoinFlow.Soul.Button" = "Увайсці ў Сховішча";
 
 "Auth.JoinFlow.Vault.Title" = "Гэта тваё Сховішча";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Description" = "Усё ўнутры зашыфравана.\nГэта лакальна - усё працуе па-за сеткай.\nТолькі ў вас ёсць ключ.";
 "Auth.JoinFlow.Vault.Button" = "Атрымаць мой ключ";
 
 // Auth - Login flow
@@ -281,7 +281,7 @@
 
 "Icon" = "Значок";
 "Emoji or image for object" = "Emoji or image for object";
-"Cover" = "Cover";
+"Cover" = "Вокладка";
 "Background picture" = "Background picture";
 "Layout" = "Знешні выгляд";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
@@ -294,7 +294,7 @@
 "Random" = "Выпадкова";
 "Upload" = "Запампаваць";
 "Change icon" = "Змяніць значок";
-"Change cover" = "Change cover";
+"Change cover" = "Змяніць вокладку";
 "Remove" = "Выдаліць";
 
 "Solid colors" = "Аднатонныя колеры";
@@ -319,26 +319,26 @@
 "Actions.CopyLink" = "Скапіяваць спасылку";
 
 // Object Type
-"Set" = "Set";
+"Set" = "Набор";
 "Collection" = "Калекцыя";
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
 
 // MARK: - Link to search
 
-"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
+"Editor.LinkToObject.SearchPlaceholder" = "Уставіць спасылку або шукайце аб'екты";
 "Editor.LinkToObject.PasteFromClipboard" = "Уставіць з буфера абмену";
 "Editor.LinkToObject.LinkedTo" = "Звязаны з";
 "Editor.LinkToObject.CopyLink" = "Скапіяваць спасылку";
 "Editor.LinkToObject.RemoveLink" = "Выдаліць спасылку";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
+"There is no object named" = "Няма аб'ектаў з назвай %@";
+"There is no type named" = "Няма тыпаў з назвай %@";
 "Create a new one or search for something else" = "Create a new one or search for something else";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
+"Search.Links.Show.title" = "Паказаць звязаныя аб'екты";
+"Search.Links.Header.title" = "Звязана з: %@";
+"Search.Links.Swipe.title" = "Звязана з";
 "GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
 "GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 "GlobalSearch.Swipe.Tip.title" = "Related objects";
@@ -366,7 +366,7 @@
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Пуста";
 "TemplateSelection.Template.Subtitle" = "Шаблон";
-"TemplateSelection.ObjectType.Subtitle" = "Object type";
+"TemplateSelection.ObjectType.Subtitle" = "Тып аб'екта";
 
 "TemplateOptions.Alert.EditTemplate" = "Рэдагаваць шаблон";
 "TemplateOptions.Alert.Duplicate" = "Дубляваць";
@@ -384,18 +384,18 @@
 "Set as default" = "Set as default";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Remove From Favorite";
+"Remove From Favorite" = "Выдаліць з абранага";
 "Add To Favorite" = "Дадаць У Абранае";
 "Move To Bin" = "Перамясціць у Сметніцу";
 
 
 "LinkAppearance.Description.None.Title" = "Няма";
 "LinkAppearance.Description.Object.Title" = "Object description";
-"LinkAppearance.Description.Content.Title" = "Content preview";
-"LinkAppearance.ObjectType.Title" = "Object type";
+"LinkAppearance.Description.Content.Title" = "Прадпрагляд змесціва";
+"LinkAppearance.ObjectType.Title" = "Тып аб'екта";
 
 // MARK: - Sets: Sorts
-"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
+"EditSet.Popup.Sorts.NavigationView.Title" = "Сартаванні";
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
 "EditSet.Popup.Sort.Types.Ascending" = "Па ўзрастанні";
 "EditSet.Popup.Sort.Types.Descending" = "Па змяншэнні";
@@ -454,7 +454,7 @@
 "EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Гэты месяц";
 "EditSet.Popup.Filter.Date.Option.NextMonth" = "Наступны месяц";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Колькасць дзён з гэтага моманту";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Дакладная дата";
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ дзён таму";
@@ -478,23 +478,23 @@
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
-"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Title" = "Памеры карткі";
 "Set.View.Settings.CardSize.Small.Title" = "Маленькі";
 "Set.View.Settings.CardSize.Large.Title" = "Вялікі";
 "Set.View.Settings.ImagePreview.Title" = "Перадагляд відарыса";
 "Set.View.Settings.GroupBy.Title" = "Згрупаваць па";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Каляровыя слупкі";
 
-"Set.View.Settings.NoRelations.Placeholder" = "No relations";
-"Set.View.Settings.NoFilters.Placeholder" = "No filters";
+"Set.View.Settings.NoRelations.Placeholder" = "Няма ўласцівасцяў";
+"Set.View.Settings.NoFilters.Placeholder" = "Без фільтраў";
 "Set.View.Settings.NoSorts.Placeholder" = "No sorts";
 "Set.View.Settings.Objects.Applied.Title" = "%d applied";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Uncategorized";
-"Set.View.Kanban.Column.Title.Checked" = "%@ is checked";
-"Set.View.Kanban.Column.Title.Unchecked" = "%@ is unchecked";
-"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Show more objects";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Без катэгорыі";
+"Set.View.Kanban.Column.Title.Checked" = "%@ пастаўлены сцяжок";
+"Set.View.Kanban.Column.Title.Unchecked" = "%@ зняты сцяжок";
+"Set.View.Kanban.Column.Paging.Title.ShowMore" = "Паказаць больш аб'ектаў";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
 "Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
 
@@ -511,13 +511,13 @@
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
-"Collection.View.Empty.Title" = "No objects";
+"Collection.View.Empty.Title" = "Няма аб'ектаў";
 "Collection.View.Empty.Subtitle" = "Create first object to continue";
-"Collection.View.Empty.Button.Title" = "Create object";
+"Collection.View.Empty.Button.Title" = "Стварыць аб'ект";
 
 // MARK: Slash Menu
-"SlashMenu.DotsDivider" = "Dots divider";
-"SlashMenu.LineDivider" = "Line divider";
+"SlashMenu.DotsDivider" = "Раздзяляльнік з кропак";
+"SlashMenu.LineDivider" = "Лінейны раздзяляльнік";
 "SlashMenu.TableOfContents" = "Table of contents";
 "SlashMenu.Table" = "Table";
 
@@ -552,23 +552,23 @@
 "AreYouSure" = "Are you sure?";
 "Nothing found" = "Nothing found";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
-"Create type" = "Create type";
+"Create type" = "Стварыць тып";
 
 
-"Limit object types" = "Limit object types";
+"Limit object types" = "Абмежаваць тыпы аб'ектаў";
 "Type" = "Тып";
 "No name" = "Без назвы";
 "New relation" = "Новая ўласцівасць";
 "Non-existent object" = "Неіснуючы аб'ект";
 
 "Select all" = "Выбраць усё";
-"Unselect all" = "Unselect all";
-"Deselect all" = "Deselect all";
-"Shared" = "Shared";
-"Sets" = "Sets";
-"Collections" = "Collections";
-"Default object type" = "Default object type";
-"Personalization" = "Personalization";
+"Unselect all" = "Скасаваць выбар";
+"Deselect all" = "Зняць вылучэнне";
+"Shared" = "Абагуленае";
+"Sets" = "Наборы";
+"Collections" = "Калекцыі";
+"Default object type" = "Прадвызначаны тып аб'екта";
+"Personalization" = "Персаналізацыя";
 "Choose default object type" = "Choose default object type";
 "About" = "About";
 "Appearance" = "Appearance";
@@ -598,26 +598,26 @@
 "Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
 "Standard layout for canvas blocks" = "Standard layout for canvas blocks";
 "List of related objects" = "List of related objects";
-"Lock" = "Lock";
-"Unlock" = "Unlock";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"Lock" = "Заблакіраваць";
+"Unlock" = "Разблакіраваць";
+"Favorite" = "Абранае";
+"Unfavorite" = "Выдаліць з абранага";
 "Unsplash" = "Unsplash";
-"Go back" = "Go back";
+"Go back" = "Назад";
 "SyncStatus.LocalOnly.Title" = "Local-only";
-"SyncStatus.LocalOnly.Description" = "Local only";
+"SyncStatus.LocalOnly.Description" = "Толькі лакальна";
 "SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Node is not connected" = "Node is not connected";
-"Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
+"Initializing sync" = "Ініцыялізацыя сінхранізацыі";
+"Not syncing" = "Не сінхранізуецца";
 "Synced" = "Сінхранізавана";
 "Syncing..." = "Сінхранізацыя...";
-"No connection" = "No connection";
+"No connection" = "Няма злучэння";
 "Preparing..." = "Падрыхтоўка...";
-"Deleted" = "Deleted";
+"Deleted" = "Выдалена";
 "Download" = "Спампаваць";
 "Open object" = "Адкрыць аб'ект";
 "Open source" = "Адкрыць крыніцу";
@@ -630,34 +630,35 @@
 "Upload playable audio" = "Upload playable audio";
 "Code snippet" = "Code snippet";
 "Bookmark" = "Bookmark";
-"Audio" = "Audio";
-"Video" = "Video";
-"Picture" = "Picture";
-"File" = "File";
+"Audio" = "Аўдыя";
+"Video" = "Відэа";
+"Picture" = "Відарыс";
+"File" = "Файл";
 "No related options here" = "No related options here. You can add some";
-"Empty" = "Empty";
+"Empty" = "Пуста";
 "Link to" = "Спасылка на";
-"Unknown" = "Unknown";
+"Unknown" = "Невядомы";
 "Settings" = "Налады";
-"Views" = "Views";
-"Filter" = "Filter";
-"Sort" = "Sort";
+"Views" = "Выгляды";
+"Filter" = "Фільтр";
+"Sort" = "Сартаваць";
 "View" = "Выгляд";
-"Home" = "Home";
+"Home" = "Галоўная
+";
 "Highlight" = "Highlight";
-"Create object" = "Create object";
-"Web pages" = "Web pages";
-"Preview layout" = "Preview layout";
-"Everywhere" = "Everywhere";
-"Exact day" = "Exact day";
+"Create object" = "Стварыць аб'ект";
+"Web pages" = "Вэб-старонкі";
+"Preview layout" = "Прадпрагляд макета";
+"Everywhere" = "Усюды";
+"Exact day" = "Дакладны дзень";
 "Tomorrow" = "Заўтра";
 "Yesterday" = "Учора";
 "Today" = "Сёння";
-"No date" = "No date";
-"Clear" = "Clear";
-"Create option with" = "Create option ‘%@’";
-"Enter URL" = "Enter URL";
-"Enter email" = "Enter email";
+"No date" = "Без даты";
+"Clear" = "Ачысціць";
+"Create option with" = "Стварыць параметр ‘%@’";
+"Enter URL" = "Увядзіце URL";
+"Enter email" = "Увядзіце эл. пошту";
 "Enter phone number" = "Enter phone number";
 "Enter number" = "Увядзіце нумар";
 "Enter text" = "Увядзіце тэкст";
@@ -703,89 +704,89 @@
 "RedactedText.pageType" = "Red pill";
 
 // MARK: - InterfaceStyle
-"InterfaceStyle.light" = "Light";
-"InterfaceStyle.dark" = "Dark";
-"InterfaceStyle.system" = "System";
+"InterfaceStyle.light" = "Светлая";
+"InterfaceStyle.dark" = "Цёмная";
+"InterfaceStyle.system" = "Сістэма";
 
 // MARK: Table of Contents
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear";
+"SimpleTableMenu.Item.clearContents" = "Ачысціць";
 "SimpleTableMenu.Item.color" = "Колер";
 "SimpleTableMenu.Item.style" = "Стыль";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
-"SimpleTableMenu.Item.InsertLeft" = "Insert left";
-"SimpleTableMenu.Item.InsertRight" = "Insert right";
-"SimpleTableMenu.Item.MoveLeft" = "Move left";
-"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.InsertLeft" = "Уставіць злева";
+"SimpleTableMenu.Item.InsertRight" = "Уставіць справа";
+"SimpleTableMenu.Item.MoveLeft" = "Перамясціць улева";
+"SimpleTableMenu.Item.MoveRight" = "Перамясціць управа";
 "SimpleTableMenu.Item.Duplicate" = "Дубляваць";
 "SimpleTableMenu.Item.Delete" = "Выдаліць";
-"SimpleTableMenu.Item.Sort" = "Sort";
+"SimpleTableMenu.Item.Sort" = "Сартаваць";
 
-"SimpleTableMenu.Item.InsertAbove" = "Insert above";
-"SimpleTableMenu.Item.InsertBelow" = "Insert below";
-"SimpleTableMenu.Item.MoveUp" = "Move up";
-"SimpleTableMenu.Item.MoveDown" = "Move down";
+"SimpleTableMenu.Item.InsertAbove" = "Уставіць вышэй";
+"SimpleTableMenu.Item.InsertBelow" = "Уставіць ніжэй";
+"SimpleTableMenu.Item.MoveUp" = "Перамясціць уверх";
+"SimpleTableMenu.Item.MoveDown" = "Перамясціць уніз";
 
 "DebugMenu.ToggleAuthor" = "Release: %@, %@";
 
 // MARK: Link Past Actions
-"LinkPaste.text" = "Paste as text";
-"LinkPaste.link" = "Paste as link";
-"LinkPaste.bookmark" = "Create bookmark";
+"LinkPaste.text" = "Уставіць як тэкст";
+"LinkPaste.link" = "Уставіць спасылку";
+"LinkPaste.bookmark" = "Стварыць закладку";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copy phone number";
-"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyPhone" = "Капіяваць нумар тэлефона";
+"RelationAction.CopyEmail" = "Капіяваць эл. пошту";
 "RelationAction.CopyLink" = "Скапіяваць спасылку";
 "RelationAction.Copied" = "Скапіравана";
 "RelationAction.ReloadingContent" = "Reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
 "RelationAction.CallPhone" = "Call phone numbler";
-"RelationAction.SendEmail" = "Send email";
-"RelationAction.OpenLink" = "Open link";
+"RelationAction.SendEmail" = "Адаслаць ліст";
+"RelationAction.OpenLink" = "Адкрыць спасылку";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Title" = "Рэдагаваць выгляд ";
+"SetViewTypesPicker.New.Title" = "Новы выгляд";
+"SetViewTypesPicker.Section.Types.Title" = "Паказваць як";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Дубляваць";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Выдаліць выгляд";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Новы выгляд";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Бяз назвы";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Не падтрымліваецца";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
+"Content.File.Upload" = "Запампаваць файл";
+"Content.Audio.Upload" = "Запампаваць аўдыя";
+"Content.Video.Upload" = "Запампаваць відэа";
+"Content.Picture.Upload" = "Запампаваць відарыс";
+"Content.Common.Uploading" = "Загрузка...";
 "Content.Common.Error" = "Something went wrong, try again";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Loading, please wait...";
-"Content.DataView.InlineSet.Subtitle" = "Inline set";
-"Content.DataView.InlineCollection.Subtitle" = "Inline collection";
+"Content.DataView.InlineSet.Subtitle" = "Убудаваны набор";
+"Content.DataView.InlineCollection.Subtitle" = "Убудаваная калекцыя";
 "Content.DataView.InlineSet.NoSource" = "No source";
-"Content.DataView.InlineSet.NoData" = "No data";
-"Content.DataView.InlineSet.Untitled" = "Untitled set";
-"Content.DataView.InlineCollection.Untitled" = "Untitled collection";
+"Content.DataView.InlineSet.NoData" = "Без даты";
+"Content.DataView.InlineSet.Untitled" = "Набор без назвы";
+"Content.DataView.InlineCollection.Untitled" = "Калекцыя без назвы";
 "Content.DataView.InlineSet.Toast.Failure" = "This inline set doesn’t have a source";
 
 // MARK: - Toast
-"Editor.Toast.LinkedTo" = "linked to";
+"Editor.Toast.LinkedTo" = "звязаны з";
 "Editor.Toast.MovedTo" = "Block moved to";
 
 // MARK: - Scanner
 "Scanner.Error.Scanning not supported" = "Scanning not supported";
 
 // MARK: - Widgets
-"Widgets.SourceSearch" = "Widget source";
-"Widgets.Actions.ChangeSource" = "Change Source";
+"Widgets.SourceSearch" = "Крыніца віджэта";
+"Widgets.Actions.ChangeSource" = "Змяніць крыніцу";
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Remove Widget";
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
@@ -873,14 +874,14 @@
 "Spaces.Info.Network" = "Network:";
 
 // MARK: - Space
-"Space.Status.Unknown" = "Unknown";
+"Space.Status.Unknown" = "Невядомы";
 "Space.Status.Loading" = "Loading";
 "Space.Status.Ok" = "Ok";
 "Space.Status.Missing" = "Missing";
 "Space.Status.Error" = "Error";
 "Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
 "Space.Status.RemoteDeleted" = "Remote Deleted";
-"Space.Status.SpaceDeleted" = "Deleted";
+"Space.Status.SpaceDeleted" = "Выдалена";
 "Space.Status.SpaceActive" = "Active";
 "Space.Status.SpaceJoining" = "Joining";
 "Space.Status.SpaceRemoving" = "Removing";
