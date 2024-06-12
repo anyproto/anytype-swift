@@ -2917,6 +2917,7 @@ public struct Anytype_Model_Block {
         case tree // = 1
         case list // = 2
         case compactList // = 3
+        case view // = 4
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -2929,6 +2930,7 @@ public struct Anytype_Model_Block {
           case 1: self = .tree
           case 2: self = .list
           case 3: self = .compactList
+          case 4: self = .view
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -2939,6 +2941,7 @@ public struct Anytype_Model_Block {
           case .tree: return 1
           case .list: return 2
           case .compactList: return 3
+          case .view: return 4
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -3266,6 +3269,7 @@ extension Anytype_Model_Block.Content.Widget.Layout: CaseIterable {
     .tree,
     .list,
     .compactList,
+    .view,
   ]
 }
 
@@ -8551,6 +8555,7 @@ extension Anytype_Model_Block.Content.Widget.Layout: SwiftProtobuf._ProtoNamePro
     1: .same(proto: "Tree"),
     2: .same(proto: "List"),
     3: .same(proto: "CompactList"),
+    4: .same(proto: "View"),
   ]
 }
 

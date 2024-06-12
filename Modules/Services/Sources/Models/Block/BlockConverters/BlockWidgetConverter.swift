@@ -30,6 +30,8 @@ public extension Anytype_Model_Block.Content.Widget.Layout {
                 return .list
             case .compactList:
                 return .compactList
+            case .view:
+                return .compactList
             case .UNRECOGNIZED:
                 anytypeAssertionFailure("UNRECOGNIZED layout type", info: ["type": "\(rawValue)"])
                 throw WidgetLayoutError.valueUnrecognized
