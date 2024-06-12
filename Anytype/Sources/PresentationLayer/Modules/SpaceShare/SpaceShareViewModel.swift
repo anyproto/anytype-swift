@@ -46,6 +46,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var canStopShare = false
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
+    @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
     init(onMoreInfo: @escaping () -> Void) {
@@ -125,8 +126,12 @@ final class SpaceShareViewModel: ObservableObject {
         onMoreInfo()
     }
     
-    func onUpgradeTap() {
-        membershipUpgradeReason = .numberOfSpaceMembers
+    func onUpgradeTap(reason: MembershipParticipantUpgradeReason) {
+        onUpgradeTap(reason: MembershipUpgradeReason(participantReason: reason))
+    }
+    
+    func onUpgradeTap(reason: MembershipUpgradeReason) {
+        membershipUpgradeReason = reason
     }
     
     // MARK: - Private
@@ -141,9 +146,7 @@ final class SpaceShareViewModel: ObservableObject {
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
         
-        let canAddReaders = participantSpaceView.spaceView.canAddReaders(participants: participants)
-        let haveJoiningParticipants = participants.contains { $0.status == .joining }
-        showUpgradeBadge = !canAddReaders && haveJoiningParticipants
+        updateUpgradeViewState()
         
         rows = participants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
@@ -155,6 +158,23 @@ final class SpaceShareViewModel: ObservableObject {
                 action: participantAction(participant),
                 contextActions: participantContextActions(participant)
             )
+        }
+    }
+    
+    private func updateUpgradeViewState() {
+        guard let participantSpaceView else { return }
+        
+        let canAddReaders = participantSpaceView.spaceView.canAddReaders(participants: participants)
+        let canAddWriters = participantSpaceView.spaceView.canAddWriters(participants: participants)
+        let haveJoiningParticipants = participants.contains { $0.status == .joining }
+        
+        
+        if !canAddReaders && haveJoiningParticipants {
+            upgradeTooltipData = .numberOfSpaceReaders
+        } else if !canAddWriters {
+            upgradeTooltipData = .numberOfSpaceEditors
+        } else {
+            upgradeTooltipData = nil
         }
     }
     
