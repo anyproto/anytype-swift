@@ -1,4 +1,4 @@
-public struct BlockRestrictionsBuilder {
+public struct BlockRestrictionsBuilder: Sendable {
     
     public static func build(content: BlockContent) -> BlockRestrictions {
         build(contentType: content.type)

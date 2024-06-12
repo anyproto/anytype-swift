@@ -18,8 +18,6 @@ final class RemoteStorageViewModel: ObservableObject {
     private var documentProvider: DocumentsProviderProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: ParticipantSpacesStorageProtocol
-    @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: MailUrlBuilderProtocol
     
@@ -35,10 +33,8 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var spaceUsed: String = ""
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
-    @Published var showMembershipScreen = false
-    @Published var showMembershipEmailAlert = false
+    @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var segmentInfo = RemoteStorageSegmentInfo()
-    @Published var openUrl: URL?
     
     init(output: RemoteStorageModuleOutput?) {
         self.output = output
@@ -58,19 +54,7 @@ final class RemoteStorageViewModel: ObservableObject {
     
     func onTapGetMoreSpace() {
         AnytypeAnalytics.instance().logGetMoreSpace()
-        
-        guard let currentTier = membershipStatusStorage.currentStatus.tier else { return }
-        
-        if currentTier.isPossibleToUpgrade {
-            showMembershipScreen = true
-        } else {
-            showMembershipEmailAlert = true
-        }
-    }
-    
-    func onTapContactAnytype() {
-        openUrl = mailUrlBuilder.membershipUpgrateUrl()
-        showMembershipEmailAlert = false
+        membershipUpgradeReason = .storageSpace
     }
     
     // MARK: - Private

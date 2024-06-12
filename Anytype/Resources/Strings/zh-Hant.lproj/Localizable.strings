@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "粗體";
 "TextStyle.Italic.Title" = "斜體";
 "TextStyle.Strikethrough.Title" = "刪除線";
+"TextStyle.Underline.Title" = "底線";
 "TextStyle.Code.Title" = "代碼";
 "TextStyle.Link.Title" = "連結";
 
@@ -134,6 +135,7 @@
 "Toggle empty. Tap to create block." = "摺疊為空， 點擊以建立區塊。";
 "Loading, please wait" = "載入中，請稍候";
 "Done" = "完成";
+"Next" = "繼續";
 "Style" = "樣式";
 "Color" = "顏色";
 "Background" = "背景";
@@ -165,6 +167,7 @@
 "Align right" = "靠右";
 "Align left" = "靠左";
 "Align center" = "置中";
+"Align justify" = "分散對齊";
 "Black" = "黑色";
 "Amber" = "琥珀色";
 "Red" = "紅色";
@@ -334,9 +337,13 @@
 "There is no object named" = "沒有名為 \"%@\" 的物件";
 "There is no type named" = "沒有名為 \"%@\" 的類型";
 "Create a new one or search for something else" = "建立一個新的或搜尋其他內容";
-"Search.Backlinks.Show.title" = "顯示反向連結";
-"Search.Backlinks.Header.title" = "反向連結：%@";
-"Search.Backlinks.Swipe.title" = "反向連結";
+"Search.Links.Show.title" = "顯示關聯物件";
+"Search.Links.Header.title" = "關聯到： %@";
+"Search.Links.Swipe.title" = "關聯到";
+"GlobalSearch.EmptyState.subtitle" = "建立一個新的或搜尋其他內容";
+"GlobalSearch.EmptyFilteredState.title" = "找不到關聯的物件";
+"GlobalSearch.Swipe.Tip.title" = "Related objects";
+"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
 
 // MARK: - Home
 
@@ -821,7 +828,7 @@
 "About.TermsOfUse" = "使用條款";
 "About.PrivacyPolicy" = "隱私政策";
 "About.TechInfo" = "技術資訊";
-"About.Mail.Subject" = "請求支援，資料庫 ID %@";
+"About.Mail.Subject" = "請求支援，筆記庫 ID %@";
 "About.Mail.Body" = "\n\n技術資訊\n%@";
 
 // MARK: - Cache
@@ -840,8 +847,6 @@
 "FileStorage.Space.Instruction" = "您可以在我們的加密備份節點上免費儲存最多 %@ 個檔案。 如果達到限制，檔案將僅儲存在本機。";
 "FileStorage.Space.Used" = "已使用 %@；總共 %@";
 "FileStorage.Space.GetMore" = "獲取更多空間";
-"FileStorage.Space.Mail.Subject" = "為帳戶 %@ 獲取更多儲存空間";
-"FileStorage.Space.Mail.Body" = "您好，Anytype 團隊。我聯繫你們是因為我的儲存容量不足了，因此想請求增加儲存容量。當前的儲存容量限制為 %@。我的帳戶 ID 是 %@。謝謝，%@.";
 "FileStorage.Local.Title" = "本機儲存";
 "FileStorage.Local.Instruction" = "為了節省本地設備上的空間，您可以將所有檔案傳輸到我們的加密備份節點。 當您打開這些檔案時，它們將被重新載入。";
 "FileStorage.Local.Used" = "已使用 %@";
@@ -999,6 +1004,11 @@
 "Swipe.Tip.Title" = "滑動以建立物件";
 "Swipe.Tip.Subtitle" = "向左輕滑即可在小工具內建立物件。";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "在空間進行協作";
+"SpaceShare.Tip.Steps.1" = "點擊空間小工具來進行設置";
+"SpaceShare.Tip.Steps.2" = "開放共享區塊";
+"SpaceShare.Tip.Steps.3" = "產生邀請連結並分享";
 
 // MARK: - Initial
 
@@ -1093,6 +1103,14 @@
  具體來說，
  請在此提供您需求的具體細節。";
 
+"Membership.Upgrade.Title" = "會員升級";
+"Membership.Upgrade.Text" = "如需更多額外的儲存容量、更多空間編輯者或更多共享空間，請與我們聯絡。 Anytype 團隊將根據您的需求和條件為您量身定製。";
+"Membership.Upgrade.Button" = "聯絡 Anytype 團隊";
+
+"Membership.Upgrade.MoreSpaces" = "升級以使用更多空間";
+"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
+"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+
 
 "Membership.Banner.Title1" = "一起創建願景";
 "Membership.Banner.Subtitle1" = "作為尊貴的會員，您的聲音至關重要！ 參與獨家活動、制定策略選擇，並影響我們的路線圖。";
@@ -1138,6 +1156,7 @@
 
 "MembershipServiceError.tierNotFound" = "未找到該階段數據，請重新啟動應用程式並重試";
 "MembershipServiceError.forcefullyFailedValidation" = "失效故障模式已開啟🫵🐭。 在除錯設定中可關閉";
+"MembershipServiceError.invalidBillingIdFormat" = "帳單格式存在內部問題，我們正在處理中。請稍後再試，或聯絡客服支援。";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME 類型 - %@";

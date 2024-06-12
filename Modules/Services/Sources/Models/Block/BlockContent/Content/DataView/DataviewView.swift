@@ -1,7 +1,7 @@
 import ProtobufMessages
 import AnytypeCore
 
-public struct DataviewView: Hashable, Identifiable {
+public struct DataviewView: Hashable, Identifiable, Sendable {
     public let id: String
     public let name: String
 

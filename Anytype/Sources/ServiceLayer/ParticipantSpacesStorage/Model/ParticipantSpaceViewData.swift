@@ -1,7 +1,7 @@
 import Foundation
 import Services
 
-struct ParticipantSpaceView: Equatable, Identifiable {
+struct ParticipantSpaceViewData: Equatable, Identifiable {
     let spaceView: SpaceView
     let participant: Participant?
     let permissions: SpacePermissions
@@ -9,7 +9,7 @@ struct ParticipantSpaceView: Equatable, Identifiable {
     var id: String { spaceView.id }
 }
 
-extension ParticipantSpaceView {
+extension ParticipantSpaceViewData {
     var canBeShared: Bool {
         permissions.canBeShared
     }

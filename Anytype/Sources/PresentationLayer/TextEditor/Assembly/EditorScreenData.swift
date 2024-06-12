@@ -16,17 +16,20 @@ struct EditorPageObject: Hashable, Codable {
     let objectId: String
     let spaceId: String
     let isOpenedForPreview: Bool
+    var blockId: String?
     let usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase
     
     init(
         objectId: String,
         spaceId: String,
         isOpenedForPreview: Bool,
+        blockId: String? = nil,
         usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
         self.objectId = objectId
         self.spaceId = spaceId
         self.isOpenedForPreview = isOpenedForPreview
+        self.blockId = blockId
         self.usecase = usecase
     }
 }

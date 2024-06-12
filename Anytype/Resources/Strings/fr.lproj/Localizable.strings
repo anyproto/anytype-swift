@@ -35,6 +35,7 @@
 "TextStyle.Bold.Title" = "Gras";
 "TextStyle.Italic.Title" = "Italique";
 "TextStyle.Strikethrough.Title" = "Barré";
+"TextStyle.Underline.Title" = "Underline";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Lien";
 
@@ -134,6 +135,7 @@
 "Toggle empty. Tap to create block." = "Activer/désactiver vide. Touchez pour créer un bloc.";
 "Loading, please wait" = "Chargement, veuillez patienter...";
 "Done" = "Fait";
+"Next" = "Suivant";
 "Style" = "Style";
 "Color" = "Couleur ";
 "Background" = "Arrière-plan";
@@ -165,6 +167,7 @@
 "Align right" = "Aligner à droite";
 "Align left" = "Aligner à gauche";
 "Align center" = "Aligner au centre";
+"Align justify" = "Justifier";
 "Black" = "Noir";
 "Amber" = "Ambre";
 "Red" = "Rouge";
@@ -333,9 +336,13 @@
 "There is no object named" = "Il n'y a aucun objet nommé %@";
 "There is no type named" = "Il n'y a aucun type nommé %@";
 "Create a new one or search for something else" = "Créer un nouveau ou rechercher autre chose";
-"Search.Backlinks.Show.title" = "Afficher les rétroliens";
-"Search.Backlinks.Header.title" = "Rétroliens de : %@";
-"Search.Backlinks.Swipe.title" = "Rétroliens";
+"Search.Links.Show.title" = "Afficher les objets associés";
+"Search.Links.Header.title" = "Associé à : %@";
+"Search.Links.Swipe.title" = "Associé à";
+"GlobalSearch.EmptyState.subtitle" = "Créer un nouvel objet ou rechercher autre chose";
+"GlobalSearch.EmptyFilteredState.title" = "Aucun objet associé trouvé";
+"GlobalSearch.Swipe.Tip.title" = "Objets liés";
+"GlobalSearch.Swipe.Tip.subtitle" = "Glissez vers la gauche pour voir les objets liés. Notez que cela ne fonctionne que pour les objets qui ont des objets liés.";
 
 // MARK: - Home
 
@@ -836,8 +843,6 @@
 "FileStorage.Space.Instruction" = "Vous pouvez stocker gratuitement jusqu'à %@ de vos fichiers sur notre nœud de sauvegarde chiffré. Si vous atteignez la limite, les fichiers ne seront stockés que localement.";
 "FileStorage.Space.Used" = "%@ sur %@ utilisé";
 "FileStorage.Space.GetMore" = "Obtenir plus d’espace";
-"FileStorage.Space.Mail.Subject" = "Obtenir plus de stockage, coffre %@";
-"FileStorage.Space.Mail.Body" = "Bonjour, l'équipe Anytype. Je vous contacte pour demander une augmentation de ma capacité de stockage de fichiers car mon coffre est plein. Mes limites actuelles sont %@. Mon identifiant de coffre est %@. À bientôt, %@.";
 "FileStorage.Local.Title" = "Stockage local";
 "FileStorage.Local.Instruction" = "Afin d'économiser de l'espace sur votre appareil, vous pouvez décharger tous vos fichiers vers notre nœud de sauvegarde chiffré. Les fichiers seront rechargés lorsque vous les ouvrirez.";
 "FileStorage.Local.Used" = "%@ utilisé";
@@ -995,6 +1000,11 @@
 "Swipe.Tip.Title" = "Glisser pour créer des objets";
 "Swipe.Tip.Subtitle" = "Créez des objets à l'intérieur de widgets en les glissant facilement à gauche.";
 
+// MARK: - Space Share Tip
+"SpaceShare.Tip.Title" = "Collaborez dans les espaces";
+"SpaceShare.Tip.Steps.1" = ". Appuyez sur le widget de l’Espace pour accéder aux paramètres";
+"SpaceShare.Tip.Steps.2" = "Ouvrez la section Partage";
+"SpaceShare.Tip.Steps.3" = "Générez un lien d’invitation et partagez-le";
 
 // MARK: - Initial
 
@@ -1089,6 +1099,14 @@
 Précisions,
 Merci de fournir ici des détails plus précis de vos besoins.";
 
+"Membership.Upgrade.Title" = "Mise à niveau de l'abonnement";
+"Membership.Upgrade.Text" = "Contactez-nous pour obtenir du stockage supplémentaire, plus de rédacteurs, ou davantage d'espaces partagés. L'équipe d'Anytype vous fournira l'offre adaptée à vos besoins.";
+"Membership.Upgrade.Button" = "Contacter l'équipe d'Anytype";
+
+"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
+"Membership.Upgrade.MoreMembers" = "Mettre à niveau pour ajouter plus de membres";
+"Membership.Upgrade.NoMoreMembers" = "Vous ne pouvez plus ajouter de membres";
+
 
 "Membership.Banner.Title1" = "Construire la Vision ensemble";
 "Membership.Banner.Subtitle1" = "En tant que membre apprécié, votre voix compte ! Participez à des événements exclusifs, définissez des choix stratégiques et influencez notre feuille de route.";
@@ -1134,6 +1152,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 "MembershipServiceError.tierNotFound" = "Données de niveau introuvables, redémarrez l'application et réessayez";
 "MembershipServiceError.forcefullyFailedValidation" = "LE MODE FAIL EST ACTIVÉ 🫵🐭. Désactivez-le dans les paramètres de débogage";
+"MembershipServiceError.invalidBillingIdFormat" = "Problème interne avec le format de facturation, nous travaillons sur ceci. Réessayez plus tard ou contactez le support.";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";

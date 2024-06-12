@@ -18,10 +18,14 @@ final class SpaceShareViewModel: ObservableObject {
     private var universalLinkParser: UniversalLinkParserProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    @Injected(\.mailUrlBuilder)
+    private var mailUrlBuilder: MailUrlBuilderProtocol
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
-    private var participantSpaceView: ParticipantSpaceView?
+    private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
     private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
@@ -38,9 +42,11 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var removeParticipantAlertModel: SpaceParticipantRemoveViewModel?
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
+    @Published var showUpgradeBadge = false
     @Published var canStopShare = false
     @Published var canDeleteLink = false
     @Published var canRemoveMember = false
+    @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
     init(onMoreInfo: @escaping () -> Void) {
         self.onMoreInfo = onMoreInfo
@@ -119,6 +125,10 @@ final class SpaceShareViewModel: ObservableObject {
         onMoreInfo()
     }
     
+    func onUpgradeTap() {
+        membershipUpgradeReason = .numberOfSpaceMembers
+    }
+    
     // MARK: - Private
     
     private func updateView() {
@@ -130,6 +140,10 @@ final class SpaceShareViewModel: ObservableObject {
         canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions 
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
+        
+        let canAddReaders = participantSpaceView.spaceView.canAddReaders(participants: participants)
+        let haveJoiningParticipants = participants.contains { $0.status == .joining }
+        showUpgradeBadge = !canAddReaders && haveJoiningParticipants
         
         rows = participants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink

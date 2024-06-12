@@ -41,7 +41,7 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
         case .phone, .email:
             break
         case .url:
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlCopy)
+            AnytypeAnalytics.instance().logRelationUrlCopy()
         }
     }
 }

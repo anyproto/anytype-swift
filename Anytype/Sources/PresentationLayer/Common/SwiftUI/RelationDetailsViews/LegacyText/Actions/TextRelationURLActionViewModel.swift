@@ -67,7 +67,7 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
         case .phone, .email:
             break
         case .url:
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlOpen)
+            AnytypeAnalytics.instance().logRelationUrlOpen()
         }
     }
 }

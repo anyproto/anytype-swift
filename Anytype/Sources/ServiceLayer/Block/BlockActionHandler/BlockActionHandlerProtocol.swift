@@ -19,12 +19,12 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createEmptyBlock(parentId: String, spaceId: String)
     func addLink(targetDetails: ObjectDetails, blockId: String)
     func changeMarkup(blockIds: [String], markType: MarkupType)
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String)
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String)
     func toggleWholeBlockMarkup(
-        _ attributedString: NSAttributedString?,
+        _ attributedString: SafeNSAttributedString?,
         markup: MarkupType,
         info: BlockInformation
-    ) async throws -> NSAttributedString?
+    ) async throws -> SafeNSAttributedString?
     func upload(blockId: String, filePath: String) async throws
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> String?
 
@@ -34,14 +34,14 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setObjectSetType() async throws
     func setObjectCollectionType() async throws
     func applyTemplate(objectId: String, templateId: String) async throws
-    func changeText(_ text: NSAttributedString, blockId: String) async throws
+    func changeText(_ text: SafeNSAttributedString, blockId: String) async throws
     func setTextStyle(
         _ attribute: MarkupType,
         range: NSRange,
         blockId: String,
-        currentText: NSAttributedString?,
+        currentText: SafeNSAttributedString,
         contentType: BlockContentType
-    ) async throws
+    ) async throws -> SafeNSAttributedString
     func uploadMediaFile(uploadingSource: FileUploadingSource, type: MediaPickerContentType, blockId: String)
     func uploadFileAt(localPath: String, blockId: String)
     func createAndFetchBookmark(
@@ -54,14 +54,14 @@ protocol BlockActionHandlerProtocol: AnyObject {
         blockId: String,
         rowsCount: Int,
         columnsCount: Int,
-        blockText: SafeSendable<NSAttributedString?>,
+        blockText: SafeNSAttributedString?,
         spaceId: String
     ) async throws -> String
     func pasteContent()
 }
 
 extension BlockActionHandlerProtocol {
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString? = nil, spaceId: String) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString? = nil, spaceId: String) {
         addBlock(type, blockId: blockId, blockText: blockText, position: nil, spaceId: spaceId)
     }
 }

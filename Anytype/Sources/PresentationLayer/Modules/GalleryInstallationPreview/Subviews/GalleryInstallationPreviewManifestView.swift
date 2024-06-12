@@ -2,6 +2,7 @@ import Foundation
 import SwiftUI
 import Services
 import WrappingHStack
+import CachedAsyncImage
 
 struct GalleryInstallationPreviewManifestView: View {
 
@@ -14,7 +15,7 @@ struct GalleryInstallationPreviewManifestView: View {
                 Spacer.fixedHeight(24)
                 TabView {
                     ForEach(manifest.screenshots, id: \.self) { url in
-                        AsyncImage(
+                        CachedAsyncImage(
                             url: url,
                             content: { image in
                                 image.resizable()

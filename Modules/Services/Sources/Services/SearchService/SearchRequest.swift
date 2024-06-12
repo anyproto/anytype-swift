@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SearchRequest {
+public struct SearchRequest: Sendable {
     public let filters: [DataviewFilter]
     public let sorts: [DataviewSort]
     public let fullText: String

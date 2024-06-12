@@ -374,6 +374,11 @@ extension EditorPageController: EditorPageViewInput {
         )
         applyAnimationConfig = isRealData
     }
+    
+    func scrollToItem(_ item: EditorItem) {
+        guard let indexPath = dataSource.indexPath(for: item) else { return }
+        collectionView.scrollToItem(at: indexPath, at: [.centeredVertically], animated: false)
+    }
 
     func scrollToTopBlock(blockId: String) {
         guard let item = dataSourceItem(for: blockId),

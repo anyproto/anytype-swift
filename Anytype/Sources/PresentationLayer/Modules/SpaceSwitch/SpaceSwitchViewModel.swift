@@ -25,7 +25,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     // MARK: - State
     
     private let profileSubId = "Profile-\(UUID().uuidString)"
-    private var spaces: [ParticipantSpaceView]?
+    private var spaces: [ParticipantSpaceViewData]?
     private var activeWorkspaceInfo: AccountInfo?
     private var subscriptions = [AnyCancellable]()
     

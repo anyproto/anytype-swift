@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public enum UseCase {
+public enum UseCase: Sendable {
     case none
     case getStarted
     case personalProjects

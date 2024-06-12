@@ -1,6 +1,6 @@
 import Foundation
 
-public enum LifecycleStateTransition {
+public enum LifecycleStateTransition: Sendable {
     case willEnterForeground
     case didEnterBackground
 }

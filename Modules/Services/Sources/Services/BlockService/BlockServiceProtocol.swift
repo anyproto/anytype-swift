@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public protocol BlockServiceProtocol: AnyObject {
+public protocol BlockServiceProtocol: AnyObject, Sendable {
     func add(contextId: String, targetId: String, info: BlockInformation, position: BlockPosition) async throws -> String
     func addFirstBlock(contextId: String, info: BlockInformation) async throws -> String
     func delete(contextId: String, blockIds: [String]) async throws
