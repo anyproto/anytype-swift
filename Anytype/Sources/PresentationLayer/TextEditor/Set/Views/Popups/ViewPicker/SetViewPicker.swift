@@ -19,7 +19,7 @@ struct SetViewPicker: View {
         .task {
             await viewModel.startSyncTask()
         }
-        .onChange(of: viewModel.dismiss) { _ in dismiss() }
+        .onChange(of: viewModel.shouldDismiss) { _ in dismiss() }
     }
     
     private var content: some View {

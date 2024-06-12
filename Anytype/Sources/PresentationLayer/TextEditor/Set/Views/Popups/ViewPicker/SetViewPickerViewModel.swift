@@ -8,7 +8,7 @@ final class SetViewPickerViewModel: ObservableObject {
     @Published var rows: [SetViewRowConfiguration] = []
     @Published var disableDeletion = false
     @Published var canEditViews = false
-    @Published var dismiss = false
+    @Published var shouldDismiss = false
     
     private let setDocument: SetDocumentProtocol
     private var cancellable: AnyCancellable?
@@ -97,7 +97,7 @@ final class SetViewPickerViewModel: ObservableObject {
                     type: view.type.analyticStringValue,
                     objectType: setDocument.analyticsType
                 )
-                dismiss.toggle()
+                shouldDismiss.toggle()
             }
         }
     }
