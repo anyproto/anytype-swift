@@ -25,6 +25,7 @@ struct MembershipEmailActionView: View {
                 text: Loc.submit,
                 style: .primaryLarge
             ) {
+                AnytypeAnalytics.instance().logClickMembership(type: .sumbit)
                 try await action(email)
             }
             .disabled(!email.isValidEmail())

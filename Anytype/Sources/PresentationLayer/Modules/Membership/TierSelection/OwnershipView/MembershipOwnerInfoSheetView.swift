@@ -23,8 +23,8 @@ struct MembershipOwnerInfoSheetView: View {
     }
     
     private var content: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(34)
+        VStack(alignment: .leading, spacing: 0) {
+            Spacer.fixedHeight(26)
             AnytypeText(Loc.yourCurrentStatus, style: .bodySemibold)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(14)
@@ -108,7 +108,7 @@ struct MembershipOwnerInfoSheetView: View {
                 }
             } else {
                 VStack(spacing: 0) {
-                    Spacer.fixedHeight(40)
+                    Spacer.fixedHeight(12)
                     MembershipEmailActionView { email in
                         try await model.getVerificationEmail(email: email)
                     }

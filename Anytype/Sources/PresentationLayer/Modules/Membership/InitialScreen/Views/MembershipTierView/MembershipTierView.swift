@@ -49,7 +49,7 @@ struct MembershipTierView: View {
             
             info
             Spacer.fixedHeight(10)
-            StandardButton(Loc.learnMore, style: .primaryMedium, action: model.onTap)
+            StandardButton(Loc.learnMore, style: .primaryXSmallStretched, action: model.onTap)
             Spacer.fixedHeight(20)
         }
         .if(model.state.isOwned) {
