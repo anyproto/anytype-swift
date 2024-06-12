@@ -710,10 +710,6 @@ extension AnytypeAnalytics {
         logEvent("MenuHelpPrivacy")
     }
     
-    func logGetMoreSpace() {
-        logEvent("GetMoreSpace")
-    }
-    
     func logScreenOnboarding(step: ScreenOnboardingStep) {
         logEvent(
             "ScreenOnboarding",
@@ -1023,6 +1019,13 @@ extension AnytypeAnalytics {
     
     func logChangePlan(tier: MembershipTier) {
         logEvent("ChangePlan", withEventProperties: [AnalyticsEventsPropertiesKey.name:  tier.name])
+    }
+    
+    func logClickUpgradePlanTooltip(type: ClickUpgradePlanTooltipType, route: ClickUpgradePlanTooltipRoute) {
+        logEvent("ClickUpgradePlanTooltip", withEventProperties: [
+            AnalyticsEventsPropertiesKey.type: type.rawValue,
+            AnalyticsEventsPropertiesKey.route: route.rawValue
+        ])
     }
     
     func logFileOffload() {

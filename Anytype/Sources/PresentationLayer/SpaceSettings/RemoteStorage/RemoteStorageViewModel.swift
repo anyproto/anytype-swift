@@ -53,7 +53,7 @@ final class RemoteStorageViewModel: ObservableObject {
     }
     
     func onTapGetMoreSpace() {
-        AnytypeAnalytics.instance().logGetMoreSpace()
+        AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .storage, route: .remoteStorage)
         membershipUpgradeReason = .storageSpace
     }
     

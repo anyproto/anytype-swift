@@ -91,6 +91,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onMembershipUpgradeTap() {
+        AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .sharedSpaces, route: .spaceSettings)
         membershipUpgradeReason = .numberOfSharedSpaces
     }
     

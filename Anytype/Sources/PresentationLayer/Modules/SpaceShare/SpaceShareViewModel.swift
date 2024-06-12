@@ -126,11 +126,12 @@ final class SpaceShareViewModel: ObservableObject {
         onMoreInfo()
     }
     
-    func onUpgradeTap(reason: MembershipParticipantUpgradeReason) {
-        onUpgradeTap(reason: MembershipUpgradeReason(participantReason: reason))
+    func onUpgradeTap(reason: MembershipParticipantUpgradeReason, route: ClickUpgradePlanTooltipRoute) {
+        onUpgradeTap(reason: MembershipUpgradeReason(participantReason: reason), route: route)
     }
     
-    func onUpgradeTap(reason: MembershipUpgradeReason) {
+    func onUpgradeTap(reason: MembershipUpgradeReason, route: ClickUpgradePlanTooltipRoute) {
+        AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: reason.analyticsType, route: route)
         membershipUpgradeReason = reason
     }
     
