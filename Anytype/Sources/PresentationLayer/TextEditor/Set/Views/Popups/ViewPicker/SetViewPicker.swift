@@ -3,7 +3,7 @@ import SwiftUI
 struct SetViewPicker: View {
     @StateObject private var viewModel: SetViewPickerViewModel
     @State private var editMode = EditMode.inactive
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     init(setDocument: SetDocumentProtocol, output: SetViewPickerCoordinatorOutput?) {
         _viewModel = StateObject(wrappedValue: SetViewPickerViewModel(setDocument: setDocument, output: output))
@@ -19,6 +19,7 @@ struct SetViewPicker: View {
         .task {
             await viewModel.startSyncTask()
         }
+        .onChange(of: viewModel.shouldDismiss) { _ in dismiss() }
     }
     
     private var content: some View {
@@ -85,12 +86,9 @@ struct SetViewPicker: View {
     }
     
     private func row(with configuration: SetViewRowConfiguration) -> some View {
-        SetViewRow(configuration: configuration, onTap: {
-            presentationMode.wrappedValue.dismiss()
-            configuration.onTap()
-        })
-        .environment(\.editMode, $editMode)
-        .animation(nil, value: editMode)
+        SetViewRow(configuration: configuration)
+            .environment(\.editMode, $editMode)
+            .animation(nil, value: editMode)
     }
 }
     
