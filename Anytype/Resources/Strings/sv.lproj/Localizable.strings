@@ -1106,6 +1106,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 "Membership.Upgrade.MoreMembers" = "Uppgradera för att lägga till fler medlemmar";
 "Membership.Upgrade.NoMoreMembers" = "Du kan inte lägga till fler medlemmar";
+"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
