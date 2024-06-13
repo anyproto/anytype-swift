@@ -29,6 +29,19 @@ enum MembershipUpgradeReason {
             self = .numberOfSpaceEditors
         }
     }
+    
+    var analyticsType: ClickUpgradePlanTooltipType {
+        switch self {
+        case .storageSpace:
+            return .storage
+        case .numberOfSpaceReaders:
+            return .members
+        case .numberOfSpaceEditors:
+            return .editors
+        case .numberOfSharedSpaces:
+            return .sharedSpaces
+        }
+    }
 }
 
 extension MembershipTier {

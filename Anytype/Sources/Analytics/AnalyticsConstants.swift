@@ -274,3 +274,17 @@ enum ClickMembershipType: String {
     case managePayment = "ManagePayment"
     case sumbit = "Submit"
 }
+
+enum ClickUpgradePlanTooltipType: String {
+    case storage = "storage"
+    case members = "members"
+    case editors = "editors"
+    case sharedSpaces = "sharedSpaces"
+}
+
+enum ClickUpgradePlanTooltipRoute: String {
+    case spaceSettings = "ScreenSettingsSpaceIndex"
+    case spaceSharing = "ScreenSettingsSpaceShare"
+    case confirmInvite = "ScreenInviteConfirm"
+    case remoteStorage = "ScreenRemoteStorage"
+}

@@ -24,7 +24,7 @@ struct SpaceShareView: View {
             .snackbar(toastBarData: $model.toastBarData)
             .anytypeSheet(item: $model.requestAlertModel) { alertModel in
                 SpaceRequestAlert(data: alertModel) { reason in
-                    model.onUpgradeTap(reason: reason)
+                    model.onUpgradeTap(reason: reason, route: .confirmInvite)
                 }
             }
             .anytypeSheet(item: $model.changeAccessAlertModel) { model in
@@ -63,7 +63,7 @@ struct SpaceShareView: View {
                         SectionHeaderView(title: Loc.SpaceShare.members)
                         if let reason = model.upgradeTooltipData {
                             SpaceShareUpgradeView(reason: reason) {
-                                model.onUpgradeTap(reason: reason)
+                                model.onUpgradeTap(reason: reason, route: .spaceSettings)
                             }
                         }
                         ForEach(model.rows) { participant in
