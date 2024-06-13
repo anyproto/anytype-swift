@@ -1137,6 +1137,8 @@
 		3D24913127BD271900821595 /* SubscriptionToggler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912427BD271900821595 /* SubscriptionToggler.swift */; };
 		3D24913427BD271900821595 /* LocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912827BD271900821595 /* LocalEvent.swift */; };
 		3D24913627BD271900821595 /* DocumentUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912A27BD271900821595 /* DocumentUpdate.swift */; };
+		3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */; };
+		3D24B09E2C1AFCE800795BAA /* ConfettiOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24B09D2C1AFCE800795BAA /* ConfettiOverlay.swift */; };
 		3D26AA722B9725EF00D61479 /* MembershipEmailActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA712B9725EF00D61479 /* MembershipEmailActionView.swift */; };
 		3D26AA752B97391900D61479 /* AnytypeCheckbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA742B97391900D61479 /* AnytypeCheckbox.swift */; };
 		3D26AA772B973E2200D61479 /* MembershipTierSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */; };
@@ -2906,6 +2908,7 @@
 		3D24912427BD271900821595 /* SubscriptionToggler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionToggler.swift; sourceTree = "<group>"; };
 		3D24912827BD271900821595 /* LocalEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalEvent.swift; sourceTree = "<group>"; };
 		3D24912A27BD271900821595 /* DocumentUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentUpdate.swift; sourceTree = "<group>"; };
+		3D24B09D2C1AFCE800795BAA /* ConfettiOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiOverlay.swift; sourceTree = "<group>"; };
 		3D26AA712B9725EF00D61479 /* MembershipEmailActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipEmailActionView.swift; sourceTree = "<group>"; };
 		3D26AA742B97391900D61479 /* AnytypeCheckbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeCheckbox.swift; sourceTree = "<group>"; };
 		3D26AA762B973E2200D61479 /* MembershipTierSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionViewModel.swift; sourceTree = "<group>"; };
@@ -3445,6 +3448,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D24B09C2C1A2DAF00795BAA /* ConfettiSwiftUI in Frameworks */,
 				2A30B2082BB44A0C00206806 /* QRCode in Frameworks */,
 				2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */,
 				C99A53AC28A1380300B3E5F4 /* ShimmerSwift in Frameworks */,
@@ -8511,6 +8515,7 @@
 			children = (
 				3DEFBB6E2BEBBAC00076832B /* NameValidation */,
 				3D547B842B988BDE000B030A /* MembershipTierSuccessView.swift */,
+				3D24B09D2C1AFCE800795BAA /* ConfettiOverlay.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -10511,6 +10516,7 @@
 				2A41A6772B84E57B00EAE6E6 /* DeepLinks */,
 				2AC1262C2B90F65F003A4A8D /* Factory */,
 				2A30B2072BB44A0C00206806 /* QRCode */,
+				3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -10647,6 +10653,7 @@
 				2A685D582B7B854200456E08 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
 				2AC1262B2B90F65F003A4A8D /* XCRemoteSwiftPackageReference "Factory" */,
 				2A30B2062BB44A0C00206806 /* XCRemoteSwiftPackageReference "QRCode" */,
+				3D24B09A2C1A2B6300795BAA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -10999,6 +11006,7 @@
 				3D4507BF2B9B3DE400739EFC /* MembershipNameSheetViewModel.swift in Sources */,
 				C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
+				3D24B09E2C1AFCE800795BAA /* ConfettiOverlay.swift in Sources */,
 				2A4E3F7D2BC6ECDA00724DBF /* BinLinkWidgetView.swift in Sources */,
 				2E6CF15B2BDC11BA002C7023 /* ObjectTypesLimitedSearchView.swift in Sources */,
 				2A2C330D28928DA7008BC326 /* CoordinatorsDI.swift in Sources */,
@@ -13244,6 +13252,14 @@
 				version = 2.3.1;
 			};
 		};
+		3D24B09A2C1A2B6300795BAA /* XCRemoteSwiftPackageReference "ConfettiSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/simibac/ConfettiSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 		3D6381F52B6A61CF0026D071 /* XCRemoteSwiftPackageReference "WrappingHStack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dkk/WrappingHStack";
@@ -13389,6 +13405,10 @@
 		2ACDC9B32B553F840063BFBD /* SharedContentManager */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SharedContentManager;
+		};
+		3D24B09B2C1A2DAF00795BAA /* ConfettiSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ConfettiSwiftUI;
 		};
 		3D6381F62B6A61CF0026D071 /* WrappingHStack */ = {
 			isa = XCSwiftPackageProductDependency;

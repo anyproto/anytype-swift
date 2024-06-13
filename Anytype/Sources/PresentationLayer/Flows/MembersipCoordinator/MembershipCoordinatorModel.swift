@@ -10,6 +10,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var showTiersLoadingError = false
     @Published var showTier: MembershipTier?
     @Published var showSuccess: MembershipTier?
+    @Published var fireConfetti = false
     @Published var emailUrl: URL?
     
     @Injected(\.membershipService)
@@ -47,10 +48,14 @@ final class MembershipCoordinatorModel: ObservableObject {
         showTier = nil
         loadTiers()
         
-        // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
         Task {
+            // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
             try await Task.sleep(seconds: 0.5)
             showSuccess = tier
+            
+            try await Task.sleep(seconds:0.5)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            fireConfetti = true
         }
     }
 }
