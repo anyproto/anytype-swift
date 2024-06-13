@@ -1106,6 +1106,7 @@ En concreto,
 "Membership.Upgrade.MoreSpaces" = "Amplía tu suscripción para añadir más espacios";
 "Membership.Upgrade.MoreMembers" = "Amplía tu suscripción para añadir más miembros";
 "Membership.Upgrade.NoMoreMembers" = "No puedes añadir más miembros";
+"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
 
 
 "Membership.Banner.Title1" = "Construyamos esta visión juntos";

@@ -43,7 +43,7 @@
 "BlockText.Content.Placeholder" = "Бяз назвы";
 
 "BlockText.ContentType.Title.Placeholder" = "Бяз назвы";
-"BlockText.ContentType.Description.Placeholder" = "Add a description";
+"BlockText.ContentType.Description.Placeholder" = "Дадаць апісанне";
 "BlockText.ContentType.Toggle.Placeholder" = "Пераключыць блакіраванне";
 "BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
 "BlockText.ContentType.Checkbox.Placeholder" = "Птушка";
@@ -86,8 +86,8 @@
 "Relation.Create.Textfield.placeholder" = "Увядзіце назву...";
 "Relation.Edit.Button.title" = "Ужыць";
 "Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
-"Relation.ObjectTypes.Header.title" = "Object types:";
-"Relation.ObjectType.Header.title" = "Object type:";
+"Relation.ObjectTypes.Header.title" = "Тыпы аб'екта:";
+"Relation.ObjectType.Header.title" = "Тып аб'екта:";
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
@@ -113,10 +113,10 @@
 "Relation.Origin.DragAndDrop" = "Drag'n'Drop";
 "Relation.Origin.Import" = "Імпартаваць аб'ект";
 "Relation.Origin.WebClipper" = "Вэб кліпер";
-"Relation.Origin.SharingExtension" = "Mobile sharing extension";
+"Relation.Origin.SharingExtension" = "Пашырэнне для мабільнай прылады";
 "Relation.Origin.UseCase" = "Выкарыстанне";
 "Relation.Origin.Builtin" = "Бібліятэка ўсталяваная";
-"Relation.Origin.Bookmark" = "Bookmark";
+"Relation.Origin.Bookmark" = "Закладка";
 
 // MARK: - Import Type Relation
 
@@ -133,7 +133,7 @@
 "None" = "Няма";
 "Callout" = "Зноска";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
+"Loading, please wait" = "Загрузка, калі ласка пачакайце";
 "Done" = "Гатова";
 "Next" = "Далей";
 "Style" = "Стыль";
@@ -158,7 +158,7 @@
 "Move to" = "Перамясціць у";
 "Back" = "Назад";
 "Unpin" = "Адмацаваць";
-"Pin on top" = "Pin on top";
+"Pin on top" = "Замацаваць зверху";
 "File block subtitle" = "Захаваць файл у першапачатковым стане";
 "Picture block subtitle" = "Загрузіць і ўзбагаціць старонку відарысам";
 "Video block subtitle" = "Запампаваць прайграванае відэа";
@@ -183,7 +183,7 @@
 "Purple background" = "Purple background";
 "Blue background" = "Blue background";
 "Green background" = "Green background";
-"Create new object" = "Create new object";
+"Create new object" = "Стварыць новы аб'ект";
 "Cancel" = "Скасаваць";
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "Няма элементаў, якія супадаюць з фільтрам";
@@ -193,7 +193,7 @@
 "Paste processing..." = "Paste processing...";
 "Anytype Library" = "Бібліятэка Anytype";
 "Copied" = "Скапіравана";
-"Share" = "Share";
+"Share" = "Абагуліць";
 "Okay" = "Okay";
 "Join" = "Далучыцца";
 "Agreement Disclamer" = "Працягваючы,  вы згаджаецеся з нашымі [Умовамі Выкарыстання](%@) і [Палітыкай Прыватнасці](%@)";
@@ -306,7 +306,7 @@
 "Profile" = "Профіль";
 "Task" = "Задача";
 "Note" = "Нататка";
-"Choose layout type" = "Choose layout type";
+"Choose layout type" = "Абярыце тып макета";
 
 "Undo typing" = "Undo typing";
 "Undo" = "Скасаваць";
@@ -361,7 +361,7 @@
 
 // MARK: - Templates
 "TemplateSelection.Available.Title" = "This type has %d templates";
-"TemplatePicker.ChooseTemplate" = "Choose template";
+"TemplatePicker.ChooseTemplate" = "Выберыце шаблон";
 "TemplatePicker.Buttons.UseTemplate" = "Выкарыстоўваць шаблон";
 "TemplateSelection.SelectTemplate" = "Select template";
 "TemplateSelection.blankTemplate" = "Пуста";
@@ -420,19 +420,19 @@
 "EditSet.Popup.Filter.Condition.Number.Greater" = "Большы чым";
 "EditSet.Popup.Filter.Condition.Number.Less" = "Меншы чым";
 "EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Большы чым або роўны";
-"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Меншы чым або роўны";
 
 "EditSet.Popup.Filter.Condition.Date.Equal" = "З'яўляецца";
-"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
-"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
-"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
-"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
-"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
+"EditSet.Popup.Filter.Condition.Date.After" = "Пасля";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Да";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "У гэты дзень або пазней";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Супадае ці да";
+"EditSet.Popup.Filter.Condition.Date.In" = "Знаходзіцца ў межах";
 
-"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Мае любы з";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Мае ўсё з";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Няма ніводнага з";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Дакладна адпавядае";
 
 "EditSet.Popup.Filter.Condition.Checkbox.Equal" = "З'яўляецца";
 "EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Не з'яўляецца";
@@ -453,12 +453,12 @@
 "EditSet.Popup.Filter.Date.Option.LastMonth" = "За апошні месяц";
 "EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Гэты месяц";
 "EditSet.Popup.Filter.Date.Option.NextMonth" = "Наступны месяц";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Колькасць дзён таму";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Колькасць дзён з гэтага моманту";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Дакладная дата";
 
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%@ дзён таму";
-"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ days from now";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%@ дзён таму";
 
 // MARK: - Sets. Create object
 "Set.Create.ObjectTitle.Placeholder" = "Бяз назвы";
@@ -477,7 +477,7 @@
 "Set.Bookmark.Error.Message" = "Ой - нешта пайшло не так. Калі ласка паспрабуйце зноў";
 
 // MARK: - Sets: View Settings
-"Set.View.Settings.ImageFit.Title" = "Fit image";
+"Set.View.Settings.ImageFit.Title" = "Запоўніць відарыс";
 "Set.View.Settings.CardSize.Title" = "Памеры карткі";
 "Set.View.Settings.CardSize.Small.Title" = "Маленькі";
 "Set.View.Settings.CardSize.Large.Title" = "Вялікі";
@@ -496,11 +496,11 @@
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ зняты сцяжок";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Паказаць больш аб'ектаў";
 "Set.View.Kanban.Column.Settings.Color.Title" = "Column color";
-"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Hide column";
+"Set.View.Kanban.Column.Settings.Hide.Column.Title" = "Схаваць слупок";
 
 // MARK: - Sets: empty view
-"Set.View.Empty.Title" = "No query selected";
-"Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
+"Set.View.Empty.Title" = "Запыт не выбраны";
+"Set.View.Empty.Subtitle" = "Дадайце пошукавы запыт, каб згрупаваць аб'екты з аднолькавымі тыпамі і ўласцівасцямі ў рэжыме рэальнага часу";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Select query";
@@ -547,10 +547,10 @@
 "Enter number" = "Увядзіце нумар";
 "Enter text" = "Увядзіце тэкст";
 "Unsupported value" = "Unsupported value";
-"Select relation type" = "Select relation type";
-"CommonOpenErrorView.Message" = "No data found";
+"Select relation type" = "Выбраць тып уласцівасці";
+"CommonOpenErrorView.Message" = "Даныя не знойдзеныя";
 "AreYouSure" = "Are you sure?";
-"Nothing found" = "Nothing found";
+"Nothing found" = "Нічога не знойдзена";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Стварыць тып";
 
@@ -571,10 +571,10 @@
 "Personalization" = "Персаналізацыя";
 "Choose default object type" = "Choose default object type";
 "About" = "About";
-"Appearance" = "Appearance";
-"Change wallpaper" = "Change wallpaper";
-"Application icon" = "Application icon";
-"Mode" = "Mode";
+"Appearance" = "Знешні выгляд";
+"Change wallpaper" = "Змена шпалер";
+"Application icon" = "Значок праграмы";
+"Mode" = "Рэжым";
 "copied to clipboard" = "%@ copied to clipboard";
 "Create object from clipboard" = "Create object from clipboard";
 "Access to key from keychain" = "Access to key from keychain";
@@ -584,14 +584,14 @@
 "Back up key" = "Запасны ключ";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Deletion error";
-"Start" = "Start";
+"Start" = "Пачаць";
 "On analytics" = "On analytics";
 "Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
+"Vault deleted" = "Сховішча выдалена";
 "Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
 "Restore from keychain" = "Restore from keychain";
-"Edit" = "Edit";
-"In this object" = "In this object";
+"Edit" = "Рэдагаваць";
+"In this object" = "У гэтым аб'екце";
 "Other relations" = "Other relations";
 "Collection of objects" = "Collection of objects";
 "Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
@@ -604,7 +604,7 @@
 "Unfavorite" = "Выдаліць з абранага";
 "Unsplash" = "Unsplash";
 "Go back" = "Назад";
-"SyncStatus.LocalOnly.Title" = "Local-only";
+"SyncStatus.LocalOnly.Title" = "Толькі лакальна";
 "SyncStatus.LocalOnly.Description" = "Толькі лакальна";
 "SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
@@ -623,13 +623,13 @@
 "Open source" = "Адкрыць крыніцу";
 "Into object" = "Into object";
 "Add below" = "Add below";
-"Change type" = "Change type";
+"Change type" = "Змяніць тып";
 "Show types" = "Show types";
 "Hide types" = "Hide types";
-"SlashMenu.LinkTo.Description" = "Create link to another object";
-"Upload playable audio" = "Upload playable audio";
-"Code snippet" = "Code snippet";
-"Bookmark" = "Bookmark";
+"SlashMenu.LinkTo.Description" = "Стварыць спасылку на іншы аб'ект";
+"Upload playable audio" = "Запампаваць прайграванае аўдыя";
+"Code snippet" = "Фрагмент кода";
+"Bookmark" = "Закладка";
 "Audio" = "Аўдыя";
 "Video" = "Відэа";
 "Picture" = "Відарыс";
@@ -659,12 +659,12 @@
 "Create option with" = "Стварыць параметр ‘%@’";
 "Enter URL" = "Увядзіце URL";
 "Enter email" = "Увядзіце эл. пошту";
-"Enter phone number" = "Enter phone number";
+"Enter phone number" = "Увядзіце нумар тэлефона";
 "Enter number" = "Увядзіце нумар";
 "Enter text" = "Увядзіце тэкст";
 "Ok" = "Ok";
-"Error occurred. Please try again" = "Error occurred. Please try again";
-"Add" = "Add";
+"Error occurred. Please try again" = "Адбылася памылка. Паспрабуйце яшчэ раз";
+"Add" = "Дадаць";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
 "Sync.Status.Version.Outdated.Description" = "Version outdated. Please update Anytype";
@@ -694,10 +694,10 @@
 "ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "My Types";
 "ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
-"ObjectType.DeletedName" = "Deleted type";
+"ObjectType.DeletedName" = "Выдалены тып";
 
 // MARK: - QuickAction
-"QuickAction.create" = "Create %@";
+"QuickAction.create" = "Стварыць %@";
 
 // MARK: - RedactedText
 "RedactedText.pageTitle" = "Wake up, Neo";
@@ -709,7 +709,7 @@
 "InterfaceStyle.system" = "Сістэма";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+"TalbeOfContents.Empty" = "Дадайце загалоўкі для стварэння зместу";
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Ачысціць";
@@ -771,7 +771,7 @@
 "Content.Bookmark.Loading" = "Loading, please wait...";
 "Content.DataView.InlineSet.Subtitle" = "Убудаваны набор";
 "Content.DataView.InlineCollection.Subtitle" = "Убудаваная калекцыя";
-"Content.DataView.InlineSet.NoSource" = "No source";
+"Content.DataView.InlineSet.NoSource" = "Няма крыніцы";
 "Content.DataView.InlineSet.NoData" = "Без даты";
 "Content.DataView.InlineSet.Untitled" = "Набор без назвы";
 "Content.DataView.InlineCollection.Untitled" = "Калекцыя без назвы";
@@ -795,35 +795,35 @@
 "Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Спасылка";
-"Widgets.Layout.Tree.Title" = "Tree";
+"Widgets.Layout.Tree.Title" = "Дрэва";
 "Widgets.Layout.List.Title" = "List";
-"Widgets.Layout.CompactList.Title" = "Сompact list";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
+"Widgets.Layout.CompactList.Title" = "Кампактны спіс";
+"Widgets.Layout.Link.Description" = "Кампактная версія аб'екта";
+"Widgets.Layout.Tree.Description" = "Іерархічная структура аб'ектаў";
+"Widgets.Layout.List.Description" = "Віджэт са спісам аб'ектаў з набору";
+"Widgets.Layout.CompactList.Description" = "Віджэт са спісам аб'ектаў з набору";
 "Widgets.Empty.Title" = "This data view contains no objects";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.Library.RecentlyEdited.Name" = "Нядаўна адрэдагаваны";
+"Widgets.Library.RecentlyOpened.Name" = "Нядаўна адкрытыя";
+"Widgets.Library.RecentlyOpened.Description" = "На гэтай прыладзе";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
+"About.AppVersion" = "Версія праграмы: %@";
 "About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
+"About.Library" = "Версія бібліятэкі: %@";
 "About.anytypeId" = "Anytype ID: %@";
 "About.analyticsId" = "Analytics ID: %@";
 "About.deviceId" = "Device ID: %@";
 "About.Device" = "Device: %@";
 "About.OSVersion" = "OS version: %@";
 "About.HelpCommunity" = "Help & Community";
-"About.WhatsNew" = "What’s New";
+"About.WhatsNew" = "Што новага";
 "About.AnytypeCommunity" = "Anytype Community";
-"About.HelpTutorials" = "Help & Tutorials";
-"About.ContactUs" = "Contact Us";
+"About.HelpTutorials" = "Даведка і туторіалы";
+"About.ContactUs" = "Звяжыцеся з намі";
 "About.Legal" = "Legal";
-"About.TermsOfUse" = "Terms of Use";
-"About.PrivacyPolicy" = "Privacy Policy";
+"About.TermsOfUse" = "Умовы выкарыстання";
+"About.PrivacyPolicy" = "Палітыка прыватнасці";
 "About.TechInfo" = "Tech Info";
 "About.Mail.Subject" = "Support request, Vault ID %@";
 "About.Mail.Body" = "\n\nTechnical information\n%@";
@@ -855,7 +855,7 @@
 "FileStorage.LimitLegend.Free" = "Free | %@";
 
 // MARK: - Files List
-"FilesList.Title" = "Synced files";
+"FilesList.Title" = "Сінхранізаваныя файлы";
 "FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
 
 // MARK: - Widget object list
@@ -866,66 +866,66 @@
 "ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
-"Spaces.Accessibility.Private" = "Private Space";
-"Spaces.Accessibility.Personal" = "Entry Space";
+"Spaces.Accessibility.Shared" = "Агульная Прастора";
+"Spaces.Accessibility.Private" = "Прыватная Прастора";
+"Spaces.Accessibility.Personal" = "Ваша Прастора";
 "Spaces.Search.Title" = "Search spaces";
-"Spaces.Title" = "Spaces";
-"Spaces.Info.Network" = "Network:";
+"Spaces.Title" = "Прасторы";
+"Spaces.Info.Network" = "Сеціва:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Невядомы";
-"Space.Status.Loading" = "Loading";
+"Space.Status.Loading" = "Загрузка";
 "Space.Status.Ok" = "Ok";
-"Space.Status.Missing" = "Missing";
+"Space.Status.Missing" = "Адсутнічае";
 "Space.Status.Error" = "Error";
 "Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
 "Space.Status.RemoteDeleted" = "Remote Deleted";
 "Space.Status.SpaceDeleted" = "Выдалена";
-"Space.Status.SpaceActive" = "Active";
-"Space.Status.SpaceJoining" = "Joining";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceActive" = "Актыўны";
+"Space.Status.SpaceJoining" = "Далучаецца";
+"Space.Status.SpaceRemoving" = "Ідзе выдаленне";
 
 // MARK: - Space Settings
-"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.Title" = "Налады прасторы";
 "SpaceSettings.RemoteStorage" = "Remote storage";
 "SpaceSettings.Info" = "Space info";
 "SpaceSettings.NetworkId" = "Network ID";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
 "SpaceSettings.DeleteButton" = "Delete space";
-"SpaceSettings.Share" = "Share";
+"SpaceSettings.Share" = "Абагуліць";
 "SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
+"SpaceSettings.LeaveAlert.Title" = "Пакінуць прастору";
 "SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Падрабязней";
 
-"SpaceShare.Title" = "Sharing";
-"SpaceShare.Members" = "Members";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
-"SpaceShare.Permissions.Grand.Edit" = "Edit";
+"SpaceShare.Title" = "Абагульванне";
+"SpaceShare.Members" = "Удзельнікі";
+"SpaceShare.Permissions.Owner" = "Уладальнік";
+"SpaceShare.Permissions.Reader" = "Праглядальнік";
+"SpaceShare.Permissions.Writer" = "Рэдактар";
+"SpaceShare.Permissions.Grand.Edit" = "Рэдагаваць";
 "SpaceShare.Permissions.Grand.View" = "Выгляд";
-"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Invite.Title" = "Запрашальная спасылка";
 "SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Share" = "Абагуліць запрашальную спасылку";
+"SpaceShare.Invite.Generate" = "Стварыць запрашальную спасылку";
 "SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
 "SpaceShare.JoinRequest" = "Join request";
 "SpaceShare.LeaveRequest" = "Leave request";
-"SpaceShare.Action.ViewRequest" = "View request";
-"SpaceShare.Action.Approve" = "Approve";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
-"SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
-"SpaceShare.Approve.Toast" = "You approved %@'s request.";
-"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.Action.ViewRequest" = "Паглядзець запыт";
+"SpaceShare.Action.Approve" = "Зацвердзіць";
+"SpaceShare.DeleteSharingLink.Title" = "Выдаліць спасылку";
+"SpaceShare.DeleteSharingLink.Message" = "Новыя ўдзельнікі не змогуць далучыцца да прасторы. Вы можаце стварыць новую спасылку ў любы час";
+"SpaceShare.Approve.Toast" = "Вы ўхвалілі запыт ад %@.";
+"SpaceShare.ViewRequest.Title" = "%@ запытаў доступ да Прасторы \"%@\"";
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
 "SpaceShare.ViewRequest.EditAccess" = "Add as editor";
-"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.ViewRequest.Reject" = "Адхіліць";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
 "SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
@@ -962,7 +962,7 @@
 "ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
 "RequestToJoinNotification.GoToSpace" = "Go to Space";
-"RequestToJoinNotification.ViewRequest" = "View request";
+"RequestToJoinNotification.ViewRequest" = "Паглядзець запыт";
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Cancel Join Request";
@@ -981,8 +981,8 @@
 "Sharing.Navigation.RightButton.Title" = "Гатова";
 
 "Sharing.SaveAs" = "SAVE AS";
-"Sharing.SelectSpace" = "Space";
-"Sharing.AddTo" = "Add to";
+"Sharing.SelectSpace" = "Прастора";
+"Sharing.AddTo" = "Дадаць у";
 "Sharing.LinkTo" = "Спасылка на";
 
 "Sharing.Text.NoteObject" = "Note object";
@@ -1035,18 +1035,18 @@
 "RelativeFormatter.older" = "Older";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Сеціва";
+"Server.Networks" = "Сеціва";
+"Server.AddButton" = "Дадаць сетку на ўласным серверы";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Толькі лакальна";
 
 // MARK: - Gallery
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
+"Gallery.Author" = "Зроблена @%@";
+"Gallery.Install" = "Усталяваць";
 "Gallery.InstallToNew" = "Install to new space";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
+"Gallery.Notification.Success" = "Шаблон быў паспяхова ўсталяваны ў прастору \"%@\". Вы можаце адкрыць і пачаць яго выкарыстоўваць.";
+"Gallery.Notification.Button" = "Перайсці ў прастору";
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Membership
@@ -1064,9 +1064,9 @@
 "Resend" = "Resend";
 "Resend in" = "Resend in %@ sec";
 "Current" = "Current";
-"Forever free" = "Forever free";
-"Forever" = "Forever";
-"Valid until date" = "Valid until %@";
+"Forever free" = "Назаўжды бясплатна";
+"Forever" = "Назаўсёды";
+"Valid until date" = "Дзейнічае да %@";
 "Your current status" = "Your current status:";
 "Valid until" = "Valid until:";
 "Paid by" = "Paid by %@";
@@ -1107,6 +1107,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 "Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
 "Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
