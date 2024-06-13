@@ -19,7 +19,7 @@ public extension MembershipStatus {
             status: .unknown,
             dateEnds: .distantFuture,
             paymentMethod: .methodStripe,
-            anyName: .mock,
+            anyName: .mockEmpty,
             email: ""
         )
     }
