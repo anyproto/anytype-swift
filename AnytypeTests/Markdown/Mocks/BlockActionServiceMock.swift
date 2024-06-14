@@ -104,7 +104,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
+    func turnIntoObject(blockId: String, spaceId: String) async throws -> String? {
         assertionFailure()
         return nil
     }

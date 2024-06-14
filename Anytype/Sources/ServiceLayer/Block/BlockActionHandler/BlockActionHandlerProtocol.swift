@@ -5,7 +5,7 @@ import AnytypeCore
 protocol BlockActionHandlerProtocol: AnyObject {
     func turnInto(_ style: BlockText.Style, blockId: String) async throws
     @discardableResult
-    func turnIntoPage(blockId: String) async throws -> String?
+    func turnIntoObject(blockId: String) async throws -> String?
     
     func setTextColor(_ color: BlockColor, blockIds: [String])
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [String])

@@ -94,7 +94,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
-    func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
+    func turnIntoObject(blockId: String, spaceId: String) async throws -> String? {
         let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
         AnytypeAnalytics.instance().logCreateObject(objectType: defaultObjectType.analyticsType, spaceId: spaceId, route: .turnInto)
 
