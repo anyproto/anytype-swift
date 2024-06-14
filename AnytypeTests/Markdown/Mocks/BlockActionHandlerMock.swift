@@ -20,7 +20,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func turnIntoPage(blockId: String) -> String? {
+    func turnIntoObject(blockId: String) -> String? {
         assertionFailure()
         return nil
     }
