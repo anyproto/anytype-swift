@@ -32,7 +32,7 @@ public struct AnytypeInlinePicker<T> : View where T: (Identifiable & Equatable &
         HStack {
             Spacer.fixedWidth(16)
             Image(asset: .system(name: "checkmark"))
-                .opacity(value == initialValue ? 1 : 0)
+                .hidden(value != initialValue)
             Spacer.fixedWidth(8)
             AnytypeText(value.title, style: .bodyRegular)
                 .foregroundColor(.Text.primary)

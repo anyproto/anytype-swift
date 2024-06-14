@@ -12,7 +12,7 @@ struct AlertView<Presenting>: View where Presenting: View {
             presenting
             Color.clear
                 .fixTappableArea()
-                .opacity(isShowing ? 1 : 0)
+                .hidden(!isShowing)
             content
         }
     }
@@ -38,7 +38,7 @@ struct AlertView<Presenting>: View where Presenting: View {
         .background(Color.Background.black)
         .cornerRadius(8)
         .transition(.slide)
-        .opacity(isShowing ? 1 : 0)
+        .hidden(!isShowing)
     }
     
 }

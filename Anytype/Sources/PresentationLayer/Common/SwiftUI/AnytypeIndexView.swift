@@ -37,7 +37,7 @@ struct AnytypeIndexView: View {
             .id(index) // 4
         }
       }
-    }
+    }.hidden(numberOfPages <= 1)
   }
   
   

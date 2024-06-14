@@ -33,7 +33,7 @@ struct SpaceRequestAlert: View {
                 editorsLimitActions
             }
         }
-        .throwTask {
+        .throwingTask {
             try await model.onAppear()
         }
     }
