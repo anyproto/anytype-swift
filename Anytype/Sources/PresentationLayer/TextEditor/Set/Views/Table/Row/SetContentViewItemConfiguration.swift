@@ -9,7 +9,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let icon: Icon?
     let relations: [Relation]
     let showIcon: Bool
-    let smallItemSize: Bool
+    let isSmallCardSize: Bool
     let hasCover: Bool
     let coverFit: Bool
     let coverType: ObjectHeaderCoverType?
@@ -24,7 +24,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         icon: Icon?,
         relations: [Relation],
         showIcon: Bool,
-        smallItemSize: Bool,
+        isSmallCardSize: Bool,
         hasCover: Bool,
         coverFit: Bool,
         coverType: ObjectHeaderCoverType?,
@@ -38,7 +38,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.icon = icon
         self.relations = relations
         self.showIcon = showIcon
-        self.smallItemSize = smallItemSize
+        self.isSmallCardSize = isSmallCardSize
         self.hasCover = hasCover
         self.coverFit = coverFit
         self.coverType = coverType

@@ -50,10 +50,6 @@ final class EditorSetViewModel: ObservableObject {
             .filter { $0.option.isVisible }.map(\.relationDetails)
     }
     
-    var isSmallItemSize: Bool {
-        activeView.cardSize == .small
-    }
-    
     var isGroupBackgroundColors: Bool {
         activeView.groupBackgroundColors
     }
