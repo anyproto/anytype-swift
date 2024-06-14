@@ -507,7 +507,7 @@
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
 
 // MARK: - Set: Type context menu
-"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Turn Set into Collection";
+"Set.TypeRelation.ContextMenu.TurnIntoCollection" = "Пераўтварыць набор у калекцыю";
 "Set.TypeRelation.ContextMenu.ChangeQuery" = "Change query";
 
 // MARK: - Collection: empty view
@@ -519,15 +519,15 @@
 "SlashMenu.DotsDivider" = "Раздзяляльнік з кропак";
 "SlashMenu.LineDivider" = "Лінейны раздзяляльнік";
 "SlashMenu.TableOfContents" = "Table of contents";
-"SlashMenu.Table" = "Table";
+"SlashMenu.Table" = "Табліца";
 
-"Error" = "Error";
-"Unknown error" = "Unknown error";
+"Error" = "Памылка";
+"Unknown error" = "Невядомая памылка";
 "Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
-"Close" = "Close";
-"Add phone" = "Add phone";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
+"Close" = "Закрыць";
+"Add phone" = "Дадаць нумар тэлефону";
+"Nothing to redo" = "Няма чаго паўтарыць";
+"Nothing to undo" = "Няма чаго адмяніць";
 "Progress..." = "Progress...";
 "Grey" = "Шэры";
 "Sky" = "Блакітны";
@@ -570,7 +570,7 @@
 "Default object type" = "Прадвызначаны тып аб'екта";
 "Personalization" = "Персаналізацыя";
 "Choose default object type" = "Choose default object type";
-"About" = "About";
+"About" = "Пра праграму";
 "Appearance" = "Знешні выгляд";
 "Change wallpaper" = "Змена шпалер";
 "Application icon" = "Значок праграмы";
@@ -581,7 +581,7 @@
 "Back up your key" = "Back up your key";
 "Vault" = "Сховішча";
 "Access" = "Доступ";
-"Back up key" = "Запасны ключ";
+"Back up key" = "Рэзервовы ключ";
 "Removing cache" = "Removing cache";
 "Deletion error" = "Deletion error";
 "Start" = "Пачаць";
@@ -609,7 +609,7 @@
 "SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
 "SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
 "SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
+"Downloading or uploading data to some node" = "Загрузка ці выгрузка даных у вузел";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініцыялізацыя сінхранізацыі";
 "Not syncing" = "Не сінхранізуецца";
@@ -674,19 +674,19 @@
 "Delete vault" = "Delete vault";
 "Cancel deletion" = "Cancel deletion";
 "Logout and clear data" = "Logout and clear data";
-"New" = "New";
+"New" = "Новы";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
 "DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
-"DataviewType.grid" = "Grid";
-"DataviewType.list" = "List";
+"DataviewType.grid" = "Сетка";
+"DataviewType.list" = "Спіс";
 "DataviewType.gallery" = "Галерэя ";
-"DataviewType.kanban" = "Kanban";
-"DataviewType.calendar" = "Calendar";
-"DataviewType.graph" = "Graph";
+"DataviewType.kanban" = "Канбан";
+"DataviewType.calendar" = "Каляндар";
+"DataviewType.graph" = "Граф";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
@@ -788,15 +788,15 @@
 "Widgets.SourceSearch" = "Крыніца віджэта";
 "Widgets.Actions.ChangeSource" = "Змяніць крыніцу";
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
-"Widgets.Actions.RemoveWidget" = "Remove Widget";
-"Widgets.Actions.EditWidgets" = "Edit Widgets";
+"Widgets.Actions.RemoveWidget" = "Выдаліць Віджэт";
+"Widgets.Actions.EditWidgets" = "Рэдагаваць Віджэт";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Спасылка";
 "Widgets.Layout.Tree.Title" = "Дрэва";
-"Widgets.Layout.List.Title" = "List";
+"Widgets.Layout.List.Title" = "Спіс";
 "Widgets.Layout.CompactList.Title" = "Кампактны спіс";
 "Widgets.Layout.Link.Description" = "Кампактная версія аб'екта";
 "Widgets.Layout.Tree.Description" = "Іерархічная структура аб'ектаў";
@@ -844,12 +844,12 @@
 "FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Space.GetMore" = "Get more space";
-"FileStorage.Local.Title" = "Local storage";
+"FileStorage.Local.Title" = "Лакальнае сховішча";
 "FileStorage.Local.Instruction" = "In order to save space on your local device, you can offload all your files to our encrypted backup node. The files will be loaded back when you open them.";
 "FileStorage.Local.Used" = "%@ used";
-"FileStorage.OffloadTitle" = "Offload files";
-"FileStorage.ManageFiles" = "Manage files";
-"FileStorage.LimitError" = "You exceeded file limit upload";
+"FileStorage.OffloadTitle" = "Выгрузіць файлы";
+"FileStorage.ManageFiles" = "Кіраванне файламі";
+"FileStorage.LimitError" = "Вы перавысілі ліміт загрузкі файлаў";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
 "FileStorage.LimitLegend.Other" = "Other spaces | %@";
 "FileStorage.LimitLegend.Free" = "Free | %@";
@@ -878,7 +878,7 @@
 "Space.Status.Loading" = "Загрузка";
 "Space.Status.Ok" = "Ok";
 "Space.Status.Missing" = "Адсутнічае";
-"Space.Status.Error" = "Error";
+"Space.Status.Error" = "Памылка";
 "Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
 "Space.Status.RemoteDeleted" = "Remote Deleted";
 "Space.Status.SpaceDeleted" = "Выдалена";
@@ -935,18 +935,18 @@
 "SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
 "SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
 "SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
+"SpaceShare.JoinConfirmation.Title" = "Запыт адпраўлены";
 "SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
 "SpaceShare.YouSuffix" = "%@ (you)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.ManageSpaces" = "Кіраванне Прасторамі";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
 "SpaceShare.StopSharing.Action" = "Stop sharing";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Title" = "Спыніць абагульванне прасторы";
+"SpaceShare.StopSharing.Message" = "Удзельнікі больш не будуць сінхранізавацца з гэтай прасторай, а спасылка на агульны доступ будзе дэактываваная.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
-"SpaceShare.QR.Button" = "Show QR code";
-"SpaceShare.HowToShare.Title" = "How to share a space?";
+"SpaceShare.QR.Title" = "QR-код для далучэння да Прасторы";
+"SpaceShare.QR.Button" = "Паказаць QR-код";
+"SpaceShare.HowToShare.Title" = "Як падзяліцца Прасторай?";
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
@@ -955,13 +955,13 @@
 "SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
 
 // MARK: - Permission notification
-"PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
+"PermissionChangeNotification.Text" = "Вашы правы доступу былі зменены на **%@** у Прасторы **%@**.";
 "ParticipantRequestApprovedNotification.Text" = "Your request to join the **%@** space has been approved with **%@** access rights. The space will be available on your device soon.";
 "ParticipantRequestDeclineNotification.Text" = "Your request to join the **%@** space has been declined.";
 "RequestToLeaveNotification.Text" = "**%@** wants to leave the **%@** space.";
 "ParticipantRemoveNotification.Text" = "You have been removed from the space, or the space was deleted by the owner.";
 "RequestToJoinNotification.Text" = "**%@** requested to join the **%@** space.";
-"RequestToJoinNotification.GoToSpace" = "Go to Space";
+"RequestToJoinNotification.GoToSpace" = "Перайсці ў Прастору";
 "RequestToJoinNotification.ViewRequest" = "Паглядзець запыт";
 
 // MARK: - Space manager
@@ -973,7 +973,7 @@
 
 
 // MARK: - Space Create
-"SpaceCreate.Title" = "Create a space";
+"SpaceCreate.Title" = "Стварыць Прастору";
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
@@ -986,8 +986,8 @@
 "Sharing.LinkTo" = "Спасылка на";
 
 "Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.TextBlock" = "Блокі";
+"Sharing.Any.Block" = "Блокі";
 
 // MARK: - Sharing tips
 "Sharing.Tip.Title" = "Share Extension";
@@ -1009,9 +1009,9 @@
 
 // MARK: - Initial
 
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Папярэджанне";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
-"Initial.UnstableMiddle.Title" = "Warning";
+"Initial.UnstableMiddle.Title" = "Папярэджанне";
 "Initial.UnstableMiddle.Logout" = "Logout from current vault";
 "Initial.UnstableMiddle.Continue" = "Continue with current vault";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
@@ -1030,9 +1030,9 @@
 "Error.Common.TryAgain" = "Try again";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "Папярэднія 7 дзён";
+"RelativeFormatter.days30" = "Папярэднія 30 дзён";
+"RelativeFormatter.older" = "Раней";
 
 // MARK: - Server
 "Server.Network" = "Сеціва";
@@ -1050,20 +1050,20 @@
 "Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
 
 // MARK: - Membership
-"Membership" = "Membership";
-"Just e-mail" = "Just e-mail";
-"E-mail" = "E-mail";
-"Learn more" = "Learn more";
+"Membership" = "Членства";
+"Just e-mail" = "Толькі email";
+"E-mail" = "E-Mail";
+"Learn more" = "Даведацца больш";
 "per" = "per";
-"unlimited" = "Unlimited";
+"unlimited" = "Неабмежавана";
 
 
-"Upgrade" = "Upgrade";
-"What’s included" = "What’s included";
-"Submit" = "Submit";
-"Resend" = "Resend";
+"Upgrade" = "Абнавіць";
+"What’s included" = "Што ўключана";
+"Submit" = "Пацвердзіць";
+"Resend" = "Выслаць паўторна";
 "Resend in" = "Resend in %@ sec";
-"Current" = "Current";
+"Current" = "Бягучы";
 "Forever free" = "Назаўжды бясплатна";
 "Forever" = "Назаўсёды";
 "Valid until date" = "Дзейнічае да %@";
@@ -1071,9 +1071,9 @@
 "Valid until" = "Valid until:";
 "Paid by" = "Paid by %@";
 "Myself" = "Myself";
-"Pay by Card" = "Pay by Card";
+"Pay by Card" = "Аплата карткай";
 "Min X characters" = "Min %@ characters";
-"Pending" = "Pending...";
+"Pending" = "У чаканні...";
 "Manage payment" = "Manage payment";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
@@ -1082,7 +1082,7 @@
 "StoreKitServiceError.userCancelled" = "Purchase cancelled";
 "StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
-"Membership.Ad.Title" = "Membership";
+"Membership.Ad.Title" = "Членства";
 "Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
 
 "Membership.Legal.Details" = "Membership plan details";
@@ -1102,7 +1102,7 @@ Please provide specific details of your needs here.";
 
 "Membership.Upgrade.Title" = "Membership upgrade";
 "Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+"Membership.Upgrade.Button" = "Звяжыцеся з камандай Anytype";
 
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 "Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
