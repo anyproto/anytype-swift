@@ -413,6 +413,11 @@
 		2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */; };
 		2A4373722906808700A1C4D6 /* InlineMarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */; };
 		2A43EAC72A98A18500DA4AAE /* QuickActionShortcutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A43EAC62A98A18500DA4AAE /* QuickActionShortcutBuilder.swift */; };
+		2A444F972C18A5E5007237B0 /* AppScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A444F962C18A5E5007237B0 /* AppScene.swift */; };
+		2A444F992C18AADA007237B0 /* WindowReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A444F982C18AADA007237B0 /* WindowReader.swift */; };
+		2A444F9B2C18B138007237B0 /* AppSceneUrlHandlerModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A444F9A2C18B138007237B0 /* AppSceneUrlHandlerModifier.swift */; };
+		2A444F9E2C18B25B007237B0 /* AppSceneUrlHandlerModifierModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A444F9D2C18B25B007237B0 /* AppSceneUrlHandlerModifierModel.swift */; };
+		2A444FA02C18B889007237B0 /* GlobalEnvModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A444F9F2C18B889007237B0 /* GlobalEnvModifier.swift */; };
 		2A446D4E2C049910002E39AD /* SpaceShareTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */; };
 		2A446D502C049A5C002E39AD /* SpaceShareTipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */; };
 		2A446D522C04B2E3002E39AD /* SpaceShareTip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */; };
@@ -2192,6 +2197,11 @@
 		2A41A6762B84D43C00EAE6E6 /* DeepLinks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DeepLinks; path = Modules/DeepLinks; sourceTree = "<group>"; };
 		2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdownListener.swift; sourceTree = "<group>"; };
 		2A43EAC62A98A18500DA4AAE /* QuickActionShortcutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionShortcutBuilder.swift; sourceTree = "<group>"; };
+		2A444F962C18A5E5007237B0 /* AppScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppScene.swift; sourceTree = "<group>"; };
+		2A444F982C18AADA007237B0 /* WindowReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowReader.swift; sourceTree = "<group>"; };
+		2A444F9A2C18B138007237B0 /* AppSceneUrlHandlerModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneUrlHandlerModifier.swift; sourceTree = "<group>"; };
+		2A444F9D2C18B25B007237B0 /* AppSceneUrlHandlerModifierModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSceneUrlHandlerModifierModel.swift; sourceTree = "<group>"; };
+		2A444F9F2C18B889007237B0 /* GlobalEnvModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalEnvModifier.swift; sourceTree = "<group>"; };
 		2A446D4D2C049910002E39AD /* SpaceShareTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipView.swift; sourceTree = "<group>"; };
 		2A446D4F2C049A5C002E39AD /* SpaceShareTipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTipViewModel.swift; sourceTree = "<group>"; };
 		2A446D512C04B2E3002E39AD /* SpaceShareTip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareTip.swift; sourceTree = "<group>"; };
@@ -3789,6 +3799,7 @@
 		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2A444F9C2C18B244007237B0 /* AppSceneHandler */,
 				2AFD7E162B626C1E003B16EB /* GlobalEnv */,
 				2AE671DF29018AF600118F56 /* Notifications */,
 				12EE02D32840EAFF00223EB5 /* SceneDelegates */,
@@ -3798,6 +3809,7 @@
 				3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */,
 				0303ECFE22D8EDAA005C552B /* AppDelegate.swift */,
 				1226857828D4C5E60013A28E /* AppMetricsTracker.swift */,
+				2A444F962C18A5E5007237B0 /* AppScene.swift */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -5645,6 +5657,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2A444F9C2C18B244007237B0 /* AppSceneHandler */ = {
+			isa = PBXGroup;
+			children = (
+				2A444F9A2C18B138007237B0 /* AppSceneUrlHandlerModifier.swift */,
+				2A444F9D2C18B25B007237B0 /* AppSceneUrlHandlerModifierModel.swift */,
+			);
+			path = AppSceneHandler;
+			sourceTree = "<group>";
+		};
 		2A446D4C2C049901002E39AD /* SpaceShareTip */ = {
 			isa = PBXGroup;
 			children = (
@@ -7151,6 +7172,8 @@
 				3D66BBFF2BD9829A006B5930 /* AppInterfaceStyle.swift */,
 				2AFD7E172B626C2D003B16EB /* KeyboardDismiss.swift */,
 				2A40F59E2BB1997D00F0220E /* PresentedDismiss.swift */,
+				2A444F982C18AADA007237B0 /* WindowReader.swift */,
+				2A444F9F2C18B889007237B0 /* GlobalEnvModifier.swift */,
 			);
 			path = GlobalEnv;
 			sourceTree = "<group>";
@@ -11407,6 +11430,7 @@
 				2A6E04B1298D66DB0023B33D /* WidgetObjectListCommonModuleOutput.swift in Sources */,
 				3D66BBFC2BD90AC6006B5930 /* StoreKitService.swift in Sources */,
 				2ABA0E07283BC420008369DC /* BlockObjectsSearchInteractor.swift in Sources */,
+				2A444F992C18AADA007237B0 /* WindowReader.swift in Sources */,
 				2ECF1DBF2BBADCBA007C68E2 /* SetFiltersSelectionData.swift in Sources */,
 				12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */,
 				2AD37D5A299121D30012409E /* WidgetObjectListViewModel.swift in Sources */,
@@ -11559,6 +11583,7 @@
 				3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */,
 				C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */,
 				530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */,
+				2A444F9B2C18B138007237B0 /* AppSceneUrlHandlerModifier.swift in Sources */,
 				3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */,
 				3D93D561270B3FC500614E29 /* UINavigationController+Extension.swift in Sources */,
 				2A6F5046288A8F0B00ED6E2E /* ImageAssets.swift in Sources */,
@@ -11985,8 +12010,10 @@
 				53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */,
 				3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */,
 				125BD56E27CF471B006D8227 /* AuthServiceError+Localize.swift in Sources */,
+				2A444F972C18A5E5007237B0 /* AppScene.swift in Sources */,
 				2AA2291A29C45DC50047B245 /* VerticalScrollViewWithOverlayHeader.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
+				2A444F9E2C18B25B007237B0 /* AppSceneUrlHandlerModifierModel.swift in Sources */,
 				3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */,
 				2A18929C2A8F6F5500A19740 /* NonFatalAlertConfigurator.swift in Sources */,
 				2AC429A629B784280002AD05 /* BaseDocumentProtocol+Home.swift in Sources */,
@@ -12077,6 +12104,7 @@
 				2A0F663E2BFB9FA700F34BBD /* FavoriteListWidgetSubmoduleView.swift in Sources */,
 				2EA2B7D42AB2113B00F1F49F /* SetViewSettingsListMode.swift in Sources */,
 				2AE85FE92B1F490F00268E9D /* ServerConfigurationCoordinatorView.swift in Sources */,
+				2A444FA02C18B889007237B0 /* GlobalEnvModifier.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */,
