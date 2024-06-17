@@ -27,9 +27,14 @@ struct LinkWidgetInternalView: View {
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
             homeState: data.homeState,
-            contentModel: model,
+            name: model.name,
+            dragId: model.dragId,
+            onCreateObjectTap: nil,
+            onHeaderTap: {
+                model.onHeaderTap()
+            },
             output: data.output,
-            content: EmptyView()
+            content: { EmptyView() }
         )
     }
 }

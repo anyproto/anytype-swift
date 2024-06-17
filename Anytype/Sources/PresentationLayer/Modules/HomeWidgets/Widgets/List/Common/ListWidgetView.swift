@@ -49,9 +49,18 @@ private struct ListWidgetInternalView: View {
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
             homeState: data.homeState,
-            contentModel: model,
+            name: model.name,
+            dragId: model.dragId,
+            onCreateObjectTap: model.allowCreateObject ? {
+                model.onCreateObjectTap()
+            } : nil,
+            onHeaderTap: {
+                model.onHeaderTap()
+            },
             output: data.output,
-            content: bodyContent
+            content: {
+                bodyContent
+            }
         )
     }
     

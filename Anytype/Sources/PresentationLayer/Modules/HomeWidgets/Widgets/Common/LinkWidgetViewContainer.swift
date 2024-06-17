@@ -6,7 +6,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     let icon: ImageAsset?
     @Binding var isExpanded: Bool
     let dragId: String?
-    let homeState: HomeWidgetsState
+    @Binding var homeState: HomeWidgetsState
     let allowMenuContent: Bool
     let allowContent: Bool
     let menu: () -> MenuContent
@@ -21,7 +21,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         icon: ImageAsset?,
         isExpanded: Binding<Bool>,
         dragId: String? = nil,
-        homeState: HomeWidgetsState = .readonly,
+        homeState: Binding<HomeWidgetsState>,
         allowMenuContent: Bool = false,
         allowContent: Bool = true,
         headerAction: @escaping (() -> Void),
@@ -33,7 +33,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         self.icon = icon
         self._isExpanded = isExpanded
         self.dragId = dragId
-        self.homeState = homeState
+        self._homeState = homeState
         self.allowMenuContent = allowMenuContent
         self.allowContent = allowContent
         self.headerAction = headerAction
@@ -74,6 +74,11 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
         }
         .animation(.default, value: homeState)
         .hidden(isDragging())
+        .if(homeState.isReadWrite) {
+            $0.contextMenu {
+                contextMenuItems
+            }
+        }
     }
     
     // MARK: - Private
@@ -158,6 +163,21 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     private func isDragging() -> Bool {
         dragState.dragInitiateId == dragId && dragState.dragInProgress
     }
+    
+    @ViewBuilder
+    private var contextMenuItems: some View {
+        if homeState.isReadWrite {
+            menu()
+            Divider()
+            Button(Loc.Widgets.Actions.editWidgets) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                    AnytypeAnalytics.instance().logEditWidget()
+                    homeState = .editWidgets
+                    UISelectionFeedbackGenerator().selectionChanged()
+                }
+            }
+        }
+    }
 }
 
 struct LinkWidgetViewContainer_Previews: PreviewProvider {
@@ -169,7 +189,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Name",
                     icon: nil,
                     isExpanded: .constant(true),
-                    homeState: .editWidgets,
+                    homeState: .constant(.editWidgets),
                     headerAction: {}
                 ) {
                     Text("Content")
@@ -179,7 +199,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Name",
                     icon: ImageAsset.Widget.bin,
                     isExpanded: .constant(false),
-                    homeState: .readonly,
+                    homeState: .constant(.readonly),
                     headerAction: {}
                 ) {
                     Text("Content")
@@ -189,7 +209,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Very long text very long text very long text very long text",
                     icon: nil,
                     isExpanded: .constant(false),
-                    homeState: .readwrite,
+                    homeState: .constant(.readwrite),
                     headerAction: {}
                 ) {
                     Text("Content")
@@ -199,7 +219,7 @@ struct LinkWidgetViewContainer_Previews: PreviewProvider {
                     title: "Very long text very long text very long text very long text very long text",
                     icon: nil,
                     isExpanded: .constant(true),
-                    homeState: .readwrite,
+                    homeState: .constant(.readwrite),
                     headerAction: {}
                 ) {
                     Text("Content")

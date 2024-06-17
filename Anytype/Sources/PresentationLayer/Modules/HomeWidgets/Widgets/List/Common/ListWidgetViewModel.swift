@@ -5,7 +5,7 @@ import SwiftUI
 import AnytypeCore
 
 @MainActor
-final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, ObservableObject {
+final class ListWidgetViewModel: ObservableObject {
     
     // MARK: - DI
     
@@ -47,19 +47,8 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         self.internalModel = internalModel
         self.internalHeaderModel = internalHeaderModel
         self.output = output
-    }
-    
-    // MARK: - WidgetContainerContentViewModelProtocol
-    
-    func startHeaderSubscription() {
-        setupAllSubscriptions()
-        internalModel.startHeaderSubscription()
-    }
-    
-    func startContentSubscription() {
-        Task {
-            await internalModel.startContentSubscription()
-        }
+        startHeaderSubscription()
+        startContentSubscription()
     }
     
     func onHeaderTap() {
@@ -73,6 +62,17 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     // MARK: - Private
+
+    private func startHeaderSubscription() {
+        setupAllSubscriptions()
+        internalModel.startHeaderSubscription()
+    }
+    
+    private func startContentSubscription() {
+        Task {
+            await internalModel.startContentSubscription()
+        }
+    }
     
     private func setupAllSubscriptions() {
         
