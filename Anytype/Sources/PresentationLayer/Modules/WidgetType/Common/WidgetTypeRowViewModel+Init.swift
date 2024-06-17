@@ -21,10 +21,12 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.Link.title
         case .tree:
             return Loc.Widgets.Layout.Tree.title
-        case .list, .view:
+        case .list:
             return Loc.Widgets.Layout.List.title
         case .compactList:
             return Loc.Widgets.Layout.CompactList.title
+        case .view:
+            return Loc.Widgets.Layout.View.title
         case .UNRECOGNIZED:
             return Loc.unsupported
         }
@@ -36,10 +38,12 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.Link.description
         case .tree:
             return Loc.Widgets.Layout.Tree.description
-        case .list, .view:
+        case .list:
             return Loc.Widgets.Layout.List.description
         case .compactList:
             return Loc.Widgets.Layout.CompactList.description
+        case .view:
+            return Loc.Widgets.Layout.View.description
         case .UNRECOGNIZED:
             return ""
         }

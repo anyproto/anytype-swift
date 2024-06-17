@@ -1872,6 +1872,10 @@ internal enum Loc {
         internal static let description = Loc.tr("Localizable", "Widgets.Layout.Tree.Description")
         internal static let title = Loc.tr("Localizable", "Widgets.Layout.Tree.Title")
       }
+      internal enum View {
+        internal static let description = Loc.tr("Localizable", "Widgets.Layout.View.Description")
+        internal static let title = Loc.tr("Localizable", "Widgets.Layout.View.Title")
+      }
     }
     internal enum Library {
       internal enum RecentlyEdited {
