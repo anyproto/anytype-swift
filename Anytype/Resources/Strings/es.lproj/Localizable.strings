@@ -311,7 +311,7 @@
 "Undo typing" = "Deshacer escritura";
 "Undo" = "Deshacer";
 "Redo" = "Rehacer";
-"Actions.LinkItself" = "Vincular a";
+"Actions.LinkItself" = "Conectar a";
 "Actions.MakeAsTemplate" = "Hacer plantilla";
 "Actions.TemplateMakeDefault" = "Establecer por defecto";
 "Actions.CreateWidget.Title" = "A widgets";
@@ -636,7 +636,7 @@
 "File" = "Archivo";
 "No related options here" = "No hay opciones relacionadas. Puedes añadir alguna.";
 "Empty" = "Vacío";
-"Link to" = "Vincular a";
+"Link to" = "Conectar a";
 "Unknown" = "Desconocido";
 "Settings" = "Ajustes";
 "Views" = "Vistas";
@@ -982,7 +982,7 @@
 "Sharing.SaveAs" = "GUARDAR COMO";
 "Sharing.SelectSpace" = "Espacio";
 "Sharing.AddTo" = "Añadir a";
-"Sharing.LinkTo" = "Vincular a";
+"Sharing.LinkTo" = "Conectar a";
 
 "Sharing.Text.NoteObject" = "Objeto de nota";
 "Sharing.Text.TextBlock" = "Bloques";
@@ -1106,7 +1106,7 @@ En concreto,
 "Membership.Upgrade.MoreSpaces" = "Amplía tu suscripción para añadir más espacios";
 "Membership.Upgrade.MoreMembers" = "Amplía tu suscripción para añadir más miembros";
 "Membership.Upgrade.NoMoreMembers" = "No puedes añadir más miembros";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.NoMoreEditors" = "No puedes añadir más editores";
 
 
 "Membership.Banner.Title1" = "Construyamos esta visión juntos";
