@@ -27,7 +27,7 @@ final class ListWidgetViewModel: ObservableObject {
     @Published private(set) var name: String = ""
     var dragId: String? { widgetBlockId }
     
-    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model]?
+    @Published private(set) var headerItems: [ViewWidgetTabsItemModel]?
     @Published private(set) var rows: [ListWidgetRowModel]?
     let emptyTitle = Loc.Widgets.Empty.title
     let style: ListWidgetStyle
@@ -115,7 +115,7 @@ final class ListWidgetViewModel: ObservableObject {
     private func updateHeader(dataviewState: WidgetDataviewState?) {
         withAnimation(headerItems.isNil ? nil : .default) {
             headerItems = dataviewState?.dataview.map { dataView in
-                ListWidgetHeaderItem.Model(
+                ViewWidgetTabsItemModel(
                     dataviewId: dataView.id,
                     title: dataView.nameWithPlaceholder,
                     isSelected: dataView.id == dataviewState?.activeViewId,

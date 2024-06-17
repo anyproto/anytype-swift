@@ -66,27 +66,11 @@ private struct ListWidgetInternalView: View {
     
     private var bodyContent: some View {
         VStack(spacing: 0) {
-            header
+            ViewWidgetTabsView(items: model.headerItems)
             content
         }
     }
-    
-    private var header: some View {
-        Group {
-            if let headerItems = model.headerItems, headerItems.isNotEmpty {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 16) {
-                        ForEach(headerItems, id: \.dataviewId) {
-                            ListWidgetHeaderItem(model: $0)
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .frame(height: 40)
-                }
-            }
-        }
-    }
-    
+        
     private var content: some View {
         ZStack {
             if let rows = model.rows {
