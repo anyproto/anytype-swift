@@ -10,7 +10,7 @@ struct AnytypeApp: App {
         WindowGroup {
             ApplicationCoordinatorView()
                 .setupGlobalEnv()
-                .setupAppSceneHandler()
+                .setupAppSceneUrlHandler()
                 .setupTraitCollectionNotifier()
         }
     }
