@@ -54,6 +54,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let galleryWidget = FeatureDescription(
+        title: "Gallery Widget - IOS-2964",
+        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
