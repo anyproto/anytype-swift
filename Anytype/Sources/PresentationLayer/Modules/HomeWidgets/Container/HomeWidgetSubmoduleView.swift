@@ -69,7 +69,7 @@ struct HomeWidgetSubmoduleView: View {
                     // Fallback
                     LinkWidgetView(data: widgetData)
                 }
-            case .list:
+            case .list, .view:
                 if objectDetails.editorViewType == .set {
                     SetObjectListWidgetSubmoduleView(data: widgetData)
                 } else {
