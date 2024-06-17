@@ -9,7 +9,7 @@ struct ShareSelectionRow: View {
     var body: some View {
         HStack {
             Image(asset: .system(name: "checkmark"))
-                .opacity(selected ? 1 : 0)
+                .hidden(!selected)
                 .foregroundColor(.blue)
             Spacer.fixedWidth(8)
             AnytypeText(text, style: .bodyRegular)

@@ -18,5 +18,7 @@ enum StandardButtonStyle {
     case secondaryXSmall
     case warningXSmall
     
+    case primaryXSmallStretched
+    
     case upgradeBadge
 }

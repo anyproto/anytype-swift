@@ -73,7 +73,11 @@ struct MembershipTierSelectionView: View {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
                 case .external(let url):
-                    moreInfoButton(url: url)
+                    if FeatureFlags.hideCoCreator {
+                        EmptyView()
+                    } else {
+                        moreInfoButton(url: url)
+                    }
                 }
             }
         }

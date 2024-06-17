@@ -342,7 +342,7 @@
 "Search.Links.Swipe.title" = "相关的";
 "GlobalSearch.EmptyState.subtitle" = "创建新的对象或搜索一下";
 "GlobalSearch.EmptyFilteredState.title" = "没有找到相关对象";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
+"GlobalSearch.Swipe.Tip.title" = "相关的对象";
 "GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
 
 // MARK: - Home
@@ -1110,6 +1110,7 @@
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 "Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
 "Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
 
 
 "Membership.Banner.Title1" = "一起构建愿景";

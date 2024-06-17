@@ -94,14 +94,15 @@ final class BlockActionService: BlockActionServiceProtocol {
         try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
-    func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
-        let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
-        AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, spaceId: spaceId, route: .turnInto)
+    func turnIntoObject(blockId: String, spaceId: String) async throws -> String? {
+        let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+        AnytypeAnalytics.instance().logCreateObject(objectType: defaultObjectType.analyticsType, spaceId: spaceId, route: .turnInto)
 
-        return try await blockService.convertChildrenToPages(
+        return try await blockService.convertChildrenToObjects(
             contextId: documentId,
             blocksIds: [blockId],
-            typeUniqueKey: pageType.uniqueKey
+            typeUniqueKey: defaultObjectType.uniqueKey,
+            templateId: defaultObjectType.defaultTemplateId
         ).first
     }
     

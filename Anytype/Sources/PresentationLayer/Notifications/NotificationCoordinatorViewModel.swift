@@ -16,7 +16,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     @Published var spaceIdForDeleteAlert: StringIdentifiable?
     @Published var exportSpaceUrl: URL?
     @Published var spaceRequestAlert: SpaceRequestAlertData?
-    @Published var showMembershipUpgrade = false
+    @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
     func onAppear() {
         Task {
@@ -39,8 +39,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         self.dismissAllPresented = dismissAllPresented
     }
     
-    func onMembershipUpgrateTap() {
-        showMembershipUpgrade = true
+    func onMembershipUpgrateTap(reason: MembershipUpgradeReason) {
+        membershipUpgradeReason = reason
     }
     
     // MARK: - Private

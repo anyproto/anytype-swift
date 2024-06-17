@@ -1,6 +1,7 @@
 import Foundation
 import Services
 
+
 @MainActor
 final class SpaceRequestAlertModel: ObservableObject {
 
@@ -12,16 +13,23 @@ final class SpaceRequestAlertModel: ObservableObject {
     private var workspaceStorage: WorkspacesStorageProtocol
     
     private let data: SpaceRequestAlertData
-    private let onMembershipUpgradeTap: () -> ()
+    private let onMembershipUpgradeTap: (MembershipUpgradeReason) -> ()
     
     @Published var title = ""
     @Published var canAddReaded = false
     @Published var canAddWriter = false
-    var showUpgradeButton: Bool {
-        !canAddWriter && !canAddReaded
+    
+    var membershipLimitsExceeded: MembershipParticipantUpgradeReason? {
+        if !canAddReaded {
+            .numberOfSpaceReaders
+        } else if !canAddWriter {
+            .numberOfSpaceEditors
+        } else {
+            nil
+        }
     }
     
-    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping () -> ()) {
+    init(data: SpaceRequestAlertData, onMembershipUpgradeTap: @escaping (MembershipUpgradeReason) -> ()) {
         self.data = data
         self.onMembershipUpgradeTap = onMembershipUpgradeTap
         title = Loc.SpaceShare.ViewRequest.title(
@@ -69,7 +77,7 @@ final class SpaceRequestAlertModel: ObservableObject {
         )
     }
     
-    func onMembershipUpgrade() {
-        onMembershipUpgradeTap()
+    func onMembershipUpgrade(reason: MembershipUpgradeReason) {
+        onMembershipUpgradeTap(reason)
     }
 }

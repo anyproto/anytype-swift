@@ -110,7 +110,7 @@ final class SetRelationsViewModel: ObservableObject {
     }
     
     private func setup() {
-        cancellable = setDocument.syncPublisher.sink {  [weak self] in
+        cancellable = setDocument.syncPublisher.receiveOnMain().sink {  [weak self] in
             guard let self else { return }
             view = setDocument.view(by: viewId)
         }

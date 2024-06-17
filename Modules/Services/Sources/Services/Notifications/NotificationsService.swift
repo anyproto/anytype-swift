@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public protocol NotificationsServiceProtocol: AnyObject {
+public protocol NotificationsServiceProtocol: AnyObject, Sendable {
     func list(includeRead: Bool, limit: Int) async throws -> [Notification]
     func reply(ids: [String], actionType: NotificationActionType) async throws
 }

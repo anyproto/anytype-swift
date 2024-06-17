@@ -77,7 +77,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     func setupSubscriptions() {
         subscriptions = []
         
-        document.syncStatusPublisher.receiveOnMain().sink { [weak self] data in
+        document.syncStatusDataPublisher.receiveOnMain().sink { [weak self] data in
             self?.handleSyncStatus(data: data)
         }.store(in: &subscriptions)
         
@@ -100,7 +100,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
         
-        document.resetBlocksSubject.receiveOnMain().sink { [weak self] blockIds in
+        document.resetBlocksPublisher.receiveOnMain().sink { [weak self] blockIds in
             guard let self else { return }
             let filtered = Set(blockIds).intersection(modelsHolder.blocksMapping.keys)
             

@@ -20,7 +20,13 @@ public protocol BlockServiceProtocol: AnyObject, Sendable {
     
     func lastBlockId(from objectId: String) async throws -> String
     
-    func convertChildrenToPages(contextId: String, blocksIds: [String], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [String]
+    func convertChildrenToObjects(
+        contextId: String,
+        blocksIds: [String],
+        typeUniqueKey: ObjectTypeUniqueKey,
+        templateId: String
+    ) async throws -> [String]
+    
     func createBlockLink(
         contextId: String,
         targetId: String,

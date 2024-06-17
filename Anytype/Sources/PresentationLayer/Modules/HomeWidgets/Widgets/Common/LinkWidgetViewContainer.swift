@@ -73,7 +73,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 .zIndex(1)
         }
         .animation(.default, value: homeState)
-        .opacity(isDragging() ? 0 : 1)
+        .hidden(isDragging())
         .if(homeState.isReadWrite) {
             $0.contextMenu {
                 contextMenuItems

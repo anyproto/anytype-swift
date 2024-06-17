@@ -8,11 +8,11 @@ final class SpaceShareTipViewModel: ObservableObject {
     init() {}
     
     func onAppear() {
-        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .spaceShare)
+        AnytypeAnalytics.instance().logOnboardingTooltip(tooltip: .space)
     }
     
     func tapClose() {
-        AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .spaceShare, type: .close)
+        AnytypeAnalytics.instance().logClickOnboardingTooltip(tooltip: .space, type: .close)
         dismiss.toggle()
     }
     

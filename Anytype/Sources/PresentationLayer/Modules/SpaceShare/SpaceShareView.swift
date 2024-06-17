@@ -23,8 +23,8 @@ struct SpaceShareView: View {
             .anytypeShareView(item: $model.shareInviteLink)
             .snackbar(toastBarData: $model.toastBarData)
             .anytypeSheet(item: $model.requestAlertModel) { alertModel in
-                SpaceRequestAlert(data: alertModel) {
-                    model.onUpgradeTap()
+                SpaceRequestAlert(data: alertModel) { reason in
+                    model.onUpgradeTap(reason: reason, route: .confirmInvite)
                 }
             }
             .anytypeSheet(item: $model.changeAccessAlertModel) { model in
@@ -46,7 +46,7 @@ struct SpaceShareView: View {
             .anytypeSheet(item: $model.qrCodeInviteLink) {
                 QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
             }
-            .membershipUpgrade(isPresented: $model.showMembershipUpgrade, reason: .numberOfSpaceMembers)
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
             .ignoresSafeArea()
     }
     
@@ -61,8 +61,10 @@ struct SpaceShareView: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         SectionHeaderView(title: Loc.SpaceShare.members)
-                        if model.showUpgradeBadge {
-                            upgradeView
+                        if let reason = model.upgradeTooltipData {
+                            SpaceShareUpgradeView(reason: reason) {
+                                model.onUpgradeTap(reason: reason, route: .spaceSettings)
+                            }
                         }
                         ForEach(model.rows) { participant in
                             SpaceShareParticipantView(participant: participant)
@@ -75,19 +77,7 @@ struct SpaceShareView: View {
                 }
             }
         }
-        .animation(.default, value: model.showUpgradeBadge)
-    }
-    
-    private var upgradeView: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(Loc.Membership.Upgrade.noMoreMembers, style: .caption1Regular)
-                .foregroundColor(Color.Text.primary)
-            Spacer.fixedHeight(12)
-            StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)", style: .upgradeBadge) {
-                model.onUpgradeTap()
-            }
-            Spacer.fixedHeight(24)
-        }
+        .animation(.default, value: model.upgradeTooltipData)
     }
     
     private var inviteView: some View {

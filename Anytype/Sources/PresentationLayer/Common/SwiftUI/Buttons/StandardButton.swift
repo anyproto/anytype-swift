@@ -75,7 +75,7 @@ struct StandardButton: View {
                     .padding(.horizontal, 5)
             }
         }
-        .opacity(inProgress ? 0 : 1)
+        .hidden(inProgress)
         .if(style.config.stretchSize) {
             $0.frame(minWidth: 0, maxWidth: .infinity)
         }

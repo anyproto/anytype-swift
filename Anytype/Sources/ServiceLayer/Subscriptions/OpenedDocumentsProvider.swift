@@ -24,8 +24,12 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
         let document = documentsProvider.document(objectId: objectId, forPreview: forPreview)
         
-        defer {
-            openDocument(document: document)
+        Task { @MainActor in
+            if forPreview {
+                try await document.openForPreview()
+            } else {
+                try await document.open()
+            }
         }
         
         return document
@@ -38,24 +42,14 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
             inlineParameters: nil
         )
         
-        defer {
-            openDocument(document: document)
+        Task { @MainActor in
+            if forPreview {
+                try await document.openForPreview()
+            } else {
+                try await document.open()
+            }
         }
         
         return document
-    }
-    
-    // MARK: - Private func    
-    private func openDocument(document: BaseDocumentGeneralProtocol) {
-        if document.forPreview {
-            Task { @MainActor in
-                try? await document.openForPreview()
-            }
-            return
-        }
-        
-        Task { @MainActor in
-            try? await document.open()
-        }
     }
 }
