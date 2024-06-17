@@ -16,6 +16,8 @@ final class GlobalSearchViewModel: ObservableObject {
     @Published var state = GlobalSearchState()
     @Published var searchData: [GlobalSearchDataSection] = []
     @Published var dismiss = false
+    
+    var isInitial = true
     private var modeChanged = false
     
     init(data: GlobalSearchModuleData) {
@@ -127,12 +129,12 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     private func updateInitialStateIfNeeded() {
-        guard state.isInitial else { return }
-        state.isInitial = false
+        guard isInitial else { return }
+        isInitial = false
     }
     
     private func needDelay() -> Bool {
-        guard modeChanged || state.isInitial else { return true }
+        guard modeChanged || isInitial else { return true }
         modeChanged = false
         return false
     }
