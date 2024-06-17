@@ -342,7 +342,7 @@
 "Search.Links.Swipe.title" = "關聯到";
 "GlobalSearch.EmptyState.subtitle" = "建立一個新的或搜尋其他內容";
 "GlobalSearch.EmptyFilteredState.title" = "找不到關聯的物件";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
+"GlobalSearch.Swipe.Tip.title" = "全域搜尋";
 "GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
 
 // MARK: - Home
