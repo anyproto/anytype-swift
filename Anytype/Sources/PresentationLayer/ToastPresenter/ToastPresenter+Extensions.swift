@@ -21,7 +21,7 @@ extension ToastPresenterProtocol {
             attributes: ToastView.defaultAttributes
         )
         
-        show(message: attributedString, mode: .aboveKeyboard)
+        show(message: attributedString)
     }
 }
 
