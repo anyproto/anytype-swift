@@ -22,7 +22,6 @@ struct MembershipTierSelectionCarousel: View {
         self.allTiers = allTiers
         self.onSuccessfulPurchase = onSuccessfulPurchase
         _selection = State(initialValue: tierToDisplay.id)
-        AnytypeAnalytics.instance().logScreenMembership(tier: tierToDisplay)
     }
     
     var body: some View {
