@@ -26,7 +26,7 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
             $0.targetID = position.targetId
             $0.block = block
             $0.position = position.middlePosition
-            $0.widgetLayout = layout.asMiddleware
+            $0.widgetLayout = layout
             $0.objectLimit = Int32(limit)
         }).invoke()
     }
@@ -50,7 +50,7 @@ final class BlockWidgetService: BlockWidgetServiceProtocol {
         _ = try? await ClientCommands.blockWidgetSetLayout(.with {
             $0.contextID = contextId
             $0.blockID = widgetBlockId
-            $0.layout = layout.asMiddleware
+            $0.layout = layout
         }).invoke()
     }
     

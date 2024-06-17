@@ -12,6 +12,10 @@ extension BlockWidget.Layout {
             return "List"
         case .compactList:
             return "CompactList"
+        case .UNRECOGNIZED(let value):
+            return "UNRECOGNIZED \(value)"
+        case .view:
+            return "View"
         }
     }
 }

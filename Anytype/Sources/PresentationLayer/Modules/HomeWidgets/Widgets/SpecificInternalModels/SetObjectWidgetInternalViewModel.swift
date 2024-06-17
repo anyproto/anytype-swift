@@ -64,7 +64,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
                 guard let self else { return }
                 widgetInfo = newWidgetInfo
                 if activeViewId.isNil || canEditBlocks {
-                    activeViewId = widgetInfo?.block.viewId
+                    activeViewId = widgetInfo?.block.viewID
                     setActiveViewId()
                 }
             }

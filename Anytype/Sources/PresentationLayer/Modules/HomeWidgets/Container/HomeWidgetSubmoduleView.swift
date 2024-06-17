@@ -51,7 +51,7 @@ struct HomeWidgetSubmoduleView: View {
             CollectionsListWidgetSubmoduleView(data: widgetData)
         case (.collections, .compactList):
             CollectionsCompactListWidgetSubmoduleView(data: widgetData)
-        case (_, .link):
+        case _:
             EmptyView()
         }
     }
@@ -69,7 +69,7 @@ struct HomeWidgetSubmoduleView: View {
                     // Fallback
                     LinkWidgetView(data: widgetData)
                 }
-            case .list:
+            case .list, .view:
                 if objectDetails.editorViewType == .set {
                     SetObjectListWidgetSubmoduleView(data: widgetData)
                 } else {
@@ -82,6 +82,8 @@ struct HomeWidgetSubmoduleView: View {
                 } else {
                     LinkWidgetView(data: widgetData)
                 }
+            case .UNRECOGNIZED:
+                EmptyView()
             }
         } else {
             EmptyView()
