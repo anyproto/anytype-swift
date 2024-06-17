@@ -62,7 +62,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-    func showCoverPicker(document: BaseDocumentGeneralProtocol) {
+    func showCoverPicker(document: BaseDocumentProtocol) {
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
@@ -74,7 +74,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         linkToObjectData = data
     }
     
-    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+    func showIconPicker(document: BaseDocumentProtocol) {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     

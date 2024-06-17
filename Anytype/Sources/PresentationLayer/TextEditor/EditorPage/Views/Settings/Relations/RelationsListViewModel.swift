@@ -42,11 +42,11 @@ final class RelationsListViewModel: ObservableObject {
             .receiveOnMain()
             .assign(to: &$sections)
         
-        document.syncPublisher
+        document.permissionsPublisher
             .receiveOnMain()
-            .sink { [weak self] in
+            .sink { [weak self] permissions in
                 guard let self else { return }
-                navigationBarButtonsDisabled = !document.permissions.canEditRelationsList
+                navigationBarButtonsDisabled = permissions.canEditRelationsList
             }
             .store(in: &subscriptions)
     }

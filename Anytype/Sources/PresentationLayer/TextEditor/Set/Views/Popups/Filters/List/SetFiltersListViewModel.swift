@@ -75,7 +75,7 @@ extension SetFiltersListViewModel {
     // MARK: - Private methods
     
     private func setup() {
-        cancellable = setDocument.syncPublisher.sink { [weak self] in
+        cancellable = setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             guard let self else { return }
             let filters = setDocument.filters(for: viewId)
             updateRows(with: filters)

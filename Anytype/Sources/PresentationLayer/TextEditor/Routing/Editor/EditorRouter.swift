@@ -288,7 +288,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(popup)
     }
     
-    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+    func showIconPicker(document: BaseDocumentProtocol) {
         output?.showIconPicker(document: document)
     }
 

@@ -36,7 +36,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     }
     
     private func setupSubscription() {
-        cancellable = setDocument.syncPublisher.sink { [weak self] in
+        cancellable = setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             guard let self else { return }
             view = setDocument.view(by: viewId)
             selectedType = view.type

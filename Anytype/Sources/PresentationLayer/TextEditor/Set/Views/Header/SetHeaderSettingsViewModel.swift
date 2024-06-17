@@ -39,6 +39,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
             .store(in: &subscriptions)
         
         setDocument.syncPublisher
+            .receiveOnMain()
             .sink { [weak self, weak setDocument] details in
                 guard let self, let setDocument else { return }
                 
