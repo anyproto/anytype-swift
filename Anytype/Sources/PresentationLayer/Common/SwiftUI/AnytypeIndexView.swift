@@ -24,7 +24,7 @@ struct AnytypeIndexView: View {
   
   var body: some View {
     HStack(spacing: circleSpacing) {
-      ForEach(0..<numberOfPages) { index in // 1
+        ForEach(0..<numberOfPages, id: \.self) { index in // 1
         if shouldShowIndex(index) {
           Circle()
             .fill(currentIndex == index ? primaryColor : secondaryColor) // 2
@@ -37,7 +37,7 @@ struct AnytypeIndexView: View {
             .id(index) // 4
         }
       }
-    }
+    }.hidden(numberOfPages <= 1)
   }
   
   

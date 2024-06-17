@@ -7,13 +7,13 @@ protocol BlockActionServiceProtocol {
 
     func upload(blockId: String, filePath: String) async throws
     func turnInto(_ style: BlockText.Style, blockId: String) async throws
-    func turnIntoPage(blockId: String, spaceId: String) async throws -> String?
+    func turnIntoObject(blockId: String, spaceId: String) async throws -> String?
     func add(info: BlockInformation, targetBlockId: String, position: BlockPosition, setFocus: Bool) async throws
     func addChild(info: BlockInformation, parentId: String) async throws
     func delete(blockIds: [String])
     func createPage(targetId: String, spaceId: String, typeUniqueKey: ObjectTypeUniqueKey, position: BlockPosition, templateId: String) async throws -> String
     func split(
-        _ string: NSAttributedString,
+        _ string: SafeNSAttributedString,
         blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,

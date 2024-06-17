@@ -1,4 +1,4 @@
-public enum CoverType: Int {
+public enum CoverType: Int, Sendable {
     case none = 0
     case uploadedImage = 1
     case color = 2

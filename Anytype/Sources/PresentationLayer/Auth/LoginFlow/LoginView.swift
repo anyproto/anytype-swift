@@ -3,7 +3,7 @@ import SwiftUI
 struct LoginView: View {
     
     @StateObject private var model: LoginViewModel
-    @Environment(\.presentationMode) @Binding private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     init(output: LoginFlowOutput?) {
         _model = StateObject(wrappedValue: LoginViewModel(output: output))
@@ -38,9 +38,10 @@ struct LoginView: View {
             }
             .customBackSwipe {
                 guard !model.loadingRoute.isLoadingInProgress else { return }
-                presentationMode.dismiss()
+                dismiss()
             }
             .fitIPadToReadableContentGuide()
+            .onChange(of: model.dismiss) { _ in dismiss() }
     }
     
     private var content: some View {
@@ -111,12 +112,12 @@ struct LoginView: View {
     
     private var backButton : some View {
         Button(action: {
-            presentationMode.dismiss()
+            model.onbackButtonAction()
         }) {
             Image(asset: .backArrow)
                 .foregroundColor(.Text.tertiary)
         }
-        .disabled(model.loadingRoute.isLoadingInProgress)
+        .disabled(model.backButtonDisabled)
     }
 }
 

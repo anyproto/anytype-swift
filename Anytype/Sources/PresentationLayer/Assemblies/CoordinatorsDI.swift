@@ -6,10 +6,6 @@ extension Container {
         self { SetObjectCreationCoordinator() }
     }
     
-    var legacySharingTip: Factory<SharingTipCoordinatorProtocol> {
-        self { SharingTipCoordinator() }
-    }
-    
     var legacyTemplatesCoordinator: Factory<TemplatesCoordinatorProtocol> {
         self { TemplatesCoordinator() }
     }

@@ -93,19 +93,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d backlink</string>
+        <string>%d link wsteczny</string>
         <key>few</key>
-        <string>%d backlinks</string>
+        <string>%d linków wstecznych</string>
         <key>many</key>
-        <string>%d backlinks</string>
+        <string>%d linków wstecznych</string>
         <key>other</key>
-        <string>%d backlinks</string>
+        <string>%d linków wstecznych</string>
       </dict>
     </dict>
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Ten sejf zostanie usunięty za %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -113,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>jutro</string>
         <key>few</key>
-        <string>in %d days</string>
+        <string>za %d dni</string>
         <key>many</key>
-        <string>in %d days</string>
+        <string>za %d dni</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>w %d dni</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -180,6 +180,26 @@
         <string>%d bloki plików</string>
         <key>other</key>
         <string>%d bloki plików</string>
+      </dict>
+    </dict>
+    <key>Membership.Upgrade.SpacesLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
+        <key>few</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
+        <key>many</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
+        <key>other</key>
+        <string>Osiągnąłeś limit przestrzeni %d, która może być udostępniona</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -273,19 +293,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d requests</string>
+        <string>%d żądań</string>
         <key>one</key>
-        <string>%d request</string>
+        <string>%d żądanie</string>
         <key>few</key>
-        <string>%d requests</string>
+        <string>%d żądań</string>
         <key>many</key>
-        <string>%d requests</string>
+        <string>%d żądań</string>
       </dict>
     </dict>
     <key>Per Month</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@month@</string>
+      <string>na %#@month@</string>
       <key>month</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -293,19 +313,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>miesiąc</string>
         <key>few</key>
-        <string>%d months</string>
+        <string>%d miesięcy</string>
         <key>many</key>
-        <string>%d months</string>
+        <string>%d miesięcy</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d miesięcy</string>
       </dict>
     </dict>
     <key>Per Week</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@week@</string>
+      <string>na %#@week@</string>
       <key>week</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -313,19 +333,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>week</string>
+        <string>tydzień</string>
         <key>few</key>
-        <string>%d weeks</string>
+        <string>%d tygodni</string>
         <key>many</key>
-        <string>%d weeks</string>
+        <string>%d tygodni</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d tygodni</string>
       </dict>
     </dict>
     <key>Per Year</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@year@</string>
+      <string>na %#@year@</string>
       <key>year</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -333,19 +353,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>rok</string>
         <key>few</key>
-        <string>%d years</string>
+        <string>%d lat</string>
         <key>many</key>
-        <string>%d years</string>
+        <string>%d lat</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d lat</string>
       </dict>
     </dict>
     <key>Per Day</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
+      <string>na %#@day@</string>
       <key>day</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -353,13 +373,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>dzień</string>
         <key>few</key>
-        <string>%d days</string>
+        <string>%d dni</string>
         <key>many</key>
-        <string>%d days</string>
+        <string>%d dni</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d dni</string>
       </dict>
     </dict>
   </dict>

@@ -1,7 +1,8 @@
 import ProtobufMessages
 
-public protocol DataviewServiceProtocol {
+public protocol DataviewServiceProtocol: Sendable {
     func updateView(objectId: String, blockId: String, view: DataviewView) async throws
+    func setActiveView(objectId: String, blockId: String, viewId: String) async throws
     
     // MARK: - Filters
     func addFilter(objectId: String, blockId: String, filter: DataviewFilter, viewId: String) async throws

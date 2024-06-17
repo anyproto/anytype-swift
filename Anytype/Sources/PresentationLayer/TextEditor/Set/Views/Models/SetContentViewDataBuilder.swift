@@ -98,7 +98,7 @@ final class SetContentViewDataBuilder {
                 icon: item.details.objectIconImage,
                 relations: item.relations,
                 showIcon: !activeView.hideIcon,
-                smallItemSize: activeView.cardSize == .small,
+                isSmallCardSize: activeView.isSmallCardSize,
                 hasCover: hasCover,
                 coverFit: activeView.coverFit,
                 coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId),

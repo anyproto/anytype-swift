@@ -145,7 +145,7 @@ private extension TextRelationDetailsViewModel {
     private func logEvent() {
         switch type {
         case .url:
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlEditMobile)
+            AnytypeAnalytics.instance().logRelationUrlEditMobile()
         default:
             break
         }

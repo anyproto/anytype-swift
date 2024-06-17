@@ -40,8 +40,8 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
             anytypeAssertionFailure("target space id not found")
             return
         }
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
-        let safeSendableItemProvider = SafeSendable(value: itemProvider)
+        AnytypeAnalytics.instance().logSetIcon()
+        let safeSendableItemProvider = itemProvider.sendable()
         Task {
             let data = try await fileService.createFileData(source: .itemProvider(safeSendableItemProvider.value))
             let fileDetails = try await fileService.uploadFileObject(spaceId: spaceId, data: data, origin: .none)
@@ -54,7 +54,7 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
             anytypeAssertionFailure("target space id not found")
             return
         }
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
+        AnytypeAnalytics.instance().logRemoveIcon()
         Task {
             try await workspaceService.workspaceSetDetails(spaceId: spaceId, details: [.iconObjectId("")])
         }

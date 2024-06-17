@@ -1,7 +1,7 @@
 import Foundation
 import SwiftProtobuf
 
-public protocol RelationsServiceProtocol: AnyObject {
+public protocol RelationsServiceProtocol: AnyObject, Sendable {
     func addFeaturedRelation(objectId: String, relationKey: String) async throws
     func removeFeaturedRelation(objectId: String, relationKey: String) async throws
     

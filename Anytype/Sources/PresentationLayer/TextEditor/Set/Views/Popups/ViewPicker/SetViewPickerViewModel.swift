@@ -8,6 +8,7 @@ final class SetViewPickerViewModel: ObservableObject {
     @Published var rows: [SetViewRowConfiguration] = []
     @Published var disableDeletion = false
     @Published var canEditViews = false
+    @Published var shouldDismiss = false
     
     private let setDocument: SetDocumentProtocol
     private var cancellable: AnyCancellable?
@@ -47,7 +48,9 @@ final class SetViewPickerViewModel: ObservableObject {
             guard deleteIndex < setDocument.dataView.views.count else { return }
             let view = setDocument.dataView.views[deleteIndex]
             Task {
+                let previousActiveViewId = setDocument.dataView.activeViewId
                 try await dataviewService.deleteView(objectId: setDocument.objectId, blockId: setDocument.blockId, viewId: view.id)
+                try await setActiveViewIfNeeded(previousViewId: previousActiveViewId, newViewId: setDocument.dataView.activeViewId)
                 AnytypeAnalytics.instance().logRemoveView(objectType: setDocument.analyticsType)
             }
         }
@@ -86,11 +89,28 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     private func handleTap(with view: DataviewView) {
-        setDocument.updateActiveViewIdAndReload(view.id)
-        AnytypeAnalytics.instance().logSwitchView(
-            type: view.type.analyticStringValue,
-            objectType: setDocument.analyticsType
+        Task {
+            let changed = try await setActiveViewIfNeeded(previousViewId: setDocument.dataView.activeViewId, newViewId: view.id)
+            if changed {
+                setDocument.updateActiveViewIdAndReload(view.id)
+                AnytypeAnalytics.instance().logSwitchView(
+                    type: view.type.analyticStringValue,
+                    objectType: setDocument.analyticsType
+                )
+                shouldDismiss.toggle()
+            }
+        }
+    }
+    
+    @discardableResult
+    private func setActiveViewIfNeeded(previousViewId: String, newViewId: String) async throws -> Bool  {
+        guard previousViewId != newViewId else { return false }
+        try await dataviewService.setActiveView(
+            objectId: setDocument.objectId,
+            blockId: setDocument.blockId,
+            viewId: newViewId
         )
+        return true
     }
     
     private func handleEditTap(with id: String) {

@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-public protocol AuthMiddleServiceProtocol: AnyObject {
+public protocol AuthMiddleServiceProtocol: AnyObject, Sendable {
     func logout(removeData: Bool)  async throws
     func createWallet(rootPath: String) async throws -> String
     func createAccount(

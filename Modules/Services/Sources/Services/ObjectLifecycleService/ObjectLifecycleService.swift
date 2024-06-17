@@ -3,7 +3,7 @@ import ProtobufMessages
 import AnytypeCore
 import Foundation
 
-public protocol ObjectLifecycleServiceProtocol: AnyObject {
+public protocol ObjectLifecycleServiceProtocol: AnyObject, Sendable {
     func close(contextId: String) async throws
     func open(contextId: String) async throws -> ObjectViewModel
     func openForPreview(contextId: String) async throws -> ObjectViewModel

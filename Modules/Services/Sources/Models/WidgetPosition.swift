@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public enum WidgetPosition:  Equatable, Hashable {
+public enum WidgetPosition:  Equatable, Hashable, Sendable {
     case end
     case above(widgetId: String)
     case below(widgetId: String)

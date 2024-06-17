@@ -16,6 +16,10 @@ final class EditorBlockCollectionController: EditorCollectionReloadable {
         viewInput?.itemDidChangeFrame(item: item)
     }
     
+    func scrollToItem(_ item: EditorItem) {
+        viewInput?.scrollToItem(item)
+    }
+    
     func scrollToTopBlock(blockId: String) {
         viewInput?.scrollToTopBlock(blockId: blockId)
     }

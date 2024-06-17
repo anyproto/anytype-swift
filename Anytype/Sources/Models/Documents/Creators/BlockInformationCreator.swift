@@ -63,8 +63,7 @@ struct BlockInformationCreator {
             anytypeAssertionFailure("Block model not found in container", info: ["id": newAlignmentData.id])
             return nil
         }
-        guard let horizontalAlignment = newAlignmentData.align.asBlockModel else { return nil }
-        return info.updated(horizontalAlignment: horizontalAlignment)
+        return info.updated(horizontalAlignment: newAlignmentData.align)
     }
     
     private func buildMarks(

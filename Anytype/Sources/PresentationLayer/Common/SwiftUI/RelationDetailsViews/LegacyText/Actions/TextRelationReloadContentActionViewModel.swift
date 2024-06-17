@@ -46,7 +46,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
             UISelectionFeedbackGenerator().selectionChanged()
             try await bookmarkService.fetchBookmarkContent(bookmarkId: objectDetails.id, url: url)
             delegate?.showActionSuccessMessage(Loc.RelationAction.reloadingContent)
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
+            AnytypeAnalytics.instance().logReloadSourceData()
         }
     }
 }

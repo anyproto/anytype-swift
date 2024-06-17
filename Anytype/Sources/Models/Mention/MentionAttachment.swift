@@ -80,7 +80,6 @@ extension IconTextAttachment {
     }
 }
 
-@MainActor
 final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
     override init(textAttachment: NSTextAttachment, parentView: UIView?, textLayoutManager: NSTextLayoutManager?, location: NSTextLocation) {
         super.init(textAttachment: textAttachment, parentView: parentView, textLayoutManager: textLayoutManager, location: location)
@@ -88,6 +87,7 @@ final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
         tracksTextAttachmentViewBounds = true
     }
     
+    @MainActor
     override func loadView() {
         guard let mentionAttachment = textAttachment as? IconTextAttachment else {
             anytypeAssertionFailure("Text attachment type is not IconTextAttachment", info: ["type": String(describing: textAttachment)])

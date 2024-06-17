@@ -1,4 +1,4 @@
-public struct Emoji: Hashable, Codable {
+public struct Emoji: Hashable, Codable, Sendable {
     
     public let value: String
     

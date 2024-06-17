@@ -1,4 +1,4 @@
-public protocol GroupsSubscribeServiceProtocol {
+public protocol GroupsSubscribeServiceProtocol: Sendable {
     func startSubscription(
         id: String,
         relationKey: String,

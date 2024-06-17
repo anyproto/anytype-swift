@@ -5,6 +5,11 @@ private struct URLViewModifier: ViewModifier {
     @Environment(\.openURL) private var openURL
     @Binding var url: URL?
     
+    @Injected(\.universalLinkParser)
+    private var universalLinkParser: UniversalLinkParserProtocol
+    @Injected(\.appActionStorage)
+    private var appActionStorage: AppActionStorage
+    
     @State private var safariUrl: URL?
     
     func body(content: Content) -> some View {
@@ -12,7 +17,10 @@ private struct URLViewModifier: ViewModifier {
             .onChange(of: url) { currentUrl in
                 guard let currentUrl else { return }
                 let fixedUrl = currentUrl.urlByAddingHttpIfSchemeIsEmpty()
-                if fixedUrl.containsHttpProtocol {
+                
+                if let universalLink = universalLinkParser.parse(url: fixedUrl) {
+                    appActionStorage.action = .deepLink(universalLink.toDeepLink())
+                } else if fixedUrl.containsHttpProtocol {
                     safariUrl = fixedUrl
                 } else {
                     openURL(currentUrl)

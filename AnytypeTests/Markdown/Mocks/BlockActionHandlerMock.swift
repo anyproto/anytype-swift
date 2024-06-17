@@ -20,7 +20,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func turnIntoPage(blockId: String) -> String? {
+    func turnIntoObject(blockId: String) -> String? {
         assertionFailure()
         return nil
     }
@@ -89,11 +89,11 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: String, blockText: NSAttributedString?, position: BlockPosition?, spaceId: String) {
+    func addBlock(_ type: BlockContentType, blockId: String, blockText: SafeNSAttributedString?, position: BlockPosition?, spaceId: String) {
         assertionFailure()
     }
     
-    func toggleWholeBlockMarkup(_ attributedString: NSAttributedString?, markup: MarkupType, info: BlockInformation) -> NSAttributedString? {
+    func toggleWholeBlockMarkup(_ attributedString: SafeNSAttributedString?, markup: MarkupType, info: BlockInformation) -> SafeNSAttributedString? {
         assertionFailure()
         return nil
     }
@@ -123,7 +123,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         }
     }
     
-    func changeText(_ text: NSAttributedString, blockId: String) {
+    func changeText(_ text: SafeNSAttributedString, blockId: String) {
         assertionFailure()
     }
     
@@ -147,8 +147,8 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String, currentText: NSAttributedString?, contentType: BlockContentType) {
-        assertionFailure()
+    func setTextStyle(_ attribute: MarkupType, range: NSRange, blockId: String, currentText: SafeNSAttributedString, contentType: BlockContentType) async throws -> SafeNSAttributedString {
+        fatalError()
     }
     
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: String) {
@@ -179,7 +179,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: AnytypeCore.SafeSendable<NSAttributedString?>, spaceId: String) async throws -> String {
+    func createTable(blockId: String, rowsCount: Int, columnsCount: Int, blockText: SafeNSAttributedString?, spaceId: String) async throws -> String {
         fatalError()
     }
     

@@ -1,6 +1,6 @@
 import AnytypeCore
 
-public struct BlockInformation: Hashable {
+public struct BlockInformation: Hashable, Sendable {
     public let id: String
     public let content: BlockContent
     

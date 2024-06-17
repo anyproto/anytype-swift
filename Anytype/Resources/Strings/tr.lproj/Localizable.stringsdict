@@ -146,6 +146,22 @@
         <string>%d File Blocks</string>
       </dict>
     </dict>
+    <key>Membership.Upgrade.SpacesLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>one</key>
+        <string>You’ve reached the limit of %d space that can be shared</string>
+        <key>other</key>
+        <string>You’ve reached the limit of %d spaces that can be shared</string>
+      </dict>
+    </dict>
     <key>Sharing.URL.NewObject</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

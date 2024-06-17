@@ -10,6 +10,47 @@ struct SpaceShareView: View {
     }
     
     var body: some View {
+        content
+            .task {
+                await model.startParticipantsTask()
+            }
+            .task {
+                await model.startSpaceViewTask()
+            }
+            .task {
+                await model.onAppear()
+            }
+            .anytypeShareView(item: $model.shareInviteLink)
+            .snackbar(toastBarData: $model.toastBarData)
+            .anytypeSheet(item: $model.requestAlertModel) { alertModel in
+                SpaceRequestAlert(data: alertModel) { reason in
+                    model.onUpgradeTap(reason: reason, route: .confirmInvite)
+                }
+            }
+            .anytypeSheet(item: $model.changeAccessAlertModel) { model in
+                SpaceChangeAccessView(model: model)
+            }
+            .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
+                SpaceParticipantRemoveView(model: model)
+            }
+            .anytypeSheet(isPresented: $model.showDeleteLinkAlert) {
+                DeleteSharingLinkAlert(spaceId: model.accountSpaceId) {
+                    model.onDeleteLinkCompleted()
+                }
+            }
+            .anytypeSheet(isPresented: $model.showStopSharingAlert) {
+                StopSharingAlert(spaceId: model.accountSpaceId) {
+                    model.onStopSharingCompleted()
+                }
+            }
+            .anytypeSheet(item: $model.qrCodeInviteLink) {
+                QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
+            }
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
+            .ignoresSafeArea()
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.SpaceShare.title) {
@@ -20,6 +61,11 @@ struct SpaceShareView: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         SectionHeaderView(title: Loc.SpaceShare.members)
+                        if let reason = model.upgradeTooltipData {
+                            SpaceShareUpgradeView(reason: reason) {
+                                model.onUpgradeTap(reason: reason, route: .spaceSettings)
+                            }
+                        }
                         ForEach(model.rows) { participant in
                             SpaceShareParticipantView(participant: participant)
                         }
@@ -31,40 +77,7 @@ struct SpaceShareView: View {
                 }
             }
         }
-        .task {
-            await model.startParticipantsTask()
-        }
-        .task {
-            await model.startSpaceViewTask()
-        }
-        .task {
-            await model.onAppear()
-        }
-        .anytypeShareView(item: $model.shareInviteLink)
-        .snackbar(toastBarData: $model.toastBarData)
-        .anytypeSheet(item: $model.requestAlertModel) { model in
-            SpaceRequestAlert(data: model)
-        }
-        .anytypeSheet(item: $model.changeAccessAlertModel) { model in
-            SpaceChangeAccessView(model: model)
-        }
-        .anytypeSheet(item: $model.removeParticipantAlertModel) { model in
-            SpaceParticipantRemoveView(model: model)
-        }
-        .anytypeSheet(isPresented: $model.showDeleteLinkAlert) {
-            DeleteSharingLinkAlert(spaceId: model.accountSpaceId) {
-                model.onDeleteLinkCompleted()
-            }
-        }
-        .anytypeSheet(isPresented: $model.showStopSharingAlert) {
-            StopSharingAlert(spaceId: model.accountSpaceId) {
-                model.onStopSharingCompleted()
-            }
-        }
-        .anytypeSheet(item: $model.qrCodeInviteLink) {
-            QrCodeView(title: Loc.SpaceShare.Qr.title, data: $0.absoluteString, analyticsType: .inviteSpace)
-        }
-        .ignoresSafeArea()
+        .animation(.default, value: model.upgradeTooltipData)
     }
     
     private var inviteView: some View {

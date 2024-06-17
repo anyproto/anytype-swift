@@ -1,6 +1,6 @@
 import Foundation
 
-public enum PasteboardActionContext {
+public enum PasteboardActionContext: Sendable {
     case focused(blockId: String, range: NSRange)
     case selected(blockIds: [String])
 

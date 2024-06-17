@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public enum BlocksSortType {
+public enum BlocksSortType: Sendable {
     case asc
     case desc
 

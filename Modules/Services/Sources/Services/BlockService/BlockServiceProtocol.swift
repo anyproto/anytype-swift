@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public protocol BlockServiceProtocol: AnyObject {
+public protocol BlockServiceProtocol: AnyObject, Sendable {
     func add(contextId: String, targetId: String, info: BlockInformation, position: BlockPosition) async throws -> String
     func addFirstBlock(contextId: String, info: BlockInformation) async throws -> String
     func delete(contextId: String, blockIds: [String]) async throws
@@ -20,7 +20,13 @@ public protocol BlockServiceProtocol: AnyObject {
     
     func lastBlockId(from objectId: String) async throws -> String
     
-    func convertChildrenToPages(contextId: String, blocksIds: [String], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [String]
+    func convertChildrenToObjects(
+        contextId: String,
+        blocksIds: [String],
+        typeUniqueKey: ObjectTypeUniqueKey,
+        templateId: String
+    ) async throws -> [String]
+    
     func createBlockLink(
         contextId: String,
         targetId: String,

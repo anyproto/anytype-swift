@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 
 
-public protocol BookmarkServiceProtocol {
+public protocol BookmarkServiceProtocol: Sendable {
     func fetchBookmark(objectId: String, blockID: String, url: AnytypeURL) async throws
     func createAndFetchBookmark(
         objectId: String,

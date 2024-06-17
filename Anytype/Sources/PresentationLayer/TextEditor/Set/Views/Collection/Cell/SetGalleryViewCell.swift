@@ -50,14 +50,14 @@ struct SetGalleryViewCell: View {
                 objectCover: coverType,
                 size: CGSize(
                     width: width,
-                    height: configuration.smallItemSize ?
+                    height: configuration.isSmallCardSize ?
                     Constants.smallItemHeight :
                         Constants.largeItemHeight
                 ),
                 fitImage: configuration.coverFit
             )
             .frame(
-                height: configuration.smallItemSize ?
+                height: configuration.isSmallCardSize ?
                 Constants.smallItemHeight :
                     Constants.largeItemHeight
             )

@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct GalleryManifest {
+public struct GalleryManifest: Sendable {
     public let schema: String
     public let id: String
     public let name: String

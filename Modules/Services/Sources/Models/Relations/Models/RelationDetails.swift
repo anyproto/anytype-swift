@@ -1,7 +1,7 @@
 import Foundation
 import SwiftProtobuf
 
-public struct RelationDetails: Hashable {
+public struct RelationDetails: Hashable, Sendable {
 
     public let id: String
     public let key: String

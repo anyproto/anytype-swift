@@ -1,4 +1,5 @@
 import Foundation
+import AnytypeCore
 
 enum SharedUserDefaultsKey {
     static let sharingExtension = "sharing-extension"
