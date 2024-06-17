@@ -49,7 +49,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     }
 
     func startDocumentTask() async {
-        for await _ in document.syncPublisher.values {
+        for await _ in document.syncPublisher.receiveOnMain().values {
             if let details = document.details {
                 settings = settingsBuilder.build(
                     details: details,

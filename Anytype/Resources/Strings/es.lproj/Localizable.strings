@@ -311,7 +311,7 @@
 "Undo typing" = "Deshacer escritura";
 "Undo" = "Deshacer";
 "Redo" = "Rehacer";
-"Actions.LinkItself" = "Vincular a";
+"Actions.LinkItself" = "Conectar a";
 "Actions.MakeAsTemplate" = "Hacer plantilla";
 "Actions.TemplateMakeDefault" = "Establecer por defecto";
 "Actions.CreateWidget.Title" = "A widgets";
@@ -341,8 +341,8 @@
 "Search.Links.Swipe.title" = "Relacionado con";
 "GlobalSearch.EmptyState.subtitle" = "Crea un objeto nuevo o busca otra cosa.";
 "GlobalSearch.EmptyFilteredState.title" = "No se ha encontrado ningún objeto relacionado.";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.title" = "Objetos relacionados";
+"GlobalSearch.Swipe.Tip.subtitle" = "Desliza a la izquierda para ver los objetos relacionados. Ten en cuenta que solo funciona con objetos que tienen algún objeto relacionado.";
 
 // MARK: - Home
 
@@ -636,7 +636,7 @@
 "File" = "Archivo";
 "No related options here" = "No hay opciones relacionadas. Puedes añadir alguna.";
 "Empty" = "Vacío";
-"Link to" = "Vincular a";
+"Link to" = "Conectar a";
 "Unknown" = "Desconocido";
 "Settings" = "Ajustes";
 "Views" = "Vistas";
@@ -982,7 +982,7 @@
 "Sharing.SaveAs" = "GUARDAR COMO";
 "Sharing.SelectSpace" = "Espacio";
 "Sharing.AddTo" = "Añadir a";
-"Sharing.LinkTo" = "Vincular a";
+"Sharing.LinkTo" = "Conectar a";
 
 "Sharing.Text.NoteObject" = "Objeto de nota";
 "Sharing.Text.TextBlock" = "Bloques";
@@ -1104,8 +1104,9 @@ En concreto,
 "Membership.Upgrade.Button" = "Hablar con el equipo de Anytype";
 
 "Membership.Upgrade.MoreSpaces" = "Amplía tu suscripción para añadir más espacios";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.MoreMembers" = "Amplía tu suscripción para añadir más miembros";
+"Membership.Upgrade.NoMoreMembers" = "No puedes añadir más miembros";
+"Membership.Upgrade.NoMoreEditors" = "No puedes añadir más editores";
 
 
 "Membership.Banner.Title1" = "Construyamos esta visión juntos";

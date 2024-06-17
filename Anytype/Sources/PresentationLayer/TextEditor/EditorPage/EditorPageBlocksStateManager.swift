@@ -355,7 +355,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .turnInto:
             Task {
                 for block in elements {
-                    try await actionHandler.turnIntoPage(blockId: block.blockId)
+                    try await actionHandler.turnIntoObject(blockId: block.blockId)
                 }
             }
         case .moveTo:

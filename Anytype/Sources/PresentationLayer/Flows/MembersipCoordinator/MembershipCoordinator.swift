@@ -21,6 +21,9 @@ struct MembershipCoordinator: View {
                 ) { tier in
                     model.onTierSelected(tier: tier)
                 }
+                .overlay(alignment: .bottom) {
+                    ConfettiOverlay(fireConfetti: $model.fireConfetti)
+                }
             }
         }
         .animation(.default, value: model.userMembership)

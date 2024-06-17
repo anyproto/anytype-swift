@@ -21,7 +21,7 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.Link.title
         case .tree:
             return Loc.Widgets.Layout.Tree.title
-        case .list:
+        case .list, .view:
             return Loc.Widgets.Layout.List.title
         case .compactList:
             return Loc.Widgets.Layout.CompactList.title
@@ -36,7 +36,7 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.Link.description
         case .tree:
             return Loc.Widgets.Layout.Tree.description
-        case .list:
+        case .list, .view:
             return Loc.Widgets.Layout.List.description
         case .compactList:
             return Loc.Widgets.Layout.CompactList.description
@@ -51,7 +51,7 @@ private extension BlockWidget.Layout {
             return .Widget.Preview.link
         case .tree:
             return .Widget.Preview.tree
-        case .list:
+        case .list, .view:
             return .Widget.Preview.list
         case .compactList:
             return .Widget.Preview.compactList

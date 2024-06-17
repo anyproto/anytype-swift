@@ -33,7 +33,7 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var spaceUsed: String = ""
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
-    @Published var showMembershipUpgrade = false
+    @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var segmentInfo = RemoteStorageSegmentInfo()
     
     init(output: RemoteStorageModuleOutput?) {
@@ -53,8 +53,8 @@ final class RemoteStorageViewModel: ObservableObject {
     }
     
     func onTapGetMoreSpace() {
-        AnytypeAnalytics.instance().logGetMoreSpace()
-        showMembershipUpgrade = true
+        AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .storage, route: .remoteStorage)
+        membershipUpgradeReason = .storageSpace
     }
     
     // MARK: - Private

@@ -38,8 +38,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     // MARK: - Service proxy
 
-    func turnIntoPage(blockId: String) async throws -> String? {
-        try await service.turnIntoPage(blockId: blockId, spaceId: document.spaceId)
+    func turnIntoObject(blockId: String) async throws -> String? {
+        try await service.turnIntoObject(blockId: blockId, spaceId: document.spaceId)
     }
     
     func turnInto(_ style: BlockText.Style, blockId: String) async throws {

@@ -45,13 +45,13 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var snackBarData = ToastBarData.empty
     @Published var showSpaceDeleteAlert = false
     @Published var showSpaceLeaveAlert = false
-    @Published var showMembershipUpgrade = false
     @Published var dismiss = false
     @Published var allowDelete = false
     @Published var allowLeave = false
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
     @Published var shareSection: SpaceSettingsShareSection = .personal
+    @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
     init(output: SpaceSettingsModuleOutput?) {
         self.output = output
@@ -91,7 +91,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onMembershipUpgradeTap() {
-        showMembershipUpgrade = true
+        AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .sharedSpaces, route: .spaceSettings)
+        membershipUpgradeReason = .numberOfSharedSpaces
     }
     
     func startJoiningTask() async {

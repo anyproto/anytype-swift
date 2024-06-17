@@ -1106,6 +1106,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Upgrade.MoreSpaces" = "Ulepsz, aby dodać więcej przestrzeni";
 "Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
 "Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
+"Membership.Upgrade.NoMoreEditors" = "Nie można dodać więcej edytorów";
 
 
 "Membership.Banner.Title1" = "Zbuduj wizję razem";

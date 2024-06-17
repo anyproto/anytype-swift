@@ -199,7 +199,7 @@ enum OnboardingTooltip: String {
     case selectType = "SelectType"
     case sharingExtension = "SharingExtension"
     case swipeInWidgets = "ObjectCreationWidget"
-    case spaceShare = "SpaceShare"
+    case space = "space"
 }
 
 enum ClickDeleteSpaceRoute: String {
@@ -272,4 +272,19 @@ enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
     case payByCard = "Stripe"
     case managePayment = "ManagePayment"
+    case sumbit = "Submit"
+}
+
+enum ClickUpgradePlanTooltipType: String {
+    case storage = "storage"
+    case members = "members"
+    case editors = "editors"
+    case sharedSpaces = "sharedSpaces"
+}
+
+enum ClickUpgradePlanTooltipRoute: String {
+    case spaceSettings = "ScreenSettingsSpaceIndex"
+    case spaceSharing = "ScreenSettingsSpaceShare"
+    case confirmInvite = "ScreenInviteConfirm"
+    case remoteStorage = "ScreenRemoteStorage"
 }

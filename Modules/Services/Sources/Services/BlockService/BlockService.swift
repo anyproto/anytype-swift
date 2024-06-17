@@ -166,11 +166,17 @@ final class BlockService: BlockServiceProtocol {
         return lastBlockId
     }
     
-    public func convertChildrenToPages(contextId: String, blocksIds: [String], typeUniqueKey: ObjectTypeUniqueKey) async throws -> [String] {
+    public func convertChildrenToObjects(
+        contextId: String,
+        blocksIds: [String],
+        typeUniqueKey: ObjectTypeUniqueKey,
+        templateId: String
+    ) async throws -> [String] {
         let response = try await ClientCommands.blockListConvertToObjects(.with {
             $0.contextID = contextId
             $0.blockIds = blocksIds
             $0.objectTypeUniqueKey = typeUniqueKey.value
+            $0.templateID = templateId
         }).invoke()
         
         return response.linkIds
