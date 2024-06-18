@@ -289,6 +289,7 @@
 		2A03FD5D2A7A85DD00CB7191 /* RecentWidgetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03FD5C2A7A85DD00CB7191 /* RecentWidgetType.swift */; };
 		2A07E7C42BF270BF00BCFFA3 /* DocumentSyncStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A07E7C32BF270BF00BCFFA3 /* DocumentSyncStatusData.swift */; };
 		2A081A2E2AE7B3CF0040178D /* TipsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A081A2D2AE7B3CF0040178D /* TipsConfiguration.swift */; };
+		2A0B0BF52C21BA7A0019D4D6 /* GalleryWidgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0BF42C21BA7A0019D4D6 /* GalleryWidgetRow.swift */; };
 		2A0B7151297697230003B1C5 /* HomeEditButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B7150297697230003B1C5 /* HomeEditButtonStyle.swift */; };
 		2A0BAD2F29E01E33005BC5D9 /* View+Focused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */; };
 		2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */; };
@@ -2066,6 +2067,7 @@
 		2A0554E02AE965E700D299C4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		2A07E7C32BF270BF00BCFFA3 /* DocumentSyncStatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSyncStatusData.swift; sourceTree = "<group>"; };
 		2A081A2D2AE7B3CF0040178D /* TipsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsConfiguration.swift; sourceTree = "<group>"; };
+		2A0B0BF42C21BA7A0019D4D6 /* GalleryWidgetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryWidgetRow.swift; sourceTree = "<group>"; };
 		2A0B7150297697230003B1C5 /* HomeEditButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEditButtonStyle.swift; sourceTree = "<group>"; };
 		2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Focused.swift"; sourceTree = "<group>"; };
 		2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
@@ -5883,6 +5885,7 @@
 			isa = PBXGroup;
 			children = (
 				2A592A7C2C16F598008E737F /* GalleryWidgetView.swift */,
+				2A0B0BF42C21BA7A0019D4D6 /* GalleryWidgetRow.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -12292,6 +12295,7 @@
 				2AA4C26D2A7026C600C2EC66 /* WorkspacesStorage.swift in Sources */,
 				2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
+				2A0B0BF52C21BA7A0019D4D6 /* GalleryWidgetRow.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				2EFBBEFC2A42512300734A0B /* UIPhraseTextView.swift in Sources */,
 				2E2A22F72A9E447000745D78 /* SetLayoutSettingsView.swift in Sources */,

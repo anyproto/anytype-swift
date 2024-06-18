@@ -66,8 +66,8 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
         switch model.rows {
         case .list(let rows):
             ListWidgetContentView(style: .list, rows: rows, emptyTitle: Loc.Widgets.Empty.title)
-        case .gallery:
-            GalleryWidgetView()
+        case .gallery(let rows):
+            GalleryWidgetView(rows: rows)
         }
     }
 }
