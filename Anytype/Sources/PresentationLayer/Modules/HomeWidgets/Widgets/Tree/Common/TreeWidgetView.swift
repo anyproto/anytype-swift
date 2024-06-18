@@ -49,14 +49,14 @@ struct TreeWidgetView: View {
                         .frame(height: rows.isEmpty ? 72 : 0)
                     Spacer.fixedHeight(8)
                 }
-                .hidden(rows.isNotEmpty)
+                .setZeroOpacity(rows.isNotEmpty)
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.rowId) {
                         TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
                     }
                     Spacer.fixedHeight(8)
                 }
-                .hidden(rows.isEmpty)
+                .setZeroOpacity(rows.isEmpty)
             }
         }
     }
