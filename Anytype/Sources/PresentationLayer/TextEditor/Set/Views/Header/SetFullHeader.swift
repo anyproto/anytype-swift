@@ -115,6 +115,7 @@ extension SetFullHeader {
         )
         .padding([.trailing], 20)
         .font(AnytypeFontBuilder.font(anytypeFont: .title))
+        .foregroundStyle(Color.Text.primary)
         .disableAutocorrection(true)
     }
 

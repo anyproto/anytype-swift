@@ -37,6 +37,7 @@ struct AnytypeText: View {
     
     var body: some View {
         textView
+            .foregroundStyle(Color.Text.primary)
             .modifier(OptionalLineSpacingModifier(spacing: spacing))
             // TODO: Fix
             // For two AnytypeText in VStack in List, multiline working incorrectly when padding is small (example: 1.8).

@@ -12,6 +12,8 @@ struct AnytypeApp: App {
                 .setupGlobalEnv()
                 .setupAppSceneUrlHandler()
                 .setupTraitCollectionNotifier()
+            
+                .foregroundStyle(Color.Text.primary)
         }
     }
 }
