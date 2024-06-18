@@ -41,6 +41,9 @@ private final class UIWindowReaderView: UIView {
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
-        holder = WindowHolder(window: window)
+        // If system change window to nil, that means that user present new screen in fullScreen. Ignore it.
+        if let window {
+            holder = WindowHolder(window: window)
+        }
     }
 }
