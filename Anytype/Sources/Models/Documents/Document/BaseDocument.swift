@@ -191,7 +191,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 return [.details(id: id)]
             case .unhandled(let blockId):
                 return [.unhandled(blockId: blockId)]
-            case .relationLinks, .restrictions:
+            case .relationLinks, .restrictions, .close:
                 return [] // A lot of casese for update relations
             }
         }
@@ -206,7 +206,13 @@ final class BaseDocument: BaseDocumentProtocol {
             reorderChilder()
         }
         
-        syncSubject.send(docUpdates)
+        if updates.contains(.close) {
+            isOpened = false
+        }
+        
+        if docUpdates.isNotEmpty {
+            syncSubject.send(docUpdates)
+        }
     }
     
     private func setupView(_ model: ObjectViewModel) async {
