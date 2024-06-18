@@ -61,7 +61,7 @@ extension View {
 }
 
 extension View {
-    func hidden(_ shouldHide: Bool) -> some View {
+    func setZeroOpacity(_ shouldHide: Bool) -> some View {
         opacity(shouldHide ? 0 : 1)
     }
 }

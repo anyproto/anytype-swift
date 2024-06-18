@@ -107,7 +107,7 @@ struct HomeWidgetSubmoduleView: View {
             case (.list, .set), // For legacty clients
                 (.compactList, .set), // For legacty clients
                 (.view, .set):
-                SetObjectViewWidgetSubmoduleView()
+                SetObjectViewWidgetSubmoduleView(data: widgetData)
             default:
                 // Fallback
                 LinkWidgetView(data: widgetData)

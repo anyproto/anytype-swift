@@ -169,6 +169,8 @@ final class MiddlewareEventConverter {
         case .blockSetWidget(let data):
             infoContainer.setWidget(data: data)
             return .block(blockId: data.id)
+        case .objectClose:
+            return .close
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
@@ -204,7 +206,6 @@ final class MiddlewareEventConverter {
                 .notificationSend,
                 .notificationUpdate,
                 .payloadBroadcast,
-                .objectClose,
                 .membershipUpdate: // Implemented in `MembershipStatusStorage`
             return nil
         }

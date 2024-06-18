@@ -37,7 +37,7 @@ struct GlobalSearchView: View {
     
     @ViewBuilder
     private var content: some View {
-        if model.state.isInitial {
+        if model.isInitial {
             Spacer()
         } else if model.searchData.isEmpty {
             emptyState

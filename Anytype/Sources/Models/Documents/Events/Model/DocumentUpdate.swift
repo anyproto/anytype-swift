@@ -10,6 +10,7 @@ enum DocumentUpdate: Hashable {
     case unhandled(blockId: String)
     case relationLinks
     case restrictions
+    case close
 }
 
 extension DocumentUpdate {
