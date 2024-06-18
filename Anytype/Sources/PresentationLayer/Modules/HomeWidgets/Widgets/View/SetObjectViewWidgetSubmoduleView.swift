@@ -2,6 +2,15 @@ import Foundation
 import SwiftUI
 
 struct SetObjectViewWidgetSubmoduleView: View {
+    let data: WidgetSubmoduleData
+    
+    var body: some View {
+        SetObjectViewWidgetSubmoduleInternalView(data: data)
+            .id(data.widgetBlockId)
+    }
+}
+
+struct SetObjectViewWidgetSubmoduleInternalView: View {
     
     private let data: WidgetSubmoduleData
     @StateObject private var model: SetObjectWidgetInternalViewModel
@@ -46,8 +55,19 @@ struct SetObjectViewWidgetSubmoduleView: View {
     private var bodyContent: some View {
         VStack(spacing: 0) {
             ViewWidgetTabsView(items: model.headerItems)
-            // TODO: Support different views
-            ListWidgetContentView(style: .list, rows: model.rows, emptyTitle: Loc.Widgets.Empty.title)
+            rows
+                .id(model.activeViewId)
+                .transition(.opacity)
+        }
+    }
+    
+    @ViewBuilder
+    private var rows: some View {
+        switch model.rows {
+        case .list(let rows):
+            ListWidgetContentView(style: .list, rows: rows, emptyTitle: Loc.Widgets.Empty.title)
+        case .gallery:
+            GalleryWidgetView()
         }
     }
 }

@@ -27,7 +27,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
     private var setDocument: SetDocumentProtocol?
-    private var activeViewId: String? { didSet { updateActiveView() } }
+    var activeViewId: String? { didSet { updateActiveView() } }
     private var canEditBlocks = true
     private var dataviewState: WidgetDataviewState? { didSet { updateHeader() } }
     private var rowDetails: [ObjectDetails]? { didSet { updateRows() } }
@@ -37,7 +37,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var contentTaskId: String?
     @Published var headerItems: [ViewWidgetTabsItemModel]?
-    @Published var rows: [ListWidgetRowModel]?
+    @Published var rows: SetObjectViewWidgetRows = .list([])
     @Published var allowCreateObject = true
     
     init(data: WidgetSubmoduleData) {
@@ -111,17 +111,23 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     // MARK: - Private for view updates
     
     private func updateRows() {
-        withAnimation(rows.isNil ? nil : .default) {
-            rows = rowDetails?.map { details in
-                ListWidgetRowModel(
-                    details: details,
-                    onTap: { [weak self] in
-                        self?.output?.onObjectSelected(screenData: $0)
-                    },
-                    onIconTap: { [weak self] in
-                        self?.updateDone(details: details)
-                    }
-                )
+        withAnimation {
+            switch setDocument?.activeView.type {
+            case .table, .list, .kanban, .calendar, .graph, nil:
+                let listRows = rowDetails?.map { details in
+                    ListWidgetRowModel(
+                        details: details,
+                        onTap: { [weak self] in
+                            self?.output?.onObjectSelected(screenData: $0)
+                        },
+                        onIconTap: { [weak self] in
+                            self?.updateDone(details: details)
+                        }
+                    )
+                }
+                rows = .list(listRows)
+            case .gallery:
+                rows = .gallery
             }
         }
     }
