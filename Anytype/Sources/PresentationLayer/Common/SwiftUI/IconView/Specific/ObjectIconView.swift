@@ -18,8 +18,8 @@ struct ObjectIconView: View {
             BookmarkIconView(imageId: imageId)
         case .space(let space):
             SpaceIconView(icon: space)
-        case .todo(let checked):
-            TodoIconView(checked: checked)
+        case .todo(let checked, let objectId):
+            TodoIconView(checked: checked, objectId: objectId)
         case .placeholder(let name):
             PlaceholderIconView(text: name)
         case .file(let mimeType, let name):

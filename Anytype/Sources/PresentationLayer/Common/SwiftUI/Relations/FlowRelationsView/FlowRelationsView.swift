@@ -17,8 +17,7 @@ struct FlowRelationsView: View {
             icon: viewModel.icon,
             showIcon: viewModel.showIcon,
             title: viewModel.title,
-            style: .list,
-            onIconTap: viewModel.onIconTap
+            style: .list
         )
     }
 

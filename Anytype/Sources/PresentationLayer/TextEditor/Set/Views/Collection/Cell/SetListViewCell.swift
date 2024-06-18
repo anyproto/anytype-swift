@@ -22,8 +22,7 @@ struct SetListViewCell: View {
                 description: configuration.description,
                 relations: configuration.relations.filter {
                     $0.hasValue && $0.id != BundledRelationKey.description.rawValue
-                },
-                onIconTap: configuration.onIconTap
+                }
             )
         )
         .background(Color.Background.primary)

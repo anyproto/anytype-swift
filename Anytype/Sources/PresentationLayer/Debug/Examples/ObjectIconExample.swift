@@ -32,10 +32,10 @@ struct ObjectIconExample: View {
                         demoBlock { IconView(icon: .object(.emoji(Emoji("😀")!))) }
                         AnytypeText("Todo done", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.todo(true))) }
+                        demoBlock { IconView(icon: .object(.todo(true, nil))) }
                         AnytypeText("Todo empty", style: .subheading)
                             .foregroundColor(.Text.primary)
-                        demoBlock { IconView(icon: .object(.todo(false))) }
+                        demoBlock { IconView(icon: .object(.todo(false, nil))) }
                         AnytypeText("Space gradient", style: .subheading)
                             .foregroundColor(.Text.primary)
                         demoBlock { IconView(icon: .object(.space(.gradient(GradientId(2)!)))) }

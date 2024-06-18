@@ -23,8 +23,6 @@ final class TreeWidgetViewModel: ObservableObject {
     
     @Injected(\.treeSubscriptionManager)
     private var subscriptionManager: TreeSubscriptionManagerProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
     
     // MARK: - State
 
@@ -47,8 +45,6 @@ final class TreeWidgetViewModel: ObservableObject {
     ) {
         self.dragId = widgetBlockId
         self.internalModel = internalModel
-        self.subscriptionManager = subscriptionManager
-        self.objectActionsService = objectActionsService
         self.output = output
         startHeaderSubscription()
         startContentSubscription()
@@ -156,9 +152,6 @@ final class TreeWidgetViewModel: ObservableObject {
                     canBeExpanded: level < Constants.maxExpandableLevel
                 ),
                 level: level,
-                onIconTap: { [weak self] in
-                    self?.updateDone(details: details)
-                },
                 tapExpand: { [weak self] model in
                     self?.onTapExpand(model: model)
                 },
@@ -181,15 +174,6 @@ final class TreeWidgetViewModel: ObservableObject {
     
     private var subscriptionData: [ObjectDetails] {
         return (firstLevelSubscriptionData ?? []) + (childSubscriptionData ?? [])
-    }
-    
-    private func updateDone(details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
-        
-        Task {
-            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
-            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-        }
     }
 }
 
