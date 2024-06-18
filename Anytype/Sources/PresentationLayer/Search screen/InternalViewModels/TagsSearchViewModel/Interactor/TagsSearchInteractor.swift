@@ -7,20 +7,20 @@ final class TagsSearchInteractor {
     private let relationKey: String
     private let selectedTagIds: [String]
     private let isPreselectModeAvailable: Bool
-    private let searchService: SearchServiceProtocol
+    
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
     
     init(
         spaceId: String,
         relationKey: String,
         selectedTagIds: [String],
-        isPreselectModeAvailable: Bool = false,
-        searchService: SearchServiceProtocol
+        isPreselectModeAvailable: Bool = false
     ) {
         self.spaceId = spaceId
         self.relationKey = relationKey
         self.selectedTagIds = selectedTagIds
         self.isPreselectModeAvailable = isPreselectModeAvailable
-        self.searchService = searchService
     }
     
 }

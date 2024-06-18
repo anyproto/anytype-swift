@@ -17,39 +17,18 @@ struct EditorPageModuleInputContainer: EditorPageModuleInput {
 
 @MainActor
 protocol EditorPageModuleAssemblyProtocol: AnyObject {
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView
+    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState
 }
 
 @MainActor
 final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
-    private let serviceLocator: ServiceLocator
-    // TODO: Delete coordinator dependency
-    private let coordinatorsDI: CoordinatorsDIProtocol
-    private let modulesDI: ModulesDIProtocol
-    private let uiHelpersDI: UIHelpersDIProtocol
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
     
-    nonisolated init(
-        serviceLocator: ServiceLocator,
-        coordinatorsDI: CoordinatorsDIProtocol,
-        modulesDI: ModulesDIProtocol,
-        uiHelpersDI: UIHelpersDIProtocol
-    ) {
-        self.serviceLocator = serviceLocator
-        self.coordinatorsDI = coordinatorsDI
-        self.modulesDI = modulesDI
-        self.uiHelpersDI = uiHelpersDI
-    }
-
-    func make(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> AnyView {
-        return EditorPageView(
-            stateModel: self.buildStateModel(data: data, output: output, showHeader: showHeader)
-        ).eraseToAnyView()
-    }
+    nonisolated init() {}
     
-    // MARK: - Private
-    
-    private func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
+    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
         
@@ -60,35 +39,19 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
         let bottomNavigationManager = EditorBottomNavigationManager()
         
-        let networkId = serviceLocator.activeWorkspaceStorage().workspaceInfo.networkId
         let controller = EditorPageController(
             blocksSelectionOverlayView: blocksSelectionOverlayView,
-            bottomNavigationManager: bottomNavigationManager, 
-            syncStatusData: SyncStatusData(status: .unknown, networkId: networkId),
-            keyboardListener: uiHelpersDI.keyboardListener,
+            bottomNavigationManager: bottomNavigationManager,
             showHeader: showHeader
         )
 
-        let document = serviceLocator.documentService().document(
+        let document = documentService.document(
             objectId: data.objectId,
             forPreview: data.isOpenedForPreview
         )
-        let navigationContext = NavigationContext(rootViewController: controller)
         let router = EditorRouter(
             viewController: controller,
-            navigationContext: navigationContext,
             document: document,
-            addNewRelationCoordinator: coordinatorsDI.addNewRelation().make(),
-            templatesCoordinator: coordinatorsDI.templates().make(viewController: controller),
-            setObjectCreationSettingsCoordinator: coordinatorsDI.setObjectCreationSettings().make(with: navigationContext),
-            urlOpener: uiHelpersDI.urlOpener(),
-            objectIconPickerModuleAssembly: modulesDI.objectIconPicker(),
-            objectSettingCoordinatorAssembly: coordinatorsDI.objectSettings(),
-            toastPresenter: uiHelpersDI.toastPresenter(using: nil),
-            newSearchModuleAssembly: modulesDI.newSearch(),
-            objectTypeSearchModuleAssembly: modulesDI.objectTypeSearch(),
-            textIconPickerModuleAssembly: modulesDI.textIconPicker(),
-            templateService: serviceLocator.templatesService,
             output: output
         )
 
@@ -132,23 +95,15 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let focusSubjectHolder = FocusSubjectsHolder()
         
         let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
-        let blockService = serviceLocator.blockService()
         let blockActionService = BlockActionService(
             documentId: document.objectId,
-            blockService: blockService,
-            objectActionService: serviceLocator.objectActionsService(),
-            textServiceHandler: serviceLocator.textServiceHandler(),
             modelsHolder: modelsHolder,
-            bookmarkService: serviceLocator.bookmarkService(),
-            fileService: serviceLocator.fileService(),
-            cursorManager: cursorManager,
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            cursorManager: cursorManager
         )
         let keyboardHandler = KeyboardActionHandler(
             documentId: document.objectId,
             spaceId: document.spaceId,
             service: blockActionService,
-            blockService: blockService,
             toggleStorage: ToggleStorage.shared,
             container: document.infoContainer,
             modelsHolder: modelsHolder,
@@ -158,37 +113,24 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
-            service: blockActionService,
-            blockService: blockService,
-            blockTableService: serviceLocator.blockTableService(),
-            fileService: serviceLocator.fileService(),
-            objectService: serviceLocator.objectActionsService(),
-            pasteboardBlockService: serviceLocator.pasteboardBlockService(),
-            bookmarkService: serviceLocator.bookmarkService(),
-            objectTypeProvider: serviceLocator.objectTypeProvider()
+            service: blockActionService
         )
         
-        let pasteboardService = serviceLocator.pasteboardBlockDocumentService()
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockService: serviceLocator.blockService(),
-            toastPresenter: uiHelpersDI.toastPresenter(),
             actionHandler: actionHandler,
-            pasteboardService: pasteboardService,
             router: router,
             initialEditingState: configuration.isOpenedForPreview ? .readonly : .editing,
             viewInput: viewInput,
-            bottomNavigationManager: bottomNavigationManager,
-            documentsProvider: serviceLocator.documentsProvider
+            bottomNavigationManager: bottomNavigationManager
         )
  
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
-            document: document,
-            typesService: serviceLocator.typesService()
+            document: document
         )
         
         let markdownListener = MarkdownListenerImpl(
@@ -206,44 +148,35 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         )
         setupHeaderModelActions(headerModel: headerModel, using: router)
         
-        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView, keyboardListener: uiHelpersDI.keyboardListener)
+        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
             handler: actionHandler,
-            pasteboardService: pasteboardService,
             markdownListener: markdownListener,
             focusSubjectHolder: focusSubjectHolder,
             mainEditorSelectionManager: blocksStateManager,
             responderScrollViewHelper: responderScrollViewHelper,
-            defaultObjectService: serviceLocator.defaultObjectCreationService(),
-            typesService: serviceLocator.typesService(),
             accessoryStateManager: accessoryState.0,
-            tableService: serviceLocator.blockTableService()
+            moduleOutput: output
         )
         
         let slashMenuActionHandler = SlashMenuActionHandler(
             document: document,
             actionHandler: actionHandler,
             router: router,
-            pasteboardService: pasteboardService,
             cursorManager: cursorManager
         )
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             handler: actionHandler,
-            pasteboardService: pasteboardService,
             router: router,
             markdownListener: markdownListener,
             simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
             subjectsHolder: focusSubjectHolder,
-            detailsService: serviceLocator.detailsService(),
-            audioSessionService: serviceLocator.audioSessionService(),
             infoContainer: document.infoContainer,
-            tableService: serviceLocator.blockTableService(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
             modelsHolder: modelsHolder,
             blockCollectionController: .init(viewInput: viewInput),
             accessoryStateManager: accessoryState.0,
@@ -270,13 +203,8 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             headerModel: headerModel,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
-            objectActionsService: serviceLocator.objectActionsService(),
-            searchService: serviceLocator.searchService(),
             editorPageTemplatesHandler: editorPageTemplatesHandler,
             configuration: configuration,
-            templatesSubscriptionService: serviceLocator.templatesSubscription(),
-            activeWorkspaceStorage: serviceLocator.activeWorkspaceStorage(),
-            objectTypeProvider: serviceLocator.objectTypeProvider(),
             output: output
         )
 

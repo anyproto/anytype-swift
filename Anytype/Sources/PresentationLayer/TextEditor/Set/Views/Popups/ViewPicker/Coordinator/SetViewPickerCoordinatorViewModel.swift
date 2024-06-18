@@ -12,60 +12,31 @@ protocol SetViewPickerCoordinatorOutput: AnyObject {
 final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCoordinatorOutput {
     @Published var setSettingsData: SetSettingsData?
     
-    private let setDocument: SetDocumentProtocol
-    private let setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol
-    private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
+    let setDocument: SetDocumentProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
-    init(
-        setDocument: SetDocumentProtocol,
-        setViewPickerModuleAssembly: SetViewPickerModuleAssemblyProtocol,
-        setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
-        subscriptionDetailsStorage: ObjectDetailsStorage
-    ) {
-        self.setDocument = setDocument
-        self.setViewPickerModuleAssembly = setViewPickerModuleAssembly
-        self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
-        self.subscriptionDetailsStorage = subscriptionDetailsStorage
-    }
-    
-    func list() -> AnyView {
-        setViewPickerModuleAssembly.make(
-            setDocument: setDocument,
-            output: self
-        )
+    init(data: SetViewData) {
+        self.setDocument = data.document
+        self.subscriptionDetailsStorage = data.subscriptionDetailsStorage
     }
     
     // MARK: - SetViewPickerCoordinatorOutput
     
     func onAddButtonTap(with viewId: String) {
         setSettingsData = SetSettingsData(
-            viewId: viewId,
+            setDocument: setDocument,
+            viewId: viewId, 
+            subscriptionDetailsStorage: subscriptionDetailsStorage,
             mode: .new
         )
     }
     
     func onEditButtonTap(dataView: DataviewView) {
         setSettingsData = SetSettingsData(
-            viewId: dataView.id,
+            setDocument: setDocument,
+            viewId: dataView.id, 
+            subscriptionDetailsStorage: subscriptionDetailsStorage,
             mode: .edit
         )
-    }
-    
-    func setSettingsView(data: SetSettingsData) -> AnyView {
-        setViewSettingsCoordinatorAssembly.make(
-            setDocument: setDocument,
-            viewId: data.viewId,
-            mode: data.mode,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-    }
-}
-
-extension SetViewPickerCoordinatorViewModel {
-    struct SetSettingsData: Identifiable {
-        let id = UUID()
-        let viewId: String
-        let mode: SetViewSettingsMode
     }
 }

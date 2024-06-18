@@ -240,6 +240,7 @@ enum AnalyticsEventsPropertiesKey {
     static let blockType = "type"
     static let documentId = "documentId"
     static let count = "count"
+    static let fileExtension = "fileExtension"
 
     static let tab = "tab"
     static let route = "route"
@@ -376,7 +377,7 @@ enum ShowDeletionWarningRoute: String {
 enum ScreenOnboardingStep: String {
     case void = "Void"
     case phrase = "Phrase"
-    case soul = "Soul"
+    case offline = "Offline"
 }
 
 enum ClickOnboardingButton: String {
@@ -482,6 +483,7 @@ enum ScreenQrAnalyticsType: String {
 
 enum ClickMembershipType: String {
     case moreInfo = "MoreInfo"
-    case payByCard = "PayByCard"
+    case payByCard = "Stripe"
     case managePayment = "ManagePayment"
+    case sumbit = "Submit"
 }

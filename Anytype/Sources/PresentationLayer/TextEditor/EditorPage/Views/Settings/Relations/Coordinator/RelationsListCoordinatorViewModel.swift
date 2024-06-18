@@ -2,6 +2,10 @@ import SwiftUI
 import Services
 import AnytypeCore
 
+struct RelationsListData: Identifiable {
+    let document: BaseDocumentProtocol
+    var id: String { document.objectId }
+}
 
 @MainActor
 final class RelationsListCoordinatorViewModel:
@@ -10,47 +14,30 @@ final class RelationsListCoordinatorViewModel:
     RelationValueCoordinatorOutput
 {
     @Published var relationValueData: RelationValueData?
+    @Published var relationsSearchData: RelationsSearchData?
     @Published var toastBarData: ToastBarData = .empty
     
-    private let document: BaseDocumentProtocol
-    private let relationsListModuleAssembly: RelationsListModuleAssemblyProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
-    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
-    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    let document: BaseDocumentProtocol
+    
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
+    
     private weak var output: RelationValueCoordinatorOutput?
 
-    init(
-        document: BaseDocumentProtocol,
-        relationsListModuleAssembly: RelationsListModuleAssemblyProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
-        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol,
-        output: RelationValueCoordinatorOutput?
-    ) {
+    init(document: BaseDocumentProtocol, output: RelationValueCoordinatorOutput?) {
         self.document = document
-        self.relationsListModuleAssembly = relationsListModuleAssembly
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
-        self.addNewRelationCoordinator = addNewRelationCoordinator
-        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
-        self.relationValueProcessingService = relationValueProcessingService
         self.output = output
-    }
-    
-    func relationsList() -> AnyView {
-        relationsListModuleAssembly.make(document: document, output: self)
     }
     
     // MARK: - RelationsListModuleOutput
     
     func addNewRelationAction(document: BaseDocumentProtocol) {
-        addNewRelationCoordinator.showAddNewRelationView(
+        relationsSearchData = RelationsSearchData(
             document: document,
             excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
-            target: .object,
-            onCompletion: { [spaceId = document.spaceId] relation, isNew in
-                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .menu, spaceId: spaceId)
+            target: .object, 
+            onRelationSelect: { relationDetails, isNew in
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .menu, spaceId: document.spaceId)
             }
         )
     }
@@ -70,46 +57,19 @@ final class RelationsListCoordinatorViewModel:
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-        relationValueCoordinatorAssembly.make(
-            relation: data.relation,
-            objectDetails: data.objectDetails,
-            analyticsType: .menu,
-            output: self
-        )
-    }
-    
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        let analyticsType = AnalyticsEventsRelationType.menu
-        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
-            relationValueData = RelationValueData(
-                relation: relation,
-                objectDetails: objectDetails
-            )
-            return
-        }
-        
-        let result = relationValueProcessingService.relationProcessedSeparately(
+        relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
-            objectId: objectDetails.id,
-            spaceId: objectDetails.spaceId,
-            analyticsType: analyticsType,
+            objectDetails: objectDetails,
+            analyticsType: .menu,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
-        
-        if !result {
-            legacyRelationValueCoordinator.startFlow(
-                objectDetails: objectDetails,
-                relation: relation,
-                analyticsType: analyticsType,
-                output: self
-            )
-        }
     }
     
     // MARK: - RelationValueCoordinatorOutput
+    
     func showEditorScreen(data: EditorScreenData) {
         output?.showEditorScreen(data: data)
     }

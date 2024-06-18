@@ -5,7 +5,7 @@ import AnytypeCore
 
 struct HomeCoordinatorView: View {
     
-    @StateObject var model: HomeCoordinatorViewModel
+    @StateObject private var model = HomeCoordinatorViewModel()
     @Environment(\.keyboardDismiss) var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
@@ -19,16 +19,16 @@ struct HomeCoordinatorView: View {
                 content: {
                     AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: AccountInfo.self) { info in
-                            model.homeWidgetsModule(info: info)
+                            HomeWidgetsView(info: info, output: model)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
-                            model.editorModule(data: data)
+                            EditorCoordinatorView(data: data)
                         }
                     }
                 },
                 bottomPanel: {
                     if let info = model.info {
-                        model.homeBottomNavigationPanelModule(info: info)
+                        HomeBottomNavigationPanelView(homePath: model.editorPath, info: info, output: model)
                     }
                 }
             )
@@ -61,10 +61,10 @@ struct HomeCoordinatorView: View {
             CreateWidgetCoordinatorView(data: $0)
         }
         .sheet(isPresented: $model.showSpaceSwitch) {
-            model.createSpaceSwitchModule()
+            SpaceSwitchCoordinatorView()
         }
         .sheet(isPresented: $model.showSpaceSettings) {
-            model.createSpaceSeetingsModule()
+            SpaceSettingsCoordinatorView()
         }
         .sheet(isPresented: $model.showSharing) {
             ShareCoordinatorView()
@@ -75,23 +75,20 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showSpaceManager) {
             SpacesManagerView()
         }
+        .sheet(item: $model.showMembershipNameSheet) {
+            MembershipNameFinalizationView(tier: $0)
+        }
         .anytypeSheet(item: $model.spaceJoinData) {
             SpaceJoinView(data: $0, onManageSpaces: {
                 model.onManageSpacesSelected()
             })
         }
-        .if(FeatureFlags.galleryInstallation, if: {
-            $0.sheet(item: $model.showGalleryImport) { data in
-                GalleryInstallationCoordinatorView(data: data)
-            }
-        }, else: {
-            $0.anytypeSheet(item: $model.showGalleryImport) { _ in
-                GalleryUnavailableView()
-            }
-        })
+        .sheet(item: $model.showGalleryImport) { data in
+            GalleryInstallationCoordinatorView(data: data)
+        }
     }
 }
 
 #Preview {
-    DI.preview.coordinatorsDI.home().make()
+    HomeCoordinatorView()
 }

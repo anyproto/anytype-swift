@@ -10,20 +10,26 @@ final class HomeWidgetsViewModel: ObservableObject {
     // MARK: - DI
     
     private let info: AccountInfo
-    private let widgetObject: BaseDocumentProtocol
-    private let registry: HomeWidgetsRegistryProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
-    private let stateManager: HomeWidgetsStateManagerProtocol
-    private let objectActionService: ObjectActionsServiceProtocol
-    private let recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol
-    private let documentService: OpenedDocumentsProviderProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let accountParticipantStorage: AccountParticipantsStorageProtocol
-    private weak var output: HomeWidgetsModuleOutput?
+    
+    let widgetObject: BaseDocumentProtocol
+    
+    @Injected(\.blockWidgetService)
+    private var blockWidgetService: BlockWidgetServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionService: ObjectActionsServiceProtocol
+    private let documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: AccountParticipantsStorageProtocol
+    @Injected(\.homeWidgetsRecentStateManager)
+    private var recentStateManager: HomeWidgetsRecentStateManagerProtocol
+    
+    weak var output: HomeWidgetsModuleOutput?
     
     // MARK: - State
     
-    @Published var models: [HomeWidgetSubmoduleModel] = []
+    @Published var widgetBlocks: [BlockWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
     @Published var wallpaper: BackgroundType = .default
@@ -32,68 +38,50 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        registry: HomeWidgetsRegistryProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        objectActionService: ObjectActionsServiceProtocol,
-        recentStateManagerProtocol: HomeWidgetsRecentStateManagerProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        documentService: OpenedDocumentsProviderProtocol,
-        accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeWidgetsModuleOutput?
     ) {
         self.info = info
-        self.widgetObject = documentService.document(objectId: info.widgetsId)
-        self.registry = registry
-        self.blockWidgetService = blockWidgetService
-        self.stateManager = stateManager
-        self.objectActionService = objectActionService
-        self.recentStateManagerProtocol = recentStateManagerProtocol
-        self.documentService = documentService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.accountParticipantStorage = accountParticipantStorage
         self.output = output
+        self.widgetObject = documentService.document(objectId: info.widgetsId)
         subscribeOnWallpaper()
-        setupInitialState()
     }
     
     func startWidgetObjectTask() async {
         for await _ in widgetObject.syncPublisher.values {
             let blocks = widgetObject.children.filter(\.isWidget)
-            recentStateManagerProtocol.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
-            let providers = registry.providers(blocks: blocks, widgetObject: widgetObject)
+            recentStateManager.setupRecentStateIfNeeded(blocks: blocks, widgetObject: widgetObject)
             
-            guard providers != models else { continue }
+            let newWidgetBlocks = blocks.compactMap { widgetObject.widgetInfo(block: $0) }
             
-            models = providers
+            guard widgetBlocks != newWidgetBlocks else { continue }
+            
+            widgetBlocks = newWidgetBlocks
             dataLoaded = true
         }
     }
     
     func startParticipantTask() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
-            stateManager.setHomeState(canEdit ? .readwrite : .readonly)
+            homeState = canEdit ? .readwrite : .readonly
         }
     }
     
     func onEditButtonTap() {
         AnytypeAnalytics.instance().logEditWidget()
-        stateManager.setHomeState(.editWidgets)
+        homeState = .editWidgets
     }
     
-    func dropUpdate(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
-        models.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
+    func dropUpdate(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
+        widgetBlocks.move(fromOffsets: IndexSet(integer: from.index), toOffset: to.index)
     }
     
-    func dropFinish(from: DropDataElement<HomeWidgetSubmoduleModel>, to: DropDataElement<HomeWidgetSubmoduleModel>) {
-        if let info = widgetObject.widgetInfo(blockId: from.data.blockId) {
-            AnytypeAnalytics.instance().logReorderWidget(source: info.source.analyticsSource)
-        }
+    func dropFinish(from: DropDataElement<BlockWidgetInfo>, to: DropDataElement<BlockWidgetInfo>) {
+        AnytypeAnalytics.instance().logReorderWidget(source: from.data.source.analyticsSource)
         Task {
             try? await objectActionService.move(
                 dashboadId: widgetObject.objectId,
-                blockId: from.data.blockId,
-                dropPositionblockId: to.data.blockId,
+                blockId: from.data.id,
+                dropPositionblockId: to.data.id,
                 position: to.index > from.index ? .bottom : .top
             )
         }
@@ -111,20 +99,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onCreateWidgetSelected(context: .editor)
     }
     
-    // TODO: Delete after migration.
-    func onHomeStateChanged() {
-        if stateManager.homeState != homeState {
-            stateManager.setHomeState(homeState)
-        }
-    }
-    
     // MARK: - Private
-    
-    private func setupInitialState() {
-        stateManager.homeStatePublisher
-            .receiveOnMain()
-            .assign(to: &$homeState)
-    }
     
     private func subscribeOnWallpaper() {
         UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)

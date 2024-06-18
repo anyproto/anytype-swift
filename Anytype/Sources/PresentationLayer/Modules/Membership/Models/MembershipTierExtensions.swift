@@ -14,6 +14,8 @@ extension MembershipTier {
             return Loc.Membership.CoCreator.subtitle
         case .custom:
             return Loc.Membership.Custom.subtitle
+        case .anyTeam:
+            return "This special tier with extended limits and more. Thank you for being an integral part of Team Any."
         }
     }
     
@@ -26,8 +28,7 @@ extension MembershipTier {
         case .red:
             return .Membership.tierCocreatorMedium
         case .purple:
-            anytypeAssertionFailure("Unsupported asset mediumIcon for custom tier")
-            return .ghost
+            return .Membership.tierCustomMedium
         }
     }
     
@@ -61,8 +62,17 @@ extension MembershipTier {
         switch self.type {
         case .explorer:
             Loc.Membership.Success.curiosity
-        case .builder, .coCreator, .custom:
+        case .builder, .coCreator, .custom, .anyTeam:
             Loc.Membership.Success.support
+        }
+    }
+    
+    var isPossibleToUpgrade: Bool {
+        switch self.type {
+        case .anyTeam, .builder, .explorer, .custom:
+            true
+        case .coCreator:
+            false
         }
     }
 }

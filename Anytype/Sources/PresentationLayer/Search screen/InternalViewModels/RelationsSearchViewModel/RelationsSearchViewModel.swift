@@ -21,7 +21,6 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private let excludedRelationsIds: [String]
     private let target: RelationsModuleTarget
     private let interactor: RelationsSearchInteractor
-    private let toastPresenter: ToastPresenterProtocol
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
@@ -29,14 +28,12 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         excludedRelationsIds: [String],
         target: RelationsModuleTarget,
         interactor: RelationsSearchInteractor,
-        toastPresenter: ToastPresenterProtocol,
         onSelect: @escaping (_ relation: RelationDetails) -> Void
     ) {
         self.document = document
         self.excludedRelationsIds = excludedRelationsIds
         self.target = target
         self.interactor = interactor
-        self.toastPresenter = toastPresenter
         self.onSelect = onSelect
     }
     
@@ -69,7 +66,6 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
                     anytypeAssertionFailure("Relation not installed", info: ["id": marketplaceRelation.id, "key": marketplaceRelation.key])
                     return
                 }
-                toastPresenter.show(message: Loc.Relation.addedToLibrary(installedRelation.name))
                 addRelation(relation: installedRelation)
             }
             return

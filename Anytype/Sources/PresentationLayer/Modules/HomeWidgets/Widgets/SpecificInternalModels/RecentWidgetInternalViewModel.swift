@@ -3,14 +3,16 @@ import Services
 import Combine
 
 @MainActor
-final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
+final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewModelProtocol {
     
     // MARK: - DI
     
     private let type: RecentWidgetType
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let recentSubscriptionService: RecentSubscriptionServiceProtocol
+    
+    @Injected(\.recentSubscriptionService)
+    private var recentSubscriptionService: RecentSubscriptionServiceProtocol
     
     // MARK: - State
     
@@ -22,16 +24,13 @@ final class RecentWidgetInternalViewModel: WidgetInternalViewModelProtocol {
     var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
     
     init(
-        type: RecentWidgetType,
-        widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        recentSubscriptionService: RecentSubscriptionServiceProtocol
+        data: WidgetSubmoduleData,
+        type: RecentWidgetType
     ) {
         self.type = type
-        self.widgetBlockId = widgetBlockId
-        self.widgetObject = widgetObject
+        self.widgetBlockId = data.widgetBlockId
+        self.widgetObject = data.widgetObject
         self.name = type.title
-        self.recentSubscriptionService = recentSubscriptionService
     }
     
     // MARK: - WidgetInternalViewModelProtocol

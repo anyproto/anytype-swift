@@ -6,13 +6,11 @@ import Services
 @MainActor
 final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOutput, RelationValueCoordinatorOutput {
     
-    private let data: EditorPageObject
-    private let showHeader: Bool
+    let data: EditorPageObject
+    let showHeader: Bool
     private let setupEditorInput: (EditorPageModuleInput, String) -> Void
-    private let editorPageAssembly: EditorPageModuleAssemblyProtocol
-    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
@@ -21,27 +19,21 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var codeLanguageData: CodeLanguageListData?
     @Published var covertPickerData: ObjectCoverPickerData?
     @Published var linkToObjectData: LinkToObjectSearchModuleData?
+    @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var textIconPickerData: TextIconPickerData?
+    @Published var blockObjectSearchData: BlockObjectSearchData?
+    @Published var undoRedoObjectId: StringIdentifiable?
+    @Published var relationsSearchData: RelationsSearchData?
+    @Published var openUrlData: URL?
     
     init(
         data: EditorPageObject,
         showHeader: Bool,
-        setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void,
-        editorPageAssembly: EditorPageModuleAssemblyProtocol,
-        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol
+        setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void
     ) {
         self.data = data
         self.showHeader = showHeader
         self.setupEditorInput = setupEditorInput
-        self.editorPageAssembly = editorPageAssembly
-        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
-        self.relationValueProcessingService = relationValueProcessingService
-    }
-    
-    func pageModule() -> AnyView {
-        return editorPageAssembly.make(data: data, output: self, showHeader: showHeader)
     }
     
     // MARK: - EditorPageModuleOutput
@@ -74,15 +66,6 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-        relationValueCoordinatorAssembly.make(
-            relation: data.relation,
-            objectDetails: data.objectDetails,
-            analyticsType: .dataview, 
-            output: self
-        )
-    }
-    
     func onSelectCodeLanguage(objectId: String, blockId: String) {
         codeLanguageData = CodeLanguageListData(documentId: objectId, blockId: blockId)
     }
@@ -91,35 +74,49 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         linkToObjectData = data
     }
     
+    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+        objectIconPickerData = ObjectIconPickerData(document: document)
+    }
+    
+    func showTextIconPicker(data: TextIconPickerData) {
+        textIconPickerData = data
+    }
+    
+    func showBlockObjectSearch(data: BlockObjectSearchData) {
+        blockObjectSearchData = data
+    }
+    
+    func didUndoRedo() {
+        undoRedoObjectId = data.objectId.identifiable
+    }
+    
+    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        relationsSearchData = RelationsSearchData(
+            document: document,
+            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
+            target: .object, 
+            onRelationSelect: onSelect
+        )
+    }
+    
+    func openUrl(_ url: URL) {
+        openUrlData = url
+    }
+    
+    func showFailureToast(message: String) {
+        toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
+    }
+    
     // MARK: - Private
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        let analyticsType = AnalyticsEventsRelationType.block
-        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
-            relationValueData = RelationValueData(
-                relation: relation,
-                objectDetails: objectDetails
-            )
-            return
-        }
-        
-        let result = relationValueProcessingService.relationProcessedSeparately(
+        relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
-            objectId: objectDetails.id,
-            spaceId: objectDetails.spaceId,
-            analyticsType: analyticsType,
+            objectDetails: objectDetails,
+            analyticsType: .block,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
         )
-        
-        if !result {
-            legacyRelationValueCoordinator.startFlow(
-                objectDetails: objectDetails,
-                relation: relation,
-                analyticsType: analyticsType,
-                output: self
-            )
-        }
     }
 }

@@ -7,6 +7,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
     let didUpdateContentSubject = PassthroughSubject<Void, Never>()
     let file: BlockFile
     let blockId: String
+    let fileDetails: FileDetails
 
     // MARK: - QLPreviewItem
     var previewItemTitle: String? { "" }
@@ -14,9 +15,10 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
 
     private let fileDownloader = FileDownloader()
 
-    init(file: BlockFile, blockId: String) {
+    init(file: BlockFile, blockId: String, fileDetails: FileDetails) {
         self.file = file
         self.blockId = blockId
+        self.fileDetails = fileDetails
 
         super.init()
 
@@ -27,7 +29,7 @@ final class FilePreviewMedia: NSObject, PreviewRemoteItem {
         Task { @MainActor in
             guard let url = file.contentUrl else { return }
             let data = try await fileDownloader.downloadData(url: url)
-            let path = file.originalPath(with: blockId)
+            let path = file.originalPath(blockId: blockId, fileName: fileDetails.fileName)
 
             try FileManager.default.createDirectory(
                 at: path.deletingLastPathComponent(),

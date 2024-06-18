@@ -14,19 +14,24 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     let document: BaseDocumentProtocol
     let modelsHolder: EditorMainItemModelsHolder
     let router: EditorRouterProtocol
-    
     let actionHandler: BlockActionHandlerProtocol
-    let objectActionsService: ObjectActionsServiceProtocol
-    let objectTypeProvider: ObjectTypeProviderProtocol
     
-    private let searchService: SearchServiceProtocol
+    @Injected(\.objectActionsService)
+    var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.objectTypeProvider)
+    var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    @Injected(\.templatesSubscription)
+    private var templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
     private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
     private let configuration: EditorPageViewModelConfiguration
-    private let templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
@@ -48,13 +53,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         headerModel: ObjectHeaderViewModel,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
-        objectActionsService: ObjectActionsServiceProtocol,
-        searchService: SearchServiceProtocol,
         editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
         configuration: EditorPageViewModelConfiguration,
-        templatesSubscriptionService: TemplatesSubscriptionServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewInput = viewInput
@@ -65,13 +65,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         self.headerModel = headerModel
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
-        self.objectActionsService = objectActionsService
-        self.searchService = searchService
         self.editorPageTemplatesHandler = editorPageTemplatesHandler
         self.configuration = configuration
-        self.templatesSubscriptionService = templatesSubscriptionService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectTypeProvider = objectTypeProvider
         self.output = output
         self.actionHandler = actionHandler
         
@@ -81,25 +76,25 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     func setupSubscriptions() {
         subscriptions = []
         
-        document.syncStatus.sink { [weak self] status in
-            self?.handleSyncStatus(status: status)
+        document.syncStatusPublisher.receiveOnMain().sink { [weak self] data in
+            self?.handleSyncStatus(data: data)
         }.store(in: &subscriptions)
         
         document.flattenBlockIds.receiveOnMain().sink { [weak self] ids in
             self?.handleUpdate(ids: ids)
         }.store(in: &subscriptions)
         
-        document.detailsPublisher.sink { [weak self] _ in
+        document.detailsPublisher.receiveOnMain().sink { [weak self] _ in
             self?.handleTemplatesIfNeeded()
         }.store(in: &subscriptions)
         
-        document.permissionsPublisher.sink { [weak self] permissions in
+        document.permissionsPublisher.receiveOnMain().sink { [weak self] permissions in
             self?.handleTemplatesIfNeeded()
             self?.viewInput?.update(permissions: permissions)
             self?.blocksStateManager.checkOpenedState()
         }.store(in: &subscriptions)
         
-        headerModel.$header.sink { [weak self] value in
+        headerModel.$header.receiveOnMain().sink { [weak self] value in
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
@@ -193,10 +188,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         }
     }
     
-    private func handleSyncStatus(status: SyncStatus) {
+    private func handleSyncStatus(data: DocumentSyncStatusData) {
         let data = SyncStatusData(
-            status: status,
-            networkId: activeWorkspaceStorage.workspaceInfo.networkId
+            status: data.syncStatus,
+            networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+            isHidden: data.layout == .participant
         )
         viewInput?.update(syncStatusData: data)
     }

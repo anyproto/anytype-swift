@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct SetViewPicker: View {
-    @StateObject var viewModel: SetViewPickerViewModel
+    @StateObject private var viewModel: SetViewPickerViewModel
     @State private var editMode = EditMode.inactive
     @Environment(\.presentationMode) var presentationMode
+    
+    init(setDocument: SetDocumentProtocol, output: SetViewPickerCoordinatorOutput?) {
+        _viewModel = StateObject(wrappedValue: SetViewPickerViewModel(setDocument: setDocument, output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {

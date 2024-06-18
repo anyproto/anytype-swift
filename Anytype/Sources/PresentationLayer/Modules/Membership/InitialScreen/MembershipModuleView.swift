@@ -2,12 +2,14 @@ import SwiftUI
 import StoreKit
 import Services
 import Combine
+import AnytypeCore
 
 
 struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
     @State private var safariUrl: URL?
     @Injected(\.accountManager) private var accountManager: AccountManagerProtocol
+    @Injected(\.mailUrlBuilder) private var mailUrlBuilder: MailUrlBuilderProtocol
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]
@@ -28,7 +30,7 @@ struct MembershipModuleView: View {
             DragIndicator()
             ScrollView {
                 VStack {
-                    Spacer.fixedHeight(40)
+                    Spacer.fixedHeight(35)
                     title
                     AnytypeText(Loc.Membership.Ad.subtitle, style: .relation2Regular)
                         .foregroundColor(.Text.primary)
@@ -41,7 +43,8 @@ struct MembershipModuleView: View {
                         UISelectionFeedbackGenerator().selectionChanged()
                         onTierTap($0)
                     }
-                    .padding(.vertical, 32)
+                    .padding(.top, 20)
+                    .padding(.bottom, 32)
                     
                     legal
                 }
@@ -71,12 +74,13 @@ struct MembershipModuleView: View {
             switch membership.tier?.type {
             case .explorer, nil:
                 MembershipBannersView()
-            case .builder, .coCreator, .custom:
+            case .builder, .coCreator, .custom, .anyTeam:
                 EmptyView()
             }
         }
     }
     
+    @MainActor
     var legal: some View {
         VStack(alignment: .leading) {
             MembershipLegalButton(text: Loc.Membership.Legal.details) {
@@ -90,20 +94,18 @@ struct MembershipModuleView: View {
             }
             
             Spacer.fixedHeight(32)
-            contactUs
-            Spacer.fixedHeight(24)
+            if !FeatureFlags.hideCoCreator {
+                contactUs
+                Spacer.fixedHeight(24)
+            }
             restorePurchases
         }
     }
     
+    @MainActor
     private var contactUs: some View {
         Button {
-            let mailLink = MailUrl(
-                to: AboutApp.licenseMailTo,
-                subject: "\(Loc.Membership.Email.subject) \(accountManager.account.id)",
-                body: Loc.Membership.Email.body
-            )
-            guard let mailUrl = mailLink.url else { return }
+            guard let mailUrl = mailUrlBuilder.membershipUpgrateUrl() else { return }
             openURL(mailUrl)
         } label: {
             Group {

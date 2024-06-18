@@ -6,11 +6,8 @@ import AnytypeCore
 extension MembershipTierPaymentType {
     var localizedPeriod: String? {
         switch self {
-        case .email:
-            anytypeAssertionFailure("No localized period for email")
-            return nil
-        case .appStore(let product):
-            return product.localizedPeriod
+        case .appStore(let info):
+            return info.product.localizedPeriod
         case .external(let info):
             return info.localizedPeriod
         }
@@ -18,11 +15,8 @@ extension MembershipTierPaymentType {
     
     var displayPrice: String? {
         switch self {
-        case .email:
-            anytypeAssertionFailure("No display price for email")
-            return nil
-        case .appStore(let product):
-            return product.anytypeDisplayPrice
+        case .appStore(let info):
+            return info.product.anytypeDisplayPrice
         case .external(let info):
             return info.displayPrice
         }

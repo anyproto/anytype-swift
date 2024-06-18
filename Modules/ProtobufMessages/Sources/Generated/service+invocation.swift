@@ -544,6 +544,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectSearchWithMeta(
+        _ request: Anytype_Rpc.Object.SearchWithMeta.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.SearchWithMeta.Request, Anytype_Rpc.Object.SearchWithMeta.Response> {
+        return Invocation(messageName: "ObjectSearchWithMeta", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectSearchWithMeta(requestData) ?? Data()
+            return try Anytype_Rpc.Object.SearchWithMeta.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectSearchSubscribe(
         _ request: Anytype_Rpc.Object.SearchSubscribe.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.SearchSubscribe.Request, Anytype_Rpc.Object.SearchSubscribe.Response> {
@@ -721,6 +731,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceObjectListSetObjectType(requestData) ?? Data()
             return try Anytype_Rpc.Object.ListSetObjectType.Response(serializedData: responseData)
+        }
+    }
+
+    public static func objectListSetDetails(
+        _ request: Anytype_Rpc.Object.ListSetDetails.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ListSetDetails.Request, Anytype_Rpc.Object.ListSetDetails.Response> {
+        return Invocation(messageName: "ObjectListSetDetails", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectListSetDetails(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ListSetDetails.Response(serializedData: responseData)
         }
     }
 
@@ -1041,6 +1061,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceHistorySetVersion(requestData) ?? Data()
             return try Anytype_Rpc.History.SetVersion.Response(serializedData: responseData)
+        }
+    }
+
+    public static func historyDiffVersions(
+        _ request: Anytype_Rpc.History.DiffVersions.Request = .init()
+    ) -> Invocation<Anytype_Rpc.History.DiffVersions.Request, Anytype_Rpc.History.DiffVersions.Response> {
+        return Invocation(messageName: "HistoryDiffVersions", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceHistoryDiffVersions(requestData) ?? Data()
+            return try Anytype_Rpc.History.DiffVersions.Response(serializedData: responseData)
         }
     }
 
@@ -1551,6 +1581,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBlockFileSetName(requestData) ?? Data()
             return try Anytype_Rpc.BlockFile.SetName.Response(serializedData: responseData)
+        }
+    }
+
+    public static func blockFileSetTargetObjectId(
+        _ request: Anytype_Rpc.BlockFile.SetTargetObjectId.Request = .init()
+    ) -> Invocation<Anytype_Rpc.BlockFile.SetTargetObjectId.Request, Anytype_Rpc.BlockFile.SetTargetObjectId.Response> {
+        return Invocation(messageName: "BlockFileSetTargetObjectId", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceBlockFileSetTargetObjectId(requestData) ?? Data()
+            return try Anytype_Rpc.BlockFile.SetTargetObjectId.Response(serializedData: responseData)
         }
     }
 
@@ -2284,13 +2324,13 @@ public struct ClientCommands {
         }
     }
 
-    public static func membershipGetPaymentUrl(
-        _ request: Anytype_Rpc.Membership.GetPaymentUrl.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Membership.GetPaymentUrl.Request, Anytype_Rpc.Membership.GetPaymentUrl.Response> {
-        return Invocation(messageName: "MembershipGetPaymentUrl", request: request) { request in
+    public static func membershipRegisterPaymentRequest(
+        _ request: Anytype_Rpc.Membership.RegisterPaymentRequest.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Membership.RegisterPaymentRequest.Request, Anytype_Rpc.Membership.RegisterPaymentRequest.Response> {
+        return Invocation(messageName: "MembershipRegisterPaymentRequest", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceMembershipGetPaymentUrl(requestData) ?? Data()
-            return try Anytype_Rpc.Membership.GetPaymentUrl.Response(serializedData: responseData)
+            let responseData = Lib.ServiceMembershipRegisterPaymentRequest(requestData) ?? Data()
+            return try Anytype_Rpc.Membership.RegisterPaymentRequest.Response(serializedData: responseData)
         }
     }
 

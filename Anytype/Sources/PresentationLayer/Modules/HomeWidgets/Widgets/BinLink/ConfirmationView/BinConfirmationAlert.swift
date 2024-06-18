@@ -26,5 +26,6 @@ struct BinConfirmationAlert: View {
         .onAppear {
             model.onAppear()
         }
+        .snackbar(toastBarData: $model.toastData)
     }
 }

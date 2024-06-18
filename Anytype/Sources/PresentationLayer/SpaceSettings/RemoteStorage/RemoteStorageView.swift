@@ -10,6 +10,20 @@ struct RemoteStorageView: View {
     }
     
     var body: some View {
+        content
+            .onAppear {
+                model.onAppear()
+            }
+            .openUrl(url: $model.openUrl)
+            .sheet(isPresented: $model.showMembershipScreen) {
+                MembershipCoordinator()
+            }
+            .anytypeSheet(isPresented: $model.showMembershipEmailAlert) {
+                emailAlert
+            }
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.SpaceSettings.remoteStorage)
@@ -19,12 +33,10 @@ struct RemoteStorageView: View {
                     AnytypeText(model.spaceInstruction, style: .uxCalloutRegular)
                         .foregroundColor(.Text.primary)
                     if model.showGetMoreSpaceButton {
-                        Spacer.fixedHeight(4)
-                        AnytypeText(Loc.FileStorage.Space.getMore, style: .uxCalloutMedium)
-                            .foregroundColor(.System.red)
-                            .onTapGesture {
-                                model.onTapGetMoreSpace()
-                            }
+                        Spacer.fixedHeight(16)
+                        StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.upgrade)", style: .upgradeBadge) {
+                            model.onTapGetMoreSpace()
+                        }
                     }
                     Spacer.fixedHeight(20)
                     AnytypeText(model.spaceUsed, style: .relation3Regular)
@@ -43,8 +55,56 @@ struct RemoteStorageView: View {
                   .allowsHitTesting(false)
             }
         }
-        .onAppear {
-            model.onAppear()
+    }
+    
+    private var emailAlert: some View {
+        BottomAlertView(
+            title: Loc.Membership.Upgrade.title,
+            message: Loc.Membership.Upgrade.text
+        ) {
+            BottomAlertButton(
+                text: Loc.Membership.Upgrade.text,
+                style: .primary
+            ) {
+                model.onTapContactAnytype()
+            }
         }
+    }
+}
+
+#Preview("Default") {
+    MockView {
+        FileLimitsStorageMock.shared.nodeUsageMockedValue = .mock(
+            bytesUsage: 400*MB,
+            bytesLeft: 600*MB,
+            bytesLimit: 1000*MB
+        )
+    } content: {
+        RemoteStorageView(output: nil)
+    }
+}
+
+#Preview("> 70% storage consumed") {
+    MockView {
+        FileLimitsStorageMock.shared.nodeUsageMockedValue = .mock(
+            bytesUsage: 800*MB,
+            bytesLeft: 200*MB,
+            bytesLimit: 1000*MB
+        )
+    } content: {
+        RemoteStorageView(output: nil)
+    }
+}
+
+#Preview("Limits exceeded") {
+    MockView {
+        FileLimitsStorageMock.shared.nodeUsageMockedValue = .mock(
+            bytesUsage: 1000*MB,
+            bytesLeft: 0,
+            bytesLimit: 1000*MB,
+            localBytesUsage: 2000*MB
+        )
+    } content: {
+        RemoteStorageView(output: nil)
     }
 }

@@ -18,28 +18,20 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var galleryInstallation: Bool {
-        value(for: .galleryInstallation)
-    }
-
-    static var newTextEditingRelationView: Bool {
-        value(for: .newTextEditingRelationView)
-    }
-
-    static var multiplayer: Bool {
-        value(for: .multiplayer)
-    }
-
-    static var universalLinks: Bool {
-        value(for: .universalLinks)
-    }
-
     static var membership: Bool {
         value(for: .membership)
     }
 
+    static var hideCoCreator: Bool {
+        value(for: .hideCoCreator)
+    }
+
     static var newGlobalSearch: Bool {
         value(for: .newGlobalSearch)
+    }
+
+    static var setEmptyValuesSorting: Bool {
+        value(for: .setEmptyValuesSorting)
     }
 
     static var rainbowViews: Bool {
@@ -82,17 +74,19 @@ public extension FeatureFlags {
         value(for: .membershipTestTiers)
     }
 
+    static var failReceiptValidation: Bool {
+        value(for: .failReceiptValidation)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .galleryInstallation,
-        .newTextEditingRelationView,
-        .multiplayer,
-        .universalLinks,
         .membership,
+        .hideCoCreator,
         .newGlobalSearch,
+        .setEmptyValuesSorting,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -102,6 +96,7 @@ public extension FeatureFlags {
         .showAllTips,
         .sharingExtensionShowContentTypes,
         .homeTestSwipeGeature,
-        .membershipTestTiers
+        .membershipTestTiers,
+        .failReceiptValidation
     ]
 }

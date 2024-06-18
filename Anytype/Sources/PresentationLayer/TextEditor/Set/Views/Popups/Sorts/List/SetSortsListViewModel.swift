@@ -44,8 +44,8 @@ extension SetSortsListViewModel {
         guard let setSort = setDocument.sorts(for: viewId)[safe: index], setSort.id == id  else {
             return
         }
-        output?.onSetSortTap(setSort, completion: { [weak self] setSort in
-            self?.updateSorts(with: setSort)
+        output?.onSetSortTap(setSort, completion: { [weak self] setSort, type in
+            self?.updateSorts(with: setSort, type: type)
         })
     }
     
@@ -116,7 +116,7 @@ extension SetSortsListViewModel {
             SetSortRowConfiguration(
                 id: "\(sort.relationDetails.id)_\(index)",
                 title: sort.relationDetails.name,
-                subtitle: sort.typeTitle(),
+                subtitle: sort.typeTitle() ?? "",
                 iconAsset: sort.relationDetails.format.iconAsset,
                 onTap: { [weak self] in
                     self?.rowTapped(sort.relationDetails.id, index: index)
@@ -125,7 +125,7 @@ extension SetSortsListViewModel {
         }
     }
     
-    private func updateSorts(with setSort: SetSort) {
+    private func updateSorts(with setSort: SetSort, type: String) {
         Task { [weak self] in
             guard let self else { return }
             try await dataviewService.replaceSort(
@@ -136,7 +136,7 @@ extension SetSortsListViewModel {
                 viewId: viewId
             )
             AnytypeAnalytics.instance().logChangeSortValue(
-                type: setSort.sort.type.stringValue,
+                type: type,
                 objectType: setDocument.analyticsType
             )
         }

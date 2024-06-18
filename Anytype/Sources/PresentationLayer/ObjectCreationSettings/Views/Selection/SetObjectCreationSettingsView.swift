@@ -5,7 +5,15 @@ struct SetObjectCreationSettingsView: View {
     // Popup height. Something is wrong with keyboard appearance on UIKit view. Intistic content size couldn't be calculated in FloatingPanel :/
     static let height: CGFloat = 480
 
-    @ObservedObject var model: SetObjectCreationSettingsViewModel
+    @StateObject private var model: SetObjectCreationSettingsViewModel
+    
+    init(setDocument: SetDocumentProtocol, viewId: String, output: SetObjectCreationSettingsOutput?) {
+        _model = StateObject(wrappedValue: SetObjectCreationSettingsViewModel(
+            interactor: SetObjectCreationSettingsInteractor(setDocument: setDocument, viewId: viewId),
+            setDocument: setDocument,
+            output: output
+        ))
+    }
 
     var body: some View {
         VStack {
@@ -16,6 +24,7 @@ struct SetObjectCreationSettingsView: View {
             templatesView
             Spacer.fixedHeight(24)
         }
+        .snackbar(toastBarData: $model.toastData)
     }
 
     private var navigation: some View {
@@ -97,24 +106,14 @@ struct SetObjectCreationSettingsView: View {
     }
 }
 
-struct SetObjectCreationSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SetObjectCreationSettingsView(
-            model: .init(
-                interactor: MockSetObjectCreationSettingsInteractor(),
-                setDocument: DI.preview.serviceLocator.documentsProvider.setDocument(objectId: "", forPreview: false, inlineParameters: nil),
-                templatesService: DI.preview.serviceLocator.templatesService,
-                toastPresenter: ToastPresenter(
-                    viewControllerProvider: ViewControllerProvider(sceneWindow: UIWindow()),
-                    keyboardHeightListener: KeyboardHeightListener(),
-                    documentsProvider: ServiceLocator().documentsProvider
-                ),
-                onTemplateSelection: { _ in }
-            )
-        )
-        .previewLayout(.sizeThatFits)
-        .border(8, color: .Shape.primary)
-        .padding()
-        .previewDisplayName("Preview with title & icon")
-    }
+#Preview {
+    SetObjectCreationSettingsView(
+        setDocument: Container.shared.documentsProvider().setDocument(objectId: "", forPreview: false, inlineParameters: nil),
+        viewId: "viewId",
+        output: nil
+    )
+    .previewLayout(.sizeThatFits)
+    .border(8, color: .Shape.primary)
+    .padding()
+    .previewDisplayName("Preview with title & icon")
 }

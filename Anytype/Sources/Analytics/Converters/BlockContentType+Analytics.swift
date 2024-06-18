@@ -9,7 +9,7 @@ extension BlockContentType {
         case .text:
             return "text"
         case let .file(data):
-            return data.fileExt.isEmpty ? data.contentType.rawValue : data.fileExt
+            return data.contentType.rawValue
         case .divider:
             return "divider"
         case .bookmark:

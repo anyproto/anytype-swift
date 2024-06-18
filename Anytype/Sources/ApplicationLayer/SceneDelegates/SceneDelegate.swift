@@ -6,13 +6,15 @@ import DeepLinks
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-    private var di: DIProtocol?
-    private var deepLinkParser: DeepLinkParserProtocol?
 
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
     @Injected(\.universalLinkParser)
     private var universalLinkParser: UniversalLinkParserProtocol
+    @Injected(\.deepLinkParser)
+    private var deepLinkParser: DeepLinkParserProtocol
+    @Injected(\.quickActionShortcutBuilder)
+    private var quickActionShortcutBuilder: QuickActionShortcutBuilderProtocol
     
     // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
@@ -24,11 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = AnytypeWindow(windowScene: windowScene)
         self.window = window
-        
-        let viewControllerProvider = ViewControllerProvider(sceneWindow: window)
-        let di: DIProtocol = DI(viewControllerProvider: viewControllerProvider)
-        self.di = di
-        deepLinkParser = di.serviceLocator.deepLinkParser()
+        ViewControllerProvider.shared.sceneWindow = window
         
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         if let userActivity = connectionOptions.userActivities.first {
@@ -37,18 +35,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         handleURLContext(openURLContexts: connectionOptions.urlContexts)
         
         
-        let applicationView = di.coordinatorsDI.application().makeView()
+        let applicationView = ApplicationCoordinatorView()
             .setKeyboardDismissEnv(window: window)
             .setPresentedDismissEnv(window: window)
+            .setAppInterfaceStyleEnv(window: window)
         window.rootViewController = UIHostingController(rootView: applicationView)
         window.makeKeyAndVisible()
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
         
-        ToastPresenter.shared = ToastPresenter(
-            viewControllerProvider: ViewControllerProvider(sceneWindow: window),
-            keyboardHeightListener: KeyboardHeightListener(),
-            documentsProvider: di.serviceLocator.documentsProvider
-        )
+        ToastPresenter.shared = ToastPresenter()
     }
 
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -56,8 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
-        let builder = di?.serviceLocator.quickActionShortcutBuilder()
-        UIApplication.shared.shortcutItems = builder?.buildShortcutItems()
+        UIApplication.shared.shortcutItems = quickActionShortcutBuilder.buildShortcutItems()
     }
     
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
@@ -69,8 +63,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func handleQuickAction(_ item: UIApplicationShortcutItem) -> Bool {
-        let quickActionShortcutBuilder = di?.serviceLocator.quickActionShortcutBuilder()
-        guard let action = quickActionShortcutBuilder?.buildAction(shortcutItem: item) else { return false }
+        guard let action = quickActionShortcutBuilder.buildAction(shortcutItem: item) else { return false }
         
         appActionStorage.action = action.toAppAction()
         return true
@@ -79,7 +72,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func handleURLContext(openURLContexts: Set<UIOpenURLContext>) {
         guard openURLContexts.count == 1,
               let context = openURLContexts.first,
-              let deepLink = deepLinkParser?.parse(url: context.url)
+              let deepLink = deepLinkParser.parse(url: context.url)
         else { return }
         
         appActionStorage.action = .deepLink(deepLink)

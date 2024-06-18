@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct SetViewSettingsList: View {
-    @StateObject var model: SetViewSettingsListModel
+    @StateObject private var model: SetViewSettingsListModel
     @Environment(\.presentationMode) @Binding private var presentationMode
     @FocusState private var isFocused: Bool
+    
+    init(data: SetSettingsData, output: SetViewSettingsCoordinatorOutput?) {
+        _model = StateObject(wrappedValue: SetViewSettingsListModel(data: data, output: output))
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -130,7 +134,7 @@ struct SetViewSettingsList: View {
                 IconView(icon: .asset(.X24.more))
                     .frame(width: 24, height: 24)
             }
-            .fixMenuOrder()
+            .menuOrder(.fixed)
         }
     }
     

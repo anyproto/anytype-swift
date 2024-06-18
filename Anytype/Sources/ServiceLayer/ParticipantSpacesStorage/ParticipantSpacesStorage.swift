@@ -2,11 +2,12 @@ import Foundation
 import Combine
 import Services
 
+
 @MainActor
 protocol ParticipantSpacesStorageProtocol: AnyObject {
     var allParticipantSpaces: [ParticipantSpaceView] { get }
     var allParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceView], Never> { get }
-    func canShareSpace() -> Bool
+    var spaceSharingInfo: SpaceSharingInfo? { get }
     
     func startSubscription() async
     func stopSubscription() async
@@ -27,6 +28,13 @@ extension ParticipantSpacesStorageProtocol {
     func participantSpaceView(spaceId: String) -> ParticipantSpaceView? {
         allParticipantSpaces.first { $0.spaceView.targetSpaceId == spaceId }
     }
+    
+    func participantSpaceViewPublisher(spaceId: String) -> AnyPublisher<ParticipantSpaceView, Never> {
+        allParticipantSpacesPublisher
+            .compactMap { $0.first { $0.spaceView.targetSpaceId == spaceId } }
+            .removeDuplicates()
+            .eraseToAnyPublisher()
+    }
 }
 
 @MainActor
@@ -38,6 +46,8 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     private var workspaceStorage: WorkspacesStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    @Injected(\.serverConfigurationStorage)
+    private var serverConfigurationStorage: ServerConfigurationStorageProtocol
     
     private var subscriptions: [AnyCancellable] = []
     
@@ -48,26 +58,39 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     
     nonisolated init() {}
     
-    func canShareSpace() -> Bool {
-        guard let limit = workspaceStorage.allWorkspaces.first(where: { $0.spaceAccessType == .personal })?.sharedSpacesLimit else { return false }
-        return allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count < limit
+    var spaceSharingInfo: SpaceSharingInfo? {
+        guard let sharedSpacesLimit = workspaceStorage.allWorkspaces.first(where: { $0.spaceAccessType == .personal })?.sharedSpacesLimit else { return nil }
+        let sharedSpacesCount = allParticipantSpaces.filter { $0.spaceView.isActive && $0.spaceView.isShared && $0.isOwner }.count
+        return SpaceSharingInfo(sharedSpacesLimit: sharedSpacesLimit, sharedSpacesCount: sharedSpacesCount)
     }
     
     func startSubscription() async {
         Publishers.CombineLatest(workspaceStorage.allWorkspsacesPublisher, accountParticipantsStorage.participantsPublisher)
             .sink { [weak self] spaces, participants in
-                self?.allParticipantSpaces = spaces.compactMap { space in
-                    let participant = participants.first(where:  { $0.spaceId == space.targetSpaceId })
-                    return ParticipantSpaceView(
-                        spaceView: space,
-                        participant: participant
-                    )
-                }
+                self?.updateData(spaces: spaces, participants: participants)
             }
             .store(in: &subscriptions)
     }
     
     func stopSubscription() async {
         subscriptions.removeAll()
+    }
+    
+    // MARK: - Private
+    
+    private func updateData(spaces: [SpaceView], participants: [Participant]) {
+        allParticipantSpaces = spaces.compactMap { space in
+            let participant = participants.first(where:  { $0.spaceId == space.targetSpaceId })
+            let permissions = SpacePermissions(
+                spaceView: space,
+                participant: participant,
+                isLocalMode: serverConfigurationStorage.currentConfiguration().middlewareNetworkMode == .localOnly
+            )
+            return ParticipantSpaceView(
+                spaceView: space,
+                participant: participant,
+                permissions: permissions
+            )
+        }
     }
 }

@@ -2,7 +2,11 @@ import SwiftUI
 
 struct DeletedAccountView: View {
     
-    @ObservedObject var viewModel: DeletedAccountViewModel
+    @StateObject private var viewModel: DeletedAccountViewModel
+    
+    init(deadline: Date) {
+        _viewModel = StateObject(wrappedValue: DeletedAccountViewModel(deadline: deadline))
+    }
     
     var body: some View {
         ZStack {

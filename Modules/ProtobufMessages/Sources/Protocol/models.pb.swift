@@ -822,6 +822,76 @@ public struct Anytype_Model_SmartBlockSnapshotBase {
   fileprivate var _fileInfo: Anytype_Model_FileInfo? = nil
 }
 
+public struct Anytype_Model_Search {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public struct Result {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var objectID: String = String()
+
+    public var details: SwiftProtobuf.Google_Protobuf_Struct {
+      get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+      set {_details = newValue}
+    }
+    /// Returns true if `details` has been explicitly set.
+    public var hasDetails: Bool {return self._details != nil}
+    /// Clears the value of `details`. Subsequent reads from it will return its default value.
+    public mutating func clearDetails() {self._details = nil}
+
+    /// meta information about the search result
+    public var meta: [Anytype_Model_Search.Meta] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  }
+
+  public struct Meta {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// truncated text with highlights
+    public var highlight: String = String()
+
+    /// ranges of the highlight in the text (using utf-16 runes)
+    public var highlightRanges: [Anytype_Model_Range] = []
+
+    /// block id where the highlight has been found
+    public var blockID: String = String()
+
+    /// relation key of the block where the highlight has been found
+    public var relationKey: String = String()
+
+    /// contains details for dependent object. E.g. relation option or type. todo: rename to dependantDetails
+    public var relationDetails: SwiftProtobuf.Google_Protobuf_Struct {
+      get {return _relationDetails ?? SwiftProtobuf.Google_Protobuf_Struct()}
+      set {_relationDetails = newValue}
+    }
+    /// Returns true if `relationDetails` has been explicitly set.
+    public var hasRelationDetails: Bool {return self._relationDetails != nil}
+    /// Clears the value of `relationDetails`. Subsequent reads from it will return its default value.
+    public mutating func clearRelationDetails() {self._relationDetails = nil}
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _relationDetails: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  }
+
+  public init() {}
+}
+
 public struct Anytype_Model_Block {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -1177,6 +1247,7 @@ public struct Anytype_Model_Block {
     case left // = 0
     case center // = 1
     case right // = 2
+    case justify // = 3
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -1188,6 +1259,7 @@ public struct Anytype_Model_Block {
       case 0: self = .left
       case 1: self = .center
       case 2: self = .right
+      case 3: self = .justify
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -1197,6 +1269,7 @@ public struct Anytype_Model_Block {
       case .left: return 0
       case .center: return 1
       case .right: return 2
+      case .justify: return 3
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -1974,11 +2047,11 @@ public struct Anytype_Model_Block {
 
       public var views: [Anytype_Model_Block.Content.Dataview.View] = []
 
+      /// do not generate changes for this field
+      public var activeView: String = String()
+
       /// deprecated
       public var relations: [Anytype_Model_Relation] = []
-
-      /// saved within a session
-      public var activeView: String = String()
 
       public var groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = []
 
@@ -2844,6 +2917,7 @@ public struct Anytype_Model_Block {
         case tree // = 1
         case list // = 2
         case compactList // = 3
+        case view // = 4
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -2856,6 +2930,7 @@ public struct Anytype_Model_Block {
           case 1: self = .tree
           case 2: self = .list
           case 3: self = .compactList
+          case 4: self = .view
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -2866,6 +2941,7 @@ public struct Anytype_Model_Block {
           case .tree: return 1
           case .list: return 2
           case .compactList: return 3
+          case .view: return 4
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -2905,6 +2981,7 @@ extension Anytype_Model_Block.Align: CaseIterable {
     .left,
     .center,
     .right,
+    .justify,
   ]
 }
 
@@ -3192,6 +3269,7 @@ extension Anytype_Model_Block.Content.Widget.Layout: CaseIterable {
     .tree,
     .list,
     .compactList,
+    .view,
   ]
 }
 
@@ -4371,6 +4449,8 @@ public struct Anytype_Model_ObjectView {
   /// Clears the value of `history`. Subsequent reads from it will return its default value.
   public mutating func clearHistory() {self._history = nil}
 
+  public var blockParticipants: [Anytype_Model_ObjectView.BlockParticipant] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public struct DetailsSet {
@@ -4422,6 +4502,20 @@ public struct Anytype_Model_ObjectView {
     public var undo: Int32 = 0
 
     public var redo: Int32 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct BlockParticipant {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var blockID: String = String()
+
+    public var participantID: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -5651,6 +5745,30 @@ extension Anytype_Model_MembershipTierData.PeriodType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+public struct Anytype_Model_Detail {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var key: String = String()
+
+  /// NUll - removes key
+  public var value: SwiftProtobuf.Google_Protobuf_Value {
+    get {return _value ?? SwiftProtobuf.Google_Protobuf_Value()}
+    set {_value = newValue}
+  }
+  /// Returns true if `value` has been explicitly set.
+  public var hasValue: Bool {return self._value != nil}
+  /// Clears the value of `value`. Subsequent reads from it will return its default value.
+  public mutating func clearValue() {self._value = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
@@ -5664,6 +5782,9 @@ extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceShareableStatus: @unchecked Sendable {}
 extension Anytype_Model_NameserviceNameType: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
+extension Anytype_Model_Search: @unchecked Sendable {}
+extension Anytype_Model_Search.Result: @unchecked Sendable {}
+extension Anytype_Model_Search.Meta: @unchecked Sendable {}
 extension Anytype_Model_Block: @unchecked Sendable {}
 extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
 extension Anytype_Model_Block.Position: @unchecked Sendable {}
@@ -5761,6 +5882,7 @@ extension Anytype_Model_ObjectView: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.DetailsSet: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.RelationWithValuePerObject: @unchecked Sendable {}
 extension Anytype_Model_ObjectView.HistorySize: @unchecked Sendable {}
+extension Anytype_Model_ObjectView.BlockParticipant: @unchecked Sendable {}
 extension Anytype_Model_ParticipantPermissionChange: @unchecked Sendable {}
 extension Anytype_Model_Metadata: @unchecked Sendable {}
 extension Anytype_Model_Metadata.OneOf_Payload: @unchecked Sendable {}
@@ -5798,6 +5920,7 @@ extension Anytype_Model_Membership.PaymentMethod: @unchecked Sendable {}
 extension Anytype_Model_Membership.EmailVerificationStatus: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
+extension Anytype_Model_Detail: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -6031,6 +6154,133 @@ extension Anytype_Model_SmartBlockSnapshotBase: SwiftProtobuf.Message, SwiftProt
     if lhs.key != rhs.key {return false}
     if lhs.originalCreatedTimestamp != rhs.originalCreatedTimestamp {return false}
     if lhs._fileInfo != rhs._fileInfo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Search: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Search"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Search, rhs: Anytype_Model_Search) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Search.Result: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Search.protoMessageName + ".Result"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "objectId"),
+    2: .same(proto: "details"),
+    3: .same(proto: "meta"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.meta) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.objectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 1)
+    }
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if !self.meta.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.meta, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Search.Result, rhs: Anytype_Model_Search.Result) -> Bool {
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.meta != rhs.meta {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Search.Meta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Search.protoMessageName + ".Meta"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "highlight"),
+    2: .same(proto: "highlightRanges"),
+    3: .same(proto: "blockId"),
+    4: .same(proto: "relationKey"),
+    5: .same(proto: "relationDetails"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.highlight) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.highlightRanges) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
+      case 5: try { try decoder.decodeSingularMessageField(value: &self._relationDetails) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.highlight.isEmpty {
+      try visitor.visitSingularStringField(value: self.highlight, fieldNumber: 1)
+    }
+    if !self.highlightRanges.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.highlightRanges, fieldNumber: 2)
+    }
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 3)
+    }
+    if !self.relationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.relationKey, fieldNumber: 4)
+    }
+    try { if let v = self._relationDetails {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Search.Meta, rhs: Anytype_Model_Search.Meta) -> Bool {
+    if lhs.highlight != rhs.highlight {return false}
+    if lhs.highlightRanges != rhs.highlightRanges {return false}
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.relationKey != rhs.relationKey {return false}
+    if lhs._relationDetails != rhs._relationDetails {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6482,6 +6732,7 @@ extension Anytype_Model_Block.Align: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "AlignLeft"),
     1: .same(proto: "AlignCenter"),
     2: .same(proto: "AlignRight"),
+    3: .same(proto: "AlignJustify"),
   ]
 }
 
@@ -7208,8 +7459,8 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "source"),
     2: .same(proto: "views"),
-    4: .same(proto: "relations"),
     3: .same(proto: "activeView"),
+    4: .same(proto: "relations"),
     12: .same(proto: "groupOrders"),
     13: .same(proto: "objectOrders"),
     5: .same(proto: "relationLinks"),
@@ -7271,8 +7522,8 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview, rhs: Anytype_Model_Block.Content.Dataview) -> Bool {
     if lhs.source != rhs.source {return false}
     if lhs.views != rhs.views {return false}
-    if lhs.relations != rhs.relations {return false}
     if lhs.activeView != rhs.activeView {return false}
+    if lhs.relations != rhs.relations {return false}
     if lhs.groupOrders != rhs.groupOrders {return false}
     if lhs.objectOrders != rhs.objectOrders {return false}
     if lhs.relationLinks != rhs.relationLinks {return false}
@@ -8304,6 +8555,7 @@ extension Anytype_Model_Block.Content.Widget.Layout: SwiftProtobuf._ProtoNamePro
     1: .same(proto: "Tree"),
     2: .same(proto: "List"),
     3: .same(proto: "CompactList"),
+    4: .same(proto: "View"),
   ]
 }
 
@@ -9684,6 +9936,7 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
     10: .same(proto: "relationLinks"),
     8: .same(proto: "restrictions"),
     9: .same(proto: "history"),
+    11: .same(proto: "blockParticipants"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -9700,6 +9953,7 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
       case 8: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
       case 9: try { try decoder.decodeSingularMessageField(value: &self._history) }()
       case 10: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      case 11: try { try decoder.decodeRepeatedMessageField(value: &self.blockParticipants) }()
       default: break
       }
     }
@@ -9734,6 +9988,9 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if !self.relationLinks.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 10)
     }
+    if !self.blockParticipants.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.blockParticipants, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -9746,6 +10003,7 @@ extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.relationLinks != rhs.relationLinks {return false}
     if lhs._restrictions != rhs._restrictions {return false}
     if lhs._history != rhs._history {return false}
+    if lhs.blockParticipants != rhs.blockParticipants {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9870,6 +10128,44 @@ extension Anytype_Model_ObjectView.HistorySize: SwiftProtobuf.Message, SwiftProt
   public static func ==(lhs: Anytype_Model_ObjectView.HistorySize, rhs: Anytype_Model_ObjectView.HistorySize) -> Bool {
     if lhs.undo != rhs.undo {return false}
     if lhs.redo != rhs.redo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ObjectView.BlockParticipant: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".BlockParticipant"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "blockId"),
+    2: .same(proto: "participantId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.blockID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.participantID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.blockID.isEmpty {
+      try visitor.visitSingularStringField(value: self.blockID, fieldNumber: 1)
+    }
+    if !self.participantID.isEmpty {
+      try visitor.visitSingularStringField(value: self.participantID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ObjectView.BlockParticipant, rhs: Anytype_Model_ObjectView.BlockParticipant) -> Bool {
+    if lhs.blockID != rhs.blockID {return false}
+    if lhs.participantID != rhs.participantID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -11487,4 +11783,46 @@ extension Anytype_Model_MembershipTierData.PeriodType: SwiftProtobuf._ProtoNameP
     4: .same(proto: "PeriodTypeMonths"),
     5: .same(proto: "PeriodTypeYears"),
   ]
+}
+
+extension Anytype_Model_Detail: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Detail"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "key"),
+    2: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
+    }
+    try { if let v = self._value {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Detail, rhs: Anytype_Model_Detail) -> Bool {
+    if lhs.key != rhs.key {return false}
+    if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }

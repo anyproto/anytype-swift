@@ -1,18 +1,42 @@
 import SwiftUI
 
 struct DashboardLogoutAlert: View {
-    @ObservedObject var model: DashboardLogoutAlertModel
+    
+    @StateObject private var model: DashboardLogoutAlertModel
+    @Environment(\.dismiss) private var dismiss
+    
+    @State private var callOnBackupTap = false
+    
+    init(onBackup: @escaping () -> Void, onLogout: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: DashboardLogoutAlertModel(onBackup: onBackup, onLogout: onLogout))
+    }
     
     var body: some View {
-        FloaterAlertView(
+        BottomAlertView(
             title: Loc.Keychain.haveYouBackedUpYourKey,
-            description: Loc.Keychain.Key.description,
-            leftButtonData: StandardButtonModel(text: Loc.backUpKey, disabled: model.isLogoutInProgress, style: .secondaryLarge) {
-                model.onBackupTap()
-            },
-            rightButtonData: StandardButtonModel(text: Loc.logOut, inProgress: model.isLogoutInProgress, style: .warningLarge) {
-                model.onLogoutTap()
+            message: Loc.Keychain.Key.description,
+            buttons: {
+                BottomAlertButton(
+                    text: Loc.backUpKey,
+                    style: .secondary
+                ) {
+                    callOnBackupTap = true
+                    dismiss()
+                }
+                
+                BottomAlertButton(
+                    text: Loc.logOut,
+                    style: .warning
+                ) {
+                    try await model.onLogoutTap()
+                }
             }
         )
+        .onDisappear {
+            // Fix swiftui navigation when we open next screen after dismiss this
+            if callOnBackupTap {
+                model.onBackupTap()
+            }
+        }
     }
 }

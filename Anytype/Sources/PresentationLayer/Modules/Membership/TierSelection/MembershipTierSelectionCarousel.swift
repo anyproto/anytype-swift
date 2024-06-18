@@ -8,7 +8,6 @@ struct MembershipTierSelectionCarousel: View {
     private let allTiers: [MembershipTier]
     
     private let onSuccessfulPurchase: (MembershipTier) -> ()
-    private let showEmailVerification: (EmailVerificationData) -> ()
     
     @State private var selection: MembershipTier.ID
     
@@ -16,15 +15,14 @@ struct MembershipTierSelectionCarousel: View {
         userMembership: MembershipStatus,
         allTiers: [MembershipTier],
         tierToDisplay: MembershipTier,
-        showEmailVerification: @escaping (EmailVerificationData) -> (),
         onSuccessfulPurchase: @escaping (MembershipTier) -> ()
         
     ) {
         self.userMembership = userMembership
         self.allTiers = allTiers
-        self.showEmailVerification = showEmailVerification
         self.onSuccessfulPurchase = onSuccessfulPurchase
         _selection = State(initialValue: tierToDisplay.id)
+        AnytypeAnalytics.instance().logScreenMembership(tier: tierToDisplay)
     }
     
     var body: some View {
@@ -33,7 +31,6 @@ struct MembershipTierSelectionCarousel: View {
                 MembershipTierSelectionView(
                     userMembership: userMembership,
                     tierToDisplay: tier,
-                    showEmailVerification: showEmailVerification,
                     onSuccessfulPurchase: onSuccessfulPurchase
                 ).id(tier.id)
             }
@@ -48,7 +45,13 @@ struct MembershipTierSelectionCarousel: View {
             )
             .padding()
         }
-        .ignoresSafeArea()
+        .ignoresSafeArea(.container)
+        
+        .onChange(of: selection) { selection in
+            if let tier = allTiers.first(where: { $0.id == selection }) {
+                AnytypeAnalytics.instance().logScreenMembership(tier: tier)
+            }
+        }
     }
 }
 
@@ -58,7 +61,6 @@ struct MembershipTierSelectionCarousel: View {
             userMembership: .empty,
             allTiers: [ .mockExplorer, .mockBuilder, .mockCoCreator ],
             tierToDisplay: .mockBuilder,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
     }

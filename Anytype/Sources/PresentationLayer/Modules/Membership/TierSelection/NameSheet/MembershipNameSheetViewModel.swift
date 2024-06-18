@@ -4,21 +4,6 @@ import AnytypeCore
 import StoreKit
 
 
-enum MembershipNameSheetViewState {
-    case `default`
-    case validating
-    case error(text: String)
-    case validated
-    
-    var isValidated: Bool {
-        if case .validated = self {
-            return true
-        } else {
-            return false
-        }
-    }
-}
-
 enum MembershipAnyNameAvailability {
     case notAvailable
     case availableForPruchase
@@ -28,12 +13,10 @@ enum MembershipAnyNameAvailability {
 
 @MainActor
 final class MembershipNameSheetViewModel: ObservableObject {
-    @Published var state = MembershipNameSheetViewState.default
+    @Published var isNameValidated = false
+    
     let tier: MembershipTier
     let anyName: AnyName
-    
-    @Injected(\.storeKitService)
-    private var storeKitService: StoreKitServiceProtocol
     
     var anyNameAvailability: MembershipAnyNameAvailability {
         switch tier.anyName {
@@ -53,26 +36,17 @@ final class MembershipNameSheetViewModel: ObservableObject {
         case .notAvailable, .alreadyBought:
             true
         case .availableForPruchase:
-            state.isValidated
+            isNameValidated
         }
     }
     
-    var minimumNumberOfCharacters: UInt32 {
-        switch tier.anyName {
-        case .none:
-            anytypeAssertionFailure("Unsupported tier for name selection \(tier)")
-            return .max
-        case .some(let minLenght):
-            return minLenght
-        }
-    }
-    
-    @Injected(\.membershipService)
-    private var memberhsipService: MembershipServiceProtocol
-    
-    private var validationTask: Task<(), any Error>?
     private let product: Product
     private let onSuccessfulPurchase: (MembershipTier) -> ()
+    
+    @Injected(\.storeKitService)
+    private var storeKitService: StoreKitServiceProtocol
+    @Injected(\.membershipService)
+    private var membershipService: MembershipServiceProtocol
     
     init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         self.tier = tier
@@ -80,39 +54,14 @@ final class MembershipNameSheetViewModel: ObservableObject {
         self.product = product
         self.onSuccessfulPurchase = onSuccessfulPurchase
     }
-    
-    func validateName(name: String) {
-        state = .default
         
-        if name.count >= minimumNumberOfCharacters {
-            resolveName(name: name)
-        }
-    }
-    
-    private func resolveName(name: String) {
-        validationTask?.cancel()
-        state = .validating
+    func purchase(name: String) async throws {
+        guard canBuyTier else { return }
         
-        validationTask = Task {
-            try await Task.sleep(seconds: 0.5)
-            try Task.checkCancellation()
-            
-            do {
-                try await memberhsipService.validateName(name: name, tierType: tier.type)
-                state = .validated
-            } catch let error as MembershipServiceProtocol.ValidateNameError {
-                state = .error(text: error.validateNameSheetError)
-            } catch let error {
-                state = .error(text: error.localizedDescription)
-            }
-        }
-    }
-        
-    func purchase() async throws {
-        try await storeKitService.purchase(product: product)
-        
-        AnytypeAnalytics.instance().logChangePlan(tier: tier)
+        let billingId = try await membershipService.getBillingId(name: name, tier: tier)
+        let result = try await storeKitService.purchase(product: product, billingId: billingId)
         
         onSuccessfulPurchase(tier)
+        try result.throwErrorIfNeeded()
     }
 }

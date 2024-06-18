@@ -34,11 +34,11 @@ extension BaseDocumentProtocol {
         
         
         if let anytypeWidgetId = AnytypeWidgetId(rawValue: link.targetBlockID) {
-            return BlockWidgetInfo(block: widget, source: .library(anytypeWidgetId))
+            return BlockWidgetInfo(id: block.id, block: widget, source: .library(anytypeWidgetId))
         }
 
         if let contentDetails = detailsStorage.get(id: link.targetBlockID) {
-            return BlockWidgetInfo(block: widget, source: .object(contentDetails))
+            return BlockWidgetInfo(id: block.id, block: widget, source: .object(contentDetails))
         }
         
         return nil

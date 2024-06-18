@@ -7,54 +7,29 @@ import AnytypeCore
 
 final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var viewController: UIViewController?
-    private let navigationContext: NavigationContextProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
-    private let addNewRelationCoordinator: AddNewRelationCoordinatorProtocol
     private let document: BaseDocumentProtocol
-    private let templatesCoordinator: TemplatesCoordinatorProtocol
-    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let urlOpener: URLOpenerProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
-    private let toastPresenter: ToastPresenterProtocol
-    private let newSearchModuleAssembly: NewSearchModuleAssemblyProtocol
-    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol
-    private let templateService: TemplatesServiceProtocol
+    @Injected(\.legacyTemplatesCoordinator)
+    private var templatesCoordinator: TemplatesCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationSettingsCoordinator)
+    private var setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
     private weak var output: EditorPageModuleOutput?
+    
+    @Injected(\.templatesService)
+    private var templateService: TemplatesServiceProtocol
 
     init(
         viewController: UIViewController,
-        navigationContext: NavigationContextProtocol,
         document: BaseDocumentProtocol,
-        addNewRelationCoordinator: AddNewRelationCoordinatorProtocol,
-        templatesCoordinator: TemplatesCoordinatorProtocol,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        urlOpener: URLOpenerProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        newSearchModuleAssembly: NewSearchModuleAssemblyProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        textIconPickerModuleAssembly: TextIconPickerModuleAssemblyProtocol,
-        templateService: TemplatesServiceProtocol,
         output: EditorPageModuleOutput?
     ) {
         self.viewController = viewController
-        self.navigationContext = navigationContext
         self.document = document
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
-        self.addNewRelationCoordinator = addNewRelationCoordinator
-        self.templatesCoordinator = templatesCoordinator
-        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.urlOpener = urlOpener
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
-        self.toastPresenter = toastPresenter
-        self.newSearchModuleAssembly = newSearchModuleAssembly
-        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
-        self.textIconPickerModuleAssembly = textIconPickerModuleAssembly
-        self.templateService = templateService
         self.output = output
         
         super.init()
@@ -109,10 +84,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
             popoverPresentationController.permittedArrowDirections = [.up, .down]
             navigationContext.present(hostViewController)
         }
-    }
-    
-    func openUrl(_ url: URL) {
-        urlOpener.openUrl(url)
     }
     
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ()) {
@@ -197,55 +168,37 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ()) {
         let excludedLayouts = DetailsLayout.fileLayouts + [.set, .collection]
-        let moveToView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let data = BlockObjectSearchData(
             title: Loc.moveTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: excludedLayouts
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.present(moveToView)
+            excludedLayouts: excludedLayouts,
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
     func showLinkTo(onSelect: @escaping (ObjectDetails) -> ()) {
-        let moduleView = newSearchModuleAssembly.blockObjectsSearchModule(
+        let data = BlockObjectSearchData(
             title: Loc.linkTo,
             spaceId: document.spaceId,
             excludedObjectIds: [document.objectId],
-            excludedLayouts: []
-        ) { [weak self] details in
-            onSelect(details)
-            self?.navigationContext.dismissTopPresented()
-        }
-
-        navigationContext.presentSwiftUIView(view: moduleView)
+            excludedLayouts: [],
+            onSelect: onSelect
+        )
+        output?.showBlockObjectSearch(data: data)
     }
 
     func showTextIconPicker(contextId: String, objectId: String) {
-        let moduleView = textIconPickerModuleAssembly.make(
-            contextId: contextId,
-            objectId: objectId,
-            // In feature space id should be read from blockInfo, when we will create "link to" between sapces
-            spaceId: document.spaceId,
-            onDismiss: { [weak self] in
-                self?.navigationContext.dismissTopPresented()
-            }
-        )
-
-        navigationContext.present(moduleView)
+        // In feature space id should be read from blockInfo, when we will create "link to" between sapces
+        output?.showTextIconPicker(data: TextIconPickerData(contextId: contextId, objectId: objectId, spaceId: document.spaceId))
     }
     
     func showTypes(selectedObjectId: String?, onSelect: @escaping (ObjectType) -> ()) {
-        let view = objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+        let view = ObjectTypeSearchView(
             title: Loc.changeType,
             spaceId: document.spaceId,
-            showPins: false,
-            showLists: false,
-            showFiles: false,
-            incudeNotForCreation: false
+            settings: .editorChangeType
         ) { [weak self] type in
             self?.navigationContext.dismissTopPresented()
             onSelect(type)
@@ -258,9 +211,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         selectedObjectId: String?,
         onSelect: @escaping (TypeSelectionResult) -> ()
     ) {
-        let view = objectTypeSearchModuleAssembly.makeTypeSearchForNewObjectCreation(
+        let view = ObjectTypeSearchView(
             title: Loc.changeType,
-            spaceId: document.spaceId
+            spaceId: document.spaceId,
+            settings: .newObjectCreation
         ) { [weak self] result in
             self?.navigationContext.dismissTopPresented()
             onSelect(result)
@@ -317,7 +271,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
 
     // MARK: - Settings
     func showSettings() {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: self
         )
@@ -326,7 +280,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showSettings(output: ObjectSettingsCoordinatorOutput?) {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: output
         )
@@ -335,8 +289,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     }
     
     func showIconPicker(document: BaseDocumentGeneralProtocol) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        output?.showIconPicker(document: document)
     }
 
     func showColorPicker(
@@ -402,10 +355,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         }
     }
     
-    func showFailureToast(message: String) {
-        toastPresenter.showFailureAlert(message: message)
-    }
-    
     @MainActor
     func showTemplatesPicker() {
         templatesCoordinator.showTemplatesPicker(
@@ -414,6 +363,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
                 self?.didTapUseTemplateAsDefault(templateId: templateId)
             }
         )
+    }
+    
+    func didUndoRedo() {
+        output?.didUndoRedo()
     }
 
     // MARK: - Private
@@ -449,16 +402,8 @@ extension EditorRouter {
     }
 
     @MainActor
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    ) {
-        addNewRelationCoordinator.showAddNewRelationView(
-            document: document,
-            excludedRelationsIds: document.parsedRelations.installed.map(\.id),
-            target: .object,
-            onCompletion: onSelect
-        )
+    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+        output?.showAddNewRelationView(document: document, onSelect: onSelect)
     }
 }
 

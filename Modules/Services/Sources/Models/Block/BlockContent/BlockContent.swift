@@ -27,8 +27,7 @@ public enum BlockContent: Hashable {
         case let .file(file):
             return .file(
                 FileBlockContentData(
-                    contentType: file.contentType,
-                    fileExt: file.metadata.fileExt
+                    contentType: file.contentType
                 )
             )
         case let .divider(divider):

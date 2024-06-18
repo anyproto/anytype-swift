@@ -6,9 +6,10 @@ struct DragAndDropVerticalDelegate<Data>: DropDelegate where Data: Identifiable<
     let data: [Data]
     @Binding var dragState: DragState
     @Binding var dropState: DropState<Data>
+    let framesStorage: DragAndDropFrames
     let dropUpdate: (_ from: DropDataElement<Data>, _ to: DropDataElement<Data>) -> Void
     let dropFinish: (_ from: DropDataElement<Data>, _ to: DropDataElement<Data>) -> Void
-        
+    
     func dropEntered(info: DropInfo) {
         dragState.dragInProgress = true
         UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
@@ -17,12 +18,12 @@ struct DragAndDropVerticalDelegate<Data>: DropDelegate where Data: Identifiable<
     func dropUpdated(info: DropInfo) -> DropProposal? {
         
         guard let dragInitiatedId = dragState.dragInitiateId,
-            let (toItemId, toItemFrame) = dragState.frames.first(where: { $0.value.contains(info.location) }),
+              let (toItemId, toItemFrame) = framesStorage.frames.first(where: { $0.value.contains(info.location) }),
               let toIndex = data.firstIndex(where: { $0.id == toItemId }),
               let fromIndex = data.firstIndex(where: { $0.id == dragInitiatedId }),
               let toItem = data[safe: toIndex],
               let fromItem = data[safe: fromIndex],
-              let fromItemFrame = dragState.frames[dragInitiatedId]
+              let fromItemFrame = framesStorage.frames[dragInitiatedId]
                 else {
             return DropProposal(operation: .move)
         }

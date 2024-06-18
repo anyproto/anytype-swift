@@ -13,20 +13,8 @@ extension BlockFile {
             newData.state = newState
         }
         
-        if data.hasName {
-            newData.metadata.name = data.name.value
-        }
-        
         if data.hasTargetObjectID {
             newData.metadata.targetObjectId = data.targetObjectID.value
-        }
-        
-        if data.hasMime {
-            newData.metadata.mime = data.mime.value
-        }
-        
-        if data.hasSize {
-            newData.metadata.size = data.size.value
         }
         
         return newData

@@ -47,8 +47,8 @@ final class AuthService: AuthServiceProtocol {
         let middleTime = Int(((CFAbsoluteTimeGetCurrent() - start) * 1_000)) // milliseconds
         
         let analyticsId = account.info.analyticsId
-        AnytypeAnalytics.instance().setUserId(analyticsId)
-        AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
+        await AnytypeAnalytics.instance().setUserId(analyticsId)
+        await AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountCreate(analyticsId: analyticsId, middleTime: middleTime)
         AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
@@ -79,8 +79,8 @@ final class AuthService: AuthServiceProtocol {
         )
         
         let analyticsId = account.info.analyticsId
-        AnytypeAnalytics.instance().setUserId(analyticsId)
-        AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
+        await AnytypeAnalytics.instance().setUserId(analyticsId)
+        await AnytypeAnalytics.instance().setNetworkId(account.info.networkId)
         AnytypeAnalytics.instance().logAccountOpen(analyticsId: analyticsId)
         await appErrorLoggerConfiguration.setUserId(analyticsId)
         

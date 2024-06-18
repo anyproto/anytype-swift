@@ -9,16 +9,16 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
         currentTimeInSeconds
     }
 
-    var duration: Double {
-        playerItem?.asset.duration.seconds ?? 0
-    }
-
     var isPlaying: Bool {
         audioPlayer.isPlaying(audioId: info.id)
     }
     
-    var isPlayable: Bool {
-        playerItem?.asset.isPlayable ?? false
+    func duration() async -> Double {
+        (try? await playerItem?.asset.load(.duration).seconds) ?? 0
+    }
+    
+    func isPlayable() async -> Bool {
+        (try? await playerItem?.asset.load(.isPlayable)) ?? false
     }
 
     func playButtonDidPress(sliderValue: Double) {
@@ -31,7 +31,7 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
             setAudioSessionCategorypPlayback()
             audioPlayer.play(
                 audioId: info.id,
-                name: fileData.metadata.name,
+                name: document.targetFileDetails(targetObjectId: fileData.metadata.targetObjectId)?.name ?? "",
                 playerItem: playerItem,
                 seekTime: sliderValue,
                 delegate: self

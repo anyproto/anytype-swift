@@ -8,21 +8,22 @@ final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let document: BaseDocumentProtocol
-    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let cursorManager: EditorCursorManager
     private weak var textView: UITextView?
+    
+    @Injected(\.pasteboardBlockDocumentService)
+    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    
     
     init(
         document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document
         self.actionHandler = actionHandler
         self.router = router
-        self.pasteboardService = pasteboardService
         self.cursorManager = cursorManager
     }
     
@@ -59,9 +60,7 @@ final class SlashMenuActionHandler {
                     )
                     .flatMap { objectId in
                         AnytypeAnalytics.instance().logCreateObject(objectType: object.analyticsType, spaceId: object.spaceId, route: .powertool)
-                        router.showEditorScreen(
-                            data: .page(EditorPageObject(objectId: objectId, spaceId: object.spaceId, isOpenedForPreview: false))
-                        )
+                        router.showEditorScreen(data: editorScreenData(objectId: objectId, objectDetails: object))
                     }
             }
         case let .relations(action):
@@ -95,6 +94,15 @@ final class SlashMenuActionHandler {
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
         case let .background(color):
             actionHandler.setBackgroundColor(color, blockIds: [blockInformation.id])
+        }
+    }
+    
+    private func editorScreenData(objectId: String, objectDetails: ObjectDetails) -> EditorScreenData {
+        let objectType = ObjectType(details: objectDetails)
+        if objectType.isListType {
+            return .set(EditorSetObject(objectId: objectId, spaceId: objectType.spaceId))
+        } else {
+            return .page(EditorPageObject(objectId: objectId, spaceId: objectType.spaceId, isOpenedForPreview: false))
         }
     }
     

@@ -4,26 +4,27 @@ import AnytypeCore
 import StoreKit
 
 
-public typealias MiddlewareMemberhsipStatus = Anytype_Model_Membership
-
-enum MembershipServiceError: Error {
+public enum MembershipServiceError: Error {
     case tierNotFound
+    case forcefullyFailedValidation
+    case invalidBillingIdFormat
 }
 
-
 public protocol MembershipServiceProtocol {
-    func getMembership() async throws -> MembershipStatus
-    func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus
+    func getMembership(noCache: Bool) async throws -> MembershipStatus
     
-    func getTiers(noCache: Bool) async throws -> [MembershipTier]
-    func dropTiersCache() async throws
+    func getTiers(noCache: Bool) async throws -> [MembershipTier]    
     
-    
-    func getVerificationEmail(data: EmailVerificationData) async throws
+    func getVerificationEmail(email: String) async throws
     func verifyEmailCode(code: String) async throws
     
     typealias ValidateNameError = Anytype_Rpc.Membership.IsNameValid.Response.Error
     func validateName(name: String, tierType: MembershipTierType) async throws
+    
+    func getBillingId(name: String, tier: MembershipTier) async throws -> UUID
+    func verifyReceipt(receipt: String) async throws
+    
+    func finalizeMembership(name: String) async throws
 }
 
 public extension MembershipServiceProtocol {
@@ -34,47 +35,56 @@ public extension MembershipServiceProtocol {
 
 final class MembershipService: MembershipServiceProtocol {
     
-    public func getMembership() async throws -> MembershipStatus {
-        let status = try await ClientCommands.membershipGetStatus().invoke().data
-        return try await makeMembershipFromMiddlewareModel(membership: status)
-    }
+    @Injected(\.membershipModelBuilder)
+    private var builder: MembershipModelBuilderProtocol
     
-    public func makeMembershipFromMiddlewareModel(membership: MiddlewareMemberhsipStatus) async throws -> MembershipStatus {
-        let tier = try await getTiers().first { $0.type.id == membership.tier }
+    public func getMembership(noCache: Bool) async throws -> MembershipStatus {
+        let status = try await ClientCommands.membershipGetStatus(.with {
+            $0.noCache = noCache
+        }).invoke(ignoreLogErrors: .canNotConnect).data
         
-        if tier == nil, membership.tier != 0 {
-            anytypeAssertionFailure("Not found tier info for \(membership)")
-            throw MembershipServiceError.tierNotFound
-        }
+        let tiers = try await getAllTiers(noCache: noCache)
         
-        return convertMiddlewareMembership(membership: membership, tier: tier)
+        return try builder.buildMembershipStatus(membership: status, allTiers: tiers)
     }
     
     public func getTiers(noCache: Bool) async throws -> [MembershipTier] {
+        guard FeatureFlags.hideCoCreator else {
+            return try await getAllTiers(noCache: noCache)
+        }
+        
+        let allTiers = try await getAllTiers(noCache: noCache)
+        let membership = try await getMembership(noCache: noCache)
+        
+        if membership.tier?.id == .coCreator {
+            return allTiers
+        } else {
+            return allTiers.filter { $0.type != .coCreator }
+        }
+    }
+    
+    // tiers without filtered CoCreator
+    private func getAllTiers(noCache: Bool) async throws -> [MembershipTier] {
         return try await ClientCommands.membershipGetTiers(.with {
             $0.locale = Locale.current.languageCode ?? "en"
             $0.noCache = noCache
         })
-        .invoke().tiers
+        .invoke(ignoreLogErrors: .canNotConnect).tiers
         .filter { FeatureFlags.membershipTestTiers || !$0.isTest }
-        .asyncMap { await buildMemberhsipTier(tier: $0) }.compactMap { $0 }
+        .asyncMap { await builder.buildMembershipTier(tier: $0) }.compactMap { $0 }
     }
     
-    func dropTiersCache() async throws {
-        _ = try await getTiers(noCache: true)
-    }
-    
-    public func getVerificationEmail(data: EmailVerificationData) async throws {
+    public func getVerificationEmail(email: String) async throws {
         try await ClientCommands.membershipGetVerificationEmail(.with {
-            $0.email = data.email
-            $0.subscribeToNewsletter = data.subscribeToNewsletter
-        }).invoke()
+            $0.email = email
+            $0.subscribeToNewsletter = true
+        }).invoke(ignoreLogErrors: .canNotConnect)
     }
     
     public func verifyEmailCode(code: String) async throws {
         try await ClientCommands.membershipVerifyEmailCode(.with {
             $0.code = code
-        }).invoke(ignoreLogErrors: .wrong)
+        }).invoke(ignoreLogErrors: .wrong, .canNotConnect)
     }
     
     public func validateName(name: String, tierType: MembershipTierType) async throws {
@@ -82,67 +92,40 @@ final class MembershipService: MembershipServiceProtocol {
             $0.nsName = name
             $0.nsNameType = .anyName
             $0.requestedTier = tierType.id
-        }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort)
+        }).invoke(ignoreLogErrors: .hasInvalidChars, .tooLong, .tooShort, .canNotConnect)
     }
     
-    // MARK: - Private
-    private func convertMiddlewareMembership(membership: MiddlewareMemberhsipStatus, tier: MembershipTier?) -> MembershipStatus {
-        if let tier {
-            anytypeAssert(tier.type.id == membership.tier, "\(tier) and \(membership) does not match an id")
-        }
+    public func getBillingId(name: String, tier: MembershipTier) async throws -> UUID {
+        let billingId = try await ClientCommands.membershipRegisterPaymentRequest(.with {
+            $0.nsName = name
+            $0.nsNameType = .anyName
+            $0.paymentMethod = .methodInappApple
+            $0.requestedTier = tier.type.id
+        })
+            .invoke(ignoreLogErrors: .canNotConnect)
+            .billingID
         
-        return MembershipStatus(
-            tier: tier,
-            status: membership.status,
-            dateEnds: Date(timeIntervalSince1970: TimeInterval(membership.dateEnds)),
-            paymentMethod: membership.paymentMethod,
-            anyName: AnyName(handle: membership.nsName, extension: membership.nsNameType)
-        )
-    }
+        guard let uuid = UUID(uuidString: billingId) else {
+            throw MembershipServiceError.invalidBillingIdFormat
+        }
 
-    private func buildMemberhsipTier(tier: Anytype_Model_MembershipTierData) async -> MembershipTier? {
-        guard let type = MembershipTierType(intId: tier.id) else { return nil } // ignore 0 tier
-        guard let paymentType = await buildMembershipPaymentType(type: type, tier: tier) else { return nil }
-        
-        let anyName: MembershipAnyName = tier.anyNamesCountIncluded > 0 ? .some(minLenght: tier.anyNameMinLength) : .none
-        
-        return MembershipTier(
-            type: type,
-            name: tier.name,
-            anyName: anyName,
-            features: tier.features,
-            paymentType: paymentType,
-            color: MembershipColor(string: tier.colorStr)
-        )
+        return uuid
     }
     
-    private func buildMembershipPaymentType(
-        type: MembershipTierType,
-        tier: Anytype_Model_MembershipTierData
-    ) async -> MembershipTierPaymentType? {
-        guard type != .explorer else { return .email }
-        
-        if tier.iosProductID.isNotEmpty {
-            do {
-                let product = try await Product.products(for: [tier.iosProductID])
-                guard let product = product.first else {
-                    anytypeAssertionFailure("Not found product for id \(tier.iosProductID)")
-                    return nil
-                }
-                
-                return .appStore(product: product)
-            } catch {
-                anytypeAssertionFailure("Get products error", info: ["error": error.localizedDescription])
-                return nil
-            }
-        } else {
-            let info = StripePaymentInfo(
-                periodType: tier.periodType,
-                periodValue: tier.periodValue,
-                priceInCents: tier.priceStripeUsdCents,
-                paymentUrl: URL(string: tier.iosManageURL) ?? URL(string: "https://anytype.io/pricing")!
-            )
-            return .external(info: info)
+    public func verifyReceipt(receipt: String) async throws {
+        guard !FeatureFlags.failReceiptValidation else {
+            throw MembershipServiceError.forcefullyFailedValidation
         }
+        
+        try await ClientCommands.membershipVerifyAppStoreReceipt(.with {
+            $0.receipt = receipt
+        }).invoke()
+    }
+    
+    public func finalizeMembership(name: String) async throws {
+        try await ClientCommands.membershipFinalize(.with {
+            $0.nsName = name
+            $0.nsNameType = .anyName
+        }).invoke()
     }
 }

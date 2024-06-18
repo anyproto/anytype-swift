@@ -13,31 +13,35 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - DI
     
-    private let homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let defaultObjectService: DefaultObjectCreationServiceProtocol
-    private let blockService: BlockServiceProtocol
-    private let pasteboardBlockService: PasteboardBlockServiceProtocol
-    private let typeProvider: ObjectTypeProviderProtocol
-    private let appActionsStorage: AppActionStorage
-    private let spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol
-    private let spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol
-    private let editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol
-    private let homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol
-    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let workspacesStorage: WorkspacesStorageProtocol
-    private let documentsProvider: DocumentsProviderProtocol
-    private let setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol
-    private let sharingTipCoordinator: SharingTipCoordinatorProtocol
-    private let typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.pasteboardBlockService)
+    private var pasteboardBlockService: PasteboardBlockServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var typeProvider: ObjectTypeProviderProtocol
+    @Injected(\.appActionStorage)
+    private var appActionsStorage: AppActionStorage
+    @Injected(\.workspaceStorage)
+    private var workspacesStorage: WorkspacesStorageProtocol
+    @Injected(\.documentsProvider)
+    private var documentsProvider: DocumentsProviderProtocol
+    
+    @Injected(\.legacySetObjectCreationCoordinator)
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    @Injected(\.legacySharingTip)
+    private var sharingTipCoordinator: SharingTipCoordinatorProtocol
     
     // MARK: - State
     
     private var viewLoaded = false
     private var subscriptions = [AnyCancellable]()
     private var paths = [String: HomePath]()
-    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol?
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
@@ -50,6 +54,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showSharing: Bool = false
     @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
+    @Published var showMembershipNameSheet: MembershipTier?
+    
     @Published var editorPath = HomePath() {
         didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
     }
@@ -73,45 +79,19 @@ final class HomeCoordinatorViewModel: ObservableObject,
             }
         )
     }
+    
+    private var membershipStatusSubscription: AnyCancellable?
 
-    init(
-        homeWidgetsModuleAssembly: HomeWidgetsModuleAssemblyProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        defaultObjectService: DefaultObjectCreationServiceProtocol,
-        blockService: BlockServiceProtocol,
-        pasteboardBlockService: PasteboardBlockServiceProtocol,
-        typeProvider: ObjectTypeProviderProtocol,
-        appActionsStorage: AppActionStorage,
-        spaceSwitchCoordinatorAssembly: SpaceSwitchCoordinatorAssemblyProtocol,
-        spaceSettingsCoordinatorAssembly: SpaceSettingsCoordinatorAssemblyProtocol,
-        editorCoordinatorAssembly: EditorCoordinatorAssemblyProtocol,
-        homeBottomNavigationPanelModuleAssembly: HomeBottomNavigationPanelModuleAssemblyProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        workspacesStorage: WorkspacesStorageProtocol,
-        documentsProvider: DocumentsProviderProtocol,
-        setObjectCreationCoordinatorAssembly: SetObjectCreationCoordinatorAssemblyProtocol,
-        sharingTipCoordinator: SharingTipCoordinatorProtocol,
-        typeSearchCoordinatorAssembly: TypeSearchForNewObjectCoordinatorAssemblyProtocol
-    ) {
-        self.homeWidgetsModuleAssembly = homeWidgetsModuleAssembly
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.objectActionsService = objectActionsService
-        self.defaultObjectService = defaultObjectService
-        self.blockService = blockService
-        self.pasteboardBlockService = pasteboardBlockService
-        self.typeProvider = typeProvider
-        self.appActionsStorage = appActionsStorage
-        self.spaceSwitchCoordinatorAssembly = spaceSwitchCoordinatorAssembly
-        self.spaceSettingsCoordinatorAssembly = spaceSettingsCoordinatorAssembly
-        self.editorCoordinatorAssembly = editorCoordinatorAssembly
-        self.homeBottomNavigationPanelModuleAssembly = homeBottomNavigationPanelModuleAssembly
-        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
-        self.workspacesStorage = workspacesStorage
-        self.documentsProvider = documentsProvider
-        self.setObjectCreationCoordinatorAssembly = setObjectCreationCoordinatorAssembly
-        self.sharingTipCoordinator = sharingTipCoordinator
-        self.typeSearchCoordinatorAssembly = typeSearchCoordinatorAssembly
+    init() {
+        
+        membershipStatusSubscription = Container.shared
+            .membershipStatusStorage.resolve()
+            .statusPublisher.receiveOnMain()
+            .sink { [weak self] membership in
+                guard membership.status == .pendingRequiresFinalization else { return }
+                
+                self?.showMembershipNameSheet = membership.tier
+            }
     }
 
     func onAppear() {
@@ -142,28 +122,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
         self.dismissAllPresented = dismissAllPresented
     }
     
-    func homeWidgetsModule(info: AccountInfo) -> AnyView? {
-        return homeWidgetsModuleAssembly.make(info: info, output: self, widgetOutput: self)
-    }
-    
-    func homeBottomNavigationPanelModule(info: AccountInfo) -> AnyView {
-        return homeBottomNavigationPanelModuleAssembly.make(homePath: editorPath, info: info, output: self)
-    }
-    
-    func createSpaceSwitchModule() -> AnyView {
-        return spaceSwitchCoordinatorAssembly.make()
-    }
-    
-    func createSpaceSeetingsModule() -> AnyView {
-        return spaceSettingsCoordinatorAssembly.make()
-    }
-
-    func editorModule(data: EditorScreenData) -> AnyView {
-        return editorCoordinatorAssembly.make(data: data)
-    }
-
-    func typeSearchForObjectCreationModule() -> AnyView {
-        typeSearchCoordinatorAssembly.make { [weak self] details in
+    func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
+        TypeSearchForNewObjectCoordinatorView { [weak self] details in
             guard let self else { return }
             openObject(screenData: details.editorScreenData())
         }
@@ -221,8 +181,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
-        setObjectCreationCoordinator = setObjectCreationCoordinatorAssembly.make()
-        setObjectCreationCoordinator?.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
+        setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     
     func onManageSpacesSelected() {
@@ -356,9 +315,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
-            if FeatureFlags.multiplayer {
-                spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
-            }
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
         case .object(let objectId, _):
             let document = documentsProvider.document(objectId: objectId, forPreview: true)
             try await document.openForPreview()

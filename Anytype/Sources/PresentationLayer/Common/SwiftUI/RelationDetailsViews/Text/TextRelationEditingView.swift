@@ -6,6 +6,10 @@ struct TextRelationEditingView: View {
     @StateObject var viewModel: TextRelationEditingViewModel
     @Environment(\.dismiss) var dismiss
     
+    init(data: TextRelationEditingViewData) {
+        _viewModel = StateObject(wrappedValue: TextRelationEditingViewModel(data: data))
+    }
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -72,13 +76,8 @@ struct TextRelationEditingView: View {
     
     @ViewBuilder
     private var textField: some View {
-        if #available(iOS 16.0, *) {
-            TextField(viewModel.type.placeholder, text: $viewModel.text, axis: .vertical)
-                .lineLimit(1...10)
-        } else {
-            TextField(viewModel.type.placeholder, text: $viewModel.text)
-                .frame(height: 48)
-        }
+        TextField(viewModel.type.placeholder, text: $viewModel.text, axis: .vertical)
+            .lineLimit(1...10)
     }
     
     @ViewBuilder
@@ -111,10 +110,10 @@ struct TextRelationEditingView: View {
     
     private var buttons: some View {
         VStack(spacing: 0) {
-            if viewModel.actionsViewModel.isNotEmpty {
+            if viewModel.actionsViewModels.isNotEmpty {
                 Spacer.fixedHeight(12)
             }
-            ForEach(viewModel.actionsViewModel, id: \.id) { model in
+            ForEach(viewModel.actionsViewModels, id: \.id) { model in
                 Divider()
                 Button {
                     model.performAction()
@@ -142,13 +141,12 @@ struct TextRelationEditingView: View {
 
 #Preview {
     TextRelationEditingView(
-        viewModel: TextRelationEditingViewModel(
+        data: .init(
             text: nil, 
             type: .text,
             config: RelationModuleConfiguration.default,
-            actionsViewModel: [],
-            service: DI.preview.serviceLocator.textRelationEditingService(), 
-            pasteboardHelper: DI.preview.serviceLocator.pasteboardHelper()
+            objectDetails: .deleted,
+            output: nil
         )
     )
 }

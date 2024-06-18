@@ -21,6 +21,9 @@ internal enum Loc {
   internal static let addLink = Loc.tr("Localizable", "Add link")
   internal static let addPhone = Loc.tr("Localizable", "Add phone")
   internal static let addToFavorite = Loc.tr("Localizable", "Add To Favorite")
+  internal static func agreementDisclamer(_ p1: Any, _ p2: Any) -> String {
+    return Loc.tr("Localizable", "Agreement Disclamer", String(describing: p1), String(describing: p2))
+  }
   internal static let alignCenter = Loc.tr("Localizable", "Align center")
   internal static let alignLeft = Loc.tr("Localizable", "Align left")
   internal static let alignRight = Loc.tr("Localizable", "Align right")
@@ -55,6 +58,7 @@ internal enum Loc {
   internal static let cancel = Loc.tr("Localizable", "Cancel")
   internal static let cancelDeletion = Loc.tr("Localizable", "Cancel deletion")
   internal static let changeCover = Loc.tr("Localizable", "Change cover")
+  internal static let changeEmail = Loc.tr("Localizable", "Change email")
   internal static let changeIcon = Loc.tr("Localizable", "Change icon")
   internal static let changeType = Loc.tr("Localizable", "Change type")
   internal static let changeWallpaper = Loc.tr("Localizable", "Change wallpaper")
@@ -69,6 +73,7 @@ internal enum Loc {
   internal static let collections = Loc.tr("Localizable", "Collections")
   internal static let color = Loc.tr("Localizable", "Color")
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family")
+  internal static let confirm = Loc.tr("Localizable", "Confirm")
   internal static let copied = Loc.tr("Localizable", "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
@@ -106,6 +111,7 @@ internal enum Loc {
   internal static let duplicate = Loc.tr("Localizable", "Duplicate")
   internal static let eMail = Loc.tr("Localizable", "E-mail")
   internal static let edit = Loc.tr("Localizable", "Edit")
+  internal static let emailSuccessfullyValidated = Loc.tr("Localizable", "Email successfully validated")
   internal static let emoji = Loc.tr("Localizable", "Emoji")
   internal static let emojiOrImageForObject = Loc.tr("Localizable", "Emoji or image for object")
   internal static let empty = Loc.tr("Localizable", "Empty")
@@ -320,6 +326,7 @@ internal enum Loc {
   internal static let unsplash = Loc.tr("Localizable", "Unsplash")
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value")
+  internal static let upgrade = Loc.tr("Localizable", "Upgrade")
   internal static let upload = Loc.tr("Localizable", "Upload")
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio")
   internal static let validUntil = Loc.tr("Localizable", "Valid until")
@@ -407,13 +414,6 @@ internal enum Loc {
     internal enum Button {
       internal static let join = Loc.tr("Localizable", "Auth.Button.Join")
     }
-    internal enum Caption {
-      internal enum Privacy {
-        internal static func text(_ p1: Any, _ p2: Any) -> String {
-          return Loc.tr("Localizable", "Auth.Caption.Privacy.Text", String(describing: p1), String(describing: p2))
-        }
-      }
-    }
     internal enum JoinFlow {
       internal enum Key {
         internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Key.Description")
@@ -465,6 +465,11 @@ internal enum Loc {
         internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Description")
         internal static let placeholder = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Placeholder")
         internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Soul.Title")
+      }
+      internal enum Vault {
+        internal static let button = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Button")
+        internal static let description = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Description")
+        internal static let title = Loc.tr("Localizable", "Auth.JoinFlow.Vault.Title")
       }
     }
     internal enum LoginFlow {
@@ -716,6 +721,13 @@ internal enum Loc {
         internal enum Add {
           internal static let searchPlaceholder = Loc.tr("Localizable", "EditSet.Popup.Sort.Add.SearchPlaceholder")
         }
+        internal enum EmptyTypes {
+          internal static let end = Loc.tr("Localizable", "EditSet.Popup.Sort.EmptyTypes.End")
+          internal static let start = Loc.tr("Localizable", "EditSet.Popup.Sort.EmptyTypes.Start")
+          internal enum Section {
+            internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sort.EmptyTypes.Section.Title")
+          }
+        }
         internal enum Types {
           internal static let ascending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Ascending")
           internal static let descending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Descending")
@@ -804,14 +816,6 @@ internal enum Loc {
       internal static func used(_ p1: Any, _ p2: Any) -> String {
         return Loc.tr("Localizable", "FileStorage.Space.Used", String(describing: p1), String(describing: p2))
       }
-      internal enum Mail {
-        internal static func body(_ p1: Any, _ p2: Any, _ p3: Any) -> String {
-          return Loc.tr("Localizable", "FileStorage.Space.Mail.Body", String(describing: p1), String(describing: p2), String(describing: p3))
-        }
-        internal static func subject(_ p1: Any) -> String {
-          return Loc.tr("Localizable", "FileStorage.Space.Mail.Subject", String(describing: p1))
-        }
-      }
     }
   }
   internal enum FilesList {
@@ -834,10 +838,6 @@ internal enum Loc {
       internal static func success(_ p1: Any) -> String {
         return Loc.tr("Localizable", "Gallery.Notification.Success", String(describing: p1))
       }
-    }
-    internal enum Unavailable {
-      internal static let message = Loc.tr("Localizable", "Gallery.Unavailable.Message")
-      internal static let title = Loc.tr("Localizable", "Gallery.Unavailable.Title")
     }
   }
   internal enum Home {
@@ -930,10 +930,8 @@ internal enum Loc {
     }
     internal enum Email {
       internal static let body = Loc.tr("Localizable", "Membership.Email.Body")
-      internal static let subject = Loc.tr("Localizable", "Membership.Email.Subject")
     }
     internal enum EmailForm {
-      internal static let newsletter = Loc.tr("Localizable", "Membership.EmailForm.Newsletter")
       internal static let subtitle = Loc.tr("Localizable", "Membership.EmailForm.Subtitle")
       internal static let title = Loc.tr("Localizable", "Membership.EmailForm.Title")
     }
@@ -976,12 +974,6 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Membership.NameForm.Title")
       internal static let validated = Loc.tr("Localizable", "Membership.NameForm.Validated")
       internal static let validating = Loc.tr("Localizable", "Membership.NameForm.Validating")
-      internal enum Error {
-        internal static let canNotReserve = Loc.tr("Localizable", "Membership.NameForm.Error.CanNotReserve")
-        internal static let hasInvalidChars = Loc.tr("Localizable", "Membership.NameForm.Error.HasInvalidChars")
-        internal static let tooLong = Loc.tr("Localizable", "Membership.NameForm.Error.TooLong")
-        internal static let tooShort = Loc.tr("Localizable", "Membership.NameForm.Error.TooShort")
-      }
     }
     internal enum Payment {
       internal static let appleSubscription = Loc.tr("Localizable", "Membership.Payment.Apple subscription")
@@ -996,6 +988,20 @@ internal enum Loc {
         return Loc.tr("Localizable", "Membership.Success.Title", String(describing: p1))
       }
     }
+    internal enum Upgrade {
+      internal static let button = Loc.tr("Localizable", "Membership.Upgrade.Button")
+      internal static let moreSpaces = Loc.tr("Localizable", "Membership.Upgrade.MoreSpaces")
+      internal static func spacesLimit(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Membership.Upgrade.SpacesLimit", p1)
+      }
+      internal static let text = Loc.tr("Localizable", "Membership.Upgrade.Text")
+      internal static let title = Loc.tr("Localizable", "Membership.Upgrade.Title")
+    }
+  }
+  internal enum MembershipServiceError {
+    internal static let forcefullyFailedValidation = Loc.tr("Localizable", "MembershipServiceError.forcefullyFailedValidation")
+    internal static let invalidBillingIdFormat = Loc.tr("Localizable", "MembershipServiceError.invalidBillingIdFormat")
+    internal static let tierNotFound = Loc.tr("Localizable", "MembershipServiceError.tierNotFound")
   }
   internal enum Mention {
     internal enum Subtitle {
@@ -1164,6 +1170,11 @@ internal enum Loc {
       internal static let sharingExtension = Loc.tr("Localizable", "Relation.Origin.SharingExtension")
       internal static let useCase = Loc.tr("Localizable", "Relation.Origin.UseCase")
       internal static let webClipper = Loc.tr("Localizable", "Relation.Origin.WebClipper")
+    }
+    internal enum Search {
+      internal enum View {
+        internal static let placeholder = Loc.tr("Localizable", "Relation.Search.View.Placeholder")
+      }
     }
     internal enum View {
       internal enum Create {
@@ -1620,6 +1631,10 @@ internal enum Loc {
       internal static let title = Loc.tr("Localizable", "Spaces.Search.Title")
     }
   }
+  internal enum StoreKitServiceError {
+    internal static let needUserAction = Loc.tr("Localizable", "StoreKitServiceError.needUserAction")
+    internal static let userCancelled = Loc.tr("Localizable", "StoreKitServiceError.userCancelled")
+  }
   internal enum StyleMenu {
     internal enum Color {
       internal enum TextColor {
@@ -1699,6 +1714,11 @@ internal enum Loc {
       internal static let duplicated = Loc.tr("Localizable", "Templates.Popup.Duplicated")
       internal static let removed = Loc.tr("Localizable", "Templates.Popup.Removed")
       internal static let wasAddedTo = Loc.tr("Localizable", "Templates.Popup.WasAddedTo")
+      internal enum WasAddedTo {
+        internal static func title(_ p1: Any) -> String {
+          return Loc.tr("Localizable", "Templates.Popup.WasAddedTo.title", String(describing: p1))
+        }
+      }
     }
   }
   internal enum TextStyle {

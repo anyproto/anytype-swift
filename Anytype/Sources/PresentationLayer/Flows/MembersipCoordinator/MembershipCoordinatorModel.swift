@@ -10,7 +10,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var showTiersLoadingError = false
     @Published var showTier: MembershipTier?
     @Published var showSuccess: MembershipTier?
-    @Published var emailVerificationData: EmailVerificationData?
+    @Published var fireConfetti = false
     @Published var emailUrl: URL?
     
     @Injected(\.membershipService)
@@ -21,7 +21,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     private var accountManager: AccountManagerProtocol
     
     init() {
-        membershipStatusStorage.status.assign(to: &$userMembership)
+        membershipStatusStorage.statusPublisher.assign(to: &$userMembership)
         loadTiers()
     }
     
@@ -40,15 +40,6 @@ final class MembershipCoordinatorModel: ObservableObject {
         showTier = tier
     }
     
-    func onEmailDataSubmit(data: EmailVerificationData) {
-        emailVerificationData = data
-    }
-    
-    func onSuccessfulValidation(data: EmailVerificationData) {
-        emailVerificationData = nil
-        showSuccessScreen(tier: data.tier)
-    }
-    
     func onSuccessfulPurchase(tier: MembershipTier) {
         showSuccessScreen(tier: tier)
     }
@@ -57,10 +48,14 @@ final class MembershipCoordinatorModel: ObservableObject {
         showTier = nil
         loadTiers()
         
-        // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
         Task {
+            // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
             try await Task.sleep(seconds: 0.5)
             showSuccess = tier
+            
+            try await Task.sleep(seconds:0.5)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            fireConfetti = true
         }
     }
 }

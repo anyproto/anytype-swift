@@ -14,11 +14,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
     
     let subscriptionId = "Set-\(UUID().uuidString)"
     
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    
-    nonisolated init(activeWorkspaceStorage: ActiveWorkpaceStorageProtocol) {
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-    }
+    nonisolated init() {}
     
     // MARK: - SetSubscriptionDataBuilderProtocol
     
@@ -30,7 +26,7 @@ final class SetSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol {
         let offset = (data.currentPage - 1) * numberOfRowsPerPageInSubscriptions
         
         let defaultFilters = [
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            SearchHelper.spaceId(data.spaceId)
         ]
         
         let filters = data.filters + defaultFilters

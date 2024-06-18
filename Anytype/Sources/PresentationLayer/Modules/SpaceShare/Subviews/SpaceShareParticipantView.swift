@@ -24,7 +24,7 @@ struct SpaceShareParticipantViewModel: Identifiable {
         let title: String
         let isSelected: Bool
         let destructive: Bool
-        let disabled: Bool
+        let enabled: Bool
         let action: () -> Void
     }
 }
@@ -91,7 +91,7 @@ struct SpaceShareParticipantView: View {
                             }
                         }
                     }
-                    .disabled(action.disabled)
+                    .disabled(!action.enabled)
                 }
                 
             } label: {

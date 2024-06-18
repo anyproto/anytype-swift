@@ -3,18 +3,31 @@ import SwiftUI
 
 struct ApplicationCoordinatorView: View {
     
-    @StateObject var model: ApplicationCoordinatorViewModel
+    @StateObject private var model = ApplicationCoordinatorViewModel()
+    @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     var body: some View {
-        applicationView
+        ZStack {
+            applicationView
+        }
         .onAppear {
             model.onAppear()
+            model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
+        }
+        .task {
+            await model.startAppStateHandler()
+        }
+        .task {
+            await model.startAccountStateHandler()
+        }
+        .task {
+            await model.startFileHandler()
         }
         .snackbar(toastBarData: $model.toastBarData)
     }
     
     @ViewBuilder
-    var applicationView: some View {
+    private var applicationView: some View {
         switch model.applicationState {
         case .initial:
             InitialCoordinatorView()
@@ -26,7 +39,7 @@ struct ApplicationCoordinatorView: View {
                 DebugMenuView()
             }
         case .home:
-            model.homeView()
+            HomeCoordinatorView()
         case .delete:
             model.deleteAccount()
         }

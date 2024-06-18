@@ -18,6 +18,7 @@ final class SimpleTableCellsBuilder {
     private let stateManager: SimpleTableStateManager
     private let blockMarkupChanger: BlockMarkupChangerProtocol
     private let accessoryStateManager: AccessoryViewStateManager
+    private weak var moduleOutput: EditorPageModuleOutput?
     
     private var textBlocksMapping = [String: EditorItem]()
     private var emptyBlocksMapping = [String: EditorItem]()
@@ -34,7 +35,8 @@ final class SimpleTableCellsBuilder {
         stateManager: SimpleTableStateManager,
         accessoryStateManager: AccessoryViewStateManager,
         blockMarkupChanger: BlockMarkupChangerProtocol,
-        blockTableService: BlockTableServiceProtocol
+        blockTableService: BlockTableServiceProtocol,
+        moduleOutput: EditorPageModuleOutput?
     ) {
         self.document = document
         self.router = router
@@ -49,6 +51,7 @@ final class SimpleTableCellsBuilder {
         self.blockMarkupChanger = blockMarkupChanger
         self.blockTableService = blockTableService
         self.accessoryStateManager = accessoryStateManager
+        self.moduleOutput = moduleOutput
     }
     
     func buildItems(
@@ -119,8 +122,8 @@ final class SimpleTableCellsBuilder {
             showPage: { [weak self] objectId in
                 self?.router.showPage(objectId: objectId)
             },
-            openURL: { [weak router] url in
-                router?.openUrl(url)
+            openURL: { [weak moduleOutput] url in
+                moduleOutput?.openUrl(url)
             },
             onShowStyleMenu: { [weak stateManager] info in
                 Task { @MainActor [weak stateManager] in

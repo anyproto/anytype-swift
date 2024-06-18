@@ -6,9 +6,13 @@ import AnytypeCore
 struct BlockImageViewModel: BlockViewModelProtocol {
     typealias Action<T> = (_ arg: T) -> Void
     
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    
     var hashable: AnyHashable { info.id }
     
     var info: BlockInformation { blockInformationProvider.info }
+    let documentId: String
     let blockInformationProvider: BlockModelInfomationProvider
     let handler: BlockActionHandlerProtocol
     
@@ -28,11 +32,13 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     }
     
     init?(
+        documentId: String,
         blockInformationProvider: BlockModelInfomationProvider,
         handler: BlockActionHandlerProtocol,
         showIconPicker: @escaping (String) -> (),
         onImageOpen: Action<FilePreviewContext>?
     ) {
+        self.documentId = documentId
         self.blockInformationProvider = blockInformationProvider
         self.handler = handler
         self.showIconPicker = showIconPicker
@@ -89,9 +95,14 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     
     private func didTapOpenImage(_ sender: UIImageView) {
         guard let fileData else { return }
+        let document = documentService.document(objectId: documentId)
+        guard let fileDetails = document.targetFileDetails(targetObjectId: fileData.metadata.targetObjectId) else {
+            anytypeAssertionFailure("File details not found")
+            return
+        }
         onImageOpen?(
             .init(
-                file: ImagePreviewMedia(file: fileData, blockId: info.id, previewImage: sender.image),
+                file: ImagePreviewMedia(file: fileData, blockId: info.id, previewImage: sender.image, fileDetails: fileDetails),
                 sourceView: sender, previewImage: sender.image, onDidEditFile: { url in
                     handler.uploadMediaFile(
                         uploadingSource: .path(url.relativePath),

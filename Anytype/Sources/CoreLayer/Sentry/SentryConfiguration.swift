@@ -28,7 +28,7 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             options.environment = env
         }
         
-        let configProvider = ServiceLocator.shared.middlewareConfigurationProvider()
+        let configProvider = Container.shared.middlewareConfigurationProvider.resolve()
         Task {
             let version = (try? await configProvider.libraryVersion()) ?? "undefined"
             SentrySDK.configureScope { scope in

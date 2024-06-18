@@ -12,6 +12,7 @@ protocol DownloadableContentProtocol {
 extension BlockFile: DownloadableContentProtocol {
     
     var contentUrl: URL? {
+        guard metadata.targetObjectId.isNotEmpty else { return nil }
         switch contentType {
         case .image:
             return ImageMetadata(id: metadata.targetObjectId, width: .original).contentUrl

@@ -23,18 +23,34 @@ public struct MembershipStatus: Equatable {
     public let dateEnds: Date
     public let paymentMethod: MembershipPaymentMethod
     public let anyName: AnyName
+    public let email: String
     
     public init(
         tier: MembershipTier?,
         status: MembershipSubscriptionStatus,
         dateEnds: Date,
         paymentMethod: MembershipPaymentMethod,
-        anyName: AnyName
+        anyName: AnyName,
+        email: String
     ) {
         self.tier = tier
         self.status = status
         self.dateEnds = dateEnds
         self.paymentMethod = paymentMethod
         self.anyName = anyName
+        self.email = email
+    }
+}
+
+extension MembershipStatus: CustomDebugStringConvertible {
+    public var debugDescription: String {
+        """
+Tier: \(tier?.name ?? "None")
+TierId: \(tier?.type.id ?? 0)
+Status: \(status)
+PaymentMethod: \(paymentMethod)
+AnyName: \(anyName.handle)
+Email: \(email)
+"""
     }
 }

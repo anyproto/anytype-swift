@@ -5,18 +5,20 @@ import UIKit
 
 final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
     let didUpdateContentSubject = PassthroughSubject<Void, Never>()
-    var previewItemTitle: String? { file.metadata.name }
+    var previewItemTitle: String? { fileDetails.fileName }
     var previewItemURL: URL?
 
     let file: BlockFile
+    let fileDetails: FileDetails
     private let blockId: String
     private let imageSource: ImageSource
     private let previewImage: UIImage?
     private let semaphore = DispatchSemaphore(value: 1)
     private var cancellables = [AnyCancellable]()
 
-    init(file: BlockFile, blockId: String, previewImage: UIImage?) {
+    init(file: BlockFile, blockId: String, previewImage: UIImage?, fileDetails: FileDetails) {
         self.file = file
+        self.fileDetails = fileDetails
 
         let imageId = ImageMetadata(id: file.metadata.targetObjectId, width: .original)
         self.imageSource = .middleware(imageId)
@@ -25,8 +27,8 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
 
         super.init()
 
-        if FileManager.default.fileExists(atPath: file.originalPath(with: blockId).relativePath) {
-            self.previewItemURL = file.originalPath(with: blockId)
+        if FileManager.default.fileExists(atPath: file.originalPath(blockId: blockId, fileName: fileDetails.fileName).relativePath) {
+            self.previewItemURL = file.originalPath(blockId: blockId, fileName: fileDetails.fileName)
         } else {
             startDownloading()
         }
@@ -66,7 +68,9 @@ final class ImagePreviewMedia: NSObject, PreviewRemoteItem {
             self.semaphore.wait()
 
             do {
-                let path = isPreview ? self.file.previewPath(with: self.blockId) : self.file.originalPath(with: self.blockId)
+                let path = isPreview 
+                    ? self.file.previewPath(blockId: self.blockId, fileName: fileDetails.fileName)
+                    : self.file.originalPath(blockId: self.blockId, fileName: fileDetails.fileName)
 
                 try FileManager.default.createDirectory(
                     at: path.deletingLastPathComponent(),

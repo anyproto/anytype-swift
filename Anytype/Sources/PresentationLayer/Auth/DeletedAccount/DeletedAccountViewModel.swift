@@ -4,15 +4,17 @@ import UIKit
 @MainActor
 final class DeletedAccountViewModel: ObservableObject {
     
-    private let service = ServiceLocator.shared.authService()
+    @Injected(\.authService)
+    private var service: AuthServiceProtocol
     private let deadline: Date
-    private let applicationStateService: ApplicationStateServiceProtocol
+    
+    @Injected(\.applicationStateService)
+    private var applicationStateService: ApplicationStateServiceProtocol
     
     // MARK: - Initializer
     
-    init(deadline: Date, applicationStateService: ApplicationStateServiceProtocol) {
+    init(deadline: Date) {
         self.deadline = deadline
-        self.applicationStateService = applicationStateService
     }
     
     // MARK: - Internal var

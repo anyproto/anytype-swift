@@ -11,8 +11,10 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
         case url
     }
     
+    @Injected(\.systemURLService)
+    private var systemURLService: SystemURLServiceProtocol
+    
     private let type: SupportedTextType
-    private let systemURLService: SystemURLServiceProtocol
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     let id = UUID().uuidString
@@ -22,11 +24,9 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
     
     init(
         type: SupportedTextType,
-        systemURLService: SystemURLServiceProtocol,
         delegate: TextRelationActionButtonViewModelDelegate?
     ) {
         self.type = type
-        self.systemURLService = systemURLService
         self.delegate = delegate
     }
     

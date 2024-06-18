@@ -28,7 +28,9 @@ struct AboutView: View {
         .onAppear {
             model.onAppear()
         }
+        .openUrl(url: $model.openUrl)
         .snackbar(toastBarData: $model.snackBarData)
+        .safariSheet(url: $model.safariUrl)
     }
     
     @ViewBuilder

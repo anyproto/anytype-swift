@@ -362,6 +362,11 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response: ResultWithError {}
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.BlockImage.SetName.Response: ResultWithError {}
 extension Anytype_Rpc.BlockImage.SetName.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -661,6 +666,11 @@ extension Anytype_Rpc.GenericErrorResponse.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.History.DiffVersions.Response: ResultWithError {}
+extension Anytype_Rpc.History.DiffVersions.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.History.GetVersions.Response: ResultWithError {}
 extension Anytype_Rpc.History.GetVersions.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -691,11 +701,6 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response: ResultWithError {}
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null && description_p.isEmpty }
-}
-
 extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.GetPortalLinkUrl.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -723,6 +728,11 @@ extension Anytype_Rpc.Membership.GetVerificationEmailStatus.Response.Error: Resp
 
 extension Anytype_Rpc.Membership.IsNameValid.Response: ResultWithError {}
 extension Anytype_Rpc.Membership.IsNameValid.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response: ResultWithError {}
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -891,6 +901,11 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.ListSetDetails.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ListSetDetails.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.ListSetIsArchived.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -933,6 +948,11 @@ extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Object.SearchUnsubscribe.Response: ResultWithError {}
 extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Object.SearchWithMeta.Response: ResultWithError {}
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

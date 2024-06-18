@@ -4,14 +4,9 @@ import SwiftUI
 @MainActor
 final class SpaceSwitchCoordinatorViewModel: ObservableObject, SpaceSwitchModuleOutput, SpaceCreateModuleOutput {
 
-    private let settingsCoordinator: SettingsCoordinatorProtocol
-    
     @Published var showSpaceCreate = false
+    @Published var showSettings = false
     @Published var dismiss = false
-    
-    init(settingsCoordinator: SettingsCoordinatorProtocol) {
-        self.settingsCoordinator = settingsCoordinator
-    }
 
     // MARK: - SpaceSwitchModuleOutput
     
@@ -20,7 +15,7 @@ final class SpaceSwitchCoordinatorViewModel: ObservableObject, SpaceSwitchModule
     }
     
     func onSettingsSelected() {
-        settingsCoordinator.startFlow()
+        showSettings = true
     }
     
     // MARK: - SpaceCreateModuleOutput

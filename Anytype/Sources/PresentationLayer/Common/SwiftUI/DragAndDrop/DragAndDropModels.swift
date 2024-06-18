@@ -20,7 +20,6 @@ struct DropDataElement<Data> {
 struct DragState {
     var dragInitiateId: String? = nil
     var dragInProgress: Bool = false
-    var frames: [String: CGRect] = [:]
     
     mutating func resetState() {
         dragInitiateId = nil

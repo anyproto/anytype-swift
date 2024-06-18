@@ -10,7 +10,6 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     }
     
     private let type: SupportedTextType
-    private let alertOpener: AlertOpenerProtocol
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     let id = UUID().uuidString
@@ -20,11 +19,9 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     
     init(
         type: SupportedTextType,
-        alertOpener: AlertOpenerProtocol,
         delegate: TextRelationActionButtonViewModelDelegate?
     ) {
         self.type = type
-        self.alertOpener = alertOpener
         self.delegate = delegate
     }
     
@@ -35,7 +32,7 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     func performAction() {
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = inputText
-        alertOpener.showTopAlert(message: Loc.RelationAction.copied)
+        delegate?.showActionSuccessMessage(Loc.RelationAction.copied)
         logEvent()
     }
     

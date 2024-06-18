@@ -10,10 +10,15 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     // MARK: - Private properties
     private let info: AccountInfo
-    private let subscriptionService: SingleObjectSubscriptionServiceProtocol
-    private let defaultObjectService: DefaultObjectCreationServiceProtocol
+    
+    @Injected(\.singleObjectSubscriptionService)
+    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    @Injected(\.processSubscriptionService)
     private var processSubscriptionService: ProcessSubscriptionServiceProtocol
-    private let accountParticipantStorage: AccountParticipantsStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantStorage: AccountParticipantsStorageProtocol
         
     private weak var output: HomeBottomNavigationPanelModuleOutput?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
@@ -29,17 +34,9 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        subscriptionService: SingleObjectSubscriptionServiceProtocol,
-        defaultObjectService: DefaultObjectCreationServiceProtocol,
-        processSubscriptionService: ProcessSubscriptionServiceProtocol,
-        accountParticipantStorage: AccountParticipantsStorageProtocol,
         output: HomeBottomNavigationPanelModuleOutput?
     ) {
         self.info = info
-        self.subscriptionService = subscriptionService
-        self.defaultObjectService = defaultObjectService
-        self.processSubscriptionService = processSubscriptionService
-        self.accountParticipantStorage = accountParticipantStorage
         self.output = output
         setupDataSubscription()
     }

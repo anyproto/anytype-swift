@@ -21,8 +21,8 @@ struct GallerySpaceSelectionView: View {
             }
         }
         .presentationCornerRadiusLegacy(16)
-        .presentationDetentsHeightAndLargeLegacy(height: 250)
-        .presentationDragIndicatorHiddenLegacy()
+        .presentationDetents([.height(250), .large])
+        .presentationDragIndicator(.hidden)
     }
     
     @ViewBuilder
@@ -34,8 +34,8 @@ struct GallerySpaceSelectionView: View {
                 HStack(spacing: 12) {
                     ZStack {
                         Color.Background.highlightedOfSelected
-                            .cornerRadius(8)
-                            .border(8, color: Color.Shape.secondary)
+                            .spaceIconCornerRadius()
+                            .border(4, color: Color.Shape.secondary)
                         IconView(icon: .asset(.X24.plus))
                             .frame(width: 24, height: 24)
                     }

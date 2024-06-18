@@ -21,26 +21,32 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         return fileData
     }
     let audioSessionService: AudioSessionServiceProtocol
-
+    
+    let documentId: String
     let showAudioPicker: (String) -> ()
 
     // Player properties
     let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
     var currentTimeInSeconds: Double = 0.0
     weak var audioPlayerView: AudioPlayerViewInput?
-
+    
+    @Injected(\.documentService)
+    private var documentService: OpenedDocumentsProviderProtocol
+    
+    lazy var document: BaseDocumentProtocol = {
+        documentService.document(objectId: documentId)
+    }()
+    
     init(
+        documentId: String,
         informationProvider: BlockModelInfomationProvider,
         audioSessionService: AudioSessionServiceProtocol,
         showAudioPicker: @escaping (String) -> ()
     ) {
+        self.documentId = documentId
         self.informantionProvider = informationProvider
         self.audioSessionService = audioSessionService
         self.showAudioPicker = showAudioPicker
-
-        if let url = fileData?.contentUrl {
-            self.playerItem = AVPlayerItem(url: url)
-        }
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
@@ -67,6 +73,9 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .done:
+            if playerItem.isNil, let url = fileData.contentUrl {
+                playerItem = AVPlayerItem(url: url)
+            }
             guard playerItem != nil else {
                 return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
             }
@@ -74,6 +83,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             return AudioBlockContentConfiguration(
                 file: fileData,
                 trackId: info.id,
+                documentId: documentId,
                 audioPlayerViewDelegate: self
             ).cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),

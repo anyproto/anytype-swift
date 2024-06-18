@@ -5,29 +5,28 @@ import AnytypeCore
 final class Legacy_ObjectTypeSearchInteractor {
     
     private let spaceId: String
-    private let typesService: TypesServiceProtocol
-    private let workspaceService: WorkspaceServiceProtocol
+    
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    
     private let showBookmark: Bool
     private let showSetAndCollection: Bool
     private let showFiles: Bool
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         spaceId: String,
-        typesService: TypesServiceProtocol,
-        workspaceService: WorkspaceServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         showBookmark: Bool,
         showSetAndCollection: Bool,
         showFiles: Bool
     ) {
         self.spaceId = spaceId
-        self.typesService = typesService
-        self.workspaceService = workspaceService
         self.showBookmark = showBookmark
         self.showSetAndCollection = showSetAndCollection
         self.showFiles = showFiles
-        self.objectTypeProvider = objectTypeProvider
     }
     
 }

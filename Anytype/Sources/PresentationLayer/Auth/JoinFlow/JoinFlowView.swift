@@ -3,7 +3,7 @@ import SwiftUI
 struct JoinFlowView: View {
     
     @StateObject private var model: JoinFlowViewModel
-    @Environment(\.presentationMode) @Binding private var presentationMode
+    @Environment(\.dismiss) private var dismiss
     
     init(output: JoinFlowOutput?) {
         _model = StateObject(wrappedValue: JoinFlowViewModel(output: output))
@@ -11,12 +11,14 @@ struct JoinFlowView: View {
     
     var body: some View {
         GeometryReader { geo in
-            content(height: geo.size.height)
+            if !model.hideContent {
+                content(height: geo.size.height)
+            }
         }
         .customBackSwipe {
             guard !model.disableBackAction else { return }
             if model.step.isFirst {
-                 presentationMode.dismiss()
+                 dismiss()
              } else {
                  model.onBack()
              }
@@ -64,7 +66,7 @@ struct JoinFlowView: View {
     private var backButton : some View {
         Button(action: {
             if model.step.isFirst {
-                presentationMode.dismiss()
+                dismiss()
             } else {
                 model.onBack()
             }

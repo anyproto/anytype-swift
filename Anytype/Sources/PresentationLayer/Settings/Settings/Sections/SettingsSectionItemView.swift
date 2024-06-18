@@ -11,19 +11,22 @@ struct SettingsSectionItemView: View {
     let name: String
     let iconImage: Icon?
     let decoration: Decoration?
+    let showDivider: Bool
     let onTap: () -> Void
         
-    init(name: String, imageAsset: ImageAsset, decoration: Decoration? = .arrow(), onTap: @escaping () -> Void) {
+    init(name: String, imageAsset: ImageAsset, decoration: Decoration? = .arrow(), showDivider: Bool = true, onTap: @escaping () -> Void) {
         self.name = name
         self.iconImage = .asset(imageAsset)
         self.decoration = decoration
+        self.showDivider = showDivider
         self.onTap = onTap
     }
     
-    init(name: String, iconImage: Icon? = nil, decoration: Decoration? = .arrow(), onTap: @escaping () -> Void) {
+    init(name: String, iconImage: Icon? = nil, decoration: Decoration? = .arrow(), showDivider: Bool = true, onTap: @escaping () -> Void) {
         self.name = name
         self.iconImage = iconImage
         self.decoration = decoration
+        self.showDivider = showDivider
         self.onTap = onTap
     }
     
@@ -45,7 +48,7 @@ struct SettingsSectionItemView: View {
                     decorationView
                 }
                 .frame(maxHeight: .infinity)
-                .newDivider()
+                .if(showDivider) { $0.newDivider() }
             }
         }
         .frame(height: 52)

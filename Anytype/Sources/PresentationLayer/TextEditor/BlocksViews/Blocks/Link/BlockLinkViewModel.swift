@@ -94,7 +94,7 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
                 relationKey: BundledRelationKey.done.rawValue,
                 value: .checkbox(.with { $0.checked = !isChecked })
             )
-            await UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
 }

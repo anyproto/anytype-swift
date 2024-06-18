@@ -257,10 +257,22 @@ extension Container {
     }
     
     var membershipStatusStorage: Factory<MembershipStatusStorageProtocol> {
-        self { MembershipStatusStorage() }.shared
+        self { MembershipStatusStorage() }.singleton
+    }
+    
+    var membershipMetadataProvider: Factory<MembershipMetadataProviderProtocol> {
+        self { MembershipMetadataProvider() }.shared
     }
     
     var objectHeaderUploadingService: Factory<ObjectHeaderUploadingServiceProtocol> {
         self { ObjectHeaderUploadingService() }.shared
+    }
+    
+    var storeKitService: Factory<StoreKitServiceProtocol> {
+        self { StoreKitService() }.singleton
+    }
+    
+    var mentionObjectsService: Factory<MentionObjectsServiceProtocol> {
+        self { MentionObjectsService() }.shared
     }
 }

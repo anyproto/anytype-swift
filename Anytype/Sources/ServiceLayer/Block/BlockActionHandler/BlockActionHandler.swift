@@ -8,37 +8,32 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     
     private let service: BlockActionServiceProtocol
-    private let blockService: BlockServiceProtocol
     private let markupChanger: BlockMarkupChangerProtocol
-    private let blockTableService: BlockTableServiceProtocol
-    private let fileService: FileActionsServiceProtocol
-    private let objectService: ObjectActionsServiceProtocol
-    private let pasteboardBlockService: PasteboardBlockServiceProtocol
-    private let bookmarkService: BookmarkServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+    
+    
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.blockTableService)
+    private var blockTableService: BlockTableServiceProtocol
+    @Injected(\.fileActionsService)
+    private var fileService: FileActionsServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectService: ObjectActionsServiceProtocol
+    @Injected(\.pasteboardBlockService)
+    private var pasteboardBlockService: PasteboardBlockServiceProtocol
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
     
     init(
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol,
-        service: BlockActionServiceProtocol,
-        blockService: BlockServiceProtocol,
-        blockTableService: BlockTableServiceProtocol,
-        fileService: FileActionsServiceProtocol,
-        objectService: ObjectActionsServiceProtocol,
-        pasteboardBlockService: PasteboardBlockServiceProtocol,
-        bookmarkService: BookmarkServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol
+        service: BlockActionServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
         self.service = service
-        self.blockService = blockService
-        self.blockTableService = blockTableService
-        self.fileService = fileService
-        self.objectService = objectService
-        self.pasteboardBlockService = pasteboardBlockService
-        self.bookmarkService = bookmarkService
-        self.objectTypeProvider = objectTypeProvider
     }
 
     // MARK: - Service proxy

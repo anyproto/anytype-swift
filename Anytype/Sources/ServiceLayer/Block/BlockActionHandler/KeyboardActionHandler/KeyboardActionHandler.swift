@@ -18,17 +18,19 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let documentId: String
     private let spaceId: String
     private let service: BlockActionServiceProtocol
-    private let blockService: BlockServiceProtocol
     private let toggleStorage: ToggleStorage
     private let container: InfoContainerProtocol
     private weak var modelsHolder: EditorMainItemModelsHolder?
     private let editorCollectionController: EditorBlockCollectionController
     
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    
+    
     nonisolated init(
         documentId: String,
         spaceId: String,
         service: BlockActionServiceProtocol,
-        blockService: BlockServiceProtocol,
         toggleStorage: ToggleStorage,
         container: InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,
@@ -37,7 +39,6 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         self.documentId = documentId
         self.spaceId = spaceId
         self.service = service
-        self.blockService = blockService
         self.toggleStorage = toggleStorage
         self.container = container
         self.modelsHolder = modelsHolder

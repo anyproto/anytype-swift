@@ -13,42 +13,38 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
     
     @Published var toastBarData: ToastBarData = .empty
     
-    func accountDeletionConfirm() {
+    func accountDeletionConfirm() async {
         UINotificationFeedbackGenerator().notificationOccurred(.success)
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteAccount)
         
-        Task {
-            do {
-                let status = try await authService.deleteAccount()
-                
-                switch status {
-                case .active:
-                    UINotificationFeedbackGenerator().notificationOccurred(.error)
-                case .pendingDeletion:
-                    UINotificationFeedbackGenerator().notificationOccurred(.success)
-                    applicationStateService.state = .delete
-                case .deleted:
-                    logout()
-                }
-            } catch {
-                toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+        do {
+            let status = try await authService.deleteAccount()
+            
+            switch status {
+            case .active:
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
+            case .pendingDeletion:
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                applicationStateService.state = .delete
+            case .deleted:
+                try await logout()
             }
+        } catch {
+            toastBarData = ToastBarData(text: error.localizedDescription, showSnackBar: true, messageType: .failure)
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
     
-    private func logout() {
+    private func logout() async throws {
         
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
 
-        Task {
-            do {
-                try await authService.logout(removeData: true)
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
-                applicationStateService.state = .auth
-            } catch {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-            }
+        do {
+            try await authService.logout(removeData: true)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            applicationStateService.state = .auth
+        } catch {
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
         }
     }
 }

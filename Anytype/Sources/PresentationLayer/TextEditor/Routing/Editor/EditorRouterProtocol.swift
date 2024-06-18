@@ -16,7 +16,6 @@ protocol EditorRouterProtocol:
     func showEditorScreen(data: EditorScreenData)
     func replaceCurrentPage(with data: EditorScreenData)
     
-    func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
     func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)
     
@@ -52,10 +51,7 @@ protocol EditorRouterProtocol:
     )
     
     func showRelationValueEditingView(key: String)
-    func showAddNewRelationView(
-        document: BaseDocumentProtocol,
-        onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?
-    )
+    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func showWaitingView(text: String)
@@ -69,8 +65,6 @@ protocol EditorRouterProtocol:
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
     )
-    
-    func showFailureToast(message: String)
     
     @MainActor
     func showTemplatesPicker()

@@ -61,7 +61,7 @@ private extension ParticipantSpaceView {
             return 1
         }
         
-        if participant?.status == .joining {
+        if spaceView.accountStatus == .spaceJoining {
             return 5
         }
         

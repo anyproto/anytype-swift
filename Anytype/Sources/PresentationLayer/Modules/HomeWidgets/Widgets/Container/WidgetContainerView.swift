@@ -12,10 +12,33 @@ enum WidgetMenuItem: String {
 // TODO: Delete in after migration
 struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
     
-    @ObservedObject var model: WidgetContainerViewModel<ContentVM>
+    @StateObject private var model: WidgetContainerViewModel<ContentVM>
     @ObservedObject var contentModel: ContentVM
+    @Binding private var homeState: HomeWidgetsState
+    
     var content: Content
-        
+    
+    init(
+        widgetBlockId: String,
+        widgetObject: BaseDocumentProtocol,
+        homeState: Binding<HomeWidgetsState>,
+        contentModel: ContentVM,
+        output: CommonWidgetModuleOutput?,
+        content: Content
+    ) {
+        self.contentModel = contentModel
+        self.content = content
+        self._homeState = homeState
+        self._model = StateObject(
+            wrappedValue: WidgetContainerViewModel(
+                widgetBlockId: widgetBlockId,
+                widgetObject: widgetObject,
+                contentModel: contentModel,
+                output: output
+            )
+        )
+    }
+    
     var body: some View {
         WidgetSwipeActionView(
             isEnable: contentModel.allowCreateObject && model.homeState.isReadWrite,
@@ -53,6 +76,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             }
             .snackbar(toastBarData: $model.toastData)
         }
+        .twoWayBinding(viewState: $homeState, modelState: $model.homeState)
     }
     
     @ViewBuilder

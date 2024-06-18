@@ -8,17 +8,11 @@ struct FitPresentationDetentsViewModifier: ViewModifier {
          if #available(iOS 16.4, *) {
             bodyDetents(content: content)
                  .presentationCornerRadius(16)
-         } else if #available(iOS 16.0, *) {
-             bodyDetents(content: content)
          } else {
-             VStack(spacing: 0) {
-                 content
-                 Spacer(minLength: 0)
-             }
+             bodyDetents(content: content)
          }
      }
 
-     @available(iOS 16.0, *)
      private func bodyDetents(content: Content) -> some View {
          VStack(spacing: 0) {
              content.readSize { size in
@@ -45,12 +39,10 @@ struct MediumPresentationDetentsViewModifier: ViewModifier {
                  .presentationDetents([.medium, .large])
                  .presentationDragIndicator(.hidden)
                  .presentationCornerRadius(16)
-         } else if #available(iOS 16.0, *) {
+         } else {
              bodyDetents(content: content)
                  .presentationDetents([.medium, .large])
                  .presentationDragIndicator(.hidden)
-         } else {
-             bodyDetents(content: content)
          }
      }
     

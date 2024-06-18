@@ -3,6 +3,7 @@ import Combine
 import Services
 import UIKit
 import AnytypeCore
+import SwiftUI
 
 @MainActor
 final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelProtocol>: ObservableObject {
@@ -11,13 +12,16 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
-    private let blockWidgetService: BlockWidgetServiceProtocol
-    private let stateManager: HomeWidgetsStateManagerProtocol
-    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let searchService: SearchServiceProtocol
-    private let alertOpener: AlertOpenerProtocol
     private weak var output: CommonWidgetModuleOutput?
+    
+    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    @Injected(\.blockWidgetService)
+    private var blockWidgetService: BlockWidgetServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    
     
     // MARK: - State
     
@@ -31,31 +35,17 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
-        blockWidgetService: BlockWidgetServiceProtocol,
-        stateManager: HomeWidgetsStateManagerProtocol,
-        blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        searchService: SearchServiceProtocol,
-        alertOpener: AlertOpenerProtocol,
         contentModel: ContentVM,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.blockWidgetService = blockWidgetService
-        self.stateManager = stateManager
-        self.blockWidgetExpandedService = blockWidgetExpandedService
-        self.objectActionsService = objectActionsService
-        self.searchService = searchService
-        self.alertOpener = alertOpener
         self.contentModel = contentModel
         self.output = output
         
-        isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
+        blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
         
-        stateManager.homeStatePublisher
-            .receiveOnMain()
-            .assign(to: &$homeState)
+        isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
         
         contentModel.startHeaderSubscription()
         contentModel.startContentSubscription()
@@ -79,7 +69,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     func onEditTap() {
         AnytypeAnalytics.instance().logEditWidget()
-        stateManager.setHomeState(.editWidgets)
+        homeState = .editWidgets
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
@@ -114,6 +104,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     }
     
     private func analyticsContext() -> AnalyticsWidgetContext {
-        return stateManager.homeState.isEditWidgets ? .editor : .home
+        return homeState.isEditWidgets ? .editor : .home
     }
 }

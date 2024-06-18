@@ -11,7 +11,6 @@ struct PickerSectionHeaderView: View {
         .frame(maxWidth: .infinity)
         .padding(.top, 18)
         .padding(.bottom, -3)
-        .background(Color.Background.secondary)
     }
 }
 

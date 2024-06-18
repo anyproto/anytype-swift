@@ -14,8 +14,9 @@ final class EditorPageController: UIViewController {
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     private weak var firstResponderView: UIView?
     private let layout = EditorCollectionFlowLayout()
-    private let keyboardListener: KeyboardHeightListener
-    private lazy var responderScrollViewHelper = ResponderScrollViewHelper(scrollView: collectionView, keyboardListener: keyboardListener)
+    @Injected(\.keyboardHeightListener)
+    private var keyboardListener: KeyboardHeightListener
+    private lazy var responderScrollViewHelper = ResponderScrollViewHelper(scrollView: collectionView)
 
     lazy var collectionView: EditorCollectionView = {
         let collectionView = EditorCollectionView(
@@ -54,7 +55,6 @@ final class EditorPageController: UIViewController {
     private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
         navigationBarView: navigationBarView,
         navigationBarBackgroundView: navigationBarBackgroundView, 
-        syncStatusData: syncStatusData,
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
@@ -74,14 +74,12 @@ final class EditorPageController: UIViewController {
     var viewModel: EditorPageViewModelProtocol! {
         didSet {
             viewModel.setupSubscriptions()
-            layout.layoutDetailsPublisher = viewModel.document.layoutDetailsPublisher
+            layout.layoutDetailsPublisher = viewModel.document.layoutDetailsPublisher.receiveOnMain().eraseToAnyPublisher()
         }
     }
 
     private var selectingRangeEditorItem: EditorItem?
     private var selectingRangeTextView: UITextView?
-    
-    private let syncStatusData: SyncStatusData
     
     private var cancellables = [AnyCancellable]()
     private var applyAnimationConfig = false
@@ -93,14 +91,10 @@ final class EditorPageController: UIViewController {
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
         bottomNavigationManager: EditorBottomNavigationManagerProtocol,
-        syncStatusData: SyncStatusData,
-        keyboardListener: KeyboardHeightListener,
         showHeader: Bool
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
         self.bottomNavigationManager = bottomNavigationManager
-        self.syncStatusData = syncStatusData
-        self.keyboardListener = keyboardListener
         self.showHeader = showHeader
         
         super.init(nibName: nil, bundle: nil)
@@ -300,14 +294,13 @@ final class EditorPageController: UIViewController {
     }
 
     func bindViewModel() {
-        viewModel.blocksStateManager.editorEditingStatePublisher.sink { [weak self] state in
+        viewModel.blocksStateManager.editorEditingStatePublisher.receiveOnMain().sink { [weak self] state in
             self?.handleState(state: state)
         }.store(in: &cancellables)
 
-        viewModel.blocksStateManager.editorSelectedBlocks.sink { blockIds in
-            blockIds.forEach { [weak self] id in
-                self?.selectBlock(blockId: id)
-            }
+        viewModel.blocksStateManager.editorSelectedBlocks.receiveOnMain().sink { [weak self] blockIds in
+            guard let self else { return }
+            blockIds.forEach(selectBlock)
         }.store(in: &cancellables)
     }
 

@@ -8,40 +8,30 @@ import AnytypeCore
 final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     @Published var shouldDismiss = false
     
-    private let objectTypeSearchAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let pasteboardBlockService: PasteboardBlockServiceProtocol
-    private let objectActionsService: ObjectActionsServiceProtocol
-    private let blockService: BlockServiceProtocol
-    private let bookmarkService: BookmarkServiceProtocol
-    private let activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.pasteboardBlockService)
+    private var pasteboardBlockService: PasteboardBlockServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
+    @Injected(\.bookmarkService)
+    private var bookmarkService: BookmarkServiceProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    @Injected(\.objectTypeProvider)
+    private var typeProvider: ObjectTypeProviderProtocol
     
-    private let typeProvider: ObjectTypeProviderProtocol
     private let openObject: (ObjectDetails)->()
     
-    init(
-        objectTypeSearchAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        pasteboardBlockService: PasteboardBlockServiceProtocol,
-        objectActionsService: ObjectActionsServiceProtocol,
-        blockService: BlockServiceProtocol,
-        bookmarkService: BookmarkServiceProtocol,
-        activeWorkspaceStorage: ActiveWorkpaceStorageProtocol,
-        typeProvider: ObjectTypeProviderProtocol,
-        openObject: @escaping (ObjectDetails)->()
-    ) {
-        self.objectTypeSearchAssembly = objectTypeSearchAssembly
-        self.pasteboardBlockService = pasteboardBlockService
-        self.objectActionsService = objectActionsService
-        self.blockService = blockService
-        self.bookmarkService = bookmarkService
-        self.activeWorkspaceStorage = activeWorkspaceStorage
-        self.typeProvider = typeProvider
+    init(openObject: @escaping (ObjectDetails)->()) {
         self.openObject = openObject
     }
     
-    func typeSearchModule() -> some View {
-        return objectTypeSearchAssembly.makeTypeSearchForNewObjectCreation(
+    func typeSearchModule() -> ObjectTypeSearchView {
+        ObjectTypeSearchView(
             title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            settings: .newObjectCreation
         ) { [weak self] result in
             guard let self else { return }
             shouldDismiss = true

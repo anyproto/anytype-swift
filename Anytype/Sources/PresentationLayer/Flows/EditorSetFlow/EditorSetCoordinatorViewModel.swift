@@ -3,6 +3,12 @@ import Services
 import SwiftUI
 import AnytypeCore
 
+struct SetViewData: Identifiable {
+    let id = UUID()
+    let document: SetDocumentProtocol
+    let subscriptionDetailsStorage: ObjectDetailsStorage
+}
+
 @MainActor
 final class EditorSetCoordinatorViewModel:
     ObservableObject,
@@ -11,66 +17,32 @@ final class EditorSetCoordinatorViewModel:
     ObjectSettingsCoordinatorOutput,
     RelationValueCoordinatorOutput
 {
-    private let data: EditorSetObject
-    private let editorSetAssembly: EditorSetModuleAssemblyProtocol
-    private let setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol
-    private let setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol
-    private let setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
-    private let objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol
-    private let objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol
-    private let objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol
-    private let legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol
-    private let setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
-    private let relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol
-    private let relationValueProcessingService: RelationValueProcessingServiceProtocol
+    let data: EditorSetObject
+    @Injected(\.legacySetObjectCreationCoordinator)
+    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    @Injected(\.legacySetObjectCreationSettingsCoordinator)
+    private var setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    @Injected(\.relationValueProcessingService)
+    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
     
-    private let toastPresenter: ToastPresenterProtocol
-    private let navigationContext: NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: ToastPresenterProtocol
+    @Injected(\.legacyNavigationContext)
+    private var navigationContext: NavigationContextProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false
     
     @Published var setViewPickerData: SetViewData?
-    @Published var setViewSettingsData: SetViewData?
+    @Published var setViewSettingsData: SetSettingsData?
     @Published var setQueryData: SetQueryData?
     @Published var relationValueData: RelationValueData?
     @Published var covertPickerData: ObjectCoverPickerData?
     @Published var toastBarData: ToastBarData = .empty
+    @Published var objectIconPickerData: ObjectIconPickerData?
     
-    init(
-        data: EditorSetObject,
-        editorSetAssembly: EditorSetModuleAssemblyProtocol,
-        setViewPickerCoordinatorAssembly: SetViewPickerCoordinatorAssemblyProtocol,
-        setViewSettingsCoordinatorAssembly: SetViewSettingsCoordinatorAssemblyProtocol,
-        setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol,
-        objectSettingCoordinatorAssembly: ObjectSettingsCoordinatorAssemblyProtocol,
-        objectIconPickerModuleAssembly: ObjectIconPickerModuleAssemblyProtocol,
-        objectTypeSearchModuleAssembly: ObjectTypeSearchModuleAssemblyProtocol,
-        legacyRelationValueCoordinator: LegacyRelationValueCoordinatorProtocol,
-        setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol,
-        relationValueCoordinatorAssembly: RelationValueCoordinatorAssemblyProtocol,
-        relationValueProcessingService: RelationValueProcessingServiceProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        navigationContext: NavigationContextProtocol
-    ) {
+    init(data: EditorSetObject) {
         self.data = data
-        self.editorSetAssembly = editorSetAssembly
-        self.setViewPickerCoordinatorAssembly = setViewPickerCoordinatorAssembly
-        self.setViewSettingsCoordinatorAssembly = setViewSettingsCoordinatorAssembly
-        self.setObjectCreationCoordinator = setObjectCreationCoordinator
-        self.objectSettingCoordinatorAssembly = objectSettingCoordinatorAssembly
-        self.objectIconPickerModuleAssembly = objectIconPickerModuleAssembly
-        self.objectTypeSearchModuleAssembly = objectTypeSearchModuleAssembly
-        self.legacyRelationValueCoordinator = legacyRelationValueCoordinator
-        self.setObjectCreationSettingsCoordinator = setObjectCreationSettingsCoordinator
-        self.relationValueCoordinatorAssembly = relationValueCoordinatorAssembly
-        self.relationValueProcessingService = relationValueProcessingService
-        self.toastPresenter = toastPresenter
-        self.navigationContext = navigationContext
-    }
-    
-    func setModule() -> AnyView {
-        editorSetAssembly.make(data: data, output: self)
     }
     
     // MARK: - EditorSetModuleOutput
@@ -96,28 +68,14 @@ final class EditorSetCoordinatorViewModel:
         )
     }
     
-    func setViewPicker(data: SetViewData) -> AnyView {
-        setViewPickerCoordinatorAssembly.make(
-            with: data.document,
-            subscriptionDetailsStorage: data.subscriptionDetailsStorage
-        )
-    }
-    
     // MARK: - EditorSetModuleOutput - SetViewSettings
     
     func showSetViewSettings(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
-        setViewSettingsData = SetViewData(
-            document: document,
-            subscriptionDetailsStorage: subscriptionDetailsStorage
-        )
-    }
-    
-    func setViewSettings(data: SetViewData) -> AnyView {
-        setViewSettingsCoordinatorAssembly.make(
-            setDocument: data.document,
-            viewId: data.document.activeView.id,
-            mode: .edit,
-            subscriptionDetailsStorage: data.subscriptionDetailsStorage
+        setViewSettingsData = SetSettingsData(
+            setDocument: document,
+            viewId: document.activeView.id,
+            subscriptionDetailsStorage: subscriptionDetailsStorage,
+            mode: .edit
         )
     }
     
@@ -129,14 +87,11 @@ final class EditorSetCoordinatorViewModel:
             onSelect: onSelect
         )
     }
-    func setQuery(_ queryData: SetQueryData) -> AnyView {
-        return objectTypeSearchModuleAssembly.makeDefaultTypeSearch(
+    func setQuery(_ queryData: SetQueryData) -> ObjectTypeSearchView {
+        ObjectTypeSearchView(
             title: Loc.Set.SourceType.selectQuery,
             spaceId: data.spaceId,
-            showPins: false,
-            showLists: false,
-            showFiles: true,
-            incudeNotForCreation: true
+            settings: .queryInSet
         ) { [weak self] type in
             queryData.onSelect(type.id)
             self?.setQueryData = nil
@@ -172,7 +127,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showSettings() {
-        let module = objectSettingCoordinatorAssembly.make(
+        let module = ObjectSettingsCoordinatorView(
             objectId: data.objectId,
             output: self
         )
@@ -185,8 +140,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showIconPicker(document: BaseDocumentGeneralProtocol) {
-        let moduleViewController = objectIconPickerModuleAssembly.make(document: document)
-        navigationContext.present(moduleViewController)
+        objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation) {
@@ -194,41 +148,13 @@ final class EditorSetCoordinatorViewModel:
     }
     
     private func handleRelationValue(relation: Relation, objectDetails: ObjectDetails) {
-        let analyticsType = AnalyticsEventsRelationType.dataview
-        if relationValueProcessingService.canOpenRelationInNewModule(relation) {
-            relationValueData = RelationValueData(
-                relation: relation,
-                objectDetails: objectDetails
-            )
-            return
-        }
-        
-        let result = relationValueProcessingService.relationProcessedSeparately(
+        relationValueData = relationValueProcessingService.handleRelationValue(
             relation: relation,
-            objectId: objectDetails.id,
-            spaceId: objectDetails.spaceId,
-            analyticsType: analyticsType,
+            objectDetails: objectDetails,
+            analyticsType: .dataview,
             onToastShow: { [weak self] message in
                 self?.toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .none)
             }
-        )
-        
-        if !result {
-            legacyRelationValueCoordinator.startFlow(
-                objectDetails: objectDetails,
-                relation: relation,
-                analyticsType: analyticsType,
-                output: self
-            )
-        }
-    }
-    
-    func relationValueCoordinator(data: RelationValueData) -> AnyView {
-        relationValueCoordinatorAssembly.make(
-            relation: data.relation,
-            objectDetails: data.objectDetails,
-            analyticsType: .dataview, 
-            output: self
         )
     }
     
@@ -247,9 +173,9 @@ final class EditorSetCoordinatorViewModel:
     func showFailureToast(message: String) {
         toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
     }
-}
 
-extension EditorSetCoordinatorViewModel {
+    // MARK: - ObjectSettingsCoordinatorOutput
+    
     func didCreateTemplate(templateId: String) {
         anytypeAssertionFailure("Should be disabled in restrictions. Check template restrinctions")
     }
@@ -267,15 +193,13 @@ extension EditorSetCoordinatorViewModel {
     func didTapUseTemplateAsDefault(templateId: String) {
         anytypeAssertionFailure("Invalid delegate method handler")
     }
+    
+    func didUndoRedo() {
+        anytypeAssertionFailure("Undo/redo is not available")
+    }
 }
 
 extension EditorSetCoordinatorViewModel {
-    struct SetViewData: Identifiable {
-        let id = UUID()
-        let document: SetDocumentProtocol
-        let subscriptionDetailsStorage: ObjectDetailsStorage
-    }
-    
     struct SetQueryData: Identifiable {
         let id = UUID()
         let document: SetDocumentProtocol

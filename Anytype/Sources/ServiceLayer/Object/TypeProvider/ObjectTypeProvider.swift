@@ -10,8 +10,7 @@ enum ObjectTypeError: Error {
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
-        subscriptionStorageProvider: ServiceLocator.shared.subscriptionStorageProvider(),
-        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: ServiceLocator.shared.accountManager())
+        subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: Container.shared.accountManager.resolve())
     )
     
     static let subscriptionId = "SubscriptionId.ObjectType"
@@ -33,11 +32,12 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
 
     private init(
-        subscriptionStorageProvider: SubscriptionStorageProviderProtocol,
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
     ) {
-        self.subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: ObjectTypeProvider.subscriptionId)
         self.subscriptionBuilder = subscriptionBuilder
+       
+        let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
+        self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: ObjectTypeProvider.subscriptionId)
     }
     
     // MARK: - ObjectTypeProviderProtocol

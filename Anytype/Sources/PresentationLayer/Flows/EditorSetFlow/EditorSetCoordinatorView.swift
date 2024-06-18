@@ -3,12 +3,16 @@ import SwiftUI
 
 struct EditorSetCoordinatorView: View {
     
-    @StateObject var model: EditorSetCoordinatorViewModel
+    @StateObject private var model: EditorSetCoordinatorViewModel
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
     
+    init(data: EditorSetObject) {
+        self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data))
+    }
+    
     var body: some View {
-        model.setModule()
+        EditorSetView(data: model.data, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }
@@ -19,16 +23,19 @@ struct EditorSetCoordinatorView: View {
                 model.setQuery(data)
             }
             .sheet(item: $model.relationValueData) { data in
-                model.relationValueCoordinator(data: data)
+                RelationValueCoordinatorView(data: data, output: model)
             }
             .anytypeSheet(item: $model.setViewPickerData) { data in
-                model.setViewPicker(data: data)
+                SetViewPickerCoordinatorView(data: data)
             }
             .anytypeSheet(item: $model.setViewSettingsData) { data in
-                model.setViewSettings(data: data)
+                SetViewSettingsCoordinatorView(data: data)
             }
             .sheet(item: $model.covertPickerData) {
                 ObjectCoverPicker(data: $0)
+            }
+            .sheet(item: $model.objectIconPickerData) {
+                ObjectIconPicker(data: $0)
             }
             .snackbar(toastBarData: $model.toastBarData)
     }

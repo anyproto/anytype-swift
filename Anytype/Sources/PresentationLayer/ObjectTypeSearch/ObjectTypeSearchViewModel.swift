@@ -2,62 +2,51 @@ import SwiftUI
 import Services
 import AnytypeCore
 
+enum TypeSelectionResult {
+    case objectType(type: ObjectType)
+    case createFromPasteboard
+}
 
 @MainActor
 final class ObjectTypeSearchViewModel: ObservableObject {
     @Published var state = State.searchResults([])
     @Published var searchText = ""
     @Published var showPasteButton = false
+    @Published var toastData: ToastBarData = .empty
     
-    let showPins: Bool
-    private let showLists: Bool
-    private let showFiles: Bool
-    private let incudeNotForCreation: Bool
-    private let allowPaste: Bool
-    
+    let settings: ObjectTypeSearchViewSettings
     private let spaceId: String
-    private let workspaceService: WorkspaceServiceProtocol
-    private let typesService: TypesServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let toastPresenter: ToastPresenterProtocol
-    private let pasteboardHelper: PasteboardHelperProtocol
+    
+    @Injected(\.workspaceService)
+    private var workspaceService: WorkspaceServiceProtocol
+    @Injected(\.typesService)
+    private var typesService: TypesServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.pasteboardHelper)
+    private var pasteboardHelper: PasteboardHelperProtocol
     
     private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?
     
     nonisolated init(
-        showPins: Bool,
-        showLists: Bool,
-        showFiles: Bool,
-        incudeNotForCreation: Bool,
-        allowPaste: Bool,
         spaceId: String,
-        workspaceService: WorkspaceServiceProtocol,
-        typesService: TypesServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        toastPresenter: ToastPresenterProtocol,
-        pasteboardHelper: PasteboardHelperProtocol,
+        settings: ObjectTypeSearchViewSettings,
         onSelect: @escaping (TypeSelectionResult) -> Void
     ) {
-        self.showPins = showPins
-        self.showLists = showLists
-        self.showFiles = showFiles
-        self.incudeNotForCreation = incudeNotForCreation
-        self.allowPaste = allowPaste
+        self.settings = settings
         self.spaceId = spaceId
-        self.workspaceService = workspaceService
-        self.typesService = typesService
-        self.objectTypeProvider = objectTypeProvider
-        self.toastPresenter = toastPresenter
         self.onSelect = onSelect
-        self.pasteboardHelper = pasteboardHelper
         
-        pasteboardHelper.startSubscription { [weak self] in
-            Task { [self] in
-                await self?.updatePasteButton()
+        Task {
+            await pasteboardHelper.startSubscription { [weak self] in
+                Task { [self] in
+                    await self?.updatePasteButton()
+                }
             }
         }
     }
+    
     
     func onAppear() {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.screenObjectTypeSearch)
@@ -68,7 +57,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     
     func updatePasteButton() {
         withAnimation {
-            showPasteButton = allowPaste && pasteboardHelper.hasSlots
+            showPasteButton = settings.allowPaste && pasteboardHelper.hasSlots
         }
     }
     
@@ -76,17 +65,17 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         searchTask?.cancel()
         
         searchTask = Task {
-            let pinnedTypes = showPins ? try await typesService.searchPinnedTypes(text: text, spaceId: spaceId) : []
-            let listTypes = showLists ? try await typesService.searchListTypes(
-                text: searchText, includePins: !showPins, spaceId: spaceId
+            let pinnedTypes = settings.showPins ? try await typesService.searchPinnedTypes(text: text, spaceId: spaceId) : []
+            let listTypes = settings.showLists ? try await typesService.searchListTypes(
+                text: searchText, includePins: !settings.showPins, spaceId: spaceId
             ) : []
             let objectTypes = try await typesService.searchObjectTypes(
                 text: searchText,
-                includePins: !showPins,
+                includePins: !settings.showPins,
                 includeLists: false,
                 includeBookmark: true, 
-                includeFiles: showFiles,
-                incudeNotForCreation: incudeNotForCreation,
+                includeFiles: settings.showFiles,
+                incudeNotForCreation: settings.incudeNotForCreation,
                 spaceId: spaceId
             ).map { ObjectType(details: $0) }
             let libraryTypes = text.isNotEmpty ? try await typesService.searchLibraryObjectTypes(
@@ -137,7 +126,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
         Task {
             if section == .library {
                 _ = try await workspaceService.installObject(spaceId: spaceId, objectId: type.id)
-                toastPresenter.show(message: Loc.ObjectType.addedToLibrary(type.name))
+                toastData = ToastBarData(text: Loc.ObjectType.addedToLibrary(type.name), showSnackBar: true)
             }
             
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.typeSearchResult)

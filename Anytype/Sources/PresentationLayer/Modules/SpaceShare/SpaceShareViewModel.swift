@@ -14,18 +14,14 @@ final class SpaceShareViewModel: ObservableObject {
     private var workspaceService: WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
-    @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
-    @Injected(\.deepLinkParser)
-    private var deppLinkParser: DeepLinkParserProtocol
     @Injected(\.universalLinkParser)
     private var universalLinkParser: UniversalLinkParserProtocol
-    @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
+    @Injected(\.participantSpacesStorage)
+    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
-    private var spaceView: SpaceView?
+    private var participantSpaceView: ParticipantSpaceView?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
     private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
@@ -43,8 +39,10 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var showDeleteLinkAlert = false
     @Published var showStopSharingAlert = false
     @Published var canStopShare = false
+    @Published var canDeleteLink = false
+    @Published var canRemoveMember = false
     
-    nonisolated init(onMoreInfo: @escaping () -> Void) {
+    init(onMoreInfo: @escaping () -> Void) {
         self.onMoreInfo = onMoreInfo
     }
     
@@ -56,8 +54,8 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func startSpaceViewTask() async {
-        for await spaceView in workspacesStorage.spaceViewPublisher(spaceId: accountSpaceId).values {
-            self.spaceView = spaceView
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: accountSpaceId).values {
+            self.participantSpaceView = participantSpaceView
             updateView()
         }
     }
@@ -66,11 +64,7 @@ final class SpaceShareViewModel: ObservableObject {
         AnytypeAnalytics.instance().logScreenSettingsSpaceShare()
         do {
             let invite = try await workspaceService.getCurrentInvite(spaceId: accountSpaceId)
-            if FeatureFlags.universalLinks {
-                inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-            } else {
-                inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-            }
+            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
         } catch {}
     }
     
@@ -91,7 +85,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func onGenerateInvite() async throws {
-        guard let spaceView else { return }
+        guard let spaceView = participantSpaceView?.spaceView else { return }
         
         AnytypeAnalytics.instance().logShareSpace()
         
@@ -100,11 +94,7 @@ final class SpaceShareViewModel: ObservableObject {
         }
         
         let invite = try await workspaceService.generateInvite(spaceId: accountSpaceId)
-        if FeatureFlags.universalLinks {
-            inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
-        } else {
-            inviteLink = deppLinkParser.createUrl(deepLink: .invite(cid: invite.cid, key: invite.fileKey), scheme: .main)
-        }
+        inviteLink = universalLinkParser.createUrl(link: .invite(cid: invite.cid, key: invite.fileKey))
     }
     
     func onDeleteLinkCompleted() {
@@ -132,11 +122,14 @@ final class SpaceShareViewModel: ObservableObject {
     // MARK: - Private
     
     private func updateView() {
-        guard let spaceView else { return }
+        guard let participantSpaceView else { return }
         
-        canStopShare = spaceView.canStopShare
-        canChangeReaderToWriter = spaceView.canChangeReaderToWriter(participants: participants)
-        canChangeWriterToReader = spaceView.canChangeWriterToReader(participants: participants)
+        canStopShare = participantSpaceView.canStopSharing
+        canChangeReaderToWriter = participantSpaceView.permissions.canEditPermissions
+            && participantSpaceView.spaceView.canChangeReaderToWriter(participants: participants)
+        canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions 
+            && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
+        canRemoveMember = participantSpaceView.permissions.canEditPermissions
         
         rows = participants.map { participant in
             let isYou = workspaceInfo.profileObjectID == participant.identityProfileLink
@@ -188,7 +181,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.Permissions.reader,
                 isSelected: participant.permission == .reader,
                 destructive: false,
-                disabled: !canChangeWriterToReader && participant.permission != .reader,
+                enabled: canChangeWriterToReader || participant.permission == .reader,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .reader)
                 }
@@ -197,7 +190,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.Permissions.writer,
                 isSelected: participant.permission == .writer,
                 destructive: false,
-                disabled: !canChangeReaderToWriter && participant.permission != .writer,
+                enabled: canChangeReaderToWriter || participant.permission == .writer,
                 action: { [weak self] in
                     self?.showPermissionAlert(participant: participant, newPermission: .writer)
                 }
@@ -206,7 +199,7 @@ final class SpaceShareViewModel: ObservableObject {
                 title: Loc.SpaceShare.RemoveMember.title,
                 isSelected: false,
                 destructive: true,
-                disabled: false,
+                enabled: canRemoveMember,
                 action: { [weak self] in
                     self?.showRemoveAlert(participant: participant)
                 }
@@ -215,7 +208,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     private func showRequestAlert(participant: Participant) {
-        guard let spaceView = activeWorkspaceStorage.spaceView() else { return }
+        guard let spaceView = participantSpaceView?.spaceView else { return }
         
         requestAlertModel = SpaceRequestAlertData(
             spaceId: spaceView.targetSpaceId,
@@ -260,7 +253,7 @@ private extension Participant {
             return 3
         }
         
-        if status == .declined {
+        if status == .removing {
             return 2
         }
         

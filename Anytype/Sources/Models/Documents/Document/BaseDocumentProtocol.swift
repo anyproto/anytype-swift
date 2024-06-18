@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 
 protocol BaseDocumentGeneralProtocol: AnyObject {
-    var syncStatus: AnyPublisher<SyncStatus, Never> { get }
+    var syncStatus: SyncStatus { get }
     
     var objectId: String { get }
     var spaceId: String { get }

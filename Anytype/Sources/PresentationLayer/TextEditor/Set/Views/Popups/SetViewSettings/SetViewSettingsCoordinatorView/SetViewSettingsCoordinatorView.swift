@@ -1,25 +1,42 @@
 import SwiftUI
 
 struct SetViewSettingsCoordinatorView: View {
-    @StateObject var model: SetViewSettingsCoordinatorViewModel
+    @StateObject private var model: SetViewSettingsCoordinatorViewModel
+    
+    init(data: SetSettingsData) {
+        _model = StateObject(wrappedValue: SetViewSettingsCoordinatorViewModel(data: data))
+    }
     
     var body: some View {
-        model.list()
-            .sheet(isPresented: $model.showLayouts) {
-                SetLayoutSettingsCoordinatorView(
-                    setDocument: model.setDocument,
-                    viewId: model.viewId
-                )
-                .mediumPresentationDetents()
-            }
-            .sheet(isPresented: $model.showRelations) {
-                model.relationsList()
-            }
-            .sheet(isPresented: $model.showFilters) {
-                model.setFiltersList()
-            }
-            .sheet(isPresented: $model.showSorts) {
-                model.setSortsList()
-            }
+        SetViewSettingsList(
+            data: model.data,
+            output: model
+        )
+        .sheet(isPresented: $model.showLayouts) {
+            SetLayoutSettingsCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId
+            )
+            .mediumPresentationDetents()
+        }
+        .sheet(isPresented: $model.showRelations) {
+            SetRelationsCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId
+            )
+        }
+        .sheet(isPresented: $model.showFilters) {
+            SetFiltersListCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId,
+                subscriptionDetailsStorage: model.data.subscriptionDetailsStorage
+            )
+        }
+        .sheet(isPresented: $model.showSorts) {
+            SetSortsListCoordinatorView(
+                setDocument: model.data.setDocument,
+                viewId: model.data.viewId
+            )
+        }
     }
 }

@@ -5,7 +5,7 @@ import UniformTypeIdentifiers
 struct AnytypeVerticalDragViewModifier: ViewModifier {
     let itemId: String
     @Environment(\.anytypeDragState) @Binding var state: DragState
-    @State var frame: CGRect = .zero
+    @Environment(\.anytypeDragAndDropFrames) var framesStorage
     
     func body(content: Content) -> some View {
         content
@@ -20,9 +20,8 @@ struct AnytypeVerticalDragViewModifier: ViewModifier {
                 
                 return provider
             }
-            .frameGetter(space: .named("anytypeDropSpace"), $frame, .constant(EdgeInsets()))
-            .onChange(of: frame) { frame in
-                state.frames[itemId] = frame
+            .readFrame(space: .named("anytypeDropSpace")) { frame in
+                framesStorage.frames[itemId] = frame
             }
     }
 }
@@ -44,6 +43,7 @@ struct AnytypeVerticalDropViewModifier<Data>: ViewModifier where Data: Identifia
     let dropFinish: (_ from: DropDataElement<Data>, _ to: DropDataElement<Data>) -> Void
     
     @State private var dropState = DropState<Data>()
+    @State private var framesStorage = DragAndDropFrames()
     
     func body(content: Content) -> some View {
         content
@@ -53,12 +53,14 @@ struct AnytypeVerticalDropViewModifier<Data>: ViewModifier where Data: Identifia
                     data: data,
                     dragState: $state,
                     dropState: $dropState,
+                    framesStorage: framesStorage,
                     dropUpdate: dropUpdate,
                     dropFinish: dropFinish
                 )
             )
             .coordinateSpace(name: "anytypeDropSpace")
             .environment(\.anytypeDragState, $state)
+            .environment(\.anytypeDragAndDropFrames, framesStorage)
     }
 }
 

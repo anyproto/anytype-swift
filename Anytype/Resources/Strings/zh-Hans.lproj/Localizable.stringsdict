@@ -83,7 +83,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>在 %d 天后</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>

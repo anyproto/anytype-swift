@@ -1,57 +1,23 @@
 import Foundation
-import UIKit
 
-
-protocol UIHelpersDIProtocol {
-    var keyboardListener: KeyboardHeightListener { get }
+// TODO: Legacy DI. Delete it for support multiwindow.
+extension Container {
     
-    func toastPresenter() -> ToastPresenterProtocol
-    func toastPresenter(using containerViewController: UIViewController?) -> ToastPresenterProtocol
-    func viewControllerProvider() -> ViewControllerProviderProtocol
-    func commonNavigationContext() -> NavigationContextProtocol
-    func alertOpener() -> AlertOpenerProtocol
-    func urlOpener() -> URLOpenerProtocol
+    // Registry in scene delegate
+    var legacyViewControllerProvider: Factory<ViewControllerProviderProtocol> {
+        self { ViewControllerProvider.shared }.singleton
+    }
+    
+    var legacyToastPresenter: Factory<ToastPresenterProtocol> {
+        self { ToastPresenter() }
+    }
+    
+    var legacyNavigationContext: Factory<NavigationContextProtocol> {
+        self { NavigationContext() }
+    }
+    
+    var keyboardHeightListener: Factory<KeyboardHeightListener> {
+        self { KeyboardHeightListener() }
+    }
 }
 
-final class UIHelpersDI: UIHelpersDIProtocol {
-    
-    private let _viewControllerProvider: ViewControllerProviderProtocol
-    private let serviceLocator: ServiceLocator
-    
-    init(viewControllerProvider: ViewControllerProviderProtocol, serviceLocator: ServiceLocator) {
-        self._viewControllerProvider = viewControllerProvider
-        self.serviceLocator = serviceLocator
-    }
-    
-    // MARK: - UIHelpersDIProtocol
-    let keyboardListener = KeyboardHeightListener()
-    
-    func toastPresenter() -> ToastPresenterProtocol {
-        toastPresenter(using: nil)
-    }
-    
-    func toastPresenter(using containerViewController: UIViewController?) -> ToastPresenterProtocol {
-        ToastPresenter(
-            viewControllerProvider: viewControllerProvider(),
-            containerViewController: containerViewController,
-            keyboardHeightListener: KeyboardHeightListener(),
-            documentsProvider: serviceLocator.documentsProvider
-        )
-    }
-    
-    func viewControllerProvider() -> ViewControllerProviderProtocol {
-        return _viewControllerProvider
-    }
-    
-    func commonNavigationContext() -> NavigationContextProtocol {
-        NavigationContext(window: viewControllerProvider().window)
-    }
-    
-    func alertOpener() -> AlertOpenerProtocol {
-        AlertOpener(navigationContext: commonNavigationContext())
-    }
-    
-    func urlOpener() -> URLOpenerProtocol {
-        URLOpener(navigationContext: commonNavigationContext())
-    }
-}

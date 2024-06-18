@@ -5,12 +5,14 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
     case explorer
     case builder
     case coCreator
+    case anyTeam
     
     case custom(id: UInt32)
     
     static let explorerId: UInt32 = 1
     static let builderId: UInt32 = 4
     static let coCreatorId: UInt32 = 5
+    static let anyTeamId: UInt32 = 7
     
     public var id: UInt32 {
         switch self {
@@ -20,6 +22,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
             Self.builderId
         case .coCreator:
             Self.coCreatorId
+        case .anyTeam:
+            Self.anyTeamId
         case .custom(let id):
             id
         }
@@ -35,6 +39,8 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
             self = .builder
         case Self.coCreatorId:
             self = .coCreator
+        case Self.anyTeamId:
+            self = .anyTeam
         default:
             self = .custom(id: intId)
         }
@@ -71,7 +77,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
     public let name: String
     public let anyName: MembershipAnyName
     public let features: [String]
-    public let paymentType: MembershipTierPaymentType
+    public let paymentType: MembershipTierPaymentType?
     public let color: MembershipColor
     
     public var id: MembershipTierType { type }
@@ -81,7 +87,7 @@ public struct MembershipTier: Hashable, Identifiable, Equatable {
         name: String,
         anyName: MembershipAnyName,
         features: [String],
-        paymentType: MembershipTierPaymentType,
+        paymentType: MembershipTierPaymentType?,
         color: MembershipColor
     ) {
         self.type = type

@@ -3,10 +3,10 @@ import AnytypeCore
 
 struct SettingsView: View {
     
-    @ObservedObject var model: SettingsViewModel
+    @StateObject private var model: SettingsViewModel
     
     init(output: SettingsModuleOutput) {
-        _model = ObservedObject(initialValue: SettingsViewModel(output: output))
+        _model = StateObject(wrappedValue: SettingsViewModel(output: output))
     }
     
     var body: some View {
@@ -29,14 +29,11 @@ struct SettingsView: View {
                         onTap: { model.onAppearanceTap() }
                     )
                     
-                    
-                    if FeatureFlags.multiplayer {
-                        SettingsSectionItemView(
-                            name: Loc.Spaces.title,
-                            imageAsset: .Settings.spaces,
-                            onTap: { model.onSpacesTap() }
-                        )
-                    }
+                    SettingsSectionItemView(
+                        name: Loc.Spaces.title,
+                        imageAsset: .Settings.spaces,
+                        onTap: { model.onSpacesTap() }
+                    )
                     
                     SettingsSectionItemView(
                         name: Loc.FileStorage.Local.title,
@@ -50,7 +47,7 @@ struct SettingsView: View {
                         onTap: { model.onAccountDataTap() }
                     )
                     
-                    if FeatureFlags.membership {
+                    if model.canShowMemberhip {
                         SettingsSectionItemView(
                             name: Loc.membership,
                             imageAsset: .Settings.membership,

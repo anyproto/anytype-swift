@@ -23,7 +23,7 @@ final class SetDocument: SetDocumentProtocol {
         document.detailsPublisher
     }
     
-    var syncStatus: AnyPublisher<SyncStatus, Never> {
+    var syncStatus: SyncStatus {
         document.syncStatus
     }
     
@@ -234,7 +234,7 @@ final class SetDocument: SetDocumentProtocol {
         }
         .store(in: &subscriptions)
         
-        document.syncStatus.sink { [weak self] status in
+        document.syncStatusPublisher.sink { [weak self] status in
             self?.updateSubject.send(.syncStatus(status))
         }
         .store(in: &subscriptions)

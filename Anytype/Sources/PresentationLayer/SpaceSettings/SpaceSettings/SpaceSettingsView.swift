@@ -12,6 +12,30 @@ struct SpaceSettingsView: View {
     }
     
     var body: some View {
+        content
+            .snackbar(toastBarData: $model.snackBarData)
+            .onAppear {
+                model.onAppear()
+            }
+            .task {
+                await model.startJoiningTask()
+            }
+            .task {
+                await model.startParticipantTask()
+            }
+            .onChange(of: model.dismiss) { _ in
+                dismiss()
+            }
+            .openUrl(url: $model.openUrl)
+            .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
+                SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
+            }
+            .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
+                SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
+            }
+    }
+    
+    private var content: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.SpaceSettings.title)
@@ -66,54 +90,66 @@ struct SpaceSettingsView: View {
             }
             .padding(.horizontal, 20)
         }
-        .snackbar(toastBarData: $model.snackBarData)
-        .onAppear {
-            model.onAppear()
-        }
-        .task {
-            await model.startJoiningTask()
-        }
-        .onChange(of: model.dismiss) { _ in
-            dismiss()
-        }
-        .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
-            SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
-        }
-        .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
-            SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
-        }
     }
     
     @ViewBuilder
     private var spaceSection: some View {
         SectionHeaderView(title: Loc.Settings.spaceType)
         
-        if FeatureFlags.multiplayer {
-            switch model.shareSection {
-            case .personal:
-                SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
-            case .private(let active):
+        switch model.shareSection {
+        case .personal:
+            SettingsSectionItemView(name: model.spaceAccessType, decoration: nil, onTap: {})
+        case let .private(state):
+            privateSpaceSetting(state: state)
+        case .owner(let joiningCount):
+            SettingsSectionItemView(
+                name: model.spaceAccessType,
+                decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
+                onTap: { model.onShareTap() }
+            )
+        case .member:
+            SettingsSectionItemView(
+                name: model.spaceAccessType,
+                decoration: .arrow(text: Loc.SpaceShare.members),
+                onTap: { model.onMembersTap() }
+            )
+        }
+    }
+    
+    func privateSpaceSetting(state: PrivateSpaceSettingsShareSection) -> some View {
+        Group {
+            switch state {
+            case .unshareable:
                 SettingsSectionItemView(
                     name: model.spaceAccessType,
                     decoration: .arrow(text: Loc.share),
                     onTap: { model.onShareTap() }
                 )
-                .disabled(!active)
-            case .owner(let joiningCount):
+                .disabled(true)
+            case .shareable:
                 SettingsSectionItemView(
                     name: model.spaceAccessType,
-                    decoration: .arrow(text: joiningCount > 0 ? Loc.SpaceShare.requestsCount(joiningCount) : Loc.SpaceShare.manage),
+                    decoration: .arrow(text: Loc.share),
                     onTap: { model.onShareTap() }
                 )
-            case .member:
-                SettingsSectionItemView(
-                    name: model.spaceAccessType,
-                    decoration: .arrow(text: Loc.SpaceShare.members),
-                    onTap: { model.onMembersTap() }
-                )
+            case .reachedSharesLimit(let limit):
+                VStack(alignment: .leading, spacing: 0) {
+                    SettingsSectionItemView(
+                        name: model.spaceAccessType,
+                        decoration: .arrow(text: Loc.share),
+                        showDivider: false,
+                        onTap: { model.onShareTap() }
+                    )
+                    .disabled(true)
+                    
+                    AnytypeText(Loc.Membership.Upgrade.spacesLimit(limit), style: .caption1Regular)
+                        .foregroundColor(.Text.primary)
+                    Spacer.fixedHeight(10)
+                    StandardButton("\(MembershipConstants.membershipSymbol.rawValue) \(Loc.Membership.Upgrade.moreSpaces)", style: .upgradeBadge) {
+                        model.onMembershipUpgradeTap()
+                    }
+                }
             }
-        } else {
-            SpaceTypeView(name: model.spaceAccessType)
         }
     }
 }

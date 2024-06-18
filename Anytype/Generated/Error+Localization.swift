@@ -1885,6 +1885,30 @@ extension Anytype_Rpc.BlockFile.SetName.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.BlockFile.SetTargetObjectId.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "BlockFile.SetTargetObjectId.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "BlockFile.SetTargetObjectId.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.BlockImage.SetName.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3343,6 +3367,30 @@ extension Anytype_Rpc.GenericErrorResponse.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.History.DiffVersions.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "History.DiffVersions.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "History.DiffVersions.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.History.GetVersions.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3502,57 +3550,6 @@ extension Anytype_Rpc.Membership.Finalize.Response.Error: LocalizedError {
             case .canNotConnect:
                 return String(localized: "Membership.Finalize.canNotConnect", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.Finalize.canNotConnect")
-            case .UNRECOGNIZED:
-                return ""
-        }
-    }
-}
-
-extension Anytype_Rpc.Membership.GetPaymentUrl.Response.Error: LocalizedError {
-    public var errorDescription: String? {
-        let localizeError = localizeError()
-        if localizeError.isNotEmpty {
-            return localizeError
-        }
-        return "Error: \(description_p) (\(code))"
-    }
-
-    private func localizeError() -> String {
-        switch code {
-            case .null:
-                return ""
-            case .unknownError:
-                return ""
-            case .badInput:
-                return String(localized: "Membership.GetPaymentUrl.badInput", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.badInput")
-            case .notLoggedIn:
-                return String(localized: "Membership.GetPaymentUrl.notLoggedIn", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.notLoggedIn")
-            case .paymentNodeError:
-                return String(localized: "Membership.GetPaymentUrl.paymentNodeError", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.paymentNodeError")
-            case .cacheError:
-                return String(localized: "Membership.GetPaymentUrl.cacheError", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.cacheError")
-            case .tierNotFound:
-                return String(localized: "Membership.GetPaymentUrl.tierNotFound", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.tierNotFound")
-            case .tierInvalid:
-                return String(localized: "Membership.GetPaymentUrl.tierInvalid", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.tierInvalid")
-            case .paymentMethodInvalid:
-                return String(localized: "Membership.GetPaymentUrl.paymentMethodInvalid", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.paymentMethodInvalid")
-            case .badAnyname:
-                return String(localized: "Membership.GetPaymentUrl.badAnyname", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.badAnyname")
-            case .membershipAlreadyExists:
-                return String(localized: "Membership.GetPaymentUrl.membershipAlreadyExists", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.membershipAlreadyExists")
-            case .canNotConnect:
-                return String(localized: "Membership.GetPaymentUrl.canNotConnect", defaultValue: "", table: "LocalizableError")
-                    .checkValue(key: "Membership.GetPaymentUrl.canNotConnect")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3805,6 +3802,63 @@ extension Anytype_Rpc.Membership.IsNameValid.Response.Error: LocalizedError {
             case .canNotConnect:
                 return String(localized: "Membership.IsNameValid.canNotConnect", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.IsNameValid.canNotConnect")
+            case .nameIsReserved:
+                return String(localized: "Membership.IsNameValid.nameIsReserved", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.IsNameValid.nameIsReserved")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Membership.RegisterPaymentRequest.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Membership.RegisterPaymentRequest.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.badInput")
+            case .notLoggedIn:
+                return String(localized: "Membership.RegisterPaymentRequest.notLoggedIn", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.notLoggedIn")
+            case .paymentNodeError:
+                return String(localized: "Membership.RegisterPaymentRequest.paymentNodeError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.paymentNodeError")
+            case .cacheError:
+                return String(localized: "Membership.RegisterPaymentRequest.cacheError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.cacheError")
+            case .tierNotFound:
+                return String(localized: "Membership.RegisterPaymentRequest.tierNotFound", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.tierNotFound")
+            case .tierInvalid:
+                return String(localized: "Membership.RegisterPaymentRequest.tierInvalid", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.tierInvalid")
+            case .paymentMethodInvalid:
+                return String(localized: "Membership.RegisterPaymentRequest.paymentMethodInvalid", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.paymentMethodInvalid")
+            case .badAnyname:
+                return String(localized: "Membership.RegisterPaymentRequest.badAnyname", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.badAnyname")
+            case .membershipAlreadyExists:
+                return String(localized: "Membership.RegisterPaymentRequest.membershipAlreadyExists", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.membershipAlreadyExists")
+            case .canNotConnect:
+                return String(localized: "Membership.RegisterPaymentRequest.canNotConnect", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.canNotConnect")
+            case .emailWrongFormat:
+                return String(localized: "Membership.RegisterPaymentRequest.emailWrongFormat", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.RegisterPaymentRequest.emailWrongFormat")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3838,6 +3892,15 @@ extension Anytype_Rpc.Membership.VerifyAppStoreReceipt.Response.Error: Localized
             case .cacheError:
                 return String(localized: "Membership.VerifyAppStoreReceipt.cacheError", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Membership.VerifyAppStoreReceipt.cacheError")
+            case .invalidReceipt:
+                return String(localized: "Membership.VerifyAppStoreReceipt.invalidReceipt", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.invalidReceipt")
+            case .purchaseRegistrationError:
+                return String(localized: "Membership.VerifyAppStoreReceipt.purchaseRegistrationError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.purchaseRegistrationError")
+            case .subscriptionRenewError:
+                return String(localized: "Membership.VerifyAppStoreReceipt.subscriptionRenewError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Membership.VerifyAppStoreReceipt.subscriptionRenewError")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -4708,6 +4771,30 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Object.ListSetDetails.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.ListSetDetails.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.ListSetDetails.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Object.ListSetIsArchived.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -4930,6 +5017,30 @@ extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "Object.SearchUnsubscribe.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Object.SearchUnsubscribe.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Object.SearchWithMeta.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.SearchWithMeta.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.SearchWithMeta.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -5869,6 +5980,9 @@ extension Anytype_Rpc.Space.Join.Response.Error: LocalizedError {
             case .notShareable:
                 return String(localized: "Space.Join.notShareable", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Space.Join.notShareable")
+            case .differentNetwork:
+                return String(localized: "Space.Join.differentNetwork", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Space.Join.differentNetwork")
             case .UNRECOGNIZED:
                 return ""
         }

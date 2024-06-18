@@ -7,20 +7,20 @@ final class StatusSearchInteractor {
     private let relationKey: String
     private let selectedStatusesIds: [String]
     private let isPreselectModeAvailable: Bool
-    private let searchService: SearchServiceProtocol
+    
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
     
     init(
         spaceId: String,
         relationKey: String,
         selectedStatusesIds: [String],
-        isPreselectModeAvailable: Bool,
-        searchService: SearchServiceProtocol
+        isPreselectModeAvailable: Bool
     ) {
         self.spaceId = spaceId
         self.relationKey = relationKey
         self.selectedStatusesIds = selectedStatusesIds
         self.isPreselectModeAvailable = isPreselectModeAvailable
-        self.searchService = searchService
     }
     
 }

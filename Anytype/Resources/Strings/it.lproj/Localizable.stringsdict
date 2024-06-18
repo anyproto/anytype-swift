@@ -85,7 +85,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Questa cassaforte verrà eliminata in %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>domani</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>in %d giorni</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>

@@ -6,6 +6,7 @@ import StoreKit
 struct MembershipNameSheetView: View {    
     @StateObject private var model: MembershipNameSheetViewModel
     @State private var name = ""
+    @State private var openUrl: URL?
     
     init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         _model = StateObject(
@@ -14,21 +15,13 @@ struct MembershipNameSheetView: View {
     }
     
     var body: some View {
-        content
-            .background(Color.Background.primary)
-            .onChange(of: name) { name in
-                model.validateName(name: name)
-            }
-    }
-    
-    var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(26)
             info
             nameView
-            AnytypeText("\(model.tier.paymentType.displayPrice ?? "") ", style: .title)
+            AnytypeText("\(model.tier.paymentType?.displayPrice ?? "") ", style: .title)
                 .foregroundColor(.Text.primary) +
-            AnytypeText(model.tier.paymentType.localizedPeriod ?? "", style: .relation1Regular)
+            AnytypeText(model.tier.paymentType?.localizedPeriod ?? "", style: .relation1Regular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(15)
             AsyncStandardButton(
@@ -36,12 +29,16 @@ struct MembershipNameSheetView: View {
                 style: .primaryLarge
             ) {
                 AnytypeAnalytics.instance().logClickMembership(type: .payByCard)
-                try await model.purchase()
+                try await model.purchase(name: name)
             }
             .disabled(!model.canBuyTier)
+            Spacer.fixedHeight(16)
+            disclamer
             Spacer.fixedHeight(40)
         }
         .padding(.horizontal, 20)
+        .background(Color.Background.primary)
+        .openUrl(url: $openUrl)
     }
     
     var info: some View {
@@ -66,25 +63,12 @@ struct MembershipNameSheetView: View {
             case .notAvailable:
                 EmptyView()
             case .availableForPruchase:
-                nameInput
+                MembershipNameValidationView(tier: model.tier, name: $name) { isValid in
+                    model.isNameValidated = isValid
+                }
             case .alreadyBought:
                 nameLabel
             }
-        }
-    }
-    
-    var nameInput: some View {
-        VStack(spacing: 0) {
-            HStack {
-                TextField(Loc.myself, text: $name)
-                    .textContentType(.username)
-                AnytypeText(".any", style: .bodyRegular)
-                    .foregroundColor(.Text.primary)
-            }
-            .padding(.vertical, 12)
-            .newDivider()
-            
-            nameStatus
         }
     }
     
@@ -100,38 +84,19 @@ struct MembershipNameSheetView: View {
         .newDivider()
     }
     
-    var nameStatus: some View {
-        HStack {
-            Spacer()
-            Group {
-                switch model.state {
-                case .default:
-                    AnytypeText(Loc.minXCharacters(model.minimumNumberOfCharacters), style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
-                case .validating:
-                    AnytypeText(Loc.Membership.NameForm.validating, style: .relation2Regular)
-                        .foregroundColor(.Text.secondary)
-                case .error(text: let text):
-                    AnytypeText(text, style: .relation2Regular)
-                        .foregroundColor(.Dark.red)
-                case .validated:
-                    AnytypeText(Loc.Membership.NameForm.validated, style: .relation2Regular)
-                        .foregroundColor(.Dark.green)
-                }
-            }
-            .padding(.top, 6)
-            .padding(.bottom, 4)
-            
-            Spacer()
-        }
-        .lineLimit(1)
+    var disclamer: some View {
+        AnytypeText(
+            Loc.agreementDisclamer(AboutApp.termsLink, AboutApp.privacyPolicyLink),
+            style: .caption1Regular,
+            enableMarkdown: true
+        )
+        .foregroundColor(.Text.tertiary)
+        .accentColor(.Text.secondary)
+        .multilineTextAlignment(.center)
+        .padding(.horizontal, 38)
+        .environment(\.openURL, OpenURLAction { url in
+            openUrl = url
+            return .handled
+        })
     }
 }
-
-//#Preview {
-//    TabView {
-//        MembershipNameSheetView(tier: .mockBuilder, anyName: "")
-//        MembershipNameSheetView(tier: .mockCoCreator, anyName: "SonyaBlade")
-//        MembershipNameSheetView(tier: .mockBuilderTest, anyName: "")
-//    }.tabViewStyle(.page)
-//}

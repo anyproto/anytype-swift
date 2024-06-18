@@ -23,8 +23,12 @@ public struct StripePaymentInfo: Hashable, Equatable {
     }
 }
 
+public struct AppStorePaymentInfo: Hashable, Equatable {
+    public let product: Product
+    public let fallbackPaymentUrl: URL
+}
+
 public enum MembershipTierPaymentType: Hashable, Equatable {
-    case email
-    case appStore(product: Product)
+    case appStore(info: AppStorePaymentInfo)
     case external(info: StripePaymentInfo)
 }

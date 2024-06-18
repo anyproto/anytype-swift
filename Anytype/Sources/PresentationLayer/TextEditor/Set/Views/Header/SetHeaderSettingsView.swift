@@ -85,14 +85,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
     static var previews: some View {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
-                setDocument: SetDocument(
-                    document: DI.preview.serviceLocator.documentsProvider.document(objectId: "", forPreview: false),
-                    inlineParameters: nil,
-                    relationDetailsStorage: DI.preview.serviceLocator.relationDetailsStorage(),
-                    objectTypeProvider: DI.preview.serviceLocator.objectTypeProvider(),
-                    accountParticipantsStorage: DI.preview.serviceLocator.accountParticipantStorage(),
-                    permissionsBuilder: SetPermissionsBuilder()
-                ),
+                setDocument: Container.shared.documentsProvider().setDocument(objectId: "", forPreview: false, inlineParameters: nil),
                 onViewTap: {},
                 onSettingsTap: {},
                 onCreateTap:{},

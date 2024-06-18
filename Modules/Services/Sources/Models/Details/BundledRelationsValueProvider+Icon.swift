@@ -63,7 +63,7 @@ public extension BundledRelationsValueProvider {
     
     private var spaceIcon: ObjectIcon? {
         if iconImage.isNotEmpty {
-            return .basic(iconImage)
+            return .space(.imageId(iconImage))
         }
         
         if let iconOptionValue {

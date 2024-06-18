@@ -4,12 +4,13 @@ import Services
 final class FilesSearchInteractor {
     
     private let spaceId: String
-    private let searchService: SearchServiceProtocol
     private let excludedFileIds: [String]
     
-    init(spaceId: String, searchService: SearchServiceProtocol, excludedFileIds: [String]) {
+    @Injected(\.searchService)
+    private var searchService: SearchServiceProtocol
+    
+    init(spaceId: String, excludedFileIds: [String]) {
         self.spaceId = spaceId
-        self.searchService = searchService
         self.excludedFileIds = excludedFileIds
     }
     

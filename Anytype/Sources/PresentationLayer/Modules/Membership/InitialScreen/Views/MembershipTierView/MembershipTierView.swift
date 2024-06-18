@@ -22,6 +22,9 @@ struct MembershipTierView: View {
     
     var body: some View {
         content
+            .onTapGesture {
+                model.onTap()
+            }
             .task {
                 model.updateState()
             }
@@ -30,7 +33,7 @@ struct MembershipTierView: View {
             }
     }
     
-    var content: some View {
+    private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(16)
             Image(asset: model.tierToDisplay.smallIcon)
@@ -46,40 +49,21 @@ struct MembershipTierView: View {
             
             info
             Spacer.fixedHeight(10)
-            StandardButton(Loc.learnMore, style: .primaryMedium, action: model.onTap)
-                .disabled(model.state.isPending)
+            StandardButton(Loc.learnMore, style: .primaryXSmallStretched, action: model.onTap)
             Spacer.fixedHeight(20)
         }
         .if(model.state.isOwned) {
-            $0.overlay(alignment: .topTrailing) {
-                AnytypeText(Loc.current, style: .relation3Regular)
-                    .foregroundColor(.Text.primary)
-                    .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
-                    .border(11, color: .Text.primary)
-                    .padding(.top, 16)
-            }
+            $0.overlay(alignment: .topTrailing) { ownershipOverlay }
         }
+        
         .fixTappableArea()
-        .onTapGesture {
-            if !model.state.isPending {
-                model.onTap()
-            }
-        }
         .padding(.horizontal, 16)
         .frame(width: 192, height: 296)
-        .background(
-            Group {
-                if colorScheme == .dark {
-                    Color.Shape.tertiary
-                } else {
-                    model.tierToDisplay.gradient
-                }
-            }
-        )
+        .background(backgroundView)
         .cornerRadius(16, style: .continuous)
     }
     
-    var info: some View  {
+    private var info: some View  {
         Group {
             switch model.state {
             case .owned:
@@ -89,19 +73,39 @@ struct MembershipTierView: View {
                     .foregroundColor(.Text.primary)
             case .unowned:
                 MembershipPricingView(tier: model.tierToDisplay)
+            case nil:
+                EmptyView()
             }
         }
     }
     
-    var expirationText: some View {
+    private var expirationText: some View {
         Group {
             switch model.tierToDisplay.type {
             case .explorer:
                 return AnytypeText(Loc.foreverFree, style: .caption1Regular)
                     .foregroundColor(.Text.primary)
-            case .builder, .coCreator, .custom:
+            case .builder, .coCreator, .custom, .anyTeam:
                 return AnytypeText(Loc.validUntilDate(model.userMembership.formattedDateEnds), style: .caption1Regular)
                     .foregroundColor(.Text.primary)
+            }
+        }
+    }
+    
+    private var ownershipOverlay: some View {
+        AnytypeText(Loc.current, style: .relation3Regular)
+            .foregroundColor(.Text.primary)
+            .padding(EdgeInsets(top: 2, leading: 8, bottom: 3, trailing: 8))
+            .border(11, color: .Text.primary)
+            .padding(.top, 16)
+    }
+    
+    private var backgroundView: some View {
+        Group {
+            if colorScheme == .dark {
+                Color.Shape.tertiary
+            } else {
+                model.tierToDisplay.gradient
             }
         }
     }

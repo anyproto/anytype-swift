@@ -14,9 +14,10 @@ protocol AudioPlayerViewDelegate: AnyObject {
     var audioPlayerView: AudioPlayerViewInput? { get set }
     var currentTime: Double { get }
     /// Track duration in seconds
-    var duration: Double { get }
     var isPlaying: Bool { get }
-    var isPlayable: Bool { get }
+    
+    func duration() async -> Double
+    func isPlayable() async -> Bool
     func playButtonDidPress(sliderValue: Double)
     func progressSliederChanged(value: Double, completion: @escaping () -> Void)
 }
@@ -149,16 +150,24 @@ final class AudioPlayerView: UIView {
     // MARK: - Public methods
 
     func updateAudioInformation(delegate: AudioPlayerViewDelegate?) {
+        Task {
+            await updateAudioInformationAsync(delegate: delegate)
+        }
+    }
+    
+    private func updateAudioInformationAsync(delegate: AudioPlayerViewDelegate?) async {
         guard let delegate = delegate else {
             return
         }
         
-        configurePlayButtonActivity(delegate.isPlayable)
-
+        let isPlayable = await delegate.isPlayable()
+        configurePlayButtonActivity(isPlayable)
+        
+        let duration = await delegate.duration()
         progressSlider.minimumValue = 0
-        progressSlider.maximumValue = Float(delegate.duration)
-
-        let durationTimeText = formattedTimeText(time: Float(delegate.duration))
+        progressSlider.maximumValue = Float(duration)
+        
+        let durationTimeText = formattedTimeText(time: Float(duration))
         durationLabel.setText(durationTimeText)
 
         progressSlider.value = Float(delegate.currentTime)

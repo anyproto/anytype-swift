@@ -24,6 +24,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     @Injected(\.activeSpaceParticipantStorage)
     private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    @Injected(\.mailUrlBuilder)
+    private var mailUrlBuilder: MailUrlBuilderProtocol
     
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?
@@ -49,12 +51,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
     @Published var shareSection: SpaceSettingsShareSection = .personal
+    @Published var openUrl: URL?
     
     init(output: SpaceSettingsModuleOutput?) {
         self.output = output
-        Task {
-            try await setupData()
-        }
     }
     
     func onChangeIconTap() {
@@ -90,6 +90,10 @@ final class SpaceSettingsViewModel: ObservableObject {
         output?.onSpaceMembersSelected()
     }
     
+    func onMembershipUpgradeTap() {
+        openUrl = mailUrlBuilder.membershipUpgrateUrl()
+    }
+    
     func startJoiningTask() async {
         for await participants in activeSpaceParticipantStorage.participantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
@@ -97,18 +101,14 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Private
-    
-    private func setupData() async throws {
-        participantSpacesStorage
-            .activeParticipantSpacesPublisher
-            .receiveOnMain()
-            .sink { [weak self] participantSpaceViews in
-                self?.participantSpaceView = participantSpaceViews.first { $0.spaceView.targetSpaceId == self?.workspaceInfo.accountSpaceId }
-                self?.updateViewState()
-            }
-            .store(in: &subscriptions)
+    func startParticipantTask() async {
+        for await participantSpaceView in participantSpacesStorage.participantSpaceViewPublisher(spaceId: workspaceInfo.accountSpaceId).values {
+            self.participantSpaceView = participantSpaceView
+            updateViewState()
+        }
     }
+    
+    // MARK: - Private
     
     private func updateViewState() {
         guard let participantSpaceView else { return }
@@ -123,16 +123,26 @@ final class SpaceSettingsViewModel: ObservableObject {
         allowRemoteStorage = participantSpaceView.isOwner
         buildInfoBlock(details: spaceView)
         
-        if participantSpaceView.canBeShared {
-            if participantSpaceView.spaceView.spaceAccessType == .shared {
+        if participantSpaceView.isOwner {
+            switch participantSpaceView.spaceView.spaceAccessType {
+            case .personal, .UNRECOGNIZED, .none:
+                shareSection = .personal
+            case .private:
+                guard participantSpaceView.canBeShared, let spaceSharingInfo = participantSpacesStorage.spaceSharingInfo else {
+                    shareSection = .private(state: .unshareable)
+                    break
+                }
+                
+                if spaceSharingInfo.limitsAllowSharing {
+                    shareSection = .private(state: .shareable)
+                } else {
+                    shareSection = .private(state: .reachedSharesLimit(limit: spaceSharingInfo.sharedSpacesLimit))
+                }                
+            case .shared:
                 shareSection = .owner(joiningCount: joiningCount)
-            } else {
-                shareSection = .private(active: participantSpacesStorage.canShareSpace())
             }
-        } else if !participantSpaceView.isOwner {
-            shareSection = .member
         } else {
-            shareSection = .personal
+            shareSection = .member
         }
         
         if !dataLoaded {

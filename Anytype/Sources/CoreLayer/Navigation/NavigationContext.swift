@@ -61,32 +61,20 @@ extension NavigationContextProtocol {
 
 final class NavigationContext: NavigationContextProtocol {
     
-    private var rootViewControllerProvider: () -> UIViewController?
+    @Injected(\.legacyViewControllerProvider)
+    private var viewControllerProvider: ViewControllerProviderProtocol
+    
     private var navigationController: UINavigationController? {
-        rootViewControllerProvider()?.topPresentedController as? UINavigationController
+        viewControllerProvider.rootViewController?.topPresentedController as? UINavigationController
     }
     
-    convenience init(window: UIWindow?) {
-        self.init(rootViewControllerProvider: { [weak window] in
-            return window?.rootViewController
-        })
-    }
-    
-    convenience init(rootViewController: UIViewController?) {
-        self.init(rootViewControllerProvider: { [weak rootViewController] in
-            return rootViewController
-        })
-    }
-    
-    private init(rootViewControllerProvider: @escaping () -> UIViewController?) {
-        self.rootViewControllerProvider = rootViewControllerProvider
-    }
+    nonisolated init() {}
     
     // MARK: - NavigationContextProtocol
     
     @discardableResult
     func present(_ viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?) -> AnytypeDismiss {
-        guard let viewController = rootViewControllerProvider()?.topPresentedController else {
+        guard let viewController = viewControllerProvider.rootViewController?.topPresentedController else {
             return AnytypeDismiss(dismiss: {})
         }
         
@@ -102,7 +90,7 @@ final class NavigationContext: NavigationContextProtocol {
     }
     
     func dismissTopPresented(animated: Bool, completion: (() -> Void)?) {
-        guard let viewController = rootViewControllerProvider()?.topPresentedController else {
+        guard let viewController = viewControllerProvider.rootViewController?.topPresentedController else {
             return
         }
         
@@ -110,7 +98,7 @@ final class NavigationContext: NavigationContextProtocol {
     }
     
     func dismissAllPresented(animated: Bool, completion: (() -> Void)?) {
-        guard let viewController = rootViewControllerProvider() else {
+        guard let viewController = viewControllerProvider.rootViewController else {
             return
         }
             

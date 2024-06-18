@@ -6,13 +6,6 @@ import AnytypeCore
 
 @MainActor
 final class RemoteStorageViewModel: ObservableObject {
-    
-    private enum Constants {
-        
-        static let warningPercent = 0.9
-        static let mailTo = "storage@anytype.io"
-    }
-    
     @Injected(\.accountManager)
     private var accountManager: AccountManagerProtocol
     @Injected(\.activeWorkspaceStorage)
@@ -25,6 +18,11 @@ final class RemoteStorageViewModel: ObservableObject {
     private var documentProvider: DocumentsProviderProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    @Injected(\.membershipStatusStorage)
+    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    @Injected(\.mailUrlBuilder)
+    private var mailUrlBuilder: MailUrlBuilderProtocol
+    
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
@@ -37,7 +35,10 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var spaceUsed: String = ""
     @Published var contentLoaded: Bool = false
     @Published var showGetMoreSpaceButton: Bool = false
+    @Published var showMembershipScreen = false
+    @Published var showMembershipEmailAlert = false
     @Published var segmentInfo = RemoteStorageSegmentInfo()
+    @Published var openUrl: URL?
     
     init(output: RemoteStorageModuleOutput?) {
         self.output = output
@@ -56,27 +57,23 @@ final class RemoteStorageViewModel: ObservableObject {
     }
     
     func onTapGetMoreSpace() {
-        guard let nodeUsage else { return }
         AnytypeAnalytics.instance().logGetMoreSpace()
-        Task { @MainActor in
-            let profileDocument = documentProvider.document(
-                objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID,
-                forPreview: true
-            )
-            try await profileDocument.openForPreview()
-            let limit = byteCountFormatter.string(fromByteCount: nodeUsage.node.bytesLimit)
-            let mailLink = MailUrl(
-                to: Constants.mailTo,
-                subject: Loc.FileStorage.Space.Mail.subject(accountManager.account.id),
-                body: Loc.FileStorage.Space.Mail.body(limit, accountManager.account.id, profileDocument.details?.name ?? "")
-            )
-            guard let mailLinkUrl = mailLink.url else { return }
-            output?.onLinkOpen(url: mailLinkUrl)
+        
+        guard let currentTier = membershipStatusStorage.currentStatus.tier else { return }
+        
+        if currentTier.isPossibleToUpgrade {
+            showMembershipScreen = true
+        } else {
+            showMembershipEmailAlert = true
         }
     }
     
-    // MARK: - Private
+    func onTapContactAnytype() {
+        openUrl = mailUrlBuilder.membershipUpgrateUrl()
+        showMembershipEmailAlert = false
+    }
     
+    // MARK: - Private
     private func setupSubscription() async {
         fileLimitsStorage.nodeUsage
             .receiveOnMain()
@@ -106,7 +103,8 @@ final class RemoteStorageViewModel: ObservableObject {
         spaceInstruction = Loc.FileStorage.Space.instruction(limit)
         spaceUsed = Loc.FileStorage.Space.used(used, limit)
         let percentUsage = Double(bytesUsed) / Double(bytesLimit)
-        showGetMoreSpaceButton = percentUsage >= Constants.warningPercent
+        let percentToShowGetMoreButton = 0.7
+        showGetMoreSpaceButton = percentUsage >= percentToShowGetMoreButton
         
         let spaceId = activeWorkspaceStorage.workspaceInfo.accountSpaceId
         

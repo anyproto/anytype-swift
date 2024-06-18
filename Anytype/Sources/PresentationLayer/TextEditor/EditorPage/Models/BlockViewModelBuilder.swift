@@ -7,16 +7,11 @@ import AnytypeCore
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
     private let router: EditorRouterProtocol
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-    private let detailsService: DetailsServiceProtocol
-    private let audioSessionService: AudioSessionServiceProtocol
     private let infoContainer: InfoContainerProtocol
-    private let tableService: BlockTableServiceProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockCollectionController: EditorBlockCollectionController
     private let accessoryStateManager: AccessoryViewStateManager
@@ -27,19 +22,26 @@ final class BlockViewModelBuilder {
     private let slashMenuActionHandler: SlashMenuActionHandler
     private weak var output: EditorPageModuleOutput?
     
+    @Injected(\.blockTableService)
+    private var tableService: BlockTableServiceProtocol
+    @Injected(\.detailsService)
+    private var detailsService: DetailsServiceProtocol
+    @Injected(\.audioSessionService)
+    private var audioSessionService: AudioSessionServiceProtocol
+    @Injected(\.objectTypeProvider)
+    private var objectTypeProvider: ObjectTypeProviderProtocol
+    @Injected(\.pasteboardBlockDocumentService)
+    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    
+    
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
         router: EditorRouterProtocol,
         markdownListener: MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        detailsService: DetailsServiceProtocol,
-        audioSessionService: AudioSessionServiceProtocol,
         infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockCollectionController: EditorBlockCollectionController,
         accessoryStateManager: AccessoryViewStateManager,
@@ -52,16 +54,11 @@ final class BlockViewModelBuilder {
     ) {
         self.document = document
         self.handler = handler
-        self.pasteboardService = pasteboardService
         self.router = router
         self.markdownListener = markdownListener
         self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder
         self.subjectsHolder = subjectsHolder
-        self.detailsService = detailsService
-        self.audioSessionService = audioSessionService
         self.infoContainer = infoContainer
-        self.tableService = tableService
-        self.objectTypeProvider = objectTypeProvider
         self.modelsHolder = modelsHolder
         self.blockCollectionController = blockCollectionController
         self.accessoryStateManager = accessoryStateManager
@@ -136,8 +133,8 @@ final class BlockViewModelBuilder {
                     showPage: { [weak self] objectId in
                         self?.router.showPage(objectId: objectId)
                     },
-                    openURL: { [weak router] url in
-                        router?.openUrl(url)
+                    openURL: { [weak output] url in
+                        output?.openUrl(url)
                     },
                     onShowStyleMenu: { [weak self] blockInformation in
                         Task { @MainActor [weak self] in
@@ -197,6 +194,7 @@ final class BlockViewModelBuilder {
                 return BlockFileViewModel(
                     informationProvider: blockInformationProvider,
                     handler: handler,
+                    documentId: documentId,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
@@ -206,6 +204,7 @@ final class BlockViewModelBuilder {
                 )
             case .image:
                 return BlockImageViewModel(
+                    documentId: documentId,
                     blockInformationProvider: blockInformationProvider,
                     handler: handler,
                     showIconPicker: { [weak self] blockId in
@@ -223,6 +222,7 @@ final class BlockViewModelBuilder {
                 )
             case .audio:
                 return AudioBlockViewModel(
+                    documentId: documentId,
                     informationProvider: blockInformationProvider,
                     audioSessionService: audioSessionService,
                     showAudioPicker: { [weak self] blockId in
@@ -249,7 +249,7 @@ final class BlockViewModelBuilder {
                 },
                 openUrl: { [weak self] url in
                     AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
-                    self?.router.openUrl(url.url)
+                    self?.output?.openUrl(url.url)
                 }
             )
         case let .link(content):
@@ -346,7 +346,7 @@ final class BlockViewModelBuilder {
                 objectDetailsProvider: objectDetailsProvider,
                 reloadable: blockCollectionController,
                 showFailureToast: { [weak self] message in
-                    self?.router.showFailureToast(message: message)
+                    self?.output?.showFailureToast(message: message)
                 },
                 openSet: { [weak self] data in
                     self?.router.showEditorScreen(data: data)

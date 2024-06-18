@@ -1,5 +1,7 @@
 import SwiftUI
 import Services
+import AnytypeCore
+import StoreKit
 
 
 struct MembershipTierSelectionView: View {
@@ -10,7 +12,6 @@ struct MembershipTierSelectionView: View {
     init(
         userMembership: MembershipStatus,
         tierToDisplay: MembershipTier,
-        showEmailVerification: @escaping (EmailVerificationData) -> (),
         onSuccessfulPurchase: @escaping (MembershipTier) -> ()
         
     ) {
@@ -18,13 +19,27 @@ struct MembershipTierSelectionView: View {
             wrappedValue: MembershipTierSelectionViewModel(
                 userMembership: userMembership,
                 tierToDisplay: tierToDisplay,
-                showEmailVerification: showEmailVerification,
                 onSuccessfulPurchase: onSuccessfulPurchase
             )
         )
     }
     
     var body: some View {
+        content
+        .safariSheet(url: $safariUrl)
+        .task {
+            await model.onAppear()
+        }
+    }
+    
+    private var content: some View {
+        ZStack {
+            scrollView
+            dragOverlay
+        }
+    }
+    
+    private var scrollView: some View {
         ScrollView {
             VStack(spacing: 0) {
                 MembershipTierInfoView(tier: model.tierToDisplay)
@@ -33,41 +48,52 @@ struct MembershipTierSelectionView: View {
                     .background(sheetBackground)
             }
         }
-        .safariSheet(url: $safariUrl)
-        .task {
-            await model.onAppear()
+        .scrollIndicators(.never)
+    }
+    
+    var dragOverlay: some View {
+        VStack {
+            // fixTappableArea() do not work inside TabView
+            Color.black.opacity(0.0001).frame(height: 100)
+            Spacer()
         }
     }
     
     var sheet: some View {
         Group {
             switch model.state {
+            case nil:
+                EmptyView()
             case .owned:
-                MembershipOwnerInfoSheetView(membership: model.userMembership)
+                MembershipOwnerInfoSheetView()
             case .pending:
                 MembershipPendingInfoSheetView(membership: model.userMembership)
-            case .unowned:
-                switch model.tierToDisplay.paymentType {
-                case .email:
-                    MembershipEmailSheetView { email, subscribeToNewsletter in
-                        try await model.getVerificationEmail(email: email, subscribeToNewsletter: subscribeToNewsletter)
-                    }
+            case .unowned(let availablitiy):
+                switch availablitiy {
                 case .appStore(let product):
                     MembershipNameSheetView(tier: model.tierToDisplay, anyName: model.userMembership.anyName, product: product, onSuccessfulPurchase: model.onSuccessfulPurchase)
-                case .external(let info):
-                    VStack {
-                        StandardButton(Loc.moreInfo, style: .primaryLarge) {
-                            AnytypeAnalytics.instance().logClickMembership(type: .moreInfo)
-                            safariUrl = info.paymentUrl
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 34)
+                case .external(let url):
+                    if FeatureFlags.hideCoCreator {
+                        EmptyView()
+                    } else {
+                        moreInfoButton(url: url)
                     }
-                    .background(Color.Background.primary)
-                    .cornerRadius(16, corners: .top)
                 }
             }
         }
+    }
+    
+    func moreInfoButton(url: URL) -> some View {
+        VStack {
+            StandardButton(Loc.moreInfo, style: .primaryLarge) {
+                AnytypeAnalytics.instance().logClickMembership(type: .moreInfo)
+                safariUrl = url
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 34)
+        }
+        .background(Color.Background.primary)
+        .cornerRadius(16, corners: .top)
     }
     
     // To mimic sheet overlay style
@@ -88,37 +114,31 @@ struct MembershipTierSelectionView: View {
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockExplorer),
             tierToDisplay: .mockExplorer,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: nil),
             tierToDisplay: .mockExplorer,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockExplorer),
             tierToDisplay: .mockBuilder,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockBuilder, anyName: .mock),
             tierToDisplay: .mockBuilder,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockBuilder, anyName: .mock),
             tierToDisplay: .mockCoCreator,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
         MembershipTierSelectionView(
             userMembership: .mock(tier: .mockCoCreator, anyName: .mock),
             tierToDisplay: .mockCoCreator,
-            showEmailVerification: { _ in },
             onSuccessfulPurchase: { _ in }
         )
     }.tabViewStyle(.page)

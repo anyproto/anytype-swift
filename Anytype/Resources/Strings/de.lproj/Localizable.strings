@@ -104,6 +104,8 @@
 "Relation.Format.Email.Title" = "E-Mail";
 "Relation.Format.Phone.Title" = "Telefonnummer";
 
+"Relation.Search.View.Placeholder" = "Search or create a new relation";
+
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Zwischenablage";
@@ -191,6 +193,7 @@
 "Share" = "Teilen";
 "Okay" = "Okay";
 "Join" = "Beitreten";
+"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
 "Favorites" = "Favoriten";
@@ -207,7 +210,7 @@
 // Keychain screen
 "Keychain.Key" = "Schlüssel";
 "Keychain.Key.Copy.Toast.title" = "Schlüssel kopiert";
-"Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
+"Keychain.Key.description" = "Du brauchst ihn um deinen Tresor zu öffnen. Bewahre ihn an einem sicheren Ort. Wenn du ihn verlierst, kannst du deinen Tresor nicht mehr öffnen.";
 "Keychain.Show and copy key" = "Schlüssel anzeigen und kopieren";
 "Keychain.Have you backed up your key?" = "Hast du deinen Schlüssel gesichert?";
 "Keychain.Error.String to Data conversion error" = "Zeichenkettenkonvertierungsfehler";
@@ -221,9 +224,8 @@
 "Auth.CameraPermissionTitle" = "Bitte Zugriff erlauben";
 "Restore key from keychain" = "Schlüssel aus dem Schlüsselbund wiederherstellen";
 "Auth.LogIn" = "Ich habe einen Schlüssel";
-"Auth.Button.Join" = "New Vault";
+"Auth.Button.Join" = "Neuer Tresor";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
-"Auth.Caption.Privacy.Text" = "Durch Fortfahren stimmst du den [Nutzungsbedingungen](%@) und [Datenschutzrichtlinie](%@ ) zu";
 "Auth.Next" = "Weiter";
 
 "Vault recover error" = "Fehler beim Wiederherstellen des Tresors, versuche es erneut";
@@ -231,7 +233,7 @@
 
 // Auth Errors
 "Error creating wallet" = "Fehler beim Erstellen der Wallet";
-"Error select vault" = "Error select vault";
+"Error select vault" = "Fehler bei der Auswahl des Tresors";
 "Error wallet recover vault" = "Error wallet recover vault";
 "Wallet.Recovery.Error.description" = "Ungültiger Schlüssel";
 
@@ -240,9 +242,9 @@
 // Auth - Join flow
 
 "Auth.JoinFlow.Key.Title" = "Dies ist dein Schlüssel";
-"Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
+"Auth.JoinFlow.Key.Description" = "Damit hast du die volle Kontrolle über deinen Tresor.\nEr kann nicht wiederhergestellt werden.";
 "Auth.JoinFlow.Key.Button.Show.Title" = "Meinen Schlüssel anzeigen";
-"Auth.JoinFlow.Key.Button.Saved.Title" = "Meinen Tresor betreten";
+"Auth.JoinFlow.Key.Button.Saved.Title" = "Weiter";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Überspringen";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "In die Zwischenablage kopieren";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Mehr lesen";
@@ -250,22 +252,26 @@
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Was ist der Schlüssel?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Sie wird durch eine Wiederherstellungsphrase dargestellt - 12 zufällige Wörter, aus denen dein Tresor auf magische Weise auf diesem Gerät generiert wird.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Wer auch immer die Kombination dieser Worte kennt, dem gehört dein Tresor. **Im Moment bist du die einzige Person auf der Welt, die sie kennt.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Alle Rechenressourcen der Welt reichen nicht aus, um ihn zu knacken. Wenn du ihn verlierst, kann er nicht wiederhergestellt werden. Bewahre ihn also an einem sicheren Ort auf!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Wie kann ich meinen Schlüssel speichern?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Am einfachsten ist es, deinen Schlüssel in deinem Passwort-Manager zu speichern.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Am sichersten ist es, sie auf Papier aufzuschreiben und offline, an einem sicheren Ort.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "Deinen Namen festlegen";
+"Auth.JoinFlow.Soul.Description" = "Nur von Leuten gesehen, mit denen du etwas teilst. Es gibt kein zentrales Register dieser Namen.";
 "Auth.JoinFlow.Soul.Placeholder" = "Unbenannt";
 "Auth.JoinFlow.Soul.Button" = "Meinen Schlüssel holen";
+
+"Auth.JoinFlow.Vault.Title" = "Dies ist dein Tresor";
+"Auth.JoinFlow.Vault.Description" = "Alles darin ist verschlüsselt.\nEs ist zuerst lokal – alles funktioniert offline.\nNur du hast den Schlüssel.";
+"Auth.JoinFlow.Vault.Button" = "Meinen Schlüssel holen";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Schlüsselbund verwenden";
 "Auth.LoginFlow.Or" = "ODER";
 "Auth.LoginFlow.Textfield.Placeholder" = "Gib deinen Schlüssel ein";
-"Auth.LoginFlow.Enter.Title" = "Meinen Tresor betreten";
+"Auth.LoginFlow.Enter.Title" = "Meinen Schlüssel holen";
 "Auth.LoginFlow.Entering.Void.Title" = "Leere betreten";
 
 // Object settings
@@ -361,6 +367,7 @@
 
 "TemplateEditing.Title" = "Vorlage bearbeiten";
 
+"Templates.Popup.WasAddedTo.title" = "Neue Vorlage wurde zum Typ %@ hinzugefügt";
 "Templates.Popup.WasAddedTo" = "Neue Vorlage wurde zum Typ hinzugefügt";
 "Templates.Popup.Duplicated" = "Die Vorlage wurde Dupliziert";
 "Templates.Popup.Removed" = "Die Vorlage wurde entfernt";
@@ -385,6 +392,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Keine Sorten hier. Sie können einige hinzufügen";
 "EditSet.Popup.Sort.Types.Ascending" = "Aufsteigend";
 "EditSet.Popup.Sort.Types.Descending" = "Absteigend";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Ganz oben";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Ganz unten";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Leere Werte anzeigen";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Wählen sie eine Beziehung zum Sortieren";
 
 // MARK: - Sets: Filters
@@ -561,7 +571,7 @@
 "copied to clipboard" = "%@ in die Zwischenanlage kopiert";
 "Create object from clipboard" = "Objekt aus der Zwischenablage erstellen";
 "Access to key from keychain" = "Zugriff auf Schlüssel vom Schlüsselbund";
-"Back up your key" = "Back up your key";
+"Back up your key" = "Sichere deinen Schlüssel";
 "Vault" = "Tresor";
 "Access" = "Zugriff";
 "Back up key" = "Back up key";
@@ -659,7 +669,7 @@
 "New" = "Neu";
 
 // MARK: - DeletionAlert
-"DeletionAlert.title" = "Are you sure you want to delete your vault?";
+"DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
 "DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
 
 // MARK: - DataviewType
@@ -886,7 +896,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Mehr Informationen";
 
 "SpaceShare.Title" = "Sharing";
 "SpaceShare.Members" = "Mitglieder";
@@ -919,7 +929,7 @@
 "SpaceShare.Join.Button" = "Beitrittsanfrage stellen";
 "SpaceShare.Join.Info" = "Sobald der Spacebesitzer Ihre Anfrage genehmigt, werden Sie dem Space beitreten, wobei der Eigentümer die Zugriffsrechte festgelegt.";
 "SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.InviteNotFound" = "Dieser Link scheint nicht zu funktionieren";
 "SpaceShare.JoinConfirmation.Title" = "Anfrage gesendet";
 "SpaceShare.JoinConfirmation.Message" = "Sie erhalten eine Benachrichtigung, wenn der Spacebesitzer Ihre Anfrage angenommen hat.";
 "SpaceShare.YouSuffix" = "%@ (du)";
@@ -992,8 +1002,8 @@
 "Initial.UnstableMiddle.Title" = "Warnung";
 "Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
 "Initial.UnstableMiddle.Title" = "Warnung";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
+"Initial.UnstableMiddle.Logout" = "Vom aktuellen Tresor abmelden";
+"Initial.UnstableMiddle.Continue" = "Mit aktuellem Tresor fortfahren";
 "Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
 
 // MARK: - Create tip
@@ -1022,8 +1032,6 @@
 "Server.LocalOnly" = "Nur lokal";
 
 // MARK: - Gallery
-"Gallery.Unavailable.Title" = "Galerie wird bald unterstützt";
-"Gallery.Unavailable.Message" = "Bitte verwende die Desktop-App vorläufig";
 "Gallery.Author" = "Erstellt von @%@";
 "Gallery.Install" = "Installieren";
 "Gallery.InstallToNew" = "In neuen Space installieren";
@@ -1040,6 +1048,7 @@
 "unlimited" = "Unbegrenzt";
 
 
+"Upgrade" = "Upgrade";
 "What’s included" = "Was ist inbegriffen?";
 "Submit" = "Absenden";
 "Resend" = "Erneut senden";
@@ -1056,7 +1065,12 @@
 "Min X characters" = "Min. %@ Zeichen";
 "Pending" = "Ausstehend...";
 "Manage payment" = "Zahlung verwalten";
+"Change email" = "E-Mail-Adresse ändern";
+"Email successfully validated" = "E-Mail-Adresse erfolgreich validiert";
+"Confirm" = "Bestätige";
 
+"StoreKitServiceError.userCancelled" = "Kauf abgebrochen";
+"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
 "Membership.Ad.Title" = "Mitgliedschaft";
 "Membership.Ad.Subtitle" = "Dem Anytype-Netzwerk beizutreten bedeutet, einen Beitrag zu seiner Geschichte zu leisten";
@@ -1069,11 +1083,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
 "Membership.Legal.RestorePurchases" = "Käufe wiederherstellen";
 
-"Membership.Email.Subject" = "Spezielle Preisanfrage";
-"Membership.Email.Body" = "Bitte konkretisiere deine Anfrage:
-- hebe hervor, wenn du eine Bildungs-, Regierungs- oder gemeinnützige Organisation vertrittst
-- erzähl uns mehr über deine Organisation: Anzahl der Mitarbeiter und zukünftigen Anytype-Nutzer, Märkte, auf denen du arbeitest, usw.,
-- zusätzliche Details darüber, wie deine Organisation Anytype benutzt";
+"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
+- Extra remote storage
+- More space editors
+- Additional shared spaces
+Specifically,
+Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
@@ -1085,20 +1100,14 @@
 "Membership.Banner.Title4" = "In Konnektivität investieren";
 "Membership.Banner.Subtitle4" = "Der Wert unseres Netzwerks ist größer als die Summe seiner Teile. Durch deine Mitgliedschaft wird die Infrastruktur für sein Wachstum aufrechterhalten, die dieses Netzwerk trägt.";
 
-"Membership.EmailForm.Title" = "Hol dir deine kostenlose Mitgliedschaft";
-"Membership.EmailForm.Subtitle" = "Wir brauchen deine E-Mail-Adresse, um Spam in Schach zu halten und den Spaß am Spiel zu erhalten!";
-"Membership.EmailForm.Newsletter" = "Ich möchte über Neuigkeiten zu Produkten informiert werden und kostenlose Vergünstigungen erhalten!";
+"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
+"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Gib den an deine E-Mail-Adresse gesendeten Code ein";
 
 "Membership.NameForm.Title" = "Wähle deinen einzigartigen Namen";
 "Membership.NameForm.Subtitle" = "Dies ist dein eindeutiger Name im Anytype-Netzwerk, der deine Mitgliedschaft bestätigt. Er dient als deine persönliche Domain und kann nicht geändert werden.";
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "Dieser Name ist noch zu vergeben";
-
-"Membership.NameForm.Error.TooShort" = "Name ist zu kurz";
-"Membership.NameForm.Error.TooLong" = "Name ist zu lang";
-"Membership.NameForm.Error.HasInvalidChars" = "Name enthält ungültige Zeichen";
-
 
 "Membership.Success.Title" = "Willkommen im Netzwerk, %@";
 "Membership.Success.Curiosity" = "Ein Hoch auf deine Neugierde!";
@@ -1123,6 +1132,9 @@
 "Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
 "Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+
+"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
+"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-Typen - %@";

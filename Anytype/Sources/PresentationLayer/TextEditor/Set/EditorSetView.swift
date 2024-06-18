@@ -2,12 +2,16 @@ import SwiftUI
 import AnytypeCore
 
 struct EditorSetView: View {
-    @StateObject var model: EditorSetViewModel
+    @StateObject private var model: EditorSetViewModel
 
     @State private var headerMinimizedSize = CGSize.zero
     @State private var tableHeaderSize = CGSize.zero
     @State private var offset = CGPoint.zero
     @Environment(\.dismiss) private var dismiss
+    
+    init(data: EditorSetObject, output: EditorSetModuleOutput?) {
+        self._model = StateObject(wrappedValue: EditorSetViewModel(data: data, output: output))
+    }
     
     var body: some View {
         Group {
