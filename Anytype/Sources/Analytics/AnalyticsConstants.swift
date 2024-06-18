@@ -163,7 +163,7 @@ enum ShowDeletionWarningRoute: String {
 enum ScreenOnboardingStep: String {
     case void = "Void"
     case phrase = "Phrase"
-    case offline = "Offline"
+    case soul = "Soul"
 }
 
 enum ClickOnboardingButton: String {
