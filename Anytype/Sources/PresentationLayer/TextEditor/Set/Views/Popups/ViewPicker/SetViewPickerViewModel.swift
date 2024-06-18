@@ -57,7 +57,7 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     func startSyncTask() async {
-        for await _ in setDocument.syncPublisher.values {
+        for await _ in setDocument.syncPublisher.receiveOnMain().values {
             canEditViews = setDocument.setPermissions.canEditView
         }
     }

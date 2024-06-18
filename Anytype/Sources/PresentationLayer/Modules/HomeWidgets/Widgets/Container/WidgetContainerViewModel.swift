@@ -6,7 +6,7 @@ import AnytypeCore
 import SwiftUI
 
 @MainActor
-final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelProtocol>: ObservableObject {
+final class WidgetContainerViewModel: ObservableObject {
     
     // MARK: - DI
     
@@ -25,7 +25,6 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     // MARK: - State
     
-    private var contentModel: ContentVM
     @Published var isExpanded: Bool {
         didSet { expandedDidChange() }
     }
@@ -35,20 +34,15 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
-        contentModel: ContentVM,
         output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.contentModel = contentModel
         self.output = output
         
         blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
         
         isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
-        
-        contentModel.startHeaderSubscription()
-        contentModel.startContentSubscription()
     }
     
     // MARK: - Actions

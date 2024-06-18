@@ -2,28 +2,29 @@ import Foundation
 import Services
 
 struct ObjectPermissions: Equatable {
-    
-    let canChangeType: Bool
-    let canDelete: Bool
-    let canTemplateSetAsDefault: Bool
-    let canArchive: Bool
-    let canDuplicate: Bool
-    let canUndoRedo: Bool
-    let canMakeAsTemplate: Bool
-    let canCreateWidget: Bool
-    let canFavorite: Bool
-    let canLinkItself: Bool
-    let canLock: Bool
-    let canChangeIcon: Bool
-    let canChangeCover: Bool
-    let canChangeLayout: Bool
-    let canEditRelationValues: Bool
-    let canEditRelationsList: Bool
-    let canApplyTemplates: Bool
-    let canShare: Bool
-    let canEditBlocks: Bool
-    let editBlocks: EditBlocksPermission
-    
+    var canChangeType: Bool = false
+    var canDelete: Bool = false
+    var canTemplateSetAsDefault: Bool = false
+    var canArchive: Bool = false
+    var canDuplicate: Bool = false
+    var canUndoRedo: Bool = false
+    var canMakeAsTemplate: Bool = false
+    var canCreateWidget: Bool = false
+    var canFavorite: Bool = false
+    var canLinkItself: Bool = false
+    var canLock: Bool = false
+    var canChangeIcon: Bool = false
+    var canChangeCover: Bool = false
+    var canChangeLayout: Bool = false
+    var canEditRelationValues: Bool = false
+    var canEditRelationsList: Bool = false
+    var canApplyTemplates: Bool = false
+    var canShare: Bool = false
+    var canEditBlocks: Bool = false
+    var editBlocks: EditBlocksPermission = .readonly(.restrictions)
+}
+
+extension ObjectPermissions {
     init(
         details: ObjectDetails,
         isLocked: Bool,

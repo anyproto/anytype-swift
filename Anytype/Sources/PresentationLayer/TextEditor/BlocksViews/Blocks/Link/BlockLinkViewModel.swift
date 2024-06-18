@@ -9,7 +9,7 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
     var info: BlockInformation { informationProvider.info }
 
     private let informationProvider: BlockModelInfomationProvider
-    private let objectDetailsProvider: ObjectDetailsInfomationProvider
+    private let document: BaseDocumentProtocol
     private let blocksController: EditorBlockCollectionController
     private let openLink: (EditorScreenData) -> ()
     private let detailsService: DetailsServiceProtocol
@@ -19,32 +19,35 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
         guard case let .link(blockLink) = info.content else { return .empty() }
         return blockLink
     }
+    
+    private var targetDetails: ObjectDetails?
 
     init(
         informationProvider: BlockModelInfomationProvider,
-        objectDetailsProvider: ObjectDetailsInfomationProvider,
+        document: BaseDocumentProtocol,
         blocksController: EditorBlockCollectionController,
         detailsService: DetailsServiceProtocol,
         openLink: @escaping (EditorScreenData) -> ()
     ) {
         self.informationProvider = informationProvider
-        self.objectDetailsProvider = objectDetailsProvider
+        self.document = document
         self.blocksController = blocksController
         self.openLink = openLink
         self.detailsService = detailsService
         
-        objectDetailsSubscription = objectDetailsProvider
-            .$details
-            .receiveOnMain()
-            .sink { [weak self] _ in
-            guard let self else { return }
+        
+        objectDetailsSubscription = document
+            .subscribeForDetails(objectId: content.targetBlockID)
+            .sinkOnMain { [weak self] details in
+                guard let self else { return }
+                self.targetDetails = details
                 blocksController.reconfigure(items: [.block(self)])
                 blocksController.itemDidChangeFrame(item: .block(self))
         }
     }
     
     func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
-        guard let details = objectDetailsProvider.details else {
+        guard let details = targetDetails else {
             anytypeAssertionFailure("Coudn't find object details for blockLink")
             return UnsupportedBlockViewModel(info: info)
                 .makeContentConfiguration(maxWidth: width)
@@ -72,8 +75,8 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        guard let details = objectDetailsProvider.details else { return }
-        let state = BlockLinkState(details: details, blockLink: content)
+        guard let targetDetails else { return }
+        let state = BlockLinkState(details: targetDetails, blockLink: content)
         
         if state.deleted { return }
         
@@ -81,9 +84,9 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
     }
 
     private func toggleTodo() {
-        guard let details = objectDetailsProvider.details else { return }
+        guard let targetDetails else { return }
         
-        let state = BlockLinkState(details: details, blockLink: content)
+        let state = BlockLinkState(details: targetDetails, blockLink: content)
         guard case let .object(.todo(isChecked)) = state.icon else {
             return
         }

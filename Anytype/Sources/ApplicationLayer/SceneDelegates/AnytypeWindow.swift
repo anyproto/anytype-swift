@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 
+// Delete code after https://linear.app/anytype/issue/IOS-2990/delete-anytypewindow-fix-editor-kostyl
 final class AnytypeWindow: UIWindow {
     enum Constants {
         static let textRangeViewClass: AnyClass? = NSClassFromString("UITextRangeView")
@@ -48,14 +49,4 @@ final class AnytypeWindow: UIWindow {
 
         textRangeTouch = nil
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-            NotificationCenter.default.post(
-                name: .traitCollectionDidChangeNotification,
-                object: self
-            )
-        }
-   }
 }

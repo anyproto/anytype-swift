@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct HomeWidgetSubmoduleView: View {
     
@@ -12,7 +13,11 @@ struct HomeWidgetSubmoduleView: View {
     var body: some View {
         switch widgetInfo.source {
         case .object(let objectDetails):
-            viewForObject(objectDetails)
+            if FeatureFlags.galleryWidget {
+                viewForObject(objectDetails)
+            } else {
+                viewForObjectLegacy(objectDetails)
+            }
         case .library(let anytypeWidgetId):
             viewForAnytypeWidgetId(anytypeWidgetId)
         }
@@ -51,13 +56,13 @@ struct HomeWidgetSubmoduleView: View {
             CollectionsListWidgetSubmoduleView(data: widgetData)
         case (.collections, .compactList):
             CollectionsCompactListWidgetSubmoduleView(data: widgetData)
-        case (_, .link):
+        case _:
             EmptyView()
         }
     }
     
     @ViewBuilder
-    private func viewForObject(_ objectDetails: ObjectDetails) -> some View {
+    private func viewForObjectLegacy(_ objectDetails: ObjectDetails) -> some View {
         if objectDetails.isNotDeletedAndVisibleForEdit {
             switch widgetInfo.fixedLayout {
             case .link:
@@ -69,7 +74,7 @@ struct HomeWidgetSubmoduleView: View {
                     // Fallback
                     LinkWidgetView(data: widgetData)
                 }
-            case .list:
+            case .list, .view:
                 if objectDetails.editorViewType == .set {
                     SetObjectListWidgetSubmoduleView(data: widgetData)
                 } else {
@@ -82,6 +87,30 @@ struct HomeWidgetSubmoduleView: View {
                 } else {
                     LinkWidgetView(data: widgetData)
                 }
+            case .UNRECOGNIZED:
+                EmptyView()
+            }
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private func viewForObject(_ objectDetails: ObjectDetails) -> some View {
+        if objectDetails.isNotDeletedAndVisibleForEdit {
+            switch (widgetInfo.fixedLayout, objectDetails.editorViewType) {
+            case (.link, .page),
+                (.link, .set):
+                LinkWidgetView(data: widgetData)
+            case (.tree, .page):
+                ObjectTreeWidgetSubmoduleView(data: widgetData)
+            case (.list, .set), // For legacty clients
+                (.compactList, .set), // For legacty clients
+                (.view, .set):
+                SetObjectViewWidgetSubmoduleView(data: widgetData)
+            default:
+                // Fallback
+                LinkWidgetView(data: widgetData)
             }
         } else {
             EmptyView()

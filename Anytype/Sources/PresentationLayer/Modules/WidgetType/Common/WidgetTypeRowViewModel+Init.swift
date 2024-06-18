@@ -25,6 +25,10 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.List.title
         case .compactList:
             return Loc.Widgets.Layout.CompactList.title
+        case .view:
+            return Loc.Widgets.Layout.View.title
+        case .UNRECOGNIZED:
+            return Loc.unsupported
         }
     }
     
@@ -38,6 +42,10 @@ private extension BlockWidget.Layout {
             return Loc.Widgets.Layout.List.description
         case .compactList:
             return Loc.Widgets.Layout.CompactList.description
+        case .view:
+            return Loc.Widgets.Layout.View.description
+        case .UNRECOGNIZED:
+            return ""
         }
     }
     
@@ -47,10 +55,13 @@ private extension BlockWidget.Layout {
             return .Widget.Preview.link
         case .tree:
             return .Widget.Preview.tree
-        case .list:
+        case .list, .view:
             return .Widget.Preview.list
         case .compactList:
             return .Widget.Preview.compactList
+        case .UNRECOGNIZED:
+            // Any icon for unsupportred layout
+            return .Widget.Preview.list
         }
     }
 }

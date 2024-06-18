@@ -9,31 +9,44 @@ enum WidgetMenuItem: String {
     case remove
 }
 
-// TODO: Delete in after migration
-struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewModelProtocol>: View {
+struct WidgetContainerView<Content: View>: View {
     
-    @StateObject private var model: WidgetContainerViewModel<ContentVM>
-    @ObservedObject var contentModel: ContentVM
+    @StateObject private var model: WidgetContainerViewModel
     @Binding private var homeState: HomeWidgetsState
     
-    var content: Content
+    let name: String
+    let icon: ImageAsset?
+    let dragId: String?
+    let menuItems: [WidgetMenuItem]
+    let onCreateObjectTap: (() -> Void)?
+    let onHeaderTap: () -> Void
+    let content: Content
     
     init(
         widgetBlockId: String,
         widgetObject: BaseDocumentProtocol,
         homeState: Binding<HomeWidgetsState>,
-        contentModel: ContentVM,
+        name: String,
+        icon: ImageAsset? = nil,
+        dragId: String?,
+        menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
+        onCreateObjectTap: (() -> Void)?,
+        onHeaderTap: @escaping () -> Void,
         output: CommonWidgetModuleOutput?,
-        content: Content
+        @ViewBuilder content: () -> Content
     ) {
-        self.contentModel = contentModel
-        self.content = content
         self._homeState = homeState
+        self.name = name
+        self.icon = icon
+        self.dragId = dragId
+        self.menuItems = menuItems
+        self.onCreateObjectTap = onCreateObjectTap
+        self.onHeaderTap = onHeaderTap
+        self.content = content()
         self._model = StateObject(
             wrappedValue: WidgetContainerViewModel(
                 widgetBlockId: widgetBlockId,
                 widgetObject: widgetObject,
-                contentModel: contentModel,
                 output: output
             )
         )
@@ -41,62 +54,42 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
     
     var body: some View {
         WidgetSwipeActionView(
-            isEnable: contentModel.allowCreateObject && model.homeState.isReadWrite,
+            isEnable: onCreateObjectTap != nil && model.homeState.isReadWrite,
             showTitle: model.isExpanded,
             action: {
                 if #available(iOS 17.0, *) {
                     WidgetSwipeTip().invalidate(reason: .actionPerformed)
                 }
-                contentModel.onCreateObjectTap()
+                onCreateObjectTap?()
             }
         ) {
             LinkWidgetViewContainer(
-                title: contentModel.name,
-                icon: contentModel.icon,
+                title: name,
+                icon: icon,
                 isExpanded: $model.isExpanded,
-                dragId: contentModel.dragId,
-                homeState: model.homeState,
-                allowMenuContent: contentModel.menuItems.isNotEmpty,
-                allowContent: contentModel.allowContent,
+                dragId: dragId,
+                homeState: $model.homeState,
+                allowMenuContent: menuItems.isNotEmpty,
+                allowContent: Content.self != EmptyView.self,
                 headerAction: {
-                    contentModel.onHeaderTap()
+                    onHeaderTap()
                 },
                 removeAction: removeAction(),
                 menu: {
-                    menuItems
+                    menuItemsView
                 },
                 content: {
                     content
                 }
             )
-            .if(model.homeState.isReadWrite) {
-                $0.contextMenu {
-                    contextMenuItems
-                }
-            }
             .snackbar(toastBarData: $model.toastData)
         }
         .twoWayBinding(viewState: $homeState, modelState: $model.homeState)
     }
     
     @ViewBuilder
-    private var contextMenuItems: some View {
-        if model.homeState.isReadWrite {
-            ForEach(contentModel.menuItems, id: \.self) {
-                menuItemToView(item: $0)
-            }
-            Divider()
-            Button(Loc.Widgets.Actions.editWidgets) {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                    model.onEditTap()
-                }
-            }
-        }
-    }
-    
-    @ViewBuilder
-    private var menuItems: some View {
-        ForEach(contentModel.menuItems, id: \.self) {
+    private var menuItemsView: some View {
+        ForEach(menuItems, id: \.self) {
             menuItemToView(item: $0)
         }
     }
@@ -130,7 +123,7 @@ struct WidgetContainerView<Content: View, ContentVM: WidgetContainerContentViewM
             
     private func removeAction() -> (() -> Void)? {
         
-        guard contentModel.menuItems.contains(.remove) else { return nil }
+        guard menuItems.contains(.remove) else { return nil }
         
         return {
             model.onDeleteWidgetTap()

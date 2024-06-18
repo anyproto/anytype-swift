@@ -25,14 +25,12 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
             }
             
             guard path.isNotEmpty, fragment.isNotEmpty else {
-                logNilResult(url: url)
                 return nil
             }
             
             return .invite(cid: path, key: fragment)
         }
         
-        logNilResult(url: url)
         return nil
     }
     
@@ -41,9 +39,5 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
         case .invite(let cid, let key):
             return URL(string: "https://\(LinkPaths.inviteHostProd)/\(cid)#\(key)")
         }
-    }
-    
-    private func logNilResult(url: URL) {
-        anytypeAssertionFailure("Can't process universal link", info: ["url": url.absoluteString])
     }
 }

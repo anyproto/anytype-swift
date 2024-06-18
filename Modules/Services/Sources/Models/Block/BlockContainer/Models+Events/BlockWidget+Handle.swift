@@ -6,16 +6,16 @@ extension BlockWidget {
         
         var newData = self
         
-        if data.hasLayout, let newLayout = try? data.layout.value.asModel {
-            newData.layout = newLayout
+        if data.hasLayout {
+            newData.layout = data.layout.value
         }
         
         if data.hasLimit {
-            newData.limit = Int(data.limit.value)
+            newData.limit = data.limit.value
         }
         
         if data.hasViewID {
-            newData.viewId = data.viewID.value
+            newData.viewID = data.viewID.value
         }
         
         return newData

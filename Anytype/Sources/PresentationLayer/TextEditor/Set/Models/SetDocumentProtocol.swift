@@ -6,15 +6,17 @@ enum SetDocumentUpdate {
     case syncStatus(DocumentSyncStatusData)
 }
 
-protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
+protocol SetDocumentProtocol: AnyObject {
     var document: BaseDocumentProtocol { get }
     var objectId: String { get }
+    var spaceId: String { get }
     var blockId: String { get }
     var targetObjectId: String { get }
     var inlineParameters: EditorInlineSetObject? { get }
     var blockDataview: BlockDataview? { get }
     var dataViewRelationsDetails: [RelationDetails] { get }
     var analyticsType: AnalyticsObjectType { get }
+    var details: ObjectDetails? { get }
     // TODO Refactor this
     var dataBuilder: SetContentViewDataBuilder { get }
     
@@ -23,6 +25,7 @@ protocol SetDocumentProtocol: BaseDocumentGeneralProtocol {
     var setPermissions: SetPermissions { get }
     
     var setUpdatePublisher: AnyPublisher<SetDocumentUpdate, Never> { get }
+    var detailsPublisher: AnyPublisher<ObjectDetails, Never> { get }
     
     var dataView: BlockDataview { get }
     var dataviewPublisher: AnyPublisher<BlockDataview, Never> { get }

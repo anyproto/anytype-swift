@@ -11,29 +11,32 @@ final class MiddlewareEventConverter {
     private let restrictionsContainer: ObjectRestrictionsContainer
     
     private let informationCreator: BlockInformationCreator
-    
+    private let statusStorage: DocumentStatusStorageProtocol
     
     init(
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage,
-        restrictionsContainer: ObjectRestrictionsContainer
+        restrictionsContainer: ObjectRestrictionsContainer,
+        statusStorage: DocumentStatusStorageProtocol
     ) {
         self.infoContainer = infoContainer
         self.relationLinksStorage = relationLinksStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
+        self.statusStorage = statusStorage
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> DocumentUpdate? {
         switch event {
         case let .threadStatus(status):
-            return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
+            statusStorage.status = status.summary.status
+            return .syncStatus
         case let .blockSetFields(data):
             infoContainer.setFields(data: data)
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
         case let .blockAdd(data):
             infoContainer.add(data: data)
             // Because blockAdd message will always come together with blockSetChildrenIds
@@ -48,19 +51,15 @@ final class MiddlewareEventConverter {
         case let .blockSetChildrenIds(data):
             infoContainer
                 .setChildren(ids: data.childrenIds, parentId: data.id)
-            return .children(blockIds: [data.id])
+            return .children(blockId: data.id)
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(data):
             infoContainer.setBackgroundColor(data: data)
-            
-            var childIds = infoContainer.recursiveChildren(of: data.id).map { $0.id }
-            childIds.append(data.id)
-            return .blocks(blockIds: Set(childIds))
-            
+            return .block(blockId: data.id)
         case let .blockSetAlign(value):
             infoContainer.setAlign(data: value)
-            return .blocks(blockIds: [value.id])
+            return .block(blockId: value.id)
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }
@@ -100,11 +99,11 @@ final class MiddlewareEventConverter {
             
         case .objectRelationsAmend(let data):
             relationLinksStorage.ammend(data: data)
-            return .general
+            return .relationLinks
             
         case .objectRelationsRemove(let data):
             relationLinksStorage.remove(data: data)
-            return .general
+            return .relationLinks
             
         case let .blockSetFile(data):
             infoContainer.setFile(data: data)
@@ -113,10 +112,10 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
         case let .blockSetBookmark(data):
             infoContainer.setBookmark(data: data)
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
             
         case let .blockSetDiv(data):
             infoContainer.setDiv(data: data)
@@ -125,42 +124,42 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
         case .blockSetLink(let data):
             infoContainer.setLink(data: data)
-            return .blocks(blockIds: [data.id])
+            return .block(blockId: data.id)
             
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
             infoContainer.dataviewViewSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewViewOrder(let data):
             infoContainer.dataviewViewOrder(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewViewDelete(let data):
             infoContainer.dataviewViewDelete(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewRelationDelete(let data):
             infoContainer.dataviewRelationDelete(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewRelationSet(let data):
             infoContainer.dataviewRelationSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataViewGroupOrderUpdate(let data):
             infoContainer.dataViewGroupOrderUpdate(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataViewObjectOrderUpdate(let data):
             infoContainer.dataViewObjectOrderUpdate(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewTargetObjectIDSet(let data):
             infoContainer.dataviewTargetObjectIDSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewIsCollectionSet(let data):
             infoContainer.dataviewIsCollectionSet(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockDataviewViewUpdate(let data):
             infoContainer.dataviewViewUpdate(data: data)
-            return .general
+            return .block(blockId: data.id)
         case .blockSetRelation(let data):
             infoContainer.setRelation(data: data)
             return .general // Relace to `.blocks(blockIds: [data.id])` after implment task https://linear.app/anytype/issue/IOS-914
@@ -169,7 +168,9 @@ final class MiddlewareEventConverter {
             return nil
         case .blockSetWidget(let data):
             infoContainer.setWidget(data: data)
-            return .general
+            return .block(blockId: data.id)
+        case .objectClose:
+            return .close
         case .accountShow,
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
@@ -205,7 +206,6 @@ final class MiddlewareEventConverter {
                 .notificationSend,
                 .notificationUpdate,
                 .payloadBroadcast,
-                .objectClose,
                 .membershipUpdate: // Implemented in `MembershipStatusStorage`
             return nil
         }
@@ -227,14 +227,6 @@ final class MiddlewareEventConverter {
         }
         infoContainer.add(newInformation)
 
-        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
-        childIds.append(newData.id)
-        
-        if let newInformationContentType = newInformation.textContent?.contentType,
-           newInformationContentType != oldText.contentType {
-            return .children(blockIds: Set(childIds))
-        } else {
-            return .blocks(blockIds: Set(childIds))
-        }
+        return .block(blockId: newData.id)
     }
 }
