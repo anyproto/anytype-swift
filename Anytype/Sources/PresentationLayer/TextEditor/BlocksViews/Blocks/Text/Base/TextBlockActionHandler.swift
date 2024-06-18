@@ -269,7 +269,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         )
         
         Task { @MainActor in
-            try await changeTextAndReset(newTextWithLink.sendable())
+            try await setNewText(attributedString: newTextWithLink.sendable())
             
             let replacementRange = NSRange(location: range.location, length: trimmedText.count)
             
@@ -291,7 +291,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                                 url: url
                             )
                             if let value = safeSendableAttributedString.value {
-                                try await self?.changeTextAndReset(value.sendable())
+                                try await self?.setNewText(attributedString: value.sendable())
                             }
                         }
                     case .pasteAsLink:
@@ -304,9 +304,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
                             range: range
                         )
                         if let newText {
-                            Task {
-                                try await self?.changeTextAndReset(newText.sendable())
-                            }
+                            self?.setNewTextSync(attributedString: newText)
                         }
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -320,11 +318,6 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         }
         
         return true
-    }
-    
-    private func changeTextAndReset(_ text: SafeNSAttributedString) async throws {
-        try await actionHandler.changeText(text, blockId: info.id)
-        resetSubject.send(text.value)
     }
 
     private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
