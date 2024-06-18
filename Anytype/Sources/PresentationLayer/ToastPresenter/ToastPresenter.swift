@@ -6,8 +6,7 @@ import Services
 @MainActor
 protocol ToastPresenterProtocol: AnyObject {
     func show(message: String)
-    func show(message: String, mode: ToastPresenterMode)
-    func show(message: NSAttributedString, mode: ToastPresenterMode)
+    func show(message: NSAttributedString)
     func dismiss(completion: @escaping () -> Void)
     
     func showObjectName(
@@ -19,56 +18,37 @@ protocol ToastPresenterProtocol: AnyObject {
     func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void)
 }
 
-enum ToastPresenterMode {
-    case aboveKeyboard
-    // TODO: Broken. Support in new SwiftUI Implementation
-    case aboveView(UIView)
-}
-
 class ToastPresenter: ToastPresenterProtocol {
     static var shared: ToastPresenter? // Used only for SwiftUI
 
-    @Injected(\.legacyViewControllerProvider)
-    private var viewControllerProvider: ViewControllerProviderProtocol
-    @Injected(\.keyboardHeightListener)
-    private var keyboardHeightListener: KeyboardHeightListener
     @Injected(\.documentsProvider)
     private var documentsProvider: DocumentsProviderProtocol
-    private var cancellable: AnyCancellable?
-
-    // TODO: Needs to support something in new SwiftUI Implementation
-    private weak var containerViewController: UIViewController?
     
     nonisolated init() {}
     
     // MARK: - ToastPresenterProtocol
     
     func show(message: String) {
-        show(message: message, mode: .aboveKeyboard)
-    }
-    
-    func show(message: String, mode: ToastPresenterMode) {
         let attributedString = NSAttributedString(
             string: message,
             attributes: ToastView.defaultAttributes
         )
-        show(message: attributedString, mode: mode)
+        show(message: attributedString)
     }
     
-    func show(message: NSAttributedString, mode: ToastPresenterMode) {
+    func show(message: NSAttributedString) {
         let attributedMessage = NSMutableAttributedString(attributedString: message)
         
         let toastView = ToastView(frame: .zero)
         toastView.setMessage(attributedMessage)
         
         var attributes = EKAttributes()
-        attributes.positionConstraints = .float
         attributes.windowLevel = .alerts
         attributes.entranceAnimation = .init(fade: EKAttributes.Animation.RangeAnimation(from: 0, to: 1, duration: 0.4))
         attributes.exitAnimation = .init(fade: EKAttributes.Animation.RangeAnimation(from: 0, to: 1, duration: 0.4))
         attributes.positionConstraints.size = .init(width: .offset(value: 16), height: .intrinsic)
-        attributes.positionConstraints.verticalOffset = verticalOffset(using: mode, toastView: toastView)
-        attributes.position = .bottom
+        attributes.position = .top
+        attributes.roundCorners = .all(radius: 8)
         attributes.shadow = .active(with: .init(color: .black, opacity: 0.2, radius: 5, offset: .zero))
         attributes.precedence = .enqueue(priority: .normal)
         
@@ -107,40 +87,6 @@ class ToastPresenter: ToastPresenterProtocol {
         )
     }
     
-    private func verticalOffset(using mode: ToastPresenterMode, toastView: ToastView) -> CGFloat {
-        guard let view = viewControllerProvider.rootViewController?.view else {
-            return .zero
-        }
-        
-        let bottomModeOffset: CGFloat
-       
-        switch mode {
-        case .aboveKeyboard:
-            let containerViewController = containerViewController ?? viewControllerProvider.topVisibleController
-        
-            bottomModeOffset = containerViewController?.bottomToastOffset ?? 0
-            
-            let bottomSafeArea = viewControllerProvider.window?.safeAreaInsets.bottom ?? 0
-            let inset = max(keyboardHeightListener.currentKeyboardFrame.height - bottomModeOffset - bottomSafeArea, 0)
-            toastView.updateBottomInset(inset)
-            
-            cancellable = keyboardHeightListener.animationChangePublisher.sink { [weak self] animation in
-                let bottomSafeArea = self?.viewControllerProvider.window?.safeAreaInsets.bottom ?? 0
-                let inset = max(animation.rect.height - bottomModeOffset - bottomSafeArea, 0)
-                UIView.animate(withDuration: animation.duration, delay: 0, options: animation.options) {
-                    toastView.updateBottomInset(inset)
-                }
-            }
-        case .aboveView(let aboveView):
-            toastView.updateBottomInset(0)
-            cancellable = nil
-            let point = view.convert(aboveView.bounds.origin, from: aboveView)
-            bottomModeOffset = view.bounds.height - point.y - view.safeAreaInsets.bottom
-        }
-    
-        return bottomModeOffset + 8
-    }
-    
     private func showObjectCompositeAlert(
         p1: NSAttributedString,
         objectId: String,
@@ -169,7 +115,7 @@ class ToastPresenter: ToastPresenterProtocol {
             
             attributedString.append(tappableAttributedString)
             
-            show(message: attributedString, mode: .aboveKeyboard)
+            show(message: attributedString)
         }
     }
     

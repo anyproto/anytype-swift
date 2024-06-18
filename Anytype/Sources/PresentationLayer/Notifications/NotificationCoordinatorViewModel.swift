@@ -129,6 +129,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         attributes.displayDuration = 4
         attributes.positionConstraints.size = .init(width: .offset(value: 16), height: .intrinsic)
         attributes.position = .top
+        attributes.roundCorners = .all(radius: 8)
         
         let controller = UIHostingController(rootView: containerView)
         controller.view.backgroundColor = .clear
