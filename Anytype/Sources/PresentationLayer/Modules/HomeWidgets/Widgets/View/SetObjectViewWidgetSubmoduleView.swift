@@ -45,8 +45,8 @@ struct SetObjectViewWidgetSubmoduleView: View {
     
     private var bodyContent: some View {
         VStack(spacing: 0) {
-            // TODO: Delete this header with galleryWidget toggle. Header implemented in View widget for set.
             ViewWidgetTabsView(items: model.headerItems)
+            // TODO: Support different views
             ListWidgetContentView(style: .list, rows: model.rows, emptyTitle: Loc.Widgets.Empty.title)
         }
     }
