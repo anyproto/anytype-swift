@@ -66,6 +66,7 @@ private struct ListWidgetInternalView: View {
     
     private var bodyContent: some View {
         VStack(spacing: 0) {
+            // TODO: Delete this header with galleryWidget toggle. Header implemented in View widget for set.
             ViewWidgetTabsView(items: model.headerItems)
             ListWidgetContentView(style: model.style, rows: model.rows, emptyTitle: model.emptyTitle)
         }

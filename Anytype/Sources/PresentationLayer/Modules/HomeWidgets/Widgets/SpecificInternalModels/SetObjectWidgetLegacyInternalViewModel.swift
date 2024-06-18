@@ -4,7 +4,7 @@ import Combine
 import UIKit
 
 @MainActor
-final class SetObjectWidgetInternalViewModel: ObservableObject {
+final class SetObjectWidgetLegacyInternalViewModel: ObservableObject, WidgetDataviewInternalViewModelProtocol {
     
     // MARK: - DI
     
