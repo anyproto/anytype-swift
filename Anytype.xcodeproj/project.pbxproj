@@ -472,7 +472,6 @@
 		2A590ECD2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590ECC2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift */; };
 		2A590ED12BB1731F009D0A7C /* NotificationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A590ED02BB1731F009D0A7C /* NotificationCoordinatorView.swift */; };
 		2A592A7D2C16F598008E737F /* GalleryWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A592A7C2C16F598008E737F /* GalleryWidgetView.swift */; };
-		2A592A7F2C16F65C008E737F /* SetObjectGalleryWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A592A7E2C16F65C008E737F /* SetObjectGalleryWidgetSubmoduleView.swift */; };
 		2A592A842C16F6FD008E737F /* SetObjectViewWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A592A832C16F6FD008E737F /* SetObjectViewWidgetSubmoduleView.swift */; };
 		2A5A898C29C8650600C170D6 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */; };
 		2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */; };
@@ -847,6 +846,7 @@
 		2AF8755A2BCD23C200FB1532 /* LocalizableWidget.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2ACE06512B7CD96D009AA7B6 /* LocalizableWidget.strings */; };
 		2AF875612BCD560100FB1532 /* ParticipantPermissions+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF875602BCD560100FB1532 /* ParticipantPermissions+Analytics.swift */; };
 		2AFA1113296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA1112296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift */; };
+		2AFA90552C2190650003D96E /* SetObjectViewRows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFA90542C2190650003D96E /* SetObjectViewRows.swift */; };
 		2AFB541D28621776004F7458 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB541C28621776004F7458 /* Strings.swift */; };
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
 		2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */; };
@@ -2258,7 +2258,6 @@
 		2A590ECC2BB16B0E009D0A7C /* SpaceDeleteAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceDeleteAlertModel.swift; sourceTree = "<group>"; };
 		2A590ED02BB1731F009D0A7C /* NotificationCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCoordinatorView.swift; sourceTree = "<group>"; };
 		2A592A7C2C16F598008E737F /* GalleryWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryWidgetView.swift; sourceTree = "<group>"; };
-		2A592A7E2C16F65C008E737F /* SetObjectGalleryWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectGalleryWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A592A832C16F6FD008E737F /* SetObjectViewWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectViewWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A5A898B29C8650600C170D6 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
 		2A5A898D29C866FF00C170D6 /* SettingsObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsObjectHeader.swift; sourceTree = "<group>"; };
@@ -2642,6 +2641,7 @@
 		2AF8755F2BCD23CE00FB1532 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/LocalizableWidget.strings; sourceTree = "<group>"; };
 		2AF875602BCD560100FB1532 /* ParticipantPermissions+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ParticipantPermissions+Analytics.swift"; sourceTree = "<group>"; };
 		2AFA1112296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsCommonSubscriptionDataBuilder.swift; sourceTree = "<group>"; };
+		2AFA90542C2190650003D96E /* SetObjectViewRows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectViewRows.swift; sourceTree = "<group>"; };
 		2AFB541C28621776004F7458 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewType+Extensions.swift"; sourceTree = "<group>"; };
@@ -5875,7 +5875,6 @@
 			isa = PBXGroup;
 			children = (
 				2A592A802C16F66A008E737F /* Common */,
-				2A592A812C16F670008E737F /* Specific */,
 			);
 			path = Gallery;
 			sourceTree = "<group>";
@@ -5888,19 +5887,12 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		2A592A812C16F670008E737F /* Specific */ = {
-			isa = PBXGroup;
-			children = (
-				2A592A7E2C16F65C008E737F /* SetObjectGalleryWidgetSubmoduleView.swift */,
-			);
-			path = Specific;
-			sourceTree = "<group>";
-		};
 		2A592A822C16F6DA008E737F /* View */ = {
 			isa = PBXGroup;
 			children = (
 				2AEEBB122C20897A00A44FB6 /* Tabs */,
 				2A592A832C16F6FD008E737F /* SetObjectViewWidgetSubmoduleView.swift */,
+				2AFA90542C2190650003D96E /* SetObjectViewRows.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -12103,6 +12095,7 @@
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
 				3D24912B27BD271900821595 /* MentionMarkupEventProvider.swift in Sources */,
 				2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */,
+				2AFA90552C2190650003D96E /* SetObjectViewRows.swift in Sources */,
 				3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */,
 				539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */,
 				3DFD50A42BA0B114002E51F7 /* MembershipStatusExtension.swift in Sources */,
@@ -12164,7 +12157,6 @@
 				3DF418BB2B7CEF8B00C414D6 /* WidgetSwipeTip.swift in Sources */,
 				3DB9351E2BC4574D0004113B /* MembershipTierViewModel.swift in Sources */,
 				C9CD66A427EAFD3E001F1860 /* GridItemViewModel.swift in Sources */,
-				2A592A7F2C16F65C008E737F /* SetObjectGalleryWidgetSubmoduleView.swift in Sources */,
 				2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */,
 				2A7DCDE0292E4AC5001919B4 /* RelationsListModuleOutput.swift in Sources */,
 				2A6E04A2298CFCDA0023B33D /* WidgetObjectListFavoritesViewModel.swift in Sources */,
