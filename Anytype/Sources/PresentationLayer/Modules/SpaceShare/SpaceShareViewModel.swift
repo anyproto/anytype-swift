@@ -250,6 +250,7 @@ final class SpaceShareViewModel: ObservableObject {
             spaceName: spaceView.title,
             participantIdentity: participant.identity,
             participantName: participant.title,
+            participantIcon: participant.icon,
             route: .settings
         )
     }

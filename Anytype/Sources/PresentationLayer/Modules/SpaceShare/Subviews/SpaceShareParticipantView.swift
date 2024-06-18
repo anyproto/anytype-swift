@@ -49,6 +49,13 @@ struct SpaceShareParticipantView: View {
             }
             menu
         }
+        .fixTappableArea()
+        .onTapGesture {
+            if let action = participant.action {
+                UISelectionFeedbackGenerator().selectionChanged()
+                Task { try await action.action() }
+            }
+        }
         .lineLimit(1)
         .padding(.vertical, 9)
         .frame(height: 72)

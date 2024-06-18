@@ -83,6 +83,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
                         spaceName: notification.requestToJoin.spaceName,
                         participantIdentity: notification.requestToJoin.identity,
                         participantName: notification.requestToJoin.identityName,
+                        participantIcon: nil, // TODO
                         route: .notification
                     )
                 }

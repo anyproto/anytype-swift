@@ -15,7 +15,8 @@ final class SpaceRequestAlertModel: ObservableObject {
     private let data: SpaceRequestAlertData
     private let onMembershipUpgradeTap: (MembershipUpgradeReason) -> ()
     
-    @Published var title = ""
+    let title: String
+    let icon: ObjectIcon?
     @Published var canAddReaded = false
     @Published var canAddWriter = false
     
@@ -36,6 +37,7 @@ final class SpaceRequestAlertModel: ObservableObject {
             data.participantName.withPlaceholder,
             data.spaceName.withPlaceholder
         )
+        icon = data.participantIcon
     }
     
     func onAppear() async throws {
