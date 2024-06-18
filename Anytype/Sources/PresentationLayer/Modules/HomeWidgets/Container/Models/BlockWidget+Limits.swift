@@ -6,8 +6,10 @@ extension BlockWidget.Layout {
         switch self {
         case .link, .UNRECOGNIZED:
             return [0]
-        case .list, .view:
+        case .list:
             return [4, 6, 8]
+        case .view:
+            return [9]
         case .compactList, .tree:
             return [6, 10, 14]
         }

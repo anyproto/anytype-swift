@@ -62,7 +62,6 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             widgetInfo = newWidgetInfo
             if activeViewId.isNil || canEditBlocks {
                 activeViewId = widgetInfo?.block.viewID
-                updateActiveView()
             }
         }
     }
@@ -127,7 +126,16 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                 }
                 rows = .list(listRows)
             case .gallery:
-                rows = .gallery
+                let galleryRows = rowDetails?.map { details in
+                    GalleryWidgetRowModel(
+                        objectId: details.id,
+                        title: details.title,
+                        icon: details.objectIconImage,
+                        onTap: { [weak self] in
+                            self?.output?.onObjectSelected(screenData: details.editorScreenData())
+                    })
+                }
+                rows = .gallery(galleryRows)
             }
         }
     }
@@ -232,7 +240,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     
     private func updateActiveView() {
-        guard let activeViewId, setDocument?.activeView.id != activeViewId else { return }
-        setDocument?.updateActiveViewIdAndReload(activeViewId)
+        guard let activeViewId, let setDocument, setDocument.activeView.id != activeViewId, setDocument.document.isOpened else { return }
+        setDocument.updateActiveViewIdAndReload(activeViewId)
     }
 }

@@ -2,5 +2,5 @@ import Foundation
 
 enum SetObjectViewWidgetRows {
     case list(_ rows: [ListWidgetRowModel]?)
-    case gallery
+    case gallery(_ rows: [GalleryWidgetRowModel]?)
 }
