@@ -252,14 +252,7 @@ final class BlockViewModelBuilder {
                     self?.output?.openUrl(url.url)
                 }
             )
-        case let .link(content):
-            guard let details = document.detailsStorage.get(id: content.targetBlockID) else {
-                anytypeAssertionFailure(
-                    "Couldn't find details for block link", info: ["targetBlockID": content.targetBlockID]
-                )
-                return nil
-            }
-            
+        case .link:
             return BlockLinkViewModel(
                 informationProvider: blockInformationProvider,
                 document: document,
@@ -327,7 +320,7 @@ final class BlockViewModelBuilder {
                 editorCollectionController: blockCollectionController,
                 focusSubject: subjectsHolder.focusSubject(for: info.id)
             )
-        case let .dataView(data):
+        case .dataView:
             return DataViewBlockViewModel(
                 blockInformationProvider: BlockModelInfomationProvider(
                     document: document,
