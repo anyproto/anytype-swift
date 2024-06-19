@@ -189,6 +189,7 @@
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
 "Unsupported block" = "Unsupported block";
+"Unsupported" = "Unsupported";
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
@@ -798,9 +799,11 @@
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
+"Widgets.Layout.View.Title" = "View";
 "Widgets.Layout.Link.Description" = "Сompact version of the object";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
 "Widgets.Empty.Title" = "This data view contains no objects";
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
