@@ -188,6 +188,7 @@
 "Paste or type URL" = "貼上或輸入 URL";
 "No items match filter" = "没有符合篩選的項目";
 "Unsupported block" = "不支援的區塊";
+"Unsupported" = "不支援";
 "Name" = "名稱";
 "Description" = "描述";
 "Paste processing..." = "貼上處理中...";
@@ -799,9 +800,11 @@
 "Widgets.Layout.Tree.Title" = "樹狀圖";
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "緊湊型列表";
+"Widgets.Layout.View.Title" = "檢視";
 "Widgets.Layout.Link.Description" = "緊湊型物件";
 "Widgets.Layout.Tree.Description" = "物件的階層結構";
 "Widgets.Layout.List.Description" = "具有物件集合列表視圖的小工具";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "具有物件集合列表視圖的小工具";
 "Widgets.Empty.Title" = "該資料檢視內沒有物件";
 "Widgets.Library.RecentlyEdited.Name" = "最近編輯";
