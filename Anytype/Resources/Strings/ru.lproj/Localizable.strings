@@ -188,6 +188,7 @@
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
 "Unsupported block" = "Неподдерживаемый блок";
+"Unsupported" = "Не поддерживается";
 "Name" = "Название";
 "Description" = "Описание";
 "Paste processing..." = "Обработка вставки...";
@@ -797,9 +798,11 @@
 "Widgets.Layout.Tree.Title" = "Дерево";
 "Widgets.Layout.List.Title" = "Список";
 "Widgets.Layout.CompactList.Title" = "Компактный список";
+"Widgets.Layout.View.Title" = "Вид";
 "Widgets.Layout.Link.Description" = "Компактная версия объекта";
 "Widgets.Layout.Tree.Description" = "Иерархическая структура объектов";
 "Widgets.Layout.List.Description" = "Виджет со списком объектов из набора";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Виджет со списком объектов из набора";
 "Widgets.Empty.Title" = "Этот вид данных не содержит объектов";
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";

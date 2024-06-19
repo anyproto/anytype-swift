@@ -188,6 +188,7 @@
 "Paste or type URL" = "粘贴或输入URL网址";
 "No items match filter" = "没有与筛选匹配的项目";
 "Unsupported block" = "不支持的数据块";
+"Unsupported" = "暂不支持";
 "Name" = "名称";
 "Description" = "描述";
 "Paste processing..." = "粘贴处理...";
@@ -798,9 +799,11 @@
 "Widgets.Layout.Tree.Title" = "树状图";
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "紧凑型列表";
+"Widgets.Layout.View.Title" = "视图";
 "Widgets.Layout.Link.Description" = "紧凑型对象";
 "Widgets.Layout.Tree.Description" = "对象的层次结构";
 "Widgets.Layout.List.Description" = "具有集合对象列表视图的小部件";
+"Widgets.Layout.View.Description" = "具有集合对象视图的小部件";
 "Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小部件";
 "Widgets.Empty.Title" = "该数据视图不包含对象";
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
@@ -1003,9 +1006,9 @@
 
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "在空间中协作";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Steps.1" = "点击空间小部件来访问设置";
+"SpaceShare.Tip.Steps.2" = "打开分享栏";
+"SpaceShare.Tip.Steps.3" = "生成一个邀请链接并分享它";
 
 // MARK: - Initial
 
@@ -1051,8 +1054,7 @@
 "Gallery.Notification.Error" = "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。";
 
 // MARK: - Membership
-"Membership" = "会员
-";
+"Membership" = "会员";
 "Just e-mail" = "仅需电子邮件";
 "E-mail" = "电子邮件";
 "Learn more" = "了解详情";
@@ -1084,8 +1086,7 @@
 "StoreKitServiceError.userCancelled" = "购买已取消";
 "StoreKitServiceError.needUserAction" = "支付失败，需要用户在苹果端操作支付。";
 
-"Membership.Ad.Title" = "会员
-";
+"Membership.Ad.Title" = "会员";
 "Membership.Ad.Subtitle" = "加入 Anytype Network 意味着一起书写它的故事";
 
 "Membership.Legal.Details" = "会员计划详情";
@@ -1107,10 +1108,10 @@
 "Membership.Upgrade.Text" = "联系我们以获取额外的存储空间、空间编辑器或更多共享空间。任何类型的团队都将根据您的需求提供量身定制的细节和条件。";
 "Membership.Upgrade.Button" = "联系Anytype团队";
 
-"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.MoreSpaces" = "升级以创建更多空间";
+"Membership.Upgrade.MoreMembers" = "升级以添加更多成员";
+"Membership.Upgrade.NoMoreMembers" = "您无法添加更多成员";
+"Membership.Upgrade.NoMoreEditors" = "您无法添加更多编辑者";
 
 
 "Membership.Banner.Title1" = "一起构建愿景";
