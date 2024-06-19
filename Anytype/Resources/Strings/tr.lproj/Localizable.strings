@@ -188,6 +188,7 @@
 "Paste or type URL" = "Bir adres yazın ya da yapıştırın";
 "No items match filter" = "Filtreyle eşleşen öge yok";
 "Unsupported block" = "Desteklenmeyen blok";
+"Unsupported" = "Unsupported";
 "Name" = "İsim";
 "Description" = "Açıklama";
 "Paste processing..." = "Yapıştırma işleniyor...";
@@ -798,9 +799,11 @@
 "Widgets.Layout.Tree.Title" = "Dizin";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakt liste";
+"Widgets.Layout.View.Title" = "Görüntüle";
 "Widgets.Layout.Link.Description" = "Nesnenin kompakt hali";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
 "Widgets.Empty.Title" = "This data view contains no objects";
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
