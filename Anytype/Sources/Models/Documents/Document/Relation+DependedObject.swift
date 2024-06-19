@@ -5,29 +5,29 @@ extension Relation {
     // For calculated changes in base document
     var dependedObjects: [String] {
         switch self {
-        case .text(let text):
+        case .text:
             return []
-        case .number(let text):
+        case .number:
             return []
         case .status(let status):
             return status.values.map(\.id)
-        case .date(let date):
+        case .date:
             return []
         case .object(let object):
             return object.selectedObjects.map(\.id)
-        case .checkbox(let checkbox):
+        case .checkbox:
             return []
-        case .url(let text):
+        case .url:
             return []
-        case .email(let text):
+        case .email:
             return []
-        case .phone(let text):
+        case .phone:
             return []
         case .tag(let tag):
             return tag.selectedTags.map(\.id)
         case .file(let file):
             return file.files.map(\.id)
-        case .unknown(let unknown):
+        case .unknown:
             return []
         }
     }

@@ -216,7 +216,7 @@ final class MiddlewareEventConverter {
             anytypeAssertionFailure("Block model not found in container", info: ["id": newData.id])
             return nil
         }
-        guard case let .text(oldText) = info.content else {
+        guard info.content.isText else {
             anytypeAssertionFailure("Block model doesn't support text", info: ["contentType": "\(info.content.type)"])
             return nil
         }
