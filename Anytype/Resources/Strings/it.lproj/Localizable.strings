@@ -188,6 +188,7 @@
 "Paste or type URL" = "Incolla o digita URL";
 "No items match filter" = "Nessun elemento corrisponde al filtro";
 "Unsupported block" = "Blocco non supportato";
+"Unsupported" = "Non supportato";
 "Name" = "Nome";
 "Description" = "Descrizione";
 "Paste processing..." = "Contenuto in elaborazione...";
@@ -797,9 +798,11 @@
 "Widgets.Layout.Tree.Title" = "Albero";
 "Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Lista compatta";
+"Widgets.Layout.View.Title" = "Vista";
 "Widgets.Layout.Link.Description" = "Versione compatta dell'oggetto";
 "Widgets.Layout.Tree.Description" = "Struttura gerarchica degli oggetti";
 "Widgets.Layout.List.Description" = "Widget con vista elenco dell'oggetto impostato";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget con vista elenco dell'oggetto impostato";
 "Widgets.Empty.Title" = "Questa vista dati non contiene oggetti";
 "Widgets.Library.RecentlyEdited.Name" = "Modificati di recente";
