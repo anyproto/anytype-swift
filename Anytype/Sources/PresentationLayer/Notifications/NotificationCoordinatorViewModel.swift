@@ -127,7 +127,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         
         attributes.name = entryName
         attributes.windowLevel = .alerts
-        attributes.displayDuration = 4
+        attributes.displayDuration = 8
         attributes.positionConstraints.size = .init(width: .offset(value: 16), height: .intrinsic)
         attributes.position = .top
         attributes.roundCorners = .all(radius: 8)
