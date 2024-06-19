@@ -46,7 +46,7 @@ final class RelationsListViewModel: ObservableObject {
             .receiveOnMain()
             .sink { [weak self] permissions in
                 guard let self else { return }
-                navigationBarButtonsDisabled = permissions.canEditRelationsList
+                navigationBarButtonsDisabled = !permissions.canEditRelationsList
             }
             .store(in: &subscriptions)
     }
