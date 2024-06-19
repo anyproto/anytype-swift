@@ -58,7 +58,6 @@ final class MembershipNameValidationViewModel: ObservableObject {
             try await Task.sleep(seconds: 0.3)
             
             do {
-                try Task.checkCancellation()
                 try await membershipService.validateName(name: name, tierType: tier.type)
                 state = .validated
             } catch let error as CancellationError {
