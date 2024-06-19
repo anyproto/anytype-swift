@@ -4,6 +4,7 @@ import AnytypeCore
 import SwiftUI
 import OrderedCollections
 
+
 @MainActor
 final class EditorSetViewModel: ObservableObject {
     let headerModel: ObjectHeaderViewModel
@@ -60,6 +61,10 @@ final class EditorSetViewModel: ObservableObject {
     
     var details: ObjectDetails? {
         setDocument.details
+    }
+    
+    var showDescription: Bool {
+        setDocument.parsedRelations.featuredRelations.contains { $0.key == BundledRelationKey.description.rawValue }
     }
     
     var hasTargetObjectId: Bool {

@@ -70,13 +70,10 @@ struct SetFullHeader: View {
 extension SetFullHeader {
     private var description: some View {
         Group {
-            if let description = model.details?.description, description.isNotEmpty {
-                AnytypeText(
-                    description,
-                    style: .relation1Regular
-                )
-                .foregroundColor(.Text.primary)
-                .fixedSize(horizontal: false, vertical: true)
+            if model.showDescription {
+                AnytypeText(model.details?.description, style: .relation1Regular)
+                    .foregroundColor(.Text.primary)
+                    .fixedSize(horizontal: false, vertical: true)
             } else {
                 EmptyView()
             }
