@@ -590,6 +590,14 @@ public struct Anytype_Event {
       set {value = .membershipUpdate(newValue)}
     }
 
+    public var spaceSyncStatusUpdate: Anytype_Event.Space.SyncStatus.Update {
+      get {
+        if case .spaceSyncStatusUpdate(let v)? = value {return v}
+        return Anytype_Event.Space.SyncStatus.Update()
+      }
+      set {value = .spaceSyncStatusUpdate(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -663,6 +671,7 @@ public struct Anytype_Event {
       case notificationUpdate(Anytype_Event.Notification.Update)
       case payloadBroadcast(Anytype_Event.Payload.Broadcast)
       case membershipUpdate(Anytype_Event.Membership.Update)
+      case spaceSyncStatusUpdate(Anytype_Event.Space.SyncStatus.Update)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -936,6 +945,10 @@ public struct Anytype_Event {
         }()
         case (.membershipUpdate, .membershipUpdate): return {
           guard case .membershipUpdate(let l) = lhs, case .membershipUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.spaceSyncStatusUpdate, .spaceSyncStatusUpdate): return {
+          guard case .spaceSyncStatusUpdate(let l) = lhs, case .spaceSyncStatusUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -4719,6 +4732,145 @@ public struct Anytype_Event {
     public init() {}
   }
 
+  public struct Space {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum Status: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+      case synced // = 0
+      case syncing // = 1
+      case error // = 2
+      case offline // = 3
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .synced
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .synced
+        case 1: self = .syncing
+        case 2: self = .error
+        case 3: self = .offline
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .synced: return 0
+        case .syncing: return 1
+        case .error: return 2
+        case .offline: return 3
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    public enum Network: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+      case anytype // = 0
+      case selfHost // = 1
+      case localOnly // = 2
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .anytype
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .anytype
+        case 1: self = .selfHost
+        case 2: self = .localOnly
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .anytype: return 0
+        case .selfHost: return 1
+        case .localOnly: return 2
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    public enum SyncError: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+      case null // = 0
+      case storageLimitExceed // = 1
+      case incompatibleVersion // = 2
+      case networkError // = 3
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .null
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .null
+        case 1: self = .storageLimitExceed
+        case 2: self = .incompatibleVersion
+        case 3: self = .networkError
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .null: return 0
+        case .storageLimitExceed: return 1
+        case .incompatibleVersion: return 2
+        case .networkError: return 3
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    public struct SyncStatus {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Update {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var status: Anytype_Event.Space.Status = .synced
+
+        public var network: Anytype_Event.Space.Network = .anytype
+
+        public var error: Anytype_Event.Space.SyncError = .null
+
+        public var syncingObjectsCounter: Int64 = 0
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
@@ -4746,6 +4898,35 @@ extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
     .synced,
     .failed,
     .incompatibleVersion,
+  ]
+}
+
+extension Anytype_Event.Space.Status: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Event.Space.Status] = [
+    .synced,
+    .syncing,
+    .error,
+    .offline,
+  ]
+}
+
+extension Anytype_Event.Space.Network: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Event.Space.Network] = [
+    .anytype,
+    .selfHost,
+    .localOnly,
+  ]
+}
+
+extension Anytype_Event.Space.SyncError: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Event.Space.SyncError] = [
+    .null,
+    .storageLimitExceed,
+    .incompatibleVersion,
+    .networkError,
   ]
 }
 
@@ -5118,6 +5299,12 @@ extension Anytype_Event.Notification.Send: @unchecked Sendable {}
 extension Anytype_Event.Notification.Update: @unchecked Sendable {}
 extension Anytype_Event.Payload: @unchecked Sendable {}
 extension Anytype_Event.Payload.Broadcast: @unchecked Sendable {}
+extension Anytype_Event.Space: @unchecked Sendable {}
+extension Anytype_Event.Space.Status: @unchecked Sendable {}
+extension Anytype_Event.Space.Network: @unchecked Sendable {}
+extension Anytype_Event.Space.SyncError: @unchecked Sendable {}
+extension Anytype_Event.Space.SyncStatus: @unchecked Sendable {}
+extension Anytype_Event.Space.SyncStatus.Update: @unchecked Sendable {}
 extension Anytype_ResponseEvent: @unchecked Sendable {}
 extension Anytype_Model: @unchecked Sendable {}
 extension Anytype_Model.Process: @unchecked Sendable {}
@@ -5254,6 +5441,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     115: .same(proto: "notificationUpdate"),
     116: .same(proto: "payloadBroadcast"),
     117: .same(proto: "membershipUpdate"),
+    119: .same(proto: "spaceSyncStatusUpdate"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6016,6 +6204,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .fileLimitUpdated(v)
         }
       }()
+      case 119: try {
+        var v: Anytype_Event.Space.SyncStatus.Update?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .spaceSyncStatusUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .spaceSyncStatusUpdate(v)
+        }
+      }()
       case 123: try {
         var v: Anytype_Event.Block.Dataview.RelationSet?
         var hadOneofValue = false
@@ -6375,6 +6576,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .fileLimitUpdated?: try {
       guard case .fileLimitUpdated(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 118)
+    }()
+    case .spaceSyncStatusUpdate?: try {
+      guard case .spaceSyncStatusUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 119)
     }()
     case .blockDataviewRelationSet?: try {
       guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
@@ -13571,6 +13776,126 @@ extension Anytype_Event.Payload.Broadcast: SwiftProtobuf.Message, SwiftProtobuf.
 
   public static func ==(lhs: Anytype_Event.Payload.Broadcast, rhs: Anytype_Event.Payload.Broadcast) -> Bool {
     if lhs.payload != rhs.payload {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Space: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Space"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Space, rhs: Anytype_Event.Space) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Space.Status: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Synced"),
+    1: .same(proto: "Syncing"),
+    2: .same(proto: "Error"),
+    3: .same(proto: "Offline"),
+  ]
+}
+
+extension Anytype_Event.Space.Network: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Anytype"),
+    1: .same(proto: "SelfHost"),
+    2: .same(proto: "LocalOnly"),
+  ]
+}
+
+extension Anytype_Event.Space.SyncError: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Null"),
+    1: .same(proto: "StorageLimitExceed"),
+    2: .same(proto: "IncompatibleVersion"),
+    3: .same(proto: "NetworkError"),
+  ]
+}
+
+extension Anytype_Event.Space.SyncStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Space.protoMessageName + ".SyncStatus"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Space.SyncStatus, rhs: Anytype_Event.Space.SyncStatus) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Space.SyncStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Space.SyncStatus.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "status"),
+    3: .same(proto: "network"),
+    4: .same(proto: "error"),
+    5: .same(proto: "syncingObjectsCounter"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.network) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.error) }()
+      case 5: try { try decoder.decodeSingularInt64Field(value: &self.syncingObjectsCounter) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if self.status != .synced {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 2)
+    }
+    if self.network != .anytype {
+      try visitor.visitSingularEnumField(value: self.network, fieldNumber: 3)
+    }
+    if self.error != .null {
+      try visitor.visitSingularEnumField(value: self.error, fieldNumber: 4)
+    }
+    if self.syncingObjectsCounter != 0 {
+      try visitor.visitSingularInt64Field(value: self.syncingObjectsCounter, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Space.SyncStatus.Update, rhs: Anytype_Event.Space.SyncStatus.Update) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.network != rhs.network {return false}
+    if lhs.error != rhs.error {return false}
+    if lhs.syncingObjectsCounter != rhs.syncingObjectsCounter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

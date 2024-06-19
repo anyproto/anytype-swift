@@ -1074,16 +1074,6 @@ public struct ClientCommands {
         }
     }
 
-    public static func fileOffload(
-        _ request: Anytype_Rpc.File.Offload.Request = .init()
-    ) -> Invocation<Anytype_Rpc.File.Offload.Request, Anytype_Rpc.File.Offload.Response> {
-        return Invocation(messageName: "FileOffload", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceFileOffload(requestData) ?? Data()
-            return try Anytype_Rpc.File.Offload.Response(serializedData: responseData)
-        }
-    }
-
     public static func fileSpaceOffload(
         _ request: Anytype_Rpc.File.SpaceOffload.Request = .init()
     ) -> Invocation<Anytype_Rpc.File.SpaceOffload.Request, Anytype_Rpc.File.SpaceOffload.Response> {
@@ -1091,6 +1081,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileSpaceOffload(requestData) ?? Data()
             return try Anytype_Rpc.File.SpaceOffload.Response(serializedData: responseData)
+        }
+    }
+
+    public static func fileReconcile(
+        _ request: Anytype_Rpc.File.Reconcile.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.Reconcile.Request, Anytype_Rpc.File.Reconcile.Response> {
+        return Invocation(messageName: "FileReconcile", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileReconcile(requestData) ?? Data()
+            return try Anytype_Rpc.File.Reconcile.Response(serializedData: responseData)
         }
     }
 

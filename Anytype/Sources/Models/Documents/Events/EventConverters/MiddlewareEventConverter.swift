@@ -206,6 +206,7 @@ final class MiddlewareEventConverter {
                 .notificationSend,
                 .notificationUpdate,
                 .payloadBroadcast,
+                .spaceSyncStatusUpdate,
                 .membershipUpdate: // Implemented in `MembershipStatusStorage`
             return nil
         }
