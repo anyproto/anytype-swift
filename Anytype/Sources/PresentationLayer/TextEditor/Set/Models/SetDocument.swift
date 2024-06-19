@@ -97,7 +97,6 @@ final class SetDocument: SetDocumentProtocol {
         self.relationDetailsStorage = relationDetailsStorage
         self.dataBuilder = SetContentViewDataBuilder(
             relationsBuilder: RelationsBuilder(),
-            detailsStorage: document.detailsStorage,
             relationDetailsStorage: relationDetailsStorage
         )
         self.objectTypeProvider = objectTypeProvider
