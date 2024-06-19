@@ -188,6 +188,7 @@
 "Paste or type URL" = "Plak of type URL";
 "No items match filter" = "Geen items die met filter overeenkomen";
 "Unsupported block" = "Niet ondersteund blok";
+"Unsupported" = "Niet ondersteund";
 "Name" = "Naam";
 "Description" = "Beschrijving";
 "Paste processing..." = "Bezig met plakken...";
@@ -797,9 +798,11 @@
 "Widgets.Layout.Tree.Title" = "Boomstructuur";
 "Widgets.Layout.List.Title" = "Lijst";
 "Widgets.Layout.CompactList.Title" = "Compacte lijst";
+"Widgets.Layout.View.Title" = "Weergave";
 "Widgets.Layout.Link.Description" = "Compacte versie van het object";
 "Widgets.Layout.Tree.Description" = "Hiërarchische structuur van objecten";
 "Widgets.Layout.List.Description" = "Widget met lijstweergave van geselecteerde object";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget met lijstweergave van geselecteerde object";
 "Widgets.Empty.Title" = "Deze gegevensweergave bevat geen objecten";
 "Widgets.Library.RecentlyEdited.Name" = "Onlangs bewerkt";
