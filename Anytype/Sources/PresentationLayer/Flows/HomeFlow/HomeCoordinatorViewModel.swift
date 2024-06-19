@@ -291,6 +291,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private func handleAppAction(action: AppAction) async throws {
         keyboardToggle.toggle()
+        await dismissAllPresented?()
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
@@ -300,8 +301,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     private func handleDeepLink(deepLink: DeepLink) async throws {
-        await dismissAllPresented?()
-        
         switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)

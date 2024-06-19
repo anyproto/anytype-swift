@@ -20,7 +20,7 @@ public enum BlocksModelsConverter: Sendable {
         case .table: return BlockContent.table
         case .tableColumn: return BlockContent.tableColumn
         case .tableRow(let data): return data.blockContent
-        case .widget(let data): return try? data.blockContent
+        case .widget(let data): return .widget(data)
         case .icon, .latex:
             return .unsupported
         }

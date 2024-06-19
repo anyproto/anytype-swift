@@ -14,7 +14,6 @@ struct TreeWidgetRowViewModel {
     let icon: Icon?
     let expandedType: ExpandedType
     let level: Int
-    let onIconTap: () -> Void
     let tapExpand: (TreeWidgetRowViewModel) -> Void
     let tapCollapse: (TreeWidgetRowViewModel) -> Void
     let tapObject: (TreeWidgetRowViewModel) -> Void
@@ -34,9 +33,6 @@ struct TreeWidgetRowView: View {
                 if let icon = model.icon {
                     IconView(icon: icon)
                         .frame(width: 18, height: 18)
-                        .onTapGesture {
-                            model.onIconTap()
-                        }
                     Spacer.fixedWidth(12)
                 }
                 AnytypeText(model.title, style: .previewTitle2Medium)

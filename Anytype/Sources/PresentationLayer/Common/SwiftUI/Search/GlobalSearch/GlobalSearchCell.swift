@@ -23,6 +23,7 @@ struct GlobalSearchCell: View {
                 Spacer.fixedHeight(8)
                 IconView(icon: iconImage)
                     .frame(width: 48, height: 48)
+                    .allowsHitTesting(false)
                 Spacer.fixedHeight(8)
             }
         }

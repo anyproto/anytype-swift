@@ -6,7 +6,6 @@ struct TitleWithIconView: View {
     let showIcon: Bool
     let title: String?
     let style: TitleWithIconStyle
-    @EquatableNoop var onIconTap: () -> Void
 
     var body: some View {
         titleWithIcon
@@ -23,9 +22,6 @@ struct TitleWithIconView: View {
                         height: style.iconSize.height
                     )
                     .padding(.top, 1)
-                    .onTapGesture {
-                        onIconTap()
-                    }
                 }
             } else {
                 title(with: title)
@@ -53,8 +49,7 @@ struct TitleWithIconView_Previews: PreviewProvider {
             icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - header style",
-            style: .header,
-            onIconTap: {}
+            style: .header
         )
         .previewLayout(.fixed(width: 375, height: 150))
         
@@ -62,8 +57,7 @@ struct TitleWithIconView_Previews: PreviewProvider {
             icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - list style",
-            style: .list,
-            onIconTap: {}
+            style: .list
         )
         .previewLayout(.fixed(width: 375, height: 150))
         
@@ -71,8 +65,7 @@ struct TitleWithIconView_Previews: PreviewProvider {
             icon: .object(.emoji(Emoji("📘")!)),
             showIcon: true,
             title: "Let's see how this TitleWithIconView looks like with image - gallery style",
-            style: .gallery,
-            onIconTap: {}
+            style: .gallery
         )
         .previewLayout(.fixed(width: 375, height: 150))
     }

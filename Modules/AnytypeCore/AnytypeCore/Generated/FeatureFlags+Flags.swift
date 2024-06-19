@@ -38,6 +38,10 @@ public extension FeatureFlags {
         value(for: .setEmptyValuesSorting)
     }
 
+    static var galleryWidget: Bool {
+        value(for: .galleryWidget)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -96,6 +100,7 @@ public extension FeatureFlags {
         .newGlobalSearch,
         .scrollToBlockFromSearch,
         .setEmptyValuesSorting,
+        .galleryWidget,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

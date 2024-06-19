@@ -4,6 +4,7 @@ import Combine
 import AnytypeCore
 
 final class SetDocument: SetDocumentProtocol {
+    
     let document: BaseDocumentProtocol
     
     var objectId: String { document.objectId }
@@ -229,12 +230,12 @@ final class SetDocument: SetDocumentProtocol {
     // MARK: - Private
     
     private func setup() async {
-        document.syncPublisher.sink { [weak self] update in
+        document.syncPublisher.receiveOnMain().sink { [weak self] update in
             self?.updateData()
         }
         .store(in: &subscriptions)
         
-        document.syncStatusPublisher.sink { [weak self] status in
+        document.syncStatusDataPublisher.sink { [weak self] status in
             self?.updateSubject.send(.syncStatus(status))
         }
         .store(in: &subscriptions)

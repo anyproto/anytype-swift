@@ -22,6 +22,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
         if let iconImage = data.iconImage {
             IconView(icon: iconImage)
                 .frame(width: 48, height: 48)
+                .allowsHitTesting(false)
             Spacer.fixedWidth(12)
         }
     }

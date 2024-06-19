@@ -33,7 +33,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         }
         
         homeDocument.syncPublisher
-            .map { [weak self, homeDocument] in self?.createChildren(document: homeDocument, objectLimit: objectLimit) ?? [] }
+            .map { [weak self, homeDocument] _ in self?.createChildren(document: homeDocument, objectLimit: objectLimit) ?? [] }
             .removeDuplicates()
             .receiveOnMain()
             .sink { result in

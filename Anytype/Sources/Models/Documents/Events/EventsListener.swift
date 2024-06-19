@@ -30,7 +30,8 @@ final class EventsListener: EventsListenerProtocol {
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
-        detailsStorage: ObjectDetailsStorage
+        detailsStorage: ObjectDetailsStorage,
+        statusStorage: DocumentStatusStorageProtocol
     ) {
         self.objectId = objectId
         self.infoContainer = infoContainer
@@ -44,7 +45,8 @@ final class EventsListener: EventsListenerProtocol {
             relationLinksStorage: relationLinksStorage,
             informationCreator: informationCreator,
             detailsStorage: detailsStorage,
-            restrictionsContainer: restrictionsContainer
+            restrictionsContainer: restrictionsContainer,
+            statusStorage: statusStorage
         )
         self.localConverter = LocalEventConverter(
             infoContainer: infoContainer
@@ -92,13 +94,13 @@ final class EventsListener: EventsListenerProtocol {
     private func handle(events: EventsBunch) {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
-        let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
+        let markupUpdates = mentionMarkupEventProvider.updateMentionsEvent()
 
         let builderChangedIds = IndentationBuilder.build(
             container: infoContainer,
             id: objectId
         )
-        let builderUpdates: [DocumentUpdate] = builderChangedIds.isNotEmpty ? [.blocks(blockIds: Set(builderChangedIds))] : []
+        let builderUpdates: [DocumentUpdate] = builderChangedIds.map { .block(blockId: $0) }
     
         let updates = middlewareUpdates + markupUpdates + localUpdates + builderUpdates
         receiveUpdates(updates.filteredUpdates)

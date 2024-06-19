@@ -3,7 +3,7 @@ import Combine
 import Services
 
 @MainActor
-final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {
+final class LinkWidgetViewModel: ObservableObject {
     
     // MARK: - DI
     
@@ -17,22 +17,14 @@ final class LinkWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     private var linkedObjectDetails: ObjectDetails?
     
     @Published private(set) var name = ""
-    let allowContent = false
     var dragId: String? { widgetBlockId }
     
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
         self.output = data.output
-    }
-    
-    // MARK: - WidgetContainerContentViewModelProtocol
-
-    func startHeaderSubscription() {
         setupAllSubscriptions()
     }
-    
-    func startContentSubscription() {}
     
     func onHeaderTap() {
         guard let linkedObjectDetails else { return }

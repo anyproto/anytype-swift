@@ -141,7 +141,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>您已经达到 %d 个可共享空间的限制</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>

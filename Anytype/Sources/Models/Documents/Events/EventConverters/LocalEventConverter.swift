@@ -15,7 +15,7 @@ final class LocalEventConverter {
         case .setToggled, .general:
             return .general
         case let .setStyle(blockId):
-            return .blocks(blockIds: [blockId])
+            return .block(blockId: blockId)
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
@@ -31,9 +31,9 @@ final class LocalEventConverter {
             content.state = .uploading
             info = info.updated(content: .file(content))
             infoContainer.add(info)
-            return .blocks(blockIds: [blockId])
+            return .block(blockId: blockId)
         case .reload(blockId: let blockId):
-            return .blocks(blockIds: [blockId])
+            return .block(blockId: blockId)
         }
     }
         
@@ -43,11 +43,11 @@ final class LocalEventConverter {
     private func blockSetTextUpdate(blockId: String, text: MiddlewareString) -> DocumentUpdate {
         guard var info = infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Block model not found in container", info: ["blockId": "\(blockId)"])
-            return .unhandled(blockIds: .init([blockId]))
+            return .unhandled(blockId: blockId)
         }
         guard case let .text(oldText) = info.content else {
             anytypeAssertionFailure("Block model doesn't support text", info: ["contentType": "\(info.content.type)"])
-            return .unhandled(blockIds: .init([blockId]))
+            return .unhandled(blockId: blockId)
         }
         
         let middleContent = Anytype_Model_Block.Content.Text.with {
@@ -62,7 +62,7 @@ final class LocalEventConverter {
         
         guard var textContent = middleContent.textContent else {
             anytypeAssertionFailure("We cannot block content")
-            return .unhandled(blockIds: .init([blockId]))
+            return .unhandled(blockId: blockId)
         }
 
         textContent.contentType = oldText.contentType
@@ -72,6 +72,6 @@ final class LocalEventConverter {
         info = blockValidator.validated(information: info)
         infoContainer.add(info)
         
-        return .unhandled(blockIds: .init([blockId]))
+        return .unhandled(blockId: blockId)
     }
 }

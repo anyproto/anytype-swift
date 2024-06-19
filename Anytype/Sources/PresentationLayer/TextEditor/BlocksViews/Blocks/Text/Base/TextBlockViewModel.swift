@@ -2,26 +2,26 @@ import Combine
 import UIKit
 import Services
 
+// TODO: Delete it. Use document subscription in blocks
 final class BlockModelInfomationProvider {
     @Published private(set) var info: BlockInformation
     
-    private let infoContainer: InfoContainerProtocol
+    private let document: BaseDocumentProtocol
     private var subscription: AnyCancellable?
     
     init(
-        infoContainer: InfoContainerProtocol,
+        document: BaseDocumentProtocol,
         info: BlockInformation
     ) {
-        self.infoContainer = infoContainer
+        self.document = document
         self.info = info
         
         setupPublisher()
     }
     
     private func setupPublisher() {
-        subscription = infoContainer
-            .publisherFor(id: info.id)
-            .sink { [weak self] in $0.map { self?.info = $0 } }
+        subscription = document.subscribeForBlockInfo(blockId: info.id)
+            .sinkOnMain { [weak self] in self?.info = $0 }
     }
 }
 

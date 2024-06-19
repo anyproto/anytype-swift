@@ -1,16 +1,16 @@
 import Foundation
 import SwiftUI
 
-struct ListWidgetHeaderItem: View {
+struct ViewWidgetTabsItemModel {
+    let dataviewId: String
+    let title: String
+    let isSelected: Bool
+    let onTap: () -> Void
+}
 
-    struct Model {
-        let dataviewId: String
-        let title: String
-        let isSelected: Bool
-        let onTap: () -> Void
-    }
+struct ViewWidgetTabsItemView: View {
     
-    let model: Model
+    let model: ViewWidgetTabsItemModel
     
     var body: some View {
         AnytypeText(model.title, style: .previewTitle2Medium)

@@ -47,6 +47,7 @@ struct ObjectRelationView: View {
                         width: style.objectRelationStyle.size.width,
                         height: style.objectRelationStyle.size.height
                     )
+                    .allowsHitTesting(false)
             }
             
             AnytypeText(

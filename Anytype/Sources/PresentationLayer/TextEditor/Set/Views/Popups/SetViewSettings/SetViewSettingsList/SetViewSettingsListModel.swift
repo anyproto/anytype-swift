@@ -93,7 +93,7 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
-        setDocument.syncPublisher.sink { [weak self] in
+        setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             self?.updateState()
         }.store(in: &cancellables)
     }

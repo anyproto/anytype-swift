@@ -42,7 +42,7 @@ final class ObjectActionsViewModel: ObservableObject {
     }
     
     func startDocumentTask() async {
-        for await _ in document.syncPublisher.values {
+        for await _ in document.syncPublisher.receiveOnMain().values {
             guard let details = document.details else {
                 objectActions = []
                 return

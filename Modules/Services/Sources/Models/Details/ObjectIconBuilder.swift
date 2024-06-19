@@ -22,7 +22,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         }
         
         if relations.layoutValue == .todo {
-            return .todo(relations.isDone)
+            return .todo(relations.isDone, relations.id)
         }
         
         return nil
