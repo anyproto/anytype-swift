@@ -188,6 +188,7 @@
 "Paste or type URL" = "Lim inn eller skriv URL";
 "No items match filter" = "Ingen elementer samsvarer med filteret";
 "Unsupported block" = "Blokk støttet ikke";
+"Unsupported" = "Ikke støttet";
 "Name" = "Navn";
 "Description" = "Beskrivelse";
 "Paste processing..." = "Behandler innliming...";
@@ -797,9 +798,11 @@
 "Widgets.Layout.Tree.Title" = "Tre";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakt liste";
+"Widgets.Layout.View.Title" = "Visning";
 "Widgets.Layout.Link.Description" = "Kompakt versjon av objektet";
 "Widgets.Layout.Tree.Description" = "Hierarkisk struktur av objekter";
 "Widgets.Layout.List.Description" = "Widget med listevisning av settobjekt";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget med listevisning av settobjekt";
 "Widgets.Empty.Title" = "Denne datavisningen inneholder ingen objekter";
 "Widgets.Library.RecentlyEdited.Name" = "Nylig endret";
