@@ -10,6 +10,9 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
+    @Injected(\.objectIconBuilder)
+    private var objectIconBuilder: ObjectIconBuilderProtocol
+    
     private var subscription: AnyCancellable?
     private var dismissAllPresented: DismissAllPresented?
     
@@ -77,13 +80,20 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             let view = RequestToJoinNotificationView(
                 notification: NotificationRequestToJoin(common: notification, requestToJoin: data),
                 onViewRequest: { [weak self] notification in
-                    await self?.dismissAllPresented?()
-                    self?.spaceRequestAlert = SpaceRequestAlertData(
+                    guard let self else { return }
+                    
+                    await dismissAllPresented?()
+                    let icon = objectIconBuilder.profileIcon(
+                        iconImage: notification.requestToJoin.identityIcon,
+                        objectName: notification.requestToJoin.identityName
+                    )
+                    
+                    spaceRequestAlert = SpaceRequestAlertData(
                         spaceId: notification.requestToJoin.spaceID,
                         spaceName: notification.requestToJoin.spaceName,
                         participantIdentity: notification.requestToJoin.identity,
-                        participantName: notification.requestToJoin.identityName,
-                        participantIcon: nil, // TODO
+                        participantName: notification.requestToJoin.identityName, 
+                        participantIcon: icon,
                         route: .notification
                     )
                 }
