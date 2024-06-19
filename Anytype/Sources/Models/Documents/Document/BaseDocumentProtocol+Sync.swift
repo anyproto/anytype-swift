@@ -24,7 +24,7 @@ extension BaseDocumentProtocol {
     
     func subscribeForBlockInfo(blockId: String) -> AnyPublisher
     <BlockInformation, Never> {
-        subscibeFor(update: [.block(blockId: objectId), .unhandled(blockId: blockId)])
+        subscibeFor(update: [.block(blockId: blockId), .unhandled(blockId: blockId)])
             .compactMap { [weak self] _ in
                 self?.infoContainer.get(id: blockId)
             }
