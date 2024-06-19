@@ -16,7 +16,7 @@ public extension BundledRelationsValueProvider {
         }
         
         if layoutValue == .todo {
-            return .todo(isDone)
+            return .todo(isDone, id)
         }
         
         return nil

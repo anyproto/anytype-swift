@@ -6,7 +6,7 @@ public enum ObjectIcon: Hashable, Sendable {
     case emoji(Emoji)
     case bookmark(_ imageId: String)
     case space(Space)
-    case todo(Bool)
+    case todo(_ checked: Bool, _ objectId: String?)
     case placeholder(_ name: String)
     case file(mimeType: String, name: String)
     case deleted

@@ -15,11 +15,6 @@ struct GalleryWidgetRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             ZStack(alignment: .leadingFirstTextBaseline) {
-                if let icon = model.icon {
-                    IconView(icon: icon)
-                        .frame(width: 16, height: 16)
-                        .alignmentGuide(.firstTextBaseline) { $0.height * 0.8 }
-                }
                 HStack {
                     Text(model.icon.isNotNil ? model.title.leftIndented : model.title)
                         .anytypeStyle(.caption1Medium)
@@ -27,6 +22,11 @@ struct GalleryWidgetRow: View {
                         .foregroundColor(Color.Text.primary)
                         .frame(maxHeight: .infinity, alignment: .top) // For equal height. Always height == 2 lines
                     Spacer()
+                }
+                if let icon = model.icon {
+                    IconView(icon: icon)
+                        .frame(width: 16, height: 16)
+                        .alignmentGuide(.firstTextBaseline) { $0.height * 0.8 }
                 }
             }
             .padding(EdgeInsets(top: 9, leading: 12, bottom: 11, trailing: 12))

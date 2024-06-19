@@ -11,7 +11,7 @@ extension BlockLinkState {
     }
 
     var titleColor: UIColor {
-        if case let .object(.todo(value)) = icon, value {
+        if case let .object(.todo(value, _)) = icon, value {
             return .Button.active
         }
 

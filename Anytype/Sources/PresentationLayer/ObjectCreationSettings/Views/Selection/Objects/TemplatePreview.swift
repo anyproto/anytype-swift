@@ -41,7 +41,7 @@ struct TemplatePreview: View, ContextualMenuItemsProvider {
                         .padding(.horizontal, 16)
                     case let .todo(isChecked):
                         HStack(spacing: 4) {
-                            IconView(icon: .object(.todo(isChecked))).frame(width: 14, height: 14)
+                            IconView(icon: .object(.todo(isChecked, nil))).frame(width: 14, height: 14)
                             AnytypeText(
                                 templateModel.title,
                                 style: .caption2Medium

@@ -463,9 +463,6 @@ final class EditorSetViewModel: ObservableObject {
                     viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
-                    onIconTap: { [weak self] details in
-                        self?.updateDetailsIfNeeded(details)
-                    },
                     onItemTap: { [weak self] details in
                         self?.itemTapped(details)
                     }
@@ -528,17 +525,6 @@ final class EditorSetViewModel: ObservableObject {
             return recordsDict[groupId]
         }
         return records.reorderedStable(by: objectOrderIds, transform: { $0.id })
-    }
-        
-    private func updateDetailsIfNeeded(_ details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
-        Task {
-            try await detailsService.updateBundledDetails(
-                objectId: details.id,
-                bundledDetails: [.done(!details.isDone)]
-            )
-            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-        }
     }
     
     @MainActor

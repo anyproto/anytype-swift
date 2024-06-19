@@ -87,7 +87,7 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
         guard let targetDetails else { return }
         
         let state = BlockLinkState(details: targetDetails, blockLink: content)
-        guard case let .object(.todo(isChecked)) = state.icon else {
+        guard case let .object(.todo(isChecked, _)) = state.icon else {
             return
         }
         

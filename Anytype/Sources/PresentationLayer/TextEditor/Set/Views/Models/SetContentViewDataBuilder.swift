@@ -68,7 +68,6 @@ final class SetContentViewDataBuilder {
         viewRelationValueIsLocked: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
-        onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
@@ -103,9 +102,6 @@ final class SetContentViewDataBuilder {
                 coverFit: activeView.coverFit,
                 coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId),
                 minHeight: minHeight,
-                onIconTap: {
-                    onIconTap(item.details)
-                },
                 onItemTap: {
                     onItemTap(item.details)
                 }

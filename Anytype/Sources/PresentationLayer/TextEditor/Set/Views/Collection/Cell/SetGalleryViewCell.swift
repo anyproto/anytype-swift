@@ -21,8 +21,7 @@ struct SetGalleryViewCell: View {
                     icon: configuration.icon,
                     showIcon: configuration.showIcon,
                     title: configuration.title,
-                    style: .gallery,
-                    onIconTap: configuration.onIconTap
+                    style: .gallery
                 )
                 
                 Spacer.fixedHeight(4)
