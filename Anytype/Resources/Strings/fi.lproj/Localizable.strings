@@ -188,6 +188,7 @@
 "Paste or type URL" = "Sijoita tai kirjoita URL";
 "No items match filter" = "Yksikään kohde ei vastaa filtteröintiä";
 "Unsupported block" = "Tukematon pala";
+"Unsupported" = "Ei tuettu";
 "Name" = "Nimi";
 "Description" = "Kuvaus";
 "Paste processing..." = "Sijoitus käynnissä...";
@@ -797,9 +798,11 @@
 "Widgets.Layout.Tree.Title" = "Puu";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Tiivis lista";
+"Widgets.Layout.View.Title" = "Näkymä";
 "Widgets.Layout.Link.Description" = "Tiivis versio objektista";
 "Widgets.Layout.Tree.Description" = "Hierarkinen objektien rakenne";
 "Widgets.Layout.List.Description" = "Vempain lista näkymällä asetetusta objektista";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Vempain lista näkymällä asetetusta objektista";
 "Widgets.Empty.Title" = "Tämä data näkymä ei sisällä objekteja";
 "Widgets.Library.RecentlyEdited.Name" = "Viimeksi muokatut";
