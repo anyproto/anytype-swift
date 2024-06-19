@@ -188,6 +188,7 @@
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "Няма элементаў, якія супадаюць з фільтрам";
 "Unsupported block" = "Unsupported block";
+"Unsupported" = "Не падтрымліваецца";
 "Name" = "Назва";
 "Description" = "Апісанне";
 "Paste processing..." = "Paste processing...";
@@ -798,9 +799,11 @@
 "Widgets.Layout.Tree.Title" = "Дрэва";
 "Widgets.Layout.List.Title" = "Спіс";
 "Widgets.Layout.CompactList.Title" = "Кампактны спіс";
+"Widgets.Layout.View.Title" = "Выгляд";
 "Widgets.Layout.Link.Description" = "Кампактная версія аб'екта";
 "Widgets.Layout.Tree.Description" = "Іерархічная структура аб'ектаў";
 "Widgets.Layout.List.Description" = "Віджэт са спісам аб'ектаў з набору";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Віджэт са спісам аб'ектаў з набору";
 "Widgets.Empty.Title" = "This data view contains no objects";
 "Widgets.Library.RecentlyEdited.Name" = "Нядаўна адрэдагаваны";
