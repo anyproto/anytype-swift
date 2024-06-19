@@ -31,7 +31,8 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private let objectLifecycleService: ObjectLifecycleServiceProtocol
     private let eventsListener: EventsListenerProtocol
-    private let relationBuilder: RelationsBuilder
+    @Injected(\.relationsBuilder)
+    private var relationBuilder: RelationsBuilderProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountParticipantsStorage: AccountParticipantsStorageProtocol
@@ -74,7 +75,6 @@ final class BaseDocument: BaseDocumentProtocol {
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
         self.objectLifecycleService = objectLifecycleService
-        self.relationBuilder = RelationsBuilder()
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage

@@ -16,4 +16,8 @@ extension Container {
     var setGroupSubscriptionDataBuilder: Factory<SetGroupSubscriptionDataBuilderProtocol> {
         self { SetGroupSubscriptionDataBuilder() }
     }
+    
+    var setContentViewDataBuilder: Factory<SetContentViewDataBuilderProtocol> {
+        self { SetContentViewDataBuilder() }
+    }
 }
