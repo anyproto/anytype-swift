@@ -74,6 +74,16 @@ class CursorModeAccessoryView: UIView {
         }
         button.setTitle(title, for: .normal)
         button.setTitleColor(.Text.primary, for: .normal)
+        
+        if let title = button.titleLabel?.attributedText?.mutable {
+            title.addAttribute(
+                NSAttributedString.Key.kern,
+                value: -0.41,
+                range: NSRange(location: 0, length: title.length - 1)
+            )
+            button.titleLabel?.attributedText = title
+        }
+        
         button.addAction(primaryAction, for: .touchUpInside)
         stackView.addArrangedSubview(button)
     }
