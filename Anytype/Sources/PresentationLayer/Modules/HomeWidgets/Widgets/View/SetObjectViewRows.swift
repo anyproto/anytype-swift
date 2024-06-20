@@ -1,6 +1,6 @@
 import Foundation
 
 enum SetObjectViewWidgetRows {
-    case list(_ rows: [ListWidgetRowModel]?)
-    case gallery(_ rows: [GalleryWidgetRowModel]?)
+    case list(rows: [ListWidgetRowModel]?, id: String)
+    case gallery(rows: [GalleryWidgetRowModel]?, id: String)
 }

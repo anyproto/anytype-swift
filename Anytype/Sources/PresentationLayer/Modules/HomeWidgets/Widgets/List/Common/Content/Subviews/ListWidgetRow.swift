@@ -36,5 +36,6 @@ struct ListWidgetRow: View {
         .if(showDivider) {
             $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
+        .id(model.objectId)
     }
 }

@@ -29,7 +29,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
     private var setDocument: SetDocumentProtocol?
-    var activeViewId: String? { didSet { updateActiveView() } }
+    private var activeViewId: String? { didSet { updateActiveView() } }
     private var canEditBlocks = true
     private var dataviewState: WidgetDataviewState? { didSet { updateHeader() } }
     private var rowDetails: [SetContentViewItemConfiguration]? { didSet { updateRows() } }
@@ -39,7 +39,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     @Published var name: String = ""
     @Published var contentTaskId: String?
     @Published var headerItems: [ViewWidgetTabsItemModel]?
-    @Published var rows: SetObjectViewWidgetRows = .list([])
+    @Published var rows: SetObjectViewWidgetRows = .list(rows: [], id: "")
     @Published var allowCreateObject = true
     
     init(data: WidgetSubmoduleData) {
@@ -124,7 +124,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                         onTap: details.onItemTap
                     )
                 }
-                rows = .list(listRows)
+                rows = .list(rows: listRows, id: activeViewId ?? "")
             case .gallery:
                 let galleryRows = rowDetails?.map { details in
                     GalleryWidgetRowModel(
@@ -136,7 +136,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                         onTap: details.onItemTap
                     )
                 }
-                rows = .gallery(galleryRows)
+                rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
             }
         }
     }
