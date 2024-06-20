@@ -3214,6 +3214,30 @@ extension Anytype_Rpc.File.Offload.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.File.Reconcile.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "File.Reconcile.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "File.Reconcile.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.File.SpaceOffload.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()

@@ -637,6 +637,11 @@ extension Anytype_Rpc.File.Offload.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.File.Reconcile.Response: ResultWithError {}
+extension Anytype_Rpc.File.Reconcile.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.File.SpaceOffload.Response: ResultWithError {}
 extension Anytype_Rpc.File.SpaceOffload.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

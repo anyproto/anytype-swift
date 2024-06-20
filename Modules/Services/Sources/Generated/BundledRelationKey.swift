@@ -454,4 +454,13 @@ public enum BundledRelationKey: String {
 
     /// Name of profile that the user could be mentioned by
     case globalName = "globalName"
+
+    /// Object sync status
+    case syncStatus = "syncStatus"
+
+    /// Object sync date
+    case syncDate = "syncDate"
+
+    /// Object sync error
+    case syncError = "syncError"
 }
