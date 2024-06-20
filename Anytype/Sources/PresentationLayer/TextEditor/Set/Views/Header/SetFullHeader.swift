@@ -106,12 +106,11 @@ extension SetFullHeader {
     private var titleView: some View {
         AutofocusedTextField(
             placeholder: Loc.Object.Title.placeholder,
-            placeholderFont: .title,
+            font: .title,
             shouldSkipFocusOnFilled: true,
             text: $model.titleString
         )
         .padding([.trailing], 20)
-        .font(AnytypeFontBuilder.font(anytypeFont: .title))
         .foregroundStyle(Color.Text.primary)
         .disableAutocorrection(true)
     }

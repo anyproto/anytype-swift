@@ -8,18 +8,17 @@ struct SearchBar: View {
     var body: some View {
         Group {
             if focused {
-                AutofocusedTextField(placeholder: placeholder, placeholderFont: .uxBodyRegular, text: $text)
+                AutofocusedTextField(placeholder: placeholder, font: .uxBodyRegular, text: $text)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
             } else {
-                AnytypeTextField(placeholder: placeholder, placeholderFont: .uxBodyRegular, text: $text)
+                AnytypeTextField(placeholder: placeholder, font: .uxBodyRegular, text: $text)
                     .disableAutocorrection(true)
                     .autocapitalization(.none)
             }
         }
         .padding(8)
         .padding(.horizontal, 25)
-        .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
         .background(Color.Background.highlightedOfSelected)
         .cornerRadius(10)
         .overlay(overlay)
