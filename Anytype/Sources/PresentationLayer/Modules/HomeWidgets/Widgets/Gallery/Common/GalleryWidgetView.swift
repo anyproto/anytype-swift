@@ -4,6 +4,7 @@ import SwiftUI
 struct GalleryWidgetView: View {
     
     let rows: [GalleryWidgetRowModel]?
+    let onShowAllObjects: () -> Void
     
     var body: some View {
         ScrollView(.horizontal) {
@@ -12,10 +13,12 @@ struct GalleryWidgetView: View {
                     ForEach(rows, id: \.objectId) { row in
                         GalleryWidgetRow(model: row)
                     }
+                    GalleryWidgetShowAllView(onTap: onShowAllObjects)
                 }
             }
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
+            .padding(.top, 8)
         }
         .scrollIndicators(.hidden)
         .fixedSize(horizontal: false, vertical: true) // For equal height

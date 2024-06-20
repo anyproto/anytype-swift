@@ -102,7 +102,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func onHeaderTap() {
+    func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
         let screenData = details.editorScreenData()
         AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
