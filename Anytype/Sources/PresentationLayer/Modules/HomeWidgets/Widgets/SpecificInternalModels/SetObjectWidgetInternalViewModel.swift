@@ -130,12 +130,13 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                     GalleryWidgetRowModel(
                         objectId: details.id,
                         title: details.title,
-                        icon: details.icon,
+                        icon: details.showIcon ? details.icon : nil,
+                        coverFit: details.coverFit,
+                        cover: details.coverType,
                         onTap: details.onItemTap
                     )
                 }
                 rows = .gallery(galleryRows)
-                rows = .gallery([])
             }
         }
     }
