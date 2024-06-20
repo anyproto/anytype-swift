@@ -57,7 +57,8 @@ public extension FeatureDescription {
     static let galleryWidget = FeatureDescription(
         title: "Gallery Widget - IOS-2964",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
+        defaultValue: false,
+        debugValue: true
     )
     
     // MARK: - Debug
