@@ -802,7 +802,7 @@
 "Widgets.Layout.Link.Description" = "Versione compatta dell'oggetto";
 "Widgets.Layout.Tree.Description" = "Struttura gerarchica degli oggetti";
 "Widgets.Layout.List.Description" = "Widget con vista elenco dell'oggetto impostato";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
+"Widgets.Layout.View.Description" = "Widget con vista elenco dell'oggetto impostato";
 "Widgets.Layout.CompactList.Description" = "Widget con vista elenco dell'oggetto impostato";
 "Widgets.Empty.Title" = "Questa vista dati non contiene oggetti";
 "Widgets.Library.RecentlyEdited.Name" = "Modificati di recente";
