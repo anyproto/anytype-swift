@@ -24,7 +24,7 @@ struct GalleryWidgetRow: View {
                     SwiftUIObjectHeaderCoverView(objectCover: cover, size: CGSize(width: 136, height: 80), fitImage: model.coverFit)
                         .frame(height: 80)
                 }
-                ZStack(alignment: .leadingFirstTextBaseline) {
+                ZStack(alignment: model.icon.isNotNil ? .leadingFirstTextBaseline : .leading) {
                     HStack {
                         Text(model.icon.isNotNil ? model.title.leftIndented : model.title)
                             .anytypeStyle(.caption1Medium)
