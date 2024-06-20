@@ -340,7 +340,7 @@
 "Search.Links.Show.title" = "Zugehörige Objekte anzeigen";
 "Search.Links.Header.title" = "Zugehörig zu: %@";
 "Search.Links.Swipe.title" = "Zugehörig zu";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyState.subtitle" = "Erstelle ein neues Objekt oder suche nach etwas anderem";
 "GlobalSearch.EmptyFilteredState.title" = "Keine zugehörigen Objekte gefunden";
 "GlobalSearch.Swipe.Tip.title" = "Zugehörige Objekte";
 "GlobalSearch.Swipe.Tip.subtitle" = "Wische nach links, um zugehörige Objekte zu sehen. Beachte, dass dies nur für Objekte funktioniert, die zugehörige Objekte haben.";
