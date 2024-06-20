@@ -103,9 +103,6 @@ final class ListWidgetViewModel: ObservableObject {
                     details: details,
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: $0)
-                    },
-                    onIconTap: { [weak self] in
-                        self?.updateDone(details: details)
                     }
                 )
             }
@@ -124,15 +121,6 @@ final class ListWidgetViewModel: ObservableObject {
                     }
                 )
             }
-        }
-    }
-    
-    private func updateDone(details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
-        
-        Task {
-            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
-            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
 }
