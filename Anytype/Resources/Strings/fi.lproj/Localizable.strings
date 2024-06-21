@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Tyhjennä roskakori";
 "Widgets.Actions.AddBelow" = "Lisää alapuolelle";
 "Widgets.Actions.NewObject" = "Uusi objekti";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Vempaimen tyyppi";
 "Widgets.Layout.Link.Title" = "Linkki";
 "Widgets.Layout.Tree.Title" = "Puu";
