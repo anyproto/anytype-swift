@@ -29,7 +29,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
     private var setDocument: SetDocumentProtocol?
-    var activeViewId: String? { didSet { updateActiveView() } }
+    private var activeViewId: String?
     private var canEditBlocks = true
     private var dataviewState: WidgetDataviewState? { didSet { updateHeader() } }
     private var rowDetails: [SetContentViewItemConfiguration]? { didSet { updateRows() } }
@@ -37,9 +37,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     var dragId: String? { widgetBlockId }
     
     @Published var name: String = ""
-    @Published var contentTaskId: String?
     @Published var headerItems: [ViewWidgetTabsItemModel]?
-    @Published var rows: SetObjectViewWidgetRows = .list([])
+    @Published var rows: SetObjectViewWidgetRows = .list(rows: [], id: "")
     @Published var allowCreateObject = true
     
     init(data: WidgetSubmoduleData) {
@@ -64,6 +63,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             widgetInfo = newWidgetInfo
             if activeViewId.isNil || canEditBlocks {
                 activeViewId = widgetInfo?.block.viewID
+                await updateBodyState()
             }
         }
     }
@@ -74,11 +74,10 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         }
     }
     
-    func startContentSubscription() async {
+    func onAppear() {
         guard let setDocument else { return }
-        for await _ in setDocument.syncPublisher.values {
-            updateDataviewState()
-            await updateViewSubscription()
+        Task {
+            await updateSetDocument(objectId: setDocument.objectId)
         }
     }
     
@@ -91,6 +90,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                 try? await blockWidgetService.setViewId(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId, viewId: viewId)
             } else {
                 activeViewId = viewId
+                await updateBodyState()
             }
         }
         UISelectionFeedbackGenerator().selectionChanged()
@@ -124,7 +124,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                         onTap: details.onItemTap
                     )
                 }
-                rows = .list(listRows)
+                rows = .list(rows: listRows, id: activeViewId ?? "")
             case .gallery:
                 let galleryRows = rowDetails?.map { details in
                     GalleryWidgetRowModel(
@@ -136,7 +136,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                         onTap: details.onItemTap
                     )
                 }
-                rows = .gallery(galleryRows)
+                rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
             }
         }
     }
@@ -214,23 +214,22 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
             try? await setDocument?.openForPreview()
-            updateModelState()
+            await updateModelState()
             return
         }
         
         setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
         try? await setDocument?.openForPreview()
-        updateModelState()
         
         rowDetails = nil
         dataviewState = nil
-        // Restart document subscription
-        contentTaskId = objectId
+        
+        await updateModelState()
     }
     
-    private func updateModelState() {
-        updateActiveView()
-        
+    private func updateModelState() async {
+        await updateBodyState()
+    
         guard let setDocument else { return }
         allowCreateObject = setDocument.setPermissions.canCreateObject
         
@@ -239,9 +238,13 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     }
     
     
-    private func updateActiveView() {
-        guard let activeViewId, let setDocument, setDocument.activeView.id != activeViewId, setDocument.document.isOpened else { return }
-        setDocument.updateActiveViewIdAndReload(activeViewId)
+    private func updateBodyState() async {
+        if let activeViewId, let setDocument, setDocument.activeView.id != activeViewId, setDocument.document.isOpened {
+            setDocument.updateActiveViewIdAndReload(activeViewId)
+        }
+        
+        updateDataviewState()
+        await updateViewSubscription()
     }
     
     private func updateRowDetails(details: [ObjectDetails]) {

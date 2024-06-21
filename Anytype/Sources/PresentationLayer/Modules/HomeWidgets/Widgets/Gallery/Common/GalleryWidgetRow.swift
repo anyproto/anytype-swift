@@ -49,5 +49,6 @@ struct GalleryWidgetRow: View {
         }
         .cornerRadius(8, style: .continuous)
         .shadow(color: .black.opacity(0.05), radius: 4)
+        .id(model.objectId)
     }
 }

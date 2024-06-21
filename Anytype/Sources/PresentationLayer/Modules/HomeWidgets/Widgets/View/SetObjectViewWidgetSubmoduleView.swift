@@ -47,8 +47,8 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
         .task {
             await model.startTargetDetailsPublisher()
         }
-        .task(id: model.contentTaskId) {
-            await model.startContentSubscription()
+        .onAppear {
+            model.onAppear()
         }
     }
     
@@ -56,7 +56,6 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
         VStack(spacing: 0) {
             ViewWidgetTabsView(items: model.headerItems)
             rows
-                .id(model.activeViewId)
                 .transition(.opacity)
         }
     }
@@ -64,12 +63,14 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
     @ViewBuilder
     private var rows: some View {
         switch model.rows {
-        case .list(let rows):
+        case .list(let rows, let id):
             ListWidgetContentView(style: .list, rows: rows, emptyTitle: Loc.Widgets.Empty.title)
-        case .gallery(let rows):
+                .id(id)
+        case .gallery(let rows, let id):
             GalleryWidgetView(rows: rows) {
                 model.onOpenObjectTap()
             }
+            .id(id)
         }
     }
 }
