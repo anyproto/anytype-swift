@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Behälter leeren";
 "Widgets.Actions.AddBelow" = "Unten hinzufügen";
 "Widgets.Actions.NewObject" = "Neues Objekt";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget-Typ";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Strukturbaum";
