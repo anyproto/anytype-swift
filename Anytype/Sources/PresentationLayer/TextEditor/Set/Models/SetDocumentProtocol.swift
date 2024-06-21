@@ -18,7 +18,7 @@ protocol SetDocumentProtocol: AnyObject {
     var analyticsType: AnalyticsObjectType { get }
     var details: ObjectDetails? { get }
     // TODO Refactor this
-    var dataBuilder: SetContentViewDataBuilder { get }
+    var dataBuilder: SetContentViewDataBuilderProtocol { get }
     
     var featuredRelationsForEditor: [Relation] { get }
     var parsedRelations: ParsedRelations { get }

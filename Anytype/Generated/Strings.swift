@@ -1848,6 +1848,7 @@ internal enum Loc {
       internal static let emptyBin = Loc.tr("Localizable", "Widgets.Actions.EmptyBin")
       internal static let newObject = Loc.tr("Localizable", "Widgets.Actions.NewObject")
       internal static let removeWidget = Loc.tr("Localizable", "Widgets.Actions.RemoveWidget")
+      internal static let seeAllObjects = Loc.tr("Localizable", "Widgets.Actions.SeeAllObjects")
     }
     internal enum Empty {
       internal static let title = Loc.tr("Localizable", "Widgets.Empty.Title")

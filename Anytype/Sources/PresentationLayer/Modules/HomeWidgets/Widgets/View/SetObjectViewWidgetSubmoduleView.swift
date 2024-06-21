@@ -31,7 +31,7 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
                 model.onCreateObjectTap()
             } : nil,
             onHeaderTap: {
-                model.onHeaderTap()
+                model.onOpenObjectTap()
             },
             output: data.output,
             content: {
@@ -67,7 +67,9 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
         case .list(let rows):
             ListWidgetContentView(style: .list, rows: rows, emptyTitle: Loc.Widgets.Empty.title)
         case .gallery(let rows):
-            GalleryWidgetView(rows: rows)
+            GalleryWidgetView(rows: rows) {
+                model.onOpenObjectTap()
+            }
         }
     }
 }

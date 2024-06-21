@@ -3,15 +3,31 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-final class SetContentViewDataBuilder {
+protocol SetContentViewDataBuilderProtocol: AnyObject {
+    func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation]
+    func activeViewRelations(
+        dataViewRelationsDetails: [RelationDetails],
+        view: DataviewView,
+        excludeRelations: [RelationDetails],
+        spaceId: String
+    ) -> [RelationDetails]
+    func itemData(
+        _ details: [ObjectDetails],
+        dataView: BlockDataview,
+        activeView: DataviewView,
+        viewRelationValueIsLocked: Bool,
+        storage: ObjectDetailsStorage,
+        spaceId: String,
+        onItemTap: @escaping @MainActor (ObjectDetails) -> Void
+    ) -> [SetContentViewItemConfiguration]
+}
+
+final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     
-    private let relationsBuilder: RelationsBuilder
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    
-    init(relationsBuilder: RelationsBuilder, relationDetailsStorage: RelationDetailsStorageProtocol) {
-        self.relationsBuilder = relationsBuilder
-        self.relationDetailsStorage = relationDetailsStorage
-    }
+    @Injected(\.relationsBuilder)
+    private var relationsBuilder: RelationsBuilderProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: RelationDetailsStorageProtocol
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
         let storageRelationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks, spaceId: spaceId)

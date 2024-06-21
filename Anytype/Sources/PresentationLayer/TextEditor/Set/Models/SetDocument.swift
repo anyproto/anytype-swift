@@ -82,7 +82,8 @@ final class SetDocument: SetDocumentProtocol {
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountParticipantsStorage: AccountParticipantsStorageProtocol
     private let permissionsBuilder: SetPermissionsBuilderProtocol
-    let dataBuilder: SetContentViewDataBuilder
+    @Injected(\.setContentViewDataBuilder)
+    var dataBuilder: SetContentViewDataBuilderProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -95,10 +96,6 @@ final class SetDocument: SetDocumentProtocol {
         self.document = document
         self.inlineParameters = inlineParameters
         self.relationDetailsStorage = relationDetailsStorage
-        self.dataBuilder = SetContentViewDataBuilder(
-            relationsBuilder: RelationsBuilder(),
-            relationDetailsStorage: relationDetailsStorage
-        )
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.permissionsBuilder = permissionsBuilder

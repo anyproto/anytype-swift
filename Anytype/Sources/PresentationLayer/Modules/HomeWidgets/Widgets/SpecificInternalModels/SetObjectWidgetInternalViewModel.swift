@@ -23,6 +23,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private var blockWidgetService: BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: ObjectActionsServiceProtocol
+    @Injected(\.setContentViewDataBuilder)
+    private var setContentViewDataBuilder: SetContentViewDataBuilderProtocol
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
@@ -30,7 +32,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     var activeViewId: String? { didSet { updateActiveView() } }
     private var canEditBlocks = true
     private var dataviewState: WidgetDataviewState? { didSet { updateHeader() } }
-    private var rowDetails: [ObjectDetails]? { didSet { updateRows() } }
+    private var rowDetails: [SetContentViewItemConfiguration]? { didSet { updateRows() } }
     
     var dragId: String? { widgetBlockId }
     
@@ -100,7 +102,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    func onHeaderTap() {
+    func onOpenObjectTap() {
         guard let details = setDocument?.details else { return }
         let screenData = details.editorScreenData()
         AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
@@ -115,13 +117,11 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             case .table, .list, .kanban, .calendar, .graph, nil:
                 let listRows = rowDetails?.map { details in
                     ListWidgetRowModel(
-                        details: details,
-                        onTap: { [weak self] in
-                            self?.output?.onObjectSelected(screenData: $0)
-                        },
-                        onIconTap: { [weak self] in
-                            self?.updateDone(details: details)
-                        }
+                        objectId: details.id,
+                        icon: details.icon,
+                        title: details.title,
+                        description: details.description,
+                        onTap: details.onItemTap
                     )
                 }
                 rows = .list(listRows)
@@ -130,10 +130,11 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
                     GalleryWidgetRowModel(
                         objectId: details.id,
                         title: details.title,
-                        icon: details.objectIconImage,
-                        onTap: { [weak self] in
-                            self?.output?.onObjectSelected(screenData: details.editorScreenData())
-                    })
+                        icon: details.showIcon ? details.icon : nil,
+                        coverFit: details.coverFit,
+                        cover: details.coverType,
+                        onTap: details.onItemTap
+                    )
                 }
                 rows = .gallery(galleryRows)
             }
@@ -187,8 +188,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
-            guard let self else { return }
-            rowDetails = data.items
+            self?.updateRowDetails(details: data.items)
         }
     }
     
@@ -242,5 +242,20 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private func updateActiveView() {
         guard let activeViewId, let setDocument, setDocument.activeView.id != activeViewId, setDocument.document.isOpened else { return }
         setDocument.updateActiveViewIdAndReload(activeViewId)
+    }
+    
+    private func updateRowDetails(details: [ObjectDetails]) {
+        guard let setDocument else { return }
+        rowDetails = setContentViewDataBuilder.itemData(
+            details,
+            dataView: setDocument.dataView,
+            activeView: setDocument.activeView,
+            viewRelationValueIsLocked: false,
+            storage: subscriptionStorage.detailsStorage,
+            spaceId: setDocument.spaceId,
+            onItemTap: { [weak self] in
+                self?.output?.onObjectSelected(screenData: $0.editorScreenData())
+            }
+        )
     }
 }
