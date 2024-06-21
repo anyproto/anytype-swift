@@ -6,6 +6,7 @@ protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
 
+@MainActor
 protocol EditorRouterProtocol:
     AnyObject,
     AttachmentRouterProtocol,

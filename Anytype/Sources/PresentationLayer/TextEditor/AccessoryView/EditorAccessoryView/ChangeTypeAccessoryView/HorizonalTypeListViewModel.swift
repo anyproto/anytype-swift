@@ -12,10 +12,12 @@ struct HorizontalListItem: Identifiable, Hashable {
     @EquatableNoop var action: () -> Void
 }
 
+@MainActor
 protocol TypeListItemProvider: AnyObject {
     var typesPublisher: AnyPublisher<[HorizontalListItem], Never> { get }
 }
 
+@MainActor
 final class HorizonalTypeListViewModel: ObservableObject {
     @Published var items = [HorizontalListItem]()
     @Published var showPaste = false

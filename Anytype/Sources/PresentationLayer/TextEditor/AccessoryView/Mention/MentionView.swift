@@ -1,6 +1,7 @@
 import UIKit
 import Services
 
+@MainActor
 protocol MentionViewDelegate: AnyObject {
     func selectMention(_ mention: MentionObject)
 }
