@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Vaciar papelera";
 "Widgets.Actions.AddBelow" = "Añadir debajo";
 "Widgets.Actions.NewObject" = "Nuevo objeto";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Enlace";
 "Widgets.Layout.Tree.Title" = "Árbol";
