@@ -7,6 +7,13 @@ struct GalleryWidgetView: View {
     let onShowAllObjects: () -> Void
     
     var body: some View {
+        WidgetContainerWithEmptyState(showEmpty: (rows?.isEmpty ?? false)) {
+            content
+        }
+    }
+    
+    @ViewBuilder
+    var content: some View {
         ScrollView(.horizontal) {
             HStack(spacing: 8) {
                 if let rows {

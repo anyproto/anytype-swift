@@ -8,29 +8,23 @@ struct ListWidgetContentView: View {
     let emptyTitle: String
     
     var body: some View {
-        ZStack {
-            if let rows = rows {
-                if rows.isEmpty {
-                    VStack(spacing: 0) {
-                        WidgetEmptyView(title: emptyTitle)
-                            .frame(height: 72)
-                        Spacer.fixedHeight(8)
-                    }
-                    .transition(.opacity)
-                }
-                else {
-                    VStack(spacing: 0) {
-                        ForEach(rows) {
-                            rowView(row: $0, showDivider: $0.id != rows.last?.id)
-                        }
-                        Spacer.fixedHeight(8)
-                    }
-                    .transition(.opacity)
-                }
-            }
+        WidgetContainerWithEmptyState(showEmpty: rows?.isEmpty ?? false) {
+            content
         }
         // This fixes the tap area for header in bottom side
         .fixTappableArea()
+    }
+    
+    private var content: some View {
+        VStack(spacing: 0) {
+            if let rows {
+                ForEach(rows) {
+                    rowView(row: $0, showDivider: $0.id != rows.last?.id)
+                }
+                Spacer.fixedHeight(8)
+            }
+        }
+        .transition(.opacity)
     }
     
     @ViewBuilder
