@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SharedContentItem: Codable {
+public enum SharedContentItem: Codable, Sendable {
     case text(String)
     case url(URL)
     case file(URL)

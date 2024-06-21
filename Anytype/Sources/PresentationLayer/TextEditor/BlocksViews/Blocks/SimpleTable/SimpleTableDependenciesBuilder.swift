@@ -56,7 +56,7 @@ final class SimpleTableDependenciesBuilder {
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
-        let blockInformationProvider = BlockModelInfomationProvider(infoContainer: document.infoContainer, info: blockInformation)
+        let blockInformationProvider = BlockModelInfomationProvider(document: document, info: blockInformation)
         
         let selectionOptionHandler = SimpleTableSelectionOptionHandler(
             router: router,
@@ -93,7 +93,7 @@ final class SimpleTableDependenciesBuilder {
 
         let viewModel = SimpleTableViewModel(
             document: document,
-            tableBlockInfoProvider: .init(infoContainer: document.infoContainer, info: blockInformation),
+            tableBlockInfoProvider: BlockModelInfomationProvider(document: document, info: blockInformation),
             cellBuilder: cellsBuilder,
             stateManager: stateManager,
             cursorManager: cursorManager

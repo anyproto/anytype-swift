@@ -3,7 +3,7 @@ import AnytypeCore
 import ProtobufMessages
 
 public extension BundledRelationKey {
-    static var sortIncudeTimeKeys: [BundledRelationKey] = [
+    static let sortIncudeTimeKeys: [BundledRelationKey] = [
         .lastOpenedDate,
         .lastModifiedDate,
         .createdDate

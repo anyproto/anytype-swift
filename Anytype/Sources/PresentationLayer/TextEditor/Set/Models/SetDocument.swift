@@ -4,6 +4,7 @@ import Combine
 import AnytypeCore
 
 final class SetDocument: SetDocumentProtocol {
+    
     let document: BaseDocumentProtocol
     
     var objectId: String { document.objectId }
@@ -81,7 +82,8 @@ final class SetDocument: SetDocumentProtocol {
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountParticipantsStorage: AccountParticipantsStorageProtocol
     private let permissionsBuilder: SetPermissionsBuilderProtocol
-    let dataBuilder: SetContentViewDataBuilder
+    @Injected(\.setContentViewDataBuilder)
+    var dataBuilder: SetContentViewDataBuilderProtocol
     
     init(
         document: BaseDocumentProtocol,
@@ -94,11 +96,6 @@ final class SetDocument: SetDocumentProtocol {
         self.document = document
         self.inlineParameters = inlineParameters
         self.relationDetailsStorage = relationDetailsStorage
-        self.dataBuilder = SetContentViewDataBuilder(
-            relationsBuilder: RelationsBuilder(),
-            detailsStorage: document.detailsStorage,
-            relationDetailsStorage: relationDetailsStorage
-        )
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.permissionsBuilder = permissionsBuilder
@@ -229,12 +226,12 @@ final class SetDocument: SetDocumentProtocol {
     // MARK: - Private
     
     private func setup() async {
-        document.syncPublisher.sink { [weak self] update in
+        document.syncPublisher.receiveOnMain().sink { [weak self] update in
             self?.updateData()
         }
         .store(in: &subscriptions)
         
-        document.syncStatusPublisher.sink { [weak self] status in
+        document.syncStatusDataPublisher.sink { [weak self] status in
             self?.updateSubject.send(.syncStatus(status))
         }
         .store(in: &subscriptions)

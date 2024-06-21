@@ -2,11 +2,13 @@ import Foundation
 import Services
 import Combine
 
+@MainActor
 final class ActiveWorkpaceStorageMock: ActiveWorkpaceStorageProtocol {
     
-    nonisolated static let shared = ActiveWorkpaceStorageMock()
+    @MainActor
+    static let shared = ActiveWorkpaceStorageMock()
     
-    nonisolated init() {}
+    init() {}
     
     var workspaceInfo: AccountInfo = .empty
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {

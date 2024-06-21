@@ -4,7 +4,17 @@ import SwiftProtobuf
 import UIKit
 import AnytypeCore
 
-final class RelationsBuilder {
+protocol RelationsBuilderProtocol: AnyObject {
+    func parsedRelations(
+        relationsDetails: [RelationDetails],
+        typeRelationsDetails: [RelationDetails],
+        objectId: String,
+        relationValuesIsLocked: Bool,
+        storage: ObjectDetailsStorage
+    ) -> ParsedRelations
+}
+
+final class RelationsBuilder: RelationsBuilderProtocol {
     
     // MARK: - Private variables
     
@@ -621,5 +631,11 @@ private extension RelationDetails {
         guard !valueLockedInObject else { return false }
 
         return !self.isReadOnlyValue
+    }
+}
+
+extension Container {
+    var relationsBuilder: Factory<RelationsBuilderProtocol> {
+        self { RelationsBuilder() }.shared
     }
 }

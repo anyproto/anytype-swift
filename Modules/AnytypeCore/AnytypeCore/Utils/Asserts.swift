@@ -15,7 +15,7 @@ public func anytypeAssertionFailure(
     logNonFatal(message, info: info, file: file, function: function, line: line)
     #if ENTERPRISE
         if FeatureFlags.showAlertOnAssert {
-            showAssertionAlert(message)
+            Task { @MainActor in showAssertionAlert(message) }
         }
     #endif
 }
@@ -45,6 +45,7 @@ public func anytypeAssert(
 } 
 
 // MARK:- Private
+@MainActor
 private func showAssertionAlert(_ message: String) {
     
     let keyWindow = UIApplication.shared.connectedScenes

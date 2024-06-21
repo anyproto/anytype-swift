@@ -9,6 +9,7 @@ enum SimpleTableOptionType {
     case column(SimpleTableColumnMenuItem)
 }
 
+@MainActor
 final class SimpleTableSelectionOptionHandler {
     var onFinishSelection: (() -> Void)?
 
@@ -53,7 +54,7 @@ final class SimpleTableSelectionOptionHandler {
 
     // MARK: - Private
 
-    @MainActor
+
     private func handleColumnAction(action: SimpleTableColumnMenuItem) async {
         guard let table = ComputedTable(
             blockInformation: blockInformationProvider.info,
@@ -173,7 +174,7 @@ final class SimpleTableSelectionOptionHandler {
         )
     }
 
-    @MainActor
+
     private func handleRowAction(action: SimpleTableRowMenuItem) async {
         guard let table = ComputedTable(
             blockInformation: blockInformationProvider.info,
@@ -253,7 +254,7 @@ final class SimpleTableSelectionOptionHandler {
         onFinishSelection?()
     }
 
-    @MainActor
+
     private func handleCellAction(action: SimpleTableCellMenuItem) async {
         guard let table = ComputedTable(
             blockInformation: blockInformationProvider.info,
@@ -282,7 +283,7 @@ final class SimpleTableSelectionOptionHandler {
         onFinishSelection?()
     }
 
-    @MainActor
+
     private func fillSelectedRows() async {
         guard let table = ComputedTable(
             blockInformation: blockInformationProvider.info,

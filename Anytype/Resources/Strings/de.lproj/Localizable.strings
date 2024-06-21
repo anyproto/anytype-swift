@@ -188,6 +188,7 @@
 "Paste or type URL" = "URL einfügen oder eingeben";
 "No items match filter" = "Keine Gegenstände konnten mit diesem Filter gefunden werden";
 "Unsupported block" = "Nicht unterstützter Block";
+"Unsupported" = "Nicht unterstützt";
 "Name" = "Name";
 "Description" = "Beschreibung";
 "Paste processing..." = "Wird eingefügt...";
@@ -339,7 +340,7 @@
 "Search.Links.Show.title" = "Zugehörige Objekte anzeigen";
 "Search.Links.Header.title" = "Zugehörig zu: %@";
 "Search.Links.Swipe.title" = "Zugehörig zu";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"GlobalSearch.EmptyState.subtitle" = "Erstelle ein neues Objekt oder suche nach etwas anderem";
 "GlobalSearch.EmptyFilteredState.title" = "Keine zugehörigen Objekte gefunden";
 "GlobalSearch.Swipe.Tip.title" = "Zugehörige Objekte";
 "GlobalSearch.Swipe.Tip.subtitle" = "Wische nach links, um zugehörige Objekte zu sehen. Beachte, dass dies nur für Objekte funktioniert, die zugehörige Objekte haben.";
@@ -792,14 +793,17 @@
 "Widgets.Actions.EmptyBin" = "Behälter leeren";
 "Widgets.Actions.AddBelow" = "Unten hinzufügen";
 "Widgets.Actions.NewObject" = "Neues Objekt";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget-Typ";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Strukturbaum";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakte Liste";
+"Widgets.Layout.View.Title" = "Ansicht";
 "Widgets.Layout.Link.Description" = "Kompakte Version des Objekts";
 "Widgets.Layout.Tree.Description" = "Hierarchische Struktur von Objekten";
 "Widgets.Layout.List.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
 "Widgets.Empty.Title" = "Diese Datenansicht enthält keine Objekte";
 "Widgets.Library.RecentlyEdited.Name" = "Zuletzt bearbeitet";
@@ -1108,7 +1112,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
 "Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
 "Membership.Upgrade.NoMoreMembers" = "Du kannst keine weiteren Mitglieder hinzufügen";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.NoMoreEditors" = "Du kannst keine weiteren Editoren hinzufügen";
 
 
 "Membership.Banner.Title1" = "Gemeinsam die Vision erbauen";

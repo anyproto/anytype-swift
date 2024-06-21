@@ -188,6 +188,7 @@
 "Paste or type URL" = "Colar ou digitar URL";
 "No items match filter" = "Nenhum item corresponde ao filtro";
 "Unsupported block" = "Bloco não suportado";
+"Unsupported" = "Incompatível";
 "Name" = "Nome";
 "Description" = "Descrição";
 "Paste processing..." = "Colar em processamento...";
@@ -792,14 +793,17 @@
 "Widgets.Actions.EmptyBin" = "Lixeira Limpa";
 "Widgets.Actions.AddBelow" = "Adicionar abaixo";
 "Widgets.Actions.NewObject" = "Novo Objeto";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Árvore";
 "Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Lista compacta";
+"Widgets.Layout.View.Title" = "Exibição";
 "Widgets.Layout.Link.Description" = "Versão compacta do objeto";
 "Widgets.Layout.Tree.Description" = "Estrutura hierárquica dos objetos";
 "Widgets.Layout.List.Description" = "Widget com visão de lista de objeto definido";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget com visão de lista de objeto definido";
 "Widgets.Empty.Title" = "Esta visualização de dados não contém objetos";
 "Widgets.Library.RecentlyEdited.Name" = "Editado recentemente";

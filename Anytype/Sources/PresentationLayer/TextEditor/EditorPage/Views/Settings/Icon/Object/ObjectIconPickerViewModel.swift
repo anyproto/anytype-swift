@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 struct ObjectIconPickerData: Identifiable {
-    let document: BaseDocumentGeneralProtocol
+    let document: BaseDocumentProtocol
     var id: String { document.objectId }
 }
 
@@ -31,17 +31,17 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
-    private let document: BaseDocumentGeneralProtocol
+    private let document: BaseDocumentProtocol
     private var subscription: AnyCancellable?
         
     // MARK: - Initializer
     
     init(data: ObjectIconPickerData) {
         self.document = data.document
-        subscription = document.syncPublisher
+        subscription = document.detailsPublisher
             .receiveOnMain()
-            .sink { [weak self] in
-                self?.updateState()
+            .sink { [weak self] details in
+                self?.updateState(details: details)
             }
     }
     
@@ -60,18 +60,17 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func updateState() {
-        isRemoveButtonAvailable = document.details?.objectIcon != nil
-        detailsLayout = document.details?.layoutValue
-        isRemoveEnabled = makeIsRemoveEnabled()
+    private func updateState(details: ObjectDetails) {
+        isRemoveButtonAvailable = details.objectIcon != nil
+        detailsLayout = details.layoutValue
+        isRemoveEnabled = makeIsRemoveEnabled(details: details)
     }
     
-    private func makeIsRemoveEnabled() -> Bool {
+    private func makeIsRemoveEnabled(details: ObjectDetails) -> Bool {
         switch detailsLayout {
         case .basic, .set, .collection:
             return true
         case .profile, .participant, .space, .spaceView:
-            guard let details = document.details else { return false }
             return details.iconImage.isNotEmpty
         default:
             anytypeAssertionFailure(
@@ -82,7 +81,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
         }
     }
     
-    private func handleIconAction(document: BaseDocumentGeneralProtocol, action: ObjectIconPickerAction) {
+    private func handleIconAction(document: BaseDocumentProtocol, action: ObjectIconPickerAction) {
         Task {
             try await objectHeaderUploadingService.handleIconAction(
                 objectId: document.objectId,

@@ -16,9 +16,14 @@ let package = Package(
     targets: [
         .target(
             name: "DeepLinks",
-            dependencies: []),
+            dependencies: [],
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
+        ),
         .testTarget(
             name: "DeepLinksTests",
-            dependencies: ["DeepLinks"]),
+            dependencies: ["DeepLinks"]
+        )
     ]
 )

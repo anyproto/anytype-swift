@@ -7,7 +7,7 @@ extension View {
         @ViewBuilder placeholder: () -> Content) -> some View {
 
         ZStack(alignment: alignment) {
-            placeholder().hidden(!shouldShow)
+            placeholder().setZeroOpacity(!shouldShow)
             self
         }
     }

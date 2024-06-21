@@ -4,7 +4,7 @@ import AnytypeCore
 
 public final class InfoContainer: InfoContainerProtocol {
     
-    private var models = PassthroughSubjectDictionary<String, BlockInformation>()
+    private var models = SynchronizedDictionary<String, BlockInformation>()
     public init() {}
     
     public func children(of id: String) -> [BlockInformation] {
@@ -56,19 +56,5 @@ public final class InfoContainer: InfoContainerProtocol {
         }
         
         updateAction(entry).flatMap { add($0) }
-    }
-    
-    // MARK: - Published
-    
-    public func publisherFor(id: String) -> AnyPublisher<BlockInformation?, Never> {
-        return models.publisher(id)
-    }
-    
-    public func publishAllValues() {
-        models.publishAllValues()
-    }
-    
-    public func publishValue(for key: String) {
-        models.publishValue(for: key)
     }
 }

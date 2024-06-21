@@ -13,9 +13,6 @@ struct ListWidgetRow: View {
             if let icon = model.icon {
                 IconView(icon: icon)
                     .frame(width: 48, height: 48)
-                    .onTapGesture {
-                        model.onIconTap()
-                    }
             }
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.title, style: .previewTitle2Medium)
@@ -39,5 +36,6 @@ struct ListWidgetRow: View {
         .if(showDivider) {
             $0.newDivider(leadingPadding: 16, trailingPadding: 16, color: .Widget.divider)
         }
+        .id(model.objectId)
     }
 }

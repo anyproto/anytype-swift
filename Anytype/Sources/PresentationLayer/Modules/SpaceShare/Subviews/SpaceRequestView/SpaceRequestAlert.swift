@@ -1,5 +1,7 @@
 import Foundation
 import SwiftUI
+import Services
+
 
 struct SpaceRequestAlertData: Identifiable {
     let id = UUID()
@@ -7,6 +9,7 @@ struct SpaceRequestAlertData: Identifiable {
     let spaceName: String
     let participantIdentity: String
     let participantName: String
+    let participantIcon: ObjectIcon?
     let route: ScreenInviteConfirmRoute
 }
 
@@ -23,16 +26,26 @@ struct SpaceRequestAlert: View {
     }
     
     var body: some View {
-        BottomAlertView(title: model.title, message: "") {
-            switch model.membershipLimitsExceeded {
-            case nil:
-                defaultActions
-            case .numberOfSpaceReaders:
-                readersLimitActions
-            case .numberOfSpaceEditors:
-                editorsLimitActions
+        BottomAlertView(
+            title: model.title,
+            headerView: {
+                ObjectIconView(icon: model.icon)
+                    .frame(width: 64, height: 64)
+                    .padding(.top, 15)
+                    .padding(.bottom, 4)
+            }, bodyView: {
+                EmptyView()
+            }, buttons: {
+                switch model.membershipLimitsExceeded {
+                case nil:
+                    defaultActions
+                case .numberOfSpaceReaders:
+                    readersLimitActions
+                case .numberOfSpaceEditors:
+                    editorsLimitActions
+                }
             }
-        }
+        )
         .throwingTask {
             try await model.onAppear()
         }

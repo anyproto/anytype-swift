@@ -109,7 +109,7 @@ final class BlockViewModelBuilder {
         }
         
         let documentId = document.objectId
-        let blockInformationProvider = BlockModelInfomationProvider(infoContainer: infoContainer, info: info)
+        let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
   
         switch info.content {
         case let .text(content):
@@ -243,7 +243,7 @@ final class BlockViewModelBuilder {
             return BlockBookmarkViewModel(
                 editorCollectionController: blockCollectionController,
                 infoProvider: blockInformationProvider, 
-                detailsStorage: document.detailsStorage,
+                document: document,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -252,21 +252,10 @@ final class BlockViewModelBuilder {
                     self?.output?.openUrl(url.url)
                 }
             )
-        case let .link(content):
-            guard let details = document.detailsStorage.get(id: content.targetBlockID) else {
-                anytypeAssertionFailure(
-                    "Couldn't find details for block link", info: ["targetBlockID": content.targetBlockID]
-                )
-                return nil
-            }
-            
+        case .link:
             return BlockLinkViewModel(
                 informationProvider: blockInformationProvider,
-                objectDetailsProvider: ObjectDetailsInfomationProvider(
-                    detailsStorage: document.detailsStorage,
-                    targetObjectId: content.targetBlockID,
-                    details: details
-                ),
+                document: document,
                 blocksController: blockCollectionController,
                 detailsService: detailsService,
                 openLink: { [weak self] data in
@@ -331,19 +320,13 @@ final class BlockViewModelBuilder {
                 editorCollectionController: blockCollectionController,
                 focusSubject: subjectsHolder.focusSubject(for: info.id)
             )
-        case let .dataView(data):
-            let objectDetailsProvider = ObjectDetailsInfomationProvider(
-                detailsStorage: document.detailsStorage,
-                targetObjectId: data.targetObjectID,
-                details: document.detailsStorage.get(id: data.targetObjectID)
-            )
-            
+        case .dataView:
             return DataViewBlockViewModel(
                 blockInformationProvider: BlockModelInfomationProvider(
-                    infoContainer: infoContainer,
+                    document: document,
                     info: info
                 ),
-                objectDetailsProvider: objectDetailsProvider,
+                document: document,
                 reloadable: blockCollectionController,
                 showFailureToast: { [weak self] message in
                     self?.output?.showFailureToast(message: message)

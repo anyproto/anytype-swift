@@ -31,12 +31,8 @@ struct SetTableViewRow: View {
     private var icon: some View {
         Group {
             if let icon = configuration.icon, configuration.showIcon {
-                Button {
-                    configuration.onIconTap()
-                } label: {
-                    IconView(icon: icon).frame(width: 18, height: 18)
-                    Spacer.fixedWidth(8)
-                }
+                IconView(icon: icon).frame(width: 18, height: 18)
+                    .padding(.trailing, 8)
             }
         }
     }

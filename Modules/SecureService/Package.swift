@@ -15,7 +15,10 @@ let package = Package(
     targets: [
         .target(
             name: "SecureService",
-            path: "SecureService"
+            path: "SecureService",
+            swiftSettings: [
+                .enableExperimentalFeature("StrictConcurrency")
+            ]
         )
     ]
 )

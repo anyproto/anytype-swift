@@ -9,7 +9,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func onSelectCodeLanguage(objectId: String, blockId: String)
     func showRelationValueEditingView(document: BaseDocumentProtocol, relation: Relation)
     func showLinkToObject(data: LinkToObjectSearchModuleData)
-    func showIconPicker(document: BaseDocumentGeneralProtocol)
+    func showIconPicker(document: BaseDocumentProtocol)
     func showTextIconPicker(data: TextIconPickerData)
     func showBlockObjectSearch(data: BlockObjectSearchData)
     func didUndoRedo()

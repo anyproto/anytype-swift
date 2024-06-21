@@ -135,11 +135,11 @@ final class EditorSetCoordinatorViewModel:
         navigationContext.present(popup)
     }
     
-    func showCoverPicker(document: BaseDocumentGeneralProtocol) {
+    func showCoverPicker(document: BaseDocumentProtocol) {
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+    func showIconPicker(document: BaseDocumentProtocol) {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     

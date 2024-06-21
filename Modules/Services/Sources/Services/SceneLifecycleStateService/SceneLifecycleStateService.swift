@@ -20,7 +20,7 @@ public protocol SceneLifecycleStateServiceProtocol: Sendable {
             }
         }()
 		
-		Task { @MainActor in
+		Task {
 			_ = try? await ClientCommands.appSetDeviceState(.with {
 				$0.deviceState = deviceState
 			}).invoke()

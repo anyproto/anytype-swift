@@ -188,6 +188,7 @@
 "Paste or type URL" = "Tempel atau ketik URL";
 "No items match filter" = "Tidak ada kecocokan";
 "Unsupported block" = "Balok tak didukung";
+"Unsupported" = "Tidak didukung";
 "Name" = "Nama";
 "Description" = "Deskripsi";
 "Paste processing..." = "Memproses penempelan ...";
@@ -792,14 +793,17 @@
 "Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
 "Widgets.Actions.NewObject" = "Objek Baru";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Jenis widget";
 "Widgets.Layout.Link.Title" = "Tautan";
 "Widgets.Layout.Tree.Title" = "Pohon";
 "Widgets.Layout.List.Title" = "Daftar";
 "Widgets.Layout.CompactList.Title" = "Daftar padat";
+"Widgets.Layout.View.Title" = "Tampilan";
 "Widgets.Layout.Link.Description" = "Versi padat dari objek";
 "Widgets.Layout.Tree.Description" = "Susunan hierarkis dari objek";
 "Widgets.Layout.List.Description" = "Widget dengan daftar tampilan dari daftar objek";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget dengan daftar tampilan dari daftar objek";
 "Widgets.Empty.Title" = "Tampilan data ini tidak mengandung objek";
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";

@@ -4,6 +4,8 @@ import Services
 import UIKit
 import AnytypeCore
 
+
+@MainActor
 protocol SimpleTableSelectionHandler: AnyObject {
     func didStartSimpleTableSelectionMode(
         simpleTableBlockId: String,

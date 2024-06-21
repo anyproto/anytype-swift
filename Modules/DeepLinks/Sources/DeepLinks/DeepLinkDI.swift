@@ -1,6 +1,6 @@
 import Foundation
 
-public final class DeepLinkDI {
+public final class DeepLinkDI: Sendable {
     
     public static let shared = DeepLinkDI()
     

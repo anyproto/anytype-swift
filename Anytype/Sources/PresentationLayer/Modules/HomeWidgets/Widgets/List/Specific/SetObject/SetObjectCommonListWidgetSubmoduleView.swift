@@ -17,12 +17,12 @@ private struct SetObjectCommonListWidgetSubmoduleInternalView: View {
     let data: WidgetSubmoduleData
     let style: ListWidgetStyle
     
-    @StateObject private var model: SetObjectWidgetInternalViewModel
+    @StateObject private var model: SetObjectWidgetLegacyInternalViewModel
     
     init(data: WidgetSubmoduleData, style: ListWidgetStyle) {
         self.data = data
         self.style = style
-        self._model = StateObject(wrappedValue: SetObjectWidgetInternalViewModel(data: data))
+        self._model = StateObject(wrappedValue: SetObjectWidgetLegacyInternalViewModel(data: data))
     }
     
     var body: some View {

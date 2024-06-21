@@ -188,6 +188,7 @@
 "Paste or type URL" = "貼上或輸入 URL";
 "No items match filter" = "没有符合篩選的項目";
 "Unsupported block" = "不支援的區塊";
+"Unsupported" = "不支援";
 "Name" = "名稱";
 "Description" = "描述";
 "Paste processing..." = "貼上處理中...";
@@ -343,7 +344,7 @@
 "GlobalSearch.EmptyState.subtitle" = "建立一個新的或搜尋其他內容";
 "GlobalSearch.EmptyFilteredState.title" = "找不到關聯的物件";
 "GlobalSearch.Swipe.Tip.title" = "全域搜尋";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.subtitle" = "往左滑動以查看關聯物件。請注意，這只對有其他關聯物件的物件有效。";
 
 // MARK: - Home
 
@@ -794,14 +795,17 @@
 "Widgets.Actions.EmptyBin" = "清空垃圾桶";
 "Widgets.Actions.AddBelow" = "在下方添加";
 "Widgets.Actions.NewObject" = "建立新物件";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "小工具類型";
 "Widgets.Layout.Link.Title" = "連結";
 "Widgets.Layout.Tree.Title" = "樹狀圖";
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "緊湊型列表";
+"Widgets.Layout.View.Title" = "檢視";
 "Widgets.Layout.Link.Description" = "緊湊型物件";
 "Widgets.Layout.Tree.Description" = "物件的階層結構";
 "Widgets.Layout.List.Description" = "具有物件集合列表視圖的小工具";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "具有物件集合列表視圖的小工具";
 "Widgets.Empty.Title" = "該資料檢視內沒有物件";
 "Widgets.Library.RecentlyEdited.Name" = "最近編輯";
@@ -1108,9 +1112,9 @@
 "Membership.Upgrade.Button" = "聯絡 Anytype 團隊";
 
 "Membership.Upgrade.MoreSpaces" = "升級以使用更多空間";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.MoreMembers" = "升級以新增更多成員";
+"Membership.Upgrade.NoMoreMembers" = "您無法新增更多成員";
+"Membership.Upgrade.NoMoreEditors" = "您無法新增更多編輯者";
 
 
 "Membership.Banner.Title1" = "一起創建願景";

@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import AnytypeCore
 
 enum WidgetSource: Equatable, Hashable {
     case object(ObjectDetails)
@@ -40,7 +41,11 @@ extension ObjectDetails {
         case .page:
            return [.tree, .link]
         case .set:
-            return [.compactList, .list, .link]
+            if FeatureFlags.galleryWidget {
+                return [.view, .link]
+            } else {
+                return [.compactList, .list, .link]
+            }
         }
     }
 }

@@ -188,6 +188,7 @@
 "Paste or type URL" = "Вставити або ввести URL-адресу";
 "No items match filter" = "Немає збігів із цим фільтром";
 "Unsupported block" = "Непідтримуваний блок";
+"Unsupported" = "Unsupported";
 "Name" = "Назва";
 "Description" = "Опис";
 "Paste processing..." = "Обробка вставки...";
@@ -792,14 +793,17 @@
 "Widgets.Actions.EmptyBin" = "Очистити кошик";
 "Widgets.Actions.AddBelow" = "Додати знизу";
 "Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Тип віджета";
 "Widgets.Layout.Link.Title" = "Посилання";
 "Widgets.Layout.Tree.Title" = "Дерево";
 "Widgets.Layout.List.Title" = "Список";
 "Widgets.Layout.CompactList.Title" = "Компактний список";
+"Widgets.Layout.View.Title" = "Подання";
 "Widgets.Layout.Link.Description" = "Компактна версія об'єкта";
 "Widgets.Layout.Tree.Description" = "Ієрархічна структура об'єктів";
 "Widgets.Layout.List.Description" = "Віджет зі списком об’єктів набору";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Віджет зі списком об’єктів набору";
 "Widgets.Empty.Title" = "Це подання даних не містить об'єктів";
 "Widgets.Library.RecentlyEdited.Name" = "Нещодавно відредаговані";

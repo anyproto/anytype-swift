@@ -3,6 +3,7 @@ import Services
 
 protocol RelationEditingViewModelBuilderProtocol: AnyObject {
 
+    @MainActor
     func buildViewModel(
         objectDetails: ObjectDetails,
         relation: Relation,

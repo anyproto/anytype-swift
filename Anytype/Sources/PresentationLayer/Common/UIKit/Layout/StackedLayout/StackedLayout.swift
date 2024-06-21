@@ -4,6 +4,7 @@ import UIKit
 
 public extension UIView {
 
+    @MainActor
     struct Stack {}
     
     struct ScrollableStackConfiguration {

@@ -5,6 +5,7 @@ struct SetDragAndDropConfiguration {
     let configurationId: String?
 }
 
+@MainActor
 protocol SetDragAndDropDelegate {
     func onDrag(from: SetDragAndDropConfiguration, to: SetDragAndDropConfiguration)
     func onDrop(configurationId: String, fromGroupId: String, toGroupId: String) -> Bool

@@ -155,7 +155,7 @@ final class SimpleTableCellsBuilder {
         
         let textBlockViewModel = TextBlockViewModel(
             document: document,
-            blockInformationProvider: .init(infoContainer: document.infoContainer, info: information),
+            blockInformationProvider: BlockModelInfomationProvider(document: document, info: information),
             actionHandler: textBlockActionHandler,
             cursorManager: cursorManager
         )

@@ -1,16 +1,16 @@
 import AnytypeCore
 
 public extension DetailsLayout {
-    static var visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts
-    static var supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
-    static var supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
-    static var visibleLayoutsWithFiles = visibleLayouts + fileLayouts
+    static let visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts
+    static let supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
+    static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
+    static let visibleLayoutsWithFiles = visibleLayouts + fileLayouts
 }
 
 
 // For editor
 public extension DetailsLayout {
-    static var editorLayouts: [DetailsLayout] = [
+    static let editorLayouts: [DetailsLayout] = [
         .note,
         .basic,
         .profile,
@@ -18,9 +18,9 @@ public extension DetailsLayout {
         .participant
     ]
     
-    static var pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
+    static let pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
     
-    static var fileLayouts: [DetailsLayout] = [
+    static let fileLayouts: [DetailsLayout] = [
         .file,
         .image,
         .audio,
@@ -28,12 +28,12 @@ public extension DetailsLayout {
         .pdf
     ]
     
-    static var setLayouts: [DetailsLayout] = [
+    static let setLayouts: [DetailsLayout] = [
         .collection,
         .set
     ]
     
-    static var systemLayouts: [DetailsLayout] = [
+    static let systemLayouts: [DetailsLayout] = [
         .objectType,
         .relation,
         .relationOption,
@@ -42,8 +42,8 @@ public extension DetailsLayout {
         .space
     ]
     
-    static var fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
-    static var layoutsWithoutTemplate: [DetailsLayout] = [
+    static let fileAndSystemLayouts: [DetailsLayout] = fileLayouts + systemLayouts
+    static let layoutsWithoutTemplate: [DetailsLayout] = [
         .set,
         .collection,
         .bookmark,
@@ -56,7 +56,7 @@ public extension DetailsLayout {
         DetailsLayout.pageLayouts.contains(self)
     }
     
-    static var layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .set, .collection, .file, .image]
-    static var layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
-    static var layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .file, .image, .bookmark, .todo, .note]
+    static let layoutsWithIcon: [DetailsLayout] = [.basic, .profile, .set, .collection, .file, .image]
+    static let layoutsWithCover: [DetailsLayout] = layoutsWithIcon + [.bookmark, .todo]
+    static let layoutsWithChangeLayout: [DetailsLayout] = [.basic, .profile, .file, .image, .bookmark, .todo, .note]
 }

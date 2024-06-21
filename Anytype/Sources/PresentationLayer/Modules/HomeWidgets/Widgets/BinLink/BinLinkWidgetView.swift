@@ -34,20 +34,22 @@ private struct BinLinkWidgetViewInternal: View {
     }
     
     var content: some View {
-        WidgetContainerViewNew(
+        LinkWidgetViewContainer(
             title: Loc.bin,
             icon: .Widget.bin,
             isExpanded: .constant(false),
-            homeState: $homeState,
             dragId: nil,
-            showSwipeActionTitle: false,
-            onHeaderTap: {
+            homeState: $homeState,
+            allowMenuContent: true,
+            allowContent: false,
+            headerAction: {
                 model.onHeaderTap()
             },
-            onCreateObjectTap: nil,
-            removeTap: nil,
-            content: EmptyView(),
-            menuItems: menuItems
+            removeAction: nil,
+            menu: {
+                menuItems
+            },
+            content: { EmptyView() }
         )
         .anytypeSheet(item: $model.binAlertData) { data in
             BinConfirmationAlert(data: data)

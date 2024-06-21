@@ -2,19 +2,19 @@ import SwiftUI
 
 struct AutofocusedTextField: View {
     let placeholder: String
-    let placeholderFont: AnytypeFont
+    let font: AnytypeFont
     let shouldSkipFocusOnFilled: Bool
 
     @Binding var text: String
 
     init(
         placeholder: String,
-        placeholderFont: AnytypeFont,
+        font: AnytypeFont,
         shouldSkipFocusOnFilled: Bool = false,
         text: Binding<String>
     ) {
         self.placeholder = placeholder
-        self.placeholderFont = placeholderFont
+        self.font = font
         self.shouldSkipFocusOnFilled = shouldSkipFocusOnFilled
         self._text = text
     }
@@ -22,7 +22,7 @@ struct AutofocusedTextField: View {
     var body: some View {
         NewAutofocusedTextField(
             placeholder: placeholder,
-            placeholderFont: placeholderFont,
+            font: font,
             shouldSkipFocusOnFilled: shouldSkipFocusOnFilled,
             text: $text
         )
@@ -32,14 +32,14 @@ struct AutofocusedTextField: View {
 
 private struct NewAutofocusedTextField: View {
     let placeholder: String
-    let placeholderFont: AnytypeFont
+    let font: AnytypeFont
     let shouldSkipFocusOnFilled: Bool
     @Binding var text: String
     
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        AnytypeTextField(placeholder: placeholder, placeholderFont: placeholderFont, text: $text)
+        AnytypeTextField(placeholder: placeholder, font: font, text: $text)
             .focused($isFocused)
             .task {
                 isFocused = text.isEmpty || !shouldSkipFocusOnFilled

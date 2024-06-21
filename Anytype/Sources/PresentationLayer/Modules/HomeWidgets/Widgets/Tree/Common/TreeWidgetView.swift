@@ -26,28 +26,32 @@ struct TreeWidgetView: View {
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
             homeState: data.homeState,
-            contentModel: model,
+            name: model.name,
+            dragId: model.dragId,
+            onCreateObjectTap: model.allowCreateObject ? {
+                model.onCreateObjectTap()
+            } : nil,
+            onHeaderTap: {
+                model.onHeaderTap()
+            },
             output: data.output,
-            content: content
+            content: {
+                content
+            }
         )
     }
     
     var content: some View {
-        ZStack {
+        WidgetContainerWithEmptyState(
+            showEmpty: (model.rows?.isEmpty ?? false)
+        ) {
             if let rows = model.rows {
-                VStack(spacing: 0) {
-                    WidgetEmptyView(title: Loc.Widgets.Empty.title)
-                        .frame(height: rows.isEmpty ? 72 : 0)
-                    Spacer.fixedHeight(8)
-                }
-                .hidden(rows.isNotEmpty)
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.rowId) {
                         TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
                     }
                     Spacer.fixedHeight(8)
                 }
-                .hidden(rows.isEmpty)
             }
         }
     }

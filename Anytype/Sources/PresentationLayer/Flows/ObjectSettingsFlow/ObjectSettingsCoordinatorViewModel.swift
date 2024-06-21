@@ -42,11 +42,11 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
         layoutPickerObjectId = document.objectId.identifiable
     }
     
-    func showCoverPicker(document: BaseDocumentGeneralProtocol) {
+    func showCoverPicker(document: BaseDocumentProtocol) {
         coverPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func showIconPicker(document: BaseDocumentGeneralProtocol) {
+    func showIconPicker(document: BaseDocumentProtocol) {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     

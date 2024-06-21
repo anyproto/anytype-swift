@@ -1,6 +1,6 @@
 import Foundation
 
-public final class SharingDI {
+public final class SharingDI: Sendable {
     
     public static let shared = SharingDI()
     

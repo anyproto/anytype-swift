@@ -3,17 +3,31 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-final class SetContentViewDataBuilder {
+protocol SetContentViewDataBuilderProtocol: AnyObject {
+    func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation]
+    func activeViewRelations(
+        dataViewRelationsDetails: [RelationDetails],
+        view: DataviewView,
+        excludeRelations: [RelationDetails],
+        spaceId: String
+    ) -> [RelationDetails]
+    func itemData(
+        _ details: [ObjectDetails],
+        dataView: BlockDataview,
+        activeView: DataviewView,
+        viewRelationValueIsLocked: Bool,
+        storage: ObjectDetailsStorage,
+        spaceId: String,
+        onItemTap: @escaping @MainActor (ObjectDetails) -> Void
+    ) -> [SetContentViewItemConfiguration]
+}
+
+final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     
-    private let relationsBuilder: RelationsBuilder
-    private let detailsStorage: ObjectDetailsStorage
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    
-    init(relationsBuilder: RelationsBuilder, detailsStorage: ObjectDetailsStorage, relationDetailsStorage: RelationDetailsStorageProtocol) {
-        self.relationsBuilder = relationsBuilder
-        self.detailsStorage = detailsStorage
-        self.relationDetailsStorage = relationDetailsStorage
-    }
+    @Injected(\.relationsBuilder)
+    private var relationsBuilder: RelationsBuilderProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: RelationDetailsStorageProtocol
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
         let storageRelationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks, spaceId: spaceId)
@@ -68,7 +82,6 @@ final class SetContentViewDataBuilder {
         viewRelationValueIsLocked: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
-        onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
@@ -101,11 +114,8 @@ final class SetContentViewDataBuilder {
                 isSmallCardSize: activeView.isSmallCardSize,
                 hasCover: hasCover,
                 coverFit: activeView.coverFit,
-                coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId),
+                coverType: coverType(item.details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: storage),
                 minHeight: minHeight,
-                onIconTap: {
-                    onIconTap(item.details)
-                },
                 onItemTap: {
                     onItemTap(item.details)
                 }
@@ -144,7 +154,7 @@ final class SetContentViewDataBuilder {
                 
                 return relation
             }
-            let coverType = coverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId)
+            let coverType = coverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: storage)
             return SetContentViewItem(
                 details: details,
                 relations: relations,
@@ -157,8 +167,9 @@ final class SetContentViewDataBuilder {
         _ details: ObjectDetails,
         dataView: BlockDataview,
         activeView: DataviewView,
-        spaceId: String) -> ObjectHeaderCoverType?
-    {
+        spaceId: String,
+        detailsStorage: ObjectDetailsStorage
+    ) -> ObjectHeaderCoverType? {
         guard activeView.type == .gallery else {
             return nil
         }
@@ -166,7 +177,7 @@ final class SetContentViewDataBuilder {
            let documentCover = details.documentCover {
             return .cover(documentCover)
         } else {
-            return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId)
+            return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: detailsStorage)
         }
     }
     
@@ -174,7 +185,8 @@ final class SetContentViewDataBuilder {
         _ details: ObjectDetails,
         dataView: BlockDataview,
         activeView: DataviewView,
-        spaceId: String
+        spaceId: String,
+        detailsStorage: ObjectDetailsStorage
     ) -> ObjectHeaderCoverType?
     {
         let relationDetails = relationDetailsStorage.relationsDetails(for: dataView.relationLinks, spaceId: spaceId)
@@ -185,13 +197,13 @@ final class SetContentViewDataBuilder {
         }
 
         let values = details.stringValueOrArray(for: relationDetails)
-        return findCover(at: values, details)
+        return findCover(at: values, details, detailsStorage: detailsStorage)
     }
 
-    private func findCover(at values: [String], _ details: ObjectDetails) -> ObjectHeaderCoverType? {
+    private func findCover(at values: [String], _ details: ObjectDetails, detailsStorage: ObjectDetailsStorage) -> ObjectHeaderCoverType? {
         for value in values {
             let details = detailsStorage.get(id: value)
-            if let details = details, details.type == Constants.imageType {
+            if let details = details, details.layoutValue == .image {
                 return .cover(.imageId(details.id))
             }
         }
@@ -231,11 +243,5 @@ final class SetContentViewDataBuilder {
         }
         
         return maxHeight
-    }
-}
-
-extension SetContentViewDataBuilder {
-    enum Constants {
-        static let imageType = "_otimage"
     }
 }

@@ -49,6 +49,11 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
             return
         }
         
+        guard self.data != data else {
+            await update(state)
+            return
+        }
+        
         let result = try await toggler.startSubscription(data: data)
         
         self.data = data
@@ -72,6 +77,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     func stopSubscription() async throws {
         guard let data else { return }
         try await toggler.stopSubscription(id: data.identifier)
+        self.data = nil
     }
     
     // MARK: - Private

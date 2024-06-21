@@ -22,6 +22,7 @@ struct ObjectRelationOptionView: View {
         } else if let icon = option.icon {
             IconView(icon: icon)
                 .frame(width: 48, height: 48)
+                .allowsHitTesting(false)
         }
     }
     

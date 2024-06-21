@@ -189,6 +189,7 @@
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "Không có gì thoả bộ lọc";
 "Unsupported block" = "Khối không được hỗ trợ";
+"Unsupported" = "Unsupported";
 "Name" = "Tên";
 "Description" = "Mô tả";
 "Paste processing..." = "Paste processing...";
@@ -793,14 +794,17 @@
 "Widgets.Actions.EmptyBin" = "Đổ rác";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Liên kết";
 "Widgets.Layout.Tree.Title" = "Cây ";
 "Widgets.Layout.List.Title" = "Dạng danh sách";
 "Widgets.Layout.CompactList.Title" = "Danh sách thu gọn";
+"Widgets.Layout.View.Title" = "View";
 "Widgets.Layout.Link.Description" = "Phiên bản gói gọn của đối tượng";
 "Widgets.Layout.Tree.Description" = "Cấu trúc phân cấp các đối tượng";
 "Widgets.Layout.List.Description" = "Widget chứa khung danh sách của đối tượng tập";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget chứa khung danh sách của đối tượng tập";
 "Widgets.Empty.Title" = "This data view contains no objects";
 "Widgets.Library.RecentlyEdited.Name" = "Được sửa gần đây";
