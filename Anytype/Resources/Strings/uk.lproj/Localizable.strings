@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Очистити кошик";
 "Widgets.Actions.AddBelow" = "Додати знизу";
 "Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Тип віджета";
 "Widgets.Layout.Link.Title" = "Посилання";
 "Widgets.Layout.Tree.Title" = "Дерево";
