@@ -84,9 +84,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             \.contentOffset,
             options: .new
         ) { [weak self] scrollView, _ in
-            MainActor.assumeIsolated {
-                self?.updateNavigationBarAppearanceBasedOnContentOffset(scrollView.contentOffset.y + scrollView.contentInset.top)
-            }
+            self?.updateNavigationBarAppearanceBasedOnContentOffset(scrollView.contentOffset.y + scrollView.contentInset.top)
         }
     }
     
