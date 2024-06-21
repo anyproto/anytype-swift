@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Leeg prullenbak";
 "Widgets.Actions.AddBelow" = "Voeg onder toe";
 "Widgets.Actions.NewObject" = "Nieuw object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Boomstructuur";
