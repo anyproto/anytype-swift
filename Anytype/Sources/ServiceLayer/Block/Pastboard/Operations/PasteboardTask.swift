@@ -48,21 +48,22 @@ final class PasteboardTask {
     private func performPaste() async throws -> PasteboardPasteResult? {
         guard pasteboardHelper.hasSlots else { return nil }
         
-        AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId)
-        
         // Find first item to paste with follow order anySlots (blocks slots), htmlSlot, textSlot, filesSlots
         // blocks slots
         if let blocksSlots = pasteboardHelper.obtainBlocksSlots() {
+            AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: blocksSlots.count)
             return try await pasteboardMiddlewareService.pasteBlock(blocksSlots, objectId: objectId, context: context)
         }
 
         // html slot
         if let htmlSlot = pasteboardHelper.obtainHTMLSlot() {
+            AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: 1)
             return try await pasteboardMiddlewareService.pasteHTML(htmlSlot, objectId: objectId, context: context)
         }
 
         // text slot
         if let textSlot = pasteboardHelper.obtainTextSlot() {
+            AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: 1)
             return try await pasteboardMiddlewareService.pasteText(textSlot, objectId: objectId, context: context)
         }
 
@@ -74,7 +75,10 @@ final class PasteboardTask {
             files.forEach { try? FileManager.default.removeItem(atPath: $0.path) }
         }
         
-        try await pasteboardHelper.obtainAsFiles().asyncForEach { itemProvider in
+        let fileSlots = pasteboardHelper.obtainAsFiles()
+        AnytypeAnalytics.instance().logPasteBlock(spaceId: spaceId, countBlocks: fileSlots.count)
+        
+        try await fileSlots.asyncForEach { itemProvider in
             try Task.checkCancellation()
             let path = try? await itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.data.identifier, directory: directory)
             if let path {

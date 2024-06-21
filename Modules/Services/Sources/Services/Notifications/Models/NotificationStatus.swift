@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public enum NotificationStatus {
+public enum NotificationStatus: Sendable {
     case created
     case shown
     case read

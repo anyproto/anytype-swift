@@ -49,7 +49,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func split(
-        _ string: NSAttributedString,
+        _ string: SafeNSAttributedString,
         blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
@@ -94,14 +94,15 @@ final class BlockActionService: BlockActionServiceProtocol {
         try await textServiceHandler.setStyle(contextId: documentId, blockId: blockId, style: style)
     }
     
-    func turnIntoPage(blockId: String, spaceId: String) async throws -> String? {
-        let pageType = try objectTypeProvider.objectType(uniqueKey: .page, spaceId: spaceId)
-        AnytypeAnalytics.instance().logCreateObject(objectType: pageType.analyticsType, spaceId: spaceId, route: .turnInto)
+    func turnIntoObject(blockId: String, spaceId: String) async throws -> String? {
+        let defaultObjectType = try objectTypeProvider.defaultObjectType(spaceId: spaceId)
+        AnytypeAnalytics.instance().logCreateObject(objectType: defaultObjectType.analyticsType, spaceId: spaceId, route: .turnInto)
 
-        return try await blockService.convertChildrenToPages(
+        return try await blockService.convertChildrenToObjects(
             contextId: documentId,
             blocksIds: [blockId],
-            typeUniqueKey: pageType.uniqueKey
+            typeUniqueKey: defaultObjectType.uniqueKey,
+            templateId: defaultObjectType.defaultTemplateId
         ).first
     }
     
@@ -134,7 +135,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockIds: [String]) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
+        AnytypeAnalytics.instance().logDeleteBlock()
         Task {
             try await blockService.delete(contextId: documentId, blockIds: blockIds)
         }

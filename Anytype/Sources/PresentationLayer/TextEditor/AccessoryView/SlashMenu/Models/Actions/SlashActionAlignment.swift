@@ -5,6 +5,7 @@ enum SlashActionAlignment: CaseIterable {
     case right
     case center
     case left
+    case justify
     
     var blockAlignment: LayoutAlignment {
         switch self {
@@ -14,6 +15,8 @@ enum SlashActionAlignment: CaseIterable {
             return .center
         case .right:
             return .right
+        case .justify:
+            return .justify
         }
     }
     
@@ -25,6 +28,8 @@ enum SlashActionAlignment: CaseIterable {
             return Loc.alignCenter
         case .right:
             return Loc.alignRight
+        case .justify:
+            return Loc.alignJustify
         }
     }
     
@@ -36,6 +41,8 @@ enum SlashActionAlignment: CaseIterable {
             return .X32.Align.center
         case .right:
             return .X32.Align.right
+        case .justify:
+            return .X32.Align.justify
         }
     }
 }

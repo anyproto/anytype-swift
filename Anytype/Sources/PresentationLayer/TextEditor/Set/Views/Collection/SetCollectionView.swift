@@ -138,7 +138,7 @@ struct SetCollectionView: View {
     private func columns() -> [GridItem] {
         Array(
             repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
-            count: model.isSmallItemSize ? 2 : 1
+            count: model.activeView.isSmallCardSize ? 2 : 1
         )
     }
     

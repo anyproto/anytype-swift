@@ -15,7 +15,7 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
     
     func accountDeletionConfirm() async {
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteAccount)
+        AnytypeAnalytics.instance().logDeleteAccount()
         
         do {
             let status = try await authService.deleteAccount()
@@ -37,7 +37,7 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
     
     private func logout() async throws {
         
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
+        AnytypeAnalytics.instance().logLogout()
 
         do {
             try await authService.logout(removeData: true)

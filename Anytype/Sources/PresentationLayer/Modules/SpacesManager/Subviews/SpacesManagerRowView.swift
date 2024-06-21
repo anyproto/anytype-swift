@@ -4,7 +4,7 @@ import Services
 
 struct SpacesManagerRowView: View {
     
-    let model: ParticipantSpaceView
+    let model: ParticipantSpaceViewData
     let onDelete: () async throws -> Void
     let onLeave: () async throws -> Void
     let onCancelRequest: () async throws -> Void

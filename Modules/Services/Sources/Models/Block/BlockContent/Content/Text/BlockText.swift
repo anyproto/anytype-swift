@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public struct BlockText: Hashable {
+public struct BlockText: Hashable, Sendable {
     public var text: String
     public var marks: Anytype_Model_Block.Content.Text.Marks
     

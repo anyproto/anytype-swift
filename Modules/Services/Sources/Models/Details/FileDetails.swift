@@ -1,6 +1,6 @@
 import Foundation
 
-public struct FileDetails {
+public struct FileDetails: Sendable {
     
     public let name: String
     public let fileExt: String

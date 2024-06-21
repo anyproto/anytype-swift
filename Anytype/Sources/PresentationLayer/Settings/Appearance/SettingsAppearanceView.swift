@@ -28,7 +28,7 @@ struct SettingsAppearanceView: View {
         .cornerRadius(16, corners: .top)
         
         .onAppear {
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.appearanceSettingsShow)
+            AnytypeAnalytics.instance().logScreenSettingsAppearance()
             model.setAppInterfaceStyle(appInterfaceStyle)
         }
     }

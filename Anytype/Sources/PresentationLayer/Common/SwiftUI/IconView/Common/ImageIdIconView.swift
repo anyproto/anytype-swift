@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import CachedAsyncImage
 
 struct ImageIdIconView: View {
     
@@ -8,7 +9,7 @@ struct ImageIdIconView: View {
     var body: some View {
         GeometryReader { reader in
             let side = min(reader.size.width, reader.size.height)
-            AsyncImage(
+            CachedAsyncImage(
                 url: ImageMetadata(id: imageId, width: .width(side)).contentUrl
             ) { image in
                 image.resizable().scaledToFill()

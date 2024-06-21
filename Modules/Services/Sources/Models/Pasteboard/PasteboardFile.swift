@@ -1,6 +1,6 @@
 import Foundation
 
-public struct PasteboardFile {
+public struct PasteboardFile: Sendable {
     public let path: String
     public let name: String
     

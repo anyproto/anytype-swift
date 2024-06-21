@@ -12,14 +12,16 @@ final class TextBlockLeadingView: UIView {
     private(set) var calloutIconView: UIView?
     
     private var currentStyle: TextBlockLeadingStyle?
-
-    func update(style: TextBlockLeadingStyle) {
-        guard currentStyle != style else { return }
+    private var currentBockId: String?
+    
+    func update(blockId: String, style: TextBlockLeadingStyle) {
+        guard currentBockId != blockId || currentStyle != style else { return }
         
         removeAllSubviews()
         isHidden = false
         
         currentStyle = style
+        currentBockId = blockId
 
         let innerView: UIView
         switch style {

@@ -2,7 +2,7 @@ import ProtobufMessages
 import CoreGraphics
 import Foundation
 
-public enum AccountStatus: Equatable {
+public enum AccountStatus: Equatable, Sendable {
     case active
     case pendingDeletion(deadline: Date)
     case deleted

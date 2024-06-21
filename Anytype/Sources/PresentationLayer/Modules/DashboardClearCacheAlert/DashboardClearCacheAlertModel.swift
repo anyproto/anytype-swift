@@ -24,7 +24,7 @@ final class DashboardClearCacheAlertModel: ObservableObject {
         do {
             AnytypeAnalytics.instance().logSettingsStorageOffload()
             try await fileActionService.clearCache()
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.fileCacheCleared)
+            AnytypeAnalytics.instance().logFileOffload()
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             self.toastBarData = ToastBarData(text: Loc.ClearCache.success, showSnackBar: true)
         } catch {

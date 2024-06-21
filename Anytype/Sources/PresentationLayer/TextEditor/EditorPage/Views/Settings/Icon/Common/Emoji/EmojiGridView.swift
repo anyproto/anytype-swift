@@ -74,11 +74,10 @@ struct EmojiGridView: View {
     private func makeGridView(groups: [EmojiGroup]) -> some View {
         LazyVGrid(
             columns: columns,
-            spacing: 0,
-            pinnedViews: [.sectionHeaders]
+            spacing: 0
         ) {
             ForEach(groups, id: \.name) { group in
-                Section(header: PickerSectionHeaderView(title: group.name)) {
+                Section(header: sectionHeader(with: group.name)) {
                     ForEach(group.emojis.indices, id: \.self) { index in
                         Button {
                             group.emojis[safe: index].flatMap {
@@ -90,6 +89,18 @@ struct EmojiGridView: View {
                     }
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private func sectionHeader(with name: String) -> some View {
+        if name.isNotEmpty {
+            VStack(spacing: 0) {
+                PickerSectionHeaderView(title: name)
+                Spacer.fixedHeight(15)
+            }
+        } else {
+            Spacer.fixedHeight(12)
         }
     }
     

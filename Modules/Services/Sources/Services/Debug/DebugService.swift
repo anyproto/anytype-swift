@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public protocol DebugServiceProtocol: AnyObject {
+public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportLocalStore() async throws -> String
     func exportStackGoroutines() async throws -> String
     func exportSpaceDebug(spaceId: String) async throws -> String

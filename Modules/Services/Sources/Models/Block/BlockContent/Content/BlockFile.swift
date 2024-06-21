@@ -1,4 +1,4 @@
-public struct FileMetadata: Hashable {
+public struct FileMetadata: Hashable, Sendable {
     public var targetObjectId: String
     
     public static func empty() -> Self {
@@ -12,7 +12,7 @@ public struct FileMetadata: Hashable {
 }
 
 
-public struct BlockFile: Hashable {
+public struct BlockFile: Hashable, Sendable {
     public var metadata: FileMetadata
     public var contentType: FileContentType
     public var state: BlockFileState

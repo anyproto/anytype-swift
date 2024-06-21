@@ -35,7 +35,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
-    private var participantSpaceView: ParticipantSpaceView?
+    private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
     
     @Published var spaceName = ""
@@ -51,7 +51,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var allowEditSpace = false
     @Published var allowRemoteStorage = false
     @Published var shareSection: SpaceSettingsShareSection = .personal
-    @Published var openUrl: URL?
+    @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
     init(output: SpaceSettingsModuleOutput?) {
         self.output = output
@@ -91,7 +91,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func onMembershipUpgradeTap() {
-        openUrl = mailUrlBuilder.membershipUpgrateUrl()
+        AnytypeAnalytics.instance().logClickUpgradePlanTooltip(type: .sharedSpaces, route: .spaceSettings)
+        membershipUpgradeReason = .numberOfSharedSpaces
     }
     
     func startJoiningTask() async {

@@ -1,14 +1,14 @@
 import AnytypeCore
 
-public struct BlockBookmark: Hashable {
-    public enum Style {
+public struct BlockBookmark: Hashable, Sendable {
+    public enum Style: Sendable {
         case unknown
         case page
         case image
         case text
     }
     
-    public enum State {
+    public enum State: Sendable {
         case empty
         case fetching
         case done

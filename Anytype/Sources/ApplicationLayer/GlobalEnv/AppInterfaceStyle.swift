@@ -1,13 +1,11 @@
 import Foundation
 import SwiftUI
 
-
-@MainActor
 struct AppInterfaceStyle {
     
     private weak var window: UIWindow?
     
-    nonisolated init(window: UIWindow?) {
+    init(window: UIWindow?) {
         self.window = window
     }
     

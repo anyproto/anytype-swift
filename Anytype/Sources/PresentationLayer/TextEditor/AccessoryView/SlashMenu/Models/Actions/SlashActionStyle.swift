@@ -15,6 +15,7 @@ enum SlashActionStyle: CaseIterable {
     case bold
     case italic
     case strikethrough
+    case underline
     case code
     case link
     
@@ -46,6 +47,8 @@ enum SlashActionStyle: CaseIterable {
             return Loc.TextStyle.Italic.title
         case .strikethrough:
             return Loc.TextStyle.Strikethrough.title
+        case .underline:
+            return Loc.TextStyle.Underline.title
         case .code:
             return Loc.TextStyle.Code.title
         case .link:
@@ -81,6 +84,8 @@ enum SlashActionStyle: CaseIterable {
             return .X40.italic
         case .strikethrough:
             return .X40.strikethrough
+        case .underline:
+            return .X40.underline
         case .code:
             return .X40.code
         case .link:
@@ -110,7 +115,7 @@ enum SlashActionStyle: CaseIterable {
             return Loc.TextStyle.Numbered.subtitle
         case .toggle:
             return Loc.TextStyle.Toggle.subtitle
-        case .bold, .italic, .strikethrough, .code, .link:
+        case .bold, .italic, .strikethrough, .code, .link, .underline:
             return nil
         }
     }
@@ -139,7 +144,7 @@ enum SlashActionStyle: CaseIterable {
             return .text(.toggle)
         case .code:
             return .text(.code)
-        case .bold, .italic, .strikethrough, .link:
+        case .bold, .italic, .strikethrough, .link, .underline:
             return nil
         }
     }

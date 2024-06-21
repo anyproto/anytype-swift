@@ -33,7 +33,7 @@ public extension InfoContainerProtocol {
     
     func setAlign(data: Anytype_Event.Block.Set.Align) {
         update(blockId: data.id) { info in
-            info.updated(horizontalAlignment: data.align.asBlockModel)
+            info.updated(horizontalAlignment: data.align)
         }
     }
     

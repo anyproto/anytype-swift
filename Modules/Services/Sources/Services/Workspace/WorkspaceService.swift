@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-public protocol WorkspaceServiceProtocol {
+public protocol WorkspaceServiceProtocol: Sendable {
     func installObjects(spaceId: String, objectIds: [String]) async throws -> [String]
     func installObject(spaceId: String, objectId: String) async throws -> ObjectDetails
     

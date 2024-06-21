@@ -10,7 +10,7 @@ public enum MembershipServiceError: Error {
     case invalidBillingIdFormat
 }
 
-public protocol MembershipServiceProtocol {
+public protocol MembershipServiceProtocol: Sendable {
     func getMembership(noCache: Bool) async throws -> MembershipStatus
     
     func getTiers(noCache: Bool) async throws -> [MembershipTier]    
@@ -102,9 +102,9 @@ final class MembershipService: MembershipServiceProtocol {
             $0.paymentMethod = .methodInappApple
             $0.requestedTier = tier.type.id
         })
-            .invoke(ignoreLogErrors: .canNotConnect)
-            .billingID
-        
+        .invoke(ignoreLogErrors: .canNotConnect)
+        .billingID
+
         guard let uuid = UUID(uuidString: billingId) else {
             throw MembershipServiceError.invalidBillingIdFormat
         }

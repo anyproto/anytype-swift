@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-public protocol BlockWidgetServiceProtocol {
+public protocol BlockWidgetServiceProtocol: Sendable {
     func createWidgetBlock(contextId: String, sourceId: String, layout: BlockWidget.Layout, limit: Int, position: WidgetPosition) async throws
     func removeWidgetBlock(contextId: String, widgetBlockId: String) async throws
     func setSourceId(contextId: String, widgetBlockId: String, sourceId: String) async throws

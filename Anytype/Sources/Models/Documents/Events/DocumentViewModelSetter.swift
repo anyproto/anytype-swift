@@ -74,6 +74,6 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
 
         let rootId = roots[0].id
 
-        IndentationBuilder.build(container: container, id: rootId)
+        _ = IndentationBuilder.build(container: container, id: rootId)
     }
 }

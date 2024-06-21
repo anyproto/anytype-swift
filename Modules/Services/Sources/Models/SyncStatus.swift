@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public enum SyncStatus {
+public enum SyncStatus: Sendable {
     case unknown
     case offline
     case syncing

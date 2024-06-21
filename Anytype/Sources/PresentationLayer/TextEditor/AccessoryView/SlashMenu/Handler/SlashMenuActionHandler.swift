@@ -31,7 +31,7 @@ final class SlashMenuActionHandler {
         _ action: SlashAction,
         textView: UITextView?,
         blockInformation: BlockInformation,
-        modifiedStringHandler: (NSAttributedString) -> Void
+        modifiedStringHandler: (SafeNSAttributedString) -> Void
     ) async throws {
         switch action {
         case let .actions(action):
@@ -39,9 +39,9 @@ final class SlashMenuActionHandler {
         case let .alignment(alignmnet):
             handleAlignment(alignmnet, blockIds: [blockInformation.id])
         case let .style(style):
-            try await handleStyle(style, attributedString: textView?.attributedText, blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
+            try await handleStyle(style, attributedString: textView?.attributedText.sendable(), blockInformation: blockInformation, modifiedStringHandler: modifiedStringHandler)
         case let .media(media):
-            actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: document.spaceId)
+            actionHandler.addBlock(media.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
         case let .objects(action):
             switch action {
             case .linkTo:
@@ -67,28 +67,27 @@ final class SlashMenuActionHandler {
             switch action {
             case .newRealtion:
                 router.showAddNewRelationView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
-                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: spaceId)
+                    self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
                     
                     AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .block, spaceId: spaceId)
                 }
             case .relation(let relation):
-                actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: document.spaceId)
+                actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
             }
         case let .other(other):
             switch other {
             case .table(let rowsCount, let columnsCount):
-                let safeSendableAttributedText = SafeSendable(value: textView?.attributedText)
                 guard let blockId = try? await actionHandler.createTable(
                     blockId: blockInformation.id,
                     rowsCount: rowsCount,
                     columnsCount: columnsCount,
-                    blockText: safeSendableAttributedText,
+                    blockText: textView?.attributedText.sendable(),
                     spaceId: document.spaceId
                 ) else { return }
                 
                 cursorManager.blockFocus = BlockFocus(id: blockId, position: .beginning)
             default:
-                actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText, spaceId: document.spaceId)
+                actionHandler.addBlock(other.blockViewsType, blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
             }
         case let .color(color):
             actionHandler.setTextColor(color, blockIds: [blockInformation.id])
@@ -107,21 +106,14 @@ final class SlashMenuActionHandler {
     }
     
     private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [String]) {
-        switch alignment {
-        case .left :
-            actionHandler.setAlignment(.left, blockIds: blockIds)
-        case .right:
-            actionHandler.setAlignment(.right, blockIds: blockIds)
-        case .center:
-            actionHandler.setAlignment(.center, blockIds: blockIds)
-        }
+        actionHandler.setAlignment(alignment.blockAlignment, blockIds: blockIds)
     }
     
     private func handleStyle(
         _ style: SlashActionStyle,
-        attributedString: NSAttributedString?,
+        attributedString: SafeNSAttributedString?,
         blockInformation: BlockInformation,
-        modifiedStringHandler: (NSAttributedString) -> Void
+        modifiedStringHandler: (SafeNSAttributedString) -> Void
     ) async throws {
         switch style {
         case .text:
@@ -164,6 +156,14 @@ final class SlashMenuActionHandler {
             let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
                 attributedString,
                 markup: .strikethrough,
+                info: blockInformation
+            )
+            
+            modifiedAttributedString.map(modifiedStringHandler)
+        case .underline:
+            let modifiedAttributedString = try await actionHandler.toggleWholeBlockMarkup(
+                attributedString,
+                markup: .underscored,
                 info: blockInformation
             )
             

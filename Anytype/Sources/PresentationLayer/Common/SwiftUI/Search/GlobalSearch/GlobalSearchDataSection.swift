@@ -1,37 +1,39 @@
 import Foundation
 import Services
 
-struct GlobalSearchDataSection: Identifiable {
-    let id = UUID()
+struct GlobalSearchDataSection: Identifiable, Hashable {
     let searchData: [GlobalSearchData]
     let sectionConfig: SectionConfig?
+    
+    var id: Int { hashValue }
     
     init(searchData: [GlobalSearchData], sectionConfig: SectionConfig? = nil) {
         self.searchData = searchData
         self.sectionConfig = sectionConfig
     }
     
-    struct SectionConfig {
+    struct SectionConfig: Hashable {
         let title: String
         let buttonTitle: String
     }
 }
 
-struct GlobalSearchData: Identifiable {
-    let id = UUID()
+struct GlobalSearchData: Identifiable, Hashable {
     let iconImage: Icon?
     let title: String
-    let description: String
+    let highlights: [HighlightsData]
     let objectTypeName: String
-    let backlinks: [String]
+    let relatedLinks: [String]
     let editorScreenData: EditorScreenData
+    let score: String
     
-    init(details: ObjectDetails) {
-        self.iconImage = details.objectIconImage
-        self.title = details.title
-        self.description = details.description
-        self.objectTypeName = details.objectType.name
-        self.backlinks = details.backlinks
-        self.editorScreenData = details.editorScreenData()
-    }
+    var id: Int { hashValue }
+}
+
+enum HighlightsData: Identifiable, Hashable {
+    case text(AttributedString)
+    case status(name: String, option: Relation.Status.Option)
+    case tag(name: String, option: Relation.Tag.Option)
+    
+    var id: Int { hashValue }
 }

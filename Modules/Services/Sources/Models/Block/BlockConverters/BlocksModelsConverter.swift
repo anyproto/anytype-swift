@@ -1,7 +1,7 @@
 import ProtobufMessages
 import AnytypeCore
 
-public enum BlocksModelsConverter {
+public enum BlocksModelsConverter: Sendable {
     public static func convert(
         middleware: Anytype_Model_Block.OneOf_Content
     ) -> BlockContent? {

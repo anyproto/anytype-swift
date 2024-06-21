@@ -343,10 +343,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let elements = sortedElements.compactMap {
             modelsHolder.blockViewModel(at: $0.row)
         }
-        AnytypeAnalytics.instance().logEvent(
-            AnalyticsEventsName.blockAction,
-            withEventProperties: ["type": item.analyticsEventValue]
-        )
+        AnytypeAnalytics.instance().logBlockAction(type: item.analyticsEventValue)
 
         switch item {
         case .delete:
@@ -358,7 +355,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .turnInto:
             Task {
                 for block in elements {
-                    try await actionHandler.turnIntoPage(blockId: block.blockId)
+                    try await actionHandler.turnIntoObject(blockId: block.blockId)
                 }
             }
         case .moveTo:
@@ -414,7 +411,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 "Number of elements should be 1"
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
+            AnytypeAnalytics.instance().logOpenAsObject()
             router.showPage(objectId: bookmark.targetObjectID)
         case .openSource:
             anytypeAssert(
@@ -422,7 +419,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 "Number of elements should be 1"
             )
             guard case let .dataView(data) = elements.first?.content else { return }
-            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsSource)
+            AnytypeAnalytics.instance().logOpenAsSource()
             router.showPage(objectId: data.targetObjectID)
         case .style:
             let elements = elements.map { $0.info }
@@ -451,7 +448,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 }
             }
 
-            AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId)
+            AnytypeAnalytics.instance().logCopyBlock(spaceId: document.spaceId, countBlocks: blocksIds.count)
             Task { @MainActor [blocksIds] in
                 try await pasteboardService.copy(document: document, blocksIds: blocksIds, selectedTextRange: NSRange())
                 toastPresenter.show(message: Loc.copied)

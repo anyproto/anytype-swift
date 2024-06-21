@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public enum NotificationActionType {
+public enum NotificationActionType: Sendable {
     case close
 }
 

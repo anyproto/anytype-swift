@@ -14,6 +14,14 @@ final class DataviewService: DataviewServiceProtocol {
         }).invoke()
     }
     
+    public func setActiveView(objectId: String, blockId: String, viewId: String) async throws {
+        try await ClientCommands.blockDataviewViewSetActive(.with {
+            $0.contextID = objectId
+            $0.blockID = blockId
+            $0.viewID = viewId
+        }).invoke()
+    }
+    
     // MARK: - Filters
     
     public func addFilter(objectId: String, blockId: String, filter: DataviewFilter, viewId: String) async throws {

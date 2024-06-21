@@ -1,8 +1,8 @@
 import Foundation
 
-public struct BlockWidget: Hashable {
+public struct BlockWidget: Hashable, Sendable {
     
-    public enum Layout {
+    public enum Layout: Sendable {
         case link
         case tree
         case list

@@ -1,5 +1,5 @@
 
-public struct GradientId: Hashable {
+public struct GradientId: Hashable, Sendable {
     
     private static let range = 1..<17
     

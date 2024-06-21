@@ -1,6 +1,6 @@
 import AnytypeCore
 
-public struct MentionObject: Equatable, Hashable {
+public struct MentionObject: Equatable, Hashable, Sendable {
     public let details: ObjectDetails
     public var id: String { details.id }
 

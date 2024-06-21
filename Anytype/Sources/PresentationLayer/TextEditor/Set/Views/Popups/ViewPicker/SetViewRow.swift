@@ -5,7 +5,6 @@ struct SetViewRow: View {
     @Environment(\.editMode) var editMode
     
     let configuration: SetViewRowConfiguration
-    let onTap: () -> Void
     
     var body: some View {
         HStack(spacing: 5) {
@@ -16,7 +15,7 @@ struct SetViewRow: View {
     
     private var content: some View {
         Button(action: {
-            onTap()
+            configuration.onTap()
         }) {
             HStack(spacing: 0) {
                 AnytypeText(

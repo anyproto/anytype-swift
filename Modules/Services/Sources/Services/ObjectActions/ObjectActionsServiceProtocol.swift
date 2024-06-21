@@ -2,7 +2,7 @@ import Combine
 import ProtobufMessages
 import AnytypeCore
 
-public protocol ObjectActionsServiceProtocol {
+public protocol ObjectActionsServiceProtocol: Sendable {
     func createObject(
         name: String,
         typeUniqueKey: ObjectTypeUniqueKey,

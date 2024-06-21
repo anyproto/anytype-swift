@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public enum FileContentType: String, Hashable {
+public enum FileContentType: String, Hashable, Sendable {
     case none
     case file
     case image
@@ -30,7 +30,7 @@ public enum FileContentType: String, Hashable {
     }
 }
 
-public struct FileBlockContentData: Hashable {
+public struct FileBlockContentData: Hashable, Sendable {
     public let contentType: FileContentType
     
     public init(contentType: FileContentType) {

@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public enum RelationFormat {
+public enum RelationFormat: Sendable {
     case object
     case longText
     case shortText

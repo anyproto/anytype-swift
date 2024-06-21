@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public struct MiddlewareString {
+public struct MiddlewareString: Sendable {
     public let text: String
     public let marks: Anytype_Model_Block.Content.Text.Marks
     

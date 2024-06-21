@@ -42,9 +42,7 @@ private struct NewAutofocusedTextField: View {
         AnytypeTextField(placeholder: placeholder, placeholderFont: placeholderFont, text: $text)
             .focused($isFocused)
             .task {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    isFocused = text.isEmpty || !shouldSkipFocusOnFilled
-                }
+                isFocused = text.isEmpty || !shouldSkipFocusOnFilled
             }
     }
 }

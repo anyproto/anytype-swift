@@ -5,9 +5,9 @@ import Factory
 
 final class WorkspacesStorageMock: WorkspacesStorageProtocol {
     
-    static let shared = WorkspacesStorageMock()
+    nonisolated static let shared = WorkspacesStorageMock()
     
-    private init() {
+    nonisolated private init() {
         self.allWorkspaces =  [
             SpaceView(
                 id: "1",

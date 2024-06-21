@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public struct BlockTableRow: Hashable {
+public struct BlockTableRow: Hashable, Sendable {
     public let isHeader: Bool
 
     public init(isHeader: Bool) {

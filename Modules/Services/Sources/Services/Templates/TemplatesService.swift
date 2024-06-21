@@ -1,7 +1,7 @@
 import ProtobufMessages
 import SwiftProtobuf
 
-public protocol TemplatesServiceProtocol {
+public protocol TemplatesServiceProtocol: Sendable {
     func cloneTemplate(blockId: String) async throws
     func createTemplateFromObjectType(objectTypeId: String) async throws -> String
     func createTemplateFromObject(objectId: String) async throws -> String

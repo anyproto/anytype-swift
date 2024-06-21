@@ -11,9 +11,10 @@ final class TipsConfiguration: AppConfiguratorProtocol {
                     try Tips.resetDatastore()
                 }
                 if FeatureFlags.showAllTips {
-                    Tips.showAllTipsForTesting()
+                    try Tips.configure([.displayFrequency(.immediate), .datastoreLocation(.applicationDefault)])
+                } else {
+                    try Tips.configure([.displayFrequency(.daily), .datastoreLocation(.applicationDefault)])
                 }
-                try Tips.configure([.displayFrequency(.daily), .datastoreLocation(.applicationDefault)])
             } catch {
                 anytypeAssertionFailure("Tips setup error", info: ["tipsError": error.localizedDescription])
             }

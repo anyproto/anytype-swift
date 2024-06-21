@@ -4,12 +4,13 @@ import Services
 // MARK: - Init helpers
 
 extension EditorScreenData {
-    init(details: ObjectDetails, isOpenedForPreview: Bool = false) {
+    init(details: ObjectDetails, isOpenedForPreview: Bool = false, blockId: String? = nil) {
         switch details.editorViewType {
         case .page:
             self = .page(EditorPageObject(
                 details: details,
-                isOpenedForPreview: isOpenedForPreview
+                isOpenedForPreview: isOpenedForPreview,
+                blockId: blockId
             ))
         case .set:
             self = .set(EditorSetObject(details: details))
@@ -21,11 +22,13 @@ extension EditorPageObject {
     init(
         details: ObjectDetails,
         isOpenedForPreview: Bool = false,
+        blockId: String? = nil,
         usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
     ) {
         self.objectId = details.id
         self.spaceId = details.spaceId
         self.isOpenedForPreview = isOpenedForPreview
+        self.blockId = blockId
         self.usecase = usecase
     }
 }

@@ -128,6 +128,20 @@
         <string>%d 文件區塊</string>
       </dict>
     </dict>
+    <key>Membership.Upgrade.SpacesLimit</key>
+    <dict>
+      <key>NSStringLocalizedFormatKey</key>
+      <string>%#@object@</string>
+      <key>object</key>
+      <dict>
+        <key>NSStringFormatSpecTypeKey</key>
+        <string>NSStringPluralRuleType</string>
+        <key>NSStringFormatValueTypeKey</key>
+        <string>d</string>
+        <key>other</key>
+        <string>您已達到可共享 %d 個空間的上限了</string>
+      </dict>
+    </dict>
     <key>Sharing.URL.NewObject</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>

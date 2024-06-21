@@ -1,7 +1,7 @@
 import ProtobufMessages
 import Foundation
 
-public struct UnsplashItem {
+public struct UnsplashItem: Sendable {
     public let id: String
     public let url: URL
     public let artistName: String

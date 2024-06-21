@@ -125,7 +125,7 @@ extension ObjectHeaderView: ConfigurableView {
     
     private func applyLayoutAlignment(_ layoutAlignment: LayoutAlignment) {
         switch layoutAlignment {
-        case .left:
+        case .left, .justify, .UNRECOGNIZED:
             leadingConstraint?.isActive = true
             centerConstraint?.isActive = false
             trailingConstraint?.isActive = false

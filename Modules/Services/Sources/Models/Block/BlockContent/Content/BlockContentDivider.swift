@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public struct BlockDivider: Hashable {
+public struct BlockDivider: Hashable, Sendable {
     public var style: Style
     
     public init(style: Style) {
@@ -17,7 +17,7 @@ public struct BlockDivider: Hashable {
 }
 
 extension BlockDivider {
-    public enum Style {
+    public enum Style: Sendable {
         case line
         case dots
         

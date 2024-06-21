@@ -60,14 +60,7 @@ final class MiddlewareEventConverter {
             
         case let .blockSetAlign(value):
             infoContainer.setAlign(data: value)
-
-            let blockId = value.id
-            let alignment = value.align
-            guard alignment.asBlockModel.isNotNil else {
-                anytypeAssertionFailure("We cannot parse alignment", info: ["value": "\(value)"])
-                return .general
-            }
-            return .blocks(blockIds: [blockId])
+            return .blocks(blockIds: [value.id])
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }

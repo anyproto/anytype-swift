@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 
-public protocol BlockTableServiceProtocol {
+public protocol BlockTableServiceProtocol: Sendable {
     func createTable(
         contextId: String,
         targetId: String,

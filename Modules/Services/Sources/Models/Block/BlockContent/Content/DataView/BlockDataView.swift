@@ -1,7 +1,7 @@
 import AnytypeCore
 import ProtobufMessages
 
-public struct BlockDataview: Hashable {
+public struct BlockDataview: Hashable, Sendable {
     public var activeViewId: String
     public let views: [DataviewView]
     public let relationLinks: [RelationLink]

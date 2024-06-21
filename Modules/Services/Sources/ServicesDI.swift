@@ -92,6 +92,10 @@ public extension Container {
         self { SearchMiddleService() }.shared
     }
     
+    var searchWithMetaMiddleService: Factory<SearchWithMetaMiddleServiceProtocol> {
+        self { SearchWithMetaMiddleService() }.shared
+    }
+    
     var templatesService: Factory<TemplatesServiceProtocol> {
         self { TemplatesService() }.shared
     }

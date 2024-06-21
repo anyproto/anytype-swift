@@ -60,6 +60,9 @@ private struct HomeWidgetsInternalView: View {
         .task {
             await model.startParticipantTask()
         }
+        .onAppear {
+            model.onAppear()
+        }
         .navigationBarHidden(true)
         .anytypeStatusBar(style: .lightContent)
         .ignoresSafeArea(.keyboard, edges: .bottom)

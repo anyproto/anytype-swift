@@ -26,13 +26,13 @@ struct SpaceSettingsView: View {
             .onChange(of: model.dismiss) { _ in
                 dismiss()
             }
-            .openUrl(url: $model.openUrl)
             .anytypeSheet(isPresented: $model.showSpaceDeleteAlert) {
                 SpaceDeleteAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
             .anytypeSheet(isPresented: $model.showSpaceLeaveAlert) {
                 SpaceLeaveAlert(spaceId: model.workspaceInfo.accountSpaceId)
             }
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
     
     private var content: some View {

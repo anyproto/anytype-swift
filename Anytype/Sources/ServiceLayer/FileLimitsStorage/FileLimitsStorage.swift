@@ -19,12 +19,12 @@ final class FileLimitsStorage: FileLimitsStorageProtocol {
     // MARK: - State
     
     private var subscriptions = [AnyCancellable]()
-    private var data: CurrentValueSubject<NodeUsageInfo?, Never>
-    let nodeUsage: AnyPublisher<NodeUsageInfo, Never>
+    @Published private var data: NodeUsageInfo?
+    var nodeUsage: AnyPublisher<NodeUsageInfo, Never> {
+        $data.compactMap { $0 }.eraseToAnyPublisher()
+    }
     
     nonisolated init() {
-        self.data = CurrentValueSubject(nil)
-        self.nodeUsage = data.compactMap { $0 }.eraseToAnyPublisher()
         Task {
             try await setupInitialState()
         }
@@ -35,7 +35,7 @@ final class FileLimitsStorage: FileLimitsStorageProtocol {
     private func setupInitialState() async throws {
         stopSubscription()
         let nodeUsage = try await fileService.nodeUsage()
-        data.value = nodeUsage
+        data = nodeUsage
         setupSubscription()
     }
     
@@ -55,12 +55,12 @@ final class FileLimitsStorage: FileLimitsStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case let .fileLocalUsage(eventData):
-                data.value?.node.localBytesUsage = Int64(clamping: eventData.localBytesUsage)
+                data?.node.localBytesUsage = Int64(clamping: eventData.localBytesUsage)
             case let .fileSpaceUsage(eventData):
-                guard let spaceIndex = data.value?.spaces.firstIndex(where: { $0.spaceID == eventData.spaceID }) else { return }
-                data.value?.spaces[spaceIndex].bytesUsage = Int64(clamping: eventData.bytesUsage)
+                guard let spaceIndex = data?.spaces.firstIndex(where: { $0.spaceID == eventData.spaceID }) else { return }
+                data?.spaces[spaceIndex].bytesUsage = Int64(clamping: eventData.bytesUsage)
             case let .fileLimitUpdated(eventData):
-                data.value?.node.bytesLimit = Int64(clamping: eventData.bytesLimit)
+                data?.node.bytesLimit = Int64(clamping: eventData.bytesLimit)
             default:
                 break
             }

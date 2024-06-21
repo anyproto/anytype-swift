@@ -50,10 +50,6 @@ final class EditorSetViewModel: ObservableObject {
             .filter { $0.option.isVisible }.map(\.relationDetails)
     }
     
-    var isSmallItemSize: Bool {
-        activeView.cardSize == .small
-    }
-    
     var isGroupBackgroundColors: Bool {
         activeView.groupBackgroundColors
     }
@@ -176,7 +172,8 @@ final class EditorSetViewModel: ObservableObject {
             document: setDocument,
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
-                isOpenedForPreview: false,
+                isOpenedForPreview: false, 
+                blockId: nil,
                 usecase: .editor
             ),
             output: output

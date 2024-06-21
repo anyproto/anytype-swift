@@ -1,6 +1,6 @@
 // Aka Page
-public struct BlockSmartblock: Hashable {
-    public enum Style {
+public struct BlockSmartblock: Hashable, Sendable {
+    public enum Style: Sendable {
         case page
         case home
         case profilePage

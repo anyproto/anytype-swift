@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public enum BlockPosition {
+public enum BlockPosition: Sendable {
     case none
     case top, bottom
     case left, right

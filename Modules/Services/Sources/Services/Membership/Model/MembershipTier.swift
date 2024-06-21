@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 
-public enum MembershipTierType: Hashable, Identifiable, Equatable {
+public enum MembershipTierType: Hashable, Identifiable, Equatable, Sendable {
     case explorer
     case builder
     case coCreator
@@ -47,12 +47,12 @@ public enum MembershipTierType: Hashable, Identifiable, Equatable {
     }
 }
 
-public enum MembershipAnyName: Hashable, Equatable {
+public enum MembershipAnyName: Hashable, Equatable, Sendable {
     case none
     case some(minLenght: UInt32)
 }
 
-public enum MembershipColor: Equatable {
+public enum MembershipColor: Equatable, Sendable {
     case green
     case blue
     case red
@@ -72,7 +72,7 @@ public enum MembershipColor: Equatable {
     }
 }
 
-public struct MembershipTier: Hashable, Identifiable, Equatable {
+public struct MembershipTier: Hashable, Identifiable, Equatable, Sendable {
     public let type: MembershipTierType
     public let name: String
     public let anyName: MembershipAnyName

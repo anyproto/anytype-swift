@@ -1,5 +1,3 @@
-public enum LayoutAlignment: Int, CaseIterable, Hashable {
-    case left
-    case center
-    case right
-}
+import ProtobufMessages
+
+public typealias LayoutAlignment = Anytype_Model_Block.Align

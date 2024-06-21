@@ -37,11 +37,11 @@ fileprivate struct AsyncThrowsIdTaskModifier<T: Equatable>: ViewModifier {
 }
 
 extension View {
-    func throwTask(_ action: @escaping @Sendable () async throws -> Void) -> some View {
+    func throwingTask(_ action: @escaping @Sendable () async throws -> Void) -> some View {
         modifier(AsyncThrowsTaskModifier(action: action))
     }
     
-    func throwTask<T: Equatable>(id: T, _ action: @escaping @Sendable () async throws -> Void) -> some View {
+    func throwingTask<T: Equatable>(id: T, _ action: @escaping @Sendable () async throws -> Void) -> some View {
         modifier(AsyncThrowsIdTaskModifier(id: id, action: action))
     }
 }

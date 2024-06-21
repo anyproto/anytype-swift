@@ -1,7 +1,7 @@
 import ProtobufMessages
 import Combine
 
-public protocol MetricsServiceProtocol {
+public protocol MetricsServiceProtocol: Sendable {
     func metricsSetParameters(platform: String, version: String) async throws
 }
 

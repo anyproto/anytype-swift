@@ -3,7 +3,7 @@ import Combine
 import Foundation
 import AnytypeCore
 
-public protocol UnsplashServiceProtocol {
+public protocol UnsplashServiceProtocol: Sendable {
     func searchUnsplashImages(query: String) async throws -> [UnsplashItem]
     func downloadImage(spaceId: String, id: String) async throws -> ObjectId
 }

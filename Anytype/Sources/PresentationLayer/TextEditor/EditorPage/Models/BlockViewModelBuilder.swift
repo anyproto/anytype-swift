@@ -248,7 +248,7 @@ final class BlockViewModelBuilder {
                     self?.showBookmarkBar(info: info)
                 },
                 openUrl: { [weak self] url in
-                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
+                    AnytypeAnalytics.instance().logBlockBookmarkOpenUrl()
                     self?.output?.openUrl(url.url)
                 }
             )

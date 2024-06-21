@@ -1,4 +1,4 @@
-public struct BlockInformationMetadata: Hashable {
+public struct BlockInformationMetadata: Hashable, Sendable {
     public let parentId: String?
     public let backgroundColor: MiddlewareColor?
 

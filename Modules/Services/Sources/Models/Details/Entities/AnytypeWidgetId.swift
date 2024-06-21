@@ -1,6 +1,6 @@
 import Foundation
 
-public enum AnytypeWidgetId: String, CaseIterable {
+public enum AnytypeWidgetId: String, CaseIterable, Sendable {
     case favorite = "favorite"
     case sets = "set"
     case collections = "collection"

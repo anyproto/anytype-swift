@@ -20,7 +20,10 @@ struct NotificationCoordinatorView: View {
             }
             .anytypeShareView(item: $model.exportSpaceUrl)
             .anytypeSheet(item: $model.spaceRequestAlert) {
-                SpaceRequestAlert(data: $0)
+                SpaceRequestAlert(data: $0) { reason in
+                    model.onMembershipUpgrateTap(reason: reason)
+                }
             }
+            .membershipUpgrade(reason: $model.membershipUpgradeReason)
     }
 }

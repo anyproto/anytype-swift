@@ -1,6 +1,6 @@
 import AnytypeCore
 
-public enum DataviewViewType: Hashable, CaseIterable {
+public enum DataviewViewType: Hashable, CaseIterable, Sendable {
     case table
     case gallery
     case list

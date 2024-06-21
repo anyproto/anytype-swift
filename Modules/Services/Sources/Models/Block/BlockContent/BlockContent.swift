@@ -1,6 +1,6 @@
 import Foundation
 
-public enum BlockContent: Hashable {
+public enum BlockContent: Hashable, Sendable {
     case smartblock(BlockSmartblock)
     case text(BlockText)
     case file(BlockFile)

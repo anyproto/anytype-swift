@@ -6,7 +6,7 @@ import StoreKit
 public typealias MiddlewareMembershipStatus = Anytype_Model_Membership
 public typealias MiddlewareMembershipTier = Anytype_Model_MembershipTierData
 
-public protocol MembershipModelBuilderProtocol {
+public protocol MembershipModelBuilderProtocol: Sendable {
     func buildMembershipStatus(membership: MiddlewareMembershipStatus, tier: MembershipTier?) -> MembershipStatus
     func buildMembershipStatus(membership: MiddlewareMembershipStatus, allTiers: [MembershipTier]) throws -> MembershipStatus
     

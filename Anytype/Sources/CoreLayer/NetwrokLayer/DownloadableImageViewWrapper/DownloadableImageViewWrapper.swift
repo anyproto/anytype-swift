@@ -88,6 +88,7 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
                 !error.isTaskCancelled,
                 !error.isImageSettingError,
                 error.errorCode != 500,
+                !error.isUrlSessionErrorCode(.timedOut),
                 !error.isInvalidResponseStatusCode(404)
             else { return }
  
@@ -130,4 +131,14 @@ private extension KingfisherError {
         return false
     }
     
+    func isUrlSessionErrorCode(_ code: URLError.Code) -> Bool {
+        if case .responseError(reason: .URLSessionError(let sessionError)) = self,
+            let urlError = sessionError as? URLError,
+            urlError.code == code
+        {
+            return true
+        }
+        return false
+    }
 }
+

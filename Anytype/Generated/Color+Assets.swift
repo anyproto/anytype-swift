@@ -71,7 +71,6 @@ extension Color {
         internal static let selected = Color(asset: Asset.Additional.Indicator.selected)
         internal static let unselected = Color(asset: Asset.Additional.Indicator.unselected)
       }
-      internal static let gradient = Color(asset: Asset.Additional.gradient)
       internal static let separator = Color(asset: Asset.Additional.separator)
       internal static let space = Color(asset: Asset.Additional.space)
     }
@@ -117,12 +116,28 @@ extension Color {
       internal static let white = Color(asset: Asset.Button.white)
     }
     
+    // MARK: - CoverGradients
+    enum CoverGradients {
+      internal static let blueEnd = Color(asset: Asset.CoverGradients.blueEnd)
+      internal static let bluePinkEnd = Color(asset: Asset.CoverGradients.bluePinkEnd)
+      internal static let bluePinkStart = Color(asset: Asset.CoverGradients.bluePinkStart)
+      internal static let blueStart = Color(asset: Asset.CoverGradients.blueStart)
+      internal static let greenOrangeEnd = Color(asset: Asset.CoverGradients.greenOrangeEnd)
+      internal static let greenOrangeStart = Color(asset: Asset.CoverGradients.greenOrangeStart)
+      internal static let pinkOrangeEnd = Color(asset: Asset.CoverGradients.pinkOrangeEnd)
+      internal static let pinkOrangeStart = Color(asset: Asset.CoverGradients.pinkOrangeStart)
+      internal static let redEnd = Color(asset: Asset.CoverGradients.redEnd)
+      internal static let redStart = Color(asset: Asset.CoverGradients.redStart)
+      internal static let skyEnd = Color(asset: Asset.CoverGradients.skyEnd)
+      internal static let skyStart = Color(asset: Asset.CoverGradients.skyStart)
+      internal static let tealEnd = Color(asset: Asset.CoverGradients.tealEnd)
+      internal static let tealStart = Color(asset: Asset.CoverGradients.tealStart)
+      internal static let yellowEnd = Color(asset: Asset.CoverGradients.yellowEnd)
+      internal static let yellowStart = Color(asset: Asset.CoverGradients.yellowStart)
+    }
+    
     // MARK: - Gradients
     enum Gradients {
-      internal static let blueEnd = Color(asset: Asset.Gradients.blueEnd)
-      internal static let bluePinkEnd = Color(asset: Asset.Gradients.bluePinkEnd)
-      internal static let bluePinkStart = Color(asset: Asset.Gradients.bluePinkStart)
-      internal static let blueStart = Color(asset: Asset.Gradients.blueStart)
       internal static let fadingBlue = Color(asset: Asset.Gradients.fadingBlue)
       internal static let fadingGreen = Color(asset: Asset.Gradients.fadingGreen)
       internal static let fadingPink = Color(asset: Asset.Gradients.fadingPink)
@@ -131,18 +146,9 @@ extension Color {
       internal static let fadingSky = Color(asset: Asset.Gradients.fadingSky)
       internal static let fadingTeal = Color(asset: Asset.Gradients.fadingTeal)
       internal static let fadingYellow = Color(asset: Asset.Gradients.fadingYellow)
-      internal static let greenOrangeEnd = Color(asset: Asset.Gradients.greenOrangeEnd)
-      internal static let greenOrangeStart = Color(asset: Asset.Gradients.greenOrangeStart)
-      internal static let pinkOrangeEnd = Color(asset: Asset.Gradients.pinkOrangeEnd)
-      internal static let pinkOrangeStart = Color(asset: Asset.Gradients.pinkOrangeStart)
-      internal static let redEnd = Color(asset: Asset.Gradients.redEnd)
-      internal static let redStart = Color(asset: Asset.Gradients.redStart)
-      internal static let skyEnd = Color(asset: Asset.Gradients.skyEnd)
-      internal static let skyStart = Color(asset: Asset.Gradients.skyStart)
-      internal static let tealEnd = Color(asset: Asset.Gradients.tealEnd)
-      internal static let tealStart = Color(asset: Asset.Gradients.tealStart)
-      internal static let yellowEnd = Color(asset: Asset.Gradients.yellowEnd)
-      internal static let yellowStart = Color(asset: Asset.Gradients.yellowStart)
+      internal static let green = Color(asset: Asset.Gradients.green)
+      internal static let orange = Color(asset: Asset.Gradients.orange)
+      internal static let white = Color(asset: Asset.Gradients.white)
     }
     
     // MARK: - ModalScreen

@@ -1,11 +1,11 @@
-public enum SubscriptionData: Equatable {
+public enum SubscriptionData: Equatable, Sendable {
     case search(Search)
     case objects(Object)
 }
 
 extension SubscriptionData {
 
-    public struct Search: Equatable {
+    public struct Search: Equatable, Sendable {
         public let identifier: String
         public let sorts: [DataviewSort]
         public let filters: [DataviewFilter]
@@ -48,7 +48,7 @@ extension SubscriptionData {
         }
     }
 
-    public struct Object: Equatable {
+    public struct Object: Equatable, Sendable {
 
         public let identifier: String
         public let objectIds: [String]

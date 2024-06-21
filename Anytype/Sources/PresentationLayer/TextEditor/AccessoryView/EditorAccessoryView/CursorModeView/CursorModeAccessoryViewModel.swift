@@ -42,22 +42,3 @@ final class CursorModeAccessoryViewModel {
         onActionHandler?(action)
     }
 }
-
-// MARK: - Analytics
-extension CursorModeAccessoryViewAction {
-    typealias AnalyticsConstants = AnalyticsEventsName.KeyboardBarAction
-    var analyticsEvent: String {
-        switch self {
-        case .slashMenu:
-            return AnalyticsConstants.slashMenu
-        case .keyboardDismiss:
-            return AnalyticsConstants.hideKeyboard
-        case .showStyleMenu:
-            return AnalyticsConstants.styleMenu
-        case .mention:
-            return AnalyticsConstants.mentionMenu
-        case .editingMode:
-            return AnalyticsConstants.selectionMenu
-        }
-    }
-}

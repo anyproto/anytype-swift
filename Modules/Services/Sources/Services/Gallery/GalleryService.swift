@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public protocol GalleryServiceProtocol: AnyObject {
+public protocol GalleryServiceProtocol: AnyObject, Sendable {
     func manifest(url: String) async throws -> GalleryManifest
     func importExperience(spaceId: String, isNewSpace: Bool, title: String, url: String) async throws
 }

@@ -66,6 +66,14 @@ final class HomeWidgetsViewModel: ObservableObject {
         }
     }
     
+    func onAppear() {
+        if #available(iOS 17.0, *) {
+            if activeWorkspaceStorage.spaceView()?.spaceAccessType == .private {
+                SpaceShareTip.didOpenPrivateSpace = true
+            }
+        }
+    }
+    
     func onEditButtonTap() {
         AnytypeAnalytics.instance().logEditWidget()
         homeState = .editWidgets

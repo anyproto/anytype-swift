@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public protocol ObjectSubscriptionServiceProtocol {
+public protocol ObjectSubscriptionServiceProtocol: Sendable {
     func objectSubscribe(data: SubscriptionData.Object) async throws -> ObjectSubscriptionResponse
     func objectSearchSubscribe(data: SubscriptionData.Search) async throws -> ObjectSubscriptionResponse
     func stopSubscriptions(ids: [String]) async throws

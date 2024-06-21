@@ -35,6 +35,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     private weak var output: EditorPageModuleOutput?
     lazy var subscriptions = [AnyCancellable]()
+    private var didScrollToInitialBlock = false
 
     @Published var bottomPanelHidden: Bool = false
     @Published var bottomPanelHiddenAnimated: Bool = true
@@ -134,10 +135,21 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
         viewInput?.update(changes: difference, allModels: modelsHolder.items, isRealData: true) { [weak self] in
             guard let self else { return }
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
+            initialScrollToBlockIfNeeded()
         }
     }
     
-
+    private func initialScrollToBlockIfNeeded() {
+        guard
+            !didScrollToInitialBlock,
+            let blockId = configuration.blockId,
+            let index = modelsHolder.items.firstIndex(blockId: blockId) else { return }
+        
+        let item = modelsHolder.items[index]
+        viewInput?.scrollToItem(item)
+        didScrollToInitialBlock = true
+    }
+    
     private func difference(
         with blockIds: Set<String>
     ) -> CollectionDifference<EditorItem> {

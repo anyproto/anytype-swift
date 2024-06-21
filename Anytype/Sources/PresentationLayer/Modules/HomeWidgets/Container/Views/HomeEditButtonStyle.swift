@@ -18,7 +18,7 @@ struct HomeEditButton: View {
         )
         .background(.thinMaterial)
         .cornerRadius(8, style: .continuous)
-        .opacity(homeState.isReadWrite ? 1 : 0)
+        .hidden(!homeState.isReadWrite)
         .animation(.default, value: homeState)
     }
 }

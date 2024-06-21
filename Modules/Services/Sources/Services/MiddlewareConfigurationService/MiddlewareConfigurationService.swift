@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public protocol MiddlewareConfigurationServiceProtocol {
+public protocol MiddlewareConfigurationServiceProtocol: Sendable {
     func libraryVersion() async throws -> String
 }
 

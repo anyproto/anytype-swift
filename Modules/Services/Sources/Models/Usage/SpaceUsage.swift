@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct SpaceUsage {
+public struct SpaceUsage: Sendable {
     public var spaceID: String
     public var filesCount: Int64
     public var cidsCount: Int64

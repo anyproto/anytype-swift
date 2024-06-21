@@ -7,7 +7,7 @@ public typealias MembershipPaymentMethod = Anytype_Model_Membership.PaymentMetho
 public typealias AnyNameExtension = Anytype_Model_NameserviceNameType
 
 
-public struct AnyName: Equatable {
+public struct AnyName: Equatable, Sendable {
     public let handle: String
     public let `extension`: AnyNameExtension
     
@@ -17,7 +17,7 @@ public struct AnyName: Equatable {
     }
 }
 
-public struct MembershipStatus: Equatable {
+public struct MembershipStatus: Equatable, Sendable {
     public let tier: MembershipTier?
     public let status: MembershipSubscriptionStatus
     public let dateEnds: Date

@@ -1,7 +1,7 @@
 import ProtobufMessages
 import SwiftProtobuf
 
-public enum BlockInformationConverter {
+public enum BlockInformationConverter: Sendable {
     
     public static func convert(block: Anytype_Model_Block) -> BlockInformation? {
         guard let content = block.content else {
@@ -9,7 +9,7 @@ public enum BlockInformationConverter {
         }
 
         let blockContent = BlocksModelsConverter.convert(middleware: content) ?? .unsupported
-        let horizontalAlignment = block.align.asBlockModel ?? .left
+        let horizontalAlignment = block.align
         let color = MiddlewareColor(rawValue: block.backgroundColor)
         let info =  BlockInformation(
             id: block.id,
@@ -33,7 +33,7 @@ public enum BlockInformationConverter {
         let restrictions = Anytype_Model_Block.Restrictions()
         let childrenIds = information.childrenIds
         let backgroundColor = information.backgroundColor?.rawValue ?? ""
-        let horizontalAlignment = information.horizontalAlignment.asMiddleware
+        let horizontalAlignment = information.horizontalAlignment
 
         return Anytype_Model_Block.with {
             $0.id = id

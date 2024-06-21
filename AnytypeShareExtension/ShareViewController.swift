@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 import MobileCoreServices
 import SharedContentManager
 import DeepLinks
+import AnytypeCore
 
 class ShareViewController: SLComposeServiceViewController {
 
@@ -35,7 +36,8 @@ class ShareViewController: SLComposeServiceViewController {
     }
     
     private func storeSharedItems(extensionItem: NSExtensionItem) async {
-        let sharedItems = await sharedContentManager.importAndSaveItem(item: extensionItem)
+        let safeExtensionItem = SafeSendable(value: extensionItem)
+        let sharedItems = await sharedContentManager.importAndSaveItem(item: safeExtensionItem)
         if !sharedItems.items.isEmpty {
             openMainApp()
         }

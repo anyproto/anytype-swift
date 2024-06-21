@@ -97,6 +97,7 @@ internal extension ImageAsset {
   enum TextStyles {
     enum Align {
       static let center = ImageAsset.bundle(name: "TextStyles/Align/Center")
+      static let justify = ImageAsset.bundle(name: "TextStyles/Align/Justify")
       static let `left` = ImageAsset.bundle(name: "TextStyles/Align/Left")
       static let `right` = ImageAsset.bundle(name: "TextStyles/Align/Right")
     }
@@ -198,6 +199,7 @@ internal extension ImageAsset {
     static let addNew = ImageAsset.bundle(name: "x32/Add New")
     enum Align {
       static let center = ImageAsset.bundle(name: "x32/Align/Center")
+      static let justify = ImageAsset.bundle(name: "x32/Align/Justify")
       static let `left` = ImageAsset.bundle(name: "x32/Align/Left")
       static let `right` = ImageAsset.bundle(name: "x32/Align/Right")
     }
@@ -353,6 +355,7 @@ internal extension ImageAsset {
   static let relationLockedSmall = ImageAsset.bundle(name: "relation_locked_small")
   static let relationNew = ImageAsset.bundle(name: "relation_new")
   static let relationRemoveFromFeatured = ImageAsset.bundle(name: "relation_remove_from_featured")
+  static let handPointLeft = ImageAsset.bundle(name: "HandPointLeft")
   static let webPage = ImageAsset.bundle(name: "web_page")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
@@ -372,6 +375,11 @@ internal extension ImageAsset {
   }
   enum Format {
     static let unknown = ImageAsset.bundle(name: "format/unknown")
+  }
+  enum SpaceShareTip {
+    static let step1 = ImageAsset.bundle(name: "SpaceShareTip/step1")
+    static let step2 = ImageAsset.bundle(name: "SpaceShareTip/step2")
+    static let step3 = ImageAsset.bundle(name: "SpaceShareTip/step3")
   }
   enum StyleBottomSheet {
     static let bullet = ImageAsset.bundle(name: "StyleBottomSheet/bullet")

@@ -43,3 +43,13 @@ for_lane :install_appstore_profiles do
 	type("appstore")
 	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
 end
+
+for_lane :delete_dev_certs do
+	type("development")
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"]])
+end
+
+for_lane :delete_appstore_certs do
+	type("appstore")
+	app_identifier([ENV["APP_ID_DEVELOP"], ENV["APP_WIDGET_ID_DEVELOP"], ENV["APP_SHARE_EXTENSION_ID_DEVELOP"], ENV["APP_ID_RELEASE"], ENV["APP_WIDGET_ID_RELEASE"], ENV["APP_SHARE_EXTENSION_ID_RELEASE"]]) 
+end

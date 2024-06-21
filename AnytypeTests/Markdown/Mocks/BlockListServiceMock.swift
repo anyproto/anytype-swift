@@ -92,7 +92,7 @@ final class BlockServiceMock: BlockServiceProtocol {
         assertionFailure()
     }
     
-    func convertChildrenToPages(contextId: String, blocksIds: [String], typeUniqueKey: Services.ObjectTypeUniqueKey) async throws -> [String] {
+    func convertChildrenToObjects(contextId: String, blocksIds: [String], typeUniqueKey: ObjectTypeUniqueKey, templateId: String) async throws -> [String] {
         assertionFailure()
         return []
     }

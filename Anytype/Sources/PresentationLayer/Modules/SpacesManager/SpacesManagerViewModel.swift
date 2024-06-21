@@ -11,7 +11,7 @@ final class SpacesManagerViewModel: ObservableObject {
     @Injected(\.workspaceService)
     private var workspaceService: WorkspaceServiceProtocol
     
-    @Published var participantSpaces: [ParticipantSpaceView] = []
+    @Published var participantSpaces: [ParticipantSpaceViewData] = []
     @Published var spaceForCancelRequestAlert: SpaceView?
     @Published var spaceForStopSharingAlert: SpaceView?
     @Published var spaceForLeaveAlert: SpaceView?
@@ -31,30 +31,30 @@ final class SpacesManagerViewModel: ObservableObject {
         }
     }
     
-    func onDelete(row: ParticipantSpaceView) async throws {
+    func onDelete(row: ParticipantSpaceViewData) async throws {
         spaceViewForDelete = row.spaceView
     }
     
-    func onLeave(row: ParticipantSpaceView) async throws {
+    func onLeave(row: ParticipantSpaceViewData) async throws {
         spaceForLeaveAlert = row.spaceView
     }
         
-    func onCancelRequest(row: ParticipantSpaceView) async throws {
+    func onCancelRequest(row: ParticipantSpaceViewData) async throws {
         spaceForCancelRequestAlert = row.spaceView
     }
     
-    func onArchive(row: ParticipantSpaceView) async throws {
+    func onArchive(row: ParticipantSpaceViewData) async throws {
         let tempDir = FileManager.default.createTempDirectory()
         let path = try await workspaceService.workspaceExport(spaceId: row.spaceView.targetSpaceId, path: tempDir.path)
         exportSpaceUrl = URL(fileURLWithPath: path)
     }
     
-    func onStopSharing(row: ParticipantSpaceView) {
+    func onStopSharing(row: ParticipantSpaceViewData) {
         spaceForStopSharingAlert = row.spaceView
     }
 }
 
-private extension ParticipantSpaceView {
+private extension ParticipantSpaceViewData {
     var sortingWeight: Int {
         
         if spaceView.accountStatus == .spaceRemoving {

@@ -10,6 +10,10 @@ public extension LayoutAlignment {
             return "Center"
         case .right:
             return "Right"
+        case .justify:
+            return "Justify"
+        case .UNRECOGNIZED:
+            return "UNRECOGNIZED"
         }
     }
 }

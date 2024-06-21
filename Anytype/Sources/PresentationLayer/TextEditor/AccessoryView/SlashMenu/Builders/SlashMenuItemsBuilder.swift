@@ -32,7 +32,7 @@ struct SlashMenuItemsBuilder {
                 if type == .italic, restrictions.canApplyItalic {
                     result.append(.style(type))
                 }
-                if (type == .code || type == .strikethrough), restrictions.canApplyOtherMarkup {
+                if (type == .code || type == .strikethrough || type == .underline), restrictions.canApplyOtherMarkup {
                     result.append(.style(type))
                 }
             }

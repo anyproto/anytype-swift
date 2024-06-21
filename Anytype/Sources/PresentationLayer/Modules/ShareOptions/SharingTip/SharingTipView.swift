@@ -48,11 +48,15 @@ struct SharingTipView: View {
             Spacer.fixedHeight(39)
             carouselImages
             Spacer.fixedHeight(32)
-            VStack(alignment: .leading) {
-                ForEach(1...4, id: \.self) { i in
-                    stepTextView(step: i)
+            HStack {
+                VStack(alignment: .leading) {
+                    ForEach(1...4, id: \.self) { i in
+                        stepTextView(step: i)
+                    }
                 }
-            }.padding(.leading, 24)
+                Spacer()
+            }
+            .padding(.leading, 24)
             Spacer.fixedHeight(36)
             StandardButton(
                 Loc.Sharing.Tip.Button.title,
@@ -70,8 +74,8 @@ struct SharingTipView: View {
         LinearGradient(
             gradient: Gradient(
                 colors: [
-                    UIColor.Text.labelInversion.suColor,
-                    UIColor.Additional.gradient.suColor
+                    .Gradients.white,
+                    .Gradients.green
                 ]
             ),
             startPoint: .init(x: 0.8, y: 0.8),
@@ -147,11 +151,18 @@ private enum SharingTipStep: Int {
     }
 }
 
-#Preview {
-    if #available(iOS 17.0, *) {
-        SharingTipView()
-    } else {
-        EmptyView()
+// Fix Xcode warning
+struct SharingTipPreviewView: View {
+    var body: some View {
+        if #available(iOS 17.0, *) {
+            SharingTipView()
+        } else {
+            EmptyView()
+        }
     }
+}
+
+#Preview {
+    SharingTipPreviewView()
 }
 
