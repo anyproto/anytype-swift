@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Pusty kosz";
 "Widgets.Actions.AddBelow" = "Dodaj poniżej";
 "Widgets.Actions.NewObject" = "Nowy obiekt";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Typ widżetu";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Drzewo";
