@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Svuota Cestino";
 "Widgets.Actions.AddBelow" = "Aggiungi sotto";
 "Widgets.Actions.NewObject" = "Nuovo Oggetto";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Tipo di widget";
 "Widgets.Layout.Link.Title" = "Collegamento";
 "Widgets.Layout.Tree.Title" = "Albero";
