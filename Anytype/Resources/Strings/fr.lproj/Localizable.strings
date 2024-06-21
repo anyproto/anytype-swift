@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Vider la poubelle";
 "Widgets.Actions.AddBelow" = "Ajouter en dessous";
 "Widgets.Actions.NewObject" = "Nouvel Objet";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Type de widget";
 "Widgets.Layout.Link.Title" = "Lien";
 "Widgets.Layout.Tree.Title" = "Arborescence";

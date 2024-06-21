@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Tøm papirkurven";
 "Widgets.Actions.AddBelow" = "Legg til under";
 "Widgets.Actions.NewObject" = "Nytt objekt";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget-type";
 "Widgets.Layout.Link.Title" = "Lenke";
 "Widgets.Layout.Tree.Title" = "Tre";

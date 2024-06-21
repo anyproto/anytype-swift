@@ -794,6 +794,7 @@
 "Widgets.Actions.EmptyBin" = "清空废纸篓";
 "Widgets.Actions.AddBelow" = "在下面添加";
 "Widgets.Actions.NewObject" = "新建对象";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "小部件类型";
 "Widgets.Layout.Link.Title" = "链接";
 "Widgets.Layout.Tree.Title" = "树状图";

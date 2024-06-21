@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
 "Widgets.Actions.NewObject" = "Новый объект";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Тип виджета";
 "Widgets.Layout.Link.Title" = "Ссылка";
 "Widgets.Layout.Tree.Title" = "Дерево";
