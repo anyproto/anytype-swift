@@ -48,7 +48,7 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
-        return details.subtitle
+        return details.objectType.name
     }
     
     // MARK: - Private
