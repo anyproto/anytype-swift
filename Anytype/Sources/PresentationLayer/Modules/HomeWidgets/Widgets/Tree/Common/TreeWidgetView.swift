@@ -42,21 +42,16 @@ struct TreeWidgetView: View {
     }
     
     var content: some View {
-        ZStack {
+        WidgetContainerWithEmptyState(
+            showEmpty: (model.rows?.isEmpty ?? false)
+        ) {
             if let rows = model.rows {
-                VStack(spacing: 0) {
-                    WidgetEmptyView(title: Loc.Widgets.Empty.title)
-                        .frame(height: rows.isEmpty ? 72 : 0)
-                    Spacer.fixedHeight(8)
-                }
-                .setZeroOpacity(rows.isNotEmpty)
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.rowId) {
                         TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
                     }
                     Spacer.fixedHeight(8)
                 }
-                .setZeroOpacity(rows.isEmpty)
             }
         }
     }

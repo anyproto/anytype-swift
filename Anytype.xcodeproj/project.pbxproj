@@ -798,6 +798,7 @@
 		2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF00922ACF0040000D01F8 /* HomePath.swift */; };
 		2ADF94D429CDAFB000F6FFCC /* EnvironmentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */; };
 		2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */; };
+		2AE106782C2584A5003B5E70 /* WidgetContainerWithEmptyState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE106772C2584A5003B5E70 /* WidgetContainerWithEmptyState.swift */; };
 		2AE10778296C258400BAB22A /* View+LegacyAdopt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */; };
 		2AE1558C2A31BB220049C387 /* ListWidgetStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE1558B2A31BB220049C387 /* ListWidgetStyle.swift */; };
 		2AE1559A2A31C6170049C387 /* ListWidgetCompactRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */; };
@@ -2585,6 +2586,7 @@
 		2ADF00922ACF0040000D01F8 /* HomePath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePath.swift; sourceTree = "<group>"; };
 		2ADF94D329CDAFB000F6FFCC /* EnvironmentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentConfiguration.swift; sourceTree = "<group>"; };
 		2ADFA9DB2949C61D00F64688 /* UIKitModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitModule.swift; sourceTree = "<group>"; };
+		2AE106772C2584A5003B5E70 /* WidgetContainerWithEmptyState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContainerWithEmptyState.swift; sourceTree = "<group>"; };
 		2AE10777296C258400BAB22A /* View+LegacyAdopt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+LegacyAdopt.swift"; sourceTree = "<group>"; };
 		2AE1558B2A31BB220049C387 /* ListWidgetStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetStyle.swift; sourceTree = "<group>"; };
 		2AE155992A31C6170049C387 /* ListWidgetCompactRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetCompactRow.swift; sourceTree = "<group>"; };
@@ -5711,6 +5713,7 @@
 				2A1F94922979579B00E25782 /* CommonWidgetModuleOutput.swift */,
 				2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */,
 				2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */,
+				2AE106772C2584A5003B5E70 /* WidgetContainerWithEmptyState.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -11310,6 +11313,7 @@
 				2A66937C2A7104EA007747DD /* ObjectIconImageUsecase+Image.swift in Sources */,
 				53FF7C4526F7523B00A5A592 /* AudioProgressSlider.swift in Sources */,
 				3DEFBB632BEB9EB10076832B /* MembershipNameFinalizationViewModel.swift in Sources */,
+				2AE106782C2584A5003B5E70 /* WidgetContainerWithEmptyState.swift in Sources */,
 				2A5BA75F2A17C2A10049B3B4 /* AnytypeErrorLoggerConfiguration.swift in Sources */,
 				2ECF1DD02BBEF25B007C68E2 /* GlobalSearchCell.swift in Sources */,
 				120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */,
