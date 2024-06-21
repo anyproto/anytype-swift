@@ -793,6 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Lixeira Limpa";
 "Widgets.Actions.AddBelow" = "Adicionar abaixo";
 "Widgets.Actions.NewObject" = "Novo Objeto";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Tipo de widget";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Árvore";
