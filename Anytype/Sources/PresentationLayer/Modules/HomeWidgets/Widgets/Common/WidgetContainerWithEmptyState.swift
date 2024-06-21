@@ -12,17 +12,16 @@ struct WidgetContainerWithEmptyState<Content: View>: View {
     }
     
     var body: some View {
-        ZStack {
+        if showEmpty {
             VStack(spacing: 0) {
                 WidgetEmptyView(title: Loc.Widgets.Empty.title)
                     .frame(height: showEmpty ? 72 : 0)
                 Spacer.fixedHeight(8)
             }
-            .setZeroOpacity(!showEmpty)
             .transition(.opacity)
-            
+        } else {
             content
-                .setZeroOpacity(showEmpty)
+                .transition(.opacity)
         }
     }
 }
