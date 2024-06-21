@@ -1,7 +1,7 @@
 import Foundation
 import AnytypeCore
 
-public class ToggleStorage {
+public final class ToggleStorage: @unchecked Sendable {
     public static let shared = ToggleStorage()
     
     private var toggles = SynchronizedDictionary<String, Bool>()
