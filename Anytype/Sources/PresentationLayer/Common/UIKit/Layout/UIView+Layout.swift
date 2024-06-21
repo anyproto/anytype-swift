@@ -10,6 +10,7 @@ public extension UIView {
     }
 
     /// Type statically contains all available layout strategies
+    @MainActor
     struct LayoutStrategy {
 
         let root: UIView
