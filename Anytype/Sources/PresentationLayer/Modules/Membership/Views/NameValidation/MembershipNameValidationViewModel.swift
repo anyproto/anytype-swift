@@ -60,7 +60,7 @@ final class MembershipNameValidationViewModel: ObservableObject {
             do {
                 try await membershipService.validateName(name: name, tierType: tier.type)
                 state = .validated
-            } catch let error as CancellationError {
+            } catch _ as CancellationError {
                 return
             } catch let error {
                 state = .error(text: error.localizedDescription)
