@@ -5,6 +5,7 @@ import Services
 import AnytypeCore
 
 protocol TemplatesCoordinatorProtocol {
+    @MainActor
     func showTemplatesPicker(
         document: BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void

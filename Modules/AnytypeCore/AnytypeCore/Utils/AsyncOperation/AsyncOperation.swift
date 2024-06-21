@@ -6,7 +6,7 @@
 //
 import Foundation
 
-open class AsyncOperation: Operation {
+open class AsyncOperation: Operation, @unchecked Sendable {
     
     /// The state of an operation.
     ///

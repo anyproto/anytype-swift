@@ -16,6 +16,7 @@ enum AccessoryViewInputState {
     case search
 }
 
+@MainActor
 protocol AccessoryViewOutput: AnyObject {
     var accessoryState: AccessoryViewInputState { get set }
     
