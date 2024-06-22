@@ -344,7 +344,7 @@
 "GlobalSearch.EmptyState.subtitle" = "创建新的对象或搜索一下";
 "GlobalSearch.EmptyFilteredState.title" = "没有找到相关对象";
 "GlobalSearch.Swipe.Tip.title" = "相关的对象";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.subtitle" = "向左滑动以查看相关对象。注意，它仅适用于有相关对象的对象。";
 
 // MARK: - Home
 
@@ -794,7 +794,7 @@
 "Widgets.Actions.EmptyBin" = "清空废纸篓";
 "Widgets.Actions.AddBelow" = "在下面添加";
 "Widgets.Actions.NewObject" = "新建对象";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "查看所有对象";
 "Widgets.Layout.Screen.Title" = "小部件类型";
 "Widgets.Layout.Link.Title" = "链接";
 "Widgets.Layout.Tree.Title" = "树状图";
@@ -1088,7 +1088,7 @@
 "StoreKitServiceError.needUserAction" = "支付失败，需要用户在苹果端操作支付。";
 
 "Membership.Ad.Title" = "会员";
-"Membership.Ad.Subtitle" = "加入 Anytype Network 意味着一起书写它的故事";
+"Membership.Ad.Subtitle" = "加入 Anytype 网络，书写它的故事";
 
 "Membership.Legal.Details" = "会员计划详情";
 "Membership.Legal.Privacy" = "隐私政策";
