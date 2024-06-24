@@ -1,7 +1,7 @@
 import UIKit
 import AnytypeCore
 
-
+@MainActor
 class KeyboardEventsListnerHelper {
     
     typealias Action = (KeyboardEvent) -> Void
@@ -9,7 +9,9 @@ class KeyboardEventsListnerHelper {
     private var keyboardState = KeyboardState.hidden
     
     deinit {
-        observerTokens?.forEach { NotificationCenter.default.removeObserver($0) }
+        Task { @MainActor in
+            observerTokens?.forEach { NotificationCenter.default.removeObserver($0) }
+        }
     }
     
     init?(

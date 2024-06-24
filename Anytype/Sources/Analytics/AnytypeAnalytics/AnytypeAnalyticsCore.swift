@@ -13,7 +13,7 @@ actor AnytypeAnalyticsCore {
     private var isEnabled: Bool = true
     private var eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?
     
-    private static var anytypeAnalytics = AnytypeAnalyticsCore()
+    private static let anytypeAnalytics = AnytypeAnalyticsCore()
 
     private var eventsConfiguration: [String: EventConfigurtion] = [:]
     private var lastEvents: String = ""

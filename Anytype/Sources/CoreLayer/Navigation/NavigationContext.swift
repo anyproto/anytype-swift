@@ -2,6 +2,8 @@ import Foundation
 import UIKit
 import SwiftUI
 
+
+@MainActor
 protocol NavigationContextProtocol: AnyObject {
     @discardableResult
     func present(_ viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?) -> AnytypeDismiss

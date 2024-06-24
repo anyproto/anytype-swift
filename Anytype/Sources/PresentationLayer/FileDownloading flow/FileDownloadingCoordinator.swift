@@ -2,6 +2,8 @@ import Combine
 import UIKit
 import Services
     
+
+@MainActor
 final class FileDownloadingCoordinator {
     
     private(set) var type: FileContentType?

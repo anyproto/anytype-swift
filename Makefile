@@ -12,6 +12,8 @@ generate:
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
 	sourcery --config ./Modules/AnytypeCore/sourcery.yml
 	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
+	# We also have code generation in XCode Build phases for main target and widgets
+
 
 update-xcfilelists:
 	./Tools/SwiftGen/swiftgen config generate-xcfilelists --config ./Tools/SwiftGen/swiftgen.yml --inputs ./Tools/SwiftGen/swiftgen-inputs-files.xcfilelist --outputs ./Tools/SwiftGen/swiftgen-outputs-files.xcfilelist

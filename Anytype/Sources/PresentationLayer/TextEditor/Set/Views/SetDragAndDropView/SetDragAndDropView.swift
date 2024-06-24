@@ -2,6 +2,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 import AnytypeCore
 
+
 struct SetDragAndDropView<Content>: View where Content: View {
     
     @Binding private var dropData: SetCardDropData

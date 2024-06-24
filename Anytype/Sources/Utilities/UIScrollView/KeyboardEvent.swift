@@ -7,6 +7,7 @@ struct KeyboardEvent {
     let beginFrame: CGRect?
     let endFrame: CGRect?
     
+    @MainActor
     init?(withUserInfo userInfo: [AnyHashable: Any]?) {
         guard let userInfo = userInfo else {
             return nil
