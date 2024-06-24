@@ -12,7 +12,7 @@ private protocol AnyOptional {
 extension Optional: AnyOptional { }
 
 @propertyWrapper
-public struct UserDefault<T: Codable> {
+public struct UserDefault<T: Codable & Sendable>: Sendable {
     private let key: String
     private let defaultValue: T
 

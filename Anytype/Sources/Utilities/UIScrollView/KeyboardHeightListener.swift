@@ -1,6 +1,7 @@
 import UIKit
 import Combine
 
+@MainActor
 class KeyboardHeightListener {
 
     struct AnimationAction {

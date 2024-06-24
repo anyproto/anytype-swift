@@ -1,7 +1,7 @@
 import Foundation
 
 extension ByteCountFormatter {
-    static var fileFormatter: ByteCountFormatter = {
+    static let fileFormatter: ByteCountFormatter = {
         let formatter = ByteCountFormatter.init()
         formatter.allowedUnits = .useAll
         formatter.allowsNonnumericFormatting = true

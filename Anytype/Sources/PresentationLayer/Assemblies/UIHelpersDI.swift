@@ -16,6 +16,7 @@ extension Container {
         self { NavigationContext() }
     }
     
+    @MainActor
     var keyboardHeightListener: Factory<KeyboardHeightListener> {
         self { KeyboardHeightListener() }
     }
