@@ -49,7 +49,6 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         .minSize(height: 0)
         .margins(.vertical, 0)
         .margins(.horizontal, 20)
-        .background(info.backgroundColor?.backgroundColor.swiftColor ?? .Background.primary)
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
