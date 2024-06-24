@@ -13,7 +13,7 @@ final class FileActionsService: FileActionsServiceProtocol {
     
     private enum Constants {
         static let filesDirectory = "fileServiceCache"
-        static var supportedUploadedTypes: [String] = [
+        static let supportedUploadedTypes: [String] = [
             // We are don't support heic and other platform specific types
             // Picture
             UTType.image,

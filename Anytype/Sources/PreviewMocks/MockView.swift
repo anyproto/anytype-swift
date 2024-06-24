@@ -16,6 +16,7 @@ import AnytypeCore
 ///    SomeModuleView()
 /// }
 ///
+@MainActor
 struct MockView<Content: View>: View {
     
     private let content: Content
