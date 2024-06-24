@@ -14,7 +14,9 @@ class KeyboardHeightListener {
     @Published var currentKeyboardFrame: CGRect = .zero
     
     private let animationChangeSubject = PassthroughSubject<AnimationAction, Never>()
-    lazy var animationChangePublisher = animationChangeSubject.eraseToAnyPublisher()
+    var animationChangePublisher: AnyPublisher<KeyboardHeightListener.AnimationAction, Never> {
+        animationChangeSubject.eraseToAnyPublisher()
+    }
     
     private var keyboardListenerHelper: KeyboardEventsListnerHelper?
 

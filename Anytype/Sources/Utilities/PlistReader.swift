@@ -4,7 +4,7 @@ import UIKit
 enum PlistReader {
     class BaseReader {
         typealias Output = [String : AnyObject]
-        var dictionary: Output?
+        let dictionary: Output?
         
         required init(_ dictionary: Output?) {
             self.dictionary = dictionary
@@ -55,7 +55,7 @@ extension PlistReader {
             .init(Bundle.main.infoDictionary as Output?)
         }
         
-        static var current: BuildConfiguration = .init(Bundle.main.infoDictionary as Output?)
+        static let current = BuildConfiguration(Bundle.main.infoDictionary as Output?)
         
         var userDefinedSettings: Output? {
             self.dictionary?["UserDefinedSettings"] as? Output
