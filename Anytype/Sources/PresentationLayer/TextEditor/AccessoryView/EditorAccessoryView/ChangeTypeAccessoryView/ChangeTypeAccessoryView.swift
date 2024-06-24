@@ -8,7 +8,7 @@ class ChangeTypeAccessoryView: UIView {
         static let padding: CGFloat = 16
         static let topViewHeight: CGFloat = 44
         static let typeviewHeight: CGFloat = 52
-        static let doneButtonWidth: CGFloat = 45
+        static let doneButtonWidth: CGFloat = 100
         static let expandedHeight: CGFloat = 96
         static let minimizedHeight: CGFloat = 44
     }
