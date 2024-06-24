@@ -35,6 +35,5 @@ struct EditorFeaturedRelationsView: View {
             }
         )
         .padding(.top, 8)
-        .padding(.horizontal, 8)
     }
 }
