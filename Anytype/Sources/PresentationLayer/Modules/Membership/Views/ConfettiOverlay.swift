@@ -1,7 +1,7 @@
 import SwiftUI
 import ConfettiSwiftUI
 
-@MainActor
+
 struct ConfettiOverlay: View {
     @Binding var fireConfetti: Bool
     @State private var counter: Int = 0

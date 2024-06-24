@@ -9,7 +9,6 @@ fileprivate struct DebugTierData {
 }
 
 
-@MainActor
 struct MembershipDebugView: View {
     @Injected(\.membershipService)
     private var service: MembershipServiceProtocol

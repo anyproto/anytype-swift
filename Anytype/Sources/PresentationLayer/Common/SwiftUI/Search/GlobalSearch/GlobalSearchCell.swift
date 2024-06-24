@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 import Services
 
-@MainActor
+
 struct GlobalSearchCell: View {
     
     let data: GlobalSearchData

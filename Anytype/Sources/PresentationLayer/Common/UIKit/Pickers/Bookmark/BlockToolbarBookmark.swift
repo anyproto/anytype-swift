@@ -105,7 +105,6 @@ extension BlockToolbarBookmark.InputView {
 import WebKit
 extension BlockToolbarBookmark {
     // MARK: - View / WebView
-    @MainActor
     struct WebView: UIViewRepresentable {
         var urlType: WebUrl = .publicUrl
         // Viewmodel object
@@ -150,7 +149,6 @@ extension BlockToolbarBookmark {
             }
         }
         
-        @MainActor
         class Coordinator : NSObject, WKNavigationDelegate {
             var parent: WebView
             var webViewNavigationSubscriber: AnyCancellable? = nil

@@ -165,7 +165,6 @@ public extension UIView {
 }
 
 extension View {
-    @MainActor
     func asUIView() -> UIView {
         UIHostingController(rootView: self).view
     }

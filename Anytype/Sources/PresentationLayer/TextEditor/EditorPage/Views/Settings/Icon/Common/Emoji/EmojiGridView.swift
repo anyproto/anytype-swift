@@ -1,7 +1,6 @@
 import SwiftUI
 
 
-@MainActor
 struct EmojiGridView: View {
     
     let onEmojiSelect: (EmojiData) -> ()
