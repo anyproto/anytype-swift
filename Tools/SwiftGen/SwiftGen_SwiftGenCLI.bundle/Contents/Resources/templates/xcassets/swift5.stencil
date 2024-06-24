@@ -1,6 +1,6 @@
 // swiftlint:disable all
 // Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
-// %RepoRoot%/Tools/SwiftGen 
+// Location: %RepoRoot%/Tools/SwiftGen 
 
 {% if catalogs %}
 {% set enumName %}{{param.enumName|default:"Asset"}}{% endset %}

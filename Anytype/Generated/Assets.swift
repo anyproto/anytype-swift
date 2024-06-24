@@ -192,9 +192,7 @@ internal final class ColorAsset: Sendable {
   #endif
 
   @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  internal var color: Color {
-    Color(asset: self)
-  }
+  internal var color: Color { Color(asset: self) }
 
   #if os(iOS) || os(tvOS)
   @available(iOS 11.0, tvOS 11.0, *)

@@ -2,6 +2,7 @@ import SwiftUI
 import UIKit
 
 
+@MainActor
 struct FeedbackGeneratorExamplesView: View {
     
     private let sections: [SectionModel] = makeSections()
