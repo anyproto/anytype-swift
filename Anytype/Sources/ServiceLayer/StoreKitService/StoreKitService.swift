@@ -59,7 +59,11 @@ final class StoreKitService: StoreKitServiceProtocol {
                     await transaction.finish()
                 } catch {
                     ///StoreKit has a transaction that fails verification. Don't deliver content to the user.
-                    anytypeAssertionFailure("Error in StoreKit transaction updates", info: ["Error": error.localizedDescription])
+                    anytypeAssertionFailure(
+                        "Error in StoreKit transaction updates",
+                        info: ["Error": error.localizedDescription],
+                        tags: [SentryTagKey.appArea.rawValue : SentryAppArea.payments.rawValue]
+                    )
                 }
             }
         }
@@ -92,6 +96,11 @@ final class StoreKitService: StoreKitServiceProtocol {
             } catch let error {
                 // purchase successfull and verified, but still need validation from middleware
                 // it will happen in startListenForTransactions asynchronously
+                anytypeAssertionFailure(
+                    "Error in receipt validation",
+                    info: ["Error": error.localizedDescription],
+                    tags: [SentryTagKey.appArea.rawValue : SentryAppArea.payments.rawValue]
+                )
                 return .withError(error)
             }
             

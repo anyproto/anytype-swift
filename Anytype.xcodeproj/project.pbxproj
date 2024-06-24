@@ -1199,6 +1199,7 @@
 		3D30426A2BD123A60098F80F /* MembershipTierSelectionCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3042692BD123A60098F80F /* MembershipTierSelectionCarousel.swift */; };
 		3D30426C2BD146380098F80F /* MembershipPendingInfoSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30426B2BD146380098F80F /* MembershipPendingInfoSheetView.swift */; };
 		3D30426E2BD148FA0098F80F /* AnytypeIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30426D2BD148FA0098F80F /* AnytypeIndexView.swift */; };
+		3D3202CE2C2995BC008BD3B0 /* SentryConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3202CD2C2995BC008BD3B0 /* SentryConstants.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
 		3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */; };
 		3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */; };
@@ -3003,6 +3004,7 @@
 		3D3042692BD123A60098F80F /* MembershipTierSelectionCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionCarousel.swift; sourceTree = "<group>"; };
 		3D30426B2BD146380098F80F /* MembershipPendingInfoSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipPendingInfoSheetView.swift; sourceTree = "<group>"; };
 		3D30426D2BD148FA0098F80F /* AnytypeIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeIndexView.swift; sourceTree = "<group>"; };
+		3D3202CD2C2995BC008BD3B0 /* SentryConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentryConstants.swift; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
 		3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceView.swift; sourceTree = "<group>"; };
 		3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRectCorner+Corners.swift"; sourceTree = "<group>"; };
@@ -9572,6 +9574,7 @@
 				53CC99A3280D6DD000C39CCF /* AnytypeAnalytics */,
 				530A5429269FB8FF009016AE /* AnalyticsConstants.swift */,
 				53CC99B2280DB6CC00C39CCF /* EventConfigurtion.swift */,
+				3D3202CD2C2995BC008BD3B0 /* SentryConstants.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -11852,6 +11855,7 @@
 				2A0F66492BFBA07E00F34BBD /* RecentEditCompactListWidgetSubmoduleView.swift in Sources */,
 				2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */,
 				2A35A6C02BBDA5E700CCE4F4 /* LinkToObjectSearchModuleData.swift in Sources */,
+				3D3202CE2C2995BC008BD3B0 /* SentryConstants.swift in Sources */,
 				2A35A6AE2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
 				1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */,
