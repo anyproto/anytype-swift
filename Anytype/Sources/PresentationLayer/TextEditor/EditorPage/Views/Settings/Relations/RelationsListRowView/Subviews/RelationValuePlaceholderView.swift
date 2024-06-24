@@ -24,7 +24,7 @@ struct RelationValuePlaceholderView: View {
     private func hintView(with text: String?) -> some View {
         if let text {
             AnytypeText(text, style: style.hintFont)
-                .foregroundStyle(style.hintColor)
+                .foregroundColor(style.hintColor)
                 .lineLimit(1)
         }
     }
