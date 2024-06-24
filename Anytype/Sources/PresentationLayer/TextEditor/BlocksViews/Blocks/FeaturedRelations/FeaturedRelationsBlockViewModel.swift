@@ -46,7 +46,7 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
                 onRelationTap: onRelationTap
             )
         }
-        .minSize(height: 0)
+        .minSize(width: 0, height: 0)
         .background(info.backgroundColor?.backgroundColor.swiftColor ?? .Background.primary)
     }
     
