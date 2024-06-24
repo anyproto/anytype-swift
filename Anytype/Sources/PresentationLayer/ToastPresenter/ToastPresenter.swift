@@ -18,7 +18,7 @@ protocol ToastPresenterProtocol: AnyObject {
     func showObjectCompositeAlert(prefixText: String, objectId: String, tapHandler: @escaping () -> Void)
 }
 
-class ToastPresenter: ToastPresenterProtocol {
+final class ToastPresenter: ToastPresenterProtocol {
     static var shared: ToastPresenter? // Used only for SwiftUI
 
     @Injected(\.documentsProvider)
@@ -66,7 +66,7 @@ class ToastPresenter: ToastPresenterProtocol {
         tapHandler: @escaping () -> Void
     ) {
         let objectAttributedString = NSMutableAttributedString(
-            string: firstObjectName.trimmed(numberOfCharacters: 10),
+            string: firstObjectName.trimmed(numberOfCharacters: Constants.numberOfTitleCharacters),
             attributes: ToastView.objectAttributes
         )
         objectAttributedString.append(.init(string: " "))
@@ -121,7 +121,7 @@ class ToastPresenter: ToastPresenterProtocol {
     
     private func createAttributedString(from objectDetails: ObjectDetails) -> NSAttributedString {
         return NSAttributedString(
-            string: objectDetails.title.trimmed(numberOfCharacters: 10),
+            string: objectDetails.title.trimmed(numberOfCharacters: Constants.numberOfTitleCharacters),
             attributes: ToastView.objectAttributes
         )
     }
@@ -131,5 +131,11 @@ class ToastPresenter: ToastPresenterProtocol {
         try? await targetDocument.openForPreview()
         
         return targetDocument.details
+    }
+}
+
+extension ToastPresenter {
+    enum Constants {
+        static let numberOfTitleCharacters: Int = 10
     }
 }
