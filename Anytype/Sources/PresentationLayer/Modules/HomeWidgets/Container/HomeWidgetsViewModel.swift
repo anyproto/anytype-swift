@@ -103,8 +103,12 @@ final class HomeWidgetsViewModel: ObservableObject {
         output
     }
     
-    func onCreateWidgetSelected() {
+    func onCreateWidgetFromEditMode() {
         output?.onCreateWidgetSelected(context: .editor)
+    }
+    
+    func onCreateWidgetFromHomeMode() {
+        output?.onCreateWidgetSelected(context: .home)
     }
     
     // MARK: - Private

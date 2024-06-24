@@ -38,9 +38,7 @@ private struct HomeWidgetsInternalView: View {
                             HomeWidgetSubmoduleView(widgetInfo: widgetInfo, widgetObject: model.widgetObject, homeState: $model.homeState, output: model.output)
                         }
                         BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
-                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
-                            model.onEditButtonTap()
-                        }
+                        editButtons
                     }
                     AnytypeNavigationSpacer()
                 }
@@ -51,7 +49,7 @@ private struct HomeWidgetsInternalView: View {
             .animation(.default, value: model.widgetBlocks.count)
             
             HomeBottomPanelView(homeState: $model.homeState) {
-                model.onCreateWidgetSelected()
+                model.onCreateWidgetFromEditMode()
             }
         }
         .task {
@@ -71,6 +69,17 @@ private struct HomeWidgetsInternalView: View {
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
+        }
+    }
+    
+    private var editButtons: some View {
+        EqualFitWidthHStack(spacing: 12) {
+            HomeEditButton(text: Loc.Widgets.Actions.addWidget, homeState: model.homeState) {
+                model.onCreateWidgetFromHomeMode()
+            }
+            HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
+                model.onEditButtonTap()
+            }
         }
     }
 }
