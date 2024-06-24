@@ -793,7 +793,7 @@
 "Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
 "Widgets.Actions.NewObject" = "Objek Baru";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "Lihat semua objek";
 "Widgets.Layout.Screen.Title" = "Jenis widget";
 "Widgets.Layout.Link.Title" = "Tautan";
 "Widgets.Layout.Tree.Title" = "Pohon";
@@ -803,7 +803,7 @@
 "Widgets.Layout.Link.Description" = "Versi padat dari objek";
 "Widgets.Layout.Tree.Description" = "Susunan hierarkis dari objek";
 "Widgets.Layout.List.Description" = "Widget dengan daftar tampilan dari daftar objek";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
+"Widgets.Layout.View.Description" = "Gawit dengan tampilan objek set";
 "Widgets.Layout.CompactList.Description" = "Widget dengan daftar tampilan dari daftar objek";
 "Widgets.Empty.Title" = "Tampilan data ini tidak mengandung objek";
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
@@ -1110,7 +1110,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.MoreSpaces" = "Tingkatkan untuk menambah ruang";
 "Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
 "Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.NoMoreEditors" = "Kamu tidak bisa menambah penyunting lagi";
 
 
 "Membership.Banner.Title1" = "Membangun Visi Bersama";
