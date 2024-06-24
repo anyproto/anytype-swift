@@ -92,8 +92,6 @@
 		12195395278DA46E00D53653 /* TextRelationViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12195394278DA46D00D53653 /* TextRelationViewType.swift */; };
 		1220670827314E210051A331 /* RelationsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1220670727314E210051A331 /* RelationsListViewModel.swift */; };
 		1223C8FE272693E600C34616 /* FeaturedRelationsBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C8FD272693E600C34616 /* FeaturedRelationsBlockViewModel.swift */; };
-		1223C9002726BE1C00C34616 /* FeaturedRelationBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C8FF2726BE1C00C34616 /* FeaturedRelationBlockView.swift */; };
-		1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */; };
 		1226857928D4C5E60013A28E /* AppMetricsTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1226857828D4C5E60013A28E /* AppMetricsTracker.swift */; };
 		122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122FFD42272BA7420069129A /* ObjectHeaderFilledState.swift */; };
 		123949EE279FD7320080E1CF /* FullScreenHeightPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123949ED279FD7320080E1CF /* FullScreenHeightPopupLayout.swift */; };
@@ -1871,8 +1869,6 @@
 		12195394278DA46D00D53653 /* TextRelationViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationViewType.swift; sourceTree = "<group>"; };
 		1220670727314E210051A331 /* RelationsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListViewModel.swift; sourceTree = "<group>"; };
 		1223C8FD272693E600C34616 /* FeaturedRelationsBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationsBlockViewModel.swift; sourceTree = "<group>"; };
-		1223C8FF2726BE1C00C34616 /* FeaturedRelationBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationBlockView.swift; sourceTree = "<group>"; };
-		1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationsBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		1226857828D4C5E60013A28E /* AppMetricsTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMetricsTracker.swift; sourceTree = "<group>"; };
 		122FFD42272BA7420069129A /* ObjectHeaderFilledState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderFilledState.swift; sourceTree = "<group>"; };
 		123949ED279FD7320080E1CF /* FullScreenHeightPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenHeightPopupLayout.swift; sourceTree = "<group>"; };
@@ -4341,8 +4337,6 @@
 			isa = PBXGroup;
 			children = (
 				1223C8FD272693E600C34616 /* FeaturedRelationsBlockViewModel.swift */,
-				1223C8FF2726BE1C00C34616 /* FeaturedRelationBlockView.swift */,
-				1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */,
 			);
 			path = FeaturedRelations;
 			sourceTree = "<group>";
@@ -11218,7 +11212,6 @@
 				C96B6C9D27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift in Sources */,
 				3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */,
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
-				1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */,
 				2A9D2B362B85DFFD0085EEFC /* SpacesManagerView.swift in Sources */,
 				2AC906C329B5FA3300209E39 /* ObjectWidgetInternalViewModel.swift in Sources */,
 				2A5CB4212A433C3B00ED9415 /* EditorScreenData+Details.swift in Sources */,
@@ -11353,7 +11346,6 @@
 				530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
 				2AD276462B6D232F00112215 /* GallerySpaceSelectionModuleOutput.swift in Sources */,
 				125683DE27DF1D0A003A8251 /* FilesSearchInteractor.swift in Sources */,
-				1223C9002726BE1C00C34616 /* FeaturedRelationBlockView.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* NSAttributedString+Markup.swift in Sources */,
 				2AB7AAED2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift in Sources */,
 				2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */,

@@ -1,6 +1,7 @@
 import UIKit
 import Services
 import Combine
+import SwiftUI
 
 final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let infoProvider: BlockModelInfomationProvider
@@ -8,7 +9,7 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable { info.id }
 
     private let document: BaseDocumentProtocol
-    private var featuredRelationValues: [Relation]
+    private var featuredRelations: [Relation]
     private let onRelationTap: (Relation) -> Void
     private let collectionController: EditorCollectionReloadable
     
@@ -22,7 +23,7 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     ) {
         self.infoProvider = infoProvider
         self.document = document
-        self.featuredRelationValues = document.featuredRelationsForEditor
+        self.featuredRelations = document.featuredRelationsForEditor
         self.collectionController = collectionController
         self.onRelationTap = onRelationValueTap
         
@@ -31,25 +32,22 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             .removeDuplicates()
             .sink { [weak self] newFeaturedRelations in
                 guard let self else { return }
-                self.featuredRelationValues = newFeaturedRelations
-                collectionController.reconfigure(items: [.block(self)])
+                if featuredRelations != newFeaturedRelations {
+                    self.featuredRelations = newFeaturedRelations
+                    collectionController.reconfigure(items: [.block(self)])
+                }
             }.store(in: &cancellables)
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
-        let objectType = document.details?.objectType
-        
-        return FeaturedRelationsBlockContentConfiguration(
-            featuredRelations: featuredRelationValues,
-            type: objectType?.name ?? "",
-            alignment: info.horizontalAlignment.asNSTextAlignment,
-            onRelationTap: { [weak self] relation in
-                self?.onRelationTap(relation)
-            }
-        ).cellBlockConfiguration(
-            dragConfiguration: nil,
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
-        )
+        return UIHostingConfiguration {
+            EditorFeaturedRelationsView(
+                relations: featuredRelations,
+                onRelationTap: onRelationTap
+            )
+        }
+        .minSize(height: 0)
+        .background(info.backgroundColor?.backgroundColor.swiftColor ?? .Background.primary)
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
