@@ -29,7 +29,7 @@ final class ToastView: UIView {
         label.textColor = .Text.primary
         label.textAlignment = .center;
         label.font = AnytypeFont.caption1Regular.uiKitFont
-        label.numberOfLines = 3
+        label.numberOfLines = 2
 
         backgroundColor = .clear
         

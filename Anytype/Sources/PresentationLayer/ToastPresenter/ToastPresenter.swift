@@ -66,7 +66,7 @@ class ToastPresenter: ToastPresenterProtocol {
         tapHandler: @escaping () -> Void
     ) {
         let objectAttributedString = NSMutableAttributedString(
-            string: firstObjectName.trimmed(numberOfCharacters: 16),
+            string: firstObjectName.trimmed(numberOfCharacters: 10),
             attributes: ToastView.objectAttributes
         )
         objectAttributedString.append(.init(string: " "))
@@ -121,7 +121,7 @@ class ToastPresenter: ToastPresenterProtocol {
     
     private func createAttributedString(from objectDetails: ObjectDetails) -> NSAttributedString {
         return NSAttributedString(
-            string: objectDetails.title.trimmed(numberOfCharacters: 16),
+            string: objectDetails.title.trimmed(numberOfCharacters: 10),
             attributes: ToastView.objectAttributes
         )
     }
