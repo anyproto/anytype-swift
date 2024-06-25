@@ -9,7 +9,7 @@ class KeyboardEventsListnerHelper {
     private var keyboardState = KeyboardState.hidden
     
     deinit {
-        Task { @MainActor in
+        Task { @MainActor [observerTokens] in
             observerTokens?.forEach { NotificationCenter.default.removeObserver($0) }
         }
     }
