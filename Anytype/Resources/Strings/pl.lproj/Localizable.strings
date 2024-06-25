@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Zmień typ widżetu";
 "Widgets.Actions.RemoveWidget" = "Usuń widżet";
 "Widgets.Actions.EditWidgets" = "Edytowanie widżetów";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Pusty kosz";
 "Widgets.Actions.AddBelow" = "Dodaj poniżej";
 "Widgets.Actions.NewObject" = "Nowy obiekt";
