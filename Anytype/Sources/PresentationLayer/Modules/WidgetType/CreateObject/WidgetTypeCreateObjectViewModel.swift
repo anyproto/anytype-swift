@@ -2,6 +2,7 @@ import Foundation
 import Services
 import Combine
 
+// TODO: Delete with FeatureFlags.widgetCreateWithoutType
 @MainActor
 final class WidgetTypeCreateObjectViewModel: ObservableObject {
     
