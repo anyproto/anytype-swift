@@ -6,7 +6,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
     @Published var viewName = ""
     @Published var isActiveCreateButton = true
     @Published var isActiveHeader = true
-    @Published var showUnsupportedAlert = false
+    @Published var showUnsupportedBanner = false
     private let setDocument: SetDocumentProtocol
     private var subscriptions = [AnyCancellable]()
     
@@ -45,7 +45,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
                 
                 isActiveCreateButton = setDocument.setPermissions.canCreateObject
                 isActiveHeader = setDocument.isActiveHeader()
-                showUnsupportedAlert = !setDocument.activeView.type.isSupportedOnDevice
+                showUnsupportedBanner = !setDocument.activeView.type.isSupportedOnDevice
             }
             .store(in: &subscriptions)
     }

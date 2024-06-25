@@ -59,10 +59,6 @@ final class EditorSetViewModel: ObservableObject {
         activeView.type.setContentViewType
     }
     
-    var showUnsupportedAlert: Bool {
-        !activeView.type.isSupportedOnDevice
-    }
-    
     var details: ObjectDetails? {
         setDocument.details
     }

@@ -58,6 +58,7 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
             if model.showUnsupportedBanner {
                 SetUnsupportedView()
                     .padding(.vertical, 8)
+                    .padding(.horizontal, 14)
             }
             rows
                 .transition(.opacity)

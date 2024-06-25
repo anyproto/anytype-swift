@@ -19,7 +19,7 @@ struct SetHeaderSettingsView: View {
             }
             .padding(.horizontal, 20)
             .frame(height: 56)
-            if model.showUnsupportedAlert {
+            if model.showUnsupportedBanner {
                 SetUnsupportedView()
                     .padding(.bottom, 12)
                     .padding(.horizontal, 20)
