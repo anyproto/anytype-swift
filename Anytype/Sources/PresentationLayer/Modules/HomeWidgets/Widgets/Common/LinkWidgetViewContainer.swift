@@ -117,7 +117,7 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
     @ViewBuilder
     private var arrowButton: some View {
         if allowContent {
-            Image(asset: .Widget.collapse)
+            Image(asset: .X18.Disclosure.right)
                 .foregroundColor(.Text.primary)
                 .rotationEffect(.degrees(isExpanded ? 90 : 0))
                 .increaseTapGesture(EdgeInsets(side: 10)) {

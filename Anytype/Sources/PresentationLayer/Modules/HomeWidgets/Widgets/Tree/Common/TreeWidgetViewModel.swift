@@ -181,9 +181,9 @@ private extension ObjectDetails {
     func expandedType(isExpanded: Bool, canBeExpanded: Bool) -> TreeWidgetRowViewModel.ExpandedType {
         switch editorViewType {
         case .page:
-            return links.isEmpty || !canBeExpanded ? .icon(asset: .Widget.dot) : .arrow(expanded: isExpanded)
+            return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
         case .set:
-            return isCollection ? .icon(asset: .Widget.collection) : .icon(asset: .Widget.set)
+            return .icon(asset: .X18.setOrCollection)
         }
     }
 }
