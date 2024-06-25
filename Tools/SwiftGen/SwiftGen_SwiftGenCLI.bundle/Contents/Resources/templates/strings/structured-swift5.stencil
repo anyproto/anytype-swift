@@ -74,7 +74,7 @@ import Foundation
 // MARK: - Implementation Details
 
 extension {{enumName}} {
-  private static func tr(_ table: String, _ key: String, _ args: CVarArg..., fallback value: String? = nil) -> String {
+  private static func tr(_ table: String, _ key: String, _ args: any CVarArg..., fallback value: String? = nil) -> String {
     {% if param.lookupFunction %}
     let format = {{ param.lookupFunction }}(key, table, value)
     {% else %}
