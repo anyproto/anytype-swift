@@ -86,4 +86,15 @@ extension DataviewViewType {
         case .kanban: return "Board"
         }
     }
+    
+    var isSupportedOnDevice: Bool {
+        switch self {
+        case .table, .gallery, .list:
+            return true
+        case .calendar, .graph:
+            return false
+        case .kanban:
+            return FeatureFlags.setKanbanView
+        }
+    }
 }

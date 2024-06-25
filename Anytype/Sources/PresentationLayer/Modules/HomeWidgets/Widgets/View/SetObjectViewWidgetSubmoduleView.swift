@@ -55,6 +55,11 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
     private var bodyContent: some View {
         VStack(spacing: 0) {
             ViewWidgetTabsView(items: model.headerItems)
+            if model.showUnsupportedBanner {
+                SetUnsupportedView()
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 14)
+            }
             rows
                 .transition(.opacity)
         }

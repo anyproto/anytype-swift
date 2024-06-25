@@ -40,6 +40,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     @Published var headerItems: [ViewWidgetTabsItemModel]?
     @Published var rows: SetObjectViewWidgetRows = .list(rows: [], id: "")
     @Published var allowCreateObject = true
+    @Published var showUnsupportedBanner = false
     
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
@@ -113,6 +114,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateRows() {
         withAnimation {
+            showUnsupportedBanner = !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
             switch setDocument?.activeView.type {
             case .table, .list, .kanban, .calendar, .graph, nil:
                 let listRows = rowDetails?.map { details in
