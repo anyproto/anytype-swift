@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Muuta vempaimen tyyppiä";
 "Widgets.Actions.RemoveWidget" = "Poista vempain";
 "Widgets.Actions.EditWidgets" = "Muokkaa vempaimia";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Tyhjennä roskakori";
 "Widgets.Actions.AddBelow" = "Lisää alapuolelle";
 "Widgets.Actions.NewObject" = "Uusi objekti";
