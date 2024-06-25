@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Widget'ı kaldır";
 "Widgets.Actions.EditWidgets" = "Widgetları düzenle";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Çöp kutusunu boşalt";
 "Widgets.Actions.AddBelow" = "Aşağıya ekle";
 "Widgets.Actions.NewObject" = "Yeni Nesne
