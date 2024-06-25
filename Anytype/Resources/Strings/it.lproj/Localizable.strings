@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Cambia Tipo di Widget";
 "Widgets.Actions.RemoveWidget" = "Rimuovi Widget";
 "Widgets.Actions.EditWidgets" = "Modifica Widgets";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Svuota Cestino";
 "Widgets.Actions.AddBelow" = "Aggiungi sotto";
 "Widgets.Actions.NewObject" = "Nuovo Oggetto";
