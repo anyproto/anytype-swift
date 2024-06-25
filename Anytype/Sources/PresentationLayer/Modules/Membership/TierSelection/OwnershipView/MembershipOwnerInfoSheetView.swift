@@ -143,7 +143,7 @@ struct MembershipOwnerInfoSheetView: View {
     
     private func managePaymentNotice(paymentMethod: MembershipExternalPaymentMethod) -> some View {
         Group {
-            AnytypeText(Loc.Membership.manageTier(paymentMethod.noticeTitle), style: .relation2Regular)
+            AnytypeText(paymentMethod.noticeText, style: .relation2Regular)
                 .foregroundColor(.Text.secondary)
                 .lineLimit(2)
         }

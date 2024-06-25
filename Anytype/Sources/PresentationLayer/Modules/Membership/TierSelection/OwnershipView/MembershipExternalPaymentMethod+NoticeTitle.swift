@@ -1,12 +1,12 @@
 extension MembershipExternalPaymentMethod {
-    var noticeTitle: String {
+    var noticeText: String {
         switch self {
         case .desktop:
-            Loc.desktopPlatform
+            Loc.Membership.ManageTier.desktop
         case .googlePlay:
-            Loc.androidPlatform
+            Loc.Membership.ManageTier.android
         case .appStore:
-            Loc.anotherAppleIdAccount
+            Loc.Membership.ManageTier.appleId
         }
     }
 }
