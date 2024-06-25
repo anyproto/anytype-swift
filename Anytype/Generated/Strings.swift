@@ -1303,6 +1303,7 @@ internal enum Loc {
       }
     }
     internal enum View {
+      internal static let unsupportedAlert = Loc.tr("Localizable", "Set.View.UnsupportedAlert")
       internal enum Empty {
         internal static let subtitle = Loc.tr("Localizable", "Set.View.Empty.Subtitle")
         internal static let title = Loc.tr("Localizable", "Set.View.Empty.Title")

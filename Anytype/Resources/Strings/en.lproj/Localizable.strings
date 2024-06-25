@@ -503,6 +503,9 @@
 "Set.View.Empty.Title" = "No query selected";
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Select query";
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
