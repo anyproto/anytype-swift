@@ -87,7 +87,7 @@ struct MembershipOwnerInfoSheetView: View {
             case .explorer:
                 explorerActions
             case .builder, .coCreator, .custom, .anyTeam:
-                managePaymentButton
+                managePayment
             case nil:
                 EmptyView()
             }
@@ -117,18 +117,35 @@ struct MembershipOwnerInfoSheetView: View {
         }
     }
     
-    private var managePaymentButton: some View {
+    private var managePayment: some View {
         Group {
-            if model.showMangeButton {
-                VStack(spacing: 0) {
-                    Spacer.fixedHeight(20)
-                    StandardButton(Loc.managePayment, style: .secondaryLarge) {
-                        AnytypeAnalytics.instance().logClickMembership(type: .managePayment)
-                        model.showManageSubscriptions = true
-                    }
-                }
-                .manageSubscriptionsSheet(isPresented: $model.showManageSubscriptions)
+            switch model.purchaseType {
+            case .purchasedInAppStoreWithCurrentAccount:
+                managePaymentButton
+            case .purchasedElsewhere(let externalPaymentMethod):
+                managePaymentNotice(paymentMethod: externalPaymentMethod)
+            case .none:
+                EmptyView()
             }
+        }
+    }
+    
+    private var managePaymentButton: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(20)
+            StandardButton(Loc.managePayment, style: .secondaryLarge) {
+                AnytypeAnalytics.instance().logClickMembership(type: .managePayment)
+                model.showManageSubscriptions = true
+            }
+        }
+        .manageSubscriptionsSheet(isPresented: $model.showManageSubscriptions)
+    }
+    
+    private func managePaymentNotice(paymentMethod: MembershipExternalPaymentMethod) -> some View {
+        Group {
+            AnytypeText(paymentMethod.noticeText, style: .relation2Regular)
+                .foregroundColor(.Text.secondary)
+                .lineLimit(2)
         }
     }
 }

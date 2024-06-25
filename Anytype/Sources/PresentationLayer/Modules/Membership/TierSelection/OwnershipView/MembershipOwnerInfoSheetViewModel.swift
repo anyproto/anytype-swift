@@ -7,7 +7,7 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
     
     @Published var membership: MembershipStatus = .empty
     
-    @Published var showMangeButton = false
+    @Published var purchaseType: MembershipPurchaseType?
     @Published var showManageSubscriptions = false
     @Published var showEmailVerification = false
     
@@ -33,15 +33,7 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
     }
     
     func updateState() {
-        Task {
-            let purchaseType = await metadataProvider.purchaseType(status: membership)
-            switch purchaseType {
-            case .purchasedInAppStoreWithCurrentAccount:
-                showMangeButton = true
-            case .purchasedInAppStoreWithOtherAccount, .purchasedElsewhere:
-                showMangeButton = false
-            }
-        }
+        Task { self.purchaseType = await metadataProvider.purchaseType(status: membership) }
     }
     
     func getVerificationEmail(email: String) async throws {

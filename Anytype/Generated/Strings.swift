@@ -986,6 +986,11 @@ internal enum Loc {
       internal static let terms = Loc.tr("Localizable", "Membership.Legal.Terms")
       internal static let wouldYouLike = Loc.tr("Localizable", "Membership.Legal.WouldYouLike")
     }
+    internal enum ManageTier {
+      internal static let android = Loc.tr("Localizable", "Membership.ManageTier.Android")
+      internal static let appleId = Loc.tr("Localizable", "Membership.ManageTier.AppleId")
+      internal static let desktop = Loc.tr("Localizable", "Membership.ManageTier.Desktop")
+    }
     internal enum NameForm {
       internal static let subtitle = Loc.tr("Localizable", "Membership.NameForm.Subtitle")
       internal static let title = Loc.tr("Localizable", "Membership.NameForm.Title")

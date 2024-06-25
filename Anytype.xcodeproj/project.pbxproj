@@ -1351,6 +1351,7 @@
 		3DCC549026D3B4B9002517AC /* BlockBookmarkInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCC548E26D3B4B9002517AC /* BlockBookmarkInfoView.swift */; };
 		3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCC549126D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift */; };
 		3DCC549426D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCC549326D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift */; };
+		3DCE938B2C24271900F37D86 /* MembershipExternalPaymentMethod+NoticeTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCE938A2C24271900F37D86 /* MembershipExternalPaymentMethod+NoticeTitle.swift */; };
 		3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */; };
 		3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */; };
 		3DD0CEB42B90A9C300657402 /* MembershipModuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */; };
@@ -3157,6 +3158,7 @@
 		3DCC548E26D3B4B9002517AC /* BlockBookmarkInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBookmarkInfoView.swift; sourceTree = "<group>"; };
 		3DCC549126D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkOnlyUrlConfiguration.swift; sourceTree = "<group>"; };
 		3DCC549326D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkOnlyUrlView.swift; sourceTree = "<group>"; };
+		3DCE938A2C24271900F37D86 /* MembershipExternalPaymentMethod+NoticeTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MembershipExternalPaymentMethod+NoticeTitle.swift"; sourceTree = "<group>"; };
 		3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdown.swift; sourceTree = "<group>"; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
 		3DD0CEB32B90A9C300657402 /* MembershipModuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipModuleView.swift; sourceTree = "<group>"; };
@@ -9442,6 +9444,7 @@
 			children = (
 				3DD5A5FA2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift */,
 				3DB881352B9A7002009B294F /* MembershipOwnerInfoSheetView.swift */,
+				3DCE938A2C24271900F37D86 /* MembershipExternalPaymentMethod+NoticeTitle.swift */,
 			);
 			path = OwnershipView;
 			sourceTree = "<group>";
@@ -11051,6 +11054,7 @@
 				2AAF344F295AD8D200921320 /* TreeWidgetRowView.swift in Sources */,
 				12A8CCEE26BD5F3B00090468 /* EditorItem.swift in Sources */,
 				2AB511AC29093A36005D0A91 /* BeginingOfTextMarkdownListener.swift in Sources */,
+				3DCE938B2C24271900F37D86 /* MembershipExternalPaymentMethod+NoticeTitle.swift in Sources */,
 				2E975EDC287C2325004DE574 /* RelationFilterBuilder.swift in Sources */,
 				2A96148B2A6981DF00E50D0A /* IconView.swift in Sources */,
 				3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */,
