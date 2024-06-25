@@ -55,9 +55,9 @@ private extension BlockWidget.Layout {
             return .Widget.Preview.link
         case .tree:
             return .Widget.Preview.tree
-        case .list, .view:
+        case .list:
             return .Widget.Preview.list
-        case .compactList:
+        case .compactList, .view:
             return .Widget.Preview.compactList
         case .UNRECOGNIZED:
             // Any icon for unsupportred layout
