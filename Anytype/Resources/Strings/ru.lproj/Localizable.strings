@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Изменить тип виджета";
 "Widgets.Actions.RemoveWidget" = "Удалить виджет";
 "Widgets.Actions.EditWidgets" = "Редактировать виджеты";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
 "Widgets.Actions.NewObject" = "Новый объект";
