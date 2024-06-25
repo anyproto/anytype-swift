@@ -31,6 +31,8 @@ internal enum Loc {
   internal static let alignment = Loc.tr("Localizable", "Alignment")
   internal static let amber = Loc.tr("Localizable", "Amber")
   internal static let amberBackground = Loc.tr("Localizable", "Amber background")
+  internal static let androidPlatform = Loc.tr("Localizable", "Android platform")
+  internal static let anotherAppleIdAccount = Loc.tr("Localizable", "another AppleId account")
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library")
   internal static let appearance = Loc.tr("Localizable", "Appearance")
   internal static let applicationIcon = Loc.tr("Localizable", "Application icon")
@@ -106,6 +108,7 @@ internal enum Loc {
   internal static let description = Loc.tr("Localizable", "Description")
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
+  internal static let desktopPlatform = Loc.tr("Localizable", "Desktop platform")
   internal static let done = Loc.tr("Localizable", "Done")
   internal static let download = Loc.tr("Localizable", "Download")
   internal static let downloadingOrUploadingDataToSomeNode = Loc.tr("Localizable", "Downloading or uploading data to some node")
@@ -922,6 +925,9 @@ internal enum Loc {
   }
   internal enum Membership {
     internal static let emailValidation = Loc.tr("Localizable", "Membership.EmailValidation")
+    internal static func manageTier(_ p1: Any) -> String {
+      return Loc.tr("Localizable", "Membership.ManageTier", String(describing: p1))
+    }
     internal enum Ad {
       internal static let subtitle = Loc.tr("Localizable", "Membership.Ad.Subtitle")
       internal static let title = Loc.tr("Localizable", "Membership.Ad.Title")

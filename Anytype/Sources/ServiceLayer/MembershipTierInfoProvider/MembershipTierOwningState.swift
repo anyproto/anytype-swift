@@ -1,9 +1,14 @@
 import StoreKit
 
+enum MembershipExternalPaymentMethod {
+    case desktop
+    case googlePlay
+    case appStore
+}
+
 enum MembershipPurchaseType {
     case purchasedInAppStoreWithCurrentAccount
-    case purchasedInAppStoreWithOtherAccount
-    case purchasedElsewhere
+    case purchasedElsewhere(MembershipExternalPaymentMethod)
 }
 
 enum MembershipPurchaseAvailablitiy {

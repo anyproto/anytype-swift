@@ -14,7 +14,7 @@ final class MembershipStatusStorageMock: MembershipStatusStorageProtocol {
     var currentStatus: MembershipStatus { _status }
     
     func owningState(tier: Services.MembershipTier) -> MembershipTierOwningState {
-        .owned(.purchasedElsewhere)
+        .owned(.purchasedElsewhere(.desktop))
     }
     
     func startSubscription() async {

@@ -34,19 +34,30 @@ final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
     
                 
     func purchaseType(status: MembershipStatus) async -> MembershipPurchaseType {
-        guard status.paymentMethod == .methodInappApple else {
-            return .purchasedElsewhere
+        return switch status.paymentMethod {
+        case .methodStripe, .methodCrypto, .UNRECOGNIZED, .methodNone:
+                .purchasedElsewhere(.desktop)
+        case .methodInappGoogle:
+                .purchasedElsewhere(.googlePlay)
+        case .methodInappApple:
+            await applePurchaseType(status: status)
         }
+    }
         
+    func applePurchaseType(status: MembershipStatus) async -> MembershipPurchaseType {
         switch status.tier?.paymentType {
         case .appStore(let info):
             guard let isPurchased = try? await storeKitService.isPurchased(product: info.product) else {
-                return .purchasedElsewhere
+                return .purchasedElsewhere(.appStore)
             }
             
-            return isPurchased ? .purchasedInAppStoreWithCurrentAccount : .purchasedInAppStoreWithOtherAccount
+            return isPurchased ? .purchasedInAppStoreWithCurrentAccount : .purchasedElsewhere(.appStore)
         case .external, nil:
-            return .purchasedElsewhere
+            anytypeAssertionFailure(
+                "Wrong payment type for appstore payment",
+                info: ["PaymentType": String(reflecting: status.tier?.paymentType)]
+            )
+            return .purchasedElsewhere(.desktop)
         }
     }
     

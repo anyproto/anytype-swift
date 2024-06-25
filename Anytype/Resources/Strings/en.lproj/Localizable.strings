@@ -1160,6 +1160,12 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
+
+"Membership.ManageTier" = "You can manage tier on %@";
+"Desktop platform" = "Desktop platform";
+"Android platform" = "Android platform";
+"another AppleId account" = "another AppleId account";
+
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
 "Debug.Info" = "Debug Info";
