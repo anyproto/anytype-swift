@@ -1,25 +1,23 @@
 import SwiftUI
 
-final class EditorFeaturedRelationsViewModel: ObservableObject {
-    
-    @Published var relations: [Relation] = []
-    var onRelationTap: ((Relation) -> Void)? = nil
-    
-    func updateRelations(_ relations: [Relation]) {
-        self.relations = relations
-    }
-    
-    func onRelationTap(_ relation: Relation) {
-        onRelationTap?(relation)
-    }
-}
-
 struct EditorFeaturedRelationsView: View {
-    @StateObject var model: EditorFeaturedRelationsViewModel
+    let relations: [Relation]
+    let onRelationTap: ((Relation) -> Void)
+    
+    init(relations: [Relation], onRelationTap: @escaping (Relation) -> Void) {
+        self.relations = relations
+        self.onRelationTap = onRelationTap
+    }
     
     var body: some View {
+        if relations.isNotEmpty {
+            content
+        }
+    }
+    
+    private var content: some View {
         FeaturedRelationsView(
-            relations: model.relations,
+            relations: relations,
             view: { relation in
                 RelationValueView(
                     model: RelationValueViewModel(
@@ -31,10 +29,11 @@ struct EditorFeaturedRelationsView: View {
                                 links: relation.links
                             )
                         ),
-                        mode: .button(action: { model.onRelationTap(relation) })
+                        mode: .button(action: { onRelationTap(relation) })
                     )
                 )
             }
         )
+        .padding(.top, 8)
     }
 }
