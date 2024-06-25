@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Cambiar tipo de widget";
 "Widgets.Actions.RemoveWidget" = "Eliminar widget";
 "Widgets.Actions.EditWidgets" = "Editar widgets";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Vaciar papelera";
 "Widgets.Actions.AddBelow" = "Añadir debajo";
 "Widgets.Actions.NewObject" = "Nuevo objeto";
