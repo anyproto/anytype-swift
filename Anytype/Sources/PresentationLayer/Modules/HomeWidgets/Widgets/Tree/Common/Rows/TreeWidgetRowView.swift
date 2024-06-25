@@ -59,7 +59,7 @@ struct TreeWidgetRowView: View {
             case let .icon(asset):
                 Image(asset: asset)
             case let .arrow(expanded: expanded):
-                Image(asset: .Widget.collapse)
+                Image(asset: .X18.Disclosure.right)
                     .rotationEffect(.degrees(expanded ? 90 : 0))
                     .increaseTapGesture(EdgeInsets(side: 10)) {
                         withAnimation {
@@ -73,6 +73,5 @@ struct TreeWidgetRowView: View {
             }
         }
         .foregroundColor(.Text.primary)
-        .frame(width: 20, height: 20)
     }
 }
