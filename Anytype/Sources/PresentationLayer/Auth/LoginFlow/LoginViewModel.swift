@@ -199,6 +199,8 @@ final class LoginViewModel: ObservableObject {
                 }
             } catch is CancellationError {
                 // Ignore cancellations
+            } catch SelectAccountError.accountLoadIsCanceled {
+                // Ignore load cancellation
             } catch SelectAccountError.accountIsDeleted {
                 errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {

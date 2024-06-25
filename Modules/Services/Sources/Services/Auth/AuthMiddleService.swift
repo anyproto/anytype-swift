@@ -96,7 +96,7 @@ final class AuthMiddleService: AuthMiddleServiceProtocol {
                 $0.disableLocalNetworkSync = false
                 $0.networkMode = networkMode
                 $0.networkCustomConfigFilePath = configPath ?? ""
-            }).invoke()
+            }).invoke(ignoreLogErrors: .accountLoadIsCanceled)
             
             return try response.account.asModel()
         } catch let responseError as Anytype_Rpc.Account.Select.Response.Error {
