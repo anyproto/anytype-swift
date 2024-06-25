@@ -1839,6 +1839,7 @@ internal enum Loc {
     internal static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch")
     internal enum Actions {
       internal static let addBelow = Loc.tr("Localizable", "Widgets.Actions.AddBelow")
+      internal static let addWidget = Loc.tr("Localizable", "Widgets.Actions.AddWidget")
       internal static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1)
       }

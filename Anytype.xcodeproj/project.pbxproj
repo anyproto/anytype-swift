@@ -758,6 +758,7 @@
 		2ACE879B29F2B23B00C2B2A9 /* StandardButtonConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACE879A29F2B23B00C2B2A9 /* StandardButtonConfig.swift */; };
 		2ACEAE4A2984115F00B467CE /* WidgetTypeRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ACEAE492984115F00B467CE /* WidgetTypeRowView.swift */; };
 		2ACF5CFF2B59461700EF5F28 /* SharedContentManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2ACDC9B02B553F7D0063BFBD /* SharedContentManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		2AD0610E2C29BBE7008A600C /* EqualFitWidthHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD0610D2C29BBE7008A600C /* EqualFitWidthHStack.swift */; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
 		2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8228572A520006C255 /* TableOfContentsView.swift */; };
@@ -2547,6 +2548,7 @@
 		2ACE879629F2859800C2B2A9 /* EmptyNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyNavigationLink.swift; sourceTree = "<group>"; };
 		2ACE879A29F2B23B00C2B2A9 /* StandardButtonConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButtonConfig.swift; sourceTree = "<group>"; };
 		2ACEAE492984115F00B467CE /* WidgetTypeRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeRowView.swift; sourceTree = "<group>"; };
+		2AD0610D2C29BBE7008A600C /* EqualFitWidthHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EqualFitWidthHStack.swift; sourceTree = "<group>"; };
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
 		2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsConfiguration.swift; sourceTree = "<group>"; };
 		2AD06B8228572A520006C255 /* TableOfContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsView.swift; sourceTree = "<group>"; };
@@ -8661,6 +8663,7 @@
 				3D30426D2BD148FA0098F80F /* AnytypeIndexView.swift */,
 				2ABBAEDE2BF500DF00EBA8FA /* View+URL.swift */,
 				2A0F665C2BFC81C000F34BBD /* View+TwoWayBinding.swift */,
+				2AD0610D2C29BBE7008A600C /* EqualFitWidthHStack.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -11332,6 +11335,7 @@
 				C9235F822862F573004D86BA /* SpreadsheetDataSource.swift in Sources */,
 				2A0F40322BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift in Sources */,
 				C9E939D9285390B70089CB98 /* TextBlockActionHandlerProtocol.swift in Sources */,
+				2AD0610E2C29BBE7008A600C /* EqualFitWidthHStack.swift in Sources */,
 				2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */,
 				3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */,
 				2A2B332E2A7BB0AC004BD906 /* SpaceRowView.swift in Sources */,
