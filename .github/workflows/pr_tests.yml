@@ -23,7 +23,7 @@ jobs:
           xcode-version: '15.4'
 
       - name: Download Middleware
-        run: make setup-middle
+        run: make setup-middle-ci
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 
