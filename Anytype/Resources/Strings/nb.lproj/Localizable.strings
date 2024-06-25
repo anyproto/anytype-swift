@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Endre Widget type";
 "Widgets.Actions.RemoveWidget" = "Fjern widget";
 "Widgets.Actions.EditWidgets" = "Endre widgets";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Tøm papirkurven";
 "Widgets.Actions.AddBelow" = "Legg til under";
 "Widgets.Actions.NewObject" = "Nytt objekt";

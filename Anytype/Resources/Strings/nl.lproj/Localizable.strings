@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Wijzig widget type";
 "Widgets.Actions.RemoveWidget" = "Verwijder widget";
 "Widgets.Actions.EditWidgets" = "Bewerk widget";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Leeg prullenbak";
 "Widgets.Actions.AddBelow" = "Voeg onder toe";
 "Widgets.Actions.NewObject" = "Nieuw object";

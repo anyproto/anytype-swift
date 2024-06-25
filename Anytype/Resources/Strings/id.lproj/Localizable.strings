@@ -790,6 +790,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Ubah tipe widget";
 "Widgets.Actions.RemoveWidget" = "Hapus widget";
 "Widgets.Actions.EditWidgets" = "Sunting widget";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
 "Widgets.Actions.NewObject" = "Objek Baru";

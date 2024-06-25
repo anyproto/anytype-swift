@@ -792,6 +792,7 @@
 "Widgets.Actions.ChangeWidgetType" = "變更小工具類型";
 "Widgets.Actions.RemoveWidget" = "移除小工具";
 "Widgets.Actions.EditWidgets" = "編輯小工具";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "清空垃圾桶";
 "Widgets.Actions.AddBelow" = "在下方添加";
 "Widgets.Actions.NewObject" = "建立新物件";

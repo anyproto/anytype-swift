@@ -791,6 +791,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Remove Widget";
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Đổ rác";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";

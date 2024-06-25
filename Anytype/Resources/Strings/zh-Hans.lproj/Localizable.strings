@@ -791,6 +791,7 @@
 "Widgets.Actions.ChangeWidgetType" = "更改小部件类型";
 "Widgets.Actions.RemoveWidget" = "删除小部件";
 "Widgets.Actions.EditWidgets" = "编辑小部件";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "清空废纸篓";
 "Widgets.Actions.AddBelow" = "在下面添加";
 "Widgets.Actions.NewObject" = "新建对象";
