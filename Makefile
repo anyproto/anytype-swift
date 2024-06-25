@@ -2,6 +2,9 @@ setup-middle:
 	./Scripts/middle-install.sh
 	make generate
 
+setup-middle-ci:
+	./Scripts/middle-install.sh
+
 change-github-token:
 	./Scripts/change-token.sh
 # Build from local repo
