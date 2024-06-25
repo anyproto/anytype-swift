@@ -42,6 +42,10 @@ public extension FeatureFlags {
         value(for: .galleryWidget)
     }
 
+    static var widgetCreateWithoutType: Bool {
+        value(for: .widgetCreateWithoutType)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -101,6 +105,7 @@ public extension FeatureFlags {
         .scrollToBlockFromSearch,
         .setEmptyValuesSorting,
         .galleryWidget,
+        .widgetCreateWithoutType,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

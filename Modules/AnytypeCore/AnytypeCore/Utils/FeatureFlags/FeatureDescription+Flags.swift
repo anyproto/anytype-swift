@@ -61,6 +61,12 @@ public extension FeatureDescription {
         debugValue: true
     )
     
+    static let widgetCreateWithoutType = FeatureDescription(
+        title: "Create widget without type - IOS-3049",
+        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

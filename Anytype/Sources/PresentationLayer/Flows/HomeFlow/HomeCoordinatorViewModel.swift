@@ -130,6 +130,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             position: .end,
             context: context
@@ -167,6 +168,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             position: .below(widgetId: widgetId),
             context: context

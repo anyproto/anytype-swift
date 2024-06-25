@@ -1,6 +1,7 @@
 import Foundation
 import Services
 
+// TODO: Delete with FeatureFlags.widgetCreateWithoutType
 struct WidgetTypeCreateData: Identifiable, Hashable {
     let widgetObjectId: String
     let source: WidgetSource
