@@ -18,7 +18,7 @@ struct WidgetSourceSearchView: View {
                      interactor: WidgetSourceSearchInteractor(
                         spaceId: data.spaceId
                      ),
-                     internalModel: WidgetSourceSearchSelectInternalViewModel(context: data.context, onSelect: onSelect)
+                     internalModel: WidgetSourceSearchSelectInternalViewModel(data: data, onSelect: onSelect)
                  )
              )
          )
