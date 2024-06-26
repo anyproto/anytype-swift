@@ -503,6 +503,9 @@
 "Set.View.Empty.Title" = "Ingen spørring valgt";
 "Set.View.Empty.Subtitle" = "Legg til søk etter objekter med samme typer og relasjoner i en live-modus";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Velg spørring";
 "Set.SourceType.Cancel.Toast.Title" = "Denne spørringen kan bare endres i skrivebordsappen";
@@ -1159,6 +1162,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";
