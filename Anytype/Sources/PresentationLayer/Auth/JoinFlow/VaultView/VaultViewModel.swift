@@ -9,7 +9,7 @@ final class VaultViewModel: ObservableObject {
     // MARK: - DI
     
     private let state: JoinFlowState
-    private weak var output: JoinFlowStepOutput?
+    private weak var output: (any JoinFlowStepOutput)?
     
     @Injected(\.authService)
     private var authService: any AuthServiceProtocol
@@ -18,7 +18,7 @@ final class VaultViewModel: ObservableObject {
     @Injected(\.usecaseService)
     private var usecaseService: any UsecaseServiceProtocol
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state
         self.output = output
     }

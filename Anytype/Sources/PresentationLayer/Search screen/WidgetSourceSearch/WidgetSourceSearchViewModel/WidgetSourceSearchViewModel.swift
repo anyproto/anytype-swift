@@ -17,12 +17,12 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var libraryObjects: [WidgetAnytypeLibrarySource] = []
-    private let interactor: WidgetSourceSearchInteractorProtocol
-    private let internalModel: WidgetSourceSearchInternalViewModelProtocol
+    private let interactor: any WidgetSourceSearchInteractorProtocol
+    private let internalModel: any WidgetSourceSearchInternalViewModelProtocol
     
     init(
-        interactor: WidgetSourceSearchInteractorProtocol,
-        internalModel: WidgetSourceSearchInternalViewModelProtocol
+        interactor: some WidgetSourceSearchInteractorProtocol,
+        internalModel: some WidgetSourceSearchInternalViewModelProtocol
     ) {
         self.interactor = interactor
         self.internalModel = internalModel

@@ -17,13 +17,13 @@ final class SetViewSettingsListModel: ObservableObject {
     
     let mode: SetViewSettingsMode
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     
-    private weak var output: SetViewSettingsCoordinatorOutput?
+    private weak var output: (any SetViewSettingsCoordinatorOutput)?
     
     private var cancellables = [AnyCancellable]()
     
@@ -31,7 +31,7 @@ final class SetViewSettingsListModel: ObservableObject {
     
     init(
         data: SetSettingsData,
-        output: SetViewSettingsCoordinatorOutput?
+        output: (any SetViewSettingsCoordinatorOutput)?
     ) {
         self.setDocument = data.setDocument
         self.viewId = data.viewId

@@ -6,7 +6,7 @@ import AnytypeCore
 protocol TemplateSelectionCoordinatorProtocol: AnyObject {
     @MainActor
     func showTemplatesSelection(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         dataview: DataviewView,
         onTemplateSelection: @escaping (BlockId?) -> ()
     )
@@ -20,14 +20,14 @@ protocol TemplateSelectionCoordinatorProtocol: AnyObject {
 }
 
 final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
-    private let navigationContext: NavigationContextProtocol
+    private let navigationContext: any NavigationContextProtocol
     private let templatesModuleAssembly: TemplateModulesAssembly
     private let editorAssembly: EditorAssembly
     private let objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
     private var handler: TemplateSelectionObjectSettingsHandler?
     
     init(
-        navigationContext: NavigationContextProtocol,
+        navigationContext: some NavigationContextProtocol,
         templatesModulesAssembly: TemplateModulesAssembly,
         editorAssembly: EditorAssembly,
         objectSettingCoordinator: ObjectSettingsCoordinatorProtocol
@@ -40,7 +40,7 @@ final class TemplateSelectionCoordinator: TemplateSelectionCoordinatorProtocol {
     
     @MainActor
     func showTemplatesSelection(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         dataview: DataviewView,
         onTemplateSelection: @escaping (BlockId?) -> ()
     ) {

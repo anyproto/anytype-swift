@@ -19,7 +19,7 @@ final class ApplicationCoordinatorViewModel: ObservableObject {
     @Injected(\.fileErrorEventHandler)
     private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     
-    private var authCoordinator: AuthCoordinatorProtocol?
+    private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?
     
     // MARK: - State

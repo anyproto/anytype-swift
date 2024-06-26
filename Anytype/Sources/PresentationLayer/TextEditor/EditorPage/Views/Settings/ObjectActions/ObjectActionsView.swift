@@ -5,7 +5,7 @@ struct ObjectActionsView: View {
     @StateObject private var viewModel: ObjectActionsViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(objectId: String, output: ObjectActionsOutput?) {
+    init(objectId: String, output: (any ObjectActionsOutput)?) {
         self._viewModel = StateObject(wrappedValue: ObjectActionsViewModel(objectId: objectId, output: output))
     }
     

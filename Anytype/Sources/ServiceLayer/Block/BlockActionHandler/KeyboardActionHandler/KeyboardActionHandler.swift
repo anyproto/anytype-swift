@@ -17,7 +17,7 @@ protocol KeyboardActionHandlerProtocol {
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let documentId: String
     private let spaceId: String
-    private let service: BlockActionServiceProtocol
+    private let service: any BlockActionServiceProtocol
     private let toggleStorage: ToggleStorage
     private let container: InfoContainerProtocol
     private weak var modelsHolder: EditorMainItemModelsHolder?
@@ -30,7 +30,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     init(
         documentId: String,
         spaceId: String,
-        service: BlockActionServiceProtocol,
+        service: some BlockActionServiceProtocol,
         toggleStorage: ToggleStorage,
         container: InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,

@@ -1,13 +1,13 @@
 import SwiftUI
 
 final class SetCardDropInsideDelegate: DropDelegate {
-    let dragAndDropDelegate: SetDragAndDropDelegate
+    let dragAndDropDelegate: any SetDragAndDropDelegate
     let droppingCard: SetContentViewItemConfiguration?
     let toGroupId: String
     @Binding var data: SetCardDropData
     
     init(
-        dragAndDropDelegate: SetDragAndDropDelegate,
+        dragAndDropDelegate: some SetDragAndDropDelegate,
         droppingCard: SetContentViewItemConfiguration?,
         toGroupId: String,
         data: Binding<SetCardDropData>

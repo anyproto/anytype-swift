@@ -11,7 +11,7 @@ final class MiddlewareEventConverter {
     private let restrictionsContainer: ObjectRestrictionsContainer
     
     private let informationCreator: BlockInformationCreator
-    private let statusStorage: DocumentStatusStorageProtocol
+    private let statusStorage: any DocumentStatusStorageProtocol
     
     init(
         infoContainer: InfoContainerProtocol,
@@ -19,7 +19,7 @@ final class MiddlewareEventConverter {
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage,
         restrictionsContainer: ObjectRestrictionsContainer,
-        statusStorage: DocumentStatusStorageProtocol
+        statusStorage: some DocumentStatusStorageProtocol
     ) {
         self.infoContainer = infoContainer
         self.relationLinksStorage = relationLinksStorage

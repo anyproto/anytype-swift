@@ -12,7 +12,7 @@ final class BlockFileView: UIView, BlockContentView {
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
     
-    private var document: BaseDocumentProtocol?
+    private var document: (any BaseDocumentProtocol)?
     private var targetObjectId: String?
     private var cancellable: AnyCancellable?
     

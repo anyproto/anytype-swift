@@ -13,7 +13,7 @@ final class ShareOptionsViewModel: ObservableObject {
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     
-    private weak var output: ShareOptionsModuleOutput?
+    private weak var output: (any ShareOptionsModuleOutput)?
     
     // First Group
     @Published var availableOptions: [ShareSaveAsType] = []
@@ -38,7 +38,7 @@ final class ShareOptionsViewModel: ObservableObject {
     private var linkObjectDetails: ObjectDetails?
     
     init(
-        output: ShareOptionsModuleOutput?
+        output: (any ShareOptionsModuleOutput)?
     ) {
         self.output = output
         setupData()

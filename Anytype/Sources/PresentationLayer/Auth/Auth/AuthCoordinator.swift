@@ -10,12 +10,12 @@ final class AuthCoordinator: AuthCoordinatorProtocol, AuthViewModelOutput {
     
     // MARK: - DI
     
-    private let joinFlowCoordinator: JoinFlowCoordinatorProtocol
-    private let loginFlowCoordinator: LoginFlowCoordinatorProtocol
+    private let joinFlowCoordinator: any JoinFlowCoordinatorProtocol
+    private let loginFlowCoordinator: any LoginFlowCoordinatorProtocol
     
     init(
-        joinFlowCoordinator: JoinFlowCoordinatorProtocol,
-        loginFlowCoordinator: LoginFlowCoordinatorProtocol
+        joinFlowCoordinator: some JoinFlowCoordinatorProtocol,
+        loginFlowCoordinator: some LoginFlowCoordinatorProtocol
     ) {
         self.joinFlowCoordinator = joinFlowCoordinator
         self.loginFlowCoordinator = loginFlowCoordinator

@@ -9,7 +9,7 @@ struct TreeWidgetView: View {
     
     init(
         data: WidgetSubmoduleData,
-        internalModel: WidgetInternalViewModelProtocol
+        internalModel: some WidgetInternalViewModelProtocol
     ) {
         self.data = data
         self._model = StateObject(

@@ -48,7 +48,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     @Published var canChangeObjectType = false
     @Published private var objectTypes = [ObjectType]()
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
     
     @Injected(\.templatesSubscription)
@@ -69,7 +69,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private var cancellables = [AnyCancellable]()
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String
     ) {
         self.setDocument = setDocument

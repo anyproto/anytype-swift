@@ -5,7 +5,7 @@ import FloatingPanel
 import Combine
 
 struct SetFiltersListModuleData {
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let viewId: String
 }
 
@@ -13,7 +13,7 @@ struct SetFiltersListModuleData {
 final class SetFiltersListViewModel: ObservableObject {
     @Published var rows: [SetFilterRowConfiguration] = []
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
     private var cancellable: Cancellable?
     
@@ -23,11 +23,11 @@ final class SetFiltersListViewModel: ObservableObject {
     private let relationFilterBuilder = RelationFilterBuilder()
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
-    private weak var output: SetFiltersListCoordinatorOutput?
+    private weak var output: (any SetFiltersListCoordinatorOutput)?
     
     init(
         data: SetFiltersListModuleData,
-        output: SetFiltersListCoordinatorOutput?,
+        output: (any SetFiltersListCoordinatorOutput)?,
         subscriptionDetailsStorage: ObjectDetailsStorage)
     {
         self.setDocument = data.setDocument

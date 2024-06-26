@@ -18,7 +18,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         return fileData
     }
 
-    let audioSessionService: AudioSessionServiceProtocol
+    let audioSessionService: any AudioSessionServiceProtocol
     let showVideoPicker: (String) -> ()
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {

@@ -6,7 +6,7 @@ struct SetFiltersListView: View {
     
     @State private var editMode = EditMode.inactive
     
-    init(data: SetFiltersListModuleData, output: SetFiltersListCoordinatorOutput?, subscriptionDetailsStorage: ObjectDetailsStorage) {
+    init(data: SetFiltersListModuleData, output: (any SetFiltersListCoordinatorOutput)?, subscriptionDetailsStorage: ObjectDetailsStorage) {
         _viewModel = StateObject(wrappedValue: SetFiltersListViewModel(
             data: data,
             output: output,

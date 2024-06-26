@@ -26,7 +26,7 @@ extension Array where Element == BlockRestrictions {
 }
 
 extension Array where Element == BlockInformation {
-    func blocksOptionItems(document: BaseDocumentProtocol) -> [BlocksOptionItem] {
+    func blocksOptionItems(document: some BaseDocumentProtocol) -> [BlocksOptionItem] {
         var isDownloadAvailable = true
         var isStyleAvailable = true
         var isOpenObjectAvailable = false

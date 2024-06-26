@@ -5,22 +5,22 @@ import AnytypeCore
 
 @MainActor
 final class BlockViewModelBuilder {
-    private let document: BaseDocumentProtocol
-    private let handler: BlockActionHandlerProtocol
-    private let router: EditorRouterProtocol
+    private let document: any BaseDocumentProtocol
+    private let handler: any BlockActionHandlerProtocol
+    private let router: any EditorRouterProtocol
     private let subjectsHolder: FocusSubjectsHolder
-    private let markdownListener: MarkdownListener
+    private let markdownListener: any MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
     private let infoContainer: InfoContainerProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockCollectionController: EditorBlockCollectionController
-    private let accessoryStateManager: AccessoryViewStateManager
+    private let accessoryStateManager: any AccessoryViewStateManager
     private let cursorManager: EditorCursorManager
-    private let keyboardActionHandler: KeyboardActionHandlerProtocol
+    private let keyboardActionHandler: any KeyboardActionHandlerProtocol
     private let editorPageBlocksStateManager: EditorPageBlocksStateManager
-    private let markupChanger: BlockMarkupChangerProtocol
+    private let markupChanger: any BlockMarkupChangerProtocol
     private let slashMenuActionHandler: SlashMenuActionHandler
-    private weak var output: EditorPageModuleOutput?
+    private weak var output: (any EditorPageModuleOutput)?
     
     @Injected(\.blockTableService)
     private var tableService: any BlockTableServiceProtocol
@@ -35,22 +35,22 @@ final class BlockViewModelBuilder {
     
     
     init(
-        document: BaseDocumentProtocol,
-        handler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol,
-        markdownListener: MarkdownListener,
+        document: some BaseDocumentProtocol,
+        handler: some BlockActionHandlerProtocol,
+        router: some EditorRouterProtocol,
+        markdownListener: some MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
         infoContainer: InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockCollectionController: EditorBlockCollectionController,
-        accessoryStateManager: AccessoryViewStateManager,
+        accessoryStateManager: some AccessoryViewStateManager,
         cursorManager: EditorCursorManager,
-        keyboardActionHandler: KeyboardActionHandlerProtocol,
-        markupChanger: BlockMarkupChangerProtocol,
+        keyboardActionHandler: some KeyboardActionHandlerProtocol,
+        markupChanger: some BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
         editorPageBlocksStateManager: EditorPageBlocksStateManager,
-        output: EditorPageModuleOutput?
+        output: (any EditorPageModuleOutput)?
     ) {
         self.document = document
         self.handler = handler
@@ -99,7 +99,7 @@ final class BlockViewModelBuilder {
         }
     }
     
-    func build(blockId: String) -> BlockViewModelProtocol? {
+    func build(blockId: String) -> (any BlockViewModelProtocol)? {
         if let model = modelsHolder.blocksMapping[blockId] {
             return model
         }

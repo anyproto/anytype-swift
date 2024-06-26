@@ -5,9 +5,9 @@ import UIKit
 
 @MainActor
 final class SlashMenuActionHandler {
-    private let actionHandler: BlockActionHandlerProtocol
-    private let router: EditorRouterProtocol
-    private let document: BaseDocumentProtocol
+    private let actionHandler: any BlockActionHandlerProtocol
+    private let router: any EditorRouterProtocol
+    private let document: any BaseDocumentProtocol
     private let cursorManager: EditorCursorManager
     private weak var textView: UITextView?
     
@@ -16,9 +16,9 @@ final class SlashMenuActionHandler {
     
     
     init(
-        document: BaseDocumentProtocol,
-        actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol,
+        document: some BaseDocumentProtocol,
+        actionHandler: some BlockActionHandlerProtocol,
+        router: some EditorRouterProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document

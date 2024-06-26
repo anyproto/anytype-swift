@@ -288,7 +288,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(popup)
     }
     
-    func showIconPicker(document: BaseDocumentProtocol) {
+    func showIconPicker(document: some BaseDocumentProtocol) {
         output?.showIconPicker(document: document)
     }
 
@@ -402,7 +402,7 @@ extension EditorRouter {
     }
 
     @MainActor
-    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         output?.showAddNewRelationView(document: document, onSelect: onSelect)
     }
 }

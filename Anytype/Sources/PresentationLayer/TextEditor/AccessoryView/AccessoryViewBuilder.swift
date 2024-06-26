@@ -5,9 +5,9 @@ import AnytypeCore
 struct AccessoryViewBuilder {
     @MainActor
     static func accessoryState(
-        actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol,
-        document: BaseDocumentProtocol
+        actionHandler: some BlockActionHandlerProtocol,
+        router: some EditorRouterProtocol,
+        document: some BaseDocumentProtocol
     ) -> (AccessoryViewStateManager, ChangeTypeAccessoryViewModel) {
         let mentionsModule = MentionAssembly().controller(document: document)
 

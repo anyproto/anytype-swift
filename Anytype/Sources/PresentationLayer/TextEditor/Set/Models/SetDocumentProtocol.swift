@@ -7,7 +7,7 @@ enum SetDocumentUpdate {
 }
 
 protocol SetDocumentProtocol: AnyObject {
-    var document: BaseDocumentProtocol { get }
+    var document: any BaseDocumentProtocol { get }
     var objectId: String { get }
     var spaceId: String { get }
     var blockId: String { get }
@@ -18,7 +18,7 @@ protocol SetDocumentProtocol: AnyObject {
     var analyticsType: AnalyticsObjectType { get }
     var details: ObjectDetails? { get }
     // TODO Refactor this
-    var dataBuilder: SetContentViewDataBuilderProtocol { get }
+    var dataBuilder: any SetContentViewDataBuilderProtocol { get }
     
     var featuredRelationsForEditor: [Relation] { get }
     var parsedRelations: ParsedRelations { get }

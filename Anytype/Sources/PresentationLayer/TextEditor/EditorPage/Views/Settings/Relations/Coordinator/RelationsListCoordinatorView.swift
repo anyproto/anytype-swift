@@ -5,7 +5,7 @@ struct RelationsListCoordinatorView: View {
     
     @StateObject private var model: RelationsListCoordinatorViewModel
     
-    init(document: BaseDocumentProtocol, output: RelationValueCoordinatorOutput?) {
+    init(document: some BaseDocumentProtocol, output: (any RelationValueCoordinatorOutput)?) {
         _model = StateObject(wrappedValue: RelationsListCoordinatorViewModel(document: document, output: output))
     }
     

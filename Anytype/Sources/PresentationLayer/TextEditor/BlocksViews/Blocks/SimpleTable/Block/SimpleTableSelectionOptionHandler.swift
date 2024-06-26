@@ -15,20 +15,20 @@ final class SimpleTableSelectionOptionHandler {
 
     var selectedBlocksIndexPaths = [IndexPath]()
 
-    private let router: EditorRouterProtocol
+    private let router: any EditorRouterProtocol
     private let tableService: BlockTableServiceProtocol
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let blockInformationProvider: BlockModelInfomationProvider
-    private let actionHandler: BlockActionHandlerProtocol
+    private let actionHandler: any BlockActionHandlerProtocol
 
     private var currentSortType: BlocksSortType = .asc
 
     init(
-        router: EditorRouterProtocol,
+        router: some EditorRouterProtocol,
         tableService: BlockTableServiceProtocol,
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blockInformationProvider: BlockModelInfomationProvider,
-        actionHandler: BlockActionHandlerProtocol
+        actionHandler: some BlockActionHandlerProtocol
     ) {
         self.router = router
         self.tableService = tableService

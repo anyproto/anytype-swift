@@ -4,20 +4,20 @@ import Services
 
 @MainActor
 protocol EditorPageModuleInput {
-    func showSettings(output: ObjectSettingsCoordinatorOutput?)
+    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?)
 }
 
 struct EditorPageModuleInputContainer: EditorPageModuleInput {
     weak var model: EditorPageViewModel?
     
-    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
         model?.showSettings(output: output)
     }
 }
 
 @MainActor
 protocol EditorPageModuleAssemblyProtocol: AnyObject {
-    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState
+    func buildStateModel(data: EditorPageObject, output: (any EditorPageModuleOutput)?, showHeader: Bool) -> EditorPageViewState
 }
 
 @MainActor
@@ -28,7 +28,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
     nonisolated init() {}
     
-    func buildStateModel(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) -> EditorPageViewState {
+    func buildStateModel(data: EditorPageObject, output: (any EditorPageModuleOutput)?, showHeader: Bool) -> EditorPageViewState {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
         
@@ -81,15 +81,15 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
     private func buildViewModel(
         scrollView: UIScrollView,
-        viewInput: EditorPageViewInput,
-        document: BaseDocumentProtocol,
+        viewInput: some EditorPageViewInput,
+        document: some BaseDocumentProtocol,
         router: EditorRouter,
         blocksOptionViewModel: SelectionOptionsViewModel,
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        bottomNavigationManager: some EditorBottomNavigationManagerProtocol,
         configuration: EditorPageViewModelConfiguration,
-        output: EditorPageModuleOutput?
+        output: (any EditorPageModuleOutput)?
     ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger()
@@ -232,7 +232,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
         )
     }
     
-    private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: ObjectHeaderRouterProtocol) {
+    private func setupHeaderModelActions(headerModel: ObjectHeaderViewModel, using router: some ObjectHeaderRouterProtocol) {
         headerModel.onIconPickerTap = { [weak router] document in
             router?.showIconPicker(document: document)
         }

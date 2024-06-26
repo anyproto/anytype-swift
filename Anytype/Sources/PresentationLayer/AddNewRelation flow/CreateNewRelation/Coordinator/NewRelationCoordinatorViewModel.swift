@@ -16,9 +16,9 @@ final class NewRelationCoordinatorViewModel: ObservableObject, NewRelationModule
     
     let data: NewRelationData
     
-    private weak var output: NewRelationCoordinatorViewOutput?
+    private weak var output: (any NewRelationCoordinatorViewOutput)?
     
-    init(data: NewRelationData, output: NewRelationCoordinatorViewOutput?) {
+    init(data: NewRelationData, output: (any NewRelationCoordinatorViewOutput)?) {
         self.data = data
         self.output = output
     }

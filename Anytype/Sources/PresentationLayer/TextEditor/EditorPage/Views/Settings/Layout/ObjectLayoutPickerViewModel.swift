@@ -15,7 +15,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     private let objectId: String
     
-    private lazy var document: BaseDocumentProtocol = {
+    private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId)
     }()
     

@@ -32,7 +32,7 @@ enum AttributeState {
         return allAttributesState
     }
 
-    static func markupAttributes(document: BaseDocumentProtocol, infos: [BlockInformation]) -> [MarkupType: AttributeState] {
+    static func markupAttributes(document: some BaseDocumentProtocol, infos: [BlockInformation]) -> [MarkupType: AttributeState] {
         let blocksMarkupAttributes = infos.compactMap { blockInformation -> [MarkupType: AttributeState]? in
             guard case let .text(textBlock) = blockInformation.content else { return nil }
             let anytypeText = AttributedTextConverter.asModel(

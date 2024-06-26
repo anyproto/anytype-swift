@@ -8,8 +8,8 @@ final class LinkWidgetViewModel: ObservableObject {
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private let widgetObject: any BaseDocumentProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     // MARK: - State
     

@@ -28,7 +28,7 @@ extension PhraseTextView {
     @MainActor
     class Coordinator: NSObject {
         @Binding var text: String
-        private let phraseTextValidator: PhraseTextValidatorProtocol = PhraseTextValidator()
+        private let phraseTextValidator: any PhraseTextValidatorProtocol = PhraseTextValidator()
      
         init(_ text: Binding<String>) {
             _text = text

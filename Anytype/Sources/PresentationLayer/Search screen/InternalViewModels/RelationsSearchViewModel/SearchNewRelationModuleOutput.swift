@@ -5,6 +5,6 @@ import Services
 protocol RelationSearchModuleOutput: AnyObject {
     
     func didAddRelation(_ relationDetails: RelationDetails)
-    func didAskToShowCreateNewRelation(document: BaseDocumentProtocol, target: RelationsModuleTarget, searchText: String)
+    func didAskToShowCreateNewRelation(document: some BaseDocumentProtocol, target: RelationsModuleTarget, searchText: String)
     
 }

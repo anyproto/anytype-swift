@@ -10,7 +10,7 @@ final class TextRelationActionViewModelBuilder {
         for type: TextRelationViewType,
         relationKey: String,
         objectDetails: ObjectDetails,
-        output: TextRelationActionButtonViewModelDelegate?
+        output: (any TextRelationActionButtonViewModelDelegate)?
     ) -> [TextRelationActionViewModelProtocol] {
         guard let text, text.isNotEmpty else { return [] }
         

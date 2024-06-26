@@ -43,9 +43,9 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
     private var configuration: TextViewAccessoryConfiguration?
     private(set) var triggerSymbolPosition: UITextPosition?
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let switcher: AccessoryViewSwitcher
-    private let markupChanger: BlockMarkupChangerProtocol
+    private let markupChanger: any BlockMarkupChangerProtocol
     
     let cursorModeViewModel: CursorModeAccessoryViewModel
     let slashMenuViewModel: SlashMenuViewModel
@@ -53,9 +53,9 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
     let markupAccessoryViewModel: MarkupAccessoryViewModel
 
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         switcher: AccessoryViewSwitcher,
-        markupChanger: BlockMarkupChangerProtocol,
+        markupChanger: some BlockMarkupChangerProtocol,
         cursorModeViewModel: CursorModeAccessoryViewModel,
         slashMenuViewModel: SlashMenuViewModel,
         mentionsViewModel: MentionsViewModel,

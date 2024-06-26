@@ -13,9 +13,9 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         updatedSettings()
     }
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
-    private weak var output: SetLayoutSettingsCoordinatorOutput?
+    private weak var output: (any SetLayoutSettingsCoordinatorOutput)?
     
     private var cancellable: Cancellable?
     
@@ -25,9 +25,9 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private var view: DataviewView = .empty
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
-        output: SetLayoutSettingsCoordinatorOutput?
+        output: (any SetLayoutSettingsCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId

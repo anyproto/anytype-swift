@@ -3,7 +3,7 @@ import Services
 import AnytypeCore
 
 struct RelationsListData: Identifiable {
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     var id: String { document.objectId }
 }
 
@@ -17,21 +17,21 @@ final class RelationsListCoordinatorViewModel:
     @Published var relationsSearchData: RelationsSearchData?
     @Published var toastBarData: ToastBarData = .empty
     
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
     
-    private weak var output: RelationValueCoordinatorOutput?
+    private weak var output: (any RelationValueCoordinatorOutput)?
 
-    init(document: BaseDocumentProtocol, output: RelationValueCoordinatorOutput?) {
+    init(document: some BaseDocumentProtocol, output: (any RelationValueCoordinatorOutput)?) {
         self.document = document
         self.output = output
     }
     
     // MARK: - RelationsListModuleOutput
     
-    func addNewRelationAction(document: BaseDocumentProtocol) {
+    func addNewRelationAction(document: some BaseDocumentProtocol) {
         relationsSearchData = RelationsSearchData(
             document: document,
             excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
@@ -42,7 +42,7 @@ final class RelationsListCoordinatorViewModel:
         )
     }
     
-    func editRelationValueAction(document: BaseDocumentProtocol, relationKey: String) {
+    func editRelationValueAction(document: some BaseDocumentProtocol, relationKey: String) {
         let relation = document.parsedRelations.installed.first { $0.key == relationKey }
         guard let relation = relation else {
             anytypeAssertionFailure("Relation not found")

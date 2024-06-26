@@ -18,7 +18,7 @@ final class SettingsViewModel: ObservableObject {
     @Injected(\.membershipStatusStorage)
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     
-    private weak var output: SettingsModuleOutput?
+    private weak var output: (any SettingsModuleOutput)?
     
     // MARK: - State
     
@@ -35,7 +35,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var profileIcon: Icon?
     @Published var membership: MembershipStatus = .empty
     
-    init(output: SettingsModuleOutput) {
+    init(output: some SettingsModuleOutput) {
         self.output = output
         
         let accountManager = Container.shared.accountManager.resolve()

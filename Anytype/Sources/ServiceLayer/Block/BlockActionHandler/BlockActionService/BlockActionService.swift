@@ -161,7 +161,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         try await objectActionService.setObjectCollectionType(objectId: documentId)
     }
 
-    private func setFocus(model: BlockViewModelProtocol) {
+    private func setFocus(model: some BlockViewModelProtocol) {
         model.set(focus: .end)
     }
 }

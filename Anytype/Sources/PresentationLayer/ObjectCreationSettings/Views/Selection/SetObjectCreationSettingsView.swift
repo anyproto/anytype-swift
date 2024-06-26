@@ -7,7 +7,7 @@ struct SetObjectCreationSettingsView: View {
 
     @StateObject private var model: SetObjectCreationSettingsViewModel
     
-    init(setDocument: SetDocumentProtocol, viewId: String, output: SetObjectCreationSettingsOutput?) {
+    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetObjectCreationSettingsOutput)?) {
         _model = StateObject(wrappedValue: SetObjectCreationSettingsViewModel(
             interactor: SetObjectCreationSettingsInteractor(setDocument: setDocument, viewId: viewId),
             setDocument: setDocument,

@@ -15,9 +15,9 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     
     // MARK: - DI
     
-    private let internalModel: WidgetObjectListInternalViewModelProtocol
-    private let menuBuilder: WidgetObjectListMenuBuilderProtocol
-    private weak var output: WidgetObjectListCommonModuleOutput?
+    private let internalModel: any WidgetObjectListInternalViewModelProtocol
+    private let menuBuilder: any WidgetObjectListMenuBuilderProtocol
+    private weak var output: (any WidgetObjectListCommonModuleOutput)?
     
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
@@ -57,9 +57,9 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     @Published var options = [SelectionOptionsItemViewModel]()
     
     init(
-        internalModel: WidgetObjectListInternalViewModelProtocol,
-        menuBuilder: WidgetObjectListMenuBuilderProtocol,
-        output: WidgetObjectListCommonModuleOutput?,
+        internalModel: some WidgetObjectListInternalViewModelProtocol,
+        menuBuilder: some WidgetObjectListMenuBuilderProtocol,
+        output: (any WidgetObjectListCommonModuleOutput)?,
         isSheet: Bool = false
     ) {
         self.internalModel = internalModel

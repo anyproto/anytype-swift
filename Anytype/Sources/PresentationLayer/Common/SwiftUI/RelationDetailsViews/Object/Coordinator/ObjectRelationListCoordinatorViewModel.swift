@@ -12,7 +12,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
 
     let data: ObjectRelationListData
     
-    private weak var output: ObjectRelationListCoordinatorModuleOutput?
+    private weak var output: (any ObjectRelationListCoordinatorModuleOutput)?
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
@@ -22,7 +22,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
     
     init(
         data: ObjectRelationListData,
-        output: ObjectRelationListCoordinatorModuleOutput?
+        output: (any ObjectRelationListCoordinatorModuleOutput)?
     ) {
         self.data = data
         self.output = output

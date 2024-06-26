@@ -9,7 +9,7 @@ struct SetKanbanColumn: View {
     let backgroundColor: BlockBackgroundColor
     let showPagingView: Bool
     
-    let dragAndDropDelegate: SetDragAndDropDelegate
+    let dragAndDropDelegate: any SetDragAndDropDelegate
     @Binding var dropData: SetCardDropData
     
     let onShowMoreTap: () -> Void

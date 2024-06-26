@@ -5,7 +5,7 @@ struct LoginView: View {
     @StateObject private var model: LoginViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: LoginFlowOutput?) {
+    init(output: (any LoginFlowOutput)?) {
         _model = StateObject(wrappedValue: LoginViewModel(output: output))
     }
     

@@ -5,20 +5,20 @@ import Combine
 
 @MainActor
 final class MarkupViewModel: MarkupViewModelProtocol {
-    weak var view: MarkupViewProtocol?
+    weak var view: (any MarkupViewProtocol)?
 
     private var cancellable: AnyCancellable? = nil
     
     private let blockIds: [String]
-    private let actionHandler: BlockActionHandlerProtocol
-    private let document: BaseDocumentProtocol
+    private let actionHandler: any BlockActionHandlerProtocol
+    private let document: any BaseDocumentProtocol
     private let openLinkToObject: (LinkToObjectSearchModuleData) -> Void
     
     // For read link value
     private var selectedMarkups: [MarkupType: AttributeState] = [:]
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blockIds: [String],
         actionHandler: BlockActionHandlerProtocol,
         openLinkToObject: @escaping (LinkToObjectSearchModuleData) -> Void

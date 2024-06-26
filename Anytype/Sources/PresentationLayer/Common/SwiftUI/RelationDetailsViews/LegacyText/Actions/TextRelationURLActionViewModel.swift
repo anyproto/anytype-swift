@@ -15,7 +15,7 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
     private var systemURLService: any SystemURLServiceProtocol
     
     private let type: SupportedTextType
-    private weak var delegate: TextRelationActionButtonViewModelDelegate?
+    private weak var delegate: (any TextRelationActionButtonViewModelDelegate)?
     
     let id = UUID().uuidString
     var inputText: String = ""
@@ -24,7 +24,7 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
     
     init(
         type: SupportedTextType,
-        delegate: TextRelationActionButtonViewModelDelegate?
+        delegate: (any TextRelationActionButtonViewModelDelegate)?
     ) {
         self.type = type
         self.delegate = delegate

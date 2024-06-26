@@ -38,7 +38,7 @@ protocol EditorRouterProtocol:
     )
     
     func showSettings()
-    func showSettings(output: ObjectSettingsCoordinatorOutput?)
+    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?)
     func showTextIconPicker(contextId: String, objectId: String)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
@@ -52,7 +52,7 @@ protocol EditorRouterProtocol:
     )
     
     func showRelationValueEditingView(key: String)
-    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func showWaitingView(text: String)

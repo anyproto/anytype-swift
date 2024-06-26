@@ -635,7 +635,7 @@ private extension RelationDetails {
 }
 
 extension Container {
-    var relationsBuilder: Factory<RelationsBuilderProtocol> {
+    var relationsBuilder: Factory<any RelationsBuilderProtocol> {
         self { RelationsBuilder() }.shared
     }
 }

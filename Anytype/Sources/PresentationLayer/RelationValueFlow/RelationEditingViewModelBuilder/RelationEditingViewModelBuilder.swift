@@ -3,7 +3,7 @@ import SwiftUI
 
 final class RelationEditingViewModelBuilder {
     
-    private weak var delegate: TextRelationActionButtonViewModelDelegate?
+    private weak var delegate: (any TextRelationActionButtonViewModelDelegate)?
     
     @Injected(\.textRelationEditingService)
     private var textRelationEditingService: any TextRelationEditingServiceProtocol
@@ -12,7 +12,7 @@ final class RelationEditingViewModelBuilder {
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
     
-    init(delegate: TextRelationActionButtonViewModelDelegate?) {
+    init(delegate: (any TextRelationActionButtonViewModelDelegate)?) {
         self.delegate = delegate
     }
     
@@ -26,7 +26,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
         onTap: @escaping (_ screenData: EditorScreenData) -> Void
-    ) -> AnytypePopupViewModelProtocol? {
+    ) -> (any AnytypePopupViewModelProtocol)? {
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(

@@ -9,13 +9,13 @@ import Combine
 final class SetRelationsViewModel: ObservableObject {
     @Published var view: DataviewView = .empty
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     
-    private weak var output: SetRelationsCoordinatorOutput?
+    private weak var output: (any SetRelationsCoordinatorOutput)?
     
     private var cancellable: Cancellable?
     
@@ -35,9 +35,9 @@ final class SetRelationsViewModel: ObservableObject {
     }
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
-        output: SetRelationsCoordinatorOutput?
+        output: (any SetRelationsCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId

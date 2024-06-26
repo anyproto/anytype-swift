@@ -2,15 +2,15 @@ import Foundation
 import UIKit
 
 extension Container {
-    var legacySetObjectCreationCoordinator: Factory<SetObjectCreationCoordinatorProtocol> {
+    var legacySetObjectCreationCoordinator: Factory<any SetObjectCreationCoordinatorProtocol> {
         self { SetObjectCreationCoordinator() }
     }
     
-    var legacyTemplatesCoordinator: Factory<TemplatesCoordinatorProtocol> {
+    var legacyTemplatesCoordinator: Factory<any TemplatesCoordinatorProtocol> {
         self { TemplatesCoordinator() }
     }
     
-    var legacySetObjectCreationSettingsCoordinator: Factory<SetObjectCreationSettingsCoordinatorProtocol> {
+    var legacySetObjectCreationSettingsCoordinator: Factory<any SetObjectCreationSettingsCoordinatorProtocol> {
         self { SetObjectCreationSettingsCoordinator() }
     }
 }

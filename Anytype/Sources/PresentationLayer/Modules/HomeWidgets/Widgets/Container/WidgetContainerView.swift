@@ -24,7 +24,7 @@ struct WidgetContainerView<Content: View>: View {
     
     init(
         widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
+        widgetObject: some BaseDocumentProtocol,
         homeState: Binding<HomeWidgetsState>,
         name: String,
         icon: ImageAsset? = nil,
@@ -32,7 +32,7 @@ struct WidgetContainerView<Content: View>: View {
         menuItems: [WidgetMenuItem] = [.addBelow, .changeSource, .changeType, .remove],
         onCreateObjectTap: (() -> Void)?,
         onHeaderTap: @escaping () -> Void,
-        output: CommonWidgetModuleOutput?,
+        output: (any CommonWidgetModuleOutput)?,
         @ViewBuilder content: () -> Content
     ) {
         self._homeState = homeState

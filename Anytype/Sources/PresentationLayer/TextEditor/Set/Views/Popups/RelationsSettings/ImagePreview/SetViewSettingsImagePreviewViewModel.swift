@@ -6,11 +6,11 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
     @Published var coverRows: [SetViewSettingsImagePreviewRowConfiguration] = []
     @Published var relationsRows: [SetViewSettingsImagePreviewRowConfiguration] = []
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let onSelect: (String) -> Void
     private var cancellable: Cancellable?
     
-    init(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
+    init(setDocument: some SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
         self.setDocument = setDocument
         self.onSelect = onSelect
         self.setup()

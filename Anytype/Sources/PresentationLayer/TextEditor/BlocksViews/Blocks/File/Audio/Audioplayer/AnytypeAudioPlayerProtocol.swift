@@ -22,7 +22,7 @@ protocol AnytypeAudioPlayerDelegate: AnyObject {
 
 @MainActor
 protocol AnytypeAudioPlayerProtocol {
-    func setAudio(playerItem: AVPlayerItem?, name: String, delegate: AnytypeAudioPlayerDelegate)
+    func setAudio(playerItem: AVPlayerItem?, name: String, delegate: some AnytypeAudioPlayerDelegate)
     func play()
     func pause()
     func setTrackTime(value: Double, completion: @escaping () -> Void)

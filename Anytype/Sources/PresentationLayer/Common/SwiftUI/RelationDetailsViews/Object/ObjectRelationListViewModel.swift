@@ -18,15 +18,15 @@ final class ObjectRelationListViewModel: ObservableObject {
     
     let configuration: RelationModuleConfiguration
     
-    private let interactor: ObjectRelationListInteractorProtocol
-    private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
+    private let interactor: any ObjectRelationListInteractorProtocol
+    private let relationSelectedOptionsModel: any RelationSelectedOptionsModelProtocol
     
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     
-    private weak var output: ObjectRelationListModuleOutput?
+    private weak var output: (any ObjectRelationListModuleOutput)?
     
-    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+    init(data: ObjectRelationListData, output: (any ObjectRelationListModuleOutput)?) {
         self.configuration = data.configuration
         self.output = output
         self.interactor = data.interactor

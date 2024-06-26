@@ -4,7 +4,7 @@ struct AboutView: View {
     
     @StateObject private var model: AboutViewModel
     
-    init(output: AboutModuleOutput?) {
+    init(output: (any AboutModuleOutput)?) {
         _model = StateObject(wrappedValue: AboutViewModel(output: output))
     }
     

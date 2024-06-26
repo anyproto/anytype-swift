@@ -4,7 +4,7 @@ struct KeyPhraseView: View {
     
     @StateObject private var model: KeyPhraseViewModel
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         _model = StateObject(
             wrappedValue: KeyPhraseViewModel(state: state, output: output)
         )

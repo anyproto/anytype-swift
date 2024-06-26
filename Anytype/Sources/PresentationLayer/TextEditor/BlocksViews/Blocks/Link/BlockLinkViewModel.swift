@@ -9,10 +9,10 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
     var info: BlockInformation { informationProvider.info }
 
     private let informationProvider: BlockModelInfomationProvider
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let blocksController: EditorBlockCollectionController
     private let openLink: (EditorScreenData) -> ()
-    private let detailsService: DetailsServiceProtocol
+    private let detailsService: any DetailsServiceProtocol
     private var objectDetailsSubscription: AnyCancellable?
     
     private var content: BlockLink {
@@ -24,9 +24,9 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
 
     init(
         informationProvider: BlockModelInfomationProvider,
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blocksController: EditorBlockCollectionController,
-        detailsService: DetailsServiceProtocol,
+        detailsService: some DetailsServiceProtocol,
         openLink: @escaping (EditorScreenData) -> ()
     ) {
         self.informationProvider = informationProvider

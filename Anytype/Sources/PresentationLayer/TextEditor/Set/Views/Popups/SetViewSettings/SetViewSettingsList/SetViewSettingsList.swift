@@ -5,7 +5,7 @@ struct SetViewSettingsList: View {
     @Environment(\.presentationMode) @Binding private var presentationMode
     @FocusState private var isFocused: Bool
     
-    init(data: SetSettingsData, output: SetViewSettingsCoordinatorOutput?) {
+    init(data: SetSettingsData, output: (any SetViewSettingsCoordinatorOutput)?) {
         _model = StateObject(wrappedValue: SetViewSettingsListModel(data: data, output: output))
     }
     

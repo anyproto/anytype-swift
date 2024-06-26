@@ -7,7 +7,7 @@ import AnytypeCore
 protocol TemplatesCoordinatorProtocol {
     @MainActor
     func showTemplatesPicker(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void
     )
 }
@@ -24,7 +24,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
     
     @MainActor
     func showTemplatesPicker(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void
     ) {
         self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
@@ -58,7 +58,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
         completion(editorsViews)
     }
     
-    func selectionOptionsView(_ provider: OptionsItemProvider) -> AnyView {
+    func selectionOptionsView(_ provider: some OptionsItemProvider) -> AnyView {
         SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: provider))
             .eraseToAnyView()
     }

@@ -21,7 +21,7 @@ final class RemoteStorageViewModel: ObservableObject {
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     
-    private weak var output: RemoteStorageModuleOutput?
+    private weak var output: (any RemoteStorageModuleOutput)?
     private var subscriptions = [AnyCancellable]()
     private let subSpaceId = "RemoteStorageViewModel-Space-\(UUID())"
     
@@ -36,7 +36,7 @@ final class RemoteStorageViewModel: ObservableObject {
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     @Published var segmentInfo = RemoteStorageSegmentInfo()
     
-    init(output: RemoteStorageModuleOutput?) {
+    init(output: (any RemoteStorageModuleOutput)?) {
         self.output = output
         setupPlaceholderState()
         Task {

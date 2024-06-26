@@ -5,7 +5,7 @@ struct SetViewPicker: View {
     @State private var editMode = EditMode.inactive
     @Environment(\.dismiss) private var dismiss
     
-    init(setDocument: SetDocumentProtocol, output: SetViewPickerCoordinatorOutput?) {
+    init(setDocument: some SetDocumentProtocol, output: (any SetViewPickerCoordinatorOutput)?) {
         _viewModel = StateObject(wrappedValue: SetViewPickerViewModel(setDocument: setDocument, output: output))
     }
     

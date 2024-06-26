@@ -11,7 +11,7 @@ struct TextBlockURLInputParameters {
 
 @MainActor
 final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     var info: BlockInformation
 
     let showPage: (String) -> Void
@@ -26,19 +26,19 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let hideWaitingView: () -> Void
     private let openLinkToObject: @MainActor (LinkToObjectSearchModuleData) -> Void
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
-    private let actionHandler: BlockActionHandlerProtocol
-    private let markupChanger: BlockMarkupChangerProtocol
+    private let actionHandler: any BlockActionHandlerProtocol
+    private let markupChanger: any BlockMarkupChangerProtocol
     
     // Fix retain cycle for long paste action
-    private weak var pasteboardService: PasteboardBlockDocumentServiceProtocol?
+    private weak var pasteboardService: (any PasteboardBlockDocumentServiceProtocol)?
     private let mentionDetecter = MentionTextDetector()
-    private let markdownListener: MarkdownListener
-    private let keyboardHandler: KeyboardActionHandlerProtocol
+    private let markdownListener: any MarkdownListener
+    private let keyboardHandler: any KeyboardActionHandlerProtocol
     private let slashMenuActionHandler: SlashMenuActionHandler
-    private let collectionController: EditorCollectionReloadable
+    private let collectionController: any EditorCollectionReloadable
     
     private let cursorManager: EditorCursorManager
-    private let accessoryViewStateManager: AccessoryViewStateManager
+    private let accessoryViewStateManager: any AccessoryViewStateManager
     
     weak var viewModel: TextBlockViewModel?
     
@@ -48,7 +48,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     var accessoryState: AccessoryViewInputState = .none
 
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         info: BlockInformation,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
         showPage: @escaping (String) -> Void,
@@ -59,14 +59,14 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
-        actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
-        markdownListener: MarkdownListener,
-        collectionController: EditorCollectionReloadable,
+        actionHandler: some BlockActionHandlerProtocol,
+        pasteboardService: some PasteboardBlockDocumentServiceProtocol,
+        markdownListener: some MarkdownListener,
+        collectionController: some EditorCollectionReloadable,
         cursorManager: EditorCursorManager,
-        accessoryViewStateManager: AccessoryViewStateManager,
-        keyboardHandler: KeyboardActionHandlerProtocol,
-        markupChanger: BlockMarkupChangerProtocol,
+        accessoryViewStateManager: some AccessoryViewStateManager,
+        keyboardHandler: some KeyboardActionHandlerProtocol,
+        markupChanger: some BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
         openLinkToObject: @MainActor @escaping (LinkToObjectSearchModuleData) -> Void
     ) {

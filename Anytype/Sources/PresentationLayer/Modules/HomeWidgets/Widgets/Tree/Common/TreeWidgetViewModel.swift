@@ -19,7 +19,7 @@ final class TreeWidgetViewModel: ObservableObject {
     // MARK: - DI
 
     private let internalModel: any WidgetInternalViewModelProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.treeSubscriptionManager)
     private var subscriptionManager: any TreeSubscriptionManagerProtocol
@@ -41,7 +41,7 @@ final class TreeWidgetViewModel: ObservableObject {
     init(
         widgetBlockId: String,
         internalModel: any WidgetInternalViewModelProtocol,
-        output: CommonWidgetModuleOutput?
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.dragId = widgetBlockId
         self.internalModel = internalModel

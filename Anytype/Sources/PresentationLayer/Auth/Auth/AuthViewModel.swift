@@ -10,9 +10,9 @@ final class AuthViewModel: ObservableObject {
     @Published var opacity: Double = 1
     
     // MARK: - Private
-    private weak var output: AuthViewModelOutput?
+    private weak var output: (any AuthViewModelOutput)?
     
-    init(output: AuthViewModelOutput?) {
+    init(output: (any AuthViewModelOutput)?) {
         self.output = output
     }
     

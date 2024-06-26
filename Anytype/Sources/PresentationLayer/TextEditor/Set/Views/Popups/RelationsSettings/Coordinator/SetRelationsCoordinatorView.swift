@@ -3,7 +3,7 @@ import SwiftUI
 struct SetRelationsCoordinatorView: View {
     @StateObject private var model: SetRelationsCoordinatorViewModel
     
-    init(setDocument: SetDocumentProtocol, viewId: String) {
+    init(setDocument: some SetDocumentProtocol, viewId: String) {
         _model = StateObject(wrappedValue: SetRelationsCoordinatorViewModel(setDocument: setDocument, viewId: viewId))
     }
     

@@ -3,7 +3,7 @@ import SwiftUI
 
 struct WidgetSubmoduleData {
     let widgetBlockId: String
-    let widgetObject: BaseDocumentProtocol
+    let widgetObject: any BaseDocumentProtocol
     let homeState: Binding<HomeWidgetsState>
-    let output: CommonWidgetModuleOutput?
+    let output: (any CommonWidgetModuleOutput)?
 }

@@ -5,7 +5,7 @@ struct ServerConfigurationView: View {
 
     @StateObject private var model: ServerConfigurationViewModel
     
-    init(output: ServerConfigurationModuleOutput?) {
+    init(output: (any ServerConfigurationModuleOutput)?) {
         _model = StateObject(wrappedValue: ServerConfigurationViewModel(output: output))
     }
     

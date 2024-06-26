@@ -299,16 +299,16 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
         dataSource?.itemIdentifier(for: indexPath)
     }
     
-    private func additionalHeight(for blockViewModel: BlockViewModelProtocol) -> CGFloat {
+    private func additionalHeight(for blockViewModel: some BlockViewModelProtocol) -> CGFloat {
         additionalHeight(for: blockViewModel, using: cachedAttributes)
     }
     
-    private func additionalEstimatedHeight(for blockViewModel: BlockViewModelProtocol) -> CGFloat {
+    private func additionalEstimatedHeight(for blockViewModel: some BlockViewModelProtocol) -> CGFloat {
         additionalHeight(for: blockViewModel, using: _nonInvalidatedAttributed)
     }
     
     private func additionalHeight(
-        for blockViewModel: BlockViewModelProtocol,
+        for blockViewModel: some BlockViewModelProtocol,
         using cache: [AnyHashable: LayoutItem]
     ) -> CGFloat {
         var additionalSize: CGFloat = 0

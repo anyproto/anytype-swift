@@ -111,7 +111,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
 }
 
 extension Container {
-    var globalSearchDataBuilder: Factory<GlobalSearchDataBuilderProtocol> {
+    var globalSearchDataBuilder: Factory<any GlobalSearchDataBuilderProtocol> {
         self { GlobalSearchDataBuilder() }.shared
     }
 }

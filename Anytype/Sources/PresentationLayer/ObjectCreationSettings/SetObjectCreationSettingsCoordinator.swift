@@ -6,7 +6,7 @@ import AnytypeCore
 @MainActor
 protocol SetObjectCreationSettingsCoordinatorProtocol: AnyObject {
     func showSetObjectCreationSettings(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
@@ -30,12 +30,12 @@ final class SetObjectCreationSettingsCoordinator:
     private var useAsTemplateAction: ((String) -> Void)?
     private var onTemplateSelection: ((ObjectCreationSetting) -> Void)?
     
-    private var editorModuleInput: EditorPageModuleInput?
+    private var editorModuleInput: (any EditorPageModuleInput)?
     
     nonisolated init() {}
     
     func showSetObjectCreationSettings(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
@@ -96,7 +96,7 @@ final class SetObjectCreationSettingsCoordinator:
     }
     
     private func showTypesSearch(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         onSelect: @escaping (ObjectType) -> ()
     ) {
         let view = ObjectTypeSearchView(
@@ -142,7 +142,7 @@ final class SetObjectCreationSettingsCoordinator:
         }
     }
     
-    func onObjectTypesSearchAction(setDocument: SetDocumentProtocol, completion: @escaping (ObjectType) -> Void) {
+    func onObjectTypesSearchAction(setDocument: some SetDocumentProtocol, completion: @escaping (ObjectType) -> Void) {
         showTypesSearch(setDocument: setDocument, onSelect: completion)
     }
     

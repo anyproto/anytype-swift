@@ -21,13 +21,13 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     // MARK: - State
     private let state = JoinFlowState()
     
-    private weak var output: JoinFlowOutput?
+    private weak var output: (any JoinFlowOutput)?
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     
-    init(output: JoinFlowOutput?) {
+    init(output: (any JoinFlowOutput)?) {
         self.output = output
     }
     

@@ -4,7 +4,7 @@ import Services
 import AnytypeCore
 
 struct ObjectIconPickerData: Identifiable {
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     var id: String { document.objectId }
 }
 
@@ -31,7 +31,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private var subscription: AnyCancellable?
         
     // MARK: - Initializer
@@ -81,7 +81,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
         }
     }
     
-    private func handleIconAction(document: BaseDocumentProtocol, action: ObjectIconPickerAction) {
+    private func handleIconAction(document: some BaseDocumentProtocol, action: ObjectIconPickerAction) {
         Task {
             try await objectHeaderUploadingService.handleIconAction(
                 objectId: document.objectId,

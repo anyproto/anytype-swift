@@ -14,7 +14,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     var info: BlockInformation { blockInformationProvider.info }
     let documentId: String
     let blockInformationProvider: BlockModelInfomationProvider
-    let handler: BlockActionHandlerProtocol
+    let handler: any BlockActionHandlerProtocol
     
     let showIconPicker: Action<String>
     let onImageOpen: Action<FilePreviewContext>?
@@ -34,7 +34,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     init?(
         documentId: String,
         blockInformationProvider: BlockModelInfomationProvider,
-        handler: BlockActionHandlerProtocol,
+        handler: some BlockActionHandlerProtocol,
         showIconPicker: @escaping (String) -> (),
         onImageOpen: Action<FilePreviewContext>?
     ) {

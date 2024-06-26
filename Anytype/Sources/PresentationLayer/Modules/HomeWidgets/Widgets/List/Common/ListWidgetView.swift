@@ -5,8 +5,8 @@ struct ListWidgetView: View {
     
     let data: WidgetSubmoduleData
     let style: ListWidgetStyle
-    let internalModel: WidgetInternalViewModelProtocol
-    let internalHeaderModel: WidgetDataviewInternalViewModelProtocol?
+    let internalModel: any WidgetInternalViewModelProtocol
+    let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
     
     var body: some View {
         ListWidgetInternalView(
@@ -28,8 +28,8 @@ private struct ListWidgetInternalView: View {
     init(
         data: WidgetSubmoduleData,
         style: ListWidgetStyle,
-        internalModel: WidgetInternalViewModelProtocol,
-        internalHeaderModel: WidgetDataviewInternalViewModelProtocol?
+        internalModel: some WidgetInternalViewModelProtocol,
+        internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
     ) {
         self.data = data
         self._model = StateObject(

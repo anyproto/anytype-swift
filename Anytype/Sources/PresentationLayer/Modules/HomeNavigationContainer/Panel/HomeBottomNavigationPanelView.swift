@@ -7,7 +7,7 @@ struct HomeBottomNavigationPanelView: View {
     
     let homePath: HomePath
     let info: AccountInfo
-    weak var output: HomeBottomNavigationPanelModuleOutput?
+    weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     
     var body: some View {
         HomeBottomNavigationPanelViewInternal(homePath: homePath, info: info, output: output)
@@ -20,7 +20,7 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     let homePath: HomePath
     @StateObject private var model: HomeBottomNavigationPanelViewModel
     
-    init(homePath: HomePath, info: AccountInfo, output: HomeBottomNavigationPanelModuleOutput?) {
+    init(homePath: HomePath, info: AccountInfo, output: (any HomeBottomNavigationPanelModuleOutput)?) {
         self.homePath = homePath
         self._model = StateObject(wrappedValue: HomeBottomNavigationPanelViewModel(info: info, output: output))
     }

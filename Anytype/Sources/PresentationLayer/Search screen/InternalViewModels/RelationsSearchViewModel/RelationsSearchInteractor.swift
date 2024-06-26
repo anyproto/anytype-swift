@@ -10,9 +10,9 @@ final class RelationsSearchInteractor {
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
-    private let relationsInteractor: RelationsInteractorProtocol
+    private let relationsInteractor: any RelationsInteractorProtocol
     
-    init(relationsInteractor: RelationsInteractorProtocol) {
+    init(relationsInteractor: some RelationsInteractorProtocol) {
         self.relationsInteractor = relationsInteractor
     }
     

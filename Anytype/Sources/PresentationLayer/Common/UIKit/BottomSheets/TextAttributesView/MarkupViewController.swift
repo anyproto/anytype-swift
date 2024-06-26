@@ -95,11 +95,11 @@ final class MarkupsViewController: UIViewController {
         return button
     }()
 
-    private let viewModel: MarkupViewModelProtocol
+    private let viewModel: any MarkupViewModelProtocol
     private let viewDidCloseHandler: () -> Void
 
     // MARK: - Lifecycle
-    init(viewModel: MarkupViewModelProtocol, viewDidClose: @escaping () -> Void) {
+    init(viewModel: some MarkupViewModelProtocol, viewDidClose: @escaping () -> Void) {
         self.viewModel = viewModel
         self.viewDidCloseHandler = viewDidClose
         super.init(nibName: nil, bundle: nil)

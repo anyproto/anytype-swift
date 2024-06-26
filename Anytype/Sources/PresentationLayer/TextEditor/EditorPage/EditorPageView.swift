@@ -8,7 +8,7 @@ struct EditorPageView: View {
     
     private var model: EditorPageViewModel { stateModel.model }
     
-    init(data: EditorPageObject, output: EditorPageModuleOutput?, showHeader: Bool) {
+    init(data: EditorPageObject, output: (any EditorPageModuleOutput)?, showHeader: Bool) {
         self._stateModel = StateObject(
             wrappedValue: Container.shared.legacyEditorPageModuleAssembly().buildStateModel(data: data, output: output, showHeader: showHeader)
         )

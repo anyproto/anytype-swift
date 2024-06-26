@@ -6,9 +6,9 @@ import AnytypeCore
 struct HomeWidgetSubmoduleView: View {
     
     let widgetInfo: BlockWidgetInfo
-    let widgetObject: BaseDocumentProtocol
+    let widgetObject: any BaseDocumentProtocol
     @Binding var homeState: HomeWidgetsState
-    let output: CommonWidgetModuleOutput?
+    let output: (any CommonWidgetModuleOutput)?
     
     var body: some View {
         switch widgetInfo.source {

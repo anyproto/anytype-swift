@@ -8,7 +8,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     let data: EditorPageObject
     let showHeader: Bool
-    private let setupEditorInput: (EditorPageModuleInput, String) -> Void
+    private let setupEditorInput: (any EditorPageModuleInput, String) -> Void
     @Injected(\.relationValueProcessingService)
     private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
     
@@ -50,11 +50,11 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         dismiss.toggle()
     }
     
-    func setModuleInput(input: EditorPageModuleInput, objectId: String) {
+    func setModuleInput(input: some EditorPageModuleInput, objectId: String) {
         setupEditorInput(input, objectId)
     }
     
-    func showRelationValueEditingView(document: BaseDocumentProtocol, relation: Relation) {
+    func showRelationValueEditingView(document: some BaseDocumentProtocol, relation: Relation) {
         guard let objectDetails = document.details else {
             anytypeAssertionFailure("Details not found")
             return
@@ -62,7 +62,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         handleRelationValue(relation: relation, objectDetails: objectDetails)
     }
     
-    func showCoverPicker(document: BaseDocumentProtocol) {
+    func showCoverPicker(document: some BaseDocumentProtocol) {
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
@@ -74,7 +74,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         linkToObjectData = data
     }
     
-    func showIconPicker(document: BaseDocumentProtocol) {
+    func showIconPicker(document: some BaseDocumentProtocol) {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
@@ -90,7 +90,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
         undoRedoObjectId = data.objectId.identifiable
     }
     
-    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         relationsSearchData = RelationsSearchData(
             document: document,
             excludedRelationsIds: document.parsedRelations.installed.map(\.id),

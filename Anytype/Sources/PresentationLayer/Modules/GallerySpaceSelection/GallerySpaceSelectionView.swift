@@ -5,7 +5,7 @@ struct GallerySpaceSelectionView: View {
     
     @StateObject private var model: GallerySpaceSelectionViewModel
     
-    init(output: GallerySpaceSelectionModuleOutput?) {
+    init(output: (any GallerySpaceSelectionModuleOutput)?) {
         _model = StateObject(wrappedValue: GallerySpaceSelectionViewModel(output: output))
     }
     

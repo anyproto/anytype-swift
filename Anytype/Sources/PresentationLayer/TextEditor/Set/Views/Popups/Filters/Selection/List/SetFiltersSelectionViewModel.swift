@@ -9,16 +9,16 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     @Published var condition: DataviewFilter.Condition
     
     private let filter: SetFilter
-    private let contentHandler: SetFiltersContentHandlerProtocol
+    private let contentHandler: any SetFiltersContentHandlerProtocol
     private let contentViewBuilder: SetFiltersContentViewBuilder
     private let onApply: (SetFilter) -> Void
     
-    private weak var output: SetFiltersSelectionCoordinatorOutput?
+    private weak var output: (any SetFiltersSelectionCoordinatorOutput)?
     
     init(
         data: SetFiltersSelectionData,
         contentViewBuilder: SetFiltersContentViewBuilder,
-        output: SetFiltersSelectionCoordinatorOutput?
+        output: (any SetFiltersSelectionCoordinatorOutput)?
     ) {
         self.filter = data.filter
         self.condition = filter.filter.condition

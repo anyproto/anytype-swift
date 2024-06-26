@@ -1,16 +1,16 @@
 import Foundation
 
 protocol DocumentServiceProtocol: AnyObject {
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol
-    func setDocument(objectId: String, forPreview: Bool) -> SetDocumentProtocol
+    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol
+    func setDocument(objectId: String, forPreview: Bool) -> any SetDocumentProtocol
 }
 
 // Default arguments
 extension DocumentServiceProtocol {
-    func document(objectId: String) -> BaseDocumentProtocol {
+    func document(objectId: String) -> some BaseDocumentProtocol {
         return document(objectId: objectId, forPreview: false)
     }
-    func setDocument(objectId: String) -> SetDocumentProtocol {
+    func setDocument(objectId: String) -> some SetDocumentProtocol {
         return setDocument(objectId: objectId, forPreview: false)
     }
 }
@@ -22,21 +22,21 @@ final class DocumentService: DocumentServiceProtocol {
     
     // MARK: - DI
     
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
+    private let relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let objectTypeProvider: any ObjectTypeProviderProtocol
     
-    init(relationDetailsStorage: RelationDetailsStorageProtocol, objectTypeProvider: ObjectTypeProviderProtocol) {
+    init(relationDetailsStorage: some RelationDetailsStorageProtocol, objectTypeProvider: some ObjectTypeProviderProtocol) {
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
     }
     
     // MARK: - DocumentServiceProtocol
     
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    func document(objectId: String, forPreview: Bool) -> some BaseDocumentProtocol {
         return internalDocument(objectId: objectId, forPreview: forPreview)
     }
     
-    func setDocument(objectId: String, forPreview: Bool) -> SetDocumentProtocol {
+    func setDocument(objectId: String, forPreview: Bool) -> some SetDocumentProtocol {
         
         if forPreview {
             let setDocument = createSetDocument(objectId: objectId, forPreview: forPreview)
@@ -62,7 +62,7 @@ final class DocumentService: DocumentServiceProtocol {
     
     // MARK: - Private func
     
-    private func internalDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    private func internalDocument(objectId: String, forPreview: Bool) -> some BaseDocumentProtocol {
         if forPreview {
             let document = createDocument(objectId: objectId, forPreview: forPreview)
             Task { @MainActor in
@@ -85,11 +85,11 @@ final class DocumentService: DocumentServiceProtocol {
         return document
     }
     
-    private func createDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    private func createDocument(objectId: String, forPreview: Bool) -> some BaseDocumentProtocol {
         return BaseDocument(objectId: objectId, forPreview: forPreview)
     }
     
-    private func createSetDocument(objectId: String, forPreview: Bool) -> SetDocumentProtocol {
+    private func createSetDocument(objectId: String, forPreview: Bool) -> some SetDocumentProtocol {
         let document = createDocument(objectId: objectId, forPreview: forPreview)
         return SetDocument(
             document: document,

@@ -7,7 +7,7 @@ struct ObjectSettingsCoordinatorView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(objectId: String, output: ObjectSettingsCoordinatorOutput?) {
+    init(objectId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self._model = StateObject(wrappedValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, output: output))
     }
     

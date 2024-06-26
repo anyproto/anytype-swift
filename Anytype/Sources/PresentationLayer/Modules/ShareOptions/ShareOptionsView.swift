@@ -7,7 +7,7 @@ struct ShareOptionsView: View {
     @StateObject private var model: ShareOptionsViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: ShareOptionsModuleOutput?) {
+    init(output: (any ShareOptionsModuleOutput)?) {
         self._model = StateObject(wrappedValue: ShareOptionsViewModel(output: output))
     }
     

@@ -1,7 +1,7 @@
 import Foundation
 
 extension Container {
-    var homeWidgetsRecentStateManager: Factory<HomeWidgetsRecentStateManagerProtocol> {
+    var homeWidgetsRecentStateManager: Factory<any HomeWidgetsRecentStateManagerProtocol> {
         self { HomeWidgetsRecentStateManager() }
     }
 }

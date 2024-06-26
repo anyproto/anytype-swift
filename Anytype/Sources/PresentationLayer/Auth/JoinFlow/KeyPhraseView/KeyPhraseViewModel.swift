@@ -14,11 +14,11 @@ final class KeyPhraseViewModel: ObservableObject {
     
     let state: JoinFlowState
     
-    private weak var output: JoinFlowStepOutput?
+    private weak var output: (any JoinFlowStepOutput)?
     
     init(
         state: JoinFlowState,
-        output: JoinFlowStepOutput?
+        output: (any JoinFlowStepOutput)?
     ) {
         self.state = state
         self.key = state.mnemonic

@@ -15,7 +15,7 @@ struct SetSubscriptionData: Hashable {
     
     init(
         identifier: String,
-        document: SetDocumentProtocol,
+        document: some SetDocumentProtocol,
         groupFilter: DataviewFilter?,
         currentPage: Int,
         numberOfRowsPerPage: Int,

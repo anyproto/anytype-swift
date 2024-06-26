@@ -5,10 +5,10 @@ import AnytypeCore
 import ProtobufMessages
 
 final class BlockActionHandler: BlockActionHandlerProtocol {
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     
-    private let service: BlockActionServiceProtocol
-    private let markupChanger: BlockMarkupChangerProtocol
+    private let service: any BlockActionServiceProtocol
+    private let markupChanger: any BlockMarkupChangerProtocol
     
     
     @Injected(\.blockService)
@@ -27,9 +27,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     init(
-        document: BaseDocumentProtocol,
-        markupChanger: BlockMarkupChangerProtocol,
-        service: BlockActionServiceProtocol
+        document: some BaseDocumentProtocol,
+        markupChanger: some BlockMarkupChangerProtocol,
+        service: some BlockActionServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger

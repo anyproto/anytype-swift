@@ -40,9 +40,9 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 
     private let selectedIndexPathsSubject = PassthroughSubject<[IndexPath], Never>()
     private let blockInformationProvider: BlockModelInfomationProvider
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let selectionOptionHandler: SimpleTableSelectionOptionHandler
-    private let router: EditorRouterProtocol
+    private let router: any EditorRouterProtocol
     private let cursorManager: EditorCursorManager
     private var selectedBlocksIndexPaths = [IndexPath]() {
         didSet {
@@ -56,16 +56,16 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol {
 
     private var selectedCellsIndexPaths = [IndexPath]()
 
-    private weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
-    weak var viewInput: EditorPageViewInput?
+    private weak var mainEditorSelectionManager: (any SimpleTableSelectionHandler)?
+    weak var viewInput: (any EditorPageViewInput)?
 
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blockInformationProvider: BlockModelInfomationProvider,
         selectionOptionHandler: SimpleTableSelectionOptionHandler,
-        router: EditorRouterProtocol,
+        router: some EditorRouterProtocol,
         cursorManager: EditorCursorManager,
-        mainEditorSelectionManager: SimpleTableSelectionHandler?
+        mainEditorSelectionManager: (any SimpleTableSelectionHandler)?
     ) {
         self.document = document
         self.blockInformationProvider = blockInformationProvider

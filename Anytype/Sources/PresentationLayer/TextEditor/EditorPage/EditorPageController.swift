@@ -10,7 +10,7 @@ enum EditorPageConfigurationConstants {
 
 final class EditorPageController: UIViewController {
     
-    let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    let bottomNavigationManager: any EditorBottomNavigationManagerProtocol
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     private weak var firstResponderView: UIView?
     private let layout = EditorCollectionFlowLayout()
@@ -90,7 +90,7 @@ final class EditorPageController: UIViewController {
     // MARK: - Initializers
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        bottomNavigationManager: some EditorBottomNavigationManagerProtocol,
         showHeader: Bool
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
@@ -621,7 +621,7 @@ private extension EditorPageController {
         }
     }
     
-    func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
+    func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: some BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.contentView.isUserInteractionEnabled = true
         

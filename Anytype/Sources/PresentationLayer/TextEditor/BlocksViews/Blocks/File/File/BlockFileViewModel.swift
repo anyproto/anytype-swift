@@ -8,7 +8,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     var info: BlockInformation { informationProvider.info }
     
     let informationProvider: BlockModelInfomationProvider
-    let handler: BlockActionHandlerProtocol
+    let handler: any BlockActionHandlerProtocol
     let documentId: String
     let showFilePicker: (String) -> ()
     let onFileOpen: (FilePreviewContext) -> ()
@@ -16,11 +16,11 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
     
-    private var document: BaseDocumentProtocol?
+    private var document: (any BaseDocumentProtocol)?
     
     init(
         informationProvider: BlockModelInfomationProvider,
-        handler: BlockActionHandlerProtocol,
+        handler: some BlockActionHandlerProtocol,
         documentId: String,
         showFilePicker: @escaping (String) -> (),
         onFileOpen: @escaping (FilePreviewContext) -> ()

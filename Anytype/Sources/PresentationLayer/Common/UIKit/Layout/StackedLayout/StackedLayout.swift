@@ -203,8 +203,8 @@ public extension UIView.Stack {
 // MARK: - Stack + gaps
 
 public extension UIView.Stack {
-    typealias MinMaxGapViewClosure = (MinMaxGapViewConstraintProtocol) -> Void
-    typealias FixeGapViewClosure = (FixedGapViewConstraintProtocol) -> Void
+    typealias MinMaxGapViewClosure = (any MinMaxGapViewConstraintProtocol) -> Void
+    typealias FixeGapViewClosure = (any FixedGapViewConstraintProtocol) -> Void
 
     /// Gap with min/max height
     ///
@@ -221,7 +221,7 @@ public extension UIView.Stack {
               color: UIColor = .clear,
               relatedTo relatedView: UIView? = nil,
               reversely: Bool = false,
-              view: MinMaxGapViewClosure? = nil) -> MinMaxGapViewConstraintProtocol {
+              view: MinMaxGapViewClosure? = nil) -> some MinMaxGapViewConstraintProtocol {
         let spacing = GapView(relatedView: relatedView, reversely: reversely)
         spacing.backgroundColor = color
         
@@ -240,7 +240,7 @@ public extension UIView.Stack {
     ///
     /// - Parameter height: height of gap
     /// - Returns: view representing the gap
-    func vGap(fixed height: CGFloat, view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
+    func vGap(fixed height: CGFloat, view: FixeGapViewClosure? = nil) -> some FixedGapViewConstraintProtocol {
         vGap(fixed: height, color: .clear, view: view)
     }
     
@@ -257,7 +257,7 @@ public extension UIView.Stack {
               color: UIColor = .clear,
               relatedTo relatedView: UIView? = nil,
               reversely: Bool = false,
-              view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
+              view: FixeGapViewClosure? = nil) -> some FixedGapViewConstraintProtocol {
         
         let spacing = GapView(relatedView: relatedView, reversely: reversely)
         spacing.backgroundColor = color
@@ -278,7 +278,7 @@ public extension UIView.Stack {
     ///
     /// - Parameter width: width of gap
     /// - Returns: view representing the gap
-    func hGap(fixed width: CGFloat, view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
+    func hGap(fixed width: CGFloat, view: FixeGapViewClosure? = nil) -> some FixedGapViewConstraintProtocol {
         hGap(fixed: width, color: .clear, view: view)
     }
     
@@ -295,7 +295,7 @@ public extension UIView.Stack {
               color: UIColor = .clear,
               relatedTo relatedView: UIView? = nil,
               reversely: Bool = false,
-              view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
+              view: FixeGapViewClosure? = nil) -> some FixedGapViewConstraintProtocol {
         
         let spacing = GapView(relatedView: relatedView, reversely: reversely)
         spacing.backgroundColor = color

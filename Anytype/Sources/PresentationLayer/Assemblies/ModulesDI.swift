@@ -2,11 +2,11 @@ import Foundation
 
 extension Container {
 
-    var legacyCreateObjectModuleAssembly: Factory<CreateObjectModuleAssemblyProtocol> {
+    var legacyCreateObjectModuleAssembly: Factory<any CreateObjectModuleAssemblyProtocol> {
         self { CreateObjectModuleAssembly() }
     }
     
-    var legacyEditorPageModuleAssembly: Factory<EditorPageModuleAssemblyProtocol> {
+    var legacyEditorPageModuleAssembly: Factory<any EditorPageModuleAssemblyProtocol> {
         self { EditorPageModuleAssembly() }
     }
 }
