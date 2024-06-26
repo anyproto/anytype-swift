@@ -51,7 +51,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         }.store(in: &subscriptions)
     }
     
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> any UIContentConfiguration {
         setupSubscriptionIfNeeded()
         
         switch bookmarkData.state {
@@ -99,7 +99,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         }
     }
     
-    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> any UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .X32.bookmark,
             text: text,

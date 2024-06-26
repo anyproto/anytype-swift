@@ -11,7 +11,7 @@ struct NonExistentBlockViewModel: BlockViewModelProtocol {
         self.info = info
     }
 
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> any UIContentConfiguration {
         NonExistentBlockContentConfiguration(text: Loc.nonExistentObject)
             .cellBlockConfiguration(
                 dragConfiguration: .init(id: info.id),

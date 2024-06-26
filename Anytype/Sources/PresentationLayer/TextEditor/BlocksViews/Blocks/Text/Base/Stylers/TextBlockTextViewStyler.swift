@@ -4,7 +4,7 @@ import Services
 
 @MainActor
 final class TextBlockTextViewStyler {
-    static func applyStyle(textView: CustomTextView, configuration: TextBlockContentConfiguration, restrictions: BlockRestrictions) {
+    static func applyStyle(textView: CustomTextView, configuration: TextBlockContentConfiguration, restrictions: some BlockRestrictions) {
         updateText(textView: textView, configuration: configuration)
         
         textView.autocorrect = configuration.content.contentType == .title ? false : true

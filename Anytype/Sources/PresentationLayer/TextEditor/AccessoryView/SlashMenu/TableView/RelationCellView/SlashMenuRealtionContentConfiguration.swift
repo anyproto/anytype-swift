@@ -4,11 +4,11 @@ struct SlashMenuRealtionContentConfiguration: UIContentConfiguration, Hashable {
     var relation: RelationItemModel
     var currentConfigurationState: UICellConfigurationState?
 
-    func makeContentView() -> UIView & UIContentView {
+    func makeContentView() -> any UIView & UIContentView {
         return SlashMenuRealtionView(configuration: self)
     }
 
-    func updated(for state: UIConfigurationState) -> SlashMenuRealtionContentConfiguration {
+    func updated(for state: any UIConfigurationState) -> SlashMenuRealtionContentConfiguration {
         guard let state = state as? UICellConfigurationState else { return self }
 
         var updatedConfig = self

@@ -5,14 +5,14 @@ protocol CellBlockConfigurationProtocol where Self: UIContentConfiguration {
 }
 
 struct CellBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfiguration {
-    func makeContentView() -> UIView & UIContentView {
+    func makeContentView() -> any UIView & UIContentView {
         let contentView = EditorContentView<Configuration.View>(configuration: self)
         contentView.configuration = self
         
         return contentView
     }
 
-    func updated(for state: UIConfigurationState) -> Self {
+    func updated(for state: any UIConfigurationState) -> Self {
         guard let state = state as? UICellConfigurationState else { return self }
 
         var updatedConfig = self

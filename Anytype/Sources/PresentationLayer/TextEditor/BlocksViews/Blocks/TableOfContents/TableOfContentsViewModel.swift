@@ -29,7 +29,7 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         return TableOfContentsConfiguration(
             contentProviderBuilder: contentProviderBuilder,
             onTap: onTap,

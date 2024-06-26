@@ -119,7 +119,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     @MainActor
     func showStyleMenu(
         informations: [BlockInformation],
-        restrictions: BlockRestrictions,
+        restrictions: any BlockRestrictions,
         didShow: @escaping (UIView) -> Void,
         onDismiss: @escaping () -> Void
     ) {

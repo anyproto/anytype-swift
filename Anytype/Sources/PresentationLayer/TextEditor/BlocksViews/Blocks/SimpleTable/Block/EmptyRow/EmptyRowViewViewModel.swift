@@ -40,14 +40,14 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         }
     }
 
-    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+    func makeSpreadsheetConfiguration() -> any UIContentConfiguration {
         emptyRowConfiguration().spreadsheetConfiguration(
             dragConfiguration: nil,
             styleConfiguration: CellStyleConfiguration(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .Background.primary)
         )
     }
 
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         makeSpreadsheetConfiguration()
     }
 

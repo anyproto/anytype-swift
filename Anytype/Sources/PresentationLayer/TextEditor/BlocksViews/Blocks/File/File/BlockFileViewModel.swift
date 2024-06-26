@@ -60,7 +60,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> any UIContentConfiguration {
         guard case let .file(fileData) = info.content else {
             anytypeAssertionFailure("BlockFileViewModel has wrong info.content")
             return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
@@ -81,7 +81,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         }
     }
     
-    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> any UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .X32.file,
             text: text,

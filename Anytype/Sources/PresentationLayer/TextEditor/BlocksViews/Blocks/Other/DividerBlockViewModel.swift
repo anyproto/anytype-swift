@@ -12,7 +12,7 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
         self.blockInformationProvider = blockInformationProvider
     }
     
-    func makeContentConfiguration(maxWidth width : CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width : CGFloat) -> any UIContentConfiguration {
         guard case let .divider(dividerContent) = info.content else {
             anytypeAssertionFailure("DividerBlockViewModel blockInformation has wrong content type")
             return UnsupportedBlockViewModel(info: info)

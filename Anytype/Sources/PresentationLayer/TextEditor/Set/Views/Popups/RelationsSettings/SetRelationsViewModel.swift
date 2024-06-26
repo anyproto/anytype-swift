@@ -17,7 +17,7 @@ final class SetRelationsViewModel: ObservableObject {
     
     private weak var output: (any SetRelationsCoordinatorOutput)?
     
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     var relations: [SetViewSettingsRelation] {
         setDocument.sortedRelations(for: viewId).map { relation in

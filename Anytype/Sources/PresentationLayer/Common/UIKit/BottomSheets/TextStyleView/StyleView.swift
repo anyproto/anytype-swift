@@ -58,7 +58,7 @@ final class StyleView: UIView {
         var config = UICollectionViewCompositionalLayoutConfiguration()
 
         let layout = UICollectionViewCompositionalLayout(sectionProvider: {
-            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            (sectionIndex: Int, layoutEnvironment: any NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
             let itemSize = NSCollectionLayoutSize(widthDimension: .estimated(50), heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             let groupSize = NSCollectionLayoutSize(widthDimension: .estimated(50), heightDimension: .fractionalHeight(1.0))
@@ -120,7 +120,7 @@ final class StyleView: UIView {
     private var askBackgroundColor: () -> UIColor?
     private var didTapMarkupButton: (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
     private var style: BlockText.Style?
-    private var restrictions: BlockRestrictions
+    private var restrictions: any BlockRestrictions
     // deselect action will be performed on new selection
     private var currentDeselectAction: (() -> Void)?
 
@@ -134,7 +134,7 @@ final class StyleView: UIView {
         blockIds: [String],
         viewControllerForPresenting: UIViewController,
         style: BlockText.Style?,
-        restrictions: BlockRestrictions,
+        restrictions: some BlockRestrictions,
         askColor: @escaping () -> UIColor?,
         askBackgroundColor: @escaping () -> UIColor?,
         didTapMarkupButton: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,

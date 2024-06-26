@@ -17,7 +17,7 @@ extension UICollectionViewCompositionalLayout {
     ) -> UICollectionViewCompositionalLayout {
         CellCollectionViewCompositionalLayout(
             sectionProvider: {
-                (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                (sectionIndex: Int, layoutEnvironment: any NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
 
                 let itemSize = NSCollectionLayoutSize(

@@ -12,7 +12,7 @@ struct SpacerBlockViewModel: SystemContentConfiguationProvider {
 
     let usage: SpacerCase
 
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         SpacerBlockConfiguration(spacerHeight: usage.rawValue)
             .cellBlockConfiguration(
                 dragConfiguration: nil,

@@ -5,10 +5,10 @@ import Foundation
 final class FileLoaderReturnValue {
     
     /// Download task with possibility to cancel it
-    let task: Cancellable
+    let task: any Cancellable
     
     /// Progress publisher to subscribe on progress changes
-    let progressPublisher: AnyPublisher<FileLoadingState, Error>
+    let progressPublisher: AnyPublisher<FileLoadingState, any Error>
     
     /// initializer
     ///
@@ -16,8 +16,8 @@ final class FileLoaderReturnValue {
     ///   - task: Download task with possibility to cancel it
     ///   - progressPublisher: Progress publisher to subscribe on progress changes
     init(
-        task: Cancellable,
-        progressPublisher: AnyPublisher<FileLoadingState, Error>
+        task: some Cancellable,
+        progressPublisher: AnyPublisher<FileLoadingState, any Error>
     ) {
         self.task = task
         self.progressPublisher = progressPublisher

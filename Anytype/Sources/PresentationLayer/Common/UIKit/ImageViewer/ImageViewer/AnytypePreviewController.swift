@@ -15,13 +15,13 @@ final class AnytypePreviewController: QLPreviewController {
 
     var hasUpdates = false
 
-    private let items: [PreviewRemoteItem]
+    private let items: [any PreviewRemoteItem]
     private let onContentChanged: (URL) -> Void
     private var itemsSubscriptions = [AnyCancellable]()
     private weak var sourceView: UIView?
 
     init(
-        with items: [PreviewRemoteItem],
+        with items: [any PreviewRemoteItem],
         sourceView: UIView?,
         onContentChanged: @escaping (URL) -> Void
     ) {
@@ -65,7 +65,7 @@ final class AnytypePreviewController: QLPreviewController {
 extension AnytypePreviewController: QLPreviewControllerDataSource, QLPreviewControllerDelegate {
     // MARK: - QLPreviewControllerDataSource
 
-    func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: QLPreviewItem) -> Bool {
+    func previewController(_ controller: QLPreviewController, shouldOpen url: URL, for item: any QLPreviewItem) -> Bool {
         return false
     }
 
@@ -73,25 +73,25 @@ extension AnytypePreviewController: QLPreviewControllerDataSource, QLPreviewCont
         return 1
     }
 
-    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> any QLPreviewItem {
         items[index]
     }
 
     // MARK: - QLPreviewControllerDelegate
 
-    func previewController(_ controller: QLPreviewController, editingModeFor previewItem: QLPreviewItem) -> QLPreviewItemEditingMode {
+    func previewController(_ controller: QLPreviewController, editingModeFor previewItem: any QLPreviewItem) -> QLPreviewItemEditingMode {
         .updateContents
     }
 
-    func previewController(_ controller: QLPreviewController, didUpdateContentsOf previewItem: QLPreviewItem) {
+    func previewController(_ controller: QLPreviewController, didUpdateContentsOf previewItem: any QLPreviewItem) {
         previewItem.previewItemURL.map(onContentChanged)
     }
 
-    func previewController(_ controller: QLPreviewController, didSaveEditedCopyOf previewItem: QLPreviewItem, at modifiedContentsURL: URL) {
+    func previewController(_ controller: QLPreviewController, didSaveEditedCopyOf previewItem: any QLPreviewItem, at modifiedContentsURL: URL) {
         onContentChanged(modifiedContentsURL)
     }
 
-    func previewController(_ controller: QLPreviewController, transitionViewFor item: QLPreviewItem) -> UIView? {
+    func previewController(_ controller: QLPreviewController, transitionViewFor item: any QLPreviewItem) -> UIView? {
         sourceView
     }
 }

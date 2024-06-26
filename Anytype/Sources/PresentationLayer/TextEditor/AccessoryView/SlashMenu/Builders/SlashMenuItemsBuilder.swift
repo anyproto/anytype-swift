@@ -4,7 +4,7 @@ struct SlashMenuItemsBuilder {
     @Injected(\.typesService)
     private var typesService: any TypesServiceProtocol
     
-    func slashMenuItems(spaceId: String, resrictions: BlockRestrictions, relations: [Relation]) async throws -> [SlashMenuItem] {
+    func slashMenuItems(spaceId: String, resrictions: some BlockRestrictions, relations: [Relation]) async throws -> [SlashMenuItem] {
         let searchObjectsMenuItem = try? await searchObjectsMenuItem(spaceId: spaceId)
         
         return [
@@ -20,7 +20,7 @@ struct SlashMenuItemsBuilder {
         ].compactMap { $0 }
     }
     
-    private func styleMenuItem(restrictions: BlockRestrictions) -> SlashMenuItem? {
+    private func styleMenuItem(restrictions: some BlockRestrictions) -> SlashMenuItem? {
         let children = SlashActionStyle.allCases.reduce(into: [SlashAction]()) { result, type in
             if let mappedType = type.blockViewsType {
                 guard restrictions.turnIntoStyles.contains(mappedType) else { return }
@@ -92,7 +92,7 @@ struct SlashMenuItemsBuilder {
         return SlashMenuItem(type: .relations, children: childrens)
     }
     
-    private func alignmentMenuItem(restrictions: BlockRestrictions) -> SlashMenuItem? {
+    private func alignmentMenuItem(restrictions: some BlockRestrictions) -> SlashMenuItem? {
         let children = SlashActionAlignment.allCases.reduce(into: [SlashAction]()) { result, alignment in
             guard restrictions.availableAlignments.contains(alignment.blockAlignment) else { return }
             result.append(.alignment(alignment))
@@ -103,14 +103,14 @@ struct SlashMenuItemsBuilder {
         return SlashMenuItem(type: .alignment, children: children)
     }
     
-    private func blockColorMenuItem(restrictions: BlockRestrictions) -> SlashMenuItem? {
+    private func blockColorMenuItem(restrictions: some BlockRestrictions) -> SlashMenuItem? {
         if !restrictions.canApplyBlockColor {
             return nil
         }
         return SlashMenuItem(type: .color, children: BlockColor.allCases.map { .color($0) })
     }
     
-    private func backgroundColorMenuItem(restrictions: BlockRestrictions) -> SlashMenuItem? {
+    private func backgroundColorMenuItem(restrictions: some BlockRestrictions) -> SlashMenuItem? {
         if !restrictions.canApplyBackgroundColor {
             return nil
         }

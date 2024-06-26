@@ -11,7 +11,7 @@ struct ShimmeringBlockViewModel: SystemContentConfiguationProvider {
         "shimmering" as AnyHashable
     }
 
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         ShimmeringBlockConfiguration(image: ImageAsset.TextEditor.shimmering)
             .cellBlockConfiguration(dragConfiguration: nil, styleConfiguration: nil)
     }
