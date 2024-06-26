@@ -17,10 +17,10 @@ enum StoreKitServiceError: String, LocalizedError {
 }
 
 public struct StoreKitPurchaseSuccess {
-    let middlewareValidationError: Error?
+    let middlewareValidationError: (any Error)?
     
     static let noError = StoreKitPurchaseSuccess(middlewareValidationError: nil)
-    static func withError(_ error: Error) -> StoreKitPurchaseSuccess {
+    static func withError(_ error: some Error) -> StoreKitPurchaseSuccess {
         StoreKitPurchaseSuccess(middlewareValidationError: error)
     }
     

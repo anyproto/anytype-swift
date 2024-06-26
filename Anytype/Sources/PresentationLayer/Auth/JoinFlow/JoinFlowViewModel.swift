@@ -60,7 +60,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         }
     }
     
-    func onError(_ error: Error) {
+    func onError(_ error: some Error) {
         errorText = error.localizedDescription
     }
     

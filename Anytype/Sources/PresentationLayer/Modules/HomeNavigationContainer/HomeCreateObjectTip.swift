@@ -15,7 +15,7 @@ struct HomeCreateObjectTip: Tip {
         Text(verbatim: Loc.LongTapCreateTip.message)
     }
     
-    var options: [TipOption] {
+    var options: [any TipOption] {
         Tip.MaxDisplayCount(1)
     }
     

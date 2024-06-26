@@ -8,7 +8,7 @@ protocol SceneStateNotifierProtocol {
 }
 
 final class SceneStateNotifier: SceneStateNotifierProtocol {
-    private var listeners: [Weak<SceneStateListener>] = []
+    private var listeners: [Weak<any SceneStateListener>] = []
     
     init() {
         setupObservers()

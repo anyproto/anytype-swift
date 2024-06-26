@@ -63,7 +63,7 @@ final class VaultViewModel: ObservableObject {
         output?.onNext()
     }
     
-    private func createAccountError(_ error: Error) {
+    private func createAccountError(_ error: some Error) {
         stopLoading()
         output?.onError(error)
     }

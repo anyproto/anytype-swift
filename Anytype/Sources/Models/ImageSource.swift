@@ -6,8 +6,8 @@ enum ImageSource {
     case image(UIImage)
     case middleware(ImageMetadata)
 
-    var image: Future<(UIImage?, Data?), Error> {
-        Future<(UIImage?, Data?), Error> { promise in
+    var image: Future<(UIImage?, Data?), any Error> {
+        Future<(UIImage?, Data?), any Error> { promise in
             switch self {
             case .image(let image):
                 promise(.success((image, nil)))
