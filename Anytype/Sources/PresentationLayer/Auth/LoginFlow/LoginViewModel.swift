@@ -155,7 +155,7 @@ final class LoginViewModel: ObservableObject {
         accountRecover()
     }
     
-    private func recoverWalletError(_ error: Error) {
+    private func recoverWalletError(_ error: some Error) {
         stopButtonsLoading()
         errorText = error.localizedDescription
     }

@@ -25,25 +25,25 @@ final class DownloadableImageViewWrapper {
 extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
     
     @discardableResult
-    func imageGuideline(_ imageGuideline: ImageGuideline) -> DownloadableImageViewWrapperProtocol {
+    func imageGuideline(_ imageGuideline: ImageGuideline) -> any DownloadableImageViewWrapperProtocol {
         self.imageGuideline = imageGuideline
         return self
     }
     
     @discardableResult
-    func scalingType(_ scalingType: KFScalingType?) -> DownloadableImageViewWrapperProtocol {
+    func scalingType(_ scalingType: KFScalingType?) -> any DownloadableImageViewWrapperProtocol {
         self.scalingType = scalingType
         return self
     }
     
     @discardableResult
-    func animatedTransition( _ animatedTransition: Bool) -> DownloadableImageViewWrapperProtocol {
+    func animatedTransition( _ animatedTransition: Bool) -> any DownloadableImageViewWrapperProtocol {
         self.animatedTransition = animatedTransition
         return self
     }
     
     @discardableResult
-    func placeholderNeeded( _ placeholderNeeded: Bool) -> DownloadableImageViewWrapperProtocol {
+    func placeholderNeeded( _ placeholderNeeded: Bool) -> any DownloadableImageViewWrapperProtocol {
         self.placeholderNeeded = placeholderNeeded
         return self
     }
@@ -107,7 +107,7 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
 
 private extension DownloadableImageViewWrapper {
     
-    func buildPlaceholder(with imageGuideline: ImageGuideline) -> Placeholder? {
+    func buildPlaceholder(with imageGuideline: ImageGuideline) -> (some Placeholder)? {
         placeholderNeeded ? ImageBuilder(imageGuideline).build() : nil
     }
     

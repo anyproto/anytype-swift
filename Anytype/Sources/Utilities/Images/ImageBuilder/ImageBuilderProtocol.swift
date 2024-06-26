@@ -3,10 +3,10 @@ import UIKit
 
 protocol ImageBuilderProtocol {
     
-    func setImageColor(_ imageColor: UIColor) -> ImageBuilderProtocol
-    func setText(_ text: String) -> ImageBuilderProtocol
-    func setTextColor(_ textColor: UIColor) -> ImageBuilderProtocol
-    func setFont(_ font: UIFont) -> ImageBuilderProtocol
+    func setImageColor(_ imageColor: UIColor) -> any ImageBuilderProtocol
+    func setText(_ text: String) -> any ImageBuilderProtocol
+    func setTextColor(_ textColor: UIColor) -> any ImageBuilderProtocol
+    func setFont(_ font: UIFont) -> any ImageBuilderProtocol
     
     func build() -> UIImage
     

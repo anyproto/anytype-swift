@@ -3,7 +3,7 @@ import UIKit
 
 final class ImageBuilder {
         
-    private let imageStorage: ImageStorageProtocol = ImageStorage.shared
+    private let imageStorage: some ImageStorageProtocol = ImageStorage.shared
     
     private var imageGuideline: ImageGuideline
     private var imageColor = UIColor.Shape.tertiary
@@ -21,25 +21,25 @@ final class ImageBuilder {
 extension ImageBuilder: ImageBuilderProtocol {
     
     @discardableResult
-    func setImageColor(_ imageColor: UIColor) -> ImageBuilderProtocol {
+    func setImageColor(_ imageColor: UIColor) -> any ImageBuilderProtocol {
         self.imageColor = imageColor
         return self
     }
     
     @discardableResult
-    func setText(_ text: String) -> ImageBuilderProtocol {
+    func setText(_ text: String) -> any ImageBuilderProtocol {
         self.text = text
         return self
     }
     
     @discardableResult
-    func setTextColor(_ textColor: UIColor) -> ImageBuilderProtocol {
+    func setTextColor(_ textColor: UIColor) -> any ImageBuilderProtocol {
         self.textColor = textColor
         return self
     }
     
     @discardableResult
-    func setFont(_ font: UIFont) -> ImageBuilderProtocol {
+    func setFont(_ font: UIFont) -> any ImageBuilderProtocol {
         self.font = font
         return self
     }

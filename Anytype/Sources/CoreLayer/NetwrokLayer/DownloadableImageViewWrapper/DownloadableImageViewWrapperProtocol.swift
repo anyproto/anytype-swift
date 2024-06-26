@@ -4,16 +4,16 @@ import UIKit
 protocol DownloadableImageViewWrapperProtocol {
     
     @discardableResult
-    func imageGuideline(_ imageGuideline: ImageGuideline) -> DownloadableImageViewWrapperProtocol
+    func imageGuideline(_ imageGuideline: ImageGuideline) -> any DownloadableImageViewWrapperProtocol
     
     @discardableResult
-    func scalingType(_ scalingType: KFScalingType?) -> DownloadableImageViewWrapperProtocol
+    func scalingType(_ scalingType: KFScalingType?) -> any DownloadableImageViewWrapperProtocol
     
     @discardableResult
-    func animatedTransition( _ animatedTransition: Bool) -> DownloadableImageViewWrapperProtocol
+    func animatedTransition( _ animatedTransition: Bool) -> any DownloadableImageViewWrapperProtocol
     
     @discardableResult
-    func placeholderNeeded( _ placeholderNeeded: Bool) -> DownloadableImageViewWrapperProtocol
+    func placeholderNeeded( _ placeholderNeeded: Bool) -> any DownloadableImageViewWrapperProtocol
     
     func setImage(id: String)
     func setImage(url: URL)

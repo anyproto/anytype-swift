@@ -10,7 +10,7 @@ enum AttributeState {
         markup: MarkupType,
         in range: NSRange,
         string: NSAttributedString,
-        with restrictions: BlockRestrictions) -> AttributeState
+        with restrictions: some BlockRestrictions) -> AttributeState
     {
         guard restrictions.isMarkupAvailable(markup) else { return .disabled }
         guard string.hasMarkup(markup, range: range) else { return .notApplied }
@@ -20,7 +20,7 @@ enum AttributeState {
     static func allMarkupAttributesState(
         in range: NSRange,
         string: NSAttributedString,
-        with restrictions: BlockRestrictions
+        with restrictions: some BlockRestrictions
     ) -> [MarkupType: AttributeState] {
         var allAttributesState = [MarkupType: AttributeState]()
 

@@ -53,7 +53,7 @@ final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
             localizedTitle: Loc.QuickAction.create(type.name),
             localizedSubtitle: nil,
             icon: UIApplicationShortcutIcon(type: .add),
-            userInfo: [Constants.typeId.rawValue: type.id as NSSecureCoding]
+            userInfo: [Constants.typeId.rawValue: type.id as any NSSecureCoding]
         )
     }
     

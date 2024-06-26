@@ -47,7 +47,7 @@ final class SoulViewModel: ObservableObject {
         output?.onNext()
     }
     
-    private func updateNameError(_ error: Error) {
+    private func updateNameError(_ error: some Error) {
         stopLoading()
         output?.onError(error)
     }

@@ -170,7 +170,7 @@ extension BlockToolbarBookmark {
                 parent.viewModel.showLoader.send(false)
             }
             
-            func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+            func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: any Error) {
                 parent.viewModel.showLoader.send(false)
             }
             

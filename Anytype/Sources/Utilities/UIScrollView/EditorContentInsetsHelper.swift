@@ -18,7 +18,7 @@ final class EditorContentInsetsHelper {
     private var cancellables = [AnyCancellable]()
     private let keyboardListener: KeyboardEventsListnerHelper?
     
-    init?(scrollView: UIScrollView, stateManager: EditorPageBlocksStateManagerProtocol) {
+    init?(scrollView: UIScrollView, stateManager: any EditorPageBlocksStateManagerProtocol) {
         scrollView.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
         let showAction: KeyboardEventsListnerHelper.Action = { [weak scrollView] event in
             guard let keyboardRect = event.endFrame else { return }

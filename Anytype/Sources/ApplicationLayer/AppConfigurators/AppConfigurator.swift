@@ -4,7 +4,7 @@ import Foundation
 @MainActor
 final class AppConfigurator {
     
-    private let configurators: [AppConfiguratorProtocol] = [
+    private let configurators: [any AppConfiguratorProtocol] = [
         EnvironmentConfiguration(),
         NonFatalAlertConfigurator(),
         MiddlewareMerticsConfigurator(),
