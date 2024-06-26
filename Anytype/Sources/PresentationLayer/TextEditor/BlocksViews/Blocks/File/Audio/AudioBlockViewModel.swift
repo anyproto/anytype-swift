@@ -48,6 +48,12 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         self.audioSessionService = audioSessionService
         self.showAudioPicker = showAudioPicker
     }
+    
+    deinit {
+        Task { @MainActor [weak audioPlayer] in
+            audioPlayer?.pauseCurrentAudio()
+        }
+    }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         if case .readonly = editorEditingState { return }
@@ -109,11 +115,5 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     
     func setAudioSessionCategorypPlaybackMixWithOthers() {
         audioSessionService.setCategorypPlaybackMixWithOthers()
-    }
-    
-    deinit {
-        Task { @MainActor [weak audioPlayer] in
-            audioPlayer?.pauseCurrentAudio()
-        }
     }
 }
