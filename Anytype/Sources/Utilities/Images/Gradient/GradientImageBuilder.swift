@@ -5,7 +5,7 @@ final class GradientImageBuilder {
 
     // MARK: - Private variables
     
-    private let imageStorage: any ImageStorageProtocol = ImageStorage.shared
+    private let imageStorage: some ImageStorageProtocol = ImageStorage.shared
     
     // MARK: - Public func
 

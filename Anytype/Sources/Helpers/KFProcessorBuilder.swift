@@ -9,8 +9,8 @@ struct KFProcessorBuilder {
 
 extension KFProcessorBuilder {
     
-    func build() -> Kingfisher.ImageProcessor {
-        let imageProcessor: ImageProcessor = {
+    func build() -> any Kingfisher.ImageProcessor {
+        let imageProcessor: any ImageProcessor = {
             switch scalingType {
             case .resizing(let mode):
                 return ResizingImageProcessor(referenceSize: imageGuideline.size, mode: mode)

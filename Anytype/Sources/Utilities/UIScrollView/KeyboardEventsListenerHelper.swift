@@ -5,7 +5,7 @@ import AnytypeCore
 class KeyboardEventsListnerHelper {
     
     typealias Action = (KeyboardEvent) -> Void
-    private var observerTokens: [NSObjectProtocol]?
+    private var observerTokens: [any NSObjectProtocol]?
     private var keyboardState = KeyboardState.hidden
     
     deinit {
