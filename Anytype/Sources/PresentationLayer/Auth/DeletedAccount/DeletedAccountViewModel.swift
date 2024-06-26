@@ -5,11 +5,11 @@ import UIKit
 final class DeletedAccountViewModel: ObservableObject {
     
     @Injected(\.authService)
-    private var service: AuthServiceProtocol
+    private var service:any AuthServiceProtocol
     private let deadline: Date
     
     @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    private var applicationStateService:any ApplicationStateServiceProtocol
     
     // MARK: - Initializer
     

@@ -12,7 +12,7 @@ final class RelationOptionSettingsViewModel: ObservableObject {
     let configuration: RelationOptionSettingsConfiguration
     
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService:any RelationsServiceProtocol
     
     private let completion: (_ optionParams: RelationOptionParameters) -> Void
     

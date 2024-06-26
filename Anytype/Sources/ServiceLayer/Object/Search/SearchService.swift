@@ -10,7 +10,7 @@ enum SearchDefaults {
 final class SearchService: SearchServiceProtocol {
     
     @Injected(\.searchMiddleService)
-    private var searchMiddleService: SearchMiddleServiceProtocol
+    private var searchMiddleService:any SearchMiddleServiceProtocol
     
     // MARK: - SearchServiceProtocol
     

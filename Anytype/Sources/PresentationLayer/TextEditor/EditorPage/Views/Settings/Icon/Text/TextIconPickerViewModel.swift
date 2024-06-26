@@ -15,9 +15,9 @@ struct TextIconPickerData: Identifiable, Hashable {
 final class TextIconPickerViewModel: ObservableObject {
     
     @Injected(\.fileActionsService)
-    private var fileService: FileActionsServiceProtocol
+    private var fileService:any FileActionsServiceProtocol
     @Injected(\.textServiceHandler)
-    private var textServiceHandler: TextServiceProtocol
+    private var textServiceHandler:any TextServiceProtocol
     
     private let contextId: String
     private let objectId: String

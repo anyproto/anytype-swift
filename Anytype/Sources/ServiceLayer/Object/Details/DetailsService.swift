@@ -5,9 +5,9 @@ import AnytypeCore
 final class DetailsService: DetailsServiceProtocol {
     
     @Injected(\.objectActionsService)
-    private var service: ObjectActionsServiceProtocol
+    private var service:any ObjectActionsServiceProtocol
     @Injected(\.fileActionsService)
-    private var fileService: FileActionsServiceProtocol
+    private var fileService:any FileActionsServiceProtocol
     
     // MARK: - DetailsServiceProtocol
 

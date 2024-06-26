@@ -17,15 +17,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     let actionHandler: BlockActionHandlerProtocol
     
     @Injected(\.objectActionsService)
-    var objectActionsService: ObjectActionsServiceProtocol
+    var objectActionsService:any ObjectActionsServiceProtocol
     @Injected(\.objectTypeProvider)
-    var objectTypeProvider: ObjectTypeProviderProtocol
+    var objectTypeProvider:any ObjectTypeProviderProtocol
     @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    private var searchService:any SearchServiceProtocol
     @Injected(\.templatesSubscription)
-    private var templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    private var templatesSubscriptionService:any TemplatesSubscriptionServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder

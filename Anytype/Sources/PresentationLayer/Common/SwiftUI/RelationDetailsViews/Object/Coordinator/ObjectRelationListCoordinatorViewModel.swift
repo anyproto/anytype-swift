@@ -15,7 +15,7 @@ final class ObjectRelationListCoordinatorViewModel: ObservableObject, ObjectRela
     private weak var output: ObjectRelationListCoordinatorModuleOutput?
     
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider:any ObjectTypeProviderProtocol
     
     @Published var deletionAlertData: DeletionAlertData?
     @Published var dismiss = false

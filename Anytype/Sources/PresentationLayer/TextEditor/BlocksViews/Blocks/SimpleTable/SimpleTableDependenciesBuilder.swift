@@ -21,13 +21,13 @@ final class SimpleTableDependenciesBuilder {
     private weak var moduleOutput: EditorPageModuleOutput?
     
     @Injected(\.blockTableService)
-    private var tableService: BlockTableServiceProtocol
+    private var tableService:any BlockTableServiceProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService:any PasteboardBlockDocumentServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    private var defaultObjectService:any DefaultObjectCreationServiceProtocol
     @Injected(\.typesService)
-    private var typesService: TypesServiceProtocol
+    private var typesService:any TypesServiceProtocol
     
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     

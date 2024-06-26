@@ -4,7 +4,7 @@ import UIKit
 final class AudioPlaybackConfigurator: AppConfiguratorProtocol {
 
     @Injected(\.audioSessionService)
-    private var audioSessionService: AudioSessionServiceProtocol
+    private var audioSessionService:any AudioSessionServiceProtocol
     
     func configure() {
         audioSessionService.setCategorypPlaybackMixWithOthers()

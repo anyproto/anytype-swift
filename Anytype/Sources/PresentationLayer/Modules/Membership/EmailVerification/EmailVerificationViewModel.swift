@@ -17,7 +17,7 @@ final class EmailVerificationViewModel: ObservableObject {
     var number4: String { text.letterAtIndex(3) }
     
     @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService:any MembershipServiceProtocol
     
     private let onSuccessfulValidation: () -> ()
     

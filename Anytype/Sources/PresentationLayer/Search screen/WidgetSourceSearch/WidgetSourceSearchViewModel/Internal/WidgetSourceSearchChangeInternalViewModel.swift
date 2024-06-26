@@ -6,9 +6,9 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     // MARK: - DI
     
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService:any BlockWidgetServiceProtocol
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService:any OpenedDocumentsProviderProtocol
     
     private lazy var document: BaseDocumentProtocol = {
         documentService.document(objectId: widgetObjectId)

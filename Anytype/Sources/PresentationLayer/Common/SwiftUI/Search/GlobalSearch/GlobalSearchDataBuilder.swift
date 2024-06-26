@@ -12,9 +12,9 @@ protocol GlobalSearchDataBuilderProtocol {
 final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
     
     @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: RelationDetailsStorageProtocol
+    private var relationDetailsStorage:any RelationDetailsStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     
     private lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
     

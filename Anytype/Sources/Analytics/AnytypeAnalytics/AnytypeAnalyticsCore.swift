@@ -20,7 +20,7 @@ actor AnytypeAnalyticsCore {
     private var userProperties: [AnyHashable: Any] = [:]
     
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage:any ParticipantSpacesStorageProtocol
     
     private init() {
         // Disable IDFA/IPAddress for Amplitude

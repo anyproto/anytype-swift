@@ -20,11 +20,11 @@ final class SetsSubscriptionService: SetsSubscriptionServiceProtocol {
     }
     
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider:any ObjectTypeProviderProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()

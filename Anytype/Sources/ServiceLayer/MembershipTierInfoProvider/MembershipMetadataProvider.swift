@@ -12,9 +12,9 @@ protocol MembershipMetadataProviderProtocol {
 
 final class MembershipMetadataProvider: MembershipMetadataProviderProtocol {
     @Injected(\.membershipStatusStorage)
-    private var storage: MembershipStatusStorageProtocol
+    private var storage:any MembershipStatusStorageProtocol
     @Injected(\.storeKitService)
-    private var storeKitService: StoreKitServiceProtocol
+    private var storeKitService:any StoreKitServiceProtocol
     
     func owningState(tier: MembershipTier) async -> MembershipTierOwningState {
         let status = await storage.currentStatus

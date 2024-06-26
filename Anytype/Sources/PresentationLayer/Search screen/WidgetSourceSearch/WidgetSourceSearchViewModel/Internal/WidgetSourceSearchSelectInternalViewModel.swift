@@ -8,7 +8,7 @@ final class WidgetSourceSearchSelectInternalViewModel: WidgetSourceSearchInterna
     private let data: WidgetSourceSearchModuleModel
     
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService:any BlockWidgetServiceProtocol
     
     init(data: WidgetSourceSearchModuleModel, onSelect: @escaping (_ source: WidgetSource) -> Void) {
         self.data = data

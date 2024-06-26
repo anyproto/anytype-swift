@@ -24,7 +24,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let editorCollectionController: EditorBlockCollectionController
     
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService:any BlockServiceProtocol
     
     
     init(

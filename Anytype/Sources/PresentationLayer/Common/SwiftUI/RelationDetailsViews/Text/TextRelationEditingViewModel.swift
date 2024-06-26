@@ -23,11 +23,11 @@ final class TextRelationEditingViewModel: ObservableObject {
     let type: TextRelationViewType
     
     @Injected(\.textRelationEditingService)
-    private var service: TextRelationEditingServiceProtocol
+    private var service:any TextRelationEditingServiceProtocol
     @Injected(\.pasteboardHelper)
-    private var pasteboardHelper: PasteboardHelperProtocol
+    private var pasteboardHelper:any PasteboardHelperProtocol
     @Injected(\.textRelationActionViewModelBuilder)
-    private var builder: TextRelationActionViewModelBuilder
+    private var builder:TextRelationActionViewModelBuilder
     
     init(data: TextRelationEditingViewData) {
         self.text = data.text ?? ""

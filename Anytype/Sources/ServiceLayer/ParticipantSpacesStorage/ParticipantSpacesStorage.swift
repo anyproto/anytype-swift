@@ -43,11 +43,11 @@ final class ParticipantSpacesStorage: ParticipantSpacesStorageProtocol {
     // MARK: - DI
     
     @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
+    private var workspaceStorage:any WorkspacesStorageProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private var accountParticipantsStorage:any AccountParticipantsStorageProtocol
     @Injected(\.serverConfigurationStorage)
-    private var serverConfigurationStorage: ServerConfigurationStorageProtocol
+    private var serverConfigurationStorage:any ServerConfigurationStorageProtocol
     
     private var subscriptions: [AnyCancellable] = []
     

@@ -17,7 +17,7 @@ final class ChangeTypeAccessoryViewModel {
     private let document: BaseDocumentProtocol
 
     @Injected(\.typesService)
-    private var typesService: TypesServiceProtocol
+    private var typesService:any TypesServiceProtocol
     
     private var cancellables = [AnyCancellable]()
 

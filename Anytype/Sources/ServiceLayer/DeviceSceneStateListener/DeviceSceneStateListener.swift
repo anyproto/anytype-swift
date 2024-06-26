@@ -8,9 +8,9 @@ protocol DeviceSceneStateListenerProtocol {
 final class DeviceSceneStateListener: DeviceSceneStateListenerProtocol, SceneStateListener {
     
     @Injected(\.sceneLifecycleStateService)
-    private var lifecycleStateService: SceneLifecycleStateServiceProtocol
+    private var lifecycleStateService:any SceneLifecycleStateServiceProtocol
     @Injected(\.sceneStateNotifier)
-    private var sceneStateNotifier: SceneStateNotifierProtocol
+    private var sceneStateNotifier:any SceneStateNotifierProtocol
     
     // MARK: - DeviceSceneStateListenerProtocol
     

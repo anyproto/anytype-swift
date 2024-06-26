@@ -8,7 +8,7 @@ final class WidgetObjectListSetsViewModel: WidgetObjectListInternalViewModelProt
     // MARK: - DI
     
     @Injected(\.setsSubscriptionService)
-    private var setsSubscriptionService: SetsSubscriptionServiceProtocol
+    private var setsSubscriptionService:any SetsSubscriptionServiceProtocol
     
     // MARK: - State
     

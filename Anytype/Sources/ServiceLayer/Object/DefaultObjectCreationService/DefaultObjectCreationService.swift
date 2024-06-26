@@ -15,9 +15,9 @@ protocol DefaultObjectCreationServiceProtocol: AnyObject {
 final class DefaultObjectCreationService: DefaultObjectCreationServiceProtocol {
     
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider:any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService)
-    private var objectService: ObjectActionsServiceProtocol
+    private var objectService:any ObjectActionsServiceProtocol
     
     func createDefaultObject(
         name: String,

@@ -4,7 +4,7 @@ import Services
 final class RelationSubscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol {
     
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager:any AccountManagerProtocol
     
     // MARK: - RelationSubscriptionDataBuilderProtocol
     

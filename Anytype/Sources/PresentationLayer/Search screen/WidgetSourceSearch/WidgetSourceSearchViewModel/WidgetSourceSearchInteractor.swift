@@ -17,7 +17,7 @@ protocol WidgetSourceSearchInteractorProtocol: AnyObject {
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    private var searchService:any SearchServiceProtocol
     
     private let spaceId: String
     private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }

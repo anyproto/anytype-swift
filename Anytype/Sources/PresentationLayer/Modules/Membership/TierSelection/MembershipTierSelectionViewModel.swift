@@ -13,9 +13,9 @@ final class MembershipTierSelectionViewModel: ObservableObject {
     let onSuccessfulPurchase: (MembershipTier) -> ()
     
     @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService:any MembershipServiceProtocol
     @Injected(\.membershipMetadataProvider)
-    private var membershipMetadataProvider: MembershipMetadataProviderProtocol
+    private var membershipMetadataProvider:any MembershipMetadataProviderProtocol
     
     init(
         userMembership: MembershipStatus,

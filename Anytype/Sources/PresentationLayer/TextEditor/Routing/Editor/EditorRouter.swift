@@ -8,19 +8,19 @@ import AnytypeCore
 final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var viewController: UIViewController?
     @Injected(\.legacyNavigationContext)
-    private var navigationContext: NavigationContextProtocol
+    private var navigationContext:any NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
     private let document: BaseDocumentProtocol
     @Injected(\.legacyTemplatesCoordinator)
-    private var templatesCoordinator: TemplatesCoordinatorProtocol
+    private var templatesCoordinator:any TemplatesCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
-    private var setObjectCreationSettingsCoordinator: SetObjectCreationSettingsCoordinatorProtocol
+    private var setObjectCreationSettingsCoordinator:any SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.legacyToastPresenter)
-    private var toastPresenter: ToastPresenterProtocol
+    private var toastPresenter:any ToastPresenterProtocol
     private weak var output: EditorPageModuleOutput?
     
     @Injected(\.templatesService)
-    private var templateService: TemplatesServiceProtocol
+    private var templateService:any TemplatesServiceProtocol
 
     init(
         viewController: UIViewController,

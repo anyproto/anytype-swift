@@ -6,7 +6,7 @@ final class ServerDocumentPickerViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.serverConfigurationStorage)
-    private var storage: ServerConfigurationStorageProtocol
+    private var storage:any ServerConfigurationStorageProtocol
     
     // MARK: - State
     

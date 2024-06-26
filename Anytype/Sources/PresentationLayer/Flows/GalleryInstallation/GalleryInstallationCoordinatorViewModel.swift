@@ -9,9 +9,9 @@ final class GalleryInstallationCoordinatorViewModel: ObservableObject,
     
     let data: GalleryInstallationData
     @Injected(\.galleryService)
-    private var galleryService: GalleryServiceProtocol
+    private var galleryService:any GalleryServiceProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService:any WorkspaceServiceProtocol
     
     private var manifest: GalleryManifest?
     @Published var dismiss = false

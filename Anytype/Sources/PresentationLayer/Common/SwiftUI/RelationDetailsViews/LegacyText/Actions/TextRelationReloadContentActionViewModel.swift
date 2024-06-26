@@ -7,7 +7,7 @@ import AnytypeCore
 final class TextRelationReloadContentActionViewModel: TextRelationActionViewModelProtocol {
     
     @Injected(\.bookmarkService)
-    private var bookmarkService: BookmarkServiceProtocol
+    private var bookmarkService:any BookmarkServiceProtocol
     
     private let objectDetails: ObjectDetails
     private let relationKey: String

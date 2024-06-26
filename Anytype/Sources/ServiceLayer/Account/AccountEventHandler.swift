@@ -15,7 +15,7 @@ final class AccountEventHandler: AccountEventHandlerProtocol {
     
     private var cancellable: AnyCancellable?
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager:any AccountManagerProtocol
     
     private let accountShowSubject = PassthroughSubject<String, Never>()
     private let accountStatusSubject = PassthroughSubject<AccountStatus, Never>()

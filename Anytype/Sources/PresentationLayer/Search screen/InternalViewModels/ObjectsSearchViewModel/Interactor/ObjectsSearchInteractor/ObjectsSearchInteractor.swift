@@ -8,7 +8,7 @@ final class ObjectsSearchInteractor {
     private let limitedObjectType: [String]
     
     @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    private var searchService:any SearchServiceProtocol
     
     init(spaceId: String, excludedObjectIds: [String], limitedObjectType: [String]) {
         self.spaceId = spaceId

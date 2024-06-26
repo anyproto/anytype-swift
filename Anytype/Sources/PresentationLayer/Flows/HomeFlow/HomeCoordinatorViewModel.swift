@@ -14,26 +14,26 @@ final class HomeCoordinatorViewModel: ObservableObject,
     // MARK: - DI
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService:any ObjectActionsServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    private var defaultObjectService:any DefaultObjectCreationServiceProtocol
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService:any BlockServiceProtocol
     @Injected(\.pasteboardBlockService)
-    private var pasteboardBlockService: PasteboardBlockServiceProtocol
+    private var pasteboardBlockService:any PasteboardBlockServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var typeProvider: ObjectTypeProviderProtocol
+    private var typeProvider:any ObjectTypeProviderProtocol
     @Injected(\.appActionStorage)
-    private var appActionsStorage: AppActionStorage
+    private var appActionsStorage:AppActionStorage
     @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
+    private var workspacesStorage:any WorkspacesStorageProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider:any DocumentsProviderProtocol
     
     @Injected(\.legacySetObjectCreationCoordinator)
-    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    private var setObjectCreationCoordinator:any SetObjectCreationCoordinatorProtocol
     
     // MARK: - State
     

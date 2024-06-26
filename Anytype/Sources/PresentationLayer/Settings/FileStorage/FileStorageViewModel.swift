@@ -8,7 +8,7 @@ import AnytypeCore
 final class FileStorageViewModel: ObservableObject {
     
     @Injected(\.fileLimitsStorage)
-    private var fileLimitsStorage: FileLimitsStorageProtocol
+    private var fileLimitsStorage:any FileLimitsStorageProtocol
     
     private var subscriptions = [AnyCancellable]()
     private let byteCountFormatter = ByteCountFormatter.fileFormatter

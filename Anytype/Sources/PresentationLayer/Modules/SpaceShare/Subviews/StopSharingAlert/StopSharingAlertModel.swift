@@ -5,7 +5,7 @@ import Services
 final class StopSharingAlertModel: ObservableObject {
     
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService:any WorkspaceServiceProtocol
     
     private let spaceId: String
     private let onStopShare: (() -> Void)?

@@ -10,7 +10,7 @@ protocol SearchWithMetaServiceProtocol: AnyObject {
 final class SearchWithMetaService: SearchWithMetaServiceProtocol {
     
     @Injected(\.searchWithMetaMiddleService)
-    private var searchWithMetaMiddleService: SearchWithMetaMiddleServiceProtocol
+    private var searchWithMetaMiddleService:any SearchWithMetaMiddleServiceProtocol
     
     // MARK: - SearchServiceProtocol
     

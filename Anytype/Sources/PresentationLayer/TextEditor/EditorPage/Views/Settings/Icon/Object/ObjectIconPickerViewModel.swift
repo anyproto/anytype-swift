@@ -21,7 +21,7 @@ enum ObjectIconPickerAction {
 final class ObjectIconPickerViewModel: ObservableObject {
     
     @Injected(\.objectHeaderUploadingService)
-    private var objectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol
+    private var objectHeaderUploadingService:any ObjectHeaderUploadingServiceProtocol
     
     let mediaPickerContentType: MediaPickerContentType = .images
 

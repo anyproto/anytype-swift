@@ -7,7 +7,7 @@ struct TodoIconView: View {
     private static let maxSide = 28.0
     
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService:any ObjectActionsServiceProtocol
     
     let checked: Bool
     let objectId: String?

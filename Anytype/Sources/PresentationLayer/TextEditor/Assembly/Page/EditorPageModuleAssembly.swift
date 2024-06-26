@@ -24,7 +24,7 @@ protocol EditorPageModuleAssemblyProtocol: AnyObject {
 final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
     
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService:any OpenedDocumentsProviderProtocol
     
     nonisolated init() {}
     

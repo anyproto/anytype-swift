@@ -7,9 +7,9 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     private let notification: NotificationRequestToJoin
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkpaceStorage:any ActiveWorkpaceStorageProtocol
     @Injected(\.notificationsService)
-    private var notificationsService: NotificationsServiceProtocol
+    private var notificationsService:any NotificationsServiceProtocol
     
     private let onViewRequest: (_ notification: NotificationRequestToJoin) async -> Void
     

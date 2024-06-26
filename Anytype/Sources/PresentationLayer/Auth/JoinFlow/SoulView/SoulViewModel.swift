@@ -17,13 +17,13 @@ final class SoulViewModel: ObservableObject {
     private weak var output: JoinFlowStepOutput?
     
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager:any AccountManagerProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService:any ObjectActionsServiceProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService:any WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     
     init(state: JoinFlowState, output: JoinFlowStepOutput?) {
         self.state = state

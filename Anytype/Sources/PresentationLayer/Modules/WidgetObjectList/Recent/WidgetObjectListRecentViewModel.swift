@@ -13,7 +13,7 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     private let dateFormatter = AnytypeRelativeDateTimeFormatter()
     
     @Injected(\.recentSubscriptionService)
-    private var recentSubscriptionService: RecentSubscriptionServiceProtocol
+    private var recentSubscriptionService:any RecentSubscriptionServiceProtocol
     
     
     // MARK: - State

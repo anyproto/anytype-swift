@@ -11,11 +11,11 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     private let spaceViewId: String
     
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService:any WorkspaceServiceProtocol
     @Injected(\.fileActionsService)
-    private var fileService: FileActionsServiceProtocol
+    private var fileService:any FileActionsServiceProtocol
     @Injected(\.documentService)
-    private var openDocumentProvider: OpenedDocumentsProviderProtocol
+    private var openDocumentProvider:any OpenedDocumentsProviderProtocol
     
     private lazy var document: BaseDocumentProtocol = {
         openDocumentProvider.document(objectId: spaceViewId, forPreview: false)

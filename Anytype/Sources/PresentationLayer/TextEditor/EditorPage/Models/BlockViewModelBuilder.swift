@@ -23,15 +23,15 @@ final class BlockViewModelBuilder {
     private weak var output: EditorPageModuleOutput?
     
     @Injected(\.blockTableService)
-    private var tableService: BlockTableServiceProtocol
+    private var tableService:any BlockTableServiceProtocol
     @Injected(\.detailsService)
-    private var detailsService: DetailsServiceProtocol
+    private var detailsService:any DetailsServiceProtocol
     @Injected(\.audioSessionService)
-    private var audioSessionService: AudioSessionServiceProtocol
+    private var audioSessionService:any AudioSessionServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider:any ObjectTypeProviderProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService:any PasteboardBlockDocumentServiceProtocol
     
     
     init(

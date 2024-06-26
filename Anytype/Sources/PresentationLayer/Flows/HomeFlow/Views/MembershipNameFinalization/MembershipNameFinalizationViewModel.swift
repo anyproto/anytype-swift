@@ -11,7 +11,7 @@ final class MembershipNameFinalizationViewModel: ObservableObject {
     let tier: MembershipTier
     
     @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService:any MembershipServiceProtocol
     
     init(tier: MembershipTier) {
         self.tier = tier

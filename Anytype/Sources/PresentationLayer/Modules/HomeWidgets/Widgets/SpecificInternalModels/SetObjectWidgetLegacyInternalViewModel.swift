@@ -11,15 +11,15 @@ final class SetObjectWidgetLegacyInternalViewModel: ObservableObject, WidgetData
     private let widgetBlockId: String
     private let widgetObject: BaseDocumentProtocol
     @Injected(\.setSubscriptionDataBuilder)
-    private var setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+    private var setSubscriptionDataBuilder:any SetSubscriptionDataBuilderProtocol
     private let subscriptionStorage: SubscriptionStorageProtocol
     private weak var output: CommonWidgetModuleOutput?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
-    private var documentService: DocumentsProviderProtocol
+    private var documentService:any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService:any BlockWidgetServiceProtocol
     
     
     // MARK: - State

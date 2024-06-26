@@ -21,9 +21,9 @@ final class FilesSubscriptionService: FilesSubscriptionServiceProtocol {
     }
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()

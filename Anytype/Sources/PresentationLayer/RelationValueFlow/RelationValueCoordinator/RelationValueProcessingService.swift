@@ -16,7 +16,7 @@ protocol RelationValueProcessingServiceProtocol {
 fileprivate final class RelationValueProcessingService: RelationValueProcessingServiceProtocol {
     
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService:any RelationsServiceProtocol
     
     nonisolated init() {}
     

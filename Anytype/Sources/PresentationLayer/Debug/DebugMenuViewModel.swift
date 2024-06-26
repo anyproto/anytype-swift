@@ -13,19 +13,19 @@ final class DebugMenuViewModel: ObservableObject {
     @Published private(set) var flags = [FeatureFlagSection]()
     
     @Injected(\.debugService)
-    private var debugService: DebugServiceProtocol
+    private var debugService:any DebugServiceProtocol
     @Injected(\.localAuthService)
-    private var localAuthService: LocalAuthServiceProtocol
+    private var localAuthService:any LocalAuthServiceProtocol
     @Injected(\.localRepoService)
-    private var localRepoService: LocalRepoServiceProtocol
+    private var localRepoService:any LocalRepoServiceProtocol
     @Injected(\.authService)
-    private var authService: AuthServiceProtocol
+    private var authService:any AuthServiceProtocol
     @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    private var applicationStateService:any ApplicationStateServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol   
+    private var activeWorkpaceStorage:any ActiveWorkpaceStorageProtocol   
     @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
+    private var seedService:any SeedServiceProtocol
     
     init() {
         updateFlags()

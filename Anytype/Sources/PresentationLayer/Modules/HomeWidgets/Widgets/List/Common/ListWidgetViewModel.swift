@@ -14,7 +14,7 @@ final class ListWidgetViewModel: ObservableObject {
     private let internalModel: any WidgetInternalViewModelProtocol
     private let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService:any ObjectActionsServiceProtocol
     private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State

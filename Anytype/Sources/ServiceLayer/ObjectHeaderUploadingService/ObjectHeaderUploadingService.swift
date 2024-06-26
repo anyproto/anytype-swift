@@ -19,11 +19,11 @@ protocol ObjectHeaderUploadingServiceProtocol: AnyObject {
 final class ObjectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol {
     
     @Injected(\.detailsService)
-    private var detailsService: DetailsServiceProtocol
+    private var detailsService:any DetailsServiceProtocol
     @Injected(\.fileActionsService)
-    private var fileService: FileActionsServiceProtocol
+    private var fileService:any FileActionsServiceProtocol
     @Injected(\.unsplashService)
-    private var unsplashService: UnsplashServiceProtocol
+    private var unsplashService:any UnsplashServiceProtocol
     
     private var coverUploadSubject = PassthroughSubject<(objectId: String, spaceId: String, update: ObjectHeaderUpdate), Never>()
     

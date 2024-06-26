@@ -9,13 +9,13 @@ final class GalleryNotificationViewModel: ObservableObject {
     
     private var notification: NotificationGalleryImport
     @Injected(\.notificationsSubscriptionService)
-    private var notificationSubscriptionService: NotificationsSubscriptionServiceProtocol
+    private var notificationSubscriptionService:any NotificationsSubscriptionServiceProtocol
     @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
+    private var workspaceStorage:any WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     @Injected(\.notificationsService)
-    private var notificationsService: NotificationsServiceProtocol
+    private var notificationsService:any NotificationsServiceProtocol
     
     private var subscription: AnyCancellable?
     

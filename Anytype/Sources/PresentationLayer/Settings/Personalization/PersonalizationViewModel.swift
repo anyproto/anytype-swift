@@ -6,7 +6,7 @@ final class PersonalizationViewModel: ObservableObject {
     // MARK: - DI
     private let spaceId: String
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider:any ObjectTypeProviderProtocol
     private weak var output: PersonalizationModuleOutput?
     
     // MARK: - State

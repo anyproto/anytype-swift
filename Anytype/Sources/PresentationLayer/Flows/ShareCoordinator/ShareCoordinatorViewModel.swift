@@ -6,7 +6,7 @@ import Services
 final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutput {
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     
     @Published var showSearchObjectData: ObjectSearchModuleData?
     @Published var showSpaceSearchData: SpaceSearchData?

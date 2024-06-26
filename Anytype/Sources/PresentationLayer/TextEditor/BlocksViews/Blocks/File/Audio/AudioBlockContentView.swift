@@ -15,7 +15,7 @@ import AnytypeCore
 final class AudioBlockContentView: UIView, BlockContentView {
     
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService:any OpenedDocumentsProviderProtocol
     
     private var document: BaseDocumentProtocol?
     private var targetObjectId: String?

@@ -12,9 +12,9 @@ final class RelationsInteractor: RelationsInteractorProtocol {
     private let objectId: String
     
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService:any RelationsServiceProtocol
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService:any DataviewServiceProtocol
     
     init(objectId: String) {
         self.objectId = objectId

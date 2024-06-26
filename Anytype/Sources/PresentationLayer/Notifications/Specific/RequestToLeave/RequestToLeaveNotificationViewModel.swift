@@ -6,9 +6,9 @@ final class RequestToLeaveNotificationViewModel: ObservableObject {
     
     private let notification: NotificationRequestToLeave
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService:any WorkspaceServiceProtocol
     @Injected(\.notificationsService)
-    private var notificationsService: NotificationsServiceProtocol
+    private var notificationsService:any NotificationsServiceProtocol
     
     @Published var message: String = ""
     @Published var toast: ToastBarData = .empty

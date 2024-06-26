@@ -7,9 +7,9 @@ final class SpaceMembersViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    private var activeSpaceParticipantStorage:any ActiveSpaceParticipantStorageProtocol
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager:any AccountManagerProtocol
     
     // MARK: - State
     

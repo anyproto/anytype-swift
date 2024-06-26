@@ -8,15 +8,15 @@ import Services
 final class InitialCoordinatorViewModel: ObservableObject {
     
     @Injected(\.middlewareConfigurationProvider)
-    private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    private var middlewareConfigurationProvider:any MiddlewareConfigurationProviderProtocol
     @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    private var applicationStateService:any ApplicationStateServiceProtocol
     @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
+    private var seedService:any SeedServiceProtocol
     @Injected(\.localAuthService)
-    private var localAuthService: LocalAuthServiceProtocol
+    private var localAuthService:any LocalAuthServiceProtocol
     @Injected(\.localRepoService)
-    private var localRepoService: LocalRepoServiceProtocol
+    private var localRepoService:any LocalRepoServiceProtocol
     
     @Published var showWarningAlert: Bool = false
     @Published var showSaveBackupAlert: Bool = false

@@ -22,7 +22,7 @@ final class ToastPresenter: ToastPresenterProtocol {
     static var shared: ToastPresenter? // Used only for SwiftUI
 
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider:any DocumentsProviderProtocol
     
     nonisolated init() {}
     

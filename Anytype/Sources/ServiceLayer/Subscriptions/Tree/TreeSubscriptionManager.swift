@@ -10,9 +10,9 @@ protocol TreeSubscriptionManagerProtocol: AnyObject {
 final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
     @Injected(\.treeSubscriptionDataBuilder)
-    private var subscriptionDataBuilder: TreeSubscriptionDataBuilderProtocol
+    private var subscriptionDataBuilder:any TreeSubscriptionDataBuilderProtocol
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
     }()

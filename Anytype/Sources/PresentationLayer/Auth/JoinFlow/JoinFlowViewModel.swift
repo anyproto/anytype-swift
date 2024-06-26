@@ -23,9 +23,9 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     
     private weak var output: JoinFlowOutput?
     @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    private var applicationStateService:any ApplicationStateServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager:any AccountManagerProtocol
     
     init(output: JoinFlowOutput?) {
         self.output = output
