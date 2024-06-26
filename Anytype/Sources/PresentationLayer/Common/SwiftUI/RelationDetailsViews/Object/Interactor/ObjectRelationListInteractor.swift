@@ -8,7 +8,7 @@ final class ObjectRelationListInteractor: ObjectRelationListInteractorProtocol {
     private let spaceId: String
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     init(
         spaceId: String,

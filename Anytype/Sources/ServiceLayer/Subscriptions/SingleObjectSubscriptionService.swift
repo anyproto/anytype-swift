@@ -23,9 +23,9 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
     // MARK: - DI
     
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.objectsCommonSubscriptionDataBuilder)
-    private var subscriotionBuilder:any ObjectsCommonSubscriptionDataBuilderProtocol
+    private var subscriotionBuilder: any ObjectsCommonSubscriptionDataBuilderProtocol
     
     private var subsctipyionStorages: [String: SubscriptionStorageProtocol] = [:]
     

@@ -6,11 +6,11 @@ final class RelationEditingViewModelBuilder {
     private weak var delegate: (any TextRelationActionButtonViewModelDelegate)?
     
     @Injected(\.textRelationEditingService)
-    private var textRelationEditingService:any TextRelationEditingServiceProtocol
+    private var textRelationEditingService: any TextRelationEditingServiceProtocol
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     @Injected(\.relationsService)
-    private var relationsService:any RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
     
     init(delegate: (any TextRelationActionButtonViewModelDelegate)?) {
         self.delegate = delegate

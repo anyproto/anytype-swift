@@ -45,23 +45,23 @@ final class LoginViewModel: ObservableObject {
     lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
     
     @Injected(\.authService)
-    private var authService:any AuthServiceProtocol
+    private var authService: any AuthServiceProtocol
     @Injected(\.seedService)
-    private var seedService:any SeedServiceProtocol
+    private var seedService: any SeedServiceProtocol
     @Injected(\.localAuthService)
-    private var localAuthService:any LocalAuthServiceProtocol
+    private var localAuthService: any LocalAuthServiceProtocol
     @Injected(\.cameraPermissionVerifier)
-    private var cameraPermissionVerifier:any CameraPermissionVerifierProtocol
+    private var cameraPermissionVerifier: any CameraPermissionVerifierProtocol
     @Injected(\.accountEventHandler)
-    private var accountEventHandler:any AccountEventHandlerProtocol
+    private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
-    private var applicationStateService:any ApplicationStateServiceProtocol
-    private weak var output: (any LoginFlowOutput)?
+    private var applicationStateService: any ApplicationStateServiceProtocol
+    private weak var output: LoginFlowOutput?
     
     private var selectAccountTask: Task<(), any Error>?
     private var subscriptions = [AnyCancellable]()
     
-    init(output: (any LoginFlowOutput)?) {
+    init(output: LoginFlowOutput?) {
         self.output = output
         
         self.handleAccountShowEvent()

@@ -14,11 +14,11 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Published var emailUrl: URL?
     
     @Injected(\.membershipService)
-    private var membershipService:any MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage:any MembershipStatusStorageProtocol
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     
     init() {
         membershipStatusStorage.statusPublisher.assign(to: &$userMembership)

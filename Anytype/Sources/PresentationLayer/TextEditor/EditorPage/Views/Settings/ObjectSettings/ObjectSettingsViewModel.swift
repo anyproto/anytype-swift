@@ -28,7 +28,7 @@ protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, Objec
 final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
 
     @Injected(\.documentService)
-    private var openDocumentsProvider:any OpenedDocumentsProviderProtocol
+    private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
     private weak var output: (any ObjectSettingsModelOutput)?
     private let settingsBuilder = ObjectSettingBuilder()

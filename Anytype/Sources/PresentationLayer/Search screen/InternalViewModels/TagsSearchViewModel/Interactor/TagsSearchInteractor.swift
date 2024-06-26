@@ -9,7 +9,7 @@ final class TagsSearchInteractor {
     private let isPreselectModeAvailable: Bool
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     init(
         spaceId: String,

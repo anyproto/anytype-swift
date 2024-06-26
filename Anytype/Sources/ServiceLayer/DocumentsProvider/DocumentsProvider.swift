@@ -14,13 +14,13 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     private var documentCache = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
     @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage:any RelationDetailsStorageProtocol
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider:any ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectLifecycleService)
-    private var objectLifecycleService:any ObjectLifecycleServiceProtocol
+    private var objectLifecycleService: any ObjectLifecycleServiceProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage:any AccountParticipantsStorageProtocol
+    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
         internalDocument(objectId: objectId, forPreview: forPreview)

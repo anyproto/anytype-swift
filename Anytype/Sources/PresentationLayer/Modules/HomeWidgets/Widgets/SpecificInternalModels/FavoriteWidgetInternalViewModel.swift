@@ -13,11 +13,11 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
     private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.favoriteSubscriptionService)
-    private var favoriteSubscriptionService:any FavoriteSubscriptionServiceProtocol
+    private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService:any DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService:any ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     // MARK: - State
     

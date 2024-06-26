@@ -3,7 +3,7 @@ import SecureService
 final class SeedService: SeedServiceProtocol {
     
     @Injected(\.keychainStore)
-    private var keychainStore:any KeychainStoreProtocol
+    private var keychainStore: any KeychainStoreProtocol
     
     func removeSeed() throws {
         try keychainStore.removeItem(queryable: query())

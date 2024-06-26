@@ -11,11 +11,11 @@ fileprivate struct DebugTierData {
 
 struct MembershipDebugView: View {
     @Injected(\.membershipService)
-    private var service:any MembershipServiceProtocol
+    private var service: any MembershipServiceProtocol
     @Injected(\.membershipStatusStorage)
-    private var storage:any MembershipStatusStorageProtocol
+    private var storage: any MembershipStatusStorageProtocol
     @Injected(\.storeKitService)
-    private var storeKitService:any StoreKitServiceProtocol
+    private var storeKitService: any StoreKitServiceProtocol
     
     @State private var tiers: [DebugTierData] = []
     @State private var transactions: [StoreKit.Transaction] = []

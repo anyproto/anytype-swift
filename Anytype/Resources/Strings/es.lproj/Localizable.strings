@@ -503,6 +503,9 @@
 "Set.View.Empty.Title" = "Ninguna consulta seleccionada";
 "Set.View.Empty.Subtitle" = "Añade una consulta de búsqueda para agregar objetos con un tipo o relación en común";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Seleccionar consulta";
 "Set.SourceType.Cancel.Toast.Title" = "Esta consulta solo puede cambiarse en la versión de escritorio";
@@ -1159,6 +1162,11 @@ En concreto,
 "MembershipServiceError.tierNotFound" = "No sse encuentran los datos del nivel, reinicia la aplicación e inténtalo de nuevo";
 "MembershipServiceError.forcefullyFailedValidation" = "MODO DE FALLOS ACTIVADO 🫵🐭. Desactívalo en los ajustes de depuración";
 "MembershipServiceError.invalidBillingIdFormat" = "Hubo un problema interno con el formato de facturación y lo estamos resolviendo. Inténtelo de nuevo más tarde o ponte en contacto con el soporte técnico.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "TIpos de dato - %@";

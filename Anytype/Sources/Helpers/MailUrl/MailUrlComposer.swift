@@ -7,9 +7,9 @@ protocol MailUrlBuilderProtocol {
 
 final class MailUrlBuilder: MailUrlBuilderProtocol {
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage:any AccountParticipantsStorageProtocol
+    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
     nonisolated init() { }
     

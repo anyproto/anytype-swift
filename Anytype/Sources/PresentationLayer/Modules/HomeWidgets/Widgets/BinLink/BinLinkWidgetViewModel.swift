@@ -9,7 +9,7 @@ final class BinLinkWidgetViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     private let spaceId: String
     private weak var output: (any CommonWidgetModuleOutput)?

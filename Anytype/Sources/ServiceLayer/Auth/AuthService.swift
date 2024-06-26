@@ -8,17 +8,17 @@ import AnytypeCore
 final class AuthService: AuthServiceProtocol {
     
     @Injected(\.localRepoService)
-    private var localRepoService:any LocalRepoServiceProtocol
+    private var localRepoService: any LocalRepoServiceProtocol
     @Injected(\.loginStateService)
-    private var loginStateService:any LoginStateServiceProtocol
+    private var loginStateService: any LoginStateServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.appErrorLoggerConfiguration)
-    private var appErrorLoggerConfiguration:any AppErrorLoggerConfigurationProtocol
+    private var appErrorLoggerConfiguration: any AppErrorLoggerConfigurationProtocol
     @Injected(\.serverConfigurationStorage)
-    private var serverConfigurationStorage:any ServerConfigurationStorageProtocol
+    private var serverConfigurationStorage: any ServerConfigurationStorageProtocol
     @Injected(\.authMiddleService)
-    private var authMiddleService:any AuthMiddleServiceProtocol
+    private var authMiddleService: any AuthMiddleServiceProtocol
 
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath

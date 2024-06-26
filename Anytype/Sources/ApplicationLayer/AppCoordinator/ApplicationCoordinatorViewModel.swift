@@ -7,17 +7,17 @@ import Services
 final class ApplicationCoordinatorViewModel: ObservableObject {
 
     @Injected(\.authService)
-    private var authService:any AuthServiceProtocol
+    private var authService: any AuthServiceProtocol
     @Injected(\.accountEventHandler)
-    private var accountEventHandler:any AccountEventHandlerProtocol
+    private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
-    private var applicationStateService:any ApplicationStateServiceProtocol
+    private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.seedService)
-    private var seedService:any SeedServiceProtocol
+    private var seedService: any SeedServiceProtocol
     @Injected(\.fileErrorEventHandler)
-    private var fileErrorEventHandler:any FileErrorEventHandlerProtocol
+    private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     
     private var authCoordinator: (any AuthCoordinatorProtocol)?
     private var dismissAllPresented: DismissAllPresented?

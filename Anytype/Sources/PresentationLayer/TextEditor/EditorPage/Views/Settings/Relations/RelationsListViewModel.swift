@@ -17,7 +17,7 @@ final class RelationsListViewModel: ObservableObject {
     private let sectionsBuilder = RelationsSectionBuilder()
     
     @Injected(\.relationsService)
-    private var relationsService:any RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
     
     private weak var output: (any RelationsListModuleOutput)?
     

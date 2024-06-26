@@ -39,9 +39,9 @@ public protocol StoreKitServiceProtocol {
 
 final class StoreKitService: StoreKitServiceProtocol {
     @Injected(\.membershipService) 
-    private var membershipService:any MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     
     private var task: Task<(), Never>?
     

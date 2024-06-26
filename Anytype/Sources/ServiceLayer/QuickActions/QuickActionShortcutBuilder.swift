@@ -13,11 +13,11 @@ protocol QuickActionShortcutBuilderProtocol {
 final class QuickActionShortcutBuilder: QuickActionShortcutBuilderProtocol {
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.typesService)
-    private var typesService:any TypesServiceProtocol
+    private var typesService: any TypesServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider:any ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     nonisolated init() {}
     

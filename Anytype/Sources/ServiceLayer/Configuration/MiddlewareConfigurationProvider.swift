@@ -16,7 +16,7 @@ final class MiddlewareConfigurationProvider: MiddlewareConfigurationProviderProt
     // MARK: - Private variables
     private var cachedConfiguration: MiddlewareConfiguration?
     @Injected(\.middlewareConfigurationService)
-    private var middlewareConfigurationService:any MiddlewareConfigurationServiceProtocol
+    private var middlewareConfigurationService: any MiddlewareConfigurationServiceProtocol
 
     var configuration: MiddlewareConfiguration {
         if let configuration = cachedConfiguration {

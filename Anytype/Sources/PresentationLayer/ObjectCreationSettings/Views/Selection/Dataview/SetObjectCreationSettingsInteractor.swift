@@ -52,13 +52,13 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private let viewId: String
     
     @Injected(\.templatesSubscription)
-    private var templatesSubscription:any TemplatesSubscriptionServiceProtocol
+    private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypesProvider:any ObjectTypeProviderProtocol
+    private var objectTypesProvider: any ObjectTypeProviderProtocol
     @Injected(\.typesService)
-    private var typesService:any TypesServiceProtocol
+    private var typesService: any TypesServiceProtocol
     @Injected(\.dataviewService)
-    private var dataviewService:any DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
     @Published private var defaultTemplateId: String

@@ -16,11 +16,11 @@ final class WidgetContainerViewModel: ObservableObject {
     
     private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
     @Injected(\.blockWidgetService)
-    private var blockWidgetService:any BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService:any ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     
     // MARK: - State

@@ -10,12 +10,12 @@ final class ListWidgetViewModel: ObservableObject {
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: any BaseDocumentProtocol
+    private let widgetObject: BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
     private let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
     @Injected(\.objectActionsService)
-    private var objectActionsService:any ObjectActionsServiceProtocol
-    private weak var output: (any CommonWidgetModuleOutput)?
+    private var objectActionsService: any ObjectActionsServiceProtocol
+    private weak var output: CommonWidgetModuleOutput?
     
     // MARK: - State
     
@@ -35,11 +35,11 @@ final class ListWidgetViewModel: ObservableObject {
     
     init(
         widgetBlockId: String,
-        widgetObject: some BaseDocumentProtocol,
+        widgetObject: BaseDocumentProtocol,
         style: ListWidgetStyle,
         internalModel: any WidgetInternalViewModelProtocol,
         internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?,
-        output: (any CommonWidgetModuleOutput)?
+        output: CommonWidgetModuleOutput?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject

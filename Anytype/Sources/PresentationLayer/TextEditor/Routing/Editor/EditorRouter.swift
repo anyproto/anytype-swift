@@ -8,24 +8,24 @@ import AnytypeCore
 final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordinatorOutput {
     private weak var viewController: UIViewController?
     @Injected(\.legacyNavigationContext)
-    private var navigationContext:any NavigationContextProtocol
+    private var navigationContext: any NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
-    private let document: any BaseDocumentProtocol
+    private let document: BaseDocumentProtocol
     @Injected(\.legacyTemplatesCoordinator)
-    private var templatesCoordinator:any TemplatesCoordinatorProtocol
+    private var templatesCoordinator: any TemplatesCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
-    private var setObjectCreationSettingsCoordinator:any SetObjectCreationSettingsCoordinatorProtocol
+    private var setObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.legacyToastPresenter)
-    private var toastPresenter:any ToastPresenterProtocol
-    private weak var output: (any EditorPageModuleOutput)?
+    private var toastPresenter: any ToastPresenterProtocol
+    private weak var output: EditorPageModuleOutput?
     
     @Injected(\.templatesService)
-    private var templateService:any TemplatesServiceProtocol
+    private var templateService: any TemplatesServiceProtocol
 
     init(
         viewController: UIViewController,
-        document: some BaseDocumentProtocol,
-        output: (any EditorPageModuleOutput)?
+        document: BaseDocumentProtocol,
+        output: EditorPageModuleOutput?
     ) {
         self.viewController = viewController
         self.document = document
@@ -279,7 +279,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(popup)
     }
     
-    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
+    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
         let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: output

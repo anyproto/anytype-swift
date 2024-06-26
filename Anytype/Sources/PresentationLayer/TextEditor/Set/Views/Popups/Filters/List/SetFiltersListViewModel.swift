@@ -18,7 +18,7 @@ final class SetFiltersListViewModel: ObservableObject {
     private var cancellable: Cancellable?
     
     @Injected(\.dataviewService)
-    private var dataviewService:any DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     private let relationFilterBuilder = RelationFilterBuilder()
     private let subscriptionDetailsStorage: ObjectDetailsStorage

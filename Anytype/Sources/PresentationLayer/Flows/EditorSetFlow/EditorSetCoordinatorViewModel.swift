@@ -19,16 +19,16 @@ final class EditorSetCoordinatorViewModel:
 {
     let data: EditorSetObject
     @Injected(\.legacySetObjectCreationCoordinator)
-    private var setObjectCreationCoordinator:any SetObjectCreationCoordinatorProtocol
+    private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
-    private var setObjectCreationSettingsCoordinator:any SetObjectCreationSettingsCoordinatorProtocol
+    private var setObjectCreationSettingsCoordinator: any SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService:any RelationValueProcessingServiceProtocol
+    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
     
     @Injected(\.legacyToastPresenter)
-    private var toastPresenter:any ToastPresenterProtocol
+    private var toastPresenter: any ToastPresenterProtocol
     @Injected(\.legacyNavigationContext)
-    private var navigationContext:any NavigationContextProtocol
+    private var navigationContext: any NavigationContextProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false

@@ -25,9 +25,9 @@ protocol SetContentViewDataBuilderProtocol: AnyObject {
 final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
     
     @Injected(\.relationsBuilder)
-    private var relationsBuilder:any RelationsBuilderProtocol
+    private var relationsBuilder: any RelationsBuilderProtocol
     @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage:any RelationDetailsStorageProtocol
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView, spaceId: String) -> [SetRelation] {
         let storageRelationsDetails = relationDetailsStorage.relationsDetails(for: dataview.relationLinks, spaceId: spaceId)

@@ -20,7 +20,7 @@ final class RelationsListCoordinatorViewModel:
     let document: any BaseDocumentProtocol
     
     @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService:any RelationValueProcessingServiceProtocol
+    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
     
     private weak var output: (any RelationValueCoordinatorOutput)?
 

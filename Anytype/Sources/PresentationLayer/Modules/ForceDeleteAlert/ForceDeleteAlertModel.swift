@@ -12,7 +12,7 @@ struct ForceDeleteAlertData: Identifiable, Hashable {
 final class ForceDeleteAlertModel: ObservableObject {
     
     @Injected(\.objectActionsService)
-    private var objectActionService:any ObjectActionsServiceProtocol
+    private var objectActionService: any ObjectActionsServiceProtocol
     
     private let objectIds: [String]
     

@@ -9,17 +9,17 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     @Published var shouldDismiss = false
     
     @Injected(\.pasteboardBlockService)
-    private var pasteboardBlockService:any PasteboardBlockServiceProtocol
+    private var pasteboardBlockService: any PasteboardBlockServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService:any ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.blockService)
-    private var blockService:any BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.bookmarkService)
-    private var bookmarkService:any BookmarkServiceProtocol
+    private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.objectTypeProvider)
-    private var typeProvider:any ObjectTypeProviderProtocol
+    private var typeProvider: any ObjectTypeProviderProtocol
     
     private let openObject: (ObjectDetails)->()
     

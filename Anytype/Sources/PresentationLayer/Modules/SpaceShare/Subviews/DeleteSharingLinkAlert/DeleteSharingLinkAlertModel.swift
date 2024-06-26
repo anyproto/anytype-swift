@@ -5,7 +5,7 @@ import Services
 final class DeleteSharingLinkAlertModel: ObservableObject {
     
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     
     private let spaceId: String
     private let onDelete: (() -> Void)?

@@ -20,11 +20,11 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     // MARK: - DI
     
     @Injected(\.workspaceStorage)
-    private var workspaceStorage:any WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     
     // MARK: - State
     private var workspaceSubscription: AnyCancellable?

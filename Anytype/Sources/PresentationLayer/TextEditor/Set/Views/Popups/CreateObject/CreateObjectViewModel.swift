@@ -6,9 +6,9 @@ final class CreateObjectViewModel: CreateObjectViewModelProtocol {
     let style = CreateObjectView.Style.default
     
     @Injected(\.relationsService)
-    private var relationService:any RelationsServiceProtocol
+    private var relationService: any RelationsServiceProtocol
     @Injected(\.textService)
-    private var textServiceHandler:any TextServiceProtocol
+    private var textServiceHandler: any TextServiceProtocol
     
     private let objectId: String
     private let titleInputType: CreateObjectTitleInputType

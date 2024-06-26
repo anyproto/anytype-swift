@@ -12,7 +12,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     private let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.recentSubscriptionService)
-    private var recentSubscriptionService:any RecentSubscriptionServiceProtocol
+    private var recentSubscriptionService: any RecentSubscriptionServiceProtocol
     
     // MARK: - State
     
