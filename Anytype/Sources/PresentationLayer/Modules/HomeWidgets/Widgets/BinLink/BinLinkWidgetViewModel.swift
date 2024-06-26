@@ -12,14 +12,14 @@ final class BinLinkWidgetViewModel: ObservableObject {
     private var searchService:any SearchServiceProtocol
     
     private let spaceId: String
-    private weak var output: CommonWidgetModuleOutput?
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     // MARK: - State
     
     @Published var toastData: ToastBarData = .empty
     @Published var binAlertData: BinConfirmationAlertData? = nil
     
-    init(spaceId: String, output: CommonWidgetModuleOutput?) {
+    init(spaceId: String, output: (any CommonWidgetModuleOutput)?) {
         self.spaceId = spaceId
         self.output = output
     }

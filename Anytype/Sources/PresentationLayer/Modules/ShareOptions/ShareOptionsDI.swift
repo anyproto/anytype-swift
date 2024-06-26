@@ -2,7 +2,7 @@ import Foundation
 import Factory
 
 extension Container {
-    var shareOptionsInteractor: Factory<ShareOptionsInteractorProtocol> {
+    var shareOptionsInteractor: Factory<any ShareOptionsInteractorProtocol> {
         self { ShareOptionsInteractor() }
     }
 }

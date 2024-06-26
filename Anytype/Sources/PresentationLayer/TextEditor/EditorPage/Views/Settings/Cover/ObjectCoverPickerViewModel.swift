@@ -16,7 +16,7 @@ enum ObjectCoverPickerAction {
 }
 
 struct ObjectCoverPickerData: Identifiable {
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     
     var id: String { document.objectId }
 }
@@ -30,7 +30,7 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     @Injected(\.objectHeaderUploadingService)
     private var objectHeaderUploadingService:any ObjectHeaderUploadingServiceProtocol
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
         
     // MARK: - Initializer
     

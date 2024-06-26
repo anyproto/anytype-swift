@@ -31,7 +31,7 @@ final class EventsListener: EventsListenerProtocol {
         relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         detailsStorage: ObjectDetailsStorage,
-        statusStorage: DocumentStatusStorageProtocol
+        statusStorage: some DocumentStatusStorageProtocol
     ) {
         self.objectId = objectId
         self.infoContainer = infoContainer

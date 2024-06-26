@@ -6,7 +6,7 @@ struct GalleryInstallationPreviewView: View {
     
     @StateObject private var model: GalleryInstallationPreviewViewModel
     
-    init(data: GalleryInstallationData, output: GalleryInstallationPreviewModuleOutput?) {
+    init(data: GalleryInstallationData, output: (any GalleryInstallationPreviewModuleOutput)?) {
         _model = StateObject(wrappedValue: GalleryInstallationPreviewViewModel(data: data, output: output))
     }
     

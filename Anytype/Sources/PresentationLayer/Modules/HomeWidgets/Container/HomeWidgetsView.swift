@@ -4,7 +4,7 @@ import Services
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
-    let output: HomeWidgetsModuleOutput?
+    let output: (any HomeWidgetsModuleOutput)?
     
     var body: some View {
         HomeWidgetsInternalView(info: info, output: output)
@@ -16,7 +16,7 @@ private struct HomeWidgetsInternalView: View {
     @StateObject private var model: HomeWidgetsViewModel
     @State var dndState = DragState()
     
-    init(info: AccountInfo, output: HomeWidgetsModuleOutput?) {
+    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
         self._model = StateObject(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
     }
     

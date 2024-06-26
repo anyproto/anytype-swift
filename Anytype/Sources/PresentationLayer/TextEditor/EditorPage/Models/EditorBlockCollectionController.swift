@@ -2,9 +2,9 @@ import UIKit
 import Services
 
 final class EditorBlockCollectionController: EditorCollectionReloadable {
-    weak var viewInput: EditorCollectionReloadable?
+    weak var viewInput: (any EditorCollectionReloadable)?
     
-    init(viewInput: EditorPageViewInput?) {
+    init(viewInput: (any EditorPageViewInput)?) {
         self.viewInput = viewInput
     }
     

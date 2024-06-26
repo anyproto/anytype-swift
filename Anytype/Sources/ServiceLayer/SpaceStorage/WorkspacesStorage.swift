@@ -45,7 +45,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     private var subscriptionBuilder:any WorkspacesSubscriptionBuilderProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
     }()
     

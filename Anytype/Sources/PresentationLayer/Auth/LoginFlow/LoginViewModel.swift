@@ -56,12 +56,12 @@ final class LoginViewModel: ObservableObject {
     private var accountEventHandler:any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService:any ApplicationStateServiceProtocol
-    private weak var output: LoginFlowOutput?
+    private weak var output: (any LoginFlowOutput)?
     
     private var selectAccountTask: Task<(), any Error>?
     private var subscriptions = [AnyCancellable]()
     
-    init(output: LoginFlowOutput?) {
+    init(output: (any LoginFlowOutput)?) {
         self.output = output
         
         self.handleAccountShowEvent()

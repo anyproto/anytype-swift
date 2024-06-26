@@ -17,7 +17,7 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     @Injected(\.documentService)
     private var openDocumentProvider:any OpenedDocumentsProviderProtocol
     
-    private lazy var document: BaseDocumentProtocol = {
+    private lazy var document: any BaseDocumentProtocol = {
         openDocumentProvider.document(objectId: spaceViewId, forPreview: false)
     }()
     

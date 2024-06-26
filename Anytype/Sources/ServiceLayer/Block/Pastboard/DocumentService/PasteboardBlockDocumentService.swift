@@ -47,7 +47,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
         )
     }
     
-    func copy(document: BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws {
+    func copy(document: some BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws {
         let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
         try await service.copy(
             objectId: document.objectId,
@@ -57,7 +57,7 @@ final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtoc
         )
     }
     
-    func cut(document: BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws {
+    func cut(document: some BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws {
         let blockInformations = blocksIds.compactMap { document.infoContainer.get(id: $0) }
         try await service.cut(
             objectId: document.objectId,

@@ -5,7 +5,7 @@ struct JoinFlowView: View {
     @StateObject private var model: JoinFlowViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: JoinFlowOutput?) {
+    init(output: (any JoinFlowOutput)?) {
         _model = StateObject(wrappedValue: JoinFlowViewModel(output: output))
     }
     

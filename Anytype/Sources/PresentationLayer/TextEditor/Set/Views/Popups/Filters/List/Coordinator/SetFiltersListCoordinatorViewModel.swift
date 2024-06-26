@@ -16,7 +16,7 @@ final class SetFiltersListCoordinatorViewModel: ObservableObject, SetFiltersList
     let subscriptionDetailsStorage: ObjectDetailsStorage
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
         subscriptionDetailsStorage: ObjectDetailsStorage
     ) {

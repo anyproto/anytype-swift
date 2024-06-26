@@ -7,13 +7,13 @@ final class TextViewAttributeSelectionInteraction: NSObject {
     private weak var textView: UITextView?
     private let attributeKey: NSAttributedString.Key
     private let numberOfTapsRequired: Int
-    private let tapHandler: TextViewAttributeSelectionHandler
+    private let tapHandler: any TextViewAttributeSelectionHandler
     
     init(
         textView: UITextView,
         attributeKey: NSAttributedString.Key,
         numberOfTapsRequired: Int,
-        tapHandler: TextViewAttributeSelectionHandler
+        tapHandler: some TextViewAttributeSelectionHandler
     ) {
         self.textView = textView
         self.attributeKey = attributeKey

@@ -6,14 +6,14 @@ protocol WidgetObjectListMenuBuilderProtocol: AnyObject {
         details: [ObjectDetails],
         allowOptions: [WidgetObjectListMenuItem],
         participant: Participant?,
-        output: WidgetObjectListMenuOutput
+        output: some WidgetObjectListMenuOutput
     ) -> [SelectionOptionsItemViewModel]
     
     func buildMenuItems(
         details: ObjectDetails,
         allowOptions: [WidgetObjectListMenuItem],
         participant: Participant?,
-        output: WidgetObjectListMenuOutput
+        output: some WidgetObjectListMenuOutput
     ) -> [WidgetObjectListMenuItemModel]
 }
 
@@ -33,7 +33,7 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         details: [ObjectDetails],
         allowOptions: [WidgetObjectListMenuItem],
         participant: Participant?,
-        output: WidgetObjectListMenuOutput
+        output: some WidgetObjectListMenuOutput
     ) -> [SelectionOptionsItemViewModel] {
         
         let actions = build(details: details, allowOptions: allowOptions, participant: participant, output: output)
@@ -47,7 +47,7 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         details: ObjectDetails,
         allowOptions: [WidgetObjectListMenuItem],
         participant: Participant?,
-        output: WidgetObjectListMenuOutput
+        output: some WidgetObjectListMenuOutput
     ) -> [WidgetObjectListMenuItemModel] {
         
         let actions = build(details: [details], allowOptions: allowOptions, participant: participant, output: output)
@@ -63,7 +63,7 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         details: [ObjectDetails],
         allowOptions: [WidgetObjectListMenuItem],
         participant: Participant?,
-        output: WidgetObjectListMenuOutput
+        output: some WidgetObjectListMenuOutput
     ) -> [Action] {
         
         let permissions = details.map { $0.permissions(particioant: participant) }

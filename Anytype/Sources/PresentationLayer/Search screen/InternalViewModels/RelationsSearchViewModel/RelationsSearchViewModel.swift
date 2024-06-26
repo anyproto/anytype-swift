@@ -17,14 +17,14 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let excludedRelationsIds: [String]
     private let target: RelationsModuleTarget
     private let interactor: RelationsSearchInteractor
     private let onSelect: (_ relation: RelationDetails) -> Void
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         excludedRelationsIds: [String],
         target: RelationsModuleTarget,
         interactor: RelationsSearchInteractor,

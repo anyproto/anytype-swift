@@ -26,7 +26,7 @@ final class MailUrlBuilder: MailUrlBuilderProtocol {
 }
 
 extension Container {
-    var mailUrlBuilder: Factory<MailUrlBuilderProtocol> {
+    var mailUrlBuilder: Factory<any MailUrlBuilderProtocol> {
         self { MailUrlBuilder() }.shared
     }
 }

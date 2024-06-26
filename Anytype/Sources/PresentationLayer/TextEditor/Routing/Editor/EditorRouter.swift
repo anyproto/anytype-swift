@@ -10,22 +10,22 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     @Injected(\.legacyNavigationContext)
     private var navigationContext:any NavigationContextProtocol
     private let fileCoordinator: FileDownloadingCoordinator
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     @Injected(\.legacyTemplatesCoordinator)
     private var templatesCoordinator:any TemplatesCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
     private var setObjectCreationSettingsCoordinator:any SetObjectCreationSettingsCoordinatorProtocol
     @Injected(\.legacyToastPresenter)
     private var toastPresenter:any ToastPresenterProtocol
-    private weak var output: EditorPageModuleOutput?
+    private weak var output: (any EditorPageModuleOutput)?
     
     @Injected(\.templatesService)
     private var templateService:any TemplatesServiceProtocol
 
     init(
         viewController: UIViewController,
-        document: BaseDocumentProtocol,
-        output: EditorPageModuleOutput?
+        document: some BaseDocumentProtocol,
+        output: (any EditorPageModuleOutput)?
     ) {
         self.viewController = viewController
         self.document = document
@@ -279,7 +279,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(popup)
     }
     
-    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
         let module = ObjectSettingsCoordinatorView(
             objectId: document.objectId,
             output: output
@@ -288,7 +288,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
         navigationContext.present(popup)
     }
     
-    func showIconPicker(document: BaseDocumentProtocol) {
+    func showIconPicker(document: some BaseDocumentProtocol) {
         output?.showIconPicker(document: document)
     }
 
@@ -402,7 +402,7 @@ extension EditorRouter {
     }
 
     @MainActor
-    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
+    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void) {
         output?.showAddNewRelationView(document: document, onSelect: onSelect)
     }
 }

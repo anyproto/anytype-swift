@@ -11,7 +11,7 @@ import AVFoundation
 
 
 protocol AudioPlayerViewDelegate: AnyObject {
-    var audioPlayerView: AudioPlayerViewInput? { get set }
+    var audioPlayerView: (any AudioPlayerViewInput)? { get set }
     var currentTime: Double { get }
     /// Track duration in seconds
     var isPlaying: Bool { get }
@@ -31,7 +31,7 @@ protocol AudioPlayerViewInput: AnyObject {
 final class AudioPlayerView: UIView {
     private var isSeekInProgress = false
 
-    weak var delegate: AudioPlayerViewDelegate?
+    weak var delegate: (any AudioPlayerViewDelegate)?
 
     // MARK: - Views
 
@@ -149,13 +149,13 @@ final class AudioPlayerView: UIView {
 
     // MARK: - Public methods
 
-    func updateAudioInformation(delegate: AudioPlayerViewDelegate?) {
+    func updateAudioInformation(delegate: (any AudioPlayerViewDelegate)?) {
         Task {
             await updateAudioInformationAsync(delegate: delegate)
         }
     }
     
-    private func updateAudioInformationAsync(delegate: AudioPlayerViewDelegate?) async {
+    private func updateAudioInformationAsync(delegate: (any AudioPlayerViewDelegate)?) async {
         guard let delegate = delegate else {
             return
         }
@@ -176,7 +176,7 @@ final class AudioPlayerView: UIView {
         delegate.isPlaying ? play() : pause()
     }
 
-    func setDelegate(delegate: AudioPlayerViewDelegate?) {
+    func setDelegate(delegate: (any AudioPlayerViewDelegate)?) {
         guard let delegate = delegate else {
             return
         }

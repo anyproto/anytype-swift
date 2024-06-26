@@ -8,17 +8,17 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     var info: BlockInformation { infoProvider.info }
     var hashable: AnyHashable { info.id }
 
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private var featuredRelations: [Relation]
     private let onRelationTap: (Relation) -> Void
-    private let collectionController: EditorCollectionReloadable
+    private let collectionController: any EditorCollectionReloadable
     
     private var cancellables = [AnyCancellable]()
     
     init(
         infoProvider: BlockModelInfomationProvider,
-        document: BaseDocumentProtocol,
-        collectionController: EditorCollectionReloadable,
+        document: some BaseDocumentProtocol,
+        collectionController: some EditorCollectionReloadable,
         onRelationValueTap: @escaping (Relation) -> Void
     ) {
         self.infoProvider = infoProvider

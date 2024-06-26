@@ -27,7 +27,7 @@ final class SpreadsheetViewDataSource {
 
     func contentConfigurationProvider(
         at indexPath: IndexPath
-    ) -> ContentConfigurationProvider? {
+    ) -> (any ContentConfigurationProvider)? {
         let item = allModels[indexPath.section][indexPath.row]
 
         return item.contentConfigurationProvider
@@ -109,7 +109,7 @@ final class SpreadsheetViewDataSource {
     private func setupCell(
         cell: EditorViewListCell,
         indexPath: IndexPath,
-        item: ContentConfigurationProvider
+        item: some ContentConfigurationProvider
     ) {
         cell.contentConfiguration = item.makeSpreadsheetConfiguration()
         cell.contentView.isUserInteractionEnabled = true
@@ -176,7 +176,7 @@ final class SpreadsheetViewDataSource {
 }
 
 extension EditorItem {
-    var contentConfigurationProvider: ContentConfigurationProvider {
+    var contentConfigurationProvider: any ContentConfigurationProvider {
         switch self {
         case .header(let viewModel):
             return viewModel

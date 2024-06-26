@@ -15,7 +15,7 @@ final class SetFiltersContentViewBuilder {
     
     @MainActor
     func buildHeader(
-        output: SetFiltersSelectionCoordinatorOutput?,
+        output: (any SetFiltersSelectionCoordinatorOutput)?,
         onConditionChanged: @escaping (DataviewFilter.Condition) -> Void
     ) -> AnyView {
         SetFiltersSelectionHeaderView(

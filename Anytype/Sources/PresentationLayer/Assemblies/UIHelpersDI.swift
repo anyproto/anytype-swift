@@ -4,15 +4,15 @@ import Foundation
 extension Container {
     
     // Registry in scene delegate
-    var legacyViewControllerProvider: Factory<ViewControllerProviderProtocol> {
+    var legacyViewControllerProvider: Factory<any ViewControllerProviderProtocol> {
         self { ViewControllerProvider.shared }.singleton
     }
     
-    var legacyToastPresenter: Factory<ToastPresenterProtocol> {
+    var legacyToastPresenter: Factory<any ToastPresenterProtocol> {
         self { ToastPresenter() }
     }
     
-    var legacyNavigationContext: Factory<NavigationContextProtocol> {
+    var legacyNavigationContext: Factory<any NavigationContextProtocol> {
         self { NavigationContext() }
     }
     

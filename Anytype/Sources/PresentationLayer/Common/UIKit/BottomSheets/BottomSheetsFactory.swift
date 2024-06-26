@@ -98,7 +98,7 @@ final class BottomSheetsFactory {
     static func showMarkupBottomSheet(
         parentViewController: UIViewController,
         styleView: UIView,
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blockIds: [String],
         actionHandler: BlockActionHandlerProtocol,
         viewDidClose: @escaping () -> Void,

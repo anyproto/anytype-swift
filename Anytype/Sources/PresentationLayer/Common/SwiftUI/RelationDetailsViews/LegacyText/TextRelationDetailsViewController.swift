@@ -6,7 +6,7 @@ final class TextRelationDetailsViewController: UIViewController {
 
     private struct ButtonHolder {
         let button: UIButton
-        let viewModel: TextRelationActionViewModelProtocol
+        let viewModel: any TextRelationActionViewModelProtocol
     }
     
     private let titleLabel = makeTitleLabel()
@@ -14,7 +14,7 @@ final class TextRelationDetailsViewController: UIViewController {
     private let actionStackView = UIStackView()
     private var actionButtons: [ButtonHolder] = []
     
-    private let viewModel: TextRelationDetailsViewModelProtocol
+    private let viewModel: any TextRelationDetailsViewModelProtocol
     
     private var textViewBottomConstraint: NSLayoutConstraint?
     
@@ -22,7 +22,7 @@ final class TextRelationDetailsViewController: UIViewController {
     
     // MARK: - Initializers
     
-    init(viewModel: TextRelationDetailsViewModelProtocol) {
+    init(viewModel: some TextRelationDetailsViewModelProtocol) {
         self.viewModel = viewModel
         self.maxViewHeight = {
             guard let window = UIApplication.shared.keyWindow else {

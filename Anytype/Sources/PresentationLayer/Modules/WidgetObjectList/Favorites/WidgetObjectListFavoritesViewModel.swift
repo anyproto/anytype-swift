@@ -28,7 +28,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: true)
     
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
-    lazy private var homeDocument: BaseDocumentProtocol =
+    lazy private var homeDocument: any BaseDocumentProtocol =
         documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
     
     

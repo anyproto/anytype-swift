@@ -179,7 +179,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         showSpaceSettings.toggle()
     }
     
-    func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
+    func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
         setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     

@@ -10,11 +10,11 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
+    private let widgetObject: any BaseDocumentProtocol
     @Injected(\.setSubscriptionDataBuilder)
     private var setSubscriptionDataBuilder:any SetSubscriptionDataBuilderProtocol
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private let subscriptionStorage: any SubscriptionStorageProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
@@ -28,7 +28,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
-    private var setDocument: SetDocumentProtocol?
+    private var setDocument: (any SetDocumentProtocol)?
     private var activeViewId: String?
     private var canEditBlocks = true
     private var dataviewState: WidgetDataviewState? { didSet { updateHeader() } }

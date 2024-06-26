@@ -28,7 +28,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var mailUrlBuilder:any MailUrlBuilderProtocol
     
     private let dateFormatter = DateFormatter.relationDateFormatter
-    private weak var output: SpaceSettingsModuleOutput?
+    private weak var output: (any SpaceSettingsModuleOutput)?
     
     // MARK: - State
     
@@ -53,7 +53,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
-    init(output: SpaceSettingsModuleOutput?) {
+    init(output: (any SpaceSettingsModuleOutput)?) {
         self.output = output
     }
     

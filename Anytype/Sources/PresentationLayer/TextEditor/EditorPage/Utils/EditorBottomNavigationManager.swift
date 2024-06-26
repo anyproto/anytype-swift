@@ -18,7 +18,7 @@ final class EditorBottomNavigationManager: EditorBottomNavigationManagerProtocol
     
     // MARK: - DI
     
-    weak var output: EditorBottomNavigationManagerOutput?
+    weak var output: (any EditorBottomNavigationManagerOutput)?
     
     // MARK: - State
     

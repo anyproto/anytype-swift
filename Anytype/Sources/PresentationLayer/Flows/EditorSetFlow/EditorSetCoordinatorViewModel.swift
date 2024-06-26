@@ -5,7 +5,7 @@ import AnytypeCore
 
 struct SetViewData: Identifiable {
     let id = UUID()
-    let document: SetDocumentProtocol
+    let document: any SetDocumentProtocol
     let subscriptionDetailsStorage: ObjectDetailsStorage
 }
 
@@ -61,7 +61,7 @@ final class EditorSetCoordinatorViewModel:
     
     // MARK: - EditorSetModuleOutput - SetViewPicker
     
-    func showSetViewPicker(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
+    func showSetViewPicker(document: some SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
         setViewPickerData = SetViewData(
             document: document,
             subscriptionDetailsStorage: subscriptionDetailsStorage
@@ -70,7 +70,7 @@ final class EditorSetCoordinatorViewModel:
     
     // MARK: - EditorSetModuleOutput - SetViewSettings
     
-    func showSetViewSettings(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
+    func showSetViewSettings(document: some SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage) {
         setViewSettingsData = SetSettingsData(
             setDocument: document,
             viewId: document.activeView.id,
@@ -80,7 +80,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     // MARK: - EditorSetModuleOutput - SetQuery
-    func showQueries(document: SetDocumentProtocol, selectedObjectId: String?, onSelect: @escaping (String) -> ()) {
+    func showQueries(document: some SetDocumentProtocol, selectedObjectId: String?, onSelect: @escaping (String) -> ()) {
         setQueryData = SetQueryData(
             document: document,
             selectedObjectId: selectedObjectId,
@@ -100,7 +100,7 @@ final class EditorSetCoordinatorViewModel:
     
     // MARK: - NavigationContext
     
-    func showCreateObject(document: SetDocumentProtocol, setting: ObjectCreationSetting?) {
+    func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?) {
         setObjectCreationCoordinator.startCreateObject(setDocument: document, setting: setting, output: self, customAnalyticsRoute: nil)
     }
     
@@ -135,11 +135,11 @@ final class EditorSetCoordinatorViewModel:
         navigationContext.present(popup)
     }
     
-    func showCoverPicker(document: BaseDocumentProtocol) {
+    func showCoverPicker(document: some BaseDocumentProtocol) {
         covertPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func showIconPicker(document: BaseDocumentProtocol) {
+    func showIconPicker(document: some BaseDocumentProtocol) {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
@@ -159,7 +159,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showSetObjectCreationSettings(
-        document: SetDocumentProtocol,
+        document: some SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     ) {
@@ -202,7 +202,7 @@ final class EditorSetCoordinatorViewModel:
 extension EditorSetCoordinatorViewModel {
     struct SetQueryData: Identifiable {
         let id = UUID()
-        let document: SetDocumentProtocol
+        let document: any SetDocumentProtocol
         let selectedObjectId: String?
         let onSelect: (String) -> ()
     }

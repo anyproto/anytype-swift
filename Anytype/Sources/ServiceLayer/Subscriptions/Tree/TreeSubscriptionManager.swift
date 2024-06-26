@@ -13,7 +13,7 @@ final class TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     private var subscriptionDataBuilder:any TreeSubscriptionDataBuilderProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
     }()
     private var objectIds: [String] = []

@@ -20,7 +20,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         
         return fileData
     }
-    let audioSessionService: AudioSessionServiceProtocol
+    let audioSessionService: any AudioSessionServiceProtocol
     
     let documentId: String
     let showAudioPicker: (String) -> ()
@@ -28,19 +28,19 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     // Player properties
     let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
     var currentTimeInSeconds: Double = 0.0
-    weak var audioPlayerView: AudioPlayerViewInput?
+    weak var audioPlayerView: (any AudioPlayerViewInput)?
     
     @Injected(\.documentService)
     private var documentService:any OpenedDocumentsProviderProtocol
     
-    lazy var document: BaseDocumentProtocol = {
+    lazy var document: any BaseDocumentProtocol = {
         documentService.document(objectId: documentId)
     }()
     
     init(
         documentId: String,
         informationProvider: BlockModelInfomationProvider,
-        audioSessionService: AudioSessionServiceProtocol,
+        audioSessionService: some AudioSessionServiceProtocol,
         showAudioPicker: @escaping (String) -> ()
     ) {
         self.documentId = documentId

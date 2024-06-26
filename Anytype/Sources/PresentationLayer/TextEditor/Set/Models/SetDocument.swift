@@ -5,7 +5,7 @@ import AnytypeCore
 
 final class SetDocument: SetDocumentProtocol {
     
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     
     var objectId: String { document.objectId }
     var blockId: String { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
@@ -78,20 +78,20 @@ final class SetDocument: SetDocumentProtocol {
     
     private var participantIsEditor = false
     private var subscriptions = [AnyCancellable]()
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
-    private let permissionsBuilder: SetPermissionsBuilderProtocol
+    private let relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let objectTypeProvider: any ObjectTypeProviderProtocol
+    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    private let permissionsBuilder: any SetPermissionsBuilderProtocol
     @Injected(\.setContentViewDataBuilder)
     var dataBuilder:any SetContentViewDataBuilderProtocol
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         inlineParameters: EditorInlineSetObject?,
-        relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        accountParticipantsStorage: AccountParticipantsStorageProtocol,
-        permissionsBuilder: SetPermissionsBuilderProtocol
+        relationDetailsStorage: some RelationDetailsStorageProtocol,
+        objectTypeProvider: some ObjectTypeProviderProtocol,
+        accountParticipantsStorage: some AccountParticipantsStorageProtocol,
+        permissionsBuilder: some SetPermissionsBuilderProtocol
     ) {
         self.document = document
         self.inlineParameters = inlineParameters

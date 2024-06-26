@@ -23,7 +23,7 @@ final class NewRelationViewModel: ObservableObject {
     @Published private var objectTypes: [ObjectType]?
     @Published var toastData: ToastBarData = .empty
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let target: RelationsModuleTarget
     
     @Injected(\.relationsService)
@@ -31,13 +31,13 @@ final class NewRelationViewModel: ObservableObject {
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider:any ObjectTypeProviderProtocol
     
-    private let relationsInteractor: RelationsInteractorProtocol
-    private weak var output: NewRelationModuleOutput?
+    private let relationsInteractor: any RelationsInteractorProtocol
+    private weak var output: (any NewRelationModuleOutput)?
     
     init(
         data: NewRelationData,
-        relationsInteractor: RelationsInteractorProtocol,
-        output: NewRelationModuleOutput?
+        relationsInteractor: some RelationsInteractorProtocol,
+        output: (any NewRelationModuleOutput)?
     ) {
         self.document = data.document
         self.target = data.target

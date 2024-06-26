@@ -11,7 +11,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     
     private let objectDetails: ObjectDetails
     private let relationKey: String
-    private weak var delegate: TextRelationActionButtonViewModelDelegate?
+    private weak var delegate: (any TextRelationActionButtonViewModelDelegate)?
     
     let id = UUID().uuidString
     var inputText: String = ""
@@ -21,7 +21,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     init?(
         objectDetails: ObjectDetails,
         relationKey: String,
-        delegate: TextRelationActionButtonViewModelDelegate?
+        delegate: (any TextRelationActionButtonViewModelDelegate)?
     ) {
         guard objectDetails.layoutValue == .bookmark,
               relationKey == BundledRelationKey.source.rawValue else { return nil }

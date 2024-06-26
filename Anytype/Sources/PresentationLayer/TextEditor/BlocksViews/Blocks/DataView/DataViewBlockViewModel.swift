@@ -6,11 +6,11 @@ import AnytypeCore
 final class DataViewBlockViewModel: BlockViewModelProtocol {
 
     let blockInformationProvider: BlockModelInfomationProvider
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     
     private let showFailureToast: (_ message: String) -> ()
     private let openSet: (EditorScreenData) -> ()
-    private weak var reloadable: EditorCollectionReloadable?
+    private weak var reloadable: (any EditorCollectionReloadable)?
     private var targetDetails: ObjectDetails?
     
     var info: BlockInformation { blockInformationProvider.info }
@@ -29,8 +29,8 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
     
     init(
         blockInformationProvider: BlockModelInfomationProvider,
-        document: BaseDocumentProtocol,
-        reloadable: EditorCollectionReloadable?,
+        document: some BaseDocumentProtocol,
+        reloadable: (any EditorCollectionReloadable)?,
         showFailureToast: @escaping (_ message: String) -> (),
         openSet: @escaping (EditorScreenData) -> ()
     ) {

@@ -1,8 +1,8 @@
 import Foundation
 
 protocol OpenedDocumentsProviderProtocol: AnyObject {
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol
-    func setDocument(objectId: String, forPreview: Bool) -> SetDocumentProtocol
+    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol
+    func setDocument(objectId: String, forPreview: Bool) -> any SetDocumentProtocol
 }
 
 // Default arguments

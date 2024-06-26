@@ -13,10 +13,10 @@ final class SetRelationsCoordinatorViewModel:
 {
     @Published var relationsSearchData: RelationsSearchData?
     
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let viewId: String
     
-    init(setDocument: SetDocumentProtocol, viewId: String) {
+    init(setDocument: some SetDocumentProtocol, viewId: String) {
         self.setDocument = setDocument
         self.viewId = viewId
     }

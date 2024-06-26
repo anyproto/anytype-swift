@@ -17,7 +17,7 @@ struct AudioBlockContentConfiguration: BlockConfiguration {
     let file: BlockFile
     let trackId: String
     let documentId: String
-    weak var audioPlayerViewDelegate: AudioPlayerViewDelegate?
+    weak var audioPlayerViewDelegate: (any AudioPlayerViewDelegate)?
 
     static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
         lhs.trackId == rhs.trackId &&

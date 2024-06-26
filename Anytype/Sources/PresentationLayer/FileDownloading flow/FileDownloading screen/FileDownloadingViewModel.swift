@@ -14,9 +14,9 @@ final class FileDownloadingViewModel: NSObject, ObservableObject {
     
     private weak var task: URLSessionDownloadTask?
     
-    private weak var output: FileDownloadingModuleOutput?
+    private weak var output: (any FileDownloadingModuleOutput)?
     
-    init(url: URL, output: FileDownloadingModuleOutput) {
+    init(url: URL, output: some FileDownloadingModuleOutput) {
         self.output = output
         
         super.init()

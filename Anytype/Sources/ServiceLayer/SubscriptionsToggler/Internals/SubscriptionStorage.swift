@@ -17,7 +17,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     
     nonisolated let subId: String
     nonisolated let detailsStorage: ObjectDetailsStorage
-    private let toggler: SubscriptionTogglerProtocol
+    private let toggler: any SubscriptionTogglerProtocol
     
     // MARK: - State
     
@@ -29,7 +29,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     private var orderIds: [String] = []
     private var state = SubscriptionStorageState(total: 0, nextCount: 0, prevCount: 0, items: [])
     
-    init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: SubscriptionTogglerProtocol) {
+    init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: some SubscriptionTogglerProtocol) {
         self.subId = subId
         self.detailsStorage = detailsStorage
         self.toggler = toggler

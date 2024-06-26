@@ -11,14 +11,14 @@ struct SimpleTableDependenciesContainer {
 final class SimpleTableDependenciesBuilder {
     let cursorManager: EditorCursorManager
     
-    private let document: BaseDocumentProtocol
-    private let router: EditorRouterProtocol
-    private let handler: BlockActionHandlerProtocol
-    private let markdownListener: MarkdownListener
+    private let document: any BaseDocumentProtocol
+    private let router: any EditorRouterProtocol
+    private let handler: any BlockActionHandlerProtocol
+    private let markdownListener: any MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
     private let responderScrollViewHelper: ResponderScrollViewHelper
-    private let accessoryStateManager: AccessoryViewStateManager
-    private weak var moduleOutput: EditorPageModuleOutput?
+    private let accessoryStateManager: any AccessoryViewStateManager
+    private weak var moduleOutput: (any EditorPageModuleOutput)?
     
     @Injected(\.blockTableService)
     private var tableService:any BlockTableServiceProtocol
@@ -29,18 +29,18 @@ final class SimpleTableDependenciesBuilder {
     @Injected(\.typesService)
     private var typesService:any TypesServiceProtocol
     
-    weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
+    weak var mainEditorSelectionManager: (any SimpleTableSelectionHandler)?
     
     init(
-        document: BaseDocumentProtocol,
-        router: EditorRouterProtocol,
-        handler: BlockActionHandlerProtocol,
-        markdownListener: MarkdownListener,
+        document: some BaseDocumentProtocol,
+        router: some EditorRouterProtocol,
+        handler: some BlockActionHandlerProtocol,
+        markdownListener: some MarkdownListener,
         focusSubjectHolder: FocusSubjectsHolder,
-        mainEditorSelectionManager: SimpleTableSelectionHandler?,
+        mainEditorSelectionManager: (any SimpleTableSelectionHandler)?,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        accessoryStateManager: AccessoryViewStateManager,
-        moduleOutput: EditorPageModuleOutput?
+        accessoryStateManager: some AccessoryViewStateManager,
+        moduleOutput: (any EditorPageModuleOutput)?
     ) {
         self.document = document
         self.router = router

@@ -7,7 +7,7 @@ struct ObjectSettingsView: View {
     
     init(
         objectId: String,
-        output: ObjectSettingsModelOutput
+        output: some ObjectSettingsModelOutput
     ) {
         self._viewModel = StateObject(wrappedValue: ObjectSettingsViewModel(objectId: objectId, output: output))
     }

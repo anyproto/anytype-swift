@@ -18,9 +18,9 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         return data
     }
     
-    private let editorCollectionController: EditorCollectionReloadable
+    private let editorCollectionController: any EditorCollectionReloadable
     private let infoProvider: BlockModelInfomationProvider
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let showBookmarkBar: (BlockInformation) -> ()
     private let openUrl: (AnytypeURL) -> ()
     
@@ -28,9 +28,9 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
     private var targetDetails: ObjectDetails?
     
     init(
-        editorCollectionController: EditorCollectionReloadable,
+        editorCollectionController: some EditorCollectionReloadable,
         infoProvider: BlockModelInfomationProvider,
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         showBookmarkBar: @escaping (BlockInformation) -> (),
         openUrl: @escaping (AnytypeURL) -> ()
     ) {

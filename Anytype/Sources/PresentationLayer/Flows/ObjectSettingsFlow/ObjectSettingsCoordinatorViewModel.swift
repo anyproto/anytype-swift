@@ -9,7 +9,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
                                                 RelationValueCoordinatorOutput {
     
     let objectId: String
-    private weak var output: ObjectSettingsCoordinatorOutput?
+    private weak var output: (any ObjectSettingsCoordinatorOutput)?
     
     private var dismissAllPresented: DismissAllPresented?
     
@@ -20,7 +20,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     @Published var relationsListData: RelationsListData?
     @Published var dismiss = false
     
-    init(objectId: String, output: ObjectSettingsCoordinatorOutput?) {
+    init(objectId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self.objectId = objectId
         self.output = output
     }
@@ -38,19 +38,19 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
         output?.didUndoRedo()
     }
     
-    func layoutPickerAction(document: BaseDocumentProtocol) {
+    func layoutPickerAction(document: some BaseDocumentProtocol) {
         layoutPickerObjectId = document.objectId.identifiable
     }
     
-    func showCoverPicker(document: BaseDocumentProtocol) {
+    func showCoverPicker(document: some BaseDocumentProtocol) {
         coverPickerData = ObjectCoverPickerData(document: document)
     }
     
-    func showIconPicker(document: BaseDocumentProtocol) {
+    func showIconPicker(document: some BaseDocumentProtocol) {
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     
-    func relationsAction(document: BaseDocumentProtocol) {
+    func relationsAction(document: some BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logScreenObjectRelation()
         relationsListData = RelationsListData(document: document)
     }
@@ -59,7 +59,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
         output?.showEditorScreen(data: screenData)
     }
     
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
+    func linkToAction(document: some BaseDocumentProtocol, onSelect: @escaping (String) -> ()) {
         let excludedLayouts = DetailsLayout.fileLayouts + [.set, .participant]
         blockObjectSearchData = BlockObjectSearchData(
             title: Loc.linkTo,

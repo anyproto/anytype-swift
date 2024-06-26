@@ -4,7 +4,7 @@ import AnytypeCore
 struct PersonalizationView: View {
     @StateObject private var model: PersonalizationViewModel
 
-    init(spaceId: String, output: PersonalizationModuleOutput?) {
+    init(spaceId: String, output: (any PersonalizationModuleOutput)?) {
         self._model = StateObject(wrappedValue: PersonalizationViewModel(spaceId: spaceId, output: output))
     }
     

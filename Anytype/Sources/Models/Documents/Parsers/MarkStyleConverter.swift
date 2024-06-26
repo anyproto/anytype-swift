@@ -5,7 +5,7 @@ import UIKit
 
 enum MarkStyleActionConverter {
     
-    static func asModel(document: BaseDocumentProtocol, tuple: MiddlewareTuple) -> MarkupType? {
+    static func asModel(document: some BaseDocumentProtocol, tuple: MiddlewareTuple) -> MarkupType? {
         switch tuple.attribute {
         case .strikethrough:
             return .strikethrough

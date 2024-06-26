@@ -11,10 +11,10 @@ final class WidgetContainerViewModel: ObservableObject {
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private let widgetObject: any BaseDocumentProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     
-    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService:any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
@@ -33,8 +33,8 @@ final class WidgetContainerViewModel: ObservableObject {
     
     init(
         widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        output: CommonWidgetModuleOutput?
+        widgetObject: some BaseDocumentProtocol,
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject

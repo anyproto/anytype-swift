@@ -5,38 +5,38 @@ import AnytypeCore
 
 @MainActor
 final class SimpleTableCellsBuilder {
-    private let document: BaseDocumentProtocol
-    private let router: EditorRouterProtocol
-    private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardBlockDocumentServiceProtocol
-    private let markdownListener: MarkdownListener
+    private let document: any BaseDocumentProtocol
+    private let router: any EditorRouterProtocol
+    private let handler: any BlockActionHandlerProtocol
+    private let pasteboardService: any PasteboardBlockDocumentServiceProtocol
+    private let markdownListener: any MarkdownListener
     private let cursorManager: EditorCursorManager
     private let focusSubjectHolder: FocusSubjectsHolder
     private let infoContainer: InfoContainerProtocol
     private let blockTableService: BlockTableServiceProtocol
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let stateManager: SimpleTableStateManager
-    private let blockMarkupChanger: BlockMarkupChangerProtocol
-    private let accessoryStateManager: AccessoryViewStateManager
-    private weak var moduleOutput: EditorPageModuleOutput?
+    private let blockMarkupChanger: any BlockMarkupChangerProtocol
+    private let accessoryStateManager: any AccessoryViewStateManager
+    private weak var moduleOutput: (any EditorPageModuleOutput)?
     
     private var textBlocksMapping = [String: EditorItem]()
     private var emptyBlocksMapping = [String: EditorItem]()
     
     init(
-        document: BaseDocumentProtocol,
-        router: EditorRouterProtocol,
-        handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
-        markdownListener: MarkdownListener,
+        document: some BaseDocumentProtocol,
+        router: some EditorRouterProtocol,
+        handler: some BlockActionHandlerProtocol,
+        pasteboardService: some PasteboardBlockDocumentServiceProtocol,
+        markdownListener: some MarkdownListener,
         cursorManager: EditorCursorManager,
         focusSubjectHolder: FocusSubjectsHolder,
         responderScrollViewHelper: ResponderScrollViewHelper,
         stateManager: SimpleTableStateManager,
-        accessoryStateManager: AccessoryViewStateManager,
-        blockMarkupChanger: BlockMarkupChangerProtocol,
+        accessoryStateManager: some AccessoryViewStateManager,
+        blockMarkupChanger: some BlockMarkupChangerProtocol,
         blockTableService: BlockTableServiceProtocol,
-        moduleOutput: EditorPageModuleOutput?
+        moduleOutput: (any EditorPageModuleOutput)?
     ) {
         self.document = document
         self.router = router

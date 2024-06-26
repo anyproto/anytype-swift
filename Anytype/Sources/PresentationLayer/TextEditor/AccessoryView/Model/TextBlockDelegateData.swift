@@ -10,7 +10,7 @@ struct TextViewAccessoryConfiguration {
         textView: UITextView,
         contentType: BlockContentType,
         usecase: TextBlockUsecase,
-        output: AccessoryViewOutput?
+        output: (any AccessoryViewOutput)?
     ) {
         self._textView = textView
         self.contentType = contentType
@@ -23,5 +23,5 @@ struct TextViewAccessoryConfiguration {
     let contentType: BlockContentType
     let usecase: TextBlockUsecase
     
-    weak var output: AccessoryViewOutput?
+    weak var output: (any AccessoryViewOutput)?
 }

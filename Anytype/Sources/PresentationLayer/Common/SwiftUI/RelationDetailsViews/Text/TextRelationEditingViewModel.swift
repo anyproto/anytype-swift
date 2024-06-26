@@ -7,7 +7,7 @@ struct TextRelationEditingViewData {
     let type: TextRelationViewType
     let config: RelationModuleConfiguration
     let objectDetails: ObjectDetails
-    let output: TextRelationActionButtonViewModelDelegate?
+    let output: (any TextRelationActionButtonViewModelDelegate)?
 }
 
 @MainActor

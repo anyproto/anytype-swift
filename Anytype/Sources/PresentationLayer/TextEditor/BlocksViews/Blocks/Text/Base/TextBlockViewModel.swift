@@ -6,11 +6,11 @@ import Services
 final class BlockModelInfomationProvider {
     @Published private(set) var info: BlockInformation
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private var subscription: AnyCancellable?
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         info: BlockInformation
     ) {
         self.document = document
@@ -33,13 +33,13 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     
     var info: BlockInformation { blockInformationProvider.info }
     private let blockInformationProvider: BlockModelInfomationProvider
-    private var document: BaseDocumentProtocol
+    private var document: any BaseDocumentProtocol
     private var style: Style = .none
     
     private var content: BlockText = .empty(contentType: .text)
     private var anytypeText: UIKitAnytypeText?
     
-    private let actionHandler: TextBlockActionHandlerProtocol
+    private let actionHandler: any TextBlockActionHandlerProtocol
     private var customBackgroundColor: UIColor?
     private var cursorManager: EditorCursorManager
     
@@ -49,9 +49,9 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blockInformationProvider: BlockModelInfomationProvider,
-        actionHandler: TextBlockActionHandlerProtocol,
+        actionHandler: some TextBlockActionHandlerProtocol,
         cursorManager: EditorCursorManager,
         customBackgroundColor: UIColor? = nil,
         collectionController: EditorBlockCollectionController? = nil

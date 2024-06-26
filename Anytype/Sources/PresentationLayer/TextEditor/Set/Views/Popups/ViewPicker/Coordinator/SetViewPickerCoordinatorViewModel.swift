@@ -12,7 +12,7 @@ protocol SetViewPickerCoordinatorOutput: AnyObject {
 final class SetViewPickerCoordinatorViewModel: ObservableObject, SetViewPickerCoordinatorOutput {
     @Published var setSettingsData: SetSettingsData?
     
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
     init(data: SetViewData) {

@@ -8,7 +8,7 @@ import FloatingPanel
 final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsViewModelProtocol {
     weak var viewController: TextRelationDetailsViewController?
     
-    private weak var popup: AnytypePopupProxy?
+    private weak var popup: (any AnytypePopupProxy)?
 
     private(set) var popupLayout: AnytypePopupLayoutType = .intrinsic {
         didSet {
@@ -33,7 +33,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     private let objectId: String
     private let spaceId: String
     private let relation: Relation
-    private let service: TextRelationEditingServiceProtocol
+    private let service: any TextRelationEditingServiceProtocol
     private let analyticsType: AnalyticsEventsRelationType
     private var cancellable: AnyCancellable?
     
@@ -47,7 +47,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         value: String,
         type: TextRelationViewType,
         relation: Relation,
-        service: TextRelationEditingServiceProtocol,
+        service: some TextRelationEditingServiceProtocol,
         analyticsType: AnalyticsEventsRelationType,
         actionsViewModel: [TextRelationActionViewModelProtocol] = []
     ) {
@@ -101,7 +101,7 @@ extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
         return vc
     }
     
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
+    func onPopupInstall(_ popup: some AnytypePopupProxy) {
         self.popup = popup
     }
 }

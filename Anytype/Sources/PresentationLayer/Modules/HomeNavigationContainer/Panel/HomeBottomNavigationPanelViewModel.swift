@@ -20,7 +20,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage:any AccountParticipantsStorageProtocol
         
-    private weak var output: HomeBottomNavigationPanelModuleOutput?
+    private weak var output: (any HomeBottomNavigationPanelModuleOutput)?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"
     
     private var activeProcess: Process?
@@ -34,7 +34,7 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        output: HomeBottomNavigationPanelModuleOutput?
+        output: (any HomeBottomNavigationPanelModuleOutput)?
     ) {
         self.info = info
         self.output = output

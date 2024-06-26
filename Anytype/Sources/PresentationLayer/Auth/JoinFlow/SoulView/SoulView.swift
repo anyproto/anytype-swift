@@ -4,7 +4,7 @@ struct SoulView: View {
     
     @StateObject private var model: SoulViewModel
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         _model = StateObject(wrappedValue: SoulViewModel(state: state, output: output))
     }
     

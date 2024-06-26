@@ -16,14 +16,14 @@ protocol BlockDelegate: AnyObject {
 final class BlockDelegateImpl: BlockDelegate {
     private var changeType: TextChangeType?
 
-    weak private var viewInput: EditorPageViewInput?
+    weak private var viewInput: (any EditorPageViewInput)?
 
-    private let accessoryState: AccessoryViewStateManager
+    private let accessoryState: any AccessoryViewStateManager
     private let cursorManager: EditorCursorManager
     
     init(
-        viewInput: EditorPageViewInput?,
-        accessoryState: AccessoryViewStateManager,
+        viewInput: (any EditorPageViewInput)?,
+        accessoryState: some AccessoryViewStateManager,
         cursorManager: EditorCursorManager
     ) {
         self.viewInput = viewInput

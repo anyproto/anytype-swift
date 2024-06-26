@@ -65,7 +65,7 @@ struct RelationValueData: Identifiable {
 }
 
 extension Container {
-    var relationValueProcessingService: Factory<RelationValueProcessingServiceProtocol> {
+    var relationValueProcessingService: Factory<any RelationValueProcessingServiceProtocol> {
         self { RelationValueProcessingService() }.shared
     }
 }

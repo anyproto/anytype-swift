@@ -9,7 +9,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     private let type: RecentWidgetType
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
+    private let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.recentSubscriptionService)
     private var recentSubscriptionService:any RecentSubscriptionServiceProtocol

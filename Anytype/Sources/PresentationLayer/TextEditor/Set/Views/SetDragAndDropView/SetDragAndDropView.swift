@@ -8,14 +8,14 @@ struct SetDragAndDropView<Content>: View where Content: View {
     @Binding private var dropData: SetCardDropData
     private let configuration: SetContentViewItemConfiguration?
     private let groupId: String
-    private let dragAndDropDelegate: SetDragAndDropDelegate
+    private let dragAndDropDelegate: any SetDragAndDropDelegate
     private let content: () -> Content
     
     init(
         dropData: Binding<SetCardDropData>,
         configuration: SetContentViewItemConfiguration?,
         groupId: String,
-        dragAndDropDelegate: SetDragAndDropDelegate,
+        dragAndDropDelegate: some SetDragAndDropDelegate,
         @ViewBuilder content: @escaping () -> Content)
     {
         self._dropData = dropData

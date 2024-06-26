@@ -9,8 +9,8 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private let widgetObject: any BaseDocumentProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.setsSubscriptionService)
     private var setsSubscriptionService:any SetsSubscriptionServiceProtocol

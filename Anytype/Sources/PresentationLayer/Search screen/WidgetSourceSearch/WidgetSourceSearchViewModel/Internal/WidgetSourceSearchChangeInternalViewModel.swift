@@ -10,7 +10,7 @@ final class WidgetSourceSearchChangeInternalViewModel: WidgetSourceSearchInterna
     @Injected(\.documentService)
     private var documentService:any OpenedDocumentsProviderProtocol
     
-    private lazy var document: BaseDocumentProtocol = {
+    private lazy var document: any BaseDocumentProtocol = {
         documentService.document(objectId: widgetObjectId)
     }()
     private let widgetObjectId: String

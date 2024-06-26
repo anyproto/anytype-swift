@@ -9,9 +9,9 @@ import DeepLinks
 final class ObjectActionsViewModel: ObservableObject {
 
     private let objectId: String
-    private weak var output: ObjectActionsOutput?
+    private weak var output: (any ObjectActionsOutput)?
     
-    private lazy var document: BaseDocumentProtocol = {
+    private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId)
     }()
     
@@ -36,7 +36,7 @@ final class ObjectActionsViewModel: ObservableObject {
     @Published var toastData = ToastBarData.empty
     @Published var dismiss = false
     
-    init(objectId: String, output: ObjectActionsOutput?) {
+    init(objectId: String, output: (any ObjectActionsOutput)?) {
         self.objectId = objectId
         self.output = output
     }

@@ -10,7 +10,7 @@ import SwiftUI
 
 final class AnytypePopupViewModel<Content: View>: AnytypePopupViewModelProtocol, ObservableObject {
     private(set) var popupLayout: AnytypePopupLayoutType
-    private weak var popup: AnytypePopupProxy?
+    private weak var popup: (any AnytypePopupProxy)?
     private let contentView: Content
 
     init(contentView: Content, popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)) {
@@ -25,7 +25,7 @@ final class AnytypePopupViewModel<Content: View>: AnytypePopupViewModelProtocol,
         popup?.updateLayout(false)
     }
 
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
+    func onPopupInstall(_ popup: some AnytypePopupProxy) {
         self.popup = popup
     }
 

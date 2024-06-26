@@ -10,7 +10,7 @@ final class TableOfContentsContentProvider {
         static let sortedHeaderStyles: [BlockText.Style] = [.header, .header2, .header3, .header4]
     }
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private lazy var subscriptions = [AnyCancellable]()
     private lazy var blockSubscriptions = [String: AnyCancellable]()
     
@@ -18,7 +18,7 @@ final class TableOfContentsContentProvider {
     
     @Published private(set) var content: TableOfContentData = .empty("")
     
-    init(document: BaseDocumentProtocol) {
+    init(document: some BaseDocumentProtocol) {
         self.document = document
         startUpdateContent()
     }

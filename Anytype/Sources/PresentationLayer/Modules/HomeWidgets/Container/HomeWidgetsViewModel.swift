@@ -11,13 +11,13 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private let info: AccountInfo
     
-    let widgetObject: BaseDocumentProtocol
+    let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
     private var blockWidgetService:any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService:any ObjectActionsServiceProtocol
-    private let documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
@@ -25,7 +25,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Injected(\.homeWidgetsRecentStateManager)
     private var recentStateManager:any HomeWidgetsRecentStateManagerProtocol
     
-    weak var output: HomeWidgetsModuleOutput?
+    weak var output: (any HomeWidgetsModuleOutput)?
     
     // MARK: - State
     
@@ -38,7 +38,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        output: HomeWidgetsModuleOutput?
+        output: (any HomeWidgetsModuleOutput)?
     ) {
         self.info = info
         self.output = output
@@ -99,7 +99,7 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onSpaceSelected()
     }
     
-    func submoduleOutput() -> CommonWidgetModuleOutput? {
+    func submoduleOutput() -> (any CommonWidgetModuleOutput)? {
         output
     }
     

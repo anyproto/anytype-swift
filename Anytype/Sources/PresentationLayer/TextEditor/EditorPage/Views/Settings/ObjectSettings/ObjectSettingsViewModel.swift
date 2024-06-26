@@ -14,10 +14,10 @@ enum ObjectSettingsAction {
 @MainActor
 protocol ObjectSettingsModelOutput: AnyObject, ObjectHeaderRouterProtocol, ObjectHeaderModuleOutput {
     func undoRedoAction(objectId: String)
-    func layoutPickerAction(document: BaseDocumentProtocol)
-    func relationsAction(document: BaseDocumentProtocol)
+    func layoutPickerAction(document: some BaseDocumentProtocol)
+    func relationsAction(document: some BaseDocumentProtocol)
     func openPageAction(screenData: EditorScreenData)
-    func linkToAction(document: BaseDocumentProtocol, onSelect: @escaping (String) -> ())
+    func linkToAction(document: some BaseDocumentProtocol, onSelect: @escaping (String) -> ())
     func closeEditorAction()
     func didCreateLinkToItself(selfName: String, data: EditorScreenData)
     func didCreateTemplate(templateId: String)
@@ -30,10 +30,10 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     @Injected(\.documentService)
     private var openDocumentsProvider:any OpenedDocumentsProviderProtocol
     
-    private weak var output: ObjectSettingsModelOutput?
+    private weak var output: (any ObjectSettingsModelOutput)?
     private let settingsBuilder = ObjectSettingBuilder()
     
-    private lazy var document: BaseDocumentProtocol = {
+    private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId)
     }()
     
@@ -42,7 +42,7 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
     
     init(
         objectId: String,
-        output: ObjectSettingsModelOutput
+        output: some ObjectSettingsModelOutput
     ) {
         self.objectId = objectId
         self.output = output

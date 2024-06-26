@@ -10,10 +10,10 @@ final class SettingsAccountViewModel: ObservableObject {
     
     // MARK: - DI
     
-    private weak var output: SettingsAccountModuleOutput?
+    private weak var output: (any SettingsAccountModuleOutput)?
     
     init(
-        output: SettingsAccountModuleOutput?
+        output: (any SettingsAccountModuleOutput)?
     ) {
         self.output = output
     }

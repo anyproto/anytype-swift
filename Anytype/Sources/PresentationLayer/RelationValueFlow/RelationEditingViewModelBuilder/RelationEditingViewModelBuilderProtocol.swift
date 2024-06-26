@@ -9,6 +9,6 @@ protocol RelationEditingViewModelBuilderProtocol: AnyObject {
         relation: Relation,
         analyticsType: AnalyticsEventsRelationType,
         onTap: @escaping (_ screenData: EditorScreenData) -> Void
-    ) -> AnytypePopupViewModelProtocol?
+    ) -> (any AnytypePopupViewModelProtocol)?
     
 }

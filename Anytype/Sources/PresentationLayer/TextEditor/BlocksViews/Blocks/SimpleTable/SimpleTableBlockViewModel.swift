@@ -12,7 +12,7 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
     private let dependenciesBuilder: SimpleTableDependenciesBuilder
     private let infoContainer: InfoContainerProtocol
     private let tableService: BlockTableServiceProtocol
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let editorCollectionController: EditorBlockCollectionController
     
     private var store = [AnyCancellable]()
@@ -22,7 +22,7 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         infoContainer: InfoContainerProtocol,
         tableService: BlockTableServiceProtocol,
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         editorCollectionController: EditorBlockCollectionController,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never> // Not proper way to handle focus. Need to refactor EditorCursorManager
     ) {

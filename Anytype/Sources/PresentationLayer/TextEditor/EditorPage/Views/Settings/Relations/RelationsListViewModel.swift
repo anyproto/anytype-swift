@@ -13,21 +13,21 @@ final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
     
     @Injected(\.relationsService)
     private var relationsService:any RelationsServiceProtocol
     
-    private weak var output: RelationsListModuleOutput?
+    private weak var output: (any RelationsListModuleOutput)?
     
     private var subscriptions: [AnyCancellable] = []
     
     // MARK: - Initializers
     
     init(
-        document: BaseDocumentProtocol,
-        output: RelationsListModuleOutput?
+        document: some BaseDocumentProtocol,
+        output: (any RelationsListModuleOutput)?
     ) {
         self.document = document
         self.output = output

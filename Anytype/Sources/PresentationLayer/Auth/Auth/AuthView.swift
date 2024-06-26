@@ -7,7 +7,7 @@ struct AuthView: View {
     @StateObject private var model: AuthViewModel
     @State private var safariUrl: URL?
     
-    init(output: AuthViewModelOutput?) {
+    init(output: (any AuthViewModelOutput)?) {
         _model = StateObject(wrappedValue: AuthViewModel(output: output))
     }
     

@@ -7,14 +7,14 @@ import AnytypeCore
 
 @MainActor
 final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNavigationManagerOutput, ObservableObject {
-    weak private(set) var viewInput: EditorPageViewInput?
+    weak private(set) var viewInput: (any EditorPageViewInput)?
     
-    let blocksStateManager: EditorPageBlocksStateManagerProtocol
+    let blocksStateManager: any EditorPageBlocksStateManagerProtocol
     
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     let modelsHolder: EditorMainItemModelsHolder
-    let router: EditorRouterProtocol
-    let actionHandler: BlockActionHandlerProtocol
+    let router: any EditorRouterProtocol
+    let actionHandler: any BlockActionHandlerProtocol
     
     @Injected(\.objectActionsService)
     var objectActionsService:any ObjectActionsServiceProtocol
@@ -30,10 +30,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
-    private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
+    private let editorPageTemplatesHandler: any EditorPageTemplatesHandlerProtocol
     private let configuration: EditorPageViewModelConfiguration
     
-    private weak var output: EditorPageModuleOutput?
+    private weak var output: (any EditorPageModuleOutput)?
     lazy var subscriptions = [AnyCancellable]()
     private var didScrollToInitialBlock = false
 
@@ -45,18 +45,18 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     // MARK: - Initialization
     init(
-        document: BaseDocumentProtocol,
-        viewInput: EditorPageViewInput,
-        router: EditorRouterProtocol,
+        document: some BaseDocumentProtocol,
+        viewInput: some EditorPageViewInput,
+        router: some EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         headerModel: ObjectHeaderViewModel,
-        blocksStateManager: EditorPageBlocksStateManagerProtocol,
+        blocksStateManager: some EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
-        editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
+        editorPageTemplatesHandler: some EditorPageTemplatesHandlerProtocol,
         configuration: EditorPageViewModelConfiguration,
-        output: EditorPageModuleOutput?
+        output: (any EditorPageModuleOutput)?
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -290,7 +290,7 @@ extension EditorPageViewModel {
         }
     }
     
-    func element(at: IndexPath) -> BlockViewModelProtocol? {
+    func element(at: IndexPath) -> (any BlockViewModelProtocol)? {
         modelsHolder.blockViewModel(at: at.row)
     }
 }
@@ -300,7 +300,7 @@ extension EditorPageViewModel {
         router.showSettings()
     }
     
-    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
         router.showSettings(output: output)
     }
     

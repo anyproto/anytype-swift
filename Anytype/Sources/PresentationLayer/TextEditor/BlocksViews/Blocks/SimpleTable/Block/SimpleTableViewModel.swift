@@ -4,14 +4,14 @@ import Services
 
 @MainActor
 final class SimpleTableViewModel {
-    let stateManager: SimpleTableStateManagerProtocol
+    let stateManager: any SimpleTableStateManagerProtocol
     weak var dataSource: SpreadsheetViewDataSource? {
         didSet {
             forceUpdate(shouldApplyFocus: true)
         }
     }
 
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let cellBuilder: SimpleTableCellsBuilder
     private let cursorManager: EditorCursorManager
     private var tableBlockInfoProvider: BlockModelInfomationProvider
@@ -21,10 +21,10 @@ final class SimpleTableViewModel {
     private var cancellables = [AnyCancellable]()
 
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         tableBlockInfoProvider: BlockModelInfomationProvider,
         cellBuilder: SimpleTableCellsBuilder,
-        stateManager: SimpleTableStateManagerProtocol,
+        stateManager: some SimpleTableStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document

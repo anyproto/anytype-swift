@@ -74,29 +74,29 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     @Injected(\.documentsProvider)
     private var documentsProvider:any DocumentsProviderProtocol
 
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     @Injected(\.legacyToastPresenter)
     private var toastPresenter:any ToastPresenterProtocol
-    private let actionHandler: BlockActionHandlerProtocol
-    private let router: EditorRouterProtocol
-    private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    private let actionHandler: any BlockActionHandlerProtocol
+    private let router: any EditorRouterProtocol
+    private let bottomNavigationManager: any EditorBottomNavigationManagerProtocol
     
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
-    weak var viewInput: EditorPageViewInput?
+    weak var viewInput: (any EditorPageViewInput)?
 
     private var cancellables = [AnyCancellable]()
 
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol,
+        actionHandler: some BlockActionHandlerProtocol,
+        router: some EditorRouterProtocol,
         initialEditingState: EditorEditingState,
-        viewInput: EditorPageViewInput,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol
+        viewInput: some EditorPageViewInput,
+        bottomNavigationManager: some EditorBottomNavigationManagerProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -527,7 +527,7 @@ extension EditorPageBlocksStateManager {
 }
 
 extension EditorMainItemModelsHolder {
-    func allChildIndexes(viewModel: BlockViewModelProtocol) -> [Int] {
+    func allChildIndexes(viewModel: some BlockViewModelProtocol) -> [Int] {
         allIndexes(for: viewModel.info.childrenIds.map { $0 })
     }
 

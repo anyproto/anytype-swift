@@ -14,7 +14,7 @@ final class SoulViewModel: ObservableObject {
     // MARK: - DI
     
     private let state: JoinFlowState
-    private weak var output: JoinFlowStepOutput?
+    private weak var output: (any JoinFlowStepOutput)?
     
     @Injected(\.accountManager)
     private var accountManager:any AccountManagerProtocol
@@ -25,7 +25,7 @@ final class SoulViewModel: ObservableObject {
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state
         self.inputText = state.soul
         self.output = output

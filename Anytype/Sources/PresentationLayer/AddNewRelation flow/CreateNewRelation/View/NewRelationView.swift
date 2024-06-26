@@ -5,7 +5,7 @@ struct NewRelationView: View {
     @StateObject private var viewModel: NewRelationViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: NewRelationData, output: NewRelationModuleOutput?) {
+    init(data: NewRelationData, output: (any NewRelationModuleOutput)?) {
         let relationsInteractor = RelationsInteractor(objectId: data.document.objectId)
         _viewModel = StateObject(wrappedValue: NewRelationViewModel(
             data: data,
