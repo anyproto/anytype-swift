@@ -503,6 +503,9 @@
 "Set.View.Empty.Title" = "Жодного запиту не вибрано";
 "Set.View.Empty.Subtitle" = "Додайте пошуковий запит для групування об'єктів з однаковими типами та зв'язками в режимі реального часу";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Виберіть запит";
 "Set.SourceType.Cancel.Toast.Title" = "Цей запит може бути змінений лише на комп'ютері";
@@ -1160,6 +1163,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
