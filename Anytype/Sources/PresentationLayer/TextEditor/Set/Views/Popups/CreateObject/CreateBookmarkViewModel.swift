@@ -5,9 +5,9 @@ final class CreateBookmarkViewModel: CreateObjectViewModelProtocol {
     let style = CreateObjectView.Style.bookmark
     
     @Injected(\.bookmarkService)
-    private var bookmarkService: BookmarkServiceProtocol
+    private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let spaceId: String
     private let collectionId: String?

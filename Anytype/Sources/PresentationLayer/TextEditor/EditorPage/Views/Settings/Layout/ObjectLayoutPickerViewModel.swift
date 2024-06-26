@@ -9,9 +9,9 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     // MARK: - Private variables
     
     @Injected(\.detailsService)
-    private var detailsService: DetailsServiceProtocol
+    private var detailsService: any DetailsServiceProtocol
     @Injected(\.documentService)
-    private var openDocumentsProvider: OpenedDocumentsProviderProtocol
+    private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
     private let objectId: String
     

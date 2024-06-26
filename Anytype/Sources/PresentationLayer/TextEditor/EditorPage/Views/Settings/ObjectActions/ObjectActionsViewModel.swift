@@ -16,21 +16,21 @@ final class ObjectActionsViewModel: ObservableObject {
     }()
     
     @Injected(\.objectActionsService)
-    private var service: ObjectActionsServiceProtocol
+    private var service: any ObjectActionsServiceProtocol
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.templatesService)
-    private var templatesService: TemplatesServiceProtocol
+    private var templatesService: any TemplatesServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.deepLinkParser)
-    private var deepLinkParser: DeepLinkParserProtocol
+    private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.documentService)
-    private var openDocumentsProvider: OpenedDocumentsProviderProtocol
+    private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
     @Published var objectActions: [ObjectAction] = []
     @Published var toastData = ToastBarData.empty

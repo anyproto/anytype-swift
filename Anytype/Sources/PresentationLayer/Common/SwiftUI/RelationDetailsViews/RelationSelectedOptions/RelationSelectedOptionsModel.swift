@@ -21,7 +21,7 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     let config: RelationModuleConfiguration
     
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
     
     init(config: RelationModuleConfiguration, selectedOptionsIds: [String]) {
         self.config = config

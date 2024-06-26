@@ -34,7 +34,7 @@ final class MembershipNameValidationViewModel: ObservableObject {
     }
     
     @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     
     private var validationTask: Task<(), any Error>?
     

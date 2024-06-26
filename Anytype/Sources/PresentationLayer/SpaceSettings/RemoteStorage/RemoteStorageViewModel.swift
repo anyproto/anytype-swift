@@ -7,19 +7,19 @@ import AnytypeCore
 @MainActor
 final class RemoteStorageViewModel: ObservableObject {
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.fileLimitsStorage)
-    private var fileLimitsStorage: FileLimitsStorageProtocol
+    private var fileLimitsStorage: any FileLimitsStorageProtocol
     @Injected(\.documentsProvider)
-    private var documentProvider: DocumentsProviderProtocol
+    private var documentProvider: any DocumentsProviderProtocol
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder: MailUrlBuilderProtocol
+    private var mailUrlBuilder: any MailUrlBuilderProtocol
     
     private weak var output: RemoteStorageModuleOutput?
     private var subscriptions = [AnyCancellable]()

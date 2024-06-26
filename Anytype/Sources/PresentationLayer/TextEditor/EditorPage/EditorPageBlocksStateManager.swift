@@ -68,16 +68,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()
     
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     @Injected(\.legacyToastPresenter)
-    private var toastPresenter: ToastPresenterProtocol
+    private var toastPresenter: any ToastPresenterProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let bottomNavigationManager: EditorBottomNavigationManagerProtocol

@@ -11,7 +11,7 @@ protocol SubscriptionTogglerProtocol {
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     @Injected(\.objectSubscriptionService)
-    private var objectSubscriptionService: ObjectSubscriptionServiceProtocol
+    private var objectSubscriptionService: any ObjectSubscriptionServiceProtocol
     
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult {
         switch data {

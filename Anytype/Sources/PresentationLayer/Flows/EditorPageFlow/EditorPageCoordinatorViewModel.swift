@@ -10,7 +10,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     let showHeader: Bool
     private let setupEditorInput: (EditorPageModuleInput, String) -> Void
     @Injected(\.relationValueProcessingService)
-    private var relationValueProcessingService: RelationValueProcessingServiceProtocol
+    private var relationValueProcessingService: any RelationValueProcessingServiceProtocol
     
     var pageNavigation: PageNavigation?
     @Published var dismiss = false

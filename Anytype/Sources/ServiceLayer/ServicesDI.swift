@@ -8,211 +8,211 @@ import AnytypeCore
 
 extension Container {
     
-    var activeWorkspaceStorage: Factory<ActiveWorkpaceStorageProtocol> {
+    var activeWorkspaceStorage: Factory<any ActiveWorkpaceStorageProtocol> {
         self { ActiveWorkspaceStorage() }.singleton
     }
     
-    var accountManager: Factory<AccountManagerProtocol> {
+    var accountManager: Factory<any AccountManagerProtocol> {
         self { AccountManager() }.singleton
     }
     
-    var accountEventHandler: Factory<AccountEventHandlerProtocol> {
+    var accountEventHandler: Factory<any AccountEventHandlerProtocol> {
         self { AccountEventHandler() }.singleton
     }
     
-    var workspaceStorage: Factory<WorkspacesStorageProtocol> {
+    var workspaceStorage: Factory<any WorkspacesStorageProtocol> {
         self { WorkspacesStorage() }.singleton
     }
     
-    var singleObjectSubscriptionService: Factory<SingleObjectSubscriptionServiceProtocol> {
+    var singleObjectSubscriptionService: Factory<any SingleObjectSubscriptionServiceProtocol> {
         self { SingleObjectSubscriptionService() }
     }
     
-    var loginStateService: Factory<LoginStateServiceProtocol> {
+    var loginStateService: Factory<any LoginStateServiceProtocol> {
         self { LoginStateService() }.singleton
     }
     
-    var subscriptionToggler: Factory<SubscriptionTogglerProtocol> {
+    var subscriptionToggler: Factory<any SubscriptionTogglerProtocol> {
         self { SubscriptionToggler() }.shared
     }
     
-    var pasteboardHelper: Factory<PasteboardHelperProtocol> {
+    var pasteboardHelper: Factory<any PasteboardHelperProtocol> {
         self { PasteboardHelper() }
     }
     
-    var pasteboardBlockService: Factory<PasteboardBlockServiceProtocol> {
+    var pasteboardBlockService: Factory<any PasteboardBlockServiceProtocol> {
         self { PasteboardBlockService() }
     }
     
-    var localRepoService: Factory<LocalRepoServiceProtocol> {
+    var localRepoService: Factory<any LocalRepoServiceProtocol> {
         self { LocalRepoService() }.shared
     }
     
-    var keychainStore: Factory<KeychainStoreProtocol> {
+    var keychainStore: Factory<any KeychainStoreProtocol> {
         self { KeychainStore() }.shared
     }
     
-    var seedService: Factory<SeedServiceProtocol> {
+    var seedService: Factory<any SeedServiceProtocol> {
         self { SeedService() }.shared
     }
     
-    var usecaseService: Factory<UsecaseServiceProtocol> {
+    var usecaseService: Factory<any UsecaseServiceProtocol> {
         self { UsecaseService() }.shared
     }
     
-    var fileActionsService: Factory<FileActionsServiceProtocol> {
+    var fileActionsService: Factory<any FileActionsServiceProtocol> {
         self { FileActionsService() }.shared
     }
     
-    var searchService: Factory<SearchServiceProtocol> {
+    var searchService: Factory<any SearchServiceProtocol> {
         self { SearchService() }.shared
     }
     
-    var searchWithMetaService: Factory<SearchWithMetaServiceProtocol> {
+    var searchWithMetaService: Factory<any SearchWithMetaServiceProtocol> {
         self { SearchWithMetaService() }.shared
     }
     
-    var subscriptionStorageProvider: Factory<SubscriptionStorageProviderProtocol> {
+    var subscriptionStorageProvider: Factory<any SubscriptionStorageProviderProtocol> {
         self { SubscriptionStorageProvider() }.singleton
     }
     
-    var systemURLService: Factory<SystemURLServiceProtocol> {
+    var systemURLService: Factory<any SystemURLServiceProtocol> {
         self { SystemURLService() }.shared
     }
     
-    var groupsSubscriptionsHandler: Factory<GroupsSubscriptionsHandlerProtocol> {
+    var groupsSubscriptionsHandler: Factory<any GroupsSubscriptionsHandlerProtocol> {
         self { GroupsSubscriptionsHandler() }
     }
     
-    var objectTypeProvider: Factory<ObjectTypeProviderProtocol> {
+    var objectTypeProvider: Factory<any ObjectTypeProviderProtocol> {
         self { ObjectTypeProvider.shared }
     }
     
-    var favoriteSubscriptionService: Factory<FavoriteSubscriptionServiceProtocol> {
+    var favoriteSubscriptionService: Factory<any FavoriteSubscriptionServiceProtocol> {
         self { FavoriteSubscriptionService() }
     }
     
-    var recentSubscriptionService: Factory<RecentSubscriptionServiceProtocol> {
+    var recentSubscriptionService: Factory<any RecentSubscriptionServiceProtocol> {
         self { RecentSubscriptionService() }
     }
     
-    var setsSubscriptionService: Factory<SetsSubscriptionServiceProtocol> {
+    var setsSubscriptionService: Factory<any SetsSubscriptionServiceProtocol> {
         self { SetsSubscriptionService() }
     }
     
-    var collectionsSubscriptionService: Factory<CollectionsSubscriptionServiceProtocol> {
+    var collectionsSubscriptionService: Factory<any CollectionsSubscriptionServiceProtocol> {
         self { CollectionsSubscriptionService() }
     }
     
-    var binSubscriptionService: Factory<BinSubscriptionServiceProtocol> {
+    var binSubscriptionService: Factory<any BinSubscriptionServiceProtocol> {
         self { BinSubscriptionService() }
     }
     
-    var treeSubscriptionDataBuilder: Factory<TreeSubscriptionDataBuilderProtocol> {
+    var treeSubscriptionDataBuilder: Factory<any TreeSubscriptionDataBuilderProtocol> {
         self { TreeSubscriptionDataBuilder() }
     }
     
-    var treeSubscriptionManager: Factory<TreeSubscriptionManagerProtocol> {
+    var treeSubscriptionManager: Factory<any TreeSubscriptionManagerProtocol> {
         self { TreeSubscriptionManager() }
     }
     
-    var filesSubscriptionManager: Factory<FilesSubscriptionServiceProtocol> {
+    var filesSubscriptionManager: Factory<any FilesSubscriptionServiceProtocol> {
         self { FilesSubscriptionService() }
     }
     
-    var templatesSubscription: Factory<TemplatesSubscriptionServiceProtocol> {
+    var templatesSubscription: Factory<any TemplatesSubscriptionServiceProtocol> {
         self { TemplatesSubscriptionService() }
     }
     
-    var defaultObjectCreationService: Factory<DefaultObjectCreationServiceProtocol> {
+    var defaultObjectCreationService: Factory<any DefaultObjectCreationServiceProtocol> {
         self { DefaultObjectCreationService() }.shared
     }
     
-    var appErrorLoggerConfiguration: Factory<AppErrorLoggerConfigurationProtocol> {
+    var appErrorLoggerConfiguration: Factory<any AppErrorLoggerConfigurationProtocol> {
         self { AppErrorLoggerConfiguration() }.shared
     }
     
-    var localAuthService: Factory<LocalAuthServiceProtocol> {
+    var localAuthService: Factory<any LocalAuthServiceProtocol> {
         self { LocalAuthService() }.shared
     }
     
-    var cameraPermissionVerifier: Factory<CameraPermissionVerifierProtocol> {
+    var cameraPermissionVerifier: Factory<any CameraPermissionVerifierProtocol> {
         self { CameraPermissionVerifier() }.shared
     }
     
-    var fileErrorEventHandler: Factory<FileErrorEventHandlerProtocol> {
+    var fileErrorEventHandler: Factory<any FileErrorEventHandlerProtocol> {
         self { FileErrorEventHandler() }.singleton
     }
     
-    var sceneStateNotifier: Factory<SceneStateNotifierProtocol> {
+    var sceneStateNotifier: Factory<any SceneStateNotifierProtocol> {
         self { SceneStateNotifier() }.singleton
     }
     
-    var deviceSceneStateListener: Factory<DeviceSceneStateListenerProtocol> {
+    var deviceSceneStateListener: Factory<any DeviceSceneStateListenerProtocol> {
         self { DeviceSceneStateListener() }.singleton
     }
     
-    var textServiceHandler: Factory<TextServiceProtocol> {
+    var textServiceHandler: Factory<any TextServiceProtocol> {
         self { TextServiceHandler() }.shared
     }
     
-    var relationDetailsStorage: Factory<RelationDetailsStorageProtocol> {
+    var relationDetailsStorage: Factory<any RelationDetailsStorageProtocol> {
         self { RelationDetailsStorage() }.singleton
     }
     
-    var relationSubscriptionDataBuilder: Factory<RelationSubscriptionDataBuilderProtocol> {
+    var relationSubscriptionDataBuilder: Factory<any RelationSubscriptionDataBuilderProtocol> {
         self { RelationSubscriptionDataBuilder() }
     }
     
-    var middlewareConfigurationProvider: Factory<MiddlewareConfigurationProviderProtocol> {
+    var middlewareConfigurationProvider: Factory<any MiddlewareConfigurationProviderProtocol> {
         self { MiddlewareConfigurationProvider() }.singleton
     }
     
-    var documentsProvider: Factory<DocumentsProviderProtocol> {
+    var documentsProvider: Factory<any DocumentsProviderProtocol> {
         self { DocumentsProvider() }.singleton
     }
     
-    var blockWidgetExpandedService: Factory<BlockWidgetExpandedServiceProtocol> {
+    var blockWidgetExpandedService: Factory<any BlockWidgetExpandedServiceProtocol> {
         self { BlockWidgetExpandedService() }.shared
     }
     
-    var applicationStateService: Factory<ApplicationStateServiceProtocol> {
+    var applicationStateService: Factory<any ApplicationStateServiceProtocol> {
         self { ApplicationStateService() }.singleton
     }
     
-    var documentService: Factory<OpenedDocumentsProviderProtocol> {
+    var documentService: Factory<any OpenedDocumentsProviderProtocol> {
         self { OpenedDocumentsProvider() }.singleton
     }
     
-    var typesPinsStorage: Factory<TypesPinStorageProtocol> {
+    var typesPinsStorage: Factory<any TypesPinStorageProtocol> {
         self { TypesPinStorage() }.shared
     }
     
-    var objectsCommonSubscriptionDataBuilder: Factory<ObjectsCommonSubscriptionDataBuilderProtocol> {
+    var objectsCommonSubscriptionDataBuilder: Factory<any ObjectsCommonSubscriptionDataBuilderProtocol> {
         self { ObjectsCommonSubscriptionDataBuilder() }.shared
     }
     
-    var sharedContentManager: Factory<SharedContentManagerProtocol> {
+    var sharedContentManager: Factory<any SharedContentManagerProtocol> {
         self { SharingDI.shared.sharedContentManager() }
     }
     
-    var typesService: Factory<TypesServiceProtocol> {
+    var typesService: Factory<any TypesServiceProtocol> {
         self { TypesService() }.shared
     }
     
-    var fileLimitsStorage: Factory<FileLimitsStorageProtocol> {
+    var fileLimitsStorage: Factory<any FileLimitsStorageProtocol> {
         self { FileLimitsStorage() }.shared
     }
     
-    var workspacesSubscriptionBuilder: Factory<WorkspacesSubscriptionBuilderProtocol> {
+    var workspacesSubscriptionBuilder: Factory<any WorkspacesSubscriptionBuilderProtocol> {
         self { WorkspacesSubscriptionBuilder() }.shared
     }
     
-    var serverConfigurationStorage: Factory<ServerConfigurationStorageProtocol> {
+    var serverConfigurationStorage: Factory<any ServerConfigurationStorageProtocol> {
         self { ServerConfigurationStorage() }.singleton
     }
     
-    var authService: Factory<AuthServiceProtocol> {
+    var authService: Factory<any AuthServiceProtocol> {
         self { AuthService() }.shared
     }
     
@@ -220,63 +220,63 @@ extension Container {
         self { AppActionStorage() }.singleton
     }
     
-    var quickActionShortcutBuilder: Factory<QuickActionShortcutBuilderProtocol> {
+    var quickActionShortcutBuilder: Factory<any QuickActionShortcutBuilderProtocol> {
         self { QuickActionShortcutBuilder() }.shared
     }
     
-    var deepLinkParser: Factory<DeepLinkParserProtocol> {
+    var deepLinkParser: Factory<any DeepLinkParserProtocol> {
         self { DeepLinkDI.shared.parser(isDebug: CoreEnvironment.isDebug) }
     }
     
-    var universalLinkParser: Factory<UniversalLinkParserProtocol> {
+    var universalLinkParser: Factory<any UniversalLinkParserProtocol> {
         self { UniversalLinkParser() }.shared
     }
     
-    var detailsService: Factory<DetailsServiceProtocol> {
+    var detailsService: Factory<any DetailsServiceProtocol> {
         self { DetailsService() }.shared
     }
     
-    var pasteboardBlockDocumentService: Factory<PasteboardBlockDocumentServiceProtocol> {
+    var pasteboardBlockDocumentService: Factory<any PasteboardBlockDocumentServiceProtocol> {
         self { PasteboardBlockDocumentService() }.shared
     }
     
-    var audioSessionService: Factory<AudioSessionServiceProtocol> {
+    var audioSessionService: Factory<any AudioSessionServiceProtocol> {
         self { AudioSessionService() }.singleton
     }
     
-    var textRelationEditingService: Factory<TextRelationEditingServiceProtocol> {
+    var textRelationEditingService: Factory<any TextRelationEditingServiceProtocol> {
         self { TextRelationEditingService() }.shared
     }
     
-    var accountParticipantsStorage: Factory<AccountParticipantsStorageProtocol> {
+    var accountParticipantsStorage: Factory<any AccountParticipantsStorageProtocol> {
         self { AccountParticipantsStorage() }.singleton
     }
     
-    var activeSpaceParticipantStorage: Factory<ActiveSpaceParticipantStorageProtocol> {
+    var activeSpaceParticipantStorage: Factory<any ActiveSpaceParticipantStorageProtocol> {
         self { ActiveSpaceParticipantStorage() }.singleton
     }
 
-    var participantSpacesStorage: Factory<ParticipantSpacesStorageProtocol> {
+    var participantSpacesStorage: Factory<any ParticipantSpacesStorageProtocol> {
         self { ParticipantSpacesStorage() }.singleton
     }
     
-    var membershipStatusStorage: Factory<MembershipStatusStorageProtocol> {
+    var membershipStatusStorage: Factory<any MembershipStatusStorageProtocol> {
         self { MembershipStatusStorage() }.singleton
     }
     
-    var membershipMetadataProvider: Factory<MembershipMetadataProviderProtocol> {
+    var membershipMetadataProvider: Factory<any MembershipMetadataProviderProtocol> {
         self { MembershipMetadataProvider() }.shared
     }
     
-    var objectHeaderUploadingService: Factory<ObjectHeaderUploadingServiceProtocol> {
+    var objectHeaderUploadingService: Factory<any ObjectHeaderUploadingServiceProtocol> {
         self { ObjectHeaderUploadingService() }.shared
     }
     
-    var storeKitService: Factory<StoreKitServiceProtocol> {
+    var storeKitService: Factory<any StoreKitServiceProtocol> {
         self { StoreKitService() }.singleton
     }
     
-    var mentionObjectsService: Factory<MentionObjectsServiceProtocol> {
+    var mentionObjectsService: Factory<any MentionObjectsServiceProtocol> {
         self { MentionObjectsService() }.shared
     }
 }

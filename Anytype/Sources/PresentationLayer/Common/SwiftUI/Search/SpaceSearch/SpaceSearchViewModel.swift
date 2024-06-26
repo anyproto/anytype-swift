@@ -6,7 +6,7 @@ import Combine
 final class SpaceSearchViewModel: ObservableObject {
     
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private let data: SpaceSearchData
     private var spaces = [SpaceView]()

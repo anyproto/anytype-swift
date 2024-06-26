@@ -28,7 +28,7 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     @Injected(\.objectHeaderUploadingService)
-    private var objectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol
+    private var objectHeaderUploadingService: any ObjectHeaderUploadingServiceProtocol
     
     private let document: BaseDocumentProtocol
         

@@ -12,7 +12,7 @@ final class GalleryInstallationPreviewViewModel: ObservableObject {
     
     private let data: GalleryInstallationData
     @Injected(\.galleryService)
-    private var galleryService: GalleryServiceProtocol
+    private var galleryService: any GalleryServiceProtocol
     private let formatter = ByteCountFormatter.fileFormatter
     private weak var output: GalleryInstallationPreviewModuleOutput?
     

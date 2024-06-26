@@ -13,9 +13,9 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     private weak var output: CommonWidgetModuleOutput?
     
     @Injected(\.setsSubscriptionService)
-    private var setsSubscriptionService: SetsSubscriptionServiceProtocol
+    private var setsSubscriptionService: any SetsSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectService: ObjectActionsServiceProtocol
+    private var objectService: any ObjectActionsServiceProtocol
     
     // MARK: - State
     

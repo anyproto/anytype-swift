@@ -12,9 +12,9 @@ final class HomeWidgetsRecentStateManager: HomeWidgetsRecentStateManagerProtocol
     
     // MARK: - DI
     @Injected(\.loginStateService)
-    private var loginStateService: LoginStateServiceProtocol
+    private var loginStateService: any LoginStateServiceProtocol
     @Injected(\.blockWidgetExpandedService)
-    private var expandedService: BlockWidgetExpandedServiceProtocol
+    private var expandedService: any BlockWidgetExpandedServiceProtocol
     
     // MARK: - State
     

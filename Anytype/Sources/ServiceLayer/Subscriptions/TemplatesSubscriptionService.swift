@@ -16,7 +16,7 @@ actor TemplatesSubscriptionService: TemplatesSubscriptionServiceProtocol {
     private let subscriptionId = "Templates-\(UUID().uuidString)"
     
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()

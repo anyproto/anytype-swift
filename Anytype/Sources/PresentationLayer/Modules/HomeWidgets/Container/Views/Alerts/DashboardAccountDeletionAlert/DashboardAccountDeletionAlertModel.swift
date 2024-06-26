@@ -7,9 +7,9 @@ final class DashboardAccountDeletionAlertModel: ObservableObject {
     
     // MARK: - DI
     @Injected(\.authService)
-    private var authService: AuthServiceProtocol
+    private var authService: any AuthServiceProtocol
     @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    private var applicationStateService: any ApplicationStateServiceProtocol
     
     @Published var toastBarData: ToastBarData = .empty
     

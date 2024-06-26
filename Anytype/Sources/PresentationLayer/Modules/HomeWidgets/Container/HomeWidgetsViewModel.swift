@@ -14,16 +14,16 @@ final class HomeWidgetsViewModel: ObservableObject {
     let widgetObject: BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionService: ObjectActionsServiceProtocol
+    private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: AccountParticipantsStorageProtocol
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
-    private var recentStateManager: HomeWidgetsRecentStateManagerProtocol
+    private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     
     weak var output: HomeWidgetsModuleOutput?
     

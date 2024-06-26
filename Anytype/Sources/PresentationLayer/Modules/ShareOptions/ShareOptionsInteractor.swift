@@ -11,19 +11,19 @@ protocol ShareOptionsInteractorProtocol: AnyObject {
 final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.bookmarkService)
-    private var bookmarkService: BookmarkServiceProtocol
+    private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.fileActionsService)
-    private var fileService: FileActionsServiceProtocol
+    private var fileService: any FileActionsServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentProvider: DocumentsProviderProtocol
+    private var documentProvider: any DocumentsProviderProtocol
     @Injected(\.pasteboardMiddleService)
-    private var pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     func saveContent(saveOptions: SharedSaveOptions, content: SharedContent) async throws {
         switch saveOptions {

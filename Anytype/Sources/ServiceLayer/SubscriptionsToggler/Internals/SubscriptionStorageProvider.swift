@@ -12,7 +12,7 @@ final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol {
     // MARK: - Private properties
     
     @Injected(\.subscriptionToggler)
-    private var toggler: SubscriptionTogglerProtocol
+    private var toggler: any SubscriptionTogglerProtocol
     
     private let lock = NSLock()
     // NSMapTable<NSString, SubscriptionStorage>.strongToWeakObjects() crashed on objc_loadWeakRetained method for iphone se 1 gen ios 15

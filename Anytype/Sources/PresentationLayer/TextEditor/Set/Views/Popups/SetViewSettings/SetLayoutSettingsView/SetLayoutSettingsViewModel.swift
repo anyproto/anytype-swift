@@ -20,7 +20,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private var cancellable: Cancellable?
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     private var view: DataviewView = .empty
     

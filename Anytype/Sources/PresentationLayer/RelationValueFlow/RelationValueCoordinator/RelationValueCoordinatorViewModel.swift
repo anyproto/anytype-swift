@@ -14,7 +14,7 @@ final class RelationValueCoordinatorViewModel:
     TextRelationActionButtonViewModelDelegate
 {
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     var mediumDetent: Bool = false
     

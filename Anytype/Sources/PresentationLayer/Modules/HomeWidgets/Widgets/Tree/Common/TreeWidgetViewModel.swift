@@ -22,7 +22,7 @@ final class TreeWidgetViewModel: ObservableObject {
     private weak var output: CommonWidgetModuleOutput?
     
     @Injected(\.treeSubscriptionManager)
-    private var subscriptionManager: TreeSubscriptionManagerProtocol
+    private var subscriptionManager: any TreeSubscriptionManagerProtocol
     
     // MARK: - State
 

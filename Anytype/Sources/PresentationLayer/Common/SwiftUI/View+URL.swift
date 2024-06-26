@@ -6,7 +6,7 @@ private struct URLViewModifier: ViewModifier {
     @Binding var url: URL?
     
     @Injected(\.universalLinkParser)
-    private var universalLinkParser: UniversalLinkParserProtocol
+    private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
     

@@ -25,7 +25,7 @@ final class SetObjectCreationSettingsCoordinator:
     SetObjectCreationSettingsOutput
 {
     @Injected(\.legacyNavigationContext)
-    private var navigationContext: NavigationContextProtocol
+    private var navigationContext: any NavigationContextProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
     private var onTemplateSelection: ((ObjectCreationSetting) -> Void)?

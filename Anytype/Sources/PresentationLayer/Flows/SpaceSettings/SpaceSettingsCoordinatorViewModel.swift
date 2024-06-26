@@ -9,9 +9,9 @@ final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsMo
 
     private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol = Container.shared.activeWorkspaceStorage.resolve()
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false

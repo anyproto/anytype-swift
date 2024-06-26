@@ -14,7 +14,7 @@ final class SetViewPickerViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     private weak var output: SetViewPickerCoordinatorOutput?
     

@@ -9,13 +9,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private lazy var configurator = AppConfigurator()
     
     @Injected(\.accountEventHandler)
-    private var accountEventHandler: AccountEventHandlerProtocol
+    private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.fileErrorEventHandler)
-    private var fileErrorEventHandler: FileErrorEventHandlerProtocol
+    private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
     @Injected(\.deviceSceneStateListener)
-    private var deviceSceneStateListener: DeviceSceneStateListenerProtocol
+    private var deviceSceneStateListener: any DeviceSceneStateListenerProtocol
     @Injected(\.quickActionShortcutBuilder)
-    private var quickActionShortcutBuilder: QuickActionShortcutBuilderProtocol
+    private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
     

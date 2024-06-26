@@ -22,7 +22,7 @@ final class ObjectRelationListViewModel: ObservableObject {
     private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private weak var output: ObjectRelationListModuleOutput?
     

@@ -12,7 +12,7 @@ final class MembershipTierViewModel: ObservableObject {
     let onTap: () -> ()
     
     @Injected(\.membershipMetadataProvider)
-    private var tierMetadataProvider: MembershipMetadataProviderProtocol
+    private var tierMetadataProvider: any MembershipMetadataProviderProtocol
     
     init(
         tierToDisplay: MembershipTier,

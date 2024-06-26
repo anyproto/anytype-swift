@@ -7,11 +7,11 @@ final class Legacy_ObjectTypeSearchInteractor {
     private let spaceId: String
     
     @Injected(\.typesService)
-    private var typesService: TypesServiceProtocol
+    private var typesService: any TypesServiceProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private let showBookmark: Bool
     private let showSetAndCollection: Bool

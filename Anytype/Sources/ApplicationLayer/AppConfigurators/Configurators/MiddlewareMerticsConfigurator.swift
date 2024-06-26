@@ -5,7 +5,7 @@ import Services
 final class MiddlewareMerticsConfigurator: AppConfiguratorProtocol {
     
     @Injected(\.metricsService)
-    private var metricsService: MetricsServiceProtocol
+    private var metricsService: any MetricsServiceProtocol
     
     func configure() {
         let appVersion = MetadataProvider.appVersion ?? ""

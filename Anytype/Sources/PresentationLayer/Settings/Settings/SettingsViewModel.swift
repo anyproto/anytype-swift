@@ -10,13 +10,13 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
     
     private weak var output: SettingsModuleOutput?
     

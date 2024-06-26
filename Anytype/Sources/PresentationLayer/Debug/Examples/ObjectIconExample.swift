@@ -5,7 +5,7 @@ struct ObjectIconExample: View {
     
     private let emojiExamples: [CGFloat] = [16, 18, 40, 48, 64, 80, 96]
     @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     @State private var iconId: String = ""
     

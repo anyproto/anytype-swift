@@ -9,9 +9,9 @@ final class AppSceneUrlHandlerModifierModel: ObservableObject {
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
     @Injected(\.universalLinkParser)
-    private var universalLinkParser: UniversalLinkParserProtocol
+    private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.deepLinkParser)
-    private var deepLinkParser: DeepLinkParserProtocol
+    private var deepLinkParser: any DeepLinkParserProtocol
     
     func onOpenURL(_ url: URL) -> Bool {
         if let deepLink = deepLinkParser.parse(url: url) {

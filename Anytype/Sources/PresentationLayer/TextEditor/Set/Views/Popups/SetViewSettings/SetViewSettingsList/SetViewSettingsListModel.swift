@@ -21,7 +21,7 @@ final class SetViewSettingsListModel: ObservableObject {
     private let viewId: String
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     private weak var output: SetViewSettingsCoordinatorOutput?
     

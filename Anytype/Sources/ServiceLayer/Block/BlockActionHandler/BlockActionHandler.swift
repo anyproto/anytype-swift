@@ -12,19 +12,19 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.blockTableService)
-    private var blockTableService: BlockTableServiceProtocol
+    private var blockTableService: any BlockTableServiceProtocol
     @Injected(\.fileActionsService)
-    private var fileService: FileActionsServiceProtocol
+    private var fileService: any FileActionsServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectService: ObjectActionsServiceProtocol
+    private var objectService: any ObjectActionsServiceProtocol
     @Injected(\.pasteboardBlockService)
-    private var pasteboardBlockService: PasteboardBlockServiceProtocol
+    private var pasteboardBlockService: any PasteboardBlockServiceProtocol
     @Injected(\.bookmarkService)
-    private var bookmarkService: BookmarkServiceProtocol
+    private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     init(
         document: BaseDocumentProtocol,

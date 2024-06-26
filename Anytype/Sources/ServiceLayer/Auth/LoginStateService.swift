@@ -15,27 +15,27 @@ final class LoginStateService: LoginStateServiceProtocol {
     var isFirstLaunchAfterAuthorization: Bool = false
     
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.middlewareConfigurationProvider)
-    private var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol
+    private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
     @Injected(\.blockWidgetExpandedService)
-    private var blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    private var blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
     @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: RelationDetailsStorageProtocol
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
+    private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.storeKitService)
-    private var storeKitService: StoreKitServiceProtocol
+    private var storeKitService: any StoreKitServiceProtocol
     
     // MARK: - LoginStateServiceProtocol
     
