@@ -138,7 +138,7 @@ final class EditorSetViewModel: ObservableObject {
         return backgroundColor
     }
     
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let paginationHelper = EditorSetPaginationHelper()
 
     @Injected(\.subscriptionStorageProvider)
@@ -163,14 +163,14 @@ final class EditorSetViewModel: ObservableObject {
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
     private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
-    private let documentsProvider: DocumentsProviderProtocol = Container.shared.documentsProvider()
+    private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
-    private weak var output: EditorSetModuleOutput?
+    private weak var output: (any EditorSetModuleOutput)?
 
-    init(data: EditorSetObject, output: EditorSetModuleOutput?) {
+    init(data: EditorSetObject, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
             forPreview: false,

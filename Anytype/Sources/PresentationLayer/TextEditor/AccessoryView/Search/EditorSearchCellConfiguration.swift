@@ -3,11 +3,11 @@ import UIKit
 struct EditorSearchCellConfiguration: UIContentConfiguration, Hashable {
     let cellData: EditorSearchCellData
     
-    func makeContentView() -> UIView & UIContentView {
+    func makeContentView() -> any UIView & UIContentView {
         EditorSearchCell(configuration: self)
     }
     
-    func updated(for state: UIConfigurationState) -> EditorSearchCellConfiguration {
+    func updated(for state: any UIConfigurationState) -> EditorSearchCellConfiguration {
         self
     }
 }

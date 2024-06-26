@@ -23,7 +23,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
     private let subscriptionId = "Bin-\(UUID().uuidString)"

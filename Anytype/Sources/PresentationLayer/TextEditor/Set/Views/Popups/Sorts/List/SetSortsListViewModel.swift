@@ -9,7 +9,7 @@ final class SetSortsListViewModel: ObservableObject {
     
     private let setDocument: any SetDocumentProtocol
     private let viewId: String
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol

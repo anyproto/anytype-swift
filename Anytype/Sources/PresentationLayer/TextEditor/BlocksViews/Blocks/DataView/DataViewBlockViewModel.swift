@@ -50,7 +50,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
             }
     }
 
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         guard case let .dataView(data) = info.content, 
                 !(targetDetails?.isDeleted ?? false) else {
             return NonExistentBlockViewModel(info: info)

@@ -52,7 +52,7 @@ final class DividerCursorController {
     }()
 
     init(
-        movingManager: EditorPageBlocksStateManagerProtocol,
+        movingManager: any EditorPageBlocksStateManagerProtocol,
         view: UIView,
         collectionView: UICollectionView
     ) {

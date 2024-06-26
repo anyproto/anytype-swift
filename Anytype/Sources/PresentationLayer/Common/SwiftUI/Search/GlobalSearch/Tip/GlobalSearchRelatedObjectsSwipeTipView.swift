@@ -16,7 +16,7 @@ struct GlobalSearchRelatedObjectsSwipeTip: Tip {
         Text(verbatim: Loc.GlobalSearch.Swipe.Tip.subtitle)
     }
     
-    var options: [TipOption] {
+    var options: [any TipOption] {
         Tip.MaxDisplayCount(1)
         Tip.IgnoresDisplayFrequency(true)
     }

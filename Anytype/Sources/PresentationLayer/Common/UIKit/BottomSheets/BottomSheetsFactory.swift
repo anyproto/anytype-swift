@@ -8,7 +8,7 @@ final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
         infos: [BlockInformation],
-        actionHandler: BlockActionHandlerProtocol,
+        actionHandler: any BlockActionHandlerProtocol,
         restrictions: BlockRestrictions,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
         onDismiss: (() -> Void)? = nil
@@ -100,7 +100,7 @@ final class BottomSheetsFactory {
         styleView: UIView,
         document: some BaseDocumentProtocol,
         blockIds: [String],
-        actionHandler: BlockActionHandlerProtocol,
+        actionHandler: any BlockActionHandlerProtocol,
         viewDidClose: @escaping () -> Void,
         openLinkToObject: @escaping (LinkToObjectSearchModuleData) -> Void
     ) {

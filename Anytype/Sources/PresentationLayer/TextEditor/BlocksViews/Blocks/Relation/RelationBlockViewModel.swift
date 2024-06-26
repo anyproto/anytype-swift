@@ -50,7 +50,7 @@ final class RelationBlockViewModel: BlockViewModelProtocol {
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         return RelationBlockContentConfiguration(
             actionOnValue: { [weak self] in self?.actionOnValue?() },
             relation: RelationItemModel(relation: relationProvider.relation)

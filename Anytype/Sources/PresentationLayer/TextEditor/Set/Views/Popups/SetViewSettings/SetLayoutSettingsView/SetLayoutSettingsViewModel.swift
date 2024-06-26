@@ -17,7 +17,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     private let viewId: String
     private weak var output: (any SetLayoutSettingsCoordinatorOutput)?
     
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol

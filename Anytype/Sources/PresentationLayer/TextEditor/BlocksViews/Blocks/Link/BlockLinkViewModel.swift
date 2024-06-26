@@ -46,7 +46,7 @@ final class BlockLinkViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> any UIContentConfiguration {
         guard let details = targetDetails else {
             anytypeAssertionFailure("Coudn't find object details for blockLink")
             return UnsupportedBlockViewModel(info: info)

@@ -45,7 +45,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         self.onImageOpen = onImageOpen
     }
     
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         guard let fileData else {
             anytypeAssertionFailure("UnsupportedBlockViewModel has wrong content type")
             return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: maxWidth)
@@ -71,7 +71,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         }
     }
         
-    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> some UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .X32.image,
             text: text,

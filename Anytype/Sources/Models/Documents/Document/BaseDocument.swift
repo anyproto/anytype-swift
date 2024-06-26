@@ -30,14 +30,14 @@ final class BaseDocument: BaseDocumentProtocol {
     let detailsStorage: ObjectDetailsStorage
     
     private let objectLifecycleService: ObjectLifecycleServiceProtocol
-    private let eventsListener: EventsListenerProtocol
+    private let eventsListener: any EventsListenerProtocol
     @Injected(\.relationsBuilder)
     private var relationBuilder: any RelationsBuilderProtocol
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
-    private let statusStorage: DocumentStatusStorageProtocol
-    private let viewModelSetter: DocumentViewModelSetterProtocol
+    private let relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let objectTypeProvider: any ObjectTypeProviderProtocol
+    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    private let statusStorage: any DocumentStatusStorageProtocol
+    private let viewModelSetter: any DocumentViewModelSetterProtocol
     
     // MARK: - Local private state
     @Atomic
@@ -59,12 +59,12 @@ final class BaseDocument: BaseDocumentProtocol {
         objectId: String,
         forPreview: Bool,
         objectLifecycleService: ObjectLifecycleServiceProtocol,
-        relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        accountParticipantsStorage: AccountParticipantsStorageProtocol,
-        statusStorage: DocumentStatusStorageProtocol,
-        eventsListener: EventsListenerProtocol,
-        viewModelSetter: DocumentViewModelSetterProtocol,
+        relationDetailsStorage: some RelationDetailsStorageProtocol,
+        objectTypeProvider: some ObjectTypeProviderProtocol,
+        accountParticipantsStorage: some AccountParticipantsStorageProtocol,
+        statusStorage: some DocumentStatusStorageProtocol,
+        eventsListener: some EventsListenerProtocol,
+        viewModelSetter: some DocumentViewModelSetterProtocol,
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,

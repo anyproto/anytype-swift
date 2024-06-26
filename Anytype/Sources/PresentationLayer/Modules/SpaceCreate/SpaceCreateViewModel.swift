@@ -13,7 +13,7 @@ final class SpaceCreateViewModel: ObservableObject {
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    private weak var output: SpaceCreateModuleOutput?
+    private weak var output: (any SpaceCreateModuleOutput)?
     
     // MARK: - State
     
@@ -24,7 +24,7 @@ final class SpaceCreateViewModel: ObservableObject {
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
     
-    init(output: SpaceCreateModuleOutput?) {
+    init(output: (any SpaceCreateModuleOutput)?) {
         self.output = output
     }
     

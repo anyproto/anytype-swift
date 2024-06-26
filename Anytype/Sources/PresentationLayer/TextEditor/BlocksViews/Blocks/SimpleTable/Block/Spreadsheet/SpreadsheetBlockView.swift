@@ -5,7 +5,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
 
     var heightDidChanged: (() -> Void)?
 
-    var configuration: UIContentConfiguration {
+    var configuration: any UIContentConfiguration {
         get {
             Configuration(
                 blockConfiguration: blockConfiguration,

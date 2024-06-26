@@ -8,7 +8,7 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
     
     private let setDocument: any SetDocumentProtocol
     private let onSelect: (String) -> Void
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     init(setDocument: some SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
         self.setDocument = setDocument

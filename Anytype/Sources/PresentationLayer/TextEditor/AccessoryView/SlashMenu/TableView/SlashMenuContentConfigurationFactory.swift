@@ -1,14 +1,14 @@
 import UIKit
 
 final class SlashMenuContentConfigurationFactory {
-    func dividerConfiguration(title: String) -> UIContentConfiguration {
+    func dividerConfiguration(title: String) -> any UIContentConfiguration {
         var configuration = UIListContentConfiguration.subtitleCell()
         configuration.textProperties.font = .uxTitle2Regular
         configuration.text = title
         return configuration
     }
     
-    func configuration(displayData: SlashMenuItemDisplayData) -> UIContentConfiguration {
+    func configuration(displayData: SlashMenuItemDisplayData) -> any UIContentConfiguration {
         EditorSearchCellConfiguration(
             cellData: EditorSearchCellData(
                 title: displayData.title,
@@ -19,7 +19,7 @@ final class SlashMenuContentConfigurationFactory {
         )
     }
 
-    func configuration(relation: Relation) -> UIContentConfiguration {
+    func configuration(relation: Relation) -> any UIContentConfiguration {
         SlashMenuRealtionContentConfiguration(relation: RelationItemModel(relation: relation))
     }
 }

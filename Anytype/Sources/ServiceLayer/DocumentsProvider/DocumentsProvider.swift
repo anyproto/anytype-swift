@@ -2,12 +2,12 @@ import Foundation
 import Services
 
 protocol DocumentsProviderProtocol {
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol
+    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol
     func setDocument(
         objectId: String,
         forPreview: Bool,
         inlineParameters: EditorInlineSetObject?
-    ) -> SetDocumentProtocol
+    ) -> any SetDocumentProtocol
 }
 
 final class DocumentsProvider: DocumentsProviderProtocol {
@@ -22,7 +22,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol {
         internalDocument(objectId: objectId, forPreview: forPreview)
     }
     
@@ -30,7 +30,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         objectId: String,
         forPreview: Bool,
         inlineParameters: EditorInlineSetObject?
-    ) -> SetDocumentProtocol {
+    ) -> any SetDocumentProtocol {
         let document = internalDocument(objectId: objectId, forPreview: forPreview)
         
         return SetDocument(
@@ -45,7 +45,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     
     // MARK: - Private
     
-    private func internalDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    private func internalDocument(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol {
         if forPreview {
             let document = createBaseDocument(objectId: objectId, forPreview: forPreview)
             return document
@@ -61,7 +61,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         return document
     }
     
-    private func createBaseDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    private func createBaseDocument(objectId: String, forPreview: Bool) -> some BaseDocumentProtocol {
         let statusStorage = DocumentStatusStorage()
         let infoContainer = InfoContainer()
         let relationLinksStorage = RelationLinksStorage()

@@ -20,7 +20,7 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.relationSubscriptionDataBuilder)
     private var subscriptionDataBuilder: any RelationSubscriptionDataBuilderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
     }()
     

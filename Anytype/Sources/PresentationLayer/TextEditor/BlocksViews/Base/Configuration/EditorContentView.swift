@@ -6,7 +6,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     
     static var reusableIdentifier: String { View.reusableIdentifier }
 
-    var configuration: UIContentConfiguration {
+    var configuration: any UIContentConfiguration {
         get {
             Configuration(
                 blockConfiguration: blockConfiguration,

@@ -22,7 +22,7 @@ extension ObjectHeader: ContentConfigurationProvider {
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
     
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         switch self {
         case .filled(let filledState, let isShimmering):
             return ObjectHeaderFilledConfiguration(

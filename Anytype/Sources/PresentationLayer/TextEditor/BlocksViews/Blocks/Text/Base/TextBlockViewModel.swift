@@ -136,7 +136,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         return contentConfiguration
     }
     
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> any UIContentConfiguration {
         let contentConfiguration = textBlockContentConfiguration()
         
         let isDragConfigurationAvailable =
@@ -152,7 +152,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         )
     }
     
-    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+    func makeSpreadsheetConfiguration() -> any UIContentConfiguration {
         let info = blockInformationProvider.info
         
         let color: UIColor = info.configurationData.backgroundColor.map { UIColor.VeryLight.uiColor(from: $0) }

@@ -45,11 +45,11 @@ extension FileDownloadingViewModel {
 
 extension FileDownloadingViewModel: URLSessionDownloadDelegate {
     
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: (any Error)?) {
         handleError(message: error?.localizedDescription)
     }
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
         guard
             let error = error as? URLError,
             error.code != .cancelled

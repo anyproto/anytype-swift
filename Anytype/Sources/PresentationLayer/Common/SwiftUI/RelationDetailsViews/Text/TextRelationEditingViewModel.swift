@@ -16,7 +16,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Published var text: String
     @Published var dismiss = false
     @Published var textFocused = true
-    @Published var actionsViewModels: [TextRelationActionViewModelProtocol] = []
+    @Published var actionsViewModels: [any TextRelationActionViewModelProtocol] = []
     @Published var showPaste = false
     
     let config: RelationModuleConfiguration

@@ -38,7 +38,7 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
         }.store(in: &store)
     }
 
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         SimpleTableBlockContentConfiguration(
             info: info,
             dependenciesBuilder: dependenciesBuilder,

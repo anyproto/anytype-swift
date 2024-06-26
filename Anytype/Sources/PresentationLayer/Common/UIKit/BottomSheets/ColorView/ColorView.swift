@@ -40,7 +40,7 @@ class ColorView: UIView {
         var config = UICollectionViewCompositionalLayoutConfiguration()
 
         let layout = UICollectionViewCompositionalLayout(sectionProvider: {
-            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            (sectionIndex: Int, layoutEnvironment: any NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
             let items = SectionKind(rawValue: sectionIndex) == .textColor ? ColorItem.text : ColorItem.background
 

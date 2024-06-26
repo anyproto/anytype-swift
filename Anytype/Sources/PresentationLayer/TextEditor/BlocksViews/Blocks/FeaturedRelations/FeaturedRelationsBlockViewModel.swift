@@ -39,7 +39,7 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             }.store(in: &cancellables)
     }
     
-    func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _: CGFloat) -> any UIContentConfiguration {
         return UIHostingConfiguration {
             EditorFeaturedRelationsView(
                 relations: featuredRelations,

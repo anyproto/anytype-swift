@@ -14,7 +14,7 @@ final class AboutViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
-    private weak var output: AboutModuleOutput?
+    private weak var output: (any AboutModuleOutput)?
     
     private var appVersion: String? = MetadataProvider.appVersion
     private var buildNumber: String? = MetadataProvider.buildNumber
@@ -26,7 +26,7 @@ final class AboutViewModel: ObservableObject {
     @Published var safariUrl: URL?
     @Published var openUrl: URL?
     
-    init(output: AboutModuleOutput?) {
+    init(output: (any AboutModuleOutput)?) {
         self.output = output
         setupView()
     }

@@ -10,7 +10,7 @@ struct SpaceShareTip: Tip {
         Text(verbatim: Loc.unknown)
     }
     
-    var options: [TipOption] {
+    var options: [any TipOption] {
         Tip.MaxDisplayCount(1)
     }
     

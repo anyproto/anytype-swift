@@ -10,7 +10,7 @@ struct SharingTip: Tip {
         Text(verbatim: Loc.Sharing.Navigation.title)
     }
     
-    var options: [TipOption] {
+    var options: [any TipOption] {
         Tip.MaxDisplayCount(1)
     }
     

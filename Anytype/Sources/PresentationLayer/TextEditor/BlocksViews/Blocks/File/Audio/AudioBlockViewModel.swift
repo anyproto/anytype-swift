@@ -60,7 +60,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         }
     }
 
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> any UIContentConfiguration {
         guard let fileData = fileData else {
             return UnsupportedBlockViewModel(info: info)
                 .makeContentConfiguration(maxWidth: width)
@@ -92,7 +92,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         }
     }
 
-    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> any UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .X32.video,
             text: text,
