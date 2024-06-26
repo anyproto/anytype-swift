@@ -503,6 +503,9 @@
 "Set.View.Empty.Title" = "Не выбрано ни одного запроса";
 "Set.View.Empty.Subtitle" = "Добавьте поисковый запрос для агрегирования объектов с одинаковыми типами и свойствами в режиме реального времени.";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Выберите запрос";
 "Set.SourceType.Cancel.Toast.Title" = "Этот запрос может быть изменен только на компьютере";
@@ -1159,6 +1162,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Типы MIME - %@";

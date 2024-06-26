@@ -503,6 +503,9 @@
 "Set.View.Empty.Title" = "Nessuna query selezionata";
 "Set.View.Empty.Subtitle" = "Aggiungi una query di ricerca per aggregare gli Oggetti con Tipi e Relazioni uguali in modalità live";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Seleziona query";
 "Set.SourceType.Cancel.Toast.Title" = "Questa query può essere modificata solo su desktop";
@@ -1159,6 +1162,11 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "MembershipServiceError.tierNotFound" = "Dati del livello non trovati, riavviare l'app e riprovare";
 "MembershipServiceError.forcefullyFailedValidation" = "LA MODALITÀ FAIL È ATTIVA 🫵🐭. Disattivare in Impostazioni di Debug";
 "MembershipServiceError.invalidBillingIdFormat" = "Problema interno con il formato di fatturazione, stiamo lavorando per risolverlo. Riprova più tardi o contatta l'assistenza.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipi MIME - %@";

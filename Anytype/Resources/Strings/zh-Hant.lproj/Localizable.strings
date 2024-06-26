@@ -504,6 +504,9 @@
 "Set.View.Empty.Title" = "未指定查詢";
 "Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類型和關聯的物件";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "指定查詢";
 "Set.SourceType.Cancel.Toast.Title" = "此查詢只能在電腦端更改";
@@ -1163,6 +1166,11 @@
 "MembershipServiceError.tierNotFound" = "未找到該階段數據，請重新啟動應用程式並重試";
 "MembershipServiceError.forcefullyFailedValidation" = "失效故障模式已開啟🫵🐭。 在除錯設定中可關閉";
 "MembershipServiceError.invalidBillingIdFormat" = "帳單格式存在內部問題，我們正在處理中。請稍後再試，或聯絡客服支援。";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME 類型 - %@";

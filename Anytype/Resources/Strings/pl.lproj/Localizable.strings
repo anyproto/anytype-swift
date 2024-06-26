@@ -503,6 +503,9 @@
 "Set.View.Empty.Title" = "Nie wybrano zapytania";
 "Set.View.Empty.Subtitle" = "Dodawanie zapytania wyszukiwania w celu agregowania obiektów o jednakowych typach i relacjach w trybie na żywo";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Kwerenda wybierająca";
 "Set.SourceType.Cancel.Toast.Title" = "To zapytanie można zmienić tylko na komputerze";
@@ -1159,6 +1162,11 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "MembershipServiceError.tierNotFound" = "Nie znaleziono danych poziomu, zrestartuj aplikację i spróbuj ponownie";
 "MembershipServiceError.forcefullyFailedValidation" = "TRYB AWARII JEST WŁĄCZONY 🫵🐭. Wyłącz w ustawieniach debugowania";
 "MembershipServiceError.invalidBillingIdFormat" = "Wewnętrzny problem z formatem rozliczeniowym, pracujemy nad tym. Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";
