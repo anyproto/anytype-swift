@@ -24,6 +24,10 @@ final class AnytypeSharedAudioplayer {
         guard currentAudioId == audioId else {
             return
         }
+        pauseCurrentAudio()
+    }
+    
+    func pauseCurrentAudio() {
         anytypeAudioplayer.pause()
     }
 

@@ -110,4 +110,10 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     func setAudioSessionCategorypPlaybackMixWithOthers() {
         audioSessionService.setCategorypPlaybackMixWithOthers()
     }
+    
+    deinit {
+        Task { @MainActor [weak audioPlayer] in
+            audioPlayer?.pauseCurrentAudio()
+        }
+    }
 }
