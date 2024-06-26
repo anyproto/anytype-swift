@@ -9,22 +9,22 @@ final class SetObjectWidgetLegacyInternalViewModel: ObservableObject, WidgetData
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: any BaseDocumentProtocol
+    private let widgetObject: BaseDocumentProtocol
     @Injected(\.setSubscriptionDataBuilder)
-    private var setSubscriptionDataBuilder:any SetSubscriptionDataBuilderProtocol
-    private let subscriptionStorage: any SubscriptionStorageProtocol
-    private weak var output: (any CommonWidgetModuleOutput)?
+    private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
+    private let subscriptionStorage: SubscriptionStorageProtocol
+    private weak var output: CommonWidgetModuleOutput?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
-    private var documentService:any DocumentsProviderProtocol
+    private var documentService: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
-    private var blockWidgetService:any BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
-    private var setDocument: (any SetDocumentProtocol)?
+    private var setDocument: SetDocumentProtocol?
     private var activeViewId: String?
     private var subscriptions = [AnyCancellable]()
     private var contentSubscriptions = [AnyCancellable]()

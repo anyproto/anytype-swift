@@ -13,13 +13,13 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.treeSubscriptionManager)
-    private var subscriptionManager:any TreeSubscriptionManagerProtocol
+    private var subscriptionManager: any TreeSubscriptionManagerProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService:any DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider:any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockService)
-    private var blockService:any BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     
     // MARK: - State
     

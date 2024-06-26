@@ -7,7 +7,7 @@ import Combine
 final class ObjectSearchViewModel: ObservableObject {
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     private let data: ObjectSearchModuleData
     
     @Published var searchData: [SearchDataSection<ObjectSearchData>] = []

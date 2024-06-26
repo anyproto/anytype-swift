@@ -9,7 +9,7 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     // MARK: - DI
     
     @Injected(\.binSubscriptionService)
-    private var binSubscriptionService:any BinSubscriptionServiceProtocol
+    private var binSubscriptionService: any BinSubscriptionServiceProtocol
     
     // MARK: - State
     

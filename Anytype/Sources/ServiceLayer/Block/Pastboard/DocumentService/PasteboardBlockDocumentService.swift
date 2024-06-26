@@ -7,7 +7,7 @@ import Combine
 final class PasteboardBlockDocumentService: PasteboardBlockDocumentServiceProtocol {
     
     @Injected(\.pasteboardBlockService)
-    private var service:any PasteboardBlockServiceProtocol
+    private var service: any PasteboardBlockServiceProtocol
     
     var hasValidURL: Bool {
         service.hasValidURL

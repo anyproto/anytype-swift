@@ -83,7 +83,7 @@ final class SetDocument: SetDocumentProtocol {
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let permissionsBuilder: any SetPermissionsBuilderProtocol
     @Injected(\.setContentViewDataBuilder)
-    var dataBuilder:any SetContentViewDataBuilderProtocol
+    var dataBuilder: any SetContentViewDataBuilderProtocol
     
     init(
         document: some BaseDocumentProtocol,

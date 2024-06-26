@@ -6,9 +6,9 @@ import Combine
 final class WidgetTypeChangeViewModel: ObservableObject {
     
     @Injected(\.blockWidgetService)
-    private var blockWidgetService:any BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.documentService)
-    private var documentService:any OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
     private let data: WidgetTypeChangeData
     

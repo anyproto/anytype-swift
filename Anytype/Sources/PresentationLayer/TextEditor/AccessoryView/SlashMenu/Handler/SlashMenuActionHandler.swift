@@ -12,7 +12,7 @@ final class SlashMenuActionHandler {
     private weak var textView: UITextView?
     
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService:any PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
     
     
     init(

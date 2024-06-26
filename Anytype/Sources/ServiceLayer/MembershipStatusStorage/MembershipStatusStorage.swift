@@ -16,9 +16,9 @@ protocol MembershipStatusStorageProtocol {
 @MainActor
 final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     @Injected(\.membershipService)
-    private var membershipService:any MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     @Injected(\.membershipModelBuilder)
-    private var builder:any MembershipModelBuilderProtocol
+    private var builder: any MembershipModelBuilderProtocol
     
     
     var statusPublisher: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }

@@ -8,7 +8,7 @@ final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewMo
     // MARK: - DI
     
     @Injected(\.collectionsSubscriptionService)
-    private var subscriptionService:any CollectionsSubscriptionServiceProtocol
+    private var subscriptionService: any CollectionsSubscriptionServiceProtocol
     
     // MARK: - State
     

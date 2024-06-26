@@ -12,7 +12,7 @@ final class GroupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol {
     
     private var subscription: AnyCancellable?
     @Injected(\.groupsSubscribeService)
-    private var groupsSubscribeService:any GroupsSubscribeServiceProtocol
+    private var groupsSubscribeService: any GroupsSubscribeServiceProtocol
     
     private var subscribers = SynchronizedDictionary<String, Subscriber>()
     

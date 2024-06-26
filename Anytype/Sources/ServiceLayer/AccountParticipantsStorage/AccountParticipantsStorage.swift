@@ -30,10 +30,10 @@ final class AccountParticipantsStorage: AccountParticipantsStorageProtocol {
     // MARK: - DI
     
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
     

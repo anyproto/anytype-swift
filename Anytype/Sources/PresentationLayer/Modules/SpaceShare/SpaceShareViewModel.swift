@@ -9,19 +9,19 @@ import AnytypeCore
 final class SpaceShareViewModel: ObservableObject {
     
     @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage:any ActiveSpaceParticipantStorageProtocol
+    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.universalLinkParser)
-    private var universalLinkParser:any UniversalLinkParserProtocol
+    private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage:any ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage:any MembershipStatusStorageProtocol
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder:any MailUrlBuilderProtocol
+    private var mailUrlBuilder: any MailUrlBuilderProtocol
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []

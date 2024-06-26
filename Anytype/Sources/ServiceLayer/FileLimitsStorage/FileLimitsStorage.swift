@@ -14,7 +14,7 @@ final class FileLimitsStorage: FileLimitsStorageProtocol {
     // MARK: - DI
     
     @Injected(\.fileActionsService)
-    private var fileService:any FileActionsServiceProtocol
+    private var fileService: any FileActionsServiceProtocol
     
     // MARK: - State
     

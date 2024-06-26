@@ -13,7 +13,7 @@ final class SetRelationsViewModel: ObservableObject {
     private let viewId: String
     
     @Injected(\.dataviewService)
-    private var dataviewService:any DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     private weak var output: (any SetRelationsCoordinatorOutput)?
     

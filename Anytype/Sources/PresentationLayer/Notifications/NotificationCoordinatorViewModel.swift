@@ -9,9 +9,9 @@ import SwiftUI
 final class NotificationCoordinatorViewModel: ObservableObject {
     
     @Injected(\.notificationsSubscriptionService)
-    private var notificationSubscriptionService:any NotificationsSubscriptionServiceProtocol
+    private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
     @Injected(\.objectIconBuilder)
-    private var objectIconBuilder:any ObjectIconBuilderProtocol
+    private var objectIconBuilder: any ObjectIconBuilderProtocol
     
     private var subscription: AnyCancellable?
     private var dismissAllPresented: DismissAllPresented?

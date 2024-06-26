@@ -4,7 +4,7 @@ import Services
 final class BlockObjectsSearchInteractor {
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     private let spaceId: String
     private let excludedObjectIds: [String]

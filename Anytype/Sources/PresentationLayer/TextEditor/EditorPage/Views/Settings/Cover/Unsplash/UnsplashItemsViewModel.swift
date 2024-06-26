@@ -17,7 +17,7 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
         }
     }
     @Injected(\.unsplashService)
-    private var unsplashService:any UnsplashServiceProtocol
+    private var unsplashService: any UnsplashServiceProtocol
     private(set) var isLoading: Bool = true
     private var searchTextChangedSubscription: AnyCancellable?
 

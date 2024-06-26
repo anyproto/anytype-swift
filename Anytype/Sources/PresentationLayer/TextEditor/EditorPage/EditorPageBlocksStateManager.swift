@@ -68,35 +68,35 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()
     
     @Injected(\.blockService)
-    private var blockService:any BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService:any PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider:any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
 
-    private let document: any BaseDocumentProtocol
+    private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     @Injected(\.legacyToastPresenter)
-    private var toastPresenter:any ToastPresenterProtocol
-    private let actionHandler: any BlockActionHandlerProtocol
-    private let router: any EditorRouterProtocol
-    private let bottomNavigationManager: any EditorBottomNavigationManagerProtocol
+    private var toastPresenter: any ToastPresenterProtocol
+    private let actionHandler: BlockActionHandlerProtocol
+    private let router: EditorRouterProtocol
+    private let bottomNavigationManager: EditorBottomNavigationManagerProtocol
     
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
-    weak var viewInput: (any EditorPageViewInput)?
+    weak var viewInput: EditorPageViewInput?
 
     private var cancellables = [AnyCancellable]()
 
     init(
-        document: some BaseDocumentProtocol,
+        document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        actionHandler: some BlockActionHandlerProtocol,
-        router: some EditorRouterProtocol,
+        actionHandler: BlockActionHandlerProtocol,
+        router: EditorRouterProtocol,
         initialEditingState: EditorEditingState,
-        viewInput: some EditorPageViewInput,
-        bottomNavigationManager: some EditorBottomNavigationManagerProtocol
+        viewInput: EditorPageViewInput,
+        bottomNavigationManager: EditorBottomNavigationManagerProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -527,7 +527,7 @@ extension EditorPageBlocksStateManager {
 }
 
 extension EditorMainItemModelsHolder {
-    func allChildIndexes(viewModel: some BlockViewModelProtocol) -> [Int] {
+    func allChildIndexes(viewModel: BlockViewModelProtocol) -> [Int] {
         allIndexes(for: viewModel.info.childrenIds.map { $0 })
     }
 

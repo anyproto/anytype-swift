@@ -6,14 +6,14 @@ final class PersonalizationViewModel: ObservableObject {
     // MARK: - DI
     private let spaceId: String
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider:any ObjectTypeProviderProtocol
-    private weak var output: (any PersonalizationModuleOutput)?
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
+    private weak var output: PersonalizationModuleOutput?
     
     // MARK: - State
     
     @Published var objectType: String = ""
     
-    init(spaceId: String, output: (any PersonalizationModuleOutput)?) {
+    init(spaceId: String, output: PersonalizationModuleOutput?) {
         self.spaceId = spaceId
         self.output = output
         setupSubscriptions()

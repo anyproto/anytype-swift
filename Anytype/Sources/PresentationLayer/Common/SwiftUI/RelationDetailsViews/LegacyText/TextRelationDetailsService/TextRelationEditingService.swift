@@ -8,7 +8,7 @@ protocol TextRelationEditingServiceProtocol: AnyObject {
 final class TextRelationEditingService: TextRelationEditingServiceProtocol {
 
     @Injected(\.relationsService)
-    private var service:any RelationsServiceProtocol
+    private var service: any RelationsServiceProtocol
     
     private let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
