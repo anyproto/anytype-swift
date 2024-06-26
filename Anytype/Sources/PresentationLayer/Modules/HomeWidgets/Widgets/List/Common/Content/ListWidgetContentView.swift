@@ -5,10 +5,10 @@ struct ListWidgetContentView: View {
     
     let style: ListWidgetStyle
     let rows: [ListWidgetRowModel]?
-    let onCreeateTap: (() -> Void)?
+    let onCreateTap: (() -> Void)?
     
     var body: some View {
-        WidgetContainerWithEmptyState(showEmpty: rows?.isEmpty ?? false, onCreeateTap: onCreeateTap) {
+        WidgetContainerWithEmptyState(showEmpty: rows?.isEmpty ?? false, onCreateTap: onCreateTap) {
             content
         }
         // This fixes the tap area for header in bottom side

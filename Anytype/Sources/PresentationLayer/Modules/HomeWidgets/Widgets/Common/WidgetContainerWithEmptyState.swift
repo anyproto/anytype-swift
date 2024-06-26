@@ -5,18 +5,18 @@ struct WidgetContainerWithEmptyState<Content: View>: View {
     
     let showEmpty: Bool
     let content: Content
-    let onCreeateTap: (() -> Void)?
+    let onCreateTap: (() -> Void)?
     
-    init(showEmpty: Bool, onCreeateTap: (() -> Void)?, @ViewBuilder content: () -> Content) {
+    init(showEmpty: Bool, onCreateTap: (() -> Void)?, @ViewBuilder content: () -> Content) {
         self.showEmpty = showEmpty
-        self.onCreeateTap = onCreeateTap
+        self.onCreateTap = onCreateTap
         self.content = content()
     }
     
     var body: some View {
         if showEmpty {
             VStack(spacing: 0) {
-                WidgetEmptyView(onCreeateTap: onCreeateTap)
+                WidgetEmptyView(onCreateTap: onCreateTap)
                     .frame(height: showEmpty ? 72 : 0)
                 Spacer.fixedHeight(8)
             }
