@@ -15,6 +15,12 @@ struct GlobalSearchCell: View {
         .frame(maxWidth: .infinity, minHeight: 72, alignment: .leading)
         .newDivider()
         .padding(.horizontal, 16)
+        .if(data.relatedLinks.isNotEmpty) {
+            $0.overlay(alignment: .trailing) {
+                relationLinksIndicator
+            }
+            .offset(x: Constants.neededIndicatorWidth) // shift indicator to avoid white line blinking
+        }
     }
     
     @ViewBuilder
@@ -57,6 +63,12 @@ struct GlobalSearchCell: View {
             
             Spacer.fixedHeight(8)
         }
+    }
+    
+    private var relationLinksIndicator: some View {
+        Color.Button.active
+            .frame(width: Constants.realIndicatorWidth, height: 28)
+            .cornerRadius(4, style: .continuous)
     }
     
     private var highlights: some View {
@@ -104,5 +116,12 @@ struct GlobalSearchCell: View {
         AnytypeText("\(name):", style: .relation2Regular)
             .foregroundColor(.Text.primary)
             .lineLimit(1)
+    }
+}
+
+extension GlobalSearchCell {
+    enum Constants {
+        static let realIndicatorWidth: CGFloat = Constants.neededIndicatorWidth * 2
+        static let neededIndicatorWidth: CGFloat = 6
     }
 }
