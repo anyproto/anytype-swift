@@ -1858,6 +1858,7 @@ internal enum Loc {
       internal static let seeAllObjects = Loc.tr("Localizable", "Widgets.Actions.SeeAllObjects")
     }
     internal enum Empty {
+      internal static let createObject = Loc.tr("Localizable", "Widgets.Empty.CreateObject")
       internal static let title = Loc.tr("Localizable", "Widgets.Empty.Title")
     }
     internal enum Layout {

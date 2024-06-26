@@ -28,9 +28,7 @@ struct TreeWidgetView: View {
             homeState: data.homeState,
             name: model.name,
             dragId: model.dragId,
-            onCreateObjectTap: model.allowCreateObject ? {
-                model.onCreateObjectTap()
-            } : nil,
+            onCreateObjectTap: createTap,
             onHeaderTap: {
                 model.onHeaderTap()
             },
@@ -43,7 +41,8 @@ struct TreeWidgetView: View {
     
     var content: some View {
         WidgetContainerWithEmptyState(
-            showEmpty: (model.rows?.isEmpty ?? false)
+            showEmpty: (model.rows?.isEmpty ?? false),
+            onCreeateTap: createTap
         ) {
             if let rows = model.rows {
                 VStack(spacing: 0) {
@@ -54,5 +53,11 @@ struct TreeWidgetView: View {
                 }
             }
         }
+    }
+    
+    private var createTap: (() -> Void)? {
+        return model.allowCreateObject ? {
+           model.onCreateObjectTap()
+       } : nil
     }
 }

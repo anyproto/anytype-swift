@@ -27,9 +27,7 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
             homeState: data.homeState,
             name: model.name,
             dragId: model.dragId,
-            onCreateObjectTap: model.allowCreateObject ? {
-                model.onCreateObjectTap()
-            } : nil,
+            onCreateObjectTap: createTap,
             onHeaderTap: {
                 model.onOpenObjectTap()
             },
@@ -69,13 +67,23 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
     private var rows: some View {
         switch model.rows {
         case .list(let rows, let id):
-            ListWidgetContentView(style: .list, rows: rows, emptyTitle: Loc.Widgets.Empty.title)
+            ListWidgetContentView(style: .list, rows: rows, onCreeateTap: createTap)
                 .id(id)
         case .gallery(let rows, let id):
-            GalleryWidgetView(rows: rows) {
-                model.onOpenObjectTap()
-            }
+            GalleryWidgetView(
+                rows: rows,
+                onShowAllObjects: {
+                    model.onOpenObjectTap()
+                },
+                onCreeateTap: createTap
+            )
             .id(id)
         }
+    }
+    
+    private var createTap: (() -> Void)? {
+        return model.allowCreateObject ? {
+           model.onCreateObjectTap()
+       } : nil
     }
 }

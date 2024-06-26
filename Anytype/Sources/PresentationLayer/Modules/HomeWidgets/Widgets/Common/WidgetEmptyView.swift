@@ -3,14 +3,21 @@ import SwiftUI
 
 struct WidgetEmptyView: View {
     
-    let title: String
+    let onCreeateTap: (() -> Void)?
     
     var body: some View {
-        HStack(alignment: .center, spacing: 16) {
-            Spacer()
-            AnytypeText(title, style: .relation2Regular)
+        VStack(spacing: 10) {
+            Text(Loc.Widgets.Empty.title)
+                .anytypeStyle(.relation2Regular)
                 .foregroundColor(.Text.secondary)
-            Spacer()
+            if let onCreeateTap {
+                StandardButton(
+                    .text(Loc.Widgets.Empty.createObject),
+                    style: .secondaryXSmall,
+                    action: onCreeateTap
+                )
+            }
         }
+        .padding(EdgeInsets(top: 12, leading: 16, bottom: 14, trailing: 16))
     }
 }
