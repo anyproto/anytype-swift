@@ -52,11 +52,6 @@ struct LinkWidgetViewContainer<Content, MenuContent>: View where Content: View, 
                 } else {
                     content
                         .allowsHitTesting(!homeState.isEditWidgets)
-                        .frame(
-                            minWidth: 0,
-                            maxWidth: .infinity,
-                            alignment: .topLeading
-                        )
                 }
             }
             .background(Color.Widget.card)
