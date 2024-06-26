@@ -3,9 +3,9 @@ import Services
 @MainActor
 protocol SetObjectCreationCoordinatorProtocol {
     func startCreateObject(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?,
-        output: SetObjectCreationCoordinatorOutput?,
+        output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     )
 }
@@ -19,7 +19,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     private var toastPresenter: any ToastPresenterProtocol
     @Injected(\.legacyCreateObjectModuleAssembly)
     private var createObjectModuleAssembly: any CreateObjectModuleAssemblyProtocol
-    private weak var output: SetObjectCreationCoordinatorOutput?
+    private weak var output: (any SetObjectCreationCoordinatorOutput)?
     private var customAnalyticsRoute: AnalyticsEventsRouteKind?
     
     @Injected(\.setObjectCreationHelper)
@@ -28,9 +28,9 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     nonisolated init() {}
     
     func startCreateObject(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?,
-        output: SetObjectCreationCoordinatorOutput?,
+        output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     ) {
         Task { @MainActor [weak self] in
@@ -43,7 +43,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         }
     }
     
-    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, titleInputType: CreateObjectTitleInputType, setDocument: SetDocumentProtocol) {
+    private func handleCreatedObjectIfNeeded(_ details: ObjectDetails?, titleInputType: CreateObjectTitleInputType, setDocument: some SetDocumentProtocol) {
         if let details {
             showCreateObject(details: details, titleInputType: titleInputType)
             AnytypeAnalytics.instance().logCreateObject(
@@ -67,7 +67,7 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
         navigationContext.present(moduleViewController)
     }
     
-    private func showCreateBookmarkObject(setDocument: SetDocumentProtocol) {
+    private func showCreateBookmarkObject(setDocument: some SetDocumentProtocol) {
         let moduleViewController = createObjectModuleAssembly.makeCreateBookmark(
             spaceId: setDocument.spaceId,
             collectionId: setDocument.isCollection() ? setDocument.objectId : nil,
@@ -94,8 +94,8 @@ final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
 
 extension SetObjectCreationCoordinatorProtocol {
     func startCreateObject(
-        setDocument: SetDocumentProtocol, 
-        output: SetObjectCreationCoordinatorOutput?,
+        setDocument: some SetDocumentProtocol, 
+        output: (any SetObjectCreationCoordinatorOutput)?,
         customAnalyticsRoute: AnalyticsEventsRouteKind?
     ) {
         startCreateObject(setDocument: setDocument, setting: nil, output: output, customAnalyticsRoute: customAnalyticsRoute)

@@ -20,7 +20,7 @@ final class MarkupViewModel: MarkupViewModelProtocol {
     init(
         document: some BaseDocumentProtocol,
         blockIds: [String],
-        actionHandler: BlockActionHandlerProtocol,
+        actionHandler: any BlockActionHandlerProtocol,
         openLinkToObject: @escaping (LinkToObjectSearchModuleData) -> Void
     ) {
         self.document = document

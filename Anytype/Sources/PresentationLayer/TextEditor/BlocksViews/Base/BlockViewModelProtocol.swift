@@ -13,13 +13,13 @@ protocol HashableProvier {
 }
 
 protocol ContentConfigurationProvider: HashableProvier, BlockFocusing {
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration
 
-    func makeSpreadsheetConfiguration() -> UIContentConfiguration
+    func makeSpreadsheetConfiguration() -> any UIContentConfiguration
 }
 
 extension ContentConfigurationProvider {
-    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+    func makeSpreadsheetConfiguration() -> any UIContentConfiguration {
         anytypeAssertionFailure(
             "This content configuration doesn't support spreadsheet"
         )

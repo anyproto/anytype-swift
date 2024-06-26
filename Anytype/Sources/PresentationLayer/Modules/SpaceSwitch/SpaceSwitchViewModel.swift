@@ -20,7 +20,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    private weak var output: SpaceSwitchModuleOutput?
+    private weak var output: (any SpaceSwitchModuleOutput)?
     
     // MARK: - State
     
@@ -39,7 +39,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var spaceViewForLeave: SpaceView?
     @Published var spaceViewStopSharing: SpaceView?
     
-    init(output: SpaceSwitchModuleOutput?) {
+    init(output: (any SpaceSwitchModuleOutput)?) {
         self.output = output
         Task {
             await startProfileSubscriotions()

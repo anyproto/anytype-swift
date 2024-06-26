@@ -7,10 +7,10 @@ protocol OpenedDocumentsProviderProtocol: AnyObject {
 
 // Default arguments
 extension OpenedDocumentsProviderProtocol {
-    func document(objectId: String) -> BaseDocumentProtocol {
+    func document(objectId: String) -> any BaseDocumentProtocol {
         return document(objectId: objectId, forPreview: false)
     }
-    func setDocument(objectId: String) -> SetDocumentProtocol {
+    func setDocument(objectId: String) -> any SetDocumentProtocol {
         return setDocument(objectId: objectId, forPreview: false)
     }
 }
@@ -21,7 +21,7 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
     private var documentsProvider: any DocumentsProviderProtocol
     
     // MARK: - DocumentServiceProtocol
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol {
         let document = documentsProvider.document(objectId: objectId, forPreview: forPreview)
         
         Task { @MainActor in
@@ -35,7 +35,7 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
         return document
     }
     
-    func setDocument(objectId: String, forPreview: Bool) -> SetDocumentProtocol {
+    func setDocument(objectId: String, forPreview: Bool) -> any SetDocumentProtocol {
         let document = documentsProvider.setDocument(
             objectId: objectId,
             forPreview: forPreview,
