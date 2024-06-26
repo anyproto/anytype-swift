@@ -12,13 +12,13 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     // MARK: - DI
     
     @Injected(\.favoriteSubscriptionService)
-    private var favoriteSubscriptionService:any FavoriteSubscriptionServiceProtocol
+    private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionService:any ObjectActionsServiceProtocol
+    private var objectActionService: any ObjectActionsServiceProtocol
     @Injected(\.documentService)
-    private var documentService:any OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     
     // MARK: - State
     

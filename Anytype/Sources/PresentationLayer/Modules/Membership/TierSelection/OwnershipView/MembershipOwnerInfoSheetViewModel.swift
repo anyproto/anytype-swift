@@ -23,9 +23,9 @@ final class MembershipOwnerInfoSheetViewModel: ObservableObject {
     
     
     @Injected(\.membershipService)
-    private var membershipService:any MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     @Injected(\.membershipMetadataProvider)
-    private var metadataProvider:any MembershipMetadataProviderProtocol
+    private var metadataProvider: any MembershipMetadataProviderProtocol
     
     init() {
         let storage = Container.shared.membershipStatusStorage.resolve()

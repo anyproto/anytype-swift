@@ -37,9 +37,9 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     }
     
     @Injected(\.templatesService)
-    private var templatesService:any TemplatesServiceProtocol
+    private var templatesService: any TemplatesServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider:any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     
     private let interactor: SetObjectCreationSettingsInteractorProtocol
     private let setDocument: SetDocumentProtocol

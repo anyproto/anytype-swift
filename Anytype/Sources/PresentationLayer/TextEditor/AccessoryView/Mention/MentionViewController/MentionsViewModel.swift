@@ -14,9 +14,9 @@ final class MentionsViewModel {
     
     private let document: BaseDocumentProtocol
     @Injected(\.mentionObjectsService)
-    private var mentionService:any MentionObjectsServiceProtocol
+    private var mentionService: any MentionObjectsServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService:any DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     private var searchTask: Task<(), Error>?
     private var searchString = ""
     

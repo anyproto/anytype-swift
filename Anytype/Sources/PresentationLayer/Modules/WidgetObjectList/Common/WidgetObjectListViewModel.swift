@@ -20,11 +20,11 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     private weak var output: WidgetObjectListCommonModuleOutput?
     
     @Injected(\.objectActionsService)
-    private var objectActionService:any ObjectActionsServiceProtocol
+    private var objectActionService: any ObjectActionsServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage:any AccountParticipantsStorageProtocol
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     
     
     // MARK: - State

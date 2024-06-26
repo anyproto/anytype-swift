@@ -12,13 +12,13 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
     private let info: AccountInfo
     
     @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService:any SingleObjectSubscriptionServiceProtocol
+    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService:any DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.processSubscriptionService)
-    private var processSubscriptionService:any ProcessSubscriptionServiceProtocol
+    private var processSubscriptionService: any ProcessSubscriptionServiceProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage:any AccountParticipantsStorageProtocol
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
         
     private weak var output: HomeBottomNavigationPanelModuleOutput?
     private let subId = "HomeBottomNavigationProfile-\(UUID().uuidString)"

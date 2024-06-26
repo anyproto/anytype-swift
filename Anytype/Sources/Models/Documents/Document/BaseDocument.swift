@@ -32,7 +32,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private let objectLifecycleService: ObjectLifecycleServiceProtocol
     private let eventsListener: EventsListenerProtocol
     @Injected(\.relationsBuilder)
-    private var relationBuilder:any RelationsBuilderProtocol
+    private var relationBuilder: any RelationsBuilderProtocol
     private let relationDetailsStorage: RelationDetailsStorageProtocol
     private let objectTypeProvider: ObjectTypeProviderProtocol
     private let accountParticipantsStorage: AccountParticipantsStorageProtocol

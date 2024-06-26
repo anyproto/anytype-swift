@@ -19,9 +19,9 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     private let document: BaseDocumentProtocol
     
     @Injected(\.objectActionsService)
-    private var objectService:any ObjectActionsServiceProtocol
+    private var objectService: any ObjectActionsServiceProtocol
     @Injected(\.templatesSubscription)
-    private var templatesSubscriptionService:any TemplatesSubscriptionServiceProtocol
+    private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
     
     private weak var output: TemplatePickerViewModuleOutput?
     

@@ -27,9 +27,9 @@ final class NewRelationViewModel: ObservableObject {
     private let target: RelationsModuleTarget
     
     @Injected(\.relationsService)
-    private var relationsService:any RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider:any ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private let relationsInteractor: RelationsInteractorProtocol
     private weak var output: NewRelationModuleOutput?

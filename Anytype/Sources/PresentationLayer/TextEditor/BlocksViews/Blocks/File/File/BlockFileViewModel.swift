@@ -14,7 +14,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     let onFileOpen: (FilePreviewContext) -> ()
     
     @Injected(\.documentService)
-    private var documentService:any OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
     private var document: BaseDocumentProtocol?
     

@@ -8,11 +8,11 @@ final class SpaceWidgetViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage:any ActiveSpaceParticipantStorageProtocol
+    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.workspaceStorage)
-    private var workspaceStorage:any WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     private let onSpaceSelected: () -> Void
     
     // Store for prevent switch details when user switch space - IOS-2518

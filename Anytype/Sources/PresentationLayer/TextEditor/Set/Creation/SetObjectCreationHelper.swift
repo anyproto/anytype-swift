@@ -14,15 +14,15 @@ protocol SetObjectCreationHelperProtocol {
 final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     
     @Injected(\.dataviewService)
-    private var dataviewService:any DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider:any ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService:any ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.setPrefilledFieldsBuilder)
-    private var prefilledFieldsBuilder:any SetPrefilledFieldsBuilderProtocol
+    private var prefilledFieldsBuilder: any SetPrefilledFieldsBuilderProtocol
     @Injected(\.blockService)
-    private var blockService:any BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     
     // MARK: - SetObjectCreationHelperProtocol
     

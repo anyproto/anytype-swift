@@ -4,7 +4,7 @@ import Services
 final class SpaceCancelRequestAlertModel: ObservableObject {
     
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     
     private let spaceId: String
     

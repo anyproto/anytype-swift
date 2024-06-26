@@ -10,17 +10,17 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let cursorManager: EditorCursorManager
 
     @Injected(\.objectActionsService)
-    private var objectActionService:any ObjectActionsServiceProtocol
+    private var objectActionService: any ObjectActionsServiceProtocol
     @Injected(\.textServiceHandler)
-    private var textServiceHandler:any TextServiceProtocol
+    private var textServiceHandler: any TextServiceProtocol
     @Injected(\.blockService)
-    private var blockService:any BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.bookmarkService)
-    private var bookmarkService:any BookmarkServiceProtocol
+    private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.fileActionsService)
-    private var fileService:any FileActionsServiceProtocol
+    private var fileService: any FileActionsServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider:any ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private weak var modelsHolder: EditorMainItemModelsHolder?
 

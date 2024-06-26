@@ -18,7 +18,7 @@ extension OpenedDocumentsProviderProtocol {
 final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
     // MARK: - DI
     @Injected(\.documentsProvider)
-    private var documentsProvider:any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     
     // MARK: - DocumentServiceProtocol
     func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {

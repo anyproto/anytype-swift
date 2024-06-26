@@ -5,9 +5,9 @@ import Foundation
 final class GallerySpaceSelectionViewModel: ObservableObject {
     
     @Injected(\.workspaceStorage)
-    private var workspaceStorage:any WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage:any ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     private weak var output: GallerySpaceSelectionModuleOutput?
     
     @Published var spaces: [SpaceView] = []

@@ -11,21 +11,21 @@ final class SpaceSettingsViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.objectActionsService)
-    private var objectActionsService:any ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage:any RelationDetailsStorageProtocol
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage:any ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage:any ActiveSpaceParticipantStorageProtocol
+    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder:any MailUrlBuilderProtocol
+    private var mailUrlBuilder: any MailUrlBuilderProtocol
     
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: SpaceSettingsModuleOutput?

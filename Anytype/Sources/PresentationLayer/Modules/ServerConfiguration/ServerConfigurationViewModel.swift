@@ -8,7 +8,7 @@ final class ServerConfigurationViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.serverConfigurationStorage)
-    private var storage:any ServerConfigurationStorageProtocol
+    private var storage: any ServerConfigurationStorageProtocol
     private weak var output: ServerConfigurationModuleOutput?
     
     // MARK: - State

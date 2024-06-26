@@ -8,7 +8,7 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
     @Injected(\.appActionStorage)
     private var appActionStorage: AppActionStorage
     @Injected(\.quickActionShortcutBuilder)
-    private var quickActionShortcutBuilder:any QuickActionShortcutBuilderProtocol
+    private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     
     func sceneWillResignActive(_ scene: UIScene) {
         UIApplication.shared.shortcutItems = quickActionShortcutBuilder.buildShortcutItems()

@@ -8,11 +8,11 @@ final class SettingsCoordinatorViewModel: ObservableObject,
                                     AboutModuleOutput {
     
     @Injected(\.documentService)
-    private var documentService:any OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.applicationStateService)
-    private var applicationStateService:any ApplicationStateServiceProtocol
+    private var applicationStateService: any ApplicationStateServiceProtocol
     
     @Published var showFileStorage = false
     @Published var showAppearance = false

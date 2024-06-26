@@ -4,11 +4,11 @@ import Services
 final class RelationsSearchInteractor {
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage:any RelationDetailsStorageProtocol
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     private let relationsInteractor: RelationsInteractorProtocol
     

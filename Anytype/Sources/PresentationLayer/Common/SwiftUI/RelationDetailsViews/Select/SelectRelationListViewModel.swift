@@ -17,7 +17,7 @@ final class SelectRelationListViewModel: ObservableObject {
     private let relationSelectedOptionsModel: RelationSelectedOptionsModelProtocol
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     private weak var output: SelectRelationListModuleOutput?
     

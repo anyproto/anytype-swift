@@ -14,16 +14,16 @@ protocol SetObjectCreationCoordinatorProtocol {
 final class SetObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol {
     
     @Injected(\.legacyNavigationContext)
-    private var navigationContext:any NavigationContextProtocol
+    private var navigationContext: any NavigationContextProtocol
     @Injected(\.legacyToastPresenter)
-    private var toastPresenter:any ToastPresenterProtocol
+    private var toastPresenter: any ToastPresenterProtocol
     @Injected(\.legacyCreateObjectModuleAssembly)
-    private var createObjectModuleAssembly:any CreateObjectModuleAssemblyProtocol
+    private var createObjectModuleAssembly: any CreateObjectModuleAssemblyProtocol
     private weak var output: SetObjectCreationCoordinatorOutput?
     private var customAnalyticsRoute: AnalyticsEventsRouteKind?
     
     @Injected(\.setObjectCreationHelper)
-    private var objectCreationHelper:any SetObjectCreationHelperProtocol
+    private var objectCreationHelper: any SetObjectCreationHelperProtocol
     
     nonisolated init() {}
     

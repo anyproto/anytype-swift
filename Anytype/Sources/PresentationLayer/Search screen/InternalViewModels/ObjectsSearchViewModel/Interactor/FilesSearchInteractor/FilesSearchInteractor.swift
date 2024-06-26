@@ -7,7 +7,7 @@ final class FilesSearchInteractor {
     private let excludedFileIds: [String]
     
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     init(spaceId: String, excludedFileIds: [String]) {
         self.spaceId = spaceId

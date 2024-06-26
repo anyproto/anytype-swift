@@ -16,11 +16,11 @@ final class LinkToObjectSearchViewModel: ObservableObject {
     typealias SearchDataType = LinkToObjectSearchData
 
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     @Injected(\.pasteboardHelper)
-    private var pasteboardHelper:any PasteboardHelperProtocol
+    private var pasteboardHelper: any PasteboardHelperProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService:any DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     
     private let data: LinkToObjectSearchModuleData
     private let showEditorScreen: (_ data: EditorScreenData) -> Void

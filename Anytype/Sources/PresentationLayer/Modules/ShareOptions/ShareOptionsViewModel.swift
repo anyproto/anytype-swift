@@ -7,11 +7,11 @@ import AnytypeCore
 final class ShareOptionsViewModel: ObservableObject {
     
     @Injected(\.sharedContentManager)
-    private var contentManager:any SharedContentManagerProtocol
+    private var contentManager: any SharedContentManagerProtocol
     @Injected(\.shareOptionsInteractor)
-    private var interactor:any ShareOptionsInteractorProtocol
+    private var interactor: any ShareOptionsInteractorProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     
     private weak var output: ShareOptionsModuleOutput?
     

@@ -17,7 +17,7 @@ protocol ObjectHeaderModuleOutput: AnyObject {
 final class ObjectHeaderViewModel: ObservableObject {
     
     @Injected(\.objectHeaderUploadingService)
-    private var objectHeaderUploadingService:any ObjectHeaderUploadingServiceProtocol
+    private var objectHeaderUploadingService: any ObjectHeaderUploadingServiceProtocol
     
     @Published private(set) var header: ObjectHeader?
 

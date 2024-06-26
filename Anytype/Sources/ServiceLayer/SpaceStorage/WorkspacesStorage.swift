@@ -42,9 +42,9 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     // MARK: - DI
     
     @Injected(\.workspacesSubscriptionBuilder)
-    private var subscriptionBuilder:any WorkspacesSubscriptionBuilderProtocol
+    private var subscriptionBuilder: any WorkspacesSubscriptionBuilderProtocol
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
     }()

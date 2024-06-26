@@ -11,7 +11,7 @@ final class DateRelationCalendarViewModel: ObservableObject {
     let config: RelationModuleConfiguration
     
     @Injected(\.relationsService)
-    private var relationsService:any RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
     
     init(date: Date?, configuration: RelationModuleConfiguration) {
         self.date = date ?? Date()

@@ -18,13 +18,13 @@ final class ObjectTypeSearchViewModel: ObservableObject {
     private let spaceId: String
     
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.typesService)
-    private var typesService:any TypesServiceProtocol
+    private var typesService: any TypesServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider:any ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardHelper)
-    private var pasteboardHelper:any PasteboardHelperProtocol
+    private var pasteboardHelper: any PasteboardHelperProtocol
     
     private let onSelect: (TypeSelectionResult) -> Void
     private var searchTask: Task<(), any Error>?

@@ -10,7 +10,7 @@ final class DashboardClearCacheAlertModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.fileActionsService)
-    private var fileActionService:any FileActionsServiceProtocol
+    private var fileActionService: any FileActionsServiceProtocol
     
     // MARK: - State
     

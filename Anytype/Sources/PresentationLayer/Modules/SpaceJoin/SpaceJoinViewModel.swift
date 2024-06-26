@@ -20,13 +20,13 @@ final class SpaceJoinViewModel: ObservableObject {
     
     private let data: SpaceJoinModuleData
     @Injected(\.workspaceService)
-    private var workspaceService:any WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.workspaceStorage)
-    private var workspaceStorage:any WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     
     private var inviteView: SpaceInviteView?
     private var onManageSpaces: () -> Void

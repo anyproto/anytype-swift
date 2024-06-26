@@ -12,7 +12,7 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
     }
     
     @Injected(\.systemURLService)
-    private var systemURLService:any SystemURLServiceProtocol
+    private var systemURLService: any SystemURLServiceProtocol
     
     private let type: SupportedTextType
     private weak var delegate: TextRelationActionButtonViewModelDelegate?

@@ -9,11 +9,11 @@ final class AboutViewModel: ObservableObject {
     
     // MARK: - DI
     @Injected(\.middlewareConfigurationProvider)
-    private var middlewareConfigurationProvider:any MiddlewareConfigurationProviderProtocol
+    private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
     @Injected(\.accountManager)
-    private var accountManager:any AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     private weak var output: AboutModuleOutput?
     
     private var appVersion: String? = MetadataProvider.appVersion

@@ -12,7 +12,7 @@ final class SetSortsListViewModel: ObservableObject {
     private var cancellable: Cancellable?
     
     @Injected(\.dataviewService)
-    private var dataviewService:any DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     private weak var output: SetSortsListCoordinatorOutput?
     

@@ -13,9 +13,9 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
     private weak var output: CommonWidgetModuleOutput?
     
     @Injected(\.collectionsSubscriptionService)
-    private var subscriptionService:any CollectionsSubscriptionServiceProtocol
+    private var subscriptionService: any CollectionsSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectService:any ObjectActionsServiceProtocol
+    private var objectService: any ObjectActionsServiceProtocol
 
     // MARK: - State
     

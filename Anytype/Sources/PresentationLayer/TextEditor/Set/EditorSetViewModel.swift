@@ -142,27 +142,27 @@ final class EditorSetViewModel: ObservableObject {
     let paginationHelper = EditorSetPaginationHelper()
 
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider:any SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.dataviewService)
-    private var dataviewService:any DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     @Injected(\.searchService)
-    private var searchService:any SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     @Injected(\.detailsService)
-    private var detailsService:any DetailsServiceProtocol
+    private var detailsService: any DetailsServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService:any ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.relationsService)
-    private var relationsService:any RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
     @Injected(\.textServiceHandler)
-    private var textServiceHandler:any TextServiceProtocol
+    private var textServiceHandler: any TextServiceProtocol
     @Injected(\.groupsSubscriptionsHandler)
-    private var groupsSubscriptionsHandler:any GroupsSubscriptionsHandlerProtocol
+    private var groupsSubscriptionsHandler: any GroupsSubscriptionsHandlerProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage:any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.setSubscriptionDataBuilder)
-    private var setSubscriptionDataBuilder:any SetSubscriptionDataBuilderProtocol
+    private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
-    private var setGroupSubscriptionDataBuilder:any SetGroupSubscriptionDataBuilderProtocol
+    private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
     private let documentsProvider: DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
