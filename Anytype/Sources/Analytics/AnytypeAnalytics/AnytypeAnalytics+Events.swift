@@ -253,6 +253,7 @@ extension AnytypeAnalytics {
         format: RelationFormat,
         isNew: Bool,
         type: AnalyticsEventsRelationType,
+        key: AnalyticsRelationKey,
         spaceId: String
     ) {
         logEvent(
@@ -260,7 +261,8 @@ extension AnytypeAnalytics {
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.format: format.analyticsName,
-                AnalyticsEventsPropertiesKey.type: type.rawValue
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.relationKey: key.value
             ]
         )
     }
