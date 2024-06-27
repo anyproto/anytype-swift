@@ -8,7 +8,7 @@ extension KingfisherManager {
     */
     @discardableResult
     func retrieveImageAsync(
-        with resource: Resource,
+        with resource: any Resource,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil
     ) async throws -> RetrieveImageResult {
@@ -49,8 +49,8 @@ extension KingfisherWrapper where Base: KFCrossPlatformImageView {
     */
     @discardableResult
     func setImageAsync(
-        with resource: Resource?,
-        placeholder: Placeholder? = nil,
+        with resource: (any Resource)?,
+        placeholder: (any Placeholder)? = nil,
         options: KingfisherOptionsInfo? = nil,
         progressBlock: DownloadProgressBlock? = nil
     ) async throws -> RetrieveImageResult {

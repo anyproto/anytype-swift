@@ -29,7 +29,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     init(
         data: EditorPageObject,
         showHeader: Bool,
-        setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void
+        setupEditorInput: @escaping (any EditorPageModuleInput, String) -> Void
     ) {
         self.data = data
         self.showHeader = showHeader

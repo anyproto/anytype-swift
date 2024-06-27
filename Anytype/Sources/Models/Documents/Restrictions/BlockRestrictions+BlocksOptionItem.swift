@@ -2,7 +2,7 @@ import Services
 import UIKit
 import AnytypeCore
 
-extension Array where Element == BlockRestrictions {
+extension Array where Element == any BlockRestrictions {
     var mergedOptions: Set<BlocksOptionItem> {
         var options = Set(BlocksOptionItem.allCases)
 
@@ -32,7 +32,7 @@ extension Array where Element == BlockInformation {
         var isOpenObjectAvailable = false
         var isOpenSourceAvailable = false
         
-        var restrictions = [BlockRestrictions]()
+        var restrictions = [any BlockRestrictions]()
 
         forEach { element in
             if case let .file(type) = element.content {

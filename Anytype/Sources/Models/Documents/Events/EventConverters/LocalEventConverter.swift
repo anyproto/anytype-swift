@@ -3,10 +3,10 @@ import ProtobufMessages
 import AnytypeCore
 
 final class LocalEventConverter {
-    private let infoContainer: InfoContainerProtocol
+    private let infoContainer: any InfoContainerProtocol
     private let blockValidator = BlockValidator()
     
-    init(infoContainer: InfoContainerProtocol) {
+    init(infoContainer: some InfoContainerProtocol) {
         self.infoContainer = infoContainer
     }
     

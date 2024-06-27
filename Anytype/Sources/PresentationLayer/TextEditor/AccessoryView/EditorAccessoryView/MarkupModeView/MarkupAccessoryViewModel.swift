@@ -22,7 +22,7 @@ struct MarkupItem: Identifiable, Equatable {
 final class MarkupAccessoryViewModel: ObservableObject {
     let markupItems: [MarkupItem] = MarkupItem.allItems
 
-    private(set) var restrictions: BlockRestrictions?
+    private(set) var restrictions: (any BlockRestrictions)?
     
     var onMarkupTap: RoutingAction<MarkupKind>?
     var onColorSelection: RoutingAction<ColorView.ColorItem>?

@@ -51,7 +51,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             return document
         }
         
-        if let value = documentCache.object(forKey: objectId as NSString) as? BaseDocumentProtocol {
+        if let value = documentCache.object(forKey: objectId as NSString) as? any BaseDocumentProtocol {
             return value
         }
         

@@ -128,7 +128,7 @@ final class EditorCollectionFlowLayout: UICollectionViewLayout {
                 }
                         
                 switch item {
-                case let .header(hashable as HashableProvier), let .system(hashable as HashableProvier):
+                case let .header(hashable as any HashableProvier), let .system(hashable as any HashableProvier):
                     if var cachedLayoutItem = cachedAttributes[hashable.hashable] {
                         cachedLayoutItem.y = offset
                         cachedLayoutItem.zIndex = zIndex

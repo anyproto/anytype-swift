@@ -17,7 +17,7 @@ final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCo
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
     
-    private var editorModuleInputs = [String: EditorPageModuleInput]()
+    private var editorModuleInputs = [String: any EditorPageModuleInput]()
     private var onSetAsDefaultTempalte: ((String) -> Void)?
     
     nonisolated init() {}

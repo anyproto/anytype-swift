@@ -3,10 +3,10 @@ import Services
 
 final class RelationEventConverter {
     
-    private let relationLinksStorage: RelationLinksStorageProtocol
+    private let relationLinksStorage: any RelationLinksStorageProtocol
     
     init(
-        relationLinksStorage: RelationLinksStorageProtocol
+        relationLinksStorage: some RelationLinksStorageProtocol
     ) {
         self.relationLinksStorage = relationLinksStorage
     }

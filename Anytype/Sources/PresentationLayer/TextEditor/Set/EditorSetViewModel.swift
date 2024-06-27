@@ -166,7 +166,7 @@ final class EditorSetViewModel: ObservableObject {
     private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
-    private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
+    private var subscriptionStorages = [String: any SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
     private weak var output: (any EditorSetModuleOutput)?
 

@@ -21,7 +21,7 @@ final class StylePanelLayout: FloatingPanelLayout {
     let initialState: FloatingPanelState = .full
     let position: FloatingPanelPosition = .bottom
 
-    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
+    var anchors: [FloatingPanelState: any FloatingPanelLayoutAnchoring] {
         return [
             .full: FloatingPanelAdaptiveLayoutAnchor(absoluteOffset: 0, contentLayout: layoutGuide, referenceGuide: .safeArea),
         ]

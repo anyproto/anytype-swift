@@ -5,8 +5,8 @@ import SwiftProtobuf
 import Foundation
 
 final class MiddlewareEventConverter {
-    private let infoContainer: InfoContainerProtocol
-    private let relationLinksStorage: RelationLinksStorageProtocol
+    private let infoContainer: any InfoContainerProtocol
+    private let relationLinksStorage: any RelationLinksStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
     
@@ -14,8 +14,8 @@ final class MiddlewareEventConverter {
     private let statusStorage: any DocumentStatusStorageProtocol
     
     init(
-        infoContainer: InfoContainerProtocol,
-        relationLinksStorage: RelationLinksStorageProtocol,
+        infoContainer: some InfoContainerProtocol,
+        relationLinksStorage: some RelationLinksStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage,
         restrictionsContainer: ObjectRestrictionsContainer,

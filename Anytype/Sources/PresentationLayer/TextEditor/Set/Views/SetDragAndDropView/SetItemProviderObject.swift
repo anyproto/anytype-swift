@@ -9,7 +9,7 @@ final class SetItemProviderObject: NSObject, NSItemProviderWriting {
 
     func loadData(
         withTypeIdentifier typeIdentifier: String,
-        forItemProviderCompletionHandler completionHandler: @escaping (Data?, Error?) -> Swift.Void
+        forItemProviderCompletionHandler completionHandler: @escaping (Data?, (any Error)?) -> Swift.Void
     ) -> Progress? {
         return nil
     }

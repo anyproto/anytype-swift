@@ -9,7 +9,7 @@ final class BottomSheetsFactory {
         parentViewController: UIViewController,
         infos: [BlockInformation],
         actionHandler: any BlockActionHandlerProtocol,
-        restrictions: BlockRestrictions,
+        restrictions: any BlockRestrictions,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
         onDismiss: (() -> Void)? = nil
     ) -> AnytypePopup? {

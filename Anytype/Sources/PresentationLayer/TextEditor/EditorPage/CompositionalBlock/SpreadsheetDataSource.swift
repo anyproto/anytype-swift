@@ -94,7 +94,7 @@ final class SpreadsheetViewDataSource {
         dataSource.itemIdentifier(for: indexPath)
     }
 
-    private func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ContentConfigurationProvider> {
+    private func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, any ContentConfigurationProvider> {
         .init { [weak self] cell, indexPath, item in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
@@ -119,7 +119,7 @@ final class SpreadsheetViewDataSource {
             cell.fillSubviewsWithRandomColors(recursively: false)
         }
 
-        if let dynamicHeightView = cell.contentView as? DynamicHeightView {
+        if let dynamicHeightView = cell.contentView as? any DynamicHeightView {
             dynamicHeightView.heightDidChanged = { [weak self] in
                 (self?.collectionView.collectionViewLayout as? SpreadsheetLayout)?.setNeedsLayout(indexPath: indexPath)
             }

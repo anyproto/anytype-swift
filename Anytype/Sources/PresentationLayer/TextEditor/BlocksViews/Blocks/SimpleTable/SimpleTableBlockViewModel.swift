@@ -10,8 +10,8 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable { info.id as AnyHashable }
 
     private let dependenciesBuilder: SimpleTableDependenciesBuilder
-    private let infoContainer: InfoContainerProtocol
-    private let tableService: BlockTableServiceProtocol
+    private let infoContainer: any InfoContainerProtocol
+    private let tableService: any BlockTableServiceProtocol
     private let document: any BaseDocumentProtocol
     private let editorCollectionController: EditorBlockCollectionController
     
@@ -20,8 +20,8 @@ final class SimpleTableBlockViewModel: BlockViewModelProtocol {
     init(
         info: BlockInformation,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
-        infoContainer: InfoContainerProtocol,
-        tableService: BlockTableServiceProtocol,
+        infoContainer: some InfoContainerProtocol,
+        tableService: some BlockTableServiceProtocol,
         document: some BaseDocumentProtocol,
         editorCollectionController: EditorBlockCollectionController,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never> // Not proper way to handle focus. Need to refactor EditorCursorManager

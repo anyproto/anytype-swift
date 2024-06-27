@@ -89,7 +89,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 ]
             )
         case .url(let url):
-            let actions: [TextRelationActionViewModelProtocol?] = [
+            let actions: [(any TextRelationActionViewModelProtocol)?] = [
                 TextRelationURLActionViewModel(
                     type: .url,
                     delegate: delegate

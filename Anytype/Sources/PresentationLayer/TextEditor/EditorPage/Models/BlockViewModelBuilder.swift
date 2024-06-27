@@ -11,7 +11,7 @@ final class BlockViewModelBuilder {
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: any MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-    private let infoContainer: InfoContainerProtocol
+    private let infoContainer: any InfoContainerProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockCollectionController: EditorBlockCollectionController
     private let accessoryStateManager: any AccessoryViewStateManager
@@ -41,7 +41,7 @@ final class BlockViewModelBuilder {
         markdownListener: some MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        infoContainer: InfoContainerProtocol,
+        infoContainer: some InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockCollectionController: EditorBlockCollectionController,
         accessoryStateManager: some AccessoryViewStateManager,
@@ -92,7 +92,7 @@ final class BlockViewModelBuilder {
         return .system(shimmeringViewModel)
     }
     
-    private func build(_ ids: [String]) -> [BlockViewModelProtocol] {
+    private func build(_ ids: [String]) -> [any BlockViewModelProtocol] {
         ids.compactMap {
             let block = build(blockId: $0)
             return block

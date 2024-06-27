@@ -19,7 +19,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let spaceId: String
     private let service: any BlockActionServiceProtocol
     private let toggleStorage: ToggleStorage
-    private let container: InfoContainerProtocol
+    private let container: any InfoContainerProtocol
     private weak var modelsHolder: EditorMainItemModelsHolder?
     private let editorCollectionController: EditorBlockCollectionController
     
@@ -32,7 +32,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         spaceId: String,
         service: some BlockActionServiceProtocol,
         toggleStorage: ToggleStorage,
-        container: InfoContainerProtocol,
+        container: some InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         editorCollectionController: EditorBlockCollectionController
     ) {
@@ -261,7 +261,7 @@ private extension KeyboardActionHandler {
     }
     
     
-    func isLastChildOfBlock(info: BlockInformation, container: InfoContainerProtocol, parent: BlockInformation) -> Bool {
+    func isLastChildOfBlock(info: BlockInformation, container: some InfoContainerProtocol, parent: BlockInformation) -> Bool {
         let children = container.children(of: parent.id)
         let isLastChid = children.last?.id == info.id
         let isParentTypeBlock = parent.kind == .block
