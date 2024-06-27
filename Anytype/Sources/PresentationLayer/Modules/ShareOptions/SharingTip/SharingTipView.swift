@@ -7,6 +7,8 @@ struct SharingTipView: View {
     
     var body: some View {
         ZStack {
+            Color.Background.secondary
+                .ignoresSafeArea()
             gradient
                 .ignoresSafeArea()
             content
