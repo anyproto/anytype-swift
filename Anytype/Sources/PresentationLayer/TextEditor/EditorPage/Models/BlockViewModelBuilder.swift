@@ -274,7 +274,7 @@ final class BlockViewModelBuilder {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in
-                            self?.typeSelected(type)
+                            self?.typeSelected(type, route: .featuredRelations)
                         }
                     )
                 } else {
@@ -347,11 +347,11 @@ final class BlockViewModelBuilder {
         }
     }
     
-    private func typeSelected(_ type: ObjectType) {
+    private func typeSelected(_ type: ObjectType, route: ChangeObjectTypeRoute? = nil) {
         Task { [weak self] in
             guard let self else { return }
             try await handler.setObjectType(type: type)
-            AnytypeAnalytics.instance().logChangeObjectType(type.analyticsType, spaceId: document.spaceId)
+            AnytypeAnalytics.instance().logChangeObjectType(type.analyticsType, spaceId: document.spaceId, route: route)
             
             guard let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate else { return }
             try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)
