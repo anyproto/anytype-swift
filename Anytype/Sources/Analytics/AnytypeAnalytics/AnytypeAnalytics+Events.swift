@@ -146,11 +146,14 @@ extension AnytypeAnalytics {
         )
     }
 
-    func logChangeObjectType(_ type: AnalyticsObjectType, spaceId: String) {
+    func logChangeObjectType(_ type: AnalyticsObjectType, spaceId: String, route: ChangeObjectTypeRoute? = nil) {
         logEvent(
             "ChangeObjectType",
             spaceId: spaceId,
-            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
         )
     }
     
@@ -160,7 +163,7 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
-            ].compactMapValues { $0 }
+            ]
         )
     }
 
