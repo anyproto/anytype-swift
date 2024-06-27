@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
