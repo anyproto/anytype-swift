@@ -29,7 +29,6 @@ final class ListWidgetViewModel: ObservableObject {
     
     @Published private(set) var headerItems: [ViewWidgetTabsItemModel]?
     @Published private(set) var rows: [ListWidgetRowModel]?
-    let emptyTitle = Loc.Widgets.Empty.title
     let style: ListWidgetStyle
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     

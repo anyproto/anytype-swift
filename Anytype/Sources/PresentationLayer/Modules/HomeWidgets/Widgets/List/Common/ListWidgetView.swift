@@ -51,9 +51,7 @@ private struct ListWidgetInternalView: View {
             homeState: data.homeState,
             name: model.name,
             dragId: model.dragId,
-            onCreateObjectTap: model.allowCreateObject ? {
-                model.onCreateObjectTap()
-            } : nil,
+            onCreateObjectTap: createTap,
             onHeaderTap: {
                 model.onHeaderTap()
             },
@@ -68,7 +66,13 @@ private struct ListWidgetInternalView: View {
         VStack(spacing: 0) {
             // TODO: Delete this header with galleryWidget toggle. Header implemented in View widget for set.
             ViewWidgetTabsView(items: model.headerItems)
-            ListWidgetContentView(style: model.style, rows: model.rows, emptyTitle: model.emptyTitle)
+            ListWidgetContentView(style: model.style, rows: model.rows, onCreateTap: createTap)
         }
+    }
+    
+    private var createTap: (() -> Void)? {
+        return model.allowCreateObject ? {
+           model.onCreateObjectTap()
+       } : nil
     }
 }
