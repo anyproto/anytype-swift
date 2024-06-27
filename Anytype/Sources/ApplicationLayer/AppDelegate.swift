@@ -4,16 +4,8 @@ import AnytypeCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private let appMetricsTracker = AppMetricsTracker()
-    /// receive events from middleware and broadcast throught notification center
-    private lazy var eventListener = MiddlewareEventsListener()
     private lazy var configurator = AppConfigurator()
     
-    @Injected(\.accountEventHandler)
-    private var accountEventHandler: any AccountEventHandlerProtocol
-    @Injected(\.fileErrorEventHandler)
-    private var fileErrorEventHandler: any FileErrorEventHandlerProtocol
-    @Injected(\.deviceSceneStateListener)
-    private var deviceSceneStateListener: any DeviceSceneStateListenerProtocol
     @Injected(\.quickActionShortcutBuilder)
     private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     @Injected(\.appActionStorage)
@@ -31,11 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         signal(SIGPIPE, SIG_IGN)
         
         configurator.configure()
-        // Global listeners
-        eventListener.startListening()
-        accountEventHandler.startSubscription()
-        fileErrorEventHandler.startSubscription()
-        deviceSceneStateListener.start()
         
         return true
     }

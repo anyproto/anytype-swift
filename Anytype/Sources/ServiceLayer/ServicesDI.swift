@@ -279,4 +279,12 @@ extension Container {
     var mentionObjectsService: Factory<any MentionObjectsServiceProtocol> {
         self { MentionObjectsService() }.shared
     }
+    
+    var appVersionService: Factory<any AppVersionServiceProtocol> {
+        self { AppVersionService() }.singleton
+    }
+    
+    var middlewareEventsListener: Factory<any MiddlewareEventsListenerProtocol> {
+        self { MiddlewareEventsListener() }.singleton
+    }
 }
