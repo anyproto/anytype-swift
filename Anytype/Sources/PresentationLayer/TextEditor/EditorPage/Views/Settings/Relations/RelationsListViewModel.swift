@@ -72,12 +72,13 @@ extension RelationsListViewModel {
     
     private func changeRelationFeaturedState(relation: Relation) {
         Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
             if relation.isFeatured {
-                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId)
                 try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
             } else {
-                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId)
                 try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
             }
         }
         UISelectionFeedbackGenerator().selectionChanged()
