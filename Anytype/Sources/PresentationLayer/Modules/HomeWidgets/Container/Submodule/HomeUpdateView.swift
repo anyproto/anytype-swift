@@ -13,12 +13,13 @@ struct HomeUpdateView: View, Animatable {
                 .padding(.horizontal, 46)
                 .padding(.vertical, 10)
                 .frame(maxWidth: .infinity)
-            Color.red.frame(width: 20, height: 20)
+            Image(asset: .X18.updateApp)
+                .foregroundColor(.Text.primary)
                 .padding(.horizontal, 16)
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 4).delay(1)) {
-                locationState = 2
+                locationState = 6
             }
         }
         .background {
