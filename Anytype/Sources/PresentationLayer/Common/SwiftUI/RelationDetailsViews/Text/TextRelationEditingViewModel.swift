@@ -31,8 +31,12 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
+    private let initialText: String
+    
     init(data: TextRelationEditingViewData) {
-        self.text = data.text ?? ""
+        let initialText = data.text ?? ""
+        self.text = initialText
+        self.initialText = initialText
         self.config = data.config
         self.type = data.type
         self.textFocused = data.config.isEditable
@@ -107,6 +111,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     }
     
     private func logChangeOrDeleteRelationValue() {
+        guard initialText != text else { return }
         Task {
             let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
