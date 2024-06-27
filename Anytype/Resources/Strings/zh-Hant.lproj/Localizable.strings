@@ -811,7 +811,8 @@
 "Widgets.Layout.List.Description" = "具有物件集合列表視圖的小工具";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "具有物件集合列表視圖的小工具";
-"Widgets.Empty.Title" = "該資料檢視內沒有物件";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "最近編輯";
 "Widgets.Library.RecentlyOpened.Name" = "最近開啟";
 "Widgets.Library.RecentlyOpened.Description" = "在此裝置上";

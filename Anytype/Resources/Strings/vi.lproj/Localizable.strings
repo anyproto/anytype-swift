@@ -810,7 +810,8 @@
 "Widgets.Layout.List.Description" = "Widget chứa khung danh sách của đối tượng tập";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget chứa khung danh sách của đối tượng tập";
-"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Được sửa gần đây";
 "Widgets.Library.RecentlyOpened.Name" = "Được mở gần đây";
 "Widgets.Library.RecentlyOpened.Description" = "Trên thiết bị này";

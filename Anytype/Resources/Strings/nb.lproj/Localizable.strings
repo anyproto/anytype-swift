@@ -809,7 +809,8 @@
 "Widgets.Layout.List.Description" = "Widget med listevisning av settobjekt";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget med listevisning av settobjekt";
-"Widgets.Empty.Title" = "Denne datavisningen inneholder ingen objekter";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Nylig endret";
 "Widgets.Library.RecentlyOpened.Name" = "Nylig åpnet";
 "Widgets.Library.RecentlyOpened.Description" = "På denne enheten";

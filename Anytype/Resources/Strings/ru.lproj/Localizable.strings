@@ -809,7 +809,8 @@
 "Widgets.Layout.List.Description" = "Виджет со списком объектов из набора";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Виджет со списком объектов из набора";
-"Widgets.Empty.Title" = "Этот вид данных не содержит объектов";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";

@@ -809,7 +809,8 @@
 "Widgets.Layout.List.Description" = "Widget com visão de lista de objeto definido";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget com visão de lista de objeto definido";
-"Widgets.Empty.Title" = "Esta visualização de dados não contém objetos";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Editado recentemente";
 "Widgets.Library.RecentlyOpened.Name" = "Aberto recentemente";
 "Widgets.Library.RecentlyOpened.Description" = "Neste dispositivo";

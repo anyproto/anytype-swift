@@ -810,7 +810,8 @@
 "Widgets.Layout.List.Description" = "具有集合对象列表视图的小部件";
 "Widgets.Layout.View.Description" = "具有集合对象视图的小部件";
 "Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小部件";
-"Widgets.Empty.Title" = "该数据视图不包含对象";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";

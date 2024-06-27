@@ -809,7 +809,8 @@
 "Widgets.Layout.List.Description" = "Widget met lijstweergave van geselecteerde object";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget met lijstweergave van geselecteerde object";
-"Widgets.Empty.Title" = "Deze gegevensweergave bevat geen objecten";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Onlangs bewerkt";
 "Widgets.Library.RecentlyOpened.Name" = "Onlangs geopend";
 "Widgets.Library.RecentlyOpened.Description" = "Op dit apparaat";

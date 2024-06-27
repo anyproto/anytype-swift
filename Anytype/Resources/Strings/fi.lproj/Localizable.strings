@@ -809,7 +809,8 @@
 "Widgets.Layout.List.Description" = "Vempain lista näkymällä asetetusta objektista";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Vempain lista näkymällä asetetusta objektista";
-"Widgets.Empty.Title" = "Tämä data näkymä ei sisällä objekteja";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Viimeksi muokatut";
 "Widgets.Library.RecentlyOpened.Name" = "Viimeksi avatut";
 "Widgets.Library.RecentlyOpened.Description" = "Laitteella";

@@ -809,7 +809,8 @@
 "Widgets.Layout.List.Description" = "Віджет зі списком об’єктів набору";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Віджет зі списком об’єктів набору";
-"Widgets.Empty.Title" = "Це подання даних не містить об'єктів";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Нещодавно відредаговані";
 "Widgets.Library.RecentlyOpened.Name" = "Нещодавно відкриті";
 "Widgets.Library.RecentlyOpened.Description" = "На цьому пристрої";
