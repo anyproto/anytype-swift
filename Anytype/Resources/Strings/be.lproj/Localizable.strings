@@ -810,7 +810,8 @@
 "Widgets.Layout.List.Description" = "Віджэт са спісам аб'ектаў з набору";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Віджэт са спісам аб'ектаў з набору";
-"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Нядаўна адрэдагаваны";
 "Widgets.Library.RecentlyOpened.Name" = "Нядаўна адкрытыя";
 "Widgets.Library.RecentlyOpened.Description" = "На гэтай прыладзе";
