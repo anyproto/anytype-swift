@@ -34,7 +34,7 @@ actor AppVersionService: AppVersionServiceProtocol {
         
         guard let appVersion = currentVersion() else { return }
         
-        guard let url = URL(string: "https://itunes.apple.com/lookup?bundleId=io.anytype.app") else { return }
+        guard let url = URL(string: "https://itunes.apple.com/lookup?bundleId=\(AppId.production)") else { return }
         
         let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()

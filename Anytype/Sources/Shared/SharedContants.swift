@@ -5,6 +5,10 @@ enum AppLinks {
     static let storeHost = "apps.apple.com"
 }
 
+enum AppId {
+    static let production = "io.anytype.app"
+}
+
 enum NetworkIds {
     static let anytype = "N83gJpVd9MuNRZAuJLZ7LiMntTThhPc6DtzWWVjb1M3PouVU"
     static let anytypeStaging = "N9DU6hLkTAbvcpji3TCKPPd3UQWKGyzUxGmgJEyvhByqAjfD"
