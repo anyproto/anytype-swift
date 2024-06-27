@@ -18,7 +18,7 @@ struct HomeUpdateView: View, Animatable {
                 .padding(.horizontal, 16)
         }
         .onAppear {
-            withAnimation(.easeInOut(duration: 4).delay(1)) {
+            withAnimation(.easeInOut(duration: 4).delay(0.5)) {
                 locationState = 6
             }
         }
