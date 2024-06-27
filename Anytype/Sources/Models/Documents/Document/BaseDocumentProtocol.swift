@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 
 protocol BaseDocumentProtocol: AnyObject {
-    var infoContainer: InfoContainerProtocol { get }
+    var infoContainer: any InfoContainerProtocol { get }
     var detailsStorage: ObjectDetailsStorage { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }

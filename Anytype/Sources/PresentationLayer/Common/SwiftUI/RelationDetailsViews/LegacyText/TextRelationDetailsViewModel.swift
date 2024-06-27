@@ -28,7 +28,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     let type: TextRelationViewType
     
-    let actionsViewModel: [TextRelationActionViewModelProtocol]
+    let actionsViewModel: [any TextRelationActionViewModelProtocol]
     
     private let objectId: String
     private let spaceId: String
@@ -49,7 +49,7 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         relation: Relation,
         service: some TextRelationEditingServiceProtocol,
         analyticsType: AnalyticsEventsRelationType,
-        actionsViewModel: [TextRelationActionViewModelProtocol] = []
+        actionsViewModel: [any TextRelationActionViewModelProtocol] = []
     ) {
         self.objectId = objectId
         self.spaceId = spaceId

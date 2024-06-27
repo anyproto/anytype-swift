@@ -146,12 +146,12 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     }
     
     // MARK: - UIDragInteractionDelegate
-    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: any UIDragSession) -> [UIDragItem] {
         guard let dragConfiguration = dragConfiguration else {
             return []
         }
         
-        let provider = NSItemProvider(object: dragConfiguration.id as NSItemProviderWriting)
+        let provider = NSItemProvider(object: dragConfiguration.id as any NSItemProviderWriting)
         let item = UIDragItem(itemProvider: provider)
         item.localObject = dragConfiguration
         

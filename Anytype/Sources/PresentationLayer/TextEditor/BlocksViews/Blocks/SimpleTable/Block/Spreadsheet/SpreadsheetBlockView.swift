@@ -99,13 +99,13 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         layer.borderWidth = 0.5
         dynamicBorderColor = UIColor.Shape.primary
 
-        if let dynamicHeightBlockView = blockView as? DynamicHeightView {
+        if let dynamicHeightBlockView = blockView as? any DynamicHeightView {
             dynamicHeightBlockView.heightDidChanged = { [weak self] in
                 self?.heightDidChanged?()
             }
         }
 
-        if let firstReponderChangeHandler = blockView as? FirstResponder {
+        if let firstReponderChangeHandler = blockView as? any FirstResponder {
             firstReponderChangeHandler.isFirstResponderValueChangeHandler = { [weak self] isFirstResponder in
                 guard !(self?.currentConfigurationState?.isSelected ?? false) else { return }
                 

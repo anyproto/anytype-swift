@@ -24,12 +24,12 @@ final class BaseDocument: BaseDocumentProtocol {
     @Atomic
     private(set) var permissions = ObjectPermissions()
     
-    let infoContainer: InfoContainerProtocol
-    let relationLinksStorage: RelationLinksStorageProtocol
+    let infoContainer: any InfoContainerProtocol
+    let relationLinksStorage: any RelationLinksStorageProtocol
     let restrictionsContainer: ObjectRestrictionsContainer
     let detailsStorage: ObjectDetailsStorage
     
-    private let objectLifecycleService: ObjectLifecycleServiceProtocol
+    private let objectLifecycleService: any ObjectLifecycleServiceProtocol
     private let eventsListener: any EventsListenerProtocol
     @Injected(\.relationsBuilder)
     private var relationBuilder: any RelationsBuilderProtocol
@@ -58,15 +58,15 @@ final class BaseDocument: BaseDocumentProtocol {
     init(
         objectId: String,
         forPreview: Bool,
-        objectLifecycleService: ObjectLifecycleServiceProtocol,
+        objectLifecycleService: some ObjectLifecycleServiceProtocol,
         relationDetailsStorage: some RelationDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
         accountParticipantsStorage: some AccountParticipantsStorageProtocol,
         statusStorage: some DocumentStatusStorageProtocol,
         eventsListener: some EventsListenerProtocol,
         viewModelSetter: some DocumentViewModelSetterProtocol,
-        infoContainer: InfoContainerProtocol,
-        relationLinksStorage: RelationLinksStorageProtocol,
+        infoContainer: some InfoContainerProtocol,
+        relationLinksStorage: some RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         detailsStorage: ObjectDetailsStorage
     ) {

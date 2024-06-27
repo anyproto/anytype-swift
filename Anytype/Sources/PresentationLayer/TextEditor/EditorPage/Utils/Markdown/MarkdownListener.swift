@@ -16,9 +16,9 @@ protocol MarkdownListener {
 
 final class MarkdownListenerImpl: MarkdownListener {
     
-    private let internalListeners: [MarkdownListener]
+    private let internalListeners: [any MarkdownListener]
     
-    init(internalListeners: [MarkdownListener]) {
+    init(internalListeners: [any MarkdownListener]) {
         self.internalListeners = internalListeners
     }
     

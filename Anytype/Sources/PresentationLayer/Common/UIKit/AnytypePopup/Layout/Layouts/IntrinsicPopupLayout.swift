@@ -6,7 +6,7 @@ import UIKit
 final class IntrinsicPopupLayout: AnytypePopupLayout {
     
     init() {
-        let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
+        let anchors: [FloatingPanelState : any FloatingPanelLayoutAnchoring] = [
             .full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: 0, referenceGuide: .superview)
         ]
         

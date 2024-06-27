@@ -14,7 +14,7 @@ final class EventsListener: EventsListenerProtocol {
     
     private let objectId: String
      
-    private let infoContainer: InfoContainerProtocol
+    private let infoContainer: any InfoContainerProtocol
     
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
@@ -27,8 +27,8 @@ final class EventsListener: EventsListenerProtocol {
     
     init(
         objectId: String,
-        infoContainer: InfoContainerProtocol,
-        relationLinksStorage: RelationLinksStorageProtocol,
+        infoContainer: some InfoContainerProtocol,
+        relationLinksStorage: some RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         detailsStorage: ObjectDetailsStorage,
         statusStorage: some DocumentStatusStorageProtocol

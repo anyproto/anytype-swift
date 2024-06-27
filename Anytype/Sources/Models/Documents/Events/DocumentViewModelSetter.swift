@@ -9,15 +9,15 @@ protocol DocumentViewModelSetterProtocol: AnyObject {
 final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     
     private let detailsStorage: ObjectDetailsStorage
-    private let relationLinksStorage: RelationLinksStorageProtocol
+    private let relationLinksStorage: any RelationLinksStorageProtocol
     private let restrictionsContainer: ObjectRestrictionsContainer
-    private let infoContainer: InfoContainerProtocol
+    private let infoContainer: any InfoContainerProtocol
     
     init(
         detailsStorage: ObjectDetailsStorage,
-        relationLinksStorage: RelationLinksStorageProtocol,
+        relationLinksStorage: some RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
-        infoContainer: InfoContainerProtocol
+        infoContainer: some InfoContainerProtocol
     ) {
         self.detailsStorage = detailsStorage
         self.relationLinksStorage = relationLinksStorage
@@ -55,7 +55,7 @@ final class DocumentViewModelSetter: DocumentViewModelSetterProtocol {
     
     // MARK: - Private
     
-    private func buildBlocksTree(information: [BlockInformation], rootId: String, container: InfoContainerProtocol) {
+    private func buildBlocksTree(information: [BlockInformation], rootId: String, container: any InfoContainerProtocol) {
         
         information.forEach { container.add($0) }
         let roots = information.filter { $0.id == rootId }

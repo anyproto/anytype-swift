@@ -8,7 +8,7 @@ struct AccessoryViewBuilder {
         actionHandler: some BlockActionHandlerProtocol,
         router: some EditorRouterProtocol,
         document: some BaseDocumentProtocol
-    ) -> (AccessoryViewStateManager, ChangeTypeAccessoryViewModel) {
+    ) -> (some AccessoryViewStateManager, some ChangeTypeAccessoryViewModel) {
         let mentionsModule = MentionAssembly().controller(document: document)
 
         

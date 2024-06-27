@@ -45,7 +45,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     private let configuration: EditorPageViewModelConfiguration
     private weak var output: (any ObjectHeaderModuleOutput)?
     
-    var onIconPickerTap: RoutingAction<BaseDocumentProtocol>?
+    var onIconPickerTap: RoutingAction<any BaseDocumentProtocol>?
     
     // MARK: - Initializers
     

@@ -12,8 +12,8 @@ final class SimpleTableCellsBuilder {
     private let markdownListener: any MarkdownListener
     private let cursorManager: EditorCursorManager
     private let focusSubjectHolder: FocusSubjectsHolder
-    private let infoContainer: InfoContainerProtocol
-    private let blockTableService: BlockTableServiceProtocol
+    private let infoContainer: any InfoContainerProtocol
+    private let blockTableService: any BlockTableServiceProtocol
     private let responderScrollViewHelper: ResponderScrollViewHelper
     private let stateManager: SimpleTableStateManager
     private let blockMarkupChanger: any BlockMarkupChangerProtocol
@@ -35,7 +35,7 @@ final class SimpleTableCellsBuilder {
         stateManager: SimpleTableStateManager,
         accessoryStateManager: some AccessoryViewStateManager,
         blockMarkupChanger: some BlockMarkupChangerProtocol,
-        blockTableService: BlockTableServiceProtocol,
+        blockTableService: some BlockTableServiceProtocol,
         moduleOutput: (any EditorPageModuleOutput)?
     ) {
         self.document = document
@@ -216,7 +216,7 @@ struct ComputedTable {
     
     private init?(
         info: BlockInformation,
-        infoContainer: InfoContainerProtocol,
+        infoContainer: some InfoContainerProtocol,
         tableColumnsBlockInfo: BlockInformation,
         tableRowsBlockInfo: BlockInformation
     ) {
@@ -250,7 +250,7 @@ struct ComputedTable {
 }
 
 extension ComputedTable {
-    init?(blockInformation: BlockInformation, infoContainer: InfoContainerProtocol) {
+    init?(blockInformation: BlockInformation, infoContainer: any InfoContainerProtocol) {
         guard let newBlockInformation = infoContainer.get(id: blockInformation.id) else { return nil }
         var tableColumnsBlockInfo: BlockInformation?
         var tableRowsBlockInfo: BlockInformation?

@@ -10,7 +10,7 @@ struct EditorPageCoordinatorView: View {
     init(
         data: EditorPageObject,
         showHeader: Bool,
-        setupEditorInput: @escaping (EditorPageModuleInput, String) -> Void
+        setupEditorInput: @escaping (any EditorPageModuleInput, String) -> Void
     ) {
         self._model = StateObject(wrappedValue: EditorPageCoordinatorViewModel(data: data, showHeader: showHeader, setupEditorInput: setupEditorInput))
     }
