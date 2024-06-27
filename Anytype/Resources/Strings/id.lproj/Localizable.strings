@@ -809,7 +809,8 @@
 "Widgets.Layout.List.Description" = "Widget dengan daftar tampilan dari daftar objek";
 "Widgets.Layout.View.Description" = "Gawit dengan tampilan objek set";
 "Widgets.Layout.CompactList.Description" = "Widget dengan daftar tampilan dari daftar objek";
-"Widgets.Empty.Title" = "Tampilan data ini tidak mengandung objek";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
 "Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
