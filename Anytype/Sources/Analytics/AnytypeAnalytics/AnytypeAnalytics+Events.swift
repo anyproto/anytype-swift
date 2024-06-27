@@ -267,11 +267,21 @@ extension AnytypeAnalytics {
         )
     }
 
-    func logChangeOrDeleteRelationValue(isEmpty: Bool, type: AnalyticsEventsRelationType, spaceId: String) {
+    func logChangeOrDeleteRelationValue(
+        isEmpty: Bool,
+        format: RelationFormat,
+        type: AnalyticsEventsRelationType,
+        key: AnalyticsRelationKey,
+        spaceId: String
+    ) {
         logEvent(
             isEmpty ? "DeleteRelationValue" : "ChangeRelationValue",
             spaceId: spaceId,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.format: format.analyticsName,
+                AnalyticsEventsPropertiesKey.relationKey: key.value
+            ]
         )
     }
 

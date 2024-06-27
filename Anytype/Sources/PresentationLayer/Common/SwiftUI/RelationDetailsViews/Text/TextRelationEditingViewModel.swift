@@ -27,7 +27,9 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
     @Injected(\.textRelationActionViewModelBuilder)
-    private var builder:TextRelationActionViewModelBuilder
+    private var builder: TextRelationActionViewModelBuilder
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     init(data: TextRelationEditingViewData) {
         self.text = data.text ?? ""
@@ -51,11 +53,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     func onDisappear() {
         guard config.isEditable else { return }
-        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
-            isEmpty: text.isEmpty,
-            type: config.analyticsType,
-            spaceId: config.spaceId
-        )
+        logChangeOrDeleteRelationValue()
     }
     
     func onClear() {
@@ -105,6 +103,19 @@ final class TextRelationEditingViewModel: ObservableObject {
             AnytypeAnalytics.instance().logRelationUrlEditMobile()
         default:
             break
+        }
+    }
+    
+    private func logChangeOrDeleteRelationValue() {
+        Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
+            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                isEmpty: text.isEmpty,
+                format: relationDetails.format,
+                type: config.analyticsType,
+                key: relationDetails.analyticsKey,
+                spaceId: config.spaceId
+            )
         }
     }
 }

@@ -39,6 +39,9 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     private var keyboardListener: KeyboardEventsListnerHelper?
     
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    
     // MARK: - Initializers
     
     init(
@@ -77,11 +80,20 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     func onWillDisappear() {
         guard isEditable else { return }
-        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
-            isEmpty: value.isEmpty,
-            type: analyticsType,
-            spaceId: spaceId
-        )
+        logChangeOrDeleteRelationValue()
+    }
+    
+    private func logChangeOrDeleteRelationValue() {
+        Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: spaceId)
+            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                isEmpty: value.isEmpty,
+                format: relationDetails.format,
+                type: analyticsType,
+                key: relationDetails.analyticsKey,
+                spaceId: spaceId
+            )
+        }
     }
 }
 
