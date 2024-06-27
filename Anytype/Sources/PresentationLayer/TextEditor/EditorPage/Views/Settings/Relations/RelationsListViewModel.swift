@@ -18,6 +18,8 @@ final class RelationsListViewModel: ObservableObject {
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     private weak var output: (any RelationsListModuleOutput)?
     
@@ -87,8 +89,9 @@ extension RelationsListViewModel {
     
     func removeRelation(relation: Relation) {
         Task {
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId)
             try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
         }
     }
     
