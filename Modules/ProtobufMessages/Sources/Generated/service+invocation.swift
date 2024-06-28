@@ -2264,6 +2264,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func debugRunProfiler(
+        _ request: Anytype_Rpc.Debug.RunProfiler.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.RunProfiler.Request, Anytype_Rpc.Debug.RunProfiler.Response> {
+        return Invocation(messageName: "DebugRunProfiler", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugRunProfiler(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.RunProfiler.Response(serializedData: responseData)
+        }
+    }
+
+    public static func debugAccountSelectTrace(
+        _ request: Anytype_Rpc.Debug.AccountSelectTrace.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.AccountSelectTrace.Request, Anytype_Rpc.Debug.AccountSelectTrace.Response> {
+        return Invocation(messageName: "DebugAccountSelectTrace", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugAccountSelectTrace(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.AccountSelectTrace.Response(serializedData: responseData)
+        }
+    }
+
     public static func metricsSetParameters(
         _ request: Anytype_Rpc.Metrics.SetParameters.Request = .init()
     ) -> Invocation<Anytype_Rpc.Metrics.SetParameters.Request, Anytype_Rpc.Metrics.SetParameters.Response> {

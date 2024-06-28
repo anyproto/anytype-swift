@@ -567,6 +567,11 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Debug.AccountSelectTrace.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
@@ -579,6 +584,11 @@ extension Anytype_Rpc.Debug.OpenedObjects.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Debug.Ping.Response: ResultWithError {}
 extension Anytype_Rpc.Debug.Ping.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Debug.RunProfiler.Response: ResultWithError {}
+extension Anytype_Rpc.Debug.RunProfiler.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
