@@ -167,7 +167,7 @@
 "Align right" = "Rechts ausrichten";
 "Align left" = "Links ausrichten";
 "Align center" = "Zentral ausrichten";
-"Align justify" = "Align justify";
+"Align justify" = "Blocksatz";
 "Black" = "Schwarz";
 "Amber" = "Gelb";
 "Red" = "Rot";
@@ -504,7 +504,7 @@
 "Set.View.Empty.Subtitle" = "Füge Suchparameter hinzu, um Objekte mit gleichenTypen und Relationen im Live-Modus zusammenzufassen";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "Diese Ansicht wird nicht unterstützt und wurde durch die neuesten geänderten Objekte ersetzt.";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Abfrage auswählen";
@@ -590,7 +590,7 @@
 "Deletion error" = "Fehler beim Löschen";
 "Start" = "Start";
 "On analytics" = "Auf Analyse";
-"Select vault error" = "Fehler beim Auswählen des Vaults";
+"Select vault error" = "Fehler beim Auswählen des Tresors";
 "Vault deleted" = "Tresor gelöscht";
 "Vault.Select.Incompatible.Version.Error.Text" = "Wir konnten Ihre Tresordaten nicht abrufen, da Ihre Version veraltet ist. Bitte aktualisieren Sie Anytype auf die neueste Version.";
 "Restore from keychain" = "Von Schlüsselbund wiederherstellen";
@@ -793,7 +793,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Widget-Typ ändern";
 "Widgets.Actions.RemoveWidget" = "Widget entfernen";
 "Widgets.Actions.EditWidgets" = "Widgets bearbeiten";
-"Widgets.Actions.AddWidget" = "Add Widget";
+"Widgets.Actions.AddWidget" = "Widget hinzufügen";
 "Widgets.Actions.EmptyBin" = "Behälter leeren";
 "Widgets.Actions.AddBelow" = "Unten hinzufügen";
 "Widgets.Actions.NewObject" = "Neues Objekt";
@@ -809,8 +809,8 @@
 "Widgets.Layout.List.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
 "Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Empty.Title" = "Hier gibt es keine Objekte";
+"Widgets.Empty.CreateObject" = "Objekt erstellen";
 "Widgets.Library.RecentlyEdited.Name" = "Zuletzt bearbeitet";
 "Widgets.Library.RecentlyOpened.Name" = "Zuletzt geöffnet";
 "Widgets.Library.RecentlyOpened.Description" = "Auf diesem Gerät";
@@ -975,7 +975,7 @@
 "RequestToJoinNotification.ViewRequest" = "Anfrage ansehen";
 
 // MARK: - Space manager
-"SpaceManager.CancelRequest" = "Cancel Join Request";
+"SpaceManager.CancelRequest" = "Beitrittsanfrage zurückziehen";
 "SpaceManager.DoNotCancel" = "Do Not Cancel";
 "SpaceManager.CancelRequestAlert.Title" = "Du musst die Zugangsanfrage erneut senden";
 "SpaceManager.CancelRequestAlert.Toast" = "Die Anfrage wurde storniert.";
