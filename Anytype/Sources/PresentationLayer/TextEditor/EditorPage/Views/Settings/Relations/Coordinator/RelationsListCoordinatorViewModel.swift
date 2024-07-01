@@ -37,7 +37,13 @@ final class RelationsListCoordinatorViewModel:
             excludedRelationsIds: document.parsedRelations.installedInObject.map(\.id),
             target: .object, 
             onRelationSelect: { relationDetails, isNew in
-                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .menu, spaceId: document.spaceId)
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
+                    format: relationDetails.format,
+                    isNew: isNew,
+                    type: .menu,
+                    key: relationDetails.analyticsKey,
+                    spaceId: document.spaceId
+                )
             }
         )
     }
