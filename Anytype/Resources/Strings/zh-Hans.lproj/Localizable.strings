@@ -617,7 +617,7 @@
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
 "Node is not connected" = "节点未连接";
 "Initializing sync" = "初始化同步中";
-"Not syncing" = "尚未同步";
+"Incompatible version" = "不兼容版本";
 "Synced" = "已同步";
 "Syncing..." = "同步中...";
 "No connection" = "没有连接";
