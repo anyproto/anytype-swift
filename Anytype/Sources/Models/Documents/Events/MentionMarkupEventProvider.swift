@@ -90,7 +90,11 @@ final class MentionMarkupEventProvider {
     
     private func mentionRange(in string: String, range: Anytype_Model_Range) -> Range<String.Index>? {
         guard range.from < string.count, range.to <= string.count else {
-            anytypeAssertionFailure("Index out of bounds", info: ["range": "\(range)"])
+            anytypeAssertionFailure("Index out of bounds", info: [
+                "range from": "\(range.from)",
+                "range to": "\(range.to)",
+                "string lenght": "\(string.count)"
+            ])
             return nil
         }
         let from = string.index(string.startIndex, offsetBy: Int(range.from))
