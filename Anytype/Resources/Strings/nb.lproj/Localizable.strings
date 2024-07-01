@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
 "Node is not connected" = "Noden er ikke tilkoblet";
 "Initializing sync" = "Initialiserer synkronisering";
-"Not syncing" = "Synkroniserer ikke";
+"Incompatible version" = "Ukompatibel versjon";
 "Synced" = "Synkronisert";
 "Syncing..." = "Synkroniserer...";
 "No connection" = "Ingen tilkobling";

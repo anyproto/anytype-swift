@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Ladataan dataa solmuun tai solmusta";
 "Node is not connected" = "Solmu ei ole yhteydessä";
 "Initializing sync" = "Käynnistetään synkronointia";
-"Not syncing" = "Ei synkronoida";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Synkronoitu";
 "Syncing..." = "Synkronoidaan...";
 "No connection" = "Ei yhteyttä";

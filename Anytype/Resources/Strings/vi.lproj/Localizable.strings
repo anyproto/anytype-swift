@@ -617,7 +617,7 @@
 "Downloading or uploading data to some node" = "Đang tải dữ liệu về hoặc lên điểm nào đó";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Đang khởi tạo đồng bộ";
-"Not syncing" = "Chưa đồng bộ";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Đã đồng bộ";
 "Syncing..." = "Đang đồng bộ...";
 "No connection" = "Không có kết nối";

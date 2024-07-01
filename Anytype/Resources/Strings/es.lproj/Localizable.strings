@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Descargando o cargando datos a algún nodo";
 "Node is not connected" = "El nodo no está conectado";
 "Initializing sync" = "Inicializando sincronización";
-"Not syncing" = "No sincronizando";
+"Incompatible version" = "Versión incompatible";
 "Synced" = "Sincronizado";
 "Syncing..." = "Sincronizando…";
 "No connection" = "No hay conexión";
