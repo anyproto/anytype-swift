@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
 "Node is not connected" = "Simpul tidak terhubung";
 "Initializing sync" = "Memulai sinkron";
-"Not syncing" = "Tidak menyinkron";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Tersinkron";
 "Syncing..." = "Menyinkronkan...";
 "No connection" = "Tak ada koneksi";
