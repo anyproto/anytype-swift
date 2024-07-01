@@ -27,10 +27,16 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Injected(\.pasteboardHelper)
     private var pasteboardHelper: any PasteboardHelperProtocol
     @Injected(\.textRelationActionViewModelBuilder)
-    private var builder:TextRelationActionViewModelBuilder
+    private var builder: TextRelationActionViewModelBuilder
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    
+    private let initialText: String
     
     init(data: TextRelationEditingViewData) {
-        self.text = data.text ?? ""
+        let initialText = data.text ?? ""
+        self.text = initialText
+        self.initialText = initialText
         self.config = data.config
         self.type = data.type
         self.textFocused = data.config.isEditable
@@ -51,11 +57,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     func onDisappear() {
         guard config.isEditable else { return }
-        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
-            isEmpty: text.isEmpty,
-            type: config.analyticsType,
-            spaceId: config.spaceId
-        )
+        logChangeOrDeleteRelationValue()
     }
     
     func onClear() {
@@ -105,6 +107,20 @@ final class TextRelationEditingViewModel: ObservableObject {
             AnytypeAnalytics.instance().logRelationUrlEditMobile()
         default:
             break
+        }
+    }
+    
+    private func logChangeOrDeleteRelationValue() {
+        guard initialText != text else { return }
+        Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
+            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                isEmpty: text.isEmpty,
+                format: relationDetails.format,
+                type: config.analyticsType,
+                key: relationDetails.analyticsKey,
+                spaceId: config.spaceId
+            )
         }
     }
 }

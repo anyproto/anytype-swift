@@ -6,4 +6,8 @@ extension RelationDetails {
         guard let keyType = BundledRelationKey(rawValue: key) else { return true }
         return !BundledRelationKey.internalKeys.contains(keyType) && !isHidden && !isReadOnlyValue
     }
+    
+    var analyticsKey: AnalyticsRelationKey {
+        sourceObject.isNotEmpty ? .system(key: sourceObject) : .custom
+    }
 }
