@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Загрузка или выгрузка данных в узел";
 "Node is not connected" = "Узел не подключен";
 "Initializing sync" = "Инициализация синхронизации";
-"Not syncing" = "Не синхронизируется";
+"Incompatible version" = "Несовместимая версия";
 "Synced" = "Синхронизировано";
 "Syncing..." = "Синхронизация...";
 "No connection" = "Нет соединения";
