@@ -6,37 +6,16 @@ struct SyncStatusData {
     let networkId: String
     let isHidden: Bool
     
-    var title: String {
-        guard networkId.isNotEmpty else { return Loc.SyncStatus.LocalOnly.title }
-        switch status {
-        case .unknown:
-            return Loc.preparing
-        case .offline:
-            return Loc.noConnection
-        case .syncing:
-            return Loc.syncing
-        case .synced:
-            return Loc.synced
-        case .failed, .incompatibleVersion, .UNRECOGNIZED:
-            return Loc.notSyncing
-        }
-    }
+    var isLocalOnly: Bool { networkId.isEmpty }
+    var isNotLocalOnly: Bool { !isLocalOnly }
     
-    var description: String {
-        guard networkId.isNotEmpty else { return Loc.SyncStatus.LocalOnly.description }
+    var title: String {
+        guard isNotLocalOnly else { return "" }
         switch status {
-        case .unknown:
-            return Loc.initializingSync
-        case .offline:
-            return Loc.nodeIsNotConnected
-        case .syncing:
-            return Loc.downloadingOrUploadingDataToSomeNode
-        case .synced:
-            return syncedDescription
-        case .failed:
-            return Loc.failedToSyncTryingAgain
+        case .unknown, .offline, .syncing, .synced, .failed:
+            return ""
         case .incompatibleVersion, .UNRECOGNIZED:
-            return Loc.Sync.Status.Version.Outdated.description
+            return Loc.incompatibleVersion
         }
     }
     
@@ -52,26 +31,20 @@ struct SyncStatusData {
     }
     
     private var color: UIColor? {
-        guard networkId.isNotEmpty else { return nil }
+        guard isNotLocalOnly else {
+            return UIColor.Button.active
+        }
         switch status {
         case .failed, .incompatibleVersion:
             return UIColor.System.red
         case .syncing:
-            return UIColor.System.amber100
+            return UIColor.System.green // TODO: Add animation
         case .synced:
             return UIColor.System.green
-        case .unknown, .offline, .UNRECOGNIZED:
-            return nil
-        }
-    }
-    
-    private var syncedDescription: String {
-        if networkId == NetworkIds.anytype {
-            return Loc.SyncStatus.Synced.Anytype.description
-        } else if networkId == NetworkIds.anytypeStaging {
-            return Loc.SyncStatus.Synced.AnytypeStaging.description
-        } else {
-            return Loc.SyncStatus.Synced.SelfHosted.description
+        case .offline:
+            return UIColor.Button.active
+        case .unknown, .UNRECOGNIZED:
+            return UIColor.Button.active // TODO: Add animation
         }
     }
 }
