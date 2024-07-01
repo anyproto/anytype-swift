@@ -4,16 +4,22 @@ import AnytypeCore
 struct DashboardWallpaper: View {
     
     let wallpaper: BackgroundType
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        Group {
+        ZStack {
             switch wallpaper {
             case .color(let color):
-                Color(hex: color.data.hex).ignoresSafeArea()
+                Color(hex: color.data.hex)
             case .gradient(let gradient):
-                gradient.data.asLinearGradient().ignoresSafeArea()
+                gradient.data.asLinearGradient()
+            }
+            
+            if colorScheme == .dark {
+                Color.black.opacity(0.5)
             }
         }
+        .ignoresSafeArea()
     }
 }
 

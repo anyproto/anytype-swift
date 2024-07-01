@@ -46,6 +46,10 @@ public extension FeatureFlags {
         value(for: .widgetCreateWithoutType)
     }
 
+    static var updateAlert: Bool {
+        value(for: .updateAlert)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -106,6 +110,7 @@ public extension FeatureFlags {
         .setEmptyValuesSorting,
         .galleryWidget,
         .widgetCreateWithoutType,
+        .updateAlert,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

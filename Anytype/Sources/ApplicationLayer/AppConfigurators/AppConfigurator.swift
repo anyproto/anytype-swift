@@ -15,7 +15,8 @@ final class AppConfigurator {
         AudioPlaybackConfigurator(),
         iCloudBackupConfigurator(),
         ViewProvidersConfigurator(),
-        TipsConfiguration()
+        TipsConfiguration(),
+        GlobalServicesConfiguration()
     ]
 
     func configure() {

@@ -132,6 +132,11 @@ internal enum Asset {
     static let yellowStart = ColorAsset(name: "CoverGradients/yellowStart")
   }
   internal enum Gradients {
+    internal enum UpdateAlert {
+      static let darkBlue = ColorAsset(name: "Gradients/UpdateAlert/darkBlue")
+      static let green = ColorAsset(name: "Gradients/UpdateAlert/green")
+      static let lightBlue = ColorAsset(name: "Gradients/UpdateAlert/lightBlue")
+    }
     static let fadingBlue = ColorAsset(name: "Gradients/fadingBlue")
     static let fadingGreen = ColorAsset(name: "Gradients/fadingGreen")
     static let fadingPink = ColorAsset(name: "Gradients/fadingPink")

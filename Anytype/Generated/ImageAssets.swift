@@ -125,6 +125,7 @@ internal extension ImageAsset {
     static let search = ImageAsset.bundle(name: "x18/Search")
     static let setOrCollection = ImageAsset.bundle(name: "x18/Set Or Collection")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
+    static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     static let webLink = ImageAsset.bundle(name: "x18/Web link")
   }
   enum X19 {

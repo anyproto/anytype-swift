@@ -138,6 +138,13 @@ extension UIColor {
     
     // MARK: - Gradients
     enum Gradients {
+      
+      // MARK: - UpdateAlert
+      enum UpdateAlert {
+        internal static let darkBlue = UIColor(asset: Asset.Gradients.UpdateAlert.darkBlue)
+        internal static let green = UIColor(asset: Asset.Gradients.UpdateAlert.green)
+        internal static let lightBlue = UIColor(asset: Asset.Gradients.UpdateAlert.lightBlue)
+      }
       internal static let fadingBlue = UIColor(asset: Asset.Gradients.fadingBlue)
       internal static let fadingGreen = UIColor(asset: Asset.Gradients.fadingGreen)
       internal static let fadingPink = UIColor(asset: Asset.Gradients.fadingPink)

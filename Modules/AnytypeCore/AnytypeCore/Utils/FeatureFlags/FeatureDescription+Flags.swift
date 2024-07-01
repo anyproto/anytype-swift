@@ -57,12 +57,17 @@ public extension FeatureDescription {
     static let galleryWidget = FeatureDescription(
         title: "Gallery Widget - IOS-2964",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: false,
-        debugValue: true
+        defaultValue: true
     )
     
     static let widgetCreateWithoutType = FeatureDescription(
         title: "Create widget without type - IOS-3049",
+        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
+        defaultValue: true
+    )
+    
+    static let updateAlert = FeatureDescription(
+        title: "Update Alert - IOS-3054",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
         defaultValue: true
     )

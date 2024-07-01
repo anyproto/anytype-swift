@@ -20,6 +20,8 @@ private struct URLViewModifier: ViewModifier {
                 
                 if let universalLink = universalLinkParser.parse(url: fixedUrl) {
                     appActionStorage.action = .deepLink(universalLink.toDeepLink())
+                } else if fixedUrl.host() == AppLinks.storeHost {
+                    openURL(currentUrl)
                 } else if fixedUrl.containsHttpProtocol {
                     safariUrl = fixedUrl
                 } else {

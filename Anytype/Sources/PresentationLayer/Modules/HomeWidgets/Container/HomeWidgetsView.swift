@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
@@ -28,6 +29,9 @@ private struct HomeWidgetsInternalView: View {
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {
+                        if FeatureFlags.updateAlert {
+                            HomeUpdateSubmoduleView()
+                        }
                         SpaceWidgetView {
                             model.onSpaceSelected()
                         }

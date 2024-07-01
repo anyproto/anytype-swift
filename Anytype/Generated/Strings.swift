@@ -1842,6 +1842,7 @@ internal enum Loc {
     }
   }
   internal enum Widgets {
+    internal static let appUpdate = Loc.tr("Localizable", "Widgets.AppUpdate")
     internal static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch")
     internal enum Actions {
       internal static let addBelow = Loc.tr("Localizable", "Widgets.Actions.AddBelow")
