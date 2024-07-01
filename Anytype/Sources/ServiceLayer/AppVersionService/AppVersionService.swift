@@ -39,7 +39,7 @@ actor AppVersionService: AppVersionServiceProtocol {
         let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
         
-        let result = try decoder.decode(LoolupResponse.self, from: data)
+        let result = try decoder.decode(LookupResponse.self, from: data)
         
         guard let newAppVersion = result.results.first?.version else { return }
         

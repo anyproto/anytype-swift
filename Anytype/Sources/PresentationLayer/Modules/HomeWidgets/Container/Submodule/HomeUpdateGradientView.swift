@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeUpdateGradient: View, Animatable {
     
-    var locationState: CGFloat
+    var percent: CGFloat
     
     var body: some View {
         LinearGradient(
@@ -25,23 +25,23 @@ struct HomeUpdateGradient: View, Animatable {
     }
     
     var animatableData: CGFloat {
-        get { locationState }
-        set { locationState = newValue }
+        get { percent }
+        set { percent = newValue }
     }
     
     private var locationOffset: CGFloat {
-        locationState.truncatingRemainder(dividingBy: 3)
+        (percent * 3).truncatingRemainder(dividingBy: 3)
     }
 }
 
 #Preview {
     VStack {
-        HomeUpdateGradient(locationState: 0)
-        HomeUpdateGradient(locationState: 0.5)
-        HomeUpdateGradient(locationState: 1)
-        HomeUpdateGradient(locationState: 1.5)
-        HomeUpdateGradient(locationState: 2)
-        HomeUpdateGradient(locationState: 2.5)
-        HomeUpdateGradient(locationState: 3)
+        HomeUpdateGradient(percent: 0)
+        HomeUpdateGradient(percent: 1/6)
+        HomeUpdateGradient(percent: 2/6)
+        HomeUpdateGradient(percent: 3/6)
+        HomeUpdateGradient(percent: 4/6)
+        HomeUpdateGradient(percent: 5/6)
+        HomeUpdateGradient(percent: 1)
     }
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-struct LoolupResponse: Codable {
+struct LookupResponse: Codable {
     let results: [LookupResult]
 }
 

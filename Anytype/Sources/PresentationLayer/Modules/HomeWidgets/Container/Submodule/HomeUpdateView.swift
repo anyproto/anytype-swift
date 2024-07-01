@@ -3,7 +3,7 @@ import SwiftUI
 
 struct HomeUpdateView: View, Animatable {
     
-    @State private var locationState = CGFloat(0)
+    @State private var gradientPercent = CGFloat(0)
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -19,11 +19,12 @@ struct HomeUpdateView: View, Animatable {
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 4).delay(0.5)) {
-                locationState = 6
+                // Two times. 200%
+                gradientPercent = 2
             }
         }
         .background {
-            HomeUpdateGradient(locationState: locationState)
+            HomeUpdateGradient(percent: gradientPercent)
         }
         .cornerRadius(10, style: .continuous)
         .colorScheme(.light)
@@ -32,7 +33,7 @@ struct HomeUpdateView: View, Animatable {
 
 struct HomeUpdatePreviewView: View {
     
-    // Update id for initiate onAppea
+    // Update id for initiate onAppear
     @State private var id = UUID()
     
     var body: some View {
