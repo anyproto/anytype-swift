@@ -18,6 +18,8 @@ final class RelationsListViewModel: ObservableObject {
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     private weak var output: (any RelationsListModuleOutput)?
     
@@ -70,12 +72,13 @@ extension RelationsListViewModel {
     
     private func changeRelationFeaturedState(relation: Relation) {
         Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
             if relation.isFeatured {
-                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId)
                 try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
             } else {
-                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId)
                 try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
             }
         }
         UISelectionFeedbackGenerator().selectionChanged()
@@ -87,8 +90,9 @@ extension RelationsListViewModel {
     
     func removeRelation(relation: Relation) {
         Task {
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId)
             try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
         }
     }
     

@@ -44,6 +44,8 @@ enum AnalyticsEventsPropertiesKey {
     static let middleTime = "middleTime"
     static let permissions = "permissions"
     static let spaceType = "spaceType"
+    
+    static let relationKey = "relationKey"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -132,6 +134,20 @@ enum AnalyticsObjectType {
             return fileExt
         case .custom:
             return AnalyticsEventsTypeValues.customType
+        }
+    }
+}
+
+enum AnalyticsRelationKey {
+    case system(key: String)
+    case custom
+    
+    var value: String {
+        switch self {
+        case .system(let key):
+            return key
+        case .custom:
+            return "custom"
         }
     }
 }

@@ -17,6 +17,8 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
     
     @Injected(\.relationsService)
     private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     nonisolated init() {}
     
@@ -40,14 +42,17 @@ fileprivate final class RelationValueProcessingService: RelationValueProcessingS
             )
         case .checkbox(let checkbox):
             guard relation.isEditable else { return nil }
-            let newValue = !checkbox.value
-            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
-                isEmpty: !newValue,
-                type: analyticsType,
-                spaceId: objectDetails.spaceId
-            )
             Task {
+                let newValue = !checkbox.value
                 try await relationsService.updateRelation(objectId: objectDetails.id, relationKey: checkbox.key, value: newValue.protobufValue)
+                let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: objectDetails.spaceId)
+                AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                    isEmpty: !newValue,
+                    format: relationDetails.format,
+                    type: analyticsType,
+                    key: relationDetails.analyticsKey,
+                    spaceId: objectDetails.spaceId
+                )
             }
         case .unknown:
             return nil
