@@ -22,7 +22,7 @@ public extension BlockInformation {
         let content: BlockContent = .link(
             .init(
                 targetBlockID: targetId,
-                appearance: .init(iconSize: .small, cardStyle: .text, description: .none, relations: [])
+                appearance: .init(iconSize: .small, cardStyle: .card, description: .none, relations: [])
             )
         )
 
