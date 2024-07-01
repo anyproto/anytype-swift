@@ -69,7 +69,13 @@ final class SlashMenuActionHandler {
                 router.showAddNewRelationView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
                     self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
                     
-                    AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .block, spaceId: spaceId)
+                    AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
+                        format: relation.format,
+                        isNew: isNew,
+                        type: .block,
+                        key: relation.analyticsKey,
+                        spaceId: spaceId
+                    )
                 }
             case .relation(let relation):
                 actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)
