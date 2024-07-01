@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Pobieranie lub przesyłanie danych do jakiegoś węzła";
 "Node is not connected" = "Węzeł nie jest połączony";
 "Initializing sync" = "Inicjowanie synchronizacji";
-"Not syncing" = "Brak synchronizacji";
+"Incompatible version" = "Niekompatybilna wersja";
 "Synced" = "Zsynchronizowano";
 "Syncing..." = "Synchronizowanie...";
 "No connection" = "Brak połączenia";

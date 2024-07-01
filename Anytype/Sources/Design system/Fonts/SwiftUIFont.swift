@@ -3,8 +3,7 @@ import SwiftUI
 
 struct AnytypeFontBuilder {
     static func font(name: AnytypeFontConfig.Name, size: CGFloat, weight: Font.Weight) -> Font {
-        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
-        return Font.custom(name.rawValue, size: scaledSize).weight(weight)
+        return Font.custom(name.rawValue, size: size).weight(weight)
     }
 
     static func font(anytypeFont: AnytypeFont) -> Font {

@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Загрузка ці выгрузка даных у вузел";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініцыялізацыя сінхранізацыі";
-"Not syncing" = "Не сінхранізуецца";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Сінхранізавана";
 "Syncing..." = "Сінхранізацыя...";
 "No connection" = "Няма злучэння";

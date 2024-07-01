@@ -2872,6 +2872,30 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Debug.AccountSelectTrace.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Debug.AccountSelectTrace.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -2938,6 +2962,30 @@ extension Anytype_Rpc.Debug.Ping.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "Debug.Ping.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Debug.Ping.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Debug.RunProfiler.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Debug.RunProfiler.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Debug.RunProfiler.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

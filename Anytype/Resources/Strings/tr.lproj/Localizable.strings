@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Senkronizasyon başlatılıyor";
-"Not syncing" = "Senkronize edilmiyor";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Senkronize edildi";
 "Syncing..." = "Senkronize ediliyor...";
 "No connection" = "Bağlantı yok";

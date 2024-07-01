@@ -145,10 +145,9 @@ struct UIKitFontBuilder {
             return cacheFont
         }
         
-        let scaledSize = UIFontMetrics.default.scaledValue(for: size)
         var descriptor = UIFontDescriptor(fontAttributes: [
             attributeKey(name: name): name.rawValue,
-            UIFontDescriptor.AttributeName.size: scaledSize,
+            UIFontDescriptor.AttributeName.size: size,
         ])
 
         descriptor = descriptor.addingAttributes(
@@ -157,7 +156,7 @@ struct UIKitFontBuilder {
             ]
         )
 
-        let font = UIFont(descriptor: descriptor, size: scaledSize)
+        let font = UIFont(descriptor: descriptor, size: size)
         fontCache[fontCacheKey] = font
         
         return font

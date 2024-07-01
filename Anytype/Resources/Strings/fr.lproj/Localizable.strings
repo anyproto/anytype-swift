@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Téléchargement ou envoi de données vers un nœud";
 "Node is not connected" = "Le noeud n'est pas connecté";
 "Initializing sync" = "Initialisation de la synchronisation";
-"Not syncing" = "Non synchronisé";
+"Incompatible version" = "Version incompatible";
 "Synced" = "Synchronisé";
 "Syncing..." = "Synchronisation en cours...";
 "No connection" = "Pas de connexion";
@@ -809,8 +809,8 @@
 "Widgets.Layout.List.Description" = "Widget avec vue en liste d'un set d'objets";
 "Widgets.Layout.View.Description" = "Widget avec vue d'un set d'objets";
 "Widgets.Layout.CompactList.Description" = "Widget avec vue en liste d'un set d'objets";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Empty.Title" = "Il n'y a aucun objet ici";
+"Widgets.Empty.CreateObject" = "Créer un Objet";
 "Widgets.Library.RecentlyEdited.Name" = "Récemment modifié";
 "Widgets.Library.RecentlyOpened.Name" = "Récemment ouvert";
 "Widgets.Library.RecentlyOpened.Description" = "Sur cet appareil";
