@@ -617,7 +617,7 @@
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Synced";
 "Syncing..." = "Syncing...";
 "No connection" = "No connection";
