@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Gegevens downloaden of uploaden naar een node";
 "Node is not connected" = "Node is niet verbonden";
 "Initializing sync" = "Synchronisatie wordt opgestart";
-"Not syncing" = "Niet aan het synchroniseren";
+"Incompatible version" = "Niet-compatibele versie";
 "Synced" = "Gesynchroniseerd";
 "Syncing..." = "Aan het synchroniseren...";
 "No connection" = "Geen verbinding";
