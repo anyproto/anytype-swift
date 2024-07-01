@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Téléchargement ou envoi de données vers un nœud";
 "Node is not connected" = "Le noeud n'est pas connecté";
 "Initializing sync" = "Initialisation de la synchronisation";
-"Not syncing" = "Non synchronisé";
+"Incompatible version" = "Version incompatible";
 "Synced" = "Synchronisé";
 "Syncing..." = "Synchronisation en cours...";
 "No connection" = "Pas de connexion";
