@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Herunterladen oder Hochladen von Daten zu einem Knoten";
 "Node is not connected" = "Knoten ist nicht verbunden";
 "Initializing sync" = "Initialisiere Synchronisation";
-"Not syncing" = "Nicht synchronisiert";
+"Incompatible version" = "Inkompatible Version";
 "Synced" = "Synchronisiert";
 "Syncing..." = "Synchronisiere...";
 "No connection" = "Keine Verbindung";
