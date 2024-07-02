@@ -20,15 +20,6 @@ struct EditorBarItemState: Equatable {
         }
         return .Button.active
     }
-
-    var hiddableTextColor: UIColor {
-        let color: UIColor = haveBackground ? .Text.white : .Text.secondary
-        return color.withAlphaComponent(1 - opacity)
-    }
-    
-    var textIsHidden: Bool {
-        return opacity == 1.0
-    }
     
     static var initial = EditorBarItemState(haveBackground: false, opacity: 0)
 }

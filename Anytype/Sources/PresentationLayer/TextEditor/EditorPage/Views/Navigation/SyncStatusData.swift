@@ -9,15 +9,6 @@ struct SyncStatusData {
     var isLocalOnly: Bool { networkId.isEmpty }
     var isNotLocalOnly: Bool { !isLocalOnly }
     
-    var title: String {
-        guard isNotLocalOnly else { return "" }
-        switch status {
-        case .unknown, .offline, .syncing, .synced, .failed:
-            return ""
-        case .incompatibleVersion, .UNRECOGNIZED:
-            return Loc.incompatibleVersion
-        }
-    }
     
     var image: UIImage? {
         guard let color else { return nil }
