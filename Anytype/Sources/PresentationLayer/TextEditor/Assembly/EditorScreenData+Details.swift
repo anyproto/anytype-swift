@@ -4,7 +4,7 @@ import Services
 // MARK: - Init helpers
 
 extension EditorScreenData {
-    init(details: ObjectDetails, isOpenedForPreview: Bool = false, blockId: String? = nil) {
+    init(details: ObjectDetails, isOpenedForPreview: Bool = false, blockId: String? = nil, activeViewId: String? = nil) {
         switch details.editorViewType {
         case .page:
             self = .page(EditorPageObject(
@@ -13,7 +13,10 @@ extension EditorScreenData {
                 blockId: blockId
             ))
         case .set:
-            self = .set(EditorSetObject(details: details))
+            self = .set(EditorSetObject(
+                details: details,
+                activeViewId: activeViewId
+            ))
         }
     }
 }
@@ -34,9 +37,10 @@ extension EditorPageObject {
 }
 
 extension EditorSetObject {
-    init(details: ObjectDetails) {
+    init(details: ObjectDetails, activeViewId: String? = nil) {
         self.objectId = details.id
         self.spaceId = details.spaceId
+        self.activeViewId = activeViewId
         self.inline = nil
     }
 }
