@@ -815,6 +815,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Được sửa gần đây";
 "Widgets.Library.RecentlyOpened.Name" = "Được mở gần đây";
 "Widgets.Library.RecentlyOpened.Description" = "Trên thiết bị này";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";

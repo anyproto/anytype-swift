@@ -814,6 +814,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
 "Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";

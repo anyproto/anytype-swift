@@ -814,6 +814,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Нещодавно відредаговані";
 "Widgets.Library.RecentlyOpened.Name" = "Нещодавно відкриті";
 "Widgets.Library.RecentlyOpened.Description" = "На цьому пристрої";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Версія застосунку: %@";
