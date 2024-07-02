@@ -814,6 +814,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Onlangs bewerkt";
 "Widgets.Library.RecentlyOpened.Name" = "Onlangs geopend";
 "Widgets.Library.RecentlyOpened.Description" = "Op dit apparaat";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "App versie: %@";
