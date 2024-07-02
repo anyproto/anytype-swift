@@ -16,6 +16,8 @@ final class EditorSetViewModel: ObservableObject {
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
     
+    private var externalActiveViewId: String?
+    
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = []
     
@@ -186,6 +188,7 @@ final class EditorSetViewModel: ObservableObject {
             ),
             output: output
         )
+        self.externalActiveViewId = data.activeViewId
         self.titleString = setDocument.details?.pageCellTitle ?? ""
         self.output = output
         self.setup()
@@ -208,16 +211,22 @@ final class EditorSetViewModel: ObservableObject {
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
-                try await self.setDocument.open()
-                self.loadingDocument = false
-                await self.onDataviewUpdate()
-                self.logModuleScreen()
+                try await setDocument.open()
+                updateWithExternalActiveViewIdIfNeeded()
+                loadingDocument = false
+                await onDataviewUpdate()
+                logModuleScreen()
             } catch ObjectOpenError.anytypeNeedsUpgrade {
                 showUpdateAlert = true
             } catch {
                 showCommonOpenError = true
             }
         }
+    }
+    
+    func updateWithExternalActiveViewIdIfNeeded() {
+        guard let externalActiveViewId else { return }
+        setDocument.updateActiveViewIdAndReload(externalActiveViewId)
     }
     
     func logModuleScreen() {
