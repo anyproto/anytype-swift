@@ -1,6 +1,11 @@
 import Services
 import UIKit
 
+enum SyncStatusIconType {
+    case image(UIImage)
+    case animation(UIImage, UIImage)
+}
+
 struct SyncStatusData {
     let status: SyncStatus
     let networkId: String
@@ -9,43 +14,39 @@ struct SyncStatusData {
     var isLocalOnly: Bool { networkId.isEmpty }
     var isNotLocalOnly: Bool { !isLocalOnly }
     
-    var title: String {
-        guard isNotLocalOnly else { return "" }
+    var icon: SyncStatusIconType {
+        guard isNotLocalOnly else {
+            return .image(makeIcon(color: .Button.active))
+        }
+        
         switch status {
-        case .unknown, .offline, .syncing, .synced, .failed:
-            return ""
-        case .incompatibleVersion, .UNRECOGNIZED:
-            return Loc.incompatibleVersion
+        case .failed, .incompatibleVersion:
+            return .image(makeIcon(color: .System.red))
+        case .syncing:
+            return .animation(
+                makeIcon(color: .System.green, diameter: 8),
+                UIImage(asset: ImageAsset.SyncStatus.syncInProgress) ?? UIImage()
+            )
+        case .synced:
+            return .image(makeIcon(color: .System.green))
+        case .offline:
+            return .image(makeIcon(color: .Button.active))
+        case .unknown, .UNRECOGNIZED:
+            return .animation(
+                makeIcon(color: .Button.active, diameter: 8),
+                UIImage(asset: ImageAsset.SyncStatus.syncStaring) ?? UIImage()
+            )
         }
     }
     
-    var image: UIImage? {
-        guard let color else { return nil }
-        return ImageBuilder(
+    private func makeIcon(color: UIColor, diameter: Double = 10) -> UIImage {
+        ImageBuilder(
             ImageGuideline(
-                size: CGSize(width: 10, height: 10),
-                radius: .point(5)
+                size: CGSize(width: diameter, height: diameter),
+                radius: .point(diameter/2)
             )
         )
         .setImageColor(color).build()
-    }
-    
-    private var color: UIColor? {
-        guard isNotLocalOnly else {
-            return UIColor.Button.active
-        }
-        switch status {
-        case .failed, .incompatibleVersion:
-            return UIColor.System.red
-        case .syncing:
-            return UIColor.System.green // TODO: Add animation
-        case .synced:
-            return UIColor.System.green
-        case .offline:
-            return UIColor.Button.active
-        case .unknown, .UNRECOGNIZED:
-            return UIColor.Button.active // TODO: Add animation
-        }
     }
 }
 

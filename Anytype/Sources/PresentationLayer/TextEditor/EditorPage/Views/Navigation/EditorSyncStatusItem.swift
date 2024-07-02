@@ -2,7 +2,6 @@ import UIKit
 import Services
 
 final class EditorSyncStatusItem: UIView {
-    private let backgroundView = UIView()
     private let button: UIButton = {
         let configuration = UIButton.Configuration.plain()
         
@@ -10,33 +9,14 @@ final class EditorSyncStatusItem: UIView {
     }()
     
     private var statusData: SyncStatusData?
-    private var state = EditorBarItemState.initial
     
     private let height: CGFloat = 28
+    private let width: CGFloat = 28
     private var intristicSize: CGSize = .zero
-    
-    private func buttonAttributedString(with title: String?, textColor: UIColor) -> AttributedString {
-        AttributedString(
-            title ?? "",
-            attributes: AttributeContainer([
-                NSAttributedString.Key.font: AnytypeFont.caption1Regular.uiKitFont,
-                NSAttributedString.Key.foregroundColor: textColor
-            ])
-        )
-    }
-    
-    func changeState(_ state: EditorBarItemState) {
-        self.state = state
-        updateState()
-        updateIntristicSize()
-    }
     
     func changeStatusData(_ statusData: SyncStatusData) {
         self.statusData = statusData
-        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve) {
-            self.updateButtonState()
-        }
-        updateIntristicSize()
+        self.updateButtonState()
     }
     
     init(statusData: SyncStatusData? = nil) {
@@ -52,64 +32,50 @@ final class EditorSyncStatusItem: UIView {
     // MARK: - Private
     
     private func setup() {
-        backgroundView.backgroundColor = .black.withAlphaComponent(0.35)
-        backgroundView.layer.cornerRadius = 7
-        
-        button.setImageAndTitleSpacing(6)
         button.showsMenuAsPrimaryAction = true
         
         updateButtonState()
         
         layoutUsing.anchors {
             $0.height.equal(to: height)
+            $0.width.equal(to: width)
             $0.centerY.equal(to: centerYAnchor)
         }
         
-        addSubview(backgroundView) {
-            $0.pinToSuperview()
-        }
-        
-        addSubview(button) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 9, bottom: 0, right: 10))
-        }
-        button.setContentCompressionResistancePriority(.required, for: .horizontal)
-        setContentHuggingPriority(.required, for: .vertical)
+        addSubview(button) { $0.pinToSuperview() }
     }
     
     private func updateButtonState() {
-        updateTitle()
-        var configuration = button.configuration
-        
-        configuration?.image = statusData?.image
-        button.configuration = configuration
         isHidden = statusData?.isHidden ?? true
-    }
-    
-    private func updateState() {
-        backgroundView.alpha = state.backgroundAlpha
-        updateTitle()
-    }
-    
-    private func updateTitle() {
-        var configuration = button.configuration
+        button.layer.removeAllAnimations()
         
-        button.setTitleColor(state.hiddableTextColor, for: .normal)
-
-        configuration?.attributedTitle = buttonAttributedString(
-            with: state.textIsHidden ? nil : statusData?.title,
-            textColor: state.hiddableTextColor
-        )
-        
-        button.configuration = configuration
+        switch statusData?.icon {
+        case .image(let newImage):
+            animateImageChange(newImage)
+        case .animation(let animationStart, let animationEnd):
+            animateImageChange(animationStart)
+            startRepeatingAnimation(animationEnd)
+        case nil:
+            button.setImage(nil, for: .normal)
+        }
     }
     
-    private func updateIntristicSize() {
-        intristicSize = systemLayoutSizeFitting(
-            CGSize(width: .zero, height: height),
-            withHorizontalFittingPriority: .defaultHigh,
-            verticalFittingPriority: .fittingSizeLevel
-        )
-        invalidateIntrinsicContentSize()
+    private func animateImageChange(_ newImage: UIImage) {
+        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve]) {
+            self.button.setImage(newImage, for: .normal)
+        }
+    }
+    
+    private func startRepeatingAnimation(_ newImage: UIImage) {
+        Task { @MainActor [weak self, statusData] in
+            guard let self else { return }
+            guard self.statusData?.status == statusData?.status else { return }
+            
+            button.layer.removeAllAnimations()
+            UIView.transition(with: button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat]) {
+                self.button.setImage(newImage, for: .normal)
+            }
+        }
     }
     
     // MARK: - Unavailable
