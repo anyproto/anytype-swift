@@ -72,6 +72,12 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let addFilesToGlobalSearch = FeatureDescription(
+        title: "Add files to global search - IOS-3081",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "6"),
+        defaultValue: true
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
