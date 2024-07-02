@@ -814,6 +814,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Viimeksi muokatut";
 "Widgets.Library.RecentlyOpened.Name" = "Viimeksi avatut";
 "Widgets.Library.RecentlyOpened.Description" = "Laitteella";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
