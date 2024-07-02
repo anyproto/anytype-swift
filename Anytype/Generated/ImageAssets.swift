@@ -390,6 +390,10 @@ internal extension ImageAsset {
     static let numbered = ImageAsset.bundle(name: "StyleBottomSheet/numbered")
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
+  enum SyncStatus {
+    static let syncInProgress = ImageAsset.bundle(name: "SyncStatus/sync_in_progress")
+    static let syncStaring = ImageAsset.bundle(name: "SyncStatus/sync_staring")
+  }
   enum TextEditor {
     enum BlocksOption {
       static let copy = ImageAsset.bundle(name: "TextEditor/BlocksOption/copy")
