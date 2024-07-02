@@ -14,22 +14,9 @@ final class EditorSyncStatusItem: UIView {
     private let width: CGFloat = 28
     private var intristicSize: CGSize = .zero
     
-    private func buttonAttributedString(with title: String?, textColor: UIColor) -> AttributedString {
-        AttributedString(
-            title ?? "",
-            attributes: AttributeContainer([
-                NSAttributedString.Key.font: AnytypeFont.caption1Regular.uiKitFont,
-                NSAttributedString.Key.foregroundColor: textColor
-            ])
-        )
-    }
-    
     func changeStatusData(_ statusData: SyncStatusData) {
         self.statusData = statusData
-        UIView.transition(with: self, duration: 0.3, options: .transitionCrossDissolve) {
-            self.updateButtonState()
-        }
-        updateIntristicSize()
+        self.updateButtonState()
     }
     
     init(statusData: SyncStatusData? = nil) {
@@ -56,23 +43,39 @@ final class EditorSyncStatusItem: UIView {
         }
         
         addSubview(button) { $0.pinToSuperview() }
-        button.setContentCompressionResistancePriority(.required, for: .horizontal)
-        setContentHuggingPriority(.required, for: .vertical)
     }
     
     private func updateButtonState() {
-        var configuration = button.configuration
-        
-        configuration?.image = statusData?.image
-        button.configuration = configuration
         isHidden = statusData?.isHidden ?? true
+        button.layer.removeAllAnimations()
+        
+        switch statusData?.icon {
+        case .image(let newImage):
+            animateImageChange(newImage)
+        case .animation(let animationStart, let animationEnd):
+            animateImageChange(animationStart)
+            startRepeatingAnimation(animationEnd)
+        case nil:
+            button.setImage(nil, for: .normal)
+        }
     }
     
-        
-        
-        button.configuration = configuration
+    private func animateImageChange(_ newImage: UIImage) {
+        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve]) {
+            self.button.setImage(newImage, for: .normal)
+        }
     }
     
+    private func startRepeatingAnimation(_ newImage: UIImage) {
+        Task { @MainActor [weak self, statusData] in
+            guard let self else { return }
+            guard self.statusData?.status == statusData?.status else { return }
+            
+            button.layer.removeAllAnimations()
+            UIView.transition(with: button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat]) {
+                self.button.setImage(newImage, for: .normal)
+            }
+        }
     }
     
     // MARK: - Unavailable
