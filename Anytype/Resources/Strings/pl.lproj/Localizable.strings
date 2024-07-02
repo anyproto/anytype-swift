@@ -814,6 +814,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Ostatnio edytowane";
 "Widgets.Library.RecentlyOpened.Name" = "Niedawno otwarte";
 "Widgets.Library.RecentlyOpened.Description" = "Na tym urządzeniu";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Wersja aplikacji: %@";
