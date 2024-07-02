@@ -814,6 +814,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Nylig endret";
 "Widgets.Library.RecentlyOpened.Name" = "Nylig åpnet";
 "Widgets.Library.RecentlyOpened.Description" = "På denne enheten";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Appversjon: %@";
