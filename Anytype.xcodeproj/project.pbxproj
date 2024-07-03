@@ -330,7 +330,7 @@
 		2A1D2B3E2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D2B3D2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift */; };
 		2A1D375A2C2473F100CCB4DC /* GalleryWidgetShowAllView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1D37592C2473F100CCB4DC /* GalleryWidgetShowAllView.swift */; };
 		2A1DEA592B5EB40C00A00883 /* AccountDeleteError+Localize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1DEA582B5EB40C00A00883 /* AccountDeleteError+Localize.swift */; };
-		2A1F4CBA29B88DBE004516F6 /* SentryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F4CB829B88DBE004516F6 /* SentryConfiguration.swift */; };
+		2A1F4CBA29B88DBE004516F6 /* SentryConfiguratior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F4CB829B88DBE004516F6 /* SentryConfiguratior.swift */; };
 		2A1F4CBB29B88DBE004516F6 /* SentryNonFatalLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F4CB929B88DBE004516F6 /* SentryNonFatalLogger.swift */; };
 		2A1F946E2978208F00E25782 /* ListWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F946D2978208F00E25782 /* ListWidgetView.swift */; };
 		2A1F947E2978312900E25782 /* ViewWidgetTabsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A1F947D2978312900E25782 /* ViewWidgetTabsItemView.swift */; };
@@ -2127,7 +2127,7 @@
 		2A1D2B3D2A42CD0300B07596 /* UIUserInterfaceStyle+Analytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Analytics.swift"; sourceTree = "<group>"; };
 		2A1D37592C2473F100CCB4DC /* GalleryWidgetShowAllView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryWidgetShowAllView.swift; sourceTree = "<group>"; };
 		2A1DEA582B5EB40C00A00883 /* AccountDeleteError+Localize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountDeleteError+Localize.swift"; sourceTree = "<group>"; };
-		2A1F4CB829B88DBE004516F6 /* SentryConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryConfiguration.swift; sourceTree = "<group>"; };
+		2A1F4CB829B88DBE004516F6 /* SentryConfiguratior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryConfiguratior.swift; sourceTree = "<group>"; };
 		2A1F4CB929B88DBE004516F6 /* SentryNonFatalLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SentryNonFatalLogger.swift; sourceTree = "<group>"; };
 		2A1F946D2978208F00E25782 /* ListWidgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetView.swift; sourceTree = "<group>"; };
 		2A1F947D2978312900E25782 /* ViewWidgetTabsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewWidgetTabsItemView.swift; sourceTree = "<group>"; };
@@ -5337,7 +5337,7 @@
 		2A1F4CB729B88DBE004516F6 /* Sentry */ = {
 			isa = PBXGroup;
 			children = (
-				2A1F4CB829B88DBE004516F6 /* SentryConfiguration.swift */,
+				2A1F4CB829B88DBE004516F6 /* SentryConfiguratior.swift */,
 				2A1F4CB929B88DBE004516F6 /* SentryNonFatalLogger.swift */,
 			);
 			path = Sentry;
@@ -12396,7 +12396,7 @@
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				2A0F66552BFBA44800F34BBD /* RecentOpenTreeWidgetSubmoduleView.swift in Sources */,
 				2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */,
-				2A1F4CBA29B88DBE004516F6 /* SentryConfiguration.swift in Sources */,
+				2A1F4CBA29B88DBE004516F6 /* SentryConfiguratior.swift in Sources */,
 				539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
 				127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */,
