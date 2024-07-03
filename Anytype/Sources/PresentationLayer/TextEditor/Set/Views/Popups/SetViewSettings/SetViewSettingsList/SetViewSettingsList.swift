@@ -24,6 +24,9 @@ struct SetViewSettingsList: View {
         .background(Color.Background.secondary)
         .frame(maxHeight: 358)
         .disabled(!model.canEditSetView)
+        .task(id: model.name) {
+            await model.nameChanged()
+        }
     }
     
     private var content: some View {
