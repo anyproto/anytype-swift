@@ -814,7 +814,7 @@
 "Widgets.Library.RecentlyEdited.Name" = "Zuletzt bearbeitet";
 "Widgets.Library.RecentlyOpened.Name" = "Zuletzt geöffnet";
 "Widgets.Library.RecentlyOpened.Description" = "Auf diesem Gerät";
-"Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.AppUpdate" = "Anytype ist bereit zur Aktualisierung";
 
 // MARK: - About
 "About.AppVersion" = "App-Version: %@";
@@ -962,7 +962,7 @@
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "Nach der Genehmigung der Anfrage kannst du die Zugriffsrechte für diese Person festlegen.";
 "SpaceShare.Manage" = "Verwalten";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.Title" = "Du bist bereits Mitglied dieses Spaces.";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Öffne Space";
 
 // MARK: - Permission notification
