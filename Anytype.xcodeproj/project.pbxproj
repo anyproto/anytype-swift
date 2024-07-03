@@ -13485,7 +13485,7 @@
 			repositoryURL = "https://github.com/raspu/Highlightr";
 			requirement = {
 				kind = exactVersion;
-				version = 2.1.2;
+				version = 2.2.0;
 			};
 		};
 		1259300626F3A60B00B115CD /* XCRemoteSwiftPackageReference "Amplitude-iOS" */ = {
