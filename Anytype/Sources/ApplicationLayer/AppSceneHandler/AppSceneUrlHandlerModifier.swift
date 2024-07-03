@@ -13,6 +13,9 @@ private struct AppSceneUrlHandlerModifier: ViewModifier {
                 }
                 return .systemAction(url)
             })
+            .onOpenURL { url in
+                _ = model.onOpenURL(url)
+            }
     }
 }
 
