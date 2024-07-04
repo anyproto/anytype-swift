@@ -288,8 +288,7 @@ extension Container {
         self { MiddlewareEventsListener() }.singleton
     }
     
-    // Should be instantiated per document to avoid data races
     var syncStatusStorage: Factory< any SyncStatusStorageProtocol> {
-        self { SyncStatusStorage() }.unique
+        self { SyncStatusStorage() }.singleton
     }
 }
