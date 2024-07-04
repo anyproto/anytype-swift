@@ -4,7 +4,7 @@ import AnytypeCore
 final class GlobalServicesConfiguration: AppConfiguratorProtocol {
     
     @Injected(\.middlewareEventsListener)
-    private var eventListener: MiddlewareEventsListenerProtocol
+    private var eventListener: any MiddlewareEventsListenerProtocol
     @Injected(\.accountEventHandler)
     private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.fileErrorEventHandler)

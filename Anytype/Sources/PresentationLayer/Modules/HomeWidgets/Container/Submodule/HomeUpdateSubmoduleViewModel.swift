@@ -5,7 +5,7 @@ import SwiftUI
 final class HomeUpdateSubmoduleViewModel: ObservableObject {
     
     @Injected(\.appVersionService)
-    private var appVersionService: AppVersionServiceProtocol
+    private var appVersionService: any AppVersionServiceProtocol
     
     @Published var showUpdateAlert: Bool = false
     @Published var openUrl: URL?
