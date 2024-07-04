@@ -46,10 +46,17 @@ struct MembershipTierSelectionCarousel: View {
         }
         .ignoresSafeArea(.container)
         
-        .onChange(of: selection) { selection in
-            if let tier = allTiers.first(where: { $0.id == selection }) {
-                AnytypeAnalytics.instance().logScreenMembership(tier: tier)
-            }
+        .onAppear {
+            logScreenMembership()
+        }
+        .onChange(of: selection) { _ in
+            logScreenMembership()
+        }
+    }
+    
+    func logScreenMembership() {
+        if let tier = allTiers.first(where: { $0.id == selection }) {
+            AnytypeAnalytics.instance().logScreenMembership(tier: tier)
         }
     }
 }
