@@ -78,6 +78,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let discussions = FeatureDescription(
+        title: "Discussions - IOS-3060",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

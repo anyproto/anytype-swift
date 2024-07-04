@@ -54,6 +54,10 @@ public extension FeatureFlags {
         value(for: .addFilesToGlobalSearch)
     }
 
+    static var discussions: Bool {
+        value(for: .discussions)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -116,6 +120,7 @@ public extension FeatureFlags {
         .widgetCreateWithoutType,
         .updateAlert,
         .addFilesToGlobalSearch,
+        .discussions,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

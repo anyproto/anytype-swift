@@ -10,6 +10,7 @@ enum EditorScreenData: Hashable, Codable {
     case bin
     case page(EditorPageObject)
     case set(EditorSetObject)
+    case discussion
 }
 
 struct EditorPageObject: Hashable, Codable {

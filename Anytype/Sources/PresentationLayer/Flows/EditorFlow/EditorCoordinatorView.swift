@@ -36,6 +36,8 @@ struct EditorCoordinatorView: View {
             EditorPageCoordinatorView(data: data, showHeader: true, setupEditorInput: { _, _ in })
         case .set(let data):
             EditorSetCoordinatorView(data: data)
+        case .discussion:
+            DiscussionCoordinatorView()
         }
     }
 }
