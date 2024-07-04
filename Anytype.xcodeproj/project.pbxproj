@@ -404,6 +404,8 @@
 		2A3AFF552A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3AFF542A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift */; };
 		2A4063652A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4063642A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift */; };
 		2A40F59F2BB1997D00F0220E /* PresentedDismiss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A40F59E2BB1997D00F0220E /* PresentedDismiss.swift */; };
+		2A4191E02C368FB700117FB8 /* DiscussionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4191DF2C368FB700117FB8 /* DiscussionView.swift */; };
+		2A4191E32C368FD800117FB8 /* DiscussionCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4191E22C368FD800117FB8 /* DiscussionCoordinatorView.swift */; };
 		2A41A6782B84E57B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6772B84E57B00EAE6E6 /* DeepLinks */; };
 		2A41A67A2B84E59B00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A6792B84E59B00EAE6E6 /* DeepLinks */; };
 		2A41A68D2B84EBBC00EAE6E6 /* DeepLinks in Frameworks */ = {isa = PBXBuildFile; productRef = 2A41A68C2B84EBBC00EAE6E6 /* DeepLinks */; };
@@ -2201,6 +2203,8 @@
 		2A3AFF542A7CEB9F004F7E09 /* SpaceAccessibility+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SpaceAccessibility+Localization.swift"; sourceTree = "<group>"; };
 		2A4063642A5D9D8A00ECEA79 /* EventBunchSubscribtion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventBunchSubscribtion.swift; sourceTree = "<group>"; };
 		2A40F59E2BB1997D00F0220E /* PresentedDismiss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentedDismiss.swift; sourceTree = "<group>"; };
+		2A4191DF2C368FB700117FB8 /* DiscussionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionView.swift; sourceTree = "<group>"; };
+		2A4191E22C368FD800117FB8 /* DiscussionCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionCoordinatorView.swift; sourceTree = "<group>"; };
 		2A41A6762B84D43C00EAE6E6 /* DeepLinks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = DeepLinks; path = Modules/DeepLinks; sourceTree = "<group>"; };
 		2A4373712906808700A1C4D6 /* InlineMarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdownListener.swift; sourceTree = "<group>"; };
 		2A43EAC62A98A18500DA4AAE /* QuickActionShortcutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionShortcutBuilder.swift; sourceTree = "<group>"; };
@@ -5662,6 +5666,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		2A4191DC2C368F5600117FB8 /* Discussion */ = {
+			isa = PBXGroup;
+			children = (
+				2A4191DF2C368FB700117FB8 /* DiscussionView.swift */,
+			);
+			path = Discussion;
+			sourceTree = "<group>";
+		};
+		2A4191E12C368FC500117FB8 /* DiscussionCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2A4191E22C368FD800117FB8 /* DiscussionCoordinatorView.swift */,
+			);
+			path = DiscussionCoordinator;
+			sourceTree = "<group>";
+		};
 		2A444F9C2C18B244007237B0 /* AppSceneHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -6207,6 +6227,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				2A4191E12C368FC500117FB8 /* DiscussionCoordinator */,
 				3DD112942B95EA0C007682F4 /* MembersipCoordinator */,
 				3D5D0C5A2B8CA6A3005DB879 /* TypeSearchForNewObjectFlow */,
 				2AC4349C2B7A0739006166BF /* SpaceShareCoordinator */,
@@ -6603,6 +6624,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2A4191DC2C368F5600117FB8 /* Discussion */,
 				2AAEAB5B2BD93BF900E88767 /* ForceDeleteAlert */,
 				2AAEAB582BD8004600E88767 /* DashboardClearCacheAlert */,
 				2A80F7662BB47557000B55C6 /* SpaceMoreInfo */,
@@ -11115,6 +11137,7 @@
 				2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */,
 				2A6693732A7104EA007747DD /* BasicIconImageGuideline.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
+				2A4191E32C368FD800117FB8 /* DiscussionCoordinatorView.swift in Sources */,
 				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,
@@ -12243,6 +12266,7 @@
 				2ED9F43F2A8E90E500BE0A6B /* SetViewSettingsCoordinatorViewModel.swift in Sources */,
 				2A44A7B02C2D5FEB00CC2022 /* AppVersionModels.swift in Sources */,
 				2ECB340F2A97A90800E0F9BB /* SetTextView.swift in Sources */,
+				2A4191E02C368FB700117FB8 /* DiscussionView.swift in Sources */,
 				2ABBAED72BF4EE6300EBA8FA /* WidgetObjectListSetsView.swift in Sources */,
 				2A6688952A1CCB3D00D80CED /* AboutViewModel.swift in Sources */,
 				3DA6DBDB2746582300516E75 /* View+ReadSize.swift in Sources */,
