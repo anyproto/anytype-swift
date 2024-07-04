@@ -32,7 +32,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatusData = SyncStatusData(status: .unknown, networkId: "", isHidden: true)
+    @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     
     var isUpdating = false
 
@@ -200,7 +200,7 @@ final class EditorSetViewModel: ObservableObject {
             self?.output?.showIconPicker(document: document)
         }
         
-        syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
+        syncStatusData = SyncStatusData(status: .offline, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
         
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in

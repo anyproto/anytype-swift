@@ -20,7 +20,7 @@ struct SyncStatusData {
         }
         
         switch status {
-        case .failed, .incompatibleVersion:
+        case .error:
             return .image(makeIcon(color: .System.red))
         case .syncing:
             return .animation(
@@ -29,13 +29,8 @@ struct SyncStatusData {
             )
         case .synced:
             return .image(makeIcon(color: .System.green))
-        case .offline:
+        case .offline, .UNRECOGNIZED:
             return .image(makeIcon(color: .Button.active))
-        case .unknown, .UNRECOGNIZED:
-            return .animation(
-                makeIcon(color: .Button.active, diameter: 8),
-                UIImage(asset: ImageAsset.SyncStatus.syncStaring) ?? UIImage()
-            )
         }
     }
     

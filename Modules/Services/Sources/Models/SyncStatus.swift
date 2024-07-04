@@ -1,3 +1,3 @@
 import ProtobufMessages
 
-public typealias SyncStatus = Anytype_Event.Status.Thread.SyncStatus
+public typealias SyncStatus = Anytype_Event.Space.Status

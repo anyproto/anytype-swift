@@ -62,7 +62,6 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     }
     
     private func createBaseDocument(objectId: String, forPreview: Bool) -> some BaseDocumentProtocol {
-        let statusStorage = DocumentStatusStorage()
         let infoContainer = InfoContainer()
         let relationLinksStorage = RelationLinksStorage()
         let restrictionsContainer = ObjectRestrictionsContainer()
@@ -78,8 +77,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             infoContainer: infoContainer,
             relationLinksStorage: relationLinksStorage,
             restrictionsContainer: restrictionsContainer,
-            detailsStorage: detailsStorage,
-            statusStorage: statusStorage
+            detailsStorage: detailsStorage
         )
         return BaseDocument(
             objectId: objectId,
@@ -88,7 +86,6 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             relationDetailsStorage: relationDetailsStorage, 
             objectTypeProvider: objectTypeProvider,
             accountParticipantsStorage: accountParticipantsStorage,
-            statusStorage: statusStorage,
             eventsListener: eventsListener,
             viewModelSetter: viewModelSetter,
             infoContainer: infoContainer,

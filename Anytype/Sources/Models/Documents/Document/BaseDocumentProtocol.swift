@@ -7,7 +7,6 @@ protocol BaseDocumentProtocol: AnyObject {
     var detailsStorage: ObjectDetailsStorage { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
-    var syncStatus: SyncStatus { get }
     var objectId: String { get }
     var spaceId: String { get }
     var isLocked: Bool { get }
@@ -16,6 +15,8 @@ protocol BaseDocumentProtocol: AnyObject {
     var forPreview: Bool { get }
     var details: ObjectDetails? { get }
     var permissions: ObjectPermissions { get }
+    
+    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> { get }
     
     func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never>
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> { get }

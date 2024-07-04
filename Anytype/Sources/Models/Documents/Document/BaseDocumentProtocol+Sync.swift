@@ -4,15 +4,6 @@ import Services
 
 extension BaseDocumentProtocol {
     
-    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> {
-        subscibeFor(update: [.syncStatus])
-            .compactMap { [weak self] _ in
-                self?.syncStatus
-            }
-            .removeDuplicates()
-            .eraseToAnyPublisher()
-    }
-    
     func subscribeForDetails(objectId: String) -> AnyPublisher<ObjectDetails, Never> {
         subscibeFor(update: [.details(id: objectId)])
             .compactMap { [weak self] _ in

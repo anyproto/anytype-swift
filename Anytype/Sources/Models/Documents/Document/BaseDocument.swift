@@ -7,7 +7,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - State from Containers
     
-    var syncStatus: SyncStatus { statusStorage.status }
     var isLocked: Bool { infoContainer.get(id: objectId)?.isLocked ?? false }
     var details: ObjectDetails? { detailsStorage.get(id: objectId) }
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
@@ -33,10 +32,11 @@ final class BaseDocument: BaseDocumentProtocol {
     private let eventsListener: any EventsListenerProtocol
     @Injected(\.relationsBuilder)
     private var relationBuilder: any RelationsBuilderProtocol
+    @Injected(\.syncStatusStorage)
+    private var syncStatusStorage: any SyncStatusStorageProtocol
     private let relationDetailsStorage: any RelationDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    private let statusStorage: any DocumentStatusStorageProtocol
     private let viewModelSetter: any DocumentViewModelSetterProtocol
     
     // MARK: - Local private state
@@ -54,6 +54,7 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
+    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> { syncStatusStorage.statusPublisher }
         
     init(
         objectId: String,
@@ -62,7 +63,6 @@ final class BaseDocument: BaseDocumentProtocol {
         relationDetailsStorage: some RelationDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
         accountParticipantsStorage: some AccountParticipantsStorageProtocol,
-        statusStorage: some DocumentStatusStorageProtocol,
         eventsListener: some EventsListenerProtocol,
         viewModelSetter: some DocumentViewModelSetterProtocol,
         infoContainer: some InfoContainerProtocol,
@@ -78,7 +78,6 @@ final class BaseDocument: BaseDocumentProtocol {
         self.relationDetailsStorage = relationDetailsStorage
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
-        self.statusStorage = statusStorage
         self.infoContainer = infoContainer
         self.relationLinksStorage = relationLinksStorage
         self.restrictionsContainer = restrictionsContainer
@@ -89,6 +88,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     deinit {
         guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        syncStatusStorage.stopSubscriptionAndClean()
         Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
             try await objectLifecycleService.close(contextId: objectId)
         }
@@ -181,8 +181,6 @@ final class BaseDocument: BaseDocumentProtocol {
             switch update {
             case .general:
                 return [.general]
-            case .syncStatus:
-                return [.syncStatus]
             case .block(let blockId):
                 return [.block(blockId: blockId)]
             case .children(let blockId):
@@ -223,6 +221,8 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func setupSubscriptions() async {
+        syncStatusStorage.startSubscription(spaceId: spaceId)
+        
         await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
             self?.participantIsEditor = canEdit
             self?.triggerSync(updates: [.restrictions])

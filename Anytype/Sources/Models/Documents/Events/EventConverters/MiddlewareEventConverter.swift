@@ -11,29 +11,23 @@ final class MiddlewareEventConverter {
     private let restrictionsContainer: ObjectRestrictionsContainer
     
     private let informationCreator: BlockInformationCreator
-    private let statusStorage: any DocumentStatusStorageProtocol
     
     init(
         infoContainer: some InfoContainerProtocol,
         relationLinksStorage: some RelationLinksStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage,
-        restrictionsContainer: ObjectRestrictionsContainer,
-        statusStorage: some DocumentStatusStorageProtocol
+        restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.infoContainer = infoContainer
         self.relationLinksStorage = relationLinksStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
-        self.statusStorage = statusStorage
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> DocumentUpdate? {
         switch event {
-        case let .threadStatus(status):
-            statusStorage.status = status.summary.status
-            return .syncStatus
         case let .blockSetFields(data):
             infoContainer.setFields(data: data)
             return .block(blockId: data.id)
@@ -172,6 +166,7 @@ final class MiddlewareEventConverter {
         case .objectClose:
             return .close
         case .accountShow,
+                .threadStatus, // Legacy. See SyncStatusStorage
                 .accountUpdate, // Event not working on middleware. See AccountManager.
                 .accountDetails, // Skipped
                 .accountConfigUpdate, // Remote config updates
