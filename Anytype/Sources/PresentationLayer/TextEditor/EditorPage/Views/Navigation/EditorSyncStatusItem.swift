@@ -53,27 +53,28 @@ final class EditorSyncStatusItem: UIView {
         case .image(let newImage):
             animateImageChange(newImage)
         case .animation(let animationStart, let animationEnd):
-            animateImageChange(animationStart)
-            startRepeatingAnimation(animationEnd)
+            startRepeatingAnimation(animationStart, animationEnd)
         case nil:
             button.setImage(nil, for: .normal)
         }
     }
     
-    private func animateImageChange(_ newImage: UIImage) {
-        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve]) {
+    private func animateImageChange(_ newImage: UIImage, completion: @escaping () -> () = {}) {
+        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve], animations: {
             self.button.setImage(newImage, for: .normal)
-        }
+        }, completion: { _ in completion() })
     }
     
-    private func startRepeatingAnimation(_ newImage: UIImage) {
+    private func startRepeatingAnimation(_ animationStart: UIImage, _ animationEnd: UIImage) {
         Task { @MainActor [weak self, statusData] in
             guard let self else { return }
             guard self.statusData?.status == statusData?.status else { return }
             
             button.layer.removeAllAnimations()
-            UIView.transition(with: button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat]) {
-                self.button.setImage(newImage, for: .normal)
+            animateImageChange(animationStart) {
+                UIView.transition(with: self.button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat]) {
+                    self.button.setImage(animationEnd, for: .normal)
+                }
             }
         }
     }

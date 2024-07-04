@@ -830,7 +830,6 @@
 		2AEABE0328C7546200BDE3AC /* RelationEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0228C7546200BDE3AC /* RelationEvent.swift */; };
 		2AEABE0528C7548A00BDE3AC /* RelationEventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */; };
 		2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */; };
-		2AEAEE502C07773A0060FE4C /* DocumentStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAEE4F2C07773A0060FE4C /* DocumentStatusStorage.swift */; };
 		2AEAEE542C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAEE532C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift */; };
 		2AEAEE582C08AB7E0060FE4C /* BaseDocumentUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEAEE572C08AB7E0060FE4C /* BaseDocumentUpdate.swift */; };
 		2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AEB0C252B7231B7007BB10C /* NotificationDismissEnvironment.swift */; };
@@ -1302,6 +1301,7 @@
 		3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */; };
 		3D9EE8DA273D432C004FEAA7 /* InlineMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */; };
 		3D9EEC382BFE4B06006F24AD /* AccountDataExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */; };
+		3DA116FC2C357A3400D071CE /* SyncStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA116FB2C357A3400D071CE /* SyncStatusStorage.swift */; };
 		3DA414972B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */; };
 		3DA4149C2B70FF2F00960748 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */; };
 		3DA4149E2B72627D00960748 /* SearchServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4149D2B72627D00960748 /* SearchServiceProtocol.swift */; };
@@ -2623,7 +2623,6 @@
 		2AEABE0228C7546200BDE3AC /* RelationEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEvent.swift; sourceTree = "<group>"; };
 		2AEABE0428C7548A00BDE3AC /* RelationEventsBunch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventsBunch.swift; sourceTree = "<group>"; };
 		2AEABE0628C7559500BDE3AC /* RelationEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEventConverter.swift; sourceTree = "<group>"; };
-		2AEAEE4F2C07773A0060FE4C /* DocumentStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStatusStorage.swift; sourceTree = "<group>"; };
 		2AEAEE532C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocumentProtocol+Sync.swift"; sourceTree = "<group>"; };
 		2AEAEE572C08AB7E0060FE4C /* BaseDocumentUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseDocumentUpdate.swift; sourceTree = "<group>"; };
 		2AEB0C252B7231B7007BB10C /* NotificationDismissEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDismissEnvironment.swift; sourceTree = "<group>"; };
@@ -3112,6 +3111,7 @@
 		3D93D56E270C9E4E00614E29 /* EditorPageViewInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorPageViewInput.swift; sourceTree = "<group>"; };
 		3D9EE8D9273D432C004FEAA7 /* InlineMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineMarkdown.swift; sourceTree = "<group>"; };
 		3D9EEC372BFE4B06006F24AD /* AccountDataExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDataExtension.swift; sourceTree = "<group>"; };
+		3DA116FB2C357A3400D071CE /* SyncStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusStorage.swift; sourceTree = "<group>"; };
 		3DA414962B6BDF4400960748 /* ChangeTypeAccessoryView+Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChangeTypeAccessoryView+Views.swift"; sourceTree = "<group>"; };
 		3DA4149B2B70FF2F00960748 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
 		3DA4149D2B72627D00960748 /* SearchServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchServiceProtocol.swift; sourceTree = "<group>"; };
@@ -3839,6 +3839,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3DA116FA2C357A2500D071CE /* SyncStatus */,
 				2AB9E1D82C2D599D00D9FE49 /* AppVersionService */,
 				2AFFFB9D2927B02500A487E1 /* Account */,
 				2A9C18782BA0A92900DFE560 /* AccountParticipantsStorage */,
@@ -4078,7 +4079,6 @@
 				C92DCD96272998D800A03D91 /* BaseDocument+Extensions.swift */,
 				2A9C187F2BA1B76D00DFE560 /* EditBlocksPermission.swift */,
 				2A07E7C32BF270BF00BCFFA3 /* DocumentSyncStatusData.swift */,
-				2AEAEE4F2C07773A0060FE4C /* DocumentStatusStorage.swift */,
 				2AEAEE532C077C9D0060FE4C /* BaseDocumentProtocol+Sync.swift */,
 				2AEAEE572C08AB7E0060FE4C /* BaseDocumentUpdate.swift */,
 				2A12F0A12C11B0DD00E866BA /* Relation+DependedObject.swift */,
@@ -9132,6 +9132,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		3DA116FA2C357A2500D071CE /* SyncStatus */ = {
+			isa = PBXGroup;
+			children = (
+				3DA116FB2C357A3400D071CE /* SyncStatusStorage.swift */,
+			);
+			path = SyncStatus;
+			sourceTree = "<group>";
+		};
 		3DA12E6A2636F6330085D008 /* FileLoader */ = {
 			isa = PBXGroup;
 			children = (
@@ -11089,6 +11097,7 @@
 				2A685D572B7B694800456E08 /* Text+Markdown.swift in Sources */,
 				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
+				3DA116FC2C357A3400D071CE /* SyncStatusStorage.swift in Sources */,
 				2ECB34012A95041800E0F9BB /* View+Detents.swift in Sources */,
 				2ACE879729F2859800C2B2A9 /* EmptyNavigationLink.swift in Sources */,
 				2EC46DD92ABE081800DEA4BD /* InstalledObjectTypeView.swift in Sources */,
@@ -11133,7 +11142,6 @@
 				C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */,
 				2A96B5B42ABB454800B59A1D /* EditorPageView.swift in Sources */,
 				C98F6A6C27A90F210063DD7A /* BlockConfiguration.swift in Sources */,
-				2AEAEE502C07773A0060FE4C /* DocumentStatusStorage.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */,
 				2ABBAEDD2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift in Sources */,
 				2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */,

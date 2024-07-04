@@ -23,7 +23,7 @@ final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     
     var statusPublisher: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
     var currentStatus: MembershipStatus { _status }
-    @Published var _status: MembershipStatus = .empty
+    @Published private var _status: MembershipStatus = .empty
     
     private var subscription: AnyCancellable?
     

@@ -20,7 +20,7 @@ struct SwiftUIEditorSyncStatusItem: UIViewRepresentable {
             Divider()
         }
         
-        mock(status: .unknown, networkId: "")
+        mock(status: .offline, networkId: "")
     }
     
     func mock(status: SyncStatus, networkId: String = "1337") -> SwiftUIEditorSyncStatusItem {

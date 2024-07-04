@@ -30,8 +30,7 @@ final class EventsListener: EventsListenerProtocol {
         infoContainer: some InfoContainerProtocol,
         relationLinksStorage: some RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
-        detailsStorage: ObjectDetailsStorage,
-        statusStorage: some DocumentStatusStorageProtocol
+        detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
         self.infoContainer = infoContainer
@@ -45,8 +44,7 @@ final class EventsListener: EventsListenerProtocol {
             relationLinksStorage: relationLinksStorage,
             informationCreator: informationCreator,
             detailsStorage: detailsStorage,
-            restrictionsContainer: restrictionsContainer,
-            statusStorage: statusStorage
+            restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
             infoContainer: infoContainer

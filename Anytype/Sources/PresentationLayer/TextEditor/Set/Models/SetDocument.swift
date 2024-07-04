@@ -24,10 +24,6 @@ final class SetDocument: SetDocumentProtocol {
         document.detailsPublisher
     }
     
-    var syncStatus: SyncStatus {
-        document.syncStatus
-    }
-    
     var forPreview: Bool { document.forPreview }
     
     var blockDataview: BlockDataview? {
