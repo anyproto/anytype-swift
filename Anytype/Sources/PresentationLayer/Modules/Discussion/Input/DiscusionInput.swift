@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DiscusionInput: View {
     
-    @Binding var editing: Bool
+    @State private var editing: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -32,5 +32,5 @@ struct DiscusionInput: View {
 }
 
 #Preview {
-    DiscusionInput(editing: .constant(false))
+    DiscusionInput()
 }

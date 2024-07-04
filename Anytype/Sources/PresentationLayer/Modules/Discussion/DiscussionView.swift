@@ -2,8 +2,6 @@ import SwiftUI
 
 struct DiscussionView: View {
     
-    @State var editing = false
-    
     var body: some View {
         ScrollView {
             VStack {
@@ -13,7 +11,7 @@ struct DiscussionView: View {
             }
         }
         .safeAreaInset(edge: .bottom) {
-            DiscusionInput(editing: $editing)
+            DiscusionInput()
         }
     }
     
