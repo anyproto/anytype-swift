@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You’ve reached the limit of %d space that can be shared</string>
+        <string>Je hebt de limiet bereikt van de %d ruimte die kan worden gedeeld</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Je hebt de limiet bereikt van de %d ruimtes die kunnen worden gedeeld</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
