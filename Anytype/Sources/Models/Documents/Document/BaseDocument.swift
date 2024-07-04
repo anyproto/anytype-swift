@@ -54,7 +54,9 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
-    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> { syncStatusStorage.statusPublisher }
+    
+    private var syncStatusSubject = PassthroughSubject<SyncStatus, Never>()
+    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> { syncStatusSubject.eraseToAnyPublisher() }
         
     init(
         objectId: String,
@@ -88,7 +90,6 @@ final class BaseDocument: BaseDocumentProtocol {
     
     deinit {
         guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
-        syncStatusStorage.stopSubscriptionAndClean()
         Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
             try await objectLifecycleService.close(contextId: objectId)
         }
@@ -221,7 +222,9 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func setupSubscriptions() async {
-        syncStatusStorage.startSubscription(spaceId: spaceId)
+        syncStatusStorage.statusPublisher(spaceId: spaceId).sink { [weak self] syncStatus in
+            self?.syncStatusSubject.send(syncStatus)
+        }.store(in: &subscriptions)
         
         await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
             self?.participantIsEditor = canEdit

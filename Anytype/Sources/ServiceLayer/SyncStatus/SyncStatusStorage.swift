@@ -1,31 +1,34 @@
 import Combine
 import Services
 import AnytypeCore
+import ProtobufMessages
 
 
 protocol SyncStatusStorageProtocol {
-    var statusPublisher: AnyPublisher<SyncStatus, Never> { get }
-    var currentStatus: SyncStatus { get }
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatus, Never>
     
-    func startSubscription(spaceId: String)
+    func startSubscription()
     func stopSubscriptionAndClean()
 }
 
 final class SyncStatusStorage: SyncStatusStorageProtocol {
-    var statusPublisher: AnyPublisher<SyncStatus, Never> { $_status.eraseToAnyPublisher() }
-    var currentStatus: SyncStatus { _status }
-    
-    private var spaceId: String?
-    
-    @Published private var _status: SyncStatus = .offline // TODO: Remove
-    
+    @Published private var _update: Anytype_Event.Space.SyncStatus.Update?
+    private var updatePublisher: AnyPublisher<Anytype_Event.Space.SyncStatus.Update?, Never> { $_update.eraseToAnyPublisher() }
     private var subscription: AnyCancellable?
+    
+    private var defaultValues = [String: SyncStatus]()
     
     nonisolated init() { }
     
-    func startSubscription(spaceId: String) {
-        self.spaceId = spaceId
-        
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatus, Never> {
+        updatePublisher
+            .filter { $0?.id == spaceId}
+            .compactMap { $0?.status }
+            .merge(with: Just(defaultValues[spaceId] ?? SyncStatus.offline))
+            .eraseToAnyPublisher()
+    }
+    
+    func startSubscription() {
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
             Task { @MainActor [weak self] in
                 self?.handle(events: events)
@@ -35,24 +38,17 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
     
     func stopSubscriptionAndClean() {
         subscription = nil
-        spaceId = nil
-        _status = .offline
+        _update = nil
     }
     
     // MARK: - Private
     
     private func handle(events: EventsBunch) {
-        guard let spaceId else {
-            anytypeAssertionFailure("Empty spaceId for in SyncStatusStorage event handle")
-            return
-        }
-        
         for event in events.middlewareEvents {
             switch event.value {
             case .spaceSyncStatusUpdate(let update):
-                guard update.id == spaceId else { return }
-                
-                _status = update.status as! SyncStatus
+                defaultValues[update.id] = update.status
+                _update = update
             default:
                 break
             }

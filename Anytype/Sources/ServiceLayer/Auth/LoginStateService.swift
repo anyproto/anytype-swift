@@ -36,6 +36,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.storeKitService)
     private var storeKitService: any StoreKitServiceProtocol
+    @Injected(\.syncStatusStorage)
+    private var syncStatusStorage: any SyncStatusStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     
@@ -73,6 +75,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         storeKitService.startListenForTransactions()
+        syncStatusStorage.startSubscription()
         
         Task {
             await membershipStatusStorage.startSubscription()
@@ -89,5 +92,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
         storeKitService.stopListenForTransactions()
+        syncStatusStorage.stopSubscriptionAndClean()
     }
 }
