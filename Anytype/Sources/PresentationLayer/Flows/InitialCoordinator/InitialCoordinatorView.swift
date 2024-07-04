@@ -47,7 +47,7 @@ struct InitialCoordinatorView: View {
                 .foregroundColor(.Text.white)
             AnytypeText("Previous run finished with crash", style: .uxTitle1Semibold)
                 .foregroundColor(.Text.white)
-            AnytypeText("You can copy and send your data (documents, files and etc) to developers. If your data contains private information, do not send it to the anyone.", style: .uxTitle2Medium)
+            AnytypeText("You can copy and send your data (documents, files, etc.) to developers. If your data contains private information, do not send it to anyone.", style: .uxTitle2Medium)
                 .foregroundColor(.Text.white)
                 .multilineTextAlignment(.center)
             Spacer()
