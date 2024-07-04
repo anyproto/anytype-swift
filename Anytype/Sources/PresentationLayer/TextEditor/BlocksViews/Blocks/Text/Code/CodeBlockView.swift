@@ -62,7 +62,7 @@ final class CodeBlockView: UIView, BlockContentView {
         textStorage.language = configuration.codeLanguage.higlighterCode
         textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
     
-        textStorage.highlightr.highlight(configuration.anytypeText.attrString.string).flatMap {
+        textStorage.highlightr.highlight(configuration.anytypeText.attrString.string, as: configuration.codeLanguage.higlighterCode).flatMap {
             textStorage.setAttributedString($0)
         }
         
@@ -77,7 +77,7 @@ final class CodeBlockView: UIView, BlockContentView {
     private let contentView = UIView()
     
     private let textStorage: CodeAttributedString = {
-        let textStorage = CodeAttributedString()
+        let textStorage = CodeAttributedString(highlightr: Highlightr.shared) // use shared Highlightr for perfomance
         textStorage.highlightr.theme.boldCodeFont = .code
         
         return textStorage
@@ -153,3 +153,8 @@ private extension UIUserInterfaceStyle {
         }
     }
 }
+
+private extension Highlightr {
+    static let shared = Highlightr()!
+}
+

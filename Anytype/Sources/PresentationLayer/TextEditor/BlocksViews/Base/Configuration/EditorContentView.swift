@@ -133,9 +133,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
                 topConstraint: topConstraint,
                 bottomConstraint: bottomConstraint
             )
-        }
-        blockView.update(with: blockConfiguration)
-        
+        }        
 
         addSubview(selectionView) {
             $0.pin(to: self, excluding: [.bottom], insets: blockConfiguration.selectionInsets)
