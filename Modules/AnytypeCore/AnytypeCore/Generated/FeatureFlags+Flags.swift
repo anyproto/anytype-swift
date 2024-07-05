@@ -30,10 +30,6 @@ public extension FeatureFlags {
         value(for: .scrollToBlockFromSearch)
     }
 
-    static var setEmptyValuesSorting: Bool {
-        value(for: .setEmptyValuesSorting)
-    }
-
     static var galleryWidget: Bool {
         value(for: .galleryWidget)
     }
@@ -110,7 +106,6 @@ public extension FeatureFlags {
         .membership,
         .hideCoCreator,
         .scrollToBlockFromSearch,
-        .setEmptyValuesSorting,
         .galleryWidget,
         .widgetCreateWithoutType,
         .updateAlert,
