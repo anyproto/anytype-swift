@@ -26,16 +26,8 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var newGlobalSearch: Bool {
-        value(for: .newGlobalSearch)
-    }
-
     static var scrollToBlockFromSearch: Bool {
         value(for: .scrollToBlockFromSearch)
-    }
-
-    static var setEmptyValuesSorting: Bool {
-        value(for: .setEmptyValuesSorting)
     }
 
     static var galleryWidget: Bool {
@@ -113,9 +105,7 @@ public extension FeatureFlags {
         .dndOnCollectionsAndSets,
         .membership,
         .hideCoCreator,
-        .newGlobalSearch,
         .scrollToBlockFromSearch,
-        .setEmptyValuesSorting,
         .galleryWidget,
         .widgetCreateWithoutType,
         .updateAlert,
