@@ -593,6 +593,10 @@ final class EditorSetViewModel: ObservableObject {
 
 // MARK: - Routing
 extension EditorSetViewModel {
+    
+    func showSyncStatusInfo() {
+        // TODO showSyncStatusInfo
+    }
 
     func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
