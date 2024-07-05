@@ -32,4 +32,6 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func cursorFocus(blockId: String)
     
     func tapOnEmptyPlace()
+    
+    func showSyncStatusInfo()
 }

@@ -54,7 +54,12 @@ struct SetMinimizedHeader: View {
     }
     
     private var syncsStatusItem: some View {
-        SwiftUIEditorSyncStatusItem(statusData: model.syncStatusData)
+        SwiftUIEditorSyncStatusItem(
+            statusData: model.syncStatusData,
+            onTap: { [weak model] in
+                model?.showSyncStatusInfo()
+            }
+        )
     }
     
     private var settingsButton: some View {

@@ -2,13 +2,20 @@ import UIKit
 import Services
 
 final class EditorSyncStatusItem: UIView {
-    private let button: UIButton = {
+    private lazy var button: UIButton = {
         let configuration = UIButton.Configuration.plain()
         
-        return UIButton(configuration: configuration)
+        return UIButton(
+            configuration: configuration,
+            primaryAction: UIAction(
+                title: "",
+                handler: { [weak self] _ in self?.onTap() }
+            )
+        )
     }()
     
     private var statusData: SyncStatusData?
+    private let onTap: () -> ()
     
     private let height: CGFloat = 28
     private let width: CGFloat = 28
@@ -19,8 +26,9 @@ final class EditorSyncStatusItem: UIView {
         self.updateButtonState()
     }
     
-    init(statusData: SyncStatusData? = nil) {
+    init(statusData: SyncStatusData? = nil, onTap: @escaping () -> ()) {
         self.statusData = statusData
+        self.onTap = onTap
         super.init(frame: .zero)
         setup()
     }
@@ -32,8 +40,6 @@ final class EditorSyncStatusItem: UIView {
     // MARK: - Private
     
     private func setup() {
-        button.showsMenuAsPrimaryAction = true
-        
         updateButtonState()
         
         layoutUsing.anchors {
