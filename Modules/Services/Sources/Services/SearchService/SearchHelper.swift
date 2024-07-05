@@ -24,7 +24,6 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = isArchived.protobufValue
         filter.relationKey = BundledRelationKey.isArchived.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -34,7 +33,6 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = isFavorite.protobufValue
         filter.relationKey = BundledRelationKey.isFavorite.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -44,7 +42,6 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = isDeleted.protobufValue
         filter.relationKey = BundledRelationKey.isDeleted.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -54,7 +51,6 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = isHidden.protobufValue
         filter.relationKey = BundledRelationKey.isHidden.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -64,7 +60,6 @@ public class SearchHelper {
         filter.condition = .notEmpty
         filter.value = nil
         filter.relationKey = BundledRelationKey.lastOpenedDate.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -74,7 +69,6 @@ public class SearchHelper {
         filter.condition = .greaterOrEqual
         filter.value = date.timeIntervalSince1970.protobufValue
         filter.relationKey = BundledRelationKey.lastModifiedDate.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -84,7 +78,6 @@ public class SearchHelper {
         filter.condition = .in
         filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -94,7 +87,6 @@ public class SearchHelper {
         filter.condition = .notIn
         filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -104,17 +96,6 @@ public class SearchHelper {
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.layout.rawValue
-        filter.operator = .and
-        
-        return filter
-    }
-    
-    public static func participantStatusFilterExclude(_ status: ParticipantStatus...) -> DataviewFilter {
-        var filter = DataviewFilter()
-        filter.condition = .notIn
-        filter.value = status.map(\.rawValue).protobufValue
-        filter.relationKey = BundledRelationKey.participantStatus.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -124,7 +105,6 @@ public class SearchHelper {
         filter.condition = .in
         filter.value = status.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.participantStatus.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -134,7 +114,6 @@ public class SearchHelper {
         filter.condition = .notIn
         filter.value = layouts.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.layout.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -144,7 +123,6 @@ public class SearchHelper {
         filter.condition = .in
         filter.value = layouts.map(\.rawValue).protobufValue
         filter.relationKey = BundledRelationKey.recommendedLayout.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -154,7 +132,6 @@ public class SearchHelper {
         filter.condition = .in
         filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.id.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -164,13 +141,11 @@ public class SearchHelper {
         spaceFilter.condition = .notEmpty
         spaceFilter.value = nil
         spaceFilter.relationKey = BundledRelationKey.spaceId.rawValue
-        spaceFilter.operator = .and
    
         var highlightedFilter = DataviewFilter()
         highlightedFilter.condition = .equal
         highlightedFilter.value = true
         highlightedFilter.relationKey = BundledRelationKey.isHighlighted.rawValue
-        highlightedFilter.operator = .and
         
         return [
             spaceFilter,
@@ -184,7 +159,6 @@ public class SearchHelper {
         filter.value = ids.protobufValue
         
         filter.relationKey = BundledRelationKey.id.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -195,7 +169,6 @@ public class SearchHelper {
         filter.value = relationKey.protobufValue
         
         filter.relationKey = BundledRelationKey.relationKey.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -206,7 +179,6 @@ public class SearchHelper {
         filter.value = relationKeys.protobufValue
         
         filter.relationKey = BundledRelationKey.relationKey.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -227,7 +199,6 @@ public class SearchHelper {
         filter.value = spaceId.protobufValue
         
         filter.relationKey = BundledRelationKey.spaceId.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -238,7 +209,6 @@ public class SearchHelper {
         filter.value = identityId.protobufValue
         
         filter.relationKey = BundledRelationKey.identityProfileLink.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -249,7 +219,6 @@ public class SearchHelper {
         filter.value = spaceIds.protobufValue
         
         filter.relationKey = BundledRelationKey.spaceId.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -259,7 +228,6 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = status.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.fileSyncStatus.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -269,7 +237,6 @@ public class SearchHelper {
         filter.condition = .notIn
         filter.value = restriction.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.restrictions.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -279,7 +246,6 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = value.protobufValue
         filter.relationKey = BundledRelationKey.relationReadonlyValue.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -289,7 +255,6 @@ public class SearchHelper {
         filter.condition = .notIn
         filter.value = statuses.map { $0.rawValue }.protobufValue
         filter.relationKey = BundledRelationKey.spaceAccountStatus.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -299,7 +264,6 @@ public class SearchHelper {
         filter.condition = .equal
         filter.value = status.rawValue.protobufValue
         filter.relationKey = BundledRelationKey.spaceLocalStatus.rawValue
-        filter.operator = .and
         
         return filter
     }
@@ -319,7 +283,6 @@ public class SearchHelper {
         filter.value = isHidden.protobufValue
         
         filter.relationKey = BundledRelationKey.isHiddenDiscovery.rawValue
-        filter.operator = .and
         
         return filter
     }
