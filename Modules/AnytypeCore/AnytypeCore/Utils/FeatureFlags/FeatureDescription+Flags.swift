@@ -42,12 +42,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let setEmptyValuesSorting = FeatureDescription(
-        title: "Set empty values sorting - IOS-2810",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: true
-    )
-    
     static let galleryWidget = FeatureDescription(
         title: "Gallery Widget - IOS-2964",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
