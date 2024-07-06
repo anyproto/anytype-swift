@@ -793,7 +793,7 @@
 "Widgets.Actions.ChangeWidgetType" = "Ubah tipe widget";
 "Widgets.Actions.RemoveWidget" = "Hapus widget";
 "Widgets.Actions.EditWidgets" = "Sunting widget";
-"Widgets.Actions.AddWidget" = "Add Widget";
+"Widgets.Actions.AddWidget" = "Tambah Gawit";
 "Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
 "Widgets.Actions.NewObject" = "Objek Baru";
@@ -809,12 +809,12 @@
 "Widgets.Layout.List.Description" = "Widget dengan daftar tampilan dari daftar objek";
 "Widgets.Layout.View.Description" = "Gawit dengan tampilan objek set";
 "Widgets.Layout.CompactList.Description" = "Widget dengan daftar tampilan dari daftar objek";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Empty.Title" = "Tidak ada objek di sini";
+"Widgets.Empty.CreateObject" = "Buat Objek";
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
 "Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
-"Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.AppUpdate" = "Anytype siap diperbarui";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";
