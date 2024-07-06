@@ -1015,7 +1015,7 @@
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "Collaborate on spaces";
 "SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
+"SpaceShare.Tip.Steps.2" = "Teilen-Bereich öffnen";
 "SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
 
 // MARK: - Initial
