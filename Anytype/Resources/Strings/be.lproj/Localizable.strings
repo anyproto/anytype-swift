@@ -80,7 +80,7 @@
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
+"Relation.Create.Row.title" = "Стварыць “%@”";
 "Relation.View.Create.title" = "Сварыць опцыю";
 "Relation.View.Edit.title" = "Рэдагаваць опцыю";
 "Relation.Create.Textfield.placeholder" = "Увядзіце назву...";
