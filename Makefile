@@ -6,8 +6,9 @@ setup-middle-ci:
 	./Scripts/middle-install.sh
 
 change-github-token:
+	# Token generation info:
+	# https://github.com/anyproto/anytype-swift?tab=readme-ov-file#use-pre-built-anytype-heart
 	./Scripts/change-token.sh
-# Build from local repo
 
 generate:
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
