@@ -18,6 +18,13 @@ public extension DetailsLayout {
         .participant
     ]
     
+    static let editorChangeLayouts: [DetailsLayout] = [
+        .note,
+        .basic,
+        .profile,
+        .todo
+    ]
+    
     static let pageLayouts: [DetailsLayout] = editorLayouts + [.bookmark]
     
     static let fileLayouts: [DetailsLayout] = [
