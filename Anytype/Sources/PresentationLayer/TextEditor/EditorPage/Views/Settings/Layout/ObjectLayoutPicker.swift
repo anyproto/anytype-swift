@@ -24,7 +24,7 @@ struct ObjectLayoutPicker: View {
     
     private var layoutList: some View {
         VStack(spacing: 0) {
-            ForEach(DetailsLayout.editorLayouts, id: \.self) { layout in
+            ForEach(DetailsLayout.editorChangeLayouts, id: \.self) { layout in
                 ObjectLayoutRow(
                     layout: layout,
                     isSelected: layout == viewModel.selectedLayout,
