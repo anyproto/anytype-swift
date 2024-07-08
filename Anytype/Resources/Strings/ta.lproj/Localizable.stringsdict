@@ -93,7 +93,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>நாளை</string>
         <key>other</key>
         <string>in %d days</string>
       </dict>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>மாதம்</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d மாதங்கள்</string>
       </dict>
     </dict>
     <key>Per Week</key>
@@ -301,9 +301,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>நாள்</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d நாட்கள்</string>
       </dict>
     </dict>
   </dict>
