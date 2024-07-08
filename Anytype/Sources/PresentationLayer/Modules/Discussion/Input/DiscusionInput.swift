@@ -11,9 +11,8 @@ struct DiscusionInput: View {
                     .onTapGesture {
                         editing = false
                     }
-                DiscussionTextView(editing: $editing)
+                DiscussionTextView(editing: $editing, minHeight: 56, maxHeight: 212)
             }
-            .frame(height: 56)
             if editing {
                 HStack {
                     Text("Bottom action panel")
