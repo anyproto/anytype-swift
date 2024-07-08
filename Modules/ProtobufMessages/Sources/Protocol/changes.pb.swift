@@ -273,6 +273,22 @@ public struct Anytype_Change {
       set {value = .notificationUpdate(newValue)}
     }
 
+    public var deviceAdd: Anytype_Change.DeviceAdd {
+      get {
+        if case .deviceAdd(let v)? = value {return v}
+        return Anytype_Change.DeviceAdd()
+      }
+      set {value = .deviceAdd(newValue)}
+    }
+
+    public var deviceUpdate: Anytype_Change.DeviceUpdate {
+      get {
+        if case .deviceUpdate(let v)? = value {return v}
+        return Anytype_Change.DeviceUpdate()
+      }
+      set {value = .deviceUpdate(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -294,6 +310,8 @@ public struct Anytype_Change {
       case setFileInfo(Anytype_Change.SetFileInfo)
       case notificationCreate(Anytype_Change.NotificationCreate)
       case notificationUpdate(Anytype_Change.NotificationUpdate)
+      case deviceAdd(Anytype_Change.DeviceAdd)
+      case deviceUpdate(Anytype_Change.DeviceUpdate)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Change.Content.OneOf_Value, rhs: Anytype_Change.Content.OneOf_Value) -> Bool {
@@ -371,6 +389,14 @@ public struct Anytype_Change {
         }()
         case (.notificationUpdate, .notificationUpdate): return {
           guard case .notificationUpdate(let l) = lhs, case .notificationUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.deviceAdd, .deviceAdd): return {
+          guard case .deviceAdd(let l) = lhs, case .deviceAdd(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.deviceUpdate, .deviceUpdate): return {
+          guard case .deviceUpdate(let l) = lhs, case .deviceUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -751,6 +777,41 @@ public struct Anytype_Change {
     public init() {}
   }
 
+  public struct DeviceAdd {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var device: Anytype_Model_DeviceInfo {
+      get {return _device ?? Anytype_Model_DeviceInfo()}
+      set {_device = newValue}
+    }
+    /// Returns true if `device` has been explicitly set.
+    public var hasDevice: Bool {return self._device != nil}
+    /// Clears the value of `device`. Subsequent reads from it will return its default value.
+    public mutating func clearDevice() {self._device = nil}
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _device: Anytype_Model_DeviceInfo? = nil
+  }
+
+  public struct DeviceUpdate {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var id: String = String()
+
+    public var name: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
@@ -784,6 +845,8 @@ extension Anytype_Change.OriginalCreatedTimestampSet: @unchecked Sendable {}
 extension Anytype_Change.SetFileInfo: @unchecked Sendable {}
 extension Anytype_Change.NotificationCreate: @unchecked Sendable {}
 extension Anytype_Change.NotificationUpdate: @unchecked Sendable {}
+extension Anytype_Change.DeviceAdd: @unchecked Sendable {}
+extension Anytype_Change.DeviceUpdate: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -813,7 +876,15 @@ extension Anytype_Change: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     var _timestamp: Int64 = 0
     var _version: UInt32 = 0
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 
@@ -1021,6 +1092,8 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     111: .same(proto: "setFileInfo"),
     112: .same(proto: "notificationCreate"),
     113: .same(proto: "notificationUpdate"),
+    114: .same(proto: "deviceAdd"),
+    115: .same(proto: "deviceUpdate"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1263,6 +1336,32 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
           self.value = .notificationUpdate(v)
         }
       }()
+      case 114: try {
+        var v: Anytype_Change.DeviceAdd?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .deviceAdd(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .deviceAdd(v)
+        }
+      }()
+      case 115: try {
+        var v: Anytype_Change.DeviceUpdate?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .deviceUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .deviceUpdate(v)
+        }
+      }()
       default: break
       }
     }
@@ -1345,6 +1444,14 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     case .notificationUpdate?: try {
       guard case .notificationUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 113)
+    }()
+    case .deviceAdd?: try {
+      guard case .deviceAdd(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 114)
+    }()
+    case .deviceUpdate?: try {
+      guard case .deviceUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 115)
     }()
     case nil: break
     }
@@ -2181,6 +2288,80 @@ extension Anytype_Change.NotificationUpdate: SwiftProtobuf.Message, SwiftProtobu
   public static func ==(lhs: Anytype_Change.NotificationUpdate, rhs: Anytype_Change.NotificationUpdate) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change.DeviceAdd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".DeviceAdd"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "device"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._device) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._device {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.DeviceAdd, rhs: Anytype_Change.DeviceAdd) -> Bool {
+    if lhs._device != rhs._device {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change.DeviceUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".DeviceUpdate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.DeviceUpdate, rhs: Anytype_Change.DeviceUpdate) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -2464,4 +2464,34 @@ public struct ClientCommands {
         }
     }
 
+    public static func deviceSetName(
+        _ request: Anytype_Rpc.Device.SetName.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Device.SetName.Request, Anytype_Rpc.Device.SetName.Response> {
+        return Invocation(messageName: "DeviceSetName", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDeviceSetName(requestData) ?? Data()
+            return try Anytype_Rpc.Device.SetName.Response(serializedData: responseData)
+        }
+    }
+
+    public static func deviceList(
+        _ request: Anytype_Rpc.Device.List.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Device.List.Request, Anytype_Rpc.Device.List.Response> {
+        return Invocation(messageName: "DeviceList", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDeviceList(requestData) ?? Data()
+            return try Anytype_Rpc.Device.List.Response(serializedData: responseData)
+        }
+    }
+
+    public static func deviceNetworkStateSet(
+        _ request: Anytype_Rpc.Device.NetworkState.Set.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Device.NetworkState.Set.Request, Anytype_Rpc.Device.NetworkState.Set.Response> {
+        return Invocation(messageName: "DeviceNetworkStateSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDeviceNetworkStateSet(requestData) ?? Data()
+            return try Anytype_Rpc.Device.NetworkState.Set.Response(serializedData: responseData)
+        }
+    }
+
 }
