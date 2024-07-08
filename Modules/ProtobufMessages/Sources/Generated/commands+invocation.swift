@@ -622,6 +622,21 @@ extension Anytype_Rpc.Debug.TreeHeads.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Device.List.Response: ResultWithError {}
+extension Anytype_Rpc.Device.List.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Device.NetworkState.Set.Response: ResultWithError {}
+extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Device.SetName.Response: ResultWithError {}
+extension Anytype_Rpc.Device.SetName.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.File.Download.Response: ResultWithError {}
 extension Anytype_Rpc.File.Download.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
