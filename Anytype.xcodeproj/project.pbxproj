@@ -373,6 +373,7 @@
 		2A30B2082BB44A0C00206806 /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 2A30B2072BB44A0C00206806 /* QRCode */; };
 		2A30B20B2BB44BC800206806 /* QrCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B20A2BB44BC800206806 /* QrCodeView.swift */; };
 		2A30B20D2BB44C7900206806 /* QrCodeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30B20C2BB44C7900206806 /* QrCodeViewModel.swift */; };
+		2A31FF022C3D8D800055E90A /* DiscussionAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A31FF012C3D8D800055E90A /* DiscussionAttributes.swift */; };
 		2A3425B32A6AD415005E61F1 /* AnytypeText+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */; };
 		2A35A6AB2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6AA2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift */; };
 		2A35A6AE2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A35A6AD2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift */; };
@@ -2175,6 +2176,7 @@
 		2A30B2012BB40E3400206806 /* BlockFields+Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockFields+Fields.swift"; sourceTree = "<group>"; };
 		2A30B20A2BB44BC800206806 /* QrCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeView.swift; sourceTree = "<group>"; };
 		2A30B20C2BB44C7900206806 /* QrCodeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeViewModel.swift; sourceTree = "<group>"; };
+		2A31FF012C3D8D800055E90A /* DiscussionAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionAttributes.swift; sourceTree = "<group>"; };
 		2A3425B22A6AD415005E61F1 /* AnytypeText+Mention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AnytypeText+Mention.swift"; sourceTree = "<group>"; };
 		2A35A6AA2BBD6FDF00CCE4F4 /* ShareOptionsDI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareOptionsDI.swift; sourceTree = "<group>"; };
 		2A35A6AD2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetTypeCreateObjectView.swift; sourceTree = "<group>"; };
@@ -5695,6 +5697,7 @@
 				2A4191E52C36926B00117FB8 /* DiscussionTextView.swift */,
 				2A4191E72C36929400117FB8 /* DiscusionInput.swift */,
 				2AD7CFA32C36A7D000F2786B /* DiscussionTextViewCoordinator.swift */,
+				2A31FF012C3D8D800055E90A /* DiscussionAttributes.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -12419,6 +12422,7 @@
 				12EB9B31277442BC00BA732F /* FileRelationView.swift in Sources */,
 				2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */,
 				2E8387BF291A521900506766 /* EditorSetViewModel+DragAndDropDelegate.swift in Sources */,
+				2A31FF022C3D8D800055E90A /* DiscussionAttributes.swift in Sources */,
 				1244791C27D8A63D00581174 /* StatusSearchInteractor.swift in Sources */,
 				2A816AC92AD7DFC700975BCA /* ServerConfigurationView.swift in Sources */,
 				2EEE41242C11C35F000AB88B /* GlobalSearchRelatedObjectsSwipeTipView.swift in Sources */,
