@@ -25,6 +25,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var undoRedoObjectId: StringIdentifiable?
     @Published var relationsSearchData: RelationsSearchData?
     @Published var openUrlData: URL?
+    @Published var syncStatusSpaceId: String?
     
     init(
         data: EditorPageObject,
@@ -105,6 +106,10 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     
     func showFailureToast(message: String) {
         toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
+    }
+    
+    func showSyncStatusInfo(spaceId: String) {
+        syncStatusSpaceId = spaceId
     }
     
     // MARK: - Private

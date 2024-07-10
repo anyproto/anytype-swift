@@ -1184,6 +1184,8 @@
 		3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */; };
 		3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */; };
 		3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */; };
+		3D2ED6D42C3E9D06003718DE /* SyncStatusInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */; };
+		3D2ED6D62C3EA255003718DE /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2ED6D52C3EA255003718DE /* String+Identifiable.swift */; };
 		3D2F00292B6814CC009F3AA5 /* ObjectTypeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F00282B6814CC009F3AA5 /* ObjectTypeSearchView.swift */; };
 		3D2F002B2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F002A2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift */; };
 		3D2F9C18271EAE4D0043C326 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C16271EAE4D0043C326 /* SearchService.swift */; };
@@ -1229,6 +1231,7 @@
 		3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */; };
 		3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */; };
 		3D5111082C38114000B67B56 /* EditorNavigationBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5111072C38114000B67B56 /* EditorNavigationBarTitleView.swift */; };
+		3D51110A2C3813C000B67B56 /* SyncStatusInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5111092C3813C000B67B56 /* SyncStatusInfoView.swift */; };
 		3D513F0F27956E2B007850D5 /* SetViewPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D513F0E27956E2B007850D5 /* SetViewPicker.swift */; };
 		3D547B852B988BDE000B030A /* MembershipTierSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D547B842B988BDE000B030A /* MembershipTierSuccessView.swift */; };
 		3D568FB5266A287400DC7881 /* SystemColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* SystemColors.xcassets */; };
@@ -2998,6 +3001,8 @@
 		3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetConstants.swift; sourceTree = "<group>"; };
 		3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageContentView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageContentView.swift; sourceTree = SOURCE_ROOT; };
+		3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusInfoViewModel.swift; sourceTree = "<group>"; };
+		3D2ED6D52C3EA255003718DE /* String+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Identifiable.swift"; sourceTree = "<group>"; };
 		3D2F00282B6814CC009F3AA5 /* ObjectTypeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSearchView.swift; sourceTree = "<group>"; };
 		3D2F002A2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSearchViewModel.swift; sourceTree = "<group>"; };
 		3D2F9C16271EAE4D0043C326 /* SearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
@@ -3043,6 +3048,7 @@
 		3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockLinkState+Icon.swift"; sourceTree = "<group>"; };
 		3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockListServiceMock.swift; sourceTree = SOURCE_ROOT; };
 		3D5111072C38114000B67B56 /* EditorNavigationBarTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarTitleView.swift; sourceTree = "<group>"; };
+		3D5111092C3813C000B67B56 /* SyncStatusInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusInfoView.swift; sourceTree = "<group>"; };
 		3D513F0E27956E2B007850D5 /* SetViewPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPicker.swift; sourceTree = "<group>"; };
 		3D547B842B988BDE000B030A /* MembershipTierSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSuccessView.swift; sourceTree = "<group>"; };
 		3D568FB4266A287400DC7881 /* SystemColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SystemColors.xcassets; sourceTree = "<group>"; };
@@ -8666,8 +8672,8 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
-				3DA3C4922C38099900BBB529 /* SyncStatus */,
 				2A446D532C04B52E002E39AD /* TipCustomViewPresentationModifiert.swift */,
+				3DA3C4922C38099900BBB529 /* SyncStatus */,
 				3D3B350F2BCEBB59008456F8 /* SafariWebView */,
 				2A30B2092BB44BBC00206806 /* QrCode */,
 				3D26AA732B9738F900D61479 /* Checkbox */,
@@ -9194,6 +9200,8 @@
 		3DA3C4922C38099900BBB529 /* SyncStatus */ = {
 			isa = PBXGroup;
 			children = (
+				3D5111092C3813C000B67B56 /* SyncStatusInfoView.swift */,
+				3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */,
 			);
 			path = SyncStatus;
 			sourceTree = "<group>";
@@ -9381,6 +9389,7 @@
 				2ECB34002A95041800E0F9BB /* View+Detents.swift */,
 				2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */,
 				2A685D562B7B694800456E08 /* Text+Markdown.swift */,
+				3D2ED6D52C3EA255003718DE /* String+Identifiable.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -11213,6 +11222,7 @@
 				EA57F41B26B99937007D4292 /* MarkupViewProtocol.swift in Sources */,
 				2A55F1F12B738484009DB80A /* NotificationPayload.swift in Sources */,
 				3D210C142758CCE50007F558 /* RelationValuePlaceholderView.swift in Sources */,
+				3D51110A2C3813C000B67B56 /* SyncStatusInfoView.swift in Sources */,
 				2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */,
 				2E8387BD291A520C00506766 /* GroupObjectIds.swift in Sources */,
 				2A2B331A2A7AA525004BD906 /* WidgetTypeCreateData.swift in Sources */,
@@ -12221,6 +12231,7 @@
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				2A0F662C2BFB9B7200F34BBD /* SetsCommonListWidgetSubmoduleView.swift in Sources */,
+				3D2ED6D62C3EA255003718DE /* String+Identifiable.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */,
@@ -12340,6 +12351,7 @@
 				2A4E3F832BC7C7AC00724DBF /* BinConfirmationAlert.swift in Sources */,
 				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
 				2E22F9E32B600F91001EFCF3 /* RelationModuleConfiguration.swift in Sources */,
+				3D2ED6D42C3E9D06003718DE /* SyncStatusInfoViewModel.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				2A771F302AD6F0D8000ED2D4 /* SubscriptionUpdate.swift in Sources */,
 				2ECB34042A95130800E0F9BB /* SetSortsListCoordinatorView.swift in Sources */,

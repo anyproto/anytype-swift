@@ -595,7 +595,7 @@ final class EditorSetViewModel: ObservableObject {
 extension EditorSetViewModel {
     
     func showSyncStatusInfo() {
-        // TODO showSyncStatusInfo
+        output?.showSyncStatusInfo(spaceId: setDocument.spaceId)
     }
 
     func showRelationValueEditingView(key: String) {
