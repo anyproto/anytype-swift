@@ -146,6 +146,7 @@ final class SpaceShareViewModel: ObservableObject {
         canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions 
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
+        canDeleteLink = participantSpaceView.permissions.canDeleteLink
         
         updateUpgradeViewState()
         
