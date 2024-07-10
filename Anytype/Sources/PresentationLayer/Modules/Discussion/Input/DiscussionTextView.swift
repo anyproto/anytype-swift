@@ -3,6 +3,12 @@ import SwiftUI
 
 struct DiscussionTextView: UIViewRepresentable {
     
+    enum Constants {
+        static let style = AnytypeFont.bodyRegular
+        static let font = UIKitFontBuilder.uiKitFont(font: Constants.style)
+        static let codeFont = UIKitFontBuilder.uiKitFont(font: AnytypeFont.codeBlock)
+    }
+    
     @Binding var editing: Bool
     let minHeight: CGFloat
     let maxHeight: CGFloat
@@ -10,7 +16,7 @@ struct DiscussionTextView: UIViewRepresentable {
     @State private var height: CGFloat = 0
     
     func makeCoordinator() -> DiscussionTextViewCoordinator {
-        DiscussionTextViewCoordinator(editing: $editing, height: $height, maxHeight: maxHeight)
+        DiscussionTextViewCoordinator(editing: $editing, height: $height, maxHeight: maxHeight, font: Constants.font, codeFont: Constants.codeFont)
     }
     
     func makeUIView(context: Context) -> UITextView {
@@ -19,12 +25,12 @@ struct DiscussionTextView: UIViewRepresentable {
         textView.textContainerInset = UIEdgeInsets(top: 15, left: 0, bottom: 10, right: 0)
         
         // Text style
-        let style = AnytypeFont.bodyRegular
         let paragraph = NSMutableParagraphStyle()
-        paragraph.lineHeightMultiple = style.lineHeightMultiple
+        paragraph.lineHeightMultiple = Constants.style.lineHeightMultiple
         textView.typingAttributes = [
-            .font: UIKitFontBuilder.uiKitFont(font: style),
-            .paragraphStyle: paragraph
+            .font: Constants.font,
+            .paragraphStyle: paragraph,
+            .kern: Constants.style.config.kern
         ]
         
         return textView
