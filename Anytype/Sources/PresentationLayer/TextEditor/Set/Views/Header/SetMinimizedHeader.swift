@@ -54,12 +54,14 @@ struct SetMinimizedHeader: View {
     }
     
     private var syncsStatusItem: some View {
-        SwiftUIEditorSyncStatusItem(
-            statusData: model.syncStatusData,
-            onTap: { [weak model] in
-                model?.showSyncStatusInfo()
-            }
-        )
+        ZStack {
+            SwiftUIEditorSyncStatusItem(statusData: model.syncStatusData)
+            Color.clear.frame(width: 28, height: 28) // Tap overlay. UIKit wrapper workaround
+                .fixTappableArea()
+                .onTapGesture {
+                    model.showSyncStatusInfo()
+                }
+        }
     }
     
     private var settingsButton: some View {
