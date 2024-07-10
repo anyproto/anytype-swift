@@ -3,7 +3,7 @@ import UIKit
 import SwiftUI
 import Services
 
-final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextContentStorageDelegate {
+final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate {
     
     @Binding private var editing: Bool
     @Binding private var height: CGFloat
@@ -60,6 +60,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate, NSTextC
         
         switch change {
         case .turnInto, .addBlock, nil:
+            // Doesn't support
             return true
         case .addStyle(let markupType, let text, let range, let focusRange):
             return addStyle(textView: textView, type: markupType, text: text, range: range, focusRange: focusRange)
