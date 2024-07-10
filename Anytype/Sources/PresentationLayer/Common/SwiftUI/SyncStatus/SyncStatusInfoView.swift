@@ -16,15 +16,29 @@ struct SyncStatusInfoView: View {
         .padding(8)
         .cornerRadius(16, style: .continuous)
         .background(Color.Background.secondary)
+        .animation(.default, value: model.syncStatusInfo)
     }
     
-    
-    // Temporary design
     var networkInfo: some View {
-        HStack(spacing: 0) {
-            AnytypeText("Sync status: \(model.syncStatus)", style: .uxTitle2Regular)
-                .padding()
-        }.padding(.horizontal, 16)
+        HStack(spacing: 12) {
+            networkIcon
+            VStack(alignment: .leading, spacing: 0) {
+                AnytypeText(model.syncStatusInfo.networkTitle, style: .uxTitle2Regular)
+                AnytypeText(model.syncStatusInfo?.networkSubtitle, style: .relation3Regular)
+                    .foregroundColor(.Text.secondary)
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+    }
+    
+    var networkIcon: some View {
+        ZStack {
+            Circle().frame(width: 48, height: 48).foregroundStyle(model.syncStatusInfo.networkIconColor)
+            Image(asset: model.syncStatusInfo.networkIcon).frame(width: 32, height: 32)
+        }
+        .transition(.opacity)
     }
 }
 

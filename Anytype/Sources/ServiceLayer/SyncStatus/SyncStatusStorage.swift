@@ -5,7 +5,7 @@ import ProtobufMessages
 
 
 protocol SyncStatusStorageProtocol {
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatus, Never>
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo?, Never>
     
     func startSubscription()
     func stopSubscriptionAndClean()
@@ -16,15 +16,14 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
     private var updatePublisher: AnyPublisher<Anytype_Event.Space.SyncStatus.Update?, Never> { $_update.eraseToAnyPublisher() }
     private var subscription: AnyCancellable?
     
-    private var defaultValues = [String: SyncStatus]()
+    private var defaultValues = [String: SyncStatusInfo]()
     
     nonisolated init() { }
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatus, Never> {
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo?, Never> {
         updatePublisher
             .filter { $0?.id == spaceId}
-            .compactMap { $0?.status }
-            .merge(with: Just(defaultValues[spaceId] ?? SyncStatus.offline))
+            .merge(with: Just(defaultValues[spaceId]))
             .eraseToAnyPublisher()
     }
     
@@ -47,7 +46,7 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .spaceSyncStatusUpdate(let update):
-                defaultValues[update.id] = update.status
+                defaultValues[update.id] = update
                 _update = update
             default:
                 break

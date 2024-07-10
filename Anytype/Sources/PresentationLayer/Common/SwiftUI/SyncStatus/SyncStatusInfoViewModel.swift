@@ -6,9 +6,9 @@ final class SyncStatusInfoViewModel: ObservableObject {
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: SyncStatusStorageProtocol
     
-    @Published var syncStatus: SyncStatus = .offline
+    @Published var syncStatusInfo: SyncStatusInfo?
     
     init(spaceId: String) {
-        syncStatusStorage.statusPublisher(spaceId: spaceId).assign(to: &$syncStatus)
+        syncStatusStorage.statusPublisher(spaceId: spaceId).assign(to: &$syncStatusInfo)
     }
 }

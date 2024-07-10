@@ -25,7 +25,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     @Published var undoRedoObjectId: StringIdentifiable?
     @Published var relationsSearchData: RelationsSearchData?
     @Published var openUrlData: URL?
-    @Published var syncStatusSpaceId: String?
+    @Published var syncStatusSpaceId: StringIdentifiable?
     
     init(
         data: EditorPageObject,
@@ -109,7 +109,7 @@ final class EditorPageCoordinatorViewModel: ObservableObject, EditorPageModuleOu
     }
     
     func showSyncStatusInfo(spaceId: String) {
-        syncStatusSpaceId = spaceId
+        syncStatusSpaceId = spaceId.identifiable
     }
     
     // MARK: - Private

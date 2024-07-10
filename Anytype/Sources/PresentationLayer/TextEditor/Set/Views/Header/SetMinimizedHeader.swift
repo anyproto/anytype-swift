@@ -59,6 +59,7 @@ struct SetMinimizedHeader: View {
             Color.clear.frame(width: 28, height: 28) // Tap overlay. UIKit wrapper workaround
                 .fixTappableArea()
                 .onTapGesture {
+                    UISelectionFeedbackGenerator().selectionChanged()
                     model.showSyncStatusInfo()
                 }
         }
