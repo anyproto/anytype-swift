@@ -310,7 +310,7 @@ extension EditorPageViewModel {
     }
     
     func showSyncStatusInfo() {
-        // TODO showSyncStatusInfo
+        output?.showSyncStatusInfo(spaceId: document.spaceId)
     }
 }
 

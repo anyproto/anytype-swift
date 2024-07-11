@@ -392,8 +392,14 @@ internal extension ImageAsset {
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
   enum SyncStatus {
+    static let syncAnytypenetworkConnected = ImageAsset.bundle(name: "SyncStatus/sync_anytypenetwork_connected")
+    static let syncAnytypenetworkError = ImageAsset.bundle(name: "SyncStatus/sync_anytypenetwork_error")
     static let syncInProgress = ImageAsset.bundle(name: "SyncStatus/sync_in_progress")
-    static let syncStaring = ImageAsset.bundle(name: "SyncStatus/sync_staring")
+    static let syncLocalonlyDefault = ImageAsset.bundle(name: "SyncStatus/sync_localonly_default")
+    static let syncOffline = ImageAsset.bundle(name: "SyncStatus/sync_offline")
+    static let syncSelfhostConnected = ImageAsset.bundle(name: "SyncStatus/sync_selfhost_connected")
+    static let syncSelfhostDefault = ImageAsset.bundle(name: "SyncStatus/sync_selfhost_default")
+    static let syncSelfhostError = ImageAsset.bundle(name: "SyncStatus/sync_selfhost_error")
   }
   enum TextEditor {
     enum BlocksOption {

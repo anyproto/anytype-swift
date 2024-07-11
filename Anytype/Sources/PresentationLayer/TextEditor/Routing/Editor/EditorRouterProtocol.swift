@@ -6,6 +6,8 @@ protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
 
+
+// LECACY: Use EditorPageModuleOutput + EditorPageCoordinatorView instead
 @MainActor
 protocol EditorRouterProtocol:
     AnyObject,

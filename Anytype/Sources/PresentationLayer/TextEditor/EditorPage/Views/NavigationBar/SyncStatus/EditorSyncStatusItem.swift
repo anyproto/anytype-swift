@@ -66,7 +66,7 @@ final class EditorSyncStatusItem: UIView {
     }
     
     private func animateImageChange(_ newImage: UIImage, completion: @escaping () -> () = {}) {
-        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve], animations: {
+        UIView.transition(with: button, duration: 0.3, options: [.transitionCrossDissolve, .allowUserInteraction], animations: {
             self.button.setImage(newImage, for: .normal)
         }, completion: { _ in completion() })
     }
@@ -78,7 +78,7 @@ final class EditorSyncStatusItem: UIView {
             
             button.layer.removeAllAnimations()
             animateImageChange(animationStart) {
-                UIView.transition(with: self.button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat]) {
+                UIView.transition(with: self.button, duration: 1.5, options: [.transitionCrossDissolve, .autoreverse, .repeat, .allowUserInteraction]) {
                     self.button.setImage(animationEnd, for: .normal)
                 }
             }
