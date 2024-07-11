@@ -42,7 +42,7 @@ final class DataViewBlockViewModel: BlockViewModelProtocol {
         
         detailsSubscription = document
             .subscribeForDetails(objectId: blockData.targetObjectID)
-            .sinkOnMain { [weak self] _ in
+            .sinkOnMain { [weak self] targetDetails in
                 guard let self = self else { return }
                 self.targetDetails = targetDetails
                 let selfItem = EditorItem.block(self)
