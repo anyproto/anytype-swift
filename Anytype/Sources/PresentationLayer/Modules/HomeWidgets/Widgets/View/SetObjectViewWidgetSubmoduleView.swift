@@ -67,7 +67,7 @@ struct SetObjectViewWidgetSubmoduleInternalView: View {
     private var rows: some View {
         switch model.rows {
         case .list(let rows, let id):
-            ListWidgetContentView(style: .list, rows: rows, onCreateTap: createTap)
+            ListWidgetContentView(style: .compactList, rows: rows, onCreateTap: createTap)
                 .id(id)
         case .gallery(let rows, let id):
             GalleryWidgetView(

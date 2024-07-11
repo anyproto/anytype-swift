@@ -111,7 +111,7 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let model = try await objectLifecycleService.open(contextId: objectId)
-        await setupView(model)
+        setupView(model)
     }
     
     @MainActor
@@ -121,7 +121,7 @@ final class BaseDocument: BaseDocumentProtocol {
             return
         }
         let model = try await objectLifecycleService.openForPreview(contextId: objectId)
-        await setupView(model)
+        setupView(model)
     }
     
     @MainActor
@@ -214,20 +214,22 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
-    private func setupView(_ model: ObjectViewModel) async {
+    @MainActor
+    private func setupView(_ model: ObjectViewModel) {
         viewModelSetter.objectViewUpdate(model)
         isOpened = true
-        await setupSubscriptions()
+        setupSubscriptions()
         triggerSync(updates: [.general])
     }
     
-    private func setupSubscriptions() async {
+    @MainActor
+    private func setupSubscriptions() {
         syncStatusStorage.statusPublisher(spaceId: spaceId).sink { [weak self] info in
             guard let info else { return }
             self?.syncStatusSubject.send(info.status)
         }.store(in: &subscriptions)
         
-        await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
+        accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in
             self?.participantIsEditor = canEdit
             self?.triggerSync(updates: [.restrictions])
         }
