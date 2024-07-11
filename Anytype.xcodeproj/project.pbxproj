@@ -1375,6 +1375,7 @@
 		3DD5A5FB2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD5A5FA2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift */; };
 		3DD72C292C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */; };
 		3DD72C2B2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */; };
+		3DD72C2F2C3FF04F002C5ACC /* SyncStatusStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C2E2C3FF04F002C5ACC /* SyncStatusStorageMock.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
@@ -3196,6 +3197,7 @@
 		3DD5A5FA2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipOwnerInfoSheetViewModel.swift; sourceTree = "<group>"; };
 		3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+SyncStatusInfo.swift"; sourceTree = "<group>"; };
 		3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Anytype_Event.Space.SyncError+Localizable.swift"; sourceTree = "<group>"; };
+		3DD72C2E2C3FF04F002C5ACC /* SyncStatusStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusStorageMock.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
@@ -6225,6 +6227,7 @@
 				2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */,
 				3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */,
 				3D052AEC2BF7881900F611F6 /* FileLimitsStorageMock.swift */,
+				3DD72C2E2C3FF04F002C5ACC /* SyncStatusStorageMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -12654,6 +12657,7 @@
 				2A35A6BE2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
+				3DD72C2F2C3FF04F002C5ACC /* SyncStatusStorageMock.swift in Sources */,
 				2A6693752A7104EA007747DD /* StaticImageGuideline.swift in Sources */,
 				2A03039A28ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift in Sources */,
 				2ABF8F5F2B7FB982004B8FB8 /* AsyncStandardButton.swift in Sources */,

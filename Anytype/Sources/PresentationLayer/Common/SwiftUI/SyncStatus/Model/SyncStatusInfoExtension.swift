@@ -77,13 +77,22 @@ extension SyncStatusInfo {
         case .selfHost:
             selfHostIcon
         case .localOnly:
-            anytypeNetworkIcon
+            localOnlyIcon
         case .UNRECOGNIZED:
             ImageAsset.SyncStatus.syncOffline
         }
     }
     
     var networkIconColor: Color {
+        switch self.network {
+        case .anytype, .selfHost:
+            networkIconColorBasedOnStatus
+        case .localOnly, .UNRECOGNIZED:
+            Self.defaultNetworkIconColor
+        }
+    }
+    
+    private var networkIconColorBasedOnStatus: Color {
         switch status {
         case .synced, .syncing:
             .Light.green
