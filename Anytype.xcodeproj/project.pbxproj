@@ -1185,7 +1185,7 @@
 		3D2D59B1268CD584004745EC /* BlockImageConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */; };
 		3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */; };
 		3D2ED6D42C3E9D06003718DE /* SyncStatusInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */; };
-		3D2ED6D62C3EA255003718DE /* String+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2ED6D52C3EA255003718DE /* String+Identifiable.swift */; };
+		3D2ED6D82C3ECA47003718DE /* SyncStatusInfoExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2ED6D72C3ECA47003718DE /* SyncStatusInfoExtension.swift */; };
 		3D2F00292B6814CC009F3AA5 /* ObjectTypeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F00282B6814CC009F3AA5 /* ObjectTypeSearchView.swift */; };
 		3D2F002B2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F002A2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift */; };
 		3D2F9C18271EAE4D0043C326 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C16271EAE4D0043C326 /* SearchService.swift */; };
@@ -3002,7 +3002,7 @@
 		3D2D59B0268CD584004745EC /* BlockImageConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D2D59B2268CD5E5004745EC /* BlockImageContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageContentView.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageContentView.swift; sourceTree = SOURCE_ROOT; };
 		3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusInfoViewModel.swift; sourceTree = "<group>"; };
-		3D2ED6D52C3EA255003718DE /* String+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Identifiable.swift"; sourceTree = "<group>"; };
+		3D2ED6D72C3ECA47003718DE /* SyncStatusInfoExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusInfoExtension.swift; sourceTree = "<group>"; };
 		3D2F00282B6814CC009F3AA5 /* ObjectTypeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSearchView.swift; sourceTree = "<group>"; };
 		3D2F002A2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypeSearchViewModel.swift; sourceTree = "<group>"; };
 		3D2F9C16271EAE4D0043C326 /* SearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
@@ -9202,6 +9202,7 @@
 			children = (
 				3D5111092C3813C000B67B56 /* SyncStatusInfoView.swift */,
 				3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */,
+				3D2ED6D72C3ECA47003718DE /* SyncStatusInfoExtension.swift */,
 			);
 			path = SyncStatus;
 			sourceTree = "<group>";
@@ -9389,7 +9390,6 @@
 				2ECB34002A95041800E0F9BB /* View+Detents.swift */,
 				2AB7AAEA2AF51D0C00ED3E02 /* View+PresentationBackground.swift */,
 				2A685D562B7B694800456E08 /* Text+Markdown.swift */,
-				3D2ED6D52C3EA255003718DE /* String+Identifiable.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -12231,7 +12231,6 @@
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				2A0F662C2BFB9B7200F34BBD /* SetsCommonListWidgetSubmoduleView.swift in Sources */,
-				3D2ED6D62C3EA255003718DE /* String+Identifiable.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */,
 				3DD0CEB92B90ACED00657402 /* MembershipLegalButton.swift in Sources */,
@@ -12525,6 +12524,7 @@
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				2AD102BF2BB1CEF800AF4DC9 /* SpaceRequestAlertModel.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
+				3D2ED6D82C3ECA47003718DE /* SyncStatusInfoExtension.swift in Sources */,
 				2A1F949929795FEB00E25782 /* FavoriteSubscriptionService.swift in Sources */,
 				2ADFA9DC2949C61D00F64688 /* UIKitModule.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,

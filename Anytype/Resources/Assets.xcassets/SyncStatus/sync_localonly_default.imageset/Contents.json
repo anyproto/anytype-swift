@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Local-Only.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

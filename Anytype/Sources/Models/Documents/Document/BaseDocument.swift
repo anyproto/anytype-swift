@@ -222,8 +222,9 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func setupSubscriptions() async {
-        syncStatusStorage.statusPublisher(spaceId: spaceId).sink { [weak self] syncStatus in
-            self?.syncStatusSubject.send(syncStatus)
+        syncStatusStorage.statusPublisher(spaceId: spaceId).sink { [weak self] info in
+            guard let info else { return }
+            self?.syncStatusSubject.send(info.status)
         }.store(in: &subscriptions)
         
         await accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in

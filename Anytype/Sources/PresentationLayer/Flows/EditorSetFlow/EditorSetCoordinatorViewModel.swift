@@ -40,7 +40,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var covertPickerData: ObjectCoverPickerData?
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
-    @Published var syncStatusSpaceId: String?
+    @Published var syncStatusSpaceId: StringIdentifiable?
     
     init(data: EditorSetObject) {
         self.data = data
@@ -176,7 +176,7 @@ final class EditorSetCoordinatorViewModel:
     }
     
     func showSyncStatusInfo(spaceId: String) {
-        syncStatusSpaceId = spaceId
+        syncStatusSpaceId = spaceId.identifiable
     }
 
     // MARK: - ObjectSettingsCoordinatorOutput

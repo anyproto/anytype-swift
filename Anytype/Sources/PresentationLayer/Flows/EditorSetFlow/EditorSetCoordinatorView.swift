@@ -38,7 +38,7 @@ struct EditorSetCoordinatorView: View {
                 ObjectIconPicker(data: $0)
             }
             .anytypeSheet(item: $model.syncStatusSpaceId) {
-                SyncStatusInfoView(spaceId: $0)
+                SyncStatusInfoView(spaceId: $0.value)
             }
             .snackbar(toastBarData: $model.toastBarData)
     }
