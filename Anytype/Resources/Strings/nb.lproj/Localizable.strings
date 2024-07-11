@@ -608,15 +608,14 @@
 "Unfavorite" = "Fjern fra favoritter";
 "Unsplash" = "Unsplash";
 "Go back" = "Gå tilbake";
-"SyncStatus.LocalOnly.Title" = "Kun lokalt";
-"SyncStatus.LocalOnly.Description" = "Kun lokalt";
-"SyncStatus.Synced.Anytype.Description" = "Sikkerhetskopiert på Anytype-nettverk";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Sikkerhetskopiert på Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Sikkerhetskopiert på selvhostet nettverk";
 "Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
 "Node is not connected" = "Noden er ikke tilkoblet";
 "Initializing sync" = "Initialiserer synkronisering";
 "Incompatible version" = "Ukompatibel versjon";
+"Connecting..." = "Connecting...";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Synkronisert";
 "Syncing..." = "Synkroniserer...";
 "No connection" = "Ingen tilkobling";
@@ -1169,6 +1168,15 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Ukompatibel versjon";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";

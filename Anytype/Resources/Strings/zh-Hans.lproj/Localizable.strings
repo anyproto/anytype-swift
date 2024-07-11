@@ -609,15 +609,14 @@
 "Unfavorite" = "取消收藏";
 "Unsplash" = "Unsplash 图库";
 "Go back" = "回到";
-"SyncStatus.LocalOnly.Title" = "仅本地";
-"SyncStatus.LocalOnly.Description" = "仅本地";
-"SyncStatus.Synced.Anytype.Description" = "备份到 Anytype 网络";
-"SyncStatus.Synced.AnytypeStaging.Description" = "备份到 Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "备份到自托管网络";
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
 "Node is not connected" = "节点未连接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不兼容版本";
+"Connecting..." = "Connecting...";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "已同步";
 "Syncing..." = "同步中...";
 "No connection" = "没有连接";
@@ -1171,6 +1170,15 @@
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "不兼容版本";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";
