@@ -609,15 +609,14 @@
 "Unfavorite" = "取消收藏";
 "Unsplash" = "Unsplash 圖庫";
 "Go back" = "返回";
-"SyncStatus.LocalOnly.Title" = "僅限本機";
-"SyncStatus.LocalOnly.Description" = "僅限本機";
-"SyncStatus.Synced.Anytype.Description" = "備份到 Anytype 網路";
-"SyncStatus.Synced.AnytypeStaging.Description" = "備份到 Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "備份到您自行部署的網絡";
 "Downloading or uploading data to some node" = "向某個節點下載或上傳資料";
 "Node is not connected" = "節點未連接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不相容的版本";
+"Connecting..." = "Connecting...";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "已同步";
 "Syncing..." = "同步中...";
 "No connection" = "沒有連線";
@@ -1173,6 +1172,15 @@
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "不相容的版本";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME 類型 - %@";
