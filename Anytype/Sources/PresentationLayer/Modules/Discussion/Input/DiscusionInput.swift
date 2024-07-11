@@ -5,23 +5,12 @@ struct DiscusionInput: View {
     @State private var editing: Bool = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Image(asset: .X32.plus)
-                    .onTapGesture {
-                        editing = false
-                    }
-                DiscussionTextView(editing: $editing, minHeight: 56, maxHeight: 212)
-            }
-            if editing {
-                HStack {
-                    Text("Bottom action panel")
-                    Spacer()
+        HStack {
+            Image(asset: .X32.plus)
+                .onTapGesture {
+                    editing = false
                 }
-                .frame(height: 48)
-            } else {
-                AnytypeNavigationSpacer()
-            }
+            DiscussionTextView(editing: $editing, minHeight: 56, maxHeight: 212)
         }
         .overlay(alignment: .top) {
             AnytypeDivider()

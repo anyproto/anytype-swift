@@ -710,6 +710,7 @@
 		2ABBAEF12BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */; };
 		2ABBAEF32BFB8FCF00EBA8FA /* CollectionsCommonListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF22BFB8FCF00EBA8FA /* CollectionsCommonListWidgetSubmoduleView.swift */; };
 		2ABBAEF72BFB918100EBA8FA /* WidgetSubmoduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */; };
+		2ABC49E52C3EE82F00227F09 /* DiscussionSpacingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABC49E42C3EE82F00227F09 /* DiscussionSpacingContainer.swift */; };
 		2ABF214329B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */; };
 		2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */; };
 		2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */; };
@@ -2508,6 +2509,7 @@
 		2ABBAEF02BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2ABBAEF22BFB8FCF00EBA8FA /* CollectionsCommonListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCommonListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2ABBAEF62BFB918100EBA8FA /* WidgetSubmoduleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSubmoduleData.swift; sourceTree = "<group>"; };
+		2ABC49E42C3EE82F00227F09 /* DiscussionSpacingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionSpacingContainer.swift; sourceTree = "<group>"; };
 		2ABF214229B204BE00E872D9 /* UIUserInterfaceStyle+Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIUserInterfaceStyle+Settings.swift"; sourceTree = "<group>"; };
 		2ABF214529B204F800E872D9 /* DashboardLogoutAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLogoutAlertModel.swift; sourceTree = "<group>"; };
 		2ABF214829B2052900E872D9 /* DashboardClearCacheAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardClearCacheAlertModel.swift; sourceTree = "<group>"; };
@@ -5677,6 +5679,7 @@
 		2A4191DC2C368F5600117FB8 /* Discussion */ = {
 			isa = PBXGroup;
 			children = (
+				2ABC49E32C3EE81B00227F09 /* Container */,
 				2A4191E42C36924E00117FB8 /* Input */,
 				2A4191DF2C368FB700117FB8 /* DiscussionView.swift */,
 			);
@@ -6755,6 +6758,14 @@
 				2ABBAEDC2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift */,
 			);
 			path = Files;
+			sourceTree = "<group>";
+		};
+		2ABC49E32C3EE81B00227F09 /* Container */ = {
+			isa = PBXGroup;
+			children = (
+				2ABC49E42C3EE82F00227F09 /* DiscussionSpacingContainer.swift */,
+			);
+			path = Container;
 			sourceTree = "<group>";
 		};
 		2ABF214429B204E900E872D9 /* DashboardLogoutAlert */ = {
@@ -11529,6 +11540,7 @@
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */,
 				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
+				2ABC49E52C3EE82F00227F09 /* DiscussionSpacingContainer.swift in Sources */,
 				2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
