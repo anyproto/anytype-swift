@@ -1373,6 +1373,8 @@
 		3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */; };
 		3DD1129E2B95FE62007682F4 /* MembershipTierSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */; };
 		3DD5A5FB2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD5A5FA2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift */; };
+		3DD72C292C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */; };
+		3DD72C2B2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
@@ -3192,6 +3194,8 @@
 		3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorModel.swift; sourceTree = "<group>"; };
 		3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionView.swift; sourceTree = "<group>"; };
 		3DD5A5FA2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipOwnerInfoSheetViewModel.swift; sourceTree = "<group>"; };
+		3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+SyncStatusInfo.swift"; sourceTree = "<group>"; };
+		3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Anytype_Event.Space.SyncError+Localizable.swift"; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
@@ -9203,9 +9207,9 @@
 		3DA3C4922C38099900BBB529 /* SyncStatus */ = {
 			isa = PBXGroup;
 			children = (
+				3DD72C272C3FE7B3002C5ACC /* Model */,
 				3D5111092C3813C000B67B56 /* SyncStatusInfoView.swift */,
 				3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */,
-				3D2ED6D72C3ECA47003718DE /* SyncStatusInfoExtension.swift */,
 			);
 			path = SyncStatus;
 			sourceTree = "<group>";
@@ -9538,6 +9542,16 @@
 				3DCE938A2C24271900F37D86 /* MembershipExternalPaymentMethod+NoticeTitle.swift */,
 			);
 			path = OwnershipView;
+			sourceTree = "<group>";
+		};
+		3DD72C272C3FE7B3002C5ACC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3D2ED6D72C3ECA47003718DE /* SyncStatusInfoExtension.swift */,
+				3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */,
+				3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3DDC6A5E2627070C004F5EA4 /* Link */ = {
@@ -12218,6 +12232,7 @@
 				3DFD50A42BA0B114002E51F7 /* MembershipStatusExtension.swift in Sources */,
 				3D8624492B738D6400A5FCF4 /* ObjectTypeProviderProtocol.swift in Sources */,
 				C9BFBA8B28A12E980003D9E6 /* ShimmeringBlockView.swift in Sources */,
+				3DD72C292C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift in Sources */,
 				125B6ED326F235F400BCD7D6 /* SlashMenuView.swift in Sources */,
 				0AD6B24A24CF5DC00097A841 /* BlockBookmarkViewModel.swift in Sources */,
 				129C54C427FC4CF600C390C7 /* NewRelationViewModel.swift in Sources */,
@@ -12552,6 +12567,7 @@
 				1247BC6427FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				2A2B331E2A7AA7A6004BD906 /* CreateWidgetCoordinatorView.swift in Sources */,
+				3DD72C2B2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift in Sources */,
 				2E6F3E1F2A4DF154002F4278 /* SceneStateListener.swift in Sources */,
 				2ACE879B29F2B23B00C2B2A9 /* StandardButtonConfig.swift in Sources */,
 				2ABBAEF12BFB899300EBA8FA /* RecentTreeWidgetSubmoduleView.swift in Sources */,

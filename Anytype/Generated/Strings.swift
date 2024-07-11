@@ -32,6 +32,7 @@ internal enum Loc {
   internal static let amber = Loc.tr("Localizable", "Amber")
   internal static let amberBackground = Loc.tr("Localizable", "Amber background")
   internal static let anytypeLibrary = Loc.tr("Localizable", "Anytype Library")
+  internal static let anytypeNetwork = Loc.tr("Localizable", "Anytype Network")
   internal static let appearance = Loc.tr("Localizable", "Appearance")
   internal static let applicationIcon = Loc.tr("Localizable", "Application icon")
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
@@ -75,6 +76,7 @@ internal enum Loc {
   internal static let color = Loc.tr("Localizable", "Color")
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family")
   internal static let confirm = Loc.tr("Localizable", "Confirm")
+  internal static let connecting = Loc.tr("Localizable", "Connecting...")
   internal static let copied = Loc.tr("Localizable", "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
@@ -153,6 +155,9 @@ internal enum Loc {
   internal static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version")
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync")
   internal static let intoObject = Loc.tr("Localizable", "Into object")
+  internal static func itemsSyncing(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Items syncing", p1)
+  }
   internal static let join = Loc.tr("Localizable", "Join")
   internal static let justEMail = Loc.tr("Localizable", "Just e-mail")
   internal static let layout = Loc.tr("Localizable", "Layout")
@@ -165,6 +170,7 @@ internal enum Loc {
   internal static let listOfRelatedObjects = Loc.tr("Localizable", "List of related objects")
   internal static let lists = Loc.tr("Localizable", "Lists")
   internal static let loadingPleaseWait = Loc.tr("Localizable", "Loading, please wait")
+  internal static let localOnly = Loc.tr("Localizable", "Local Only")
   internal static let lock = Loc.tr("Localizable", "Lock")
   internal static let logOut = Loc.tr("Localizable", "Log out")
   internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data")
@@ -280,6 +286,7 @@ internal enum Loc {
   internal static func selectedBlocks(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Selected blocks", p1)
   }
+  internal static let selfHost = Loc.tr("Localizable", "Self Host")
   internal static let `set` = Loc.tr("Localizable", "Set")
   internal static let setAsDefault = Loc.tr("Localizable", "Set as default")
   internal static let sets = Loc.tr("Localizable", "Sets")
@@ -1692,20 +1699,15 @@ internal enum Loc {
     }
   }
   internal enum SyncStatus {
-    internal enum LocalOnly {
-      internal static let description = Loc.tr("Localizable", "SyncStatus.LocalOnly.Description")
-      internal static let title = Loc.tr("Localizable", "SyncStatus.LocalOnly.Title")
+    internal enum Error {
+      internal static let incompatibleVersion = Loc.tr("Localizable", "SyncStatus.Error.incompatibleVersion")
+      internal static let networkError = Loc.tr("Localizable", "SyncStatus.Error.networkError")
+      internal static let storageLimitExceed = Loc.tr("Localizable", "SyncStatus.Error.storageLimitExceed")
+      internal static let unrecognized = Loc.tr("Localizable", "SyncStatus.Error.UNRECOGNIZED")
     }
-    internal enum Synced {
-      internal enum Anytype {
-        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.Anytype.Description")
-      }
-      internal enum AnytypeStaging {
-        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.AnytypeStaging.Description")
-      }
-      internal enum SelfHosted {
-        internal static let description = Loc.tr("Localizable", "SyncStatus.Synced.SelfHosted.Description")
-      }
+    internal enum Info {
+      internal static let anytypeNetwork = Loc.tr("Localizable", "SyncStatus.Info.AnytypeNetwork")
+      internal static let localOnly = Loc.tr("Localizable", "SyncStatus.Info.localOnly")
     }
   }
   internal enum TalbeOfContents {
