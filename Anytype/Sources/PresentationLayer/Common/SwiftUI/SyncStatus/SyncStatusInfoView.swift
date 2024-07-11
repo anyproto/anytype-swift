@@ -21,7 +21,7 @@ struct SyncStatusInfoView: View {
     
     var networkInfo: some View {
         HStack(spacing: 12) {
-            networkIcon
+            SyncStatusInfoNetworkIcon(model: model)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.syncStatusInfo.networkTitle, style: .uxTitle2Regular)
                     .lineLimit(1)
@@ -34,14 +34,6 @@ struct SyncStatusInfoView: View {
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
     }
-    
-    var networkIcon: some View {
-        ZStack {
-            Circle().frame(width: 48, height: 48).foregroundStyle(model.syncStatusInfo.networkIconColor)
-            Image(asset: model.syncStatusInfo.networkIcon).frame(width: 32, height: 32)
-        }
-        .transition(.opacity)
-    }
 }
 
 
@@ -52,6 +44,15 @@ import Services
         SyncStatusInfoView(spaceId: "")
     }
 }
+
+#Preview("Syncing state") {
+    MockView {
+        SyncStatusStorageMock.shared.infoToReturn = [.mock(status: .syncing)]
+    } content: {
+        SyncStatusInfoView(spaceId: "")
+    }
+}
+
 
 #Preview("Self host") {
     MockView {
