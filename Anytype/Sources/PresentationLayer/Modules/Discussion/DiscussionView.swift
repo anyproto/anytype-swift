@@ -2,8 +2,6 @@ import SwiftUI
 
 struct DiscussionView: View {
     
-    @Environment(\.anytypeNavigationPanelSize) var navigationSize
-    
     var body: some View {
         DiscussionSpacingContainer {
             ScrollView {
