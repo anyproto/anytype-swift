@@ -612,7 +612,7 @@
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Incompatible version" = "Incompatible version";
-"Connecting..." = "Connecting...";
+"Connecting..." = "Ansluter...";
 "Anytype Network" = "Anytype Network";
 "Self Host" = "Self Host";
 "Local Only" = "Local Only";
