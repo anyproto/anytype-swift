@@ -76,7 +76,7 @@ internal enum Loc {
   internal static let color = Loc.tr("Localizable", "Color")
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family")
   internal static let confirm = Loc.tr("Localizable", "Confirm")
-  internal static let connecting = Loc.tr("Localizable", "Connecting...")
+  internal static let connecting = Loc.tr("Localizable", "Connecting")
   internal static let copied = Loc.tr("Localizable", "Copied")
   internal static func copiedToClipboard(_ p1: Any) -> String {
     return Loc.tr("Localizable", "copied to clipboard", String(describing: p1))
@@ -108,6 +108,9 @@ internal enum Loc {
   internal static let description = Loc.tr("Localizable", "Description")
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
+  internal static func devicesConnected(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Devices connected", p1)
+  }
   internal static let done = Loc.tr("Localizable", "Done")
   internal static let download = Loc.tr("Localizable", "Download")
   internal static let downloadingOrUploadingDataToSomeNode = Loc.tr("Localizable", "Downloading or uploading data to some node")
@@ -219,6 +222,8 @@ internal enum Loc {
   }
   internal static let other = Loc.tr("Localizable", "Other")
   internal static let otherRelations = Loc.tr("Localizable", "Other relations")
+  internal static let p2PConnecting = Loc.tr("Localizable", "P2P Connecting")
+  internal static let p2PConnection = Loc.tr("Localizable", "P2P Connection")
   internal static func paidBy(_ p1: Any) -> String {
     return Loc.tr("Localizable", "Paid by", String(describing: p1))
   }
@@ -1708,6 +1713,9 @@ internal enum Loc {
     internal enum Info {
       internal static let anytypeNetwork = Loc.tr("Localizable", "SyncStatus.Info.AnytypeNetwork")
       internal static let localOnly = Loc.tr("Localizable", "SyncStatus.Info.localOnly")
+    }
+    internal enum P2P {
+      internal static let restricted = Loc.tr("Localizable", "SyncStatus.P2P.Restricted")
     }
   }
   internal enum TalbeOfContents {

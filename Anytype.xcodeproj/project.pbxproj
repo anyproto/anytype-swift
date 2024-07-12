@@ -1296,6 +1296,7 @@
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnytypeFont.swift */; };
 		3D92E9A52C41219B00A1998C /* P2PStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D92E9A42C41219B00A1998C /* P2PStatusStorage.swift */; };
+		3D92E9A72C41334B00A1998C /* P2PStatusInfoExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D92E9A62C41334B00A1998C /* P2PStatusInfoExtension.swift */; };
 		3D92E9A92C4133A700A1998C /* NetworkIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D92E9A82C4133A700A1998C /* NetworkIconProvider.swift */; };
 		3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */; };
 		3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */; };
@@ -3119,6 +3120,7 @@
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnytypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFont.swift; sourceTree = "<group>"; };
 		3D92E9A42C41219B00A1998C /* P2PStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PStatusStorage.swift; sourceTree = "<group>"; };
+		3D92E9A62C41334B00A1998C /* P2PStatusInfoExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PStatusInfoExtension.swift; sourceTree = "<group>"; };
 		3D92E9A82C4133A700A1998C /* NetworkIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIconProvider.swift; sourceTree = "<group>"; };
 		3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommonViews+Pickers+File+UIKit.swift"; sourceTree = "<group>"; };
 		3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFilePickerViewModel.swift; sourceTree = "<group>"; };
@@ -9566,6 +9568,7 @@
 			children = (
 				3D92E9A82C4133A700A1998C /* NetworkIconProvider.swift */,
 				3D2ED6D72C3ECA47003718DE /* SyncStatusInfoExtension.swift */,
+				3D92E9A62C41334B00A1998C /* P2PStatusInfoExtension.swift */,
 				3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */,
 			);
 			path = Model;
@@ -11725,6 +11728,7 @@
 				2AE276242BD0270000E0244A /* ObjectSettingsCoordinatorView.swift in Sources */,
 				3DE50F952C130F5C00B92C1F /* SpaceShareUpgradeView.swift in Sources */,
 				53EDA8802837EC4000887804 /* CreateObjectView.swift in Sources */,
+				3D92E9A72C41334B00A1998C /* P2PStatusInfoExtension.swift in Sources */,
 				1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */,
 				2A845D752B0D027300AFD252 /* WidgetSwipeActionView.swift in Sources */,
 				2E1AA7FD2BCEBF180089B136 /* SetLayoutSettingsData.swift in Sources */,
