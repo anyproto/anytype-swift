@@ -613,9 +613,9 @@
 "Initializing sync" = "Initialisiere Synchronisation";
 "Incompatible version" = "Inkompatible Version";
 "Connecting..." = "Connecting...";
-"Anytype Network" = "Anytype Network";
+"Anytype Network" = "Anytype-Netzwerk";
 "Self Host" = "Self Host";
-"Local Only" = "Local Only";
+"Local Only" = "Nur lokal";
 "Synced" = "Synchronisiert";
 "Syncing..." = "Synchronisiere...";
 "No connection" = "Keine Verbindung";
@@ -1172,12 +1172,12 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "Datensicherung ist deaktiviert";
+"SyncStatus.Info.AnytypeNetwork" = "Ende-zu-Ende-verschlüsselt";
+"SyncStatus.Error.storageLimitExceed" = "Speicherplatzgrenze erreicht";
 "SyncStatus.Error.incompatibleVersion" = "Inkompatible Version";
 "SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.Error.UNRECOGNIZED" = "Unerkannter Fehler";
 
 
 // MARK: - Debug
