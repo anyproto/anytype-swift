@@ -7,10 +7,10 @@ final class SyncStatusStorageMock: SyncStatusStorageProtocol {
     
     static let shared = SyncStatusStorageMock()
     
-    @Published private var publishedInfo: SyncStatusInfo?
+    @Published private var publishedInfo: SyncStatusInfo = .default(spaceId: "")
     var infoToReturn = Services.SyncStatusInfo.mockArray()
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<Services.SyncStatusInfo?, Never> {
+    func statusPublisher(spaceId: String) -> AnyPublisher<Services.SyncStatusInfo, Never> {
         Task.detached { [infoToReturn, weak self] in
             while true {
                 for info in infoToReturn {

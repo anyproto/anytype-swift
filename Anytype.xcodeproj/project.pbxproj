@@ -1296,6 +1296,7 @@
 		3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2A263302160063F1BE /* TypographyExample.swift */; };
 		3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D929B2E263307700063F1BE /* AnytypeFont.swift */; };
 		3D92E9A52C41219B00A1998C /* P2PStatusStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D92E9A42C41219B00A1998C /* P2PStatusStorage.swift */; };
+		3D92E9A92C4133A700A1998C /* NetworkIconProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D92E9A82C4133A700A1998C /* NetworkIconProvider.swift */; };
 		3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */; };
 		3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */; };
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
@@ -1374,10 +1375,9 @@
 		3DD112982B95EA35007682F4 /* MembershipCoordinatorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */; };
 		3DD1129E2B95FE62007682F4 /* MembershipTierSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */; };
 		3DD5A5FB2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD5A5FA2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift */; };
-		3DD72C292C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */; };
 		3DD72C2B2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */; };
 		3DD72C2F2C3FF04F002C5ACC /* SyncStatusStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C2E2C3FF04F002C5ACC /* SyncStatusStorageMock.swift */; };
-		3DD72C312C402498002C5ACC /* SyncStatusInfoNetworkIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C302C402498002C5ACC /* SyncStatusInfoNetworkIcon.swift */; };
+		3DD72C312C402498002C5ACC /* NetworkIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD72C302C402498002C5ACC /* NetworkIconView.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */; };
 		3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */; };
@@ -3119,6 +3119,7 @@
 		3D929B2A263302160063F1BE /* TypographyExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyExample.swift; sourceTree = "<group>"; };
 		3D929B2E263307700063F1BE /* AnytypeFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFont.swift; sourceTree = "<group>"; };
 		3D92E9A42C41219B00A1998C /* P2PStatusStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = P2PStatusStorage.swift; sourceTree = "<group>"; };
+		3D92E9A82C4133A700A1998C /* NetworkIconProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIconProvider.swift; sourceTree = "<group>"; };
 		3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CommonViews+Pickers+File+UIKit.swift"; sourceTree = "<group>"; };
 		3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFilePickerViewModel.swift; sourceTree = "<group>"; };
 		3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePickerResultInformation.swift; sourceTree = "<group>"; };
@@ -3198,10 +3199,9 @@
 		3DD112972B95EA35007682F4 /* MembershipCoordinatorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCoordinatorModel.swift; sourceTree = "<group>"; };
 		3DD1129D2B95FE62007682F4 /* MembershipTierSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierSelectionView.swift; sourceTree = "<group>"; };
 		3DD5A5FA2BE4EC0B00F1EE69 /* MembershipOwnerInfoSheetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipOwnerInfoSheetViewModel.swift; sourceTree = "<group>"; };
-		3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Optional+SyncStatusInfo.swift"; sourceTree = "<group>"; };
 		3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Anytype_Event.Space.SyncError+Localizable.swift"; sourceTree = "<group>"; };
 		3DD72C2E2C3FF04F002C5ACC /* SyncStatusStorageMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusStorageMock.swift; sourceTree = "<group>"; };
-		3DD72C302C402498002C5ACC /* SyncStatusInfoNetworkIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatusInfoNetworkIcon.swift; sourceTree = "<group>"; };
+		3DD72C302C402498002C5ACC /* NetworkIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkIconView.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkCardView.swift; sourceTree = "<group>"; };
 		3DDC6A6926270998004F5EA4 /* BlockLinkContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkContentConfiguration.swift; sourceTree = "<group>"; };
@@ -9226,7 +9226,7 @@
 				3DD72C272C3FE7B3002C5ACC /* Model */,
 				3D5111092C3813C000B67B56 /* SyncStatusInfoView.swift */,
 				3D2ED6D32C3E9D06003718DE /* SyncStatusInfoViewModel.swift */,
-				3DD72C302C402498002C5ACC /* SyncStatusInfoNetworkIcon.swift */,
+				3DD72C302C402498002C5ACC /* NetworkIconView.swift */,
 			);
 			path = SyncStatus;
 			sourceTree = "<group>";
@@ -9564,8 +9564,8 @@
 		3DD72C272C3FE7B3002C5ACC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3D92E9A82C4133A700A1998C /* NetworkIconProvider.swift */,
 				3D2ED6D72C3ECA47003718DE /* SyncStatusInfoExtension.swift */,
-				3DD72C282C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift */,
 				3DD72C2A2C3FEDDA002C5ACC /* Anytype_Event.Space.SyncError+Localizable.swift */,
 			);
 			path = Model;
@@ -11859,7 +11859,7 @@
 				2E3E0DDC29F1C2C9009F68D8 /* KeyboardToolbarView.swift in Sources */,
 				53D4088627EC9D0A00495335 /* ObjectPreviewViewModel.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
-				3DD72C312C402498002C5ACC /* SyncStatusInfoNetworkIcon.swift in Sources */,
+				3DD72C312C402498002C5ACC /* NetworkIconView.swift in Sources */,
 				2ECF1DC12BBC113C007C68E2 /* SetFiltersSelectionHeaderData.swift in Sources */,
 				2ABF214629B204F800E872D9 /* DashboardLogoutAlertModel.swift in Sources */,
 				53F64294284E4CDF005D4E50 /* ObjectPreviewDescriptionMenuViewModel.swift in Sources */,
@@ -12085,6 +12085,7 @@
 				2E8387BB291A51A000506766 /* SetCardDropInsideDelegate.swift in Sources */,
 				2A18929F2A8F6FB000A19740 /* NonFatalLoggerHandler.swift in Sources */,
 				2E6CF15E2BDFE0D9002C7023 /* SetRelationsDetailsLocalSearchView.swift in Sources */,
+				3D92E9A92C4133A700A1998C /* NetworkIconProvider.swift in Sources */,
 				C90F8F2628DCBB4000E874A9 /* ImageSourceMedia.swift in Sources */,
 				2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */,
 				53D408AE27F0B85B00495335 /* CodeBlockFieldsConverter.swift in Sources */,
@@ -12251,7 +12252,6 @@
 				3DFD50A42BA0B114002E51F7 /* MembershipStatusExtension.swift in Sources */,
 				3D8624492B738D6400A5FCF4 /* ObjectTypeProviderProtocol.swift in Sources */,
 				C9BFBA8B28A12E980003D9E6 /* ShimmeringBlockView.swift in Sources */,
-				3DD72C292C3FE7CB002C5ACC /* Optional+SyncStatusInfo.swift in Sources */,
 				125B6ED326F235F400BCD7D6 /* SlashMenuView.swift in Sources */,
 				0AD6B24A24CF5DC00097A841 /* BlockBookmarkViewModel.swift in Sources */,
 				129C54C427FC4CF600C390C7 /* NewRelationViewModel.swift in Sources */,

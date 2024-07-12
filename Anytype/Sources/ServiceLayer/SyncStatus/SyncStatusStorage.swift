@@ -5,7 +5,7 @@ import ProtobufMessages
 
 
 protocol SyncStatusStorageProtocol {
-    func statusPublisher(spaceId: String) async -> AnyPublisher<SyncStatusInfo?, Never>
+    func statusPublisher(spaceId: String) async -> AnyPublisher<SyncStatusInfo, Never>
     
     func startSubscription() async
     func stopSubscriptionAndClean() async
@@ -18,10 +18,11 @@ actor SyncStatusStorage: SyncStatusStorageProtocol {
     
     private var defaultValues = [String: SyncStatusInfo]()
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo?, Never> {
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never> {
         updatePublisher
             .filter { $0?.id == spaceId}
-            .merge(with: Just(defaultValues[spaceId]))
+            .compactMap { $0 }
+            .merge(with: Just(defaultValues[spaceId] ?? .default(spaceId: spaceId)))
             .eraseToAnyPublisher()
     }
     

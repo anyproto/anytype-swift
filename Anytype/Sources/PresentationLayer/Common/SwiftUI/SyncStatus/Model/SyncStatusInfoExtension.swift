@@ -3,10 +3,12 @@ import SwiftUI
 
 
 extension SyncStatusInfo {
-    static let defaultNetworkTitle = Loc.connecting
-    static let defaultNetworkSubtitle = ""
-    static let defaultnetworkIcon = ImageAsset.SyncStatus.syncOffline
-    static let defaultNetworkIconColor = SyncStatusInfo.NetworkIconBackground.static(Color.Shape.secondary)
+    static func `default`(spaceId: String) -> SyncStatusInfo {
+        var info = SyncStatusInfo()
+        info.network = .UNRECOGNIZED(1337)
+        info.id = spaceId
+        return info
+    }
 }
 
 // Texts
@@ -20,7 +22,7 @@ extension SyncStatusInfo {
         case .localOnly:
             Loc.localOnly
         case .UNRECOGNIZED:
-            Self.defaultNetworkTitle
+            Loc.connecting
         }
     }
     
@@ -33,7 +35,7 @@ extension SyncStatusInfo {
         case .localOnly:
             Loc.SyncStatus.Info.localOnly
         case .UNRECOGNIZED:
-            Self.defaultNetworkSubtitle
+            ""
         }
     }
     
@@ -68,23 +70,9 @@ extension SyncStatusInfo {
     }
 }
 
-// Icon
-extension SyncStatusInfo {
-    enum NetworkIconBackground: Equatable {
-        case `static`(Color)
-        case animation(start: Color, end: Color)
-        
-        var initialColor: Color {
-            switch self {
-            case .static(let color):
-                color
-            case .animation(let start, _):
-                start
-            }
-        }
-    }
-    
-    var networkIcon: ImageAsset {
+// MARK: - NetworkIconProvider
+extension SyncStatusInfo: NetworkIconProvider {
+    var icon: ImageAsset {
         switch network {
         case .anytype:
             anytypeNetworkIcon
@@ -97,16 +85,16 @@ extension SyncStatusInfo {
         }
     }
     
-    var networkIconColor: SyncStatusInfo.NetworkIconBackground {
+    var background: NetworkIconBackground {
         switch self.network {
         case .anytype, .selfHost:
             networkIconColorBasedOnStatus
         case .localOnly, .UNRECOGNIZED:
-            Self.defaultNetworkIconColor
+            .static(.Shape.secondary)
         }
     }
     
-    private var networkIconColorBasedOnStatus: SyncStatusInfo.NetworkIconBackground {
+    private var networkIconColorBasedOnStatus: NetworkIconBackground {
         switch status {
         case .synced:
             .static(.Light.green)

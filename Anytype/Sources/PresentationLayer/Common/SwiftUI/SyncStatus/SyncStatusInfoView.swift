@@ -21,11 +21,11 @@ struct SyncStatusInfoView: View {
     
     var networkInfo: some View {
         HStack(spacing: 12) {
-            SyncStatusInfoNetworkIcon(model: model)
+            NetworkIconView(iconProvider: $model.syncStatusInfo)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.syncStatusInfo.networkTitle, style: .uxTitle2Regular)
                     .lineLimit(1)
-                AnytypeText(model.syncStatusInfo?.networkSubtitle, style: .relation3Regular)
+                AnytypeText(model.syncStatusInfo.networkSubtitle, style: .relation3Regular)
                     .foregroundColor(.Text.secondary)
                     .lineLimit(1)
             }
