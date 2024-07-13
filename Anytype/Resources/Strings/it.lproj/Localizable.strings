@@ -612,10 +612,10 @@
 "Node is not connected" = "Il nodo non è connesso";
 "Initializing sync" = "Inizializzazione sincronizzazione";
 "Incompatible version" = "Incompatible version";
-"Connecting..." = "Connecting...";
-"Anytype Network" = "Anytype Network";
+"Connecting..." = "Connessione...";
+"Anytype Network" = "Rete Anytype";
 "Self Host" = "Self Host";
-"Local Only" = "Local Only";
+"Local Only" = "Solo Locale";
 "Synced" = "Sincronizzato";
 "Syncing..." = "Sincronizzazione...";
 "No connection" = "Nessuna connessione";
@@ -1170,12 +1170,12 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Membership.ManageTier.AppleId" = "È possibile gestire il livello su un altro account AppleId";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "Il backup dati è disabilitato";
+"SyncStatus.Info.AnytypeNetwork" = "Crittografia end-to-end";
+"SyncStatus.Error.storageLimitExceed" = "Limite di archiviazione raggiunto";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
-"SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.Error.networkError" = "Nessun accesso allo spazio";
+"SyncStatus.Error.UNRECOGNIZED" = "Errore sconosciuto";
 
 
 // MARK: - Debug
