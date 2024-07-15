@@ -2,6 +2,12 @@ import SwiftUI
 
 struct DiscussionView: View {
     
+    @StateObject private var model: DiscussionViewModel
+    
+    init(spaceId: String, output: DiscussionModuleOutput?) {
+        self._model = StateObject(wrappedValue: DiscussionViewModel(spaceId: spaceId, output: output))
+    }
+    
     var body: some View {
         DiscussionSpacingContainer {
             ScrollView {
@@ -27,7 +33,9 @@ struct DiscussionView: View {
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                DiscusionInput()
+                DiscusionInput {
+                    model.onTapAddObjectToMessage()
+                }
             }
         }
     }
@@ -42,5 +50,5 @@ struct DiscussionView: View {
 }
 
 #Preview {
-    DiscussionView()
+    DiscussionView(spaceId: "", output: nil)
 }
