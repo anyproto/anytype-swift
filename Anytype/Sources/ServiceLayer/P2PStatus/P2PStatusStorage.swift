@@ -5,7 +5,7 @@ import ProtobufMessages
 
 
 protocol P2PStatusStorageProtocol {
-    func statusPublisher(spaceId: String) async -> AnyPublisher<P2PStatusInfo?, Never>
+    func statusPublisher(spaceId: String) async -> AnyPublisher<P2PStatusInfo, Never>
     
     func startSubscription() async
     func stopSubscriptionAndClean() async
@@ -20,10 +20,12 @@ actor P2PStatusStorage: P2PStatusStorageProtocol {
     
     init() { }
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo?, Never> {
+    func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo, Never> {
         updatePublisher
             .filter { $0?.spaceID == spaceId}
-            .merge(with: Just(defaultValues[spaceId]))
+            .compactMap { $0 }
+            .merge(with: Just(defaultValues[spaceId] ?? .default(spaceId: spaceId)))
+            .receiveOnMain()
             .eraseToAnyPublisher()
     }
     

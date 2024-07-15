@@ -612,7 +612,9 @@
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Incompatible version" = "Incompatible version";
-"Connecting..." = "Connecting...";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
 "Anytype Network" = "Anytype Network";
 "Self Host" = "Self Host";
 "Local Only" = "Local Only";
@@ -1176,6 +1178,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
 
 
 // MARK: - Debug

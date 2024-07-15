@@ -11,7 +11,8 @@ struct SyncStatusInfoView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            networkInfo
+            networkInfo.newDivider()
+            p2pInfo
         }
         .padding(8)
         .cornerRadius(16, style: .continuous)
@@ -20,14 +21,34 @@ struct SyncStatusInfoView: View {
     }
     
     var networkInfo: some View {
-        HStack(spacing: 12) {
+        HStack(alignment: .center, spacing: 12) {
             NetworkIconView(iconProvider: $model.syncStatusInfo)
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(model.syncStatusInfo.networkTitle, style: .uxTitle2Regular)
                     .lineLimit(1)
-                AnytypeText(model.syncStatusInfo.networkSubtitle, style: .relation3Regular)
-                    .foregroundColor(.Text.secondary)
+                if model.syncStatusInfo.networkSubtitle.isNotEmpty {
+                    AnytypeText(model.syncStatusInfo.networkSubtitle, style: .relation3Regular)
+                        .foregroundColor(.Text.secondary)
+                        .lineLimit(1)
+                }
+            }
+            Spacer()
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+    }
+    
+    var p2pInfo: some View {
+        HStack(alignment: .center, spacing: 12) {
+            NetworkIconView(iconProvider: $model.p2pStatusInfo)
+            VStack(alignment: .leading, spacing: 0) {
+                AnytypeText(model.p2pStatusInfo.networkTitle, style: .uxTitle2Regular)
                     .lineLimit(1)
+                if model.p2pStatusInfo.networkSubtitle.isNotEmpty {
+                    AnytypeText(model.p2pStatusInfo.networkSubtitle, style: .relation3Regular)
+                        .foregroundColor(.Text.secondary)
+                        .lineLimit(1)
+                }
             }
             Spacer()
         }

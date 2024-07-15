@@ -23,6 +23,7 @@ actor SyncStatusStorage: SyncStatusStorageProtocol {
             .filter { $0?.id == spaceId}
             .compactMap { $0 }
             .merge(with: Just(defaultValues[spaceId] ?? .default(spaceId: spaceId)))
+            .receiveOnMain()
             .eraseToAnyPublisher()
     }
     

@@ -291,4 +291,8 @@ extension Container {
     var syncStatusStorage: Factory< any SyncStatusStorageProtocol> {
         self { SyncStatusStorage() }.singleton
     }
+    
+    var p2pStatusStorage: Factory< any P2PStatusStorageProtocol> {
+        self { P2PStatusStorage() }.singleton
+    }
 }
