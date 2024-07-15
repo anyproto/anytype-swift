@@ -608,15 +608,14 @@
 "Unfavorite" = "Verwijder als favoriet";
 "Unsplash" = "Unsplash";
 "Go back" = "Ga terug";
-"SyncStatus.LocalOnly.Title" = "Alleen lokaal";
-"SyncStatus.LocalOnly.Description" = "Alleen lokaal";
-"SyncStatus.Synced.Anytype.Description" = "Back-up gemaakt op Anytype netwerk";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Back-up gemaakt op Anytype staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Back-up gemaakt op zelfgehost netwerk";
 "Downloading or uploading data to some node" = "Gegevens downloaden of uploaden naar een node";
 "Node is not connected" = "Node is niet verbonden";
 "Initializing sync" = "Synchronisatie wordt opgestart";
 "Incompatible version" = "Niet-compatibele versie";
+"Connecting..." = "Connecting...";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Gesynchroniseerd";
 "Syncing..." = "Aan het synchroniseren...";
 "No connection" = "Geen verbinding";
@@ -1171,6 +1170,15 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Membership.ManageTier.Desktop" = "Je kunt het abonnement op het desktopplatform beheren";
 "Membership.ManageTier.Android" = "Je kunt het abonnement op het Android platform beheren";
 "Membership.ManageTier.AppleId" = "Je kunt het abonnement op een andere AppleId account beheren";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Niet-compatibele versie";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";

@@ -5,7 +5,6 @@ struct ObjectSettingsCoordinatorView: View {
     
     @StateObject private var model: ObjectSettingsCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     init(objectId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self._model = StateObject(wrappedValue: ObjectSettingsCoordinatorViewModel(objectId: objectId, output: output))
@@ -13,9 +12,6 @@ struct ObjectSettingsCoordinatorView: View {
     
     var body: some View {
         ObjectSettingsView(objectId: model.objectId, output: model)
-            .onAppear {
-                model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
-            }
             .sheet(item: $model.coverPickerData) {
                 ObjectCoverPicker(data: $0)
             }

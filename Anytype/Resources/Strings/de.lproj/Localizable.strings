@@ -608,15 +608,14 @@
 "Unfavorite" = "Aus Favoriten entfernen";
 "Unsplash" = "Unsplash";
 "Go back" = "Zurückgehen";
-"SyncStatus.LocalOnly.Title" = "Nur lokal";
-"SyncStatus.LocalOnly.Description" = "Nur lokal";
-"SyncStatus.Synced.Anytype.Description" = "Im Anytype-Netzwerk gesichert";
-"SyncStatus.Synced.AnytypeStaging.Description" = "In Anytype Staging gesichert";
-"SyncStatus.Synced.SelfHosted.Description" = "Im selbst gehosteten Netzwerk gesichert";
 "Downloading or uploading data to some node" = "Herunterladen oder Hochladen von Daten zu einem Knoten";
 "Node is not connected" = "Knoten ist nicht verbunden";
 "Initializing sync" = "Initialisiere Synchronisation";
 "Incompatible version" = "Inkompatible Version";
+"Connecting..." = "Connecting...";
+"Anytype Network" = "Anytype-Netzwerk";
+"Self Host" = "Self Host";
+"Local Only" = "Nur lokal";
 "Synced" = "Synchronisiert";
 "Syncing..." = "Synchronisiere...";
 "No connection" = "Keine Verbindung";
@@ -1171,6 +1170,15 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Datensicherung ist deaktiviert";
+"SyncStatus.Info.AnytypeNetwork" = "Ende-zu-Ende-verschlüsselt";
+"SyncStatus.Error.storageLimitExceed" = "Speicherplatzgrenze erreicht";
+"SyncStatus.Error.incompatibleVersion" = "Inkompatible Version";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unerkannter Fehler";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-Typen - %@";

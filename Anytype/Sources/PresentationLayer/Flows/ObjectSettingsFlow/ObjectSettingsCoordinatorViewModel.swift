@@ -11,8 +11,6 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     let objectId: String
     private weak var output: (any ObjectSettingsCoordinatorOutput)?
     
-    private var dismissAllPresented: DismissAllPresented?
-    
     @Published var coverPickerData: ObjectCoverPickerData?
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var layoutPickerObjectId: StringIdentifiable?
@@ -23,10 +21,6 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     init(objectId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
         self.objectId = objectId
         self.output = output
-    }
-    
-    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
-        self.dismissAllPresented = dismissAllPresented
     }
     
     // MARK: - ObjectSettingsModelOutput
@@ -92,7 +86,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     
     func showEditorScreen(data: EditorScreenData) {
         Task { @MainActor in
-            await dismissAllPresented?()
+            dismiss.toggle()
             output?.showEditorScreen(data: data)
         }
     }
