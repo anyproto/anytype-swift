@@ -29,7 +29,7 @@ extension Optional where Wrapped == SyncStatusInfo {
         }
     }
     
-    var networkIconColor: Color {
+    var networkIconColor: SyncStatusInfo.NetworkIconBackground {
         switch self {
         case .none:
             SyncStatusInfo.defaultNetworkIconColor

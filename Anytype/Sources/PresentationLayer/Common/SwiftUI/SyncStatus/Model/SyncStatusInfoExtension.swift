@@ -6,7 +6,7 @@ extension SyncStatusInfo {
     static let defaultNetworkTitle = Loc.connecting
     static let defaultNetworkSubtitle = ""
     static let defaultnetworkIcon = ImageAsset.SyncStatus.syncOffline
-    static let defaultNetworkIconColor = Color.Shape.secondary
+    static let defaultNetworkIconColor = SyncStatusInfo.NetworkIconBackground.static(Color.Shape.secondary)
 }
 
 // Texts
@@ -70,6 +70,20 @@ extension SyncStatusInfo {
 
 // Icon
 extension SyncStatusInfo {
+    enum NetworkIconBackground: Equatable {
+        case `static`(Color)
+        case animation(start: Color, end: Color)
+        
+        var initialColor: Color {
+            switch self {
+            case .static(let color):
+                color
+            case .animation(let start, _):
+                start
+            }
+        }
+    }
+    
     var networkIcon: ImageAsset {
         switch network {
         case .anytype:
@@ -83,7 +97,7 @@ extension SyncStatusInfo {
         }
     }
     
-    var networkIconColor: Color {
+    var networkIconColor: SyncStatusInfo.NetworkIconBackground {
         switch self.network {
         case .anytype, .selfHost:
             networkIconColorBasedOnStatus
@@ -92,14 +106,16 @@ extension SyncStatusInfo {
         }
     }
     
-    private var networkIconColorBasedOnStatus: Color {
+    private var networkIconColorBasedOnStatus: SyncStatusInfo.NetworkIconBackground {
         switch status {
-        case .synced, .syncing:
-            .Light.green
+        case .synced:
+            .static(.Light.green)
+        case .syncing:
+            .animation(start: .Light.green, end: .Light.green.opacity(0.5))
         case .error:
-            .Light.red
+            .static(.Light.red)
         case .offline, .UNRECOGNIZED:
-            .Shape.secondary
+            .static(.Shape.secondary)
         }
     }
     
