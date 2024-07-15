@@ -608,15 +608,14 @@
 "Unfavorite" = "Usuń z ulubionych";
 "Unsplash" = "Unsplash";
 "Go back" = "Wróć";
-"SyncStatus.LocalOnly.Title" = "Tylko lokalnie";
-"SyncStatus.LocalOnly.Description" = "Tylko lokalnie";
-"SyncStatus.Synced.Anytype.Description" = "Kopia zapasowa w sieci Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Kopia zapasowa w Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Kopia zapasowa w sieci hostowanej samodzielnie";
 "Downloading or uploading data to some node" = "Pobieranie lub przesyłanie danych do jakiegoś węzła";
 "Node is not connected" = "Węzeł nie jest połączony";
 "Initializing sync" = "Inicjowanie synchronizacji";
 "Incompatible version" = "Niekompatybilna wersja";
+"Connecting..." = "Connecting...";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Zsynchronizowano";
 "Syncing..." = "Synchronizowanie...";
 "No connection" = "Brak połączenia";
@@ -1169,6 +1168,15 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Niekompatybilna wersja";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";
