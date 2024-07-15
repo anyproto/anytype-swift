@@ -11,19 +11,26 @@ struct DiscussionSpacingContainer<Content: View>: View {
     }
     
     var body: some View {
-        GeometryReader { reader in
-            GeometryReader { readerIgnoreKeyboard in
+        GeometryReader { readerWithAllArea in
+            GeometryReader { readerWithoutKeyboardArea in
                 content
                     .safeAreaInset(edge: .bottom, spacing: 0) {
                         Color.clear.frame(
-                            height: reader.safeAreaInsets.bottom == readerIgnoreKeyboard.safeAreaInsets.bottom
-                            ? reader.safeAreaInsets.bottom + navigationSize.height
-                            : reader.safeAreaInsets.bottom
+                            height: bottomOffset(
+                                allAreaInsets: readerWithAllArea.safeAreaInsets,
+                                withoutKeyboardAreaInsets: readerWithoutKeyboardArea.safeAreaInsets
+                            )
                         )
                     }
                     .ignoresSafeArea(.all, edges: .bottom)
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)
         }
+    }
+    
+    private func bottomOffset(allAreaInsets: EdgeInsets, withoutKeyboardAreaInsets: EdgeInsets) -> CGFloat {
+        return allAreaInsets.bottom == withoutKeyboardAreaInsets.bottom
+            ? allAreaInsets.bottom + navigationSize.height
+            : allAreaInsets.bottom
     }
 }
