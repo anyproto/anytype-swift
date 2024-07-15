@@ -86,5 +86,8 @@ public extension BundledRelationKey {
         .latestAclHeadId,
         .identity,
         .globalName,
+        .syncDate,
+        .syncStatus,
+        .syncError,
     ]
 }
