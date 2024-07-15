@@ -5,24 +5,29 @@ struct SetFiltersDateRowView: View {
     @Binding var date: Date
     
     var body: some View {
-        Button {
-            configuration.onTap()
-        } label: {
-            HStack(spacing: 0) {
-                AnytypeText(
-                    configuration.title,
-                    style: .uxBodyRegular
-                )
-                .foregroundColor(.Text.primary)
-                .layoutPriority(1)
-                Spacer()
-                
-                if configuration.isSelected {
-                    valueView
-                    Image(asset: .X24.tick)
-                        .foregroundColor(.Button.button)
-                }
+        HStack(spacing: 0) {
+            option
+            if configuration.isSelected {
+                valueView
+                Image(asset: .X24.tick)
+                    .foregroundColor(.Button.button)
             }
+        }
+    }
+    
+    private var option: some View {
+        HStack(spacing: 0) {
+            AnytypeText(
+                configuration.title,
+                style: .uxBodyRegular
+            )
+            .foregroundColor(.Text.primary)
+            .layoutPriority(1)
+            Spacer()
+        }
+        .fixTappableArea()
+        .onTapGesture {
+            configuration.onTap()
         }
     }
     
