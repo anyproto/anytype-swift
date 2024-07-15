@@ -18,7 +18,7 @@ final class UniversalLinkParser: UniversalLinkParserProtocol {
         guard let components = NSURLComponents(string: url.absoluteString.removingPercentEncoding ?? url.absoluteString) else { return nil }
         
         // Link: https://invite.any.coop/<inviteId>#<encryptionkey>
-        if LinkPaths.inviteHosts.contains(components.host), var path = components.path, let fragment = components.fragment {
+        if let host = components.host, LinkPaths.inviteHosts.contains(host), var path = components.path, let fragment = components.fragment {
             
             if path.hasPrefix("/") {
                 path.removeFirst(1)

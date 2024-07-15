@@ -608,15 +608,14 @@
 "Unfavorite" = "Удалить из избранного";
 "Unsplash" = "Unsplash";
 "Go back" = "Вернуться";
-"SyncStatus.LocalOnly.Title" = "Только локально";
-"SyncStatus.LocalOnly.Description" = "Только локально";
-"SyncStatus.Synced.Anytype.Description" = "Резервное копирование в сети Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Резервное копирование в сети Anytype";
-"SyncStatus.Synced.SelfHosted.Description" = "Резервное копирование в вашей сети";
 "Downloading or uploading data to some node" = "Загрузка или выгрузка данных в узел";
 "Node is not connected" = "Узел не подключен";
 "Initializing sync" = "Инициализация синхронизации";
 "Incompatible version" = "Несовместимая версия";
+"Connecting..." = "Connecting...";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Синхронизировано";
 "Syncing..." = "Синхронизация...";
 "No connection" = "Нет соединения";
@@ -1169,6 +1168,15 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Несовместимая версия";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Типы MIME - %@";
