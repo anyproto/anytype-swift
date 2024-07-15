@@ -49,9 +49,7 @@ extension BundledRelationsValueProvider {
         if layoutValue == .note {
             title = snippet
         } else if DetailsLayout.fileLayouts.contains(layoutValue) {
-            let ext = ".\(fileExt)"
-            let fileSuffix = fileExt.isNotEmpty && !name.hasSuffix(ext) ? ext : ""
-            title = name + fileSuffix
+            title = FileDetails.formattedFileName(name, fileExt: fileExt)
         } else {
             title = name
         }
