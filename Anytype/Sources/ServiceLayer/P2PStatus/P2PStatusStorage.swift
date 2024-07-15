@@ -4,36 +4,38 @@ import AnytypeCore
 import ProtobufMessages
 
 
-protocol SyncStatusStorageProtocol {
-    func statusPublisher(spaceId: String) async -> AnyPublisher<SyncStatusInfo?, Never>
+protocol P2PStatusStorageProtocol {
+    func statusPublisher(spaceId: String) async -> AnyPublisher<P2PStatusInfo?, Never>
     
     func startSubscription() async
     func stopSubscriptionAndClean() async
 }
 
-actor SyncStatusStorage: SyncStatusStorageProtocol {
-    @Published private var _update: SyncStatusInfo?
-    private var updatePublisher: AnyPublisher<SyncStatusInfo?, Never> { $_update.eraseToAnyPublisher() }
+actor P2PStatusStorage: P2PStatusStorageProtocol {
+    @Published private var _update: P2PStatusInfo?
+    private var updatePublisher: AnyPublisher<P2PStatusInfo?, Never> { $_update.eraseToAnyPublisher() }
     private var subscription: AnyCancellable?
     
-    private var defaultValues = [String: SyncStatusInfo]()
+    private var defaultValues = [String: P2PStatusInfo]()
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo?, Never> {
+    init() { }
+    
+    func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo?, Never> {
         updatePublisher
-            .filter { $0?.id == spaceId}
+            .filter { $0?.spaceID == spaceId}
             .merge(with: Just(defaultValues[spaceId]))
             .eraseToAnyPublisher()
     }
     
     func startSubscription() {
-        anytypeAssert(subscription.isNil, "Non nil subscription in SyncStatusStorage")
+        anytypeAssert(subscription.isNil, "Non nil subscription in P2PStatusStorage")
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
             await self?.handle(events: events)
         }
     }
     
     func stopSubscriptionAndClean() {
-        anytypeAssert(subscription.isNotNil, "Nil subscription in SyncStatusStorage")
+        anytypeAssert(subscription.isNotNil, "Nil subscription in P2PStatusStorage")
         subscription = nil
         _update = nil
     }
@@ -43,8 +45,8 @@ actor SyncStatusStorage: SyncStatusStorageProtocol {
     private func handle(events: EventsBunch) {
         for event in events.middlewareEvents {
             switch event.value {
-            case .spaceSyncStatusUpdate(let update):
-                defaultValues[update.id] = update
+            case .p2PStatusUpdate(let update):
+                defaultValues[update.spaceID] = update
                 _update = update
             default:
                 break

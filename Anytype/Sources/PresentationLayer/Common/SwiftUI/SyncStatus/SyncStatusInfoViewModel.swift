@@ -9,6 +9,9 @@ final class SyncStatusInfoViewModel: ObservableObject {
     @Published var syncStatusInfo: SyncStatusInfo?
     
     init(spaceId: String) {
-        syncStatusStorage.statusPublisher(spaceId: spaceId).assign(to: &$syncStatusInfo)
+        Task { @MainActor in
+            await syncStatusStorage.statusPublisher(spaceId: spaceId).assign(to: &$syncStatusInfo)
+        }
     }
+    
 }
