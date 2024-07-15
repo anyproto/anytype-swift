@@ -3,6 +3,7 @@ import Combine
 import ProtobufMessages
 
 
+@MainActor
 final class SyncStatusStorageMock: SyncStatusStorageProtocol {
     
     static let shared = SyncStatusStorageMock()
@@ -11,10 +12,10 @@ final class SyncStatusStorageMock: SyncStatusStorageProtocol {
     var infoToReturn = Services.SyncStatusInfo.mockArray()
     
     func statusPublisher(spaceId: String) -> AnyPublisher<Services.SyncStatusInfo, Never> {
-        Task.detached { [infoToReturn, weak self] in
+        Task.detached { [infoToReturn] in
             while true {
                 for info in infoToReturn {
-                    self?.publishedInfo = info
+                    Task { @MainActor [weak self] in self?.publishedInfo = info }
                     try await Task.sleep(seconds: 2)
                 }
             }
