@@ -144,6 +144,7 @@
 "Alignment" = "Alignment";
 "Actions" = "Actions";
 "Relations" = "Relations";
+"History" = "History";
 "Objects" = "Objects";
 "Lists" = "Lists";
 "Pinned" = "Pinned";
@@ -286,6 +287,7 @@
 "Background picture" = "Background picture";
 "Layout" = "Layout";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "Search";
 "There is no emoji named" = "There is no emoji named";
