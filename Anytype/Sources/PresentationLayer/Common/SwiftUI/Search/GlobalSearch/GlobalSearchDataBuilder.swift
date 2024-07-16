@@ -25,6 +25,8 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
         let details = searchResult.objectDetails
         let meta = searchResult.meta
         
+        let title = buildHighlightedTitle(from: meta) ?? AttributedString(details.title)
+        
         let highlights = buildHighlightsData(with: meta)
         
         // just for debug
@@ -37,13 +39,23 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
         
         return GlobalSearchData(
             iconImage: details.objectIconImage,
-            title: details.title,
+            title: title,
             highlights: highlights,
             objectTypeName: details.objectType.name,
             relatedLinks: details.backlinks + details.links,
             editorScreenData: EditorScreenData(details: details, blockId: blockId),
             score: score
         )
+    }
+    
+    private func buildHighlightedTitle(from meta: [SearchMeta]) -> AttributedString? {
+        let nameMeta = meta.first { item in
+            item.relationKey == BundledRelationKey.name.rawValue
+        }
+        
+        guard let nameMeta else { return nil }
+        
+        return attributedString(for: nameMeta)
     }
     
     private func buildHighlightsData(with meta: [SearchMeta]) -> [HighlightsData] {

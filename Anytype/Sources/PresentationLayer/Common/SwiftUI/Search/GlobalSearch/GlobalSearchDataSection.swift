@@ -20,7 +20,7 @@ struct GlobalSearchDataSection: Identifiable, Hashable {
 
 struct GlobalSearchData: Identifiable, Hashable {
     let iconImage: Icon?
-    let title: String
+    let title: AttributedString
     let highlights: [HighlightsData]
     let objectTypeName: String
     let relatedLinks: [String]
