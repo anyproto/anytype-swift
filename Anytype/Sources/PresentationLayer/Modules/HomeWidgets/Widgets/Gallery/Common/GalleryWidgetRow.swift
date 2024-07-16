@@ -5,7 +5,6 @@ struct GalleryWidgetRowModel {
     let objectId: String
     let title: String
     let icon: Icon?
-    let coverFit: Bool
     let cover: ObjectHeaderCoverType?
     let onTap: () -> Void
 }
@@ -21,7 +20,7 @@ struct GalleryWidgetRow: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 if let cover = model.cover {
-                    SwiftUIObjectHeaderCoverView(objectCover: cover, size: CGSize(width: 136, height: 80), fitImage: model.coverFit)
+                    SwiftUIObjectHeaderCoverView(objectCover: cover, size: CGSize(width: 136, height: 80), fitImage: false)
                         .frame(height: 80)
                 }
                 ZStack(alignment: model.icon.isNotNil ? .leadingFirstTextBaseline : .leading) {
