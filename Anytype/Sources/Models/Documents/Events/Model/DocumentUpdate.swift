@@ -4,7 +4,6 @@ import AnytypeCore
 enum DocumentUpdate: Hashable {
     case general
     case block(blockId: String)
-    case children(blockId: String)
     case details(id: String)
     case unhandled(blockId: String)
     case relationLinks
@@ -14,9 +13,9 @@ enum DocumentUpdate: Hashable {
 }
 
 extension DocumentUpdate {
-    var isChildren: Bool {
+    var isBlock: Bool {
         switch self {
-        case .children(blockId: _):
+        case .block(blockId: _):
             return true
         default:
             return false

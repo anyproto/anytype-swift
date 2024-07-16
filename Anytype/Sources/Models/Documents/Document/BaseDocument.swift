@@ -167,12 +167,11 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
-    private func reorderChilder() {
+    private func makeChildren() -> [BlockInformation] {
         guard let model = infoContainer.get(id: objectId) else {
-            return
+            return children
         }
-        let flatten = model.flatChildrenTree(container: infoContainer)
-        children = flatten
+        return model.flatChildrenTree(container: infoContainer)
     }
     
     private func triggerSync(updates: [DocumentUpdate]) {
@@ -183,8 +182,6 @@ final class BaseDocument: BaseDocumentProtocol {
                 return [.general]
             case .block(let blockId):
                 return [.block(blockId: blockId)]
-            case .children(let blockId):
-                return [.block(blockId: blockId), .children]
             case .details(let id):
                 return [.details(id: id)]
             case .unhandled(let blockId):
@@ -202,8 +199,12 @@ final class BaseDocument: BaseDocumentProtocol {
         let relationUpdates = triggerUpdateRelations(updates: updates, permissionsChanged: permissioUpdates.isNotEmpty)
         docUpdates.append(contentsOf: relationUpdates)
         
-        if updates.contains(where: { $0 == .general || $0.isChildren }) {
-            reorderChilder()
+        if updates.contains(where: { $0 == .general || $0.isBlock }) {
+            let newChildren = makeChildren()
+            if newChildren != children {
+                children = newChildren
+                docUpdates.append(.children)
+            }
         }
         
         if updates.contains(.close) {

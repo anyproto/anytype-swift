@@ -76,14 +76,14 @@ struct HomeWidgetSubmoduleView: View {
                 }
             case .list, .view:
                 if objectDetails.editorViewType == .set {
-                    SetObjectListWidgetSubmoduleView(data: widgetData)
+                    SetObjectListLegacyWidgetSubmoduleView(data: widgetData)
                 } else {
                     // Fallback
                     LinkWidgetView(data: widgetData)
                 }
             case .compactList:
                 if objectDetails.editorViewType == .set {
-                    SetObjectCompactListWidgetSubmoduleView(data: widgetData)
+                    SetObjectCompactListLegacyWidgetSubmoduleView(data: widgetData)
                 } else {
                     LinkWidgetView(data: widgetData)
                 }
@@ -104,10 +104,12 @@ struct HomeWidgetSubmoduleView: View {
                 LinkWidgetView(data: widgetData)
             case (.tree, .page):
                 ObjectTreeWidgetSubmoduleView(data: widgetData)
-            case (.list, .set), // For legacty clients
-                (.compactList, .set), // For legacty clients
-                (.view, .set):
+            case (.view, .set):
                 SetObjectViewWidgetSubmoduleView(data: widgetData)
+            case (.list, .set):
+                SetObjectListWidgetSubmoduleView(data: widgetData)
+            case (.compactList, .set):
+                SetObjectCompactListWidgetSubmoduleView(data: widgetData)
             default:
                 // Fallback
                 LinkWidgetView(data: widgetData)

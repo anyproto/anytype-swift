@@ -10,6 +10,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     // MARK: - DI
     
     private let widgetBlockId: String
+    private let style: SetObjecWidgetStyle
     private let widgetObject: any BaseDocumentProtocol
     @Injected(\.setSubscriptionDataBuilder)
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
@@ -42,8 +43,9 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     @Published var allowCreateObject = true
     @Published var showUnsupportedBanner = false
     
-    init(data: WidgetSubmoduleData) {
+    init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.widgetBlockId = data.widgetBlockId
+        self.style = style
         self.widgetObject = data.widgetObject
         self.output = data.output
         
@@ -115,30 +117,23 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private func updateRows() {
         withAnimation {
             showUnsupportedBanner = !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
-            switch setDocument?.activeView.type {
-            case .table, .list, .kanban, .calendar, .graph, nil:
-                let listRows = rowDetails?.map { details in
-                    ListWidgetRowModel(
-                        objectId: details.id,
-                        icon: details.icon,
-                        title: details.title,
-                        description: details.description,
-                        onTap: details.onItemTap
-                    )
-                }
+         
+            switch style {
+            case .list:
+                let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
                 rows = .list(rows: listRows, id: activeViewId ?? "")
-            case .gallery:
-                let galleryRows = rowDetails?.map { details in
-                    GalleryWidgetRowModel(
-                        objectId: details.id,
-                        title: details.title,
-                        icon: details.showIcon ? details.icon : nil,
-                        coverFit: details.coverFit,
-                        cover: details.coverType,
-                        onTap: details.onItemTap
-                    )
+            case .compactList:
+                let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                rows = .compactList(rows: listRows, id: activeViewId ?? "")
+            case .view:
+                switch setDocument?.activeView.type {
+                case .table, .list, .kanban, .calendar, .graph, nil:
+                    let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                    rows = .compactList(rows: listRows, id: activeViewId ?? "")
+                case .gallery:
+                    let galleryRows = rowDetails?.map { GalleryWidgetRowModel(details: $0) }
+                    rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
                 }
-                rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
             }
         }
     }

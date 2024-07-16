@@ -1904,6 +1904,10 @@ internal enum Loc {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name")
       }
     }
+    internal enum Source {
+      internal static let library = Loc.tr("Localizable", "Widgets.Source.Library")
+      internal static let objects = Loc.tr("Localizable", "Widgets.Source.Objects")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
