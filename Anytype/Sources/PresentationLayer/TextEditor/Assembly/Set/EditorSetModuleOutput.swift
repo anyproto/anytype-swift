@@ -27,6 +27,7 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )
+    func showSyncStatusInfo(spaceId: String)
     // TODO: Open toast inside module
     func showFailureToast(message: String)
 }

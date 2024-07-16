@@ -3,26 +3,16 @@ import SwiftUI
 struct DiscusionInput: View {
     
     @State private var editing: Bool = false
+    let onTapAddObject: () -> Void
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
+        HStack {
+            Button {
+                onTapAddObject()
+            } label: {
                 Image(asset: .X32.plus)
-                    .onTapGesture {
-                        editing = false
-                    }
-                DiscussionTextView(editing: $editing)
             }
-            .frame(height: 56)
-            if editing {
-                HStack {
-                    Text("Bottom action panel")
-                    Spacer()
-                }
-                .frame(height: 48)
-            } else {
-                AnytypeNavigationSpacer()
-            }
+            DiscussionTextView(editing: $editing, minHeight: 56, maxHeight: 212)
         }
         .overlay(alignment: .top) {
             AnytypeDivider()
@@ -32,5 +22,5 @@ struct DiscusionInput: View {
 }
 
 #Preview {
-    DiscusionInput()
+    DiscusionInput(onTapAddObject: {})
 }

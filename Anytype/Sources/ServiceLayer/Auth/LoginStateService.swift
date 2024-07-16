@@ -74,10 +74,11 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.startSubscription()
         await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
+        await syncStatusStorage.startSubscription()
         storeKitService.startListenForTransactions()
-        syncStatusStorage.startSubscription()
         
         Task {
+            // Time-heavy operation
             await membershipStatusStorage.startSubscription()
         }
     }
@@ -91,7 +92,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await activeSpaceParticipantStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
+        await syncStatusStorage.stopSubscriptionAndClean()
         storeKitService.stopListenForTransactions()
-        syncStatusStorage.stopSubscriptionAndClean()
     }
 }

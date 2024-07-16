@@ -40,6 +40,7 @@ final class EditorSetCoordinatorViewModel:
     @Published var covertPickerData: ObjectCoverPickerData?
     @Published var toastBarData: ToastBarData = .empty
     @Published var objectIconPickerData: ObjectIconPickerData?
+    @Published var syncStatusSpaceId: StringIdentifiable?
     
     init(data: EditorSetObject) {
         self.data = data
@@ -172,6 +173,10 @@ final class EditorSetCoordinatorViewModel:
     
     func showFailureToast(message: String) {
         toastBarData = ToastBarData(text: message, showSnackBar: true, messageType: .failure)
+    }
+    
+    func showSyncStatusInfo(spaceId: String) {
+        syncStatusSpaceId = spaceId.identifiable
     }
 
     // MARK: - ObjectSettingsCoordinatorOutput

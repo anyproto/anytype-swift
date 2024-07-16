@@ -15,8 +15,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var forPreview: Bool { get }
     var details: ObjectDetails? { get }
     var permissions: ObjectPermissions { get }
-    
-    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> { get }
+    var syncStatus: SyncStatus? { get }
     
     func subscibeFor(update: [BaseDocumentUpdate]) -> AnyPublisher<[BaseDocumentUpdate], Never>
     var syncPublisher: AnyPublisher<[BaseDocumentUpdate], Never> { get }
