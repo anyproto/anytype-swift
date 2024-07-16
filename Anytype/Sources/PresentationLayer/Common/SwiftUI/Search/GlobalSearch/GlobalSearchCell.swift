@@ -40,8 +40,8 @@ struct GlobalSearchCell: View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(8)
             
-            AnytypeText(data.title, style: .previewTitle2Medium)
-                .foregroundColor(.Text.primary)
+            Text(data.title)
+                .anytypeStyle(.previewTitle2Medium)
                 .lineLimit(1)
             
             highlights
