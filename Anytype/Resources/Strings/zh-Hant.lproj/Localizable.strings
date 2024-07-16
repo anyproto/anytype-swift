@@ -144,6 +144,7 @@
 "Alignment" = "對齊";
 "Actions" = "操作";
 "Relations" = "關聯";
+"History" = "歷史記錄";
 "Objects" = "物件";
 "Lists" = "列表";
 "Pinned" = "已釘選";
@@ -287,6 +288,7 @@
 "Background picture" = "背景圖片";
 "Layout" = "版型";
 "Arrangement of objects on a canvas" = "畫布上的物件排列";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "搜尋";
 "There is no emoji named" = "尚無命名的 Emoji";
@@ -505,7 +507,7 @@
 "Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類型和關聯的物件";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "指定查詢";
@@ -613,14 +615,14 @@
 "Node is not connected" = "節點未連接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不相容的版本";
-"Connecting..." = "Connecting...";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
 "Anytype Network" = "Anytype Network";
 "Self Host" = "Self Host";
 "Local Only" = "Local Only";
 "Synced" = "已同步";
-"Syncing..." = "同步中...";
 "No connection" = "沒有連線";
-"Preparing..." = "準備中...";
 "Deleted" = "已刪除";
 "Download" = "已下載";
 "Open object" = "開啟物件";
@@ -805,17 +807,19 @@
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "緊湊型列表";
 "Widgets.Layout.View.Title" = "檢視";
-"Widgets.Layout.Link.Description" = "緊湊型物件";
-"Widgets.Layout.Tree.Description" = "物件的階層結構";
-"Widgets.Layout.List.Description" = "具有物件集合列表視圖的小工具";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "具有物件集合列表視圖的小工具";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "最近編輯";
 "Widgets.Library.RecentlyOpened.Name" = "最近開啟";
 "Widgets.Library.RecentlyOpened.Description" = "在此裝置上";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "應用程式版本：%@";
@@ -1180,6 +1184,7 @@
 "SyncStatus.Error.incompatibleVersion" = "不相容的版本";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
 
 
 // MARK: - Debug
