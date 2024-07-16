@@ -3,15 +3,7 @@ import Services
 import Combine
 
 extension BaseDocumentProtocol {
-    
-    var widgetsPublisher: AnyPublisher<[BlockInformation], Never> {
-        childrenPublisher.map {
-            $0.filter(\.isWidget)
-        }
-            .receiveOnMain()
-            .eraseToAnyPublisher()
-    }
-    
+        
     func targetObjectIdByLinkFor(widgetBlockId: String) -> String? {
         guard let block = infoContainer.get(id: widgetBlockId),
               let contentId = block.childrenIds.first,
