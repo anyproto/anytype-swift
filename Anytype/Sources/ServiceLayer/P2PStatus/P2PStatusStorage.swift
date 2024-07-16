@@ -14,20 +14,15 @@ protocol P2PStatusStorageProtocol {
 
 @MainActor
 final class P2PStatusStorage: P2PStatusStorageProtocol {
-    @Published private var _update: P2PStatusInfo?
-    private var updatePublisher: AnyPublisher<P2PStatusInfo?, Never> { $_update.eraseToAnyPublisher() }
+    @Published private var storage = [String: P2PStatusInfo]()
     private var subscription: AnyCancellable?
     
-    private var defaultValues = [String: P2PStatusInfo]()
     
     nonisolated init() { }
     
     func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo, Never> {
-        updatePublisher
-            .filter { $0?.spaceID == spaceId}
-            .compactMap { $0 }
-            .merge(with: Just(defaultValues[spaceId] ?? .default(spaceId: spaceId)))
-            .receiveOnMain()
+        $storage
+            .compactMap { $0[spaceId] }
             .eraseToAnyPublisher()
     }
     
@@ -41,7 +36,7 @@ final class P2PStatusStorage: P2PStatusStorageProtocol {
     func stopSubscriptionAndClean() {
         anytypeAssert(subscription.isNotNil, "Nil subscription in P2PStatusStorage")
         subscription = nil
-        _update = nil
+        storage = [:]
     }
     
     // MARK: - Private
@@ -50,8 +45,7 @@ final class P2PStatusStorage: P2PStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .p2PStatusUpdate(let update):
-                defaultValues[update.spaceID] = update
-                _update = update
+                storage[update.spaceID] = update
             default:
                 break
             }
