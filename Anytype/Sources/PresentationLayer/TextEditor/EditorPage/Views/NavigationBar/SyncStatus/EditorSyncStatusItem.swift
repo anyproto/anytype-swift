@@ -14,7 +14,11 @@ final class EditorSyncStatusItem: UIView {
         )
     }()
     
+    private let backgroundView = UIView()
+    
     private var statusData: SyncStatusData?
+    private var itemState: EditorBarItemState?
+    
     private let onTap: () -> ()
     
     private let height: CGFloat = 28
@@ -24,6 +28,11 @@ final class EditorSyncStatusItem: UIView {
     func changeStatusData(_ statusData: SyncStatusData) {
         self.statusData = statusData
         self.updateButtonState()
+    }
+    
+    func changeItemState(_ itemState: EditorBarItemState) {
+        self.itemState = itemState
+        self.updateBackgroundColor()
     }
     
     init(statusData: SyncStatusData? = nil, onTap: @escaping () -> ()) {
@@ -41,6 +50,7 @@ final class EditorSyncStatusItem: UIView {
     
     private func setup() {
         updateButtonState()
+        updateBackgroundColor()
         
         layoutUsing.anchors {
             $0.height.equal(to: height)
@@ -48,9 +58,21 @@ final class EditorSyncStatusItem: UIView {
             $0.centerY.equal(to: centerYAnchor)
         }
         
+        backgroundView.layer.cornerRadius = 7
+        
+        addSubview(backgroundView) { $0.pinToSuperview() }
         addSubview(button) { $0.pinToSuperview() }
     }
     
+    private func updateBackgroundColor() {
+        guard let itemState else {
+            backgroundView.backgroundColor = .clear
+            return
+        }
+        
+        backgroundView.backgroundColor = itemState.haveBackground ? .black.withAlphaComponent(0.15) : .clear
+    }
+
     private func updateButtonState() {
         isHidden = statusData?.isHidden ?? true
         button.layer.removeAllAnimations()

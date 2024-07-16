@@ -193,6 +193,7 @@ private extension EditorNavigationBarHelper {
     func updateBarButtonItemsBackground(opacity: CGFloat) {
         let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, opacity: opacity)
         settingsItem.changeState(state)
+        syncStatusItem.changeItemState(state)
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
