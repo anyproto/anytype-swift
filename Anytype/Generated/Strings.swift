@@ -152,6 +152,7 @@ internal enum Loc {
   internal static let greyBackground = Loc.tr("Localizable", "Grey background")
   internal static let hideTypes = Loc.tr("Localizable", "Hide types")
   internal static let highlight = Loc.tr("Localizable", "Highlight")
+  internal static let history = Loc.tr("Localizable", "History")
   internal static let home = Loc.tr("Localizable", "Home")
   internal static let icon = Loc.tr("Localizable", "Icon")
   internal static let inThisObject = Loc.tr("Localizable", "In this object")
@@ -1049,6 +1050,11 @@ internal enum Loc {
     }
     internal enum Title {
       internal static let placeholder = Loc.tr("Localizable", "Object.Title.Placeholder")
+    }
+  }
+  internal enum ObjectSettings {
+    internal enum History {
+      internal static let description = Loc.tr("Localizable", "ObjectSettings.History.Description")
     }
   }
   internal enum ObjectType {

@@ -49,6 +49,8 @@ struct ObjectSettingsView: View {
                 viewModel.onTapLayoutPicker()
             case .relations:
                 viewModel.onTapRelations()
+            case .history:
+                viewModel.onTapHistory()
             }
         }
     }

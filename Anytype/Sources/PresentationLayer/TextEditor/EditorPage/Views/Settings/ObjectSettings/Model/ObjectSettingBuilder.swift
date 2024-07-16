@@ -1,4 +1,5 @@
 import Services
+import AnytypeCore
 
 final class ObjectSettingBuilder {
     func build(details: ObjectDetails, permissions: ObjectPermissions) -> [ObjectSetting] {
@@ -16,6 +17,10 @@ final class ObjectSettingBuilder {
             }
             
             ObjectSetting.relations
+            
+            if FeatureFlags.versionHistory {
+                ObjectSetting.history
+            }
         }
     }
 }
