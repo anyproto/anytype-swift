@@ -14,20 +14,14 @@ protocol SyncStatusStorageProtocol {
 
 @MainActor
 final class SyncStatusStorage: SyncStatusStorageProtocol {
-    @Published private var _update: SyncStatusInfo?
-    private var updatePublisher: AnyPublisher<SyncStatusInfo?, Never> { $_update.eraseToAnyPublisher() }
+    @Published private var storage = [String: SyncStatusInfo]()
     private var subscription: AnyCancellable?
-    
-    private var defaultValues = [String: SyncStatusInfo]()
     
     nonisolated init() { }
     
     func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never> {
-        updatePublisher
-            .filter { $0?.id == spaceId}
-            .compactMap { $0 }
-            .merge(with: Just(defaultValues[spaceId] ?? .default(spaceId: spaceId)))
-            .receiveOnMain()
+        $storage
+            .compactMap { $0[spaceId] }
             .eraseToAnyPublisher()
     }
     
@@ -41,7 +35,7 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
     func stopSubscriptionAndClean() {
         anytypeAssert(subscription.isNotNil, "Nil subscription in SyncStatusStorage")
         subscription = nil
-        _update = nil
+        storage = [:]
     }
     
     // MARK: - Private
@@ -50,8 +44,7 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .spaceSyncStatusUpdate(let update):
-                defaultValues[update.id] = update
-                _update = update
+                storage[update.id] = update
             default:
                 break
             }
