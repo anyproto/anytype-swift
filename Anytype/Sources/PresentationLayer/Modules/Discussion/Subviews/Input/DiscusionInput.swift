@@ -14,9 +14,6 @@ struct DiscusionInput: View {
             }
             DiscussionTextView(editing: $editing, minHeight: 56, maxHeight: 212)
         }
-        .overlay(alignment: .top) {
-            AnytypeDivider()
-        }
         .background(Color.Background.primary)
     }
 }
