@@ -112,7 +112,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func onTapDiscussion() {
-        output?.onObjectSelected(screenData: .discussion)
+        output?.onObjectSelected(screenData: .discussion(EditorDiscussionObject(spaceId: spaceId)))
     }
     
     // MARK: - Private

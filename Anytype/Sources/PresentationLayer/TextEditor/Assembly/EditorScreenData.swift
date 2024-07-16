@@ -10,7 +10,7 @@ enum EditorScreenData: Hashable, Codable {
     case bin
     case page(EditorPageObject)
     case set(EditorSetObject)
-    case discussion
+    case discussion(EditorDiscussionObject)
 }
 
 struct EditorPageObject: Hashable, Codable {
@@ -52,6 +52,10 @@ struct EditorSetObject: Hashable, Codable {
         self.activeViewId = activeViewId
         self.inline = inline
     }
+}
+
+struct EditorDiscussionObject: Hashable, Codable {
+    let spaceId: String
 }
 
 struct EditorInlineSetObject: Hashable, Codable {
