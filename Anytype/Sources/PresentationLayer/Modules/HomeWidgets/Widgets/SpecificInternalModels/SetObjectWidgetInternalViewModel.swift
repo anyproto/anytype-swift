@@ -64,8 +64,10 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     func startInfoPublisher() async {
         for await newWidgetInfo in widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId).values {
             widgetInfo = newWidgetInfo
-            activeViewId = widgetInfo?.block.viewID
-            await updateBodyState()
+            if activeViewId.isNil || canEditBlocks {
+                activeViewId = widgetInfo?.block.viewID
+                await updateBodyState()
+            }
         }
     }
     
