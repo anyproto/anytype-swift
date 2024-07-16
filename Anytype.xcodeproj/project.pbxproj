@@ -1019,6 +1019,8 @@
 		2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4472289843220062287C /* DataviewFilter+Condition.swift */; };
 		2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */; };
 		2E7CAA3C2949E6A200475898 /* SetKanbanColumnHeaderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */; };
+		2E7DB96D2C46C0410064F9B2 /* VersionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DB96C2C46C0410064F9B2 /* VersionHistoryView.swift */; };
+		2E7DB96F2C46C0590064F9B2 /* VersionHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7DB96E2C46C0590064F9B2 /* VersionHistoryViewModel.swift */; };
 		2E7E503E2B6D5756003867A3 /* ObjectRelationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E503D2B6D5756003867A3 /* ObjectRelationListView.swift */; };
 		2E7E50402B6D5771003867A3 /* ObjectRelationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E503F2B6D5771003867A3 /* ObjectRelationListViewModel.swift */; };
 		2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */; };
@@ -2847,6 +2849,8 @@
 		2E7C4472289843220062287C /* DataviewFilter+Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Condition.swift"; sourceTree = "<group>"; };
 		2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+QuickOption.swift"; sourceTree = "<group>"; };
 		2E7CAA3B2949E6A200475898 /* SetKanbanColumnHeaderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetKanbanColumnHeaderType.swift; sourceTree = "<group>"; };
+		2E7DB96C2C46C0410064F9B2 /* VersionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryView.swift; sourceTree = "<group>"; };
+		2E7DB96E2C46C0590064F9B2 /* VersionHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryViewModel.swift; sourceTree = "<group>"; };
 		2E7E503D2B6D5756003867A3 /* ObjectRelationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListView.swift; sourceTree = "<group>"; };
 		2E7E503F2B6D5771003867A3 /* ObjectRelationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListViewModel.swift; sourceTree = "<group>"; };
 		2E7E50412B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationListModuleOutput.swift; sourceTree = "<group>"; };
@@ -4310,6 +4314,7 @@
 		120E816B269F26BE006FE84E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				2E7DB96B2C46B3F90064F9B2 /* History */,
 				124E2BBD273020CF00A2D534 /* Relations */,
 				53FF7CBA26FDD33400A5A592 /* ObjectActions */,
 				3D38CC8E26D625F200E4F7BF /* ObjectSettings */,
@@ -7735,6 +7740,15 @@
 				2E7C446A2892E66D0062287C /* SetFiltersDate.swift */,
 			);
 			path = Date;
+			sourceTree = "<group>";
+		};
+		2E7DB96B2C46B3F90064F9B2 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				2E7DB96C2C46C0410064F9B2 /* VersionHistoryView.swift */,
+				2E7DB96E2C46C0590064F9B2 /* VersionHistoryViewModel.swift */,
+			);
+			path = History;
 			sourceTree = "<group>";
 		};
 		2E7E503C2B6D5707003867A3 /* Object */ = {
@@ -12139,6 +12153,7 @@
 				2E8387BB291A51A000506766 /* SetCardDropInsideDelegate.swift in Sources */,
 				2A18929F2A8F6FB000A19740 /* NonFatalLoggerHandler.swift in Sources */,
 				2E6CF15E2BDFE0D9002C7023 /* SetRelationsDetailsLocalSearchView.swift in Sources */,
+				2E7DB96D2C46C0410064F9B2 /* VersionHistoryView.swift in Sources */,
 				3D92E9A92C4133A700A1998C /* NetworkIconProvider.swift in Sources */,
 				C90F8F2628DCBB4000E874A9 /* ImageSourceMedia.swift in Sources */,
 				2A9D299428BCC78900789AC7 /* NonExistentBlockViewModel.swift in Sources */,
@@ -12693,6 +12708,7 @@
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				2A01A4F62A1F9FA1002042FB /* MailUrl.swift in Sources */,
 				2A685D5C2B7B9E1500456E08 /* FileManager+Extension.swift in Sources */,
+				2E7DB96F2C46C0590064F9B2 /* VersionHistoryViewModel.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
 				2EF1EE902B276BE2002AD836 /* SyncStatusData.swift in Sources */,
 				C9C536AB276C86DD003CD3F3 /* UIColor+Assets.swift in Sources */,
