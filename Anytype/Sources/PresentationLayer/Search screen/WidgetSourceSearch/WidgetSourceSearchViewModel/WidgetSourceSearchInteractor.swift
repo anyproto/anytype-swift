@@ -12,13 +12,15 @@ struct WidgetAnytypeLibrarySource: Hashable {
 protocol WidgetSourceSearchInteractorProtocol: AnyObject {
     func objectSearch(text: String) async throws -> [ObjectDetails]
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource]
+    func createNewObject(name: String) async throws -> ObjectDetails
 }
 
 final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
-    
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     private let spaceId: String
     private let anytypeLibrary = AnytypeWidgetId.allCases.map { $0.librarySource }
     
@@ -35,6 +37,20 @@ final class WidgetSourceSearchInteractor: WidgetSourceSearchInteractorProtocol {
     func anytypeLibrarySearch(text: String) -> [WidgetAnytypeLibrarySource] {
         guard text.isNotEmpty else { return anytypeLibrary }
         return anytypeLibrary.filter { $0.name.range(of: text, options: .caseInsensitive) != nil }
+    }
+    
+    func createNewObject(name: String) async throws -> ObjectDetails {
+        let details = try await defaultObjectService.createDefaultObject(
+            name: name,
+            shouldDeleteEmptyObject: false,
+            spaceId: spaceId
+        )
+        AnytypeAnalytics.instance().logCreateObject(
+            objectType: details.analyticsType,
+            spaceId: details.spaceId,
+            route: .search
+        )
+        return details
     }
 }
 

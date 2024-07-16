@@ -7,6 +7,7 @@ import AnytypeCore
 final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     
     private enum Constants {
+        static let newObjectId = "NewObjectId"
         static let anytypeId = "AnytypeId"
         static let searchId = "SearchId"
     }
@@ -20,6 +21,8 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     private let interactor: any WidgetSourceSearchInteractorProtocol
     private let internalModel: any WidgetSourceSearchInternalViewModelProtocol
     
+    private var searchText: String = ""
+    
     init(
         interactor: some WidgetSourceSearchInteractorProtocol,
         internalModel: some WidgetSourceSearchInternalViewModelProtocol
@@ -31,14 +34,11 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     // MARK: - NewInternalSearchViewModelProtocol
     
     func search(text: String) async throws {
+        self.searchText = text
         let objects = try await interactor.objectSearch(text: text)
         let libraryObjects = interactor.anytypeLibrarySearch(text: text)
         
-        if objects.isEmpty && libraryObjects.isEmpty {
-            handleError(for: text)
-        } else {
-            handleSearchResults(objects: objects, libraryObjects: libraryObjects)
-        }
+        handleSearchResults(objects: objects, libraryObjects: libraryObjects)
         
         self.objects = objects
         self.libraryObjects = libraryObjects
@@ -50,6 +50,14 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
         
         guard let id = ids.first else { return }
 
+        if id == Constants.newObjectId {
+            Task { @MainActor in
+                let details = try await interactor.createNewObject(name: searchText)
+                internalModel.onSelect(source: .object(details))
+            }
+            return
+        }
+        
         if let libraryObject = libraryObjects.first(where: { $0.type.rawValue == id}) {
             internalModel.onSelect(source: .library(libraryObject.type))
             return
@@ -65,14 +73,11 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
     
     // MARK: - Private
     
-    private func handleError(for text: String) {
-        viewStateSubject.send(.error(.noObjectError(searchText: text)))
-    }
-    
     private func handleSearchResults(objects: [ObjectDetails], libraryObjects: [WidgetAnytypeLibrarySource]) {
         viewStateSubject.send(
             .resultsList(
                 .sectioned(sectinos: .builder {
+                    newSectionConfiguration()
                     if libraryObjects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
                             id: Constants.anytypeId,
@@ -92,6 +97,31 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
         )
     }
     
+    func newSectionConfiguration() -> ListSectionConfiguration {
+        return ListSectionConfiguration(
+            id: Constants.newObjectId,
+            rows: [
+                ListRowConfiguration(
+                    id: Constants.newObjectId,
+                    contentHash: Constants.newObjectId.hashValue,
+                    viewBuilder:  {
+                        SearchObjectRowView(
+                            viewModel: SearchObjectRowView.Model(
+                                icon: .asset(.X32.plus),
+                                title: Loc.Widgets.Actions.newObject,
+                                subtitle: nil,
+                                style: .default,
+                                isChecked: false
+                            ),
+                            selectionIndicatorViewModel: nil
+                        ).eraseToAnyView()
+                    }
+                )
+            ]
+        ) {
+            EmptyView().eraseToAnyView()
+        }
+    }
 }
 
 private extension Array where Element == ObjectDetails {
