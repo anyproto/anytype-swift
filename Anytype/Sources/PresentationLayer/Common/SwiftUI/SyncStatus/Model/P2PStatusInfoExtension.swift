@@ -48,7 +48,7 @@ extension P2PStatusInfo: NetworkIconProvider {
     var background: NetworkIconBackground {
         switch status {
         case .notConnected:
-            .animation(start: .Light.green, end: .Light.green.opacity(0.5))
+            .animation(start: .Shape.secondary, end: .Shape.secondary.opacity(0.5))
         case .notPossible, .UNRECOGNIZED:
             .static(.Shape.secondary)
         case .connected:
