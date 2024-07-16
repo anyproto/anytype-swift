@@ -81,14 +81,14 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
                     if libraryObjects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
                             id: Constants.anytypeId,
-                            title: Loc.anytypeLibrary,
+                            title: Loc.Widgets.Source.library,
                             rows:  libraryObjects.asRowConfigurations()
                         )
                     }
                     if objects.isNotEmpty {
                         ListSectionConfiguration.smallHeader(
                             id: Constants.searchId,
-                            title: Loc.objects,
+                            title: Loc.Widgets.Source.objects,
                             rows:  objects.asRowConfigurations()
                         )
                     }
