@@ -4,19 +4,23 @@ import AnytypeCore
 import ProtobufMessages
 
 
+@MainActor
 protocol SyncStatusStorageProtocol {
-    func statusPublisher(spaceId: String) async -> AnyPublisher<SyncStatusInfo, Never>
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never>
     
-    func startSubscription() async
-    func stopSubscriptionAndClean() async
+    func startSubscription()
+    func stopSubscriptionAndClean()
 }
 
-actor SyncStatusStorage: SyncStatusStorageProtocol {
+@MainActor
+final class SyncStatusStorage: SyncStatusStorageProtocol {
     @Published private var _update: SyncStatusInfo?
     private var updatePublisher: AnyPublisher<SyncStatusInfo?, Never> { $_update.eraseToAnyPublisher() }
     private var subscription: AnyCancellable?
     
     private var defaultValues = [String: SyncStatusInfo]()
+    
+    nonisolated init() { }
     
     func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never> {
         updatePublisher
@@ -30,7 +34,7 @@ actor SyncStatusStorage: SyncStatusStorageProtocol {
     func startSubscription() {
         anytypeAssert(subscription.isNil, "Non nil subscription in SyncStatusStorage")
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            await self?.handle(events: events)
+            self?.handle(events: events)
         }
     }
     

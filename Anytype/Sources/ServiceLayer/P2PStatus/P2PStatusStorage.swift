@@ -4,21 +4,23 @@ import AnytypeCore
 import ProtobufMessages
 
 
+@MainActor
 protocol P2PStatusStorageProtocol {
-    func statusPublisher(spaceId: String) async -> AnyPublisher<P2PStatusInfo, Never>
+    func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo, Never>
     
-    func startSubscription() async
-    func stopSubscriptionAndClean() async
+    func startSubscription()
+    func stopSubscriptionAndClean()
 }
 
-actor P2PStatusStorage: P2PStatusStorageProtocol {
+@MainActor
+final class P2PStatusStorage: P2PStatusStorageProtocol {
     @Published private var _update: P2PStatusInfo?
     private var updatePublisher: AnyPublisher<P2PStatusInfo?, Never> { $_update.eraseToAnyPublisher() }
     private var subscription: AnyCancellable?
     
     private var defaultValues = [String: P2PStatusInfo]()
     
-    init() { }
+    nonisolated init() { }
     
     func statusPublisher(spaceId: String) -> AnyPublisher<P2PStatusInfo, Never> {
         updatePublisher
@@ -32,7 +34,7 @@ actor P2PStatusStorage: P2PStatusStorageProtocol {
     func startSubscription() {
         anytypeAssert(subscription.isNil, "Non nil subscription in P2PStatusStorage")
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            await self?.handle(events: events)
+            self?.handle(events: events)
         }
     }
     
