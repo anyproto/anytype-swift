@@ -17,4 +17,14 @@ extension ListWidgetRowModel {
             }
         )
     }
+    
+    init(details: SetContentViewItemConfiguration) {
+        self = ListWidgetRowModel(
+            objectId: details.id,
+            icon: details.icon,
+            title: details.title,
+            description: details.description,
+            onTap: details.onItemTap
+        )
+    }
 }
