@@ -22,6 +22,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var parsedRelations = ParsedRelations.empty
     @Atomic
     private(set) var permissions = ObjectPermissions()
+    @Atomic
+    private(set) var syncStatus: SyncStatus?
     
     let infoContainer: any InfoContainerProtocol
     let relationLinksStorage: any RelationLinksStorageProtocol
@@ -54,9 +56,6 @@ final class BaseDocument: BaseDocumentProtocol {
             .eraseToAnyPublisher()
     }
     private var syncSubject = PassthroughSubject<[BaseDocumentUpdate], Never>()
-    
-    private var syncStatusSubject = PassthroughSubject<SyncStatus, Never>()
-    var syncStatusPublisher: AnyPublisher<SyncStatus, Never> { syncStatusSubject.eraseToAnyPublisher() }
         
     init(
         objectId: String,
@@ -190,6 +189,8 @@ final class BaseDocument: BaseDocumentProtocol {
                 return [.details(id: id)]
             case .unhandled(let blockId):
                 return [.unhandled(blockId: blockId)]
+            case .syncStatus:
+                return [.syncStatus]
             case .relationLinks, .restrictions, .close:
                 return [] // A lot of casese for update relations
             }
@@ -225,7 +226,8 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     private func setupSubscriptions() {
         syncStatusStorage.statusPublisher(spaceId: spaceId).sink { [weak self] info in
-            self?.syncStatusSubject.send(info.status)
+            self?.syncStatus = info.status
+            self?.triggerSync(updates: [.syncStatus])
         }.store(in: &subscriptions)
         
         accountParticipantsStorage.canEditPublisher(spaceId: spaceId).sink { [weak self] canEdit in

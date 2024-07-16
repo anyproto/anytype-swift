@@ -35,7 +35,7 @@ final class EditorSyncStatusItem: UIView {
         self.updateBackgroundColor()
     }
     
-    init(statusData: SyncStatusData? = nil, onTap: @escaping () -> ()) {
+    init(statusData: SyncStatusData? = nil, itemState: EditorBarItemState? = nil, onTap: @escaping () -> ()) {
         self.statusData = statusData
         self.onTap = onTap
         super.init(frame: .zero)
