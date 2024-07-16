@@ -144,6 +144,7 @@
 "Alignment" = "Alignment";
 "Actions" = "Actions";
 "Relations" = "Relations";
+"History" = "History";
 "Objects" = "Objects";
 "Lists" = "Lists";
 "Pinned" = "Pinned";
@@ -286,6 +287,7 @@
 "Background picture" = "Background picture";
 "Layout" = "Layout";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "Search";
 "There is no emoji named" = "There is no emoji named";
@@ -504,7 +506,7 @@
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Valitse kysely";
@@ -612,14 +614,14 @@
 "Node is not connected" = "Solmu ei ole yhteydessä";
 "Initializing sync" = "Käynnistetään synkronointia";
 "Incompatible version" = "Incompatible version";
-"Connecting..." = "Connecting...";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
 "Anytype Network" = "Anytype Network";
 "Self Host" = "Self Host";
 "Local Only" = "Local Only";
 "Synced" = "Synkronoitu";
-"Syncing..." = "Synkronoidaan...";
 "No connection" = "Ei yhteyttä";
-"Preparing..." = "Valmistellaan...";
 "Deleted" = "Poistettu";
 "Download" = "Ladataan";
 "Open object" = "Avoin objekti";
@@ -803,17 +805,19 @@
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Tiivis lista";
 "Widgets.Layout.View.Title" = "Näkymä";
-"Widgets.Layout.Link.Description" = "Tiivis versio objektista";
-"Widgets.Layout.Tree.Description" = "Hierarkinen objektien rakenne";
-"Widgets.Layout.List.Description" = "Vempain lista näkymällä asetetusta objektista";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Vempain lista näkymällä asetetusta objektista";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Viimeksi muokatut";
 "Widgets.Library.RecentlyOpened.Name" = "Viimeksi avatut";
 "Widgets.Library.RecentlyOpened.Description" = "Laitteella";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
@@ -1176,6 +1180,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
 
 
 // MARK: - Debug

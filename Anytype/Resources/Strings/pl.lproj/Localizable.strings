@@ -144,6 +144,7 @@
 "Alignment" = "Położenie";
 "Actions" = "Akcje";
 "Relations" = "Relacje";
+"History" = "Historia";
 "Objects" = "Obiekty";
 "Lists" = "Listy";
 "Pinned" = "Przypięte";
@@ -286,6 +287,7 @@
 "Background picture" = "Zdjęcie w tle";
 "Layout" = "Układ";
 "Arrangement of objects on a canvas" = "Układ obiektów na płótnie";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "Szukaj";
 "There is no emoji named" = "Nie ma emoji o nazwie";
@@ -504,7 +506,7 @@
 "Set.View.Empty.Subtitle" = "Dodawanie zapytania wyszukiwania w celu agregowania obiektów o jednakowych typach i relacjach w trybie na żywo";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Kwerenda wybierająca";
@@ -612,14 +614,14 @@
 "Node is not connected" = "Węzeł nie jest połączony";
 "Initializing sync" = "Inicjowanie synchronizacji";
 "Incompatible version" = "Niekompatybilna wersja";
-"Connecting..." = "Connecting...";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
 "Anytype Network" = "Anytype Network";
 "Self Host" = "Self Host";
 "Local Only" = "Local Only";
 "Synced" = "Zsynchronizowano";
-"Syncing..." = "Synchronizowanie...";
 "No connection" = "Brak połączenia";
-"Preparing..." = "Przygotowywanie…";
 "Deleted" = "Usunięto";
 "Download" = "Pobierz";
 "Open object" = "Otwórz obiekt";
@@ -803,17 +805,19 @@
 "Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Lista umów";
 "Widgets.Layout.View.Title" = "Zobacz";
-"Widgets.Layout.Link.Description" = "Wersja ompact obiektu";
-"Widgets.Layout.Tree.Description" = "Hierarchiczna struktura obiektów";
-"Widgets.Layout.List.Description" = "Widget z widokiem listy ustawionego obiektu";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget z widokiem listy ustawionego obiektu";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Ostatnio edytowane";
 "Widgets.Library.RecentlyOpened.Name" = "Niedawno otwarte";
 "Widgets.Library.RecentlyOpened.Description" = "Na tym urządzeniu";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "Wersja aplikacji: %@";
@@ -1176,6 +1180,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "SyncStatus.Error.incompatibleVersion" = "Niekompatybilna wersja";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
 
 
 // MARK: - Debug

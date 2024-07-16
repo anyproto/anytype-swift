@@ -144,6 +144,7 @@
 "Alignment" = "Выравнивание";
 "Actions" = "Действия";
 "Relations" = "Свойства";
+"History" = "История";
 "Objects" = "Объекты";
 "Lists" = "Списки";
 "Pinned" = "Закреплённые";
@@ -286,6 +287,7 @@
 "Background picture" = "Фоновое изображение";
 "Layout" = "Макет";
 "Arrangement of objects on a canvas" = "Расположение объектов на холсте";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "Поиск";
 "There is no emoji named" = "Нет эмодзи с таким именем";
@@ -504,7 +506,7 @@
 "Set.View.Empty.Subtitle" = "Добавьте поисковый запрос для агрегирования объектов с одинаковыми типами и свойствами в режиме реального времени.";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Выберите запрос";
@@ -612,14 +614,14 @@
 "Node is not connected" = "Узел не подключен";
 "Initializing sync" = "Инициализация синхронизации";
 "Incompatible version" = "Несовместимая версия";
-"Connecting..." = "Connecting...";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
 "Anytype Network" = "Anytype Network";
 "Self Host" = "Self Host";
 "Local Only" = "Local Only";
 "Synced" = "Синхронизировано";
-"Syncing..." = "Синхронизация...";
 "No connection" = "Нет соединения";
-"Preparing..." = "Подготовка...";
 "Deleted" = "Удалено";
 "Download" = "Скачать";
 "Open object" = "Открыть объект";
@@ -803,17 +805,19 @@
 "Widgets.Layout.List.Title" = "Список";
 "Widgets.Layout.CompactList.Title" = "Компактный список";
 "Widgets.Layout.View.Title" = "Вид";
-"Widgets.Layout.Link.Description" = "Компактная версия объекта";
-"Widgets.Layout.Tree.Description" = "Иерархическая структура объектов";
-"Widgets.Layout.List.Description" = "Виджет со списком объектов из набора";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Виджет со списком объектов из набора";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "Версия приложения: %@";
@@ -1176,6 +1180,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.incompatibleVersion" = "Несовместимая версия";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
 
 
 // MARK: - Debug
