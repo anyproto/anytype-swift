@@ -84,7 +84,7 @@ private struct HomeWidgetsInternalView: View {
     private var editButtons: some View {
         EqualFitWidthHStack(spacing: 12) {
             HomeEditButton(text: Loc.Widgets.Actions.addWidget, homeState: model.homeState) {
-                model.onCreateWidgetFromHomeMode()
+                model.onCreateWidgetFromMainMode()
             }
             HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
                 model.onEditButtonTap()
