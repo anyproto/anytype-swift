@@ -33,10 +33,22 @@ struct DiscussionView: View {
                 }
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                DiscusionInput {
-                    model.onTapAddObjectToMessage()
-                }
+                inputPanel
             }
+        }
+    }
+    
+    private var inputPanel: some View {
+        VStack(spacing: 0) {
+            DiscussionLinkInputViewContainer(objects: model.linkedObjects) {
+                model.onTapRemoveLinkedObject(details: $0)
+            }
+            DiscusionInput {
+                model.onTapAddObjectToMessage()
+            }
+        }
+        .overlay(alignment: .top) {
+            AnytypeDivider()
         }
     }
     

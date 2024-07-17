@@ -602,6 +602,8 @@
 		2A8302B92B0758D9002D6655 /* AnytypeDestinationBuilderHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8302B82B0758D9002D6655 /* AnytypeDestinationBuilderHolder.swift */; };
 		2A8302BD2B07A058002D6655 /* AnytypeNavigationAdditionalSafeArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8302BC2B07A058002D6655 /* AnytypeNavigationAdditionalSafeArea.swift */; };
 		2A8302BF2B07AC1C002D6655 /* AnytypeNavigationSpacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8302BE2B07AC1C002D6655 /* AnytypeNavigationSpacer.swift */; };
+		2A8317792C46B89900C2D369 /* DiscussionLinkInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8317782C46B89900C2D369 /* DiscussionLinkInputView.swift */; };
+		2A83177B2C46BDDF00C2D369 /* DiscussionLinkInputViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A83177A2C46BDDF00C2D369 /* DiscussionLinkInputViewContainer.swift */; };
 		2A8395682AF3ECDD004EE41F /* SegmentLegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8395672AF3ECDD004EE41F /* SegmentLegend.swift */; };
 		2A845D752B0D027300AFD252 /* WidgetSwipeActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A845D742B0D027300AFD252 /* WidgetSwipeActionView.swift */; };
 		2A85B0422AA637F100988ABD /* ApplicationCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */; };
@@ -2414,6 +2416,8 @@
 		2A8302B82B0758D9002D6655 /* AnytypeDestinationBuilderHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeDestinationBuilderHolder.swift; sourceTree = "<group>"; };
 		2A8302BC2B07A058002D6655 /* AnytypeNavigationAdditionalSafeArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeNavigationAdditionalSafeArea.swift; sourceTree = "<group>"; };
 		2A8302BE2B07AC1C002D6655 /* AnytypeNavigationSpacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeNavigationSpacer.swift; sourceTree = "<group>"; };
+		2A8317782C46B89900C2D369 /* DiscussionLinkInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionLinkInputView.swift; sourceTree = "<group>"; };
+		2A83177A2C46BDDF00C2D369 /* DiscussionLinkInputViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscussionLinkInputViewContainer.swift; sourceTree = "<group>"; };
 		2A8395672AF3ECDD004EE41F /* SegmentLegend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentLegend.swift; sourceTree = "<group>"; };
 		2A845D742B0D027300AFD252 /* WidgetSwipeActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetSwipeActionView.swift; sourceTree = "<group>"; };
 		2A85B0402AA637F100988ABD /* ApplicationCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorView.swift; sourceTree = "<group>"; };
@@ -5724,8 +5728,8 @@
 		2A4191DC2C368F5600117FB8 /* Discussion */ = {
 			isa = PBXGroup;
 			children = (
+				2A8317772C46B88200C2D369 /* Subviews */,
 				2ABC49E32C3EE81B00227F09 /* Container */,
-				2A4191E42C36924E00117FB8 /* Input */,
 				2A4191DF2C368FB700117FB8 /* DiscussionView.swift */,
 				2A21A4012C457B89006D320E /* DiscussionModuleOutput.swift */,
 				2A21A4032C457BDB006D320E /* DiscussionViewModel.swift */,
@@ -6397,6 +6401,16 @@
 				2A8302BE2B07AC1C002D6655 /* AnytypeNavigationSpacer.swift */,
 			);
 			path = NavigationView;
+			sourceTree = "<group>";
+		};
+		2A8317772C46B88200C2D369 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				2A4191E42C36924E00117FB8 /* Input */,
+				2A8317782C46B89900C2D369 /* DiscussionLinkInputView.swift */,
+				2A83177A2C46BDDF00C2D369 /* DiscussionLinkInputViewContainer.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		2A8395662AF3ECC8004EE41F /* Segment */ = {
@@ -11568,6 +11582,7 @@
 				2A5024FF2BBE9A4700A141B8 /* ObjectSearchView.swift in Sources */,
 				C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */,
 				2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */,
+				2A8317792C46B89900C2D369 /* DiscussionLinkInputView.swift in Sources */,
 				1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */,
 				2AE85FF72B20D85900268E9D /* EditorPageViewState.swift in Sources */,
 				3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */,
@@ -12498,6 +12513,7 @@
 				12636CF3276A0CF00084D35D /* ListSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
 				2A9486612950B193007A5586 /* HomeWidgetsModuleOutput.swift in Sources */,
+				2A83177B2C46BDDF00C2D369 /* DiscussionLinkInputViewContainer.swift in Sources */,
 				2AA4C26D2A7026C600C2EC66 /* WorkspacesStorage.swift in Sources */,
 				2A971C06297E75D300D3D786 /* RecentSubscriptionService.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
