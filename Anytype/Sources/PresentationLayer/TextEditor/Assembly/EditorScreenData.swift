@@ -55,6 +55,7 @@ struct EditorSetObject: Hashable, Codable {
 }
 
 struct EditorDiscussionObject: Hashable, Codable {
+    let objectId: String
     let spaceId: String
 }
 

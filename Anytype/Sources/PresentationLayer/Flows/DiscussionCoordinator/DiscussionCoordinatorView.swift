@@ -9,7 +9,7 @@ struct DiscussionCoordinatorView: View {
     }
     
     var body: some View {
-        DiscussionView(spaceId: model.spaceId, output: model)
+        DiscussionView(objectId: model.objectId, spaceId: model.spaceId, output: model)
             .sheet(item: $model.objectToMessageSearchData) {
                 BlockObjectSearchView(data: $0)
             }
@@ -17,5 +17,5 @@ struct DiscussionCoordinatorView: View {
 }
 
 #Preview {
-    DiscussionCoordinatorView(data: EditorDiscussionObject(spaceId: ""))
+    DiscussionCoordinatorView(data: EditorDiscussionObject(objectId: "", spaceId: ""))
 }
