@@ -287,7 +287,7 @@
 "Background picture" = "Hintergrundbild";
 "Layout" = "Layout";
 "Arrangement of objects on a canvas" = "Anordnung von Objekten auf einer Leinwand";
-"ObjectSettings.History.Description" = "All versions of object";
+"ObjectSettings.History.Description" = "Alle Versionen des Objekts";
 
 "Search" = "Suchen";
 "There is no emoji named" = "Es gibt kein Emoji mit dem Namen";
@@ -506,7 +506,7 @@
 "Set.View.Empty.Subtitle" = "Füge Suchparameter hinzu, um Objekte mit gleichenTypen und Relationen im Live-Modus zusammenzufassen";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
+"Set.View.UnsupportedAlert" = "Ansicht wird auf Mobilgeräten nicht unterstützt";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Abfrage auswählen";
@@ -798,7 +798,7 @@
 "Widgets.Actions.EmptyBin" = "Behälter leeren";
 "Widgets.Actions.AddBelow" = "Unten hinzufügen";
 "Widgets.Actions.NewObject" = "Neues Objekt";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "Alle Objekte ansehen";
 "Widgets.Layout.Screen.Title" = "Widget-Typ";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Strukturbaum";
@@ -806,10 +806,10 @@
 "Widgets.Layout.CompactList.Title" = "Kompakte Liste";
 "Widgets.Layout.View.Title" = "Ansicht";
 "Widgets.Layout.Link.Description" = "Compact widget view";
-"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
-"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.Tree.Description" = "Widget mit einer hierarchischen Struktur";
+"Widgets.Layout.List.Description" = "Widget mit einer Listenansicht";
 "Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
-"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
+"Widgets.Layout.CompactList.Description" = "Widget mit einer kompakten Listenansicht";
 "Widgets.Empty.Title" = "Hier gibt es keine Objekte";
 "Widgets.Empty.CreateObject" = "Objekt erstellen";
 "Widgets.Library.RecentlyEdited.Name" = "Zuletzt bearbeitet";
@@ -817,7 +817,7 @@
 "Widgets.Library.RecentlyOpened.Description" = "Auf diesem Gerät";
 "Widgets.AppUpdate" = "Anytype ist bereit zur Aktualisierung";
 "Widgets.Source.Library" = "Default sets";
-"Widgets.Source.Objects" = "Your objects";
+"Widgets.Source.Objects" = "Deine Objekte";
 
 // MARK: - About
 "About.AppVersion" = "App-Version: %@";
