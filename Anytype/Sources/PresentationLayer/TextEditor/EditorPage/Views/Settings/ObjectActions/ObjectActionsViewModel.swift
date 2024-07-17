@@ -165,6 +165,17 @@ final class ObjectActionsViewModel: ObservableObject {
         output?.undoRedoAction()
     }
     
+    func onTapDiscussion() {
+        guard let details = document.details else { return }
+        output?.openPageAction(screenData: .discussion(
+            EditorDiscussionObject(
+                objectId: details.id,
+                spaceId: details.spaceId
+            )
+        ))
+        dismiss.toggle()
+    }
+    
     // MARK: - Private
     
     private func onObjectSelection(objectId: String, currentObjectId: String) {
