@@ -1,6 +1,6 @@
 import Foundation
 
-extension FileManager {
+public extension FileManager {
     
     func createTempDirectory() -> URL {
         let path = temporaryDirectory.appendingPathComponent(UUID().uuidString)
