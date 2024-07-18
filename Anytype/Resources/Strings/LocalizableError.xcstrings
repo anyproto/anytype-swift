@@ -2558,8 +2558,8 @@
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
+            "state" : "translated",
+            "value" : "Nome é muito longo"
           }
         },
         "ro" : {
@@ -2797,8 +2797,8 @@
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
+            "state" : "translated",
+            "value" : "Nome é muito curto"
           }
         },
         "ro" : {
