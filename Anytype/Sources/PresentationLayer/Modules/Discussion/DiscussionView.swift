@@ -10,15 +10,13 @@ struct DiscussionView: View {
     
     var body: some View {
         DiscussionSpacingContainer {
-            ScrollView {
-                VStack {
+            DiscussionScrollView(position: $model.scrollViewPosition) {
+                LazyVStack(spacing: 12) {
                     ForEach(model.mesageBlocks, id: \.id) {
                         MessageView(block: $0)
                     }
-                    HStack {
-                        Spacer()
-                    }
                 }
+                .padding(.vertical, 16)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 inputPanel

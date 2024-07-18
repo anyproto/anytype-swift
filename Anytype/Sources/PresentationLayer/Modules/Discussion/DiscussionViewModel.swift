@@ -19,6 +19,7 @@ final class DiscussionViewModel: ObservableObject {
     @Published var mesageBlocks: [MessageBlock] = []
     @Published var participants: [Participant] = []
     @Published var message: AttributedString = ""
+    @Published var scrollViewPosition = DiscussionScrollViewPosition.bottom("")
     
     init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
         self.document = openDocumentProvider.document(objectId: objectId)
@@ -40,6 +41,9 @@ final class DiscussionViewModel: ObservableObject {
                     createDate: Date(),
                     isYourMessage: isYour
                 )
+            }
+            if let last = mesageBlocks.last {
+                self.scrollViewPosition = .bottom(last.id)
             }
         }
     }

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct MessageView: View {
     
+    let id: String
     let message: String
     let author: String
     let authorIcon: Icon?
@@ -41,6 +42,7 @@ struct MessageView: View {
         .padding(.vertical, 12)
         .background(messageBackgorundColor)
         .cornerRadius(24, style: .continuous)
+        .id(id)
     }
     
     @ViewBuilder
@@ -67,6 +69,7 @@ struct MessageView: View {
 extension MessageView {
     init(block: MessageBlock) {
         self = MessageView(
+            id: block.id,
             message: block.text,
             author: block.author.title,
             authorIcon: block.author.icon.map { .object($0) },
@@ -79,6 +82,7 @@ extension MessageView {
 #Preview("Other") {
     VStack {
         MessageView(
+            id: "",
             message:"I think it’d better not to mix all the conversations",
             author: "Megh",
             authorIcon: .image(
@@ -93,6 +97,7 @@ extension MessageView {
         )
         
         MessageView(
+            id: "",
             message:"I think it’d better not to mix all the conversations",
             author: "Megh",
             authorIcon: .image(
