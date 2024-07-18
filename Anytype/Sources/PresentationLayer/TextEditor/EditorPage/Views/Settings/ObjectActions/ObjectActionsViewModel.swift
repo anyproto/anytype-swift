@@ -124,6 +124,7 @@ final class ObjectActionsViewModel: ObservableObject {
     }
     
     func createWidget() async throws {
+        AnytypeAnalytics.instance().logClickAddWidget(context: .object)
         guard let details = document.details else { return }
         
         let info = activeWorkpaceStorage.workspaceInfo
@@ -149,6 +150,7 @@ final class ObjectActionsViewModel: ObservableObject {
             limit: layout.limits.first ?? 0,
             position: .above(widgetId: first.id)
         )
+        AnytypeAnalytics.instance().logAddWidget(context: .object)
         toastData = ToastBarData(text: Loc.Actions.CreateWidget.success, showSnackBar: true, messageType: .success)
         dismiss.toggle()
     }
