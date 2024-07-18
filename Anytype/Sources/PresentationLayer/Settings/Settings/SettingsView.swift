@@ -13,6 +13,9 @@ struct SettingsView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: Loc.Settings.title)
+                .onTapGesture(count: 5) {
+                    model.onExportStackGoroutinesTap()
+                }
             
             ScrollView(showsIndicators: false) {
                 VStack(spacing: 0) {
@@ -76,6 +79,7 @@ struct SettingsView: View {
         .onAppear {
             model.onAppear()
         }
+        .exportStackGoroutinesSheet(isPresented: $model.exportStackGoroutines)
     }
 }
 
