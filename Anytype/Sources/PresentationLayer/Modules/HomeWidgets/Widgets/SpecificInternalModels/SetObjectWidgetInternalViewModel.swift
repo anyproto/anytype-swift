@@ -116,7 +116,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateRows() {
         withAnimation {
-            showUnsupportedBanner = !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
+            showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
          
             switch style {
             case .list:
