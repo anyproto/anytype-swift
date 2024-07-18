@@ -4,9 +4,9 @@ import Combine
 
 final class StatusSearchViewModel {
     
-    let selectionMode: NewSearchViewModel.SelectionMode
+    let selectionMode: LegacySearchViewModel.SelectionMode
     
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never>()
     private var selectedStatusesIds: [String] = []
     private var statuses: [Relation.Status.Option] = []
     
@@ -14,7 +14,7 @@ final class StatusSearchViewModel {
     private let onSelect: (_ ids: [String]) -> Void
     
     init(
-        selectionMode: NewSearchViewModel.SelectionMode,
+        selectionMode: LegacySearchViewModel.SelectionMode,
         interactor: StatusSearchInteractor,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
@@ -33,7 +33,7 @@ final class StatusSearchViewModel {
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         statuses = try await interactor.search(text: text)
@@ -51,7 +51,7 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         onSelect(ids)
     }
     
-    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+    func createButtonModel(searchText: String) -> LegacySearchViewModel.CreateButtonModel {
         return interactor.isCreateButtonAvailable(searchText: searchText, statuses: statuses)
             ? .enabled(title:  Loc.createOptionWith(searchText))
             : .disabled
@@ -61,12 +61,12 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
 
 private extension StatusSearchViewModel {
     
-    func handleError(for error: NewSearchError) {
+    func handleError(for error: LegacySearchError) {
         viewStateSubject.send(.error(error))
     }
     
     func handleSearchResults(_ statuses: [Relation.Status.Option]) {
-        let sections = NewSearchSectionsBuilder.makeSections(statuses) {
+        let sections = LegacySearchSectionsBuilder.makeSections(statuses) {
             $0.asRowConfigurations(with: selectedStatusesIds, selectionMode: selectionMode)
         }
         viewStateSubject.send(.resultsList(.sectioned(sectinos: sections)))
@@ -76,7 +76,7 @@ private extension StatusSearchViewModel {
 
 private extension Array where Element == Relation.Status.Option {
 
-    func asRowConfigurations(with selectedIds: [String], selectionMode: NewSearchViewModel.SelectionMode) -> [ListRowConfiguration] {
+    func asRowConfigurations(with selectedIds: [String], selectionMode: LegacySearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { option in
             ListRowConfiguration(
                 id: option.id,
@@ -96,7 +96,7 @@ private extension Array where Element == Relation.Status.Option {
     }
 }
 
-private extension NewSearchViewModel.SelectionMode {
+private extension LegacySearchViewModel.SelectionMode {
     
     func asSelectionIndicatorViewModel(option: Relation.Status.Option, selectedIds: [String]) -> SelectionIndicatorView.Model? {
         switch self {

@@ -3,9 +3,9 @@ import Services
 
 final class SetSortsSearchViewModel {
     
-    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
+    let selectionMode: LegacySearchViewModel.SelectionMode = .singleItem
     
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
+    private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never> ()
     private let interactor: SetRelationsDetailsLocalSearchInteractor
     private let onSelect: (_ details: [RelationDetails]) -> Void
     
@@ -17,7 +17,7 @@ final class SetSortsSearchViewModel {
 
 extension SetSortsSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) {
         let result = interactor.search(text: text)
@@ -38,7 +38,7 @@ extension SetSortsSearchViewModel: NewInternalSearchViewModelProtocol {
 
 private extension SetSortsSearchViewModel {
     
-    func handleError(_ error: NewSearchError) {
+    func handleError(_ error: LegacySearchError) {
         viewStateSubject.send(.error(error))
     }
     

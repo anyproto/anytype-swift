@@ -35,8 +35,8 @@ struct BlockObjectSearchView: View {
     var body: some View {
         
         
-        return NewSearchView(
-            viewModel: NewSearchViewModel(
+        return LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 title: data.title,
                 style: .default,
                 itemCreationMode: .available { name in

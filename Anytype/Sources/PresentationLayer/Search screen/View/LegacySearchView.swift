@@ -1,9 +1,10 @@
 import SwiftUI
 
-// TODO: Dont use in new search screens. Legacy module
-struct NewSearchView: View {
+// Dont use in new search screens
+// Make your own screen, see: GlobalSearchView
+struct LegacySearchView: View {
     
-    @StateObject var viewModel: NewSearchViewModel
+    @StateObject var viewModel: LegacySearchViewModel
 
     @State private var searchText = ""
     
@@ -31,7 +32,7 @@ struct NewSearchView: View {
             case .resultsList(let model):
                 searchResults(model: model)
             case .error(let error):
-                NewSearchErrorView(error: error)
+                LegacySearchErrorView(error: error)
             }
         }
     }
@@ -80,7 +81,7 @@ struct NewSearchView: View {
     
 }
 
-extension NewSearchView {
+extension LegacySearchView {
     enum Style {
         case `default`
         case embedded

@@ -1,5 +1,5 @@
 //
-//  NewSearchError.swift
+//  LegacySearchError.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 31.05.2022.
@@ -8,31 +8,31 @@
 
 import Foundation
 
-struct NewSearchError: Error {
+struct LegacySearchError: Error {
     
     let title: String
     let subtitle: String?
     
 }
 
-extension NewSearchError {
+extension LegacySearchError {
     
-    static func noObjectError(searchText: String) -> NewSearchError {
-        NewSearchError(
+    static func noObjectError(searchText: String) -> LegacySearchError {
+        LegacySearchError(
             title: Loc.thereIsNoObjectNamed(searchText),
             subtitle: Loc.createANewOneOrSearchForSomethingElse
         )
     }
     
-    static func noTypeError(searchText: String) -> NewSearchError {
-        NewSearchError(
+    static func noTypeError(searchText: String) -> LegacySearchError {
+        LegacySearchError(
             title: Loc.thereIsNoTypeNamed(searchText),
             subtitle: Loc.createANewOneOrSearchForSomethingElse
         )
     }
     
-    static func noObjectErrorWithoutSubtitle(searchText: String) -> NewSearchError {
-        NewSearchError(
+    static func noObjectErrorWithoutSubtitle(searchText: String) -> LegacySearchError {
+        LegacySearchError(
             title: Loc.thereIsNoObjectNamed(searchText),
             subtitle: nil
         )

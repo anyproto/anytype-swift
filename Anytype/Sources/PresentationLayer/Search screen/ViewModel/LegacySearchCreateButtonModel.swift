@@ -1,6 +1,6 @@
 import Foundation
 
-extension NewSearchViewModel {
+extension LegacySearchViewModel {
     enum CreateButtonModel {
         case disabled
         case enabled(title: String)
@@ -8,7 +8,7 @@ extension NewSearchViewModel {
 }
 
 
-extension NewSearchViewModel.CreateButtonModel {
+extension LegacySearchViewModel.CreateButtonModel {
     
     var isDisabled: Bool {
         switch self {
