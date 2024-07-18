@@ -55,12 +55,7 @@ final class DebugMenuViewModel: ObservableObject {
     }
     
     func getGoroutinesData() {
-        Task {
-            let path = try await debugService.exportStackGoroutines()
-            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("stackGoroutines.zip")
-            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
-            shareUrlFile = zipFile
-        }
+        Task { shareUrlFile = try await debugService.exportStackGoroutinesZip() }
     }
     
     func zipWorkingDirectory() {
