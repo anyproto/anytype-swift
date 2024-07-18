@@ -124,6 +124,7 @@ final class ObjectActionsViewModel: ObservableObject {
     }
     
     func createWidget() async throws {
+        AnytypeAnalytics.instance().logClickAddWidget(context: .object)
         guard let details = document.details else { return }
         
         let info = activeWorkpaceStorage.workspaceInfo
