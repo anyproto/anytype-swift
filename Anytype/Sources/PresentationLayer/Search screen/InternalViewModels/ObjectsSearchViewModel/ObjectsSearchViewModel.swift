@@ -10,7 +10,7 @@ final class ObjectsSearchViewModel {
     
     private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private let interactor: any ObjectsSearchInteractorProtocol
-    private let onSelect: (_ details: [ObjectDetails]) -> Void
+    let onSelect: (_ details: [ObjectDetails]) -> Void
     
     private var objects: [ObjectDetails] = []
     private var selectedObjectIds: [String] = []
@@ -40,13 +40,17 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
         
-        if objects.isEmpty {
+        if objects.isEmpty && text.isEmpty {
             handleError(for: text)
         } else {
             handleSearchResults(objects)
         }
         
         self.objects = objects
+    }
+    
+    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+        return searchText.isEmpty ? .disabled : .enabled(title: Loc.createObject + " \(searchText)")
     }
     
     func handleRowsSelection(ids: [String]) {
