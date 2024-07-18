@@ -37,8 +37,10 @@ struct DiscussionView: View {
             DiscussionLinkInputViewContainer(objects: model.linkedObjects) {
                 model.onTapRemoveLinkedObject(details: $0)
             }
-            DiscusionInput {
+            DiscusionInput(text: $model.message) {
                 model.onTapAddObjectToMessage()
+            } onTapSend: {
+                model.onTapSendMessage()
             }
         }
         .overlay(alignment: .top) {

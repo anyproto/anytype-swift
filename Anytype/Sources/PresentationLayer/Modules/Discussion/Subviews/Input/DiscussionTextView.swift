@@ -9,6 +9,7 @@ struct DiscussionTextView: UIViewRepresentable {
         static let codeFont = UIKitFontBuilder.uiKitFont(font: AnytypeFont.codeBlock)
     }
     
+    @Binding var text: AttributedString
     @Binding var editing: Bool
     let minHeight: CGFloat
     let maxHeight: CGFloat
@@ -16,7 +17,14 @@ struct DiscussionTextView: UIViewRepresentable {
     @State private var height: CGFloat = 0
     
     func makeCoordinator() -> DiscussionTextViewCoordinator {
-        DiscussionTextViewCoordinator(editing: $editing, height: $height, maxHeight: maxHeight, font: Constants.font, codeFont: Constants.codeFont)
+        DiscussionTextViewCoordinator(
+            text: $text,
+            editing: $editing,
+            height: $height,
+            maxHeight: maxHeight,
+            font: Constants.font,
+            codeFont: Constants.codeFont
+        )
     }
     
     func makeUIView(context: Context) -> UITextView {
@@ -50,6 +58,12 @@ struct DiscussionTextView: UIViewRepresentable {
                 }
             }
         }
+        
+        // TODO: Make covertation between AttributedString and NSAttributedString
+        let textWithoutStyle = String(text.characters)
+        if textView.text != textWithoutStyle {
+            textView.text = textWithoutStyle
+        }
     }
    
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: UITextView, context: Context) -> CGSize? {
@@ -58,5 +72,10 @@ struct DiscussionTextView: UIViewRepresentable {
 }
 
 #Preview {
-    DiscussionTextView(editing: .constant(false), minHeight: 54, maxHeight: 212)
+    DiscussionTextView(
+        text: .constant(AttributedString()),
+        editing: .constant(false),
+        minHeight: 54,
+        maxHeight: 212
+    )
 }

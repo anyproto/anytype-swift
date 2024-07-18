@@ -5,26 +5,29 @@ import SwiftUI
 @MainActor
 final class DiscussionViewModel: ObservableObject {
     
-    private let baseDocument: BaseDocumentProtocol
+    private let document: BaseDocumentProtocol
     private let spaceId: String
     private weak var output: DiscussionModuleOutput?
     
     private let openDocumentProvider: OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.activeSpaceParticipantStorage)
     private var participantsStorage: ActiveSpaceParticipantStorageProtocol
+    @Injected(\.blockService)
+    private var blockService: BlockServiceProtocol
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageBlock] = []
     @Published var participants: [Participant] = []
+    @Published var message: AttributedString = ""
     
     init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
-        self.baseDocument = openDocumentProvider.document(objectId: objectId)
+        self.document = openDocumentProvider.document(objectId: objectId)
         self.spaceId = spaceId
         self.output = output
     }
     
     func subscribeForBlocks() async {
-        for await blocks in baseDocument.childrenPublisher.values {
+        for await blocks in document.childrenPublisher.values {
             guard let participant = participants.first else { continue }
             self.mesageBlocks = blocks.compactMap { block in
                 guard block.isText, let textContent = block.textContent else { return nil }
@@ -50,6 +53,28 @@ final class DiscussionViewModel: ObservableObject {
             }
         )
         output?.onLinkObjectSelected(data: data)
+    }
+    
+    func onTapSendMessage() {
+        Task {
+            guard let lastBlock = document.children.last else { return }
+            let text = BlockText(
+                text: String(message.characters),
+                marks: .empty,
+                color: nil,
+                contentType: .text,
+                checked: false,
+                iconEmoji: "",
+                iconImage: ""
+            )
+            _ = try await blockService.add(
+                contextId: document.objectId,
+                targetId: lastBlock.id,
+                info: BlockInformation.empty(content: .text(text)),
+                position: .bottom
+            )
+            message = AttributedString()
+        }
     }
     
     func onTapRemoveLinkedObject(details: ObjectDetails) {
