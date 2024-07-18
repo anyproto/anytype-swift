@@ -6,4 +6,6 @@ struct MessageBlock {
     let text: String
     let id: String
     let author: Participant
+    let createDate: Date
+    let isYourMessage: Bool
 }

@@ -3,13 +3,107 @@ import SwiftUI
 
 struct MessageView: View {
     
-    let block: MessageBlock
+    let message: String
+    let author: String
+    let authorIcon: Icon?
+    let date: Date
+    let isYourMessage: Bool
     
     var body: some View {
-        Text(block.text)
-            .padding(.horizontal, 15)
-            .padding(.vertical, 5)
-            .background(Color.gray)
-            .cornerRadius(8)
+        HStack(alignment: .bottom, spacing: 8) {
+            leadingView
+            content
+            trailingView
+        }
+        .padding(.horizontal, 8)
+    }
+    
+    private var messageBackgorundColor: Color {
+        return isYourMessage ? Color.VeryLight.green : Color.VeryLight.grey
+    }
+    
+    private var content: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack {
+                Text(author)
+                    .anytypeStyle(.previewTitle2Medium)
+                    .foregroundColor(.Text.primary)
+                Spacer()
+                Text(date.formatted(date: .omitted, time: .shortened))
+                    .anytypeStyle(.caption1Regular)
+                    .foregroundColor(.Text.secondary)
+            }
+            Text(message)
+                .anytypeStyle(.bodyRegular)
+                .foregroundColor(.Text.primary)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 12)
+        .background(messageBackgorundColor)
+        .cornerRadius(24, style: .continuous)
+    }
+    
+    @ViewBuilder
+    private var leadingView: some View {
+        if isYourMessage {
+            Spacer.fixedWidth(32)
+        } else {
+            IconView(icon: authorIcon)
+                .frame(width: 32, height: 32)
+        }
+    }
+    
+    @ViewBuilder
+    private var trailingView: some View {
+        if isYourMessage {
+            IconView(icon: authorIcon)
+                .frame(width: 32, height: 32)
+        } else {
+            Spacer.fixedWidth(32)
+        }
+    }
+}
+
+extension MessageView {
+    init(block: MessageBlock) {
+        self = MessageView(
+            message: block.text,
+            author: block.author.title,
+            authorIcon: block.author.icon.map { .object($0) },
+            date: block.createDate,
+            isYourMessage: block.isYourMessage
+        )
+    }
+}
+
+#Preview("Other") {
+    VStack {
+        MessageView(
+            message:"I think it’d better not to mix all the conversations",
+            author: "Megh",
+            authorIcon: .image(
+                UIImage.circleImage(
+                    size: CGSize(width: 32, height: 32),
+                    fillColor: .orange,
+                    borderColor: .red,
+                    borderWidth: 1)
+            ),
+            date: Date(),
+            isYourMessage: false
+        )
+        
+        MessageView(
+            message:"I think it’d better not to mix all the conversations",
+            author: "Megh",
+            authorIcon: .image(
+                UIImage.circleImage(
+                    size: CGSize(width: 32, height: 32),
+                    fillColor: .orange,
+                    borderColor: .red,
+                    borderWidth: 1)
+            ),
+            date: Date.init(timeIntervalSinceNow: -500),
+            isYourMessage: true
+        )
     }
 }

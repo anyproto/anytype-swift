@@ -29,9 +29,17 @@ final class DiscussionViewModel: ObservableObject {
     func subscribeForBlocks() async {
         for await blocks in document.childrenPublisher.values {
             guard let participant = participants.first else { continue }
+            var isYour = false
             self.mesageBlocks = blocks.compactMap { block in
                 guard block.isText, let textContent = block.textContent else { return nil }
-                return MessageBlock(text: textContent.text, id: block.id, author: participant)
+                isYour = !isYour
+                return MessageBlock(
+                    text: textContent.text,
+                    id: block.id,
+                    author: participant,
+                    createDate: Date(),
+                    isYourMessage: isYour
+                )
             }
         }
     }
