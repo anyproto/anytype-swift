@@ -12,7 +12,6 @@ struct LoginView: View {
     var body: some View {
         content
             .navigationBarBackButtonHidden(true)
-            .navigationTitle(Loc.Auth.LoginFlow.Enter.title)
             .navigationBarTitleDisplayMode(.inline)
             .background(TransparentBackground())
             .padding(.horizontal, 16)
@@ -20,10 +19,17 @@ struct LoginView: View {
                 ToolbarItem(placement: .navigationBarLeading) {
                     backButton
                 }
+                ToolbarItem(placement: .principal) {
+                    Text(Loc.Auth.LoginFlow.Enter.title)
+                        .onTapGesture(count: 5) {
+                            model.exportStackGoroutines()
+                        }
+                }
             }
             .sheet(isPresented: $model.showQrCodeView) {
                 QRCodeScannerView(qrCode: self.$model.entropy, error: self.$model.errorText)
             }
+            .exportStackGoroutinesSheet(isPresented: $model.showExportStackGoroutines)
             .alert(Loc.Auth.cameraPermissionTitle, isPresented: $model.openSettingsURL, actions: {
                 Button(Loc.Alert.CameraPermissions.settings, role: .cancel, action: { model.onSettingsTap() })
                 Button(Loc.cancel, action: {})
@@ -124,6 +130,8 @@ struct LoginView: View {
 
 struct LoginView_Previews : PreviewProvider {
     static var previews: some View {
-        LoginView(output: nil)
+        NavigationView {
+            LoginView(output: nil)
+        }
     }
 }
