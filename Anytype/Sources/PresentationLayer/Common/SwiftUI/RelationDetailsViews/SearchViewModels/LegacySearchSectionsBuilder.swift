@@ -1,6 +1,6 @@
 import Foundation
 
-final class NewSearchSectionsBuilder {
+final class LegacySearchSectionsBuilder {
     
     static func makeSections<Option>(_ options: [Option], rowsBuilder: ([Option]) -> [ListRowConfiguration]) -> [ListSectionConfiguration] {
         

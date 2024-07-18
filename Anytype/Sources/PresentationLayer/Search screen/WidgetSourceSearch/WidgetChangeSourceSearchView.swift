@@ -6,9 +6,9 @@ struct WidgetChangeSourceSearchView: View {
     let data: WidgetChangeSourceSearchModuleModel
     
     var body: some View {
-        // TODO: Migrate from NewSearchView
-        NewSearchView(
-             viewModel: NewSearchViewModel(
+        // TODO: Migrate from LegacySearchView
+        LegacySearchView(
+             viewModel: LegacySearchViewModel(
                  title: Loc.Widgets.sourceSearch,
                  searchPlaceholder: Loc.search,
                  style: .default,

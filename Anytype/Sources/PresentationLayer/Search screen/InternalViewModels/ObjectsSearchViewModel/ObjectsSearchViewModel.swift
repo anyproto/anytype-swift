@@ -6,9 +6,9 @@ import AnytypeCore
 
 final class ObjectsSearchViewModel {
     
-    let selectionMode: NewSearchViewModel.SelectionMode
+    let selectionMode: LegacySearchViewModel.SelectionMode
     
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never>()
     private let interactor: any ObjectsSearchInteractorProtocol
     let onSelect: (_ details: [ObjectDetails]) -> Void
     
@@ -16,7 +16,7 @@ final class ObjectsSearchViewModel {
     private var selectedObjectIds: [String] = []
     
     init(
-        selectionMode: NewSearchViewModel.SelectionMode,
+        selectionMode: LegacySearchViewModel.SelectionMode,
         interactor: some ObjectsSearchInteractorProtocol,
         onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) {
@@ -35,7 +35,7 @@ final class ObjectsSearchViewModel {
 
 extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
     func search(text: String) async throws {
         let objects = try await interactor.search(text: text)
@@ -49,7 +49,7 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
         self.objects = objects
     }
     
-    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+    func createButtonModel(searchText: String) -> LegacySearchViewModel.CreateButtonModel {
         return searchText.isEmpty ? .disabled : .enabled(title: Loc.createObject + " \(searchText)")
     }
     
@@ -86,7 +86,7 @@ private extension ObjectsSearchViewModel {
 
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations(with selectedIds: [String], selectionMode: NewSearchViewModel.SelectionMode) -> [ListRowConfiguration] {
+    func asRowConfigurations(with selectedIds: [String], selectionMode: LegacySearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { details in
             ListRowConfiguration(
                 id: details.id,
@@ -106,7 +106,7 @@ private extension Array where Element == ObjectDetails {
     }
 }
 
-private extension NewSearchViewModel.SelectionMode {
+private extension LegacySearchViewModel.SelectionMode {
     
     func asSelectionIndicatorViewModel(details: ObjectDetails, selectedIds: [String]) -> SelectionIndicatorView.Model? {
         switch self {

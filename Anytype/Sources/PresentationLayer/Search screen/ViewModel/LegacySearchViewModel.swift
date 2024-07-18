@@ -2,15 +2,15 @@ import Foundation
 import SwiftUI
 import Combine
 
-final class NewSearchViewModel: ObservableObject {
+final class LegacySearchViewModel: ObservableObject {
     
     let title: String?
     let searchPlaceholder: String
-    let style: NewSearchView.Style
+    let style: LegacySearchView.Style
     let focusedBar: Bool
     
-    @Published private(set) var state: NewSearchViewState = .resultsList(.plain(rows: []))
-    @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
+    @Published private(set) var state: LegacySearchViewState = .resultsList(.plain(rows: []))
+    @Published private(set) var addButtonModel: LegacySearchView.AddButtonModel? = nil
     @Published private(set) var createButtonModel: CreateButtonModel = .disabled
     
     private let itemCreationMode: ItemCreationMode
@@ -30,7 +30,7 @@ final class NewSearchViewModel: ObservableObject {
         title: String? = nil,
         searchPlaceholder: String = Loc.search,
         focusedBar: Bool = true,
-        style: NewSearchView.Style = .default,
+        style: LegacySearchView.Style = .default,
         itemCreationMode: ItemCreationMode,
         selectionMode: SelectionMode = .multipleItems(),
         internalViewModel: some NewInternalSearchViewModelProtocol
@@ -46,7 +46,7 @@ final class NewSearchViewModel: ObservableObject {
     }
 }
 
-extension NewSearchViewModel {
+extension LegacySearchViewModel {
     
     func didAskToSearch(text: String) {
         searchTask?.cancel()
@@ -77,7 +77,7 @@ extension NewSearchViewModel {
     
 }
 
-private extension NewSearchViewModel {
+private extension LegacySearchViewModel {
     
     func setup() {
         setupInternalViewModel()

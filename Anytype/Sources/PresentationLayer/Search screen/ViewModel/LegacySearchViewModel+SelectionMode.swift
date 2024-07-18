@@ -1,6 +1,6 @@
 import Foundation
 
-extension NewSearchViewModel {
+extension LegacySearchViewModel {
     
     enum SelectionMode {
         

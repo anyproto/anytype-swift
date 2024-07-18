@@ -12,10 +12,10 @@ final class WidgetSourceSearchViewModel: NewInternalSearchViewModelProtocol {
         static let searchId = "SearchId"
     }
     
-    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    let selectionMode: LegacySearchViewModel.SelectionMode = .singleItem
+    var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never>()
     private var objects: [ObjectDetails] = []
     private var libraryObjects: [WidgetAnytypeLibrarySource] = []
     private let interactor: any WidgetSourceSearchInteractorProtocol
