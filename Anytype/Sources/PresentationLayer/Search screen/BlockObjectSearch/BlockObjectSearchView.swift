@@ -18,22 +18,22 @@ struct BlockObjectSearchView: View {
     let data: BlockObjectSearchData
     @Environment(\.dismiss) private var dismiss
     
-    var body: some View {
+    private let interactor: BlockObjectsSearchInteractor
+    
+    init(data: BlockObjectSearchData) {
+        self.data = data
+        
         let interactor = BlockObjectsSearchInteractor(
             spaceId: data.spaceId,
             excludedObjectIds: data.excludedObjectIds,
             excludedLayouts: data.excludedLayouts
         )
         
-        let viewModel = ObjectsSearchViewModel(
-            selectionMode: .singleItem,
-            interactor: interactor,
-            onSelect: { details in
-                guard let result = details.first else { return }
-                dismiss()
-                data.onSelect(result)
-            }
-        )
+        self.interactor = interactor
+    }
+    
+    var body: some View {
+        
         
         return NewSearchView(
             viewModel: NewSearchViewModel(
@@ -42,11 +42,21 @@ struct BlockObjectSearchView: View {
                 itemCreationMode: .available { name in
                     Task {
                         let details = try await interactor.createObject(name: name)
-                        viewModel.onSelect([details])
+                        onSelect(details: [details])
                     }
                 },
-                internalViewModel: viewModel
+                internalViewModel: ObjectsSearchViewModel(
+                    selectionMode: .singleItem,
+                    interactor: interactor,
+                    onSelect: { onSelect(details: $0) }
+                )
             )
         )
+    }
+    
+    private func onSelect(details: [ObjectDetails]) {
+        guard let result = details.first else { return }
+        dismiss()
+        data.onSelect(result)
     }
 }
