@@ -3,6 +3,7 @@ import SwiftUI
 
 enum DiscussionScrollViewPosition: Equatable {
     case bottom(_ id: String)
+    case none
 }
 
 struct DiscussionScrollView<Content: View>: View {
