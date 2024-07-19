@@ -6,6 +6,7 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportLocalStore() async throws -> String
     func exportStackGoroutines() async throws -> String
     func exportSpaceDebug(spaceId: String) async throws -> String
+    func debugRunProfiler() async throws -> String
 }
 
 final class DebugService: DebugServiceProtocol {
@@ -36,5 +37,11 @@ final class DebugService: DebugServiceProtocol {
             $0.spaceID = spaceId
         }).invoke()
         return try result.jsonString()
+    }
+    
+    public func debugRunProfiler() async throws -> String {
+        return try await ClientCommands.debugRunProfiler(.with {
+            $0.durationInSeconds = 60
+        }).invoke().path
     }
 }
