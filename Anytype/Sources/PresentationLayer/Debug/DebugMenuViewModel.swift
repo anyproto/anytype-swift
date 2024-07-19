@@ -4,6 +4,12 @@ import AnytypeCore
 import Services
 import ZIPFoundation
 
+enum DebugRunProfilerState: Codable {
+    case empty
+    case inProgress
+    case done(url: URL)
+}
+
 @MainActor
 final class DebugMenuViewModel: ObservableObject {
     
@@ -11,6 +17,9 @@ final class DebugMenuViewModel: ObservableObject {
     @Published var shareUrlFile: URL?
     @Published var showZipPicker = false
     @Published private(set) var flags = [FeatureFlagSection]()
+    
+    @Published var debugRunProfilerData = DebugRunProfilerState.empty
+    @UserDefault("DebugRunProfiler", defaultValue: .empty) private var debugRunProfilerDataStore: DebugRunProfilerState
     
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
@@ -29,6 +38,7 @@ final class DebugMenuViewModel: ObservableObject {
     
     init() {
         updateFlags()
+        debugRunProfilerData = debugRunProfilerDataStore
     }
     
     func removeRecoveryPhraseFromDevice() {
@@ -91,6 +101,27 @@ final class DebugMenuViewModel: ObservableObject {
         let jsonFile = FileManager.default.createTempDirectory().appendingPathComponent("spaceInfo.json")
         try jsonDebug.write(to: jsonFile, atomically: true, encoding: .utf8)
         shareUrlFile = jsonFile
+    }
+    
+    func onDebugRunProfiler() {
+        debugRunProfilerData = .inProgress
+        debugRunProfilerDataStore = .inProgress
+        
+        Task.detached { [self] in
+            let path = try await debugService.debugRunProfiler()
+            let zipFile = FileManager.default.createTempDirectory().appendingPathComponent("debugRunProfiler.zip")
+            try FileManager.default.zipItem(at: URL(fileURLWithPath: path), to: zipFile)
+            
+            
+            Task { @MainActor in
+                debugRunProfilerData = .done(url: zipFile)
+                debugRunProfilerDataStore = .done(url: zipFile)
+            }
+        }
+    }
+    
+    func shareUrlContent(url: URL) {
+        shareUrlFile = url
     }
     
     // MARK: - Private
