@@ -7,6 +7,7 @@ public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportStackGoroutines() async throws -> String
     func exportSpaceDebug(spaceId: String) async throws -> String
     func debugRunProfiler() async throws -> String
+    func debugStat() async throws -> URL
 }
 
 final class DebugService: DebugServiceProtocol {
@@ -43,5 +44,13 @@ final class DebugService: DebugServiceProtocol {
         return try await ClientCommands.debugRunProfiler(.with {
             $0.durationInSeconds = 60
         }).invoke().path
+    }
+    
+    public func debugStat() async throws -> URL {
+        let jsonContent = try await ClientCommands.debugStat().invoke().jsonStat
+        let jsonFile = FileManager.default.createTempDirectory().appendingPathComponent("debugStat.json")
+        try jsonContent.write(to: jsonFile, atomically: true, encoding: .utf8)
+        
+        return jsonFile
     }
 }
