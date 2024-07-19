@@ -16,12 +16,17 @@ actor TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
     
     private var objectIds: [String] = []
     private var subscriptionStarted: Bool = false
+    private let detailsSubject = PassthroughSubject<[ObjectDetails], Never>()
     
     nonisolated let detailsPublisher: AnyPublisher<[ObjectDetails], Never>
     
     init() {
         subscriptionStorage = subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionDataBuilder.subscriptionId)
-        detailsPublisher = subscriptionStorage.statePublisher.map { $0.items.filter(\.isNotDeletedAndSupportedForEdit) }.eraseToAnyPublisher()
+        detailsPublisher = subscriptionStorage.statePublisher
+            .map { $0.items }
+            .merge(with: detailsSubject)
+            .map { $0.filter(\.isNotDeletedAndSupportedForEdit) }
+            .eraseToAnyPublisher()
     }
     
     // MARK: - TreeSubscriptionDataBuilderProtocol
@@ -36,7 +41,7 @@ actor TreeSubscriptionManager: TreeSubscriptionManagerProtocol {
         
         if newObjectIds.isEmpty {
             try? await subscriptionStorage.stopSubscription()
-            
+            detailsSubject.send([])
             return true
         }
         
