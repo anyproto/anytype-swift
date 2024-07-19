@@ -133,23 +133,23 @@
 "None" = "Ei mitään";
 "Callout" = "Nosto";
 "Toggle empty. Tap to create block." = "Toggle empty. Tap to create block.";
-"Loading, please wait" = "Loading, please wait";
-"Done" = "Done";
+"Loading, please wait" = "Ladataan, odotathan";
+"Done" = "Valmis";
 "Next" = "Seuraava";
-"Style" = "Style";
-"Color" = "Color";
-"Background" = "Background";
-"Other" = "Other";
+"Style" = "Tyyli";
+"Color" = "Väri";
+"Background" = "Tausta";
+"Other" = "Muu";
 "Media" = "Media";
 "Alignment" = "Alignment";
 "Actions" = "Actions";
 "Relations" = "Relations";
 "History" = "History";
-"Objects" = "Objects";
-"Lists" = "Lists";
-"Pinned" = "Pinned";
-"Delete" = "Delete";
-"Export" = "Export";
+"Objects" = "Objektit";
+"Lists" = "Listat";
+"Pinned" = "Kiinnitetty";
+"Delete" = "Poista";
+"Export" = "Vie";
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
 "Preview" = "Preview";
@@ -373,7 +373,7 @@
 
 "TemplateOptions.Alert.EditTemplate" = "Edit template";
 "TemplateOptions.Alert.Duplicate" = "Duplicate";
-"TemplateOptions.Alert.Delete" = "Delete";
+"TemplateOptions.Alert.Delete" = "Poista";
 
 "TemplateEditing.Title" = "Edit template";
 
@@ -717,8 +717,8 @@
 
 // MARK: - Simple tables
 "SimpleTableMenu.Item.clearContents" = "Tyhjennä";
-"SimpleTableMenu.Item.color" = "Color";
-"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.color" = "Väri";
+"SimpleTableMenu.Item.style" = "Tyyli";
 "SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
@@ -726,7 +726,7 @@
 "SimpleTableMenu.Item.MoveLeft" = "Move left";
 "SimpleTableMenu.Item.MoveRight" = "Move right";
 "SimpleTableMenu.Item.Duplicate" = "Duplicate";
-"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Delete" = "Poista";
 "SimpleTableMenu.Item.Sort" = "Järjestä";
 
 "SimpleTableMenu.Item.InsertAbove" = "Insert above";
@@ -990,7 +990,7 @@
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
 "Sharing.Navigation.LeftButton.Title" = "Peruuta";
-"Sharing.Navigation.RightButton.Title" = "Done";
+"Sharing.Navigation.RightButton.Title" = "Valmis";
 
 "Sharing.SaveAs" = "SAVE AS";
 "Sharing.SelectSpace" = "Space";
