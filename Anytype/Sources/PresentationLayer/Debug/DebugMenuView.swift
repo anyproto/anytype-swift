@@ -128,7 +128,7 @@ struct DebugMenuView: View {
                 model.onDebugRunProfiler()
             }
     
-            AsyncStandardButton(text: "Debug stat 🫵🐭", style: .secondaryLarge) {
+            AsyncStandardButton("Debug stat 🫵🐭", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.onSpaceDebug()
             }
