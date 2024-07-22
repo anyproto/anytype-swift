@@ -4,51 +4,49 @@ struct DiscussionView: View {
     
     @StateObject private var model: DiscussionViewModel
     
-    init(spaceId: String, output: DiscussionModuleOutput?) {
-        self._model = StateObject(wrappedValue: DiscussionViewModel(spaceId: spaceId, output: output))
+    init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
+        self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, output: output))
     }
     
     var body: some View {
         DiscussionSpacingContainer {
-            ScrollView {
-                VStack {
-                    message("Message 1")
-                    message("Message 2")
-                    message("Message 3")
-                    message("Message 4")
-                    message("Message 5")
-                    message("Message 6")
-                    message("Message 7")
-                    message("Message 8")
-                    message("Message 9")
-                    message("Message 10")
-                    message("Message 11")
-                    message("Message 12")
-                    message("Message 13")
-                    message("Message 14")
-                    message("Message 15")
-                    HStack {
-                        Spacer()
+            DiscussionScrollView(position: $model.scrollViewPosition) {
+                LazyVStack(spacing: 12) {
+                    ForEach(model.mesageBlocks, id: \.id) {
+                        MessageView(block: $0)
                     }
                 }
+                .padding(.vertical, 16)
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                DiscusionInput {
-                    model.onTapAddObjectToMessage()
-                }
+                inputPanel
             }
+        }
+        .task {
+            await model.subscribeForParticipants()
+        }
+        .task {
+            await model.subscribeForBlocks()
         }
     }
     
-    private func message(_ text: String) -> some View {
-        Text(text)
-            .padding(.horizontal, 15)
-            .padding(.vertical, 5)
-            .background(Color.gray)
-            .cornerRadius(8)
+    private var inputPanel: some View {
+        VStack(spacing: 0) {
+            DiscussionLinkInputViewContainer(objects: model.linkedObjects) {
+                model.onTapRemoveLinkedObject(details: $0)
+            }
+            DiscusionInput(text: $model.message) {
+                model.onTapAddObjectToMessage()
+            } onTapSend: {
+                model.onTapSendMessage()
+            }
+        }
+        .overlay(alignment: .top) {
+            AnytypeDivider()
+        }
     }
 }
 
 #Preview {
-    DiscussionView(spaceId: "", output: nil)
+    DiscussionView(objectId: "", spaceId: "", output: nil)
 }

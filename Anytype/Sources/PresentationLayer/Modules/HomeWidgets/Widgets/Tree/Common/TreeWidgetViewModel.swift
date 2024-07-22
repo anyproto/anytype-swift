@@ -60,6 +60,13 @@ final class TreeWidgetViewModel: ObservableObject {
         internalModel.onCreateObjectTap()
     }
     
+    func startTreeSubscription() async {
+        for await details in subscriptionManager.detailsPublisher.values {
+            childSubscriptionData = details
+            await updateLinksSubscriptionsAndTree()
+        }
+    }
+    
     // MARK: - Private
     
     private func startHeaderSubscription() {
@@ -91,11 +98,6 @@ final class TreeWidgetViewModel: ObservableObject {
         internalModel.namePublisher
             .receiveOnMain()
             .assign(to: &$name)
-        
-        subscriptionManager.handler = { [weak self] details in
-            self?.childSubscriptionData = details
-            Task { await self?.updateLinksSubscriptionsAndTree() }
-        }
         
         internalModel.detailsPublisher
             .receiveOnMain()

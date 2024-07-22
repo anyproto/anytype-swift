@@ -10,6 +10,12 @@
             "value" : "Something wrong with input, try again"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -83,18 +89,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -208,6 +202,12 @@
             "value" : "Something wrong with input, try again"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -244,6 +244,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -322,18 +328,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -447,6 +441,12 @@
             "value" : "Error on our side, try again later"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -483,6 +483,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -561,18 +567,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -686,6 +680,12 @@
             "value" : "Can not connect, check your internet connection"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -722,6 +722,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name cannot be reserved"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This name cannot be reserved"
@@ -805,18 +811,6 @@
             "value" : "This name cannot be reserved"
           }
         },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This name cannot be reserved"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This name cannot be reserved"
-          }
-        },
         "id" : {
           "stringUnit" : {
             "state" : "new",
@@ -861,8 +855,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name cannot be reserved"
+            "state" : "translated",
+            "value" : "Deze naam kan niet worden gereserveerd"
           }
         },
         "no" : {
@@ -925,6 +919,12 @@
             "value" : "This name cannot be reserved"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name cannot be reserved"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -961,6 +961,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name has invalid characters"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name has invalid characters"
@@ -1039,18 +1045,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name has invalid characters"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name has invalid characters"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name has invalid characters"
@@ -1164,6 +1158,12 @@
             "value" : "Name has invalid characters"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name has invalid characters"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1200,6 +1200,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "This name is already reserved"
@@ -1283,18 +1289,6 @@
             "value" : "This name is already reserved"
           }
         },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is already reserved"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is already reserved"
-          }
-        },
         "id" : {
           "stringUnit" : {
             "state" : "new",
@@ -1339,8 +1333,8 @@
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "This name is already reserved"
+            "state" : "translated",
+            "value" : "Deze naam is al in gereserveerd"
           }
         },
         "no" : {
@@ -1403,6 +1397,12 @@
             "value" : "This name is already reserved"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "This name is already reserved"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -1439,6 +1439,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You are not logged in! 😵‍💫"
@@ -1517,18 +1523,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You are not logged in! 😵‍💫"
@@ -1642,6 +1636,12 @@
             "value" : "You are not logged in! 😵‍💫"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1678,6 +1678,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -1756,18 +1762,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -1881,6 +1875,12 @@
             "value" : "Error on our side, try again later"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1917,6 +1917,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is not available for this tier"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is not available for this tier"
@@ -1995,18 +2001,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is not available for this tier"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is not available for this tier"
@@ -2120,6 +2114,12 @@
             "value" : "Name is not available for this tier"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is not available for this tier"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -2156,6 +2156,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tier not found, try again later"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tier not found, try again later"
@@ -2234,18 +2240,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Tier not found, try again later"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Tier not found, try again later"
@@ -2359,6 +2353,12 @@
             "value" : "Tier not found, try again later"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tier not found, try again later"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -2395,6 +2395,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is too long"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is too long"
@@ -2478,18 +2484,6 @@
             "value" : "Name is too long"
           }
         },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
-          }
-        },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2564,8 +2558,8 @@
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too long"
+            "state" : "translated",
+            "value" : "Nome é muito longo"
           }
         },
         "ro" : {
@@ -2593,6 +2587,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is too long"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is too long"
@@ -2634,6 +2634,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is too short"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is too short"
@@ -2717,18 +2723,6 @@
             "value" : "Name is too short"
           }
         },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
-          }
-        },
-        "hy" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
-          }
-        },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2803,8 +2797,8 @@
         },
         "pt-PT" : {
           "stringUnit" : {
-            "state" : "new",
-            "value" : "Name is too short"
+            "state" : "translated",
+            "value" : "Nome é muito curto"
           }
         },
         "ro" : {
@@ -2832,6 +2826,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Name is too short"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Name is too short"
@@ -2878,6 +2878,12 @@
             "value" : "Something wrong with input, try again"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -2951,18 +2957,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -3071,6 +3065,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -3117,6 +3117,12 @@
             "value" : "Error on our side, try again later"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -3190,18 +3196,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -3310,6 +3304,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -3356,6 +3356,12 @@
             "value" : "You are not logged in! 😵‍💫"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -3429,18 +3435,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You are not logged in! 😵‍💫"
@@ -3554,6 +3548,12 @@
             "value" : "You are not logged in! 😵‍💫"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3590,6 +3590,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -3668,18 +3674,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Error on our side, try again later"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Error on our side, try again later"
@@ -3793,6 +3787,12 @@
             "value" : "Error on our side, try again later"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error on our side, try again later"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3829,6 +3829,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -3907,18 +3913,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -4027,6 +4021,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -4073,6 +4073,12 @@
             "value" : "Can not connect, check your internet connection"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -4146,18 +4152,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -4266,6 +4260,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -4312,6 +4312,12 @@
             "value" : "Something wrong with input, try again"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -4385,18 +4391,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -4505,6 +4499,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -4551,6 +4551,12 @@
             "value" : "Can not connect, check your internet connection"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -4624,18 +4630,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -4744,6 +4738,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -4790,6 +4790,12 @@
             "value" : "Something wrong with input, try again"
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -4863,18 +4869,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -4988,6 +4982,12 @@
             "value" : "Something wrong with input, try again"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -5024,6 +5024,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -5102,18 +5108,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Can not connect, check your internet connection"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Can not connect, check your internet connection"
@@ -5227,6 +5221,12 @@
             "value" : "Can not connect, check your internet connection"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Can not connect, check your internet connection"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5263,6 +5263,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -5341,18 +5347,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Something wrong with input, try again"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Something wrong with input, try again"
@@ -5466,6 +5460,12 @@
             "value" : "Something wrong with input, try again"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something wrong with input, try again"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -5502,6 +5502,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You are not logged in! 😵‍💫"
@@ -5580,18 +5586,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "You are not logged in! 😵‍💫"
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "You are not logged in! 😵‍💫"
@@ -5705,6 +5699,12 @@
             "value" : "You are not logged in! 😵‍💫"
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "You are not logged in! 😵‍💫"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5741,6 +5741,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -5819,18 +5825,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -5939,6 +5933,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -5985,6 +5985,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -6058,18 +6064,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -6178,6 +6172,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -6224,6 +6224,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -6297,18 +6303,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -6417,6 +6411,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -6463,6 +6463,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -6536,18 +6542,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -6656,6 +6650,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -6702,6 +6702,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -6775,18 +6781,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -6895,6 +6889,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -6941,6 +6941,12 @@
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -7014,18 +7020,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -7134,6 +7128,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -7180,6 +7180,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -7253,18 +7259,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -7373,6 +7367,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -7419,6 +7419,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -7492,18 +7498,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -7612,6 +7606,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -7658,6 +7658,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -7731,18 +7737,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -7851,6 +7845,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -7897,6 +7897,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -7970,18 +7976,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -8090,6 +8084,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -8136,6 +8136,12 @@
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -8209,18 +8215,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
@@ -8329,6 +8323,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
@@ -8375,6 +8375,12 @@
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -8448,18 +8454,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -8568,6 +8562,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -8614,6 +8614,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -8687,18 +8693,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -8807,6 +8801,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -8853,6 +8853,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -8926,18 +8932,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -9046,6 +9040,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -9092,6 +9092,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -9165,18 +9171,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -9285,6 +9279,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -9331,6 +9331,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -9404,18 +9410,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -9524,6 +9518,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -9570,6 +9570,12 @@
             "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -9643,18 +9649,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
@@ -9763,6 +9757,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
@@ -9809,6 +9809,12 @@
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -9882,18 +9888,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
@@ -10007,6 +10001,12 @@
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10043,6 +10043,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
@@ -10121,18 +10127,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
@@ -10246,6 +10240,12 @@
             "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation link could not be parsed. It may contain errors in the format or invalid data."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -10282,6 +10282,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
@@ -10360,18 +10366,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
@@ -10485,6 +10479,12 @@
             "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The invitation does not exist. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10521,6 +10521,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -10599,18 +10605,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -10719,6 +10713,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -10765,6 +10765,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -10838,18 +10844,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -10958,6 +10952,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -11004,6 +11004,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -11077,18 +11083,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -11197,6 +11191,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -11243,6 +11243,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -11316,18 +11322,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -11436,6 +11430,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -11482,6 +11482,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -11555,18 +11561,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -11675,6 +11669,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -11721,6 +11721,12 @@
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -11794,18 +11800,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -11914,6 +11908,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -11960,6 +11960,12 @@
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -12033,18 +12039,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
@@ -12158,6 +12152,12 @@
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12194,6 +12194,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -12272,18 +12278,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -12397,6 +12391,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12433,6 +12433,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -12511,18 +12517,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -12636,6 +12630,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12672,6 +12672,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -12750,18 +12756,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -12875,6 +12869,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12911,6 +12911,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -12989,18 +12995,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -13114,6 +13108,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13150,6 +13150,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -13228,18 +13234,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -13353,6 +13347,12 @@
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13389,6 +13389,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
@@ -13467,18 +13473,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
@@ -13592,6 +13586,12 @@
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13628,6 +13628,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -13706,18 +13712,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -13831,6 +13825,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13867,6 +13867,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -13945,18 +13951,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -14070,6 +14064,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14106,6 +14106,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -14184,18 +14190,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -14309,6 +14303,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14345,6 +14345,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -14423,18 +14429,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -14548,6 +14542,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14584,6 +14584,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -14662,18 +14668,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -14787,6 +14781,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14823,6 +14823,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -14901,18 +14907,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -15026,6 +15020,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15062,6 +15062,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -15140,18 +15146,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -15265,6 +15259,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15301,6 +15301,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -15379,18 +15385,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -15504,6 +15498,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15540,6 +15540,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
@@ -15618,18 +15624,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
@@ -15743,6 +15737,12 @@
             "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Access rights could not be assigned to the space member. Please ensure that the correct access rights are assigned."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -15779,6 +15779,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -15857,18 +15863,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -15977,6 +15971,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -16023,6 +16023,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -16096,18 +16102,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -16221,6 +16215,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16257,6 +16257,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -16335,18 +16341,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -16460,6 +16454,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16496,6 +16496,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The space member could not be found. Please ensure that your devices are synchronized."
@@ -16574,18 +16580,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The space member could not be found. Please ensure that your devices are synchronized."
@@ -16699,6 +16693,12 @@
             "value" : "The space member could not be found. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16735,6 +16735,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -16813,18 +16819,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -16938,6 +16932,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16974,6 +16974,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -17052,18 +17058,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -17177,6 +17171,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17213,6 +17213,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -17291,18 +17297,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -17416,6 +17410,12 @@
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17452,6 +17452,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -17530,18 +17536,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -17655,6 +17649,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17691,6 +17691,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -17769,18 +17775,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -17894,6 +17888,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17930,6 +17930,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The space member could not be found. Please ensure that your devices are synchronized."
@@ -18008,18 +18014,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The space member could not be found. Please ensure that your devices are synchronized."
@@ -18133,6 +18127,12 @@
             "value" : "The space member could not be found. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The space member could not be found. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18169,6 +18169,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -18247,18 +18253,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -18372,6 +18366,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18408,6 +18408,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -18486,18 +18492,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -18611,6 +18605,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18647,6 +18647,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
@@ -18725,18 +18731,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
@@ -18850,6 +18844,12 @@
             "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request could not be approved with these access rights. Please ensure that the correct access rights are assigned."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "new",
@@ -18886,6 +18886,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -18964,18 +18970,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -19084,6 +19078,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -19130,6 +19130,12 @@
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -19203,18 +19209,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
@@ -19323,6 +19317,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
@@ -19369,6 +19369,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "be" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "bg" : {
           "stringUnit" : {
             "state" : "new",
@@ -19442,18 +19448,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -19567,6 +19561,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19603,6 +19603,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -19681,18 +19687,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -19806,6 +19800,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19842,6 +19842,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -19920,18 +19926,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -20045,6 +20039,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20081,6 +20081,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -20159,18 +20165,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -20284,6 +20278,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20320,6 +20320,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -20398,18 +20404,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -20523,6 +20517,12 @@
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20559,6 +20559,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
@@ -20637,18 +20643,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
@@ -20762,6 +20756,12 @@
             "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "The request no longer exists. No actions needed, but please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20798,6 +20798,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -20876,18 +20882,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -21001,6 +20995,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21037,6 +21037,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -21115,18 +21121,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
@@ -21240,6 +21234,12 @@
             "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space is no longer shared. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21276,6 +21276,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -21354,18 +21360,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -21479,6 +21473,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21515,6 +21515,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -21593,18 +21599,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -21718,6 +21712,12 @@
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21754,6 +21754,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -21832,18 +21838,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
@@ -21957,6 +21951,12 @@
             "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Limit reached for this space. Please upgrade your membership or contact support for assistance."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21993,6 +21993,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -22071,18 +22077,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! Something went wrong. Please try again later."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! Something went wrong. Please try again later."
@@ -22196,6 +22190,12 @@
             "value" : "Oops! Something went wrong. Please try again later."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! Something went wrong. Please try again later."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -22232,6 +22232,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -22310,18 +22316,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Oops! The request failed. Please check your Internet connection and try again."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
@@ -22435,6 +22429,12 @@
             "value" : "Oops! The request failed. Please check your Internet connection and try again."
           }
         },
+        "tk" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Oops! The request failed. Please check your Internet connection and try again."
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -22471,6 +22471,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "am" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "be" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -22549,18 +22555,6 @@
           }
         },
         "hi" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hu" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
-          }
-        },
-        "hy" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
@@ -22669,6 +22663,12 @@
           }
         },
         "ta" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."
+          }
+        },
+        "tk" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "It looks like the space has been deleted. Please ensure that your devices are synchronized."

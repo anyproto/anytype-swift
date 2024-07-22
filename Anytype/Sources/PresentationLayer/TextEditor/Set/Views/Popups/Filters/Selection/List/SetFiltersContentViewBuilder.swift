@@ -55,7 +55,7 @@ final class SetFiltersContentViewBuilder {
     
     // MARK: - Private methods: Search
     
-    // TODO: Migrate from NewSearchView
+    // TODO: Migrate from LegacySearchView
     private func buildSearchView(
         with format: RelationFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
@@ -78,11 +78,11 @@ final class SetFiltersContentViewBuilder {
         let selectedTagIds = selectedIds(
             from: filter.filter.value
         )
-        let selectionMode = NewSearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedTagIds)
-        let style = NewSearchView.Style.embedded
+        let selectionMode = LegacySearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedTagIds)
+        let style = LegacySearchView.Style.embedded
         
-        return NewSearchView(
-            viewModel: NewSearchViewModel(
+        return LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 style: style,
                 itemCreationMode: style.isCreationModeAvailable ? .available(action: { _ in } ) : .unavailable,
                 selectionMode: selectionMode,
@@ -106,11 +106,11 @@ final class SetFiltersContentViewBuilder {
         let selectedStatusesIds = selectedIds(
             from: filter.filter.value
         )
-        let selectionMode = NewSearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedStatusesIds)
-        let style = NewSearchView.Style.embedded
+        let selectionMode = LegacySearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedStatusesIds)
+        let style = LegacySearchView.Style.embedded
 
-        return NewSearchView(
-            viewModel: NewSearchViewModel(
+        return LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 style: style,
                 itemCreationMode: style.isCreationModeAvailable ? .available(action: { _ in }) : .unavailable,
                 selectionMode: selectionMode,
@@ -142,10 +142,10 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
-        let selectionMode = NewSearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedObjectsIds)
+        let selectionMode = LegacySearchViewModel.SelectionMode.multipleItems(preselectedIds: selectedObjectsIds)
         
-        return NewSearchView(
-            viewModel: NewSearchViewModel(
+        return LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 title: nil,
                 style: .embedded,
                 itemCreationMode: .unavailable,

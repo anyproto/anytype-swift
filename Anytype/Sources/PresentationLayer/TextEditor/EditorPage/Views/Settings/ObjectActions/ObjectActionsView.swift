@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct ObjectActionsView: View {
     
@@ -38,6 +39,12 @@ struct ObjectActionsView: View {
                         case .copyLink:
                             viewModel.copyLinkAction()
                         }
+                    }
+                }
+                // Just for MVP
+                if FeatureFlags.discussions {
+                    ObjectActionRow(title: "Discussion", icon: .X32.dashboard) {
+                        viewModel.onTapDiscussion()
                     }
                 }
             }.padding(.horizontal, 16)

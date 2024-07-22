@@ -144,6 +144,7 @@
 "Alignment" = "對齊";
 "Actions" = "操作";
 "Relations" = "關聯";
+"History" = "歷史記錄";
 "Objects" = "物件";
 "Lists" = "列表";
 "Pinned" = "已釘選";
@@ -287,6 +288,7 @@
 "Background picture" = "背景圖片";
 "Layout" = "版型";
 "Arrangement of objects on a canvas" = "畫布上的物件排列";
+"ObjectSettings.History.Description" = "物件的所有版本";
 
 "Search" = "搜尋";
 "There is no emoji named" = "尚無命名的 Emoji";
@@ -505,7 +507,7 @@
 "Set.View.Empty.Subtitle" = "添加搜索查詢實時顯示具有相同類型和關聯的物件";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "移動裝置上不支援檢視";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "指定查詢";
@@ -613,14 +615,14 @@
 "Node is not connected" = "節點未連接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不相容的版本";
-"Connecting..." = "Connecting...";
-"Anytype Network" = "Anytype Network";
-"Self Host" = "Self Host";
-"Local Only" = "Local Only";
+"Connecting" = "連接中…";
+"P2P Connecting" = "P2P 連接中…";
+"P2P Connection" = "P2P 連接";
+"Anytype Network" = "Anytype 網絡";
+"Self Host" = "自己主持";
+"Local Only" = "僅限本地";
 "Synced" = "已同步";
-"Syncing..." = "同步中...";
 "No connection" = "沒有連線";
-"Preparing..." = "準備中...";
 "Deleted" = "已刪除";
 "Download" = "已下載";
 "Open object" = "開啟物件";
@@ -794,28 +796,30 @@
 "Widgets.Actions.ChangeWidgetType" = "變更小工具類型";
 "Widgets.Actions.RemoveWidget" = "移除小工具";
 "Widgets.Actions.EditWidgets" = "編輯小工具";
-"Widgets.Actions.AddWidget" = "Add Widget";
+"Widgets.Actions.AddWidget" = "新增小工具";
 "Widgets.Actions.EmptyBin" = "清空垃圾桶";
 "Widgets.Actions.AddBelow" = "在下方添加";
 "Widgets.Actions.NewObject" = "建立新物件";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "檢視所有物件";
 "Widgets.Layout.Screen.Title" = "小工具類型";
 "Widgets.Layout.Link.Title" = "連結";
 "Widgets.Layout.Tree.Title" = "樹狀圖";
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "緊湊型列表";
 "Widgets.Layout.View.Title" = "檢視";
-"Widgets.Layout.Link.Description" = "緊湊型物件";
-"Widgets.Layout.Tree.Description" = "物件的階層結構";
-"Widgets.Layout.List.Description" = "具有物件集合列表視圖的小工具";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "具有物件集合列表視圖的小工具";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Layout.Link.Description" = "緊湊檢視小工具";
+"Widgets.Layout.Tree.Description" = "具有分層結構的小工具";
+"Widgets.Layout.List.Description" = "帶有列表檢視的小工具";
+"Widgets.Layout.View.Description" = "帶有集合或集錦的小工具";
+"Widgets.Layout.CompactList.Description" = "具有緊湊列表檢視的小工具";
+"Widgets.Empty.Title" = "這裡沒有物件";
+"Widgets.Empty.CreateObject" = "建立物件";
 "Widgets.Library.RecentlyEdited.Name" = "最近編輯";
 "Widgets.Library.RecentlyOpened.Name" = "最近開啟";
 "Widgets.Library.RecentlyOpened.Description" = "在此裝置上";
-"Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.AppUpdate" = "AnyType 已準備好更新";
+"Widgets.Source.Library" = "預設集合";
+"Widgets.Source.Objects" = "你的物件";
 
 // MARK: - About
 "About.AppVersion" = "應用程式版本：%@";
@@ -1169,17 +1173,18 @@
 "MembershipServiceError.invalidBillingIdFormat" = "帳單格式存在內部問題，我們正在處理中。請稍後再試，或聯絡客服支援。";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "您可以在桌面平臺上管理層級";
+"Membership.ManageTier.Android" = "您可以在安卓平臺上管理層級";
+"Membership.ManageTier.AppleId" = "您可以在另一個Apple帳戶上管理層級";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "資料備份被禁用";
+"SyncStatus.Info.AnytypeNetwork" = "已端到端加密";
+"SyncStatus.Error.storageLimitExceed" = "達到儲存限制";
 "SyncStatus.Error.incompatibleVersion" = "不相容的版本";
-"SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.Error.networkError" = "無法進入這個空間";
+"SyncStatus.Error.UNRECOGNIZED" = "無法識別的錯誤";
+"SyncStatus.P2P.Restricted" = "限制。請檢查裝置設定。";
 
 
 // MARK: - Debug

@@ -1,6 +1,6 @@
 import Foundation
 
-extension NewSearchView {
+extension LegacySearchView {
     
     enum AddButtonModel {
         case disabled
@@ -9,7 +9,7 @@ extension NewSearchView {
     
 }
 
-extension NewSearchView.AddButtonModel {
+extension LegacySearchView.AddButtonModel {
     
     var isDisabled: Bool {
         switch self {

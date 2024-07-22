@@ -1,18 +1,19 @@
 import Foundation
 import ProtobufMessages
+import AnytypeCore
 
 public protocol DebugServiceProtocol: AnyObject, Sendable {
     func exportLocalStore() async throws -> String
     func exportStackGoroutines() async throws -> String
     func exportSpaceDebug(spaceId: String) async throws -> String
+    func debugRunProfiler() async throws -> String
 }
 
 final class DebugService: DebugServiceProtocol {
-    
     // MARK: - DebugServiceProtocol
     
     public func exportLocalStore() async throws -> String {
-        let tempDirString = try FileManager.default.createTempDirectory()
+        let tempDirString = FileManager.default.createTempDirectory().path
         
         let response = try await ClientCommands.debugExportLocalstore(.with {
             $0.path = tempDirString
@@ -22,7 +23,7 @@ final class DebugService: DebugServiceProtocol {
     }
     
     public func exportStackGoroutines() async throws -> String {
-        let tempDirString = try FileManager.default.createTempDirectory()
+        let tempDirString = FileManager.default.createTempDirectory().path
         
         try await ClientCommands.debugStackGoroutines(.with {
             $0.path = tempDirString
@@ -37,14 +38,10 @@ final class DebugService: DebugServiceProtocol {
         }).invoke()
         return try result.jsonString()
     }
-}
-
-extension FileManager {
-    func createTempDirectory() throws -> String {
-        let tempDirectory = (NSTemporaryDirectory() as NSString).appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(atPath: tempDirectory,
-                                                withIntermediateDirectories: true,
-                                                attributes: nil)
-        return tempDirectory
+    
+    public func debugRunProfiler() async throws -> String {
+        return try await ClientCommands.debugRunProfiler(.with {
+            $0.durationInSeconds = 60
+        }).invoke().path
     }
 }

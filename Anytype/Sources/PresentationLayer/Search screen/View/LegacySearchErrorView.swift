@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-struct NewSearchErrorView: View {
+struct LegacySearchErrorView: View {
     
-    let error: NewSearchError
+    let error: LegacySearchError
     
     var body: some View {
         VStack(alignment: .center) {

@@ -1,6 +1,6 @@
 import Foundation
 
-extension NewSearchView {
+extension LegacySearchView {
     
     enum ListModel {
         case plain(rows: [ListRowConfiguration])
@@ -9,7 +9,7 @@ extension NewSearchView {
     
 }
 
-extension NewSearchView.ListModel {
+extension LegacySearchView.ListModel {
     
     var isEmpty: Bool {
         switch self {
