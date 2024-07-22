@@ -14,6 +14,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showBlockObjectSearch(data: BlockObjectSearchData)
     func didUndoRedo()
     func openUrl(_ url: URL)
+    func showSyncStatusInfo(spaceId: String)
     func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     // TODO: Refactoring templates. Delete it
     func setModuleInput(input: some EditorPageModuleInput, objectId: String)

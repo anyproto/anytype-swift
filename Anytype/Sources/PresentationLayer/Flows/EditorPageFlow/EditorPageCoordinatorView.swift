@@ -53,6 +53,9 @@ struct EditorPageCoordinatorView: View {
             .anytypeSheet(item: $model.undoRedoObjectId) {
                 UndoRedoView(objectId: $0.value)
             }
+            .anytypeSheet(item: $model.syncStatusSpaceId) {
+                SyncStatusInfoView(spaceId: $0.value)
+            }
             .snackbar(toastBarData: $model.toastBarData)
             .openUrl(url: $model.openUrlData)
     }

@@ -308,6 +308,10 @@ extension EditorPageViewModel {
     func showTemplates() {
         router.showTemplatesPicker()
     }
+    
+    func showSyncStatusInfo() {
+        output?.showSyncStatusInfo(spaceId: document.spaceId)
+    }
 }
 
 // Cursor

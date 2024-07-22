@@ -25,7 +25,7 @@ struct MembershipNameSheetView: View {
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(15)
             AsyncStandardButton(
-                text: Loc.payByCard,
+                Loc.payByCard,
                 style: .primaryLarge
             ) {
                 AnytypeAnalytics.instance().logClickMembership(type: .payByCard)

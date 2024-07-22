@@ -9,6 +9,14 @@ struct DocumentSyncStatusData: Equatable {
 
 extension BaseDocumentProtocol {
     
+    private var syncStatusPublisher: AnyPublisher<SyncStatus, Never> {
+        subscibeFor(update: [.syncStatus])
+            .compactMap { [weak self] _ in
+                self?.syncStatus
+            }
+            .eraseToAnyPublisher()
+    }
+    
     var syncStatusDataPublisher: AnyPublisher<DocumentSyncStatusData, Never> {
         subscribeForDetails(objectId: objectId)
             .map { $0.layoutValue }

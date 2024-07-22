@@ -10,6 +10,7 @@ final class EditorSetViewModel: ObservableObject {
     let headerModel: ObjectHeaderViewModel
     
     @Published var titleString: String
+    @Published var descriptionString: String
     @Published var loadingDocument = true
     @Published var featuredRelations = [Relation]()
     @Published var dismiss = false
@@ -66,10 +67,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var showDescription: Bool {
-        guard let description = details?.description else { return false }
-
-        let isFeatured = setDocument.parsedRelations.featuredRelations.contains { $0.key == BundledRelationKey.description.rawValue }
-        return isFeatured && description.isNotEmpty
+        let isFeatured = setDocument.parsedRelations.featuredRelations
+            .contains { $0.key == BundledRelationKey.description.rawValue }
+        return isFeatured
     }
     
     var hasTargetObjectId: Bool {
@@ -170,6 +170,7 @@ final class EditorSetViewModel: ObservableObject {
     private var subscriptions = [AnyCancellable]()
     private var subscriptionStorages = [String: any SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
+    private var descriptionSubscription: AnyCancellable?
     private weak var output: (any EditorSetModuleOutput)?
 
     init(data: EditorSetObject, output: (any EditorSetModuleOutput)?) {
@@ -190,6 +191,8 @@ final class EditorSetViewModel: ObservableObject {
         )
         self.externalActiveViewId = data.activeViewId
         self.titleString = setDocument.details?.pageCellTitle ?? ""
+        self.descriptionString = setDocument.details?.description ?? ""
+        
         self.output = output
         self.setup()
     }
@@ -322,6 +325,7 @@ final class EditorSetViewModel: ObservableObject {
             await clearState()
         }
         setupTitle()
+        setupDescription()
         await startSubscriptionIfNeeded()
         updateConfigurations(with: Array(recordsDict.keys))
 
@@ -333,29 +337,49 @@ final class EditorSetViewModel: ObservableObject {
             titleString = details.pageCellTitle
 
             titleSubscription = $titleString.sink { [weak self] newValue in
-                guard let self = self, !self.isUpdating else { return }
-
-                if newValue.contains(where: \.isNewline) {
-                    self.isUpdating = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // Return button tapped on keyboard. Waiting for iOS 15 support!!!
-                        self.titleString = newValue.trimmingCharacters(in: .newlines)
-                    }
-                    UIApplication.shared.hideKeyboard()
-                    return
-                }
-
-                Task { @MainActor in
-                    try? await self.textServiceHandler.setText(
-                        contextId: self.setDocument.inlineParameters?.targetObjectID ?? self.objectId,
-                        blockId: RelationKey.title.rawValue,
-                        middlewareString: .init(text: newValue, marks: .init())
-                    )
-                    
-                    self.isUpdating = false
+                self?.updateTextFieldData(newValue: newValue, blockId: CustomRelationKey.title.rawValue) {
+                    self?.descriptionString = $0
                 }
             }
         }
     }
+    
+    private func setupDescription() {
+        if let details = setDocument.details {
+            descriptionString = details.description
+
+            descriptionSubscription = $descriptionString.sink { [weak self] newValue in
+                self?.updateTextFieldData(newValue: newValue, blockId: BundledRelationKey.description.rawValue) {
+                    self?.titleString = $0
+                }
+            }
+        }
+    }
+    
+    private func updateTextFieldData(newValue: String, blockId: String, updateValue: @escaping (String) -> ()) {
+        guard !isUpdating else { return }
+
+        // Return button tapped on keyboard. Waiting for iOS 15 support
+        if newValue.contains(where: \.isNewline) {
+            isUpdating = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                updateValue(newValue.trimmingCharacters(in: .newlines))
+            }
+            UIApplication.shared.hideKeyboard()
+            return
+        }
+
+        Task { @MainActor in
+            try? await textServiceHandler.setText(
+                contextId: setDocument.inlineParameters?.targetObjectID ?? objectId,
+                blockId: blockId,
+                middlewareString: .init(text: newValue, marks: .init())
+            )
+            
+            isUpdating = false
+        }
+    }
+
     
     // MARK: - Groups Subscriptions
     
@@ -593,6 +617,10 @@ final class EditorSetViewModel: ObservableObject {
 
 // MARK: - Routing
 extension EditorSetViewModel {
+    
+    func showSyncStatusInfo() {
+        output?.showSyncStatusInfo(spaceId: setDocument.spaceId)
+    }
 
     func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {

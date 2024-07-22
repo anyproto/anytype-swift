@@ -22,7 +22,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     @Injected(\.dataviewService)
     private var dataviewService: any DataviewServiceProtocol
     
-    private var view: DataviewView = .empty
+    private var view: DataviewView
     
     init(
         setDocument: some SetDocumentProtocol,
@@ -31,6 +31,7 @@ final class SetLayoutSettingsViewModel: ObservableObject {
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
+        self.view = setDocument.view(by: viewId)
         self.output = output
         self.setupSubscription()
     }

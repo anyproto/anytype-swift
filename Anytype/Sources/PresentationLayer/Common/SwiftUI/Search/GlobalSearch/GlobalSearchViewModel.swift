@@ -83,9 +83,10 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func showRelatedObjects(_ data: GlobalSearchData) {
+        let name = String(data.title.characters)
         state = GlobalSearchState(
             searchText: "",
-            mode: .filtered(name: data.title, limitObjectIds: data.relatedLinks)
+            mode: .filtered(name: name, limitObjectIds: data.relatedLinks)
         )
         modeChanged = true
         AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)

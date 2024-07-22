@@ -144,6 +144,7 @@
 "Alignment" = "ଶ୍ରେଣୀବଦ୍ଧତା ";
 "Actions" = "କାର୍ଯ୍ୟ";
 "Relations" = "ସମ୍ପର୍କ";
+"History" = "History";
 "Objects" = "ଅବଜେକ୍ଟ";
 "Lists" = "ତାଲିକା";
 "Pinned" = "ପିନ୍ କରାଯାଇଛି";
@@ -288,6 +289,7 @@
 "Background picture" = "ପୃଷ୍ଠଭୂମି ଚିତ୍ର |";
 "Layout" = "ଲେଆଉଟ୍‌";
 "Arrangement of objects on a canvas" = "ଏକ କାନଭାସରେ ଅବଜେକ୍ଟର ବ୍ୟବସ୍ଥା ";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "ସନ୍ଧାନ";
 "There is no emoji named" = "କୌଣସି ଇମୋଜି ନାମିତ ନାହିଁ";
@@ -506,7 +508,7 @@
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Select query";
@@ -610,19 +612,18 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"SyncStatus.LocalOnly.Title" = "Local-only";
-"SyncStatus.LocalOnly.Description" = "Local only";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
 "Incompatible version" = "Incompatible version";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Synced";
-"Syncing..." = "Syncing...";
 "No connection" = "No connection";
-"Preparing..." = "Preparing...";
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
@@ -806,17 +807,19 @@
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
 "Widgets.Layout.View.Title" = "ଦେଖନ୍ତୁ";
-"Widgets.Layout.Link.Description" = "Сompact version of the object";
-"Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
-"Widgets.Layout.List.Description" = "Widget with list view of set object";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
 "Widgets.Library.RecentlyOpened.Name" = "Recently opened";
 "Widgets.Library.RecentlyOpened.Description" = "On this device";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
@@ -1171,6 +1174,16 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

@@ -45,7 +45,7 @@ final class MiddlewareEventConverter {
         case let .blockSetChildrenIds(data):
             infoContainer
                 .setChildren(ids: data.childrenIds, parentId: data.id)
-            return .children(blockId: data.id)
+            return .block(blockId: data.id)
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(data):
@@ -201,7 +201,8 @@ final class MiddlewareEventConverter {
                 .notificationSend,
                 .notificationUpdate,
                 .payloadBroadcast,
-                .spaceSyncStatusUpdate,
+                .spaceSyncStatusUpdate, // Implemented in `SyncStatusStorage`
+                .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
                 .membershipUpdate: // Implemented in `MembershipStatusStorage`
             return nil
         }

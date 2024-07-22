@@ -21,10 +21,7 @@ struct MembershipEmailActionView: View {
                 .newDivider()
             
             Spacer.fixedHeight(20)
-            AsyncStandardButton(
-                text: Loc.submit,
-                style: .primaryLarge
-            ) {
+            AsyncStandardButton(Loc.submit, style: .primaryLarge) {
                 AnytypeAnalytics.instance().logClickMembership(type: .sumbit)
                 try await action(email)
             }

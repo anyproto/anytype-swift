@@ -38,6 +38,9 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var storeKitService: any StoreKitServiceProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
+    @Injected(\.p2pStatusStorage)
+    private var p2pStatusStorage: any P2PStatusStorageProtocol
+    
     
     // MARK: - LoginStateServiceProtocol
     
@@ -74,10 +77,12 @@ final class LoginStateService: LoginStateServiceProtocol {
         await accountParticipantsStorage.startSubscription()
         await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
+        await syncStatusStorage.startSubscription()
+        await p2pStatusStorage.startSubscription()
         storeKitService.startListenForTransactions()
-        syncStatusStorage.startSubscription()
         
         Task {
+            // Time-heavy operation
             await membershipStatusStorage.startSubscription()
         }
     }
@@ -91,7 +96,8 @@ final class LoginStateService: LoginStateServiceProtocol {
         await activeSpaceParticipantStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
+        await syncStatusStorage.stopSubscriptionAndClean()
+        await p2pStatusStorage.stopSubscriptionAndClean()
         storeKitService.stopListenForTransactions()
-        syncStatusStorage.stopSubscriptionAndClean()
     }
 }

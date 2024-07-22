@@ -1,11 +1,52 @@
 import SwiftUI
 
 struct DiscussionView: View {
+    
+    @StateObject private var model: DiscussionViewModel
+    
+    init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
+        self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, output: output))
+    }
+    
     var body: some View {
-        Text("Discussion")
+        DiscussionSpacingContainer {
+            DiscussionScrollView(position: $model.scrollViewPosition) {
+                LazyVStack(spacing: 12) {
+                    ForEach(model.mesageBlocks, id: \.id) {
+                        MessageView(block: $0)
+                    }
+                }
+                .padding(.vertical, 16)
+            }
+            .safeAreaInset(edge: .bottom, spacing: 0) {
+                inputPanel
+            }
+        }
+        .task {
+            await model.subscribeForParticipants()
+        }
+        .task {
+            await model.subscribeForBlocks()
+        }
+    }
+    
+    private var inputPanel: some View {
+        VStack(spacing: 0) {
+            DiscussionLinkInputViewContainer(objects: model.linkedObjects) {
+                model.onTapRemoveLinkedObject(details: $0)
+            }
+            DiscusionInput(text: $model.message) {
+                model.onTapAddObjectToMessage()
+            } onTapSend: {
+                model.onTapSendMessage()
+            }
+        }
+        .overlay(alignment: .top) {
+            AnytypeDivider()
+        }
     }
 }
 
 #Preview {
-    DiscussionView()
+    DiscussionView(objectId: "", spaceId: "", output: nil)
 }

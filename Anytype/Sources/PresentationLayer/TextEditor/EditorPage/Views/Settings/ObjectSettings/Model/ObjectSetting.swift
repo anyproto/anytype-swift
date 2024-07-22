@@ -5,6 +5,7 @@ enum ObjectSetting: CaseIterable {
     case cover
     case layout
     case relations
+    case history
 }
 
 extension ObjectSetting {
@@ -19,6 +20,8 @@ extension ObjectSetting {
             return Loc.layout
         case .relations:
             return Loc.relations
+        case .history:
+            return Loc.history
         }
     }
     
@@ -32,6 +35,8 @@ extension ObjectSetting {
             return Loc.arrangementOfObjectsOnACanvas
         case .relations:
             return Loc.listOfRelatedObjects
+        case .history:
+            return Loc.ObjectSettings.History.description
         }
     }
     
@@ -45,6 +50,8 @@ extension ObjectSetting {
             return .ObjectSettings.layout
         case .relations:
             return .ObjectSettings.relations
+        case .history:
+            return .ObjectSettings.history
         }
     }
 }

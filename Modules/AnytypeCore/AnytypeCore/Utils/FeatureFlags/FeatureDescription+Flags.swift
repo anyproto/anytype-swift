@@ -36,20 +36,8 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let newGlobalSearch = FeatureDescription(
-        title: "New global search",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: true
-    )
-    
     static let scrollToBlockFromSearch = FeatureDescription(
         title: "Scroll to block from Global search - IOS-2845",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: true
-    )
-    
-    static let setEmptyValuesSorting = FeatureDescription(
-        title: "Set empty values sorting - IOS-2810",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
         defaultValue: true
     )
@@ -81,6 +69,13 @@ public extension FeatureDescription {
     static let discussions = FeatureDescription(
         title: "Discussions - IOS-3060",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let versionHistory = FeatureDescription(
+        title: "Version History - IOS-3058",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: false,
         debugValue: false
     )

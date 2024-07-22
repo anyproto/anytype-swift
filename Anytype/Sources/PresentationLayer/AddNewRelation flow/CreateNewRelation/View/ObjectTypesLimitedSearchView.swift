@@ -12,15 +12,15 @@ struct ObjectTypesLimitedSearchData: Identifiable, Equatable, Hashable {
     var id: Int { hashValue }
 }
 
-// TODO: Migrate from NewSearchView
+// TODO: Migrate from LegacySearchView
 struct ObjectTypesLimitedSearchView: View {
     
     let data: ObjectTypesLimitedSearchData
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NewSearchView(
-            viewModel: NewSearchViewModel(
+        LegacySearchView(
+            viewModel: LegacySearchViewModel(
                 title: data.title,
                 style: .default,
                 itemCreationMode: .unavailable,

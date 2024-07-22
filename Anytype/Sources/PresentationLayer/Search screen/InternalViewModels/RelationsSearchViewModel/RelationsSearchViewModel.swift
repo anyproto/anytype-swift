@@ -10,10 +10,10 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         static let librarySectionId = "MarketplaceId"
     }
     
-    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
+    let selectionMode: LegacySearchViewModel.SelectionMode = .singleItem
+    var viewStatePublisher: AnyPublisher<LegacySearchViewState, Never> { viewStateSubject.eraseToAnyPublisher() }
     
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    private let viewStateSubject = PassthroughSubject<LegacySearchViewState, Never>()
     private var objects: [RelationDetails] = []
     private var marketplaceObjects: [RelationDetails] = []
     
@@ -53,7 +53,7 @@ final class RelationsSearchViewModel: NewInternalSearchViewModelProtocol {
         
     }
     
-    func createButtonModel(searchText: String) -> NewSearchViewModel.CreateButtonModel {
+    func createButtonModel(searchText: String) -> LegacySearchViewModel.CreateButtonModel {
         return searchText.isEmpty ? .disabled : .enabled(title: Loc.createRelation(searchText))
     }
     

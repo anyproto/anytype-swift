@@ -598,6 +598,14 @@ public struct Anytype_Event {
       set {value = .spaceSyncStatusUpdate(newValue)}
     }
 
+    public var p2PStatusUpdate: Anytype_Event.P2PStatus.Update {
+      get {
+        if case .p2PStatusUpdate(let v)? = value {return v}
+        return Anytype_Event.P2PStatus.Update()
+      }
+      set {value = .p2PStatusUpdate(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -672,6 +680,7 @@ public struct Anytype_Event {
       case payloadBroadcast(Anytype_Event.Payload.Broadcast)
       case membershipUpdate(Anytype_Event.Membership.Update)
       case spaceSyncStatusUpdate(Anytype_Event.Space.SyncStatus.Update)
+      case p2PStatusUpdate(Anytype_Event.P2PStatus.Update)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -949,6 +958,10 @@ public struct Anytype_Event {
         }()
         case (.spaceSyncStatusUpdate, .spaceSyncStatusUpdate): return {
           guard case .spaceSyncStatusUpdate(let l) = lhs, case .spaceSyncStatusUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.p2PStatusUpdate, .p2PStatusUpdate): return {
+          guard case .p2PStatusUpdate(let l) = lhs, case .p2PStatusUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -4871,6 +4884,63 @@ public struct Anytype_Event {
     public init() {}
   }
 
+  public struct P2PStatus {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum Status: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+      case notConnected // = 0
+      case notPossible // = 1
+      case connected // = 2
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .notConnected
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .notConnected
+        case 1: self = .notPossible
+        case 2: self = .connected
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .notConnected: return 0
+        case .notPossible: return 1
+        case .connected: return 2
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    public struct Update {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var spaceID: String = String()
+
+      public var status: Anytype_Event.P2PStatus.Status = .notConnected
+
+      public var devicesCounter: Int64 = 0
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
@@ -4927,6 +4997,15 @@ extension Anytype_Event.Space.SyncError: CaseIterable {
     .storageLimitExceed,
     .incompatibleVersion,
     .networkError,
+  ]
+}
+
+extension Anytype_Event.P2PStatus.Status: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Event.P2PStatus.Status] = [
+    .notConnected,
+    .notPossible,
+    .connected,
   ]
 }
 
@@ -5305,6 +5384,9 @@ extension Anytype_Event.Space.Network: @unchecked Sendable {}
 extension Anytype_Event.Space.SyncError: @unchecked Sendable {}
 extension Anytype_Event.Space.SyncStatus: @unchecked Sendable {}
 extension Anytype_Event.Space.SyncStatus.Update: @unchecked Sendable {}
+extension Anytype_Event.P2PStatus: @unchecked Sendable {}
+extension Anytype_Event.P2PStatus.Status: @unchecked Sendable {}
+extension Anytype_Event.P2PStatus.Update: @unchecked Sendable {}
 extension Anytype_ResponseEvent: @unchecked Sendable {}
 extension Anytype_Model: @unchecked Sendable {}
 extension Anytype_Model.Process: @unchecked Sendable {}
@@ -5442,6 +5524,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     116: .same(proto: "payloadBroadcast"),
     117: .same(proto: "membershipUpdate"),
     119: .same(proto: "spaceSyncStatusUpdate"),
+    120: .same(proto: "p2pStatusUpdate"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6217,6 +6300,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .spaceSyncStatusUpdate(v)
         }
       }()
+      case 120: try {
+        var v: Anytype_Event.P2PStatus.Update?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .p2PStatusUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .p2PStatusUpdate(v)
+        }
+      }()
       case 123: try {
         var v: Anytype_Event.Block.Dataview.RelationSet?
         var hadOneofValue = false
@@ -6580,6 +6676,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .spaceSyncStatusUpdate?: try {
       guard case .spaceSyncStatusUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 119)
+    }()
+    case .p2PStatusUpdate?: try {
+      guard case .p2PStatusUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 120)
     }()
     case .blockDataviewRelationSet?: try {
       guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
@@ -11249,7 +11349,15 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     var _viewID: String = String()
     var _view: Anytype_Model_Block.Content.Dataview.View? = nil
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 
@@ -13896,6 +14004,77 @@ extension Anytype_Event.Space.SyncStatus.Update: SwiftProtobuf.Message, SwiftPro
     if lhs.network != rhs.network {return false}
     if lhs.error != rhs.error {return false}
     if lhs.syncingObjectsCounter != rhs.syncingObjectsCounter {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.P2PStatus: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".P2PStatus"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.P2PStatus, rhs: Anytype_Event.P2PStatus) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.P2PStatus.Status: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NotConnected"),
+    1: .same(proto: "NotPossible"),
+    2: .same(proto: "Connected"),
+  ]
+}
+
+extension Anytype_Event.P2PStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.P2PStatus.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "spaceId"),
+    2: .same(proto: "status"),
+    3: .same(proto: "devicesCounter"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.spaceID) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.devicesCounter) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.spaceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.spaceID, fieldNumber: 1)
+    }
+    if self.status != .notConnected {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 2)
+    }
+    if self.devicesCounter != 0 {
+      try visitor.visitSingularInt64Field(value: self.devicesCounter, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.P2PStatus.Update, rhs: Anytype_Event.P2PStatus.Update) -> Bool {
+    if lhs.spaceID != rhs.spaceID {return false}
+    if lhs.status != rhs.status {return false}
+    if lhs.devicesCounter != rhs.devicesCounter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -4,41 +4,38 @@ import AnytypeCore
 import ProtobufMessages
 
 
+@MainActor
 protocol SyncStatusStorageProtocol {
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatus, Never>
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never>
     
     func startSubscription()
     func stopSubscriptionAndClean()
 }
 
+@MainActor
 final class SyncStatusStorage: SyncStatusStorageProtocol {
-    @Published private var _update: Anytype_Event.Space.SyncStatus.Update?
-    private var updatePublisher: AnyPublisher<Anytype_Event.Space.SyncStatus.Update?, Never> { $_update.eraseToAnyPublisher() }
+    @Published private var storage = [String: SyncStatusInfo]()
     private var subscription: AnyCancellable?
-    
-    private var defaultValues = [String: SyncStatus]()
     
     nonisolated init() { }
     
-    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatus, Never> {
-        updatePublisher
-            .filter { $0?.id == spaceId}
-            .compactMap { $0?.status }
-            .merge(with: Just(defaultValues[spaceId] ?? SyncStatus.offline))
+    func statusPublisher(spaceId: String) -> AnyPublisher<SyncStatusInfo, Never> {
+        $storage
+            .compactMap { $0[spaceId] }
             .eraseToAnyPublisher()
     }
     
     func startSubscription() {
+        anytypeAssert(subscription.isNil, "Non nil subscription in SyncStatusStorage")
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
-            Task { @MainActor [weak self] in
-                self?.handle(events: events)
-            }
+            self?.handle(events: events)
         }
     }
     
     func stopSubscriptionAndClean() {
+        anytypeAssert(subscription.isNotNil, "Nil subscription in SyncStatusStorage")
         subscription = nil
-        _update = nil
+        storage = [:]
     }
     
     // MARK: - Private
@@ -47,8 +44,7 @@ final class SyncStatusStorage: SyncStatusStorageProtocol {
         for event in events.middlewareEvents {
             switch event.value {
             case .spaceSyncStatusUpdate(let update):
-                defaultValues[update.id] = update.status
-                _update = update
+                storage[update.id] = update
             default:
                 break
             }

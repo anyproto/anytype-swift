@@ -13,9 +13,7 @@ struct SetSortTypesListView: View {
             DragIndicator()
             TitleView(title: model.title)
             typeSection
-            if FeatureFlags.setEmptyValuesSorting {
-                emptyTypeSection
-            }
+            emptyTypeSection
         }
         .padding(.horizontal, 20)
         .background(Color.Background.secondary)

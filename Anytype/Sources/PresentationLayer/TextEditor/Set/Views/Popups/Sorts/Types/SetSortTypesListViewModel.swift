@@ -21,9 +21,7 @@ final class SetSortTypesListViewModel: ObservableObject {
         self.selectedSort = data.setSort.sort
         self.completion = data.completion
         self.typeItems = buildTypeItems()
-        if FeatureFlags.setEmptyValuesSorting {
-            self.emptyTypeItems = buildEmptyTypeItems()
-        }
+        self.emptyTypeItems = buildEmptyTypeItems()
     }
     
     func buildTypeItems() -> [SetSortTypeItem] {

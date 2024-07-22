@@ -64,6 +64,10 @@ final class EditorPageController: UIViewController {
         },
         onTemplatesButtonTap: { [weak viewModel] in
             viewModel?.showTemplates()
+        }, 
+        onSyncStatusTap: { [weak viewModel] in
+            UISelectionFeedbackGenerator().selectionChanged()
+            viewModel?.showSyncStatusInfo()
         }
     )
 

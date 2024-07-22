@@ -37,6 +37,9 @@ struct TreeWidgetView: View {
                 content
             }
         )
+        .task {
+            await model.startTreeSubscription()
+        }
     }
     
     var content: some View {

@@ -28,7 +28,7 @@ struct MembershipNameFinalizationView: View {
             Spacer.fixedHeight(16)
             
             AsyncStandardButton(
-                text: Loc.confirm,
+                Loc.confirm,
                 style: .primaryLarge
             ) {
                 AnytypeAnalytics.instance().logClickMembership(type: .payByCard)

@@ -8,9 +8,7 @@ extension BlockWidget.Layout {
             return [0]
         case .list:
             return [4, 6, 8]
-        case .view:
-            return [9]
-        case .compactList, .tree:
+        case .compactList, .tree, .view:
             return [6, 10, 14]
         }
     }

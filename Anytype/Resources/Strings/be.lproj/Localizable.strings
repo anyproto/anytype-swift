@@ -80,7 +80,7 @@
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
+"Relation.Create.Row.title" = "Стварыць “%@”";
 "Relation.View.Create.title" = "Сварыць опцыю";
 "Relation.View.Edit.title" = "Рэдагаваць опцыю";
 "Relation.Create.Textfield.placeholder" = "Увядзіце назву...";
@@ -144,6 +144,7 @@
 "Alignment" = "Выраўноўванне";
 "Actions" = "Дзеянні";
 "Relations" = "Уласцівасці";
+"History" = "History";
 "Objects" = "Аб'екты";
 "Lists" = "Спісы";
 "Pinned" = "Замацавана";
@@ -286,6 +287,7 @@
 "Background picture" = "Background picture";
 "Layout" = "Знешні выгляд";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "Пошук";
 "There is no emoji named" = "There is no emoji named";
@@ -504,7 +506,7 @@
 "Set.View.Empty.Subtitle" = "Дадайце пошукавы запыт, каб згрупаваць аб'екты з аднолькавымі тыпамі і ўласцівасцямі ў рэжыме рэальнага часу";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Select query";
@@ -608,19 +610,18 @@
 "Unfavorite" = "Выдаліць з абранага";
 "Unsplash" = "Unsplash";
 "Go back" = "Назад";
-"SyncStatus.LocalOnly.Title" = "Толькі лакальна";
-"SyncStatus.LocalOnly.Description" = "Толькі лакальна";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backed up on Self-hosted Network";
 "Downloading or uploading data to some node" = "Загрузка ці выгрузка даных у вузел";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініцыялізацыя сінхранізацыі";
 "Incompatible version" = "Incompatible version";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Сінхранізавана";
-"Syncing..." = "Сінхранізацыя...";
 "No connection" = "Няма злучэння";
-"Preparing..." = "Падрыхтоўка...";
 "Deleted" = "Выдалена";
 "Download" = "Спампаваць";
 "Open object" = "Адкрыць аб'ект";
@@ -805,17 +806,19 @@
 "Widgets.Layout.List.Title" = "Спіс";
 "Widgets.Layout.CompactList.Title" = "Кампактны спіс";
 "Widgets.Layout.View.Title" = "Выгляд";
-"Widgets.Layout.Link.Description" = "Кампактная версія аб'екта";
-"Widgets.Layout.Tree.Description" = "Іерархічная структура аб'ектаў";
-"Widgets.Layout.List.Description" = "Віджэт са спісам аб'ектаў з набору";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Віджэт са спісам аб'ектаў з набору";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Нядаўна адрэдагаваны";
 "Widgets.Library.RecentlyOpened.Name" = "Нядаўна адкрытыя";
 "Widgets.Library.RecentlyOpened.Description" = "На гэтай прыладзе";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "Версія праграмы: %@";
@@ -1170,6 +1173,16 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

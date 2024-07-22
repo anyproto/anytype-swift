@@ -50,7 +50,7 @@ struct WidgetObjectListView: View {
         case .list(let sections):
             dataList(sections: sections)
         case .error(let error):
-            NewSearchErrorView(error: error)
+            LegacySearchErrorView(error: error)
         }
     }
     

@@ -42,7 +42,7 @@ extension ObjectDetails {
            return [.tree, .link]
         case .set:
             if FeatureFlags.galleryWidget {
-                return [.view, .link]
+                return [.view, .compactList, .list, .link]
             } else {
                 return [.compactList, .list, .link]
             }

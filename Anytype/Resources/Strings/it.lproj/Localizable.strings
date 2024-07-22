@@ -144,6 +144,7 @@
 "Alignment" = "Allineamento";
 "Actions" = "Azioni";
 "Relations" = "Relazioni";
+"History" = "History";
 "Objects" = "Oggetti";
 "Lists" = "Liste";
 "Pinned" = "Fissato";
@@ -286,6 +287,7 @@
 "Background picture" = "Immagine di sfondo";
 "Layout" = "Disposizione";
 "Arrangement of objects on a canvas" = "Disposizione degli oggetti su una tela";
+"ObjectSettings.History.Description" = "Tutte le versioni dell'oggetto";
 
 "Search" = "Cerca";
 "There is no emoji named" = "Non esiste un emoji chiamato";
@@ -504,7 +506,7 @@
 "Set.View.Empty.Subtitle" = "Aggiungi una query di ricerca per aggregare gli Oggetti con Tipi e Relazioni uguali in modalità live";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "Questa vista non è supportata ed è stata sostituita con gli ultimi oggetti modificati.";
+"Set.View.UnsupportedAlert" = "La vista non è supportata sul cellulare";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Seleziona query";
@@ -608,19 +610,18 @@
 "Unfavorite" = "Rimuovi da Preferiti";
 "Unsplash" = "Unsplash";
 "Go back" = "Indietro";
-"SyncStatus.LocalOnly.Title" = "Solo-locale";
-"SyncStatus.LocalOnly.Description" = "Solo Locale";
-"SyncStatus.Synced.Anytype.Description" = "Backup effettuato sulla Rete Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backup effettuato su Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Backup effettuato su Rete Self-hosted";
 "Downloading or uploading data to some node" = "Scaricamento o caricamento dati su qualche nodo";
 "Node is not connected" = "Il nodo non è connesso";
 "Initializing sync" = "Inizializzazione sincronizzazione";
 "Incompatible version" = "Incompatible version";
+"Connecting" = "Connessione...";
+"P2P Connecting" = "Connessione P2P...";
+"P2P Connection" = "Connessione P2P";
+"Anytype Network" = "Rete Anytype";
+"Self Host" = "Self Host";
+"Local Only" = "Solo Locale";
 "Synced" = "Sincronizzato";
-"Syncing..." = "Sincronizzazione...";
 "No connection" = "Nessuna connessione";
-"Preparing..." = "In preparazione...";
 "Deleted" = "Eliminato";
 "Download" = "Scarica";
 "Open object" = "Apri oggetto";
@@ -804,17 +805,19 @@
 "Widgets.Layout.List.Title" = "Lista";
 "Widgets.Layout.CompactList.Title" = "Lista compatta";
 "Widgets.Layout.View.Title" = "Vista";
-"Widgets.Layout.Link.Description" = "Versione compatta dell'oggetto";
-"Widgets.Layout.Tree.Description" = "Struttura gerarchica degli oggetti";
-"Widgets.Layout.List.Description" = "Widget con vista elenco dell'oggetto impostato";
-"Widgets.Layout.View.Description" = "Widget con vista elenco dell'oggetto impostato";
-"Widgets.Layout.CompactList.Description" = "Widget con vista elenco dell'oggetto impostato";
+"Widgets.Layout.Link.Description" = "Vista widget compatta";
+"Widgets.Layout.Tree.Description" = "Widget con una struttura gerarchica";
+"Widgets.Layout.List.Description" = "Widget con una vista a elenco";
+"Widgets.Layout.View.Description" = "Widget con layout Insieme o Collezione";
+"Widgets.Layout.CompactList.Description" = "Widget con una vista a elenco compatta";
 "Widgets.Empty.Title" = "Non ci sono oggetti qui";
 "Widgets.Empty.CreateObject" = "Crea Oggetto";
 "Widgets.Library.RecentlyEdited.Name" = "Modificati di recente";
 "Widgets.Library.RecentlyOpened.Name" = "Aperti di recente";
 "Widgets.Library.RecentlyOpened.Description" = "Su questo dispositivo";
 "Widgets.AppUpdate" = "Anytype è pronto per l'aggiornamento";
+"Widgets.Source.Library" = "Insieme di default";
+"Widgets.Source.Objects" = "I tuoi oggetti";
 
 // MARK: - About
 "About.AppVersion" = "Versione applicazione: %@";
@@ -1169,6 +1172,16 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Membership.ManageTier.Desktop" = "È possibile gestire il livello sulla piattaforma Desktop";
 "Membership.ManageTier.Android" = "È possibile gestire il livello sulla piattaforma Android";
 "Membership.ManageTier.AppleId" = "È possibile gestire il livello su un altro account AppleId";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Il backup dati è disabilitato";
+"SyncStatus.Info.AnytypeNetwork" = "Crittografia end-to-end";
+"SyncStatus.Error.storageLimitExceed" = "Limite di archiviazione raggiunto";
+"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.networkError" = "Nessun accesso allo spazio";
+"SyncStatus.Error.UNRECOGNIZED" = "Errore sconosciuto";
+"SyncStatus.P2P.Restricted" = "Limitato. Controlla le impostazioni del dispositivo.";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipi MIME - %@";

@@ -10,10 +10,6 @@ public extension Array {
         }
         return result
     }
-    
-     func contains<T>(_ object: T) -> Bool where T: Equatable {
-         !self.filter {$0 as? T == object }.isEmpty
-     }
 }
 
 public extension Array where Element: Hashable {

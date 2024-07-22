@@ -7,7 +7,7 @@ import SwiftUI
 
 enum WidgetObjectListData {
     case list([ListSectionData<String?, WidgetObjectListRowModel>])
-    case error(NewSearchError)
+    case error(LegacySearchError)
 }
 
 @MainActor

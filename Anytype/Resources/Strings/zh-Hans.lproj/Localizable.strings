@@ -144,6 +144,7 @@
 "Alignment" = "排列";
 "Actions" = "操作";
 "Relations" = "关联";
+"History" = "历史记录";
 "Objects" = "对象";
 "Lists" = "分组";
 "Pinned" = "固定";
@@ -287,6 +288,7 @@
 "Background picture" = "背景图片";
 "Layout" = "布局";
 "Arrangement of objects on a canvas" = "画布上对象的排列";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "搜索";
 "There is no emoji named" = "没有 emoji 表情符号的命名";
@@ -505,7 +507,7 @@
 "Set.View.Empty.Subtitle" = "添加搜索查询以在实时模式下聚合具有相同类型和关联的对象";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "选择查询";
@@ -609,19 +611,18 @@
 "Unfavorite" = "取消收藏";
 "Unsplash" = "Unsplash 图库";
 "Go back" = "回到";
-"SyncStatus.LocalOnly.Title" = "仅本地";
-"SyncStatus.LocalOnly.Description" = "仅本地";
-"SyncStatus.Synced.Anytype.Description" = "备份到 Anytype 网络";
-"SyncStatus.Synced.AnytypeStaging.Description" = "备份到 Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "备份到自托管网络";
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
 "Node is not connected" = "节点未连接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不兼容版本";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "已同步";
-"Syncing..." = "同步中...";
 "No connection" = "没有连接";
-"Preparing..." = "准备中...";
 "Deleted" = "已删除";
 "Download" = "下载";
 "Open object" = "打开对象";
@@ -805,17 +806,19 @@
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "紧凑型列表";
 "Widgets.Layout.View.Title" = "视图";
-"Widgets.Layout.Link.Description" = "紧凑型对象";
-"Widgets.Layout.Tree.Description" = "对象的层次结构";
-"Widgets.Layout.List.Description" = "具有集合对象列表视图的小部件";
-"Widgets.Layout.View.Description" = "具有集合对象视图的小部件";
-"Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小部件";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "App 版本: %@";
@@ -1171,6 +1174,16 @@
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "不兼容版本";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";

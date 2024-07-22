@@ -75,6 +75,9 @@ final class ObjectSettingsViewModel: ObservableObject, ObjectActionsOutput {
         output?.relationsAction(document: document)
     }
     
+    func onTapHistory() {
+    }
+    
     // MARK: - ObjectActionsOutput
     
     func undoRedoAction() {

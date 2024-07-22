@@ -144,6 +144,7 @@
 "Alignment" = "Alignement";
 "Actions" = "Actions";
 "Relations" = "Relations";
+"History" = "History";
 "Objects" = "Objets";
 "Lists" = "Groups";
 "Pinned" = "Épinglé";
@@ -286,6 +287,7 @@
 "Background picture" = "Image d'arrière-plan";
 "Layout" = "Mise en page";
 "Arrangement of objects on a canvas" = "Arrangement d'objets sur une toile";
+"ObjectSettings.History.Description" = "All versions of object";
 
 "Search" = "Rechercher";
 "There is no emoji named" = "Il n'y a pas d'émoji nommé";
@@ -504,7 +506,7 @@
 "Set.View.Empty.Subtitle" = "Ajouter une requête pour agréger les objets avec les mêmes types et relations en mode live";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Sélectionner une requête";
@@ -608,19 +610,18 @@
 "Unfavorite" = "Retirer des favoris";
 "Unsplash" = "Unsplash";
 "Go back" = "Retour";
-"SyncStatus.LocalOnly.Title" = "Local seulement";
-"SyncStatus.LocalOnly.Description" = "Local seulement";
-"SyncStatus.Synced.Anytype.Description" = "Sauvegardé sur le réseau Anytype ";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Sauvegardé sur le réseau Anytype de pré-production";
-"SyncStatus.Synced.SelfHosted.Description" = "Sauvegarder vers votre réseau auto-hébergé";
 "Downloading or uploading data to some node" = "Téléchargement ou envoi de données vers un nœud";
 "Node is not connected" = "Le noeud n'est pas connecté";
 "Initializing sync" = "Initialisation de la synchronisation";
 "Incompatible version" = "Version incompatible";
+"Connecting" = "Connexion...";
+"P2P Connecting" = "Connexion P2P...";
+"P2P Connection" = "Connexion P2P";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Synchronisé";
-"Syncing..." = "Synchronisation en cours...";
 "No connection" = "Pas de connexion";
-"Preparing..." = "Préparation en cours...";
 "Deleted" = "Supprimé";
 "Download" = "Télécharger";
 "Open object" = "Ouvrir l'objet";
@@ -804,17 +805,19 @@
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Liste compacte";
 "Widgets.Layout.View.Title" = "Vue";
-"Widgets.Layout.Link.Description" = "Version compacte de l'objet";
-"Widgets.Layout.Tree.Description" = "Arborescence des objets";
-"Widgets.Layout.List.Description" = "Widget avec vue en liste d'un set d'objets";
-"Widgets.Layout.View.Description" = "Widget avec vue d'un set d'objets";
-"Widgets.Layout.CompactList.Description" = "Widget avec vue en liste d'un set d'objets";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "Il n'y a aucun objet ici";
 "Widgets.Empty.CreateObject" = "Créer un Objet";
 "Widgets.Library.RecentlyEdited.Name" = "Récemment modifié";
 "Widgets.Library.RecentlyOpened.Name" = "Récemment ouvert";
 "Widgets.Library.RecentlyOpened.Description" = "Sur cet appareil";
 "Widgets.AppUpdate" = "Anytype est prêt pour la mise à jour";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "Version de l'application : %@";
@@ -1169,6 +1172,16 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Version incompatible";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restriction. Vérifiez les paramètres de l'appareil.";
+
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";
