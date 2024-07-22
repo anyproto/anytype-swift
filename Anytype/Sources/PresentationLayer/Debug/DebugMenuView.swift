@@ -118,7 +118,7 @@ struct DebugMenuView: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getGoroutinesData()
             }
-            AsyncStandardButton(text: "Space debug 🪐", style: .secondaryLarge) {
+            AsyncStandardButton("Space debug 🪐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.onSpaceDebug()
             }

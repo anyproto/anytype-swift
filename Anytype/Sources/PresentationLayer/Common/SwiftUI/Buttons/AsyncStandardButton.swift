@@ -11,6 +11,16 @@ struct AsyncStandardButton: View {
     @State private var toast = ToastBarData.empty
     @Environment(\.standardButtonGroupDisable) @Binding private var groupDisable
     
+    init(
+        _ text: String,
+        style: StandardButtonStyle,
+        action: @escaping () async throws -> Void
+    ) {
+        self.text = text
+        self.style = style
+        self.action = action
+    }
+    
     var body: some View {
         StandardButton(.text(text), inProgress: inProgress, style: style) {
             // Add delay
