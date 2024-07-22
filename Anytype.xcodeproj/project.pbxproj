@@ -286,6 +286,10 @@
 		2A0BAD2F29E01E33005BC5D9 /* View+Focused.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */; };
 		2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */; };
 		2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */; };
+		2A0C4CCC2C4E9B16000F7387 /* MessageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CCB2C4E9B16000F7387 /* MessageModuleOutput.swift */; };
+		2A0C4CCF2C4EA0D4000F7387 /* MessageReactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CCE2C4EA0D4000F7387 /* MessageReactionView.swift */; };
+		2A0C4CD12C4EA105000F7387 /* MessageReactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CD02C4EA105000F7387 /* MessageReactionViewModel.swift */; };
+		2A0C4CD32C4EA2FB000F7387 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CD22C4EA2FB000F7387 /* MessageViewModel.swift */; };
 		2A0F40312BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F402F2BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift */; };
 		2A0F40322BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F40302BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift */; };
 		2A0F40382BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F40372BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift */; };
@@ -742,7 +746,7 @@
 		2AC434AA2B7A15B9006166BF /* SpaceShareParticipantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */; };
 		2AC434AC2B7A1D17006166BF /* CommonError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AB2B7A1D17006166BF /* CommonError.swift */; };
 		2AC434B02B7A20EF006166BF /* Participant+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC434AF2B7A20EF006166BF /* Participant+Extensions.swift */; };
-		2AC58CD32C47C3A700A1735F /* MessageBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC58CD22C47C3A700A1735F /* MessageBlock.swift */; };
+		2AC58CD32C47C3A700A1735F /* MessageViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC58CD22C47C3A700A1735F /* MessageViewData.swift */; };
 		2AC58CD52C47C60500A1735F /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC58CD42C47C60500A1735F /* MessageView.swift */; };
 		2AC5B3D32BA3380F002584B8 /* PermissionChangeNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC5B3D22BA3380F002584B8 /* PermissionChangeNotificationView.swift */; };
 		2AC6B2112B99C931000C6C88 /* AsyncButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AC6B2102B99C931000C6C88 /* AsyncButton.swift */; };
@@ -2101,6 +2105,10 @@
 		2A0BAD2E29E01E33005BC5D9 /* View+Focused.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Focused.swift"; sourceTree = "<group>"; };
 		2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
 		2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Autofocus.swift"; sourceTree = "<group>"; };
+		2A0C4CCB2C4E9B16000F7387 /* MessageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModuleOutput.swift; sourceTree = "<group>"; };
+		2A0C4CCE2C4EA0D4000F7387 /* MessageReactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionView.swift; sourceTree = "<group>"; };
+		2A0C4CD02C4EA105000F7387 /* MessageReactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionViewModel.swift; sourceTree = "<group>"; };
+		2A0C4CD22C4EA2FB000F7387 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		2A0F402F2BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSharingLinkAlertModel.swift; sourceTree = "<group>"; };
 		2A0F40302BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSharingLinkAlert.swift; sourceTree = "<group>"; };
 		2A0F40372BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceLeaveAlertModel.swift; sourceTree = "<group>"; };
@@ -2566,7 +2574,7 @@
 		2AC434A92B7A15B9006166BF /* SpaceShareParticipantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceShareParticipantView.swift; sourceTree = "<group>"; };
 		2AC434AB2B7A1D17006166BF /* CommonError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonError.swift; sourceTree = "<group>"; };
 		2AC434AF2B7A20EF006166BF /* Participant+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Participant+Extensions.swift"; sourceTree = "<group>"; };
-		2AC58CD22C47C3A700A1735F /* MessageBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBlock.swift; sourceTree = "<group>"; };
+		2AC58CD22C47C3A700A1735F /* MessageViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewData.swift; sourceTree = "<group>"; };
 		2AC58CD42C47C60500A1735F /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		2AC5B3D22BA3380F002584B8 /* PermissionChangeNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionChangeNotificationView.swift; sourceTree = "<group>"; };
 		2AC6B2102B99C931000C6C88 /* AsyncButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncButton.swift; sourceTree = "<group>"; };
@@ -5272,6 +5280,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		2A0C4CCD2C4EA0BF000F7387 /* MessageReactionPicker */ = {
+			isa = PBXGroup;
+			children = (
+				2A0C4CCE2C4EA0D4000F7387 /* MessageReactionView.swift */,
+				2A0C4CD02C4EA105000F7387 /* MessageReactionViewModel.swift */,
+			);
+			path = MessageReactionPicker;
+			sourceTree = "<group>";
+		};
 		2A0F402E2BAC1EB1002D8D37 /* DeleteSharingLinkAlert */ = {
 			isa = PBXGroup;
 			children = (
@@ -6723,6 +6740,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				2A0C4CCD2C4EA0BF000F7387 /* MessageReactionPicker */,
 				2A4191DC2C368F5600117FB8 /* Discussion */,
 				2AAEAB5B2BD93BF900E88767 /* ForceDeleteAlert */,
 				2AAEAB582BD8004600E88767 /* DashboardClearCacheAlert */,
@@ -6908,8 +6926,10 @@
 		2AC58CD12C47C39900A1735F /* Message */ = {
 			isa = PBXGroup;
 			children = (
-				2AC58CD22C47C3A700A1735F /* MessageBlock.swift */,
+				2AC58CD22C47C3A700A1735F /* MessageViewData.swift */,
 				2AC58CD42C47C60500A1735F /* MessageView.swift */,
+				2A0C4CD22C4EA2FB000F7387 /* MessageViewModel.swift */,
+				2A0C4CCB2C4E9B16000F7387 /* MessageModuleOutput.swift */,
 			);
 			path = Message;
 			sourceTree = "<group>";
@@ -11298,6 +11318,7 @@
 				EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */,
 				2A0F40382BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift in Sources */,
 				2EAFEE5E2BEA751100DB190C /* GlobalSearchDataBuilder.swift in Sources */,
+				2A0C4CCF2C4EA0D4000F7387 /* MessageReactionView.swift in Sources */,
 				2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */,
 				2AE942C6294713F8005BAD1F /* KeyboardEvent.swift in Sources */,
 				2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */,
@@ -11650,6 +11671,7 @@
 				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
 				2A00A4E929E811FD00C5FCC3 /* ControlsExample.swift in Sources */,
 				8638777C2A58088F0024F814 /* SetObjectCreationSettingsViewModel.swift in Sources */,
+				2A0C4CD32C4EA2FB000F7387 /* MessageViewModel.swift in Sources */,
 				53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */,
 				2AEABE0328C7546200BDE3AC /* RelationEvent.swift in Sources */,
 				2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift in Sources */,
@@ -11736,6 +11758,7 @@
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
 				2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */,
 				2E101CB72B98EF3900D03821 /* TextRelationEditingView.swift in Sources */,
+				2A0C4CD12C4EA105000F7387 /* MessageReactionViewModel.swift in Sources */,
 				2AD061102C29C979008A600C /* SetUnsupportedView.swift in Sources */,
 				2A721F2F2BD6ADAD000A4672 /* SpaceObjectIconPickerView.swift in Sources */,
 				2E28BCF12AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift in Sources */,
@@ -12094,7 +12117,7 @@
 				2A0F66492BFBA07E00F34BBD /* RecentEditCompactListWidgetSubmoduleView.swift in Sources */,
 				2A65E9B22AE1290300D40657 /* InitialCoordinatorView.swift in Sources */,
 				2A35A6C02BBDA5E700CCE4F4 /* LinkToObjectSearchModuleData.swift in Sources */,
-				2AC58CD32C47C3A700A1735F /* MessageBlock.swift in Sources */,
+				2AC58CD32C47C3A700A1735F /* MessageViewData.swift in Sources */,
 				3D3202CE2C2995BC008BD3B0 /* SentryConstants.swift in Sources */,
 				2A35A6AE2BBD809C00CCE4F4 /* WidgetTypeCreateObjectView.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
@@ -12234,6 +12257,7 @@
 				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
 				2A78A9592B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
+				2A0C4CCC2C4E9B16000F7387 /* MessageModuleOutput.swift in Sources */,
 				3D26AA7B2B97505300D61479 /* MembershipTierInfoView.swift in Sources */,
 				861B0FDD2ADD43AA007E3A54 /* EditorCollectionFlowLayout.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,

@@ -2,13 +2,25 @@ import Foundation
 import SwiftUI
 
 struct MessageView: View {
+    let data: MessageViewData
+    weak var output: MessageModuleOutput?
     
-    let id: String
-    let message: String
-    let author: String
-    let authorIcon: Icon?
-    let date: Date
-    let isYourMessage: Bool
+    var body: some View {
+        MessageInternalView(data: data, output: output)
+            .id(data.id)
+    }
+}
+
+private struct MessageInternalView: View {
+        
+    @StateObject private var model: MessageViewModel
+    
+    init(
+        data: MessageViewData,
+        output: MessageModuleOutput? = nil
+    ) {
+        self._model = StateObject(wrappedValue: MessageViewModel(data: data, output: output))
+    }
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
@@ -17,98 +29,66 @@ struct MessageView: View {
             trailingView
         }
         .padding(.horizontal, 8)
+        .task {
+            await model.subscribeOnBlock()
+        }
     }
     
     private var messageBackgorundColor: Color {
-        return isYourMessage ? Color.VeryLight.green : Color.VeryLight.grey
+        return model.isYourMessage ? Color.VeryLight.green : Color.VeryLight.grey
     }
     
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Text(author)
+                Text(model.author)
                     .anytypeStyle(.previewTitle2Medium)
                     .foregroundColor(.Text.primary)
                 Spacer()
-                Text(date.formatted(date: .omitted, time: .shortened))
+                Text(model.date)
                     .anytypeStyle(.caption1Regular)
                     .foregroundColor(.Text.secondary)
             }
-            Text(message)
+            Text(model.message)
                 .anytypeStyle(.bodyRegular)
                 .foregroundColor(.Text.primary)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
         .background(messageBackgorundColor)
-        .cornerRadius(24, style: .continuous)
-        .id(id)
+        .cornerRadius(24, style: .circular)
+        .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 24, style: .circular))
+        .contextMenu {
+            contextMenu
+        }
     }
     
     @ViewBuilder
     private var leadingView: some View {
-        if isYourMessage {
+        if model.isYourMessage {
             Spacer.fixedWidth(32)
         } else {
-            IconView(icon: authorIcon)
+            IconView(icon: model.authorIcon)
                 .frame(width: 32, height: 32)
         }
     }
     
     @ViewBuilder
     private var trailingView: some View {
-        if isYourMessage {
-            IconView(icon: authorIcon)
+        if model.isYourMessage {
+            IconView(icon: model.authorIcon)
                 .frame(width: 32, height: 32)
         } else {
             Spacer.fixedWidth(32)
         }
     }
-}
-
-extension MessageView {
-    init(block: MessageBlock) {
-        self = MessageView(
-            id: block.id,
-            message: block.text,
-            author: block.author.title,
-            authorIcon: block.author.icon.map { .object($0) },
-            date: block.createDate,
-            isYourMessage: block.isYourMessage
-        )
-    }
-}
-
-#Preview("Other") {
-    VStack {
-        MessageView(
-            id: "",
-            message:"I think it’d better not to mix all the conversations",
-            author: "Megh",
-            authorIcon: .image(
-                UIImage.circleImage(
-                    size: CGSize(width: 32, height: 32),
-                    fillColor: .orange,
-                    borderColor: .red,
-                    borderWidth: 1)
-            ),
-            date: Date(),
-            isYourMessage: false
-        )
-        
-        MessageView(
-            id: "",
-            message:"I think it’d better not to mix all the conversations",
-            author: "Megh",
-            authorIcon: .image(
-                UIImage.circleImage(
-                    size: CGSize(width: 32, height: 32),
-                    fillColor: .orange,
-                    borderColor: .red,
-                    borderWidth: 1)
-            ),
-            date: Date.init(timeIntervalSinceNow: -500),
-            isYourMessage: true
-        )
+    
+    @ViewBuilder
+    private var contextMenu: some View {
+        Button {
+            model.onTapAddReaction()
+        } label: {
+            Text("Add Reaction")
+        }
     }
 }
