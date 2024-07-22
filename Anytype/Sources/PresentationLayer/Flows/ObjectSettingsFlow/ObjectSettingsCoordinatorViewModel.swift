@@ -51,7 +51,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func showVersionHistory(document: some BaseDocumentProtocol) {
-        versionHistoryData = VersionHistoryData(document: document)
+        versionHistoryData = VersionHistoryData(id: document.objectId)
     }
     
     func openPageAction(screenData: EditorScreenData) {
