@@ -4,6 +4,7 @@ import SwiftUI
 struct MessageReactionView: View {
     
     @StateObject private var model: MessageReactionViewModel
+    @Environment(\.dismiss) private var dismiss
     
     init(messageId: String) {
         self._model = StateObject(wrappedValue: MessageReactionViewModel(messageId: messageId))
@@ -18,5 +19,8 @@ struct MessageReactionView: View {
         }
         .presentationDragIndicator(.hidden)
         .presentationDetents([.medium, .large])
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
+        }
     }
 }
