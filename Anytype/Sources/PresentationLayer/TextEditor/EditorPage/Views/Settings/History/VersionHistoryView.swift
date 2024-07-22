@@ -6,8 +6,8 @@ struct VersionHistoryView: View {
     @StateObject private var model: VersionHistoryViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: VersionHistoryData) {
-        _model = StateObject(wrappedValue: VersionHistoryViewModel(data: data))
+    init(objectId: String) {
+        _model = StateObject(wrappedValue: VersionHistoryViewModel(objectId: objectId))
     }
     
     var body: some View {

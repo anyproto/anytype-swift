@@ -1,10 +1,6 @@
 import Services
 import SwiftUI
 
-struct VersionHistoryData: Identifiable {
-    let id: String
-}
-
 @MainActor
 final class VersionHistoryViewModel: ObservableObject {
     
@@ -21,8 +17,8 @@ final class VersionHistoryViewModel: ObservableObject {
     @Injected(\.versionHistoryDataBuilder)
     private var versionHistoryDataBuilder: any VersionHistoryDataBuilderProtocol
     
-    init(data: VersionHistoryData) {
-        self.objectId = data.id
+    init(objectId: String) {
+        self.objectId = objectId
     }
     
     func startParticipantsTask() async {
