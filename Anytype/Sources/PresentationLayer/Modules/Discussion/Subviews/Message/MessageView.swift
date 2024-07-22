@@ -88,7 +88,7 @@ private struct MessageInternalView: View {
         Button {
             model.onTapAddReaction()
         } label: {
-            Text("Add Reaction")
+            Text(Loc.Message.Action.addReaction)
         }
     }
 }
