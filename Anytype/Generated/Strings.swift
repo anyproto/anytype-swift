@@ -1843,6 +1843,9 @@ internal enum Loc {
       }
     }
   }
+  internal enum VersionHistory {
+    internal static let title = Loc.tr("Localizable", "VersionHistory.Title")
+  }
   internal enum Wallet {
     internal enum Recovery {
       internal enum Error {
