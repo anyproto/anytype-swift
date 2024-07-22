@@ -45,7 +45,7 @@ struct BottomAlertButtonView: View {
             ForEach(0..<buttons.count, id: \.self) { index in
                 let button = buttons[index]
                 AsyncStandardButton(
-                    text: button.text,
+                    button.text,
                     style: button.standartStyle,
                     action: button.action
                 )

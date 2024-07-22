@@ -118,19 +118,19 @@ struct DebugMenuView: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getGoroutinesData()
             }
-            AsyncStandardButton(text: "Space debug 🪐", style: .secondaryLarge) {
+            AsyncStandardButton("Space debug 🪐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.onSpaceDebug()
             }
             
-            switch model.debugRunProfilerData {
-            case .empty, .done:
-                StandardButton("Run debug profiler 🤓", style: .secondaryLarge) {
-                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                    model.onDebugRunProfiler()
-                }
-            case .inProgress:
-                Text("Profiling in progress ...")
+            StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.onDebugRunProfiler()
+            }
+    
+            AsyncStandardButton("Debug stat 🫵🐭", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.onSpaceDebug()
             }
             
             StandardButton("Export full directory 🤐", style: .secondaryLarge) {

@@ -8,6 +8,15 @@ enum DebugRunProfilerState: Codable {
     case empty
     case inProgress
     case done(url: URL)
+    
+    var text: String {
+        switch self {
+        case .empty, .done:
+            "Run debug profiler 🤓"
+        case .inProgress:
+            "Profiling in progress ..."
+        }
+    }
 }
 
 @MainActor
@@ -122,6 +131,10 @@ final class DebugMenuViewModel: ObservableObject {
     
     func shareUrlContent(url: URL) {
         shareUrlFile = url
+    }
+    
+    func debugStat() async throws {
+        shareUrlFile = try await debugService.debugStat()
     }
     
     // MARK: - Private
