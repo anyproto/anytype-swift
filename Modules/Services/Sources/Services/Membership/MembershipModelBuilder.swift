@@ -99,7 +99,7 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
     }
     
     private func validateMissingProductId(_ productId: String) {
-        #if DEBUG
+        #if DEBUG || ENTERPRISE
         // If dev app uses prod middleware it will receive prod product id, skip this error
         if productId != "io.anytype.membership.tier.builder" {
             anytypeAssertionFailure("Not found product for id \(productId)")
