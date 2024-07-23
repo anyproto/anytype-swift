@@ -11,12 +11,7 @@ protocol VersionHistoryDataBuilderProtocol {
 @MainActor
 final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     
-    private let dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .medium
-        return dateFormatter
-    }()
+    private let dateFormatter = VersionHistoryDateFormatter()
     
     nonisolated init() { }
     
@@ -35,7 +30,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     private func buildDateString(for version: VersionHistory) -> String {
         let timeInterval = Double(version.time)
         let date = Date(timeIntervalSince1970: timeInterval)
-        return dateFormatter.string(from: date)
+        return dateFormatter.localizedString(for: date)
     }
 }
 
