@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Organisering av objekter på et lerret";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Søk";
 "There is no emoji named" = "Det finnes ingen emoji med navnet";
 "Try to find a new one or upload your image" = "Prøv å finne en ny eller last opp bildet ditt";
