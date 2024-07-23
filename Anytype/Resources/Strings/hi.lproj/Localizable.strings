@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "कैनवास पर वस्तुओं की व्यवस्था";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "खोजें";
 "There is no emoji named" = "नाम का कोई इमोजी नहीं है";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
