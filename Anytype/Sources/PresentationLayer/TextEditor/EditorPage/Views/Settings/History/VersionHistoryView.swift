@@ -17,7 +17,7 @@ struct VersionHistoryView: View {
             versions
         }
         .task {
-            await model.startParticipantsTask()
+            await model.startParticipantsSubscription()
         }
         .task {
             await model.getVersions()

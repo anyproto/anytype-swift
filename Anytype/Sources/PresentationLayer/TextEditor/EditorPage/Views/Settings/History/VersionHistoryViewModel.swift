@@ -21,7 +21,7 @@ final class VersionHistoryViewModel: ObservableObject {
         self.objectId = objectId
     }
     
-    func startParticipantsTask() async {
+    func startParticipantsSubscription() async {
         for await participants in activeSpaceParticipantStorage.participantsPublisher.values {
             participantsDict = [:]
             participants.forEach { participant in
