@@ -27,7 +27,7 @@ struct VersionHistoryView: View {
     private var versions: some View {
         PlainList {
             VStack(spacing: 12) {
-                ForEach(model.versionsGroups) { group in
+                ForEach(model.groups) { group in
                     groupContent(for: group)
                 }
             }
