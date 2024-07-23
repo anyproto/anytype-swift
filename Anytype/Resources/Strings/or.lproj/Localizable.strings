@@ -291,6 +291,9 @@
 "Arrangement of objects on a canvas" = "ଏକ କାନଭାସରେ ଅବଜେକ୍ଟର ବ୍ୟବସ୍ଥା ";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "ସନ୍ଧାନ";
 "There is no emoji named" = "କୌଣସି ଇମୋଜି ନାମିତ ନାହିଁ";
 "Try to find a new one or upload your image" = "ଏକ ନୂତନ ଖୋଜିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ଆପଣଙ୍କର ପ୍ରତିଛବି ଅପଲୋଡ୍ କରନ୍ତୁ ";
