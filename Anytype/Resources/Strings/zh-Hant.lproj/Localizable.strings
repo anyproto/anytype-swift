@@ -290,6 +290,9 @@
 "Arrangement of objects on a canvas" = "畫布上的物件排列";
 "ObjectSettings.History.Description" = "物件的所有版本";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "搜尋";
 "There is no emoji named" = "尚無命名的 Emoji";
 "Try to find a new one or upload your image" = "嘗試尋找新的或上傳您的圖片";
