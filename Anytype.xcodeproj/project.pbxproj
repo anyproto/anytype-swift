@@ -1038,6 +1038,8 @@
 		2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */; };
 		2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */; };
 		2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9221A0294B8D4900968750 /* DataViewBlockView.swift */; };
+		2E967CA52C4E92FC00394C09 /* VersionHistoryDataSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA42C4E92FC00394C09 /* VersionHistoryDataSection.swift */; };
+		2E967CA72C4E9AD000394C09 /* VersionHistoryDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */; };
 		2E975EC72874BB18004DE574 /* SetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* SetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* SetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* SetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -2882,6 +2884,8 @@
 		2E9422032C19E15600AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2E9422042C19E15A00AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		2E9422052C19E16200AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LocalizableWidget.strings"; sourceTree = "<group>"; };
+		2E967CA42C4E92FC00394C09 /* VersionHistoryDataSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDataSection.swift; sourceTree = "<group>"; };
+		2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDataBuilder.swift; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* SetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* SetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -7780,6 +7784,8 @@
 			children = (
 				2E7DB96C2C46C0410064F9B2 /* VersionHistoryView.swift */,
 				2E7DB96E2C46C0590064F9B2 /* VersionHistoryViewModel.swift */,
+				2E967CA42C4E92FC00394C09 /* VersionHistoryDataSection.swift */,
+				2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -11522,6 +11528,7 @@
 				860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */,
+				2E967CA52C4E92FC00394C09 /* VersionHistoryDataSection.swift in Sources */,
 				2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */,
 				3DA3C4912C3808B000BBB529 /* UIEditorBarButtonItem.swift in Sources */,
 				2A4BF66D2C21817100A59B40 /* SetObjectWidgetInternalViewModel.swift in Sources */,
@@ -12615,6 +12622,7 @@
 				12FD9D232767177400991886 /* RelationStatus.swift in Sources */,
 				2E7E50402B6D5771003867A3 /* ObjectRelationListViewModel.swift in Sources */,
 				C9432719285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift in Sources */,
+				2E967CA72C4E9AD000394C09 /* VersionHistoryDataBuilder.swift in Sources */,
 				1244794527DC931900581174 /* LegacySearchSectionsBuilder.swift in Sources */,
 				3D6F2D722B87983500AA667B /* PasteboardBlockService.swift in Sources */,
 				C922F68E2860973900DF2EF5 /* SimpleTableCellsBuilder.swift in Sources */,
