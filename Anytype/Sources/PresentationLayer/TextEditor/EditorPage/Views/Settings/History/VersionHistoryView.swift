@@ -26,11 +26,31 @@ struct VersionHistoryView: View {
     
     private var versions: some View {
         PlainList {
-            ForEach(model.versions) { version in
-                itemRow(for: version)
+            VStack(spacing: 12) {
+                ForEach(model.versionsGroups) { group in
+                    groupContent(for: group)
+                }
             }
         }
         .scrollIndicators(.never)
+    }
+    
+    private func groupContent(for group: VersionHistoryDataGroup) -> some View {
+        VersionHistoryGroupContainer(
+            title: group.title,
+            icons: group.icons,
+            content: content(for: group.versions),
+            onHeaderTap: {}
+        )
+        .padding(.horizontal, 20)
+    }
+    
+    private func content(for versions: [[VersionHistoryItem]]) -> some View {
+        ForEach(versions, id: \.self) { versions in
+            if let version = versions.first {
+                itemRow(for: version)
+            }
+        }
     }
     
     private func itemRow(for data: VersionHistoryItem) -> some View {
@@ -48,7 +68,5 @@ struct VersionHistoryView: View {
                 .frame(width: 24, height: 24)
         }
         .padding(.vertical, 9)
-        .newDivider()
-        .padding(.horizontal, 20)
     }
 }

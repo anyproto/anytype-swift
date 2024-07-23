@@ -4,7 +4,7 @@ import Services
 struct VersionHistoryDataGroup: Identifiable, Hashable {
     let title: String
     let icons: [ObjectIcon]
-    let searchData: [VersionHistoryItem]
+    let versions: [[VersionHistoryItem]]
     
     var id: Int { hashValue }
 }

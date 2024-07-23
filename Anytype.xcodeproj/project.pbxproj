@@ -1041,6 +1041,7 @@
 		2E967CA52C4E92FC00394C09 /* VersionHistoryDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA42C4E92FC00394C09 /* VersionHistoryDataGroup.swift */; };
 		2E967CA72C4E9AD000394C09 /* VersionHistoryDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */; };
 		2E967CA92C4FE9A900394C09 /* VersionHistoryDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA82C4FE9A900394C09 /* VersionHistoryDateFormatter.swift */; };
+		2E967CAB2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CAA2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift */; };
 		2E975EC72874BB18004DE574 /* SetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* SetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* SetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* SetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -2888,6 +2889,7 @@
 		2E967CA42C4E92FC00394C09 /* VersionHistoryDataGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDataGroup.swift; sourceTree = "<group>"; };
 		2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDataBuilder.swift; sourceTree = "<group>"; };
 		2E967CA82C4FE9A900394C09 /* VersionHistoryDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDateFormatter.swift; sourceTree = "<group>"; };
+		2E967CAA2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryGroupContainer.swift; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* SetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* SetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -7789,6 +7791,7 @@
 				2E967CA42C4E92FC00394C09 /* VersionHistoryDataGroup.swift */,
 				2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */,
 				2E967CA82C4FE9A900394C09 /* VersionHistoryDateFormatter.swift */,
+				2E967CAA2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -11569,6 +11572,7 @@
 				2E3CCA0B28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
+				2E967CAB2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift in Sources */,
 				125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */,
 				2AC434B02B7A20EF006166BF /* Participant+Extensions.swift in Sources */,
 				2A4919AE295333CF00FCEAC9 /* Color+ComponentColor.swift in Sources */,
