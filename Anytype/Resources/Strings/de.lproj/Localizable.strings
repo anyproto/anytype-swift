@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Anordnung von Objekten auf einer Leinwand";
 "ObjectSettings.History.Description" = "Alle Versionen des Objekts";
 
+// Version history
+"VersionHistory.Title" = "Versionsverlauf";
+
 "Search" = "Suchen";
 "There is no emoji named" = "Es gibt kein Emoji mit dem Namen";
 "Try to find a new one or upload your image" = "Versuche ein neues zu finden oder lade dein Bild hoch";
@@ -980,7 +983,7 @@
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Beitrittsanfrage zurückziehen";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.DoNotCancel" = "Nicht abbrechen";
 "SpaceManager.CancelRequestAlert.Title" = "Du musst die Zugangsanfrage erneut senden";
 "SpaceManager.CancelRequestAlert.Toast" = "Die Anfrage wurde storniert.";
 

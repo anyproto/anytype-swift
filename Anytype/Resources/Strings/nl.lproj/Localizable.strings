@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Ordening van objecten op canvas";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Zoeken";
 "There is no emoji named" = "Er is geen emoji genaamd";
 "Try to find a new one or upload your image" = "Probeer een nieuwe te vinden of upload jouw afbeelding";

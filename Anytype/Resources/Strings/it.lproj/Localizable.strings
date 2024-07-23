@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Disposizione degli oggetti su una tela";
 "ObjectSettings.History.Description" = "Tutte le versioni dell'oggetto";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Cerca";
 "There is no emoji named" = "Non esiste un emoji chiamato";
 "Try to find a new one or upload your image" = "Prova a trovarne uno nuovo o carica la tua immagine";

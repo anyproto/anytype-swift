@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Розташування об'єктів на полотні";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Пошук";
 "There is no emoji named" = "Немає емоджі з такою назвою";
 "Try to find a new one or upload your image" = "Спробуйте знайти нове або завантажте ваше зображення";

@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Susunan balok dalam kanvas";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Telusuri";
 "There is no emoji named" = "Tidak ada emoji bernama";
 "Try to find a new one or upload your image" = "Coba cari yang lain atau unggah gambarmu sendiri";
