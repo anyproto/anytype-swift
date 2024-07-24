@@ -39,8 +39,7 @@ struct VersionHistoryView: View {
         VersionHistoryGroupContainer(
             title: group.title,
             icons: group.icons,
-            content: content(for: group.versions),
-            onHeaderTap: {}
+            content: content(for: group.versions)
         )
         .padding(.horizontal, 20)
     }

@@ -7,13 +7,14 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
     let title: String
     let icons: [ObjectIcon]
     let content: Content
-    let onHeaderTap: (() -> Void)
     
     var body: some View {
         VStack(spacing: 0) {
             header
             content
         }
+        .padding(.top, 4)
+        .padding(.bottom, 8)
         .padding(.horizontal, 16)
         .border(12, color: .Shape.primary, lineWidth: 0.5)
     }
@@ -27,12 +28,7 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
             
             iconsView
         }
-        .padding(.top, 8)
-        .padding(.bottom, 4)
-        .fixTappableArea()
-        .onTapGesture {
-            onHeaderTap()
-        }
+        .padding(.vertical, 4)
     }
     
     private var iconsView: some View {
