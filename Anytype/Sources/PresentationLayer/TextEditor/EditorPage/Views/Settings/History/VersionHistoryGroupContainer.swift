@@ -10,7 +10,6 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
     let isExpanded: Bool
     let headerAction: (() -> Void)
     
-    
     var body: some View {
         VStack(spacing: 0) {
             header
