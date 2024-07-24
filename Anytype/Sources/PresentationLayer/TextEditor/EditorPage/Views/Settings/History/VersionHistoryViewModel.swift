@@ -5,10 +5,13 @@ import SwiftUI
 final class VersionHistoryViewModel: ObservableObject {
     
     @Published var groups = [VersionHistoryDataGroup]()
+    @Published var expandedGroups: Set<String> = []
     
     private let objectId: String
     private var rawVersions = [VersionHistory]()
     private var participantsDict = [String: Participant]()
+    
+    private var firstOpen = true
     
     @Injected(\.historyVersionsService)
     private var historyVersionsService: any HistoryVersionsServiceProtocol
@@ -40,8 +43,31 @@ final class VersionHistoryViewModel: ObservableObject {
         }
     }
     
-    func updateView() {
+    func onGroupTap(_ group: VersionHistoryDataGroup) {
+        if expandedGroups.contains(group.title) {
+            expandedGroups.remove(group.title)
+        } else {
+            expandedGroups.insert(group.title)
+        }
+    }
+    
+    private func updateView() {
         guard rawVersions.isNotEmpty, !participantsDict.keys.isEmpty else { return }
+        
+        updateExpandedGroupsOnFirstOpen()
         groups = versionHistoryDataBuilder.buildData(for: rawVersions, participants: participantsDict)
+    }
+    
+    private func updateExpandedGroupsOnFirstOpen() {
+        guard firstOpen else { return }
+        
+        if let firstGroupKey = versionHistoryDataBuilder.buildFirstGroupKey(
+            for: rawVersions,
+            participants: participantsDict
+        ) {
+            expandedGroups.insert(firstGroupKey)
+        }
+        
+        firstOpen = false
     }
 }
