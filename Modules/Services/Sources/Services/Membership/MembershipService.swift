@@ -6,7 +6,6 @@ import StoreKit
 
 public enum MembershipServiceError: Error {
     case tierNotFound
-    case forcefullyFailedValidation
     case invalidBillingIdFormat
 }
 
@@ -113,9 +112,7 @@ final class MembershipService: MembershipServiceProtocol {
     }
     
     public func verifyReceipt(receipt: String) async throws {
-        guard !FeatureFlags.failReceiptValidation else {
-            throw MembershipServiceError.forcefullyFailedValidation
-        }
+        let receipt = FeatureFlags.failReceiptValidation ? "Completely Broken Receipt" : receipt
         
         try await ClientCommands.membershipVerifyAppStoreReceipt(.with {
             $0.receipt = receipt
