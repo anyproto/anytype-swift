@@ -1046,8 +1046,10 @@
 		2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */; };
 		2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */; };
 		2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9221A0294B8D4900968750 /* DataViewBlockView.swift */; };
-		2E967CA52C4E92FC00394C09 /* VersionHistoryDataSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA42C4E92FC00394C09 /* VersionHistoryDataSection.swift */; };
+		2E967CA52C4E92FC00394C09 /* VersionHistoryDataGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA42C4E92FC00394C09 /* VersionHistoryDataGroup.swift */; };
 		2E967CA72C4E9AD000394C09 /* VersionHistoryDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */; };
+		2E967CA92C4FE9A900394C09 /* VersionHistoryDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CA82C4FE9A900394C09 /* VersionHistoryDateFormatter.swift */; };
+		2E967CAB2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E967CAA2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift */; };
 		2E975EC72874BB18004DE574 /* SetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* SetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* SetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* SetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -2900,8 +2902,10 @@
 		2E9422032C19E15600AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2E9422042C19E15A00AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
 		2E9422052C19E16200AD05C2 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LocalizableWidget.strings"; sourceTree = "<group>"; };
-		2E967CA42C4E92FC00394C09 /* VersionHistoryDataSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDataSection.swift; sourceTree = "<group>"; };
+		2E967CA42C4E92FC00394C09 /* VersionHistoryDataGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDataGroup.swift; sourceTree = "<group>"; };
 		2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDataBuilder.swift; sourceTree = "<group>"; };
+		2E967CA82C4FE9A900394C09 /* VersionHistoryDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryDateFormatter.swift; sourceTree = "<group>"; };
+		2E967CAA2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryGroupContainer.swift; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* SetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* SetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -7824,8 +7828,10 @@
 			children = (
 				2E7DB96C2C46C0410064F9B2 /* VersionHistoryView.swift */,
 				2E7DB96E2C46C0590064F9B2 /* VersionHistoryViewModel.swift */,
-				2E967CA42C4E92FC00394C09 /* VersionHistoryDataSection.swift */,
+				2E967CA42C4E92FC00394C09 /* VersionHistoryDataGroup.swift */,
 				2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */,
+				2E967CA82C4FE9A900394C09 /* VersionHistoryDateFormatter.swift */,
+				2E967CAA2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -11569,7 +11575,7 @@
 				860B8F8F2AF8D7EE00000811 /* EditorPageViewModel+ChangeType.swift in Sources */,
 				C9A7528328E3297000235BDE /* SharedContants.swift in Sources */,
 				2AD741352994F19B004BD223 /* ApplicationStateService.swift in Sources */,
-				2E967CA52C4E92FC00394C09 /* VersionHistoryDataSection.swift in Sources */,
+				2E967CA52C4E92FC00394C09 /* VersionHistoryDataGroup.swift in Sources */,
 				2AAA09052AEAB71900A446B8 /* SpaceSwitchCoordinatorView.swift in Sources */,
 				3DA3C4912C3808B000BBB529 /* UIEditorBarButtonItem.swift in Sources */,
 				2A4BF66D2C21817100A59B40 /* SetObjectWidgetInternalViewModel.swift in Sources */,
@@ -11607,6 +11613,7 @@
 				2E3CCA0B28CFBBA4003C71A2 /* SwiftUIEditorSyncStatusItem.swift in Sources */,
 				0A09661825C0AB4F00C004BD /* BaseDocument.swift in Sources */,
 				EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */,
+				2E967CAB2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift in Sources */,
 				125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */,
 				2AC434B02B7A20EF006166BF /* Participant+Extensions.swift in Sources */,
 				2A4919AE295333CF00FCEAC9 /* Color+ComponentColor.swift in Sources */,
@@ -12404,6 +12411,7 @@
 				2ABFED9428C9D784008B5C03 /* RelationDetailsStorageProtocol.swift in Sources */,
 				3DD112962B95EA24007682F4 /* MembershipCoordinator.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
+				2E967CA92C4FE9A900394C09 /* VersionHistoryDateFormatter.swift in Sources */,
 				2E6CF1602BE111C7002C7023 /* RelationsSearchCoordinatorView.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
 				53F7441927F4A119005C9BB0 /* AnytypePopupViewModel.swift in Sources */,

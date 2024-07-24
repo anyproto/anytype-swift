@@ -4,7 +4,7 @@ import SwiftUI
 @MainActor
 final class VersionHistoryViewModel: ObservableObject {
     
-    @Published var versions = [VersionHistoryItem]()
+    @Published var groups = [VersionHistoryDataGroup]()
     
     private let objectId: String
     private var rawVersions = [VersionHistory]()
@@ -36,12 +36,12 @@ final class VersionHistoryViewModel: ObservableObject {
             rawVersions = try await historyVersionsService.getVersions(objectId: objectId)
             updateView()
         } catch {
-            versions = []
+            groups = []
         }
     }
     
     func updateView() {
         guard rawVersions.isNotEmpty, !participantsDict.keys.isEmpty else { return }
-        versions = versionHistoryDataBuilder.buildData(for: rawVersions, participants: participantsDict)
+        groups = versionHistoryDataBuilder.buildData(for: rawVersions, participants: participantsDict)
     }
 }
