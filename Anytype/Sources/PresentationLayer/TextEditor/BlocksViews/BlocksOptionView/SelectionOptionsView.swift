@@ -36,7 +36,7 @@ private struct SelectionOptionsItemView: View {
             Image(asset: imageAsset)
                 .foregroundColor(.Button.active)
                 .frame(width: 52, height: 52)
-                .background(Color.Background.highlightedOfSelected)
+                .background(Color.Background.highlightedMedium)
                 .cornerRadius(10.5)
             AnytypeText(title, style: .caption2Regular)
                 .foregroundColor(.Text.secondary)

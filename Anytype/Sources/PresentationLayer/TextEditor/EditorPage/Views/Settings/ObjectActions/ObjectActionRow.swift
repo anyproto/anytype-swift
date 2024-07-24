@@ -16,7 +16,7 @@ struct ObjectActionRow: View {
                 Image(asset: icon)
                     .foregroundColor(.Button.active)
                     .frame(width: 52, height: 52)
-                    .background(Color.Background.highlightedOfSelected)
+                    .background(Color.Background.highlightedMedium)
                     .cornerRadius(10)
                 Text("")
                     .overlay {

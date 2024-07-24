@@ -150,7 +150,8 @@ extension UIColor.Background {
         name: "Background",
         colors: [
             ColorInfo(name: "black", color: UIColor.Background.black), 
-            ColorInfo(name: "highlightedOfSelected", color: UIColor.Background.highlightedOfSelected), 
+            ColorInfo(name: "highlightedLight", color: UIColor.Background.highlightedLight), 
+            ColorInfo(name: "highlightedMedium", color: UIColor.Background.highlightedMedium), 
             ColorInfo(name: "material", color: UIColor.Background.material), 
             ColorInfo(name: "primary", color: UIColor.Background.primary), 
             ColorInfo(name: "secondary", color: UIColor.Background.secondary)
