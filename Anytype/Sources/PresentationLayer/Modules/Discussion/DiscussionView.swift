@@ -13,7 +13,7 @@ struct DiscussionView: View {
             DiscussionScrollView(position: $model.scrollViewPosition) {
                 LazyVStack(spacing: 12) {
                     ForEach(model.mesageBlocks, id: \.id) {
-                        MessageView(block: $0)
+                        MessageView(data: $0, output: model)
                     }
                 }
                 .padding(.vertical, 16)
@@ -21,9 +21,6 @@ struct DiscussionView: View {
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 inputPanel
             }
-        }
-        .task {
-            await model.subscribeForParticipants()
         }
         .task {
             await model.subscribeForBlocks()

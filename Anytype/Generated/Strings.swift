@@ -1044,6 +1044,11 @@ internal enum Loc {
       internal static let placeholder = Loc.tr("Localizable", "Mention.Subtitle.Placeholder")
     }
   }
+  internal enum Message {
+    internal enum Action {
+      internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction")
+    }
+  }
   internal enum Object {
     internal enum Deleted {
       internal static let placeholder = Loc.tr("Localizable", "Object.Deleted.Placeholder")

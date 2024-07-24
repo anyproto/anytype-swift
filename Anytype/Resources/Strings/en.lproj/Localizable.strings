@@ -1189,3 +1189,6 @@ Please provide specific details of your needs here.";
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
 "Debug.Info" = "Debug Info";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
