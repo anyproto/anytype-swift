@@ -94,7 +94,7 @@ final class SettingsViewModel: ObservableObject {
         
         await subscriptionService.startSubscription(
             subId: subAccountId,
-            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
+            objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }
