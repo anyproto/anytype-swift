@@ -159,8 +159,8 @@ final class EditorSetViewModel: ObservableObject {
     private var textServiceHandler: any TextServiceProtocol
     @Injected(\.groupsSubscriptionsHandler)
     private var groupsSubscriptionsHandler: any GroupsSubscriptionsHandlerProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.setSubscriptionDataBuilder)
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
@@ -203,7 +203,7 @@ final class EditorSetViewModel: ObservableObject {
             self?.output?.showIconPicker(document: document)
         }
         
-        syncStatusData = SyncStatusData(status: .offline, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
+        syncStatusData = SyncStatusData(status: .offline, networkId: accountManager.account.info.networkId, isHidden: false)
         
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
@@ -304,7 +304,7 @@ final class EditorSetViewModel: ObservableObject {
         case .syncStatus(let status):
             syncStatusData = SyncStatusData(
                 status: status.syncStatus,
-                networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+                networkId: accountManager.account.info.networkId,
                 isHidden: false
             )
         }
