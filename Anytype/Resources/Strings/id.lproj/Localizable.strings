@@ -287,10 +287,10 @@
 "Background picture" = "Gambar latar belakang";
 "Layout" = "Tata letak";
 "Arrangement of objects on a canvas" = "Susunan balok dalam kanvas";
-"ObjectSettings.History.Description" = "All versions of object";
+"ObjectSettings.History.Description" = "Semua versi objek ini";
 
 // Version history
-"VersionHistory.Title" = "Version History";
+"VersionHistory.Title" = "Riwayat Versi";
 
 "Search" = "Telusuri";
 "There is no emoji named" = "Tidak ada emoji bernama";
@@ -509,7 +509,7 @@
 "Set.View.Empty.Subtitle" = "Tambahkan pencarian kueri untuk mengumpulkan objek dengan tipe dan relasi yang sama dalam mode langsung";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
+"Set.View.UnsupportedAlert" = "Tampilan ini belum didukung di perangkat mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Pilih kueri";
@@ -617,12 +617,12 @@
 "Node is not connected" = "Simpul tidak terhubung";
 "Initializing sync" = "Memulai sinkron";
 "Incompatible version" = "Incompatible version";
-"Connecting" = "Connecting...";
+"Connecting" = "Menghubungkan …";
 "P2P Connecting" = "P2P Connecting...";
 "P2P Connection" = "P2P Connection";
-"Anytype Network" = "Anytype Network";
-"Self Host" = "Self Host";
-"Local Only" = "Local Only";
+"Anytype Network" = "Jaringan Anytype";
+"Self Host" = "Swaladen";
+"Local Only" = "Hanya lokal";
 "Synced" = "Tersinkron";
 "No connection" = "Tak ada koneksi";
 "Deleted" = "Terhapus";
@@ -808,11 +808,11 @@
 "Widgets.Layout.List.Title" = "Daftar";
 "Widgets.Layout.CompactList.Title" = "Daftar padat";
 "Widgets.Layout.View.Title" = "Tampilan";
-"Widgets.Layout.Link.Description" = "Compact widget view";
-"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
-"Widgets.Layout.List.Description" = "Widget with a list view";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
-"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
+"Widgets.Layout.Link.Description" = "Tampilan gawit ringkas";
+"Widgets.Layout.Tree.Description" = "Gawit dengan struktur hierarkis";
+"Widgets.Layout.List.Description" = "Gawit dengan tampilan daftar";
+"Widgets.Layout.View.Description" = "Gawit dengan tata letak Set atau Koleksi";
+"Widgets.Layout.CompactList.Description" = "Gawit dengan tampilan daftar ringkas";
 "Widgets.Empty.Title" = "Tidak ada objek di sini";
 "Widgets.Empty.CreateObject" = "Buat Objek";
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
@@ -820,7 +820,7 @@
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
 "Widgets.AppUpdate" = "Anytype siap diperbarui";
 "Widgets.Source.Library" = "Default sets";
-"Widgets.Source.Objects" = "Your objects";
+"Widgets.Source.Objects" = "Objekmu";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";
@@ -1177,12 +1177,12 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "Pencadangan data dimatikan";
+"SyncStatus.Info.AnytypeNetwork" = "Terenkripsi end-to-end";
+"SyncStatus.Error.storageLimitExceed" = "Batas penyimpanan tercapai";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
-"SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.Error.networkError" = "Tidak ada akses ke ruang";
+"SyncStatus.Error.UNRECOGNIZED" = "Galat tak dikenali";
 "SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
 
 
