@@ -43,8 +43,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     // MARK: - ObjectTypeProviderProtocol
     
     func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never> {
-        return $defaultObjectTypes
-            .compactMap { [weak self] storage in try? self?.defaultObjectType(storage: storage, spaceId: spaceId) }
+        return $defaultObjectTypes.combineLatest(syncPublisher)
+            .compactMap { [weak self] storage, _ in try? self?.defaultObjectType(storage: storage, spaceId: spaceId) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
@@ -54,12 +54,6 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     func setDefaultObjectType(type: ObjectType, spaceId: String, route: AnalyticsDefaultObjectTypeChangeRoute) {
-        if !objectTypes.contains(where: { $0.id == type.id }) {
-            // Fix: When a new type is added via default object type menu we are lacking type data at this point.
-            // Save it explicitly
-            objectTypes.append(type)
-        }
-        
         defaultObjectTypes[spaceId] = type.id
         AnytypeAnalytics.instance().logDefaultObjectTypeChange(type.analyticsType, route: route)
     }
