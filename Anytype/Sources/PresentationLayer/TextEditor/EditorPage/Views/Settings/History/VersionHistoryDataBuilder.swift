@@ -39,21 +39,21 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
         for (key, versions) in versionsByDay {
             var versionsByAuthor = [VersionHistory]()
             var versionsByAuthors = [[VersionHistory]]()
+            var lastParticipantId = versions.first?.authorID
             
             for version in versions {
-                let lastParticipantId = versionsByAuthor.last?.authorID
                 if let lastParticipantId, lastParticipantId == version.authorID {
                     versionsByAuthor.append(version)
                 } else {
-                    if versionsByAuthor.isNotEmpty {
-                        versionsByAuthors.append(versionsByAuthor)
-                    }
+                    versionsByAuthors.append(versionsByAuthor)
                     versionsByAuthor = [version]
                 }
                 
                 if version == versions.last {
                     versionsByAuthors.append(versionsByAuthor)
                 }
+                
+                lastParticipantId = version.authorID
             }
             
             versionsByDayByAuthor[key] = versionsByAuthors
@@ -98,11 +98,6 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
         )
     }
     
-    private func buildDate(for version: VersionHistory) -> Date {
-        let timeInterval = Double(version.time)
-        return Date(timeIntervalSince1970: timeInterval)
-    }
-    
     private func buildDateString(for version: VersionHistory) -> String {
         let date = buildDate(for: version)
         return dateFormatter.localizedString(for: date)
@@ -111,6 +106,11 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     private func buildTimeString(for version: VersionHistory) -> String {
         let date = buildDate(for: version)
         return timeFormatter.string(from: date)
+    }
+    
+    private func buildDate(for version: VersionHistory) -> Date {
+        let timeInterval = Double(version.time)
+        return Date(timeIntervalSince1970: timeInterval)
     }
 }
 
