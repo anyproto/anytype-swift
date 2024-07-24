@@ -23,57 +23,64 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     nonisolated init() { }
     
     func buildData(for versions: [VersionHistory], participants: [String: Participant]) -> [VersionHistoryDataGroup] {
-        var groups = [VersionHistoryDataGroup]()
-        var currentDate: Date?
-        var currentParticipant: Participant?
-        var groupIcons: OrderedSet<ObjectIcon> = []
-        var currentVersions = [VersionHistoryItem]()
-        var allVersions = [[VersionHistoryItem]]()
+        
+        var versionsByDay: OrderedDictionary<String, [VersionHistory]> = [:]
         
         for version in versions {
-            if let participant = participants[version.authorID] {
-                
-                // set participant for the first time
-                if currentParticipant.isNil {
-                    currentParticipant = participant
-                    if let icon = currentParticipant?.icon {
-                        groupIcons.append(icon)
-                    }
-                }
-                
-                let versionDate = buildDate(for: version)
-                
-                if currentDate.isNil {
-                    currentDate = versionDate
-                }
-                
-                if let currentDate, dateFormatter.isDate(versionDate, inSameDayAs: currentDate) {
-                    if let currentParticipant, participant == currentParticipant {
-                        currentVersions.append(buildVersionHistoryItem(for: version, participant: participant))
-                    } else {
-                        allVersions.append(currentVersions)
-                        currentVersions = []
-                        currentParticipant = participant
-                        if let icon = currentParticipant?.icon {
-                            groupIcons.append(icon)
-                        }
-                    }
+            guard participants[version.authorID].isNotNil else { continue }
+            let versionDateString = buildDateString(for: version)
+            versionsByDay[versionDateString, default: []].append(version)
+        }
+        
+        var versionsByDayByAuthor: OrderedDictionary<String, [[VersionHistory]]> = [:]
+        
+        for (key, versions) in versionsByDay {
+            var versionsByAuthor = [VersionHistory]()
+            var versionsByAuthors = [[VersionHistory]]()
+            
+            for version in versions {
+                let lastParticipantId = versionsByAuthor.last?.authorID
+                if let lastParticipantId, lastParticipantId == version.authorID {
+                    versionsByAuthor.append(version)
                 } else {
-                    currentVersions.append(buildVersionHistoryItem(for: version, participant: participant))
-                    allVersions.append(currentVersions)
-                    groups.append(
-                        VersionHistoryDataGroup(
-                            title: buildDateString(for: version),
-                            icons: groupIcons.elements,
-                            versions: allVersions
-                        )
-                    )
-                    currentDate = versionDate
-                    groupIcons = []
-                    currentVersions = []
-                    allVersions = []
+                    if versionsByAuthor.isNotEmpty {
+                        versionsByAuthors.append(versionsByAuthor)
+                    }
+                    versionsByAuthor = [version]
+                }
+                
+                if version == versions.last {
+                    versionsByAuthors.append(versionsByAuthor)
                 }
             }
+            
+            versionsByDayByAuthor[key] = versionsByAuthors
+        }
+        
+        var groups = [VersionHistoryDataGroup]()
+        
+        for (key, values) in versionsByDayByAuthor {
+            var versionsByAuthors = [[VersionHistoryItem]]()
+            var groupIcons: OrderedSet<ObjectIcon> = []
+            
+            for versions in values {
+                let versionsByAuthor = versions.compactMap { version -> VersionHistoryItem? in
+                    guard let participant = participants[version.authorID] else { return nil }
+                    if let icon = participant.icon {
+                        groupIcons.append(icon)
+                    }
+                    return buildVersionHistoryItem(for: version, participant: participant)
+                }
+                versionsByAuthors.append(versionsByAuthor)
+            }
+            
+            groups.append(
+                VersionHistoryDataGroup(
+                    title: key,
+                    icons: groupIcons.elements,
+                    versions: versionsByAuthors
+                )
+            )
         }
         
         return groups
