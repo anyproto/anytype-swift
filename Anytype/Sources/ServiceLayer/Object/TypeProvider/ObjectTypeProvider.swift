@@ -43,8 +43,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     // MARK: - ObjectTypeProviderProtocol
     
     func defaultObjectTypePublisher(spaceId: String) -> AnyPublisher<ObjectType, Never> {
-        return $defaultObjectTypes
-            .compactMap { [weak self] storage in try? self?.defaultObjectType(storage: storage, spaceId: spaceId) }
+        return $defaultObjectTypes.combineLatest(syncPublisher)
+            .compactMap { [weak self] storage, _ in try? self?.defaultObjectType(storage: storage, spaceId: spaceId) }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
