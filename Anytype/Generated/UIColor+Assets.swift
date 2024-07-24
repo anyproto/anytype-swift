@@ -91,7 +91,8 @@ extension UIColor {
     // MARK: - Background
     enum Background {
       internal static let black = UIColor(asset: Asset.Background.black)
-      internal static let highlightedOfSelected = UIColor(asset: Asset.Background.highlightedOfSelected)
+      internal static let highlightedLight = UIColor(asset: Asset.Background.highlightedLight)
+      internal static let highlightedMedium = UIColor(asset: Asset.Background.highlightedMedium)
       internal static let material = UIColor(asset: Asset.Background.material)
       internal static let primary = UIColor(asset: Asset.Background.primary)
       internal static let secondary = UIColor(asset: Asset.Background.secondary)

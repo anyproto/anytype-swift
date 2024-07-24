@@ -20,7 +20,7 @@ struct SetSortRow: View {
         HStack {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color.Background.highlightedOfSelected)
+                    .foregroundColor(Color.Background.highlightedMedium)
                 Image(asset: configuration.iconAsset)
                     .foregroundColor(.Button.active)
             }
