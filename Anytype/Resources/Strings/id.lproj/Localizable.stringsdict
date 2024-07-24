@@ -5,7 +5,7 @@
     <key>Items syncing</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@item@ syncing...</string>
+      <string>Menyinkonkan %#@item@...</string>
       <key>item</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
