@@ -14,7 +14,7 @@ struct DiscussionCoordinatorView: View {
                 BlockObjectSearchView(data: $0)
             }
             .sheet(item: $model.showEmojiForMessageId) {
-                MessageReactionView(messageId: $0.value)
+                MessageReactionPickerView(messageId: $0.value)
             }
     }
 }

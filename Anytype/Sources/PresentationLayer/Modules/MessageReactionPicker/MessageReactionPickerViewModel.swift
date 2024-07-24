@@ -1,6 +1,6 @@
 import Foundation
 
-final class MessageReactionViewModel: ObservableObject {
+final class MessageReactionPickerViewModel: ObservableObject {
     
     private let messageId: String
     
