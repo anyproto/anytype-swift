@@ -52,8 +52,8 @@ private struct MessageInternalView: View {
             Text(model.message)
                 .anytypeStyle(.bodyRegular)
                 .foregroundColor(.Text.primary)
-            Spacer.fixedHeight(8)
             if model.reactions.isNotEmpty {
+                Spacer.fixedHeight(8)
                 MessageReactionList(rows: model.reactions) { reaction in
                     model.onTapReaction(reaction)
                 } onTapAdd: {
