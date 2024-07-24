@@ -86,15 +86,6 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
         return groups
     }
     
-    private func buildVersionHistoryGroup(for version: VersionHistory, participant: Participant) -> VersionHistoryItem {
-        VersionHistoryItem(
-            id: version.id,
-            time: buildTimeString(for: version),
-            author: participant.localName,
-            icon: participant.icon
-        )
-    }
-    
     private func buildVersionHistoryItem(for version: VersionHistory, participant: Participant) -> VersionHistoryItem {
         VersionHistoryItem(
             id: version.id,
