@@ -21,6 +21,7 @@ struct ObjectPermissions: Equatable {
     var canApplyTemplates: Bool = false
     var canShare: Bool = false
     var canEditBlocks: Bool = false
+    var canShowVersionHistory: Bool = false
     var editBlocks: EditBlocksPermission = .readonly(.restrictions)
 }
 
@@ -82,6 +83,8 @@ extension ObjectPermissions {
         }
         
         self.canEditBlocks = editBlocks.canEdit
+        self.canShowVersionHistory = details.isVisibleLayout
+                                    && details.layoutValue != .participant
     }
 }
 
