@@ -17,6 +17,7 @@ final class MessageViewModel: ObservableObject {
     @Published var authorIcon: Icon?
     @Published var date: String = ""
     @Published var isYourMessage: Bool = false
+    @Published var reactions: [MessageReactionModel] = []
     
     init(data: MessageViewData, output: MessageModuleOutput?) {
         self.data = data
@@ -35,6 +36,25 @@ final class MessageViewModel: ObservableObject {
         output?.didSelectAddReaction(messageId: data.blockId)
     }
     
+    func onTapReaction(_ reaction: MessageReactionModel) {
+        // TODO: Temporary code. Integrate middleware
+        guard let index = reactions.firstIndex(where: { $0.emoji == reaction.emoji }) else { return }
+        var newReaction = reaction
+        if reaction.selected {
+            newReaction.selected = false
+            newReaction.count -= 1
+        } else {
+            newReaction.selected = true
+            newReaction.count += 1
+        }
+        
+        if newReaction.count <= 0 {
+            reactions.remove(at: index)
+        } else {
+            reactions[index] = newReaction
+        }
+    }
+    
     private func updateView(block: BlockInformation, textContent: BlockText) {
         let participant = participantsStorage.participants.first
         
@@ -43,5 +63,13 @@ final class MessageViewModel: ObservableObject {
         authorIcon = participant?.icon.map { .object($0) }
         date = Date().formatted(date: .omitted, time: .shortened)
         isYourMessage = data.relativeIndex % 2 == 0
+        let reactionsCount = data.relativeIndex % 5
+        reactions = [
+            MessageReactionModel(emoji: "😍", count: 2, selected: false),
+            MessageReactionModel(emoji: "😗", count: 50, selected: true),
+            MessageReactionModel(emoji: "😎", count: 150, selected: false),
+            MessageReactionModel(emoji: "🤓", count: 4, selected: true),
+            MessageReactionModel(emoji: "👨‍🍳", count: 24, selected: false)
+        ].suffix(reactionsCount)
     }
 }

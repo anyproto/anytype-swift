@@ -1,13 +1,13 @@
 import Foundation
 import SwiftUI
 
-struct MessageReactionView: View {
+struct MessageReactionPickerView: View {
     
-    @StateObject private var model: MessageReactionViewModel
+    @StateObject private var model: MessageReactionPickerViewModel
     @Environment(\.dismiss) private var dismiss
     
     init(messageId: String) {
-        self._model = StateObject(wrappedValue: MessageReactionViewModel(messageId: messageId))
+        self._model = StateObject(wrappedValue: MessageReactionPickerViewModel(messageId: messageId))
     }
     
     var body: some View {

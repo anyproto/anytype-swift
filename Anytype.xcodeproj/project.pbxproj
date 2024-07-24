@@ -287,8 +287,8 @@
 		2A0BAD3129E020A3005BC5D9 /* Task+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */; };
 		2A0BAD3329E020D7005BC5D9 /* View+Autofocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */; };
 		2A0C4CCC2C4E9B16000F7387 /* MessageModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CCB2C4E9B16000F7387 /* MessageModuleOutput.swift */; };
-		2A0C4CCF2C4EA0D4000F7387 /* MessageReactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CCE2C4EA0D4000F7387 /* MessageReactionView.swift */; };
-		2A0C4CD12C4EA105000F7387 /* MessageReactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CD02C4EA105000F7387 /* MessageReactionViewModel.swift */; };
+		2A0C4CCF2C4EA0D4000F7387 /* MessageReactionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CCE2C4EA0D4000F7387 /* MessageReactionPickerView.swift */; };
+		2A0C4CD12C4EA105000F7387 /* MessageReactionPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CD02C4EA105000F7387 /* MessageReactionPickerViewModel.swift */; };
 		2A0C4CD32C4EA2FB000F7387 /* MessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C4CD22C4EA2FB000F7387 /* MessageViewModel.swift */; };
 		2A0F40312BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F402F2BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift */; };
 		2A0F40322BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F40302BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift */; };
@@ -458,6 +458,10 @@
 		2A4E3F862BC7C81200724DBF /* BinConfirmationAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E3F852BC7C81200724DBF /* BinConfirmationAlertModel.swift */; };
 		2A4E5C8A296C0BAD002BB71B /* HomeBottomPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */; };
 		2A4E99E82B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */; };
+		2A4F81F32C50E8A600DEE559 /* MessageReactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81F22C50E8A600DEE559 /* MessageReactionView.swift */; };
+		2A4F81F52C50EA4C00DEE559 /* MessageReactionAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81F42C50EA4C00DEE559 /* MessageReactionAddView.swift */; };
+		2A4F81F82C5103EE00DEE559 /* MessageReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81F72C5103EE00DEE559 /* MessageReactionModel.swift */; };
+		2A4F81FA2C51046000DEE559 /* MessageReactionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81F92C51046000DEE559 /* MessageReactionList.swift */; };
 		2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; };
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A4FFBC4289D4B55004938DF /* InvocationMesagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */; };
@@ -2110,8 +2114,8 @@
 		2A0BAD3029E020A3005BC5D9 /* Task+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extensions.swift"; sourceTree = "<group>"; };
 		2A0BAD3229E020D7005BC5D9 /* View+Autofocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Autofocus.swift"; sourceTree = "<group>"; };
 		2A0C4CCB2C4E9B16000F7387 /* MessageModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModuleOutput.swift; sourceTree = "<group>"; };
-		2A0C4CCE2C4EA0D4000F7387 /* MessageReactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionView.swift; sourceTree = "<group>"; };
-		2A0C4CD02C4EA105000F7387 /* MessageReactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionViewModel.swift; sourceTree = "<group>"; };
+		2A0C4CCE2C4EA0D4000F7387 /* MessageReactionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionPickerView.swift; sourceTree = "<group>"; };
+		2A0C4CD02C4EA105000F7387 /* MessageReactionPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionPickerViewModel.swift; sourceTree = "<group>"; };
 		2A0C4CD22C4EA2FB000F7387 /* MessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewModel.swift; sourceTree = "<group>"; };
 		2A0F402F2BAC1EB1002D8D37 /* DeleteSharingLinkAlertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSharingLinkAlertModel.swift; sourceTree = "<group>"; };
 		2A0F40302BAC1EB1002D8D37 /* DeleteSharingLinkAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteSharingLinkAlert.swift; sourceTree = "<group>"; };
@@ -2291,6 +2295,10 @@
 		2A4E3F852BC7C81200724DBF /* BinConfirmationAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinConfirmationAlertModel.swift; sourceTree = "<group>"; };
 		2A4E5C89296C0BAD002BB71B /* HomeBottomPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBottomPanelView.swift; sourceTree = "<group>"; };
 		2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCreationCoordinatorOutput.swift; sourceTree = "<group>"; };
+		2A4F81F22C50E8A600DEE559 /* MessageReactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionView.swift; sourceTree = "<group>"; };
+		2A4F81F42C50EA4C00DEE559 /* MessageReactionAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionAddView.swift; sourceTree = "<group>"; };
+		2A4F81F72C5103EE00DEE559 /* MessageReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionModel.swift; sourceTree = "<group>"; };
+		2A4F81F92C51046000DEE559 /* MessageReactionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionList.swift; sourceTree = "<group>"; };
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
 		2A5024FE2BBE9A4700A141B8 /* ObjectSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchView.swift; sourceTree = "<group>"; };
@@ -5292,8 +5300,8 @@
 		2A0C4CCD2C4EA0BF000F7387 /* MessageReactionPicker */ = {
 			isa = PBXGroup;
 			children = (
-				2A0C4CCE2C4EA0D4000F7387 /* MessageReactionView.swift */,
-				2A0C4CD02C4EA105000F7387 /* MessageReactionViewModel.swift */,
+				2A0C4CCE2C4EA0D4000F7387 /* MessageReactionPickerView.swift */,
+				2A0C4CD02C4EA105000F7387 /* MessageReactionPickerViewModel.swift */,
 			);
 			path = MessageReactionPicker;
 			sourceTree = "<group>";
@@ -5923,6 +5931,17 @@
 			path = HomeBottomPanel;
 			sourceTree = "<group>";
 		};
+		2A4F81F62C5103DC00DEE559 /* Reaction */ = {
+			isa = PBXGroup;
+			children = (
+				2A4F81F22C50E8A600DEE559 /* MessageReactionView.swift */,
+				2A4F81F42C50EA4C00DEE559 /* MessageReactionAddView.swift */,
+				2A4F81F72C5103EE00DEE559 /* MessageReactionModel.swift */,
+				2A4F81F92C51046000DEE559 /* MessageReactionList.swift */,
+			);
+			path = Reaction;
+			sourceTree = "<group>";
+		};
 		2A4FFBBC289D1B64004938DF /* MiddlewareHandler */ = {
 			isa = PBXGroup;
 			children = (
@@ -6440,6 +6459,7 @@
 		2A8317772C46B88200C2D369 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				2A4F81F62C5103DC00DEE559 /* Reaction */,
 				2AC58CD12C47C39900A1735F /* Message */,
 				2A4191E42C36924E00117FB8 /* Input */,
 				2A8317782C46B89900C2D369 /* DiscussionLinkInputView.swift */,
@@ -11338,7 +11358,7 @@
 				EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */,
 				2A0F40382BAD74A6002D8D37 /* SpaceLeaveAlertModel.swift in Sources */,
 				2EAFEE5E2BEA751100DB190C /* GlobalSearchDataBuilder.swift in Sources */,
-				2A0C4CCF2C4EA0D4000F7387 /* MessageReactionView.swift in Sources */,
+				2A0C4CCF2C4EA0D4000F7387 /* MessageReactionPickerView.swift in Sources */,
 				2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */,
 				2AE942C6294713F8005BAD1F /* KeyboardEvent.swift in Sources */,
 				2AEB0C262B7231B7007BB10C /* NotificationDismissEnvironment.swift in Sources */,
@@ -11610,6 +11630,7 @@
 				86760D112A666F4400E915C9 /* HeaderViewSizeConfiguration.swift in Sources */,
 				534785622743D4550097CA30 /* RelationsSectionBuilder.swift in Sources */,
 				125B6ED526F235F400BCD7D6 /* SlashMenuViewController+TableView.swift in Sources */,
+				2A4F81F82C5103EE00DEE559 /* MessageReactionModel.swift in Sources */,
 				2A03FD562A7A46C500CB7191 /* WidgetTypeChangeData.swift in Sources */,
 				12FD9D27276717B200991886 /* RelationObject.swift in Sources */,
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
@@ -11779,7 +11800,7 @@
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
 				2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */,
 				2E101CB72B98EF3900D03821 /* TextRelationEditingView.swift in Sources */,
-				2A0C4CD12C4EA105000F7387 /* MessageReactionViewModel.swift in Sources */,
+				2A0C4CD12C4EA105000F7387 /* MessageReactionPickerViewModel.swift in Sources */,
 				2AD061102C29C979008A600C /* SetUnsupportedView.swift in Sources */,
 				2A721F2F2BD6ADAD000A4672 /* SpaceObjectIconPickerView.swift in Sources */,
 				2E28BCF12AAB58C6001E6306 /* SetViewPickerCoordinatorView.swift in Sources */,
@@ -11821,6 +11842,7 @@
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
 				2A816AC72AD7DC1700975BCA /* ServerConfigirationStorage.swift in Sources */,
 				2A2872332B4D8B9C007B3D59 /* GalleryInstallationPreviewViewModel.swift in Sources */,
+				2A4F81F52C50EA4C00DEE559 /* MessageReactionAddView.swift in Sources */,
 				53F7447427F71737005C9BB0 /* CheckPopupViewViewModelProtocol.swift in Sources */,
 				C905B2B128291C9100F1106B /* ToastView.swift in Sources */,
 				2AA8107E29A3D8A9007DD64B /* WidgetObjectListMenuItemModel.swift in Sources */,
@@ -11916,6 +11938,7 @@
 				86C4B3702B21DC61003B8C51 /* SharingTipView.swift in Sources */,
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
 				2E04201E2BA899C500F36637 /* SelectRelationListData.swift in Sources */,
+				2A4F81FA2C51046000DEE559 /* MessageReactionList.swift in Sources */,
 				2A35A6BA2BBD9B9100CCE4F4 /* WidgetSourceSearchView.swift in Sources */,
 				C99A53AE28A1411B00B3E5F4 /* ObjectHeaderEmptyData.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
@@ -12307,6 +12330,7 @@
 				2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */,
 				1211AF6627F338EC00BACB88 /* AnytypeImageDownloader.swift in Sources */,
 				2AA8108A29A66854007DD64B /* View+DragAndDrop.swift in Sources */,
+				2A4F81F32C50E8A600DEE559 /* MessageReactionView.swift in Sources */,
 				3D26AA772B973E2200D61479 /* MembershipTierSelectionViewModel.swift in Sources */,
 				2A0F665F2BFC856000F34BBD /* HomeWidgetsDI.swift in Sources */,
 				2EED4F592B6C31600076FAC6 /* RelationSelectedOptionsModel.swift in Sources */,
