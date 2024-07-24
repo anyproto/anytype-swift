@@ -24,6 +24,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     
     func buildData(for versions: [VersionHistory], participants: [String: Participant]) -> [VersionHistoryDataGroup] {
         
+        // MARK: - Group versions by day
         var versionsByDay: OrderedDictionary<String, [VersionHistory]> = [:]
         
         for version in versions {
@@ -32,6 +33,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
             versionsByDay[versionDateString, default: []].append(version)
         }
         
+        // MARK: - Group versions by day by author
         var versionsByDayByAuthor: OrderedDictionary<String, [[VersionHistory]]> = [:]
         
         for (key, versions) in versionsByDay {
@@ -57,6 +59,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
             versionsByDayByAuthor[key] = versionsByAuthors
         }
         
+        // MARK: - Map all data into the groups
         var groups = [VersionHistoryDataGroup]()
         
         for (key, values) in versionsByDayByAuthor {
