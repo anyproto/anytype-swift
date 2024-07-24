@@ -9,8 +9,8 @@ final class SettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
@@ -72,7 +72,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
+        output?.onChangeIconSelected(objectId: accountManager.account.info.profileObjectID)
     }
     
     func onSpacesTap() {
@@ -118,7 +118,7 @@ final class SettingsViewModel: ObservableObject {
     private func updateProfileName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: activeWorkspaceStorage.workspaceInfo.profileObjectID,
+                contextID: accountManager.account.info.profileObjectID,
                 details: [.name(name)]
             )
         }
