@@ -85,6 +85,7 @@ extension ObjectPermissions {
         self.canEditBlocks = editBlocks.canEdit
         self.canShowVersionHistory = details.isVisibleLayout
                                     && details.layoutValue != .participant
+                                    && !details.templateIsBundled
     }
 }
 
