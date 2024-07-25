@@ -34,7 +34,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     }
     
     func startParticipantTask() async {
-        for await participants in activeSpaceParticipantStorage.activeParticipantsPublisher.values {
+        for await participants in activeSpaceParticipantStorage.activeParticipantsStream(spaceId: accountSpaceId) {
             spaceMembers = Loc.Space.membersCount(participants.count)
         }
     }

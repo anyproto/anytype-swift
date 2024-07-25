@@ -462,6 +462,7 @@
 		2A4F81F52C50EA4C00DEE559 /* MessageReactionAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81F42C50EA4C00DEE559 /* MessageReactionAddView.swift */; };
 		2A4F81F82C5103EE00DEE559 /* MessageReactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81F72C5103EE00DEE559 /* MessageReactionModel.swift */; };
 		2A4F81FA2C51046000DEE559 /* MessageReactionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81F92C51046000DEE559 /* MessageReactionList.swift */; };
+		2A4F81FF2C5239F200DEE559 /* VersionHistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4F81FE2C5239F200DEE559 /* VersionHistoryData.swift */; };
 		2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; };
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A4FFBC4289D4B55004938DF /* InvocationMesagesHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */; };
@@ -2301,6 +2302,7 @@
 		2A4F81F42C50EA4C00DEE559 /* MessageReactionAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionAddView.swift; sourceTree = "<group>"; };
 		2A4F81F72C5103EE00DEE559 /* MessageReactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionModel.swift; sourceTree = "<group>"; };
 		2A4F81F92C51046000DEE559 /* MessageReactionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageReactionList.swift; sourceTree = "<group>"; };
+		2A4F81FE2C5239F200DEE559 /* VersionHistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryData.swift; sourceTree = "<group>"; };
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
 		2A5024FE2BBE9A4700A141B8 /* ObjectSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchView.swift; sourceTree = "<group>"; };
@@ -7832,6 +7834,7 @@
 				2E967CA62C4E9AD000394C09 /* VersionHistoryDataBuilder.swift */,
 				2E967CA82C4FE9A900394C09 /* VersionHistoryDateFormatter.swift */,
 				2E967CAA2C4FF5D600394C09 /* VersionHistoryGroupContainer.swift */,
+				2A4F81FE2C5239F200DEE559 /* VersionHistoryData.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -12103,6 +12106,7 @@
 				2ABBAEEF2BFB896A00EBA8FA /* ObjectTreeWidgetSubmoduleView.swift in Sources */,
 				2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */,
 				2A0F662A2BFB9A3700F34BBD /* SetObjectCommonListWidgetSubmoduleView.swift in Sources */,
+				2A4F81FF2C5239F200DEE559 /* VersionHistoryData.swift in Sources */,
 				3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */,
 				2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */,
 				1244794727DC96FB00581174 /* TagsSearchViewModel.swift in Sources */,

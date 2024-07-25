@@ -27,8 +27,8 @@ struct ObjectSettingsCoordinatorView: View {
             .sheet(item: $model.relationsListData) {
                 RelationsListCoordinatorView(document: $0.document, output: model)
             }
-            .sheet(item: $model.versionHistoryObjectId) {
-                VersionHistoryView(objectId: $0.value)
+            .sheet(item: $model.versionHistoryData) {
+                VersionHistoryView(data: $0)
             }
             .onChange(of: model.dismiss) { _ in
                 dismiss()

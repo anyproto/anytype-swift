@@ -30,8 +30,6 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.storeKitService)
@@ -75,7 +73,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await objectTypeProvider.startSubscription()
         await activeWorkpaceStorage.setupActiveSpace()
         await accountParticipantsStorage.startSubscription()
-        await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         await syncStatusStorage.startSubscription()
         await p2pStatusStorage.startSubscription()
@@ -93,7 +90,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await objectTypeProvider.stopSubscription()
         await activeWorkpaceStorage.clearActiveSpace()
         await accountParticipantsStorage.stopSubscription()
-        await activeSpaceParticipantStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
         await syncStatusStorage.stopSubscriptionAndClean()

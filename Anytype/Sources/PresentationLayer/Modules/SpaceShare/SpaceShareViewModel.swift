@@ -54,7 +54,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func startParticipantsTask() async {
-        for await items in activeSpaceParticipantStorage.participantsPublisher.values {
+        for await items in activeSpaceParticipantStorage.activeParticipantsStream(spaceId: workspaceInfo.accountSpaceId) {
             participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
             updateView()
         }

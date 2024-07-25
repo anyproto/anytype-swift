@@ -37,6 +37,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var dataLoaded = false
     private var participantSpaceView: ParticipantSpaceViewData?
     private var joiningCount: Int = 0
+    private var owner: Participant?
     
     @Published var spaceName = ""
     @Published var spaceAccessType = ""
@@ -96,8 +97,9 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func startJoiningTask() async {
-        for await participants in activeSpaceParticipantStorage.participantsPublisher.values {
+        for await participants in activeSpaceParticipantStorage.activeParticipantsStream(spaceId: workspaceInfo.accountSpaceId) {
             joiningCount = participants.filter { $0.status == .joining }.count
+            owner = participants.first { $0.isOwner }
             updateViewState()
         }
     }
@@ -172,8 +174,6 @@ final class SpaceSettingsViewModel: ObservableObject {
         }
         
         if let creatorDetails = try? relationDetailsStorage.relationsDetails(for: .creator, spaceId: workspaceInfo.accountSpaceId) {
-            let owner = activeSpaceParticipantStorage.participants.first(where: { $0.isOwner })
-            anytypeAssert(owner.isNotNil, "Could not find owner for space)", info: ["SpaceView": participantSpaceView.debugDescription])
             
             if let owner {
                 let displayName = owner.globalName.isNotEmpty ? owner.globalName : owner.identity

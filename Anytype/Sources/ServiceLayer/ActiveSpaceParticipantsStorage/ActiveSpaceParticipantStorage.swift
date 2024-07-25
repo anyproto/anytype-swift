@@ -2,69 +2,73 @@ import Foundation
 import Services
 import Combine
 
-@MainActor
 protocol ActiveSpaceParticipantStorageProtocol: AnyObject {
-    var participantsPublisher: AnyPublisher<[Participant], Never> { get }
-    var participants: [Participant] { get}
-    
-    func startSubscription() async
-    func stopSubscription() async
+    func participantsStream(spaceId: String) -> AsyncStream<[Participant]>
 }
 
 extension ActiveSpaceParticipantStorageProtocol {
-    var activeParticipantsPublisher: AnyPublisher<[Participant], Never> {
-        participantsPublisher.map { $0.filter { $0.status == .active } }.eraseToAnyPublisher()
+    func activeParticipantsStream(spaceId: String) -> AsyncStream<[Participant]> {
+        var iterator = participantsStream(spaceId: spaceId).map { $0.filter { $0.status == .active } }.makeAsyncIterator()
+        return AsyncStream(unfolding: { await iterator.next() })
     }
 }
 
-@MainActor
-final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol {
+actor ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol {
     
     // MARK: - DI
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
-        subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
-    }()
     
-    private let subscriptionId = "ActiveSpaceParticipant-\(UUID())"
-    private var subscriptions: [AnyCancellable] = []
+    private var subscriptions: [String: SubscriptionStorageProtocol] = [:]
+    private var clients: [String: Int] = [:]
+
+    init() {}
     
-    // MARK: - State
-    
-    private var participantsSubject = CurrentValueSubject<[Participant], Never>([])
-    var participantsPublisher: AnyPublisher<[Participant], Never> { participantsSubject.eraseToAnyPublisher() }
-    var participants: [Participant] { participantsSubject.value }
-    
-    nonisolated init() {}
-    
-    func startSubscription() async {
-        activeWorkspaceStorage.workspaceInfoPublisher
-            .map(\.accountSpaceId)
-            .removeDuplicates()
-            .sink { [weak self] spaceId in
-                Task {
-                    // TODO: Make different publisher for each space. Imrove subscriptions.
-                    // IOS-2518
-                    // For prevent affest on screen when user switch, create a new subject
-                    self?.participantsSubject = CurrentValueSubject<[Participant], Never>([])
-                    try await self?.startOrUpdateSubscription(spaceId: spaceId)
+    nonisolated func participantsStream(spaceId: String) -> AsyncStream<[Participant]> {
+        AsyncStream { continuation in
+            Task {
+                let subscriptionStorage = await storageForClient(spaceId: spaceId)
+                
+                let cancellation = subscriptionStorage.statePublisher
+                    .map { $0.items.compactMap { try? Participant(details: $0) } }
+                    .sink { continuation.yield($0) }
+                
+                continuation.onTermination = { @Sendable [weak self] _ in
+                    cancellation.cancel()
+                    Task { [weak self] in
+                        try await self?.removeClient(spaceId: spaceId)
+                    }
                 }
+                
+                try await startOrUpdateSubscription(spaceId: spaceId, subscriptionStorage: subscriptionStorage)
             }
-            .store(in: &subscriptions)
-    }
-    
-    func stopSubscription() async {
-        subscriptions.removeAll()
-        try? await subscriptionStorage.stopSubscription()
+        }
     }
     
     // MARK: - Private
     
-    private func startOrUpdateSubscription(spaceId: String) async throws {
+    private func storageForClient(spaceId: String) -> SubscriptionStorageProtocol {
+        let subscriptionStorage = subscriptions[spaceId] ?? subscriptionStorageProvider.createSubscriptionStorage(subId: makeSubId(spaceId: spaceId))
+        subscriptions[spaceId] = subscriptionStorage
+        let currentClients = clients[spaceId] ?? 0
+        clients[spaceId] = currentClients + 1
+        return subscriptionStorage
+    }
+    
+    private func removeClient(spaceId: String) async throws {
+        let currentClients = clients[spaceId] ?? 0
+        if currentClients > 0 {
+            clients[spaceId] = currentClients - 1
+        } else {
+            clients.removeValue(forKey: spaceId)
+            subscriptions.removeValue(forKey: spaceId)
+            try await subscriptions[spaceId]?.stopSubscription()
+        }
+    }
+    
+    private func startOrUpdateSubscription(spaceId: String, subscriptionStorage: SubscriptionStorageProtocol) async throws {
+        
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -79,7 +83,7 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
         
         let searchData: SubscriptionData = .search(
             SubscriptionData.Search(
-                identifier: subscriptionId,
+                identifier: "ActiveSpaceParticipant-\(spaceId)",
                 sorts: [sort],
                 filters: filters,
                 limit: 0,
@@ -88,9 +92,10 @@ final class ActiveSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
             )
         )
         
-        try await subscriptionStorage.startOrUpdateSubscription(data: searchData) { [weak self] data in
-            let participants = data.items.compactMap { try? Participant(details: $0) }
-            self?.participantsSubject.send(participants)
-        }
+        try await subscriptionStorage.startOrUpdateSubscription(data: searchData)
+    }
+    
+    private func makeSubId(spaceId: String) -> String {
+        return "ActiveSpaceParticipant-\(spaceId)"
     }
 }

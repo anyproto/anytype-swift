@@ -10,13 +10,15 @@ final class SpaceMembersViewModel: ObservableObject {
     private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.activeWorkspaceStorage)
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     
     // MARK: - State
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
     
     func startParticipantTask() async {
-        for await participants in activeSpaceParticipantStorage.activeParticipantsPublisher.values {
+        for await participants in activeSpaceParticipantStorage.activeParticipantsStream(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
             updateParticipant(items: participants)
         }
     }
