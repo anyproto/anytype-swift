@@ -1168,7 +1168,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Membership.Feature.SharedSpaces" = "Jusqu'à %@ Espaces partagés";
 
 "MembershipServiceError.tierNotFound" = "Données de niveau introuvables, redémarrez l'application et réessayez";
-"MembershipServiceError.forcefullyFailedValidation" = "LE MODE FAIL EST ACTIVÉ 🫵🐭. Désactivez-le dans les paramètres de débogage";
 "MembershipServiceError.invalidBillingIdFormat" = "Problème interne avec le format de facturation, nous travaillons sur ceci. Réessayez plus tard ou contactez le support.";
 
 
@@ -1190,3 +1189,6 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";
 "Debug.Info" = "Infos de débogage";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
