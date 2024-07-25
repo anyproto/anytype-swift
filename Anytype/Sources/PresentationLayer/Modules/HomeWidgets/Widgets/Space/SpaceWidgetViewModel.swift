@@ -9,8 +9,6 @@ final class SpaceWidgetViewModel: ObservableObject {
     
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     private let onSpaceSelected: () -> Void
@@ -20,6 +18,7 @@ final class SpaceWidgetViewModel: ObservableObject {
         activeWorkspaceStorage.workspaceInfo.accountSpaceId
     }()
     
+    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
     
     // MARK: - State
     
@@ -34,7 +33,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     }
     
     func startParticipantTask() async {
-        for await participants in activeSpaceParticipantStorage.activeParticipantsPublisher.values {
+        for await participants in participantsSubscription.activeParticipantsPublisher.values {
             spaceMembers = Loc.Space.membersCount(participants.count)
         }
     }

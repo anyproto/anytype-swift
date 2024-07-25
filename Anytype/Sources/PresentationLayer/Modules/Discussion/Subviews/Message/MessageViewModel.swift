@@ -7,8 +7,8 @@ final class MessageViewModel: ObservableObject {
     private let data: MessageViewData
     private weak var output: MessageModuleOutput?
     
-    @Injected(\.activeSpaceParticipantStorage)
-    private var participantsStorage: ActiveSpaceParticipantStorageProtocol
+    @Injected(\.accountParticipantsStorage)
+    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
     private let documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
     private let document: BaseDocumentProtocol
     
@@ -56,7 +56,7 @@ final class MessageViewModel: ObservableObject {
     }
     
     private func updateView(block: BlockInformation, textContent: BlockText) {
-        let participant = participantsStorage.participants.first
+        let participant = accountParticipantsStorage.participants.first
         
         message = textContent.text
         author = participant?.title ?? ""

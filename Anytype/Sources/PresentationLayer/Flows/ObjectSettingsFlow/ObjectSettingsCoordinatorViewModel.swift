@@ -16,7 +16,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var relationsListData: RelationsListData?
-    @Published var versionHistoryObjectId: StringIdentifiable?
+    @Published var versionHistoryData: VersionHistoryData?
     @Published var dismiss = false
     
     init(objectId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
@@ -51,7 +51,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func showVersionHistory(document: some BaseDocumentProtocol) {
-        versionHistoryObjectId = document.objectId.identifiable
+        versionHistoryData = VersionHistoryData(objectId: document.objectId, spaceId: document.spaceId)
     }
     
     func openPageAction(screenData: EditorScreenData) {
