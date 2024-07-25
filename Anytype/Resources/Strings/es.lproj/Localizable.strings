@@ -1168,7 +1168,6 @@ En concreto,
 "Membership.Feature.SharedSpaces" = "Hasta %@ espacios compartidos";
 
 "MembershipServiceError.tierNotFound" = "No sse encuentran los datos del nivel, reinicia la aplicación e inténtalo de nuevo";
-"MembershipServiceError.forcefullyFailedValidation" = "MODO DE FALLOS ACTIVADO 🫵🐭. Desactívalo en los ajustes de depuración";
 "MembershipServiceError.invalidBillingIdFormat" = "Hubo un problema interno con el formato de facturación y lo estamos resolviendo. Inténtelo de nuevo más tarde o ponte en contacto con el soporte técnico.";
 
 
@@ -1189,3 +1188,6 @@ En concreto,
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipos de dato - %@";
 "Debug.Info" = "Información de depuración";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
