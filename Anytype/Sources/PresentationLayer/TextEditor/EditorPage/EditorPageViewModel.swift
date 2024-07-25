@@ -24,8 +24,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private var searchService: any SearchServiceProtocol
     @Injected(\.templatesSubscription)
     private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
@@ -203,7 +203,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     private func handleSyncStatus(data: DocumentSyncStatusData) {
         let data = SyncStatusData(
             status: data.syncStatus,
-            networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+            networkId: accountManager.account.info.networkId,
             isHidden: data.layout == .participant
         )
         viewInput?.update(syncStatusData: data)
