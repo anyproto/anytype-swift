@@ -8,8 +8,6 @@ import AnytypeCore
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
     
-    @Injected(\.participantSubscriptionProvider)
-    private var participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
@@ -23,9 +21,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = {
-        participantSubscriptionProvider.subscription(spaceId: accountSpaceId)
-    }()
+    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []

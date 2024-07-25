@@ -22,14 +22,10 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
-    @Injected(\.participantSubscriptionProvider)
-    private var participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = {
-        participantSubscriptionProvider.subscription(spaceId: workspaceInfo.accountSpaceId)
-    }()
+    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: (any SpaceSettingsModuleOutput)?

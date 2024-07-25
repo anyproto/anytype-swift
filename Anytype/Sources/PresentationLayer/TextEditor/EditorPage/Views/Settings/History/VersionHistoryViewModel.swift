@@ -16,14 +16,10 @@ final class VersionHistoryViewModel: ObservableObject {
     
     @Injected(\.historyVersionsService)
     private var historyVersionsService: any HistoryVersionsServiceProtocol
-    @Injected(\.participantSubscriptionProvider)
-    private var participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol
     @Injected(\.versionHistoryDataBuilder)
     private var versionHistoryDataBuilder: any VersionHistoryDataBuilderProtocol
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = {
-        participantSubscriptionProvider.subscription(spaceId: spaceId)
-    }()
+    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
     init(data: VersionHistoryData) {
         self.objectId = data.objectId

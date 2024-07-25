@@ -295,4 +295,8 @@ extension Container {
     var participantSubscriptionProvider: Factory<any ParticipantsSubscriptionProviderProtocol> {
         self { ParticipantsSubscriptionProvider() }.singleton
     }
+    
+    var participantSubscription: ParameterFactory<String, any ParticipantsSubscriptionProtocol> {
+        self { Container.shared.participantSubscriptionProvider().subscription(spaceId: $0) }
+    }
 }
