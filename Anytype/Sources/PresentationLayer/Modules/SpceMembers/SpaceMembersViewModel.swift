@@ -6,19 +6,23 @@ final class SpaceMembersViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
+    @Injected(\.participantSubscriptionProvider)
+    private var participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    
+    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = {
+        participantSubscriptionProvider.subscription(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+    }()
     
     // MARK: - State
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
     
     func startParticipantTask() async {
-        for await participants in activeSpaceParticipantStorage.activeParticipantsStream(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) {
+        for await participants in participantsSubscription.activeParticipantsPublisher.values {
             updateParticipant(items: participants)
         }
     }

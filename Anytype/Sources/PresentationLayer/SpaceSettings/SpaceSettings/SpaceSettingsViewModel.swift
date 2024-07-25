@@ -22,10 +22,14 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
+    @Injected(\.participantSubscriptionProvider)
+    private var participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    
+    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = {
+        participantSubscriptionProvider.subscription(spaceId: workspaceInfo.accountSpaceId)
+    }()
     
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: (any SpaceSettingsModuleOutput)?
@@ -97,7 +101,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func startJoiningTask() async {
-        for await participants in activeSpaceParticipantStorage.activeParticipantsStream(spaceId: workspaceInfo.accountSpaceId) {
+        for await participants in participantsSubscription.activeParticipantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
             updateViewState()

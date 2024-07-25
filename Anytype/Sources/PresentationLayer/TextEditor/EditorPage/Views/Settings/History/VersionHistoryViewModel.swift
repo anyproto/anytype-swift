@@ -16,10 +16,14 @@ final class VersionHistoryViewModel: ObservableObject {
     
     @Injected(\.historyVersionsService)
     private var historyVersionsService: any HistoryVersionsServiceProtocol
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
+    @Injected(\.participantSubscriptionProvider)
+    private var participantSubscriptionProvider: any ParticipantsSubscriptionProviderProtocol
     @Injected(\.versionHistoryDataBuilder)
     private var versionHistoryDataBuilder: any VersionHistoryDataBuilderProtocol
+    
+    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = {
+        participantSubscriptionProvider.subscription(spaceId: spaceId)
+    }()
     
     init(data: VersionHistoryData) {
         self.objectId = data.objectId
@@ -27,7 +31,7 @@ final class VersionHistoryViewModel: ObservableObject {
     }
     
     func startParticipantsSubscription() async {
-        for await participants in activeSpaceParticipantStorage.activeParticipantsStream(spaceId: spaceId) {
+        for await participants in participantsSubscription.activeParticipantsPublisher.values {
             participantsDict = [:]
             participants.forEach { participant in
                 participantsDict[participant.id] = participant
