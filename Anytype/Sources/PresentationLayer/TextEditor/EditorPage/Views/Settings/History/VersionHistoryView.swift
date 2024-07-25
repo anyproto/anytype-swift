@@ -25,8 +25,8 @@ struct VersionHistoryView: View {
     }
     
     private var versions: some View {
-        PlainList {
-            VStack(spacing: 12) {
+        ScrollView {
+            LazyVStack(spacing: 12) {
                 ForEach(model.groups) { group in
                     groupContent(for: group)
                 }
@@ -39,7 +39,11 @@ struct VersionHistoryView: View {
         VersionHistoryGroupContainer(
             title: group.title,
             icons: group.icons,
-            content: content(for: group.versions)
+            content: content(for: group.versions),
+            isExpanded: model.expandedGroups.contains(group.title),
+            headerAction: {
+                model.onGroupTap(group)
+            }
         )
         .padding(.horizontal, 20)
     }

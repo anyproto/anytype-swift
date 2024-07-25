@@ -7,6 +7,7 @@ import OrderedCollections
 @MainActor
 protocol VersionHistoryDataBuilderProtocol {
     func buildData(for versions: [VersionHistory], participants: [String: Participant]) -> [VersionHistoryDataGroup]
+    func buildFirstGroupKey(for versions: [VersionHistory], participants: [String: Participant]) -> String?
 }
 
 @MainActor
@@ -87,6 +88,14 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
         }
         
         return groups
+    }
+    
+    func buildFirstGroupKey(for versions: [VersionHistory], participants: [String: Participant]) -> String? {
+        if let version = versions.first(where: { participants[$0.authorID].isNotNil }) {
+            return buildDateString(for: version)
+        } else {
+            return nil
+        }
     }
     
     private func buildVersionHistoryItem(for version: VersionHistory, participant: Participant) -> VersionHistoryItem {
