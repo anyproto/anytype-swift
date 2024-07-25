@@ -1170,7 +1170,6 @@
 "Membership.Feature.SharedSpaces" = "最多 %@ 个共享空间";
 
 "MembershipServiceError.tierNotFound" = "找不到层数据，重启应用并重试";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL 模式开启 🫵🐭关闭在调试设置";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1191,3 +1190,6 @@
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";
 "Debug.Info" = "调试信息";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "添加回应";
