@@ -1172,7 +1172,6 @@
 "Membership.Feature.SharedSpaces" = "最多 %@ 個共享空間";
 
 "MembershipServiceError.tierNotFound" = "未找到該階段數據，請重新啟動應用程式並重試";
-"MembershipServiceError.forcefullyFailedValidation" = "失效故障模式已開啟🫵🐭。 在除錯設定中可關閉";
 "MembershipServiceError.invalidBillingIdFormat" = "帳單格式存在內部問題，我們正在處理中。請稍後再試，或聯絡客服支援。";
 
 
@@ -1193,3 +1192,6 @@
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME 類型 - %@";
 "Debug.Info" = "除錯訊息";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
