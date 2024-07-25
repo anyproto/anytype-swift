@@ -1047,6 +1047,9 @@ internal enum Loc {
     internal enum Action {
       internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction")
     }
+    internal enum Input {
+      internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder")
+    }
   }
   internal enum Object {
     internal enum Deleted {
