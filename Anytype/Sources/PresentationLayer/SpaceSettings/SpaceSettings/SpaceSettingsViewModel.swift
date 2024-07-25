@@ -97,7 +97,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     }
     
     func startJoiningTask() async {
-        for await participants in participantsSubscription.activeParticipantsPublisher.values {
+        for await participants in participantsSubscription.participantsPublisher.values {
             joiningCount = participants.filter { $0.status == .joining }.count
             owner = participants.first { $0.isOwner }
             updateViewState()

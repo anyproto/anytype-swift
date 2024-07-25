@@ -10,7 +10,7 @@ final class ParticipantsSubscriptionProvider: ParticipantsSubscriptionProviderPr
     private let lock = NSLock()
     private var cache = [String: Weak<ParticipantsSubscription>]()
     
-    // MARK: - Public properties
+    // MARK: - ParticipantsSubscriptionProviderProtocol
     
     func subscription(spaceId: String) -> ParticipantsSubscriptionProtocol {
         

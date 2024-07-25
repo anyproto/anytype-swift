@@ -27,7 +27,7 @@ final class VersionHistoryViewModel: ObservableObject {
     }
     
     func startParticipantsSubscription() async {
-        for await participants in participantsSubscription.activeParticipantsPublisher.values {
+        for await participants in participantsSubscription.participantsPublisher.values {
             participantsDict = [:]
             participants.forEach { participant in
                 participantsDict[participant.id] = participant
