@@ -1168,7 +1168,6 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Feature.SharedSpaces" = "Do %@ współdzielonych obszarów";
 
 "MembershipServiceError.tierNotFound" = "Nie znaleziono danych poziomu, zrestartuj aplikację i spróbuj ponownie";
-"MembershipServiceError.forcefullyFailedValidation" = "TRYB AWARII JEST WŁĄCZONY 🫵🐭. Wyłącz w ustawieniach debugowania";
 "MembershipServiceError.invalidBillingIdFormat" = "Wewnętrzny problem z formatem rozliczeniowym, pracujemy nad tym. Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.";
 
 
@@ -1189,3 +1188,6 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";
 "Debug.Info" = "Informacje debugowania";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
