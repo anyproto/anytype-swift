@@ -1168,7 +1168,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1189,3 +1188,6 @@ Please provide specific details of your needs here.";
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";
 "Debug.Info" = "Feilsøkingsinformasjon";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
