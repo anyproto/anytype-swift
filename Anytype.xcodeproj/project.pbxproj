@@ -1391,6 +1391,7 @@
 		3DBCD4432BF3BD450038FE1B /* MembershipTierOwningState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCD4422BF3BD450038FE1B /* MembershipTierOwningState.swift */; };
 		3DBCD4462BF3BEAA0038FE1B /* MembershipMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBCD4452BF3BEAA0038FE1B /* MembershipMetadataProvider.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
+		3DC39DC92C53A60400C6D272 /* NetworkConnectionDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC39DC82C53A60400C6D272 /* NetworkConnectionDaemon.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */; };
 		3DC9F261266018B000B115B9 /* StandardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC9F260266018B000B115B9 /* StandardButton.swift */; };
 		3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCC548D26D3B4B9002517AC /* BlockBookmarkImageView.swift */; };
@@ -3247,6 +3248,7 @@
 		3DBCD4422BF3BD450038FE1B /* MembershipTierOwningState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipTierOwningState.swift; sourceTree = "<group>"; };
 		3DBCD4452BF3BEAA0038FE1B /* MembershipMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipMetadataProvider.swift; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
+		3DC39DC82C53A60400C6D272 /* NetworkConnectionDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConnectionDaemon.swift; sourceTree = "<group>"; };
 		3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventsListener.swift; sourceTree = "<group>"; };
 		3DC9F260266018B000B115B9 /* StandardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StandardButton.swift; path = Anytype/Sources/PresentationLayer/Common/SwiftUI/Buttons/StandardButton.swift; sourceTree = SOURCE_ROOT; };
 		3DCC548D26D3B4B9002517AC /* BlockBookmarkImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBookmarkImageView.swift; sourceTree = "<group>"; };
@@ -3931,6 +3933,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				3DC39DC72C53A5F000C6D272 /* NetworkConnection */,
 				3D92E9A32C41218600A1998C /* P2PStatus */,
 				3DA116FA2C357A2500D071CE /* SyncStatus */,
 				2AB9E1D82C2D599D00D9FE49 /* AppVersionService */,
@@ -9632,6 +9635,14 @@
 			path = Combine;
 			sourceTree = "<group>";
 		};
+		3DC39DC72C53A5F000C6D272 /* NetworkConnection */ = {
+			isa = PBXGroup;
+			children = (
+				3DC39DC82C53A60400C6D272 /* NetworkConnectionDaemon.swift */,
+			);
+			path = NetworkConnection;
+			sourceTree = "<group>";
+		};
 		3DCC548826D3B4A0002517AC /* OnlyUrl */ = {
 			isa = PBXGroup;
 			children = (
@@ -11473,6 +11484,7 @@
 				3D24B09E2C1AFCE800795BAA /* ConfettiOverlay.swift in Sources */,
 				2A4E3F7D2BC6ECDA00724DBF /* BinLinkWidgetView.swift in Sources */,
 				2E6CF15B2BDC11BA002C7023 /* ObjectTypesLimitedSearchView.swift in Sources */,
+				3DC39DC92C53A60400C6D272 /* NetworkConnectionDaemon.swift in Sources */,
 				2A2C330D28928DA7008BC326 /* CoordinatorsDI.swift in Sources */,
 				12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */,
 				129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */,
