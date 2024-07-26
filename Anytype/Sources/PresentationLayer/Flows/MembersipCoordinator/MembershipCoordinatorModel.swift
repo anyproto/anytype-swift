@@ -1,5 +1,6 @@
 import SwiftUI
 import Services
+import AnytypeCore
 
 
 @MainActor
@@ -20,19 +21,36 @@ final class MembershipCoordinatorModel: ObservableObject {
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     
-    init() {
+    private let initialTierId: Int?
+    
+    init(initialTierId: Int?) {
+        self.initialTierId = initialTierId
         membershipStatusStorage.statusPublisher.assign(to: &$userMembership)
-        loadTiers()
+    }
+    
+    func onAppear() {
+        Task {
+            await loadTiers()
+            
+            guard let initialTierId else { return }
+            guard let initialTier = tiers.first(where: { $0.type.id == initialTierId }) else {
+                anytypeAssertionFailure("Not found initial id for Memberhsip coordinator", info: ["tierId": String(initialTierId)])
+                return
+            }
+            onTierSelected(tier: initialTier)
+        }
     }
     
     func loadTiers() {
-        Task {
-            do {
-                tiers = try await membershipService.getTiers()
-                showTiersLoadingError = false
-            } catch {
-                showTiersLoadingError = true
-            }
+        Task { await loadTiers() }
+    }
+    
+    private func loadTiers() async {
+        do {
+            tiers = try await membershipService.getTiers()
+            showTiersLoadingError = false
+        } catch {
+            showTiersLoadingError = true
         }
     }
     

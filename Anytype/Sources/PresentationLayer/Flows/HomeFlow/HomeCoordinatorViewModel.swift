@@ -63,6 +63,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var keyboardToggle: Bool = false
     @Published var spaceJoinData: SpaceJoinModuleData?
     @Published var info: AccountInfo?
+    @Published var membershipTierId: IntIdentifiable?
     
     private var currentSpaceId: String?
     
@@ -310,6 +311,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             try await push(data: editorData)
         case .spaceShareTip:
             showSpaceShareTip = true
+        case .membership(let tierId):
+            membershipTierId = tierId.identifiable
         }
     }
     

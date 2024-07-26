@@ -88,6 +88,9 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showSpaceShareTip) {
             SpaceShareTipView()
         }
+        .sheet(item: $model.membershipTierId) { tierId in
+            MembershipCoordinator(initialTierId: tierId.value)
+        }
     }
 }
 
