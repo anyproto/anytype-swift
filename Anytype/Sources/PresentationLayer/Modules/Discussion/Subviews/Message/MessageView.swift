@@ -15,6 +15,9 @@ private struct MessageInternalView: View {
         
     @StateObject private var model: MessageViewModel
     
+    @State private var contentSize: CGSize = .zero
+    @State private var headerSize: CGSize = .zero
+    
     init(
         data: MessageViewData,
         output: MessageModuleOutput? = nil
@@ -40,18 +43,26 @@ private struct MessageInternalView: View {
     
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
+            HStack(spacing: 10) {
                 Text(model.author)
                     .anytypeStyle(.previewTitle2Medium)
                     .foregroundColor(.Text.primary)
-                Spacer()
+                    .lineLimit(1)
+            
                 Text(model.date)
                     .anytypeStyle(.caption1Regular)
                     .foregroundColor(.Text.secondary)
+                    .lineLimit(1)
+                    .offset(x: contentSize.width - headerSize.width)
             }
+            .readSize {
+                headerSize = $0
+            }
+
             Text(model.message)
                 .anytypeStyle(.bodyRegular)
                 .foregroundColor(.Text.primary)
+            
             if model.reactions.isNotEmpty {
                 Spacer.fixedHeight(8)
                 MessageReactionList(rows: model.reactions) { reaction in
@@ -59,8 +70,10 @@ private struct MessageInternalView: View {
                 } onTapAdd: {
                     model.onTapAddReaction()
                 }
-
             }
+        }
+        .readSize {
+            contentSize = $0
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 12)
@@ -75,7 +88,7 @@ private struct MessageInternalView: View {
     @ViewBuilder
     private var leadingView: some View {
         if model.isYourMessage {
-            Spacer.fixedWidth(32)
+            Spacer(minLength: 32)
         } else {
             IconView(icon: model.authorIcon)
                 .frame(width: 32, height: 32)
@@ -88,7 +101,7 @@ private struct MessageInternalView: View {
             IconView(icon: model.authorIcon)
                 .frame(width: 32, height: 32)
         } else {
-            Spacer.fixedWidth(32)
+            Spacer(minLength: 32)
         }
     }
     
