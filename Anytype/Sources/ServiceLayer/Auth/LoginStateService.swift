@@ -38,6 +38,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var syncStatusStorage: any SyncStatusStorageProtocol
     @Injected(\.p2pStatusStorage)
     private var p2pStatusStorage: any P2PStatusStorageProtocol
+    @Injected(\.networkConnectionStatusDaemon)
+    private var networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol
     
     
     // MARK: - LoginStateServiceProtocol
@@ -76,6 +78,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await participantSpacesStorage.startSubscription()
         await syncStatusStorage.startSubscription()
         await p2pStatusStorage.startSubscription()
+        await networkConnectionStatusDaemon.start()
         storeKitService.startListenForTransactions()
         
         Task {
@@ -94,6 +97,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await membershipStatusStorage.stopSubscriptionAndClean()
         await syncStatusStorage.stopSubscriptionAndClean()
         await p2pStatusStorage.stopSubscriptionAndClean()
+        await networkConnectionStatusDaemon.stop()
         storeKitService.stopListenForTransactions()
     }
 }
