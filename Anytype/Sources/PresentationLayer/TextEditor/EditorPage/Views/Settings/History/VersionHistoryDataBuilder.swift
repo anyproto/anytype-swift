@@ -81,7 +81,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
             groups.append(
                 VersionHistoryDataGroup(
                     title: key,
-                    icons: groupIcons.elements,
+                    icons: groupIcons.elements.reversed(),
                     versions: versionsByAuthors
                 )
             )

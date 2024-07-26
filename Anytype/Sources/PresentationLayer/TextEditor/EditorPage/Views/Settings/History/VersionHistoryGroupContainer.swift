@@ -30,7 +30,8 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
             
             Spacer()
             
-            iconsView
+            IconsGroupView(icons: icons)
+                .opacity(isExpanded ? 0 : 1)
         }
         .padding(.vertical, 4)
         .fixTappableArea()
@@ -39,15 +40,5 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
                 headerAction()
             }
         }
-    }
-    
-    private var iconsView: some View {
-        HStack {
-            ForEach(icons, id: \.hashValue) { icon in
-                ObjectIconView(icon: icon)
-                    .frame(width: 24, height: 24)
-            }
-        }
-        .opacity(isExpanded ? 0 : 1)
     }
 }
