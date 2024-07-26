@@ -26,7 +26,7 @@ final class MiddlewareEventConverter {
         self.restrictionsContainer = restrictionsContainer
     }
     
-    func convert(_ event: Anytype_Event.Message.OneOf_Value) -> DocumentUpdate? {
+    func convert(_ event: MiddlewareEventMessage.OneOf_Value) -> DocumentUpdate? {
         switch event {
         case let .blockSetFields(data):
             infoContainer.setFields(data: data)
