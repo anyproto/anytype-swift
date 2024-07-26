@@ -144,7 +144,7 @@
 "Alignment" = "Выраўноўванне";
 "Actions" = "Дзеянні";
 "Relations" = "Уласцівасці";
-"History" = "History";
+"History" = "Гісторыя";
 "Objects" = "Аб'екты";
 "Lists" = "Спісы";
 "Pinned" = "Замацавана";
@@ -316,7 +316,7 @@
 
 "Undo typing" = "Undo typing";
 "Undo" = "Скасаваць";
-"Redo" = "Redo";
+"Redo" = "Вярнуць";
 "Actions.LinkItself" = "Спасылка на";
 "Actions.MakeAsTemplate" = "Make template";
 "Actions.TemplateMakeDefault" = "Зрабіць прадвызначаным";
@@ -966,9 +966,9 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
-"SpaceShare.Manage" = "Manage";
+"SpaceShare.Manage" = "Кіраванне";
 "SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
-"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Адкрыць прастору";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Вашы правы доступу былі зменены на **%@** у Прасторы **%@**.";
@@ -1093,7 +1093,7 @@
 "Manage payment" = "Manage payment";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
-"Confirm" = "Confirm";
+"Confirm" = "Пацвердзіць";
 
 "StoreKitServiceError.userCancelled" = "Purchase cancelled";
 "StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
