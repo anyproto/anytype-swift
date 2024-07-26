@@ -14,7 +14,7 @@ struct FeaturedRelationsView<Content>: View where Content: View {
         WrappingHStack(
             alignment: .leading,
             horizontalSpacing: FeaturedRelationsConstants.itemSpacing,
-            verticalSpacing: FeaturedRelationsConstants.itemSpacing
+            verticalSpacing: FeaturedRelationsConstants.lineSpacing
         ) {
             ForEach(relations) { relation in
                 HStack(spacing: FeaturedRelationsConstants.itemSpacing) {
