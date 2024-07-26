@@ -15,6 +15,7 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         static let invite = "invite"
         static let object = "object"
         static let spaceShareTip = "spaceShareTip"
+        static let membership = "membership"
     }
 
     private let isDebug: Bool
@@ -57,19 +58,22 @@ final class DeepLinkParser: DeepLinkParserProtocol {
         case LinkPaths.spaceSelection:
             return .spaceSelection
         case LinkPaths.galleryImport:
-            guard let type = queryItems.itemValue(key: "type"),
-                  let source = queryItems.itemValue(key: "source") else { return nil }
+            guard let type = queryItems.stringValue(key: "type"),
+                  let source = queryItems.stringValue(key: "source") else { return nil }
             return .galleryImport(type: type, source: source)
         case LinkPaths.invite:
-            guard let cid = queryItems.itemValue(key: "cid"),
-                  let key = queryItems.itemValue(key: "key") else { return nil }
+            guard let cid = queryItems.stringValue(key: "cid"),
+                  let key = queryItems.stringValue(key: "key") else { return nil }
             return .invite(cid: cid, key: key)
         case LinkPaths.object:
-            guard let objectId = queryItems.itemValue(key: "objectId"),
-                  let spaceId = queryItems.itemValue(key: "spaceId") else { return nil }
+            guard let objectId = queryItems.stringValue(key: "objectId"),
+                  let spaceId = queryItems.stringValue(key: "spaceId") else { return nil }
             return .object(objectId: objectId, spaceId: spaceId)
         case LinkPaths.spaceShareTip:
             return .spaceShareTip
+        case LinkPaths.membership:
+            guard let tier = queryItems.intValue(key: "tier") else { return nil }
+            return .membership(tierId: tier)
         default:
             return nil
         }
@@ -111,6 +115,13 @@ final class DeepLinkParser: DeepLinkParserProtocol {
             return components.url
         case .spaceShareTip:
             return URL(string: host + LinkPaths.spaceShareTip)
+        case .membership(let tierId):
+            guard var components = URLComponents(string: host + LinkPaths.membership) else { return nil }
+            components.queryItems = [
+                URLQueryItem(name: "tier", value: String(tierId)),
+            ]
+            
+            return components.url
         }
     }
 
