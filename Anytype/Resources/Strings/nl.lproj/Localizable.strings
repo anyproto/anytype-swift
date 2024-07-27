@@ -1193,3 +1193,4 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";
