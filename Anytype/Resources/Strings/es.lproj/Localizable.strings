@@ -1190,4 +1190,5 @@ En concreto,
 "Debug.Info" = "Información de depuración";
 
 // MARK: - Messages
-"Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.AddReaction" = "Añadir reacción";
+"Message.Input.EmptyPlaceholder" = "Escribe un mensaje...";
