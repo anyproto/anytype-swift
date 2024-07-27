@@ -1193,3 +1193,4 @@
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "添加回应";
+"Message.Input.EmptyPlaceholder" = "Write a message...";
