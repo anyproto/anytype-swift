@@ -108,7 +108,7 @@ struct SetObjectCreationSettingsView: View {
 
 #Preview {
     SetObjectCreationSettingsView(
-        setDocument: Container.shared.documentsProvider().setDocument(objectId: "", forPreview: false, inlineParameters: nil),
+        setDocument: Container.shared.documentsProvider().setDocument(objectId: "", forPreview: false),
         viewId: "viewId",
         output: nil
     )

@@ -19,7 +19,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
-    private var documentService: any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
@@ -215,7 +215,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             return
         }
         
-        setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
+        setDocument = documentsProvider.setDocument(objectId: objectId, forPreview: true)
         try? await setDocument?.openForPreview()
         
         rowDetails = nil
