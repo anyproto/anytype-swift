@@ -29,7 +29,7 @@ struct DiscussionView: View {
     
     private var inputPanel: some View {
         VStack(spacing: 0) {
-            DiscussionLinkInputViewContainer(objects: model.linkedObjects) {
+            MessageLinkInputViewContainer(objects: model.linkedObjects) {
                 model.onTapRemoveLinkedObject(details: $0)
             }
             DiscusionInput(text: $model.message) {

@@ -63,6 +63,11 @@ private struct MessageInternalView: View {
                 .anytypeStyle(.bodyRegular)
                 .foregroundColor(.Text.primary)
             
+            if model.linkedObjects.isNotEmpty {
+                Spacer.fixedHeight(8)
+                MessageLinkViewContainer(objects: model.linkedObjects, isYour: model.isYourMessage)
+            }
+            
             if model.reactions.isNotEmpty {
                 Spacer.fixedHeight(8)
                 MessageReactionList(rows: model.reactions) { reaction in

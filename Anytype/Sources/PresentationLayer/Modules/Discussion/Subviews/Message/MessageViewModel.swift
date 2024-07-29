@@ -18,6 +18,7 @@ final class MessageViewModel: ObservableObject {
     @Published var date: String = ""
     @Published var isYourMessage: Bool = false
     @Published var reactions: [MessageReactionModel] = []
+    @Published var linkedObjects: [ObjectDetails] = []
     
     init(data: MessageViewData, output: MessageModuleOutput?) {
         self.data = data
@@ -71,5 +72,24 @@ final class MessageViewModel: ObservableObject {
             MessageReactionModel(emoji: "🤓", count: 4, selected: true),
             MessageReactionModel(emoji: "👨‍🍳", count: 24, selected: false)
         ].suffix(reactionsCount)
+        
+        let linkedObjectsCount = data.relativeIndex % 3
+        linkedObjects = [
+            ObjectDetails(id: "1", values: [
+                BundledRelationKey.name.rawValue: "Mock object 1",
+                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
+                BundledRelationKey.iconEmoji.rawValue: "🦜"
+            ]),
+            ObjectDetails(id: "2", values: [
+                BundledRelationKey.name.rawValue: "Mock object 2",
+                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
+                BundledRelationKey.iconEmoji.rawValue: "🐓"
+            ]),
+            ObjectDetails(id: "3", values: [
+                BundledRelationKey.name.rawValue: "Mock object 3",
+                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
+                BundledRelationKey.iconEmoji.rawValue: "🦋"
+            ])
+        ].suffix(linkedObjectsCount)
     }
 }
