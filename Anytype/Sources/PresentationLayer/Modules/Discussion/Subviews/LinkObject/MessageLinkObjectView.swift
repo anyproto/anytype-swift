@@ -2,12 +2,13 @@ import Foundation
 import SwiftUI
 import Services
 
-struct DiscussionLinkInputView: View {
+struct MessageLinkObjectView: View {
 
     let icon: Icon?
     let title: String
     let description: String
-    let onTapRemove: () -> Void
+    let style: MessageLinkObjectViewStyle
+    let onTapRemove: (() -> Void)?
     
     var body: some View {
         HStack(spacing: 12) {
@@ -29,35 +30,40 @@ struct DiscussionLinkInputView: View {
         .padding(12)
         .frame(height: 72)
         .background(Color.Background.secondary)
-        .border(12, color: .Shape.tertiary, lineWidth: 1)
-        .shadow(color: .black.opacity(0.05), radius: 4)
-        .overlay(alignment: .topTrailing) {
-            Button {
-                onTapRemove()
-            } label: {
-                IconView(asset: .X24.removeRed)
+        .cornerRadius(12, style: .continuous)
+        .outerBorder(12, color: style.config.borderColor, lineWidth: 1)
+        .shadow(color: style.config.shadowColor, radius: 4)
+        .ifLet(onTapRemove) { view, onTapRemove in
+            view.overlay(alignment: .topTrailing) {
+                Button {
+                    onTapRemove()
+                } label: {
+                    IconView(asset: .X24.removeRed)
+                }
+                .padding([.top, .trailing], -6)
             }
-            .padding([.top, .trailing], -6)
         }
     }
 }
 
-extension DiscussionLinkInputView {
-    init(details: ObjectDetails, onTapRemove: @escaping (ObjectDetails) -> Void) {
-        self = DiscussionLinkInputView(
+extension MessageLinkObjectView {
+    init(details: ObjectDetails, style: MessageLinkObjectViewStyle, onTapRemove: ((ObjectDetails) -> Void)? = nil) {
+        self = MessageLinkObjectView(
             icon: details.objectIconImage,
             title: details.title,
             description: details.objectType.name,
-            onTapRemove: { onTapRemove(details) }
+            style: style,
+            onTapRemove: onTapRemove.map { c in { c(details) } }
         )
     }
 }
 
 #Preview {
-    DiscussionLinkInputView(
+    MessageLinkObjectView(
         icon: Icon.object(.placeholder("A")),
         title: "Object Name",
         description: "Object Type",
+        style: .input,
         onTapRemove: {}
     )
     .padding(16)
