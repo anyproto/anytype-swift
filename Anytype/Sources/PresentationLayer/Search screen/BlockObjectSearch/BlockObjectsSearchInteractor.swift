@@ -5,6 +5,8 @@ final class BlockObjectsSearchInteractor {
     
     @Injected(\.searchService)
     private var searchService: any SearchServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var objectCreationService: any DefaultObjectCreationServiceProtocol
     
     private let spaceId: String
     private let excludedObjectIds: [String]
@@ -18,6 +20,10 @@ final class BlockObjectsSearchInteractor {
         self.spaceId = spaceId
         self.excludedObjectIds = excludedObjectIds
         self.excludedLayouts = excludedLayouts
+    }
+    
+    func createObject(name: String) async throws -> ObjectDetails {
+        try await objectCreationService.createDefaultObject(name: name, shouldDeleteEmptyObject: false, spaceId: spaceId)
     }
 }
 

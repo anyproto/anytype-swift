@@ -251,10 +251,6 @@ extension Container {
     var accountParticipantsStorage: Factory<any AccountParticipantsStorageProtocol> {
         self { AccountParticipantsStorage() }.singleton
     }
-    
-    var activeSpaceParticipantStorage: Factory<any ActiveSpaceParticipantStorageProtocol> {
-        self { ActiveSpaceParticipantStorage() }.singleton
-    }
 
     var participantSpacesStorage: Factory<any ParticipantSpacesStorageProtocol> {
         self { ParticipantSpacesStorage() }.singleton
@@ -290,5 +286,17 @@ extension Container {
     
     var syncStatusStorage: Factory< any SyncStatusStorageProtocol> {
         self { SyncStatusStorage() }.singleton
+    }
+    
+    var p2pStatusStorage: Factory< any P2PStatusStorageProtocol> {
+        self { P2PStatusStorage() }.singleton
+    }
+    
+    var participantSubscriptionProvider: Factory<any ParticipantsSubscriptionProviderProtocol> {
+        self { ParticipantsSubscriptionProvider() }.singleton
+    }
+    
+    var participantSubscription: ParameterFactory<String, any ParticipantsSubscriptionProtocol> {
+        self { Container.shared.participantSubscriptionProvider().subscription(spaceId: $0) }
     }
 }

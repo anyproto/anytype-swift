@@ -7,7 +7,9 @@ protocol SubscriptionStorageProtocol: AnyObject {
     var subId: String { get }
     var detailsStorage: ObjectDetailsStorage { get }
     
+    var statePublisher: AnyPublisher<SubscriptionStorageState, Never> { get }
     func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping (_ state: SubscriptionStorageState) -> Void) async throws
+    func startOrUpdateSubscription(data: SubscriptionData) async throws
     func stopSubscription() async throws
 }
 
@@ -28,11 +30,14 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     
     private var orderIds: [String] = []
     private var state = SubscriptionStorageState(total: 0, nextCount: 0, prevCount: 0, items: [])
+    private let stateSubject = CurrentValueSubject<SubscriptionStorageState?, Never>(nil)
+    nonisolated let statePublisher: AnyPublisher<SubscriptionStorageState, Never>
     
     init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: some SubscriptionTogglerProtocol) {
         self.subId = subId
         self.detailsStorage = detailsStorage
         self.toggler = toggler
+        self.statePublisher = stateSubject.compactMap { $0 }.eraseToAnyPublisher()
         Task { await setupHandler() }
     }
     
@@ -43,6 +48,10 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         }
     }
     
+    func startOrUpdateSubscription(data: SubscriptionData) async throws {
+        try await startOrUpdateSubscription(data: data, update: { _ in })
+    }
+    
     func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping (_ state: SubscriptionStorageState) -> Void) async throws {
         guard subId == data.identifier else {
             anytypeAssertionFailure("Ids should be equals", info: ["old id": subId, "new id": data.identifier])
@@ -51,6 +60,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         
         guard self.data != data else {
             await update(state)
+            stateSubject.send(state)
             return
         }
         
@@ -72,6 +82,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         
         updateItemsCache()
         await update(state)
+        stateSubject.send(state)
     }
     
     func stopSubscription() async throws {
@@ -134,6 +145,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
         if oldState != state {
             updateItemsCache()
             await update?(state)
+            stateSubject.send(state)
         }
     }
     

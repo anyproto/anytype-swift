@@ -26,7 +26,7 @@ final class MiddlewareEventConverter {
         self.restrictionsContainer = restrictionsContainer
     }
     
-    func convert(_ event: Anytype_Event.Message.OneOf_Value) -> DocumentUpdate? {
+    func convert(_ event: MiddlewareEventMessage.OneOf_Value) -> DocumentUpdate? {
         switch event {
         case let .blockSetFields(data):
             infoContainer.setFields(data: data)
@@ -201,8 +201,8 @@ final class MiddlewareEventConverter {
                 .notificationSend,
                 .notificationUpdate,
                 .payloadBroadcast,
-                .spaceSyncStatusUpdate,
-                .p2PStatusUpdate,
+                .spaceSyncStatusUpdate, // Implemented in `SyncStatusStorage`
+                .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
                 .membershipUpdate: // Implemented in `MembershipStatusStorage`
             return nil
         }

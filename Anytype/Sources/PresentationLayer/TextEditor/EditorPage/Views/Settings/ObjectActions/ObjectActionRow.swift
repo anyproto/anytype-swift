@@ -2,7 +2,8 @@ import SwiftUI
 
 
 struct ObjectActionRow: View {
-    let setting: ObjectAction
+    let title: String
+    let icon: ImageAsset
     let onTap: () async throws -> Void
 
     var body: some View {
@@ -12,15 +13,15 @@ struct ObjectActionRow: View {
         }
         label: {
             VStack(spacing: Constants.space) {
-                Image(asset: setting.imageAsset)
+                Image(asset: icon)
                     .foregroundColor(.Button.active)
                     .frame(width: 52, height: 52)
-                    .background(Color.Background.highlightedOfSelected)
+                    .background(Color.Background.highlightedMedium)
                     .cornerRadius(10)
                 Text("")
                     .overlay {
                         AnytypeText(
-                            setting.title,
+                            title,
                             style: .caption2Regular
                         )
                         .foregroundColor(.Text.secondary)
@@ -35,6 +36,12 @@ struct ObjectActionRow: View {
 
     private enum Constants {
         static let space: CGFloat = 5
+    }
+}
+
+extension ObjectActionRow {
+    init(setting: ObjectAction, onTap: @escaping () async throws -> Void) {
+        self = ObjectActionRow(title: setting.title, icon: setting.imageAsset, onTap: onTap)
     }
 }
 

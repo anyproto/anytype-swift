@@ -144,6 +144,7 @@
 "Alignment" = "Perataan";
 "Actions" = "Tindakan";
 "Relations" = "Relasi";
+"History" = "History";
 "Objects" = "Objek";
 "Lists" = "Grup";
 "Pinned" = "Tersemat";
@@ -286,6 +287,10 @@
 "Background picture" = "Gambar latar belakang";
 "Layout" = "Tata letak";
 "Arrangement of objects on a canvas" = "Susunan balok dalam kanvas";
+"ObjectSettings.History.Description" = "Semua versi objek ini";
+
+// Version history
+"VersionHistory.Title" = "Riwayat Versi";
 
 "Search" = "Telusuri";
 "There is no emoji named" = "Tidak ada emoji bernama";
@@ -504,7 +509,7 @@
 "Set.View.Empty.Subtitle" = "Tambahkan pencarian kueri untuk mengumpulkan objek dengan tipe dan relasi yang sama dalam mode langsung";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "Tampilan ini belum didukung di perangkat mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Pilih kueri";
@@ -608,19 +613,18 @@
 "Unfavorite" = "Batal favorit";
 "Unsplash" = "Unsplash";
 "Go back" = "Kembali";
-"SyncStatus.LocalOnly.Title" = "Hanya Lokal";
-"SyncStatus.LocalOnly.Description" = "Hanya lokal";
-"SyncStatus.Synced.Anytype.Description" = "Tercadangkan ke Jaringan Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Tercadangkan ke Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Tercadangkan ke Jaringan Swaladen";
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
 "Node is not connected" = "Simpul tidak terhubung";
 "Initializing sync" = "Memulai sinkron";
 "Incompatible version" = "Incompatible version";
+"Connecting" = "Menghubungkan …";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Jaringan Anytype";
+"Self Host" = "Swaladen";
+"Local Only" = "Hanya lokal";
 "Synced" = "Tersinkron";
-"Syncing..." = "Menyinkronkan...";
 "No connection" = "Tak ada koneksi";
-"Preparing..." = "Menyiapkan...";
 "Deleted" = "Terhapus";
 "Download" = "Unduh";
 "Open object" = "Buka objek";
@@ -804,17 +808,19 @@
 "Widgets.Layout.List.Title" = "Daftar";
 "Widgets.Layout.CompactList.Title" = "Daftar padat";
 "Widgets.Layout.View.Title" = "Tampilan";
-"Widgets.Layout.Link.Description" = "Versi padat dari objek";
-"Widgets.Layout.Tree.Description" = "Susunan hierarkis dari objek";
-"Widgets.Layout.List.Description" = "Widget dengan daftar tampilan dari daftar objek";
-"Widgets.Layout.View.Description" = "Gawit dengan tampilan objek set";
-"Widgets.Layout.CompactList.Description" = "Widget dengan daftar tampilan dari daftar objek";
+"Widgets.Layout.Link.Description" = "Tampilan gawit ringkas";
+"Widgets.Layout.Tree.Description" = "Gawit dengan struktur hierarkis";
+"Widgets.Layout.List.Description" = "Gawit dengan tampilan daftar";
+"Widgets.Layout.View.Description" = "Gawit dengan tata letak Set atau Koleksi";
+"Widgets.Layout.CompactList.Description" = "Gawit dengan tampilan daftar ringkas";
 "Widgets.Empty.Title" = "Tidak ada objek di sini";
 "Widgets.Empty.CreateObject" = "Buat Objek";
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
 "Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
 "Widgets.AppUpdate" = "Anytype siap diperbarui";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Objekmu";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";
@@ -1162,7 +1168,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1170,6 +1175,20 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Pencadangan data dimatikan";
+"SyncStatus.Info.AnytypeNetwork" = "Terenkripsi end-to-end";
+"SyncStatus.Error.storageLimitExceed" = "Batas penyimpanan tercapai";
+"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.networkError" = "Tidak ada akses ke ruang";
+"SyncStatus.Error.UNRECOGNIZED" = "Galat tak dikenali";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+
+
 // MARK: - Debug
 "Debug.MimeTypes" = "Jenis MIME - %@";
 "Debug.Info" = "Info awakutu";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

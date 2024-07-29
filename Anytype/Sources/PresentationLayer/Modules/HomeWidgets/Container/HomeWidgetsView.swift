@@ -42,11 +42,6 @@ private struct HomeWidgetsInternalView: View {
                             HomeWidgetSubmoduleView(widgetInfo: widgetInfo, widgetObject: model.widgetObject, homeState: $model.homeState, output: model.output)
                         }
                         BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
-                        if FeatureFlags.discussions {
-                            HomeEditButton(text: "Discussion for test", homeState: model.homeState) {
-                                model.onTapDiscussion()
-                            }
-                        }
                         editButtons
                     }
                     AnytypeNavigationSpacer()

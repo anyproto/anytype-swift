@@ -144,6 +144,7 @@
 "Alignment" = "Выравнивание";
 "Actions" = "Действия";
 "Relations" = "Свойства";
+"History" = "История";
 "Objects" = "Объекты";
 "Lists" = "Списки";
 "Pinned" = "Закреплённые";
@@ -286,6 +287,10 @@
 "Background picture" = "Фоновое изображение";
 "Layout" = "Макет";
 "Arrangement of objects on a canvas" = "Расположение объектов на холсте";
+"ObjectSettings.History.Description" = "All versions of object";
+
+// Version history
+"VersionHistory.Title" = "Version History";
 
 "Search" = "Поиск";
 "There is no emoji named" = "Нет эмодзи с таким именем";
@@ -504,7 +509,7 @@
 "Set.View.Empty.Subtitle" = "Добавьте поисковый запрос для агрегирования объектов с одинаковыми типами и свойствами в режиме реального времени.";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Выберите запрос";
@@ -608,19 +613,18 @@
 "Unfavorite" = "Удалить из избранного";
 "Unsplash" = "Unsplash";
 "Go back" = "Вернуться";
-"SyncStatus.LocalOnly.Title" = "Только локально";
-"SyncStatus.LocalOnly.Description" = "Только локально";
-"SyncStatus.Synced.Anytype.Description" = "Резервное копирование в сети Anytype";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Резервное копирование в сети Anytype";
-"SyncStatus.Synced.SelfHosted.Description" = "Резервное копирование в вашей сети";
 "Downloading or uploading data to some node" = "Загрузка или выгрузка данных в узел";
 "Node is not connected" = "Узел не подключен";
 "Initializing sync" = "Инициализация синхронизации";
 "Incompatible version" = "Несовместимая версия";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Синхронизировано";
-"Syncing..." = "Синхронизация...";
 "No connection" = "Нет соединения";
-"Preparing..." = "Подготовка...";
 "Deleted" = "Удалено";
 "Download" = "Скачать";
 "Open object" = "Открыть объект";
@@ -804,17 +808,19 @@
 "Widgets.Layout.List.Title" = "Список";
 "Widgets.Layout.CompactList.Title" = "Компактный список";
 "Widgets.Layout.View.Title" = "Вид";
-"Widgets.Layout.Link.Description" = "Компактная версия объекта";
-"Widgets.Layout.Tree.Description" = "Иерархическая структура объектов";
-"Widgets.Layout.List.Description" = "Виджет со списком объектов из набора";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Виджет со списком объектов из набора";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "Версия приложения: %@";
@@ -1162,7 +1168,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1170,6 +1175,20 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Несовместимая версия";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+
+
 // MARK: - Debug
 "Debug.MimeTypes" = "Типы MIME - %@";
 "Debug.Info" = "Отладочная информация";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

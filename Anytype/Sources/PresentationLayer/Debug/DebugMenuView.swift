@@ -22,9 +22,13 @@ struct DebugMenuView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Debug menu 👻", style: .title)
-                .foregroundColor(.Text.primary)
-                .padding()
+            VStack {
+                AnytypeText("Debug menu 👻", style: .title)
+                    .foregroundColor(.Text.primary)
+                AnytypeText("Environment: \(BuildTypeProvider.buidType.rawValue)", style: .caption1Medium)
+                    .foregroundColor(.Text.tertiary)
+            }.padding()
+            
             ScrollView {
                 VStack(spacing: 0) {
                     buttonsMenu
@@ -81,29 +85,32 @@ struct DebugMenuView: View {
     
     private var mainActions: some View {
         VStack {
-            HStack {
-                StandardButton("Logs 🧻", style: .secondaryLarge) {
-                    showLogs.toggle()
-                }
+            StandardButton("Logs 🧻", style: .secondaryLarge) {
+                showLogs.toggle()
             }
             
             StandardButton("Export localstore 📁", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getLocalStoreData()
             }
+            
+            if case .done(url: let url) = model.debugRunProfilerData {
+                StandardButton("Download Debug Run Profiler Data 💿", style: .secondaryLarge) {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    model.shareUrlContent(url: url)
+                }
+            }
         }
     }
     
     private var moreActions: some View {
         VStack {
-            HStack {
-                StandardButton("Crash 🔥", style: .primaryLarge) {
-                    let crash: [Int] = []
-                    _ = crash[1]
-                }
-                StandardButton("Assert 🥲", style: .secondaryLarge) {
-                    anytypeAssertionFailure("Test assert")
-                }
+            StandardButton("Crash 🔥", style: .primaryLarge) {
+                let crash: [Int] = []
+                _ = crash[1]
+            }
+            StandardButton("Assert 🥲", style: .secondaryLarge) {
+                anytypeAssertionFailure("Test assert")
             }
             
             StandardButton("Membership debug 💸", style: .secondaryLarge) {
@@ -115,10 +122,21 @@ struct DebugMenuView: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getGoroutinesData()
             }
-            AsyncStandardButton(text: "Space debug 🪐", style: .secondaryLarge) {
+            AsyncStandardButton("Space debug 🪐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 try await model.onSpaceDebug()
             }
+            
+            StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                model.onDebugRunProfiler()
+            }
+    
+            AsyncStandardButton("Debug stat 🫵🐭", style: .secondaryLarge) {
+                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                try await model.onSpaceDebug()
+            }
+            
             StandardButton("Export full directory 🤐", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.zipWorkingDirectory()

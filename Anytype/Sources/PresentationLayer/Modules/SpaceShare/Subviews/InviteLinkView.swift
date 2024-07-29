@@ -77,7 +77,7 @@ struct InviteLinkView: View {
             AnytypeText(Loc.SpaceShare.Invite.empty, style: .calloutRegular)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(12)
-            AsyncStandardButton(text: Loc.SpaceShare.Invite.generate, style: .primaryLarge) {
+            AsyncStandardButton(Loc.SpaceShare.Invite.generate, style: .primaryLarge) {
                 try await onGenerateInvite()
             }
         }

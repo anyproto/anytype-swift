@@ -71,9 +71,13 @@ extension SetFullHeader {
     private var description: some View {
         Group {
             if model.showDescription {
-                AnytypeText(model.details?.description, style: .relation1Regular)
-                    .foregroundColor(.Text.primary)
-                    .fixedSize(horizontal: false, vertical: true)
+                AnytypeTextField(
+                    placeholder: Loc.BlockText.ContentType.Description.placeholder,
+                    font: .relation1Regular,
+                    text: $model.descriptionString
+                )
+                .padding([.trailing], 20)
+                .foregroundStyle(Color.Text.primary)                
             } else {
                 EmptyView()
             }

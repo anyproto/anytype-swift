@@ -144,6 +144,7 @@
 "Alignment" = "Căn lề";
 "Actions" = "Các thao tác";
 "Relations" = "Các liên hệ";
+"History" = "History";
 "Objects" = "Các đối tượng";
 "Lists" = "Lists";
 "Pinned" = "Pinned";
@@ -287,6 +288,10 @@
 "Background picture" = "Background picture";
 "Layout" = "Bố cục";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
+"ObjectSettings.History.Description" = "All versions of object";
+
+// Version history
+"VersionHistory.Title" = "Version History";
 
 "Search" = "Tìm kiếm";
 "There is no emoji named" = "There is no emoji named";
@@ -505,7 +510,7 @@
 "Set.View.Empty.Subtitle" = "Thêm truy vấn tìm kiếm để tập hợp các đối tượng cùng loại hoặc liên hệ theo thời gian thực ";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Chọn truy vấn";
@@ -609,19 +614,18 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Quay lại";
-"SyncStatus.LocalOnly.Title" = "Local-only";
-"SyncStatus.LocalOnly.Description" = "Chỉ cục bộ";
-"SyncStatus.Synced.Anytype.Description" = "Backed up on Anytype Network";
-"SyncStatus.Synced.AnytypeStaging.Description" = "Backed up on Anytype Staging";
-"SyncStatus.Synced.SelfHosted.Description" = "Sao lưu lên mạng tự quản";
 "Downloading or uploading data to some node" = "Đang tải dữ liệu về hoặc lên điểm nào đó";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Đang khởi tạo đồng bộ";
 "Incompatible version" = "Incompatible version";
+"Connecting" = "Connecting...";
+"P2P Connecting" = "P2P Connecting...";
+"P2P Connection" = "P2P Connection";
+"Anytype Network" = "Anytype Network";
+"Self Host" = "Self Host";
+"Local Only" = "Local Only";
 "Synced" = "Đã đồng bộ";
-"Syncing..." = "Đang đồng bộ...";
 "No connection" = "Không có kết nối";
-"Preparing..." = "Đang chuẩn bị...";
 "Deleted" = "Đã xoá";
 "Download" = "Tải về";
 "Open object" = "Mở đối tượng";
@@ -805,17 +809,19 @@
 "Widgets.Layout.List.Title" = "Dạng danh sách";
 "Widgets.Layout.CompactList.Title" = "Danh sách thu gọn";
 "Widgets.Layout.View.Title" = "View";
-"Widgets.Layout.Link.Description" = "Phiên bản gói gọn của đối tượng";
-"Widgets.Layout.Tree.Description" = "Cấu trúc phân cấp các đối tượng";
-"Widgets.Layout.List.Description" = "Widget chứa khung danh sách của đối tượng tập";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget chứa khung danh sách của đối tượng tập";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
+"Widgets.Layout.List.Description" = "Widget with a list view";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
 "Widgets.Empty.Title" = "There are no objects here";
 "Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Được sửa gần đây";
 "Widgets.Library.RecentlyOpened.Name" = "Được mở gần đây";
 "Widgets.Library.RecentlyOpened.Description" = "Trên thiết bị này";
 "Widgets.AppUpdate" = "Anytype is ready to update";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
@@ -1163,7 +1169,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1171,6 +1176,20 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
+"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+
+
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";
 "Debug.Info" = "Debug Info";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

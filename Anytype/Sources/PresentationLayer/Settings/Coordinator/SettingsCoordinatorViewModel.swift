@@ -9,8 +9,6 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     
     @Injected(\.documentService)
     private var documentService: any OpenedDocumentsProviderProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     

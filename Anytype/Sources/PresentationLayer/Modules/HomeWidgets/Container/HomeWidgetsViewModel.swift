@@ -113,10 +113,6 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onCreateWidgetSelected(context: .main)
     }
     
-    func onTapDiscussion() {
-        output?.onObjectSelected(screenData: .discussion)
-    }
-    
     // MARK: - Private
     
     private func subscribeOnWallpaper() {

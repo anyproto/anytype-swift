@@ -144,6 +144,7 @@
 "Alignment" = "Ausrichtung";
 "Actions" = "Aktionen";
 "Relations" = "Verknüpfungen";
+"History" = "Verlauf";
 "Objects" = "Objekte";
 "Lists" = "Gruppen";
 "Pinned" = "Angeheftet";
@@ -286,6 +287,10 @@
 "Background picture" = "Hintergrundbild";
 "Layout" = "Layout";
 "Arrangement of objects on a canvas" = "Anordnung von Objekten auf einer Leinwand";
+"ObjectSettings.History.Description" = "Alle Versionen des Objekts";
+
+// Version history
+"VersionHistory.Title" = "Versionsverlauf";
 
 "Search" = "Suchen";
 "There is no emoji named" = "Es gibt kein Emoji mit dem Namen";
@@ -504,7 +509,7 @@
 "Set.View.Empty.Subtitle" = "Füge Suchparameter hinzu, um Objekte mit gleichenTypen und Relationen im Live-Modus zusammenzufassen";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "Diese Ansicht wird nicht unterstützt und wurde durch die neuesten geänderten Objekte ersetzt.";
+"Set.View.UnsupportedAlert" = "Ansicht wird auf Mobilgeräten nicht unterstützt";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Abfrage auswählen";
@@ -608,19 +613,18 @@
 "Unfavorite" = "Aus Favoriten entfernen";
 "Unsplash" = "Unsplash";
 "Go back" = "Zurückgehen";
-"SyncStatus.LocalOnly.Title" = "Nur lokal";
-"SyncStatus.LocalOnly.Description" = "Nur lokal";
-"SyncStatus.Synced.Anytype.Description" = "Im Anytype-Netzwerk gesichert";
-"SyncStatus.Synced.AnytypeStaging.Description" = "In Anytype Staging gesichert";
-"SyncStatus.Synced.SelfHosted.Description" = "Im selbst gehosteten Netzwerk gesichert";
 "Downloading or uploading data to some node" = "Herunterladen oder Hochladen von Daten zu einem Knoten";
 "Node is not connected" = "Knoten ist nicht verbunden";
 "Initializing sync" = "Initialisiere Synchronisation";
 "Incompatible version" = "Inkompatible Version";
+"Connecting" = "Verbindungsaufbau...";
+"P2P Connecting" = "P2P-Verbindungsaufbau...";
+"P2P Connection" = "P2P-Verbindung";
+"Anytype Network" = "Anytype-Netzwerk";
+"Self Host" = "Self Host";
+"Local Only" = "Nur lokal";
 "Synced" = "Synchronisiert";
-"Syncing..." = "Synchronisiere...";
 "No connection" = "Keine Verbindung";
-"Preparing..." = "Vorbereitung...";
 "Deleted" = "Gelöscht";
 "Download" = "Herunterladen";
 "Open object" = "Objekt öffnen";
@@ -797,24 +801,26 @@
 "Widgets.Actions.EmptyBin" = "Behälter leeren";
 "Widgets.Actions.AddBelow" = "Unten hinzufügen";
 "Widgets.Actions.NewObject" = "Neues Objekt";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "Alle Objekte ansehen";
 "Widgets.Layout.Screen.Title" = "Widget-Typ";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Strukturbaum";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakte Liste";
 "Widgets.Layout.View.Title" = "Ansicht";
-"Widgets.Layout.Link.Description" = "Kompakte Version des Objekts";
-"Widgets.Layout.Tree.Description" = "Hierarchische Struktur von Objekten";
-"Widgets.Layout.List.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
-"Widgets.Layout.View.Description" = "Widget with view of set object";
-"Widgets.Layout.CompactList.Description" = "Widget mit Listenansicht für ein bestimmtes Objekt";
+"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Tree.Description" = "Widget mit einer hierarchischen Struktur";
+"Widgets.Layout.List.Description" = "Widget mit einer Listenansicht";
+"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
+"Widgets.Layout.CompactList.Description" = "Widget mit einer kompakten Listenansicht";
 "Widgets.Empty.Title" = "Hier gibt es keine Objekte";
 "Widgets.Empty.CreateObject" = "Objekt erstellen";
 "Widgets.Library.RecentlyEdited.Name" = "Zuletzt bearbeitet";
 "Widgets.Library.RecentlyOpened.Name" = "Zuletzt geöffnet";
 "Widgets.Library.RecentlyOpened.Description" = "Auf diesem Gerät";
 "Widgets.AppUpdate" = "Anytype ist bereit zur Aktualisierung";
+"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Objects" = "Deine Objekte";
 
 // MARK: - About
 "About.AppVersion" = "App-Version: %@";
@@ -977,7 +983,7 @@
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Beitrittsanfrage zurückziehen";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.DoNotCancel" = "Nicht abbrechen";
 "SpaceManager.CancelRequestAlert.Title" = "Du musst die Zugangsanfrage erneut senden";
 "SpaceManager.CancelRequestAlert.Toast" = "Die Anfrage wurde storniert.";
 
@@ -1164,7 +1170,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1172,6 +1177,20 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.Android" = "You can manage tier on Android platform";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
+// MARK: - Sync status
+"SyncStatus.Info.localOnly" = "Datensicherung ist deaktiviert";
+"SyncStatus.Info.AnytypeNetwork" = "Ende-zu-Ende-verschlüsselt";
+"SyncStatus.Error.storageLimitExceed" = "Speicherplatzgrenze erreicht";
+"SyncStatus.Error.incompatibleVersion" = "Inkompatible Version";
+"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.UNRECOGNIZED" = "Unerkannter Fehler";
+"SyncStatus.P2P.Restricted" = "Eingeschränkt. Überprüfe die Geräteeinstellungen.";
+
+
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-Typen - %@";
 "Debug.Info" = "Debug-Informationen";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

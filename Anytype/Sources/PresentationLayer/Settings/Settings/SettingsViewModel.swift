@@ -9,8 +9,8 @@ final class SettingsViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
@@ -34,6 +34,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
     @Published var membership: MembershipStatus = .empty
+    @Published var exportStackGoroutines = false
     
     init(output: some SettingsModuleOutput) {
         self.output = output
@@ -71,7 +72,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func onChangeIconTap() {
-        output?.onChangeIconSelected(objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID)
+        output?.onChangeIconSelected(objectId: accountManager.account.info.profileObjectID)
     }
     
     func onSpacesTap() {
@@ -82,6 +83,10 @@ final class SettingsViewModel: ObservableObject {
         output?.onMembershipSelected()
     }
     
+    func onExportStackGoroutinesTap() {
+        exportStackGoroutines = true
+    }
+    
     // MARK: - Private
     
     private func setupSubscription() async {
@@ -89,7 +94,7 @@ final class SettingsViewModel: ObservableObject {
         
         await subscriptionService.startSubscription(
             subId: subAccountId,
-            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
+            objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
             self?.handleProfileDetails(details: details)
         }
@@ -113,7 +118,7 @@ final class SettingsViewModel: ObservableObject {
     private func updateProfileName(name: String) {
         Task {
             try await objectActionsService.updateBundledDetails(
-                contextID: activeWorkspaceStorage.workspaceInfo.profileObjectID,
+                contextID: accountManager.account.info.profileObjectID,
                 details: [.name(name)]
             )
         }
