@@ -31,10 +31,6 @@ final class SelectRelationListViewModel: ObservableObject {
         self.relationSelectedOptionsModel = data.relationSelectedOptionsModel
         self.relationSelectedOptionsModel.selectedOptionsIdsPublisher.assign(to: &$selectedOptionsIds)
     }
-    
-    func onAppear() {
-        searchTextChanged()
-    }
 
     func onClear() {
         Task {
@@ -87,41 +83,37 @@ final class SelectRelationListViewModel: ObservableObject {
         }
     }
     
-    func searchTextChanged(_ text: String = "") {
-        Task {
-            try await searchTextChangedAsync(text)
-        }
-    }
-    
-    private func searchTextChangedAsync(_ text: String = "") async throws {
-        let rawOptions = try await searchService.searchRelationOptions(
-            text: text,
-            relationKey: configuration.relationKey,
-            excludedObjectIds: [],
-            spaceId: configuration.spaceId
-        ).map { SelectRelationOption(relation: $0) }
-        
-        switch configuration.selectionMode {
-        case .single:
-            options = rawOptions
-        case .multi:
-            options = rawOptions.reordered(
-                by: selectedOptionsIds
-            ) { $0.id }
-        }
-        
-        if !configuration.isEditable {
-            options = options.filter { selectedOptionsIds.contains($0.id) }
-        }
-        
-        setEmptyIfNeeded()
+    func searchTextChanged() async {
+        do {
+            let rawOptions = try await searchService.searchRelationOptions(
+                text: searchText,
+                relationKey: configuration.relationKey,
+                excludedObjectIds: [],
+                spaceId: configuration.spaceId
+            ).map { SelectRelationOption(relation: $0) }
+            
+            switch configuration.selectionMode {
+            case .single:
+                options = rawOptions
+            case .multi:
+                options = rawOptions.reordered(
+                    by: selectedOptionsIds
+                ) { $0.id }
+            }
+            
+            if !configuration.isEditable {
+                options = options.filter { selectedOptionsIds.contains($0.id) }
+            }
+            
+            setEmptyIfNeeded()
+        } catch { }
     }
     
     private func updateListOnCreate(with optionId: String) {
         Task {
             searchText = ""
             try await relationSelectedOptionsModel.optionSelected(optionId)
-            try await searchTextChangedAsync()
+            await searchTextChanged()
         }
     }
     
