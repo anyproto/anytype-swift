@@ -4,13 +4,11 @@ import Foundation
 import AnytypeCore
 import OrderedCollections
 
-@MainActor
 protocol VersionHistoryDataBuilderProtocol {
     func buildData(for versions: [VersionHistory], participants: [String: Participant]) -> [VersionHistoryDataGroup]
     func buildFirstGroupKey(for versions: [VersionHistory], participants: [String: Participant]) -> String?
 }
 
-@MainActor
 final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     
     private let dateFormatter = VersionHistoryDateFormatter()
