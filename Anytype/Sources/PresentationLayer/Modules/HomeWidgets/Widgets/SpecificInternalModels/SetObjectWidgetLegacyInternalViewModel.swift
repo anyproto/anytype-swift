@@ -17,7 +17,7 @@ final class SetObjectWidgetLegacyInternalViewModel: ObservableObject, WidgetData
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
-    private var documentService: any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
     
@@ -174,7 +174,7 @@ final class SetObjectWidgetLegacyInternalViewModel: ObservableObject, WidgetData
             return
         }
         
-        setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
+        setDocument = documentsProvider.setDocument(objectId: objectId, forPreview: true)
         try? await setDocument?.openForPreview()
         updateModelState()
         

@@ -10,6 +10,15 @@ protocol DocumentsProviderProtocol {
     ) -> any SetDocumentProtocol
 }
 
+extension DocumentsProviderProtocol {
+    func setDocument(
+        objectId: String,
+        forPreview: Bool
+    ) -> any SetDocumentProtocol {
+        setDocument(objectId: objectId, forPreview: forPreview, inlineParameters: nil)
+    }
+}
+
 final class DocumentsProvider: DocumentsProviderProtocol {
     private var documentCache = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     

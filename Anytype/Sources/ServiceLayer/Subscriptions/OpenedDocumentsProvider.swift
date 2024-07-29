@@ -38,8 +38,7 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
     func setDocument(objectId: String, forPreview: Bool) -> any SetDocumentProtocol {
         let document = documentsProvider.setDocument(
             objectId: objectId,
-            forPreview: forPreview,
-            inlineParameters: nil
+            forPreview: forPreview
         )
         
         Task { @MainActor in
