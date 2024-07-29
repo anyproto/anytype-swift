@@ -104,11 +104,13 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func onCreateWidgetFromEditMode() {
+        AnytypeAnalytics.instance().logClickAddWidget(context: .editor)
         output?.onCreateWidgetSelected(context: .editor)
     }
     
-    func onCreateWidgetFromHomeMode() {
-        output?.onCreateWidgetSelected(context: .home)
+    func onCreateWidgetFromMainMode() {
+        AnytypeAnalytics.instance().logClickAddWidget(context: .main)
+        output?.onCreateWidgetSelected(context: .main)
     }
     
     // MARK: - Private
