@@ -290,7 +290,7 @@
 "ObjectSettings.History.Description" = "Tutte le versioni dell'oggetto";
 
 // Version history
-"VersionHistory.Title" = "Version History";
+"VersionHistory.Title" = "Cronologia delle Versioni";
 
 "Search" = "Cerca";
 "There is no emoji named" = "Non esiste un emoji chiamato";
@@ -1190,5 +1190,5 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "Debug.Info" = "Informazioni di Debug";
 
 // MARK: - Messages
-"Message.Action.AddReaction" = "Add Reaction";
-"Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.Action.AddReaction" = "Aggiungi una Reazione";
+"Message.Input.EmptyPlaceholder" = "Scrivi un messaggio...";
