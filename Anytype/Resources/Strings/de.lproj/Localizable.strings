@@ -1192,5 +1192,5 @@ Please provide specific details of your needs here.";
 "Debug.Info" = "Debug-Informationen";
 
 // MARK: - Messages
-"Message.Action.AddReaction" = "Add Reaction";
-"Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.Action.AddReaction" = "Reaktion hinzufügen";
+"Message.Input.EmptyPlaceholder" = "Eine Nachricht schreiben...";
