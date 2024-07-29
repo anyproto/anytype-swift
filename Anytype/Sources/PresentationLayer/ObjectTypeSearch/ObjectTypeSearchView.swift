@@ -108,41 +108,43 @@ struct ObjectTypeSearchView: View {
     }
     
     private func typesView(section: SectionType, data: [ObjectTypeData]) -> some View {
-        WrappingHStack(data, spacing: .constant(8)) { typeData in
-            Button {
-                UISelectionFeedbackGenerator().selectionChanged()
-                viewModel.didSelectType(typeData.type, section: section)
-            } label: {
-                HStack(spacing: 8) {
-                    if let emoji = typeData.type.iconEmoji {
-                        IconView(icon: .object(.emoji(emoji)))
-                            .frame(width: 18, height: 18)
+        WrappingHStack(alignment: .leading, horizontalSpacing: 8, verticalSpacing: 0) {
+            ForEach(data, id: \.type.id) { typeData in
+                Button {
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    viewModel.didSelectType(typeData.type, section: section)
+                } label: {
+                    HStack(spacing: 8) {
+                        if let emoji = typeData.type.iconEmoji {
+                            IconView(icon: .object(.emoji(emoji)))
+                                .frame(width: 18, height: 18)
+                        }
+                        
+                        AnytypeText(typeData.type.name, style: .uxTitle2Medium)
+                            .foregroundColor(.Text.primary)
                     }
-                    
-                    AnytypeText(typeData.type.name, style: .uxTitle2Medium)
-                        .foregroundColor(.Text.primary)
+                    .padding(.vertical, 15)
+                    .padding(.leading, 14)
+                    .padding(.trailing, 16)
                 }
-                .padding(.vertical, 15)
-                .padding(.leading, 14)
-                .padding(.trailing, 16)
-            }
-            .border(
-                12,
-                color: shouldHighlightType(typeData) ? .System.amber50 : .Shape.primary,
-                lineWidth: shouldHighlightType(typeData) ? 2 : 1
-            )
-            .background(Color.Background.secondary)
-            .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .contextMenu {
-                switch section {
-                case .pins, .objects, .lists:
-                    contextMenu(section: section, data: typeData)
-                case .library:
-                    EmptyView()
+                .border(
+                    12,
+                    color: shouldHighlightType(typeData) ? .System.amber50 : .Shape.primary,
+                    lineWidth: shouldHighlightType(typeData) ? 2 : 1
+                )
+                .background(Color.Background.secondary)
+                .contentShape(.contextMenuPreview, RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .contextMenu {
+                    switch section {
+                    case .pins, .objects, .lists:
+                        contextMenu(section: section, data: typeData)
+                    case .library:
+                        EmptyView()
+                    }
                 }
+                .padding(.bottom, 8)
+                .id(typeData.type.id)
             }
-            .padding(.bottom, 8)
-            .id(typeData.type.id)
         }
         .padding(.horizontal, 20)
     }
