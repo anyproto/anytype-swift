@@ -73,7 +73,7 @@ struct VersionHistoryView: View {
         .padding(.vertical, 9)
         .fixTappableArea()
         .onTapGesture {
-            model.onVersionTap(data.id)
+            model.onVersionTap(data)
         }
     }
 }

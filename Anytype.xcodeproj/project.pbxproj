@@ -1052,6 +1052,8 @@
 		2E8825722C52968400FD59D3 /* IconsGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8825712C52968400FD59D3 /* IconsGroupView.swift */; };
 		2E8825752C5A5B7100FD59D3 /* VersionHistoryCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8825742C5A5B7100FD59D3 /* VersionHistoryCoordinatorView.swift */; };
 		2E8825772C5A5B7E00FD59D3 /* VersionHistoryCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8825762C5A5B7E00FD59D3 /* VersionHistoryCoordinatorViewModel.swift */; };
+		2E88257A2C5A61A200FD59D3 /* ObjectVersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8825792C5A61A200FD59D3 /* ObjectVersionView.swift */; };
+		2E88257C2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E88257B2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift */; };
 		2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */; };
 		2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */; };
 		2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9221A0294B8D4900968750 /* DataViewBlockView.swift */; };
@@ -2908,6 +2910,8 @@
 		2E8825712C52968400FD59D3 /* IconsGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconsGroupView.swift; sourceTree = "<group>"; };
 		2E8825742C5A5B7100FD59D3 /* VersionHistoryCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryCoordinatorView.swift; sourceTree = "<group>"; };
 		2E8825762C5A5B7E00FD59D3 /* VersionHistoryCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionHistoryCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		2E8825792C5A61A200FD59D3 /* ObjectVersionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectVersionView.swift; sourceTree = "<group>"; };
+		2E88257B2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectVersionViewModel.swift; sourceTree = "<group>"; };
 		2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockViewModel.swift; sourceTree = "<group>"; };
 		2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockConfiguration.swift; sourceTree = "<group>"; };
 		2E9221A0294B8D4900968750 /* DataViewBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockView.swift; sourceTree = "<group>"; };
@@ -7857,6 +7861,7 @@
 		2E7DB96B2C46B3F90064F9B2 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				2E8825782C5A613600FD59D3 /* Object */,
 				2E8825732C5A5B4A00FD59D3 /* Coordinator */,
 				2E7DB96C2C46C0410064F9B2 /* VersionHistoryView.swift */,
 				2E7DB96E2C46C0590064F9B2 /* VersionHistoryViewModel.swift */,
@@ -7901,6 +7906,15 @@
 				2E8825762C5A5B7E00FD59D3 /* VersionHistoryCoordinatorViewModel.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2E8825782C5A613600FD59D3 /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				2E8825792C5A61A200FD59D3 /* ObjectVersionView.swift */,
+				2E88257B2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift */,
+			);
+			path = Object;
 			sourceTree = "<group>";
 		};
 		2E92219B294B8B0100968750 /* DataView */ = {
@@ -11679,6 +11693,7 @@
 				C9E939D9285390B70089CB98 /* TextBlockActionHandlerProtocol.swift in Sources */,
 				2AD0610E2C29BBE7008A600C /* EqualFitWidthHStack.swift in Sources */,
 				2AEABE0728C7559500BDE3AC /* RelationEventConverter.swift in Sources */,
+				2E88257A2C5A61A200FD59D3 /* ObjectVersionView.swift in Sources */,
 				3D7DC2C32BB2D40B00A4F114 /* MembershipStatusStorage.swift in Sources */,
 				2A2B332E2A7BB0AC004BD906 /* SpaceRowView.swift in Sources */,
 				2E975EEC287C23DA004DE574 /* SetRelationsDetailsLocalSearchInteractor.swift in Sources */,
@@ -12759,6 +12774,7 @@
 				123FDADD26C17CBA00F6F44B /* ObjectHeaderCover.swift in Sources */,
 				2ECB342F2A97D00500E0F9BB /* SetFiltersSelectionCoordinatorViewModel.swift in Sources */,
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
+				2E88257C2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift in Sources */,
 				12FD9D1F2767172A00991886 /* RelationText.swift in Sources */,
 				2E65276B2B5EE9BA00F27126 /* RelationListContainerView.swift in Sources */,
 				2AC434992B7A068B006166BF /* SpaceShareViewModel.swift in Sources */,

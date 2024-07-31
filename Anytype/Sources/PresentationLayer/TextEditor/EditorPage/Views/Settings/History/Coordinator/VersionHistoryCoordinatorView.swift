@@ -15,5 +15,8 @@ struct VersionHistoryCoordinatorView: View {
             data: model.data,
             output: model
         )
+        .sheet(item: $model.objectVersionData) {
+            ObjectVersionView(data: $0)
+        }
     }
 }
