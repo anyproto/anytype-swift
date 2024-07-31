@@ -6,8 +6,8 @@ struct VersionHistoryView: View {
     @StateObject private var model: VersionHistoryViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: VersionHistoryData) {
-        _model = StateObject(wrappedValue: VersionHistoryViewModel(data: data))
+    init(data: VersionHistoryData, output: VersionHistoryModuleOutput?) {
+        _model = StateObject(wrappedValue: VersionHistoryViewModel(data: data, output: output))
     }
     
     var body: some View {
@@ -71,5 +71,9 @@ struct VersionHistoryView: View {
                 .frame(width: 24, height: 24)
         }
         .padding(.vertical, 9)
+        .fixTappableArea()
+        .onTapGesture {
+            model.onVersionTap(data.id)
+        }
     }
 }
