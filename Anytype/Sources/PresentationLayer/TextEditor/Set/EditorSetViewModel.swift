@@ -8,6 +8,7 @@ import OrderedCollections
 @MainActor
 final class EditorSetViewModel: ObservableObject {
     let headerModel: ObjectHeaderViewModel
+    let showHeader: Bool
     
     @Published var titleString: String
     @Published var descriptionString: String
@@ -173,7 +174,7 @@ final class EditorSetViewModel: ObservableObject {
     private var descriptionSubscription: AnyCancellable?
     private weak var output: (any EditorSetModuleOutput)?
 
-    init(data: EditorSetObject, output: (any EditorSetModuleOutput)?) {
+    init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
             forPreview: false,
@@ -193,6 +194,7 @@ final class EditorSetViewModel: ObservableObject {
         self.titleString = setDocument.details?.pageCellTitle ?? ""
         self.descriptionString = setDocument.details?.description ?? ""
         
+        self.showHeader = showHeader
         self.output = output
         self.setup()
     }
@@ -766,7 +768,8 @@ extension EditorSetViewModel {
 
 extension EditorSetViewModel {
     static let emptyPreview = EditorSetViewModel(
-        data: EditorSetObject(objectId: "", spaceId: ""),
+        data: EditorSetObject(objectId: "", spaceId: ""), 
+        showHeader: true,
         output: nil
     )
 }

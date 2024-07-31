@@ -23,7 +23,7 @@ struct ObjectVersionView: View {
         case .page(let data):
             EditorPageCoordinatorView(data: data, showHeader: false, setupEditorInput: {_,_ in })
         case .set(let data):
-            EditorSetCoordinatorView(data: data)
+            EditorSetCoordinatorView(data: data, showHeader: false)
         default:
             EmptyView()
         }
