@@ -11,6 +11,7 @@ final class VersionHistoryViewModel: ObservableObject {
     private let spaceId: String
     private var rawVersions = [VersionHistory]()
     private var participantsDict = [String: Participant]()
+    private weak var output: VersionHistoryModuleOutput?
     
     private var firstOpen = true
     
@@ -21,9 +22,10 @@ final class VersionHistoryViewModel: ObservableObject {
     
     private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
-    init(data: VersionHistoryData) {
+    init(data: VersionHistoryData, output: VersionHistoryModuleOutput?) {
         self.objectId = data.objectId
         self.spaceId = data.spaceId
+        self.output = output
     }
     
     func startParticipantsSubscription() async {
@@ -51,6 +53,10 @@ final class VersionHistoryViewModel: ObservableObject {
         } else {
             expandedGroups.insert(group.title)
         }
+    }
+    
+    func onVersionTap(_ versionId: String) {
+        output?.onVersionTap(versionId)
     }
     
     private func updateView() {
