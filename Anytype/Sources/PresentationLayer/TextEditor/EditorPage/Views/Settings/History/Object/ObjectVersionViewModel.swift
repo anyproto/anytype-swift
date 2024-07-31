@@ -25,9 +25,9 @@ final class ObjectVersionViewModel: ObservableObject {
     
     private func currentScreenData() -> EditorScreenData? {
         if data.isListType {
-            return openDocumentProvider.document(objectId: data.objectId).details?.editorScreenData()
-        } else {
             return openDocumentProvider.setDocument(objectId: data.objectId).details?.editorScreenData()
+        } else {
+            return openDocumentProvider.document(objectId: data.objectId).details?.editorScreenData()
         }
     }
 }
