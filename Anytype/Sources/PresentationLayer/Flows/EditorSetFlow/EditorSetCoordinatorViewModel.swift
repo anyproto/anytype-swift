@@ -18,6 +18,7 @@ final class EditorSetCoordinatorViewModel:
     RelationValueCoordinatorOutput
 {
     let data: EditorSetObject
+    let showHeader: Bool
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     @Injected(\.legacySetObjectCreationSettingsCoordinator)
@@ -42,8 +43,9 @@ final class EditorSetCoordinatorViewModel:
     @Published var objectIconPickerData: ObjectIconPickerData?
     @Published var syncStatusSpaceId: StringIdentifiable?
     
-    init(data: EditorSetObject) {
+    init(data: EditorSetObject, showHeader: Bool) {
         self.data = data
+        self.showHeader = showHeader
     }
     
     // MARK: - EditorSetModuleOutput

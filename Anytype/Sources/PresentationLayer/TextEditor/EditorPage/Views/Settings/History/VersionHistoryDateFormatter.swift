@@ -28,8 +28,4 @@ final class VersionHistoryDateFormatter {
             return dateFormatter.string(from: date)
         }
     }
-    
-    func isDate(_ date1: Date, inSameDayAs date2: Date) -> Bool {
-        dateFormatter.calendar.isDate(date1, inSameDayAs: date2)
-    }
 }

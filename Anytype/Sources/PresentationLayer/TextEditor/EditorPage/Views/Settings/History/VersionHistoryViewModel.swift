@@ -55,8 +55,8 @@ final class VersionHistoryViewModel: ObservableObject {
         }
     }
     
-    func onVersionTap(_ versionId: String) {
-        output?.onVersionTap(versionId)
+    func onVersionTap(_ version: VersionHistoryItem) {
+        output?.onVersionTap(title: version.time, versionId: version.id)
     }
     
     private func updateView() {

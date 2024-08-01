@@ -3,11 +3,13 @@ import SwiftUI
 
 @MainActor
 protocol VersionHistoryModuleOutput: AnyObject {
-    func onVersionTap(_ versionId: String)
+    func onVersionTap(title: String, versionId: String)
 }
 
 @MainActor
 final class VersionHistoryCoordinatorViewModel: ObservableObject, VersionHistoryModuleOutput {
+    
+    @Published var objectVersionData: ObjectVersionData?
     
     let data: VersionHistoryData
     
@@ -17,8 +19,13 @@ final class VersionHistoryCoordinatorViewModel: ObservableObject, VersionHistory
     
     // MARK: VersionHistoryModuleOutput
     
-    func onVersionTap(_ versionId: String) {
-        // TODO
+    func onVersionTap(title: String, versionId: String) {
+        objectVersionData = ObjectVersionData(
+            title: title,
+            objectId: data.objectId,
+            versionId: versionId,
+            isListType: data.isListType
+        )
     }
 }
 

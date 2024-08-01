@@ -51,7 +51,8 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     }
     
     func showVersionHistory(document: some BaseDocumentProtocol) {
-        versionHistoryData = VersionHistoryData(objectId: document.objectId, spaceId: document.spaceId)
+        guard let details = document.details else { return }
+        versionHistoryData = VersionHistoryData(objectId: document.objectId, spaceId: document.spaceId, isListType: details.isList)
     }
     
     func openPageAction(screenData: EditorScreenData) {
