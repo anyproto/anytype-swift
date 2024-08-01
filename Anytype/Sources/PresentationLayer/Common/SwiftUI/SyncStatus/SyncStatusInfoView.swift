@@ -39,21 +39,25 @@ struct SyncStatusInfoView: View {
     }
     
     var p2pInfo: some View {
-        HStack(alignment: .center, spacing: 12) {
-            NetworkIconView(iconProvider: $model.p2pStatusInfo)
-            VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(model.p2pStatusInfo.networkTitle, style: .uxTitle2Regular)
-                    .lineLimit(1)
-                if model.p2pStatusInfo.networkSubtitle.isNotEmpty {
-                    AnytypeText(model.p2pStatusInfo.networkSubtitle, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+        Button {
+            model.onP2PTap()
+        } label: {
+            HStack(alignment: .center, spacing: 12) {
+                NetworkIconView(iconProvider: $model.p2pStatusInfo)
+                VStack(alignment: .leading, spacing: 0) {
+                    AnytypeText(model.p2pStatusInfo.networkTitle, style: .uxTitle2Regular)
                         .lineLimit(1)
+                    if model.p2pStatusInfo.networkSubtitle.isNotEmpty {
+                        AnytypeText(model.p2pStatusInfo.networkSubtitle, style: .relation3Regular)
+                            .foregroundColor(.Text.secondary)
+                            .lineLimit(1)
+                    }
                 }
+                Spacer()
             }
-            Spacer()
-        }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+        }.disabled(!model.haveP2PAction)
     }
 }
 
