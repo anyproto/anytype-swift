@@ -10,11 +10,18 @@ struct ObjectVersionView: View {
     }
     
     var body: some View {
+        content
+            .overlay(alignment: .topLeading) {
+                header
+            }
+    }
+    
+    private var header: some View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: model.data.title)
-            content
         }
+        .background(Color.Background.primary)
     }
     
     @ViewBuilder
