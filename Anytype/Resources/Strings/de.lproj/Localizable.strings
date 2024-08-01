@@ -808,7 +808,7 @@
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakte Liste";
 "Widgets.Layout.View.Title" = "Ansicht";
-"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Link.Description" = "Kompakte Widget-Ansicht";
 "Widgets.Layout.Tree.Description" = "Widget mit einer hierarchischen Struktur";
 "Widgets.Layout.List.Description" = "Widget mit einer Listenansicht";
 "Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
