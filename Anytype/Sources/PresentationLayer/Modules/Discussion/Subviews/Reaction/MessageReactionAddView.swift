@@ -9,7 +9,7 @@ struct MessageReactionAddView: View {
         Button {
             onTap()
         } label: {
-            Image(asset: .X19.plus)
+            Image(asset: .X24.reaction)
                 .frame(width: 32, height: 32)
                 .background(Color.Background.highlightedMedium)
                 .cornerRadius(16, style: .circular)
