@@ -137,7 +137,7 @@ final class ObjectActionsViewModel: ObservableObject {
             anytypeAssertionFailure("Default layout not found")
             return
         }
-        let widgetObject = documentsProvider.document(objectId: info.widgetsId, forPreview: true)
+        let widgetObject = documentsProvider.document(objectId: info.widgetsId, mode: .preview)
         try await widgetObject.openForPreview()
         guard let first = widgetObject.children.first else {
             anytypeAssertionFailure("First children not found")
@@ -182,7 +182,7 @@ final class ObjectActionsViewModel: ObservableObject {
     
     private func onObjectSelection(objectId: String, currentObjectId: String) {
         Task { @MainActor in
-            let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
+            let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
             try? await targetDocument.openForPreview()
             guard let id = targetDocument.children.last?.id,
                   let details = targetDocument.details else { return }

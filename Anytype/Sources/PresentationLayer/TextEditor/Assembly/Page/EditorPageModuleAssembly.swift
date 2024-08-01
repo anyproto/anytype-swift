@@ -47,7 +47,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
         let document = documentService.document(
             objectId: data.objectId,
-            forPreview: data.isOpenedForPreview
+            mode: data.isOpenedForPreview ? .preview : .handling
         )
         let router = EditorRouter(
             viewController: controller,

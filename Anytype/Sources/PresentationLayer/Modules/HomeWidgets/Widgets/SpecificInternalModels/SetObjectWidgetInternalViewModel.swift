@@ -215,7 +215,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             return
         }
         
-        setDocument = documentsProvider.setDocument(objectId: objectId, forPreview: true)
+        setDocument = documentsProvider.setDocument(objectId: objectId, mode: .preview)
         try? await setDocument?.openForPreview()
         
         rowDetails = nil

@@ -12,7 +12,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var isLocked: Bool { get }
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
-    var forPreview: Bool { get }
+    var mode: DocumentMode { get }
     var details: ObjectDetails? { get }
     var permissions: ObjectPermissions { get }
     var syncStatus: SyncStatus? { get }
@@ -22,8 +22,13 @@ protocol BaseDocumentProtocol: AnyObject {
     
     @MainActor
     func open() async throws
+    
     @MainActor
     func openForPreview() async throws
+    
+    @MainActor
+    func openVersion() async throws
+    
     @MainActor
     func close() async throws
 }

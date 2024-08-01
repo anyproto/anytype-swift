@@ -61,5 +61,8 @@ protocol SetDocumentProtocol: AnyObject {
     func openForPreview() async throws
     
     @MainActor
+    func openVersion() async throws
+    
+    @MainActor
     func close() async throws
 }

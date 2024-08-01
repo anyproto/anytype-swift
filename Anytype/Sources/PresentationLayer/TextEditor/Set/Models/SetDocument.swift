@@ -24,7 +24,7 @@ final class SetDocument: SetDocumentProtocol {
         document.detailsPublisher
     }
     
-    var forPreview: Bool { document.forPreview }
+    var mode: DocumentMode { document.mode }
     
     var blockDataview: BlockDataview? {
         let blockId = inlineParameters?.blockId ?? SetConstants.dataviewBlockId
@@ -206,6 +206,12 @@ final class SetDocument: SetDocumentProtocol {
     @MainActor
     func openForPreview() async throws {
         try await document.openForPreview()
+        await setup()
+    }
+    
+    @MainActor
+    func openVersion() async throws {
+        try await document.openVersion()
         await setup()
     }
     

@@ -13,7 +13,8 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Local state
     let objectId: String
-    let forPreview: Bool
+    let mode: DocumentMode
+    
     @Atomic
     private(set) var children = [BlockInformation]()
     @Atomic
@@ -36,6 +37,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private var relationBuilder: any RelationsBuilderProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
+    @Injected(\.historyVersionsService)
+    private var historyVersionsService: any HistoryVersionsServiceProtocol
     private let relationDetailsStorage: any RelationDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
@@ -59,7 +62,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
     init(
         objectId: String,
-        forPreview: Bool,
+        mode: DocumentMode,
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
         relationDetailsStorage: some RelationDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
@@ -72,7 +75,7 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
-        self.forPreview = forPreview
+        self.mode = mode
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
         self.objectLifecycleService = objectLifecycleService
@@ -88,7 +91,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
             try await objectLifecycleService.close(contextId: objectId)
         }
@@ -105,27 +108,46 @@ final class BaseDocument: BaseDocumentProtocol {
         if isOpened {
             return
         }
-        guard !forPreview else {
+        switch mode {
+        case .handling:
+            let model = try await objectLifecycleService.open(contextId: objectId)
+            setupView(model)
+        case .preview:
             anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
-            return
+        case .version:
+            anytypeAssertionFailure("Document created to show versiobn. You should use openVersion() method.")
         }
-        let model = try await objectLifecycleService.open(contextId: objectId)
-        setupView(model)
     }
     
     @MainActor
     func openForPreview() async throws {
-        guard forPreview else {
+        switch mode {
+        case .handling:
             anytypeAssertionFailure("Document created for handling. You should use open() method.")
-            return
+        case .preview:
+            let model = try await objectLifecycleService.openForPreview(contextId: objectId)
+            setupView(model)
+        case .version:
+            anytypeAssertionFailure("Document created to show versiobn. You should use openVersion() method.")
         }
-        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
-        setupView(model)
+    }
+    
+    @MainActor
+    func openVersion() async throws {
+        switch mode {
+        case .handling:
+            anytypeAssertionFailure("Document created for handling. You should use open() method.")
+        case .preview:
+            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
+        case .version(let versionId):
+            let model = try await historyVersionsService.showVersion(objectId: objectId, versionId: versionId)
+            setupView(model)
+        }
     }
     
     @MainActor
     func close() async throws {
-        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         try await objectLifecycleService.close(contextId: objectId)
         isOpened = false
     }
@@ -162,7 +184,7 @@ final class BaseDocument: BaseDocumentProtocol {
                 self?.triggerSync(updates: updates)
             }
         }
-        if !forPreview {
+        if mode.isHandling {
             eventsListener.startListening()
         }
     }

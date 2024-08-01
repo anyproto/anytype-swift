@@ -177,7 +177,6 @@ final class EditorSetViewModel: ObservableObject {
     init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
-            forPreview: false,
             inlineParameters: data.inline
         )
         self.headerModel = ObjectHeaderViewModel(

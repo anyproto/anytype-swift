@@ -18,7 +18,7 @@ final class SpaceObjectIconPickerViewModel: ObservableObject {
     private var openDocumentProvider: any OpenedDocumentsProviderProtocol
     
     private lazy var document: any BaseDocumentProtocol = {
-        openDocumentProvider.document(objectId: spaceViewId, forPreview: false)
+        openDocumentProvider.document(objectId: spaceViewId)
     }()
     
     @Published private(set) var isRemoveEnabled: Bool = false
