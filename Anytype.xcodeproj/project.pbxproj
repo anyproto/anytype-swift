@@ -279,6 +279,8 @@
 		2A0303A128ABD4C9002EFC46 /* SystemURLServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0303A028ABD4C9002EFC46 /* SystemURLServiceProtocol.swift */; };
 		2A03FD562A7A46C500CB7191 /* WidgetTypeChangeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03FD552A7A46C500CB7191 /* WidgetTypeChangeData.swift */; };
 		2A03FD5D2A7A85DD00CB7191 /* RecentWidgetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03FD5C2A7A85DD00CB7191 /* RecentWidgetType.swift */; };
+		2A055B372C5A4DCF001EEE1A /* NSAttributedString+MessageExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A055B362C5A4DCF001EEE1A /* NSAttributedString+MessageExtensions.swift */; };
+		2A055B392C5A50CE001EEE1A /* DiscussionKeys+Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A055B382C5A50CE001EEE1A /* DiscussionKeys+Menu.swift */; };
 		2A07E7C42BF270BF00BCFFA3 /* DocumentSyncStatusData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A07E7C32BF270BF00BCFFA3 /* DocumentSyncStatusData.swift */; };
 		2A081A2E2AE7B3CF0040178D /* TipsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A081A2D2AE7B3CF0040178D /* TipsConfiguration.swift */; };
 		2A0B0BF52C21BA7A0019D4D6 /* GalleryWidgetRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0B0BF42C21BA7A0019D4D6 /* GalleryWidgetRow.swift */; };
@@ -2117,6 +2119,8 @@
 		2A0554DE2AE965E000D299C4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		2A0554DF2AE965E400D299C4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		2A0554E02AE965E700D299C4 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = "pt-BR"; path = "pt-BR.lproj/Localizable.stringsdict"; sourceTree = "<group>"; };
+		2A055B362C5A4DCF001EEE1A /* NSAttributedString+MessageExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+MessageExtensions.swift"; sourceTree = "<group>"; };
+		2A055B382C5A50CE001EEE1A /* DiscussionKeys+Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DiscussionKeys+Menu.swift"; sourceTree = "<group>"; };
 		2A07E7C32BF270BF00BCFFA3 /* DocumentSyncStatusData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentSyncStatusData.swift; sourceTree = "<group>"; };
 		2A081A2D2AE7B3CF0040178D /* TipsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsConfiguration.swift; sourceTree = "<group>"; };
 		2A0B0BF42C21BA7A0019D4D6 /* GalleryWidgetRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryWidgetRow.swift; sourceTree = "<group>"; };
@@ -5819,6 +5823,8 @@
 				2A4191E72C36929400117FB8 /* DiscusionInput.swift */,
 				2AD7CFA32C36A7D000F2786B /* DiscussionTextViewCoordinator.swift */,
 				2A31FF012C3D8D800055E90A /* DiscussionAttributes.swift */,
+				2A055B362C5A4DCF001EEE1A /* NSAttributedString+MessageExtensions.swift */,
+				2A055B382C5A50CE001EEE1A /* DiscussionKeys+Menu.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -11603,6 +11609,7 @@
 				2A93E1A82AE7DE90004438FD /* View+Sheet.swift in Sources */,
 				53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */,
 				2A376F5F2B861D7100CF444A /* SpaceStatus+Localize.swift in Sources */,
+				2A055B372C5A4DCF001EEE1A /* NSAttributedString+MessageExtensions.swift in Sources */,
 				2EAA14072AA63918000A712A /* SetRelationsViewModel.swift in Sources */,
 				2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */,
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
@@ -11768,6 +11775,7 @@
 				2E7E50422B6D5C3A003867A3 /* ObjectRelationListModuleOutput.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
 				2A30B2022BB40E3400206806 /* BlockFields+Fields.swift in Sources */,
+				2A055B392C5A50CE001EEE1A /* DiscussionKeys+Menu.swift in Sources */,
 				2AF205BC2ABD8E660027F3EA /* HomeBottomNavigationPanelView.swift in Sources */,
 				3DBCD4462BF3BEAA0038FE1B /* MembershipMetadataProvider.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
