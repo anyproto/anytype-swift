@@ -11,6 +11,7 @@ struct VersionHistoryDataGroup: Identifiable, Hashable {
 
 struct VersionHistoryItem: Identifiable, Hashable {
     let id: String
+    let dateTime: String
     let time: String
     let author: String
     let icon: ObjectIcon?

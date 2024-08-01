@@ -18,6 +18,12 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
+    private let dateTimeFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        return dateFormatter
+    }()
     
     nonisolated init() { }
     
@@ -98,7 +104,8 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     
     private func buildVersionHistoryItem(for version: VersionHistory, participant: Participant) -> VersionHistoryItem {
         VersionHistoryItem(
-            id: version.id,
+            id: version.id, 
+            dateTime: buildDateTimeString(for: version),
             time: buildTimeString(for: version),
             author: participant.localName,
             icon: participant.icon
@@ -108,6 +115,11 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     private func buildDateString(for version: VersionHistory) -> String {
         let date = buildDate(for: version)
         return dateFormatter.localizedString(for: date)
+    }
+    
+    private func buildDateTimeString(for version: VersionHistory) -> String {
+        let date = buildDate(for: version)
+        return dateTimeFormatter.string(from: date)
     }
     
     private func buildTimeString(for version: VersionHistory) -> String {
