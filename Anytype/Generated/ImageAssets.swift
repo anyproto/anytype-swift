@@ -171,6 +171,7 @@ internal extension ImageAsset {
     static let phoneNumber = ImageAsset.bundle(name: "x24/Phone Number")
     static let plus = ImageAsset.bundle(name: "x24/Plus")
     static let privateSpace = ImageAsset.bundle(name: "x24/Private Space")
+    static let reaction = ImageAsset.bundle(name: "x24/Reaction")
     static let relations = ImageAsset.bundle(name: "x24/Relations")
     static let removeRed = ImageAsset.bundle(name: "x24/Remove Red")
     static let replace = ImageAsset.bundle(name: "x24/Replace")
