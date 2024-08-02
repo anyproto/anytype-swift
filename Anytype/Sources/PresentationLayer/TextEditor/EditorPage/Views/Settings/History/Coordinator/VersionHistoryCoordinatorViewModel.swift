@@ -23,7 +23,8 @@ final class VersionHistoryCoordinatorViewModel: ObservableObject, VersionHistory
         objectVersionData = ObjectVersionData(
             title: title,
             icon: icon,
-            objectId: data.objectId,
+            objectId: data.objectId, 
+            spaceId: data.spaceId,
             versionId: versionId,
             isListType: data.isListType
         )

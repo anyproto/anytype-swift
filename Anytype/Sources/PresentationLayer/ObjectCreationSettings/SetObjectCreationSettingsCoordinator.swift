@@ -72,7 +72,6 @@ final class SetObjectCreationSettingsCoordinator:
             data: EditorPageObject(
                 objectId: setting.templateId,
                 spaceId: setting.spaceId,
-                isOpenedForPreview: false,
                 usecase: .templateEditing
             ), 
             showHeader: false,

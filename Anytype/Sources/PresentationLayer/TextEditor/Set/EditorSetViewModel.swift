@@ -177,13 +177,13 @@ final class EditorSetViewModel: ObservableObject {
     init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
+            mode: data.mode,
             inlineParameters: data.inline
         )
         self.headerModel = ObjectHeaderViewModel(
             document: setDocument.document,
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
-                isOpenedForPreview: false, 
                 blockId: nil,
                 usecase: .editor
             ),
@@ -215,7 +215,16 @@ final class EditorSetViewModel: ObservableObject {
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
-                try await setDocument.open()
+                
+                switch setDocument.document.mode {
+                case .handling:
+                    try await setDocument.open()
+                case .preview:
+                    try await setDocument.openForPreview()
+                case .version:
+                    try await setDocument.openVersion()
+                }
+                
                 updateWithExternalActiveViewIdIfNeeded()
                 loadingDocument = false
                 await onDataviewUpdate()

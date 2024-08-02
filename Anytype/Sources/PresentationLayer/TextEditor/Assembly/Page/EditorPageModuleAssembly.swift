@@ -47,7 +47,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
 
         let document = documentService.document(
             objectId: data.objectId,
-            mode: data.isOpenedForPreview ? .preview : .handling
+            mode: data.mode
         )
         let router = EditorRouter(
             viewController: controller,
@@ -65,7 +65,6 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
             bottomNavigationManager: bottomNavigationManager,
             configuration: EditorPageViewModelConfiguration(
-                isOpenedForPreview: data.isOpenedForPreview, 
                 blockId: data.blockId,
                 usecase: data.usecase
             ),
@@ -123,7 +122,7 @@ final class EditorPageModuleAssembly: EditorPageModuleAssemblyProtocol {
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
             actionHandler: actionHandler,
             router: router,
-            initialEditingState: configuration.isOpenedForPreview ? .readonly : .editing,
+            initialEditingState: document.mode.isHandling ? .editing : .readonly,
             viewInput: viewInput,
             bottomNavigationManager: bottomNavigationManager
         )

@@ -1,4 +1,4 @@
-enum DocumentMode: Equatable {
+enum DocumentMode: Hashable, Codable {
     case handling
     case preview
     case version(String)
