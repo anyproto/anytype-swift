@@ -6,11 +6,19 @@ struct IconsGroupView: View {
     let icons: [ObjectIcon]
     
     var body: some View {
+        HStack(spacing: 4) {
+            iconsView
+            countView
+        }
+    }
+    
+    private var iconsView: some View {
         HStack(spacing: -Constants.imageShift) {
-            ForEach(icons, id: \.hashValue) { icon in
+            ForEach(icons.suffix(Constants.maxVisibleIcons), id: \.hashValue) { icon in
                 objectIconViewWithBorder(for: icon)
             }
         }
+        .environment(\.layoutDirection, .rightToLeft)
     }
     
     private func objectIconViewWithBorder(for icon: ObjectIcon) ->some View {
@@ -22,6 +30,14 @@ struct IconsGroupView: View {
                     .frame(width: Constants.backgroundDiameter, height: Constants.backgroundDiameter)
             }
     }
+    
+    @ViewBuilder
+    private var countView: some View {
+        if icons.count > Constants.maxVisibleIcons {
+            AnytypeText("+\(icons.count - Constants.maxVisibleIcons)", style: .caption1Regular)
+                .foregroundColor(.Text.secondary)
+        }
+    }
 }
 
 extension IconsGroupView {
@@ -30,5 +46,6 @@ extension IconsGroupView {
         static let backgroundDiameter = iconDiameter + lineWidth * 2
         static let lineWidth: CGFloat = 2
         static let imageShift = lineWidth * 2
+        static let maxVisibleIcons = 3
     }
 }
