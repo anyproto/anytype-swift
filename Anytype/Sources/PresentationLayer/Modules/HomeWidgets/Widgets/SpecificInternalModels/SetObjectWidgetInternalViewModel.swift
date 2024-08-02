@@ -210,13 +210,13 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
-            try? await setDocument?.openForPreview()
+            try? await setDocument?.update()
             await updateModelState()
             return
         }
         
         setDocument = documentsProvider.setDocument(objectId: objectId, mode: .preview)
-        try? await setDocument?.openForPreview()
+        try? await setDocument?.open()
         
         rowDetails = nil
         dataviewState = nil

@@ -306,7 +306,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
         case .object(let objectId, _):
             let document = documentsProvider.document(objectId: objectId, mode: .preview)
-            try await document.openForPreview()
+            try await document.open()
             guard let editorData = document.details?.editorScreenData() else { return }
             try await push(data: editorData)
         case .spaceShareTip:
@@ -326,7 +326,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             return
         }
         let document = documentsProvider.document(objectId: objectId, mode: .preview)
-        try await document.openForPreview()
+        try await document.open()
         guard let details = document.details else {
             return
         }
@@ -376,7 +376,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
                     if let objectId = lastOpenPage.objectId {
                         let document = documentsProvider.document(objectId: objectId, mode: .preview)
-                        try await document.openForPreview()
+                        try await document.open()
                         // Check space is deleted or switched
                         if document.spaceId == newInfo.accountSpaceId {
                             path.push(lastOpenPage)

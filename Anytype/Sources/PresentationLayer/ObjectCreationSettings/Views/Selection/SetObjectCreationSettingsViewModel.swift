@@ -291,7 +291,7 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     
     private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
         let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
-        try? await targetDocument.openForPreview()
+        try? await targetDocument.open()
         
         return targetDocument.details
     }

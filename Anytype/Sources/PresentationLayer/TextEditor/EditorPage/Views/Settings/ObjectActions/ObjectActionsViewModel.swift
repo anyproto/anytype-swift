@@ -138,7 +138,7 @@ final class ObjectActionsViewModel: ObservableObject {
             return
         }
         let widgetObject = documentsProvider.document(objectId: info.widgetsId, mode: .preview)
-        try await widgetObject.openForPreview()
+        try await widgetObject.open()
         guard let first = widgetObject.children.first else {
             anytypeAssertionFailure("First children not found")
             return
@@ -183,7 +183,7 @@ final class ObjectActionsViewModel: ObservableObject {
     private func onObjectSelection(objectId: String, currentObjectId: String) {
         Task { @MainActor in
             let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
-            try? await targetDocument.openForPreview()
+            try? await targetDocument.open()
             guard let id = targetDocument.children.last?.id,
                   let details = targetDocument.details else { return }
             

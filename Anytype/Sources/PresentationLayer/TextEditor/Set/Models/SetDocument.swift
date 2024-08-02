@@ -204,14 +204,8 @@ final class SetDocument: SetDocumentProtocol {
     }
     
     @MainActor
-    func openForPreview() async throws {
-        try await document.openForPreview()
-        await setup()
-    }
-    
-    @MainActor
-    func openVersion() async throws {
-        try await document.openVersion()
+    func update() async throws {
+        try await document.update()
         await setup()
     }
     

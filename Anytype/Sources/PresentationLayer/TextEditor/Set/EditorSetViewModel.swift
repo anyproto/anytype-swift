@@ -215,16 +215,7 @@ final class EditorSetViewModel: ObservableObject {
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
-                
-                switch setDocument.document.mode {
-                case .handling:
-                    try await setDocument.open()
-                case .preview:
-                    try await setDocument.openForPreview()
-                case .version:
-                    try await setDocument.openVersion()
-                }
-                
+                try await setDocument.open()
                 updateWithExternalActiveViewIdIfNeeded()
                 loadingDocument = false
                 await onDataviewUpdate()

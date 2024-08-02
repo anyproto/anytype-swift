@@ -27,14 +27,7 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
         let document = documentsProvider.document(objectId: objectId, mode: mode)
         
         Task { @MainActor in
-            switch mode {
-            case .handling:
-                try await document.open()
-            case .preview:
-                try await document.openForPreview()
-            case .version:
-                try await document.openVersion()
-            }
+            try await document.open()
         }
         
         return document
@@ -47,14 +40,7 @@ final class OpenedDocumentsProvider: OpenedDocumentsProviderProtocol {
         )
         
         Task { @MainActor in
-            switch mode {
-            case .handling:
-                try await document.open()
-            case .preview:
-                try await document.openForPreview()
-            case .version:
-                try await document.openVersion()
-            }
+            try await document.open()
         }
         
         return document

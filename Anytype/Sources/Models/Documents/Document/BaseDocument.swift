@@ -105,43 +105,25 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func open() async throws {
-        if isOpened {
-            return
-        }
         switch mode {
         case .handling:
+            guard !isOpened else { return }
             let model = try await objectLifecycleService.open(contextId: objectId)
             setupView(model)
         case .preview:
-            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
-        case .version:
-            anytypeAssertionFailure("Document created to show versiobn. You should use openVersion() method.")
-        }
-    }
-    
-    @MainActor
-    func openForPreview() async throws {
-        switch mode {
-        case .handling:
-            anytypeAssertionFailure("Document created for handling. You should use open() method.")
-        case .preview:
-            let model = try await objectLifecycleService.openForPreview(contextId: objectId)
-            setupView(model)
-        case .version:
-            anytypeAssertionFailure("Document created to show versiobn. You should use openVersion() method.")
-        }
-    }
-    
-    @MainActor
-    func openVersion() async throws {
-        switch mode {
-        case .handling:
-            anytypeAssertionFailure("Document created for handling. You should use open() method.")
-        case .preview:
-            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
+            try await updateDocumentPreview()
         case .version(let versionId):
-            let model = try await historyVersionsService.showVersion(objectId: objectId, versionId: versionId)
-            setupView(model)
+            try await updateDocumentVersion(versionId)
+        }
+    }
+    
+    @MainActor
+    func update() async throws {
+        switch mode {
+        case .handling, .preview:
+            try await updateDocumentPreview()
+        case .version(let versionId):
+            try await updateDocumentVersion(versionId)
         }
     }
     
@@ -177,6 +159,18 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     // MARK: - Private methods
+    
+    @MainActor
+    private func updateDocumentPreview() async throws {
+        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
+        setupView(model)
+    }
+    
+    @MainActor
+    private func updateDocumentVersion(_ versionId: String) async throws {
+        let model = try await historyVersionsService.showVersion(objectId: objectId, versionId: versionId)
+        setupView(model)
+    }
     
     private func setup() {
         eventsListener.onUpdatesReceive = { [weak self] updates in
