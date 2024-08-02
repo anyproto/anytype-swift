@@ -44,11 +44,18 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
         for (key, versions) in versionsByDay {
             var versionsByAuthor = [VersionHistory]()
             var versionsByAuthors = [[VersionHistory]]()
-            var lastParticipantId = versions.first?.authorID
+            var lastVersion = versions.first
             
             for version in versions {
-                if let lastParticipantId, lastParticipantId == version.authorID {
-                    versionsByAuthor.append(version)
+                if let lastVersion, lastVersion.authorID == version.authorID {
+                    let sameVersion = lastVersion.id == version.id
+                    let sameMinute = date(
+                        buildDate(for: lastVersion),
+                        isEqualToMinutes: buildDate(for: version)
+                    )
+                    if sameVersion || !sameMinute {
+                        versionsByAuthor.append(version)
+                    }
                 } else {
                     versionsByAuthors.append(versionsByAuthor)
                     versionsByAuthor = [version]
@@ -58,7 +65,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
                     versionsByAuthors.append(versionsByAuthor)
                 }
                 
-                lastParticipantId = version.authorID
+                lastVersion = version
             }
             
             versionsByDayByAuthor[key] = versionsByAuthors
@@ -130,6 +137,10 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     private func buildDate(for version: VersionHistory) -> Date {
         let timeInterval = Double(version.time)
         return Date(timeIntervalSince1970: timeInterval)
+    }
+    
+    private func date(_ date1: Date, isEqualToMinutes date2: Date) -> Bool {
+        dateTimeFormatter.calendar.isDate(date1, equalTo: date2, toGranularity: .minute)
     }
 }
 
