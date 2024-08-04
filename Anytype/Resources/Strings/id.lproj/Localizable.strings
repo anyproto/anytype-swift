@@ -1190,5 +1190,5 @@ Please provide specific details of your needs here.";
 "Debug.Info" = "Info awakutu";
 
 // MARK: - Messages
-"Message.Action.AddReaction" = "Add Reaction";
-"Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.Action.AddReaction" = "Tambahkan Reaksi";
+"Message.Input.EmptyPlaceholder" = "Tulis pesan …";

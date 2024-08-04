@@ -35,7 +35,7 @@
 "TextStyle.Bold.Title" = "Тоўсты";
 "TextStyle.Italic.Title" = "Курсіў";
 "TextStyle.Strikethrough.Title" = "Закрэслены";
-"TextStyle.Underline.Title" = "Underline";
+"TextStyle.Underline.Title" = "Падкрэслены";
 "TextStyle.Code.Title" = "Код";
 "TextStyle.Link.Title" = "Спасылка";
 
@@ -196,7 +196,7 @@
 "Anytype Library" = "Бібліятэка Anytype";
 "Copied" = "Скапіравана";
 "Share" = "Абагуліць";
-"Okay" = "Okay";
+"Okay" = "Добра";
 "Join" = "Далучыцца";
 "Agreement Disclamer" = "Працягваючы,  вы згаджаецеся з нашымі [Умовамі Выкарыстання](%@) і [Палітыкай Прыватнасці](%@)";
 
@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Загрузка ці выгрузка даных у вузел";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініцыялізацыя сінхранізацыі";
-"Incompatible version" = "Incompatible version";
+"Incompatible version" = "Несумяшчальная версія";
 "Connecting" = "Connecting...";
 "P2P Connecting" = "P2P Connecting...";
 "P2P Connection" = "P2P Connection";
@@ -942,7 +942,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
 "SpaceShare.ViewRequest.EditAccess" = "Add as editor";
 "SpaceShare.ViewRequest.Reject" = "Адхіліць";
-"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Title" = "Выдаліць удзельніка";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
 "SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Join a space";
@@ -956,7 +956,7 @@
 "SpaceShare.YouSuffix" = "%@ (you)";
 "SpaceShare.ManageSpaces" = "Кіраванне Прасторамі";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Action" = "Спыніць абагуленне";
 "SpaceShare.StopSharing.Title" = "Спыніць абагульванне прасторы";
 "SpaceShare.StopSharing.Message" = "Удзельнікі больш не будуць сінхранізавацца з гэтай прасторай, а спасылка на агульны доступ будзе дэактываваная.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
@@ -967,7 +967,7 @@
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
 "SpaceShare.Manage" = "Кіраванне";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
+"SpaceShare.AlreadyJoin.Title" = "Вы ўжо з'яўляецеся ўдзельнікам гэтай прасторы";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Адкрыць прастору";
 
 // MARK: - Permission notification
@@ -1180,7 +1180,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Info.localOnly" = "Data backup is disabled";
 "SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
 "SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
-"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.incompatibleVersion" = "Несумяшчальная версія";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
 "SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
