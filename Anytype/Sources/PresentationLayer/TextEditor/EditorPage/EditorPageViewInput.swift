@@ -13,7 +13,6 @@ protocol EditorCollectionReloadable: AnyObject {
     func textBlockDidBeginEditing(firstResponderView: UIView)
     func textBlockWillBeginEditing()
     func blockDidFinishEditing()
-    func didSelectTextRangeSelection(blockId: String, textView: UITextView)
 }
 
 /// Input data for document view
