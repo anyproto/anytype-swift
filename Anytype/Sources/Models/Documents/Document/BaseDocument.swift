@@ -120,7 +120,9 @@ final class BaseDocument: BaseDocumentProtocol {
     @MainActor
     func update() async throws {
         switch mode {
-        case .handling, .preview:
+        case .handling:
+            anytypeAssertionFailure("Document was created in `handling` mode. You can't update it")
+        case .preview:
             try await updateDocumentPreview()
         case .version(let versionId):
             try await updateDocumentVersion(versionId)
