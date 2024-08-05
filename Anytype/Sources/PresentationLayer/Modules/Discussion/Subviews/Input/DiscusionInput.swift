@@ -9,12 +9,14 @@ struct DiscusionInput: View {
     let onTapSend: () -> Void
     
     var body: some View {
-        HStack {
+        HStack(alignment: .bottom, spacing: 8) {
             Button {
                 onTapAddObject()
             } label: {
                 Image(asset: .X32.plus)
+                    .foregroundColor(Color.Button.active)
             }
+            .frame(height: 56)
             ZStack(alignment: .topLeading) {
                 DiscussionTextView(text: $text, editing: $editing, minHeight: 56, maxHeight: 212)
                 if text.isEmpty {
@@ -27,14 +29,18 @@ struct DiscusionInput: View {
                         .lineLimit(1)
                 }
             }
-            Button {
-                onTapSend()
-            } label: {
-                IconView(asset: .X32.moveTo)
-            }
-            .disabled(text.isEmpty)
             
+            if !text.isEmpty {
+                Button {
+                    onTapSend()
+                } label: {
+                    Image(asset: .X32.sendMessage)
+                        .foregroundColor(Color.Button.button)
+                }
+                .frame(height: 56)
+            }
         }
+        .padding(.horizontal, 8)
         .background(Color.Background.primary)
     }
 }
