@@ -23,10 +23,10 @@ final class ObjectVersionViewModel: ObservableObject {
     }
     
     func setupObject() async {
-        self.screenData = await currentScreenData()
+        self.screenData = currentScreenData()
     }
     
-    private func currentScreenData() async -> EditorScreenData? {
+    private func currentScreenData() -> EditorScreenData? {
         let mode: DocumentMode = .version(data.versionId)
         if data.isListType {
             return .set(EditorSetObject(objectId: data.objectId, spaceId: data.spaceId, mode: mode))
