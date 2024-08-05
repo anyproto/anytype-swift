@@ -275,7 +275,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
-                let targetDocument = documentsProvider.document(objectId: content.targetBlockID, forPreview: false)
+                let targetDocument = documentsProvider.document(objectId: content.targetBlockID)
             
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()

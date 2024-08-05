@@ -92,7 +92,7 @@ struct SetHeaderSettings_Previews: PreviewProvider {
     static var previews: some View {
         SetHeaderSettingsView(
             model: SetHeaderSettingsViewModel(
-                setDocument: Container.shared.documentsProvider().setDocument(objectId: "", forPreview: false),
+                setDocument: Container.shared.documentsProvider().setDocument(objectId: ""),
                 onViewTap: {},
                 onSettingsTap: {},
                 onCreateTap:{},

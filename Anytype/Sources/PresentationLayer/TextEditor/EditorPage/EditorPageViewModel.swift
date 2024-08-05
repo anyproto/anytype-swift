@@ -223,10 +223,8 @@ extension EditorPageViewModel {
         
         Task { @MainActor in
             do {
-                if configuration.isOpenedForPreview {
-                    try await document.openForPreview()
-                } else {
-                    try await document.open()
+                try await document.open()
+                if document.mode.isHandling {
                     blocksStateManager.checkOpenedState()
                 }
             } catch ObjectOpenError.anytypeNeedsUpgrade {

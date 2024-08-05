@@ -49,7 +49,7 @@ final class SettingsCoordinatorViewModel: ObservableObject,
     }
     
     func onChangeIconSelected(objectId: String) {
-        let document = documentService.document(objectId: objectId, forPreview: true)
+        let document = documentService.document(objectId: objectId, mode: .preview)
         objectIconPickerData = ObjectIconPickerData(document: document)
     }
     

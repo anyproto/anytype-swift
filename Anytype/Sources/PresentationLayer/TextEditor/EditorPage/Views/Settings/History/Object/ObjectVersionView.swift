@@ -14,6 +14,9 @@ struct ObjectVersionView: View {
             .overlay(alignment: .topLeading) {
                 header
             }
+            .task {
+                await model.setupObject()
+            }
     }
     
     private var header: some View {

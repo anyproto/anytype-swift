@@ -24,14 +24,13 @@ final class ObjectHeaderViewModel: ObservableObject {
     // MARK: - Private variables
     
     private lazy var onIconTap = { [weak self] in
-        guard let self = self, !self.configuration.isOpenedForPreview else { return }
-        guard document.permissions.canChangeIcon else { return }
+        guard let self, document.mode.isHandling, document.permissions.canChangeIcon else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         self.onIconPickerTap?(document)
     }
     
     private lazy var onCoverTap = { [weak self] in
-        guard let self, !configuration.isOpenedForPreview else { return }
+        guard let self, document.mode.isHandling else { return }
         guard document.details?.layoutValue != .note else { return }
         guard document.permissions.canChangeCover else { return }
         UISelectionFeedbackGenerator().selectionChanged()

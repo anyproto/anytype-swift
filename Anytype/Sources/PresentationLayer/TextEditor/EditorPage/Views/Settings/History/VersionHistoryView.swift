@@ -50,7 +50,7 @@ struct VersionHistoryView: View {
     
     private func content(for versions: [[VersionHistoryItem]]) -> some View {
         ForEach(versions, id: \.self) { versions in
-            if let version = versions.first {
+            ForEach(versions, id: \.self) { version in
                 itemRow(for: version)
             }
         }
