@@ -250,7 +250,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             details,
             dataView: setDocument.dataView,
             activeView: setDocument.activeView,
-            viewRelationValueIsLocked: false,
+            viewRelationValueIsLocked: false, 
+            canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
             onItemTap: { [weak self] in

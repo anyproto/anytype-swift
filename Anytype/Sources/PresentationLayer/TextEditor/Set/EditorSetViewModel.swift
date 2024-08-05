@@ -502,7 +502,8 @@ final class EditorSetViewModel: ObservableObject {
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
-                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView,
+                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView, 
+                    canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
                     onItemTap: { [weak self] details in

@@ -10,16 +10,20 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
     
     func build(setDocument: SetDocument, participantCanEdit: Bool) -> SetPermissions {
         
+        let isVersionMode = setDocument.mode.isVersion
         let isArchive = setDocument.details?.isArchived ?? true
         let isLocked = setDocument.document.isLocked
-        let canEdit = !isLocked && !isArchive && participantCanEdit
+        let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode
         
         return SetPermissions(
             canCreateObject: canEdit && canCreateObject(setDocument: setDocument, participantCanEdit: participantCanEdit),
             canEditView: canEdit,
             canTurnSetIntoCollection: canEdit && !setDocument.isCollection(),
             canChangeQuery: canEdit && !setDocument.isCollection(),
-            canEditRelationValuesInView: canEdit && canEditRelationValuesInView(setDocument: setDocument)
+            canEditRelationValuesInView: canEdit && canEditRelationValuesInView(setDocument: setDocument),
+            canEditTitle: canEdit,
+            canEditDescription: canEdit,
+            canEditSetObjectIcon: canEdit
         )
     }
     

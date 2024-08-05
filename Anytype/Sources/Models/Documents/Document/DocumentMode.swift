@@ -6,4 +6,12 @@ enum DocumentMode: Hashable, Codable {
     var isHandling: Bool {
         self == .handling
     }
+    
+    var isVersion: Bool {
+        if case .version = self {
+            return true
+        } else {
+            return false
+        }
+    }
 }
