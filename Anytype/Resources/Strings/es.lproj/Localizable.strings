@@ -85,7 +85,7 @@
 "Relation.View.Edit.title" = "Editar opción";
 "Relation.Create.Textfield.placeholder" = "Introducir nombre…";
 "Relation.Edit.Button.title" = "Aplicar";
-"Relation.Date.Locked.Alert.title" = "La relación “%@” está bloqueada";
+"Relation.Date.Locked.Alert.title" = "La relación “%@” está protegida";
 "Relation.ObjectTypes.Header.title" = "Tipos de objeto";
 "Relation.ObjectType.Header.title" = "Tipo de objeto";
 
@@ -607,8 +607,8 @@
 "Action-focused layout with a checkbox" = "Diseño con casillas para verificar acciones";
 "Standard layout for canvas blocks" = "Diseño estándar para bloques en el lienzo";
 "List of related objects" = "Lista de objetos relacionados";
-"Lock" = "Bloquear";
-"Unlock" = "Desbloquear";
+"Lock" = "Proteger";
+"Unlock" = "Desproteger";
 "Favorite" = "Favorito";
 "Unfavorite" = "Quitar de Favoritos";
 "Unsplash" = "Unsplash";

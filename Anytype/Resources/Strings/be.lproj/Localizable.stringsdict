@@ -5,7 +5,7 @@
     <key>Items syncing</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@item@ syncing...</string>
+      <string>%#@item@ сінхранізацыя...</string>
       <key>item</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,19 +13,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld item</string>
+        <string>%ld элемент</string>
         <key>few</key>
-        <string>%ld items</string>
+        <string>%ld элементы</string>
         <key>many</key>
-        <string>%ld items</string>
+        <string>%ld элементаў</string>
         <key>other</key>
-        <string>%ld items</string>
+        <string>%ld элементаў</string>
       </dict>
     </dict>
     <key>Devices connected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@device@ connected</string>
+      <string>%#@device@ падключана(-ы)</string>
       <key>device</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -33,13 +33,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld device</string>
+        <string>%ld прылада</string>
         <key>few</key>
-        <string>%ld devices</string>
+        <string>%ld прылады</string>
         <key>many</key>
-        <string>%ld devices</string>
+        <string>%ld прылад</string>
         <key>other</key>
-        <string>%ld devices</string>
+        <string>%ld прылад</string>
       </dict>
     </dict>
     <key>Are you sure you want to delete</key>
@@ -53,19 +53,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d аб'ект</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>%d  аб'екты</string>
         <key>many</key>
-        <string>%d objects</string>
+        <string>%d  аб'ектаў</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d  аб'ектаў</string>
       </dict>
     </dict>
     <key>Object selected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@object@ selected</string>
+      <string>%#@object@ выбран</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -73,13 +73,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d object</string>
+        <string>%d аб'ект</string>
         <key>few</key>
-        <string>%d objects</string>
+        <string>%d  аб'екты</string>
         <key>many</key>
-        <string>%d objects</string>
+        <string>%d  аб'ектаў</string>
         <key>other</key>
-        <string>%d objects</string>
+        <string>%d  аб'ектаў</string>
       </dict>
     </dict>
     <key>Selected blocks</key>
@@ -93,13 +93,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d selected block</string>
+        <string>%d блок выбраны</string>
         <key>few</key>
-        <string>%d selected blocks</string>
+        <string>%d блокі выбрана</string>
         <key>many</key>
-        <string>%d selected blocks</string>
+        <string>%d блокаў выбрана</string>
         <key>other</key>
-        <string>%d selected blocks</string>
+        <string>%d блокаў выбрана</string>
       </dict>
     </dict>
     <key>Links count</key>
@@ -113,13 +113,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d link</string>
+        <string>%d спасылка</string>
         <key>few</key>
-        <string>%d links</string>
+        <string>%d спасылкі</string>
         <key>many</key>
-        <string>%d links</string>
+        <string>%d спасылак</string>
         <key>other</key>
-        <string>%d links</string>
+        <string>%d спасылак</string>
       </dict>
     </dict>
     <key>Backlinks count</key>
@@ -133,13 +133,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d backlink</string>
+        <string>%d зваротная спасылка</string>
         <key>few</key>
-        <string>%d backlinks</string>
+        <string>%d зваротныя спасылкі</string>
         <key>many</key>
-        <string>%d backlinks</string>
+        <string>%d зваротных спасылак</string>
         <key>other</key>
-        <string>%d backlinks</string>
+        <string>%d зваротных спасылак</string>
       </dict>
     </dict>
     <key>Days to deletion vault</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>заўтра</string>
         <key>few</key>
-        <string>in %d days</string>
+        <string>праз %d дні</string>
         <key>many</key>
-        <string>in %d days</string>
+        <string>праз %d дзён</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>праз %d дзён</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -313,13 +313,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d members</string>
+        <string>%d удзельнікаў</string>
         <key>one</key>
-        <string>%d member</string>
+        <string>%d удзельнік</string>
         <key>few</key>
-        <string>%d members</string>
+        <string>%d удзельнікі</string>
         <key>many</key>
-        <string>%d members</string>
+        <string>%d удзельнікаў</string>
       </dict>
     </dict>
     <key>SpaceShare.RequestsCount</key>
@@ -333,19 +333,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d requests</string>
+        <string>%d запытаў</string>
         <key>one</key>
-        <string>%d request</string>
+        <string>%d запыт</string>
         <key>few</key>
-        <string>%d requests</string>
+        <string>%d запыты</string>
         <key>many</key>
-        <string>%d requests</string>
+        <string>%d запытаў</string>
       </dict>
     </dict>
     <key>Per Month</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@month@</string>
+      <string>у  %#@month@</string>
       <key>month</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -365,7 +365,7 @@
     <key>Per Week</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@week@</string>
+      <string>у  %#@week@</string>
       <key>week</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -373,19 +373,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>week</string>
+        <string>тыдзень</string>
         <key>few</key>
-        <string>%d weeks</string>
+        <string>%d тыдні</string>
         <key>many</key>
-        <string>%d weeks</string>
+        <string>%d тыдняў</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d тыдняў</string>
       </dict>
     </dict>
     <key>Per Year</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@year@</string>
+      <string>у  %#@year@</string>
       <key>year</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -393,19 +393,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>год</string>
         <key>few</key>
-        <string>%d years</string>
+        <string>%d гады</string>
         <key>many</key>
-        <string>%d years</string>
+        <string>%d гадоў</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d гадоў</string>
       </dict>
     </dict>
     <key>Per Day</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
+      <string>у  %#@day@</string>
       <key>day</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -413,13 +413,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>дзень</string>
         <key>few</key>
-        <string>%d days</string>
+        <string>%d дні</string>
         <key>many</key>
-        <string>%d days</string>
+        <string>%d дзён</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d дзён</string>
       </dict>
     </dict>
   </dict>
