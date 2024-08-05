@@ -7,7 +7,7 @@ struct MessageLinkInputViewContainer: View {
     let objects: [ObjectDetails]
     let onTapRemove: (ObjectDetails) -> Void
     
-    @State private var itemWidth: CGFloat = 0
+    @State private var sizeWidth: CGFloat = 0
     
     var body: some View {
         if objects.isNotEmpty {
@@ -17,7 +17,7 @@ struct MessageLinkInputViewContainer: View {
     
     private var content: some View {
         ScrollView(.horizontal) {
-            HStack {
+            HStack(spacing: 12) {
                 ForEach(objects, id: \.id) {
                     MessageLinkObjectView(details: $0, style: .input, onTapRemove: onTapRemove)
                         .frame(width: itemWidth)
@@ -29,8 +29,13 @@ struct MessageLinkInputViewContainer: View {
         .scrollIndicators(.hidden)
         .background(Color.Background.primary)
         .readSize { size in
-            itemWidth = size.width - 32
+            sizeWidth = size.width
         }
+    }
+    
+    private var itemWidth: CGFloat {
+        let width = sizeWidth - (objects.count > 1 ? 64 : 32)
+        return max(width, 0)
     }
 }
 
