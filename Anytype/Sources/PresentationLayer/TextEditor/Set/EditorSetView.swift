@@ -71,6 +71,7 @@ struct EditorSetView: View {
             VStack(spacing: 0) {
                 Spacer.fixedHeight(headerMinimizedSize.height)
                 contentTypeView
+                    .background(Color.Background.primary)
             }
         }
     }

@@ -1057,6 +1057,7 @@
 		2E88257A2C5A61A200FD59D3 /* ObjectVersionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8825792C5A61A200FD59D3 /* ObjectVersionView.swift */; };
 		2E88257C2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E88257B2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift */; };
 		2E88257E2C5BDF0D00FD59D3 /* DocumentMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E88257D2C5BDF0D00FD59D3 /* DocumentMode.swift */; };
+		2E8825802C6140BB00FD59D3 /* ObjectVersionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E88257F2C6140BB00FD59D3 /* ObjectVersionData.swift */; };
 		2E92219D294B8B5000968750 /* DataViewBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */; };
 		2E92219F294B8CDE00968750 /* DataViewBlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */; };
 		2E9221A1294B8D4900968750 /* DataViewBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9221A0294B8D4900968750 /* DataViewBlockView.swift */; };
@@ -2918,6 +2919,7 @@
 		2E8825792C5A61A200FD59D3 /* ObjectVersionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectVersionView.swift; sourceTree = "<group>"; };
 		2E88257B2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectVersionViewModel.swift; sourceTree = "<group>"; };
 		2E88257D2C5BDF0D00FD59D3 /* DocumentMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentMode.swift; sourceTree = "<group>"; };
+		2E88257F2C6140BB00FD59D3 /* ObjectVersionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectVersionData.swift; sourceTree = "<group>"; };
 		2E92219C294B8B5000968750 /* DataViewBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockViewModel.swift; sourceTree = "<group>"; };
 		2E92219E294B8CDE00968750 /* DataViewBlockConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockConfiguration.swift; sourceTree = "<group>"; };
 		2E9221A0294B8D4900968750 /* DataViewBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewBlockView.swift; sourceTree = "<group>"; };
@@ -7922,6 +7924,7 @@
 			children = (
 				2E8825792C5A61A200FD59D3 /* ObjectVersionView.swift */,
 				2E88257B2C5A61AC00FD59D3 /* ObjectVersionViewModel.swift */,
+				2E88257F2C6140BB00FD59D3 /* ObjectVersionData.swift */,
 			);
 			path = Object;
 			sourceTree = "<group>";
@@ -11732,6 +11735,7 @@
 				2AB7AAED2AF537AB00ED3E02 /* RemoteStorageSegmentInfo.swift in Sources */,
 				2AF109562A02639700EDDE26 /* FileIconBuilder.swift in Sources */,
 				2AF109582A03C56600EDDE26 /* NSItemProvider+Async.swift in Sources */,
+				2E8825802C6140BB00FD59D3 /* ObjectVersionData.swift in Sources */,
 				2AD7E2E52BB1768600F2CDA1 /* IdentifiableExtension.swift in Sources */,
 				123FDAD026C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift in Sources */,
 				3D5A417A2704541900F1F6A1 /* SearchBar.swift in Sources */,
