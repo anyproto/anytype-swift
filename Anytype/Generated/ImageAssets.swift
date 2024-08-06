@@ -262,6 +262,7 @@ internal extension ImageAsset {
     static let replace = ImageAsset.bundle(name: "x32/Replace")
     static let restore = ImageAsset.bundle(name: "x32/Restore")
     static let search = ImageAsset.bundle(name: "x32/Search")
+    static let sendMessage = ImageAsset.bundle(name: "x32/Send Message")
     static let slashMenu = ImageAsset.bundle(name: "x32/Slash Menu")
     static let sort = ImageAsset.bundle(name: "x32/Sort")
     static let style = ImageAsset.bundle(name: "x32/Style")
