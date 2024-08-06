@@ -11,6 +11,7 @@ final class VersionHistoryViewModel: ObservableObject {
     
     @Published var groups = [VersionHistoryDataGroup]()
     @Published var expandedGroups: Set<String> = []
+    @Published var lastViewedVersionId = ""
     
     private let objectId: String
     private let spaceId: String
@@ -45,11 +46,18 @@ final class VersionHistoryViewModel: ObservableObject {
     
     func getVersions() async {
         do {
-            rawVersions = try await historyVersionsService.getVersions(objectId: objectId)
+            let newVersions = try await historyVersionsService.getVersions(objectId: objectId, lastVersionId: lastViewedVersionId)
+            rawVersions.append(contentsOf: newVersions)
             updateView()
         } catch {
             groups = []
         }
+    }
+    
+    func onAppearLastGroup(_ group: VersionHistoryDataGroup) {
+        guard groups.last == group else { return }
+        guard lastViewedVersionId != rawVersions.last?.id else { return }
+        lastViewedVersionId = rawVersions.last?.id ?? ""
     }
     
     func onGroupTap(_ group: VersionHistoryDataGroup) {
