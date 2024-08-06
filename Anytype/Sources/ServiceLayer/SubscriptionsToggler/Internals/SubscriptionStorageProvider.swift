@@ -4,7 +4,7 @@ import Combine
 import AnytypeCore
 
 protocol SubscriptionStorageProviderProtocol: AnyObject {
-    func createSubscriptionStorage(subId: String) -> SubscriptionStorageProtocol
+    func createSubscriptionStorage(subId: String) -> any SubscriptionStorageProtocol
 }
 
 final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol {
@@ -12,7 +12,7 @@ final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol {
     // MARK: - Private properties
     
     @Injected(\.subscriptionToggler)
-    private var toggler: SubscriptionTogglerProtocol
+    private var toggler: any SubscriptionTogglerProtocol
     
     private let lock = NSLock()
     // NSMapTable<NSString, SubscriptionStorage>.strongToWeakObjects() crashed on objc_loadWeakRetained method for iphone se 1 gen ios 15
@@ -20,7 +20,7 @@ final class SubscriptionStorageProvider: SubscriptionStorageProviderProtocol {
     
     // MARK: - Public properties
     
-    func createSubscriptionStorage(subId: String) -> SubscriptionStorageProtocol {
+    func createSubscriptionStorage(subId: String) -> any SubscriptionStorageProtocol {
         
         lock.lock()
         defer { lock.unlock() }

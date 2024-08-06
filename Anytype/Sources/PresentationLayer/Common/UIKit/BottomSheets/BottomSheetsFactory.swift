@@ -8,8 +8,8 @@ final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
         infos: [BlockInformation],
-        actionHandler: BlockActionHandlerProtocol,
-        restrictions: BlockRestrictions,
+        actionHandler: any BlockActionHandlerProtocol,
+        restrictions: any BlockRestrictions,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
         onDismiss: (() -> Void)? = nil
     ) -> AnytypePopup? {
@@ -98,9 +98,9 @@ final class BottomSheetsFactory {
     static func showMarkupBottomSheet(
         parentViewController: UIViewController,
         styleView: UIView,
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blockIds: [String],
-        actionHandler: BlockActionHandlerProtocol,
+        actionHandler: any BlockActionHandlerProtocol,
         viewDidClose: @escaping () -> Void,
         openLinkToObject: @escaping (LinkToObjectSearchModuleData) -> Void
     ) {

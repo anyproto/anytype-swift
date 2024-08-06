@@ -1,11 +1,3 @@
-//
-//  AnytypeAudioPlayerProtocol.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 19.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import AVFoundation
 
@@ -22,7 +14,7 @@ protocol AnytypeAudioPlayerDelegate: AnyObject {
 
 @MainActor
 protocol AnytypeAudioPlayerProtocol {
-    func setAudio(playerItem: AVPlayerItem?, name: String, delegate: AnytypeAudioPlayerDelegate)
+    func setAudio(playerItem: AVPlayerItem?, name: String, delegate: some AnytypeAudioPlayerDelegate)
     func play()
     func pause()
     func setTrackTime(value: Double, completion: @escaping () -> Void)

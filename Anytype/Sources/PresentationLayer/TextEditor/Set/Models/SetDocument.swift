@@ -4,7 +4,8 @@ import Combine
 import AnytypeCore
 
 final class SetDocument: SetDocumentProtocol {
-    let document: BaseDocumentProtocol
+    
+    let document: any BaseDocumentProtocol
     
     var objectId: String { document.objectId }
     var blockId: String { inlineParameters?.blockId ?? SetConstants.dataviewBlockId }
@@ -21,10 +22,6 @@ final class SetDocument: SetDocumentProtocol {
     
     var detailsPublisher: AnyPublisher<ObjectDetails, Never> {
         document.detailsPublisher
-    }
-    
-    var syncStatus: SyncStatus {
-        document.syncStatus
     }
     
     var forPreview: Bool { document.forPreview }
@@ -77,28 +74,24 @@ final class SetDocument: SetDocumentProtocol {
     
     private var participantIsEditor = false
     private var subscriptions = [AnyCancellable]()
-    private let relationDetailsStorage: RelationDetailsStorageProtocol
-    private let objectTypeProvider: ObjectTypeProviderProtocol
-    private let accountParticipantsStorage: AccountParticipantsStorageProtocol
-    private let permissionsBuilder: SetPermissionsBuilderProtocol
-    let dataBuilder: SetContentViewDataBuilder
+    private let relationDetailsStorage: any RelationDetailsStorageProtocol
+    private let objectTypeProvider: any ObjectTypeProviderProtocol
+    private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    private let permissionsBuilder: any SetPermissionsBuilderProtocol
+    @Injected(\.setContentViewDataBuilder)
+    var dataBuilder: any SetContentViewDataBuilderProtocol
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         inlineParameters: EditorInlineSetObject?,
-        relationDetailsStorage: RelationDetailsStorageProtocol,
-        objectTypeProvider: ObjectTypeProviderProtocol,
-        accountParticipantsStorage: AccountParticipantsStorageProtocol,
-        permissionsBuilder: SetPermissionsBuilderProtocol
+        relationDetailsStorage: some RelationDetailsStorageProtocol,
+        objectTypeProvider: some ObjectTypeProviderProtocol,
+        accountParticipantsStorage: some AccountParticipantsStorageProtocol,
+        permissionsBuilder: some SetPermissionsBuilderProtocol
     ) {
         self.document = document
         self.inlineParameters = inlineParameters
         self.relationDetailsStorage = relationDetailsStorage
-        self.dataBuilder = SetContentViewDataBuilder(
-            relationsBuilder: RelationsBuilder(),
-            detailsStorage: document.detailsStorage,
-            relationDetailsStorage: relationDetailsStorage
-        )
         self.objectTypeProvider = objectTypeProvider
         self.accountParticipantsStorage = accountParticipantsStorage
         self.permissionsBuilder = permissionsBuilder
@@ -229,12 +222,12 @@ final class SetDocument: SetDocumentProtocol {
     // MARK: - Private
     
     private func setup() async {
-        document.syncPublisher.sink { [weak self] update in
+        document.syncPublisher.receiveOnMain().sink { [weak self] update in
             self?.updateData()
         }
         .store(in: &subscriptions)
         
-        document.syncStatusPublisher.sink { [weak self] status in
+        document.syncStatusDataPublisher.sink { [weak self] status in
             self?.updateSubject.send(.syncStatus(status))
         }
         .store(in: &subscriptions)

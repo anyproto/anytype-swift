@@ -6,7 +6,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
     private let container = UIView()
 
     private var currentConfiguration: SlashMenuRealtionContentConfiguration
-    var configuration: UIContentConfiguration {
+    var configuration: any UIContentConfiguration {
         get { currentConfiguration }
         set {
             guard let configuration = newValue as? SlashMenuRealtionContentConfiguration else {

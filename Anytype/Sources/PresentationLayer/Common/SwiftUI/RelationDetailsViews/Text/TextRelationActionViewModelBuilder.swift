@@ -10,8 +10,8 @@ final class TextRelationActionViewModelBuilder {
         for type: TextRelationViewType,
         relationKey: String,
         objectDetails: ObjectDetails,
-        output: TextRelationActionButtonViewModelDelegate?
-    ) -> [TextRelationActionViewModelProtocol] {
+        output: (any TextRelationActionButtonViewModelDelegate)?
+    ) -> [any TextRelationActionViewModelProtocol] {
         guard let text, text.isNotEmpty else { return [] }
         
         switch type {
@@ -40,7 +40,7 @@ final class TextRelationActionViewModelBuilder {
                 )
             ]
         case .url:
-            let actions: [TextRelationActionViewModelProtocol?] = [
+            let actions: [(any TextRelationActionViewModelProtocol)?] = [
                 TextRelationURLActionViewModel(
                     type: .url,
                     delegate: output

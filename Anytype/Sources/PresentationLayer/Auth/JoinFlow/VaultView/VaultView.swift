@@ -4,7 +4,7 @@ struct VaultView: View {
     
     @StateObject private var model: VaultViewModel
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         _model = StateObject(wrappedValue: VaultViewModel(state: state, output: output))
     }
     

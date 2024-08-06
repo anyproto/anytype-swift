@@ -12,7 +12,7 @@ struct WidgetSwipeTip: Tip {
         Text(verbatim: Loc.Swipe.Tip.subtitle)
     }
     
-    var options: [TipOption] {
+    var options: [any TipOption] {
         Tip.MaxDisplayCount(3)
     }
 }

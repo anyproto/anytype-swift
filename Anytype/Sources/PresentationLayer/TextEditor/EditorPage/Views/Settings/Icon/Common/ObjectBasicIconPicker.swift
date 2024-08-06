@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct ObjectBasicIconPicker: View {
     
     let isRemoveButtonAvailable: Bool

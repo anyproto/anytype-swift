@@ -31,7 +31,7 @@ final class StyleColorContentView: UIView, UIContentView {
         backgroundView.layer.cornerCurve = .continuous
     }
 
-    var configuration: UIContentConfiguration {
+    var configuration: any UIContentConfiguration {
         get { appliedConfiguration }
         set {
             guard let newConfig = newValue as? StyleColorCellContentConfiguration else { return }

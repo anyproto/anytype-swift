@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct SetKanbanColumn: View {
     let groupId: String
     let headerType: SetKanbanColumnHeaderType
@@ -8,7 +9,7 @@ struct SetKanbanColumn: View {
     let backgroundColor: BlockBackgroundColor
     let showPagingView: Bool
     
-    let dragAndDropDelegate: SetDragAndDropDelegate
+    let dragAndDropDelegate: any SetDragAndDropDelegate
     @Binding var dropData: SetCardDropData
     
     let onShowMoreTap: () -> Void

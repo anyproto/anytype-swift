@@ -6,7 +6,7 @@ struct RelationsListView: View {
     @StateObject private var viewModel: RelationsListViewModel
     @State private var editingMode = false
     
-    init(document: BaseDocumentProtocol, output: RelationsListModuleOutput?) {
+    init(document: some BaseDocumentProtocol, output: (any RelationsListModuleOutput)?) {
         _viewModel = StateObject(wrappedValue: RelationsListViewModel(document: document, output: output))
     }
     

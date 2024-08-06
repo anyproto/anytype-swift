@@ -13,12 +13,12 @@ struct AnytypeToggle: View {
     private let font: AnytypeFont
     private let onChange: (Bool) -> ()
     
-    @ObservedObject private var model: AnytypeToggleModel
+    @StateObject private var model: AnytypeToggleModel
     
     init(title: String, font: AnytypeFont = .uxBodyRegular, isOn: Bool, onChange: @escaping (Bool) -> ()) {
         self.title = title
         self.font = font
-        self.model = AnytypeToggleModel(isOn: isOn)
+        self._model = StateObject(wrappedValue: AnytypeToggleModel(isOn: isOn))
         self.onChange = onChange
     }
     

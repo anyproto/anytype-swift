@@ -188,6 +188,7 @@
 "Paste or type URL" = "Вставить или ввести URL-адрес";
 "No items match filter" = "Нет элементов, соответствующих фильтру";
 "Unsupported block" = "Неподдерживаемый блок";
+"Unsupported" = "Не поддерживается";
 "Name" = "Название";
 "Description" = "Описание";
 "Paste processing..." = "Обработка вставки...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Не выбрано ни одного запроса";
 "Set.View.Empty.Subtitle" = "Добавьте поисковый запрос для агрегирования объектов с одинаковыми типами и свойствами в режиме реального времени.";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Выберите запрос";
 "Set.SourceType.Cancel.Toast.Title" = "Этот запрос может быть изменен только на компьютере";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Загрузка или выгрузка данных в узел";
 "Node is not connected" = "Узел не подключен";
 "Initializing sync" = "Инициализация синхронизации";
-"Not syncing" = "Не синхронизируется";
+"Incompatible version" = "Несовместимая версия";
 "Synced" = "Синхронизировано";
 "Syncing..." = "Синхронизация...";
 "No connection" = "Нет соединения";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Изменить тип виджета";
 "Widgets.Actions.RemoveWidget" = "Удалить виджет";
 "Widgets.Actions.EditWidgets" = "Редактировать виджеты";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
 "Widgets.Actions.NewObject" = "Новый объект";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Тип виджета";
 "Widgets.Layout.Link.Title" = "Ссылка";
 "Widgets.Layout.Tree.Title" = "Дерево";
 "Widgets.Layout.List.Title" = "Список";
 "Widgets.Layout.CompactList.Title" = "Компактный список";
+"Widgets.Layout.View.Title" = "Вид";
 "Widgets.Layout.Link.Description" = "Компактная версия объекта";
 "Widgets.Layout.Tree.Description" = "Иерархическая структура объектов";
 "Widgets.Layout.List.Description" = "Виджет со списком объектов из набора";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Виджет со списком объектов из набора";
-"Widgets.Empty.Title" = "Этот вид данных не содержит объектов";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Версия приложения: %@";
@@ -1154,6 +1164,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Типы MIME - %@";

@@ -5,7 +5,7 @@ struct RelationValueCoordinatorView: View {
     
     @StateObject private var model: RelationValueCoordinatorViewModel
     
-    init(data: RelationValueData, output: RelationValueCoordinatorOutput?) {
+    init(data: RelationValueData, output: (any RelationValueCoordinatorOutput)?) {
         _model = StateObject(wrappedValue: RelationValueCoordinatorViewModel(data: data, output: output))
     }
     

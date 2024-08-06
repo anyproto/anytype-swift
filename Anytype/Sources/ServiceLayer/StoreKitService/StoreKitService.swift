@@ -17,10 +17,10 @@ enum StoreKitServiceError: String, LocalizedError {
 }
 
 public struct StoreKitPurchaseSuccess {
-    let middlewareValidationError: Error?
+    let middlewareValidationError: (any Error)?
     
     static let noError = StoreKitPurchaseSuccess(middlewareValidationError: nil)
-    static func withError(_ error: Error) -> StoreKitPurchaseSuccess {
+    static func withError(_ error: some Error) -> StoreKitPurchaseSuccess {
         StoreKitPurchaseSuccess(middlewareValidationError: error)
     }
     
@@ -39,9 +39,9 @@ public protocol StoreKitServiceProtocol {
 
 final class StoreKitService: StoreKitServiceProtocol {
     @Injected(\.membershipService) 
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     
     private var task: Task<(), Never>?
     
@@ -49,17 +49,32 @@ final class StoreKitService: StoreKitServiceProtocol {
         task = Task.detached {
             ///Iterate through any transactions that don't come from a direct call to `purchase()`.
             for await verificationResult in Transaction.updates {
+                let transaction:  Transaction
+                
                 do {
-                    let transaction = try self.checkVerified(verificationResult)
-                    
+                    transaction = try self.checkVerified(verificationResult)
+                } catch {
+                    anytypeAssertionFailure(
+                        "Error in Receipt verification",
+                        tags: [SentryTagKey.appArea.rawValue : SentryAppArea.payments.rawValue]
+                    )
+                    return
+                }
+                
+                do {
                     ///Deliver products to the user.
                     try await self.membershipService.verifyReceipt(receipt: verificationResult.jwsRepresentation)
-                    
-                    ///Always finish a transaction.
+                    ///Always finish a transaction if delivery successful.
                     await transaction.finish()
                 } catch {
-                    ///StoreKit has a transaction that fails verification. Don't deliver content to the user.
-                    anytypeAssertionFailure("Error in StoreKit transaction updates", info: ["Error": error.localizedDescription])
+                    anytypeAssertionFailure(
+                        "Error in Receipt verification",
+                        info: [
+                            "Error": error.localizedDescription,
+                            "TransactionId": String(describing: transaction.appAccountToken)
+                        ],
+                        tags: [SentryTagKey.appArea.rawValue : SentryAppArea.payments.rawValue]
+                    )
                 }
             }
         }
@@ -92,6 +107,14 @@ final class StoreKitService: StoreKitServiceProtocol {
             } catch let error {
                 // purchase successfull and verified, but still need validation from middleware
                 // it will happen in startListenForTransactions asynchronously
+                anytypeAssertionFailure(
+                    "Error in receipt validation",
+                    info: [
+                        "Error": error.localizedDescription,
+                        "TransactionId": String(describing: transaction.appAccountToken)
+                    ],
+                    tags: [SentryTagKey.appArea.rawValue : SentryAppArea.payments.rawValue]
+                )
                 return .withError(error)
             }
             

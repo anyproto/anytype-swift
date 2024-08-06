@@ -1,28 +1,29 @@
 import UIKit
 import Services
 import Combine
+import SwiftUI
 
 final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let infoProvider: BlockModelInfomationProvider
     var info: BlockInformation { infoProvider.info }
     var hashable: AnyHashable { info.id }
 
-    private let document: BaseDocumentProtocol
-    private var featuredRelationValues: [Relation]
+    private let document: any BaseDocumentProtocol
+    private var featuredRelations: [Relation]
     private let onRelationTap: (Relation) -> Void
-    private let collectionController: EditorCollectionReloadable
+    private let collectionController: any EditorCollectionReloadable
     
     private var cancellables = [AnyCancellable]()
     
     init(
         infoProvider: BlockModelInfomationProvider,
-        document: BaseDocumentProtocol,
-        collectionController: EditorCollectionReloadable,
+        document: some BaseDocumentProtocol,
+        collectionController: some EditorCollectionReloadable,
         onRelationValueTap: @escaping (Relation) -> Void
     ) {
         self.infoProvider = infoProvider
         self.document = document
-        self.featuredRelationValues = document.featuredRelationsForEditor
+        self.featuredRelations = document.featuredRelationsForEditor
         self.collectionController = collectionController
         self.onRelationTap = onRelationValueTap
         
@@ -31,25 +32,23 @@ final class FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             .removeDuplicates()
             .sink { [weak self] newFeaturedRelations in
                 guard let self else { return }
-                self.featuredRelationValues = newFeaturedRelations
-                collectionController.reconfigure(items: [.block(self)])
+                if featuredRelations != newFeaturedRelations {
+                    self.featuredRelations = newFeaturedRelations
+                    collectionController.reconfigure(items: [.block(self)])
+                }
             }.store(in: &cancellables)
     }
     
-    func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
-        let objectType = document.details?.objectType
-        
-        return FeaturedRelationsBlockContentConfiguration(
-            featuredRelations: featuredRelationValues,
-            type: objectType?.name ?? "",
-            alignment: info.horizontalAlignment.asNSTextAlignment,
-            onRelationTap: { [weak self] relation in
-                self?.onRelationTap(relation)
-            }
-        ).cellBlockConfiguration(
-            dragConfiguration: nil,
-            styleConfiguration: CellStyleConfiguration(backgroundColor: info.backgroundColor?.backgroundColor.color)
-        )
+    func makeContentConfiguration(maxWidth _: CGFloat) -> any UIContentConfiguration {
+        return UIHostingConfiguration {
+            EditorFeaturedRelationsView(
+                relations: featuredRelations,
+                onRelationTap: onRelationTap
+            )
+        }
+        .minSize(height: 0)
+        .margins(.vertical, 0)
+        .margins(.horizontal, 20)
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}

@@ -5,11 +5,11 @@ import Combine
 final class GlobalSearchViewModel: ObservableObject {
     
     @Injected(\.searchWithMetaService)
-    private var searchWithMetaService: SearchWithMetaServiceProtocol
+    private var searchWithMetaService: any SearchWithMetaServiceProtocol
     @Injected(\.globalSearchDataBuilder)
-    private var globalSearchDataBuilder: GlobalSearchDataBuilderProtocol
+    private var globalSearchDataBuilder: any GlobalSearchDataBuilderProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectCreationService: DefaultObjectCreationServiceProtocol
+    private var defaultObjectCreationService: any DefaultObjectCreationServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     

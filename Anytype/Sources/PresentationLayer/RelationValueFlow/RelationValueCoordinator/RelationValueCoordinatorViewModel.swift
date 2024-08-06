@@ -14,19 +14,19 @@ final class RelationValueCoordinatorViewModel:
     TextRelationActionButtonViewModelDelegate
 {
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     var mediumDetent: Bool = false
     
     private let relation: Relation
     private let objectDetails: ObjectDetails
     private let analyticsType: AnalyticsEventsRelationType
-    private weak var output: RelationValueCoordinatorOutput?
+    private weak var output: (any RelationValueCoordinatorOutput)?
 
     @Published var toastBarData: ToastBarData = .empty
     @Published var safariUrl: URL?
     
-    init(data: RelationValueData, output: RelationValueCoordinatorOutput?) {
+    init(data: RelationValueData, output: (any RelationValueCoordinatorOutput)?) {
         self.relation = data.relation
         self.objectDetails = data.objectDetails
         self.analyticsType = data.analyticsType

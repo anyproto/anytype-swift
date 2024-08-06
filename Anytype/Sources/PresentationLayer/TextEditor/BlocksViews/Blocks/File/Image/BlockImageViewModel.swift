@@ -7,14 +7,14 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     typealias Action<T> = (_ arg: T) -> Void
     
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
     var hashable: AnyHashable { info.id }
     
     var info: BlockInformation { blockInformationProvider.info }
     let documentId: String
     let blockInformationProvider: BlockModelInfomationProvider
-    let handler: BlockActionHandlerProtocol
+    let handler: any BlockActionHandlerProtocol
     
     let showIconPicker: Action<String>
     let onImageOpen: Action<FilePreviewContext>?
@@ -34,7 +34,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
     init?(
         documentId: String,
         blockInformationProvider: BlockModelInfomationProvider,
-        handler: BlockActionHandlerProtocol,
+        handler: some BlockActionHandlerProtocol,
         showIconPicker: @escaping (String) -> (),
         onImageOpen: Action<FilePreviewContext>?
     ) {
@@ -45,7 +45,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         self.onImageOpen = onImageOpen
     }
     
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         guard let fileData else {
             anytypeAssertionFailure("UnsupportedBlockViewModel has wrong content type")
             return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: maxWidth)
@@ -71,7 +71,7 @@ struct BlockImageViewModel: BlockViewModelProtocol {
         }
     }
         
-    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> some UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .X32.image,
             text: text,

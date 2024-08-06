@@ -121,8 +121,11 @@ internal extension ImageAsset {
     static let help = ImageAsset.bundle(name: "x18/Help")
     static let listArrow = ImageAsset.bundle(name: "x18/List Arrow")
     static let lock = ImageAsset.bundle(name: "x18/Lock")
+    static let objectWithoutIcon = ImageAsset.bundle(name: "x18/Object Without Icon")
     static let search = ImageAsset.bundle(name: "x18/Search")
+    static let setOrCollection = ImageAsset.bundle(name: "x18/Set Or Collection")
     static let slashMenuArrow = ImageAsset.bundle(name: "x18/Slash Menu Arrow")
+    static let updateApp = ImageAsset.bundle(name: "x18/Update App")
     static let webLink = ImageAsset.bundle(name: "x18/Web link")
   }
   enum X19 {
@@ -388,6 +391,10 @@ internal extension ImageAsset {
     static let numbered = ImageAsset.bundle(name: "StyleBottomSheet/numbered")
     static let toggle = ImageAsset.bundle(name: "StyleBottomSheet/toggle")
   }
+  enum SyncStatus {
+    static let syncInProgress = ImageAsset.bundle(name: "SyncStatus/sync_in_progress")
+    static let syncStaring = ImageAsset.bundle(name: "SyncStatus/sync_staring")
+  }
   enum TextEditor {
     enum BlocksOption {
       static let copy = ImageAsset.bundle(name: "TextEditor/BlocksOption/copy")
@@ -417,10 +424,6 @@ internal extension ImageAsset {
     }
     static let addTop = ImageAsset.bundle(name: "Widget/add_top")
     static let bin = ImageAsset.bundle(name: "Widget/bin")
-    static let collapse = ImageAsset.bundle(name: "Widget/collapse")
-    static let collection = ImageAsset.bundle(name: "Widget/collection")
-    static let dot = ImageAsset.bundle(name: "Widget/dot")
-    static let `set` = ImageAsset.bundle(name: "Widget/set")
     static let settings = ImageAsset.bundle(name: "Widget/settings")
     static let tick = ImageAsset.bundle(name: "Widget/tick")
   }

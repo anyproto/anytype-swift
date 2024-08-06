@@ -1074,16 +1074,6 @@ public struct ClientCommands {
         }
     }
 
-    public static func fileOffload(
-        _ request: Anytype_Rpc.File.Offload.Request = .init()
-    ) -> Invocation<Anytype_Rpc.File.Offload.Request, Anytype_Rpc.File.Offload.Response> {
-        return Invocation(messageName: "FileOffload", request: request) { request in
-            let requestData = try request.serializedData()
-            let responseData = Lib.ServiceFileOffload(requestData) ?? Data()
-            return try Anytype_Rpc.File.Offload.Response(serializedData: responseData)
-        }
-    }
-
     public static func fileSpaceOffload(
         _ request: Anytype_Rpc.File.SpaceOffload.Request = .init()
     ) -> Invocation<Anytype_Rpc.File.SpaceOffload.Request, Anytype_Rpc.File.SpaceOffload.Response> {
@@ -1091,6 +1081,16 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceFileSpaceOffload(requestData) ?? Data()
             return try Anytype_Rpc.File.SpaceOffload.Response(serializedData: responseData)
+        }
+    }
+
+    public static func fileReconcile(
+        _ request: Anytype_Rpc.File.Reconcile.Request = .init()
+    ) -> Invocation<Anytype_Rpc.File.Reconcile.Request, Anytype_Rpc.File.Reconcile.Response> {
+        return Invocation(messageName: "FileReconcile", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceFileReconcile(requestData) ?? Data()
+            return try Anytype_Rpc.File.Reconcile.Response(serializedData: responseData)
         }
     }
 
@@ -2264,6 +2264,26 @@ public struct ClientCommands {
         }
     }
 
+    public static func debugRunProfiler(
+        _ request: Anytype_Rpc.Debug.RunProfiler.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.RunProfiler.Request, Anytype_Rpc.Debug.RunProfiler.Response> {
+        return Invocation(messageName: "DebugRunProfiler", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugRunProfiler(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.RunProfiler.Response(serializedData: responseData)
+        }
+    }
+
+    public static func debugAccountSelectTrace(
+        _ request: Anytype_Rpc.Debug.AccountSelectTrace.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Debug.AccountSelectTrace.Request, Anytype_Rpc.Debug.AccountSelectTrace.Response> {
+        return Invocation(messageName: "DebugAccountSelectTrace", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDebugAccountSelectTrace(requestData) ?? Data()
+            return try Anytype_Rpc.Debug.AccountSelectTrace.Response(serializedData: responseData)
+        }
+    }
+
     public static func metricsSetParameters(
         _ request: Anytype_Rpc.Metrics.SetParameters.Request = .init()
     ) -> Invocation<Anytype_Rpc.Metrics.SetParameters.Request, Anytype_Rpc.Metrics.SetParameters.Response> {
@@ -2441,6 +2461,36 @@ public struct ClientCommands {
             let requestData = try request.serializedData()
             let responseData = Lib.ServiceBroadcastPayloadEvent(requestData) ?? Data()
             return try Anytype_Rpc.Broadcast.PayloadEvent.Response(serializedData: responseData)
+        }
+    }
+
+    public static func deviceSetName(
+        _ request: Anytype_Rpc.Device.SetName.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Device.SetName.Request, Anytype_Rpc.Device.SetName.Response> {
+        return Invocation(messageName: "DeviceSetName", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDeviceSetName(requestData) ?? Data()
+            return try Anytype_Rpc.Device.SetName.Response(serializedData: responseData)
+        }
+    }
+
+    public static func deviceList(
+        _ request: Anytype_Rpc.Device.List.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Device.List.Request, Anytype_Rpc.Device.List.Response> {
+        return Invocation(messageName: "DeviceList", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDeviceList(requestData) ?? Data()
+            return try Anytype_Rpc.Device.List.Response(serializedData: responseData)
+        }
+    }
+
+    public static func deviceNetworkStateSet(
+        _ request: Anytype_Rpc.Device.NetworkState.Set.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Device.NetworkState.Set.Request, Anytype_Rpc.Device.NetworkState.Set.Response> {
+        return Invocation(messageName: "DeviceNetworkStateSet", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceDeviceNetworkStateSet(requestData) ?? Data()
+            return try Anytype_Rpc.Device.NetworkState.Set.Response(serializedData: responseData)
         }
     }
 

@@ -167,7 +167,7 @@
 "Align right" = "Lijn rechts uit";
 "Align left" = "Lijn links uit";
 "Align center" = "Centreer";
-"Align justify" = "Align justify";
+"Align justify" = "Uitvullen";
 "Black" = "Zwart";
 "Amber" = "Amber";
 "Red" = "Rood";
@@ -188,6 +188,7 @@
 "Paste or type URL" = "Plak of type URL";
 "No items match filter" = "Geen items die met filter overeenkomen";
 "Unsupported block" = "Niet ondersteund blok";
+"Unsupported" = "Niet ondersteund";
 "Name" = "Naam";
 "Description" = "Beschrijving";
 "Paste processing..." = "Bezig met plakken...";
@@ -196,7 +197,7 @@
 "Share" = "Deel";
 "Okay" = "Okay";
 "Join" = "Neem deel";
-"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Agreement Disclamer" = "Door verder te gaan ga je akkoord met onze [Algemene voorwaarden](%@) en [Privacybeleid](%@)";
 
 // Home
 "Favorites" = "Favorieten";
@@ -336,13 +337,13 @@
 "There is no object named" = "Er is geen object genaamd %@";
 "There is no type named" = "Er is geen type genaamd %@";
 "Create a new one or search for something else" = "Maak een nieuwe aan of zoek naar iets anders";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
-"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"Search.Links.Show.title" = "Toon verwante objecten";
+"Search.Links.Header.title" = "Gerelateerd aan: %@";
+"Search.Links.Swipe.title" = "Gerelateerd aan";
+"GlobalSearch.EmptyState.subtitle" = "Creëer een nieuw object  of zoek naar iets anders";
+"GlobalSearch.EmptyFilteredState.title" = "Geen gerelateerde objecten gevonden";
+"GlobalSearch.Swipe.Tip.title" = "Gerelateerde objecten";
+"GlobalSearch.Swipe.Tip.subtitle" = "Swipe naar links om gerelateerde objecten te zien. Let op, het werkt alleen voor objecten die gerelateerde objecten hebben.";
 
 // MARK: - Home
 
@@ -399,9 +400,9 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "Geen sorteringen hier. Je kunt er een paar toevoegen";
 "EditSet.Popup.Sort.Types.Ascending" = "Oplopend";
 "EditSet.Popup.Sort.Types.Descending" = "Aflopend";
-"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
-"EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
-"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Bovenaan";
+"EditSet.Popup.Sort.EmptyTypes.End" = "Onderaan";
+"EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Toon lege waarden";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Kies een relatie om te sorteren";
 
 // MARK: - Sets: Filters
@@ -501,6 +502,9 @@
 // MARK: - Sets: empty view
 "Set.View.Empty.Title" = "Geen zoekopdracht geselecteerd";
 "Set.View.Empty.Subtitle" = "Voeg zoekopdracht toe om objecten te verzamelen met vergelijkbare types en relaties in een live omgeving";
+
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "Deze weergave wordt niet ondersteund en is vervangen door de nieuwste aangepaste objecten.";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Selecteer zoekopdracht";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Gegevens downloaden of uploaden naar een node";
 "Node is not connected" = "Node is niet verbonden";
 "Initializing sync" = "Synchronisatie wordt opgestart";
-"Not syncing" = "Niet aan het synchroniseren";
+"Incompatible version" = "Niet-compatibele versie";
 "Synced" = "Gesynchroniseerd";
 "Syncing..." = "Aan het synchroniseren...";
 "No connection" = "Geen verbinding";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Wijzig widget type";
 "Widgets.Actions.RemoveWidget" = "Verwijder widget";
 "Widgets.Actions.EditWidgets" = "Bewerk widget";
+"Widgets.Actions.AddWidget" = "Voeg widget toe";
 "Widgets.Actions.EmptyBin" = "Leeg prullenbak";
 "Widgets.Actions.AddBelow" = "Voeg onder toe";
 "Widgets.Actions.NewObject" = "Nieuw object";
+"Widgets.Actions.SeeAllObjects" = "Toon alle objecten";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Boomstructuur";
 "Widgets.Layout.List.Title" = "Lijst";
 "Widgets.Layout.CompactList.Title" = "Compacte lijst";
+"Widgets.Layout.View.Title" = "Weergave";
 "Widgets.Layout.Link.Description" = "Compacte versie van het object";
 "Widgets.Layout.Tree.Description" = "Hiërarchische structuur van objecten";
 "Widgets.Layout.List.Description" = "Widget met lijstweergave van geselecteerde object";
+"Widgets.Layout.View.Description" = "Widget met een weergave van het geselecteerde object";
 "Widgets.Layout.CompactList.Description" = "Widget met lijstweergave van geselecteerde object";
-"Widgets.Empty.Title" = "Deze gegevensweergave bevat geen objecten";
+"Widgets.Empty.Title" = "Er zijn hier geen objecten";
+"Widgets.Empty.CreateObject" = "Creëer object";
 "Widgets.Library.RecentlyEdited.Name" = "Onlangs bewerkt";
 "Widgets.Library.RecentlyOpened.Name" = "Onlangs geopend";
 "Widgets.Library.RecentlyOpened.Description" = "Op dit apparaat";
+"Widgets.AppUpdate" = "Anytype is gereed voor bijwerken";
 
 // MARK: - About
 "About.AppVersion" = "App versie: %@";
@@ -1002,10 +1012,10 @@
 "Swipe.Tip.Subtitle" = "Maak objecten binnen widgets aan door ze naar links te swipen.";
 
 // MARK: - Space Share Tip
-"SpaceShare.Tip.Title" = "Collaborate on spaces";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Title" = "Aan ruimtes samenwerken";
+"SpaceShare.Tip.Steps.1" = "Tik op de ruimte widget om toegang te krijgen tot instellingen";
+"SpaceShare.Tip.Steps.2" = "Open delen sectie";
+"SpaceShare.Tip.Steps.3" = "Genereer een uitnodigingskoppeling en deel deze";
 
 // MARK: - Initial
 
@@ -1075,12 +1085,12 @@
 "Min X characters" = "Min %@ tekens";
 "Pending" = "In behandeling...";
 "Manage payment" = "Beheer betaling";
-"Change email" = "Change email";
-"Email successfully validated" = "Email successfully validated";
+"Change email" = "Wijzig e-mailadres";
+"Email successfully validated" = "E-mailadres succesvol gevalideerd";
 "Confirm" = "Bevestigen";
 
-"StoreKitServiceError.userCancelled" = "Purchase cancelled";
-"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
+"StoreKitServiceError.userCancelled" = "Aankoop geannuleerd";
+"StoreKitServiceError.needUserAction" = "Betaling mislukt, gebruikersacties van Apple zijn vereist om te betalen.";
 
 "Membership.Ad.Title" = "Lidmaatschap";
 "Membership.Ad.Subtitle" = "Deelnemen aan het Anytype netwerk betekent bijdragen aan het verhaal";
@@ -1093,21 +1103,22 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Al een abonnement aangeschaft?";
 "Membership.Legal.RestorePurchases" = "Herstel aankopen";
 
-"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
-- Extra remote storage
-- More space editors
-- Additional shared spaces
-Specifically,
-Please provide specific details of your needs here.";
+"Membership.Email.Body" = "Halllo Anytype team! Ik zou graag mijn huidige lidmaatschap willen uitbreiden voor meer (kies alsjeblieft een optie):
+- Extra opslag
+- Meer ruimte bewerkers
+- Aanvullende gedeelde ruimtes
 
-"Membership.Upgrade.Title" = "Membership upgrade";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+Specifiek,
+Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 
-"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.Title" = "Lidmaatschap upgrade";
+"Membership.Upgrade.Text" = "Contacteer ons voor extra opslagruimte, ruimte bewerkers of meer gedeelde ruimten. Het team van Anytype zal details en voorwaarden geven die zijn afgestemd op jouw behoeften.";
+"Membership.Upgrade.Button" = "Contacteer Anytype team";
+
+"Membership.Upgrade.MoreSpaces" = "Upgrade om meer ruimten toe te voegen";
+"Membership.Upgrade.MoreMembers" = "Upgrade om meer leden toe te voegen";
+"Membership.Upgrade.NoMoreMembers" = "Je kunt niet meer deelnemers toevoegen";
+"Membership.Upgrade.NoMoreEditors" = "Je kunt niet meer bewerkers toevoegen";
 
 
 "Membership.Banner.Title1" = "Bouw de visie samen";
@@ -1119,8 +1130,8 @@ Please provide specific details of your needs here.";
 "Membership.Banner.Title4" = "Investeer in verbinding";
 "Membership.Banner.Subtitle4" = "De waarde van ons netwerk overschrijdt de som van zijn onderdelen. Jouw lidmaatschap houdt de infrastructuur in stand voor de groei die aan dit netwerk ten grondslag ligt.";
 
-"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
-"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
+"Membership.EmailForm.Title" = "Ontvang updates en geniet van gratis voordelen!";
+"Membership.EmailForm.Subtitle" = "Het is op geen enkele manier gekoppeld met jouw account.";
 "Membership.EmailValidation" = "Voer de code in die naar jouw e-mailadres is verstuurd";
 
 "Membership.NameForm.Title" = "Kies jouw unieke naam";
@@ -1154,7 +1165,12 @@ Please provide specific details of your needs here.";
 
 "MembershipServiceError.tierNotFound" = "Abonnementsgegevens niet gevonden, herstart app en probeer het opnieuw";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS AAN 🫵🐭. Schakel uit in Debug instellingen";
-"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+"MembershipServiceError.invalidBillingIdFormat" = "Intern probleem met factuurformaat, we werken hieraan. Probeer het later opnieuw of neem contact op met ondersteuning.";
+
+
+"Membership.ManageTier.Desktop" = "Je kunt het abonnement op het desktopplatform beheren";
+"Membership.ManageTier.Android" = "Je kunt het abonnement op het Android platform beheren";
+"Membership.ManageTier.AppleId" = "Je kunt het abonnement op een andere AppleId account beheren";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";

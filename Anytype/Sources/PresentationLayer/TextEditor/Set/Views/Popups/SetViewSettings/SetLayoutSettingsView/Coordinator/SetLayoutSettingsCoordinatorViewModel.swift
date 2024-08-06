@@ -11,10 +11,10 @@ final class SetLayoutSettingsCoordinatorViewModel: ObservableObject, SetLayoutSe
     @Published var imagePreviewData: SetLayoutSettingsData?
     @Published var groupByData: SetLayoutSettingsData?
     
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let viewId: String
     
-    init(setDocument: SetDocumentProtocol, viewId: String) {
+    init(setDocument: some SetDocumentProtocol, viewId: String) {
         self.setDocument = setDocument
         self.viewId = viewId
     }

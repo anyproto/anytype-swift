@@ -17,10 +17,10 @@ final class RelationDetailsStorage: RelationDetailsStorageProtocol {
     static let subscriptionId = "SubscriptionId.Relation"
     
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.relationSubscriptionDataBuilder)
-    private var subscriptionDataBuilder: RelationSubscriptionDataBuilderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+    private var subscriptionDataBuilder: any RelationSubscriptionDataBuilderProtocol
+    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: Self.subscriptionId)
     }()
     

@@ -58,7 +58,7 @@ final class URLInputView: UIView {
             height: Constants.insets.top + Constants.insets.bottom + stackView.intrinsicContentSize.height)
     }
     
-    private var notificationToken: NSObjectProtocol?
+    private var notificationToken: (any NSObjectProtocol)?
     private let didSetURL: (AnytypeURL?) -> Void
     
     init(

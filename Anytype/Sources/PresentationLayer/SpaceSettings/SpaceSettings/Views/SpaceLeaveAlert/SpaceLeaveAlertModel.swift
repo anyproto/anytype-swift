@@ -5,9 +5,9 @@ import Services
 final class SpaceLeaveAlertModel: ObservableObject {
     
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     
     private let spaceId: String
     

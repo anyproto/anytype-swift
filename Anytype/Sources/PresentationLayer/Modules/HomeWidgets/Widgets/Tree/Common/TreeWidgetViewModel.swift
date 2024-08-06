@@ -5,7 +5,7 @@ import SwiftUI
 import AnytypeCore
 
 @MainActor
-final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewModelProtocol {
+final class TreeWidgetViewModel: ObservableObject {
     
     private enum Constants {
         static let maxExpandableLevel = 3
@@ -19,12 +19,10 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     // MARK: - DI
 
     private let internalModel: any WidgetInternalViewModelProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.treeSubscriptionManager)
-    private var subscriptionManager: TreeSubscriptionManagerProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var subscriptionManager: any TreeSubscriptionManagerProtocol
     
     // MARK: - State
 
@@ -43,27 +41,13 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     init(
         widgetBlockId: String,
         internalModel: any WidgetInternalViewModelProtocol,
-        output: CommonWidgetModuleOutput?
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.dragId = widgetBlockId
         self.internalModel = internalModel
-        self.subscriptionManager = subscriptionManager
-        self.objectActionsService = objectActionsService
         self.output = output
-    }
-    
-    // MARK: - WidgetContainerContentViewModelProtocol
-    
-    func startHeaderSubscription() {
-        internalModel.startHeaderSubscription()
-        setupAllSubscriptions()
-    }
-    
-    func startContentSubscription() {
-        Task {
-            await internalModel.startContentSubscription()
-            await updateLinksSubscriptionsAndTree()
-        }
+        startHeaderSubscription()
+        startContentSubscription()
     }
     
     func onHeaderTap() {
@@ -77,6 +61,18 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     }
     
     // MARK: - Private
+    
+    private func startHeaderSubscription() {
+        internalModel.startHeaderSubscription()
+        setupAllSubscriptions()
+    }
+    
+    private func startContentSubscription() {
+        Task {
+            await internalModel.startContentSubscription()
+            await updateLinksSubscriptionsAndTree()
+        }
+    }
     
     private func onTapExpand(model: TreeWidgetRowViewModel) {
         expandedRowIds.append(ExpandedId(rowId: model.rowId, objectId: model.objectId))
@@ -156,9 +152,6 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
                     canBeExpanded: level < Constants.maxExpandableLevel
                 ),
                 level: level,
-                onIconTap: { [weak self] in
-                    self?.updateDone(details: details)
-                },
                 tapExpand: { [weak self] model in
                     self?.onTapExpand(model: model)
                 },
@@ -182,24 +175,15 @@ final class TreeWidgetViewModel: ObservableObject, WidgetContainerContentViewMod
     private var subscriptionData: [ObjectDetails] {
         return (firstLevelSubscriptionData ?? []) + (childSubscriptionData ?? [])
     }
-    
-    private func updateDone(details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
-        
-        Task {
-            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
-            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-        }
-    }
 }
 
 private extension ObjectDetails {
     func expandedType(isExpanded: Bool, canBeExpanded: Bool) -> TreeWidgetRowViewModel.ExpandedType {
         switch editorViewType {
         case .page:
-            return links.isEmpty || !canBeExpanded ? .icon(asset: .Widget.dot) : .arrow(expanded: isExpanded)
+            return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
         case .set:
-            return isCollection ? .icon(asset: .Widget.collection) : .icon(asset: .Widget.set)
+            return .icon(asset: .X18.setOrCollection)
         }
     }
 }

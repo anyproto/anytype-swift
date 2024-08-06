@@ -12,12 +12,12 @@ final class CodeLanguageListViewModel: ObservableObject {
     
     // MARK: - DI
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     
     private let data: CodeLanguageListData
-    private lazy var document: BaseDocumentProtocol = {
+    private lazy var document: any BaseDocumentProtocol = {
         documentsProvider.document(objectId: data.documentId, forPreview: false)
     }()
     private var selectedLanguage: CodeLanguage?

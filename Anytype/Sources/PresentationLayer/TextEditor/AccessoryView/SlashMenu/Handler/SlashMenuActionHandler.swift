@@ -5,20 +5,20 @@ import UIKit
 
 @MainActor
 final class SlashMenuActionHandler {
-    private let actionHandler: BlockActionHandlerProtocol
-    private let router: EditorRouterProtocol
-    private let document: BaseDocumentProtocol
+    private let actionHandler: any BlockActionHandlerProtocol
+    private let router: any EditorRouterProtocol
+    private let document: any BaseDocumentProtocol
     private let cursorManager: EditorCursorManager
     private weak var textView: UITextView?
     
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
     
     
     init(
-        document: BaseDocumentProtocol,
-        actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol,
+        document: some BaseDocumentProtocol,
+        actionHandler: some BlockActionHandlerProtocol,
+        router: some EditorRouterProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document
@@ -69,7 +69,13 @@ final class SlashMenuActionHandler {
                 router.showAddNewRelationView(document: document) { [weak self, spaceId = document.spaceId] relation, isNew in
                     self?.actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: spaceId)
                     
-                    AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .block, spaceId: spaceId)
+                    AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
+                        format: relation.format,
+                        isNew: isNew,
+                        type: .block,
+                        key: relation.analyticsKey,
+                        spaceId: spaceId
+                    )
                 }
             case .relation(let relation):
                 actionHandler.addBlock(.relation(key: relation.key), blockId: blockInformation.id, blockText: textView?.attributedText.sendable(), spaceId: document.spaceId)

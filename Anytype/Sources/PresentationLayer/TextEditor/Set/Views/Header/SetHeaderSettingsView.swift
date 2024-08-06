@@ -6,18 +6,25 @@ struct SetHeaderSettingsView: View {
     @StateObject var model: SetHeaderSettingsViewModel
     
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            viewButton
-            Spacer()
-            settingButton
-
-            if !model.isActiveHeader || model.isActiveCreateButton {
-                Spacer.fixedWidth(16)
-                createView
+        VStack(spacing: 0) {
+            HStack(alignment: .center, spacing: 0) {
+                viewButton
+                Spacer()
+                settingButton
+                
+                if !model.isActiveHeader || model.isActiveCreateButton {
+                    Spacer.fixedWidth(16)
+                    createView
+                }
+            }
+            .padding(.horizontal, 20)
+            .frame(height: 56)
+            if model.showUnsupportedBanner {
+                SetUnsupportedView()
+                    .padding(.bottom, 12)
+                    .padding(.horizontal, 20)
             }
         }
-        .padding(.horizontal, 20)
-        .frame(height: 56)
     }
     
     @ViewBuilder

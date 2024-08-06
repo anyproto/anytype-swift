@@ -10,7 +10,7 @@ enum EditorPageConfigurationConstants {
 
 final class EditorPageController: UIViewController {
     
-    let bottomNavigationManager: EditorBottomNavigationManagerProtocol
+    let bottomNavigationManager: any EditorBottomNavigationManagerProtocol
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     private weak var firstResponderView: UIView?
     private let layout = EditorCollectionFlowLayout()
@@ -64,6 +64,9 @@ final class EditorPageController: UIViewController {
         },
         onTemplatesButtonTap: { [weak viewModel] in
             viewModel?.showTemplates()
+        }, 
+        onSyncStatusTap: { [weak viewModel] in
+            viewModel?.showSyncStatusInfo()
         }
     )
 
@@ -71,7 +74,7 @@ final class EditorPageController: UIViewController {
     private let navigationBarView = EditorNavigationBarView()
     private let navigationBarBackgroundView = UIView()
     private let showHeader: Bool
-    var viewModel: EditorPageViewModelProtocol! {
+    var viewModel: (any EditorPageViewModelProtocol)! {
         didSet {
             viewModel.setupSubscriptions()
             layout.layoutDetailsPublisher = viewModel.document.layoutDetailsPublisher.receiveOnMain().eraseToAnyPublisher()
@@ -90,7 +93,7 @@ final class EditorPageController: UIViewController {
     // MARK: - Initializers
     init(
         blocksSelectionOverlayView: BlocksSelectionOverlayView,
-        bottomNavigationManager: EditorBottomNavigationManagerProtocol,
+        bottomNavigationManager: some EditorBottomNavigationManagerProtocol,
         showHeader: Bool
     ) {
         self.blocksSelectionOverlayView = blocksSelectionOverlayView
@@ -507,7 +510,7 @@ private extension EditorPageController {
     func reloadCell(for item: EditorItem) {
         guard let indexPath = dataSource.indexPath(for: item),
               let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-        let newConfiguration: UIContentConfiguration
+        let newConfiguration: any UIContentConfiguration
         
         switch item {
         case .header: return
@@ -609,19 +612,19 @@ private extension EditorPageController {
         }
     }
     
-    func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, BlockViewModelProtocol> {
+    func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, any BlockViewModelProtocol> {
         .init { [weak self] cell, indexPath, item in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
         }
     }
     
-    func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, SystemContentConfiguationProvider> {
+    func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, any SystemContentConfiguationProvider> {
         .init { (cell, indexPath, item) in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         }
     }
     
-    func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
+    func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: some BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.contentView.isUserInteractionEnabled = true
         

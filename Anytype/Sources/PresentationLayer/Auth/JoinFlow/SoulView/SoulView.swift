@@ -4,7 +4,7 @@ struct SoulView: View {
     
     @StateObject private var model: SoulViewModel
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         _model = StateObject(wrappedValue: SoulViewModel(state: state, output: output))
     }
     
@@ -55,13 +55,12 @@ struct SoulView: View {
     private var input: some View {
         AutofocusedTextField(
             placeholder: Loc.Auth.JoinFlow.Soul.placeholder,
-            placeholderFont: .authInput,
+            font: .authInput,
             text: $model.inputText
         )
         .disableAutocorrection(true)
         .textContentType(.password)
         .autocapitalization(.sentences)
-        .font(AnytypeFontBuilder.font(anytypeFont: .authInput))
         .foregroundColor(.Auth.inputText)
         .padding(EdgeInsets(horizontal: 22, vertical: 23))
         .background(Color.Auth.input)

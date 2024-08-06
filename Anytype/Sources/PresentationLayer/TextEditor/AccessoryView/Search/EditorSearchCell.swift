@@ -4,7 +4,7 @@ import UIKit
 
 final class EditorSearchCell: UIView, UIContentView {
     private var currentConfiguration: EditorSearchCellConfiguration
-    var configuration: UIContentConfiguration {
+    var configuration: any UIContentConfiguration {
         get { currentConfiguration }
         set {
             guard let configuration = newValue as? EditorSearchCellConfiguration else {

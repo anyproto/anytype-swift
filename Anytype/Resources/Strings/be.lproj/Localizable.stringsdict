@@ -5,7 +5,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>Are you sure you want to delete %#@object@?</string>
+      <string>Ці вы сапраўды хочаце выдаліць  %#@object@?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -313,13 +313,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>месяц</string>
         <key>few</key>
-        <string>%d months</string>
+        <string>%d месяца</string>
         <key>many</key>
-        <string>%d months</string>
+        <string>%d месяцы</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d месяцаў</string>
       </dict>
     </dict>
     <key>Per Week</key>

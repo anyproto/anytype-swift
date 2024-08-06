@@ -6,16 +6,17 @@ import Services
 final class SpaceRequestAlertModel: ObservableObject {
 
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.participantService)
-    private var participantService: ParticipantServiceProtocol
+    private var participantService: any ParticipantServiceProtocol
     @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     
     private let data: SpaceRequestAlertData
     private let onMembershipUpgradeTap: (MembershipUpgradeReason) -> ()
     
-    @Published var title = ""
+    let title: String
+    let icon: ObjectIcon?
     @Published var canAddReaded = false
     @Published var canAddWriter = false
     
@@ -36,6 +37,7 @@ final class SpaceRequestAlertModel: ObservableObject {
             data.participantName.withPlaceholder,
             data.spaceName.withPlaceholder
         )
+        icon = data.participantIcon
     }
     
     func onAppear() async throws {

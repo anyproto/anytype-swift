@@ -11,7 +11,9 @@ final class DateRelationCalendarViewModel: ObservableObject {
     let config: RelationModuleConfiguration
     
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     init(date: Date?, configuration: RelationModuleConfiguration) {
         self.date = date ?? Date()
@@ -41,9 +43,12 @@ final class DateRelationCalendarViewModel: ObservableObject {
     private func updateDateRelation(with value: Double) {
         Task {
             try await relationsService.updateRelation(objectId: config.objectId, relationKey: config.relationKey, value: value.protobufValue)
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
             AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
                 isEmpty: value.isZero,
+                format: relationDetails.format,
                 type: config.analyticsType,
+                key: relationDetails.analyticsKey,
                 spaceId: config.spaceId
             )
         }

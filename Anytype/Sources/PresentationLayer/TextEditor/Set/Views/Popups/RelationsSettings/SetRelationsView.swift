@@ -5,7 +5,7 @@ struct SetRelationsView: View {
     @StateObject private var model: SetRelationsViewModel
     @State private var editMode = EditMode.inactive
     
-    init(setDocument: SetDocumentProtocol, viewId: String, output: SetRelationsCoordinatorOutput?) {
+    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetRelationsCoordinatorOutput)?) {
         _model = StateObject(wrappedValue: SetRelationsViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     

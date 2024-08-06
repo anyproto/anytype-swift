@@ -4,7 +4,7 @@ import UIKit
 
 final class ContentUrlBuilder {
     
-    private static var middlewareConfigurationProvider: MiddlewareConfigurationProviderProtocol {
+    private static var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol {
         return Container.shared.middlewareConfigurationProvider.resolve()
     }
     

@@ -48,17 +48,17 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     @Published var canChangeObjectType = false
     @Published private var objectTypes = [ObjectType]()
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
     
     @Injected(\.templatesSubscription)
-    private var templatesSubscription: TemplatesSubscriptionServiceProtocol
+    private var templatesSubscription: any TemplatesSubscriptionServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypesProvider: ObjectTypeProviderProtocol
+    private var objectTypesProvider: any ObjectTypeProviderProtocol
     @Injected(\.typesService)
-    private var typesService: TypesServiceProtocol
+    private var typesService: any TypesServiceProtocol
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     @Published private var templatesDetails = [ObjectDetails]()
     @Published private var defaultTemplateId: String
@@ -69,7 +69,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     private var cancellables = [AnyCancellable]()
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String
     ) {
         self.setDocument = setDocument
@@ -115,7 +115,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
     }
     
     private func subscribeOnDocmentUpdates() {
-        setDocument.syncPublisher.sink { [weak self] in
+        setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             guard let self else { return }
             dataView = setDocument.view(by: dataView.id)
             if defaultTemplateId != dataView.defaultTemplateID {
@@ -124,7 +124,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
             updateDefaultObjectTypeIdIfNeeded()
         }.store(in: &cancellables)
         
-        setDocument.detailsPublisher.sink { [weak self] details in
+        setDocument.detailsPublisher.receiveOnMain().sink { [weak self] details in
             guard let self else { return }
             let isNotTypeSet = !setDocument.isTypeSet()
             if canChangeObjectType != isNotTypeSet {
@@ -133,7 +133,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         }
         .store(in: &cancellables)
     
-        objectTypesProvider.syncPublisher.sink { [weak self] in
+        objectTypesProvider.syncPublisher.receiveOnMain().sink { [weak self] in
             self?.updateObjectTypes()
             self?.updateDefaultObjectTypeIdIfNeeded()
             self?.updateTypeDefaultTemplateId()

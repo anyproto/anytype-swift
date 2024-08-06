@@ -188,6 +188,7 @@
 "Paste or type URL" = "Tempel atau ketik URL";
 "No items match filter" = "Tidak ada kecocokan";
 "Unsupported block" = "Balok tak didukung";
+"Unsupported" = "Tidak didukung";
 "Name" = "Nama";
 "Description" = "Deskripsi";
 "Paste processing..." = "Memproses penempelan ...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Tidak ada queri terpilih";
 "Set.View.Empty.Subtitle" = "Tambahkan pencarian kueri untuk mengumpulkan objek dengan tipe dan relasi yang sama dalam mode langsung";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Pilih kueri";
 "Set.SourceType.Cancel.Toast.Title" = "Kueri ini bisa berubah hanya pada tampilan komputer";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Mengunduh atau mengunggah data ke simpul";
 "Node is not connected" = "Simpul tidak terhubung";
 "Initializing sync" = "Memulai sinkron";
-"Not syncing" = "Tidak menyinkron";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Tersinkron";
 "Syncing..." = "Menyinkronkan...";
 "No connection" = "Tak ada koneksi";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Ubah tipe widget";
 "Widgets.Actions.RemoveWidget" = "Hapus widget";
 "Widgets.Actions.EditWidgets" = "Sunting widget";
+"Widgets.Actions.AddWidget" = "Tambah Gawit";
 "Widgets.Actions.EmptyBin" = "Tempat sampah kosong";
 "Widgets.Actions.AddBelow" = "Tambah di bawah";
 "Widgets.Actions.NewObject" = "Objek Baru";
+"Widgets.Actions.SeeAllObjects" = "Lihat semua objek";
 "Widgets.Layout.Screen.Title" = "Jenis widget";
 "Widgets.Layout.Link.Title" = "Tautan";
 "Widgets.Layout.Tree.Title" = "Pohon";
 "Widgets.Layout.List.Title" = "Daftar";
 "Widgets.Layout.CompactList.Title" = "Daftar padat";
+"Widgets.Layout.View.Title" = "Tampilan";
 "Widgets.Layout.Link.Description" = "Versi padat dari objek";
 "Widgets.Layout.Tree.Description" = "Susunan hierarkis dari objek";
 "Widgets.Layout.List.Description" = "Widget dengan daftar tampilan dari daftar objek";
+"Widgets.Layout.View.Description" = "Gawit dengan tampilan objek set";
 "Widgets.Layout.CompactList.Description" = "Widget dengan daftar tampilan dari daftar objek";
-"Widgets.Empty.Title" = "Tampilan data ini tidak mengandung objek";
+"Widgets.Empty.Title" = "Tidak ada objek di sini";
+"Widgets.Empty.CreateObject" = "Buat Objek";
 "Widgets.Library.RecentlyEdited.Name" = "Baru disunting";
 "Widgets.Library.RecentlyOpened.Name" = "Baru saja dibuka";
 "Widgets.Library.RecentlyOpened.Description" = "Di perangkat ini";
+"Widgets.AppUpdate" = "Anytype siap diperbarui";
 
 // MARK: - About
 "About.AppVersion" = "Versi aplikasi: %@";
@@ -1106,7 +1116,7 @@ Please provide specific details of your needs here.";
 "Membership.Upgrade.MoreSpaces" = "Tingkatkan untuk menambah ruang";
 "Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
 "Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.NoMoreEditors" = "Kamu tidak bisa menambah penyunting lagi";
 
 
 "Membership.Banner.Title1" = "Membangun Visi Bersama";
@@ -1154,6 +1164,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Jenis MIME - %@";

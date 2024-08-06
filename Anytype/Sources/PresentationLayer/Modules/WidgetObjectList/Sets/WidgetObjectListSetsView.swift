@@ -6,7 +6,7 @@ struct WidgetObjectListSetsView: View {
     
     @StateObject private var model: WidgetObjectListViewModel
     
-    init(output: WidgetObjectListCommonModuleOutput?) {
+    init(output: (any WidgetObjectListCommonModuleOutput)?) {
         self._model = StateObject(wrappedValue: WidgetObjectListViewModel(
             internalModel: WidgetObjectListSetsViewModel(),
             menuBuilder: WidgetObjectListMenuBuilder(),

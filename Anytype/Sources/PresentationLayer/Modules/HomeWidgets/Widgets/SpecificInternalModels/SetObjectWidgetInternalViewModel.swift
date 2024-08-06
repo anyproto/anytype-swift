@@ -2,48 +2,50 @@ import Foundation
 import Services
 import Combine
 import UIKit
+import SwiftUI
 
 @MainActor
-final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewInternalViewModelProtocol {
+final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
+    private let style: SetObjecWidgetStyle
+    private let widgetObject: any BaseDocumentProtocol
     @Injected(\.setSubscriptionDataBuilder)
-    private var setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
+    private let subscriptionStorage: any SubscriptionStorageProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
-    private var documentService: DocumentsProviderProtocol
+    private var documentService: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
-    
+    private var blockWidgetService: any BlockWidgetServiceProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.setContentViewDataBuilder)
+    private var setContentViewDataBuilder: any SetContentViewDataBuilderProtocol
     
     // MARK: - State
     private var widgetInfo: BlockWidgetInfo?
-    private var setDocument: SetDocumentProtocol?
+    private var setDocument: (any SetDocumentProtocol)?
     private var activeViewId: String?
-    private var subscriptions = [AnyCancellable]()
-    private var contentSubscriptions = [AnyCancellable]()
     private var canEditBlocks = true
-    @Published private var details: [ObjectDetails]?
-    @Published private var name: String = ""
-    @Published var dataview: WidgetDataviewState?
-
-    var detailsPublisher: AnyPublisher<[ObjectDetails]?, Never> {
-        $details
-            .map { [weak self] in self?.sortedRowDetails($0) }
-            .eraseToAnyPublisher()
-    }
-    var namePublisher: AnyPublisher<String, Never> { $name.eraseToAnyPublisher() }
-    var dataviewPublisher: AnyPublisher<WidgetDataviewState?, Never> { $dataview.eraseToAnyPublisher() }
-    var allowCreateObject = true
+    private var dataviewState: WidgetDataviewState? { didSet { updateHeader() } }
+    private var rowDetails: [SetContentViewItemConfiguration]? { didSet { updateRows() } }
     
-    init(data: WidgetSubmoduleData) {
+    var dragId: String? { widgetBlockId }
+    
+    @Published var name: String = ""
+    @Published var headerItems: [ViewWidgetTabsItemModel]?
+    @Published var rows: SetObjectViewWidgetRows = .list(rows: [], id: "")
+    @Published var allowCreateObject = true
+    @Published var showUnsupportedBanner = false
+    
+    init(data: WidgetSubmoduleData, style: SetObjecWidgetStyle) {
         self.widgetBlockId = data.widgetBlockId
+        self.style = style
         self.widgetObject = data.widgetObject
         self.output = data.output
         
@@ -51,51 +53,38 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: subscriptionId)
     }
     
-    func startHeaderSubscription() {
-        widgetObject.permissionsPublisher.receiveOnMain()
-            .sink { [weak self] permissions in
-                self?.canEditBlocks = permissions.canEditBlocks
-            }
-            .store(in: &subscriptions)
-        
-        widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId)
-            .receiveOnMain()
-            .sink { [weak self] newWidgetInfo in
-                guard let self else { return }
-                widgetInfo = newWidgetInfo
-                if activeViewId.isNil || canEditBlocks {
-                    activeViewId = widgetInfo?.block.viewId
-                    setActiveViewId()
-                }
-            }
-            .store(in: &subscriptions)
-        
-        widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId)
-            .receiveOnMain()
-            .sink { [weak self] details in
-                Task {
-                    await self?.updateSetDocument(objectId: details.id)
-                }
-            }
-            .store(in: &subscriptions)
-    }
+    // MARK: - Subscriptions
     
-    func startContentSubscription() async {
-        setDocument?.syncPublisher.sink { [weak self] in
-            self?.updateDataviewState()
-            Task { await self?.updateViewSubscription() }
+    func startPermissionsPublisher() async {
+        for await permissions in widgetObject.permissionsPublisher.values {
+            canEditBlocks = permissions.canEditBlocks
         }
-        .store(in: &contentSubscriptions)
     }
     
-    func screenData() -> EditorScreenData? {
-        guard let details = setDocument?.details else { return nil }
-        return details.editorScreenData()
+    func startInfoPublisher() async {
+        for await newWidgetInfo in widgetObject.blockWidgetInfoPublisher(widgetBlockId: widgetBlockId).values {
+            widgetInfo = newWidgetInfo
+            if activeViewId.isNil || canEditBlocks {
+                activeViewId = widgetInfo?.block.viewID
+                await updateBodyState()
+            }
+        }
     }
     
-    func analyticsSource() -> AnalyticsWidgetSource {
-        return .object(type: setDocument?.details?.analyticsType ?? .object(typeId: ""))
+    func startTargetDetailsPublisher() async {
+        for await details in widgetObject.widgetTargetDetailsPublisher(widgetBlockId: widgetBlockId).values {
+            await updateSetDocument(objectId: details.id)
+        }
     }
+    
+    func onAppear() {
+        guard let setDocument else { return }
+        Task {
+            await updateSetDocument(objectId: setDocument.objectId)
+        }
+    }
+    
+    // MARK: - Actions
     
     func onActiveViewTap(_ viewId: String) {
         guard setDocument?.activeView.id != viewId else { return }
@@ -104,7 +93,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
                 try? await blockWidgetService.setViewId(contextId: widgetObject.objectId, widgetBlockId: widgetBlockId, viewId: viewId)
             } else {
                 activeViewId = viewId
-                setActiveViewId()
+                await updateBodyState()
             }
         }
         UISelectionFeedbackGenerator().selectionChanged()
@@ -116,11 +105,64 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
         UISelectionFeedbackGenerator().selectionChanged()
     }
     
-    // MARK: - Private
-    
-    private func stopContentSubscription() async {
-        contentSubscriptions.removeAll()
+    func onOpenObjectTap() {
+        guard let details = setDocument?.details else { return }
+        let screenData = EditorScreenData(details: details, activeViewId: activeViewId)
+        AnytypeAnalytics.instance().logSelectHomeTab(source: .object(type: setDocument?.details?.analyticsType ?? .object(typeId: "")))
+        output?.onObjectSelected(screenData: screenData)
     }
+    
+    // MARK: - Private for view updates
+    
+    private func updateRows() {
+        withAnimation {
+            showUnsupportedBanner = (style == .view) && !(setDocument?.activeView.type.isSupportedOnDevice ?? false)
+         
+            switch style {
+            case .list:
+                let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                rows = .list(rows: listRows, id: activeViewId ?? "")
+            case .compactList:
+                let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                rows = .compactList(rows: listRows, id: activeViewId ?? "")
+            case .view:
+                switch setDocument?.activeView.type {
+                case .table, .list, .kanban, .calendar, .graph, nil:
+                    let listRows = rowDetails?.map { ListWidgetRowModel(details: $0) }
+                    rows = .compactList(rows: listRows, id: activeViewId ?? "")
+                case .gallery:
+                    let galleryRows = rowDetails?.map { GalleryWidgetRowModel(details: $0) }
+                    rows = .gallery(rows: galleryRows, id: activeViewId ?? "")
+                }
+            }
+        }
+    }
+    
+    private func updateHeader() {
+        withAnimation(headerItems.isNil ? nil : .default) {
+            headerItems = dataviewState?.dataview.map { dataView in
+                ViewWidgetTabsItemModel(
+                    dataviewId: dataView.id,
+                    title: dataView.nameWithPlaceholder,
+                    isSelected: dataView.id == dataviewState?.activeViewId,
+                    onTap: { [weak self] in
+                        self?.onActiveViewTap(dataView.id)
+                    }
+                )
+            }
+        }
+    }
+    
+    private func updateDone(details: ObjectDetails) {
+        guard details.layoutValue == .todo else { return }
+        
+        Task {
+            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
+        }
+    }
+    
+    // MARK: - Private for set logic
         
     private func updateViewSubscription() async {
         guard let setDocument, let widgetInfo else {
@@ -143,17 +185,16 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
         )
         
         try? await subscriptionStorage.startOrUpdateSubscription(data: subscriptionData) { [weak self] data in
-            guard let self else { return }
-            details = data.items
+            self?.updateRowDetails(details: data.items)
         }
     }
     
     private func updateDataviewState() {
         guard let setDocument, setDocument.dataView.views.count > 1 else {
-            dataview = nil
+            dataviewState = nil
             return
         }
-        dataview = WidgetDataviewState(
+        dataviewState = WidgetDataviewState(
             dataview: setDocument.dataView.views,
             activeViewId: setDocument.activeView.id
         )
@@ -170,24 +211,22 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
     private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
             try? await setDocument?.openForPreview()
-            updateModelState()
+            await updateModelState()
             return
         }
         
         setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
         try? await setDocument?.openForPreview()
-        updateModelState()
         
-        details = nil
-        dataview = nil
+        rowDetails = nil
+        dataviewState = nil
         
-        await stopContentSubscription()
-        await startContentSubscription()
+        await updateModelState()
     }
     
-    private func updateModelState() {
-        setActiveViewId()
-        
+    private func updateModelState() async {
+        await updateBodyState()
+    
         guard let setDocument else { return }
         allowCreateObject = setDocument.setPermissions.canCreateObject
         
@@ -196,8 +235,27 @@ final class SetObjectWidgetInternalViewModel: ObservableObject, WidgetDataviewIn
     }
     
     
-    private func setActiveViewId() {
-        guard let activeViewId, setDocument?.activeView.id != activeViewId else { return }
-        setDocument?.updateActiveViewIdAndReload(activeViewId)
+    private func updateBodyState() async {
+        if let activeViewId, let setDocument, setDocument.activeView.id != activeViewId, setDocument.document.isOpened {
+            setDocument.updateActiveViewIdAndReload(activeViewId)
+        }
+        
+        updateDataviewState()
+        await updateViewSubscription()
+    }
+    
+    private func updateRowDetails(details: [ObjectDetails]) {
+        guard let setDocument else { return }
+        rowDetails = setContentViewDataBuilder.itemData(
+            details,
+            dataView: setDocument.dataView,
+            activeView: setDocument.activeView,
+            viewRelationValueIsLocked: false,
+            storage: subscriptionStorage.detailsStorage,
+            spaceId: setDocument.spaceId,
+            onItemTap: { [weak self] in
+                self?.output?.onObjectSelected(screenData: $0.editorScreenData())
+            }
+        )
     }
 }

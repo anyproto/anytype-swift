@@ -47,7 +47,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         return DetailsLayout.supportedForCreationInSets.contains(layout)
     }
     
-    private func canEditRelationValuesInView(setDocument: SetDocumentProtocol) -> Bool {
+    private func canEditRelationValuesInView(setDocument: some SetDocumentProtocol) -> Bool {
         let activeView = setDocument.activeView
         let viewRelationValueIsLocked = activeView.type == .gallery ||
             activeView.type == .list ||

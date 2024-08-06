@@ -146,11 +146,14 @@ extension AnytypeAnalytics {
         )
     }
 
-    func logChangeObjectType(_ type: AnalyticsObjectType, spaceId: String) {
+    func logChangeObjectType(_ type: AnalyticsObjectType, spaceId: String, route: ChangeObjectTypeRoute? = nil) {
         logEvent(
             "ChangeObjectType",
             spaceId: spaceId,
-            withEventProperties: [AnalyticsEventsPropertiesKey.objectType: type.analyticsId]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
+                AnalyticsEventsPropertiesKey.route: route?.rawValue
+            ].compactMapValues { $0 }
         )
     }
     
@@ -160,7 +163,7 @@ extension AnytypeAnalytics {
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.objectType: type.analyticsId,
                 AnalyticsEventsPropertiesKey.route: route.rawValue
-            ].compactMapValues { $0 }
+            ]
         )
     }
 
@@ -250,6 +253,7 @@ extension AnytypeAnalytics {
         format: RelationFormat,
         isNew: Bool,
         type: AnalyticsEventsRelationType,
+        key: AnalyticsRelationKey,
         spaceId: String
     ) {
         logEvent(
@@ -257,16 +261,27 @@ extension AnytypeAnalytics {
             spaceId: spaceId,
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.format: format.analyticsName,
-                AnalyticsEventsPropertiesKey.type: type.rawValue
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.relationKey: key.value
             ]
         )
     }
 
-    func logChangeOrDeleteRelationValue(isEmpty: Bool, type: AnalyticsEventsRelationType, spaceId: String) {
+    func logChangeOrDeleteRelationValue(
+        isEmpty: Bool,
+        format: RelationFormat,
+        type: AnalyticsEventsRelationType,
+        key: AnalyticsRelationKey,
+        spaceId: String
+    ) {
         logEvent(
             isEmpty ? "DeleteRelationValue" : "ChangeRelationValue",
             spaceId: spaceId,
-            withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue]
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.type: type.rawValue,
+                AnalyticsEventsPropertiesKey.format: format.analyticsName,
+                AnalyticsEventsPropertiesKey.relationKey: key.value
+            ]
         )
     }
 
@@ -478,6 +493,15 @@ extension AnytypeAnalytics {
     func logAddWidget(context: AnalyticsWidgetContext) {
         logEvent(
             "AddWidget",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.context: context.rawValue
+            ]
+        )
+    }
+    
+    func logClickAddWidget(context: AnalyticsWidgetContext) {
+        logEvent(
+            "ClickAddWidget",
             withEventProperties: [
                 AnalyticsEventsPropertiesKey.context: context.rawValue
             ]
@@ -993,16 +1017,25 @@ extension AnytypeAnalytics {
         logEvent("DuplicateBlock", spaceId: spaceId)
     }
     
-    func logFeatureRelation(spaceId: String) {
-        logEvent("FeatureRelation", spaceId: spaceId)
+    func logFeatureRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey) {
+        logEvent("FeatureRelation", spaceId: spaceId, withEventProperties: [
+            AnalyticsEventsPropertiesKey.relationKey: key.value,
+            AnalyticsEventsPropertiesKey.format: format.analyticsName
+        ])
     }
     
-    func logUnfeatureRelation(spaceId: String) {
-        logEvent("UnfeatureRelation", spaceId: spaceId)
+    func logUnfeatureRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey) {
+        logEvent("UnfeatureRelation", spaceId: spaceId, withEventProperties: [
+            AnalyticsEventsPropertiesKey.relationKey: key.value,
+            AnalyticsEventsPropertiesKey.format: format.analyticsName
+        ])
     }
     
-    func logDeleteRelation(spaceId: String) {
-        logEvent("DeleteRelation", spaceId: spaceId)
+    func logDeleteRelation(spaceId: String, format: RelationFormat, key: AnalyticsRelationKey) {
+        logEvent("DeleteRelation", spaceId: spaceId, withEventProperties: [
+            AnalyticsEventsPropertiesKey.relationKey: key.value,
+            AnalyticsEventsPropertiesKey.format: format.analyticsName
+        ])
     }
     
     func logScreenSettingsMembership() {

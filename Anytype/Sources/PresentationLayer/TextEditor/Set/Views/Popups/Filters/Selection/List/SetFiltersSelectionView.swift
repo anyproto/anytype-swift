@@ -3,7 +3,7 @@ import SwiftUI
 struct SetFiltersSelectionView: View {
     @StateObject private var viewModel: SetFiltersSelectionViewModel
     
-    init(data: SetFiltersSelectionData, contentViewBuilder: SetFiltersContentViewBuilder, output: SetFiltersSelectionCoordinatorOutput?) {
+    init(data: SetFiltersSelectionData, contentViewBuilder: SetFiltersContentViewBuilder, output: (any SetFiltersSelectionCoordinatorOutput)?) {
         _viewModel = StateObject(wrappedValue: SetFiltersSelectionViewModel(data: data, contentViewBuilder: contentViewBuilder, output: output))
     }
     

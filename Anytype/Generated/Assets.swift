@@ -1,5 +1,6 @@
 // swiftlint:disable all
 // Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+// Location: %RepoRoot%/Tools/SwiftGen 
 
 #if os(macOS)
   import AppKit
@@ -131,6 +132,11 @@ internal enum Asset {
     static let yellowStart = ColorAsset(name: "CoverGradients/yellowStart")
   }
   internal enum Gradients {
+    internal enum UpdateAlert {
+      static let darkBlue = ColorAsset(name: "Gradients/UpdateAlert/darkBlue")
+      static let green = ColorAsset(name: "Gradients/UpdateAlert/green")
+      static let lightBlue = ColorAsset(name: "Gradients/UpdateAlert/lightBlue")
+    }
     static let fadingBlue = ColorAsset(name: "Gradients/fadingBlue")
     static let fadingGreen = ColorAsset(name: "Gradients/fadingGreen")
     static let fadingPink = ColorAsset(name: "Gradients/fadingPink")
@@ -181,8 +187,8 @@ internal enum Asset {
 
 // MARK: - Implementation Details
 
-internal final class ColorAsset {
-  internal fileprivate(set) var name: String
+internal final class ColorAsset: Sendable {
+  internal let name: String
 
   #if os(macOS)
   internal typealias Color = NSColor
@@ -191,7 +197,7 @@ internal final class ColorAsset {
   #endif
 
   @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  internal private(set) lazy var color = Color(asset: self)
+  internal var color: Color { Color(asset: self) }
 
   #if os(iOS) || os(tvOS)
   @available(iOS 11.0, tvOS 11.0, *)

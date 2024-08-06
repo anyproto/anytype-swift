@@ -5,7 +5,7 @@ struct BinLinkWidgetView: View {
     
     let spaceId: String
     @Binding var homeState: HomeWidgetsState
-    weak var output: CommonWidgetModuleOutput?
+    weak var output: (any CommonWidgetModuleOutput)?
 
     var body: some View {
         BinLinkWidgetViewInternal(spaceId: spaceId, homeState: $homeState, output: output)
@@ -21,7 +21,7 @@ private struct BinLinkWidgetViewInternal: View {
     init(
         spaceId: String,
         homeState: Binding<HomeWidgetsState>,
-        output: CommonWidgetModuleOutput?
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self._homeState = homeState
         self._model = StateObject(wrappedValue: BinLinkWidgetViewModel(spaceId: spaceId, output: output))
@@ -34,20 +34,22 @@ private struct BinLinkWidgetViewInternal: View {
     }
     
     var content: some View {
-        WidgetContainerViewNew(
+        LinkWidgetViewContainer(
             title: Loc.bin,
             icon: .Widget.bin,
             isExpanded: .constant(false),
-            homeState: $homeState,
             dragId: nil,
-            showSwipeActionTitle: false,
-            onHeaderTap: {
+            homeState: $homeState,
+            allowMenuContent: true,
+            allowContent: false,
+            headerAction: {
                 model.onHeaderTap()
             },
-            onCreateObjectTap: nil,
-            removeTap: nil,
-            content: EmptyView(),
-            menuItems: menuItems
+            removeAction: nil,
+            menu: {
+                menuItems
+            },
+            content: { EmptyView() }
         )
         .anytypeSheet(item: $model.binAlertData) { data in
             BinConfirmationAlert(data: data)

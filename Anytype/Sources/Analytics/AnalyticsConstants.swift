@@ -44,6 +44,8 @@ enum AnalyticsEventsPropertiesKey {
     static let middleTime = "middleTime"
     static let permissions = "permissions"
     static let spaceType = "spaceType"
+    
+    static let relationKey = "relationKey"
 }
 
 enum AnalyticsEventsTypeValues {
@@ -136,6 +138,20 @@ enum AnalyticsObjectType {
     }
 }
 
+enum AnalyticsRelationKey {
+    case system(key: String)
+    case custom
+    
+    var value: String {
+        switch self {
+        case .system(let key):
+            return key
+        case .custom:
+            return "custom"
+        }
+    }
+}
+
 enum AnalyticsWidgetRoute: String {
     case addWidget = "AddWidget"
     case inner = "Inner"
@@ -144,6 +160,8 @@ enum AnalyticsWidgetRoute: String {
 enum AnalyticsWidgetContext: String, Hashable {
     case home = "Home"
     case editor = "Editor"
+    case main = "Main"
+    case object = "Object"
 }
 
 enum RemoveCompletelyRoute: String {
@@ -287,4 +305,8 @@ enum ClickUpgradePlanTooltipRoute: String {
     case spaceSharing = "ScreenSettingsSpaceShare"
     case confirmInvite = "ScreenInviteConfirm"
     case remoteStorage = "ScreenRemoteStorage"
+}
+
+enum ChangeObjectTypeRoute: String {
+    case featuredRelations = "FeaturedRelations"
 }

@@ -1,11 +1,11 @@
 import Foundation
 
-public enum FeatureType: Equatable {
+public enum FeatureType: Equatable, Sendable {
     case debug
     case feature(author: String, releaseVersion: String)
 }
 
-public struct FeatureDescription {
+public struct FeatureDescription: Sendable {
     public let title: String
     public let type: FeatureType
     public let defaultValue: Bool

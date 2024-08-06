@@ -36,22 +36,41 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let newGlobalSearch = FeatureDescription(
-        title: "New global search",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: true
-    )
-    
     static let scrollToBlockFromSearch = FeatureDescription(
         title: "Scroll to block from Global search - IOS-2845",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
         defaultValue: true
     )
     
-    static let setEmptyValuesSorting = FeatureDescription(
-        title: "Set empty values sorting - IOS-2810",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
+    static let galleryWidget = FeatureDescription(
+        title: "Gallery Widget - IOS-2964",
+        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
         defaultValue: true
+    )
+    
+    static let widgetCreateWithoutType = FeatureDescription(
+        title: "Create widget without type - IOS-3049",
+        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
+        defaultValue: true
+    )
+    
+    static let updateAlert = FeatureDescription(
+        title: "Update Alert - IOS-3054",
+        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
+        defaultValue: true
+    )
+    
+    static let addFilesToGlobalSearch = FeatureDescription(
+        title: "Add files to global search - IOS-3081",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "6"),
+        defaultValue: true
+    )
+    
+    static let discussions = FeatureDescription(
+        title: "Discussions - IOS-3060",
+        type: .feature(author: "m@anytype.io", releaseVersion: "?"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

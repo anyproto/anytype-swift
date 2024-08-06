@@ -26,7 +26,7 @@ extension DataviewGroup {
         }
     }
     
-    func backgroundColor(document: BaseDocumentProtocol) -> BlockBackgroundColor? {
+    func backgroundColor(document: some BaseDocumentProtocol) -> BlockBackgroundColor? {
         switch value {
         case .tag(let tag):
             guard let firstTagId = tag.ids.first,
@@ -40,7 +40,7 @@ extension DataviewGroup {
         }
     }
     
-    func header(with groupRelationKey: String, document: BaseDocumentProtocol) -> SetKanbanColumnHeaderType {
+    func header(with groupRelationKey: String, document: some BaseDocumentProtocol) -> SetKanbanColumnHeaderType {
         switch value {
         case .tag(let tag):
             let tags = tag.ids

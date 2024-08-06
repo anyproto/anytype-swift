@@ -16,9 +16,9 @@ final class CreateObjectView: UIView {
     private let textField = UITextField()
     private let button: ButtonWithImage
 
-    private let viewModel: CreateObjectViewModelProtocol
+    private let viewModel: any CreateObjectViewModelProtocol
 
-    init(viewModel: CreateObjectViewModelProtocol) {
+    init(viewModel: some CreateObjectViewModelProtocol) {
         self.viewModel = viewModel
 
         switch viewModel.style {

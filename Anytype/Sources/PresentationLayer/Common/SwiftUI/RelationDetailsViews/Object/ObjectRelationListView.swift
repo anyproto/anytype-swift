@@ -5,7 +5,7 @@ struct ObjectRelationListView: View {
     
     @StateObject var viewModel: ObjectRelationListViewModel
     
-    init(data: ObjectRelationListData, output: ObjectRelationListModuleOutput?) {
+    init(data: ObjectRelationListData, output: (any ObjectRelationListModuleOutput)?) {
         _viewModel = StateObject(wrappedValue: ObjectRelationListViewModel(data: data, output: output))
     }
     

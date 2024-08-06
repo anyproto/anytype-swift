@@ -1,11 +1,3 @@
-//
-//  AudioBlockContentConfiguration.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 14.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Services
 import UIKit
 import AVFoundation
@@ -17,7 +9,7 @@ struct AudioBlockContentConfiguration: BlockConfiguration {
     let file: BlockFile
     let trackId: String
     let documentId: String
-    weak var audioPlayerViewDelegate: AudioPlayerViewDelegate?
+    weak var audioPlayerViewDelegate: (any AudioPlayerViewDelegate)?
 
     static func == (lhs: AudioBlockContentConfiguration, rhs: AudioBlockContentConfiguration) -> Bool {
         lhs.trackId == rhs.trackId &&

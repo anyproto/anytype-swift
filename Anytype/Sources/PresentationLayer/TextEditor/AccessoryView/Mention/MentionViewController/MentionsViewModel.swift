@@ -12,15 +12,15 @@ final class MentionsViewModel {
     
     var onSelect: RoutingAction<MentionObject>?
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     @Injected(\.mentionObjectsService)
-    private var mentionService: MentionObjectsServiceProtocol
+    private var mentionService: any MentionObjectsServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: DefaultObjectCreationServiceProtocol
-    private var searchTask: Task<(), Error>?
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
+    private var searchTask: Task<(), any Error>?
     private var searchString = ""
     
-    init(document: BaseDocumentProtocol) {
+    init(document: some BaseDocumentProtocol) {
         self.document = document
     }
     

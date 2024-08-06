@@ -1,13 +1,11 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 @MainActor
 final class CreateWidgetCoordinatorViewModel: ObservableObject {
     
     // MARK: - DI
-    
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
     
     private let data: CreateWidgetCoordinatorModel
     
@@ -15,7 +13,9 @@ final class CreateWidgetCoordinatorViewModel: ObservableObject {
     
     lazy var widgetSourceSearchData = {
         WidgetSourceSearchModuleModel(
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            spaceId: data.spaceId,
+            widgetObjectId: data.widgetObjectId,
+            position: data.position,
             context: data.context
         )
     }()
@@ -28,16 +28,20 @@ final class CreateWidgetCoordinatorViewModel: ObservableObject {
     }
     
     func onSelectSource(source: WidgetSource) {
-        showWidgetTypeData = WidgetTypeCreateData(
-            widgetObjectId: data.widgetObjectId,
-            source: source,
-            position: data.position,
-            context: data.context,
-            onFinish: { [weak self] in
-                self?.dismissForLegacyOS()
-                self?.dismiss.toggle()
-            }
-        )
+        if FeatureFlags.widgetCreateWithoutType {
+            dismiss.toggle()
+        } else {
+            showWidgetTypeData = WidgetTypeCreateData(
+                widgetObjectId: data.widgetObjectId,
+                source: source,
+                position: data.position,
+                context: data.context,
+                onFinish: { [weak self] in
+                    self?.dismissForLegacyOS()
+                    self?.dismiss.toggle()
+                }
+            )
+        }
     }
     
     @available(iOS, deprecated: 16.4)

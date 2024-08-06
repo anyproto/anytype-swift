@@ -14,26 +14,26 @@ final class HomeCoordinatorViewModel: ObservableObject,
     // MARK: - DI
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.pasteboardBlockService)
-    private var pasteboardBlockService: PasteboardBlockServiceProtocol
+    private var pasteboardBlockService: any PasteboardBlockServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var typeProvider: ObjectTypeProviderProtocol
+    private var typeProvider: any ObjectTypeProviderProtocol
     @Injected(\.appActionStorage)
-    private var appActionsStorage: AppActionStorage
+    private var appActionsStorage:AppActionStorage
     @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
+    private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     
     @Injected(\.legacySetObjectCreationCoordinator)
-    private var setObjectCreationCoordinator: SetObjectCreationCoordinatorProtocol
+    private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
     
     // MARK: - State
     
@@ -44,7 +44,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeChangeData?
-    @Published var showSearchData: ObjectSearchModuleData?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
@@ -130,6 +129,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             position: .end,
             context: context
@@ -167,6 +167,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
             widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
             position: .below(widgetId: widgetId),
             context: context
@@ -177,7 +178,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         showSpaceSettings.toggle()
     }
     
-    func onCreateObjectInSetDocument(setDocument: SetDocumentProtocol) {
+    func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
         setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
     }
     
@@ -187,23 +188,13 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - HomeBottomNavigationPanelModuleOutput
     
-    func onSearchSelected() {        
-        if FeatureFlags.newGlobalSearch {
-            showGlobalSearchData = GlobalSearchModuleData(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                onSelect: { [weak self] screenData in
-                    self?.openObject(screenData: screenData)
-                }
-            )
-        } else {
-            showSearchData = ObjectSearchModuleData(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-                title: nil,
-                onSelect: { [weak self] data in
-                    self?.openObject(screenData: data.editorScreenData)
-                }
-            )
-        }
+    func onSearchSelected() {  
+        showGlobalSearchData = GlobalSearchModuleData(
+            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            onSelect: { [weak self] screenData in
+                self?.openObject(screenData: screenData)
+            }
+        )
     }
     
     func onCreateObjectSelected(screenData: EditorScreenData) {
@@ -291,6 +282,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private func handleAppAction(action: AppAction) async throws {
         keyboardToggle.toggle()
+        await dismissAllPresented?()
         switch action {
         case .createObjectFromQuickAction(let typeId):
             createAndShowNewObject(typeId: typeId, route: .homeScreen)
@@ -300,8 +292,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     private func handleDeepLink(deepLink: DeepLink) async throws {
-        await dismissAllPresented?()
-        
         switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)

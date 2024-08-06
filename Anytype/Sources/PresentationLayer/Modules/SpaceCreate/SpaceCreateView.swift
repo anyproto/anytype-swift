@@ -7,7 +7,7 @@ struct SpaceCreateView: View {
     @StateObject private var model: SpaceCreateViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: SpaceCreateModuleOutput?) {
+    init(output: (any SpaceCreateModuleOutput)?) {
         _model = StateObject(wrappedValue: SpaceCreateViewModel(output: output))
     }
     

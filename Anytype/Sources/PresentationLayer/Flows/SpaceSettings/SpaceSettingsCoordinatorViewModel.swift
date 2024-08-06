@@ -7,11 +7,11 @@ import Services
 @MainActor
 final class SpaceSettingsCoordinatorViewModel: ObservableObject, SpaceSettingsModuleOutput, RemoteStorageModuleOutput, PersonalizationModuleOutput {
 
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol = Container.shared.activeWorkspaceStorage.resolve()
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol = Container.shared.activeWorkspaceStorage.resolve()
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
     @Published var showRemoteStorage = false
     @Published var showPersonalization = false

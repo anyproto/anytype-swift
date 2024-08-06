@@ -188,6 +188,7 @@
 "Paste or type URL" = "Lim inn eller skriv URL";
 "No items match filter" = "Ingen elementer samsvarer med filteret";
 "Unsupported block" = "Blokk støttet ikke";
+"Unsupported" = "Ikke støttet";
 "Name" = "Navn";
 "Description" = "Beskrivelse";
 "Paste processing..." = "Behandler innliming...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Ingen spørring valgt";
 "Set.View.Empty.Subtitle" = "Legg til søk etter objekter med samme typer og relasjoner i en live-modus";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Velg spørring";
 "Set.SourceType.Cancel.Toast.Title" = "Denne spørringen kan bare endres i skrivebordsappen";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Laster ned eller laster opp data til en node";
 "Node is not connected" = "Noden er ikke tilkoblet";
 "Initializing sync" = "Initialiserer synkronisering";
-"Not syncing" = "Synkroniserer ikke";
+"Incompatible version" = "Ukompatibel versjon";
 "Synced" = "Synkronisert";
 "Syncing..." = "Synkroniserer...";
 "No connection" = "Ingen tilkobling";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Endre Widget type";
 "Widgets.Actions.RemoveWidget" = "Fjern widget";
 "Widgets.Actions.EditWidgets" = "Endre widgets";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Tøm papirkurven";
 "Widgets.Actions.AddBelow" = "Legg til under";
 "Widgets.Actions.NewObject" = "Nytt objekt";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget-type";
 "Widgets.Layout.Link.Title" = "Lenke";
 "Widgets.Layout.Tree.Title" = "Tre";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakt liste";
+"Widgets.Layout.View.Title" = "Visning";
 "Widgets.Layout.Link.Description" = "Kompakt versjon av objektet";
 "Widgets.Layout.Tree.Description" = "Hierarkisk struktur av objekter";
 "Widgets.Layout.List.Description" = "Widget med listevisning av settobjekt";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget med listevisning av settobjekt";
-"Widgets.Empty.Title" = "Denne datavisningen inneholder ingen objekter";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Nylig endret";
 "Widgets.Library.RecentlyOpened.Name" = "Nylig åpnet";
 "Widgets.Library.RecentlyOpened.Description" = "På denne enheten";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Appversjon: %@";
@@ -1154,6 +1164,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-typer - %@";

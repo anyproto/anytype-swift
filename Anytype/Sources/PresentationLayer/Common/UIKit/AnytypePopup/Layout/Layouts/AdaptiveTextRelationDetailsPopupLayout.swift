@@ -6,7 +6,7 @@ import UIKit
 final class AdaptiveTextRelationDetailsPopupLayout: AnytypePopupLayout {
     
     init(layout: UILayoutGuide) {
-        let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
+        let anchors: [FloatingPanelState : any FloatingPanelLayoutAnchoring] = [
             .full: FloatingPanelAdaptiveLayoutAnchor(absoluteOffset: 0, contentLayout: layout, referenceGuide: .safeArea)
         ]
         super.init(initialState: .full, anchors: anchors)

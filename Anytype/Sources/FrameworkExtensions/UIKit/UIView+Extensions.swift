@@ -32,7 +32,7 @@ extension UIView {
         return false
     }
     
-    func removeInteractions(passing check: (UIInteraction) -> Bool) {
+    func removeInteractions(passing check: (any UIInteraction) -> Bool) {
         let interactionsToRemove = interactions.filter(check)
         interactionsToRemove.forEach { interaction in
             removeInteraction(interaction)

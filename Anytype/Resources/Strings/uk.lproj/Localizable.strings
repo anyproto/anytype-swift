@@ -188,6 +188,7 @@
 "Paste or type URL" = "Вставити або ввести URL-адресу";
 "No items match filter" = "Немає збігів із цим фільтром";
 "Unsupported block" = "Непідтримуваний блок";
+"Unsupported" = "Unsupported";
 "Name" = "Назва";
 "Description" = "Опис";
 "Paste processing..." = "Обробка вставки...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Жодного запиту не вибрано";
 "Set.View.Empty.Subtitle" = "Додайте пошуковий запит для групування об'єктів з однаковими типами та зв'язками в режимі реального часу";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Виберіть запит";
 "Set.SourceType.Cancel.Toast.Title" = "Цей запит може бути змінений лише на комп'ютері";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Завантаження даних на деякий вузол";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініціалізація синхронізації";
-"Not syncing" = "Не синхронізовано";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Синхронізовано";
 "Syncing..." = "Синхронізація...";
 "No connection" = "Немає підключення";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Змінити тип віджета";
 "Widgets.Actions.RemoveWidget" = "Видалити Віджет";
 "Widgets.Actions.EditWidgets" = "Редагувати Віджети";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Очистити кошик";
 "Widgets.Actions.AddBelow" = "Додати знизу";
 "Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Тип віджета";
 "Widgets.Layout.Link.Title" = "Посилання";
 "Widgets.Layout.Tree.Title" = "Дерево";
 "Widgets.Layout.List.Title" = "Список";
 "Widgets.Layout.CompactList.Title" = "Компактний список";
+"Widgets.Layout.View.Title" = "Подання";
 "Widgets.Layout.Link.Description" = "Компактна версія об'єкта";
 "Widgets.Layout.Tree.Description" = "Ієрархічна структура об'єктів";
 "Widgets.Layout.List.Description" = "Віджет зі списком об’єктів набору";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Віджет зі списком об’єктів набору";
-"Widgets.Empty.Title" = "Це подання даних не містить об'єктів";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Нещодавно відредаговані";
 "Widgets.Library.RecentlyOpened.Name" = "Нещодавно відкриті";
 "Widgets.Library.RecentlyOpened.Description" = "На цьому пристрої";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Версія застосунку: %@";
@@ -1155,6 +1165,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

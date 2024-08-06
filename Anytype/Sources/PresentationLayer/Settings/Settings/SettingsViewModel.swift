@@ -10,15 +10,15 @@ final class SettingsViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
     
-    private weak var output: SettingsModuleOutput?
+    private weak var output: (any SettingsModuleOutput)?
     
     // MARK: - State
     
@@ -35,7 +35,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var profileIcon: Icon?
     @Published var membership: MembershipStatus = .empty
     
-    init(output: SettingsModuleOutput) {
+    init(output: some SettingsModuleOutput) {
         self.output = output
         
         let accountManager = Container.shared.accountManager.resolve()

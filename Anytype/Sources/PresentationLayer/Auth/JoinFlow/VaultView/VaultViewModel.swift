@@ -9,16 +9,16 @@ final class VaultViewModel: ObservableObject {
     // MARK: - DI
     
     private let state: JoinFlowState
-    private weak var output: JoinFlowStepOutput?
+    private weak var output: (any JoinFlowStepOutput)?
     
     @Injected(\.authService)
-    private var authService: AuthServiceProtocol
+    private var authService: any AuthServiceProtocol
     @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
+    private var seedService: any SeedServiceProtocol
     @Injected(\.usecaseService)
-    private var usecaseService: UsecaseServiceProtocol
+    private var usecaseService: any UsecaseServiceProtocol
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state
         self.output = output
     }
@@ -63,7 +63,7 @@ final class VaultViewModel: ObservableObject {
         output?.onNext()
     }
     
-    private func createAccountError(_ error: Error) {
+    private func createAccountError(_ error: some Error) {
         stopLoading()
         output?.onError(error)
     }

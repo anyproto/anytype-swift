@@ -5,7 +5,7 @@ import AnytypeCore
 
 final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
     @objc let audioPlayer: AVPlayer
-    weak var delegate: AnytypeAudioPlayerDelegate?
+    weak var delegate: (any AnytypeAudioPlayerDelegate)?
     // Key-value observing context
     var playerItemContext = 0
     private var timeObserverToken: Any? = nil
@@ -109,7 +109,7 @@ final class AnytypeAudioPlayer: NSObject, AnytypeAudioPlayerProtocol {
 
     // MARK: - Public methos
 
-    func setAudio(playerItem: AVPlayerItem?, name: String, delegate: AnytypeAudioPlayerDelegate) {
+    func setAudio(playerItem: AVPlayerItem?, name: String, delegate: some AnytypeAudioPlayerDelegate) {
         // tell current delegate that it stops playing
         self.delegate?.stopPlaying()
         // assing new delegate

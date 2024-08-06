@@ -21,7 +21,7 @@ final class StyleCellContentView: UIView, UIContentView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    var configuration: UIContentConfiguration {
+    var configuration: any UIContentConfiguration {
         get { appliedConfiguration }
         set {
             guard let newConfig = newValue as? StyleCellContentConfiguration else { return }

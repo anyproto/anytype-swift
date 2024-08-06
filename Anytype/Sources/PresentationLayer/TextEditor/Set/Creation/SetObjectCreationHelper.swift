@@ -7,27 +7,27 @@ struct SetObjectCreationResult {
 
 protocol SetObjectCreationHelperProtocol {
     func createObject(
-        for setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?
+        for setDocument: some SetDocumentProtocol, setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult
 }
 
 final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.setPrefilledFieldsBuilder)
-    private var prefilledFieldsBuilder: SetPrefilledFieldsBuilderProtocol
+    private var prefilledFieldsBuilder: any SetPrefilledFieldsBuilderProtocol
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     
     // MARK: - SetObjectCreationHelperProtocol
     
     func createObject(
-        for setDocument: SetDocumentProtocol,
+        for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult {
         if isBookmarkObject(setDocument: setDocument, setting: setting) {
@@ -44,7 +44,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     // MARK: - Private
     
     private func createObjectForCollection(
-        for setDocument: SetDocumentProtocol,
+        for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult {
         let objectType = objectType(for: setDocument, setting: setting)
@@ -65,7 +65,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     }
     
     private func createObjectForRelationSet(
-        for setDocument: SetDocumentProtocol,
+        for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult {
         let relationsDetails = setDocument.dataViewRelationsDetails.filter { detail in
@@ -84,7 +84,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     }
     
     private func createObjectForRegularSet(
-        for setDocument: SetDocumentProtocol,
+        for setDocument: some SetDocumentProtocol,
         setting: ObjectCreationSetting?
     ) async throws -> SetObjectCreationResult {
         let objectTypeId = setDocument.details?.setOf.first ?? ""
@@ -99,7 +99,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
     }
     
     private func createObject(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         type: ObjectType?,
         relationsDetails: [RelationDetails],
         templateId: String?
@@ -121,7 +121,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         }
     }
     
-    private func isBookmarkObject(setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?) -> Bool {
+    private func isBookmarkObject(setDocument: some SetDocumentProtocol, setting: ObjectCreationSetting?) -> Bool {
         if setDocument.isBookmarksSet() {
             return true
         }
@@ -133,13 +133,13 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
         return false
     }
     
-    private func objectType(for setDocument: SetDocumentProtocol, setting: ObjectCreationSetting?) -> ObjectType? {
+    private func objectType(for setDocument: some SetDocumentProtocol, setting: ObjectCreationSetting?) -> ObjectType? {
         let settingsObjectType = setting.map { try? objectTypeProvider.objectType(id: $0.objectTypeId) }
         let objectType = settingsObjectType ?? (try? setDocument.defaultObjectTypeForActiveView())
         return objectType
     }
     
-    private func defaultTemplateId(for objectType: ObjectType?, setDocument: SetDocumentProtocol) -> String {
+    private func defaultTemplateId(for objectType: ObjectType?, setDocument: some SetDocumentProtocol) -> String {
         if let defaultTemplateId = setDocument.activeView.defaultTemplateID, defaultTemplateId.isNotEmpty {
             return defaultTemplateId
         } else {
@@ -149,7 +149,7 @@ final class SetObjectCreationHelper: SetObjectCreationHelperProtocol {
 }
 
 extension SetObjectCreationHelperProtocol {
-    func createObject(for setDocument: SetDocumentProtocol) async throws -> SetObjectCreationResult {
+    func createObject(for setDocument: some SetDocumentProtocol) async throws -> SetObjectCreationResult {
         return try await createObject(for: setDocument, setting: nil)
     }
 }

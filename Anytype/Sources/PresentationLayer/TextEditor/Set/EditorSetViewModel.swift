@@ -4,6 +4,7 @@ import AnytypeCore
 import SwiftUI
 import OrderedCollections
 
+
 @MainActor
 final class EditorSetViewModel: ObservableObject {
     let headerModel: ObjectHeaderViewModel
@@ -14,6 +15,8 @@ final class EditorSetViewModel: ObservableObject {
     @Published var dismiss = false
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
+    
+    private var externalActiveViewId: String?
     
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
     private var groups: [DataviewGroup] = []
@@ -29,7 +32,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var configurationsDict: OrderedDictionary<String, [SetContentViewItemConfiguration]> = [:]
     @Published var pagitationDataDict: OrderedDictionary<String, EditorSetPaginationData> = [:]
     
-    @Published var syncStatusData = SyncStatusData(status: .unknown, networkId: "", isHidden: true)
+    @Published var syncStatusData = SyncStatusData(status: .offline, networkId: "", isHidden: true)
     
     var isUpdating = false
 
@@ -60,6 +63,13 @@ final class EditorSetViewModel: ObservableObject {
     
     var details: ObjectDetails? {
         setDocument.details
+    }
+    
+    var showDescription: Bool {
+        guard let description = details?.description else { return false }
+
+        let isFeatured = setDocument.parsedRelations.featuredRelations.contains { $0.key == BundledRelationKey.description.rawValue }
+        return isFeatured && description.isNotEmpty
     }
     
     var hasTargetObjectId: Bool {
@@ -130,46 +140,46 @@ final class EditorSetViewModel: ObservableObject {
         return backgroundColor
     }
     
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let paginationHelper = EditorSetPaginationHelper()
 
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     @Injected(\.detailsService)
-    private var detailsService: DetailsServiceProtocol
+    private var detailsService: any DetailsServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
     @Injected(\.textServiceHandler)
-    private var textServiceHandler: TextServiceProtocol
+    private var textServiceHandler: any TextServiceProtocol
     @Injected(\.groupsSubscriptionsHandler)
-    private var groupsSubscriptionsHandler: GroupsSubscriptionsHandlerProtocol
+    private var groupsSubscriptionsHandler: any GroupsSubscriptionsHandlerProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.setSubscriptionDataBuilder)
-    private var setSubscriptionDataBuilder: SetSubscriptionDataBuilderProtocol
+    private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
-    private var setGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProtocol
-    private let documentsProvider: DocumentsProviderProtocol = Container.shared.documentsProvider()
+    private var setGroupSubscriptionDataBuilder: any SetGroupSubscriptionDataBuilderProtocol
+    private let documentsProvider: any DocumentsProviderProtocol = Container.shared.documentsProvider()
     
     private var subscriptions = [AnyCancellable]()
-    private var subscriptionStorages = [String: SubscriptionStorageProtocol]()
+    private var subscriptionStorages = [String: any SubscriptionStorageProtocol]()
     private var titleSubscription: AnyCancellable?
-    private weak var output: EditorSetModuleOutput?
+    private weak var output: (any EditorSetModuleOutput)?
 
-    init(data: EditorSetObject, output: EditorSetModuleOutput?) {
+    init(data: EditorSetObject, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
             forPreview: false,
             inlineParameters: data.inline
         )
         self.headerModel = ObjectHeaderViewModel(
-            document: setDocument,
+            document: setDocument.document,
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
                 isOpenedForPreview: false, 
@@ -178,6 +188,7 @@ final class EditorSetViewModel: ObservableObject {
             ),
             output: output
         )
+        self.externalActiveViewId = data.activeViewId
         self.titleString = setDocument.details?.pageCellTitle ?? ""
         self.output = output
         self.setup()
@@ -189,7 +200,7 @@ final class EditorSetViewModel: ObservableObject {
             self?.output?.showIconPicker(document: document)
         }
         
-        syncStatusData = SyncStatusData(status: .unknown, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
+        syncStatusData = SyncStatusData(status: .offline, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
         
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
@@ -200,16 +211,22 @@ final class EditorSetViewModel: ObservableObject {
         Task { @MainActor [weak self] in
             guard let self else { return }
             do {
-                try await self.setDocument.open()
-                self.loadingDocument = false
-                await self.onDataviewUpdate()
-                self.logModuleScreen()
+                try await setDocument.open()
+                updateWithExternalActiveViewIdIfNeeded()
+                loadingDocument = false
+                await onDataviewUpdate()
+                logModuleScreen()
             } catch ObjectOpenError.anytypeNeedsUpgrade {
                 showUpdateAlert = true
             } catch {
                 showCommonOpenError = true
             }
         }
+    }
+    
+    func updateWithExternalActiveViewIdIfNeeded() {
+        guard let externalActiveViewId else { return }
+        setDocument.updateActiveViewIdAndReload(externalActiveViewId)
     }
     
     func logModuleScreen() {
@@ -463,9 +480,6 @@ final class EditorSetViewModel: ObservableObject {
                     viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
-                    onIconTap: { [weak self] details in
-                        self?.updateDetailsIfNeeded(details)
-                    },
                     onItemTap: { [weak self] details in
                         self?.itemTapped(details)
                     }
@@ -529,17 +543,6 @@ final class EditorSetViewModel: ObservableObject {
         }
         return records.reorderedStable(by: objectOrderIds, transform: { $0.id })
     }
-        
-    private func updateDetailsIfNeeded(_ details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
-        Task {
-            try await detailsService.updateBundledDetails(
-                objectId: details.id,
-                bundledDetails: [.done(!details.isDone)]
-            )
-            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-        }
-    }
     
     @MainActor
     private func itemTapped(_ details: ObjectDetails) {
@@ -590,6 +593,10 @@ final class EditorSetViewModel: ObservableObject {
 
 // MARK: - Routing
 extension EditorSetViewModel {
+    
+    func showSyncStatusInfo() {
+        // TODO showSyncStatusInfo
+    }
 
     func showRelationValueEditingView(key: String) {
         if key == BundledRelationKey.setOf.rawValue {
@@ -666,7 +673,7 @@ extension EditorSetViewModel {
     }
     
     func showIconPicker() {
-        output?.showIconPicker(document: setDocument)
+        output?.showIconPicker(document: setDocument.document)
     }
     
     func showSetOfTypeSelection() {

@@ -5,7 +5,7 @@ struct SettingsView: View {
     
     @StateObject private var model: SettingsViewModel
     
-    init(output: SettingsModuleOutput) {
+    init(output: some SettingsModuleOutput) {
         _model = StateObject(wrappedValue: SettingsViewModel(output: output))
     }
     

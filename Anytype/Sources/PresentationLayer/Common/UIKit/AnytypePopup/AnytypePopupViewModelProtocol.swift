@@ -8,7 +8,7 @@ protocol AnytypePopupViewModelProtocol {
     
     var popupLayout: AnytypePopupLayoutType { get }
     
-    func onPopupInstall(_ popup: AnytypePopupProxy)
+    func onPopupInstall(_ popup: some AnytypePopupProxy)
     
     func makeContentView() -> UIViewController
     

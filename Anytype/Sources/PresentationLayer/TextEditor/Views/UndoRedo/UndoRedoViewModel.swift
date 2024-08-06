@@ -6,7 +6,7 @@ import Services
 final class UndoRedoViewModel: ObservableObject {
     
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let objectId: String
 

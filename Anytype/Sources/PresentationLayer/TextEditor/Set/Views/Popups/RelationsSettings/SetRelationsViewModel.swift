@@ -9,15 +9,15 @@ import Combine
 final class SetRelationsViewModel: ObservableObject {
     @Published var view: DataviewView = .empty
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
-    private weak var output: SetRelationsCoordinatorOutput?
+    private weak var output: (any SetRelationsCoordinatorOutput)?
     
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     var relations: [SetViewSettingsRelation] {
         setDocument.sortedRelations(for: viewId).map { relation in
@@ -35,9 +35,9 @@ final class SetRelationsViewModel: ObservableObject {
     }
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
-        output: SetRelationsCoordinatorOutput?
+        output: (any SetRelationsCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
@@ -105,12 +105,18 @@ final class SetRelationsViewModel: ObservableObject {
     
     func showAddNewRelationView() {
         output?.onAddButtonTap { [spaceId = setDocument.spaceId] relation, isNew in
-            AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relation.format, isNew: isNew, type: .dataview, spaceId: spaceId)
+            AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
+                format: relation.format,
+                isNew: isNew,
+                type: .dataview,
+                key: relation.analyticsKey,
+                spaceId: spaceId
+            )
         }
     }
     
     private func setup() {
-        cancellable = setDocument.syncPublisher.sink {  [weak self] in
+        cancellable = setDocument.syncPublisher.receiveOnMain().sink {  [weak self] in
             guard let self else { return }
             view = setDocument.view(by: viewId)
         }

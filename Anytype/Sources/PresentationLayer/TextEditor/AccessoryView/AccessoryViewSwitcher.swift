@@ -21,7 +21,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private(set) var activeView = AccessoryViewType.none
     
     private var typePickerDismissedByUser = false
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     
     private let cursorModeAccessoryView: CursorModeAccessoryView
     private let mentionsView: MentionView
@@ -30,7 +30,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let markupAccessoryView: MarkupAccessoryView
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         mentionsView: MentionView,
         slashMenuView: SlashMenuView,
         cursorModeAccessoryView: CursorModeAccessoryView,

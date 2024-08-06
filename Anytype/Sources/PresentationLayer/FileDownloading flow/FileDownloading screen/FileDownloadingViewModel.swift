@@ -14,9 +14,9 @@ final class FileDownloadingViewModel: NSObject, ObservableObject {
     
     private weak var task: URLSessionDownloadTask?
     
-    private weak var output: FileDownloadingModuleOutput?
+    private weak var output: (any FileDownloadingModuleOutput)?
     
-    init(url: URL, output: FileDownloadingModuleOutput) {
+    init(url: URL, output: some FileDownloadingModuleOutput) {
         self.output = output
         
         super.init()
@@ -45,11 +45,11 @@ extension FileDownloadingViewModel {
 
 extension FileDownloadingViewModel: URLSessionDownloadDelegate {
     
-    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
+    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: (any Error)?) {
         handleError(message: error?.localizedDescription)
     }
     
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: (any Error)?) {
         guard
             let error = error as? URLError,
             error.code != .cancelled

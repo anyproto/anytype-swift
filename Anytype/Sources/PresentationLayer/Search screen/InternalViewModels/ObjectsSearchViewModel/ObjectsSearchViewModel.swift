@@ -9,7 +9,7 @@ final class ObjectsSearchViewModel {
     let selectionMode: NewSearchViewModel.SelectionMode
     
     private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
-    private let interactor: ObjectsSearchInteractorProtocol
+    private let interactor: any ObjectsSearchInteractorProtocol
     private let onSelect: (_ details: [ObjectDetails]) -> Void
     
     private var objects: [ObjectDetails] = []
@@ -17,7 +17,7 @@ final class ObjectsSearchViewModel {
     
     init(
         selectionMode: NewSearchViewModel.SelectionMode,
-        interactor: ObjectsSearchInteractorProtocol,
+        interactor: some ObjectsSearchInteractorProtocol,
         onSelect: @escaping (_ details: [ObjectDetails]) -> Void
     ) {
         self.selectionMode = selectionMode

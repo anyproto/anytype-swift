@@ -13,10 +13,10 @@ final class SetRelationsCoordinatorViewModel:
 {
     @Published var relationsSearchData: RelationsSearchData?
     
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let viewId: String
     
-    init(setDocument: SetDocumentProtocol, viewId: String) {
+    init(setDocument: some SetDocumentProtocol, viewId: String) {
         self.setDocument = setDocument
         self.viewId = viewId
     }
@@ -30,7 +30,13 @@ final class SetRelationsCoordinatorViewModel:
             target: .dataview(activeViewId: setDocument.activeView.id), 
             onRelationSelect: { [weak self] relationDetails, isNew in
                 guard let self else { return }
-                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(format: relationDetails.format, isNew: isNew, type: .dataview, spaceId: setDocument.spaceId)
+                AnytypeAnalytics.instance().logAddExistingOrCreateRelation(
+                    format: relationDetails.format,
+                    isNew: isNew,
+                    type: .dataview,
+                    key: relationDetails.analyticsKey,
+                    spaceId: setDocument.spaceId
+                )
             }
         )
     }

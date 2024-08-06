@@ -6,7 +6,7 @@ import AnytypeCore
 enum AttributedTextConverter {
     
     static func asModel(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         text: String,
         marks: Anytype_Model_Block.Content.Text.Marks,
         style: BlockText.Style

@@ -5,9 +5,9 @@ import Combine
 final class PasteboardBlockService: PasteboardBlockServiceProtocol {
     
     @Injected(\.pasteboardHelper)
-    private var pasteboardHelper: PasteboardHelperProtocol
+    private var pasteboardHelper: any PasteboardHelperProtocol
     @Injected(\.pasteboardMiddleService)
-    private var pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
     
     private var tasks = [AnyCancellable]()
     

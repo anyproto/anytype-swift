@@ -6,7 +6,7 @@ import UIKit
 final class FullScreenHeightPopupLayout: AnytypePopupLayout {
     
     init() {
-        let anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] = [
+        let anchors: [FloatingPanelState: any FloatingPanelLayoutAnchoring] = [
             .full: FloatingPanelLayoutAnchor(absoluteInset: 0, edge: .top, referenceGuide: .safeArea)
         ]
         

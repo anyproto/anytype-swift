@@ -1,6 +1,6 @@
 import UIKit
 
 extension UIRectCorner {
-    public static var top: UIRectCorner = [.topLeft, .topRight]
-    public static var bottom: UIRectCorner = [.bottomLeft, .bottomRight]
+    public static let top: UIRectCorner = [.topLeft, .topRight]
+    public static let bottom: UIRectCorner = [.bottomLeft, .bottomRight]
 }

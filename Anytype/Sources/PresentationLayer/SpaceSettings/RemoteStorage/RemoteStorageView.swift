@@ -5,7 +5,7 @@ struct RemoteStorageView: View {
     
     @StateObject private var model: RemoteStorageViewModel
     
-    init(output: RemoteStorageModuleOutput?) {
+    init(output: (any RemoteStorageModuleOutput)?) {
         _model = StateObject(wrappedValue: RemoteStorageViewModel(output: output))
     }
     

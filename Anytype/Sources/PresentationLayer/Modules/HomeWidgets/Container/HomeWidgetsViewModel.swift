@@ -11,21 +11,21 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     private let info: AccountInfo
     
-    let widgetObject: BaseDocumentProtocol
+    let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionService: ObjectActionsServiceProtocol
-    private let documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private var objectActionService: any ObjectActionsServiceProtocol
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantStorage: AccountParticipantsStorageProtocol
+    private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
-    private var recentStateManager: HomeWidgetsRecentStateManagerProtocol
+    private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     
-    weak var output: HomeWidgetsModuleOutput?
+    weak var output: (any HomeWidgetsModuleOutput)?
     
     // MARK: - State
     
@@ -38,7 +38,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     init(
         info: AccountInfo,
-        output: HomeWidgetsModuleOutput?
+        output: (any HomeWidgetsModuleOutput)?
     ) {
         self.info = info
         self.output = output
@@ -99,12 +99,22 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onSpaceSelected()
     }
     
-    func submoduleOutput() -> CommonWidgetModuleOutput? {
+    func submoduleOutput() -> (any CommonWidgetModuleOutput)? {
         output
     }
     
-    func onCreateWidgetSelected() {
+    func onCreateWidgetFromEditMode() {
+        AnytypeAnalytics.instance().logClickAddWidget(context: .editor)
         output?.onCreateWidgetSelected(context: .editor)
+    }
+    
+    func onCreateWidgetFromMainMode() {
+        AnytypeAnalytics.instance().logClickAddWidget(context: .main)
+        output?.onCreateWidgetSelected(context: .main)
+    }
+    
+    func onTapDiscussion() {
+        output?.onObjectSelected(screenData: .discussion)
     }
     
     // MARK: - Private

@@ -3,6 +3,7 @@ import Combine
 import Services
 import AnytypeCore
 
+@MainActor
 final class ChangeTypeAccessoryViewModel {
     typealias TypeItem = HorizontalListItem
 
@@ -11,19 +12,19 @@ final class ChangeTypeAccessoryViewModel {
     var onDoneButtonTap: (() -> Void)?
     var onTypeSelected: ((TypeSelectionResult) -> Void)?
 
-    private let router: EditorRouterProtocol
-    private let handler: BlockActionHandlerProtocol
-    private let document: BaseDocumentProtocol
+    private let router: any EditorRouterProtocol
+    private let handler: any BlockActionHandlerProtocol
+    private let document: any BaseDocumentProtocol
 
     @Injected(\.typesService)
-    private var typesService: TypesServiceProtocol
+    private var typesService: any TypesServiceProtocol
     
     private var cancellables = [AnyCancellable]()
 
     init(
-        router: EditorRouterProtocol,
-        handler: BlockActionHandlerProtocol,
-        document: BaseDocumentProtocol
+        router: some EditorRouterProtocol,
+        handler: some BlockActionHandlerProtocol,
+        document: some BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler

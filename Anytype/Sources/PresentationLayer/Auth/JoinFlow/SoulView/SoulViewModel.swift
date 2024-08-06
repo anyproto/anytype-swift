@@ -14,18 +14,16 @@ final class SoulViewModel: ObservableObject {
     // MARK: - DI
     
     private let state: JoinFlowState
-    private weak var output: JoinFlowStepOutput?
+    private weak var output: (any JoinFlowStepOutput)?
     
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     
-    init(state: JoinFlowState, output: JoinFlowStepOutput?) {
+    init(state: JoinFlowState, output: (any JoinFlowStepOutput)?) {
         self.state = state
         self.inputText = state.soul
         self.output = output
@@ -47,22 +45,23 @@ final class SoulViewModel: ObservableObject {
         output?.onNext()
     }
     
-    private func updateNameError(_ error: Error) {
+    private func updateNameError(_ error: some Error) {
         stopLoading()
         output?.onError(error)
     }
     
     private func updateNames() {
-        guard accountManager.account.name != state.soul else {
+        guard state.soul.isNotEmpty else {
             onSuccess()
             return
         }
+        
         Task {
             startLoading()
             
             do {
                 try await workspaceService.workspaceSetDetails(
-                    spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                    spaceId: accountManager.account.info.accountSpaceId,
                     details: [.name(state.soul)]
                 )
                 try await objectActionsService.updateBundledDetails(

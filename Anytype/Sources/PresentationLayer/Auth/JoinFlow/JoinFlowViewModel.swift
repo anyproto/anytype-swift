@@ -21,13 +21,13 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
     // MARK: - State
     private let state = JoinFlowState()
     
-    private weak var output: JoinFlowOutput?
+    private weak var output: (any JoinFlowOutput)?
     @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
+    private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     
-    init(output: JoinFlowOutput?) {
+    init(output: (any JoinFlowOutput)?) {
         self.output = output
     }
     
@@ -60,7 +60,7 @@ final class JoinFlowViewModel: ObservableObject, JoinFlowStepOutput {
         }
     }
     
-    func onError(_ error: Error) {
+    func onError(_ error: some Error) {
         errorText = error.localizedDescription
     }
     

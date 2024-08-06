@@ -9,18 +9,18 @@ final class SpaceSwitchViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
+    private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.singleObjectSubscriptionService)
-    private var subscriptionService: SingleObjectSubscriptionServiceProtocol
+    private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
-    private weak var output: SpaceSwitchModuleOutput?
+    private var workspaceService: any WorkspaceServiceProtocol
+    private weak var output: (any SpaceSwitchModuleOutput)?
     
     // MARK: - State
     
@@ -39,7 +39,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var spaceViewForLeave: SpaceView?
     @Published var spaceViewStopSharing: SpaceView?
     
-    init(output: SpaceSwitchModuleOutput?) {
+    init(output: (any SpaceSwitchModuleOutput)?) {
         self.output = output
         Task {
             await startProfileSubscriotions()

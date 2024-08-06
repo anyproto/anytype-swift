@@ -13,7 +13,7 @@ final class FileActionsService: FileActionsServiceProtocol {
     
     private enum Constants {
         static let filesDirectory = "fileServiceCache"
-        static var supportedUploadedTypes: [String] = [
+        static let supportedUploadedTypes: [String] = [
             // We are don't support heic and other platform specific types
             // Picture
             UTType.image,
@@ -46,7 +46,7 @@ final class FileActionsService: FileActionsServiceProtocol {
     // Clear file cache once for app launch
     private static var cacheCleared: Bool = false
     @Injected(\.fileService)
-    private var fileService: FileServiceProtocol
+    private var fileService: any FileServiceProtocol
     
     init() {
         if !FileActionsService.cacheCleared {

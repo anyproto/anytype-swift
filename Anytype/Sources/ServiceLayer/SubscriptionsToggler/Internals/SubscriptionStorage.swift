@@ -17,7 +17,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     
     nonisolated let subId: String
     nonisolated let detailsStorage: ObjectDetailsStorage
-    private let toggler: SubscriptionTogglerProtocol
+    private let toggler: any SubscriptionTogglerProtocol
     
     // MARK: - State
     
@@ -29,7 +29,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     private var orderIds: [String] = []
     private var state = SubscriptionStorageState(total: 0, nextCount: 0, prevCount: 0, items: [])
     
-    init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: SubscriptionTogglerProtocol) {
+    init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: some SubscriptionTogglerProtocol) {
         self.subId = subId
         self.detailsStorage = detailsStorage
         self.toggler = toggler
@@ -46,6 +46,11 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     func startOrUpdateSubscription(data: SubscriptionData, update: @MainActor @escaping (_ state: SubscriptionStorageState) -> Void) async throws {
         guard subId == data.identifier else {
             anytypeAssertionFailure("Ids should be equals", info: ["old id": subId, "new id": data.identifier])
+            return
+        }
+        
+        guard self.data != data else {
+            await update(state)
             return
         }
         
@@ -72,6 +77,7 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     func stopSubscription() async throws {
         guard let data else { return }
         try await toggler.stopSubscription(id: data.identifier)
+        self.data = nil
     }
     
     // MARK: - Private

@@ -35,7 +35,7 @@ final class TextViewWithPlaceholder: UITextView {
     
     // MARK: - Internal variables
     
-    weak var customTextViewDelegate: CustomTextViewDelegate?
+    weak var customTextViewDelegate: (any CustomTextViewDelegate)?
     
     /// Custom color that applyed after `primaryColor`and `foregroundColor`
     var tertiaryColor: UIColor? {

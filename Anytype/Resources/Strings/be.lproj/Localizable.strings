@@ -80,7 +80,7 @@
 "Relation.EmptyState.title" = "No options";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
+"Relation.Create.Row.title" = "Стварыць “%@”";
 "Relation.View.Create.title" = "Сварыць опцыю";
 "Relation.View.Edit.title" = "Рэдагаваць опцыю";
 "Relation.Create.Textfield.placeholder" = "Увядзіце назву...";
@@ -188,6 +188,7 @@
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "Няма элементаў, якія супадаюць з фільтрам";
 "Unsupported block" = "Unsupported block";
+"Unsupported" = "Не падтрымліваецца";
 "Name" = "Назва";
 "Description" = "Апісанне";
 "Paste processing..." = "Paste processing...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Запыт не выбраны";
 "Set.View.Empty.Subtitle" = "Дадайце пошукавы запыт, каб згрупаваць аб'екты з аднолькавымі тыпамі і ўласцівасцямі ў рэжыме рэальнага часу";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Select query";
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Загрузка ці выгрузка даных у вузел";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Ініцыялізацыя сінхранізацыі";
-"Not syncing" = "Не сінхранізуецца";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Сінхранізавана";
 "Syncing..." = "Сінхранізацыя...";
 "No connection" = "Няма злучэння";
@@ -790,22 +794,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Выдаліць Віджэт";
 "Widgets.Actions.EditWidgets" = "Рэдагаваць Віджэт";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Спасылка";
 "Widgets.Layout.Tree.Title" = "Дрэва";
 "Widgets.Layout.List.Title" = "Спіс";
 "Widgets.Layout.CompactList.Title" = "Кампактны спіс";
+"Widgets.Layout.View.Title" = "Выгляд";
 "Widgets.Layout.Link.Description" = "Кампактная версія аб'екта";
 "Widgets.Layout.Tree.Description" = "Іерархічная структура аб'ектаў";
 "Widgets.Layout.List.Description" = "Віджэт са спісам аб'ектаў з набору";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Віджэт са спісам аб'ектаў з набору";
-"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Нядаўна адрэдагаваны";
 "Widgets.Library.RecentlyOpened.Name" = "Нядаўна адкрытыя";
 "Widgets.Library.RecentlyOpened.Description" = "На гэтай прыладзе";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Версія праграмы: %@";
@@ -1155,6 +1165,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

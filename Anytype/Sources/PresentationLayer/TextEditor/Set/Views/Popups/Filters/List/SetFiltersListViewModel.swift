@@ -5,7 +5,7 @@ import FloatingPanel
 import Combine
 
 struct SetFiltersListModuleData {
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let viewId: String
 }
 
@@ -13,21 +13,21 @@ struct SetFiltersListModuleData {
 final class SetFiltersListViewModel: ObservableObject {
     @Published var rows: [SetFilterRowConfiguration] = []
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
     private let relationFilterBuilder = RelationFilterBuilder()
     private let subscriptionDetailsStorage: ObjectDetailsStorage
     
-    private weak var output: SetFiltersListCoordinatorOutput?
+    private weak var output: (any SetFiltersListCoordinatorOutput)?
     
     init(
         data: SetFiltersListModuleData,
-        output: SetFiltersListCoordinatorOutput?,
+        output: (any SetFiltersListCoordinatorOutput)?,
         subscriptionDetailsStorage: ObjectDetailsStorage)
     {
         self.setDocument = data.setDocument
@@ -75,7 +75,7 @@ extension SetFiltersListViewModel {
     // MARK: - Private methods
     
     private func setup() {
-        cancellable = setDocument.syncPublisher.sink { [weak self] in
+        cancellable = setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             guard let self else { return }
             let filters = setDocument.filters(for: viewId)
             updateRows(with: filters)

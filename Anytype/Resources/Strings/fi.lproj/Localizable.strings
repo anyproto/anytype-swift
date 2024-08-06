@@ -188,6 +188,7 @@
 "Paste or type URL" = "Sijoita tai kirjoita URL";
 "No items match filter" = "Yksikään kohde ei vastaa filtteröintiä";
 "Unsupported block" = "Tukematon pala";
+"Unsupported" = "Ei tuettu";
 "Name" = "Nimi";
 "Description" = "Kuvaus";
 "Paste processing..." = "Sijoitus käynnissä...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Ei kyselyä valittuna";
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Valitse kysely";
 "Set.SourceType.Cancel.Toast.Title" = "Tämä kysely voidaan vaihtaa vain tietokoneella";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Ladataan dataa solmuun tai solmusta";
 "Node is not connected" = "Solmu ei ole yhteydessä";
 "Initializing sync" = "Käynnistetään synkronointia";
-"Not syncing" = "Ei synkronoida";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Synkronoitu";
 "Syncing..." = "Synkronoidaan...";
 "No connection" = "Ei yhteyttä";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Muuta vempaimen tyyppiä";
 "Widgets.Actions.RemoveWidget" = "Poista vempain";
 "Widgets.Actions.EditWidgets" = "Muokkaa vempaimia";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Tyhjennä roskakori";
 "Widgets.Actions.AddBelow" = "Lisää alapuolelle";
 "Widgets.Actions.NewObject" = "Uusi objekti";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Vempaimen tyyppi";
 "Widgets.Layout.Link.Title" = "Linkki";
 "Widgets.Layout.Tree.Title" = "Puu";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Tiivis lista";
+"Widgets.Layout.View.Title" = "Näkymä";
 "Widgets.Layout.Link.Description" = "Tiivis versio objektista";
 "Widgets.Layout.Tree.Description" = "Hierarkinen objektien rakenne";
 "Widgets.Layout.List.Description" = "Vempain lista näkymällä asetetusta objektista";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Vempain lista näkymällä asetetusta objektista";
-"Widgets.Empty.Title" = "Tämä data näkymä ei sisällä objekteja";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Viimeksi muokatut";
 "Widgets.Library.RecentlyOpened.Name" = "Viimeksi avatut";
 "Widgets.Library.RecentlyOpened.Description" = "Laitteella";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
@@ -1154,6 +1164,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

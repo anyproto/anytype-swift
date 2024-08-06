@@ -14,7 +14,7 @@ struct SpaceSwitchView: View {
     @State private var headerSize: CGSize = .zero
     @State private var size: CGSize = .zero
     
-    init(output: SpaceSwitchModuleOutput?) {
+    init(output: (any SpaceSwitchModuleOutput)?) {
         _model = StateObject(wrappedValue: SpaceSwitchViewModel(output: output))
     }
     

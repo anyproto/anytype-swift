@@ -60,7 +60,7 @@ final class CreateObjectModuleAssembly: CreateObjectModuleAssemblyProtocol {
     
     // MARK: - Private
     
-    private func make(viewModel: CreateObjectViewModelProtocol) -> UIViewController {
+    private func make(viewModel: some CreateObjectViewModelProtocol) -> UIViewController {
         let view = CreateObjectView(viewModel: viewModel)
         return AnytypePopup(
             contentView: view,

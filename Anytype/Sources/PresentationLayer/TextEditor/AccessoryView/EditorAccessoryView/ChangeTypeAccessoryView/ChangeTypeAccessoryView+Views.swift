@@ -33,6 +33,14 @@ extension ChangeTypeAccessoryView {
             configuration.titleAlignment = .leading
             configuration.imagePlacement = .trailing
             configuration.imagePadding = 4
+            
+            configuration.contentInsets = NSDirectionalEdgeInsets(
+                top: configuration.contentInsets.top,
+                leading: 0,
+                bottom: configuration.contentInsets.bottom,
+                trailing: 0
+            )
+            
             self.configuration = configuration
             
             configurationUpdateHandler = { [weak self] button in
@@ -55,6 +63,7 @@ extension ChangeTypeAccessoryView {
             .init(
                 isOpen ? Loc.hideTypes : Loc.showTypes,
                 attributes: AttributeContainer([
+                    NSAttributedString.Key.kern: -0.41,
                     NSAttributedString.Key.font: UIFont.bodyRegular,
                     NSAttributedString.Key.foregroundColor: state == .highlighted ? UIColor.Text.tertiary : UIColor.Text.secondary
                 ])
@@ -73,6 +82,15 @@ extension ChangeTypeAccessoryView {
         button.setTitle(Loc.done, for: .normal)
         button.setTitleColor(UIColor.Text.primary, for: .normal)
         button.setTitleColor(UIColor.Text.secondary, for: .highlighted)
+        
+        if let title = button.titleLabel?.attributedText?.mutable {
+            title.addAttribute(
+                NSAttributedString.Key.kern,
+                value: -0.41,
+                range: NSRange(location: 0, length: title.length - 1)
+            )
+            button.titleLabel?.attributedText = title
+        }
         
         button.addAction(primaryAction, for: .touchUpInside)
 

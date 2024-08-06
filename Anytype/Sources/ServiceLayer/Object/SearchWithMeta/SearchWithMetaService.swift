@@ -10,12 +10,13 @@ protocol SearchWithMetaServiceProtocol: AnyObject {
 final class SearchWithMetaService: SearchWithMetaServiceProtocol {
     
     @Injected(\.searchWithMetaMiddleService)
-    private var searchWithMetaMiddleService: SearchWithMetaMiddleServiceProtocol
+    private var searchWithMetaMiddleService: any SearchWithMetaMiddleServiceProtocol
     
     // MARK: - SearchServiceProtocol
     
     func search(text: String, spaceId: String) async throws -> [SearchResultWithMeta] {
-        try await searchObjectsWithLayouts(text: text, layouts: DetailsLayout.visibleLayouts, spaceId: spaceId)
+        let layouts = FeatureFlags.addFilesToGlobalSearch ? DetailsLayout.visibleLayoutsWithFiles : DetailsLayout.visibleLayouts
+        return try await searchObjectsWithLayouts(text: text, layouts: layouts, spaceId: spaceId)
     }
     
     func search(text: String, limitObjectIds: [String]) async throws -> [SearchResultWithMeta] {

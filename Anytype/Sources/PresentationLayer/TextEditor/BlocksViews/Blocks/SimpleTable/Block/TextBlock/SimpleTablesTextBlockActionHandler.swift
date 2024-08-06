@@ -5,7 +5,7 @@ import AnytypeCore
 
 
 final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     var info: BlockInformation
     
     let showPage: (String) -> Void
@@ -18,19 +18,19 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     
     private let showWaitingView: (String) -> Void
     private let hideWaitingView: () -> Void
-    private let actionHandler: BlockActionHandlerProtocol
-    private let markupChanger: BlockMarkupChangerProtocol
+    private let actionHandler: any BlockActionHandlerProtocol
+    private let markupChanger: any BlockMarkupChangerProtocol
     
     // Fix retain cycle for long paste action
-    private weak var pasteboardService: PasteboardBlockDocumentServiceProtocol?
+    private weak var pasteboardService: (any PasteboardBlockDocumentServiceProtocol)?
     private let mentionDetecter = MentionTextDetector()
-    private let markdownListener: MarkdownListener
+    private let markdownListener: any MarkdownListener
 
     private let onKeyboardAction: (CustomTextView.KeyboardAction) -> Void
 //    private let collectionController: EditorCollectionReloadable
     
     private let cursorManager: EditorCursorManager
-    private let accessoryViewStateManager: AccessoryViewStateManager
+    private let accessoryViewStateManager: any AccessoryViewStateManager
     private let responderScrollViewHelper: ResponderScrollViewHelper
     
     weak var viewModel: TextBlockViewModel?
@@ -41,16 +41,16 @@ final class SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     var accessoryState: AccessoryViewInputState = .none
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         info: BlockInformation,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
-        actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardBlockDocumentServiceProtocol,
-        markdownListener: MarkdownListener,
+        actionHandler: some BlockActionHandlerProtocol,
+        pasteboardService: some PasteboardBlockDocumentServiceProtocol,
+        markdownListener: some MarkdownListener,
         //        collectionController: EditorCollectionReloadable,
         cursorManager: EditorCursorManager,
-        accessoryViewStateManager: AccessoryViewStateManager,
-        markupChanger: BlockMarkupChangerProtocol,
+        accessoryViewStateManager: some AccessoryViewStateManager,
+        markupChanger: some BlockMarkupChangerProtocol,
         responderScrollViewHelper: ResponderScrollViewHelper,
         showPage: @escaping (String) -> Void,
         openURL: @escaping (URL) -> Void,

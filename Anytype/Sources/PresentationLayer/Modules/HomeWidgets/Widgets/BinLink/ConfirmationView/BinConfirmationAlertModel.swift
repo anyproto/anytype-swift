@@ -12,7 +12,7 @@ struct BinConfirmationAlertData: Identifiable, Hashable {
 final class BinConfirmationAlertModel: ObservableObject {
     
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     private let ids: [String]
     

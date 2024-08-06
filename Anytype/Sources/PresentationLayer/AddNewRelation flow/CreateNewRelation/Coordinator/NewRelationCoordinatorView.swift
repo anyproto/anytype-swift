@@ -3,7 +3,7 @@ import SwiftUI
 struct NewRelationData: Identifiable {
     let id = UUID()
     let name: String
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     let target: RelationsModuleTarget
 }
 
@@ -11,7 +11,7 @@ struct NewRelationCoordinatorView: View {
     
     @StateObject private var model: NewRelationCoordinatorViewModel
     
-    init(data: NewRelationData, output: NewRelationCoordinatorViewOutput?) {
+    init(data: NewRelationData, output: (any NewRelationCoordinatorViewOutput)?) {
         _model = StateObject(wrappedValue: NewRelationCoordinatorViewModel(data: data, output: output))
     }
     

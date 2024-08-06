@@ -13,21 +13,23 @@ final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
     
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
-    private weak var output: RelationsListModuleOutput?
+    private weak var output: (any RelationsListModuleOutput)?
     
     private var subscriptions: [AnyCancellable] = []
     
     // MARK: - Initializers
     
     init(
-        document: BaseDocumentProtocol,
-        output: RelationsListModuleOutput?
+        document: some BaseDocumentProtocol,
+        output: (any RelationsListModuleOutput)?
     ) {
         self.document = document
         self.output = output
@@ -42,11 +44,11 @@ final class RelationsListViewModel: ObservableObject {
             .receiveOnMain()
             .assign(to: &$sections)
         
-        document.syncPublisher
+        document.permissionsPublisher
             .receiveOnMain()
-            .sink { [weak self] in
+            .sink { [weak self] permissions in
                 guard let self else { return }
-                navigationBarButtonsDisabled = !document.permissions.canEditRelationsList
+                navigationBarButtonsDisabled = !permissions.canEditRelationsList
             }
             .store(in: &subscriptions)
     }
@@ -70,12 +72,13 @@ extension RelationsListViewModel {
     
     private func changeRelationFeaturedState(relation: Relation) {
         Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
             if relation.isFeatured {
-                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId)
                 try await relationsService.removeFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logUnfeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
             } else {
-                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId)
                 try await relationsService.addFeaturedRelation(objectId: document.objectId, relationKey: relation.key)
+                AnytypeAnalytics.instance().logFeatureRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
             }
         }
         UISelectionFeedbackGenerator().selectionChanged()
@@ -87,8 +90,9 @@ extension RelationsListViewModel {
     
     func removeRelation(relation: Relation) {
         Task {
-            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId)
             try await relationsService.removeRelation(objectId: document.objectId, relationKey: relation.key)
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: relation.key, spaceId: document.spaceId)
+            AnytypeAnalytics.instance().logDeleteRelation(spaceId: document.spaceId, format: relationDetails.format, key: relationDetails.analyticsKey)
         }
     }
     

@@ -2,27 +2,27 @@ import Foundation
 import Services
 
 protocol DocumentsProviderProtocol {
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol
+    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol
     func setDocument(
         objectId: String,
         forPreview: Bool,
         inlineParameters: EditorInlineSetObject?
-    ) -> SetDocumentProtocol
+    ) -> any SetDocumentProtocol
 }
 
 final class DocumentsProvider: DocumentsProviderProtocol {
     private var documentCache = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
     @Injected(\.relationDetailsStorage)
-    private var relationDetailsStorage: RelationDetailsStorageProtocol
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.objectLifecycleService)
-    private var objectLifecycleService: ObjectLifecycleServiceProtocol
+    private var objectLifecycleService: any ObjectLifecycleServiceProtocol
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
+    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
-    func document(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol {
         internalDocument(objectId: objectId, forPreview: forPreview)
     }
     
@@ -30,7 +30,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         objectId: String,
         forPreview: Bool,
         inlineParameters: EditorInlineSetObject?
-    ) -> SetDocumentProtocol {
+    ) -> any SetDocumentProtocol {
         let document = internalDocument(objectId: objectId, forPreview: forPreview)
         
         return SetDocument(
@@ -45,13 +45,13 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     
     // MARK: - Private
     
-    private func internalDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    private func internalDocument(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol {
         if forPreview {
             let document = createBaseDocument(objectId: objectId, forPreview: forPreview)
             return document
         }
         
-        if let value = documentCache.object(forKey: objectId as NSString) as? BaseDocumentProtocol {
+        if let value = documentCache.object(forKey: objectId as NSString) as? any BaseDocumentProtocol {
             return value
         }
         
@@ -61,14 +61,37 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         return document
     }
     
-    private func createBaseDocument(objectId: String, forPreview: Bool) -> BaseDocumentProtocol {
+    private func createBaseDocument(objectId: String, forPreview: Bool) -> some BaseDocumentProtocol {
+        let infoContainer = InfoContainer()
+        let relationLinksStorage = RelationLinksStorage()
+        let restrictionsContainer = ObjectRestrictionsContainer()
+        let detailsStorage = ObjectDetailsStorage()
+        let viewModelSetter = DocumentViewModelSetter(
+            detailsStorage: detailsStorage,
+            relationLinksStorage: relationLinksStorage,
+            restrictionsContainer: restrictionsContainer,
+            infoContainer: infoContainer
+        )
+        let eventsListener = EventsListener(
+            objectId: objectId,
+            infoContainer: infoContainer,
+            relationLinksStorage: relationLinksStorage,
+            restrictionsContainer: restrictionsContainer,
+            detailsStorage: detailsStorage
+        )
         return BaseDocument(
             objectId: objectId,
             forPreview: forPreview,
             objectLifecycleService: objectLifecycleService,
             relationDetailsStorage: relationDetailsStorage, 
             objectTypeProvider: objectTypeProvider,
-            accountParticipantsStorage: accountParticipantsStorage
+            accountParticipantsStorage: accountParticipantsStorage,
+            eventsListener: eventsListener,
+            viewModelSetter: viewModelSetter,
+            infoContainer: infoContainer,
+            relationLinksStorage: relationLinksStorage,
+            restrictionsContainer: restrictionsContainer,
+            detailsStorage: detailsStorage
         )
     }
 }

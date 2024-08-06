@@ -21,6 +21,7 @@ struct WidgetSwipeActionView<Content: View>: View {
     
     @State private var dragOffsetX: CGFloat = 0
     @State private var dragState: DragState = .cancel
+    @State private var initialStartOffset: CGFloat? = 0
     @GestureState private var dragGestureActive = false
     
     private var percent: CGFloat {
@@ -75,15 +76,22 @@ struct WidgetSwipeActionView<Content: View>: View {
             content
                 .offset(x: -contentOffset)
         }
-        .highPriorityGesture(
-            DragGesture(minimumDistance: 10, coordinateSpace: .local)
+        .gesture(
+            DragGesture(minimumDistance: 1, coordinateSpace: .local)
                 .updating($dragGestureActive) { value, state, transaction in
                     state = true
                 }
                 .onChanged { value in
+                    if initialStartOffset.isNil {
+                        // ScrollView prevent this gestore for some initial offset.
+                        // We handle offset from first callback and ignore unhandled offset. Save initial value for this.
+                        // highPriorityGesture works without this line, but it start handle early and show offset for cancelled gesture.
+                        // This is reproducery very often when widget contains horizontal scroll inside and looks not good.
+                        initialStartOffset = value.translation.width
+                    }
                     // Only left
                     withAnimation(.linear(duration: 0.1)) {
-                        dragOffsetX = abs(min(value.translation.width, 0))
+                        dragOffsetX = abs(min(value.translation.width - (initialStartOffset ?? 0), 0))
                         if isEnable {
                             impact()
                         }
@@ -105,6 +113,7 @@ struct WidgetSwipeActionView<Content: View>: View {
                     dragOffsetX = 0
                 }
                 dragState = .cancel
+                initialStartOffset = nil
             }
         }
     }

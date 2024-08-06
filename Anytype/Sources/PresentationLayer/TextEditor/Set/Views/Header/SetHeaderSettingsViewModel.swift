@@ -6,8 +6,8 @@ class SetHeaderSettingsViewModel: ObservableObject {
     @Published var viewName = ""
     @Published var isActiveCreateButton = true
     @Published var isActiveHeader = true
-    
-    private let setDocument: SetDocumentProtocol
+    @Published var showUnsupportedBanner = false
+    private let setDocument: any SetDocumentProtocol
     private var subscriptions = [AnyCancellable]()
     
     let onViewTap: () -> Void
@@ -16,7 +16,7 @@ class SetHeaderSettingsViewModel: ObservableObject {
     let onSecondaryCreateTap: () -> Void
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         onViewTap: @escaping () -> Void,
         onSettingsTap: @escaping () -> Void,
         onCreateTap: @escaping () -> Void,
@@ -39,11 +39,13 @@ class SetHeaderSettingsViewModel: ObservableObject {
             .store(in: &subscriptions)
         
         setDocument.syncPublisher
+            .receiveOnMain()
             .sink { [weak self, weak setDocument] details in
                 guard let self, let setDocument else { return }
                 
                 isActiveCreateButton = setDocument.setPermissions.canCreateObject
                 isActiveHeader = setDocument.isActiveHeader()
+                showUnsupportedBanner = !setDocument.activeView.type.isSupportedOnDevice
             }
             .store(in: &subscriptions)
     }

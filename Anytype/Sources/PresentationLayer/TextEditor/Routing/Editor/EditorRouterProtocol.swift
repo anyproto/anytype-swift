@@ -6,6 +6,7 @@ protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: FilePreviewContext)
 }
 
+@MainActor
 protocol EditorRouterProtocol:
     AnyObject,
     AttachmentRouterProtocol,
@@ -26,7 +27,7 @@ protocol EditorRouterProtocol:
     
     func showStyleMenu(
         informations: [BlockInformation],
-        restrictions: BlockRestrictions,
+        restrictions: any BlockRestrictions,
         didShow: @escaping (UIView) -> Void,
         onDismiss: @escaping () -> Void
     )
@@ -37,7 +38,7 @@ protocol EditorRouterProtocol:
     )
     
     func showSettings()
-    func showSettings(output: ObjectSettingsCoordinatorOutput?)
+    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?)
     func showTextIconPicker(contextId: String, objectId: String)
     
     func showMoveTo(onSelect: @escaping (ObjectDetails) -> ())
@@ -51,7 +52,7 @@ protocol EditorRouterProtocol:
     )
     
     func showRelationValueEditingView(key: String)
-    func showAddNewRelationView(document: BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
+    func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func showWaitingView(text: String)

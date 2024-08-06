@@ -9,7 +9,7 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     // MARK: - DI
     
     @Injected(\.binSubscriptionService)
-    private var binSubscriptionService: BinSubscriptionServiceProtocol
+    private var binSubscriptionService: any BinSubscriptionServiceProtocol
     
     // MARK: - State
     
@@ -43,6 +43,6 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
-        return details.subtitle
+        return details.objectType.name
     }
 }

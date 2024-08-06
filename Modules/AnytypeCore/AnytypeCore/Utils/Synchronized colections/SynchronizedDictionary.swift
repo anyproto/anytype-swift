@@ -1,7 +1,7 @@
 /// A thread-safe dictionary.
 import Foundation
 
-public final class SynchronizedDictionary<K, V> where K: Hashable {
+public final class SynchronizedDictionary<K, V> : @unchecked Sendable where K: Hashable {
 
     // MARK: - Private variables
     

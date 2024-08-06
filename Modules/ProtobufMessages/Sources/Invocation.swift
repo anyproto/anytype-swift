@@ -42,6 +42,8 @@ public struct Invocation<Request, Response> where Request: Message,
         
         log(message: messageName, requestId: requestId, data: request)
         
+        try Task.checkCancellation()
+        
         do {
             result = try await Task {
                 try invokeTask(request)

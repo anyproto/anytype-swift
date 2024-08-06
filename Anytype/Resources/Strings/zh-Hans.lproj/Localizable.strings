@@ -188,6 +188,7 @@
 "Paste or type URL" = "粘贴或输入URL网址";
 "No items match filter" = "没有与筛选匹配的项目";
 "Unsupported block" = "不支持的数据块";
+"Unsupported" = "暂不支持";
 "Name" = "名称";
 "Description" = "描述";
 "Paste processing..." = "粘贴处理...";
@@ -343,7 +344,7 @@
 "GlobalSearch.EmptyState.subtitle" = "创建新的对象或搜索一下";
 "GlobalSearch.EmptyFilteredState.title" = "没有找到相关对象";
 "GlobalSearch.Swipe.Tip.title" = "相关的对象";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"GlobalSearch.Swipe.Tip.subtitle" = "向左滑动以查看相关对象。注意，它仅适用于有相关对象的对象。";
 
 // MARK: - Home
 
@@ -503,6 +504,9 @@
 "Set.View.Empty.Title" = "未选择查询";
 "Set.View.Empty.Subtitle" = "添加搜索查询以在实时模式下聚合具有相同类型和关联的对象";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "选择查询";
 "Set.SourceType.Cancel.Toast.Title" = "只能在桌面端更改此查询";
@@ -613,7 +617,7 @@
 "Downloading or uploading data to some node" = "向某个节点下载或上传数据";
 "Node is not connected" = "节点未连接";
 "Initializing sync" = "初始化同步中";
-"Not syncing" = "尚未同步";
+"Incompatible version" = "不兼容版本";
 "Synced" = "已同步";
 "Syncing..." = "同步中...";
 "No connection" = "没有连接";
@@ -790,22 +794,28 @@
 "Widgets.Actions.ChangeWidgetType" = "更改小部件类型";
 "Widgets.Actions.RemoveWidget" = "删除小部件";
 "Widgets.Actions.EditWidgets" = "编辑小部件";
+"Widgets.Actions.AddWidget" = "添加小部件";
 "Widgets.Actions.EmptyBin" = "清空废纸篓";
 "Widgets.Actions.AddBelow" = "在下面添加";
 "Widgets.Actions.NewObject" = "新建对象";
+"Widgets.Actions.SeeAllObjects" = "查看所有对象";
 "Widgets.Layout.Screen.Title" = "小部件类型";
 "Widgets.Layout.Link.Title" = "链接";
 "Widgets.Layout.Tree.Title" = "树状图";
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "紧凑型列表";
+"Widgets.Layout.View.Title" = "视图";
 "Widgets.Layout.Link.Description" = "紧凑型对象";
 "Widgets.Layout.Tree.Description" = "对象的层次结构";
 "Widgets.Layout.List.Description" = "具有集合对象列表视图的小部件";
+"Widgets.Layout.View.Description" = "具有集合对象视图的小部件";
 "Widgets.Layout.CompactList.Description" = "具有集合对象列表视图的小部件";
-"Widgets.Empty.Title" = "该数据视图不包含对象";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "App 版本: %@";
@@ -1003,9 +1013,9 @@
 
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "在空间中协作";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Steps.1" = "点击空间小部件来访问设置";
+"SpaceShare.Tip.Steps.2" = "打开分享栏";
+"SpaceShare.Tip.Steps.3" = "生成一个邀请链接并分享它";
 
 // MARK: - Initial
 
@@ -1051,8 +1061,7 @@
 "Gallery.Notification.Error" = "哎呀！ “%@” 未安装。请检查您的互联网连接，然后重试或在论坛上反馈。";
 
 // MARK: - Membership
-"Membership" = "会员
-";
+"Membership" = "会员";
 "Just e-mail" = "仅需电子邮件";
 "E-mail" = "电子邮件";
 "Learn more" = "了解详情";
@@ -1084,9 +1093,8 @@
 "StoreKitServiceError.userCancelled" = "购买已取消";
 "StoreKitServiceError.needUserAction" = "支付失败，需要用户在苹果端操作支付。";
 
-"Membership.Ad.Title" = "会员
-";
-"Membership.Ad.Subtitle" = "加入 Anytype Network 意味着一起书写它的故事";
+"Membership.Ad.Title" = "会员";
+"Membership.Ad.Subtitle" = "加入 Anytype 网络，书写它的故事";
 
 "Membership.Legal.Details" = "会员计划详情";
 "Membership.Legal.Privacy" = "隐私政策";
@@ -1107,10 +1115,10 @@
 "Membership.Upgrade.Text" = "联系我们以获取额外的存储空间、空间编辑器或更多共享空间。任何类型的团队都将根据您的需求提供量身定制的细节和条件。";
 "Membership.Upgrade.Button" = "联系Anytype团队";
 
-"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.MoreSpaces" = "升级以创建更多空间";
+"Membership.Upgrade.MoreMembers" = "升级以添加更多成员";
+"Membership.Upgrade.NoMoreMembers" = "您无法添加更多成员";
+"Membership.Upgrade.NoMoreEditors" = "您无法添加更多编辑者";
 
 
 "Membership.Banner.Title1" = "一起构建愿景";
@@ -1158,6 +1166,11 @@
 "MembershipServiceError.tierNotFound" = "找不到层数据，重启应用并重试";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL 模式开启 🫵🐭关闭在调试设置";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";

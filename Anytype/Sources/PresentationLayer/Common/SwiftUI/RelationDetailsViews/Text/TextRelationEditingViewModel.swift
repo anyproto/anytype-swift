@@ -7,7 +7,7 @@ struct TextRelationEditingViewData {
     let type: TextRelationViewType
     let config: RelationModuleConfiguration
     let objectDetails: ObjectDetails
-    let output: TextRelationActionButtonViewModelDelegate?
+    let output: (any TextRelationActionButtonViewModelDelegate)?
 }
 
 @MainActor
@@ -16,21 +16,27 @@ final class TextRelationEditingViewModel: ObservableObject {
     @Published var text: String
     @Published var dismiss = false
     @Published var textFocused = true
-    @Published var actionsViewModels: [TextRelationActionViewModelProtocol] = []
+    @Published var actionsViewModels: [any TextRelationActionViewModelProtocol] = []
     @Published var showPaste = false
     
     let config: RelationModuleConfiguration
     let type: TextRelationViewType
     
     @Injected(\.textRelationEditingService)
-    private var service: TextRelationEditingServiceProtocol
+    private var service: any TextRelationEditingServiceProtocol
     @Injected(\.pasteboardHelper)
-    private var pasteboardHelper: PasteboardHelperProtocol
+    private var pasteboardHelper: any PasteboardHelperProtocol
     @Injected(\.textRelationActionViewModelBuilder)
     private var builder: TextRelationActionViewModelBuilder
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
+    
+    private let initialText: String
     
     init(data: TextRelationEditingViewData) {
-        self.text = data.text ?? ""
+        let initialText = data.text ?? ""
+        self.text = initialText
+        self.initialText = initialText
         self.config = data.config
         self.type = data.type
         self.textFocused = data.config.isEditable
@@ -51,11 +57,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     func onDisappear() {
         guard config.isEditable else { return }
-        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
-            isEmpty: text.isEmpty,
-            type: config.analyticsType,
-            spaceId: config.spaceId
-        )
+        logChangeOrDeleteRelationValue()
     }
     
     func onClear() {
@@ -105,6 +107,20 @@ final class TextRelationEditingViewModel: ObservableObject {
             AnytypeAnalytics.instance().logRelationUrlEditMobile()
         default:
             break
+        }
+    }
+    
+    private func logChangeOrDeleteRelationValue() {
+        guard initialText != text else { return }
+        Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
+            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                isEmpty: text.isEmpty,
+                format: relationDetails.format,
+                type: config.analyticsType,
+                key: relationDetails.analyticsKey,
+                spaceId: config.spaceId
+            )
         }
     }
 }

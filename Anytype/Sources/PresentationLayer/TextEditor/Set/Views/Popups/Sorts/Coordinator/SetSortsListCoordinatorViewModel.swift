@@ -12,11 +12,11 @@ final class SetSortsListCoordinatorViewModel: ObservableObject, SetSortsListCoor
     @Published var sortsSearchData: SetRelationsDetailsLocalSearchData?
     @Published var sortTypesData: SetSortTypesData?
     
-    let setDocument: SetDocumentProtocol
+    let setDocument: any SetDocumentProtocol
     let viewId: String
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String
     ) {
         self.setDocument = setDocument

@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 extension Text {
     func anytypeStyle(_ style: AnytypeFont) -> some View {
         self

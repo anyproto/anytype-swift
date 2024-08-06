@@ -21,8 +21,8 @@ extension BlockWidgetInfo {
     }
     
     var fixedLimit: Int {
-        if block.layout.limits.contains(block.limit) {
-            return block.limit
+        if block.layout.limits.contains(Int(block.limit)) {
+            return Int(block.limit)
         }
         
         return block.layout.limits.first ?? 0

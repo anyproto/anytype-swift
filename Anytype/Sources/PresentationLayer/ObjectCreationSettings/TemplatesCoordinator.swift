@@ -5,8 +5,9 @@ import Services
 import AnytypeCore
 
 protocol TemplatesCoordinatorProtocol {
+    @MainActor
     func showTemplatesPicker(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void
     )
 }
@@ -14,16 +15,16 @@ protocol TemplatesCoordinatorProtocol {
 final class TemplatesCoordinator: TemplatesCoordinatorProtocol, ObjectSettingsCoordinatorOutput {
     
     @Injected(\.legacyNavigationContext)
-    private var navigationContext: NavigationContextProtocol
+    private var navigationContext: any NavigationContextProtocol
     
-    private var editorModuleInputs = [String: EditorPageModuleInput]()
+    private var editorModuleInputs = [String: any EditorPageModuleInput]()
     private var onSetAsDefaultTempalte: ((String) -> Void)?
     
     nonisolated init() {}
     
     @MainActor
     func showTemplatesPicker(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         onSetAsDefaultTempalte: @escaping (String) -> Void
     ) {
         self.onSetAsDefaultTempalte = onSetAsDefaultTempalte
@@ -57,7 +58,7 @@ extension TemplatesCoordinator: TemplatePickerViewModuleOutput {
         completion(editorsViews)
     }
     
-    func selectionOptionsView(_ provider: OptionsItemProvider) -> AnyView {
+    func selectionOptionsView(_ provider: some OptionsItemProvider) -> AnyView {
         SelectionOptionsView(viewModel: SelectionOptionsViewModel(itemProvider: provider))
             .eraseToAnyView()
     }

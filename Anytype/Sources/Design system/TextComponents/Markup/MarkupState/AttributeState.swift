@@ -10,7 +10,7 @@ enum AttributeState {
         markup: MarkupType,
         in range: NSRange,
         string: NSAttributedString,
-        with restrictions: BlockRestrictions) -> AttributeState
+        with restrictions: some BlockRestrictions) -> AttributeState
     {
         guard restrictions.isMarkupAvailable(markup) else { return .disabled }
         guard string.hasMarkup(markup, range: range) else { return .notApplied }
@@ -20,7 +20,7 @@ enum AttributeState {
     static func allMarkupAttributesState(
         in range: NSRange,
         string: NSAttributedString,
-        with restrictions: BlockRestrictions
+        with restrictions: some BlockRestrictions
     ) -> [MarkupType: AttributeState] {
         var allAttributesState = [MarkupType: AttributeState]()
 
@@ -32,7 +32,7 @@ enum AttributeState {
         return allAttributesState
     }
 
-    static func markupAttributes(document: BaseDocumentProtocol, infos: [BlockInformation]) -> [MarkupType: AttributeState] {
+    static func markupAttributes(document: some BaseDocumentProtocol, infos: [BlockInformation]) -> [MarkupType: AttributeState] {
         let blocksMarkupAttributes = infos.compactMap { blockInformation -> [MarkupType: AttributeState]? in
             guard case let .text(textBlock) = blockInformation.content else { return nil }
             let anytypeText = AttributedTextConverter.asModel(

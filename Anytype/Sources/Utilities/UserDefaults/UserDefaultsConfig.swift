@@ -27,6 +27,8 @@ struct UserDefaultsConfig {
     @UserDefault("showUnstableMiddlewareError", defaultValue: true)
     public static var showUnstableMiddlewareError: Bool
     
+    @UserDefault("UserData.CurrentVersionOverride", defaultValue: "")
+    static var currentVersionOverride: String
 }
 
 extension UserDefaultsConfig {

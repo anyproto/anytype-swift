@@ -7,19 +7,19 @@ import Combine
 final class SetSortsListViewModel: ObservableObject {
     @Published var rows: [SetSortRowConfiguration] = []
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
-    private weak var output: SetSortsListCoordinatorOutput?
+    private weak var output: (any SetSortsListCoordinatorOutput)?
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
-        output: SetSortsListCoordinatorOutput?
+        output: (any SetSortsListCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
@@ -104,7 +104,7 @@ extension SetSortsListViewModel {
     }
     
     private func setup() {
-        cancellable = setDocument.syncPublisher.sink { [weak self] in
+        cancellable = setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             guard let self else { return }
             let sorts = setDocument.sorts(for: viewId)
             updateRows(with: sorts)

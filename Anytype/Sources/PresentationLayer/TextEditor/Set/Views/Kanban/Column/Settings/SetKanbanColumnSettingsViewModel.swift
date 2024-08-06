@@ -8,7 +8,7 @@ final class SetKanbanColumnSettingsViewModel: ObservableObject, AnytypePopupView
     
     private let onApplyTap: (Bool, BlockBackgroundColor?) -> Void
     
-    weak var popup: AnytypePopupProxy?
+    weak var popup: (any AnytypePopupProxy)?
     
     init(
         hideColumn: Bool,
@@ -38,7 +38,7 @@ final class SetKanbanColumnSettingsViewModel: ObservableObject, AnytypePopupView
         .constantHeight(height: 258, floatingPanelStyle: true)
     }
     
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
+    func onPopupInstall(_ popup: some AnytypePopupProxy) {
         self.popup = popup
     }
     

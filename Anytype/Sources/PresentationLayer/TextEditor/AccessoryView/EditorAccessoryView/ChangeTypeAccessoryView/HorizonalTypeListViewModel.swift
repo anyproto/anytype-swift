@@ -12,22 +12,24 @@ struct HorizontalListItem: Identifiable, Hashable {
     @EquatableNoop var action: () -> Void
 }
 
+@MainActor
 protocol TypeListItemProvider: AnyObject {
     var typesPublisher: AnyPublisher<[HorizontalListItem], Never> { get }
 }
 
+@MainActor
 final class HorizonalTypeListViewModel: ObservableObject {
     @Published var items = [HorizontalListItem]()
     @Published var showPaste = false
     let onSearchTap: () -> ()
     
-    private let pasteboardHelper: PasteboardHelperProtocol
+    private let pasteboardHelper: any PasteboardHelperProtocol
     private var cancellables = [AnyCancellable]()
     private let onPasteTap: () -> ()
 
     init(
-        itemProvider: TypeListItemProvider?,
-        pasteboardHelper: PasteboardHelperProtocol = PasteboardHelper(),
+        itemProvider: (any TypeListItemProvider)?,
+        pasteboardHelper: some PasteboardHelperProtocol = PasteboardHelper(),
         onSearchTap: @escaping () -> (),
         onPasteTap: @escaping () -> ()
     ) {

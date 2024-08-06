@@ -6,6 +6,6 @@ struct SetObjectListWidgetSubmoduleView: View {
     let data: WidgetSubmoduleData
     
     var body: some View {
-        SetObjectCommonListWidgetSubmoduleView(data: data, style: .list)
+        SetObjecWidgetSubmoduleView(data: data, style: .list)
     }
 }

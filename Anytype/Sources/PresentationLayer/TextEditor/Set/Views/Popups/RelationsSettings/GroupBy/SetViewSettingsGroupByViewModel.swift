@@ -12,7 +12,7 @@ final class SetViewSettingsGroupByViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Initializer
 
-    init(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
+    init(setDocument: some SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
         self.selectedRelationKey = setDocument.activeView.groupRelationKey
         self.relations = setDocument.dataView.groupByRelations(
             for: setDocument.activeView,

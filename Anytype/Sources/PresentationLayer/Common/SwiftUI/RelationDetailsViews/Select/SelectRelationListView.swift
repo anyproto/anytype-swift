@@ -4,7 +4,7 @@ struct SelectRelationListView: View {
     
     @StateObject var viewModel: SelectRelationListViewModel
     
-    init(data: SelectRelationListData, output: SelectRelationListModuleOutput?) {
+    init(data: SelectRelationListData, output: (any SelectRelationListModuleOutput)?) {
         _viewModel = StateObject(wrappedValue: SelectRelationListViewModel(data: data, output: output))
     }
     

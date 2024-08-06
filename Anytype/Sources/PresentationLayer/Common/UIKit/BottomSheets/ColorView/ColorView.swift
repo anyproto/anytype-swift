@@ -40,7 +40,7 @@ class ColorView: UIView {
         var config = UICollectionViewCompositionalLayoutConfiguration()
 
         let layout = UICollectionViewCompositionalLayout(sectionProvider: {
-            (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            (sectionIndex: Int, layoutEnvironment: any NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
             let items = SectionKind(rawValue: sectionIndex) == .textColor ? ColorItem.text : ColorItem.background
 
@@ -111,12 +111,12 @@ class ColorView: UIView {
     private var styleDataSource: UICollectionViewDiffableDataSource<SectionKind, ColorItem>?
     var selectedTextColor: UIColor? {
         didSet {
-            updateSnapshot()
+            updateItemSelection(at: .textColor)
         }
     }
     var selectedBackgroundColor: UIColor? {
         didSet {
-            updateSnapshot()
+            updateItemSelection(at: .backgroundColor)
         }
     }
     private var viewDidCloseHandler: () -> Void
@@ -185,33 +185,48 @@ class ColorView: UIView {
             cell.contentConfiguration = content
         }
 
-        styleDataSource = UICollectionViewDiffableDataSource<SectionKind, ColorItem>(collectionView: styleCollectionView) {
-            [weak self] (collectionView: UICollectionView, indexPath: IndexPath, identifier: ColorItem) -> UICollectionViewCell? in
-
-            let color = SectionKind(rawValue: indexPath.section) == .textColor ? self?.selectedTextColor : self?.selectedBackgroundColor
-
-            if identifier.color == color {
-                collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-            }
+        styleDataSource = UICollectionViewDiffableDataSource<SectionKind, ColorItem>(collectionView: styleCollectionView) { (collectionView: UICollectionView, indexPath: IndexPath, identifier: ColorItem) -> UICollectionViewCell? in
             return collectionView.dequeueConfiguredReusableCell(using: cellRegistration, for: indexPath, item: identifier)
         }
 
         // initial data
         updateSnapshot()
     }
-
-    private func updateSnapshot(with colorItems: [ColorItem]) {
-        var snapshot = NSDiffableDataSourceSnapshot<SectionKind, ColorItem>()
-        snapshot.appendSections([.textColor, .backgroundColor])
-        styleDataSource?.apply(snapshot, animatingDifferences: false)
-    }
-
+    
     private func updateSnapshot() {
         var snapshot = NSDiffableDataSourceSnapshot<SectionKind, ColorItem>()
         snapshot.appendSections([.textColor, .backgroundColor])
         snapshot.appendItems(ColorItem.text, toSection: .textColor)
         snapshot.appendItems(ColorItem.background, toSection: .backgroundColor)
         styleDataSource?.apply(snapshot, animatingDifferences: false)
+    }
+    
+    private func updateItemSelection(at section: SectionKind) {
+        deselectAll(in: section)
+        selectItem(at: section)
+    }
+    
+    private func deselectAll(in section: SectionKind) {
+        let indexPathToDeselect = styleCollectionView.indexPathsForSelectedItems?.filter { $0.section == section.rawValue }
+        indexPathToDeselect?.forEach { styleCollectionView.deselectItem(at: $0, animated: false) }
+    }
+    
+    private func selectItem(at section: SectionKind) {
+        guard let row  = itemRow(at: section) else { return }
+        styleCollectionView.selectItem(at: IndexPath(row: row, section: section.rawValue), animated: false, scrollPosition: [])
+    }
+    
+    private func itemRow(at section: SectionKind) -> Int? {
+        switch section {
+        case .textColor:
+            return ColorItem.text.firstIndex { [weak self] color in
+                return color.color == self?.selectedTextColor
+            }
+        case .backgroundColor:
+            return ColorItem.background.firstIndex { [weak self] color in
+                return color.color == self?.selectedBackgroundColor
+            }
+        }
     }
 
     @objc private func backdropViewTapped() {
@@ -230,8 +245,6 @@ extension ColorView: UICollectionViewDelegate {
         guard let colorItem = styleDataSource?.itemIdentifier(for: indexPath) else {
             return false
         }
-        let indexPathToDeselect = collectionView.indexPathsForSelectedItems?.filter { $0.section == indexPath.section }
-        indexPathToDeselect?.forEach { collectionView.deselectItem(at: $0, animated: false) }
 
         switch colorItem {
         case .text(let color):

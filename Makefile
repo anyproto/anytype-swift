@@ -2,9 +2,13 @@ setup-middle:
 	./Scripts/middle-install.sh
 	make generate
 
+setup-middle-ci:
+	./Scripts/middle-install.sh
+
 change-github-token:
+	# Token generation info:
+	# https://github.com/anyproto/anytype-swift?tab=readme-ov-file#use-pre-built-anytype-heart
 	./Scripts/change-token.sh
-# Build from local repo
 
 generate:
 	sourcery --config ./Modules/ProtobufMessages/sourcery.yml
@@ -12,6 +16,8 @@ generate:
 	./Tools/SwiftGen/swiftgen --config ./Modules/Services/swiftgen.yml
 	sourcery --config ./Modules/AnytypeCore/sourcery.yml
 	sourcery --config ./Anytype/GeneratorConfig/sourcery.yml
+	# We also have code generation in XCode Build phases for main target and widgets
+
 
 update-xcfilelists:
 	./Tools/SwiftGen/swiftgen config generate-xcfilelists --config ./Tools/SwiftGen/swiftgen.yml --inputs ./Tools/SwiftGen/swiftgen-inputs-files.xcfilelist --outputs ./Tools/SwiftGen/swiftgen-outputs-files.xcfilelist

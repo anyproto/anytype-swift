@@ -6,7 +6,7 @@ protocol SetGroupSubscriptionDataBuilderProtocol {
     
     var groupSubscriptionId: String { get }
     
-    func groupsData(_ setDocument: SetDocumentProtocol) -> GroupsSubscriptionData
+    func groupsData(_ setDocument: some SetDocumentProtocol) -> GroupsSubscriptionData
 }
 
 @MainActor
@@ -16,7 +16,7 @@ final class SetGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProt
     
     nonisolated init() {}
     
-    func groupsData(_ setDocument: SetDocumentProtocol) -> GroupsSubscriptionData {
+    func groupsData(_ setDocument: some SetDocumentProtocol) -> GroupsSubscriptionData {
         GroupsSubscriptionData(
             identifier: groupSubscriptionId,
             relationKey: setDocument.activeView.groupRelationKey,

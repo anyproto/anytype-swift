@@ -73,7 +73,7 @@ protocol ScannerViewControllerDeleage {
 class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     var captureSession: AVCaptureSession!
     var previewLayer: AVCaptureVideoPreviewLayer!
-    var delegate: ScannerViewControllerDeleage?
+    var delegate: (any ScannerViewControllerDeleage)?
     
     private let serialQueue = DispatchQueue(label: "ScannerViewController.serial.queue")
     

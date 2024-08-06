@@ -1,10 +1,11 @@
 import Foundation
 import SwiftUI
 import Services
+import AnytypeCore
 
 struct HomeWidgetsView: View {
     let info: AccountInfo
-    let output: HomeWidgetsModuleOutput?
+    let output: (any HomeWidgetsModuleOutput)?
     
     var body: some View {
         HomeWidgetsInternalView(info: info, output: output)
@@ -16,7 +17,7 @@ private struct HomeWidgetsInternalView: View {
     @StateObject private var model: HomeWidgetsViewModel
     @State var dndState = DragState()
     
-    init(info: AccountInfo, output: HomeWidgetsModuleOutput?) {
+    init(info: AccountInfo, output: (any HomeWidgetsModuleOutput)?) {
         self._model = StateObject(wrappedValue: HomeWidgetsViewModel(info: info, output: output))
     }
     
@@ -28,6 +29,9 @@ private struct HomeWidgetsInternalView: View {
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {
+                        if FeatureFlags.updateAlert {
+                            HomeUpdateSubmoduleView()
+                        }
                         SpaceWidgetView {
                             model.onSpaceSelected()
                         }
@@ -38,9 +42,12 @@ private struct HomeWidgetsInternalView: View {
                             HomeWidgetSubmoduleView(widgetInfo: widgetInfo, widgetObject: model.widgetObject, homeState: $model.homeState, output: model.output)
                         }
                         BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
-                        HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
-                            model.onEditButtonTap()
+                        if FeatureFlags.discussions {
+                            HomeEditButton(text: "Discussion for test", homeState: model.homeState) {
+                                model.onTapDiscussion()
+                            }
                         }
+                        editButtons
                     }
                     AnytypeNavigationSpacer()
                 }
@@ -51,7 +58,7 @@ private struct HomeWidgetsInternalView: View {
             .animation(.default, value: model.widgetBlocks.count)
             
             HomeBottomPanelView(homeState: $model.homeState) {
-                model.onCreateWidgetSelected()
+                model.onCreateWidgetFromEditMode()
             }
         }
         .task {
@@ -71,6 +78,17 @@ private struct HomeWidgetsInternalView: View {
             model.dropUpdate(from: from, to: to)
         } dropFinish: { from, to in
             model.dropFinish(from: from, to: to)
+        }
+    }
+    
+    private var editButtons: some View {
+        EqualFitWidthHStack(spacing: 12) {
+            HomeEditButton(text: Loc.Widgets.Actions.addWidget, homeState: model.homeState) {
+                model.onCreateWidgetFromMainMode()
+            }
+            HomeEditButton(text: Loc.Widgets.Actions.editWidgets, homeState: model.homeState) {
+                model.onEditButtonTap()
+            }
         }
     }
 }

@@ -11,36 +11,36 @@ struct SimpleTableDependenciesContainer {
 final class SimpleTableDependenciesBuilder {
     let cursorManager: EditorCursorManager
     
-    private let document: BaseDocumentProtocol
-    private let router: EditorRouterProtocol
-    private let handler: BlockActionHandlerProtocol
-    private let markdownListener: MarkdownListener
+    private let document: any BaseDocumentProtocol
+    private let router: any EditorRouterProtocol
+    private let handler: any BlockActionHandlerProtocol
+    private let markdownListener: any MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
     private let responderScrollViewHelper: ResponderScrollViewHelper
-    private let accessoryStateManager: AccessoryViewStateManager
-    private weak var moduleOutput: EditorPageModuleOutput?
+    private let accessoryStateManager: any AccessoryViewStateManager
+    private weak var moduleOutput: (any EditorPageModuleOutput)?
     
     @Injected(\.blockTableService)
-    private var tableService: BlockTableServiceProtocol
+    private var tableService: any BlockTableServiceProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.typesService)
-    private var typesService: TypesServiceProtocol
+    private var typesService: any TypesServiceProtocol
     
-    weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
+    weak var mainEditorSelectionManager: (any SimpleTableSelectionHandler)?
     
     init(
-        document: BaseDocumentProtocol,
-        router: EditorRouterProtocol,
-        handler: BlockActionHandlerProtocol,
-        markdownListener: MarkdownListener,
+        document: some BaseDocumentProtocol,
+        router: some EditorRouterProtocol,
+        handler: some BlockActionHandlerProtocol,
+        markdownListener: some MarkdownListener,
         focusSubjectHolder: FocusSubjectsHolder,
-        mainEditorSelectionManager: SimpleTableSelectionHandler?,
+        mainEditorSelectionManager: (any SimpleTableSelectionHandler)?,
         responderScrollViewHelper: ResponderScrollViewHelper,
-        accessoryStateManager: AccessoryViewStateManager,
-        moduleOutput: EditorPageModuleOutput?
+        accessoryStateManager: some AccessoryViewStateManager,
+        moduleOutput: (any EditorPageModuleOutput)?
     ) {
         self.document = document
         self.router = router
@@ -56,7 +56,7 @@ final class SimpleTableDependenciesBuilder {
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
-        let blockInformationProvider = BlockModelInfomationProvider(infoContainer: document.infoContainer, info: blockInformation)
+        let blockInformationProvider = BlockModelInfomationProvider(document: document, info: blockInformation)
         
         let selectionOptionHandler = SimpleTableSelectionOptionHandler(
             router: router,
@@ -93,7 +93,7 @@ final class SimpleTableDependenciesBuilder {
 
         let viewModel = SimpleTableViewModel(
             document: document,
-            tableBlockInfoProvider: .init(infoContainer: document.infoContainer, info: blockInformation),
+            tableBlockInfoProvider: BlockModelInfomationProvider(document: document, info: blockInformation),
             cellBuilder: cellsBuilder,
             stateManager: stateManager,
             cursorManager: cursorManager

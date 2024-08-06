@@ -7,23 +7,23 @@ protocol EditorSetModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func replaceEditorScreen(data: EditorScreenData)
     func closeEditor()
     
-    func showSetViewPicker(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
-    func showSetViewSettings(document: SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
-    func showQueries(document: SetDocumentProtocol, selectedObjectId: String?, onSelect: @escaping (String) -> ())
+    func showSetViewPicker(document: some SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
+    func showSetViewSettings(document: some SetDocumentProtocol, subscriptionDetailsStorage: ObjectDetailsStorage)
+    func showQueries(document: some SetDocumentProtocol, selectedObjectId: String?, onSelect: @escaping (String) -> ())
 
     // NavigationContext
-    func showCreateObject(document: SetDocumentProtocol, setting: ObjectCreationSetting?)
+    func showCreateObject(document: some SetDocumentProtocol, setting: ObjectCreationSetting?)
     func showKanbanColumnSettings(
         hideColumn: Bool,
         selectedColor: BlockBackgroundColor?,
         onSelect: @escaping (Bool, BlockBackgroundColor?) -> Void
     )
     func showSettings()
-    func showCoverPicker(document: BaseDocumentGeneralProtocol)
-    func showIconPicker(document: BaseDocumentGeneralProtocol)
+    func showCoverPicker(document: some BaseDocumentProtocol)
+    func showIconPicker(document: some BaseDocumentProtocol)
     func showRelationValueEditingView(objectDetails: ObjectDetails, relation: Relation)
     func showSetObjectCreationSettings(
-        document: SetDocumentProtocol,
+        document: some SetDocumentProtocol,
         viewId: String,
         onTemplateSelection: @escaping (ObjectCreationSetting) -> ()
     )

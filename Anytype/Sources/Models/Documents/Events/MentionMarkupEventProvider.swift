@@ -5,12 +5,12 @@ import ProtobufMessages
 final class MentionMarkupEventProvider {
     
     private let objectId: String
-    private let infoContainer: InfoContainerProtocol
+    private let infoContainer: any InfoContainerProtocol
     private let detailsStorage: ObjectDetailsStorage
         
     init(
         objectId: String,
-        infoContainer: InfoContainerProtocol,
+        infoContainer: some InfoContainerProtocol,
         detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
@@ -18,13 +18,11 @@ final class MentionMarkupEventProvider {
         self.detailsStorage = detailsStorage
     }
     
-    func updateMentionsEvent() -> DocumentUpdate? {
-        let blockIds = infoContainer
+    func updateMentionsEvent() -> [DocumentUpdate] {
+        return infoContainer
             .recursiveChildren(of: objectId)
             .compactMap { updateIfNeeded(info: $0) }
-        guard blockIds.count > 0 else { return nil }
-        
-        return .blocks(blockIds: Set(blockIds))
+            .map { .block(blockId: $0) }
     }
     
     func updateIfNeeded(info: BlockInformation) -> String? {
@@ -92,7 +90,11 @@ final class MentionMarkupEventProvider {
     
     private func mentionRange(in string: String, range: Anytype_Model_Range) -> Range<String.Index>? {
         guard range.from < string.count, range.to <= string.count else {
-            anytypeAssertionFailure("Index out of bounds", info: ["range": "\(range)"])
+            anytypeAssertionFailure("Index out of bounds", info: [
+                "range from": "\(range.from)",
+                "range to": "\(range.to)",
+                "string lenght": "\(string.count)"
+            ])
             return nil
         }
         let from = string.index(string.startIndex, offsetBy: Int(range.from))

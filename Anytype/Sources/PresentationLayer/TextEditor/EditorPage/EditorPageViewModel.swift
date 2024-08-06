@@ -7,33 +7,33 @@ import AnytypeCore
 
 @MainActor
 final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNavigationManagerOutput, ObservableObject {
-    weak private(set) var viewInput: EditorPageViewInput?
+    weak private(set) var viewInput: (any EditorPageViewInput)?
     
-    let blocksStateManager: EditorPageBlocksStateManagerProtocol
+    let blocksStateManager: any EditorPageBlocksStateManagerProtocol
     
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     let modelsHolder: EditorMainItemModelsHolder
-    let router: EditorRouterProtocol
-    let actionHandler: BlockActionHandlerProtocol
+    let router: any EditorRouterProtocol
+    let actionHandler: any BlockActionHandlerProtocol
     
     @Injected(\.objectActionsService)
-    var objectActionsService: ObjectActionsServiceProtocol
+    var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.objectTypeProvider)
-    var objectTypeProvider: ObjectTypeProviderProtocol
+    var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     @Injected(\.templatesSubscription)
-    private var templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
-    private let editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol
+    private let editorPageTemplatesHandler: any EditorPageTemplatesHandlerProtocol
     private let configuration: EditorPageViewModelConfiguration
     
-    private weak var output: EditorPageModuleOutput?
+    private weak var output: (any EditorPageModuleOutput)?
     lazy var subscriptions = [AnyCancellable]()
     private var didScrollToInitialBlock = false
 
@@ -45,18 +45,18 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     
     // MARK: - Initialization
     init(
-        document: BaseDocumentProtocol,
-        viewInput: EditorPageViewInput,
-        router: EditorRouterProtocol,
+        document: some BaseDocumentProtocol,
+        viewInput: some EditorPageViewInput,
+        router: some EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         headerModel: ObjectHeaderViewModel,
-        blocksStateManager: EditorPageBlocksStateManagerProtocol,
+        blocksStateManager: some EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
-        editorPageTemplatesHandler: EditorPageTemplatesHandlerProtocol,
+        editorPageTemplatesHandler: some EditorPageTemplatesHandlerProtocol,
         configuration: EditorPageViewModelConfiguration,
-        output: EditorPageModuleOutput?
+        output: (any EditorPageModuleOutput)?
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -77,7 +77,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
     func setupSubscriptions() {
         subscriptions = []
         
-        document.syncStatusPublisher.receiveOnMain().sink { [weak self] data in
+        document.syncStatusDataPublisher.receiveOnMain().sink { [weak self] data in
             self?.handleSyncStatus(data: data)
         }.store(in: &subscriptions)
         
@@ -100,7 +100,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol, EditorBottomNaviga
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
         
-        document.resetBlocksSubject.receiveOnMain().sink { [weak self] blockIds in
+        document.resetBlocksPublisher.receiveOnMain().sink { [weak self] blockIds in
             guard let self else { return }
             let filtered = Set(blockIds).intersection(modelsHolder.blocksMapping.keys)
             
@@ -290,7 +290,7 @@ extension EditorPageViewModel {
         }
     }
     
-    func element(at: IndexPath) -> BlockViewModelProtocol? {
+    func element(at: IndexPath) -> (any BlockViewModelProtocol)? {
         modelsHolder.blockViewModel(at: at.row)
     }
 }
@@ -300,13 +300,17 @@ extension EditorPageViewModel {
         router.showSettings()
     }
     
-    func showSettings(output: ObjectSettingsCoordinatorOutput?) {
+    func showSettings(output: (any ObjectSettingsCoordinatorOutput)?) {
         router.showSettings(output: output)
     }
     
     @MainActor
     func showTemplates() {
         router.showTemplatesPicker()
+    }
+    
+    func showSyncStatusInfo() {
+        // TODO showSyncStatusInfo
     }
 }
 

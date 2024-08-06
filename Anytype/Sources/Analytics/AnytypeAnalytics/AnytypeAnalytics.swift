@@ -2,9 +2,9 @@ import Foundation
 import Services
 
 
-final class AnytypeAnalytics {
+final class AnytypeAnalytics: Sendable {
     
-    private static var anytypeAnalytics = AnytypeAnalytics()
+    private static let anytypeAnalytics = AnytypeAnalytics()
     
     static func instance() -> AnytypeAnalytics {
         return AnytypeAnalytics.anytypeAnalytics

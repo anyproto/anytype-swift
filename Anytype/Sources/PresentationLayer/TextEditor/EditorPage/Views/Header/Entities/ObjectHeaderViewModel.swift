@@ -5,19 +5,19 @@ import AnytypeCore
 
 @MainActor
 protocol ObjectHeaderRouterProtocol: AnyObject {
-    func showIconPicker(document: BaseDocumentGeneralProtocol)
+    func showIconPicker(document: some BaseDocumentProtocol)
 }
 
 @MainActor
 protocol ObjectHeaderModuleOutput: AnyObject {
-    func showCoverPicker(document: BaseDocumentGeneralProtocol)
+    func showCoverPicker(document: some BaseDocumentProtocol)
 }
 
 @MainActor
 final class ObjectHeaderViewModel: ObservableObject {
     
     @Injected(\.objectHeaderUploadingService)
-    private var objectHeaderUploadingService: ObjectHeaderUploadingServiceProtocol
+    private var objectHeaderUploadingService: any ObjectHeaderUploadingServiceProtocol
     
     @Published private(set) var header: ObjectHeader?
 
@@ -38,22 +38,22 @@ final class ObjectHeaderViewModel: ObservableObject {
         output?.showCoverPicker(document: document)
     }
     
-    private let document: BaseDocumentGeneralProtocol
+    private let document: any BaseDocumentProtocol
     private let targetObjectId: String
     private var subscription: AnyCancellable?
     private var uploadingStatusSubscription: AnyCancellable?
     private let configuration: EditorPageViewModelConfiguration
-    private weak var output: ObjectHeaderModuleOutput?
+    private weak var output: (any ObjectHeaderModuleOutput)?
     
-    var onIconPickerTap: RoutingAction<BaseDocumentGeneralProtocol>?
+    var onIconPickerTap: RoutingAction<any BaseDocumentProtocol>?
     
     // MARK: - Initializers
     
     init(
-        document: BaseDocumentGeneralProtocol,
+        document: some BaseDocumentProtocol,
         targetObjectId: String,
         configuration: EditorPageViewModelConfiguration,
-        output: ObjectHeaderModuleOutput?
+        output: (any ObjectHeaderModuleOutput)?
     ) {
         self.document = document
         self.targetObjectId = targetObjectId
@@ -67,7 +67,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     // MARK: - Private
     private func setupSubscription() {
-        subscription = document.detailsPublisher.sink { [weak self] details in
+        subscription = document.detailsPublisher.receiveOnMain().sink { [weak self] details in
             self?.onUpdate(details: details)
         }
     }

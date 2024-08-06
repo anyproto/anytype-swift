@@ -5,17 +5,17 @@ import SwiftUI
 import AnytypeCore
 
 @MainActor
-final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, ObservableObject {
+final class ListWidgetViewModel: ObservableObject {
     
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
+    private let widgetObject: any BaseDocumentProtocol
     private let internalModel: any WidgetInternalViewModelProtocol
     private let internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private var objectActionsService: any ObjectActionsServiceProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     // MARK: - State
     
@@ -27,19 +27,18 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     @Published private(set) var name: String = ""
     var dragId: String? { widgetBlockId }
     
-    @Published private(set) var headerItems: [ListWidgetHeaderItem.Model]?
+    @Published private(set) var headerItems: [ViewWidgetTabsItemModel]?
     @Published private(set) var rows: [ListWidgetRowModel]?
-    let emptyTitle = Loc.Widgets.Empty.title
     let style: ListWidgetStyle
     var allowCreateObject: Bool { internalModel.allowCreateObject }
     
     init(
         widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
+        widgetObject: some BaseDocumentProtocol,
         style: ListWidgetStyle,
         internalModel: any WidgetInternalViewModelProtocol,
         internalHeaderModel: (any WidgetDataviewInternalViewModelProtocol)?,
-        output: CommonWidgetModuleOutput?
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
@@ -47,19 +46,8 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
         self.internalModel = internalModel
         self.internalHeaderModel = internalHeaderModel
         self.output = output
-    }
-    
-    // MARK: - WidgetContainerContentViewModelProtocol
-    
-    func startHeaderSubscription() {
-        setupAllSubscriptions()
-        internalModel.startHeaderSubscription()
-    }
-    
-    func startContentSubscription() {
-        Task {
-            await internalModel.startContentSubscription()
-        }
+        startHeaderSubscription()
+        startContentSubscription()
     }
     
     func onHeaderTap() {
@@ -73,6 +61,17 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     }
     
     // MARK: - Private
+
+    private func startHeaderSubscription() {
+        setupAllSubscriptions()
+        internalModel.startHeaderSubscription()
+    }
+    
+    private func startContentSubscription() {
+        Task {
+            await internalModel.startContentSubscription()
+        }
+    }
     
     private func setupAllSubscriptions() {
         
@@ -103,9 +102,6 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
                     details: details,
                     onTap: { [weak self] in
                         self?.output?.onObjectSelected(screenData: $0)
-                    },
-                    onIconTap: { [weak self] in
-                        self?.updateDone(details: details)
                     }
                 )
             }
@@ -115,7 +111,7 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
     private func updateHeader(dataviewState: WidgetDataviewState?) {
         withAnimation(headerItems.isNil ? nil : .default) {
             headerItems = dataviewState?.dataview.map { dataView in
-                ListWidgetHeaderItem.Model(
+                ViewWidgetTabsItemModel(
                     dataviewId: dataView.id,
                     title: dataView.nameWithPlaceholder,
                     isSelected: dataView.id == dataviewState?.activeViewId,
@@ -124,15 +120,6 @@ final class ListWidgetViewModel: WidgetContainerContentViewModelProtocol, Observ
                     }
                 )
             }
-        }
-    }
-    
-    private func updateDone(details: ObjectDetails) {
-        guard details.layoutValue == .todo else { return }
-        
-        Task {
-            try await objectActionsService.updateBundledDetails(contextID: details.id, details: [.done(!details.done)])
-            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         }
     }
 }

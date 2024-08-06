@@ -9,40 +9,40 @@ import DeepLinks
 final class ObjectActionsViewModel: ObservableObject {
 
     private let objectId: String
-    private weak var output: ObjectActionsOutput?
+    private weak var output: (any ObjectActionsOutput)?
     
-    private lazy var document: BaseDocumentProtocol = {
+    private lazy var document: any BaseDocumentProtocol = {
         openDocumentsProvider.document(objectId: objectId)
     }()
     
     @Injected(\.objectActionsService)
-    private var service: ObjectActionsServiceProtocol
+    private var service: any ObjectActionsServiceProtocol
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.templatesService)
-    private var templatesService: TemplatesServiceProtocol
+    private var templatesService: any TemplatesServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.deepLinkParser)
-    private var deepLinkParser: DeepLinkParserProtocol
+    private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.documentService)
-    private var openDocumentsProvider: OpenedDocumentsProviderProtocol
+    private var openDocumentsProvider: any OpenedDocumentsProviderProtocol
     
     @Published var objectActions: [ObjectAction] = []
     @Published var toastData = ToastBarData.empty
     @Published var dismiss = false
     
-    init(objectId: String, output: ObjectActionsOutput?) {
+    init(objectId: String, output: (any ObjectActionsOutput)?) {
         self.objectId = objectId
         self.output = output
     }
     
     func startDocumentTask() async {
-        for await _ in document.syncPublisher.values {
+        for await _ in document.syncPublisher.receiveOnMain().values {
             guard let details = document.details else {
                 objectActions = []
                 return
@@ -124,6 +124,7 @@ final class ObjectActionsViewModel: ObservableObject {
     }
     
     func createWidget() async throws {
+        AnytypeAnalytics.instance().logClickAddWidget(context: .object)
         guard let details = document.details else { return }
         
         let info = activeWorkpaceStorage.workspaceInfo
@@ -149,6 +150,7 @@ final class ObjectActionsViewModel: ObservableObject {
             limit: layout.limits.first ?? 0,
             position: .above(widgetId: first.id)
         )
+        AnytypeAnalytics.instance().logAddWidget(context: .object)
         toastData = ToastBarData(text: Loc.Actions.CreateWidget.success, showSnackBar: true, messageType: .success)
         dismiss.toggle()
     }

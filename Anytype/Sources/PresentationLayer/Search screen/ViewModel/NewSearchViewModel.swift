@@ -15,7 +15,7 @@ final class NewSearchViewModel: ObservableObject {
     
     private let itemCreationMode: ItemCreationMode
     private let selectionMode: SelectionMode
-    private let internalViewModel: NewInternalSearchViewModelProtocol
+    private let internalViewModel: any NewInternalSearchViewModelProtocol
     
     private var cancellable: AnyCancellable? = nil
     private var searchTask: Task<(), Never>?
@@ -33,7 +33,7 @@ final class NewSearchViewModel: ObservableObject {
         style: NewSearchView.Style = .default,
         itemCreationMode: ItemCreationMode,
         selectionMode: SelectionMode = .multipleItems(),
-        internalViewModel: NewInternalSearchViewModelProtocol
+        internalViewModel: some NewInternalSearchViewModelProtocol
     ) {
         self.title = title
         self.searchPlaceholder = searchPlaceholder

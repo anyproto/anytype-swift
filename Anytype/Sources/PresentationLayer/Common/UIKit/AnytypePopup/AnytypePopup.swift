@@ -21,14 +21,14 @@ class AnytypePopup: FloatingPanelController {
         }
     }
         
-    private let viewModel: AnytypePopupViewModelProtocol
+    private let viewModel: any AnytypePopupViewModelProtocol
     private let floatingPanelStyle: Bool
     private let configuration: Configuration
     private let onDismiss: (() -> Void)?
 
     // MARK: - Initializers
     
-    init(viewModel: AnytypePopupViewModelProtocol,
+    init(viewModel: some AnytypePopupViewModelProtocol,
          floatingPanelStyle: Bool = false,
          configuration: Configuration = Constants.defaultConifguration,
          onDismiss: (() -> Void)? = nil) {
@@ -107,11 +107,11 @@ extension AnytypePopup: AnytypePopupProxy {
 
 extension AnytypePopup: FloatingPanelControllerDelegate {
     
-    func floatingPanel(_ fpc: FloatingPanelController, layoutFor size: CGSize) -> FloatingPanelLayout {
+    func floatingPanel(_ fpc: FloatingPanelController, layoutFor size: CGSize) -> any FloatingPanelLayout {
         viewModel.popupLayout.layout
     }
     
-    func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
+    func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> any FloatingPanelLayout {
         viewModel.popupLayout.layout
     }
 

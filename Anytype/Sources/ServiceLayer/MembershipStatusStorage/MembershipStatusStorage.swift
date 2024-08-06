@@ -16,14 +16,14 @@ protocol MembershipStatusStorageProtocol {
 @MainActor
 final class MembershipStatusStorage: MembershipStatusStorageProtocol {
     @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     @Injected(\.membershipModelBuilder)
-    private var builder: MembershipModelBuilderProtocol
+    private var builder: any MembershipModelBuilderProtocol
     
     
     var statusPublisher: AnyPublisher<MembershipStatus, Never> { $_status.eraseToAnyPublisher() }
     var currentStatus: MembershipStatus { _status }
-    @Published var _status: MembershipStatus = .empty
+    @Published private var _status: MembershipStatus = .empty
     
     private var subscription: AnyCancellable?
     

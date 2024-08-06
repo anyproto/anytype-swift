@@ -4,7 +4,7 @@ import Services
 
 final class CustomTextView: UIView {
     
-    weak var delegate: CustomTextViewDelegate? {
+    weak var delegate: (any CustomTextViewDelegate)? {
         didSet {
             textView.customTextViewDelegate = delegate
         }

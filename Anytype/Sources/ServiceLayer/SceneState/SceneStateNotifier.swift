@@ -2,13 +2,13 @@ import UIKit
 import AnytypeCore
 
 protocol SceneStateNotifierProtocol {
-    func addListener(_ listner: SceneStateListener)
+    func addListener(_ listner: some SceneStateListener)
     func willEnterForeground(_ notification: Notification)
     func didEnterBackground(_ notification: Notification)
 }
 
 final class SceneStateNotifier: SceneStateNotifierProtocol {
-    private var listeners: [Weak<SceneStateListener>] = []
+    private var listeners: [Weak<any SceneStateListener>] = []
     
     init() {
         setupObservers()
@@ -16,7 +16,7 @@ final class SceneStateNotifier: SceneStateNotifierProtocol {
     
     // MARK: - SceneStateNotifierProtocol
     
-    func addListener(_ listner: SceneStateListener) {
+    func addListener(_ listner: some SceneStateListener) {
         cleanListeners()
         listeners.append(Weak(value: listner))
     }

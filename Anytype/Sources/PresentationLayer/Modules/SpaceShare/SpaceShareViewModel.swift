@@ -9,19 +9,19 @@ import AnytypeCore
 final class SpaceShareViewModel: ObservableObject {
     
     @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: ActiveSpaceParticipantStorageProtocol
+    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.universalLinkParser)
-    private var universalLinkParser: UniversalLinkParserProtocol
+    private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.membershipStatusStorage)
-    private var membershipStatusStorage: MembershipStatusStorageProtocol
+    private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
-    private var mailUrlBuilder: MailUrlBuilderProtocol
+    private var mailUrlBuilder: any MailUrlBuilderProtocol
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
@@ -146,6 +146,7 @@ final class SpaceShareViewModel: ObservableObject {
         canChangeWriterToReader = participantSpaceView.permissions.canEditPermissions 
             && participantSpaceView.spaceView.canChangeWriterToReader(participants: participants)
         canRemoveMember = participantSpaceView.permissions.canEditPermissions
+        canDeleteLink = participantSpaceView.permissions.canDeleteLink
         
         updateUpgradeViewState()
         
@@ -250,6 +251,7 @@ final class SpaceShareViewModel: ObservableObject {
             spaceName: spaceView.title,
             participantIdentity: participant.identity,
             participantName: participant.title,
+            participantIcon: participant.icon,
             route: .settings
         )
     }

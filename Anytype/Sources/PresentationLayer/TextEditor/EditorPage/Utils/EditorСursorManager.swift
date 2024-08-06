@@ -67,7 +67,7 @@ final class EditorCursorManager {
     // MARK: - Private
     
     private func setFocusOnFirstTextBlock(blocks: [EditorItem]) {
-        let firstModel = Array(blocks.prefix(3)).first(applying: { item -> BlockViewModelProtocol? in
+        let firstModel = Array(blocks.prefix(3)).first(applying: { item -> (any BlockViewModelProtocol)? in
             if case let .block(blockViewModel) = item, blockViewModel.content.isText {
                 return blockViewModel
             }

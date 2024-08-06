@@ -6,26 +6,25 @@ import AnytypeCore
 import SwiftUI
 
 @MainActor
-final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelProtocol>: ObservableObject {
+final class WidgetContainerViewModel: ObservableObject {
     
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private let widgetObject: any BaseDocumentProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     
-    private let blockWidgetExpandedService: BlockWidgetExpandedServiceProtocol
+    private let blockWidgetExpandedService: any BlockWidgetExpandedServiceProtocol
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.searchService)
-    private var searchService: SearchServiceProtocol
+    private var searchService: any SearchServiceProtocol
     
     
     // MARK: - State
     
-    private var contentModel: ContentVM
     @Published var isExpanded: Bool {
         didSet { expandedDidChange() }
     }
@@ -34,21 +33,16 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     
     init(
         widgetBlockId: String,
-        widgetObject: BaseDocumentProtocol,
-        contentModel: ContentVM,
-        output: CommonWidgetModuleOutput?
+        widgetObject: some BaseDocumentProtocol,
+        output: (any CommonWidgetModuleOutput)?
     ) {
         self.widgetBlockId = widgetBlockId
         self.widgetObject = widgetObject
-        self.contentModel = contentModel
         self.output = output
         
         blockWidgetExpandedService = Container.shared.blockWidgetExpandedService.resolve()
         
         isExpanded = blockWidgetExpandedService.isExpanded(widgetBlockId: widgetBlockId)
-        
-        contentModel.startHeaderSubscription()
-        contentModel.startContentSubscription()
     }
     
     // MARK: - Actions
@@ -84,7 +78,7 @@ final class WidgetContainerViewModel<ContentVM: WidgetContainerContentViewModelP
     }
     
     func onAddBelowTap() {
-        AnytypeAnalytics.instance().logAddWidget(context: analyticsContext())
+        AnytypeAnalytics.instance().logClickAddWidget(context: analyticsContext())
         output?.onAddBelowWidget(widgetId: widgetBlockId, context: analyticsContext())
         UISelectionFeedbackGenerator().selectionChanged()
     }

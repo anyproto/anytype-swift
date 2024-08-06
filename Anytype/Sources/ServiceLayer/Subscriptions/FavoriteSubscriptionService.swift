@@ -10,7 +10,7 @@ struct FavoriteBlockDetails: Equatable {
 
 protocol FavoriteSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
-        homeDocument: BaseDocumentProtocol,
+        homeDocument: some BaseDocumentProtocol,
         objectLimit: Int?,
         update: @escaping (_ details: [FavoriteBlockDetails]) -> Void
     )
@@ -22,7 +22,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
     private var subscriptions = [AnyCancellable]()
     
     func startSubscription(
-        homeDocument: BaseDocumentProtocol,
+        homeDocument: some BaseDocumentProtocol,
         objectLimit: Int?,
         update: @escaping (_ details: [FavoriteBlockDetails]) -> Void
     ) {
@@ -33,7 +33,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         }
         
         homeDocument.syncPublisher
-            .map { [weak self, homeDocument] in self?.createChildren(document: homeDocument, objectLimit: objectLimit) ?? [] }
+            .map { [weak self, homeDocument] _ in self?.createChildren(document: homeDocument, objectLimit: objectLimit) ?? [] }
             .removeDuplicates()
             .receiveOnMain()
             .sink { result in
@@ -46,7 +46,7 @@ final class FavoriteSubscriptionService: FavoriteSubscriptionServiceProtocol {
         subscriptions.removeAll()
     }
     
-    private func createChildren(document: BaseDocumentProtocol, objectLimit: Int?) -> [FavoriteBlockDetails] {
+    private func createChildren(document: some BaseDocumentProtocol, objectLimit: Int?) -> [FavoriteBlockDetails] {
         var details: [FavoriteBlockDetails] = []
         details.reserveCapacity(objectLimit ?? document.children.count)
         

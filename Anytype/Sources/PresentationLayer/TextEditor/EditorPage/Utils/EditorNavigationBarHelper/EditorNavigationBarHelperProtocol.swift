@@ -1,6 +1,8 @@
 import UIKit
 import Services
 
+
+@MainActor
 protocol EditorNavigationBarHelperProtocol {
     
     func addFakeNavigationBarBackgroundView(to view: UIView)

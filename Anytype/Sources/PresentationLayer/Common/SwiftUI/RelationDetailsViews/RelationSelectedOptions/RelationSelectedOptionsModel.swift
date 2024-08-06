@@ -21,7 +21,9 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     let config: RelationModuleConfiguration
     
     @Injected(\.relationsService)
-    private var relationsService: RelationsServiceProtocol
+    private var relationsService: any RelationsServiceProtocol
+    @Injected(\.relationDetailsStorage)
+    private var relationDetailsStorage: any RelationDetailsStorageProtocol
     
     init(config: RelationModuleConfiguration, selectedOptionsIds: [String]) {
         self.config = config
@@ -75,10 +77,15 @@ final class RelationSelectedOptionsModel: RelationSelectedOptionsModelProtocol {
     }
     
     private func logChanges() {
-        AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
-            isEmpty: selectedOptionsIds.isEmpty,
-            type: config.analyticsType,
-            spaceId: config.spaceId
-        )
+        Task {
+            let relationDetails = try relationDetailsStorage.relationsDetails(for: config.relationKey, spaceId: config.spaceId)
+            AnytypeAnalytics.instance().logChangeOrDeleteRelationValue(
+                isEmpty: selectedOptionsIds.isEmpty,
+                format: relationDetails.format,
+                type: config.analyticsType,
+                key: relationDetails.analyticsKey,
+                spaceId: config.spaceId
+            )
+        }
     }
 }

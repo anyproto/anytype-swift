@@ -8,9 +8,9 @@ class KeychainPhraseViewModel: ObservableObject {
 
     private let shownInContext: AnalyticsEventsKeychainContext
     @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
+    private var seedService: any SeedServiceProtocol
     @Injected(\.localAuthService)
-    private var localAuthService: LocalAuthServiceProtocol
+    private var localAuthService: any LocalAuthServiceProtocol
 
     // MARK: - State
     

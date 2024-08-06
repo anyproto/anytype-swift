@@ -7,14 +7,14 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var info: BlockInformation { infoProvider.info }
     
     let infoProvider: BlockModelInfomationProvider
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     
     let becomeFirstResponder: (BlockInformation) -> ()
-    let handler: BlockActionHandlerProtocol
+    let handler: any BlockActionHandlerProtocol
     let editorCollectionController: EditorBlockCollectionController
     let showCodeSelection: @MainActor (BlockInformation) -> ()
 
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> any UIContentConfiguration {
         guard case let .text(content) = info.content else {
             return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
         }

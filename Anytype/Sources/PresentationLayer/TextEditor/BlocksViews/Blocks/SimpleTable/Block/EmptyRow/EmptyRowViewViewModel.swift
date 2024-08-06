@@ -11,7 +11,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         contextId: String,
         rowId: String,
         columnId: String,
-        tablesService: BlockTableServiceProtocol,
+        tablesService: some BlockTableServiceProtocol,
         cursorManager: EditorCursorManager,
         isHeaderRow: Bool
     ) {
@@ -26,7 +26,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     private let contextId: String
     private let rowId: String
     private let columnId: String
-    private let tablesService: BlockTableServiceProtocol
+    private let tablesService: any BlockTableServiceProtocol
     private let cursorManager: EditorCursorManager
     private let isHeaderRow: Bool
 
@@ -40,14 +40,14 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         }
     }
 
-    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+    func makeSpreadsheetConfiguration() -> any UIContentConfiguration {
         emptyRowConfiguration().spreadsheetConfiguration(
             dragConfiguration: nil,
             styleConfiguration: CellStyleConfiguration(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .Background.primary)
         )
     }
 
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         makeSpreadsheetConfiguration()
     }
 

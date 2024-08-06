@@ -10,17 +10,17 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let cursorManager: EditorCursorManager
 
     @Injected(\.objectActionsService)
-    private var objectActionService: ObjectActionsServiceProtocol
+    private var objectActionService: any ObjectActionsServiceProtocol
     @Injected(\.textServiceHandler)
-    private var textServiceHandler: TextServiceProtocol
+    private var textServiceHandler: any TextServiceProtocol
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     @Injected(\.bookmarkService)
-    private var bookmarkService: BookmarkServiceProtocol
+    private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.fileActionsService)
-    private var fileService: FileActionsServiceProtocol
+    private var fileService: any FileActionsServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     
     private weak var modelsHolder: EditorMainItemModelsHolder?
 
@@ -161,7 +161,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         try await objectActionService.setObjectCollectionType(objectId: documentId)
     }
 
-    private func setFocus(model: BlockViewModelProtocol) {
+    private func setFocus(model: some BlockViewModelProtocol) {
         model.set(focus: .end)
     }
 }

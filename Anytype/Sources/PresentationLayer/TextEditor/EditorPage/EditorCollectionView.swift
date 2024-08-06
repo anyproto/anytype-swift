@@ -29,7 +29,7 @@ class EditorCollectionView: UICollectionView {
     var isLocked: Bool = false {
         didSet {
             visibleCells.forEach {
-                ($0 as? CustomTypesAccessable)?.isLocked = isLocked
+                ($0 as? any CustomTypesAccessable)?.isLocked = isLocked
             }
         }
     }
@@ -59,7 +59,7 @@ class EditorCollectionView: UICollectionView {
     }
 
     private func setCelIsMoving(isMoving: Bool, at indexPath: IndexPath) {
-        let cell = cellForItem(at: indexPath) as? CustomTypesAccessable
+        let cell = cellForItem(at: indexPath) as? any CustomTypesAccessable
 
         cell?.isMoving = isMoving
     }

@@ -18,40 +18,40 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         return data
     }
     
-    private let editorCollectionController: EditorCollectionReloadable
-    private var objectDetailsProvider: ObjectDetailsInfomationProvider?
+    private let editorCollectionController: any EditorCollectionReloadable
     private let infoProvider: BlockModelInfomationProvider
-    private let detailsStorage: ObjectDetailsStorage
+    private let document: any BaseDocumentProtocol
     private let showBookmarkBar: (BlockInformation) -> ()
     private let openUrl: (AnytypeURL) -> ()
     
     private var subscriptions = [AnyCancellable]()
+    private var targetDetails: ObjectDetails?
     
     init(
-        editorCollectionController: EditorCollectionReloadable,
+        editorCollectionController: some EditorCollectionReloadable,
         infoProvider: BlockModelInfomationProvider,
-        detailsStorage: ObjectDetailsStorage,
+        document: some BaseDocumentProtocol,
         showBookmarkBar: @escaping (BlockInformation) -> (),
         openUrl: @escaping (AnytypeURL) -> ()
     ) {
         self.editorCollectionController = editorCollectionController
         self.infoProvider = infoProvider
-        self.detailsStorage = detailsStorage
+        self.document = document
         self.showBookmarkBar = showBookmarkBar
         self.openUrl = openUrl
     }
     
     private func setupSubscription() {
-        objectDetailsProvider?
-            .$details
+        document.subscribeForDetails(objectId: bookmarkData.targetObjectID)
             .receiveOnMain()
-            .sink { [weak editorCollectionController, weak self] _ in
+            .sink { [weak editorCollectionController, weak self] details in
                 guard let self else { return }
+                self.targetDetails = details
                 editorCollectionController?.reconfigure(items: [.block(self)])
         }.store(in: &subscriptions)
     }
     
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> any UIContentConfiguration {
         setupSubscriptionIfNeeded()
         
         switch bookmarkData.state {
@@ -60,8 +60,9 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         case .fetching:
             return emptyViewConfiguration(text: Loc.Content.Bookmark.loading, state: .uploading)
         case .done:
-            guard let objectDetails = objectDetailsProvider?.details else {
-                anytypeAssertionFailure("Coudn't find object details for bookmark")
+            guard let objectDetails = targetDetails else {
+                // TODO: Rollback
+//                anytypeAssertionFailure("Coudn't find object details for bookmark")
                 return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
             }
 
@@ -89,7 +90,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         case .fetching:
             break
         case .done:
-            guard let objectDetails = objectDetailsProvider?.details else {
+            guard let objectDetails = targetDetails else {
                 return
             }
             let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
@@ -98,7 +99,7 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
         }
     }
     
-    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> any UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .X32.bookmark,
             text: text,
@@ -110,14 +111,9 @@ final class BlockBookmarkViewModel: BlockViewModelProtocol {
     }
     
     private func setupSubscriptionIfNeeded() {
-        guard objectDetailsProvider.isNil, bookmarkData.targetObjectID.isNotEmpty else {
+        guard subscriptions.isEmpty, bookmarkData.targetObjectID.isNotEmpty else {
             return
         }
-        objectDetailsProvider = ObjectDetailsInfomationProvider(
-            detailsStorage: detailsStorage,
-            targetObjectId: bookmarkData.targetObjectID,
-            details: detailsStorage.get(id: bookmarkData.targetObjectID)
-        )
         setupSubscription()
     }
 }

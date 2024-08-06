@@ -35,12 +35,13 @@ final class EditorNavigationBarHelper {
         navigationBarBackgroundView: UIView,
         onSettingsBarButtonItemTap: @escaping () -> Void,
         onDoneBarButtonItemTap: @escaping () -> Void,
-        onTemplatesButtonTap: @escaping () -> Void
+        onTemplatesButtonTap: @escaping () -> Void,
+        onSyncStatusTap: @escaping () -> Void
     ) {
         self.navigationBarView = navigationBarView
         self.navigationBarBackgroundView = navigationBarBackgroundView
         self.settingsItem = UIEditorBarButtonItem(imageAsset: .X24.more, action: onSettingsBarButtonItemTap)
-        self.syncStatusItem = EditorSyncStatusItem()
+        self.syncStatusItem = EditorSyncStatusItem(onTap: onSyncStatusTap)
 
         var buttonConfig = UIButton.Configuration.plain()
         buttonConfig.title = Loc.done
@@ -192,7 +193,6 @@ private extension EditorNavigationBarHelper {
     func updateBarButtonItemsBackground(opacity: CGFloat) {
         let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, opacity: opacity)
         settingsItem.changeState(state)
-        syncStatusItem.changeState(state)
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {

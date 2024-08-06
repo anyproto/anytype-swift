@@ -20,6 +20,6 @@ protocol PasteboardBlockDocumentServiceProtocol: AnyObject {
         completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void
     )
     
-    func copy(document: BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws
-    func cut(document: BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws
+    func copy(document: some BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws
+    func cut(document: some BaseDocumentProtocol, blocksIds: [String], selectedTextRange: NSRange) async throws
 }

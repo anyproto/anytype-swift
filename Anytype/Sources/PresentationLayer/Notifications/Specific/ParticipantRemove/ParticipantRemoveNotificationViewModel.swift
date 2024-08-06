@@ -6,11 +6,11 @@ final class ParticipantRemoveNotificationViewModel: ObservableObject {
     
     private let notification: NotificationParticipantRemove
     @Injected(\.workspaceStorage)
-    private var workspaceStorage: WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.notificationsService)
-    private var notificationsService: NotificationsServiceProtocol
+    private var notificationsService: any NotificationsServiceProtocol
     
     private let onExport: (_ path: URL) async -> Void
     private let onDelete: (_ spaceId: String) async -> Void

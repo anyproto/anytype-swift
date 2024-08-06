@@ -2,26 +2,26 @@ import Combine
 import UIKit
 import Services
 
+// TODO: Delete it. Use document subscription in blocks
 final class BlockModelInfomationProvider {
     @Published private(set) var info: BlockInformation
     
-    private let infoContainer: InfoContainerProtocol
+    private let document: any BaseDocumentProtocol
     private var subscription: AnyCancellable?
     
     init(
-        infoContainer: InfoContainerProtocol,
+        document: some BaseDocumentProtocol,
         info: BlockInformation
     ) {
-        self.infoContainer = infoContainer
+        self.document = document
         self.info = info
         
         setupPublisher()
     }
     
     private func setupPublisher() {
-        subscription = infoContainer
-            .publisherFor(id: info.id)
-            .sink { [weak self] in $0.map { self?.info = $0 } }
+        subscription = document.subscribeForBlockInfo(blockId: info.id)
+            .sinkOnMain { [weak self] in self?.info = $0 }
     }
 }
 
@@ -33,13 +33,13 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     
     var info: BlockInformation { blockInformationProvider.info }
     private let blockInformationProvider: BlockModelInfomationProvider
-    private var document: BaseDocumentProtocol
+    private var document: any BaseDocumentProtocol
     private var style: Style = .none
     
     private var content: BlockText = .empty(contentType: .text)
     private var anytypeText: UIKitAnytypeText?
     
-    private let actionHandler: TextBlockActionHandlerProtocol
+    private let actionHandler: any TextBlockActionHandlerProtocol
     private var customBackgroundColor: UIColor?
     private var cursorManager: EditorCursorManager
     
@@ -49,9 +49,9 @@ final class TextBlockViewModel: BlockViewModelProtocol {
     
     
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         blockInformationProvider: BlockModelInfomationProvider,
-        actionHandler: TextBlockActionHandlerProtocol,
+        actionHandler: some TextBlockActionHandlerProtocol,
         cursorManager: EditorCursorManager,
         customBackgroundColor: UIColor? = nil,
         collectionController: EditorBlockCollectionController? = nil
@@ -136,7 +136,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         return contentConfiguration
     }
     
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> any UIContentConfiguration {
         let contentConfiguration = textBlockContentConfiguration()
         
         let isDragConfigurationAvailable =
@@ -152,7 +152,7 @@ final class TextBlockViewModel: BlockViewModelProtocol {
         )
     }
     
-    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+    func makeSpreadsheetConfiguration() -> any UIContentConfiguration {
         let info = blockInformationProvider.info
         
         let color: UIColor = info.configurationData.backgroundColor.map { UIColor.VeryLight.uiColor(from: $0) }

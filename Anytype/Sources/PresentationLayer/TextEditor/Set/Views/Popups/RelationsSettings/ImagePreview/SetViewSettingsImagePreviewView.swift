@@ -4,7 +4,7 @@ struct SetViewSettingsImagePreviewView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel: SetViewSettingsImagePreviewViewModel
     
-    init(setDocument: SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
+    init(setDocument: some SetDocumentProtocol, onSelect: @escaping (String) -> Void) {
         _viewModel = StateObject(wrappedValue: SetViewSettingsImagePreviewViewModel(setDocument: setDocument, onSelect: onSelect))
     }
 

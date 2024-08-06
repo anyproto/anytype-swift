@@ -4,7 +4,7 @@ import Services
 protocol HomeWidgetsRecentStateManagerProtocol: AnyObject {
     func setupRecentStateIfNeeded(
         blocks: [BlockInformation],
-        widgetObject: BaseDocumentProtocol
+        widgetObject: some BaseDocumentProtocol
     )
 }
 
@@ -12,9 +12,9 @@ final class HomeWidgetsRecentStateManager: HomeWidgetsRecentStateManagerProtocol
     
     // MARK: - DI
     @Injected(\.loginStateService)
-    private var loginStateService: LoginStateServiceProtocol
+    private var loginStateService: any LoginStateServiceProtocol
     @Injected(\.blockWidgetExpandedService)
-    private var expandedService: BlockWidgetExpandedServiceProtocol
+    private var expandedService: any BlockWidgetExpandedServiceProtocol
     
     // MARK: - State
     
@@ -26,7 +26,7 @@ final class HomeWidgetsRecentStateManager: HomeWidgetsRecentStateManagerProtocol
     
     func setupRecentStateIfNeeded(
         blocks: [BlockInformation],
-        widgetObject: BaseDocumentProtocol
+        widgetObject: some BaseDocumentProtocol
     ) {
         guard loginStateService.isFirstLaunchAfterAuthorization || loginStateService.isFirstLaunchAfterRegistration,
               !stateInstalled

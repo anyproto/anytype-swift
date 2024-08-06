@@ -2,6 +2,8 @@ import Foundation
 import UIKit
 import SwiftUI
 
+
+@MainActor
 protocol NavigationContextProtocol: AnyObject {
     @discardableResult
     func present(_ viewControllerToPresent: UIViewController, animated: Bool, completion: (() -> Void)?) -> AnytypeDismiss
@@ -62,7 +64,7 @@ extension NavigationContextProtocol {
 final class NavigationContext: NavigationContextProtocol {
     
     @Injected(\.legacyViewControllerProvider)
-    private var viewControllerProvider: ViewControllerProviderProtocol
+    private var viewControllerProvider: any ViewControllerProviderProtocol
     
     private var navigationController: UINavigationController? {
         viewControllerProvider.rootViewController?.topPresentedController as? UINavigationController

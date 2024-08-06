@@ -4,7 +4,7 @@ import Combine
 
 final class AnytypeAlertViewModel: AnytypePopupViewModelProtocol, ObservableObject {
     private(set) var popupLayout: AnytypePopupLayoutType
-    private weak var popup: AnytypePopupProxy?
+    private weak var popup: (any AnytypePopupProxy)?
     private let contentView: UIView
     private let keyboardListener: KeyboardHeightListener
     private var keyboardHeightSubscription: AnyCancellable?
@@ -32,7 +32,7 @@ final class AnytypeAlertViewModel: AnytypePopupViewModelProtocol, ObservableObje
         popup?.updateLayout(true)
     }
 
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
+    func onPopupInstall(_ popup: some AnytypePopupProxy) {
         self.popup = popup
     }
 

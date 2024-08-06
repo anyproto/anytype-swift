@@ -188,6 +188,7 @@
 "Paste or type URL" = "Coller ou saisir l'URL";
 "No items match filter" = "Aucun élément ne correspond au filtre";
 "Unsupported block" = "Bloc non pris en charge";
+"Unsupported" = "Non pris en charge";
 "Name" = "Nom";
 "Description" = "Description";
 "Paste processing..." = "En train de coller...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Aucune requête sélectionnée";
 "Set.View.Empty.Subtitle" = "Ajouter une requête pour agréger les objets avec les mêmes types et relations en mode live";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Sélectionner une requête";
 "Set.SourceType.Cancel.Toast.Title" = "Cette requête peut être modifiée uniquement sur le bureau";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Téléchargement ou envoi de données vers un nœud";
 "Node is not connected" = "Le noeud n'est pas connecté";
 "Initializing sync" = "Initialisation de la synchronisation";
-"Not syncing" = "Non synchronisé";
+"Incompatible version" = "Version incompatible";
 "Synced" = "Synchronisé";
 "Syncing..." = "Synchronisation en cours...";
 "No connection" = "Pas de connexion";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Modifier le type de widget";
 "Widgets.Actions.RemoveWidget" = "Supprimer le Widget";
 "Widgets.Actions.EditWidgets" = "Modifier les widgets";
+"Widgets.Actions.AddWidget" = "Ajouter un widget";
 "Widgets.Actions.EmptyBin" = "Vider la poubelle";
 "Widgets.Actions.AddBelow" = "Ajouter en dessous";
 "Widgets.Actions.NewObject" = "Nouvel Objet";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Type de widget";
 "Widgets.Layout.Link.Title" = "Lien";
 "Widgets.Layout.Tree.Title" = "Arborescence";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Liste compacte";
+"Widgets.Layout.View.Title" = "Vue";
 "Widgets.Layout.Link.Description" = "Version compacte de l'objet";
 "Widgets.Layout.Tree.Description" = "Arborescence des objets";
 "Widgets.Layout.List.Description" = "Widget avec vue en liste d'un set d'objets";
+"Widgets.Layout.View.Description" = "Widget avec vue d'un set d'objets";
 "Widgets.Layout.CompactList.Description" = "Widget avec vue en liste d'un set d'objets";
-"Widgets.Empty.Title" = "Cette vue de données ne contient aucun objet";
+"Widgets.Empty.Title" = "Il n'y a aucun objet ici";
+"Widgets.Empty.CreateObject" = "Créer un Objet";
 "Widgets.Library.RecentlyEdited.Name" = "Récemment modifié";
 "Widgets.Library.RecentlyOpened.Name" = "Récemment ouvert";
 "Widgets.Library.RecentlyOpened.Description" = "Sur cet appareil";
+"Widgets.AppUpdate" = "Anytype est prêt pour la mise à jour";
 
 // MARK: - About
 "About.AppVersion" = "Version de l'application : %@";
@@ -1154,6 +1164,11 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "MembershipServiceError.tierNotFound" = "Données de niveau introuvables, redémarrez l'application et réessayez";
 "MembershipServiceError.forcefullyFailedValidation" = "LE MODE FAIL EST ACTIVÉ 🫵🐭. Désactivez-le dans les paramètres de débogage";
 "MembershipServiceError.invalidBillingIdFormat" = "Problème interne avec le format de facturation, nous travaillons sur ceci. Réessayez plus tard ou contactez le support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Types Mime - %@";

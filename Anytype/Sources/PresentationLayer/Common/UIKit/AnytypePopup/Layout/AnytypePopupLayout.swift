@@ -8,9 +8,9 @@ open class AnytypePopupLayout: FloatingPanelLayout {
     
     public let position: FloatingPanelPosition = .bottom
     public let initialState: FloatingPanelState
-    public let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring]
+    public let anchors: [FloatingPanelState : any FloatingPanelLayoutAnchoring]
     
-    init(initialState: FloatingPanelState, anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring]) {
+    init(initialState: FloatingPanelState, anchors: [FloatingPanelState : any FloatingPanelLayoutAnchoring]) {
         self.initialState = initialState
         self.anchors = anchors
     }

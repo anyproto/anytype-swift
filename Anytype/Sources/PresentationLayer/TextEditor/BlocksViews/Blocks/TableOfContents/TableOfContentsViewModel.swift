@@ -9,13 +9,13 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable { info.id }
     
     let info: BlockInformation
-    let document: BaseDocumentProtocol
+    let document: any BaseDocumentProtocol
     let onTap: (String) -> Void
     let editorCollectionController: EditorBlockCollectionController
     
     init(
         info: BlockInformation,
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         onTap: @escaping (String) -> Void,
         editorCollectionController: EditorBlockCollectionController
     ) {
@@ -29,7 +29,7 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth: CGFloat) -> any UIContentConfiguration {
         return TableOfContentsConfiguration(
             contentProviderBuilder: contentProviderBuilder,
             onTap: onTap,

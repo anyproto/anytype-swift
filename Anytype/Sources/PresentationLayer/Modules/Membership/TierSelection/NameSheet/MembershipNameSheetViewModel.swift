@@ -44,9 +44,9 @@ final class MembershipNameSheetViewModel: ObservableObject {
     private let onSuccessfulPurchase: (MembershipTier) -> ()
     
     @Injected(\.storeKitService)
-    private var storeKitService: StoreKitServiceProtocol
+    private var storeKitService: any StoreKitServiceProtocol
     @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     
     init(tier: MembershipTier, anyName: AnyName, product: Product, onSuccessfulPurchase: @escaping (MembershipTier) -> ()) {
         self.tier = tier

@@ -33,7 +33,7 @@ final class DividerCursorController {
 
     private let collectionView: UICollectionView
     private let view: UIView
-    private let movingManager: EditorPageBlocksStateManagerProtocol
+    private let movingManager: any EditorPageBlocksStateManagerProtocol
     private var cancellables = [AnyCancellable]()
     private var lastIndexPath: IndexPath?
 
@@ -52,7 +52,7 @@ final class DividerCursorController {
     }()
 
     init(
-        movingManager: EditorPageBlocksStateManagerProtocol,
+        movingManager: any EditorPageBlocksStateManagerProtocol,
         view: UIView,
         collectionView: UICollectionView
     ) {

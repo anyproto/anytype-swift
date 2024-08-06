@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/scenee/FloatingPanel",
       "state" : {
-        "revision" : "2a29cb5b3ecf4beb67cf524a030dd74a11b956c4",
-        "version" : "2.6.1"
+        "revision" : "22d46c526084724a718b8c39ab77f12452712cc7",
+        "version" : "2.8.3"
       }
     },
     {
@@ -59,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/raspu/Highlightr",
       "state" : {
-        "revision" : "93199b9e434f04bda956a613af8f571933f9f037",
-        "version" : "2.1.2"
+        "revision" : "fa483d37c692961ecc2391eac568ba3d3935e663",
+        "version" : "2.2.0"
       }
     },
     {

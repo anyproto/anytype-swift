@@ -45,23 +45,23 @@ final class LoginViewModel: ObservableObject {
     lazy var canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
     
     @Injected(\.authService)
-    private var authService: AuthServiceProtocol
+    private var authService: any AuthServiceProtocol
     @Injected(\.seedService)
-    private var seedService: SeedServiceProtocol
+    private var seedService: any SeedServiceProtocol
     @Injected(\.localAuthService)
-    private var localAuthService: LocalAuthServiceProtocol
+    private var localAuthService: any LocalAuthServiceProtocol
     @Injected(\.cameraPermissionVerifier)
-    private var cameraPermissionVerifier: CameraPermissionVerifierProtocol
+    private var cameraPermissionVerifier: any CameraPermissionVerifierProtocol
     @Injected(\.accountEventHandler)
-    private var accountEventHandler: AccountEventHandlerProtocol
+    private var accountEventHandler: any AccountEventHandlerProtocol
     @Injected(\.applicationStateService)
-    private var applicationStateService: ApplicationStateServiceProtocol
-    private weak var output: LoginFlowOutput?
+    private var applicationStateService: any ApplicationStateServiceProtocol
+    private weak var output: (any LoginFlowOutput)?
     
     private var selectAccountTask: Task<(), any Error>?
     private var subscriptions = [AnyCancellable]()
     
-    init(output: LoginFlowOutput?) {
+    init(output: (any LoginFlowOutput)?) {
         self.output = output
         
         self.handleAccountShowEvent()
@@ -155,7 +155,7 @@ final class LoginViewModel: ObservableObject {
         accountRecover()
     }
     
-    private func recoverWalletError(_ error: Error) {
+    private func recoverWalletError(_ error: some Error) {
         stopButtonsLoading()
         errorText = error.localizedDescription
     }
@@ -199,6 +199,8 @@ final class LoginViewModel: ObservableObject {
                 }
             } catch is CancellationError {
                 // Ignore cancellations
+            } catch SelectAccountError.accountLoadIsCanceled {
+                // Ignore load cancellation
             } catch SelectAccountError.accountIsDeleted {
                 errorText = Loc.vaultDeleted
             } catch SelectAccountError.failedToFetchRemoteNodeHasIncompatibleProtoVersion {

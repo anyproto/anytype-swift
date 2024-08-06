@@ -13,7 +13,7 @@ struct ObjectCreationSetting {
 @MainActor
 protocol SetObjectCreationSettingsOutput: AnyObject {
     func onTemplateSelection(setting: ObjectCreationSetting)
-    func onObjectTypesSearchAction(setDocument: SetDocumentProtocol, completion: @escaping (ObjectType) -> Void)
+    func onObjectTypesSearchAction(setDocument: some SetDocumentProtocol, completion: @escaping (ObjectType) -> Void)
     func templateEditingHandler(
         setting: ObjectCreationSetting,
         onSetAsDefaultTempalte: @escaping (String) -> Void
@@ -37,21 +37,21 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     }
     
     @Injected(\.templatesService)
-    private var templatesService: TemplatesServiceProtocol
+    private var templatesService: any TemplatesServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     
-    private let interactor: SetObjectCreationSettingsInteractorProtocol
-    private let setDocument: SetDocumentProtocol
+    private let interactor: any SetObjectCreationSettingsInteractorProtocol
+    private let setDocument: any SetDocumentProtocol
     
-    private weak var output: SetObjectCreationSettingsOutput?
+    private weak var output: (any SetObjectCreationSettingsOutput)?
     
     private var cancellables = [AnyCancellable]()
     
     init(
-        interactor: SetObjectCreationSettingsInteractorProtocol,
-        setDocument: SetDocumentProtocol,
-        output: SetObjectCreationSettingsOutput?
+        interactor: some SetObjectCreationSettingsInteractorProtocol,
+        setDocument: some SetDocumentProtocol,
+        output: (any SetObjectCreationSettingsOutput)?
     ) {
         self.interactor = interactor
         self.setDocument = setDocument

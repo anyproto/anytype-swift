@@ -8,19 +8,19 @@ final class BlockFileViewModel: BlockViewModelProtocol {
     var info: BlockInformation { informationProvider.info }
     
     let informationProvider: BlockModelInfomationProvider
-    let handler: BlockActionHandlerProtocol
+    let handler: any BlockActionHandlerProtocol
     let documentId: String
     let showFilePicker: (String) -> ()
     let onFileOpen: (FilePreviewContext) -> ()
     
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
-    private var document: BaseDocumentProtocol?
+    private var document: (any BaseDocumentProtocol)?
     
     init(
         informationProvider: BlockModelInfomationProvider,
-        handler: BlockActionHandlerProtocol,
+        handler: some BlockActionHandlerProtocol,
         documentId: String,
         showFilePicker: @escaping (String) -> (),
         onFileOpen: @escaping (FilePreviewContext) -> ()
@@ -60,7 +60,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         }
     }
     
-    func makeContentConfiguration(maxWidth width: CGFloat) -> UIContentConfiguration {
+    func makeContentConfiguration(maxWidth width: CGFloat) -> any UIContentConfiguration {
         guard case let .file(fileData) = info.content else {
             anytypeAssertionFailure("BlockFileViewModel has wrong info.content")
             return UnsupportedBlockViewModel(info: info).makeContentConfiguration(maxWidth: width)
@@ -81,7 +81,7 @@ final class BlockFileViewModel: BlockViewModelProtocol {
         }
     }
     
-    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> any UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .X32.file,
             text: text,

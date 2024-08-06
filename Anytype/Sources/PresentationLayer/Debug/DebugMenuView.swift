@@ -31,6 +31,7 @@ struct DebugMenuView: View {
                     Spacer.fixedHeight(20)
                     toggles
                     setPageCounter
+                    currentVersionInput
                     removeKey
                 }
             }
@@ -186,20 +187,27 @@ struct DebugMenuView: View {
     
     @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
     private var setPageCounter: some View {
-        HStack {
-            AnytypeText("Number of rows per page in set", style: .bodyRegular)
-                .foregroundColor(.Text.primary)
-                .frame(maxWidth: .infinity)
-            TextField("Pages", text: $rowsPerPageInSet)
-                .textFieldStyle(.roundedBorder)
-                .frame(width: 100)
-        }
-        .padding(20)
+        DebugMenuInputSettings(
+            title: "Number of rows per page in set",
+            placeholder: "Pages",
+            inputText: $rowsPerPageInSet
+        )
         .onChange(of: rowsPerPageInSet) { count in
             guard let count = Int(count) else { return }
             UserDefaultsConfig.rowsPerPageInSet = count
         }
-        .background(UIColor.systemGroupedBackground.suColor)
+    }
+    
+    @State var currentVersion = UserDefaultsConfig.currentVersionOverride
+    private var currentVersionInput: some View {
+        DebugMenuInputSettings(
+            title: "Custom current version for update banner (ex: 0.0.1)",
+            placeholder: "Version",
+            inputText: $currentVersion
+        )
+        .onChange(of: currentVersion) {
+            UserDefaultsConfig.currentVersionOverride = $0
+        }
     }
     
     private var removeKey: some View {

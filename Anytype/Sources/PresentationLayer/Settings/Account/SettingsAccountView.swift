@@ -4,7 +4,7 @@ import AnytypeCore
 struct SettingsAccountView: View {
     @StateObject private var model: SettingsAccountViewModel
 
-    init(output: SettingsAccountModuleOutput?) {
+    init(output: (any SettingsAccountModuleOutput)?) {
         _model = StateObject(wrappedValue: SettingsAccountViewModel(output: output))
     }
     

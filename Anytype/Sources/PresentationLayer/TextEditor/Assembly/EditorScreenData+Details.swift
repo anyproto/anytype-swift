@@ -4,7 +4,7 @@ import Services
 // MARK: - Init helpers
 
 extension EditorScreenData {
-    init(details: ObjectDetails, isOpenedForPreview: Bool = false, blockId: String? = nil) {
+    init(details: ObjectDetails, isOpenedForPreview: Bool = false, blockId: String? = nil, activeViewId: String? = nil) {
         switch details.editorViewType {
         case .page:
             self = .page(EditorPageObject(
@@ -13,7 +13,10 @@ extension EditorScreenData {
                 blockId: blockId
             ))
         case .set:
-            self = .set(EditorSetObject(details: details))
+            self = .set(EditorSetObject(
+                details: details,
+                activeViewId: activeViewId
+            ))
         }
     }
 }
@@ -34,9 +37,10 @@ extension EditorPageObject {
 }
 
 extension EditorSetObject {
-    init(details: ObjectDetails) {
+    init(details: ObjectDetails, activeViewId: String? = nil) {
         self.objectId = details.id
         self.spaceId = details.spaceId
+        self.activeViewId = activeViewId
         self.inline = nil
     }
 }
@@ -53,7 +57,7 @@ extension EditorScreenData {
    
     var objectId: String? {
         switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .discussion:
             return nil
         case .page(let object):
             return object.objectId
@@ -64,7 +68,7 @@ extension EditorScreenData {
     
     var spaceId: String? {
         switch self {
-        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin:
+        case .favorites, .recentEdit, .recentOpen, .sets, .collections, .bin, .discussion:
             return nil
         case .page(let object):
             return object.spaceId

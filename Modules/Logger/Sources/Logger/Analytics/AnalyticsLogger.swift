@@ -2,7 +2,7 @@ import Logging
 
 public final class AnalyticsLogger {
 
-    public static var shared = AnalyticsLogger()
+    public static let shared = AnalyticsLogger()
     
     private let eventLogger = EventLogger(category: "Analytics")
 

@@ -188,6 +188,7 @@
 "Paste or type URL" = "Bir adres yazın ya da yapıştırın";
 "No items match filter" = "Filtreyle eşleşen öge yok";
 "Unsupported block" = "Desteklenmeyen blok";
+"Unsupported" = "Unsupported";
 "Name" = "İsim";
 "Description" = "Açıklama";
 "Paste processing..." = "Yapıştırma işleniyor...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "Sorgu seçilmedi";
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Sorgu seç";
 "Set.SourceType.Cancel.Toast.Title" = "Bu sorgu sadece masaüstünde değiştirilebilir";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Senkronizasyon başlatılıyor";
-"Not syncing" = "Senkronize edilmiyor";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Senkronize edildi";
 "Syncing..." = "Senkronize ediliyor...";
 "No connection" = "Bağlantı yok";
@@ -789,23 +793,29 @@
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Widget'ı kaldır";
 "Widgets.Actions.EditWidgets" = "Widgetları düzenle";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Çöp kutusunu boşalt";
 "Widgets.Actions.AddBelow" = "Aşağıya ekle";
 "Widgets.Actions.NewObject" = "Yeni Nesne
 ";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget tipi";
 "Widgets.Layout.Link.Title" = "Bağlantı";
 "Widgets.Layout.Tree.Title" = "Dizin";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakt liste";
+"Widgets.Layout.View.Title" = "Görüntüle";
 "Widgets.Layout.Link.Description" = "Nesnenin kompakt hali";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
 "Widgets.Library.RecentlyOpened.Name" = "Recently opened";
 "Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "Uygulama sürümü: %@";
@@ -1155,6 +1165,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

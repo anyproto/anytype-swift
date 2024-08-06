@@ -4,7 +4,7 @@ import Services
 final class TextServiceHandler: TextServiceProtocol {
     
     @Injected(\.textService)
-    private var textService: TextServiceProtocol
+    private var textService: any TextServiceProtocol
     
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) async throws {
         try await textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)

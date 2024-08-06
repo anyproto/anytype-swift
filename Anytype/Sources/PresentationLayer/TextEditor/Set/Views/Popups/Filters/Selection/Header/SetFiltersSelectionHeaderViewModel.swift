@@ -6,12 +6,12 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
     @Published var headerConfiguration: SetFiltersSelectionHeaderConfiguration
     
     private var filter: SetFilter
-    private weak var output: SetFiltersSelectionCoordinatorOutput?
+    private weak var output: (any SetFiltersSelectionCoordinatorOutput)?
     private let onConditionChanged: (DataviewFilter.Condition) -> Void
     
     init(
         data: SetFiltersSelectionHeaderData,
-        output: SetFiltersSelectionCoordinatorOutput?
+        output: (any SetFiltersSelectionCoordinatorOutput)?
     ) {
         self.filter = data.filter
         self.onConditionChanged = data.onConditionChanged

@@ -6,11 +6,11 @@ import AnytypeCore
 final class FileLoader: NSObject {
     
     private lazy var urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-    private lazy var tasksToSubjects = NSMapTable<URLSessionDownloadTask, PassthroughSubject<FileLoadingState, Error>>.strongToWeakObjects()
+    private lazy var tasksToSubjects = NSMapTable<URLSessionDownloadTask, PassthroughSubject<FileLoadingState, any Error>>.strongToWeakObjects()
     
     
     func loadFile(remoteFileURL: URL) -> FileLoaderReturnValue {
-        let progressSubject = PassthroughSubject<FileLoadingState, Error>()
+        let progressSubject = PassthroughSubject<FileLoadingState, any Error>()
         let task = self.urlSession.downloadTask(with: remoteFileURL) { tempURL, response, error in
             if let error = error {
                 progressSubject.send(completion: .failure(error))

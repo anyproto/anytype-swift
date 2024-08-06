@@ -13,14 +13,14 @@ actor AnytypeAnalyticsCore {
     private var isEnabled: Bool = true
     private var eventHandler: ((_ eventType: String, _ eventProperties: [AnyHashable : Any]?) -> Void)?
     
-    private static var anytypeAnalytics = AnytypeAnalyticsCore()
+    private static let anytypeAnalytics = AnytypeAnalyticsCore()
 
     private var eventsConfiguration: [String: EventConfigurtion] = [:]
     private var lastEvents: String = ""
     private var userProperties: [AnyHashable: Any] = [:]
     
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     
     private init() {
         // Disable IDFA/IPAddress for Amplitude

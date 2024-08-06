@@ -6,7 +6,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     
     static var reusableIdentifier: String { View.reusableIdentifier }
 
-    var configuration: UIContentConfiguration {
+    var configuration: any UIContentConfiguration {
         get {
             Configuration(
                 blockConfiguration: blockConfiguration,
@@ -133,9 +133,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
                 topConstraint: topConstraint,
                 bottomConstraint: bottomConstraint
             )
-        }
-        blockView.update(with: blockConfiguration)
-        
+        }        
 
         addSubview(selectionView) {
             $0.pin(to: self, excluding: [.bottom], insets: blockConfiguration.selectionInsets)
@@ -146,12 +144,12 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     }
     
     // MARK: - UIDragInteractionDelegate
-    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: any UIDragSession) -> [UIDragItem] {
         guard let dragConfiguration = dragConfiguration else {
             return []
         }
         
-        let provider = NSItemProvider(object: dragConfiguration.id as NSItemProviderWriting)
+        let provider = NSItemProvider(object: dragConfiguration.id as any NSItemProviderWriting)
         let item = UIDragItem(itemProvider: provider)
         item.localObject = dragConfiguration
         

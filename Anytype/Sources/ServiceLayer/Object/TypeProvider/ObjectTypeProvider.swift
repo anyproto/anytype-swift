@@ -9,7 +9,7 @@ enum ObjectTypeError: Error {
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
-    static let shared: ObjectTypeProviderProtocol = ObjectTypeProvider(
+    static let shared: any ObjectTypeProviderProtocol = ObjectTypeProvider(
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: Container.shared.accountManager.resolve())
     )
     
@@ -22,8 +22,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             UserDefaultsConfig.defaultObjectTypes = defaultObjectTypes
         }
     }
-    private let subscriptionStorage: SubscriptionStorageProtocol
-    private let subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
+    private let subscriptionStorage: any SubscriptionStorageProtocol
+    private let subscriptionBuilder: any ObjectTypeSubscriptionDataBuilderProtocol
     
     private(set) var objectTypes = [ObjectType]()
     private var searchTypesById = SynchronizedDictionary<String, ObjectType>()
@@ -32,7 +32,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     var syncPublisher: AnyPublisher<Void, Never> { $sync.eraseToAnyPublisher() }
 
     private init(
-        subscriptionBuilder: ObjectTypeSubscriptionDataBuilderProtocol
+        subscriptionBuilder: some ObjectTypeSubscriptionDataBuilderProtocol
     ) {
         self.subscriptionBuilder = subscriptionBuilder
        

@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// TODO: Delete with FeatureFlags.widgetCreateWithoutType
 struct WidgetTypeCreateObjectView: View {
     
     @StateObject private var model: WidgetTypeCreateObjectViewModel

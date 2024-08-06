@@ -7,9 +7,9 @@ protocol ObjectTypeSubscriptionDataBuilderProtocol: AnyObject {
 
 final class ObjectTypeSubscriptionDataBuilder: ObjectTypeSubscriptionDataBuilderProtocol {
     
-    private let accountManager: AccountManagerProtocol
+    private let accountManager: any AccountManagerProtocol
     
-    init(accountManager: AccountManagerProtocol) {
+    init(accountManager: some AccountManagerProtocol) {
         self.accountManager = accountManager
     }
     

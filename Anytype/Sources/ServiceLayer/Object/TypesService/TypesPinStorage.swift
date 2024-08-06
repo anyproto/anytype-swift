@@ -11,7 +11,7 @@ protocol TypesPinStorageProtocol {
 final class TypesPinStorage: TypesPinStorageProtocol {
     
     @Injected(\.objectTypeProvider)
-    private var typeProvider: ObjectTypeProviderProtocol
+    private var typeProvider: any ObjectTypeProviderProtocol
     
     @UserDefault("widgetCollapsedIds", defaultValue: [:])
     private var storage: [String: [ObjectType]]

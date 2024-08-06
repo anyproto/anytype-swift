@@ -8,8 +8,8 @@ import AnytypeCore
 struct MembershipModuleView: View {
     @Environment(\.openURL) private var openURL
     @State private var safariUrl: URL?
-    @Injected(\.accountManager) private var accountManager: AccountManagerProtocol
-    @Injected(\.mailUrlBuilder) private var mailUrlBuilder: MailUrlBuilderProtocol
+    @Injected(\.accountManager) private var accountManager: any AccountManagerProtocol
+    @Injected(\.mailUrlBuilder) private var mailUrlBuilder: any MailUrlBuilderProtocol
     
     private let membership: MembershipStatus
     private let tiers: [MembershipTier]

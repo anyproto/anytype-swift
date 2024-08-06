@@ -2,11 +2,12 @@ import Foundation
 import Services
 import Combine
 
+// TODO: Delete with FeatureFlags.widgetCreateWithoutType
 @MainActor
 final class WidgetTypeCreateObjectViewModel: ObservableObject {
     
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     private let data: WidgetTypeCreateData
     
     @Published var rows: [WidgetTypeRowView.Model] = []

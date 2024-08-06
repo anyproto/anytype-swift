@@ -1,17 +1,9 @@
-//
-//  AudioPlayerView.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 20.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 
 
 protocol AudioPlayerViewDelegate: AnyObject {
-    var audioPlayerView: AudioPlayerViewInput? { get set }
+    var audioPlayerView: (any AudioPlayerViewInput)? { get set }
     var currentTime: Double { get }
     /// Track duration in seconds
     var isPlaying: Bool { get }
@@ -20,6 +12,7 @@ protocol AudioPlayerViewDelegate: AnyObject {
     func isPlayable() async -> Bool
     func playButtonDidPress(sliderValue: Double)
     func progressSliederChanged(value: Double, completion: @escaping () -> Void)
+    func pauseCurrentAudio()
 }
 
 protocol AudioPlayerViewInput: AnyObject {
@@ -31,7 +24,7 @@ protocol AudioPlayerViewInput: AnyObject {
 final class AudioPlayerView: UIView {
     private var isSeekInProgress = false
 
-    weak var delegate: AudioPlayerViewDelegate?
+    private weak var delegate: (any AudioPlayerViewDelegate)?
 
     // MARK: - Views
 
@@ -53,6 +46,12 @@ final class AudioPlayerView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func didMoveToWindow() {
+        guard window.isNil else { return }
+        pause()
+        delegate?.pauseCurrentAudio()
     }
 
     // MARK: - Setup views
@@ -149,13 +148,13 @@ final class AudioPlayerView: UIView {
 
     // MARK: - Public methods
 
-    func updateAudioInformation(delegate: AudioPlayerViewDelegate?) {
+    func updateAudioInformation(delegate: (any AudioPlayerViewDelegate)?) {
         Task {
             await updateAudioInformationAsync(delegate: delegate)
         }
     }
     
-    private func updateAudioInformationAsync(delegate: AudioPlayerViewDelegate?) async {
+    private func updateAudioInformationAsync(delegate: (any AudioPlayerViewDelegate)?) async {
         guard let delegate = delegate else {
             return
         }
@@ -176,7 +175,7 @@ final class AudioPlayerView: UIView {
         delegate.isPlaying ? play() : pause()
     }
 
-    func setDelegate(delegate: AudioPlayerViewDelegate?) {
+    func setDelegate(delegate: (any AudioPlayerViewDelegate)?) {
         guard let delegate = delegate else {
             return
         }

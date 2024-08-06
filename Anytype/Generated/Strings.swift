@@ -150,6 +150,7 @@ internal enum Loc {
   internal static let home = Loc.tr("Localizable", "Home")
   internal static let icon = Loc.tr("Localizable", "Icon")
   internal static let inThisObject = Loc.tr("Localizable", "In this object")
+  internal static let incompatibleVersion = Loc.tr("Localizable", "Incompatible version")
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync")
   internal static let intoObject = Loc.tr("Localizable", "Into object")
   internal static let join = Loc.tr("Localizable", "Join")
@@ -194,7 +195,6 @@ internal enum Loc {
   internal static let nodeIsNotConnected = Loc.tr("Localizable", "Node is not connected")
   internal static let nonExistentObject = Loc.tr("Localizable", "Non-existent object")
   internal static let `none` = Loc.tr("Localizable", "None")
-  internal static let notSyncing = Loc.tr("Localizable", "Not syncing")
   internal static let note = Loc.tr("Localizable", "Note")
   internal static let nothingFound = Loc.tr("Localizable", "Nothing found")
   internal static let nothingToRedo = Loc.tr("Localizable", "Nothing to redo")
@@ -326,6 +326,7 @@ internal enum Loc {
   internal static let unpin = Loc.tr("Localizable", "Unpin")
   internal static let unselectAll = Loc.tr("Localizable", "Unselect all")
   internal static let unsplash = Loc.tr("Localizable", "Unsplash")
+  internal static let unsupported = Loc.tr("Localizable", "Unsupported")
   internal static let unsupportedBlock = Loc.tr("Localizable", "Unsupported block")
   internal static let unsupportedValue = Loc.tr("Localizable", "Unsupported value")
   internal static let upgrade = Loc.tr("Localizable", "Upgrade")
@@ -985,6 +986,11 @@ internal enum Loc {
       internal static let terms = Loc.tr("Localizable", "Membership.Legal.Terms")
       internal static let wouldYouLike = Loc.tr("Localizable", "Membership.Legal.WouldYouLike")
     }
+    internal enum ManageTier {
+      internal static let android = Loc.tr("Localizable", "Membership.ManageTier.Android")
+      internal static let appleId = Loc.tr("Localizable", "Membership.ManageTier.AppleId")
+      internal static let desktop = Loc.tr("Localizable", "Membership.ManageTier.Desktop")
+    }
     internal enum NameForm {
       internal static let subtitle = Loc.tr("Localizable", "Membership.NameForm.Subtitle")
       internal static let title = Loc.tr("Localizable", "Membership.NameForm.Title")
@@ -1302,6 +1308,7 @@ internal enum Loc {
       }
     }
     internal enum View {
+      internal static let unsupportedAlert = Loc.tr("Localizable", "Set.View.UnsupportedAlert")
       internal enum Empty {
         internal static let subtitle = Loc.tr("Localizable", "Set.View.Empty.Subtitle")
         internal static let title = Loc.tr("Localizable", "Set.View.Empty.Title")
@@ -1835,9 +1842,11 @@ internal enum Loc {
     }
   }
   internal enum Widgets {
+    internal static let appUpdate = Loc.tr("Localizable", "Widgets.AppUpdate")
     internal static let sourceSearch = Loc.tr("Localizable", "Widgets.SourceSearch")
     internal enum Actions {
       internal static let addBelow = Loc.tr("Localizable", "Widgets.Actions.AddBelow")
+      internal static let addWidget = Loc.tr("Localizable", "Widgets.Actions.AddWidget")
       internal static func binConfirm(_ p1: Int) -> String {
         return Loc.tr("Localizable", "Widgets.Actions.BinConfirm", p1)
       }
@@ -1847,8 +1856,10 @@ internal enum Loc {
       internal static let emptyBin = Loc.tr("Localizable", "Widgets.Actions.EmptyBin")
       internal static let newObject = Loc.tr("Localizable", "Widgets.Actions.NewObject")
       internal static let removeWidget = Loc.tr("Localizable", "Widgets.Actions.RemoveWidget")
+      internal static let seeAllObjects = Loc.tr("Localizable", "Widgets.Actions.SeeAllObjects")
     }
     internal enum Empty {
+      internal static let createObject = Loc.tr("Localizable", "Widgets.Empty.CreateObject")
       internal static let title = Loc.tr("Localizable", "Widgets.Empty.Title")
     }
     internal enum Layout {
@@ -1871,6 +1882,10 @@ internal enum Loc {
         internal static let description = Loc.tr("Localizable", "Widgets.Layout.Tree.Description")
         internal static let title = Loc.tr("Localizable", "Widgets.Layout.Tree.Title")
       }
+      internal enum View {
+        internal static let description = Loc.tr("Localizable", "Widgets.Layout.View.Description")
+        internal static let title = Loc.tr("Localizable", "Widgets.Layout.View.Title")
+      }
     }
     internal enum Library {
       internal enum RecentlyEdited {
@@ -1881,6 +1896,10 @@ internal enum Loc {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyOpened.Name")
       }
     }
+    internal enum Source {
+      internal static let library = Loc.tr("Localizable", "Widgets.Source.Library")
+      internal static let objects = Loc.tr("Localizable", "Widgets.Source.Objects")
+    }
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
@@ -1889,7 +1908,7 @@ internal enum Loc {
 // MARK: - Implementation Details
 
 extension Loc {
-  private static func tr(_ table: String, _ key: String, _ args: CVarArg..., fallback value: String? = nil) -> String {
+  private static func tr(_ table: String, _ key: String, _ args: any CVarArg..., fallback value: String? = nil) -> String {
     let format = BundleToken.bundle.localizedString(forKey: key, value: value, table: table)
     return String(format: format, locale: Locale.current, arguments: args)
   }

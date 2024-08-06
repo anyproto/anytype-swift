@@ -188,6 +188,7 @@
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
 "Unsupported block" = "Unsupported block";
+"Unsupported" = "Unsupported";
 "Name" = "Name";
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
@@ -502,6 +503,9 @@
 "Set.View.Empty.Title" = "No query selected";
 "Set.View.Empty.Subtitle" = "Add search query to aggregate objects with equal types and relations in a live mode";
 
+// MARK: - Sets: unsupported View
+"Set.View.UnsupportedAlert" = "This view is unsupported and has been replaced with the latest modified objects.";
+
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Select query";
 "Set.SourceType.Cancel.Toast.Title" = "This query can be changed on desktop only";
@@ -612,7 +616,7 @@
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Initializing sync";
-"Not syncing" = "Not syncing";
+"Incompatible version" = "Incompatible version";
 "Synced" = "Synced";
 "Syncing..." = "Syncing...";
 "No connection" = "No connection";
@@ -789,22 +793,28 @@
 "Widgets.Actions.ChangeWidgetType" = "Change Widget Type";
 "Widgets.Actions.RemoveWidget" = "Remove Widget";
 "Widgets.Actions.EditWidgets" = "Edit Widgets";
+"Widgets.Actions.AddWidget" = "Add Widget";
 "Widgets.Actions.EmptyBin" = "Empty Bin";
 "Widgets.Actions.AddBelow" = "Add Below";
 "Widgets.Actions.NewObject" = "New Object";
+"Widgets.Actions.SeeAllObjects" = "See all objects";
 "Widgets.Layout.Screen.Title" = "Widget type";
 "Widgets.Layout.Link.Title" = "Link";
 "Widgets.Layout.Tree.Title" = "Tree";
 "Widgets.Layout.List.Title" = "List";
 "Widgets.Layout.CompactList.Title" = "Сompact list";
+"Widgets.Layout.View.Title" = "View";
 "Widgets.Layout.Link.Description" = "Сompact version of the object";
 "Widgets.Layout.Tree.Description" = "Hierarchical structure of objects";
 "Widgets.Layout.List.Description" = "Widget with list view of set object";
+"Widgets.Layout.View.Description" = "Widget with view of set object";
 "Widgets.Layout.CompactList.Description" = "Widget with list view of set object";
-"Widgets.Empty.Title" = "This data view contains no objects";
+"Widgets.Empty.Title" = "There are no objects here";
+"Widgets.Empty.CreateObject" = "Create Object";
 "Widgets.Library.RecentlyEdited.Name" = "Recently edited";
 "Widgets.Library.RecentlyOpened.Name" = "Recently opened";
 "Widgets.Library.RecentlyOpened.Description" = "On this device";
+"Widgets.AppUpdate" = "Anytype is ready to update";
 
 // MARK: - About
 "About.AppVersion" = "App version: %@";
@@ -1154,6 +1164,11 @@ Please provide specific details of your needs here.";
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
 "MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+
+
+"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
+"Membership.ManageTier.Android" = "You can manage tier on Android platform";
+"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Debug
 "Debug.MimeTypes" = "Mime Types - %@";

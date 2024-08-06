@@ -5,7 +5,7 @@ struct SetSortsListView: View {
     
     @State private var editMode = EditMode.inactive
     
-    init(setDocument: SetDocumentProtocol, viewId: String, output: SetSortsListCoordinatorOutput?) {
+    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetSortsListCoordinatorOutput)?) {
         _viewModel = StateObject(wrappedValue: SetSortsListViewModel(setDocument: setDocument, viewId: viewId, output: output))
     }
     

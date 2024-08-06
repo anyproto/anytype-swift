@@ -1,11 +1,3 @@
-//
-//  AudioBlockContentView.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 14.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Combine
 import UIKit
 import Services
@@ -15,9 +7,9 @@ import AnytypeCore
 final class AudioBlockContentView: UIView, BlockContentView {
     
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
-    private var document: BaseDocumentProtocol?
+    private var document: (any BaseDocumentProtocol)?
     private var targetObjectId: String?
     private var cancellable: AnyCancellable?
     

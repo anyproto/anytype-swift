@@ -10,17 +10,17 @@ final class SetViewPickerViewModel: ObservableObject {
     @Published var canEditViews = false
     @Published var shouldDismiss = false
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private var cancellable: AnyCancellable?
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
-    private weak var output: SetViewPickerCoordinatorOutput?
+    private weak var output: (any SetViewPickerCoordinatorOutput)?
     
     init(
-        setDocument: SetDocumentProtocol,
-        output: SetViewPickerCoordinatorOutput?
+        setDocument: some SetDocumentProtocol,
+        output: (any SetViewPickerCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.output = output
@@ -57,7 +57,7 @@ final class SetViewPickerViewModel: ObservableObject {
     }
     
     func startSyncTask() async {
-        for await _ in setDocument.syncPublisher.values {
+        for await _ in setDocument.syncPublisher.receiveOnMain().values {
             canEditViews = setDocument.setPermissions.canEditView
         }
     }

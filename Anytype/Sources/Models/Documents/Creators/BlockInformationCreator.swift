@@ -6,11 +6,11 @@ import ProtobufMessages
 struct BlockInformationCreator {
     
     private let validator: BlockValidator
-    private let infoContainer: InfoContainerProtocol
+    private let infoContainer: any InfoContainerProtocol
     
     init(
         validator: BlockValidator,
-        infoContainer: InfoContainerProtocol
+        infoContainer: some InfoContainerProtocol
     ) {
         self.validator = validator
         self.infoContainer = infoContainer

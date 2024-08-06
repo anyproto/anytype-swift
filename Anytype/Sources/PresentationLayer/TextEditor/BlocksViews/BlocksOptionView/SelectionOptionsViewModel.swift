@@ -20,7 +20,7 @@ final class SelectionOptionsViewModel: ObservableObject {
     
     private var cancellables = [AnyCancellable]()
 
-    init(itemProvider: OptionsItemProvider?) {
+    init(itemProvider: (any OptionsItemProvider)?) {
         itemProvider?.optionsPublisher.sink { [weak self] types in
             self?.items = types
         }.store(in: &cancellables)

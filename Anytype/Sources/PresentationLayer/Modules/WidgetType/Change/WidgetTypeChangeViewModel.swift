@@ -6,13 +6,13 @@ import Combine
 final class WidgetTypeChangeViewModel: ObservableObject {
     
     @Injected(\.blockWidgetService)
-    private var blockWidgetService: BlockWidgetServiceProtocol
+    private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     
     private let data: WidgetTypeChangeData
     
-    private lazy var widgetObject: BaseDocumentProtocol = {
+    private lazy var widgetObject: any BaseDocumentProtocol = {
         documentService.document(objectId: data.widgetObjectId)
     }()
     

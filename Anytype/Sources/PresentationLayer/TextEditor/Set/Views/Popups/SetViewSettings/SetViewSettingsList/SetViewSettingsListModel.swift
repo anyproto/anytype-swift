@@ -17,29 +17,41 @@ final class SetViewSettingsListModel: ObservableObject {
     
     let mode: SetViewSettingsMode
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
-    private weak var output: SetViewSettingsCoordinatorOutput?
+    private weak var output: (any SetViewSettingsCoordinatorOutput)?
     
     private var cancellables = [AnyCancellable]()
     
     private var view: DataviewView = .empty
     
+    private var isInitial = true
+    
     init(
         data: SetSettingsData,
-        output: SetViewSettingsCoordinatorOutput?
+        output: (any SetViewSettingsCoordinatorOutput)?
     ) {
         self.setDocument = data.setDocument
         self.viewId = data.viewId
         self.mode = data.mode
         self.output = output
+        self.name = data.setDocument.view(by: data.viewId).name
         self.canBeDeleted = setDocument.dataView.views.count > 1
-        self.debounceNameChanges()
         self.setupSubscriptions()
+    }
+    
+    func nameChanged() async {
+        guard shouldUpdateName() else { return }
+        do {
+            try await Task.sleep(seconds: 0.3)
+            try await updateViewName()
+        } catch is CancellationError {
+            // Ignore cancellations
+        } catch { }
     }
     
     func shouldSetupFocus() -> Bool {
@@ -93,7 +105,7 @@ final class SetViewSettingsListModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
-        setDocument.syncPublisher.sink { [weak self] in
+        setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             self?.updateState()
         }.store(in: &cancellables)
     }
@@ -101,7 +113,6 @@ final class SetViewSettingsListModel: ObservableObject {
     private func updateState() {
         view = setDocument.view(by: viewId)
         
-        name = view.name
         layoutValue = view.type.isSupported ? view.type.name : Loc.EditorSet.View.Not.Supported.title
         canEditSetView = setDocument.setPermissions.canEditView
         updateRelationsValue()
@@ -113,23 +124,9 @@ final class SetViewSettingsListModel: ObservableObject {
         updateFiltersValue(filters)
     }
     
-    private func debounceNameChanges() {
-        $name
-            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
-            .filter { [weak self] name in
-                self?.view.name != name
-            }
-            .sink { [weak self] name in
-                self?.updateView(with: name)
-            }
-            .store(in: &cancellables)
-    }
-    
-    private func updateView(with name: String) {
+    private func updateViewName() async throws {
         let newView = view.updated(name: name)
-        Task {
-            try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: newView)
-        }
+        try await dataviewService.updateView(objectId: setDocument.objectId, blockId: setDocument.blockId, view: newView)
     }
     
     private func updateRelationsValue() {
@@ -156,5 +153,11 @@ final class SetViewSettingsListModel: ObservableObject {
         } else {
             return nil
         }
+    }
+    
+    private func shouldUpdateName() -> Bool {
+        guard isInitial else { return true }
+        self.isInitial = false
+        return false
     }
 }

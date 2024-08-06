@@ -2872,6 +2872,30 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Debug.AccountSelectTrace.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Debug.AccountSelectTrace.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Debug.ExportLocalstore.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -2938,6 +2962,30 @@ extension Anytype_Rpc.Debug.Ping.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "Debug.Ping.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Debug.Ping.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Debug.RunProfiler.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Debug.RunProfiler.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Debug.RunProfiler.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
@@ -3088,6 +3136,81 @@ extension Anytype_Rpc.Debug.TreeHeads.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Device.List.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Device.List.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Device.List.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Device.NetworkState.Set.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Device.NetworkState.Set.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Device.NetworkState.Set.badInput")
+            case .internalError:
+                return String(localized: "Device.NetworkState.Set.internalError", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Device.NetworkState.Set.internalError")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Device.SetName.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Device.SetName.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Device.SetName.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.File.Download.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -3208,6 +3331,30 @@ extension Anytype_Rpc.File.Offload.Response.Error: LocalizedError {
             case .nodeNotStarted:
                 return String(localized: "File.Offload.nodeNotStarted", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "File.Offload.nodeNotStarted")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.File.Reconcile.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "File.Reconcile.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "File.Reconcile.badInput")
             case .UNRECOGNIZED:
                 return ""
         }

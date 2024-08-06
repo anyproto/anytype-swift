@@ -34,7 +34,7 @@ final class MembershipNameValidationViewModel: ObservableObject {
     }
     
     @Injected(\.membershipService)
-    private var membershipService: MembershipServiceProtocol
+    private var membershipService: any MembershipServiceProtocol
     
     private var validationTask: Task<(), any Error>?
     
@@ -56,11 +56,12 @@ final class MembershipNameValidationViewModel: ObservableObject {
         
         validationTask = Task {
             try await Task.sleep(seconds: 0.3)
-            try Task.checkCancellation()
             
             do {
                 try await membershipService.validateName(name: name, tierType: tier.type)
                 state = .validated
+            } catch _ as CancellationError {
+                return
             } catch let error {
                 state = .error(text: error.localizedDescription)
             }

@@ -1,5 +1,6 @@
 // swiftlint:disable all
 // Generated using SwiftGen — https://github.com/SwiftGen/SwiftGen
+// Location: %RepoRoot%/Tools/SwiftGen 
 
 {% if catalogs %}
 {% set enumName %}{{param.enumName|default:"Asset"}}{% endset %}
@@ -150,8 +151,8 @@
 {% endif %}
 {% if resourceCount.color > 0 %}
 
-{{accessModifier}} final class {{colorType}} {
-  {{accessModifier}} fileprivate(set) var name: String
+{{accessModifier}} final class {{colorType}}: Sendable {
+  {{accessModifier}} let name: String
 
   #if os(macOS)
   {{accessModifier}} typealias Color = NSColor
@@ -160,7 +161,7 @@
   #endif
 
   @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  {{accessModifier}} private(set) lazy var color = Color(asset: self)
+  {{accessModifier}} var color: Color { Color(asset: self) }
 
   #if os(iOS) || os(tvOS)
   @available(iOS 11.0, tvOS 11.0, *)

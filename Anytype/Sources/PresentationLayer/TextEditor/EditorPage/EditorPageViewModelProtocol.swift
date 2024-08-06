@@ -4,14 +4,14 @@ import Combine
 
 @MainActor
 protocol EditorPageViewModelProtocol: AnyObject {
-    var blocksStateManager: EditorPageBlocksStateManagerProtocol { get }
+    var blocksStateManager: any EditorPageBlocksStateManagerProtocol { get }
 
-    var document: BaseDocumentProtocol { get }
+    var document: any BaseDocumentProtocol { get }
     
     var modelsHolder: EditorMainItemModelsHolder { get }
-    var actionHandler: BlockActionHandlerProtocol { get }
+    var actionHandler: any BlockActionHandlerProtocol { get }
     
-    var router: EditorRouterProtocol { get }
+    var router: any EditorRouterProtocol { get }
     
     func viewDidLoad()
     func viewWillAppear()
@@ -32,4 +32,6 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func cursorFocus(blockId: String)
     
     func tapOnEmptyPlace()
+    
+    func showSyncStatusInfo()
 }

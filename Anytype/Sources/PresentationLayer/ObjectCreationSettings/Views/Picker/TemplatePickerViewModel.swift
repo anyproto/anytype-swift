@@ -6,7 +6,7 @@ import SwiftUI
 protocol TemplatePickerViewModuleOutput: AnyObject {
     func onTemplatesChanged(_ templates: [ObjectDetails], completion: ([TemplatePickerData]) -> Void)
     func onTemplateSettingsTap(_ model: TemplatePickerViewModel.Item.TemplateModel)
-    func selectionOptionsView(_ provider: OptionsItemProvider) -> AnyView
+    func selectionOptionsView(_ provider: some OptionsItemProvider) -> AnyView
     func setAsDefaultBlankTemplate()
     func onClose()
 }
@@ -16,14 +16,14 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     @Published var items = [Item]()
     @Published var selectedTab = 0
     @Published var showBlankSettings = false
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     
     @Injected(\.objectActionsService)
-    private var objectService: ObjectActionsServiceProtocol
+    private var objectService: any ObjectActionsServiceProtocol
     @Injected(\.templatesSubscription)
-    private var templatesSubscriptionService: TemplatesSubscriptionServiceProtocol
+    private var templatesSubscriptionService: any TemplatesSubscriptionServiceProtocol
     
-    private weak var output: TemplatePickerViewModuleOutput?
+    private weak var output: (any TemplatePickerViewModuleOutput)?
     
     // MARK: - OptionsItemProvider
     
@@ -31,8 +31,8 @@ final class TemplatePickerViewModel: ObservableObject, OptionsItemProvider {
     @Published var options = [SelectionOptionsItemViewModel]()
 
     init(
-        output: TemplatePickerViewModuleOutput?,
-        document: BaseDocumentProtocol
+        output: (any TemplatePickerViewModuleOutput)?,
+        document: some BaseDocumentProtocol
     ) {
         self.output = output
         self.document = document

@@ -10,7 +10,7 @@ final class TableOfContentsContentProvider {
         static let sortedHeaderStyles: [BlockText.Style] = [.header, .header2, .header3, .header4]
     }
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private lazy var subscriptions = [AnyCancellable]()
     private lazy var blockSubscriptions = [String: AnyCancellable]()
     
@@ -18,7 +18,7 @@ final class TableOfContentsContentProvider {
     
     @Published private(set) var content: TableOfContentData = .empty("")
     
-    init(document: BaseDocumentProtocol) {
+    init(document: some BaseDocumentProtocol) {
         self.document = document
         startUpdateContent()
     }
@@ -28,11 +28,11 @@ final class TableOfContentsContentProvider {
     private func startUpdateContent() {
         updateContent()
         
-        document.flattenBlockIds.sink { [weak self] _ in
+        document.flattenBlockIds.receiveOnMain().sink { [weak self] _ in
             self?.updateContent()
         }.store(in: &subscriptions)
         
-        document.resetBlocksSubject.sink { [weak self] _ in
+        document.resetBlocksPublisher.receiveOnMain().sink { [weak self] _ in
             self?.updateContent()
         }.store(in: &subscriptions)
     }
@@ -79,8 +79,9 @@ final class TableOfContentsContentProvider {
     }
     
     private func setupSubsriptionFor(item: TableOfContentItem) {
-        blockSubscriptions[item.blockId] = document.infoContainer.publisherFor(id: item.blockId).sink { [weak item] information in
-            item?.title = information?.textContent?.text ?? Loc.Object.Title.placeholder
+        blockSubscriptions[item.blockId] = document.subscribeForBlockInfo(blockId: item.blockId)
+            .receiveOnMain().sink { [weak item] information in
+            item?.title = information.textContent?.text ?? Loc.Object.Title.placeholder
         }
     }
 }

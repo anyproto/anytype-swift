@@ -1,7 +1,7 @@
 import UIKit
 
 extension EditorPageController: UICollectionViewDropDelegate {
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: any UICollectionViewDropCoordinator) {
         var destinationIndexPath: IndexPath?
 
         collectionView.performUsingPresentationValues {
@@ -18,13 +18,13 @@ extension EditorPageController: UICollectionViewDropDelegate {
         dividerCursorController.movingMode = .none
     }
 
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidEnd session: UIDropSession) {
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidEnd session: any UIDropSession) {
         dividerCursorController.movingMode = .none
     }
 
     func collectionView(
         _ collectionView: UICollectionView,
-        dropSessionDidUpdate session: UIDropSession,
+        dropSessionDidUpdate session: any UIDropSession,
         withDestinationIndexPath destinationIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
         dividerCursorController.movingMode = .dragNdrop
@@ -57,7 +57,7 @@ extension EditorPageController: UICollectionViewDropDelegate {
     }
 
     private func reorderItems(
-        coordinator: UICollectionViewDropCoordinator,
+        coordinator: any UICollectionViewDropCoordinator,
         destinationIndexPath: IndexPath?,
         collectionView: UICollectionView
     ) {

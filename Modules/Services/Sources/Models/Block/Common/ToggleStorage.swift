@@ -1,10 +1,10 @@
 import Foundation
 import AnytypeCore
 
-public class ToggleStorage {
+public final class ToggleStorage: Sendable {
     public static let shared = ToggleStorage()
     
-    private var toggles = SynchronizedDictionary<String, Bool>()
+    private let toggles = SynchronizedDictionary<String, Bool>()
 
     public func isToggled(blockId: String) -> Bool {
         toggles[blockId] ?? false

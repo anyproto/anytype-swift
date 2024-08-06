@@ -5,52 +5,52 @@ import AnytypeCore
 
 @MainActor
 final class BlockViewModelBuilder {
-    private let document: BaseDocumentProtocol
-    private let handler: BlockActionHandlerProtocol
-    private let router: EditorRouterProtocol
+    private let document: any BaseDocumentProtocol
+    private let handler: any BlockActionHandlerProtocol
+    private let router: any EditorRouterProtocol
     private let subjectsHolder: FocusSubjectsHolder
-    private let markdownListener: MarkdownListener
+    private let markdownListener: any MarkdownListener
     private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
-    private let infoContainer: InfoContainerProtocol
+    private let infoContainer: any InfoContainerProtocol
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockCollectionController: EditorBlockCollectionController
-    private let accessoryStateManager: AccessoryViewStateManager
+    private let accessoryStateManager: any AccessoryViewStateManager
     private let cursorManager: EditorCursorManager
-    private let keyboardActionHandler: KeyboardActionHandlerProtocol
+    private let keyboardActionHandler: any KeyboardActionHandlerProtocol
     private let editorPageBlocksStateManager: EditorPageBlocksStateManager
-    private let markupChanger: BlockMarkupChangerProtocol
+    private let markupChanger: any BlockMarkupChangerProtocol
     private let slashMenuActionHandler: SlashMenuActionHandler
-    private weak var output: EditorPageModuleOutput?
+    private weak var output: (any EditorPageModuleOutput)?
     
     @Injected(\.blockTableService)
-    private var tableService: BlockTableServiceProtocol
+    private var tableService: any BlockTableServiceProtocol
     @Injected(\.detailsService)
-    private var detailsService: DetailsServiceProtocol
+    private var detailsService: any DetailsServiceProtocol
     @Injected(\.audioSessionService)
-    private var audioSessionService: AudioSessionServiceProtocol
+    private var audioSessionService: any AudioSessionServiceProtocol
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.pasteboardBlockDocumentService)
-    private var pasteboardService: PasteboardBlockDocumentServiceProtocol
+    private var pasteboardService: any PasteboardBlockDocumentServiceProtocol
     
     
     init(
-        document: BaseDocumentProtocol,
-        handler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol,
-        markdownListener: MarkdownListener,
+        document: some BaseDocumentProtocol,
+        handler: some BlockActionHandlerProtocol,
+        router: some EditorRouterProtocol,
+        markdownListener: some MarkdownListener,
         simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder,
-        infoContainer: InfoContainerProtocol,
+        infoContainer: some InfoContainerProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockCollectionController: EditorBlockCollectionController,
-        accessoryStateManager: AccessoryViewStateManager,
+        accessoryStateManager: some AccessoryViewStateManager,
         cursorManager: EditorCursorManager,
-        keyboardActionHandler: KeyboardActionHandlerProtocol,
-        markupChanger: BlockMarkupChangerProtocol,
+        keyboardActionHandler: some KeyboardActionHandlerProtocol,
+        markupChanger: some BlockMarkupChangerProtocol,
         slashMenuActionHandler: SlashMenuActionHandler,
         editorPageBlocksStateManager: EditorPageBlocksStateManager,
-        output: EditorPageModuleOutput?
+        output: (any EditorPageModuleOutput)?
     ) {
         self.document = document
         self.handler = handler
@@ -92,14 +92,14 @@ final class BlockViewModelBuilder {
         return .system(shimmeringViewModel)
     }
     
-    private func build(_ ids: [String]) -> [BlockViewModelProtocol] {
+    private func build(_ ids: [String]) -> [any BlockViewModelProtocol] {
         ids.compactMap {
             let block = build(blockId: $0)
             return block
         }
     }
     
-    func build(blockId: String) -> BlockViewModelProtocol? {
+    func build(blockId: String) -> (any BlockViewModelProtocol)? {
         if let model = modelsHolder.blocksMapping[blockId] {
             return model
         }
@@ -109,7 +109,7 @@ final class BlockViewModelBuilder {
         }
         
         let documentId = document.objectId
-        let blockInformationProvider = BlockModelInfomationProvider(infoContainer: infoContainer, info: info)
+        let blockInformationProvider = BlockModelInfomationProvider(document: document, info: info)
   
         switch info.content {
         case let .text(content):
@@ -243,7 +243,7 @@ final class BlockViewModelBuilder {
             return BlockBookmarkViewModel(
                 editorCollectionController: blockCollectionController,
                 infoProvider: blockInformationProvider, 
-                detailsStorage: document.detailsStorage,
+                document: document,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -252,21 +252,10 @@ final class BlockViewModelBuilder {
                     self?.output?.openUrl(url.url)
                 }
             )
-        case let .link(content):
-            guard let details = document.detailsStorage.get(id: content.targetBlockID) else {
-                anytypeAssertionFailure(
-                    "Couldn't find details for block link", info: ["targetBlockID": content.targetBlockID]
-                )
-                return nil
-            }
-            
+        case .link:
             return BlockLinkViewModel(
                 informationProvider: blockInformationProvider,
-                objectDetailsProvider: ObjectDetailsInfomationProvider(
-                    detailsStorage: document.detailsStorage,
-                    targetObjectId: content.targetBlockID,
-                    details: details
-                ),
+                document: document,
                 blocksController: blockCollectionController,
                 detailsService: detailsService,
                 openLink: { [weak self] data in
@@ -285,7 +274,7 @@ final class BlockViewModelBuilder {
                     self.router.showTypes(
                         selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] type in
-                            self?.typeSelected(type)
+                            self?.typeSelected(type, route: .featuredRelations)
                         }
                     )
                 } else {
@@ -331,19 +320,13 @@ final class BlockViewModelBuilder {
                 editorCollectionController: blockCollectionController,
                 focusSubject: subjectsHolder.focusSubject(for: info.id)
             )
-        case let .dataView(data):
-            let objectDetailsProvider = ObjectDetailsInfomationProvider(
-                detailsStorage: document.detailsStorage,
-                targetObjectId: data.targetObjectID,
-                details: document.detailsStorage.get(id: data.targetObjectID)
-            )
-            
+        case .dataView:
             return DataViewBlockViewModel(
                 blockInformationProvider: BlockModelInfomationProvider(
-                    infoContainer: infoContainer,
+                    document: document,
                     info: info
                 ),
-                objectDetailsProvider: objectDetailsProvider,
+                document: document,
                 reloadable: blockCollectionController,
                 showFailureToast: { [weak self] message in
                     self?.output?.showFailureToast(message: message)
@@ -364,11 +347,11 @@ final class BlockViewModelBuilder {
         }
     }
     
-    private func typeSelected(_ type: ObjectType) {
+    private func typeSelected(_ type: ObjectType, route: ChangeObjectTypeRoute? = nil) {
         Task { [weak self] in
             guard let self else { return }
             try await handler.setObjectType(type: type)
-            AnytypeAnalytics.instance().logChangeObjectType(type.analyticsType, spaceId: document.spaceId)
+            AnytypeAnalytics.instance().logChangeObjectType(type.analyticsType, spaceId: document.spaceId, route: route)
             
             guard let isSelectTemplate = document.details?.isSelectTemplate, isSelectTemplate else { return }
             try await handler.applyTemplate(objectId: document.objectId, templateId: type.defaultTemplateId)

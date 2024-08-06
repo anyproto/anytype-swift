@@ -13,30 +13,31 @@ final class SetLayoutSettingsViewModel: ObservableObject {
         updatedSettings()
     }
     
-    private let setDocument: SetDocumentProtocol
+    private let setDocument: any SetDocumentProtocol
     private let viewId: String
-    private weak var output: SetLayoutSettingsCoordinatorOutput?
+    private weak var output: (any SetLayoutSettingsCoordinatorOutput)?
     
-    private var cancellable: Cancellable?
+    private var cancellable: (any Cancellable)?
     
     @Injected(\.dataviewService)
-    private var dataviewService: DataviewServiceProtocol
+    private var dataviewService: any DataviewServiceProtocol
     
-    private var view: DataviewView = .empty
+    private var view: DataviewView
     
     init(
-        setDocument: SetDocumentProtocol,
+        setDocument: some SetDocumentProtocol,
         viewId: String,
-        output: SetLayoutSettingsCoordinatorOutput?
+        output: (any SetLayoutSettingsCoordinatorOutput)?
     ) {
         self.setDocument = setDocument
         self.viewId = viewId
+        self.view = setDocument.view(by: viewId)
         self.output = output
         self.setupSubscription()
     }
     
     private func setupSubscription() {
-        cancellable = setDocument.syncPublisher.sink { [weak self] in
+        cancellable = setDocument.syncPublisher.receiveOnMain().sink { [weak self] in
             guard let self else { return }
             view = setDocument.view(by: viewId)
             selectedType = view.type

@@ -12,13 +12,13 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     // MARK: - DI
     
     @Injected(\.favoriteSubscriptionService)
-    private var favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
+    private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionService: ObjectActionsServiceProtocol
+    private var objectActionService: any ObjectActionsServiceProtocol
     @Injected(\.documentService)
-    private var documentService: OpenedDocumentsProviderProtocol
+    private var documentService: any OpenedDocumentsProviderProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     
     // MARK: - State
     
@@ -28,7 +28,7 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: true)
     
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
-    lazy private var homeDocument: BaseDocumentProtocol =
+    lazy private var homeDocument: any BaseDocumentProtocol =
         documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
     
     
@@ -68,6 +68,6 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     }
     
     func subtitle(for details: ObjectDetails) -> String? {
-        return details.subtitle
+        return details.objectType.name
     }
 }

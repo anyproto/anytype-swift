@@ -24,7 +24,7 @@ struct SetTextView: View {
             TitleView(title: title)
             AutofocusedTextField(
                 placeholder: Loc.EditSet.Popup.Filters.TextView.placeholder,
-                placeholderFont: .uxBodyRegular,
+                font: .uxBodyRegular,
                 text: $text
             )
             .frame(height: 48)

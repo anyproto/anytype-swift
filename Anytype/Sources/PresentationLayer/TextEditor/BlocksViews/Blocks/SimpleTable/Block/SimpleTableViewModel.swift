@@ -4,14 +4,14 @@ import Services
 
 @MainActor
 final class SimpleTableViewModel {
-    let stateManager: SimpleTableStateManagerProtocol
+    let stateManager: any SimpleTableStateManagerProtocol
     weak var dataSource: SpreadsheetViewDataSource? {
         didSet {
             forceUpdate(shouldApplyFocus: true)
         }
     }
 
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let cellBuilder: SimpleTableCellsBuilder
     private let cursorManager: EditorCursorManager
     private var tableBlockInfoProvider: BlockModelInfomationProvider
@@ -21,10 +21,10 @@ final class SimpleTableViewModel {
     private var cancellables = [AnyCancellable]()
 
     init(
-        document: BaseDocumentProtocol,
+        document: some BaseDocumentProtocol,
         tableBlockInfoProvider: BlockModelInfomationProvider,
         cellBuilder: SimpleTableCellsBuilder,
-        stateManager: SimpleTableStateManagerProtocol,
+        stateManager: some SimpleTableStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document
@@ -39,19 +39,21 @@ final class SimpleTableViewModel {
     }
 
     private func setupHandlers() {
-        document.resetBlocksSubject.sink { [weak self] blockIds in
-            guard let self else { return }
-            
-            let computedTable = ComputedTable(blockInformation: tableBlockInfoProvider.info, infoContainer: document.infoContainer)
-            guard computedTable.isNotNil else { return }
-            
-            let allRelatedIds = [tableBlockInfoProvider.info.id] + document.infoContainer.recursiveChildren(of: tableBlockInfoProvider.info.id).map { $0.id }
-            
-            if Set(allRelatedIds).intersection(blockIds).count > 0 {
-                forceUpdate(shouldApplyFocus: true)
-                stateManager.checkOpenedState()
-            }
-        }.store(in: &cancellables)
+        document.resetBlocksPublisher
+            .receiveOnMain()
+            .sink { [weak self] blockIds in
+                guard let self else { return }
+                
+                let computedTable = ComputedTable(blockInformation: tableBlockInfoProvider.info, infoContainer: document.infoContainer)
+                guard computedTable.isNotNil else { return }
+                
+                let allRelatedIds = [tableBlockInfoProvider.info.id] + document.infoContainer.recursiveChildren(of: tableBlockInfoProvider.info.id).map { $0.id }
+                
+                if Set(allRelatedIds).intersection(blockIds).count > 0 {
+                    forceUpdate(shouldApplyFocus: true)
+                    stateManager.checkOpenedState()
+                }
+            }.store(in: &cancellables)
     }
 
     private func updateDifference(newItems: [[EditorItem]]) {

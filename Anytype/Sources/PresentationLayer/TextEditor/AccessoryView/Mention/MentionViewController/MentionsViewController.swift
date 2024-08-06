@@ -61,7 +61,7 @@ final class MentionsViewController: UITableViewController {
         }
     }
     
-    private func confguration(for mention: MentionObject) -> UIContentConfiguration {
+    private func confguration(for mention: MentionObject) -> any UIContentConfiguration {
         EditorSearchCellConfiguration(
             cellData: EditorSearchCellData(
                 title: mention.name,
@@ -72,7 +72,7 @@ final class MentionsViewController: UITableViewController {
         )
     }
     
-    private func createNewObjectContentConfiguration(objectName: String) -> UIContentConfiguration {
+    private func createNewObjectContentConfiguration(objectName: String) -> any UIContentConfiguration {
         var configuration = UIListContentConfiguration.cell()
 
         if objectName.isEmpty {

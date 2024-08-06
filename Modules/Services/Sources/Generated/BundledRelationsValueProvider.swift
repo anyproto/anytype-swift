@@ -181,6 +181,9 @@ public protocol BundledRelationsValueProvider {
     var imageKind: Int? { get }
     var importType: Int? { get }
     var globalName: String { get }
+    var syncStatus: Int? { get }
+    var syncDate: Date? { get }
+    var syncError: Int? { get }
 } 
 
 public extension BundledRelationsValueProvider where Self: RelationValueProvider {
@@ -805,5 +808,17 @@ public extension BundledRelationsValueProvider where Self: RelationValueProvider
     /// Name of profile that the user could be mentioned by
     var globalName: String {
         return value(for: BundledRelationKey.globalName.rawValue)
+    }
+    /// Object sync status
+    var syncStatus: Int? {
+        return value(for: BundledRelationKey.syncStatus.rawValue)
+    }
+    /// Object sync date
+    var syncDate: Date? {
+        return value(for: BundledRelationKey.syncDate.rawValue)
+    }
+    /// Object sync error
+    var syncError: Int? {
+        return value(for: BundledRelationKey.syncError.rawValue)
     }
 }

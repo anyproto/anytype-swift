@@ -9,7 +9,7 @@ struct TreeWidgetView: View {
     
     init(
         data: WidgetSubmoduleData,
-        internalModel: WidgetInternalViewModelProtocol
+        internalModel: some WidgetInternalViewModelProtocol
     ) {
         self.data = data
         self._model = StateObject(
@@ -26,29 +26,38 @@ struct TreeWidgetView: View {
             widgetBlockId: data.widgetBlockId,
             widgetObject: data.widgetObject,
             homeState: data.homeState,
-            contentModel: model,
+            name: model.name,
+            dragId: model.dragId,
+            onCreateObjectTap: createTap,
+            onHeaderTap: {
+                model.onHeaderTap()
+            },
             output: data.output,
-            content: content
+            content: {
+                content
+            }
         )
     }
     
     var content: some View {
-        ZStack {
+        WidgetContainerWithEmptyState(
+            showEmpty: (model.rows?.isEmpty ?? false),
+            onCreateTap: createTap
+        ) {
             if let rows = model.rows {
-                VStack(spacing: 0) {
-                    WidgetEmptyView(title: Loc.Widgets.Empty.title)
-                        .frame(height: rows.isEmpty ? 72 : 0)
-                    Spacer.fixedHeight(8)
-                }
-                .hidden(rows.isNotEmpty)
                 VStack(spacing: 0) {
                     ForEach(rows, id: \.rowId) {
                         TreeWidgetRowView(model: $0, showDivider: $0.rowId != rows.last?.rowId)
                     }
                     Spacer.fixedHeight(8)
                 }
-                .hidden(rows.isEmpty)
             }
         }
+    }
+    
+    private var createTap: (() -> Void)? {
+        return model.allowCreateObject ? {
+           model.onCreateObjectTap()
+       } : nil
     }
 }

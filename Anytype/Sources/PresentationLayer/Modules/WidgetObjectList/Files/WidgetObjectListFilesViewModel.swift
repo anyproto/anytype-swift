@@ -8,7 +8,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - DI
     
     @Injected(\.filesSubscriptionManager)
-    private var subscriptionService: FilesSubscriptionServiceProtocol
+    private var subscriptionService: any FilesSubscriptionServiceProtocol
     private let formatter = ByteCountFormatter.fileFormatter
     // MARK: - State
     

@@ -20,6 +20,10 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
     func isPlayable() async -> Bool {
         (try? await playerItem?.asset.load(.isPlayable)) ?? false
     }
+    
+    func pauseCurrentAudio() {
+        audioPlayer.pauseCurrentAudio()
+    }
 
     func playButtonDidPress(sliderValue: Double) {
         if audioPlayer.isPlaying(audioId: info.id) {

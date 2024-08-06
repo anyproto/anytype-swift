@@ -2,8 +2,8 @@ typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & Ha
 
 enum EditorItem: Hashable {
     case header(ObjectHeader)
-    case block(BlockViewModelProtocol)
-    case system(SystemContentConfiguationProvider)
+    case block(any BlockViewModelProtocol)
+    case system(any SystemContentConfiguationProvider)
     
     static func == (lhs: EditorItem, rhs: EditorItem) -> Bool {
         switch (lhs, rhs) {

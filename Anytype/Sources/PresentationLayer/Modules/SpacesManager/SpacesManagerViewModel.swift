@@ -7,9 +7,9 @@ import SwiftUI
 final class SpacesManagerViewModel: ObservableObject {
     
     @Injected(\.participantSpacesStorage)
-    private var participantSpacesStorage: ParticipantSpacesStorageProtocol
+    private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.workspaceService)
-    private var workspaceService: WorkspaceServiceProtocol
+    private var workspaceService: any WorkspaceServiceProtocol
     
     @Published var participantSpaces: [ParticipantSpaceViewData] = []
     @Published var spaceForCancelRequestAlert: SpaceView?

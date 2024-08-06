@@ -7,7 +7,7 @@ on:
 jobs:
   main:
     name: Test Checks
-    runs-on: ios-self-hosted
+    runs-on: ${{ vars.RUNNER_PR }}
     timeout-minutes: 35
 
     steps:      
@@ -23,7 +23,7 @@ jobs:
           xcode-version: '15.4'
 
       - name: Download Middleware
-        run: make setup-middle
+        run: make setup-middle-ci
         env:
           MIDDLEWARE_TOKEN: ${{ secrets.MIDDLEWARE_TOKEN }}
 

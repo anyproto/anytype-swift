@@ -61,7 +61,7 @@ final class IconTextAttachment: NSTextAttachment {
         return CGRect(origin: imageOrigin, size: CGSize(width: size.width + rightPadding, height: size.height))
     }
     
-    override func viewProvider(for parentView: UIView?, location: NSTextLocation, textContainer: NSTextContainer?) -> NSTextAttachmentViewProvider? {
+    override func viewProvider(for parentView: UIView?, location: any NSTextLocation, textContainer: NSTextContainer?) -> NSTextAttachmentViewProvider? {
         super.viewProvider(for: parentView, location: location, textContainer: textContainer)
     }
 
@@ -81,7 +81,7 @@ extension IconTextAttachment {
 }
 
 final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
-    override init(textAttachment: NSTextAttachment, parentView: UIView?, textLayoutManager: NSTextLayoutManager?, location: NSTextLocation) {
+    override init(textAttachment: NSTextAttachment, parentView: UIView?, textLayoutManager: NSTextLayoutManager?, location: any NSTextLocation) {
         super.init(textAttachment: textAttachment, parentView: parentView, textLayoutManager: textLayoutManager, location: location)
         
         tracksTextAttachmentViewBounds = true
@@ -99,6 +99,7 @@ final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
         }
         let container = UIView()
         let iconView = IconViewUIKit()
+        iconView.isUserInteractionEnabled = false
         container.addSubview(iconView) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: mentionAttachment.lineLayoutPadding))
         }

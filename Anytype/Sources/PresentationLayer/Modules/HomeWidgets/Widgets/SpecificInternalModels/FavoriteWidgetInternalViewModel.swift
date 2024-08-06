@@ -9,19 +9,19 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private let widgetObject: any BaseDocumentProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.favoriteSubscriptionService)
-    private var favoriteSubscriptionService: FavoriteSubscriptionServiceProtocol
+    private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.objectActionsService)
-    private var objectActionsService: ObjectActionsServiceProtocol
+    private var objectActionsService: any ObjectActionsServiceProtocol
     
     // MARK: - State
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     @Published private var details: [ObjectDetails]?
     @Published private var name: String = Loc.favorites
     private var subscriptions = [AnyCancellable]()

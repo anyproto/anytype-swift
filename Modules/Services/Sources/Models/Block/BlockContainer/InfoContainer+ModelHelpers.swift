@@ -1,5 +1,6 @@
 import Foundation
 import AnytypeCore
+import ProtobufMessages
 
 public extension InfoContainerProtocol {
     

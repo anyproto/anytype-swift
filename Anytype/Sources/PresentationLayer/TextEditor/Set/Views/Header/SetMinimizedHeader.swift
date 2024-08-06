@@ -56,10 +56,9 @@ struct SetMinimizedHeader: View {
     private var syncsStatusItem: some View {
         SwiftUIEditorSyncStatusItem(
             statusData: model.syncStatusData,
-            state: EditorBarItemState(
-                haveBackground: model.hasTargetObjectId ? false : model.details?.documentCover.isNotNil ?? false,
-                opacity: syncStatusItemOpacity
-            )
+            onTap: { [weak model] in
+                model?.showSyncStatusInfo()
+            }
         )
     }
     

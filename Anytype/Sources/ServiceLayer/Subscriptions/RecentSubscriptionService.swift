@@ -21,12 +21,12 @@ final class RecentSubscriptionService: RecentSubscriptionServiceProtocol {
     }
     
     @Injected(\.objectTypeProvider)
-    private var objectTypeProvider: ObjectTypeProviderProtocol
+    private var objectTypeProvider: any ObjectTypeProviderProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
-    private var subscriptionStorageProvider: SubscriptionStorageProviderProtocol
-    private lazy var subscriptionStorage: SubscriptionStorageProtocol = {
+    private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
+    private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionId)
     }()
     

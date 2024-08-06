@@ -4,7 +4,7 @@ import Services
 struct SetFiltersListCoordinatorView: View {
     @StateObject private var model: SetFiltersListCoordinatorViewModel
     
-    init(setDocument: SetDocumentProtocol, viewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) {
+    init(setDocument: some SetDocumentProtocol, viewId: String, subscriptionDetailsStorage: ObjectDetailsStorage) {
         _model = StateObject(wrappedValue: SetFiltersListCoordinatorViewModel(setDocument: setDocument, viewId: viewId, subscriptionDetailsStorage: subscriptionDetailsStorage))
     }
     

@@ -1,7 +1,7 @@
 import Services
 
 extension BlockText {
-    func anytypeText(document: BaseDocumentProtocol) -> UIKitAnytypeText {
+    func anytypeText(document: some BaseDocumentProtocol) -> UIKitAnytypeText {
         AttributedTextConverter.asModel(
             document: document,
             text: text,

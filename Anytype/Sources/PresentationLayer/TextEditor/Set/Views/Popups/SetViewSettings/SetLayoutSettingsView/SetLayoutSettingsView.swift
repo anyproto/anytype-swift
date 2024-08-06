@@ -3,7 +3,7 @@ import SwiftUI
 struct SetLayoutSettingsView: View {
     @StateObject private var model: SetLayoutSettingsViewModel
 
-    init(setDocument: SetDocumentProtocol, viewId: String, output: SetLayoutSettingsCoordinatorOutput?) {
+    init(setDocument: some SetDocumentProtocol, viewId: String, output: (any SetLayoutSettingsCoordinatorOutput)?) {
         _model = StateObject(wrappedValue: SetLayoutSettingsViewModel(
             setDocument: setDocument,
             viewId: viewId,

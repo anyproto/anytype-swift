@@ -9,17 +9,17 @@ final class ObjectWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     // MARK: - DI
     
     private let widgetBlockId: String
-    private let widgetObject: BaseDocumentProtocol
-    private weak var output: CommonWidgetModuleOutput?
+    private let widgetObject: any BaseDocumentProtocol
+    private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.treeSubscriptionManager)
-    private var subscriptionManager: TreeSubscriptionManagerProtocol
+    private var subscriptionManager: any TreeSubscriptionManagerProtocol
     @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: DefaultObjectCreationServiceProtocol
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.documentsProvider)
-    private var documentsProvider: DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     
     // MARK: - State
     

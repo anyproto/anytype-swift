@@ -52,6 +52,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case missingObject // = 519
   case fileObject // = 533
   case notificationObject // = 535
+  case devicesObject // = 536
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -84,6 +85,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 533: self = .fileObject
     case 534: self = .participant
     case 535: self = .notificationObject
+    case 536: self = .devicesObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -114,6 +116,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .fileObject: return 533
     case .participant: return 534
     case .notificationObject: return 535
+    case .devicesObject: return 536
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -149,6 +152,7 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .missingObject,
     .fileObject,
     .notificationObject,
+    .devicesObject,
   ]
 }
 
@@ -750,6 +754,50 @@ extension Anytype_Model_NameserviceNameType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Model_NameserviceNameType] = [
     .anyName,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
+public enum Anytype_Model_DeviceNetworkType: SwiftProtobuf.Enum {
+  public typealias RawValue = Int
+  case wifi // = 0
+  case cellular // = 1
+  case notConnected // = 2
+  case UNRECOGNIZED(Int)
+
+  public init() {
+    self = .wifi
+  }
+
+  public init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .wifi
+    case 1: self = .cellular
+    case 2: self = .notConnected
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  public var rawValue: Int {
+    switch self {
+    case .wifi: return 0
+    case .cellular: return 1
+    case .notConnected: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_DeviceNetworkType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static let allCases: [Anytype_Model_DeviceNetworkType] = [
+    .wifi,
+    .cellular,
+    .notConnected,
   ]
 }
 
@@ -3329,22 +3377,6 @@ public struct Anytype_Model_Account {
     set {_uniqueStorage()._id = newValue}
   }
 
-  /// User name, that associated with this account
-  public var name: String {
-    get {return _storage._name}
-    set {_uniqueStorage()._name = newValue}
-  }
-
-  /// Avatar of a user's account
-  public var avatar: Anytype_Model_Account.Avatar {
-    get {return _storage._avatar ?? Anytype_Model_Account.Avatar()}
-    set {_uniqueStorage()._avatar = newValue}
-  }
-  /// Returns true if `avatar` has been explicitly set.
-  public var hasAvatar: Bool {return _storage._avatar != nil}
-  /// Clears the value of `avatar`. Subsequent reads from it will return its default value.
-  public mutating func clearAvatar() {_uniqueStorage()._avatar = nil}
-
   public var config: Anytype_Model_Account.Config {
     get {return _storage._config ?? Anytype_Model_Account.Config()}
     set {_uniqueStorage()._config = newValue}
@@ -3406,64 +3438,6 @@ public struct Anytype_Model_Account {
       }
     }
 
-  }
-
-  ///*
-  /// Avatar of a user's account. It could be an image or color
-  public struct Avatar {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var avatar: Anytype_Model_Account.Avatar.OneOf_Avatar? = nil
-
-    /// Image of the avatar. Contains the hash to retrieve the image.
-    public var image: Anytype_Model_Block.Content.File {
-      get {
-        if case .image(let v)? = avatar {return v}
-        return Anytype_Model_Block.Content.File()
-      }
-      set {avatar = .image(newValue)}
-    }
-
-    /// Color of the avatar, used if image not set.
-    public var color: String {
-      get {
-        if case .color(let v)? = avatar {return v}
-        return String()
-      }
-      set {avatar = .color(newValue)}
-    }
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public enum OneOf_Avatar: Equatable {
-      /// Image of the avatar. Contains the hash to retrieve the image.
-      case image(Anytype_Model_Block.Content.File)
-      /// Color of the avatar, used if image not set.
-      case color(String)
-
-    #if !swift(>=4.1)
-      public static func ==(lhs: Anytype_Model_Account.Avatar.OneOf_Avatar, rhs: Anytype_Model_Account.Avatar.OneOf_Avatar) -> Bool {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch (lhs, rhs) {
-        case (.image, .image): return {
-          guard case .image(let l) = lhs, case .image(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.color, .color): return {
-          guard case .color(let l) = lhs, case .color(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        default: return false
-        }
-      }
-    #endif
-    }
-
-    public init() {}
   }
 
   public struct Config {
@@ -5624,7 +5598,7 @@ public struct Anytype_Model_MembershipTierData {
     set {_uniqueStorage()._priceStripeUsdCents = newValue}
   }
 
-  /// number of ANY NS names that this tier includes 
+  /// number of ANY NS names that this tier includes
   /// also in the "features" list (see below)
   public var anyNamesCountIncluded: UInt32 {
     get {return _storage._anyNamesCountIncluded}
@@ -5769,6 +5743,26 @@ public struct Anytype_Model_Detail {
   fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
 }
 
+public struct Anytype_Model_DeviceInfo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: String = String()
+
+  public var name: String = String()
+
+  public var addDate: Int64 = 0
+
+  public var archived: Bool = false
+
+  public var isConnected: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
@@ -5781,6 +5775,7 @@ extension Anytype_Model_ImageKind: @unchecked Sendable {}
 extension Anytype_Model_FileIndexingStatus: @unchecked Sendable {}
 extension Anytype_Model_SpaceShareableStatus: @unchecked Sendable {}
 extension Anytype_Model_NameserviceNameType: @unchecked Sendable {}
+extension Anytype_Model_DeviceNetworkType: @unchecked Sendable {}
 extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
 extension Anytype_Model_Search: @unchecked Sendable {}
 extension Anytype_Model_Search.Result: @unchecked Sendable {}
@@ -5851,8 +5846,6 @@ extension Anytype_Model_BlockMetaOnly: @unchecked Sendable {}
 extension Anytype_Model_Range: @unchecked Sendable {}
 extension Anytype_Model_Account: @unchecked Sendable {}
 extension Anytype_Model_Account.StatusType: @unchecked Sendable {}
-extension Anytype_Model_Account.Avatar: @unchecked Sendable {}
-extension Anytype_Model_Account.Avatar.OneOf_Avatar: @unchecked Sendable {}
 extension Anytype_Model_Account.Config: @unchecked Sendable {}
 extension Anytype_Model_Account.Status: @unchecked Sendable {}
 extension Anytype_Model_Account.Info: @unchecked Sendable {}
@@ -5921,6 +5914,7 @@ extension Anytype_Model_Membership.EmailVerificationStatus: @unchecked Sendable 
 extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
 extension Anytype_Model_Detail: @unchecked Sendable {}
+extension Anytype_Model_DeviceInfo: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -5953,6 +5947,7 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     533: .same(proto: "FileObject"),
     534: .same(proto: "Participant"),
     535: .same(proto: "NotificationObject"),
+    536: .same(proto: "DevicesObject"),
   ]
 }
 
@@ -6060,6 +6055,14 @@ extension Anytype_Model_SpaceShareableStatus: SwiftProtobuf._ProtoNameProviding 
 extension Anytype_Model_NameserviceNameType: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "AnyName"),
+  ]
+}
+
+extension Anytype_Model_DeviceNetworkType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "WIFI"),
+    1: .same(proto: "CELLULAR"),
+    2: .same(proto: "NOT_CONNECTED"),
   ]
 }
 
@@ -6325,7 +6328,15 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _verticalAlign: Anytype_Model_Block.VerticalAlign = .top
     var _content: Anytype_Model_Block.OneOf_Content?
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 
@@ -8643,8 +8654,6 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   public static let protoMessageName: String = _protobuf_package + ".Account"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "name"),
-    3: .same(proto: "avatar"),
     4: .same(proto: "config"),
     5: .same(proto: "status"),
     6: .same(proto: "info"),
@@ -8652,20 +8661,24 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
   fileprivate class _StorageClass {
     var _id: String = String()
-    var _name: String = String()
-    var _avatar: Anytype_Model_Account.Avatar? = nil
     var _config: Anytype_Model_Account.Config? = nil
     var _status: Anytype_Model_Account.Status? = nil
     var _info: Anytype_Model_Account.Info? = nil
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 
     init(copying source: _StorageClass) {
       _id = source._id
-      _name = source._name
-      _avatar = source._avatar
       _config = source._config
       _status = source._status
       _info = source._info
@@ -8688,8 +8701,6 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
         switch fieldNumber {
         case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
-        case 2: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._avatar) }()
         case 4: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
         case 5: try { try decoder.decodeSingularMessageField(value: &_storage._status) }()
         case 6: try { try decoder.decodeSingularMessageField(value: &_storage._info) }()
@@ -8708,12 +8719,6 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       if !_storage._id.isEmpty {
         try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
       }
-      if !_storage._name.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 2)
-      }
-      try { if let v = _storage._avatar {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
       try { if let v = _storage._config {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
       } }()
@@ -8733,8 +8738,6 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._id != rhs_storage._id {return false}
-        if _storage._name != rhs_storage._name {return false}
-        if _storage._avatar != rhs_storage._avatar {return false}
         if _storage._config != rhs_storage._config {return false}
         if _storage._status != rhs_storage._status {return false}
         if _storage._info != rhs_storage._info {return false}
@@ -8754,71 +8757,6 @@ extension Anytype_Model_Account.StatusType: SwiftProtobuf._ProtoNameProviding {
     2: .same(proto: "StartedDeletion"),
     3: .same(proto: "Deleted"),
   ]
-}
-
-extension Anytype_Model_Account.Avatar: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Avatar"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "image"),
-    2: .same(proto: "color"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try {
-        var v: Anytype_Model_Block.Content.File?
-        var hadOneofValue = false
-        if let current = self.avatar {
-          hadOneofValue = true
-          if case .image(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.avatar = .image(v)
-        }
-      }()
-      case 2: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.avatar != nil {try decoder.handleConflictingOneOf()}
-          self.avatar = .color(v)
-        }
-      }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.avatar {
-    case .image?: try {
-      guard case .image(let v)? = self.avatar else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }()
-    case .color?: try {
-      guard case .color(let v)? = self.avatar else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }()
-    case nil: break
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Model_Account.Avatar, rhs: Anytype_Model_Account.Avatar) -> Bool {
-    if lhs.avatar != rhs.avatar {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
 
 extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -9558,7 +9496,15 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     var _creator: String = String()
     var _revision: Int64 = 0
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 
@@ -11623,7 +11569,15 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     var _androidProductID: String = String()
     var _androidManageURL: String = String()
 
-    static let defaultInstance = _StorageClass()
+    #if swift(>=5.10)
+      // This property is used as the initial default value for new instances of the type.
+      // The type itself is protecting the reference to its storage via CoW semantics.
+      // This will force a copy to be made of this reference when the first mutation occurs;
+      // hence, it is safe to mark this as `nonisolated(unsafe)`.
+      static nonisolated(unsafe) let defaultInstance = _StorageClass()
+    #else
+      static let defaultInstance = _StorageClass()
+    #endif
 
     private init() {}
 
@@ -11822,6 +11776,62 @@ extension Anytype_Model_Detail: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   public static func ==(lhs: Anytype_Model_Detail, rhs: Anytype_Model_Detail) -> Bool {
     if lhs.key != rhs.key {return false}
     if lhs._value != rhs._value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_DeviceInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".DeviceInfo"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "addDate"),
+    4: .same(proto: "archived"),
+    5: .same(proto: "isConnected"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.addDate) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.archived) }()
+      case 5: try { try decoder.decodeSingularBoolField(value: &self.isConnected) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if self.addDate != 0 {
+      try visitor.visitSingularInt64Field(value: self.addDate, fieldNumber: 3)
+    }
+    if self.archived != false {
+      try visitor.visitSingularBoolField(value: self.archived, fieldNumber: 4)
+    }
+    if self.isConnected != false {
+      try visitor.visitSingularBoolField(value: self.isConnected, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_DeviceInfo, rhs: Anytype_Model_DeviceInfo) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.addDate != rhs.addDate {return false}
+    if lhs.archived != rhs.archived {return false}
+    if lhs.isConnected != rhs.isConnected {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

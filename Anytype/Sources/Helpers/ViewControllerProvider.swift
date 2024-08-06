@@ -1,12 +1,14 @@
 import Foundation
 import UIKit
 
+@MainActor
 protocol ViewControllerProviderProtocol {
     var window: UIWindow? { get }
     var rootViewController: UIViewController? { get }
     var topVisibleController: UIViewController? { get }
 }
 
+@MainActor
 final class ViewControllerProvider: ViewControllerProviderProtocol {
     
     weak var sceneWindow: UIWindow?

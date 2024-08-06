@@ -6,7 +6,7 @@ struct ObjectRelationListCoordinatorView: View {
     @StateObject var model: ObjectRelationListCoordinatorViewModel
     @Environment(\.dismiss) var dismiss
     
-    init(data: ObjectRelationListData, output: ObjectRelationListCoordinatorModuleOutput?) {
+    init(data: ObjectRelationListData, output: (any ObjectRelationListCoordinatorModuleOutput)?) {
         _model = StateObject(wrappedValue: ObjectRelationListCoordinatorViewModel(data: data, output: output))
     }
     
