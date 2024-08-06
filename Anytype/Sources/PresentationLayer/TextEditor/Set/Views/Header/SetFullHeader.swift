@@ -13,6 +13,7 @@ struct SetFullHeader: View {
                 header
             }
         }
+        .background(Color.Background.primary)
     }
     
     private var header: some View {

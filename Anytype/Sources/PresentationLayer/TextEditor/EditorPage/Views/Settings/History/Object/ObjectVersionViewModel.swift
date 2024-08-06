@@ -1,29 +1,42 @@
 import Services
 import SwiftUI
 
-struct ObjectVersionData: Identifiable, Hashable {
-    let title: String
-    let icon: ObjectIcon?
-    let objectId: String
-    let spaceId: String
-    let versionId: String
-    let isListType: Bool
-    
-    var id: Int { hashValue }
+@MainActor
+protocol ObjectVersionModuleOutput: AnyObject {
+    func versionRestored()
 }
 
 @MainActor
 final class ObjectVersionViewModel: ObservableObject {
     
     @Published var screenData: EditorScreenData?
+    @Published var dismiss = false
+    
     let data: ObjectVersionData
     
-    init(data: ObjectVersionData) {
+    @Injected(\.historyVersionsService)
+    private var historyVersionsService: any HistoryVersionsServiceProtocol
+    
+    private weak var output: (any ObjectVersionModuleOutput)?
+    
+    init(data: ObjectVersionData, output: (any ObjectVersionModuleOutput)?) {
         self.data = data
+        self.output = output
     }
     
     func setupObject() async {
         self.screenData = currentScreenData()
+    }
+    
+    func onCancelTap() {
+        dismiss.toggle()
+    }
+    
+    func onRestoreTap() {
+        Task {
+            try await historyVersionsService.setVersion(objectId: data.objectId, versionId: data.versionId)
+            output?.versionRestored()
+        }
     }
     
     private func currentScreenData() -> EditorScreenData? {

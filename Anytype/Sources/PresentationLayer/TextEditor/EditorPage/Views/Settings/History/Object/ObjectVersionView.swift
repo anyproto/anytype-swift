@@ -4,19 +4,26 @@ import SwiftUI
 struct ObjectVersionView: View {
     
     @StateObject private var model: ObjectVersionViewModel
+    @Environment(\.dismiss) private var dismiss
     
-    init(data: ObjectVersionData) {
-        _model = StateObject(wrappedValue: ObjectVersionViewModel(data: data))
+    init(data: ObjectVersionData, output: (any ObjectVersionModuleOutput)?) {
+        _model = StateObject(wrappedValue: ObjectVersionViewModel(data: data, output: output))
     }
     
     var body: some View {
-        content
-            .overlay(alignment: .topLeading) {
-                header
-            }
-            .task {
-                await model.setupObject()
-            }
+        VStack(spacing: 0) {
+            content
+            buttons
+        }
+        .overlay(alignment: .topLeading) {
+            header
+        }
+        .task {
+            await model.setupObject()
+        }
+        .onChange(of: model.dismiss) { _ in
+            dismiss()
+        }
     }
     
     private var header: some View {
@@ -40,5 +47,26 @@ struct ObjectVersionView: View {
         default:
             EmptyView()
         }
+    }
+    
+    private var buttons: some View {
+        HStack {
+            StandardButton(
+                Loc.cancel,
+                style: .secondaryMedium,
+                action: { model.onCancelTap() }
+            )
+            StandardButton(
+                Loc.restore,
+                style: .primaryMedium,
+                action: { model.onRestoreTap() }
+            )
+        }
+        .padding(.top, 16)
+        .padding(.horizontal, 20)
+        .overlay(alignment: .top) {
+            AnytypeDivider()
+        }
+        .background(Color.Background.primary)
     }
 }
