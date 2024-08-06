@@ -2,6 +2,11 @@ import Services
 import SwiftUI
 
 @MainActor
+protocol VersionHistoryModuleOutput: AnyObject {
+    func onVersionTap(title: String, icon: ObjectIcon?, versionId: String)
+}
+
+@MainActor
 final class VersionHistoryViewModel: ObservableObject {
     
     @Published var groups = [VersionHistoryDataGroup]()

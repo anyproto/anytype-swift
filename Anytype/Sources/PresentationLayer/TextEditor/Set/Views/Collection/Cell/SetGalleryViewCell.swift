@@ -19,7 +19,8 @@ struct SetGalleryViewCell: View {
             VStack(alignment: .leading, spacing: 0) {
                 TitleWithIconView(
                     icon: configuration.icon,
-                    showIcon: configuration.showIcon,
+                    showIcon: configuration.showIcon, 
+                    canEditIcon: configuration.canEditIcon,
                     title: configuration.title,
                     style: .gallery
                 )

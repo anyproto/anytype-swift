@@ -13,6 +13,7 @@ struct SetFullHeader: View {
                 header
             }
         }
+        .background(Color.Background.primary)
     }
     
     private var header: some View {
@@ -77,7 +78,8 @@ extension SetFullHeader {
                     text: $model.descriptionString
                 )
                 .padding([.trailing], 20)
-                .foregroundStyle(Color.Text.primary)                
+                .foregroundStyle(Color.Text.primary) 
+                .disabled(!model.setDocument.setPermissions.canEditDescription)
             } else {
                 EmptyView()
             }
@@ -117,6 +119,7 @@ extension SetFullHeader {
         .padding([.trailing], 20)
         .foregroundStyle(Color.Text.primary)
         .disableAutocorrection(true)
+        .disabled(!model.setDocument.setPermissions.canEditTitle)
     }
 
     private var featuredRelationsView: some View {

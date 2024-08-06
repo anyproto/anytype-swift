@@ -2,19 +2,21 @@ import Services
 import SwiftUI
 
 @MainActor
-protocol VersionHistoryModuleOutput: AnyObject {
-    func onVersionTap(title: String, icon: ObjectIcon?, versionId: String)
-}
-
-@MainActor
-final class VersionHistoryCoordinatorViewModel: ObservableObject, VersionHistoryModuleOutput {
+final class VersionHistoryCoordinatorViewModel:
+    ObservableObject,
+    VersionHistoryModuleOutput,
+    ObjectVersionModuleOutput
+{
     
     @Published var objectVersionData: ObjectVersionData?
     
     let data: VersionHistoryData
     
-    init(data: VersionHistoryData) {
+    private weak var output: (any ObjectVersionModuleOutput)?
+    
+    init(data: VersionHistoryData, output: (any ObjectVersionModuleOutput)?) {
         self.data = data
+        self.output = output
     }
     
     // MARK: VersionHistoryModuleOutput
@@ -28,6 +30,12 @@ final class VersionHistoryCoordinatorViewModel: ObservableObject, VersionHistory
             versionId: versionId,
             isListType: data.isListType
         )
+    }
+    
+    // MARK: ObjectVersionModuleOutput
+    
+    func versionRestored() {
+        output?.versionRestored()
     }
 }
 

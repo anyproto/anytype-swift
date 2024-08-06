@@ -304,7 +304,8 @@ final class BaseDocument: BaseDocumentProtocol {
         let newPermissios = ObjectPermissions(
             details: details ?? ObjectDetails(id: ""),
             isLocked: isLocked,
-            participantCanEdit: participantIsEditor,
+            participantCanEdit: participantIsEditor, 
+            isVersionMode: mode.isVersion,
             objectRestrictions: objectRestrictions.objectRestriction
         )
         

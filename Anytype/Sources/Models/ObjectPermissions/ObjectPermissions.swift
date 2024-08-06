@@ -30,12 +30,13 @@ extension ObjectPermissions {
         details: ObjectDetails,
         isLocked: Bool,
         participantCanEdit: Bool,
+        isVersionMode: Bool,
         objectRestrictions: [ObjectRestriction]
     ) {
         let isArchive = details.isArchived
         let isTemplateType = details.isTemplateType
         
-        let canEdit = !isLocked && !isArchive && participantCanEdit
+        let canEdit = !isLocked && !isArchive && participantCanEdit && !isVersionMode
         let canApplyUneditableActions = participantCanEdit && !isArchive
         
         let specificTypes = details.layoutValue != .set
@@ -70,7 +71,7 @@ extension ObjectPermissions {
         self.canShare = !isTemplateType
         self.canApplyTemplates = canEdit && !isTemplateType
         
-        if isLocked {
+        if isLocked || isVersionMode {
             self.editBlocks = .readonly(.locked)
         } else if isArchive {
             self.editBlocks = .readonly(.archived)
@@ -99,7 +100,8 @@ extension ObjectDetails {
         ObjectPermissions(
             details: self,
             isLocked: false,
-            participantCanEdit: participantCanEdit,
+            participantCanEdit: participantCanEdit, 
+            isVersionMode: false,
             objectRestrictions: restrictionsValue
         )
     }

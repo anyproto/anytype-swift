@@ -16,6 +16,7 @@ protocol SetContentViewDataBuilderProtocol: AnyObject {
         dataView: BlockDataview,
         activeView: DataviewView,
         viewRelationValueIsLocked: Bool,
+        canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
@@ -80,6 +81,7 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         dataView: BlockDataview,
         activeView: DataviewView,
         viewRelationValueIsLocked: Bool,
+        canEditIcon: Bool,
         storage: ObjectDetailsStorage,
         spaceId: String,
         onItemTap: @escaping @MainActor (ObjectDetails) -> Void
@@ -108,7 +110,8 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
                 id: item.details.id,
                 title: item.details.title,
                 description: item.details.description,
-                icon: item.details.objectIconImage,
+                icon: item.details.objectIconImage, 
+                canEditIcon: canEditIcon,
                 relations: item.relations,
                 showIcon: !activeView.hideIcon,
                 isSmallCardSize: activeView.isSmallCardSize,

@@ -4,9 +4,12 @@ import AnytypeCore
 import SwiftUI
 
 @MainActor
-final class ObjectSettingsCoordinatorViewModel: ObservableObject,
-                                                ObjectSettingsModelOutput,
-                                                RelationValueCoordinatorOutput {
+final class ObjectSettingsCoordinatorViewModel: 
+    ObservableObject,
+    ObjectSettingsModelOutput,
+    RelationValueCoordinatorOutput,
+    ObjectVersionModuleOutput
+{
     
     let objectId: String
     private weak var output: (any ObjectSettingsCoordinatorOutput)?
@@ -95,5 +98,11 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
             dismiss.toggle()
             output?.showEditorScreen(data: data)
         }
+    }
+    
+    // MARK: - ObjectVersionModuleOutput
+    
+    func versionRestored() {
+        dismiss.toggle()
     }
 }
