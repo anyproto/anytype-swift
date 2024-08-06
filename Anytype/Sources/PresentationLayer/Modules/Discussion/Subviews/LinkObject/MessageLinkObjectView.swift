@@ -38,7 +38,7 @@ struct MessageLinkObjectView: View {
                 Button {
                     onTapRemove()
                 } label: {
-                    IconView(asset: .X24.removeRed)
+                    IconView(asset: .X18.clear)
                 }
                 .padding([.top, .trailing], -6)
             }
