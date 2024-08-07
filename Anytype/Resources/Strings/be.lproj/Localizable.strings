@@ -887,7 +887,7 @@
 "Spaces.Accessibility.Personal" = "Ваша Прастора";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Прасторы";
-"Spaces.Info.Network" = "Сеціва:";
+"Spaces.Info.Network" = "Сетка:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Невядомы";
@@ -1051,8 +1051,8 @@
 "RelativeFormatter.older" = "Раней";
 
 // MARK: - Server
-"Server.Network" = "Сеціва";
-"Server.Networks" = "Сеціва";
+"Server.Network" = "Сетка";
+"Server.Networks" = "Сетка";
 "Server.AddButton" = "Дадаць сетку на ўласным серверы";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Толькі лакальна";
