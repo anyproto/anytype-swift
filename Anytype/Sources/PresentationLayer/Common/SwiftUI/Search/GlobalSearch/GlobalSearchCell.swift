@@ -18,8 +18,8 @@ struct GlobalSearchCell: View {
         .if(data.relatedLinks.isNotEmpty) {
             $0.overlay(alignment: .trailing) {
                 relationLinksIndicator
+                    .offset(x: Constants.neededIndicatorWidth) // shift indicator to avoid white line blinking
             }
-            .offset(x: Constants.neededIndicatorWidth) // shift indicator to avoid white line blinking
         }
     }
     
