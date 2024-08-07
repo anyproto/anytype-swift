@@ -11,7 +11,7 @@ enum ObjectHeader: Hashable {
     }
 
     static func empty(
-        usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase,
+        usecase: ObjectHeaderEmptyUsecase,
         onTap: @escaping () -> Void
     ) -> Self {
         return .empty(data: .init(presentationStyle: usecase, onTap: onTap), isShimmering: false)
