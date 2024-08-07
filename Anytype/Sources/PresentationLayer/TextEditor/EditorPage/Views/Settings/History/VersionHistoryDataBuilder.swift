@@ -11,16 +11,10 @@ protocol VersionHistoryDataBuilderProtocol {
 
 final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     
-    private let dateFormatter = VersionHistoryDateFormatter()
+    private let versionDateFormatter = VersionHistoryDateFormatter()
     private let timeFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .none
-        dateFormatter.timeStyle = .short
-        return dateFormatter
-    }()
-    private let dateTimeFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         return dateFormatter
     }()
@@ -49,7 +43,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
             for version in versions {
                 if let lastVersion, lastVersion.authorID == version.authorID {
                     let sameVersion = lastVersion.id == version.id
-                    let sameMinute = date(
+                    let sameMinute = versionDateFormatter.currentDate(
                         buildDate(for: lastVersion),
                         isEqualToMinutes: buildDate(for: version)
                     )
@@ -121,12 +115,12 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     
     private func buildDateString(for version: VersionHistory) -> String {
         let date = buildDate(for: version)
-        return dateFormatter.localizedString(for: date)
+        return versionDateFormatter.localizedDateString(for: date)
     }
     
     private func buildDateTimeString(for version: VersionHistory) -> String {
         let date = buildDate(for: version)
-        return dateTimeFormatter.string(from: date)
+        return versionDateFormatter.dateTimeString(for: date)
     }
     
     private func buildTimeString(for version: VersionHistory) -> String {
@@ -137,10 +131,6 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
     private func buildDate(for version: VersionHistory) -> Date {
         let timeInterval = Double(version.time)
         return Date(timeIntervalSince1970: timeInterval)
-    }
-    
-    private func date(_ date1: Date, isEqualToMinutes date2: Date) -> Bool {
-        dateTimeFormatter.calendar.isDate(date1, equalTo: date2, toGranularity: .minute)
     }
 }
 
