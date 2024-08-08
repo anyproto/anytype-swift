@@ -1,4 +1,4 @@
-name: Run tests on PR iOS 16
+name: Run tests on PR XCode 16
 
 on:
   pull_request:
