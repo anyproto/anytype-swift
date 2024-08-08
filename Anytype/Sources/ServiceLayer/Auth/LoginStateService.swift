@@ -8,6 +8,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateAfterAuth()
     func setupStateAfterRegistration(account: AccountData) async
     func cleanStateAfterLogout() async
+    func setupStateBeboreLoginOrAuth() async
 }
 
 final class LoginStateService: LoginStateServiceProtocol {
@@ -67,6 +68,11 @@ final class LoginStateService: LoginStateServiceProtocol {
         await stopSubscriptions()
     }
     
+    func setupStateBeboreLoginOrAuth() async {
+        await syncStatusStorage.startSubscription()
+        await p2pStatusStorage.startSubscription()
+    }
+    
     // MARK: - Private
     
     private func startSubscriptions() async {
@@ -76,8 +82,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await activeWorkpaceStorage.setupActiveSpace()
         await accountParticipantsStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
-        await syncStatusStorage.startSubscription()
-        await p2pStatusStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
         storeKitService.startListenForTransactions()
         
