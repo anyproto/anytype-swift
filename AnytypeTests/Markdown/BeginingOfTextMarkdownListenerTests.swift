@@ -5,7 +5,7 @@ import XCTest
 @MainActor
 class BeginingOfTextMarkdownListenerTests: XCTestCase {
 
-    var listener: MarkdownListener!
+    var listener: (any MarkdownListener)!
     
     override func setUpWithError() throws {
         listener = BeginingOfTextMarkdownListener()
