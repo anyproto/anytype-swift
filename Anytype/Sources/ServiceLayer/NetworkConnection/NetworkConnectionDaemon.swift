@@ -54,7 +54,7 @@ final class NetworkConnectionStatusDaemon: NetworkConnectionStatusDaemonProtocol
 }
 
 extension Container {
-    var networkConnectionStatusDaemon: Factory<NetworkConnectionStatusDaemonProtocol> {
+    var networkConnectionStatusDaemon: Factory<any NetworkConnectionStatusDaemonProtocol> {
         self { NetworkConnectionStatusDaemon() }.singleton
     }
 }

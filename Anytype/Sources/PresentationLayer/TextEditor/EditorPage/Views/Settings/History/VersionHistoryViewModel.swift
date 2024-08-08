@@ -17,7 +17,7 @@ final class VersionHistoryViewModel: ObservableObject {
     private let spaceId: String
     private var rawVersions = [VersionHistory]()
     private var participantsDict = [String: Participant]()
-    private weak var output: VersionHistoryModuleOutput?
+    private weak var output: (any VersionHistoryModuleOutput)?
     
     private var firstOpen = true
     
@@ -26,12 +26,16 @@ final class VersionHistoryViewModel: ObservableObject {
     @Injected(\.versionHistoryDataBuilder)
     private var versionHistoryDataBuilder: any VersionHistoryDataBuilderProtocol
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
-    init(data: VersionHistoryData, output: VersionHistoryModuleOutput?) {
+    init(data: VersionHistoryData, output: (any VersionHistoryModuleOutput)?) {
         self.objectId = data.objectId
         self.spaceId = data.spaceId
         self.output = output
+    }
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenHistory()
     }
     
     func startParticipantsSubscription() async {

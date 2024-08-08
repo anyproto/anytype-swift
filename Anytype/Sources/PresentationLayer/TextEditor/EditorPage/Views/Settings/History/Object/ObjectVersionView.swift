@@ -16,6 +16,9 @@ struct ObjectVersionView: View {
             content
             buttons
         }
+        .onAppear {
+            model.onAppear()
+        }
         .task {
             await model.setupObject()
         }

@@ -6,7 +6,7 @@ struct VersionHistoryView: View {
     @StateObject private var model: VersionHistoryViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(data: VersionHistoryData, output: VersionHistoryModuleOutput?) {
+    init(data: VersionHistoryData, output: (any VersionHistoryModuleOutput)?) {
         _model = StateObject(wrappedValue: VersionHistoryViewModel(data: data, output: output))
     }
     
@@ -15,6 +15,9 @@ struct VersionHistoryView: View {
             DragIndicator()
             TitleView(title: Loc.VersionHistory.title)
             versions
+        }
+        .onAppear {
+            model.onAppear()
         }
         .task {
             await model.startParticipantsSubscription()

@@ -5,12 +5,12 @@ import Services
 final class MessageViewModel: ObservableObject {
     
     private let data: MessageViewData
-    private weak var output: MessageModuleOutput?
+    private weak var output: (any MessageModuleOutput)?
     
     @Injected(\.accountParticipantsStorage)
-    private var accountParticipantsStorage: AccountParticipantsStorageProtocol
-    private let documentService: OpenedDocumentsProviderProtocol = Container.shared.documentService()
-    private let document: BaseDocumentProtocol
+    private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let document: any BaseDocumentProtocol
     
     @Published var message: String = ""
     @Published var author: String = ""
@@ -20,7 +20,7 @@ final class MessageViewModel: ObservableObject {
     @Published var reactions: [MessageReactionModel] = []
     @Published var linkedObjects: [ObjectDetails] = []
     
-    init(data: MessageViewData, output: MessageModuleOutput?) {
+    init(data: MessageViewData, output: (any MessageModuleOutput)?) {
         self.data = data
         self.output = output
         self.document = documentService.document(objectId: data.objectId)
