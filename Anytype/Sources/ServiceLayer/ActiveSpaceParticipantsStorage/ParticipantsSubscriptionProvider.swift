@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 
 protocol ParticipantsSubscriptionProviderProtocol: AnyObject {
-    func subscription(spaceId: String) -> ParticipantsSubscriptionProtocol
+    func subscription(spaceId: String) -> any ParticipantsSubscriptionProtocol
 }
 
 final class ParticipantsSubscriptionProvider: ParticipantsSubscriptionProviderProtocol {
@@ -12,7 +12,7 @@ final class ParticipantsSubscriptionProvider: ParticipantsSubscriptionProviderPr
     
     // MARK: - ParticipantsSubscriptionProviderProtocol
     
-    func subscription(spaceId: String) -> ParticipantsSubscriptionProtocol {
+    func subscription(spaceId: String) -> any ParticipantsSubscriptionProtocol {
         
         lock.lock()
         defer { lock.unlock() }
