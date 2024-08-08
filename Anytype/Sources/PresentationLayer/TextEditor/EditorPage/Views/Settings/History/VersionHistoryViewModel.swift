@@ -33,6 +33,10 @@ final class VersionHistoryViewModel: ObservableObject {
         self.output = output
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenHistory()
+    }
+    
     func startParticipantsSubscription() async {
         for await participants in participantsSubscription.participantsPublisher.values {
             participantsDict = [:]

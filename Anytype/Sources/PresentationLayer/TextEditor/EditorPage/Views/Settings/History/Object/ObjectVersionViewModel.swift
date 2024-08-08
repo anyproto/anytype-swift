@@ -24,6 +24,10 @@ final class ObjectVersionViewModel: ObservableObject {
         self.output = output
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenHistoryVersion()
+    }
+    
     func setupObject() async {
         self.screenData = currentScreenData()
     }
@@ -36,6 +40,7 @@ final class ObjectVersionViewModel: ObservableObject {
         Task {
             try await historyVersionsService.setVersion(objectId: data.objectId, versionId: data.versionId)
             output?.versionRestored()
+            AnytypeAnalytics.instance().logRestoreFromHistory()
         }
     }
     
