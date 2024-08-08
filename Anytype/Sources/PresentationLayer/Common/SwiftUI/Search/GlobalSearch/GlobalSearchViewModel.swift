@@ -10,6 +10,8 @@ final class GlobalSearchViewModel: ObservableObject {
     private var globalSearchDataBuilder: any GlobalSearchDataBuilderProtocol
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectCreationService: any DefaultObjectCreationServiceProtocol
+    @Injected(\.globalSearchSavedStatesService)
+    private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -22,6 +24,7 @@ final class GlobalSearchViewModel: ObservableObject {
     
     init(data: GlobalSearchModuleData) {
         self.moduleData = data
+        self.restoreState()
     }
     
     func onAppear() {
@@ -68,6 +71,7 @@ final class GlobalSearchViewModel: ObservableObject {
     }
     
     func onSearchTextChanged() {
+        storeState()
         AnytypeAnalytics.instance().logSearchInput(spaceId: moduleData.spaceId)
     }
     
@@ -88,6 +92,7 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .filtered(name: name, limitObjectIds: data.relatedLinks)
         )
+        storeState()
         modeChanged = true
         AnytypeAnalytics.instance().logSearchBacklink(spaceId: moduleData.spaceId)
     }
@@ -97,6 +102,7 @@ final class GlobalSearchViewModel: ObservableObject {
             searchText: "",
             mode: .default
         )
+        storeState()
         modeChanged = true
     }
     
@@ -138,5 +144,15 @@ final class GlobalSearchViewModel: ObservableObject {
         guard modeChanged || isInitial else { return true }
         modeChanged = false
         return false
+    }
+    
+    private func restoreState() {
+        let restoredState = globalSearchSavedStatesService.restoreState(for: moduleData.spaceId)
+        guard let restoredState else { return }
+        state = restoredState
+    }
+    
+    private func storeState() {
+        globalSearchSavedStatesService.storeState(state, spaceId: moduleData.spaceId)
     }
 }
