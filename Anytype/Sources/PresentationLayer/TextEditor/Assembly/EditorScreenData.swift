@@ -18,14 +18,14 @@ struct EditorPageObject: Hashable, Codable {
     let spaceId: String
     let mode: DocumentMode
     var blockId: String?
-    let usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase
+    let usecase: ObjectHeaderEmptyUsecase
     
     init(
         objectId: String,
         spaceId: String,
         mode: DocumentMode = .handling,
         blockId: String? = nil,
-        usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
+        usecase: ObjectHeaderEmptyUsecase = .full
     ) {
         self.objectId = objectId
         self.spaceId = spaceId
@@ -41,19 +41,22 @@ struct EditorSetObject: Hashable, Codable {
     let activeViewId: String?
     var inline: EditorInlineSetObject?
     let mode: DocumentMode
+    let usecase: ObjectHeaderEmptyUsecase
     
     init(
         objectId: String,
         spaceId: String,
         activeViewId: String? = nil,
         inline: EditorInlineSetObject? = nil,
-        mode: DocumentMode = .handling
+        mode: DocumentMode = .handling,
+        usecase: ObjectHeaderEmptyUsecase = .full
     ) {
         self.objectId = objectId
         self.spaceId = spaceId
         self.activeViewId = activeViewId
         self.inline = inline
         self.mode = mode
+        self.usecase = usecase
     }
 }
 

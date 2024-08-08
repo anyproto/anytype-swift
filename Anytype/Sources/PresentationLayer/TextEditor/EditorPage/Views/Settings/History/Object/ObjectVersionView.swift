@@ -12,11 +12,9 @@ struct ObjectVersionView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            header
             content
             buttons
-        }
-        .overlay(alignment: .topLeading) {
-            header
         }
         .task {
             await model.setupObject()

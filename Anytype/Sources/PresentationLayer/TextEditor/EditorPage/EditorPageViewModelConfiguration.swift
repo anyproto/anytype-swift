@@ -2,5 +2,5 @@ import Foundation
 
 struct EditorPageViewModelConfiguration {
     let blockId: String?
-    let usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase
+    let usecase: ObjectHeaderEmptyUsecase
 }

@@ -31,7 +31,7 @@ struct SetFullHeader: View {
     
     private var inlineHeader: some View {
         VStack(alignment: .leading, spacing: 0) {
-            emptyCover
+            emptyCover(presentationStyle: .full)
             VStack(alignment: .leading, spacing: 8) {
                 iconWithTitle
                 featuredRelationsView
@@ -46,7 +46,7 @@ struct SetFullHeader: View {
             switch model.headerModel.header {
             case .empty(let data, _):
                 Button(action: data.onTap) {
-                    emptyCover
+                    emptyCover(presentationStyle: data.presentationStyle)
                 }
             case .filled(let state, _):
                 ObjectHeaderFilledContentSwitfUIView(
@@ -62,9 +62,9 @@ struct SetFullHeader: View {
         }
     }
     
-    private var emptyCover: some View {
+    private func emptyCover(presentationStyle: ObjectHeaderEmptyUsecase) -> some View {
         Color.Background.primary
-            .frame(height: ObjectHeaderConstants.emptyViewHeight)
+            .frame(height: presentationStyle == .full ? ObjectHeaderConstants.emptyViewHeight : ObjectHeaderConstants.emptyViewHeightCompact)
     }
 }
 

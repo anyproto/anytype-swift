@@ -185,7 +185,7 @@ final class EditorSetViewModel: ObservableObject {
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
                 blockId: nil,
-                usecase: .editor
+                usecase: data.usecase
             ),
             output: output
         )

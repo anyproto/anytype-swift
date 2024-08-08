@@ -1,11 +1,11 @@
 import Foundation
 
+enum ObjectHeaderEmptyUsecase: Codable {
+    case full
+    case embedded
+}
+
 struct ObjectHeaderEmptyData: Hashable {
-    enum ObjectHeaderEmptyUsecase: Codable {
-        case editor
-        case templateEditing
-    }
-    
     let presentationStyle: ObjectHeaderEmptyUsecase
     @EquatableNoop private(set) var onTap: () -> Void
 }
