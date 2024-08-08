@@ -11,7 +11,7 @@ final class SpaceMembersViewModel: ObservableObject {
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
     
     // MARK: - State
     

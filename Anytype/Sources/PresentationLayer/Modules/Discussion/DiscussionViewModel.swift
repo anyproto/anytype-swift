@@ -5,13 +5,13 @@ import SwiftUI
 @MainActor
 final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let spaceId: String
-    private weak var output: DiscussionModuleOutput?
+    private weak var output: (any DiscussionModuleOutput)?
     
-    private let openDocumentProvider: OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
@@ -19,7 +19,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var message: AttributedString = ""
     @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
-    init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
+    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
         self.document = openDocumentProvider.document(objectId: objectId)
         self.spaceId = spaceId
         self.output = output

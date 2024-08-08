@@ -17,7 +17,7 @@ actor ParticipantsSubscription: ParticipantsSubscriptionProtocol {
     // MARK: - DI
     
     private let subscriptionStorageProvider: any SubscriptionStorageProviderProtocol = Container.shared.subscriptionStorageProvider()
-    private let subscriptionStorage: SubscriptionStorageProtocol
+    private let subscriptionStorage: any SubscriptionStorageProtocol
     private let subId: String
     let participantsPublisher: AnyPublisher<[Participant], Never>
     

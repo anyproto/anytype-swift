@@ -25,7 +25,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(workspaceInfo.accountSpaceId)
     
     private let dateFormatter = DateFormatter.relationDateFormatter
     private weak var output: (any SpaceSettingsModuleOutput)?

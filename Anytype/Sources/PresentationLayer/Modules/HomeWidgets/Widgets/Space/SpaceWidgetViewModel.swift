@@ -18,7 +18,7 @@ final class SpaceWidgetViewModel: ObservableObject {
         activeWorkspaceStorage.workspaceInfo.accountSpaceId
     }()
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
     
     // MARK: - State
     
