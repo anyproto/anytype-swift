@@ -77,7 +77,7 @@
 "Relation.AddedToLibrary" = "Relation ‘%@’ added to your library";
 "Relation.Deleted" = "Выдаленая ўласцівасць";
 "Relation.From.Type" = "From type %@";
-"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.title" = "Няма опцый";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
 "Relation.Create.Row.title" = "Стварыць “%@”";
@@ -91,7 +91,7 @@
 
 "Relation.Delete.Alert.Title" = "Are you sure?";
 "Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Object.Delete.Alert.Description" = "Аб'ект будзе перамешчаны ў сметніцу.";
 
 "Relation.Format.Object.Title" = "Аб'ект";
 "Relation.Format.Text.Title" = "Тэкст";
@@ -110,7 +110,7 @@
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Буфер абмену";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
+"Relation.Origin.DragAndDrop" = "Перасунуць";
 "Relation.Origin.Import" = "Імпартаваць аб'ект";
 "Relation.Origin.WebClipper" = "Вэб кліпер";
 "Relation.Origin.SharingExtension" = "Пашырэнне для мабільнай прылады";
@@ -521,7 +521,7 @@
 
 // MARK: - Collection: empty view
 "Collection.View.Empty.Title" = "Няма аб'ектаў";
-"Collection.View.Empty.Subtitle" = "Create first object to continue";
+"Collection.View.Empty.Subtitle" = "Каб працягнуць, стварыце першы аб'ект";
 "Collection.View.Empty.Button.Title" = "Стварыць аб'ект";
 
 // MARK: Slash Menu
@@ -856,7 +856,7 @@
 
 // MARK: - File Storage
 "FileStorage.Title" = "File storage";
-"FileStorage.Space.Title" = "Remote storage";
+"FileStorage.Space.Title" = "Аддаленае сховішча";
 "FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
 "FileStorage.Space.Used" = "%@ of %@ used";
 "FileStorage.Space.GetMore" = "Get more space";
@@ -887,7 +887,7 @@
 "Spaces.Accessibility.Personal" = "Ваша Прастора";
 "Spaces.Search.Title" = "Search spaces";
 "Spaces.Title" = "Прасторы";
-"Spaces.Info.Network" = "Сеціва:";
+"Spaces.Info.Network" = "Сетка:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Невядомы";
@@ -904,8 +904,8 @@
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Налады прасторы";
-"SpaceSettings.RemoteStorage" = "Remote storage";
-"SpaceSettings.Info" = "Space info";
+"SpaceSettings.RemoteStorage" = "Аддаленае сховішча";
+"SpaceSettings.Info" = "Інфармацыя аб прасторы";
 "SpaceSettings.NetworkId" = "Network ID";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
 "SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
@@ -948,7 +948,7 @@
 "SpaceShare.Join.Title" = "Join a space";
 "SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
 "SpaceShare.Join.Button" = "Request to join";
-"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
+"SpaceShare.Join.Info" = "Як толькі ўладальнік прасторы ўхваліць ваш запыт, вы далучыцеся да прасторы з пэўнымі правамі доступу.";
 "SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
 "SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
 "SpaceShare.JoinConfirmation.Title" = "Запыт адпраўлены";
@@ -1051,8 +1051,8 @@
 "RelativeFormatter.older" = "Раней";
 
 // MARK: - Server
-"Server.Network" = "Сеціва";
-"Server.Networks" = "Сеціва";
+"Server.Network" = "Сетка";
+"Server.Networks" = "Сетка";
 "Server.AddButton" = "Дадаць сетку на ўласным серверы";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Толькі лакальна";
@@ -1109,12 +1109,12 @@
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
 "Membership.Legal.RestorePurchases" = "Restore purchases";
 
-"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
-- Extra remote storage
-- More space editors
-- Additional shared spaces
-Specifically,
-Please provide specific details of your needs here.";
+"Membership.Email.Body" = "Добры дзень, каманда Anytype! Я хацеў бы пашырыць маё бягучае членства на дадатковыя опцыі (калі ласка, абярыце опцыю):- Дадатковае выдаленае сховішча
+- Больш рэдактараў прасторы
+- Дадатковыя агульныя прасторы
+
+Канкрэтна,
+Калі ласка, укажыце тут канкрэтныя дэталі вашых патрэбаў.";
 
 "Membership.Upgrade.Title" = "Membership upgrade";
 "Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";

@@ -27,7 +27,7 @@ extension EditorPageObject {
         details: ObjectDetails,
         mode: DocumentMode = .handling,
         blockId: String? = nil,
-        usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
+        usecase: ObjectHeaderEmptyUsecase = .full
     ) {
         self.objectId = details.id
         self.spaceId = details.spaceId
@@ -38,12 +38,18 @@ extension EditorPageObject {
 }
 
 extension EditorSetObject {
-    init(details: ObjectDetails, activeViewId: String? = nil, mode: DocumentMode = .handling) {
+    init(
+        details: ObjectDetails,
+        activeViewId: String? = nil,
+        mode: DocumentMode = .handling,
+        usecase: ObjectHeaderEmptyUsecase = .full
+    ) {
         self.objectId = details.id
         self.spaceId = details.spaceId
         self.activeViewId = activeViewId
         self.inline = nil
         self.mode = mode
+        self.usecase = usecase
     }
 }
 

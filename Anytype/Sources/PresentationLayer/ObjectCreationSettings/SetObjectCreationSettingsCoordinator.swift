@@ -72,7 +72,7 @@ final class SetObjectCreationSettingsCoordinator:
             data: EditorPageObject(
                 objectId: setting.templateId,
                 spaceId: setting.spaceId,
-                usecase: .templateEditing
+                usecase: .embedded
             ), 
             showHeader: false,
             setupEditorInput: { [weak self] input, _ in

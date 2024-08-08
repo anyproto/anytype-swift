@@ -101,7 +101,7 @@ final class IconTextAttachmentViewProvider: NSTextAttachmentViewProvider {
         let iconView = IconViewUIKit()
         iconView.isUserInteractionEnabled = false
         container.addSubview(iconView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: mentionAttachment.lineLayoutPadding))
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: mentionAttachment.rightPadding))
         }
         iconView.icon = icon
         view = container

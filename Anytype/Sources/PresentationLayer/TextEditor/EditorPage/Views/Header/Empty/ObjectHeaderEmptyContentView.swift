@@ -29,10 +29,10 @@ final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
         }
         
         switch configuration.data.presentationStyle {
-        case .editor:
+        case .full:
             heightConstraint?.constant = ObjectHeaderConstants.emptyViewHeight
-        case .templateEditing:
-            heightConstraint?.constant = ObjectHeaderConstants.templateEditingEmptyViewHeight
+        case .embedded:
+            heightConstraint?.constant = ObjectHeaderConstants.emptyViewHeightCompact
         }
     }
 }

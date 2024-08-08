@@ -87,6 +87,7 @@ extension ObjectPermissions {
         self.canShowVersionHistory = details.isVisibleLayout
                                     && details.layoutValue != .participant
                                     && !details.templateIsBundled
+                                    && !isArchive
     }
 }
 
