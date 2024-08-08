@@ -4,7 +4,7 @@ struct DiscussionView: View {
     
     @StateObject private var model: DiscussionViewModel
     
-    init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
+    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
         self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, output: output))
     }
     

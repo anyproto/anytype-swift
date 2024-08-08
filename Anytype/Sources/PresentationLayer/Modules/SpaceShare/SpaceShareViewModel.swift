@@ -21,7 +21,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     
-    private lazy var participantsSubscription: ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []

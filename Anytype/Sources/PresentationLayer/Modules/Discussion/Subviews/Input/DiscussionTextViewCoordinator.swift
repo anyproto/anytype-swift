@@ -10,7 +10,7 @@ final class DiscussionTextViewCoordinator: NSObject, UITextViewDelegate {
     @Binding private var height: CGFloat
     
     private let maxHeight: CGFloat
-    private let markdownListener: MarkdownListener
+    private let markdownListener: any MarkdownListener
     private let font: UIFont
     private let codeFont: UIFont
     

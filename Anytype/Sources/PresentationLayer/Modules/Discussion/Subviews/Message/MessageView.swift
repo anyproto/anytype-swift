@@ -3,7 +3,7 @@ import SwiftUI
 
 struct MessageView: View {
     let data: MessageViewData
-    weak var output: MessageModuleOutput?
+    weak var output: (any MessageModuleOutput)?
     
     var body: some View {
         MessageInternalView(data: data, output: output)
@@ -20,7 +20,7 @@ private struct MessageInternalView: View {
     
     init(
         data: MessageViewData,
-        output: MessageModuleOutput? = nil
+        output: (any MessageModuleOutput)? = nil
     ) {
         self._model = StateObject(wrappedValue: MessageViewModel(data: data, output: output))
     }
