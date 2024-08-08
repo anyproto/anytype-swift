@@ -16,6 +16,9 @@ struct VersionHistoryView: View {
             TitleView(title: Loc.VersionHistory.title)
             versions
         }
+        .onAppear {
+            model.onAppear()
+        }
         .task {
             await model.startParticipantsSubscription()
         }
