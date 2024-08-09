@@ -19,12 +19,14 @@ public final class RelationLinksStorage: RelationLinksStorageProtocol {
     }
     
     public func amend(relationLinks: [RelationLink]) {
-        relationLinks.forEach { relationLink in
-            let index = storage.array.firstIndex { $0.key == relationLink.key }
-            if let index = index {
-                storage[index] = relationLink
-            } else {
-                storage.append(relationLink)
+        storage.mutate { array in
+            relationLinks.forEach { relationLink in
+                let index = array.firstIndex { $0.key == relationLink.key }
+                if let index = index {
+                    array[index] = relationLink
+                } else {
+                    array.append(relationLink)
+                }
             }
         }
     }
