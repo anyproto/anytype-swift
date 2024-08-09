@@ -17,8 +17,7 @@ struct VersionHistoryGroupContainer<Content>: View where Content: View {
                 content
             }
         }
-        .padding(.top, 4)
-        .padding(.bottom, 8)
+        .padding(.vertical, 8)
         .padding(.horizontal, 16)
         .border(12, color: .Shape.primary, lineWidth: 0.5)
     }
