@@ -299,4 +299,8 @@ extension Container {
     var participantSubscription: ParameterFactory<String, any ParticipantsSubscriptionProtocol> {
         self { Container.shared.participantSubscriptionProvider().subscription(spaceId: $0) }
     }
+    
+    var globalSearchSavedStatesService: Factory<any GlobalSearchSavedStatesServiceProtocol> {
+        self { GlobalSearchSavedStatesService() }.shared
+    }
 }

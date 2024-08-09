@@ -145,7 +145,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Гэтае сховішча будзе выдалена праз %#@days@</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -173,13 +173,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>One object deleted</string>
+        <string>Адзін аб'ект выдалены</string>
         <key>few</key>
-        <string>%d objects deleted</string>
+        <string>%d аб'екты выдалены</string>
         <key>many</key>
-        <string>%d objects deleted</string>
+        <string>%d аб'ектаў выдалена</string>
         <key>other</key>
-        <string>%d objects deleted</string>
+        <string>%d аб'ектаў выдалена</string>
       </dict>
     </dict>
     <key>Sharing.File.NewObject</key>
@@ -193,13 +193,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Файлавы аб'ект</string>
         <key>few</key>
-        <string>%d File Objects</string>
+        <string>%d Файлавыя аб'екты</string>
         <key>many</key>
-        <string>%d File Objects</string>
+        <string>%d Файлавых аб'ектаў</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d Файлавых аб'ектаў</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -213,13 +213,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Файлавы блок</string>
         <key>few</key>
-        <string>%d File Blocks</string>
+        <string>%d файлавыя блокі</string>
         <key>many</key>
-        <string>%d File Blocks</string>
+        <string>%d файлавых блокаў</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d файлавых блокаў</string>
       </dict>
     </dict>
     <key>Membership.Upgrade.SpacesLimit</key>
@@ -233,13 +233,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You’ve reached the limit of %d space that can be shared</string>
+        <string>Вы дасягнулі ліміту %d прасторы, якую можна абагуліць</string>
         <key>few</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Вы дасягнулі ліміту %d прасторы, якія можна абагуліць</string>
         <key>many</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Вы дасягнулі ліміту %d прастор, якія можна абагуліць</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Вы дасягнулі ліміту %d прастор, якія можна абагуліць</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -253,13 +253,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Закладка аб'екта</string>
         <key>few</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Закладкі аб'екта</string>
         <key>many</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Закладак аб'екта</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Закладак аб'екта</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -273,13 +273,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Сувязь блока</string>
         <key>few</key>
-        <string>Link %d Blocks</string>
+        <string>Сувязь %d блокаў</string>
         <key>many</key>
-        <string>Link %d Blocks</string>
+        <string>Сувязь %d блокаў</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Сувязь %d блокаў</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
@@ -289,17 +289,17 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Вы дасягнулі ліміту %d удзельніка. Новыя ўдзельнікі не змогуць далучыцца.</string>
         <key>few</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Вы дасягнулі ліміту ў %d удзельнікаў. Новыя ўдзельнікі не змогуць далучыцца.</string>
         <key>many</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Вы дасягнулі ліміту ў %d удзельнікаў. Новыя ўдзельнікі не змогуць далучыцца.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Вы дасягнулі ліміту ў %d удзельнікаў. Новыя ўдзельнікі не змогуць далучыцца.</string>
       </dict>
     </dict>
     <key>Space.MembersCount</key>
