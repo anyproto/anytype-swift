@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Ordening van objecten op canvas";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Zoeken";
 "There is no emoji named" = "Er is geen emoji genaamd";
 "Try to find a new one or upload your image" = "Probeer een nieuwe te vinden of upload jouw afbeelding";
@@ -1167,7 +1170,6 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 "Membership.Feature.SharedSpaces" = "Tot %@ Gedeelde ruimten";
 
 "MembershipServiceError.tierNotFound" = "Abonnementsgegevens niet gevonden, herstart app en probeer het opnieuw";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS AAN 🫵🐭. Schakel uit in Debug instellingen";
 "MembershipServiceError.invalidBillingIdFormat" = "Intern probleem met factuurformaat, we werken hieraan. Probeer het later opnieuw of neem contact op met ondersteuning.";
 
 
@@ -1188,3 +1190,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Debug
 "Debug.MimeTypes" = "Media types - %@";
 "Debug.Info" = "Debug informatie";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

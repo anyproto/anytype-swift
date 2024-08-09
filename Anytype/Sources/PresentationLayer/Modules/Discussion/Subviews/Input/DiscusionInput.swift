@@ -9,21 +9,38 @@ struct DiscusionInput: View {
     let onTapSend: () -> Void
     
     var body: some View {
-        HStack {
+        HStack(alignment: .bottom, spacing: 8) {
             Button {
                 onTapAddObject()
             } label: {
                 Image(asset: .X32.plus)
+                    .foregroundColor(Color.Button.active)
             }
-            DiscussionTextView(text: $text, editing: $editing, minHeight: 56, maxHeight: 212)
-            Button {
-                onTapSend()
-            } label: {
-                IconView(asset: .X32.moveTo)
+            .frame(height: 56)
+            ZStack(alignment: .topLeading) {
+                DiscussionTextView(text: $text, editing: $editing, minHeight: 56, maxHeight: 212)
+                if text.isEmpty {
+                    Text(Loc.Message.Input.emptyPlaceholder)
+                        .anytypeStyle(.bodyRegular)
+                        .foregroundColor(.Text.tertiary)
+                        .padding(.leading, 6)
+                        .padding(.top, 15)
+                        .allowsHitTesting(false)
+                        .lineLimit(1)
+                }
             }
-            .disabled(text.startIndex == text.endIndex)
             
+            if !text.isEmpty {
+                Button {
+                    onTapSend()
+                } label: {
+                    Image(asset: .X32.sendMessage)
+                        .foregroundColor(Color.Button.button)
+                }
+                .frame(height: 56)
+            }
         }
+        .padding(.horizontal, 8)
         .background(Color.Background.primary)
     }
 }

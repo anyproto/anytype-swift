@@ -3,25 +3,23 @@ import Services
 import SwiftUI
 
 @MainActor
-final class DiscussionViewModel: ObservableObject {
+final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
-    private let document: BaseDocumentProtocol
+    private let document: any BaseDocumentProtocol
     private let spaceId: String
-    private weak var output: DiscussionModuleOutput?
+    private weak var output: (any DiscussionModuleOutput)?
     
-    private let openDocumentProvider: OpenedDocumentsProviderProtocol = Container.shared.documentService()
-    @Injected(\.activeSpaceParticipantStorage)
-    private var participantsStorage: ActiveSpaceParticipantStorageProtocol
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.blockService)
-    private var blockService: BlockServiceProtocol
+    private var blockService: any BlockServiceProtocol
     
     @Published var linkedObjects: [ObjectDetails] = []
-    @Published var mesageBlocks: [MessageBlock] = []
+    @Published var mesageBlocks: [MessageViewData] = []
     @Published var participants: [Participant] = []
     @Published var message: AttributedString = ""
     @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
-    init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
+    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
         self.document = openDocumentProvider.document(objectId: objectId)
         self.spaceId = spaceId
         self.output = output
@@ -29,28 +27,13 @@ final class DiscussionViewModel: ObservableObject {
     
     func subscribeForBlocks() async {
         for await blocks in document.childrenPublisher.values {
-            guard let participant = participants.first else { continue }
-            var isYour = false
-            self.mesageBlocks = blocks.compactMap { block in
-                guard block.isText, let textContent = block.textContent else { return nil }
-                isYour = !isYour
-                return MessageBlock(
-                    text: textContent.text,
-                    id: block.id,
-                    author: participant,
-                    createDate: Date(),
-                    isYourMessage: isYour
-                )
+            self.mesageBlocks = blocks.enumerated().compactMap { (offset, block) in
+                guard block.isText else { return nil }
+                return MessageViewData(objectId: document.objectId, blockId: block.id, relativeIndex: offset)
             }
             if let last = mesageBlocks.last, scrollViewPosition == .none {
                 self.scrollViewPosition = .bottom(last.id)
             }
-        }
-    }
-    
-    func subscribeForParticipants() async {
-        for await participants in participantsStorage.activeParticipantsPublisher.values {
-            self.participants = participants
         }
     }
     
@@ -94,5 +77,9 @@ final class DiscussionViewModel: ObservableObject {
         withAnimation {
             linkedObjects.removeAll { $0.id == details.id }
         }
+    }
+    
+    func didSelectAddReaction(messageId: String) {
+        output?.didSelectAddReaction(messageId: messageId)
     }
 }

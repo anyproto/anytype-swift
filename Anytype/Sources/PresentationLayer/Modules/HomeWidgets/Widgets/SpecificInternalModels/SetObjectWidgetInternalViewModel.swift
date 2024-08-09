@@ -19,7 +19,7 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
-    private var documentService: any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.objectActionsService)
@@ -210,13 +210,13 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
-            try? await setDocument?.openForPreview()
+            try? await setDocument?.update()
             await updateModelState()
             return
         }
         
-        setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
-        try? await setDocument?.openForPreview()
+        setDocument = documentsProvider.setDocument(objectId: objectId, mode: .preview)
+        try? await setDocument?.open()
         
         rowDetails = nil
         dataviewState = nil
@@ -250,7 +250,8 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
             details,
             dataView: setDocument.dataView,
             activeView: setDocument.activeView,
-            viewRelationValueIsLocked: false,
+            viewRelationValueIsLocked: false, 
+            canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
             storage: subscriptionStorage.detailsStorage,
             spaceId: setDocument.spaceId,
             onItemTap: { [weak self] in

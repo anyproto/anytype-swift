@@ -1,6 +1,7 @@
 import Foundation
 import Sentry
 import Logger
+import AnytypeCore
 
 final class SentryConfigurator: AppConfiguratorProtocol {
     
@@ -33,7 +34,8 @@ final class SentryConfigurator: AppConfiguratorProtocol {
             let version = (try? await configProvider.libraryVersion()) ?? "undefined"
             SentrySDK.configureScope { scope in
                 scope.setContext(value: ["version" : version], key: "middleware")
-                scope.setTag(value: version, key: "middleware.version")
+                scope.setTag(value: version, key: SentryTagKey.middlewareVersion.rawValue)
+                scope.setTag(value: BuildTypeProvider.buidType.rawValue, key: SentryTagKey.buidType.rawValue)
             }
         }
         

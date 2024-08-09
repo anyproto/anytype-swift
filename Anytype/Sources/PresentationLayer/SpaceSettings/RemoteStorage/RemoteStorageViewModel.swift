@@ -14,8 +14,6 @@ final class RemoteStorageViewModel: ObservableObject {
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.fileLimitsStorage)
     private var fileLimitsStorage: any FileLimitsStorageProtocol
-    @Injected(\.documentsProvider)
-    private var documentProvider: any DocumentsProviderProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.mailUrlBuilder)

@@ -4,9 +4,12 @@ import AnytypeCore
 import SwiftUI
 
 @MainActor
-final class ObjectSettingsCoordinatorViewModel: ObservableObject,
-                                                ObjectSettingsModelOutput,
-                                                RelationValueCoordinatorOutput {
+final class ObjectSettingsCoordinatorViewModel: 
+    ObservableObject,
+    ObjectSettingsModelOutput,
+    RelationValueCoordinatorOutput,
+    ObjectVersionModuleOutput
+{
     
     let objectId: String
     private weak var output: (any ObjectSettingsCoordinatorOutput)?
@@ -16,6 +19,7 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     @Published var layoutPickerObjectId: StringIdentifiable?
     @Published var blockObjectSearchData: BlockObjectSearchData?
     @Published var relationsListData: RelationsListData?
+    @Published var versionHistoryData: VersionHistoryData?
     @Published var dismiss = false
     
     init(objectId: String, output: (any ObjectSettingsCoordinatorOutput)?) {
@@ -47,6 +51,11 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
     func relationsAction(document: some BaseDocumentProtocol) {
         AnytypeAnalytics.instance().logScreenObjectRelation()
         relationsListData = RelationsListData(document: document)
+    }
+    
+    func showVersionHistory(document: some BaseDocumentProtocol) {
+        guard let details = document.details else { return }
+        versionHistoryData = VersionHistoryData(objectId: document.objectId, spaceId: document.spaceId, isListType: details.isList)
     }
     
     func openPageAction(screenData: EditorScreenData) {
@@ -89,5 +98,11 @@ final class ObjectSettingsCoordinatorViewModel: ObservableObject,
             dismiss.toggle()
             output?.showEditorScreen(data: data)
         }
+    }
+    
+    // MARK: - ObjectVersionModuleOutput
+    
+    func versionRestored() {
+        dismiss.toggle()
     }
 }

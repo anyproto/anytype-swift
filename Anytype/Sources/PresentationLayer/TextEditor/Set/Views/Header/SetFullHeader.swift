@@ -13,6 +13,7 @@ struct SetFullHeader: View {
                 header
             }
         }
+        .background(Color.Background.primary)
     }
     
     private var header: some View {
@@ -30,7 +31,7 @@ struct SetFullHeader: View {
     
     private var inlineHeader: some View {
         VStack(alignment: .leading, spacing: 0) {
-            emptyCover
+            emptyCover(presentationStyle: .full)
             VStack(alignment: .leading, spacing: 8) {
                 iconWithTitle
                 featuredRelationsView
@@ -45,7 +46,7 @@ struct SetFullHeader: View {
             switch model.headerModel.header {
             case .empty(let data, _):
                 Button(action: data.onTap) {
-                    emptyCover
+                    emptyCover(presentationStyle: data.presentationStyle)
                 }
             case .filled(let state, _):
                 ObjectHeaderFilledContentSwitfUIView(
@@ -61,9 +62,9 @@ struct SetFullHeader: View {
         }
     }
     
-    private var emptyCover: some View {
+    private func emptyCover(presentationStyle: ObjectHeaderEmptyUsecase) -> some View {
         Color.Background.primary
-            .frame(height: ObjectHeaderConstants.emptyViewHeight)
+            .frame(height: presentationStyle == .full ? ObjectHeaderConstants.emptyViewHeight : ObjectHeaderConstants.emptyViewHeightCompact)
     }
 }
 
@@ -77,7 +78,8 @@ extension SetFullHeader {
                     text: $model.descriptionString
                 )
                 .padding([.trailing], 20)
-                .foregroundStyle(Color.Text.primary)                
+                .foregroundStyle(Color.Text.primary) 
+                .disabled(!model.setDocument.setPermissions.canEditDescription)
             } else {
                 EmptyView()
             }
@@ -117,6 +119,7 @@ extension SetFullHeader {
         .padding([.trailing], 20)
         .foregroundStyle(Color.Text.primary)
         .disableAutocorrection(true)
+        .disabled(!model.setDocument.setPermissions.canEditTitle)
     }
 
     private var featuredRelationsView: some View {

@@ -11,7 +11,6 @@ struct RelationListContainerView<Content>: View where Content: View {
     let listContent: () -> Content
     let onCreate: (_ title: String?) -> Void
     let onClear: () -> Void
-    let onSearchTextChange: (_ text: String) -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -48,9 +47,6 @@ struct RelationListContainerView<Content>: View where Content: View {
         VStack(spacing: 0) {
             if isEditable, !isEmpty {
                 SearchBar(text: $searchText, focused: false, placeholder: Loc.search)
-                    .onChange(of: searchText) { text in
-                        onSearchTextChange(text)
-                    }
             }
             
             list

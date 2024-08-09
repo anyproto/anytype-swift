@@ -2,12 +2,38 @@ import Foundation
 import Services
 
 protocol DocumentsProviderProtocol {
-    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol
+    func document(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol
     func setDocument(
         objectId: String,
-        forPreview: Bool,
+        mode: DocumentMode,
         inlineParameters: EditorInlineSetObject?
     ) -> any SetDocumentProtocol
+}
+
+extension DocumentsProviderProtocol {
+    func document(objectId: String) -> any BaseDocumentProtocol {
+        document(objectId: objectId, mode: .handling)
+    }
+    
+    func setDocument(
+        objectId: String,
+        mode: DocumentMode
+    ) -> any SetDocumentProtocol {
+        setDocument(objectId: objectId, mode: mode, inlineParameters: nil)
+    }
+    
+    func setDocument(
+        objectId: String,
+        inlineParameters: EditorInlineSetObject?
+    ) -> any SetDocumentProtocol {
+        setDocument(objectId: objectId, mode: .handling, inlineParameters: inlineParameters)
+    }
+    
+    func setDocument(
+        objectId: String
+    ) -> any SetDocumentProtocol {
+        setDocument(objectId: objectId, mode: .handling, inlineParameters: nil)
+    }
 }
 
 final class DocumentsProvider: DocumentsProviderProtocol {
@@ -22,16 +48,16 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     
-    func document(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol {
-        internalDocument(objectId: objectId, forPreview: forPreview)
+    func document(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
+        internalDocument(objectId: objectId, mode: mode)
     }
     
     func setDocument(
         objectId: String,
-        forPreview: Bool,
+        mode: DocumentMode,
         inlineParameters: EditorInlineSetObject?
     ) -> any SetDocumentProtocol {
-        let document = internalDocument(objectId: objectId, forPreview: forPreview)
+        let document = internalDocument(objectId: objectId, mode: mode)
         
         return SetDocument(
             document: document,
@@ -45,9 +71,9 @@ final class DocumentsProvider: DocumentsProviderProtocol {
     
     // MARK: - Private
     
-    private func internalDocument(objectId: String, forPreview: Bool) -> any BaseDocumentProtocol {
-        if forPreview {
-            let document = createBaseDocument(objectId: objectId, forPreview: forPreview)
+    private func internalDocument(objectId: String, mode: DocumentMode) -> any BaseDocumentProtocol {
+        if !mode.isHandling {
+            let document = createBaseDocument(objectId: objectId, mode: mode)
             return document
         }
         
@@ -55,13 +81,13 @@ final class DocumentsProvider: DocumentsProviderProtocol {
             return value
         }
         
-        let document = createBaseDocument(objectId: objectId, forPreview: forPreview)
+        let document = createBaseDocument(objectId: objectId, mode: mode)
         documentCache.setObject(document, forKey: objectId as NSString)
         
         return document
     }
     
-    private func createBaseDocument(objectId: String, forPreview: Bool) -> some BaseDocumentProtocol {
+    private func createBaseDocument(objectId: String, mode: DocumentMode) -> some BaseDocumentProtocol {
         let infoContainer = InfoContainer()
         let relationLinksStorage = RelationLinksStorage()
         let restrictionsContainer = ObjectRestrictionsContainer()
@@ -81,7 +107,7 @@ final class DocumentsProvider: DocumentsProviderProtocol {
         )
         return BaseDocument(
             objectId: objectId,
-            forPreview: forPreview,
+            mode: mode,
             objectLifecycleService: objectLifecycleService,
             relationDetailsStorage: relationDetailsStorage, 
             objectTypeProvider: objectTypeProvider,

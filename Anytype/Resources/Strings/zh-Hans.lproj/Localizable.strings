@@ -288,7 +288,10 @@
 "Background picture" = "背景图片";
 "Layout" = "布局";
 "Arrangement of objects on a canvas" = "画布上对象的排列";
-"ObjectSettings.History.Description" = "All versions of object";
+"ObjectSettings.History.Description" = "对象的所有历史版本";
+
+// Version history
+"VersionHistory.Title" = "版本历史";
 
 "Search" = "搜索";
 "There is no emoji named" = "没有 emoji 表情符号的命名";
@@ -507,7 +510,7 @@
 "Set.View.Empty.Subtitle" = "添加搜索查询以在实时模式下聚合具有相同类型和关联的对象";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
+"Set.View.UnsupportedAlert" = "此视图不支持在移动端显示";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "选择查询";
@@ -615,12 +618,12 @@
 "Node is not connected" = "节点未连接";
 "Initializing sync" = "初始化同步中";
 "Incompatible version" = "不兼容版本";
-"Connecting" = "Connecting...";
-"P2P Connecting" = "P2P Connecting...";
-"P2P Connection" = "P2P Connection";
-"Anytype Network" = "Anytype Network";
-"Self Host" = "Self Host";
-"Local Only" = "Local Only";
+"Connecting" = "连接中…";
+"P2P Connecting" = "P2P 连接中…";
+"P2P Connection" = "P2P 连接";
+"Anytype Network" = "Anytype 网络";
+"Self Host" = "自托管";
+"Local Only" = "仅本地";
 "Synced" = "已同步";
 "No connection" = "没有连接";
 "Deleted" = "已删除";
@@ -806,19 +809,19 @@
 "Widgets.Layout.List.Title" = "列表";
 "Widgets.Layout.CompactList.Title" = "紧凑型列表";
 "Widgets.Layout.View.Title" = "视图";
-"Widgets.Layout.Link.Description" = "Compact widget view";
-"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
-"Widgets.Layout.List.Description" = "Widget with a list view";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
-"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Layout.Link.Description" = "紧凑小部件视图";
+"Widgets.Layout.Tree.Description" = "带有层次结构的小部件";
+"Widgets.Layout.List.Description" = "带有列表视图的小部件";
+"Widgets.Layout.View.Description" = "带有集合或集锦布局的小部件";
+"Widgets.Layout.CompactList.Description" = "带有紧凑列表视图的小部件";
+"Widgets.Empty.Title" = "这里没有对象";
+"Widgets.Empty.CreateObject" = "创建对象";
 "Widgets.Library.RecentlyEdited.Name" = "最近编辑的文档";
 "Widgets.Library.RecentlyOpened.Name" = "最近打开的文档";
 "Widgets.Library.RecentlyOpened.Description" = "在此设备上";
-"Widgets.AppUpdate" = "Anytype is ready to update";
-"Widgets.Source.Library" = "Default sets";
-"Widgets.Source.Objects" = "Your objects";
+"Widgets.AppUpdate" = "Anytype 准备好更新了";
+"Widgets.Source.Library" = "默认集合";
+"Widgets.Source.Objects" = "您的对象";
 
 // MARK: - About
 "About.AppVersion" = "App 版本: %@";
@@ -1167,24 +1170,27 @@
 "Membership.Feature.SharedSpaces" = "最多 %@ 个共享空间";
 
 "MembershipServiceError.tierNotFound" = "找不到层数据，重启应用并重试";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL 模式开启 🫵🐭关闭在调试设置";
-"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+"MembershipServiceError.invalidBillingIdFormat" = "帐单格式内部有问题，我们正在处理这个问题。请稍后再试或联系客服支持。";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "您可以在桌面端上管理等级";
+"Membership.ManageTier.Android" = "您可以在 Android 平台上管理等级";
+"Membership.ManageTier.AppleId" = "您可以在另一个 Apple ID 上管理等级";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "数据备份已禁用";
+"SyncStatus.Info.AnytypeNetwork" = "端到端加密";
+"SyncStatus.Error.storageLimitExceed" = "已达到储存限制";
 "SyncStatus.Error.incompatibleVersion" = "不兼容版本";
-"SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
-"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+"SyncStatus.Error.networkError" = "没有访问空间的权限";
+"SyncStatus.Error.UNRECOGNIZED" = "未知的错误";
+"SyncStatus.P2P.Restricted" = "受限制。请检查设备设置。";
 
 
 // MARK: - Debug
 "Debug.MimeTypes" = "媒体类型 - %@";
 "Debug.Info" = "调试信息";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "添加回应";
+"Message.Input.EmptyPlaceholder" = "写一段话…";

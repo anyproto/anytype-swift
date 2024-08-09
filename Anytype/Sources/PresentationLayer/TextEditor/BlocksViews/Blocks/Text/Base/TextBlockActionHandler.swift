@@ -419,7 +419,6 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
         accessoryViewStateManager.selectionDidChange(range: range)
         cursorManager.blockFocus = BlockFocus(id: info.id, position: .at(range))
 //        cursorManager.didChangeCursorPosition(at: data.info.id, position: .at(range)) // DO WE NEED IT? WHY?
-        collectionController.didSelectTextRangeSelection(blockId: info.id, textView: textView)
     }
 
     private func toggleCheckBox() {

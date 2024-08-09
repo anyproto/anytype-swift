@@ -33,6 +33,7 @@ struct SetTableViewRow: View {
             if let icon = configuration.icon, configuration.showIcon {
                 IconView(icon: icon).frame(width: 18, height: 18)
                     .padding(.trailing, 8)
+                    .disabled(!model.setDocument.setPermissions.canEditSetObjectIcon)
             }
         }
     }

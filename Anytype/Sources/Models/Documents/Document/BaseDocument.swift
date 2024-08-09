@@ -13,7 +13,8 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Local state
     let objectId: String
-    let forPreview: Bool
+    let mode: DocumentMode
+    
     @Atomic
     private(set) var children = [BlockInformation]()
     @Atomic
@@ -36,6 +37,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private var relationBuilder: any RelationsBuilderProtocol
     @Injected(\.syncStatusStorage)
     private var syncStatusStorage: any SyncStatusStorageProtocol
+    @Injected(\.historyVersionsService)
+    private var historyVersionsService: any HistoryVersionsServiceProtocol
     private let relationDetailsStorage: any RelationDetailsStorageProtocol
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
@@ -59,7 +62,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
     init(
         objectId: String,
-        forPreview: Bool,
+        mode: DocumentMode,
         objectLifecycleService: some ObjectLifecycleServiceProtocol,
         relationDetailsStorage: some RelationDetailsStorageProtocol,
         objectTypeProvider: some ObjectTypeProviderProtocol,
@@ -72,7 +75,7 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage: ObjectDetailsStorage
     ) {
         self.objectId = objectId
-        self.forPreview = forPreview
+        self.mode = mode
         self.eventsListener = eventsListener
         self.viewModelSetter = viewModelSetter
         self.objectLifecycleService = objectLifecycleService
@@ -88,7 +91,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
             try await objectLifecycleService.close(contextId: objectId)
         }
@@ -102,30 +105,33 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func open() async throws {
-        if isOpened {
-            return
+        switch mode {
+        case .handling:
+            guard !isOpened else { return }
+            let model = try await objectLifecycleService.open(contextId: objectId)
+            setupView(model)
+        case .preview:
+            try await updateDocumentPreview()
+        case .version(let versionId):
+            try await updateDocumentVersion(versionId)
         }
-        guard !forPreview else {
-            anytypeAssertionFailure("Document created for preview. You should use openForPreview() method.")
-            return
-        }
-        let model = try await objectLifecycleService.open(contextId: objectId)
-        setupView(model)
     }
     
     @MainActor
-    func openForPreview() async throws {
-        guard forPreview else {
-            anytypeAssertionFailure("Document created for handling. You should use open() method.")
-            return
+    func update() async throws {
+        switch mode {
+        case .handling:
+            anytypeAssertionFailure("Document was created in `handling` mode. You can't update it")
+        case .preview:
+            try await updateDocumentPreview()
+        case .version(let versionId):
+            try await updateDocumentVersion(versionId)
         }
-        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
-        setupView(model)
     }
     
     @MainActor
     func close() async throws {
-        guard !forPreview, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
         try await objectLifecycleService.close(contextId: objectId)
         isOpened = false
     }
@@ -156,13 +162,25 @@ final class BaseDocument: BaseDocumentProtocol {
     
     // MARK: - Private methods
     
+    @MainActor
+    private func updateDocumentPreview() async throws {
+        let model = try await objectLifecycleService.openForPreview(contextId: objectId)
+        setupView(model)
+    }
+    
+    @MainActor
+    private func updateDocumentVersion(_ versionId: String) async throws {
+        let model = try await historyVersionsService.showVersion(objectId: objectId, versionId: versionId)
+        setupView(model)
+    }
+    
     private func setup() {
         eventsListener.onUpdatesReceive = { [weak self] updates in
             DispatchQueue.main.async { [weak self] in
                 self?.triggerSync(updates: updates)
             }
         }
-        if !forPreview {
+        if mode.isHandling {
             eventsListener.startListening()
         }
     }
@@ -286,7 +304,8 @@ final class BaseDocument: BaseDocumentProtocol {
         let newPermissios = ObjectPermissions(
             details: details ?? ObjectDetails(id: ""),
             isLocked: isLocked,
-            participantCanEdit: participantIsEditor,
+            participantCanEdit: participantIsEditor, 
+            isVersionMode: mode.isVersion,
             objectRestrictions: objectRestrictions.objectRestriction
         )
         

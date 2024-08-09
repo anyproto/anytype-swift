@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Układ obiektów na płótnie";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Szukaj";
 "There is no emoji named" = "Nie ma emoji o nazwie";
 "Try to find a new one or upload your image" = "Spróbuj znaleźć nowy lub załaduj swój obraz";
@@ -1165,7 +1168,6 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 "Membership.Feature.SharedSpaces" = "Do %@ współdzielonych obszarów";
 
 "MembershipServiceError.tierNotFound" = "Nie znaleziono danych poziomu, zrestartuj aplikację i spróbuj ponownie";
-"MembershipServiceError.forcefullyFailedValidation" = "TRYB AWARII JEST WŁĄCZONY 🫵🐭. Wyłącz w ustawieniach debugowania";
 "MembershipServiceError.invalidBillingIdFormat" = "Wewnętrzny problem z formatem rozliczeniowym, pracujemy nad tym. Spróbuj ponownie później lub skontaktuj się z pomocą techniczną.";
 
 
@@ -1186,3 +1188,7 @@ Proszę umieść tutaj szczegóły swoich potrzeb.";
 // MARK: - Debug
 "Debug.MimeTypes" = "Typy mimów - %@";
 "Debug.Info" = "Informacje debugowania";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

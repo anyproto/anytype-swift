@@ -499,6 +499,15 @@ extension AnytypeAnalytics {
         )
     }
     
+    func logClickAddWidget(context: AnalyticsWidgetContext) {
+        logEvent(
+            "ClickAddWidget",
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.context: context.rawValue
+            ]
+        )
+    }
+    
     func logDeleteWidget(source: AnalyticsWidgetSource, context: AnalyticsWidgetContext) {
         logEvent(
             "DeleteWidget",
@@ -1110,5 +1119,17 @@ extension AnytypeAnalytics {
     
     func logKeyboardBarHideKeyboardMenu() {
         logEvent("KeyboardBarHideKeyboardMenu")
+    }
+    
+    func logScreenHistory() {
+        logEvent("ScreenHistory")
+    }
+    
+    func logScreenHistoryVersion() {
+        logEvent("ScreenHistoryVersion")
+    }
+    
+    func logRestoreFromHistory() {
+        logEvent("RestoreFromHistory")
     }
 }

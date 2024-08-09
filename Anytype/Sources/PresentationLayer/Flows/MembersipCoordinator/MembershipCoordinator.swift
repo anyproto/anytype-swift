@@ -6,8 +6,8 @@ struct MembershipCoordinator: View {
     @StateObject var model: MembershipCoordinatorModel
     @Environment(\.openURL) private var openURL
     
-    init() {
-        _model = StateObject(wrappedValue: MembershipCoordinatorModel())
+    init(initialTierId: Int? = nil) {
+        _model = StateObject(wrappedValue: MembershipCoordinatorModel(initialTierId: initialTierId))
     }
     
     var body: some View {
@@ -37,6 +37,9 @@ struct MembershipCoordinator: View {
         }
         .onChange(of: model.emailUrl) { url in
             showEmail(url: url)
+        }
+        .onAppear {
+            model.onAppear()
         }
     }
     

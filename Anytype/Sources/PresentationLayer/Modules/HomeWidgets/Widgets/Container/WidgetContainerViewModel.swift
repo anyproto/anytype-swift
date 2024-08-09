@@ -78,7 +78,7 @@ final class WidgetContainerViewModel: ObservableObject {
     }
     
     func onAddBelowTap() {
-        AnytypeAnalytics.instance().logAddWidget(context: analyticsContext())
+        AnytypeAnalytics.instance().logClickAddWidget(context: analyticsContext())
         output?.onAddBelowWidget(widgetId: widgetBlockId, context: analyticsContext())
         UISelectionFeedbackGenerator().selectionChanged()
     }

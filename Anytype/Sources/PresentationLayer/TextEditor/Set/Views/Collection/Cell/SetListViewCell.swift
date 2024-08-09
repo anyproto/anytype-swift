@@ -17,7 +17,8 @@ struct SetListViewCell: View {
         FlowRelationsView(
             viewModel: FlowRelationsViewModel(
                 icon: configuration.icon,
-                showIcon: configuration.showIcon,
+                showIcon: configuration.showIcon, 
+                canEditIcon: configuration.canEditIcon,
                 title: configuration.title,
                 description: configuration.description,
                 relations: configuration.relations.filter {

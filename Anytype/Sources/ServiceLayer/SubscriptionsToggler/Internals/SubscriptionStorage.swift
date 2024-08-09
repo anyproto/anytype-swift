@@ -30,14 +30,14 @@ actor SubscriptionStorage: SubscriptionStorageProtocol {
     
     private var orderIds: [String] = []
     private var state = SubscriptionStorageState(total: 0, nextCount: 0, prevCount: 0, items: [])
-    private let stateSubject = PassthroughSubject<SubscriptionStorageState, Never>()
+    private let stateSubject = CurrentValueSubject<SubscriptionStorageState?, Never>(nil)
     nonisolated let statePublisher: AnyPublisher<SubscriptionStorageState, Never>
     
     init(subId: String, detailsStorage: ObjectDetailsStorage, toggler: some SubscriptionTogglerProtocol) {
         self.subId = subId
         self.detailsStorage = detailsStorage
         self.toggler = toggler
-        self.statePublisher = stateSubject.eraseToAnyPublisher()
+        self.statePublisher = stateSubject.compactMap { $0 }.eraseToAnyPublisher()
         Task { await setupHandler() }
     }
     

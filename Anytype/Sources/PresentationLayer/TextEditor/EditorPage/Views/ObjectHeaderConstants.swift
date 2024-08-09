@@ -2,8 +2,8 @@ import CoreGraphics
 
 enum ObjectHeaderConstants {
     static let minimizedHeaderHeight: CGFloat = 48
-    static let templateEditingEmptyViewHeight: CGFloat = 32
     static let emptyViewHeight: CGFloat = 124
+    static let emptyViewHeightCompact: CGFloat = 32
     
     static let coverHeight: CGFloat = 228
     static let coverBottomInset: CGFloat = 32

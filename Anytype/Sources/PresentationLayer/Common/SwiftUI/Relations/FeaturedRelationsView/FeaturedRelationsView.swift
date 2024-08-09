@@ -12,15 +12,17 @@ struct FeaturedRelationsView<Content>: View where Content: View {
     
     var body: some View {
         WrappingHStack(
-            relations,
-            spacing: .constant(FeaturedRelationsConstants.itemSpacing),
-            lineSpacing: FeaturedRelationsConstants.lineSpacing
-        ) { relation in
-            HStack(spacing: FeaturedRelationsConstants.itemSpacing) {
-                view(relation)
-                
-                if !isLastRelation(relation) {
-                    divider
+            alignment: .leading,
+            horizontalSpacing: FeaturedRelationsConstants.itemSpacing,
+            verticalSpacing: FeaturedRelationsConstants.lineSpacing
+        ) {
+            ForEach(relations) { relation in
+                HStack(spacing: FeaturedRelationsConstants.itemSpacing) {
+                    view(relation)
+                    
+                    if !isLastRelation(relation) {
+                        divider
+                    }
                 }
             }
         }

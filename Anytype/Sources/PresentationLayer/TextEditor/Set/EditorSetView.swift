@@ -9,8 +9,8 @@ struct EditorSetView: View {
     @State private var offset = CGPoint.zero
     @Environment(\.dismiss) private var dismiss
     
-    init(data: EditorSetObject, output: (any EditorSetModuleOutput)?) {
-        self._model = StateObject(wrappedValue: EditorSetViewModel(data: data, output: output))
+    init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
+        self._model = StateObject(wrappedValue: EditorSetViewModel(data: data, showHeader: showHeader, output: output))
     }
     
     var body: some View {
@@ -48,12 +48,14 @@ struct EditorSetView: View {
                     SetFullHeader(model: model)
                         .readSize { tableHeaderSize = $0 }
                         .offset(x: 0, y: offset.y)
-                    SetMinimizedHeader(
-                        model: model,
-                        headerSize: tableHeaderSize,
-                        tableViewOffset: offset,
-                        headerMinimizedSize: $headerMinimizedSize
-                    )
+                    if model.showHeader {
+                        SetMinimizedHeader(
+                            model: model,
+                            headerSize: tableHeaderSize,
+                            tableViewOffset: offset,
+                            headerMinimizedSize: $headerMinimizedSize
+                        )
+                    }
                 })
                 , alignment: .topLeading
             )
@@ -69,6 +71,7 @@ struct EditorSetView: View {
             VStack(spacing: 0) {
                 Spacer.fixedHeight(headerMinimizedSize.height)
                 contentTypeView
+                    .background(Color.Background.primary)
             }
         }
     }

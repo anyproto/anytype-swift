@@ -12,8 +12,6 @@ final class AboutViewModel: ObservableObject {
     private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     private weak var output: (any AboutModuleOutput)?
     
     private var appVersion: String? = MetadataProvider.appVersion
@@ -92,8 +90,8 @@ final class AboutViewModel: ObservableObject {
                 Loc.About.buildNumber(buildNumber ?? ""),
                 Loc.About.library(libraryVersion ?? ""),
                 Loc.About.anytypeId(accountManager.account.id),
-                Loc.About.deviceId(activeWorkspaceStorage.workspaceInfo.deviceId),
-                Loc.About.analyticsId(activeWorkspaceStorage.workspaceInfo.analyticsId)
+                Loc.About.deviceId(accountManager.account.info.deviceId),
+                Loc.About.analyticsId(accountManager.account.info.analyticsId)
             ].joined(separator: "\n")
         }
     }

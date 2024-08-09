@@ -22,9 +22,13 @@ struct DebugMenuView: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Debug menu 👻", style: .title)
-                .foregroundColor(.Text.primary)
-                .padding()
+            VStack {
+                AnytypeText("Debug menu 👻", style: .title)
+                    .foregroundColor(.Text.primary)
+                AnytypeText("Environment: \(BuildTypeProvider.buidType.rawValue)", style: .caption1Medium)
+                    .foregroundColor(.Text.tertiary)
+            }.padding()
+            
             ScrollView {
                 VStack(spacing: 0) {
                     buttonsMenu

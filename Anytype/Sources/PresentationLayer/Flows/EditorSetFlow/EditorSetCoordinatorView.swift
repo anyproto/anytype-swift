@@ -7,12 +7,14 @@ struct EditorSetCoordinatorView: View {
     @Environment(\.pageNavigation) private var pageNavigation
     @Environment(\.dismiss) private var dismiss
     
-    init(data: EditorSetObject) {
-        self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data))
+    
+    
+    init(data: EditorSetObject, showHeader: Bool) {
+        self._model = StateObject(wrappedValue: EditorSetCoordinatorViewModel(data: data, showHeader: showHeader))
     }
     
     var body: some View {
-        EditorSetView(data: model.data, output: model)
+        EditorSetView(data: model.data, showHeader: model.showHeader, output: model)
             .onAppear {
                 model.pageNavigation = pageNavigation
             }

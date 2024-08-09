@@ -8,6 +8,7 @@ import OrderedCollections
 @MainActor
 final class EditorSetViewModel: ObservableObject {
     let headerModel: ObjectHeaderViewModel
+    let showHeader: Bool
     
     @Published var titleString: String
     @Published var descriptionString: String
@@ -159,8 +160,8 @@ final class EditorSetViewModel: ObservableObject {
     private var textServiceHandler: any TextServiceProtocol
     @Injected(\.groupsSubscriptionsHandler)
     private var groupsSubscriptionsHandler: any GroupsSubscriptionsHandlerProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     @Injected(\.setSubscriptionDataBuilder)
     private var setSubscriptionDataBuilder: any SetSubscriptionDataBuilderProtocol
     @Injected(\.setGroupSubscriptionDataBuilder)
@@ -173,19 +174,18 @@ final class EditorSetViewModel: ObservableObject {
     private var descriptionSubscription: AnyCancellable?
     private weak var output: (any EditorSetModuleOutput)?
 
-    init(data: EditorSetObject, output: (any EditorSetModuleOutput)?) {
+    init(data: EditorSetObject, showHeader: Bool, output: (any EditorSetModuleOutput)?) {
         self.setDocument = documentsProvider.setDocument(
             objectId: data.objectId,
-            forPreview: false,
+            mode: data.mode,
             inlineParameters: data.inline
         )
         self.headerModel = ObjectHeaderViewModel(
             document: setDocument.document,
             targetObjectId: setDocument.targetObjectId,
             configuration: EditorPageViewModelConfiguration(
-                isOpenedForPreview: false, 
                 blockId: nil,
-                usecase: .editor
+                usecase: data.usecase
             ),
             output: output
         )
@@ -193,6 +193,7 @@ final class EditorSetViewModel: ObservableObject {
         self.titleString = setDocument.details?.pageCellTitle ?? ""
         self.descriptionString = setDocument.details?.description ?? ""
         
+        self.showHeader = showHeader
         self.output = output
         self.setup()
     }
@@ -203,7 +204,7 @@ final class EditorSetViewModel: ObservableObject {
             self?.output?.showIconPicker(document: document)
         }
         
-        syncStatusData = SyncStatusData(status: .offline, networkId: activeWorkspaceStorage.workspaceInfo.networkId, isHidden: false)
+        syncStatusData = SyncStatusData(status: .offline, networkId: accountManager.account.info.networkId, isHidden: false)
         
         setDocument.setUpdatePublisher.sink { [weak self] update in
             Task { [weak self] in
@@ -304,7 +305,7 @@ final class EditorSetViewModel: ObservableObject {
         case .syncStatus(let status):
             syncStatusData = SyncStatusData(
                 status: status.syncStatus,
-                networkId: activeWorkspaceStorage.workspaceInfo.networkId,
+                networkId: accountManager.account.info.networkId,
                 isHidden: false
             )
         }
@@ -501,7 +502,8 @@ final class EditorSetViewModel: ObservableObject {
                     records,
                     dataView: setDocument.dataView,
                     activeView: activeView,
-                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView,
+                    viewRelationValueIsLocked: !setDocument.setPermissions.canEditRelationValuesInView, 
+                    canEditIcon: setDocument.setPermissions.canEditSetObjectIcon,
                     storage: subscription.detailsStorage,
                     spaceId: setDocument.spaceId,
                     onItemTap: { [weak self] details in
@@ -766,7 +768,8 @@ extension EditorSetViewModel {
 
 extension EditorSetViewModel {
     static let emptyPreview = EditorSetViewModel(
-        data: EditorSetObject(objectId: "", spaceId: ""),
+        data: EditorSetObject(objectId: "", spaceId: ""), 
+        showHeader: true,
         output: nil
     )
 }

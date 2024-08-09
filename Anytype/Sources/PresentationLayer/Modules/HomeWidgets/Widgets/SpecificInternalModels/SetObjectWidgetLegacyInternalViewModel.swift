@@ -17,7 +17,7 @@ final class SetObjectWidgetLegacyInternalViewModel: ObservableObject, WidgetData
     private let subscriptionId = "SetWidget-\(UUID().uuidString)"
     
     @Injected(\.documentsProvider)
-    private var documentService: any DocumentsProviderProtocol
+    private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
     
@@ -169,13 +169,13 @@ final class SetObjectWidgetLegacyInternalViewModel: ObservableObject, WidgetData
     
     private func updateSetDocument(objectId: String) async {
         guard objectId != setDocument?.objectId else {
-            try? await setDocument?.openForPreview()
+            try? await setDocument?.update()
             updateModelState()
             return
         }
         
-        setDocument = documentService.setDocument(objectId: objectId, forPreview: true, inlineParameters: nil)
-        try? await setDocument?.openForPreview()
+        setDocument = documentsProvider.setDocument(objectId: objectId, mode: .preview)
+        try? await setDocument?.open()
         updateModelState()
         
         details = nil

@@ -4,7 +4,7 @@ struct DiscussionView: View {
     
     @StateObject private var model: DiscussionViewModel
     
-    init(objectId: String, spaceId: String, output: DiscussionModuleOutput?) {
+    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
         self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, output: output))
     }
     
@@ -13,7 +13,7 @@ struct DiscussionView: View {
             DiscussionScrollView(position: $model.scrollViewPosition) {
                 LazyVStack(spacing: 12) {
                     ForEach(model.mesageBlocks, id: \.id) {
-                        MessageView(block: $0)
+                        MessageView(data: $0, output: model)
                     }
                 }
                 .padding(.vertical, 16)
@@ -23,16 +23,13 @@ struct DiscussionView: View {
             }
         }
         .task {
-            await model.subscribeForParticipants()
-        }
-        .task {
             await model.subscribeForBlocks()
         }
     }
     
     private var inputPanel: some View {
         VStack(spacing: 0) {
-            DiscussionLinkInputViewContainer(objects: model.linkedObjects) {
+            MessageLinkInputViewContainer(objects: model.linkedObjects) {
                 model.onTapRemoveLinkedObject(details: $0)
             }
             DiscusionInput(text: $model.message) {

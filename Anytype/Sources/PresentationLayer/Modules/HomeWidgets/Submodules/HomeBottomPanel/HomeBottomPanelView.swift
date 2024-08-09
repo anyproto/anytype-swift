@@ -19,7 +19,6 @@ struct HomeBottomPanelView: View {
     private var editButtons: some View {
         HStack(alignment: .center, spacing: 10) {
             makeButton(text: Loc.add) {
-                AnytypeAnalytics.instance().logAddWidget(context: .editor)
                 onCreateWidgetSelected()
             }
             makeButton(text: Loc.done) {

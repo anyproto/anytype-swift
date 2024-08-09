@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Anordnung von Objekten auf einer Leinwand";
 "ObjectSettings.History.Description" = "Alle Versionen des Objekts";
 
+// Version history
+"VersionHistory.Title" = "Versionsverlauf";
+
 "Search" = "Suchen";
 "There is no emoji named" = "Es gibt kein Emoji mit dem Namen";
 "Try to find a new one or upload your image" = "Versuche ein neues zu finden oder lade dein Bild hoch";
@@ -805,7 +808,7 @@
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakte Liste";
 "Widgets.Layout.View.Title" = "Ansicht";
-"Widgets.Layout.Link.Description" = "Compact widget view";
+"Widgets.Layout.Link.Description" = "Kompakte Widget-Ansicht";
 "Widgets.Layout.Tree.Description" = "Widget mit einer hierarchischen Struktur";
 "Widgets.Layout.List.Description" = "Widget mit einer Listenansicht";
 "Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
@@ -980,7 +983,7 @@
 
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Beitrittsanfrage zurückziehen";
-"SpaceManager.DoNotCancel" = "Do Not Cancel";
+"SpaceManager.DoNotCancel" = "Nicht abbrechen";
 "SpaceManager.CancelRequestAlert.Title" = "Du musst die Zugangsanfrage erneut senden";
 "SpaceManager.CancelRequestAlert.Toast" = "Die Anfrage wurde storniert.";
 
@@ -1167,7 +1170,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1188,3 +1190,7 @@ Please provide specific details of your needs here.";
 // MARK: - Debug
 "Debug.MimeTypes" = "MIME-Typen - %@";
 "Debug.Info" = "Debug-Informationen";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Reaktion hinzufügen";
+"Message.Input.EmptyPlaceholder" = "Eine Nachricht schreiben...";

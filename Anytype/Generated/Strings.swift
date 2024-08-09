@@ -1035,13 +1035,20 @@ internal enum Loc {
     }
   }
   internal enum MembershipServiceError {
-    internal static let forcefullyFailedValidation = Loc.tr("Localizable", "MembershipServiceError.forcefullyFailedValidation")
     internal static let invalidBillingIdFormat = Loc.tr("Localizable", "MembershipServiceError.invalidBillingIdFormat")
     internal static let tierNotFound = Loc.tr("Localizable", "MembershipServiceError.tierNotFound")
   }
   internal enum Mention {
     internal enum Subtitle {
       internal static let placeholder = Loc.tr("Localizable", "Mention.Subtitle.Placeholder")
+    }
+  }
+  internal enum Message {
+    internal enum Action {
+      internal static let addReaction = Loc.tr("Localizable", "Message.Action.AddReaction")
+    }
+    internal enum Input {
+      internal static let emptyPlaceholder = Loc.tr("Localizable", "Message.Input.EmptyPlaceholder")
     }
   }
   internal enum Object {
@@ -1842,6 +1849,9 @@ internal enum Loc {
         }
       }
     }
+  }
+  internal enum VersionHistory {
+    internal static let title = Loc.tr("Localizable", "VersionHistory.Title")
   }
   internal enum Wallet {
     internal enum Recovery {

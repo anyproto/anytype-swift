@@ -289,6 +289,9 @@
 "Arrangement of objects on a canvas" = "Posicionamento de objetos num canvas";
 "ObjectSettings.History.Description" = "All versions of object";
 
+// Version history
+"VersionHistory.Title" = "Version History";
+
 "Search" = "Pesquisar";
 "There is no emoji named" = "Não há nenhum emoji chamado";
 "Try to find a new one or upload your image" = "Tente encontrar um novo ou envie sua imagem";
@@ -1166,7 +1169,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1187,3 +1189,7 @@ Please provide specific details of your needs here.";
 // MARK: - Debug
 "Debug.MimeTypes" = "Tipos de MIME - %@";
 "Debug.Info" = "Informações de Depuração";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

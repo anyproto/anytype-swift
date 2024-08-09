@@ -290,8 +290,8 @@ final class SetObjectCreationSettingsViewModel: ObservableObject {
     }
     
     private func retrieveObjectDetails(objectId: String) async -> ObjectDetails? {
-        let targetDocument = documentsProvider.document(objectId: objectId, forPreview: true)
-        try? await targetDocument.openForPreview()
+        let targetDocument = documentsProvider.document(objectId: objectId, mode: .preview)
+        try? await targetDocument.open()
         
         return targetDocument.details
     }
@@ -306,7 +306,7 @@ extension TemplatePreviewModel {
                 header: HeaderBuilder.buildObjectHeader(
                     details: objectDetails,
                     usecase: .templatePreview,
-                    presentationUsecase: .editor,
+                    presentationUsecase: .full,
                     onIconTap: {},
                     onCoverTap: {}
                 ),

@@ -18,7 +18,7 @@ final class ObjectSettingBuilder {
             
             ObjectSetting.relations
             
-            if FeatureFlags.versionHistory {
+            if FeatureFlags.versionHistory, permissions.canShowVersionHistory {
                 ObjectSetting.history
             }
         }

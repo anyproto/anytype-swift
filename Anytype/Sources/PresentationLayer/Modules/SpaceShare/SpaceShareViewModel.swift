@@ -8,8 +8,6 @@ import AnytypeCore
 @MainActor
 final class SpaceShareViewModel: ObservableObject {
     
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
@@ -22,6 +20,8 @@ final class SpaceShareViewModel: ObservableObject {
     private var membershipStatusStorage: any MembershipStatusStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
+    
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(accountSpaceId)
     
     private var onMoreInfo: () -> Void
     private var participants: [Participant] = []
@@ -54,7 +54,7 @@ final class SpaceShareViewModel: ObservableObject {
     }
     
     func startParticipantsTask() async {
-        for await items in activeSpaceParticipantStorage.participantsPublisher.values {
+        for await items in participantsSubscription.participantsPublisher.values {
             participants = items.sorted { $0.sortingWeight > $1.sortingWeight }
             updateView()
         }

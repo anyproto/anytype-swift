@@ -8,6 +8,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateAfterAuth()
     func setupStateAfterRegistration(account: AccountData) async
     func cleanStateAfterLogout() async
+    func setupStateBeboreLoginOrAuth() async
 }
 
 final class LoginStateService: LoginStateServiceProtocol {
@@ -30,8 +31,6 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
-    @Injected(\.activeSpaceParticipantStorage)
-    private var activeSpaceParticipantStorage: any ActiveSpaceParticipantStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.storeKitService)
@@ -40,6 +39,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var syncStatusStorage: any SyncStatusStorageProtocol
     @Injected(\.p2pStatusStorage)
     private var p2pStatusStorage: any P2PStatusStorageProtocol
+    @Injected(\.networkConnectionStatusDaemon)
+    private var networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol
     
     
     // MARK: - LoginStateServiceProtocol
@@ -67,6 +68,11 @@ final class LoginStateService: LoginStateServiceProtocol {
         await stopSubscriptions()
     }
     
+    func setupStateBeboreLoginOrAuth() async {
+        await syncStatusStorage.startSubscription()
+        await p2pStatusStorage.startSubscription()
+    }
+    
     // MARK: - Private
     
     private func startSubscriptions() async {
@@ -75,10 +81,8 @@ final class LoginStateService: LoginStateServiceProtocol {
         await objectTypeProvider.startSubscription()
         await activeWorkpaceStorage.setupActiveSpace()
         await accountParticipantsStorage.startSubscription()
-        await activeSpaceParticipantStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
-        await syncStatusStorage.startSubscription()
-        await p2pStatusStorage.startSubscription()
+        await networkConnectionStatusDaemon.start()
         storeKitService.startListenForTransactions()
         
         Task {
@@ -93,11 +97,11 @@ final class LoginStateService: LoginStateServiceProtocol {
         await objectTypeProvider.stopSubscription()
         await activeWorkpaceStorage.clearActiveSpace()
         await accountParticipantsStorage.stopSubscription()
-        await activeSpaceParticipantStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()
         await syncStatusStorage.stopSubscriptionAndClean()
         await p2pStatusStorage.stopSubscriptionAndClean()
+        await networkConnectionStatusDaemon.stop()
         storeKitService.stopListenForTransactions()
     }
 }

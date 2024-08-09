@@ -18,8 +18,6 @@ final class ShareOptionsInteractor: ShareOptionsInteractorProtocol {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.fileActionsService)
     private var fileService: any FileActionsServiceProtocol
-    @Injected(\.documentsProvider)
-    private var documentProvider: any DocumentsProviderProtocol
     @Injected(\.pasteboardMiddleService)
     private var pasteboardMiddlewareService: any PasteboardMiddlewareServiceProtocol
     @Injected(\.objectTypeProvider)

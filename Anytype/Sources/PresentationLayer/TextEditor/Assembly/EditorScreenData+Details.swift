@@ -4,18 +4,19 @@ import Services
 // MARK: - Init helpers
 
 extension EditorScreenData {
-    init(details: ObjectDetails, isOpenedForPreview: Bool = false, blockId: String? = nil, activeViewId: String? = nil) {
+    init(details: ObjectDetails, mode: DocumentMode = .handling, blockId: String? = nil, activeViewId: String? = nil) {
         switch details.editorViewType {
         case .page:
             self = .page(EditorPageObject(
                 details: details,
-                isOpenedForPreview: isOpenedForPreview,
+                mode: mode,
                 blockId: blockId
             ))
         case .set:
             self = .set(EditorSetObject(
                 details: details,
-                activeViewId: activeViewId
+                activeViewId: activeViewId,
+                mode: mode
             ))
         }
     }
@@ -24,24 +25,31 @@ extension EditorScreenData {
 extension EditorPageObject {
     init(
         details: ObjectDetails,
-        isOpenedForPreview: Bool = false,
+        mode: DocumentMode = .handling,
         blockId: String? = nil,
-        usecase: ObjectHeaderEmptyData.ObjectHeaderEmptyUsecase = .editor
+        usecase: ObjectHeaderEmptyUsecase = .full
     ) {
         self.objectId = details.id
         self.spaceId = details.spaceId
-        self.isOpenedForPreview = isOpenedForPreview
+        self.mode = mode
         self.blockId = blockId
         self.usecase = usecase
     }
 }
 
 extension EditorSetObject {
-    init(details: ObjectDetails, activeViewId: String? = nil) {
+    init(
+        details: ObjectDetails,
+        activeViewId: String? = nil,
+        mode: DocumentMode = .handling,
+        usecase: ObjectHeaderEmptyUsecase = .full
+    ) {
         self.objectId = details.id
         self.spaceId = details.spaceId
         self.activeViewId = activeViewId
         self.inline = nil
+        self.mode = mode
+        self.usecase = usecase
     }
 }
 

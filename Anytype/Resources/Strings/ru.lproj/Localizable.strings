@@ -168,7 +168,7 @@
 "Align right" = "Выровнять по правому краю";
 "Align left" = "Выровнять по левому краю";
 "Align center" = "Выровнять по центру";
-"Align justify" = "Align justify";
+"Align justify" = "Выравнивание по ширине";
 "Black" = "Чёрный";
 "Amber" = "Янтарный";
 "Red" = "Красный";
@@ -239,7 +239,7 @@
 // Auth Errors
 "Error creating wallet" = "Ошибка создания кошелька";
 "Error select vault" = "Ошибка при выборе хранилища";
-"Error wallet recover vault" = "Error wallet recover vault";
+"Error wallet recover vault" = "Ошибка восстановления хранилища";
 "Wallet.Recovery.Error.description" = "Неправильный ключ";
 
 "Search for language" = "Поиск языка";
@@ -256,17 +256,17 @@
 "Auth.JoinFlow.Key.Button.Tip.Title" = "Вы можете найти этот ключ позже в настройках Anytype";
 
 "Auth.JoinFlow.Key.ReadMore.Title" = "Что такое Ключ?";
-"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
-"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
+"Auth.JoinFlow.Key.ReadMore.Option1.Title" = "Фраза восстановления - это случайная комбинация из 12 слов. Волшебным образом из этих слов генерируется ваш аккаунт на устройстве.";
+"Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Тот, кто знает комбинацию этих слов, владеет вашим хранилищем. **Сейчас вы - единственный человек в мире, которому это известно.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Даже всех вычислительных ресурсов на Земле недостаточно для его взлома. Если Вы потеряете его, он не может быть восстановлен. Так что храните его где-нибудь в безопасном месте!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Как сохранить ключ?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Для хранения ключа удобнее всего использовать менеджер паролей.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Самый безопасный способ - записать ее на бумаге и оставить бумагу в безопасном месте.";
 
 "Auth.JoinFlow.Soul.Title" = "Установите ваше имя";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Description" = "Видим только людям, с которыми вы чем-то поделились. Централизованного реестра имен не существует.";
 "Auth.JoinFlow.Soul.Placeholder" = "Без названия";
-"Auth.JoinFlow.Soul.Button" = "Enter my Vault";
+"Auth.JoinFlow.Soul.Button" = "Войти в мое хранилище";
 
 "Auth.JoinFlow.Vault.Title" = "Это ваше Хранилище";
 "Auth.JoinFlow.Vault.Description" = "Все что внутри - зашифровано.\nИ автономно – все работает без сети.\nИ только у Вас есть ключ.";
@@ -276,7 +276,7 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Использовать связку ключей";
 "Auth.LoginFlow.Or" = "ИЛИ";
 "Auth.LoginFlow.Textfield.Placeholder" = "Введите свой ключ";
-"Auth.LoginFlow.Enter.Title" = "Enter my Vault";
+"Auth.LoginFlow.Enter.Title" = "Войти в мое хранилище";
 "Auth.LoginFlow.Entering.Void.Title" = "Входим в пустоту";
 
 // Object settings
@@ -287,7 +287,10 @@
 "Background picture" = "Фоновое изображение";
 "Layout" = "Макет";
 "Arrangement of objects on a canvas" = "Расположение объектов на холсте";
-"ObjectSettings.History.Description" = "All versions of object";
+"ObjectSettings.History.Description" = "Все версии объекта";
+
+// Version history
+"VersionHistory.Title" = "История версий";
 
 "Search" = "Поиск";
 "There is no emoji named" = "Нет эмодзи с таким именем";
@@ -339,13 +342,13 @@
 "There is no object named" = "Нет объекта с именем %@";
 "There is no type named" = "Нет типа с именем %@";
 "Create a new one or search for something else" = "Создайте новый или найдите что-то другое";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
-"GlobalSearch.EmptyFilteredState.title" = "No related objects found";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
-"GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
+"Search.Links.Show.title" = "Показать связанные проекты";
+"Search.Links.Header.title" = "Связан с %@";
+"Search.Links.Swipe.title" = "Связан с";
+"GlobalSearch.EmptyState.subtitle" = "Создайте новый объект или найдите что-то другое";
+"GlobalSearch.EmptyFilteredState.title" = "Связанных объектов не найдено";
+"GlobalSearch.Swipe.Tip.title" = "Показать связанные объекты";
+"GlobalSearch.Swipe.Tip.subtitle" = "Проведите влево, чтобы увидеть связанные объекты. Обратите внимание, что он работает только для объектов, имеющих связанные объекты.";
 
 // MARK: - Home
 
@@ -506,7 +509,7 @@
 "Set.View.Empty.Subtitle" = "Добавьте поисковый запрос для агрегирования объектов с одинаковыми типами и свойствами в режиме реального времени.";
 
 // MARK: - Sets: unsupported View
-"Set.View.UnsupportedAlert" = "View is unsupported on mobile";
+"Set.View.UnsupportedAlert" = "Просмотр не поддерживается на мобильном телефоне";
 
 // MARK: - Set source type
 "Set.SourceType.SelectQuery" = "Выберите запрос";
@@ -592,9 +595,9 @@
 "Deletion error" = "Ошибка удаления";
 "Start" = "Начать";
 "On analytics" = "On analytics";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
+"Select vault error" = "Выберите ошибку хранилища";
+"Vault deleted" = "Хранилище удалено";
+"Vault.Select.Incompatible.Version.Error.Text" = "Нам не удалось получить данные вашего хранилища, потому что ваша версия устарела. Пожалуйста, обновите Anytype до последней версии.";
 "Restore from keychain" = "Восстановить из связки ключей";
 "Edit" = "Изменить";
 "In this object" = "В этом объекте";
@@ -614,7 +617,7 @@
 "Node is not connected" = "Узел не подключен";
 "Initializing sync" = "Инициализация синхронизации";
 "Incompatible version" = "Несовместимая версия";
-"Connecting" = "Connecting...";
+"Connecting" = "Соединение...";
 "P2P Connecting" = "P2P Connecting...";
 "P2P Connection" = "P2P Connection";
 "Anytype Network" = "Anytype Network";
@@ -1165,7 +1168,6 @@ Please provide specific details of your needs here.";
 "Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
 
 "MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.forcefullyFailedValidation" = "FAIL MODE IS ON 🫵🐭. Turn off in Debug Settings";
 "MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
 
 
@@ -1186,3 +1188,7 @@ Please provide specific details of your needs here.";
 // MARK: - Debug
 "Debug.MimeTypes" = "Типы MIME - %@";
 "Debug.Info" = "Отладочная информация";
+
+// MARK: - Messages
+"Message.Action.AddReaction" = "Add Reaction";
+"Message.Input.EmptyPlaceholder" = "Write a message...";

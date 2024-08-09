@@ -99,17 +99,20 @@ final class MembershipModelBuilder: MembershipModelBuilderProtocol {
     }
     
     private func validateMissingProductId(_ productId: String) {
-        #if DEBUG
-        // If dev app uses prod middleware it will receive prod product id, skip this error
-        if productId != "io.anytype.membership.tier.builder" {
-            anytypeAssertionFailure("Not found product for id \(productId)")
+        switch BuildTypeProvider.buidType {
+        case .appStore:
+            // If prod app uses staging middleware it will receive stage product id, skip this error
+            if productId != "io.anytype.dev.membership.builder" {
+                anytypeAssertionFailure("Not found product for id \(productId)")
+            }
+        case .testflight:
+            // If testflight app uses prod middleware it will receive prod product id, skip this error
+            if productId != "io.anytype.membership.tier.builder" {
+                anytypeAssertionFailure("Not found product for id \(productId)")
+            }
+        case .debug:
+            break
         }
-        #else
-        // If prod app uses staging middleware it will receive stage product id, skip this error
-        if productId != "io.anytype.dev.membership.builder" {
-            anytypeAssertionFailure("Not found product for id \(productId)")
-        }
-        #endif
     }
     
     private func buildStripePayment(tier: Anytype_Model_MembershipTierData) -> MembershipTierPaymentType {
