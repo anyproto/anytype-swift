@@ -127,9 +127,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         if let textContent = previousBlock.info.textContent {
             cursorManager.focus(
                 at: previousBlock.blockId,
-                position: .at(.init(location: Int(textContent.text.count), length: 0))
+                position: .at(NSRange(location: Int(textContent.text.utf16.count), length: 0))
             )
-            cursorManager.blockFocus = BlockFocus(id: previousBlock.blockId, position: .at(NSRange(location: textContent.text.count, length: 0)))
+            cursorManager.blockFocus = BlockFocus(id: previousBlock.blockId, position: .at(NSRange(location: textContent.text.utf16.count, length: 0)))
         }
         try await textServiceHandler.merge(contextId: documentId, firstBlockId: previousBlock.blockId, secondBlockId: secondBlockId)
     }
