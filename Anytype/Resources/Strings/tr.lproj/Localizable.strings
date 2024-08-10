@@ -591,35 +591,35 @@
 "Vault" = "Kasa";
 "Access" = "Erişim";
 "Back up key" = "Yedekleme anahtarı";
-"Removing cache" = "Removing cache";
+"Removing cache" = "Önbelleği kaldırma";
 "Deletion error" = "Silme hatası";
 "Start" = "Başla";
 "On analytics" = "On analytics";
-"Select vault error" = "Select vault error";
-"Vault deleted" = "Vault deleted";
-"Vault.Select.Incompatible.Version.Error.Text" = "We were unable to retrieve your vault data because your version is out-of-date. Please update Anytype to the latest version.";
-"Restore from keychain" = "Restore from keychain";
+"Select vault error" = "Kasa hatası seçin";
+"Vault deleted" = "Kasa silindi";
+"Vault.Select.Incompatible.Version.Error.Text" = "Sürümünüz güncel olmadığı için kasa verilerinizi alamadık. Lütfen Anytype'ı en son sürüme güncelleyin.";
+"Restore from keychain" = "Keychain'den geri yükleme";
 "Edit" = "Düzenle";
 "In this object" = "Bu nesnede";
 "Other relations" = "Diğer bağıntılar";
 "Collection of objects" = "Nesnelerin koleksiyonu";
 "Designed to capture thoughts quickly" = "Düşünceleri hızlıca yakalamak için tasarlandı";
-"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
-"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
-"List of related objects" = "List of related objects";
+"Action-focused layout with a checkbox" = "Onay kutusu ile eylem odaklı düzen";
+"Standard layout for canvas blocks" = "Tuval blokları için standart düzen";
+"List of related objects" = "İlgili nesnelerin listesi";
 "Lock" = "Kilitle";
 "Unlock" = "Kilidi aç";
 "Favorite" = "Favorilere Ekle";
 "Unfavorite" = "Favorilerden Çıkar";
 "Unsplash" = "Unsplash";
 "Go back" = "Geri git";
-"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
-"Node is not connected" = "Node is not connected";
+"Downloading or uploading data to some node" = "Bazı düğümlere veri indirme veya yükleme";
+"Node is not connected" = "Düğüm bağlı değil";
 "Initializing sync" = "Senkronizasyon başlatılıyor";
 "Incompatible version" = "Incompatible version";
-"Connecting" = "Connecting...";
-"P2P Connecting" = "P2P Connecting...";
-"P2P Connection" = "P2P Connection";
+"Connecting" = "Bağlanıyor...";
+"P2P Connecting" = "P2P bağlanıyor...";
+"P2P Connection" = "P2P Bağlantısı";
 "Anytype Network" = "Anytype Ağı";
 "Self Host" = "Kişisel barındırma";
 "Local Only" = "Yalnızca lokal";
@@ -812,53 +812,53 @@
 "Widgets.Layout.Link.Description" = "Kompakt widget görünümü";
 "Widgets.Layout.Tree.Description" = "Hiyerarşik yapıya sahip widget";
 "Widgets.Layout.List.Description" = "Liste görünümlü widget";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
-"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
-"Widgets.Library.RecentlyEdited.Name" = "Recently edited";
-"Widgets.Library.RecentlyOpened.Name" = "Recently opened";
-"Widgets.Library.RecentlyOpened.Description" = "On this device";
-"Widgets.AppUpdate" = "Anytype is ready to update";
-"Widgets.Source.Library" = "Default sets";
-"Widgets.Source.Objects" = "Your objects";
+"Widgets.Layout.View.Description" = "Set veya Koleksiyon düzenine sahip Widget";
+"Widgets.Layout.CompactList.Description" = "Kompakt bir liste görünümüne sahip widget";
+"Widgets.Empty.Title" = "Burada hiç nesne yok";
+"Widgets.Empty.CreateObject" = "Nesne oluştur";
+"Widgets.Library.RecentlyEdited.Name" = "Yakın zamanda düzenlendi";
+"Widgets.Library.RecentlyOpened.Name" = "Yakın zamanda açıldı";
+"Widgets.Library.RecentlyOpened.Description" = "Bu cihazda";
+"Widgets.AppUpdate" = "Anytype güncellenmeye hazır";
+"Widgets.Source.Library" = "Varsayılan setler";
+"Widgets.Source.Objects" = "Nesneleriniz";
 
 // MARK: - About
 "About.AppVersion" = "Uygulama sürümü: %@";
-"About.BuildNumber" = "Build number: %@";
-"About.Library" = "Library version: %@";
-"About.anytypeId" = "Anytype ID: %@";
-"About.analyticsId" = "Analytics ID: %@";
-"About.deviceId" = "Device ID: %@";
+"About.BuildNumber" = "Yapı numarası: %@";
+"About.Library" = "Kütüphane sürümü: %@";
+"About.anytypeId" = "Anytype kimliği: %@";
+"About.analyticsId" = "Analytics kimliği: %@";
+"About.deviceId" = "Cihaz kimliği: %@";
 "About.Device" = "Cihaz: %@";
 "About.OSVersion" = "İşletim Sistemi sürümü: %@";
 "About.HelpCommunity" = "Yardım & Topluluk";
 "About.WhatsNew" = "Neler Yeni?";
 "About.AnytypeCommunity" = "Anytype Topluluğu";
-"About.HelpTutorials" = "Help & Tutorials";
+"About.HelpTutorials" = "Yardım ve Öğreticiler";
 "About.ContactUs" = "Bize Ulaşın";
 "About.Legal" = "Yasal";
 "About.TermsOfUse" = "Kullanım Koşulları";
 "About.PrivacyPolicy" = "Gizlilik Politikası";
 "About.TechInfo" = "Teknik Bilgi";
-"About.Mail.Subject" = "Support request, Vault ID %@";
-"About.Mail.Body" = "\n\nTechnical information\n%@";
+"About.Mail.Subject" = "Destek talebi, Kasa Kimliği %@";
+"About.Mail.Body" = "\n\nTeknik bilgi\n%@";
 
 // MARK: - Cache
-"ClearCache.Success" = "Cache sucessfully cleared";
+"ClearCache.Success" = "Önbellek başarıyla temizlendi";
 "ClearCache.Error" = "Hata, daha sonra tekrar deneyin";
 
 // MARK: - Settings
 "Settings.Title" = "Ayarlar";
 "Settings.SpaceName" = "Alan Adı";
-"Settings.SpaceType" = "Space type";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceType" = "Alan türü";
+"Settings.VaultAndAccess" = "Kasa ve erişim";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Dosya depolama alanı";
-"FileStorage.Space.Title" = "Remote storage";
-"FileStorage.Space.Instruction" = "You can store up to %@ of your files on our encrypted backup node for free. If you reach the limit, files will be stored only locally.";
-"FileStorage.Space.Used" = "%@ of %@ used";
+"FileStorage.Space.Title" = "Uzak depolama";
+"FileStorage.Space.Instruction" = "Dosyalarınızın %@ kadarını şifrelenmiş yedekleme düğümümüzde ücretsiz olarak depolayabilirsiniz. Sınıra ulaşırsanız, dosyalar yalnızca yerel olarak depolanacaktır.";
+"FileStorage.Space.Used" = "%@'dan %@ kadarı kullanıldı";
 "FileStorage.Space.GetMore" = "Daha fazla alan alın";
 "FileStorage.Local.Title" = "Yerel depolama";
 "FileStorage.Local.Instruction" = "Cihazınızda yer kazanmak için tüm dosyalarınızı şifrelenmiş yedek düğümümüze taşıyabilirsiniz. Açtığınızda bu dosyalar tekrar geri yüklenecektir.";
@@ -867,60 +867,60 @@
 "FileStorage.ManageFiles" = "Dosyaları yönet";
 "FileStorage.LimitError" = "Dosya yükleme limitini aştın";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
-"FileStorage.LimitLegend.Other" = "Other spaces | %@";
+"FileStorage.LimitLegend.Other" = "Diğer alanlar | %@";
 "FileStorage.LimitLegend.Free" = "Boş | %@";
 
 // MARK: - Files List
 "FilesList.Title" = "Senkronize edilmiş dosyalar";
-"FilesList.ForceDelete.Title" = "Are you sure you want to permanently delete the files?";
+"FilesList.ForceDelete.Title" = "Dosyaları kalıcı olarak silmek istediğinizden emin misiniz?";
 
 // MARK: - Widget object list
 "WidgetObjectList.ForceDelete.Message" = "Bu eylemi geri alamazsınız.";
 
 // MARK: - Cpear cache alert
 "ClearCacheAlert.Title" = "Emin misin?";
-"ClearCacheAlert.Description" = "All media files stored in Anytype will be deleted from your current device. They can be downloaded again from a backup node or another device.";
+"ClearCacheAlert.Description" = "Anytype'da depolanan tüm medya dosyaları mevcut cihazınızdan silinecektir. Bir yedekleme düğümünden veya başka bir cihazdan tekrar indirilebilirler.";
 
 // MARK: - Spaces
-"Spaces.Accessibility.Shared" = "Shared Space";
-"Spaces.Accessibility.Private" = "Private Space";
+"Spaces.Accessibility.Shared" = "Ortak Alan";
+"Spaces.Accessibility.Private" = "Özel Alan";
 "Spaces.Accessibility.Personal" = "Default Space";
-"Spaces.Search.Title" = "Search spaces";
-"Spaces.Title" = "Spaces";
-"Spaces.Info.Network" = "Network:";
+"Spaces.Search.Title" = "Alanlarda Ara";
+"Spaces.Title" = "Alanlar";
+"Spaces.Info.Network" = "Ağ:";
 
 // MARK: - Space
 "Space.Status.Unknown" = "Bilinmeyen";
-"Space.Status.Loading" = "Loading";
+"Space.Status.Loading" = "Yükleniyor";
 "Space.Status.Ok" = "Tamam";
-"Space.Status.Missing" = "Missing";
+"Space.Status.Missing" = "Eksik";
 "Space.Status.Error" = "Hata";
-"Space.Status.RemoteWaitingDeletion" = "Waiting Deletion";
-"Space.Status.RemoteDeleted" = "Remote Deleted";
+"Space.Status.RemoteWaitingDeletion" = "Bekleyen Silme";
+"Space.Status.RemoteDeleted" = "Uzaktan Silindi";
 "Space.Status.SpaceDeleted" = "Silindi";
-"Space.Status.SpaceActive" = "Active";
-"Space.Status.SpaceJoining" = "Joining";
-"Space.Status.SpaceRemoving" = "Removing";
+"Space.Status.SpaceActive" = "Etkin";
+"Space.Status.SpaceJoining" = "Katılınıyor";
+"Space.Status.SpaceRemoving" = "Kaldırılıyor";
 
 // MARK: - Space Settings
 "SpaceSettings.Title" = "Alan ayarları";
-"SpaceSettings.RemoteStorage" = "Remote storage";
+"SpaceSettings.RemoteStorage" = "Uzak depolama";
 "SpaceSettings.Info" = "Alan bilgisi";
-"SpaceSettings.NetworkId" = "Network ID";
-"SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
-"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
-"SpaceSettings.DeleteButton" = "Delete space";
+"SpaceSettings.NetworkId" = "Ağ Kimliği";
+"SpaceSettings.DeleteAlert.Title" = "%@ alanını sil";
+"SpaceSettings.DeleteAlert.Message" = "Bu alan geri alınamaz şekilde silinecektir. Bu işlemi geri alamazsınız.";
+"SpaceSettings.DeleteButton" = "Alanı sil";
 "SpaceSettings.Share" = "Paylaş";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
-"SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
+"SpaceSettings.LeaveButton" = "Ayrıl";
+"SpaceSettings.LeaveAlert.Title" = "Alandan ayrıl";
+"SpaceSettings.LeaveAlert.Message" = "%@ alanı cihazlarınızdan kaldırılacak ve artık buna erişiminiz olmayacak";
+"SpaceSettings.LeaveAlert.Toast" = "%@'den ayrıldınız.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Daha fazla bilgi";
 
-"SpaceShare.Title" = "Sharing";
-"SpaceShare.Members" = "Members";
+"SpaceShare.Title" = "Paylaşım";
+"SpaceShare.Members" = "Üyeler";
 "SpaceShare.Permissions.Owner" = "Sahip";
 "SpaceShare.Permissions.Reader" = "Görüntüleyen";
 "SpaceShare.Permissions.Writer" = "Düzenleyici";
@@ -983,8 +983,8 @@
 // MARK: - Space manager
 "SpaceManager.CancelRequest" = "Katılma Talebini İptal Et";
 "SpaceManager.DoNotCancel" = "İptal Etmekten Vazgeç";
-"SpaceManager.CancelRequestAlert.Title" = "You will have to send request access again";
-"SpaceManager.CancelRequestAlert.Toast" = "The request was canceled.";
+"SpaceManager.CancelRequestAlert.Title" = "Erişim talebini tekrar göndermeniz gerekecek";
+"SpaceManager.CancelRequestAlert.Toast" = "Talep iptal edildi.";
 
 
 
@@ -992,89 +992,90 @@
 "SpaceCreate.Title" = "Alan oluştur";
 
 // MARK: - Sharing
-"Sharing.Navigation.title" = "Add to Anytype";
+"Sharing.Navigation.title" = "Anytype'a ekle";
 "Sharing.Navigation.LeftButton.Title" = "İptal";
 "Sharing.Navigation.RightButton.Title" = "Bitti";
 
-"Sharing.SaveAs" = "SAVE AS";
-"Sharing.SelectSpace" = "Space";
-"Sharing.AddTo" = "Add to";
+"Sharing.SaveAs" = "FARKLI KAYDET";
+"Sharing.SelectSpace" = "Alan";
+"Sharing.AddTo" = "Olarak ekle";
 "Sharing.LinkTo" = "Şuna bağla";
 
-"Sharing.Text.NoteObject" = "Note object";
-"Sharing.Text.TextBlock" = "Blocks";
-"Sharing.Any.Block" = "Blocks";
+"Sharing.Text.NoteObject" = "Not nesnesi";
+"Sharing.Text.TextBlock" = "Bloklar";
+"Sharing.Any.Block" = "Bloklar";
 
 // MARK: - Sharing tips
-"Sharing.Tip.Title" = "Share Extension";
-"Sharing.Tip.Button.title" = "Show share menu";
+"Sharing.Tip.Title" = "Uzantıyı Paylaş";
+"Sharing.Tip.Button.title" = "Paylaşım menüsünü göster";
 
-"Sharing.Tip.Steps.1" = "Tap the iOS sharing button";
-"Sharing.Tip.Steps.2" = "Scroll past the app and tap More";
-"Sharing.Tip.Steps.3" = "Tap Edit to find “Anytype” and tap";
+"Sharing.Tip.Steps.1" = "iOS paylaşım düğmesine dokunun";
+"Sharing.Tip.Steps.2" = "Uygulamayı kaydırın ve Daha Fazla'ya dokunun";
+"Sharing.Tip.Steps.3" = "\"Anytype\"ı bulmak için Düzenle'ye dokunun";
 
 // MARK: - Swipe tips
-"Swipe.Tip.Title" = "Swipe to Create Objects";
-"Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
+"Swipe.Tip.Title" = "Nesne Oluşturmak için Kaydırın";
+"Swipe.Tip.Subtitle" = "Kolayca sola kaydırarak widget'ların içinde nesneler oluşturun.";
 
 // MARK: - Space Share Tip
 "SpaceShare.Tip.Title" = "Collaborate on spaces";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Steps.1" = "Ayarlara erişmek için Space widget'ına dokunun";
+"SpaceShare.Tip.Steps.2" = "Paylaşım bölümünü açın";
+"SpaceShare.Tip.Steps.3" = "Bir davet bağlantısı oluşturun ve paylaşın";
 
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Uyarı";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
+"Initial.UnstableMiddle.Message" = "Uygulamayı kararsız bir ara yazılımla başlatıyorsunuz. Yayındaki kasanızı kullanmayın. Kasanız bozulmuş olabilir.";
 "Initial.UnstableMiddle.Title" = "Uyarı";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Logout" = "Geçerli kasadan çıkış yapın";
+"Initial.UnstableMiddle.Continue" = "Mevcut kasa ile devam edin";
+"Initial.UnstableMiddle.WontUseProd" = "Yayındaki kasamı kullanmayacağım";
 
 // MARK: - Create tip
-"LongTapCreateTip.Title" = "Create Objects with specific Type";
-"LongTapCreateTip.Message" = "Long tap on Create Object button to open menu with types";
+"LongTapCreateTip.Title" = "Belirli türde nesneler oluşturma";
+"LongTapCreateTip.Message" = "Türleri içeren menüyü açmak için Nesne Oluştur düğmesine uzun dokunun";
 
 // MARK: - Error
-"Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
-"Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
+"Error.AnytypeNeedsUpgrate.Title" = "Uygulamanızı güncelleyin";
+"Error.AnytypeNeedsUpgrate.Message" = "Bu nesne Anytype uygulamasının daha yeni bir sürümünde değiştirilmiştir. Bu cihazda açmak için lütfen uygulamayı güncelleyin";
 "Error.AnytypeNeedsUpgrate.Confirm" = "Güncelle";
-"Error.UnableToConnect" = "Please connect to the internet";
-"Error.Common.Title" = "Oops!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
-"Error.Common.TryAgain" = "Try again";
+"Error.UnableToConnect" = "Lütfen internete bağlanın";
+"Error.Common.Title" = "Hay aksi!";
+"Error.Common.Message" = "Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin veya forumda bir rapor gönderin
+(http://community.anytype.io/report-bug).";
+"Error.Common.TryAgain" = "Tekrar deneyin";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
+"RelativeFormatter.days7" = "Son 7 gün";
+"RelativeFormatter.days30" = "Son 30 gün";
 "RelativeFormatter.older" = "Daha eski";
 
 // MARK: - Server
-"Server.Network" = "Network";
-"Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.Network" = "Ağ";
+"Server.Networks" = "Ağlar";
+"Server.AddButton" = "Kendi ağınıza ekleme";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Sadece yerel";
 
 // MARK: - Gallery
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
-"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+"Gallery.Author" = "%@ tarafından yapıldı";
+"Gallery.Install" = "Kur";
+"Gallery.InstallToNew" = "Yeni alana kurun";
+"Gallery.Notification.Success" = "Deneyim \"%@\" alanına başarıyla yüklendi. Şimdi açıp kullanabilirsiniz.";
+"Gallery.Notification.Button" = "Alana git";
+"Gallery.Notification.Error" = "Hay aksi! %@ yüklenemedi. Lütfen internet bağlantınızı kontrol edin ve tekrar deneyin. Bu da işe yaramazsa forumda bize bildirin.";
 
 // MARK: - Membership
-"Membership" = "Membership";
-"Just e-mail" = "Just e-mail";
-"E-mail" = "E-mail";
-"Learn more" = "Learn more";
-"per" = "per";
-"unlimited" = "Unlimited";
+"Membership" = "Üyelik";
+"Just e-mail" = "Sadece e-posta";
+"E-mail" = "E-Posta";
+"Learn more" = "Daha fazla bilgi edinin";
+"per" = "başına";
+"unlimited" = "Limitsiz";
 
 
-"Upgrade" = "Upgrade";
+"Upgrade" = "Yükselt";
 "What’s included" = "Neler dahil";
 "Submit" = "Gönder";
 "Resend" = "Tekrar Gönder";
@@ -1098,7 +1099,7 @@
 "StoreKitServiceError.userCancelled" = "Satın alma işlemi iptal edildi";
 "StoreKitServiceError.needUserAction" = "Ödeme başarısız, Apple tarafındaki Kullanıcı İşlemlerinin ödeme yapması gerekiyor.";
 
-"Membership.Ad.Title" = "Membership";
+"Membership.Ad.Title" = "Üyelik";
 "Membership.Ad.Subtitle" = "Anytype ağına katılmak, hikayesine katkıda bulunmak anlamına gelir";
 
 "Membership.Legal.Details" = "Üyelik plan detayları";
@@ -1154,42 +1155,42 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "Membership.Payment.Google subscription" = "Google aboneliği";
 
 
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+"Membership.Explorer.Subtitle" = "Cihazlarınızı senkronize edin, yedek depolama alanı edinin ve işbirliğine katılın.";
+"Membership.Builder.Subtitle" = "Çok taraflı işbirliğinin kilidini açın ve ağ depolama alanınızı genişletin.";
+"Membership.CoCreator.Subtitle" = "Maceramızı destekleyin, özel erişim ve avantajların kilidini açın.";
+"Membership.Custom.Subtitle" = "Özel Üyelik Koşulları. Herhangi bir sorunuz varsa lütfen destek ekibiyle iletişime geçin.";
 
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+"Membership.Feature.LocalName" = "Yerel, benzersiz olmayan ad";
+"Membership.Feature.UniqueName" = "Benzersiz Ağ adı (%@+ karakter)";
+"Membership.Feature.StorageGB" = "Anytype ağında %@ GB yedekleme ve eşitleme alanı";
+"Membership.Feature.Invites" = "%@ davetiye";
+"Membership.Feature.SpaceWriters" = "Paylaşılan alan başına %@ editör";
+"Membership.Feature.UnlimitedViewers" = "Paylaşılan alanlar için sınırsız görüntüleyici";
+"Membership.Feature.Viewers" = "Paylaşılan alan için %@ görüntüleyici";
+"Membership.Feature.SharedSpaces" = "En fazla %@ paylaşılan alan";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+"MembershipServiceError.tierNotFound" = "Katman verisi bulunamadı, uygulamayı yeniden başlatın ve tekrar deneyin";
+"MembershipServiceError.invalidBillingIdFormat" = "Fatura formatıyla ilgili dahili sorun, bunun üzerinde çalışıyoruz. Daha sonra tekrar deneyin veya destek ekibiyle iletişime geçin.";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "Masaüstü platformunda katmanı yönetebilirsiniz";
+"Membership.ManageTier.Android" = "Android platformunda katmanı yönetebilirsiniz";
+"Membership.ManageTier.AppleId" = "Katmanı başka bir AppleId hesabından yönetebilirsiniz";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "Veri yedekleme devre dışı";
+"SyncStatus.Info.AnytypeNetwork" = "Uçtan uca şifrelenmiş";
+"SyncStatus.Error.storageLimitExceed" = "Depolama sınırına ulaşıldı";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
-"SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
-"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+"SyncStatus.Error.networkError" = "Alana erişim yok";
+"SyncStatus.Error.UNRECOGNIZED" = "Tanınmayan hata";
+"SyncStatus.P2P.Restricted" = "Kısıtlanmış. Cihaz ayarlarını kontrol edin.";
 
 
 // MARK: - Debug
-"Debug.MimeTypes" = "Mime Types - %@";
-"Debug.Info" = "Debug Info";
+"Debug.MimeTypes" = "Medya Türleri - %@";
+"Debug.Info" = "Hata Ayıklama Bilgisi";
 
 // MARK: - Messages
-"Message.Action.AddReaction" = "Add Reaction";
-"Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.Action.AddReaction" = "Tepki Ekle";
+"Message.Input.EmptyPlaceholder" = "Bir mesaj yazın...";
