@@ -70,12 +70,12 @@
 "Object.Deleted.Placeholder" = "Silinen nesne";
 
 // MARK: - Relation
-"Featured relations" = "Öne Çıkan Bağıntılar";
-"Create relation" = "Bağıntı oluştur %@’";
+"Featured relations" = "Öne çıkan ilişkiler";
+"Create relation" = "Bağıntı oluştur ‘%@’";
 "Relation.View.Hint.Empty" = "boş";
-"Relation.MyRelations" = "Bağıntılarım";
+"Relation.MyRelations" = "İlişkilerim";
 "Relation.AddedToLibrary" = "%@ bağıntısı kitaplığınıza eklendi";
-"Relation.Deleted" = "Kaldırılmış Bağıntı";
+"Relation.Deleted" = "Silinmiş ilişki";
 "Relation.From.Type" = "%@ türünden";
 "Relation.EmptyState.title" = "Seçenek yok";
 "Relation.EmptyState.description" = "Hiçbir şey bulunamadı. Başlamak için ilk seçeneği oluşturun.";
@@ -316,7 +316,7 @@
 
 "Undo typing" = "Yazıyı geri al";
 "Undo" = "Geri al";
-"Redo" = "Redo";
+"Redo" = "Yinele";
 "Actions.LinkItself" = "Şuna bağla";
 "Actions.MakeAsTemplate" = "Şablon Oluştur";
 "Actions.TemplateMakeDefault" = "Varsayılan yap";
