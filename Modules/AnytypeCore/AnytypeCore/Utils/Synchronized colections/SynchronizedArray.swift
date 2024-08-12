@@ -5,26 +5,32 @@ public final class SynchronizedArray<T> {
 
     // MARK: - Private variables
 
-    public private(set) var array: [T]
+    private var storage: [T]
     private let lock = NSLock()
 
     // MARK: - Initializers
 
     public init(array: [T] = []) {
-        self.array = array
+        self.storage = array
     }
 
     // MARK: - Public functions
 
+    public var array: [T] {
+        lock.lock()
+        defer { lock.unlock() }
+        return storage
+    }
+    
     public func append(_ newElement: T) {
         lock.lock()
-        array.append(newElement)
+        storage.append(newElement)
         lock.unlock()
     }
     
     public func append(contentsOf newElements: [T]) {
         lock.lock()
-        array.append(contentsOf: newElements)
+        storage.append(contentsOf: newElements)
         lock.unlock()
     }
 
@@ -33,14 +39,14 @@ public final class SynchronizedArray<T> {
             var element: T!
 
             lock.lock()
-            element = self.array[index]
+            element = self.storage[index]
             lock.unlock()
 
             return element
         }
         set {
             lock.lock()
-            array[index] = newValue
+            storage[index] = newValue
             lock.unlock()
         }
     }
@@ -48,7 +54,7 @@ public final class SynchronizedArray<T> {
     @discardableResult
     public func removeFirst() -> T {
         lock.lock()
-        let first = array.removeFirst()
+        let first = storage.removeFirst()
         lock.unlock()
 
         return first
@@ -56,7 +62,7 @@ public final class SynchronizedArray<T> {
 
     public var first: T? {
         lock.lock()
-        let first = array.first
+        let first = storage.first
         lock.unlock()
 
         return first
@@ -64,7 +70,7 @@ public final class SynchronizedArray<T> {
 
     public var count: Int {
         lock.lock()
-        let count = array.count
+        let count = storage.count
         lock.unlock()
 
         return count
@@ -72,21 +78,26 @@ public final class SynchronizedArray<T> {
 
     public func forEach(_ body: (T) throws -> Void) rethrows {
         lock.lock()
-        try array.forEach(body)
+        try storage.forEach(body)
         lock.unlock()
     }
 
     public func removeAll() {
         lock.lock()
-        array.removeAll()
+        storage.removeAll()
         lock.unlock()
     }
 
     public func removeAll(where shouldBeRemoved: (T) -> Bool) {
         lock.lock()
-        array.removeAll(where: shouldBeRemoved)
+        storage.removeAll(where: shouldBeRemoved)
         lock.unlock()
     }
     
+    public func mutate(_ closure: (_ array: inout [T]) -> Void)  {
+        lock.lock()
+        closure(&storage)
+        lock.unlock()
+    }
 }
 
