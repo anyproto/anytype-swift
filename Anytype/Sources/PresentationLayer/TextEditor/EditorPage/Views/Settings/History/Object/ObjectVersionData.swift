@@ -7,6 +7,7 @@ struct ObjectVersionData: Identifiable, Hashable {
     let spaceId: String
     let versionId: String
     let isListType: Bool
+    let canRestore: Bool
     
     var id: Int { hashValue }
 }

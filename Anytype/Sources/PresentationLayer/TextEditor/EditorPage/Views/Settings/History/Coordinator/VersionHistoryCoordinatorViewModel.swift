@@ -28,7 +28,8 @@ final class VersionHistoryCoordinatorViewModel:
             objectId: data.objectId, 
             spaceId: data.spaceId,
             versionId: versionId,
-            isListType: data.isListType
+            isListType: data.isListType,
+            canRestore: data.canRestore
         )
     }
     
