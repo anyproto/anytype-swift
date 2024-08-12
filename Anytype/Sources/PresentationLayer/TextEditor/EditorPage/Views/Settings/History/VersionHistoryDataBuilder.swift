@@ -108,7 +108,7 @@ final class VersionHistoryDataBuilder: VersionHistoryDataBuilderProtocol {
             id: version.id, 
             dateTime: buildDateTimeString(for: version),
             time: buildTimeString(for: version),
-            author: participant.localName,
+            author: participant.localName.withPlaceholder,
             icon: participant.icon
         )
     }
