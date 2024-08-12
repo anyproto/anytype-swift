@@ -35,7 +35,7 @@
 "TextStyle.Bold.Title" = "Kalın";
 "TextStyle.Italic.Title" = "İtalik";
 "TextStyle.Strikethrough.Title" = "Üstü çizili";
-"TextStyle.Underline.Title" = "Underline";
+"TextStyle.Underline.Title" = "Alt çizgi";
 "TextStyle.Code.Title" = "Kod";
 "TextStyle.Link.Title" = "Bağlantı";
 
@@ -144,7 +144,7 @@
 "Alignment" = "Hizalama";
 "Actions" = "Eylemler";
 "Relations" = "Bağıntılar";
-"History" = "History";
+"History" = "Geçmiş";
 "Objects" = "Nesneler";
 "Lists" = "Listeler";
 "Pinned" = "Sabitlendi";
@@ -196,7 +196,7 @@
 "Anytype Library" = "Anytype Kütüphanesi";
 "Copied" = "Kopyalandı";
 "Share" = "Paylaş";
-"Okay" = "Okay";
+"Okay" = "Tamam";
 "Join" = "Katıl";
 "Agreement Disclamer" = "Devam ederek [Kullanım Koşullarımızı](%@) ve [Gizlilik Politikamızı](%@) kabul etmiş olursunuz";
 
@@ -616,7 +616,7 @@
 "Downloading or uploading data to some node" = "Bazı düğümlere veri indirme veya yükleme";
 "Node is not connected" = "Düğüm bağlı değil";
 "Initializing sync" = "Senkronizasyon başlatılıyor";
-"Incompatible version" = "Incompatible version";
+"Incompatible version" = "Uyumsuz sürüm";
 "Connecting" = "Bağlanıyor...";
 "P2P Connecting" = "P2P bağlanıyor...";
 "P2P Connection" = "P2P Bağlantısı";
@@ -966,7 +966,7 @@
 "SpaceShare.HowToShare.Step1" = "Lütfen işbirliği yapmak istediğiniz kişinin bağlantısını sağlayın.";
 "SpaceShare.HowToShare.Step2" = "Bir kişi bağlantıya tıklayarak alana katılmayı talep eder.";
 "SpaceShare.HowToShare.Step3" = "Talebi onayladıktan sonra söz konusu kişi için erişim haklarını seçebilirsiniz.";
-"SpaceShare.Manage" = "Manage";
+"SpaceShare.Manage" = "Yönet";
 "SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
 "SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
 
@@ -1094,7 +1094,7 @@
 "Manage payment" = "Manage payment";
 "Change email" = "E-postayı değiştir";
 "Email successfully validated" = "E-posta başarıyla doğrulandı";
-"Confirm" = "Confirm";
+"Confirm" = "Onayla";
 
 "StoreKitServiceError.userCancelled" = "Satın alma işlemi iptal edildi";
 "StoreKitServiceError.needUserAction" = "Ödeme başarısız, Apple tarafındaki Kullanıcı İşlemlerinin ödeme yapması gerekiyor.";
@@ -1181,7 +1181,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "SyncStatus.Info.localOnly" = "Veri yedekleme devre dışı";
 "SyncStatus.Info.AnytypeNetwork" = "Uçtan uca şifrelenmiş";
 "SyncStatus.Error.storageLimitExceed" = "Depolama sınırına ulaşıldı";
-"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.incompatibleVersion" = "Uyumsuz sürüm";
 "SyncStatus.Error.networkError" = "Alana erişim yok";
 "SyncStatus.Error.UNRECOGNIZED" = "Tanınmayan hata";
 "SyncStatus.P2P.Restricted" = "Kısıtlanmış. Cihaz ayarlarını kontrol edin.";
