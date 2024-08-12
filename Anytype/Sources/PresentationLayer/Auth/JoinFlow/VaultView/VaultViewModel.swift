@@ -39,6 +39,7 @@ final class VaultViewModel: ObservableObject {
     
     private func createAccount() {
         Task {
+            AnytypeAnalytics.instance().logStartCreateAccount()
             startLoading()
             
             do {
