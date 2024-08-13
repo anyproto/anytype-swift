@@ -5,6 +5,10 @@ import Services
 struct IconsGroupView: View {
     let icons: [ObjectIcon]
     
+    init(icons: [ObjectIcon]) {
+        self.icons = icons.reversed()
+    }
+    
     var body: some View {
         HStack(spacing: 4) {
             iconsView

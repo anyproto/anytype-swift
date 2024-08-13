@@ -69,9 +69,10 @@ struct VersionHistoryView: View {
                     .foregroundColor(.Text.primary)
                 AnytypeText(data.author, style: .caption1Regular)
                     .foregroundColor(.Text.secondary)
+                    .lineLimit(1)
             }
             
-            Spacer()
+            Spacer(minLength: 12)
             
             ObjectIconView(icon: data.icon)
                 .frame(width: 24, height: 24)

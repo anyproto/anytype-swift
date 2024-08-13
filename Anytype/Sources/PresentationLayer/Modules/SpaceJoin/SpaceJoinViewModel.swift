@@ -33,8 +33,7 @@ final class SpaceJoinViewModel: ObservableObject {
     private var callManageSpaces = false
     
     @Published var errorMessage: String = ""
-    @Published var message: String = ""
-    @Published var comment: String = ""
+    @Published var message: String = Loc.SpaceShare.Join.message("", "") // For Placeholder
     @Published var state: ScreenState = .loading
     @Published var dataState: SpaceJoinDataState = .invite
     @Published var toast: ToastBarData = .empty
