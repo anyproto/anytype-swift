@@ -15,8 +15,8 @@ struct GalleryWidgetRow: View {
     
     var body: some View {
         ZStack {
-            Color.Background.primary
-                .border(8, color: .Shape.primary)
+            Color.clear
+                .border(8, color: .Shape.transperentPrimary)
             
             VStack(alignment: .leading, spacing: 0) {
                 if let cover = model.cover {
@@ -47,7 +47,6 @@ struct GalleryWidgetRow: View {
             }
         }
         .cornerRadius(8, style: .continuous)
-        .shadow(color: .black.opacity(0.05), radius: 4)
         .id(model.objectId)
     }
 }
