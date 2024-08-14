@@ -70,7 +70,7 @@ extension StandardButtonStyle {
                     borderColor: .Shape.primary
                 ),
                 higlighted: StandardButtonConfig.Style(
-                    backgroundColor: .Shape.transperent
+                    backgroundColor: .Shape.transperentSecondary
                 ),
                 disabled: StandardButtonConfig.Style(
                     textColor: .Text.tertiary,

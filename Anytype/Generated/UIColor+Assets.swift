@@ -182,7 +182,9 @@ extension UIColor {
       internal static let primary = UIColor(asset: Asset.Shape.primary)
       internal static let secondary = UIColor(asset: Asset.Shape.secondary)
       internal static let tertiary = UIColor(asset: Asset.Shape.tertiary)
-      internal static let transperent = UIColor(asset: Asset.Shape.transperent)
+      internal static let transperentPrimary = UIColor(asset: Asset.Shape.transperentPrimary)
+      internal static let transperentSecondary = UIColor(asset: Asset.Shape.transperentSecondary)
+      internal static let transperentTertiary = UIColor(asset: Asset.Shape.transperentTertiary)
     }
     
     // MARK: - Text
