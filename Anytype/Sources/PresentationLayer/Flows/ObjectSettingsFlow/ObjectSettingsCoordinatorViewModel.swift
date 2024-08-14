@@ -107,7 +107,8 @@ final class ObjectSettingsCoordinatorViewModel:
     
     // MARK: - ObjectVersionModuleOutput
     
-    func versionRestored() {
+    func versionRestored(_ text: String) {
         dismiss.toggle()
+        output?.versionRestored(text)
     }
 }

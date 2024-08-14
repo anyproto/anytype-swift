@@ -204,6 +204,10 @@ final class EditorSetCoordinatorViewModel:
     func didUndoRedo() {
         anytypeAssertionFailure("Undo/redo is not available")
     }
+    
+    func versionRestored(_ text: String) {
+        toastBarData = ToastBarData(text: Loc.VersionHistory.Toast.message(text), showSnackBar: true, messageType: .none)
+    }
 }
 
 extension EditorSetCoordinatorViewModel {

@@ -35,8 +35,8 @@ final class VersionHistoryCoordinatorViewModel:
     
     // MARK: ObjectVersionModuleOutput
     
-    func versionRestored() {
-        output?.versionRestored()
+    func versionRestored(_ text: String) {
+        output?.versionRestored(text)
     }
 }
 
