@@ -119,4 +119,8 @@ extension ObjectType {
     public var isNoteLayout: Bool {
         recommendedLayout == .note
     }
+    
+    public var isImageLayout: Bool {
+        recommendedLayout == .image
+    }
 }
