@@ -62,7 +62,7 @@ struct SetGalleryViewCell: View {
                     Constants.largeItemHeight
             )
             .frame(maxWidth: .infinity)
-            .background(Color.Shape.transperent)
+            .background(Color.Shape.transperentSecondary)
         }
     }
     

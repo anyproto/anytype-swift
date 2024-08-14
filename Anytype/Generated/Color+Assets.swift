@@ -182,7 +182,9 @@ extension Color {
       internal static let primary = Color(asset: Asset.Shape.primary)
       internal static let secondary = Color(asset: Asset.Shape.secondary)
       internal static let tertiary = Color(asset: Asset.Shape.tertiary)
-      internal static let transperent = Color(asset: Asset.Shape.transperent)
+      internal static let transperentPrimary = Color(asset: Asset.Shape.transperentPrimary)
+      internal static let transperentSecondary = Color(asset: Asset.Shape.transperentSecondary)
+      internal static let transperentTertiary = Color(asset: Asset.Shape.transperentTertiary)
     }
     
     // MARK: - Text
