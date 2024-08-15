@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "История версий";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Поиск";
 "There is no emoji named" = "Нет эмодзи с таким именем";
