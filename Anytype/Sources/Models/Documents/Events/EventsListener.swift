@@ -112,7 +112,7 @@ actor EventsListener: EventsListenerProtocol {
             .compactMap { $0.object as? RelationEventsBunch }
             .receiveOnMain()
             .sink { [weak self] eventsBunch in
-                Task {
+                Task { [weak self] in
                     await self?.handleRelation(eventsBunch: eventsBunch)
                 }
             }
