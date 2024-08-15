@@ -7,8 +7,8 @@ struct ShareOptionsView: View {
     @StateObject private var model: ShareOptionsViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(output: (any ShareOptionsModuleOutput)?) {
-        self._model = StateObject(wrappedValue: ShareOptionsViewModel(output: output))
+    init(spaceId: String, output: (any ShareOptionsModuleOutput)?) {
+        self._model = StateObject(wrappedValue: ShareOptionsViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {

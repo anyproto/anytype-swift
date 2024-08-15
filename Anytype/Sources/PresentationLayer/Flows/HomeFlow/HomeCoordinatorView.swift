@@ -41,8 +41,10 @@ struct HomeCoordinatorView: View {
             model.onAppear()
             model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
         }
-        .task {
-            await model.startDeepLinkTask()
+        .ifLet(model.info) { view, _ in
+            view.task {
+                await model.startDeepLinkTask()
+            }
         }
         .environment(\.pageNavigation, model.pageNavigation)
         .onChange(of: model.keyboardToggle) { _ in
@@ -69,8 +71,8 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showSpaceSettings) {
             SpaceSettingsCoordinatorView()
         }
-        .sheet(isPresented: $model.showSharing) {
-            ShareCoordinatorView()
+        .sheet(item: $model.showSharingDataSpaceId) {
+            ShareCoordinatorView(spaceId: $0.value)
         }
         .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
             model.typeSearchForObjectCreationModule()

@@ -10,9 +10,10 @@ final class ShareOptionsViewModel: ObservableObject {
     private var contentManager: any SharedContentManagerProtocol
     @Injected(\.shareOptionsInteractor)
     private var interactor: any ShareOptionsInteractorProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     
+    private let spaceId: String
     private weak var output: (any ShareOptionsModuleOutput)?
     
     // First Group
@@ -38,8 +39,10 @@ final class ShareOptionsViewModel: ObservableObject {
     private var linkObjectDetails: ObjectDetails?
     
     init(
+        spaceId: String,
         output: (any ShareOptionsModuleOutput)?
     ) {
+        self.spaceId = spaceId
         self.output = output
         setupData()
         if #available(iOS 17.0, *) {
@@ -122,7 +125,7 @@ final class ShareOptionsViewModel: ObservableObject {
         counter.textCount = content.items.filter(\.isText).count
         counter.bookmarksCount = content.items.filter(\.isUrl).count
         counter.filesCount = content.items.filter(\.isFile).count
-        spaceDetails = activeWorkpaceStorage.spaceView()
+        spaceDetails = workspaceStorage.spaceView(spaceId: spaceId)
         
         updateAvailableOptions()
         updateDataState()
