@@ -8,14 +8,17 @@ final class SpaceMembersViewModel: ObservableObject {
     
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     
-    private lazy var participantsSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+    private let spaceId: String
     
     // MARK: - State
     
     @Published var rows: [SpaceShareParticipantViewModel] = []
+    
+    init(spaceId: String) {
+        self.spaceId = spaceId
+    }
     
     func startParticipantTask() async {
         for await participants in participantsSubscription.activeParticipantsPublisher.values {
