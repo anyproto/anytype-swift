@@ -127,7 +127,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
-        TypeSearchForNewObjectCoordinatorView { [weak self] details in
+        TypeSearchForNewObjectCoordinatorView(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) { [weak self] details in
             guard let self else { return }
             openObject(screenData: details.editorScreenData())
         }

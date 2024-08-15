@@ -16,21 +16,21 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     private var blockService: any BlockServiceProtocol
     @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.objectTypeProvider)
     private var typeProvider: any ObjectTypeProviderProtocol
     
+    private let spaceId: String
     private let openObject: (ObjectDetails)->()
     
-    init(openObject: @escaping (ObjectDetails)->()) {
+    init(spaceId: String, openObject: @escaping (ObjectDetails)->()) {
+        self.spaceId = spaceId
         self.openObject = openObject
     }
     
     func typeSearchModule() -> ObjectTypeSearchView {
         ObjectTypeSearchView(
             title: Loc.createNewObject,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            spaceId: spaceId,
             settings: .newObjectCreation
         ) { [weak self] result in
             guard let self else { return }
@@ -49,7 +49,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
                 case .string:
                     fallthrough
                 case .otherContent:
-                    guard let type = try? typeProvider.defaultObjectType(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) else {
+                    guard let type = try? typeProvider.defaultObjectType(spaceId: spaceId) else {
                         return
                     }
                     
@@ -62,7 +62,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     private func createAndShowNewBookmark(url: AnytypeURL) {
         Task {
             let details = try await bookmarkService.createBookmarkObject(
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                spaceId: spaceId,
                 url: url,
                 origin: .clipboard
             )
@@ -86,7 +86,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
                 shouldDeleteEmptyObject: true,
                 shouldSelectType: false,
                 shouldSelectTemplate: true,
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                spaceId: spaceId,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
