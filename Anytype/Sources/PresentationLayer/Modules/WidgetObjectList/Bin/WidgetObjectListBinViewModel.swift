@@ -8,13 +8,14 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     
     // MARK: - DI
     
+    private let spaceId: String
     @Injected(\.binSubscriptionService)
     private var binSubscriptionService: any BinSubscriptionServiceProtocol
     
     // MARK: - State
     
     let title = Loc.bin
-    let editorScreenData: EditorScreenData = .bin
+    let editorScreenData: EditorScreenData
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     let availableMenuItems: [WidgetObjectListMenuItem] = [.restore, .delete]
@@ -24,7 +25,10 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init() { }
+    init(spaceId: String) {
+        self.spaceId = spaceId
+        self.editorScreenData = .bin(spaceId: spaceId)
+    }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     

@@ -13,7 +13,7 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     // MARK: - State
     
     let title = Loc.FilesList.title
-    let editorScreenData: EditorScreenData = .favorites("") // Is not used
+    let editorScreenData: EditorScreenData = .favorites(homeObjectId: "", spaceId: "") // Is not used
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .editOnly
     let availableMenuItems: [WidgetObjectListMenuItem] = [.forceDelete]

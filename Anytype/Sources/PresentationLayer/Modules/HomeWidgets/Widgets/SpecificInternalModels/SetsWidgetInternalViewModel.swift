@@ -10,6 +10,7 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     
     private let widgetBlockId: String
     private let widgetObject: any BaseDocumentProtocol
+    private let spaceId: String
     private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.setsSubscriptionService)
@@ -30,6 +31,7 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     init(data: WidgetSubmoduleData) {
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
+        self.spaceId = data.workspaceInfo.accountSpaceId
         self.output = data.output
     }
     
@@ -50,7 +52,7 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     func startHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
-        return .sets
+        return .sets(spaceId: spaceId)
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

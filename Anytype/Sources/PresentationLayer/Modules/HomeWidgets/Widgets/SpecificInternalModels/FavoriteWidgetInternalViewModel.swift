@@ -11,6 +11,7 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
     private let widgetBlockId: String
     private let widgetObject: any BaseDocumentProtocol
     private let homeObjectId: String
+    private let spaceId: String
     private weak var output: (any CommonWidgetModuleOutput)?
     
     @Injected(\.favoriteSubscriptionService)
@@ -35,10 +36,10 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
         self.widgetBlockId = data.widgetBlockId
         self.widgetObject = data.widgetObject
         self.homeObjectId = data.workspaceInfo.homeObjectID
+        self.spaceId = data.workspaceInfo.accountSpaceId
         self.output = data.output
         
         let documentService = Container.shared.documentService.resolve()
-        let activeWorkspaceStorage = Container.shared.activeWorkspaceStorage.resolve()
         self.document = documentService.document(objectId: homeObjectId)
     }
     
@@ -57,7 +58,7 @@ final class FavoriteWidgetInternalViewModel: ObservableObject, WidgetInternalVie
     func startHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
-        return .favorites(homeObjectId)
+        return .favorites(homeObjectId: homeObjectId, spaceId: spaceId)
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {
