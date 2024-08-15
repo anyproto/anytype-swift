@@ -22,7 +22,7 @@ struct VersionHistoryView: View {
         .task {
             await model.startParticipantsSubscription()
         }
-        .task {
+        .task(id: model.lastViewedVersionId) {
             await model.getVersions()
         }
     }
@@ -49,6 +49,9 @@ struct VersionHistoryView: View {
             }
         )
         .padding(.horizontal, 20)
+        .onAppear {
+            model.onAppearLastGroup(group)
+        }
     }
     
     private func content(for versions: [[VersionHistoryItem]]) -> some View {
