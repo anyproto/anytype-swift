@@ -4,7 +4,7 @@ import Services
 import ProtobufMessages
 import AnytypeCore
 
-final class EventsListener: EventsListenerProtocol {
+actor EventsListener: EventsListenerProtocol {
     
     // MARK: - Internal variables
     
@@ -59,19 +59,47 @@ final class EventsListener: EventsListenerProtocol {
     
     // MARK: - EventsListenerProtocol
     
+    nonisolated
     func startListening() {
+        Task {
+            await startListeningInternal()
+        }
+    }
+    
+    nonisolated
+    func stopListening() {
+        Task {
+            await stopListeningInternal()
+        }
+    }
+    
+    nonisolated
+    func setOnUpdateReceice(_ closure: @escaping ([DocumentUpdate]) -> Void) {
+        Task {
+            await setOnUpdateReceiceInternal(closure)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func startListeningInternal() {
         subscribeMiddlewareEvents()
         subscribeRelationEvents()
     }
     
-    func stopListening() {
+    private func stopListeningInternal() {
         subscriptions = []
+    }
+    
+    
+    private func setOnUpdateReceiceInternal(_ closure: @escaping ([DocumentUpdate]) -> Void) {
+        onUpdatesReceive = closure
     }
     
     private func subscribeMiddlewareEvents() {
         EventBunchSubscribtion.default.addHandler { [weak self] events in
             guard events.contextId == self?.objectId else { return }
-            self?.handle(events: events)
+            await self?.handle(events: events)
         }.store(in: &subscriptions)
     }
     
@@ -84,7 +112,9 @@ final class EventsListener: EventsListenerProtocol {
             .compactMap { $0.object as? RelationEventsBunch }
             .receiveOnMain()
             .sink { [weak self] eventsBunch in
-                self?.handleRelation(eventsBunch: eventsBunch)
+                Task {
+                    await self?.handleRelation(eventsBunch: eventsBunch)
+                }
             }
         subscriptions.append(subscription)
     }
