@@ -9,7 +9,7 @@ struct WidgetObjectListFilesView: View {
     init(spaceId: String) {
         self._model = StateObject(wrappedValue: WidgetObjectListViewModel(
             spaceId: spaceId,
-            internalModel: WidgetObjectListFilesViewModel(),
+            internalModel: WidgetObjectListFilesViewModel(spaceId: spaceId),
             menuBuilder: WidgetObjectListMenuBuilder(),
             output: nil,
             isSheet: true
