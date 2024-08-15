@@ -1,12 +1,13 @@
 import Foundation
 import SwiftUI
+import Services
 
 struct SpaceShareView: View {
     
     @StateObject private var model: SpaceShareViewModel
     
-    init(onMoreInfo: @escaping () -> Void) {
-        self._model = StateObject(wrappedValue: SpaceShareViewModel(onMoreInfo: onMoreInfo))
+    init(workspaceInfo: AccountInfo, onMoreInfo: @escaping () -> Void) {
+        self._model = StateObject(wrappedValue: SpaceShareViewModel(workspaceInfo: workspaceInfo, onMoreInfo: onMoreInfo))
     }
     
     var body: some View {

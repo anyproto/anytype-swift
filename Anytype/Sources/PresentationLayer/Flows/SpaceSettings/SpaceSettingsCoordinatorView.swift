@@ -34,8 +34,8 @@ struct SpaceSettingsCoordinatorView: View {
                     }
                 }
         }
-        .sheet(isPresented: $model.showSpaceShare) {
-            SpaceShareCoordinatorView()
+        .sheet(item: $model.showSpaceShareData) {
+            SpaceShareCoordinatorView(workspaceInfo: $0)
         }
         .sheet(item: $model.showSpaceMembersDataSpaceId) {
             SpaceMembersView(spaceId: $0.value)
