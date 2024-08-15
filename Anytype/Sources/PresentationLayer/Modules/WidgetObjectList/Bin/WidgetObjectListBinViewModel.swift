@@ -34,7 +34,7 @@ final class WidgetObjectListBinViewModel: WidgetObjectListInternalViewModelProto
     
     func onAppear() {
         Task {
-            await binSubscriptionService.startSubscription(objectLimit: nil) { [weak self] details in
+            await binSubscriptionService.startSubscription(spaceId: spaceId, objectLimit: nil) { [weak self] details in
                 self?.details = details
             }
         }

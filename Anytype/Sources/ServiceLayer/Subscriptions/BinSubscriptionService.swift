@@ -6,6 +6,7 @@ import AnytypeCore
 @MainActor
 protocol BinSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
+        spaceId: String,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async
@@ -19,8 +20,6 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
         static let limit = 100
     }
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
@@ -31,6 +30,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
     nonisolated init() {}
     
     func startSubscription(
+        spaceId: String,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async {
@@ -42,7 +42,7 @@ final class BinSubscriptionService: BinSubscriptionServiceProtocol {
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters(isArchive: true)
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            SearchHelper.spaceId(spaceId)
         }
         
         let searchData: SubscriptionData = .search(
