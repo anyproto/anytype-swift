@@ -20,8 +20,8 @@ struct EditorCoordinatorView: View {
     @ViewBuilder
     private var mainView: some View {
         switch model.data {
-        case .favorites:
-            WidgetObjectListFavoritesView(output: model)
+        case .favorites(let homeObjectId):
+            WidgetObjectListFavoritesView(homeObjectId: homeObjectId, output: model)
         case .recentEdit:
             WidgetObjectListRecentEditView(output: model)
         case .recentOpen:

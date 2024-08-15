@@ -9,8 +9,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
-    private let info: AccountInfo
-    
+    let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
