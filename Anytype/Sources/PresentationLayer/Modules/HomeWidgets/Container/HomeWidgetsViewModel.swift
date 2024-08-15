@@ -17,8 +17,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
     private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
@@ -69,7 +69,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func onAppear() {
         if #available(iOS 17.0, *) {
-            if activeWorkspaceStorage.spaceView()?.spaceAccessType == .private {
+            if workspaceStorage.spaceView(spaceId: info.accountSpaceId)?.spaceAccessType == .private {
                 SpaceShareTip.didOpenPrivateSpace = true
             }
         }
