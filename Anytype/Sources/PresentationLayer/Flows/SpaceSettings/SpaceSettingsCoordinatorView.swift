@@ -1,13 +1,18 @@
 import Foundation
 import SwiftUI
+import Services
 
 struct SpaceSettingsCoordinatorView: View {
     
-    @StateObject private var model = SpaceSettingsCoordinatorViewModel()
+    @StateObject private var model: SpaceSettingsCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
     
+    init(workspaceInfo: AccountInfo) {
+        self._model = StateObject(wrappedValue: SpaceSettingsCoordinatorViewModel(workspaceInfo: workspaceInfo))
+    }
+    
     var body: some View {
-        SpaceSettingsView(output: model)
+        SpaceSettingsView(workspaceInfo: model.workspaceInfo, output: model)
         .sheet(isPresented: $model.showRemoteStorage) {
             RemoteStorageView(spaceId: model.accountSpaceId, output: model)
                 .sheet(isPresented: $model.showFiles) {
