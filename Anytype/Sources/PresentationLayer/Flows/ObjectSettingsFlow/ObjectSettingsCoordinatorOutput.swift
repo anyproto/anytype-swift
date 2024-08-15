@@ -8,4 +8,5 @@ protocol ObjectSettingsCoordinatorOutput: AnyObject {
     func didCreateTemplate(templateId: String)
     func didTapUseTemplateAsDefault(templateId: String)
     func didUndoRedo()
+    func versionRestored(_ text: String)
 }

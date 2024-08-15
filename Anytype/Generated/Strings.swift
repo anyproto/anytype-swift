@@ -1852,6 +1852,11 @@ internal enum Loc {
   }
   internal enum VersionHistory {
     internal static let title = Loc.tr("Localizable", "VersionHistory.Title")
+    internal enum Toast {
+      internal static func message(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "VersionHistory.Toast.message", String(describing: p1))
+      }
+    }
   }
   internal enum Wallet {
     internal enum Recovery {

@@ -3,7 +3,7 @@ import SwiftUI
 
 @MainActor
 protocol ObjectVersionModuleOutput: AnyObject {
-    func versionRestored()
+    func versionRestored(_ text: String)
 }
 
 @MainActor
@@ -39,7 +39,7 @@ final class ObjectVersionViewModel: ObservableObject {
     func onRestoreTap() {
         Task {
             try await historyVersionsService.setVersion(objectId: data.objectId, versionId: data.versionId)
-            output?.versionRestored()
+            output?.versionRestored(data.title.trimmingCharacters(in: .whitespaces))
             AnytypeAnalytics.instance().logRestoreFromHistory()
         }
     }

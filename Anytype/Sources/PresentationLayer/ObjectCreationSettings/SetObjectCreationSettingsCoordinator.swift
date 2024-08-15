@@ -26,6 +26,8 @@ final class SetObjectCreationSettingsCoordinator:
 {
     @Injected(\.legacyNavigationContext)
     private var navigationContext: any NavigationContextProtocol
+    @Injected(\.legacyToastPresenter)
+    private var toastPresenter: any ToastPresenterProtocol
     
     private var useAsTemplateAction: ((String) -> Void)?
     private var onTemplateSelection: ((ObjectCreationSetting) -> Void)?
@@ -131,6 +133,10 @@ final class SetObjectCreationSettingsCoordinator:
     
     func didUndoRedo() {
         anytypeAssertionFailure("Undo/redo is not available")
+    }
+    
+    func versionRestored(_ text: String) {
+        toastPresenter.show(message: Loc.VersionHistory.Toast.message(text))
     }
     
     // MARK: - SetObjectCreationSettingsOutput
