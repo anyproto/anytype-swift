@@ -292,6 +292,7 @@
 
 // Version history
 "VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "搜尋";
 "There is no emoji named" = "尚無命名的 Emoji";

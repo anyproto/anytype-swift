@@ -63,7 +63,7 @@
 "BlockLink.PreviewSettings.Layout.Text.Title" = "Metin";
 
 // MARK: - Settings
-"Settings.SpaceName" = "Alan Adı";
+"Settings.SpaceName" = "Alan ismi";
 
 // MARK: - Object
 "Object.Title.Placeholder" = "Başlıksız";
@@ -71,7 +71,7 @@
 
 // MARK: - Relation
 "Featured relations" = "Öne çıkan ilişkiler";
-"Create relation" = "Bağıntı oluştur ‘%@’";
+"Create relation" = "İlişki oluştur ‘%@’";
 "Relation.View.Hint.Empty" = "boş";
 "Relation.MyRelations" = "İlişkilerim";
 "Relation.AddedToLibrary" = "%@ bağıntısı kitaplığınıza eklendi";
@@ -143,7 +143,7 @@
 "Media" = "Medya";
 "Alignment" = "Hizalama";
 "Actions" = "Eylemler";
-"Relations" = "Bağıntılar";
+"Relations" = "İlişkiler";
 "History" = "Geçmiş";
 "Objects" = "Nesneler";
 "Lists" = "Listeler";
@@ -203,14 +203,14 @@
 // Home
 "Favorites" = "Favoriler";
 "Recent" = "Son";
-"Bin" = "Çöp Kutusu";
+"Bin" = "Çöp kutusu";
 
 // Settings
-"Wallpaper" = "Duvar Kağıdı";
-"Log out" = "Çıkış Yap";
+"Wallpaper" = "Duvar kağıdı";
+"Log out" = "Çıkış yap";
 
 // Action
-"Restore" = "Geri Yükle";
+"Restore" = "Geri yükle";
 
 // Keychain screen
 "Keychain.Key" = "Kurtarma anahtarı";
@@ -225,8 +225,8 @@
 
 // Auth
 "Create" = "Oluştur";
-"Scan QR code" = "QR kodunu tara";
-"Auth.CameraPermissionTitle" = "Lütfen erişime izin ver";
+"Scan QR code" = "Karekodu tara";
+"Auth.CameraPermissionTitle" = "Lütfen erişime izin verin";
 "Restore key from keychain" = "Anahtarı keychain'den geri yükleme";
 "Auth.LogIn" = "Kurtarma anahtarım var";
 "Auth.Button.Join" = "Yeni Kasa";
@@ -277,7 +277,7 @@
 "Auth.LoginFlow.Or" = "YA DA";
 "Auth.LoginFlow.Textfield.Placeholder" = "Anahtarınızı yazın";
 "Auth.LoginFlow.Enter.Title" = "Get my Key";
-"Auth.LoginFlow.Entering.Void.Title" = "Hiçliğe giriliyor";
+"Auth.LoginFlow.Entering.Void.Title" = "Void'e giriliyor";
 
 // Object settings
 
@@ -291,10 +291,11 @@
 
 // Version history
 "VersionHistory.Title" = "Sürüm geçmişi";
+"VersionHistory.Toast.message" = "%@ sürümü geri yüklendi";
 
 "Search" = "Ara";
 "There is no emoji named" = "isimli emoji yok";
-"Try to find a new one or upload your image" = "Yeni bir tane bulmaya çalış ya da kendi resmini yükle";
+"Try to find a new one or upload your image" = "Yeni bir tane bulmaya çalışın ya da kendi resminizi yükleyin";
 
 "Emoji" = "Emoji";
 "Random" = "Rastgele";
@@ -356,7 +357,7 @@
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Ayarlar";
-"Alert.CameraPermissions.GoToSettings" = "QR kodunu taramak için Anytype'ın kameranıza erişmesi gerekir.\n\nLütfen cihazınızın Ayarlar -> Gizlilik -> Kamera bölümüne gidin ve Anytype'a kamera izni verin.";
+"Alert.CameraPermissions.GoToSettings" = "Karekodu taramak için Anytype'ın kameranıza erişmesi gerekir.\n\nLütfen cihazınızın Ayarlar -> Gizlilik -> Kamera bölümüne gidin ve Anytype'a kamera izni verin.";
 
 // MARK: - Deletion
 "Pending deletion text" = "Gittiğinizi gördüğümüz için üzgünüz. Bu talebi iptal etmek için 30 gününüz var. 30 gün sonra şifrelenmiş kasa verileriniz yedekleme düğümünden kalıcı olarak kaldırılacaktır.";
@@ -471,8 +472,8 @@
 
 // MARK: - Sets: Featured relations
 "Set.FeaturedRelations.Query" = "Sorgu";
-"Set.FeaturedRelations.RelationsList" = "Bağıntılar:";
-"Set.FeaturedRelations.Relation" = "Bağıntı:";
+"Set.FeaturedRelations.RelationsList" = "İlişkiler:";
+"Set.FeaturedRelations.Relation" = "İlişki:";
 "Set.FeaturedRelations.Type" = "Tür:";
 
 // MARK: - Sets: Filters search
@@ -491,13 +492,13 @@
 "Set.View.Settings.GroupBy.Title" = "Grupla";
 "Set.View.Settings.GroupBackgroundColors.Title" = "Sütunları renklendir";
 
-"Set.View.Settings.NoRelations.Placeholder" = "İlişkiler yok";
-"Set.View.Settings.NoFilters.Placeholder" = "Filtreler yok";
-"Set.View.Settings.NoSorts.Placeholder" = "Sıralamalar yok";
+"Set.View.Settings.NoRelations.Placeholder" = "İlişki yok";
+"Set.View.Settings.NoFilters.Placeholder" = "Filtre yok";
+"Set.View.Settings.NoSorts.Placeholder" = "Sıralama yok";
 "Set.View.Settings.Objects.Applied.Title" = "%d uygulandı";
 
 // MARK: - Sets: Kanban
-"Set.View.Kanban.Column.Title.Uncategorized" = "Kategorisiz";
+"Set.View.Kanban.Column.Title.Uncategorized" = "Kategorilenmemiş";
 "Set.View.Kanban.Column.Title.Checked" = "%@ kontrol edildi";
 "Set.View.Kanban.Column.Title.Unchecked" = "%@ işaretli değil";
 "Set.View.Kanban.Column.Paging.Title.ShowMore" = "Daha fazla nesne göster";
@@ -566,12 +567,12 @@
 
 "Limit object types" = "Nesne türlerini sınırla";
 "Type" = "Tür";
-"No name" = "Ad yok";
-"New relation" = "Yeni bağıntı";
+"No name" = "İsim yok";
+"New relation" = "Yeni ilişki";
 "Non-existent object" = "Var olmayan nesne";
 
 "Select all" = "Tümünü seç";
-"Unselect all" = "Bütün seçimleri iptal et";
+"Unselect all" = "Tüm seçimi kaldır";
 "Deselect all" = "Tüm seçimi kaldır";
 "Shared" = "Paylaşılan";
 "Sets" = "Küme";
@@ -670,7 +671,7 @@
 "Enter number" = "Numara gir";
 "Enter text" = "Metin gir";
 "Ok" = "Tamam";
-"Error occurred. Please try again" = "Hata oluştu. Lütfen tekrar dene";
+"Error occurred. Please try again" = "Hata oluştu. Lütfen tekrar dene.";
 "Add" = "Ekle";
 "Companies, contacts, friends and family" = "Şirketler, kişiler, arkadaşlar ve aile";
 "Failed to sync, trying again..." = "Eşitleme başarısız oldu, tekrar deneniyor...";
@@ -750,7 +751,7 @@
 "RelationAction.CopyLink" = "Bağlantıyı kopyala";
 "RelationAction.Copied" = "Kopyalandı";
 "RelationAction.ReloadingContent" = "İçerik yeniden yükleniyor";
-"RelationAction.ReloadContent" = "Nesne içeriğini yenile";
+"RelationAction.ReloadContent" = "Nesne içeriğini yeniden yükle";
 "RelationAction.CallPhone" = "Telefon numarasını ara";
 "RelationAction.SendEmail" = "E-posta gönder";
 "RelationAction.OpenLink" = "Bağlantıyı Aç";
@@ -770,7 +771,7 @@
 // BlockContent
 "Content.File.Upload" = "Dosya yükle";
 "Content.Audio.Upload" = "Ses yükle";
-"Content.Video.Upload" = "Vidyo Yükle";
+"Content.Video.Upload" = "Video yükle";
 "Content.Picture.Upload" = "Resim yükle";
 "Content.Common.Uploading" = "Yükleniyor...";
 "Content.Common.Error" = "Bir şeyler ters gitti, tekrar deneyin";
@@ -798,14 +799,14 @@
 "Widgets.Actions.RemoveWidget" = "Widget'ı kaldır";
 "Widgets.Actions.EditWidgets" = "Widgetları düzenle";
 "Widgets.Actions.AddWidget" = "Widget ekle";
-"Widgets.Actions.EmptyBin" = "Çöp kutusunu boşalt";
+"Widgets.Actions.EmptyBin" = "Çöp kutusu boş";
 "Widgets.Actions.AddBelow" = "Aşağıya ekle";
 "Widgets.Actions.NewObject" = "Yeni Nesne
 ";
 "Widgets.Actions.SeeAllObjects" = "Tüm nesneleri görün";
 "Widgets.Layout.Screen.Title" = "Widget tipi";
 "Widgets.Layout.Link.Title" = "Bağlantı";
-"Widgets.Layout.Tree.Title" = "Dizin";
+"Widgets.Layout.Tree.Title" = "Ağaç";
 "Widgets.Layout.List.Title" = "Liste";
 "Widgets.Layout.CompactList.Title" = "Kompakt liste";
 "Widgets.Layout.View.Title" = "Görüntüle";
@@ -831,7 +832,7 @@
 "About.analyticsId" = "Analytics kimliği: %@";
 "About.deviceId" = "Cihaz kimliği: %@";
 "About.Device" = "Cihaz: %@";
-"About.OSVersion" = "İşletim Sistemi sürümü: %@";
+"About.OSVersion" = "İşletim sistemi sürümü: %@";
 "About.HelpCommunity" = "Yardım & Topluluk";
 "About.WhatsNew" = "Neler Yeni?";
 "About.AnytypeCommunity" = "Anytype Topluluğu";
@@ -850,7 +851,7 @@
 
 // MARK: - Settings
 "Settings.Title" = "Ayarlar";
-"Settings.SpaceName" = "Alan Adı";
+"Settings.SpaceName" = "Alan ismi";
 "Settings.SpaceType" = "Alan türü";
 "Settings.VaultAndAccess" = "Kasa ve erişim";
 
@@ -861,9 +862,9 @@
 "FileStorage.Space.Used" = "%@'dan %@ kadarı kullanıldı";
 "FileStorage.Space.GetMore" = "Daha fazla alan alın";
 "FileStorage.Local.Title" = "Yerel depolama";
-"FileStorage.Local.Instruction" = "Cihazınızda yer kazanmak için tüm dosyalarınızı şifrelenmiş yedek düğümümüze taşıyabilirsiniz. Açtığınızda bu dosyalar tekrar geri yüklenecektir.";
+"FileStorage.Local.Instruction" = "Yerel cihazınızda yer kazanmak için tüm dosyalarınızı şifrelenmiş yedekleme düğümümüze aktarabilirsiniz.  Dosyaları açtığınızda geri yüklenecektir.";
 "FileStorage.Local.Used" = "Kullanılan %@";
-"FileStorage.OffloadTitle" = "Dosyaları Taşı";
+"FileStorage.OffloadTitle" = "Dosyaları boşalt";
 "FileStorage.ManageFiles" = "Dosyaları yönet";
 "FileStorage.LimitError" = "Dosya yükleme limitini aştın";
 "FileStorage.LimitLegend.Current" = "%@ | %@";
@@ -884,7 +885,7 @@
 // MARK: - Spaces
 "Spaces.Accessibility.Shared" = "Ortak Alan";
 "Spaces.Accessibility.Private" = "Özel Alan";
-"Spaces.Accessibility.Personal" = "Default Space";
+"Spaces.Accessibility.Personal" = "Giriş Alanı";
 "Spaces.Search.Title" = "Alanlarda Ara";
 "Spaces.Title" = "Alanlar";
 "Spaces.Info.Network" = "Ağ:";

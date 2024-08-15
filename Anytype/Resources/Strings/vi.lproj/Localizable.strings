@@ -292,6 +292,7 @@
 
 // Version history
 "VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Tìm kiếm";
 "There is no emoji named" = "There is no emoji named";

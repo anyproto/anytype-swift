@@ -293,6 +293,7 @@
 
 // Version history
 "VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "ସନ୍ଧାନ";
 "There is no emoji named" = "କୌଣସି ଇମୋଜି ନାମିତ ନାହିଁ";
