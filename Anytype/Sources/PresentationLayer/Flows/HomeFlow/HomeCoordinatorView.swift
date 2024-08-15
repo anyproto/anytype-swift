@@ -52,6 +52,7 @@ struct HomeCoordinatorView: View {
         }
         .handleSpaceShareTip()
         .handleSharingTip()
+        .updateShortcuts(spaceId: model.info?.accountSpaceId)
         .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) {
             WidgetChangeSourceSearchView(data: $0)
