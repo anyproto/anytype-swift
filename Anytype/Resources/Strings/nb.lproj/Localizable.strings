@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Søk";
 "There is no emoji named" = "Det finnes ingen emoji med navnet";
