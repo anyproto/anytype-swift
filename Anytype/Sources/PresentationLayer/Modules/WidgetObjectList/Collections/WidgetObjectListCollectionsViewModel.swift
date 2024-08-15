@@ -32,7 +32,7 @@ final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewMo
     
     func onAppear() {
         Task {
-            await subscriptionService.startSubscription(objectLimit: nil) { [weak self] details in
+            await subscriptionService.startSubscription(spaceId: spaceId, objectLimit: nil) { [weak self] details in
                 guard let self else { return }
                 rowDetails = [WidgetObjectListDetailsData(details: details)]
             }

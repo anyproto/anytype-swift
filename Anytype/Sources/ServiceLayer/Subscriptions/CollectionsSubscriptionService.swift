@@ -6,6 +6,7 @@ import AnytypeCore
 @MainActor
 protocol CollectionsSubscriptionServiceProtocol: AnyObject {
     func startSubscription(
+        spaceId: String,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async
@@ -21,8 +22,6 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
     
     @Injected(\.objectTypeProvider)
     private var objectTypeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     private lazy var subscriptionStorage: any SubscriptionStorageProtocol = {
@@ -33,6 +32,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
     nonisolated init() {}
     
     func startSubscription(
+        spaceId: String,
         objectLimit: Int?,
         update: @escaping ([ObjectDetails]) -> Void
     ) async {
@@ -44,7 +44,7 @@ final class CollectionsSubscriptionService: CollectionsSubscriptionServiceProtoc
         
         let filters: [DataviewFilter] = .builder {
             SearchHelper.notHiddenFilters()
-            SearchHelper.spaceId(activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            SearchHelper.spaceId(spaceId)
             SearchHelper.layoutFilter([DetailsLayout.collection])
         }
         
