@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Riwayat Versi";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Telusuri";
 "There is no emoji named" = "Tidak ada emoji bernama";
