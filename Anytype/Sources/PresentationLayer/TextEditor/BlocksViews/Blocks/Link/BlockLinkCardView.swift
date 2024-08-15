@@ -216,7 +216,7 @@ private final class BlockLinkCoverView: UIView {
     // MARK: - Private variables
 
     private let iconView = ObjectHeaderIconView()
-    private let coverView = ObjectHeaderCoverView()
+    private let coverView = ObjectHeaderCoverUIKitView()
 
     private var coverBottomConstraint: NSLayoutConstraint?
 
@@ -281,16 +281,7 @@ extension BlockLinkCoverView {
         _ objectHeaderCover: ObjectHeaderCover,
         maxWidth: CGFloat
     ) {
-        coverView.configure(
-            model: ObjectHeaderCoverView.Model(
-                objectCover: objectHeaderCover.coverType,
-                size: CGSize(
-                    width: maxWidth,
-                    height: 136
-                ),
-                fitImage: false
-            )
-        )
+        coverView.setIcon(objectCover: objectHeaderCover.coverType, fitImage: false)
     }
 
     private func applyObjectHeaderIcon(_ objectHeaderIcon: ObjectHeaderIcon) {
