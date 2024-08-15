@@ -5,8 +5,8 @@ struct RemoteStorageView: View {
     
     @StateObject private var model: RemoteStorageViewModel
     
-    init(output: (any RemoteStorageModuleOutput)?) {
-        _model = StateObject(wrappedValue: RemoteStorageViewModel(output: output))
+    init(spaceId: String, output: (any RemoteStorageModuleOutput)?) {
+        _model = StateObject(wrappedValue: RemoteStorageViewModel(spaceId: spaceId, output: output))
     }
     
     var body: some View {
@@ -60,7 +60,7 @@ struct RemoteStorageView: View {
             bytesLimit: 1000*MB
         )
     } content: {
-        RemoteStorageView(output: nil)
+        RemoteStorageView(spaceId: "", output: nil)
     }
 }
 
@@ -72,7 +72,7 @@ struct RemoteStorageView: View {
             bytesLimit: 1000*MB
         )
     } content: {
-        RemoteStorageView(output: nil)
+        RemoteStorageView(spaceId: "", output: nil)
     }
 }
 
@@ -85,6 +85,6 @@ struct RemoteStorageView: View {
             localBytesUsage: 2000*MB
         )
     } content: {
-        RemoteStorageView(output: nil)
+        RemoteStorageView(spaceId: "", output: nil)
     }
 }
