@@ -7,5 +7,6 @@ struct BookmarkIconView: View {
     
     var body: some View {
         ImageIdIconView(imageId: imageId)
+            .cornerRadius(2)
     }
 }
