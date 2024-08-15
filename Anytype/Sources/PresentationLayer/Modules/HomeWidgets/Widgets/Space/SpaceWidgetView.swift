@@ -5,8 +5,8 @@ struct SpaceWidgetView: View {
     
     @StateObject private var model: SpaceWidgetViewModel
     
-    init(onSpaceSelected: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: SpaceWidgetViewModel(onSpaceSelected: onSpaceSelected))
+    init(spaceId: String, onSpaceSelected: @escaping () -> Void) {
+        _model = StateObject(wrappedValue: SpaceWidgetViewModel(spaceId: spaceId, onSpaceSelected: onSpaceSelected))
     }
     
     var body: some View {
