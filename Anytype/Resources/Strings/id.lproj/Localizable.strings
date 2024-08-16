@@ -168,7 +168,7 @@
 "Align right" = "Rata kanan";
 "Align left" = "Rata kiri";
 "Align center" = "Rata tengah";
-"Align justify" = "Align justify";
+"Align justify" = "Rata kanan-kiri";
 "Black" = "Hitam";
 "Amber" = "Jingga";
 "Red" = "Merah";
@@ -213,11 +213,11 @@
 "Restore" = "Pulihkan";
 
 // Keychain screen
-"Keychain.Key" = "Key";
-"Keychain.Key.Copy.Toast.title" = "Key copied";
+"Keychain.Key" = "Kunci";
+"Keychain.Key.Copy.Toast.title" = "Kunci disalin";
 "Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
+"Keychain.Show and copy key" = "Tampilkan dan salin kunci";
+"Keychain.Have you backed up your key?" = "Sudahkah kamu mencadangkan kuncimu?";
 "Keychain.Error.String to Data conversion error" = "Galat konversi String ke Data";
 "Keychain.Error.Data to String conversion error" = "Galat konversi Data ke String";
 "Keychain.Error.Unknown Keychain Error" = "Galat Kunci Tak Diketahui";
@@ -229,7 +229,7 @@
 "Auth.CameraPermissionTitle" = "Tolong izinkan akses";
 "Restore key from keychain" = "Restore Key from the keychain";
 "Auth.LogIn" = "I have a Key";
-"Auth.Button.Join" = "New Vault";
+"Auth.Button.Join" = "Brankas Baru";
 "Auth.Welcome.Subtitle" = "Create & collaborate in spaces you own. Encrypted, offline & [open](%@).";
 "Auth.Next" = "Lanjut";
 
@@ -240,26 +240,26 @@
 "Error creating wallet" = "Galat membuat wallet";
 "Error select vault" = "Error select vault";
 "Error wallet recover vault" = "Error wallet recover vault";
-"Wallet.Recovery.Error.description" = "Invalid Key";
+"Wallet.Recovery.Error.description" = "Kunci tidak valid";
 
 "Search for language" = "Cari bahasa";
 
 // Auth - Join flow
 
-"Auth.JoinFlow.Key.Title" = "This is your Key";
+"Auth.JoinFlow.Key.Title" = "Ini Kuncimu";
 "Auth.JoinFlow.Key.Description" = "It gives you full ownership over your vault.\nIt cannot be recovered.";
-"Auth.JoinFlow.Key.Button.Show.Title" = "Show my Key";
+"Auth.JoinFlow.Key.Button.Show.Title" = "Tampilkan Kunciku";
 "Auth.JoinFlow.Key.Button.Saved.Title" = "Lanjut";
 "Auth.JoinFlow.Key.Button.Later.Title" = "Lewati";
 "Auth.JoinFlow.Key.Button.Copy.Title" = "Salin ke papan klip";
 "Auth.JoinFlow.Key.Button.Info.Title" = "Baca selengkapnya";
-"Auth.JoinFlow.Key.Button.Tip.Title" = "You can find this key later in Anytype settings";
+"Auth.JoinFlow.Key.Button.Tip.Title" = "Kamu bisa menemukan kunci ini di setelan Anytype";
 
-"Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
+"Auth.JoinFlow.Key.ReadMore.Title" = "Apa itu Kunci?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Bagaimana menyimpan kunciku?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "Sedangkan, cara yang paling aman adalah dengan menuliskannya pada secarik kertas dan menyimpan kertas itu di tempat yang aman.";
 
@@ -268,14 +268,14 @@
 "Auth.JoinFlow.Soul.Placeholder" = "Nirjudul";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Title" = "Ini Brankasmu";
 "Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
 "Auth.LoginFlow.Use.Keychain.Title" = "Gunakan rantai kunci";
 "Auth.LoginFlow.Or" = "ATAU";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Textfield.Placeholder" = "Masukkan kuncimu";
 "Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Memasuki Void";
 
@@ -291,7 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Riwayat Versi";
-"VersionHistory.Toast.message" = "Version %@ was restored";
+"VersionHistory.Toast.message" = "Versi %@ dipulihkan";
 
 "Search" = "Telusuri";
 "There is no emoji named" = "Tidak ada emoji bernama";
@@ -343,9 +343,9 @@
 "There is no object named" = "Tidak ada objek bernama %@";
 "There is no type named" = "Tidak ada tipe bernama %@";
 "Create a new one or search for something else" = "Buat baru atau telusuri yang lain";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
+"Search.Links.Show.title" = "Tampilkan objek terkait";
+"Search.Links.Header.title" = "Terkait dengan: %@";
+"Search.Links.Swipe.title" = "Terkait dengan";
 "GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
 "GlobalSearch.EmptyFilteredState.title" = "No related objects found";
 "GlobalSearch.Swipe.Tip.title" = "Objek terkait";
