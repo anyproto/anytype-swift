@@ -13,8 +13,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - DI
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
+    @Injected(\.homeActiveSpaceManager)
+    private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
     @Injected(\.objectActionsService)
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.defaultObjectCreationService)
@@ -41,15 +43,14 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - State
     
-    private var viewLoaded = false
-    private var subscriptions = [AnyCancellable]()
+    private let homeSceneId = UUID().uuidString
     private var paths = [String: HomePath]()
     private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeChangeData?
     @Published var showGlobalSearchData: GlobalSearchModuleData?
-    @Published var showSpaceSwitch: Bool = false
+    @Published var showSpaceSwitchData: SpaceSwitchModuleData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettingsData: AccountInfo?
     @Published var showSharingDataSpaceId: StringIdentifiable?
@@ -90,6 +91,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
     init(showHome: Binding<Bool>) {
         _showHome = showHome
         
+        Task {
+            await spaceSetupManager.registryHome(homeSceneId: homeSceneId, manager: homeActiveSpaceManager)
+        }
+        
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
             .statusPublisher.receiveOnMain()
@@ -99,18 +104,12 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 self?.showMembershipNameSheet = membership.tier
             }
     }
-
-    func onAppear() {
-        guard !viewLoaded else { return }
-        viewLoaded = true
-        
-        activeWorkspaceStorage
-            .workspaceInfoPublisher
-            .receiveOnMain()
-            .sink { [weak self] newInfo in
-                self?.switchSpace(info: newInfo)
-            }
-            .store(in: &subscriptions)
+    
+    func startHandleWorkspaceInfo() async {
+        await homeActiveSpaceManager.setupActiveSpace()
+        for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
+            switchSpace(info: info)
+        }
     }
     
     func startDeepLinkTask() async {
@@ -127,7 +126,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
-        TypeSearchForNewObjectCoordinatorView(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId) { [weak self] details in
+        TypeSearchForNewObjectCoordinatorView(spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId) { [weak self] details in
             guard let self else { return }
             openObject(screenData: details.editorScreenData())
         }
@@ -137,8 +136,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
+            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
             position: .end,
             context: context
         )
@@ -152,8 +151,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
         showChangeSourceData = WidgetChangeSourceSearchModuleModel(
-            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
+            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
             widgetId: widgetId,
             context: context,
             onFinish: { [weak self] in
@@ -164,7 +163,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
 
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
         showChangeTypeData = WidgetTypeChangeData(
-            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
             widgetId: widgetId,
             context: context,
             onFinish: { [weak self] in
@@ -175,15 +174,15 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
-            widgetObjectId: activeWorkspaceStorage.workspaceInfo.widgetsId,
+            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
+            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
             position: .below(widgetId: widgetId),
             context: context
         )
     }
     
     func onSpaceSelected() {
-        showSpaceSettingsData = activeWorkspaceStorage.workspaceInfo
+        showSpaceSettingsData = homeActiveSpaceManager.workspaceInfo
     }
     
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
@@ -198,7 +197,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onSearchSelected() {  
         showGlobalSearchData = GlobalSearchModuleData(
-            spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
             onSelect: { [weak self] screenData in
                 self?.openObject(screenData: screenData)
             }
@@ -211,7 +210,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
 
     func onProfileSelected() {
-        showSpaceSwitch.toggle()
+        guard let info else {
+            anytypeAssertionFailure("Try open without info")
+            return
+        }
+        showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: info.accountSpaceId, homeSceneId: homeSceneId)
     }
 
     func onHomeSelected() {
@@ -263,7 +266,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
         Task {
-            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
             openObject(screenData: details.editorScreenData())
         }
@@ -293,7 +296,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
                 shouldDeleteEmptyObject: true,
                 shouldSelectType: false,
                 shouldSelectTemplate: true,
-                spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId,
+                spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
@@ -315,17 +318,21 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     private func handleDeepLink(deepLink: DeepLink) async throws {
+        guard let info else {
+            anytypeAssertionFailure("Try handle deeplinks without info")
+            return
+        }
         switch deepLink {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            showSharingDataSpaceId = info?.accountSpaceId.identifiable
+            showSharingDataSpaceId = info.accountSpaceId.identifiable
         case .spaceSelection:
-            showSpaceSwitch = true
+            showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: info.accountSpaceId, homeSceneId: homeSceneId)
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
-            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key)
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, homeSceneId: info.accountSpaceId)
         case .object(let objectId, _):
             let document = documentsProvider.document(objectId: objectId, mode: .preview)
             try await document.open()
@@ -367,11 +374,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
             }
            
             currentSpaceId = spaceId
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+            try await homeActiveSpaceManager.setActiveSpace(spaceId: spaceId)
             
             var path = paths[spaceId] ?? HomePath()
             if path.count == 0 {
-                path.push(activeWorkspaceStorage.workspaceInfo)
+                path.push(homeActiveSpaceManager.workspaceInfo)
             }
             
             path.push(data)

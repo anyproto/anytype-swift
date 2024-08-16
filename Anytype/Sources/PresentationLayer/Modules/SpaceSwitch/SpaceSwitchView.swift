@@ -14,8 +14,8 @@ struct SpaceSwitchView: View {
     @State private var headerSize: CGSize = .zero
     @State private var size: CGSize = .zero
     
-    init(output: (any SpaceSwitchModuleOutput)?) {
-        _model = StateObject(wrappedValue: SpaceSwitchViewModel(output: output))
+    init(data: SpaceSwitchModuleData, output: (any SpaceSwitchModuleOutput)?) {
+        _model = StateObject(wrappedValue: SpaceSwitchViewModel(data: data, output: output))
     }
     
     private var columns: [GridItem] {
@@ -129,6 +129,6 @@ struct SpaceSwitchView: View {
 
 #Preview {
     MockView {
-        SpaceSwitchView(output: nil)
+        SpaceSwitchView(data: SpaceSwitchModuleData(activeSpaceId: "", homeSceneId: ""), output: nil)
     }
 }

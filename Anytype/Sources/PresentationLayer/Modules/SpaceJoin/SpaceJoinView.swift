@@ -129,11 +129,11 @@ struct SpaceJoinView: View {
 }
 
 #Preview("Default") {
-    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
+    SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: "", homeSceneId: ""), onManageSpaces: {})
 }
 
 #Preview("Sheet") {
     Color.black.anytypeSheet(isPresented: .constant(true)) {
-        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: ""), onManageSpaces: {})
+        SpaceJoinView(data: SpaceJoinModuleData(cid: "", key: "", homeSceneId: ""), onManageSpaces: {})
     }
 }

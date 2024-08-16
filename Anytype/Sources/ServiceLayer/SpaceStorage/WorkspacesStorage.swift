@@ -13,8 +13,10 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
     func canCreateNewSpace() -> Bool
-    
     func move(space: SpaceView, after: SpaceView)
+    func workspaceInfo(spaceId: String) -> AccountInfo?
+    // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
+    func addWorkspaceInfo(spaceId: String, info: AccountInfo)
 }
 
 extension WorkspacesStorageProtocol {
@@ -57,6 +59,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     // MARK: - State
 
+    private var workspacesInfo: [String: AccountInfo] = [:]
+    
     @Published private(set) var allWorkspaces: [SpaceView] = []
     var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.eraseToAnyPublisher() }
     
@@ -91,5 +95,13 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func move(space: SpaceView, after: SpaceView) {
         allWorkspaces = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
+    }
+    
+    func workspaceInfo(spaceId: String) -> AccountInfo? {
+        workspacesInfo[spaceId]
+    }
+    
+    func addWorkspaceInfo(spaceId: String, info: AccountInfo) {
+        workspacesInfo[spaceId] = info
     }
 }

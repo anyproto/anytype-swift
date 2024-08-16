@@ -16,7 +16,9 @@ struct HomeCoordinatorView: View {
     var body: some View {
         ZStack {
             
-            NotificationCoordinatorView()
+            if let info = model.info {
+                NotificationCoordinatorView(homeSceneId: info.accountSpaceId)
+            }
             
             HomeBottomPanelContainer(
                 path: $model.editorPath,
@@ -37,8 +39,10 @@ struct HomeCoordinatorView: View {
                 }
             )
         }
+        .task {
+            await model.startHandleWorkspaceInfo()
+        }
         .onAppear {
-            model.onAppear()
             model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
         }
         .ifLet(model.info) { view, _ in
@@ -66,8 +70,8 @@ struct HomeCoordinatorView: View {
         .sheet(item: $model.showCreateWidgetData) {
             CreateWidgetCoordinatorView(data: $0)
         }
-        .sheet(isPresented: $model.showSpaceSwitch) {
-            SpaceSwitchCoordinatorView()
+        .sheet(item: $model.showSpaceSwitchData) {
+            SpaceSwitchCoordinatorView(data: $0)
         }
         .sheet(item: $model.showSpaceSettingsData) {
             SpaceSettingsCoordinatorView(workspaceInfo: $0)

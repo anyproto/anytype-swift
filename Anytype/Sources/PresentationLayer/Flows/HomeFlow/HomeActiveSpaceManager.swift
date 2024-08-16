@@ -3,19 +3,24 @@ import Combine
 import AnytypeCore
 import Services
 
+// For other screens, for SpaceSetupManager
+@MainActor
+protocol HomeSpaceSetupManagerProtocol: AnyObject {
+    func setActiveSpace(spaceId: String) async throws
+}
+
 // Storage for store active space id for each screen.
 @MainActor
-protocol ActiveWorkpaceStorageProtocol: AnyObject {
+protocol HomeActiveSpaceManagerProtocol: AnyObject, HomeSpaceSetupManagerProtocol {
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
-    func setActiveSpace(spaceId: String) async throws
     func setupActiveSpace() async
     func spaceView() -> SpaceView?
     func clearActiveSpace() async
 }
 
 @MainActor
-final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
+final class HomeActiveSpaceManager: HomeActiveSpaceManagerProtocol {
     
     // MARK: - DI
     
@@ -45,6 +50,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     func setActiveSpace(spaceId: String) async throws {
         guard activeSpaceId != spaceId else { return }
         let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
+        workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
         AnytypeAnalytics.instance().logSwitchSpace()
         workspaceInfoSubject.send(info)
         activeSpaceId = spaceId
@@ -56,6 +62,7 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
                 activeSpaceId = accountManager.account.info.accountSpaceId
             }
             let info = try await workspaceService.workspaceOpen(spaceId: activeSpaceId)
+            workspaceStorage.addWorkspaceInfo(spaceId: activeSpaceId, info: info)
             workspaceInfoSubject.send(info)
         } catch {
             await resetActiveSpace()
@@ -95,5 +102,14 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     
     private func resetActiveSpace() async {
         try? await setActiveSpace(spaceId: accountManager.account.info.accountSpaceId)
+    }
+}
+
+extension Container {
+    
+    // Instance for each scene
+    
+    var homeActiveSpaceManager: Factory<any HomeActiveSpaceManagerProtocol> {
+        self { HomeActiveSpaceManager() }
     }
 }

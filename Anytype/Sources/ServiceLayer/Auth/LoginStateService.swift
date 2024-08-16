@@ -27,8 +27,6 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantsStorage: any AccountParticipantsStorageProtocol
     @Injected(\.participantSpacesStorage)
@@ -80,7 +78,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.startSubscription()
         await relationDetailsStorage.startSubscription()
         await objectTypeProvider.startSubscription()
-        await activeWorkpaceStorage.setupActiveSpace()
         await accountParticipantsStorage.startSubscription()
         await participantSpacesStorage.startSubscription()
         await networkConnectionStatusDaemon.start()
@@ -96,7 +93,6 @@ final class LoginStateService: LoginStateServiceProtocol {
         await workspacesStorage.stopSubscription()
         await relationDetailsStorage.stopSubscription()
         await objectTypeProvider.stopSubscription()
-        await activeWorkpaceStorage.clearActiveSpace()
         await accountParticipantsStorage.stopSubscription()
         await participantSpacesStorage.stopSubscription()
         await membershipStatusStorage.stopSubscriptionAndClean()

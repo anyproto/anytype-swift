@@ -7,11 +7,7 @@ import AnytypeCore
 @_exported import Factory
 
 extension Container {
-    
-    var activeWorkspaceStorage: Factory<any ActiveWorkpaceStorageProtocol> {
-        self { ActiveWorkspaceStorage() }.singleton
-    }
-    
+        
     var accountManager: Factory<any AccountManagerProtocol> {
         self { AccountManager() }.singleton
     }
@@ -306,5 +302,9 @@ extension Container {
     
     var userDefaultsStorage: Factory< any UserDefaultsStorageProtocol> {
         self { UserDefaultsStorage() }.singleton
+    }
+    
+    var spaceSetupManager: Factory<any SpaceSetupManagerProtocol> {
+        self { SpaceSetupManager() }.singleton
     }
 }

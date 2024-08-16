@@ -8,6 +8,8 @@ import SwiftUI
 @MainActor
 final class NotificationCoordinatorViewModel: ObservableObject {
     
+    private let homeSceneId: String
+    
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
     @Injected(\.objectIconBuilder)
@@ -20,6 +22,10 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     @Published var exportSpaceUrl: URL?
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
+    
+    init(homeSceneId: String) {
+        self.homeSceneId = homeSceneId
+    }
     
     func onAppear() {
         Task {
@@ -62,7 +68,10 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private func handleSend(notification: Services.Notification) {
         switch notification.payload {
         case .galleryImport(let data):
-            let view = GalleryNotificationView(notification: NotificationGalleryImport(common: notification, galleryImport: data))
+            let view = GalleryNotificationView(
+                notification: NotificationGalleryImport(common: notification, galleryImport: data),
+                homeSceneId: homeSceneId
+            )
             show(view: view)
         case .participantPermissionsChange(let data):
             let view = PermissionChangeNotificationView(notification: NotificationParticipantPermissionsChange(common: notification, permissionChange: data))
@@ -78,7 +87,8 @@ final class NotificationCoordinatorViewModel: ObservableObject {
             show(view: view)
         case .requestToJoin(let data):
             let view = RequestToJoinNotificationView(
-                notification: NotificationRequestToJoin(common: notification, requestToJoin: data),
+                notification: NotificationRequestToJoin(common: notification, requestToJoin: data), 
+                homeSceneId: homeSceneId,
                 onViewRequest: { [weak self] notification in
                     guard let self else { return }
                     

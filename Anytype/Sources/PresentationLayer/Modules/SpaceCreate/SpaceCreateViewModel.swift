@@ -9,8 +9,10 @@ final class SpaceCreateViewModel: ObservableObject {
     
     // MARK: - DI
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private let homeSceneId: String
+    
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     private weak var output: (any SpaceCreateModuleOutput)?
@@ -24,7 +26,9 @@ final class SpaceCreateViewModel: ObservableObject {
     @Published var createLoadingState: Bool = false
     @Published var dismiss: Bool = false
     
-    init(output: (any SpaceCreateModuleOutput)?) {
+    init(homeSceneId: String, output: (any SpaceCreateModuleOutput)?) {
+        self.homeSceneId = homeSceneId
+        
         self.output = output
     }
     
@@ -36,7 +40,7 @@ final class SpaceCreateViewModel: ObservableObject {
                 createLoadingState = false
             }
             let spaceId = try await workspaceService.createSpace(name: spaceName, gradient: spaceGradient, accessType: spaceAccessType, useCase: .empty)
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+            try await spaceSetupManager.setActiveSpace(homeSceneId: homeSceneId, spaceId: spaceId)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
             AnytypeAnalytics.instance().logCreateSpace(route: .navigation)
             output?.spaceCreateWillDismiss()
