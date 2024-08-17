@@ -37,7 +37,7 @@
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string> %#@object@ öğesini silmek istediğinize emin misiniz?</string>
+      <string> %#@object@ nesnesini silmek istediğinizden emin misiniz?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
