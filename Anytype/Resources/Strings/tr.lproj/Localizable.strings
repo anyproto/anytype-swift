@@ -74,7 +74,7 @@
 "Create relation" = "İlişki oluştur ‘%@’";
 "Relation.View.Hint.Empty" = "boş";
 "Relation.MyRelations" = "İlişkilerim";
-"Relation.AddedToLibrary" = "%@ bağıntısı kitaplığınıza eklendi";
+"Relation.AddedToLibrary" = "%@ ilişkisi kitaplığınıza eklendi";
 "Relation.Deleted" = "Silinmiş ilişki";
 "Relation.From.Type" = "%@ türünden";
 "Relation.EmptyState.title" = "Seçenek yok";
@@ -89,7 +89,7 @@
 "Relation.ObjectTypes.Header.title" = "Nesne türleri:";
 "Relation.ObjectType.Header.title" = "Nesne türü:";
 
-"Relation.Delete.Alert.Title" = "Emin misin?";
+"Relation.Delete.Alert.Title" = "Emin misiniz?";
 "Relation.Delete.Alert.Description" = "Seçenek, alanınızdan kalıcı olarak kaldırılacaktır.";
 "Relation.Object.Delete.Alert.Description" = "Nesne Çöp Kutusuna taşınacaktır.";
 
@@ -113,9 +113,9 @@
 "Relation.Origin.DragAndDrop" = "Sürükle & Bırak";
 "Relation.Origin.Import" = "İçeri aktarılan nesne";
 "Relation.Origin.WebClipper" = "Web yakalayıcı";
-"Relation.Origin.SharingExtension" = "Mobil paylaşma uzantısı";
-"Relation.Origin.UseCase" = "Kullanım Alanları";
-"Relation.Origin.Builtin" = "Kütüphane yüklü";
+"Relation.Origin.SharingExtension" = "Mobil paylaşım uzantısı";
+"Relation.Origin.UseCase" = "Kullanım alanları";
+"Relation.Origin.Builtin" = "Kitaplık kuruldu";
 "Relation.Origin.Bookmark" = "Yer imi";
 
 // MARK: - Import Type Relation
@@ -186,14 +186,14 @@
 "Green background" = "Yeşil arkaplan";
 "Create new object" = "Yeni nesne oluştur";
 "Cancel" = "İptal";
-"Paste or type URL" = "Bir adres yazın ya da yapıştırın";
+"Paste or type URL" = "Bir URL yazın ya da yapıştırın";
 "No items match filter" = "Filtreyle eşleşen öge yok";
 "Unsupported block" = "Desteklenmeyen blok";
 "Unsupported" = "Desteklenmiyor";
 "Name" = "İsim";
 "Description" = "Açıklama";
 "Paste processing..." = "Yapıştırma işleniyor...";
-"Anytype Library" = "Anytype Kütüphanesi";
+"Anytype Library" = "Anytype Kitaplığı";
 "Copied" = "Kopyalandı";
 "Share" = "Paylaş";
 "Okay" = "Tamam";
@@ -202,7 +202,7 @@
 
 // Home
 "Favorites" = "Favoriler";
-"Recent" = "Son";
+"Recent" = "En son";
 "Bin" = "Çöp kutusu";
 
 // Settings
@@ -218,7 +218,7 @@
 "Keychain.Key.description" = "Bu bilgilere giriş yapmak için ihtiyacın olacak. Güvenli bir yerde tut. Eğer kaybedersen hesabına erişemeyeceksin.";
 "Keychain.Show and copy key" = "Anahtarı göster ve kopyala";
 "Keychain.Have you backed up your key?" = "Anahtarınızı yedeklediniz mi?";
-"Keychain.Error.String to Data conversion error" = "Dizeden Veriye dönü$türme hatas";
+"Keychain.Error.String to Data conversion error" = "Dizeden veriye dönüştürme hatası";
 "Keychain.Error.Data to String conversion error" = "Veriden Metne dönüştürme hatası";
 "Keychain.Error.Unknown Keychain Error" = "Bilinmeyen Keychain hatası";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
@@ -261,12 +261,12 @@
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Dünya üzerindeki tüm hesaplama kaynakları içeri girmek için yeterli değildir. Kaybederseniz, kurtarılamaz. Bu yüzden güvenli bir yerde saklayın!";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Kurtarma anahtarını nasıl kaydederim?";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Anahtarınızı saklamanın en kolay yolu şifre yöneticinize kaydetmektir.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "En güvenli yol ise kağıt üstüne yazarak internet üstünde olmayan bir yerde, güvenli ve emin bir yerde saklamaktır.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "En güvenli yol bunu bir kağıda yazmak ve çevrimdışı olarak güvenli bir yerde saklamaktır.";
 
 "Auth.JoinFlow.Soul.Title" = "Adınızı girin";
 "Auth.JoinFlow.Soul.Description" = "Yalnızca bir şey paylaştığınız kişiler tarafından görülür. Bu isimlerin merkezi bir kaydı yoktur.";
 "Auth.JoinFlow.Soul.Placeholder" = "Başlıksız";
-"Auth.JoinFlow.Soul.Button" = "Get my Key";
+"Auth.JoinFlow.Soul.Button" = "Kasama gir";
 
 "Auth.JoinFlow.Vault.Title" = "Bu senin kasan";
 "Auth.JoinFlow.Vault.Description" = "İçerideki her şey şifrelenmiştir.\nYerel önceliklidir - her şey çevrimdışı çalışır.\nAnahtar yalnızca sizde vardır.";
@@ -276,12 +276,12 @@
 "Auth.LoginFlow.Use.Keychain.Title" = "Keychain kullan";
 "Auth.LoginFlow.Or" = "YA DA";
 "Auth.LoginFlow.Textfield.Placeholder" = "Anahtarınızı yazın";
-"Auth.LoginFlow.Enter.Title" = "Get my Key";
+"Auth.LoginFlow.Enter.Title" = "Kasama gir";
 "Auth.LoginFlow.Entering.Void.Title" = "Void'e giriliyor";
 
 // Object settings
 
-"Icon" = "İkon";
+"Icon" = "Simge";
 "Emoji or image for object" = "Nesne için emoji ya da resim";
 "Cover" = "Kapak";
 "Background picture" = "Arka plan resmi";
@@ -294,7 +294,7 @@
 "VersionHistory.Toast.message" = "%@ sürümü geri yüklendi";
 
 "Search" = "Ara";
-"There is no emoji named" = "isimli emoji yok";
+"There is no emoji named" = "İsimlendirilmiş bir emoji yok";
 "Try to find a new one or upload your image" = "Yeni bir tane bulmaya çalışın ya da kendi resminizi yükleyin";
 
 "Emoji" = "Emoji";
@@ -319,7 +319,7 @@
 "Undo" = "Geri al";
 "Redo" = "Yinele";
 "Actions.LinkItself" = "Şuna bağla";
-"Actions.MakeAsTemplate" = "Şablon Oluştur";
+"Actions.MakeAsTemplate" = "Şablon oluştur";
 "Actions.TemplateMakeDefault" = "Varsayılan yap";
 "Actions.CreateWidget.Title" = "Widget'lara";
 "Actions.CreateWidget.Success" = "Yeni widget oluşturuldu";
@@ -341,8 +341,8 @@
 
 // MARK: - Main search
 "There is no object named" = "%@ isimli nesne yok";
-"There is no type named" = "%@ adlı tür yok";
-"Create a new one or search for something else" = "Yeni oluşturun ya da başka bir şey arayın";
+"There is no type named" = "%@ isimli tür yok";
+"Create a new one or search for something else" = "Yeni bir tane oluşturun ya da başka bir şey arayın";
 "Search.Links.Show.title" = "İlgili nesneleri göster";
 "Search.Links.Header.title" = "%@ ile ilişkili";
 "Search.Links.Swipe.title" = "İlişkili";
@@ -353,7 +353,7 @@
 
 // MARK: - Home
 
-"Home.Snackbar.Library" = "Kütüphane masaüstü uygulamasında mevcuttur";
+"Home.Snackbar.Library" = "Kitaplık masaüstü uygulamasında mevcuttur.";
 
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Ayarlar";
@@ -391,8 +391,8 @@
 "Set as default" = "Varsayılan olarak ayarla";
 
 // MARK: - Context Menu
-"Remove From Favorite" = "Favoriden Kaldır";
-"Add To Favorite" = "Favoriye Ekle";
+"Remove From Favorite" = "Favoriden kaldır";
+"Add To Favorite" = "Favoriye ekle";
 "Move To Bin" = "Çöpe taşı";
 
 
@@ -403,17 +403,17 @@
 
 // MARK: - Sets: Sorts
 "EditSet.Popup.Sorts.NavigationView.Title" = "Sıralamalar";
-"EditSet.Popup.Sorts.EmptyView.Title" = "Burada sıralama yok. Kendin ekleyebilirsin";
+"EditSet.Popup.Sorts.EmptyView.Title" = "Burada sıralama yok. Kendiniz ekleyebilirsiniz.";
 "EditSet.Popup.Sort.Types.Ascending" = "Artan";
 "EditSet.Popup.Sort.Types.Descending" = "Azalan";
 "EditSet.Popup.Sort.EmptyTypes.Start" = "En yukarıda";
 "EditSet.Popup.Sort.EmptyTypes.End" = "En altta";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Boş değerleri göster";
-"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Sıralamak için bir bağıntı seç";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Sıralamak için bir ilişki seç";
 
 // MARK: - Sets: Filters
 "EditSet.Popup.Filters.NavigationView.Title" = "Filtreler";
-"EditSet.Popup.Filters.EmptyView.Title" = "Burada filtre yok. Kendin ekleyebilirsin";
+"EditSet.Popup.Filters.EmptyView.Title" = "Burada filtre yok. Kendiniz ekleyebilirsiniz.";
 "EditSet.Popup.Filters.TextView.Placeholder" = "Değer";
 
 // MARK: - Sets: Filters.Conditions
@@ -481,7 +481,7 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Bağlantıyı yapıştır";
-"Set.Bookmark.Error.Message" = "Hay aksi, bir şeyler ters gitti! Lütfen yeniden dene.";
+"Set.Bookmark.Error.Message" = "Hay aksi bir şeyler ters gitti! Lütfen yeniden dene.";
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Resmi sığdır";
@@ -559,7 +559,7 @@
 "Unsupported value" = "Desteklenmeyen değer";
 "Select relation type" = "Bağıntı türünü seç";
 "CommonOpenErrorView.Message" = "Veri bulunamadı";
-"AreYouSure" = "Emin misin?";
+"AreYouSure" = "Emin misiniz?";
 "Nothing found" = "Hiçbir şey bulunamadı";
 "No type found text" = "\"%@\" türü bulunamadı. İsteğinizi değiştirin veya yeni tür oluşturun.";
 "Create type" = "Tür oluştur";
@@ -602,7 +602,7 @@
 "Restore from keychain" = "Keychain'den geri yükleme";
 "Edit" = "Düzenle";
 "In this object" = "Bu nesnede";
-"Other relations" = "Diğer bağıntılar";
+"Other relations" = "Diğer ilişkiler";
 "Collection of objects" = "Nesnelerin koleksiyonu";
 "Designed to capture thoughts quickly" = "Düşünceleri hızlıca yakalamak için tasarlandı";
 "Action-focused layout with a checkbox" = "Onay kutusu ile eylem odaklı düzen";
@@ -610,8 +610,8 @@
 "List of related objects" = "İlgili nesnelerin listesi";
 "Lock" = "Kilitle";
 "Unlock" = "Kilidi aç";
-"Favorite" = "Favorilere Ekle";
-"Unfavorite" = "Favorilerden Çıkar";
+"Favorite" = "Favorilere ekle";
+"Unfavorite" = "Favorilerden çıkar";
 "Unsplash" = "Unsplash";
 "Go back" = "Geri git";
 "Downloading or uploading data to some node" = "Bazı düğümlere veri indirme veya yükleme";
@@ -713,7 +713,7 @@
 
 // MARK: - InterfaceStyle
 "InterfaceStyle.light" = "Açık";
-"InterfaceStyle.dark" = "Koyu";
+"InterfaceStyle.dark" = "Karanlık";
 "InterfaceStyle.system" = "Sistem";
 
 // MARK: Table of Contents
@@ -742,24 +742,24 @@
 
 // MARK: Link Past Actions
 "LinkPaste.text" = "Metin olarak yapıştır";
-"LinkPaste.link" = "Link olarak yapıştır";
+"LinkPaste.link" = "Bağlantı olarak yapıştır";
 "LinkPaste.bookmark" = "Yer imi oluştur";
 
 // Relation Actions
-"RelationAction.CopyPhone" = "Copy phone numbler";
-"RelationAction.CopyEmail" = "E-postayı Kopyala";
+"RelationAction.CopyPhone" = "Telefon numarasını kopyala";
+"RelationAction.CopyEmail" = "E-postayı kopyala";
 "RelationAction.CopyLink" = "Bağlantıyı kopyala";
 "RelationAction.Copied" = "Kopyalandı";
 "RelationAction.ReloadingContent" = "İçerik yeniden yükleniyor";
 "RelationAction.ReloadContent" = "Nesne içeriğini yeniden yükle";
 "RelationAction.CallPhone" = "Telefon numarasını ara";
 "RelationAction.SendEmail" = "E-posta gönder";
-"RelationAction.OpenLink" = "Bağlantıyı Aç";
+"RelationAction.OpenLink" = "Bağlantıyı aç";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Görünümü Düzenle";
+"SetViewTypesPicker.Title" = "Görünümü düzenle";
 "SetViewTypesPicker.New.Title" = "Yeni görünüm";
-"SetViewTypesPicker.Section.Types.Title" = "Olarak Görüntüle";
+"SetViewTypesPicker.Section.Types.Title" = "Olarak görüntüle";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Çoğalt";
 "SetViewTypesPicker.Settings.Delete.View" = "Görünümü sil";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Yeni görünüm";
@@ -774,7 +774,7 @@
 "Content.Video.Upload" = "Video yükle";
 "Content.Picture.Upload" = "Resim yükle";
 "Content.Common.Uploading" = "Yükleniyor...";
-"Content.Common.Error" = "Bir şeyler ters gitti, tekrar deneyin";
+"Content.Common.Error" = "Bir şeyler ters gitti tekrar deneyin.";
 "Content.Bookmark.Add" = "Bir web yer imi ekle";
 "Content.Bookmark.Loading" = "Yükleniyor, lütfen bekleyin...";
 "Content.DataView.InlineSet.Subtitle" = "Satır içi küme";
@@ -797,7 +797,7 @@
 "Widgets.Actions.ChangeSource" = "Kaynağı Değiştir";
 "Widgets.Actions.ChangeWidgetType" = "Widget türünü değiştir";
 "Widgets.Actions.RemoveWidget" = "Widget'ı kaldır";
-"Widgets.Actions.EditWidgets" = "Widgetları düzenle";
+"Widgets.Actions.EditWidgets" = "Widget'ları düzenle";
 "Widgets.Actions.AddWidget" = "Widget ekle";
 "Widgets.Actions.EmptyBin" = "Çöp kutusu boş";
 "Widgets.Actions.AddBelow" = "Aşağıya ekle";
@@ -847,7 +847,7 @@
 
 // MARK: - Cache
 "ClearCache.Success" = "Önbellek başarıyla temizlendi";
-"ClearCache.Error" = "Hata, daha sonra tekrar deneyin";
+"ClearCache.Error" = "Hata. Daha sonra tekrar deneyin.";
 
 // MARK: - Settings
 "Settings.Title" = "Ayarlar";
@@ -879,7 +879,7 @@
 "WidgetObjectList.ForceDelete.Message" = "Bu eylemi geri alamazsınız.";
 
 // MARK: - Cpear cache alert
-"ClearCacheAlert.Title" = "Emin misin?";
+"ClearCacheAlert.Title" = "Emin misiniz?";
 "ClearCacheAlert.Description" = "Anytype'da depolanan tüm medya dosyaları mevcut cihazınızdan silinecektir. Bir yedekleme düğümünden veya başka bir cihazdan tekrar indirilebilirler.";
 
 // MARK: - Spaces
