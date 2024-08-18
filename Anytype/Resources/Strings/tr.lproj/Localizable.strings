@@ -14,8 +14,8 @@
 "TextStyle.Subheading.Title" = "Alt başlık";
 "TextStyle.Subheading.Subtitle" = "Küçük başlık";
 
-"TextStyle.Highlighted.Title" = "Vurgulanan";
-"TextStyle.Highlighted.Subtitle" = "Özel dikkat gerektiren bir bölge";
+"TextStyle.Highlighted.Title" = "Vurgulanmış";
+"TextStyle.Highlighted.Subtitle" = "Neyin özel dikkat gerektirdiğini vurgulayın";
 
 "TextStyle.Callout.Title" = "Belirteç";
 "TextStyle.Callout.Subtitle" = "Simgeli kenarlıklı metin";
