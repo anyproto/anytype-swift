@@ -1187,7 +1187,7 @@
 "SyncStatus.Error.incompatibleVersion" = "不相容的版本";
 "SyncStatus.Error.networkError" = "無法進入這個空間";
 "SyncStatus.Error.UNRECOGNIZED" = "無法識別的錯誤";
-"SyncStatus.P2P.Restricted" = "限制。請檢查裝置設定。";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
 
 
 // MARK: - Debug

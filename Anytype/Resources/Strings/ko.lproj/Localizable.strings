@@ -139,10 +139,10 @@
 "Style" = "스타일";
 "Color" = "색상";
 "Background" = "배경";
-"Other" = "Other";
+"Other" = "기타";
 "Media" = "미디어";
 "Alignment" = "정렬";
-"Actions" = "Actions";
+"Actions" = "액션";
 "Relations" = "관계";
 "History" = "히스토리";
 "Objects" = "오브젝트";
@@ -185,42 +185,42 @@
 "Blue background" = "Blue background";
 "Green background" = "Green background";
 "Create new object" = "Create new object";
-"Cancel" = "Cancel";
+"Cancel" = "취소";
 "Paste or type URL" = "Paste or type URL";
-"No items match filter" = "No items match filter";
-"Unsupported block" = "Unsupported block";
+"No items match filter" = "필터와 일치하는 항목 없음";
+"Unsupported block" = "지원하지 않는 블록";
 "Unsupported" = "Unsupported";
 "Name" = "이름";
-"Description" = "Description";
-"Paste processing..." = "Paste processing...";
-"Anytype Library" = "Anytype Library";
+"Description" = "설명";
+"Paste processing..." = "붙여넣기 처리중...";
+"Anytype Library" = "Anytype 라이브러리";
 "Copied" = "Copied";
 "Share" = "Share";
 "Okay" = "Okay";
 "Join" = "Join";
-"Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
+"Agreement Disclamer" = "계속 진행하면 [이용 약관](%@) 및 [개인정보 처리방침](%@)에 동의하는 것입니다";
 
 // Home
-"Favorites" = "Favorites";
-"Recent" = "Recent";
-"Bin" = "Bin";
+"Favorites" = "즐겨찾기";
+"Recent" = "최근";
+"Bin" = "휴지통";
 
 // Settings
-"Wallpaper" = "Wallpaper";
-"Log out" = "Log out";
+"Wallpaper" = "배경화면";
+"Log out" = "로그아웃";
 
 // Action
 "Restore" = "Restore";
 
 // Keychain screen
-"Keychain.Key" = "Key";
+"Keychain.Key" = "키";
 "Keychain.Key.Copy.Toast.title" = "Key copied";
 "Keychain.Key.description" = "You will need it to enter your vault. Keep it in a safe place. If you lose it, you can no longer enter your vault.";
-"Keychain.Show and copy key" = "Show and copy key";
-"Keychain.Have you backed up your key?" = "Have you backed up your key?";
-"Keychain.Error.String to Data conversion error" = "String to Data conversion error";
-"Keychain.Error.Data to String conversion error" = "Data to String conversion error";
-"Keychain.Error.Unknown Keychain Error" = "Unknown Keychain Error";
+"Keychain.Show and copy key" = "키 표시 및 복사";
+"Keychain.Have you backed up your key?" = "키를 백업하셨나요?";
+"Keychain.Error.String to Data conversion error" = "문자열을 데이터로 변환중 오류";
+"Keychain.Error.Data to String conversion error" = "데이터를 문자열로 변환중 오류";
+"Keychain.Error.Unknown Keychain Error" = "알 수 없는 키체인 오류";
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
@@ -259,16 +259,16 @@
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
 "Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "The most secure way is to write it down on paper and keep it offline, in a safe and secure place.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "키를 어떻게 저장하나요?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "키를 보관하는 가장 쉬운 방법은 비밀번호 관리자에 저장하는 것입니다.";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "가장 안전한 방법은 종이에 적어 오프라인의 안전한 장소에 보관하는 것입니다.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "이름 설정";
+"Auth.JoinFlow.Soul.Description" = "공유한 사람들만 볼 수 있습니다. 이러한 이름에 대한 중앙 레지스트리는 없습니다.";
 "Auth.JoinFlow.Soul.Placeholder" = "제목 없음";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
+"Auth.JoinFlow.Vault.Title" = "당신의 보관소입니다";
 "Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
@@ -281,7 +281,7 @@
 
 // Object settings
 
-"Icon" = "Icon";
+"Icon" = "아이콘";
 "Emoji or image for object" = "Emoji or image for object";
 "Cover" = "Cover";
 "Background picture" = "Background picture";
@@ -993,7 +993,7 @@
 
 // MARK: - Sharing
 "Sharing.Navigation.title" = "Add to Anytype";
-"Sharing.Navigation.LeftButton.Title" = "Cancel";
+"Sharing.Navigation.LeftButton.Title" = "취소";
 "Sharing.Navigation.RightButton.Title" = "완료";
 
 "Sharing.SaveAs" = "SAVE AS";
@@ -1183,7 +1183,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.incompatibleVersion" = "호환되지 않는 버전";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
-"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
 
 
 // MARK: - Debug

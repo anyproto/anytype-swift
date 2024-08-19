@@ -1184,7 +1184,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "SyncStatus.Error.networkError" = "Pas d'accès à l'espace";
 "SyncStatus.Error.UNRECOGNIZED" = "Erreur inconnue
 ";
-"SyncStatus.P2P.Restricted" = "Restriction. Vérifiez les paramètres de l'appareil.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
 
 
 // MARK: - Debug
