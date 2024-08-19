@@ -1185,7 +1185,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 "SyncStatus.Error.incompatibleVersion" = "Uyumsuz sürüm";
 "SyncStatus.Error.networkError" = "Alana erişim yok";
 "SyncStatus.Error.UNRECOGNIZED" = "Tanınmayan hata";
-"SyncStatus.P2P.Restricted" = "Kısıtlanmış. Cihaz ayarlarını kontrol edin.";
+"SyncStatus.P2P.Restricted" = "Kısıtlanmış. Cihaz ayarlarını açmak için dokunun.";
 
 
 // MARK: - Debug
