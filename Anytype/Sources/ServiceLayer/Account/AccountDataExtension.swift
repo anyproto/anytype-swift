@@ -2,7 +2,7 @@ import Services
 
 
 extension AccountData {
-    var isInProdOrStageingNetwork: Bool {
-        info.networkId == NetworkIds.anytype || info.networkId == NetworkIds.anytypeStaging
+    var isInProdNetwork: Bool {
+        info.networkId == NetworkIds.anytype
     }
 }

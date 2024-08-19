@@ -8,9 +8,8 @@ import Services
 final class SettingsViewModel: ObservableObject {
     
     // MARK: - DI
-    
-    @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    
     @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
@@ -25,11 +24,9 @@ final class SettingsViewModel: ObservableObject {
     private var subscriptions: [AnyCancellable] = []
     private var profileDataLoaded: Bool = false
     private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
-    private let isInProdOrStageingNetwork: Bool
     
-    var canShowMemberhip: Bool {
-        isInProdOrStageingNetwork && FeatureFlags.membership
-    }
+    private let isInProdNetwork: Bool
+    var canShowMemberhip: Bool { isInProdNetwork }
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
@@ -39,8 +36,8 @@ final class SettingsViewModel: ObservableObject {
     init(output: some SettingsModuleOutput) {
         self.output = output
         
-        let accountManager = Container.shared.accountManager.resolve()
-        isInProdOrStageingNetwork = accountManager.account.isInProdOrStageingNetwork
+        accountManager = Container.shared.accountManager.resolve()
+        isInProdNetwork = accountManager.account.isInProdNetwork
         
         Task {
             await setupSubscription()

@@ -23,10 +23,12 @@ struct MembershipDebugView: View {
     
     @State private var refundId: StoreKit.Transaction.ID?
     @State private var showRefund = false
+    @State private var showMembership = false
     
     var body: some View {
         ScrollView {
             membershipInfo
+            openMembershipButton
             tiersInfo
             transactionsView
         }
@@ -35,6 +37,10 @@ struct MembershipDebugView: View {
         
         .snackbar(toastBarData: $toastBarData)
         .refundRequestSheet(for: refundId ?? 0, isPresented: $showRefund)
+        
+        .sheet(isPresented: $showMembership) { 
+            MembershipCoordinator()
+        }
         
         .task {
             await loadTiers()
@@ -51,6 +57,13 @@ struct MembershipDebugView: View {
             }
             AnytypeText(storage.currentStatus.debugDescription, style: .codeBlock)
             Spacer()
+        }
+        .padding()
+    }
+    
+    private var openMembershipButton: some View {
+        StandardButton("Open membership screen", style: .primaryLarge) {
+            showMembership = true
         }
         .padding()
     }

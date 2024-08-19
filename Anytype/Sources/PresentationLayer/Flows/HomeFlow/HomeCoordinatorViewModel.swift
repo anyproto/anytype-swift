@@ -31,6 +31,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -82,7 +84,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var membershipStatusSubscription: AnyCancellable?
 
     init() {
-        
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
             .statusPublisher.receiveOnMain()
@@ -312,6 +313,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
+            guard accountManager.account.isInProdNetwork else { return }
             membershipTierId = tierId.identifiable
         }
     }
