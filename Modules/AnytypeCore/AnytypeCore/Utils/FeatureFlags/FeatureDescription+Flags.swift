@@ -70,8 +70,7 @@ public extension FeatureDescription {
     static let versionHistory = FeatureDescription(
         title: "Version History - IOS-3058",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
-        defaultValue: false,
-        debugValue: false
+        defaultValue: true
     )
     
     // MARK: - Debug
