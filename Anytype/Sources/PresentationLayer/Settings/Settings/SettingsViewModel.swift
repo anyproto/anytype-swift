@@ -27,9 +27,7 @@ final class SettingsViewModel: ObservableObject {
     private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
     private let isInProdOrStageingNetwork: Bool
     
-    var canShowMemberhip: Bool {
-        isInProdOrStageingNetwork && FeatureFlags.membership
-    }
+    var canShowMemberhip: Bool { isInProdOrStageingNetwork }
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?

@@ -24,12 +24,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let membership = FeatureDescription(
-        title: "Membership 💸",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
-        defaultValue: true
-    )
-    
     static let hideCoCreator = FeatureDescription(
         title: "Hide CoCreator tier",
         type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),

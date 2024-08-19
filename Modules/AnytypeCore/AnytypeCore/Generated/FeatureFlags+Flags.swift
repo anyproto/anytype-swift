@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var membership: Bool {
-        value(for: .membership)
-    }
-
     static var hideCoCreator: Bool {
         value(for: .hideCoCreator)
     }
@@ -107,7 +103,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .membership,
         .hideCoCreator,
         .scrollToBlockFromSearch,
         .galleryWidget,
