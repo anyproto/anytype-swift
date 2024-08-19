@@ -1185,7 +1185,7 @@
 "SyncStatus.Error.incompatibleVersion" = "不兼容版本";
 "SyncStatus.Error.networkError" = "没有访问空间的权限";
 "SyncStatus.Error.UNRECOGNIZED" = "未知的错误";
-"SyncStatus.P2P.Restricted" = "受限制。请检查设备设置。";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
 
 
 // MARK: - Debug
