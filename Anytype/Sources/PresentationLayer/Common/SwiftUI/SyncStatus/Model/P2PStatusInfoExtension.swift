@@ -50,9 +50,18 @@ extension P2PStatusInfo: NetworkIconProvider {
         case .notConnected:
             .animation(start: .Shape.secondary, end: .Shape.secondary.opacity(0.5))
         case .notPossible, .UNRECOGNIZED:
-            .static(.Shape.secondary)
+            .static(.Light.red)
         case .connected:
             .static(.Light.green)
+        }
+    }
+    
+    var haveTapIndicatior: Bool {
+        switch status {
+        case .notConnected, .connected, .UNRECOGNIZED:
+            return false
+        case .notPossible:
+            return true
         }
     }
 }
