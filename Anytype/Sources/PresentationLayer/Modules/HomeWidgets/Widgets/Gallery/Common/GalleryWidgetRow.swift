@@ -20,7 +20,7 @@ struct GalleryWidgetRow: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 if let cover = model.cover {
-                    SwiftUIObjectHeaderCoverView(objectCover: cover, size: CGSize(width: 136, height: 80), fitImage: false)
+                    ObjectHeaderCoverView(objectCover: cover, fitImage: false)
                         .frame(height: 80)
                 }
                 ZStack(alignment: model.icon.isNotNil ? .leadingFirstTextBaseline : .leading) {
