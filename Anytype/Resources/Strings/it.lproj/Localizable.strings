@@ -1183,7 +1183,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
 "SyncStatus.Error.networkError" = "Nessun accesso allo spazio";
 "SyncStatus.Error.UNRECOGNIZED" = "Errore sconosciuto";
-"SyncStatus.P2P.Restricted" = "Limitato. Controlla le impostazioni del dispositivo.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
 
 
 // MARK: - Debug
