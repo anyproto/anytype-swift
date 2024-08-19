@@ -1183,7 +1183,7 @@ En concreto,
 "SyncStatus.Error.incompatibleVersion" = "Versión incompatible";
 "SyncStatus.Error.networkError" = "Sin acceso al espacio";
 "SyncStatus.Error.UNRECOGNIZED" = "Error desconocido";
-"SyncStatus.P2P.Restricted" = "Restringido. Comprueba los ajustes del dispositivo.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
 
 
 // MARK: - Debug
