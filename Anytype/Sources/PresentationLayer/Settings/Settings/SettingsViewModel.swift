@@ -8,9 +8,8 @@ import Services
 final class SettingsViewModel: ObservableObject {
     
     // MARK: - DI
-    
-    @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    
     @Injected(\.singleObjectSubscriptionService)
     private var subscriptionService: any SingleObjectSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
@@ -37,7 +36,7 @@ final class SettingsViewModel: ObservableObject {
     init(output: some SettingsModuleOutput) {
         self.output = output
         
-        let accountManager = Container.shared.accountManager.resolve()
+        accountManager = Container.shared.accountManager.resolve()
         isInProdNetwork = accountManager.account.isInProdNetwork
         
         Task {
