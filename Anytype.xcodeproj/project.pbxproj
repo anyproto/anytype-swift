@@ -1344,6 +1344,7 @@
 		3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5326317EFB00C7D1EA /* CommonViews+Pickers+File+UIKit.swift */; };
 		3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */; };
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
+		3D9348992C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */; };
 		3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9384F726F9F421001C137F /* MentionImageProcessor.swift */; };
 		3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851626FAF46E001C137F /* MentionAssembly.swift */; };
 		3D93852026FB0B74001C137F /* DefaultObjectCreationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */; };
@@ -3213,6 +3214,7 @@
 		3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseFilePickerViewModel.swift; sourceTree = "<group>"; };
 		3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePickerResultInformation.swift; sourceTree = "<group>"; };
 		3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
+		3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubCoordinatorView.swift; sourceTree = "<group>"; };
 		3D9384F726F9F421001C137F /* MentionImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionImageProcessor.swift; sourceTree = "<group>"; };
 		3D93851626FAF46E001C137F /* MentionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAssembly.swift; sourceTree = "<group>"; };
 		3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultObjectCreationService.swift; sourceTree = "<group>"; };
@@ -6408,6 +6410,7 @@
 		2A7DCDDB292E4A4E001919B4 /* Flows */ = {
 			isa = PBXGroup;
 			children = (
+				3D9348972C74A25700CD4DB8 /* SpaceHub */,
 				2A4191E12C368FC500117FB8 /* DiscussionCoordinator */,
 				3DD112942B95EA0C007682F4 /* MembersipCoordinator */,
 				3D5D0C5A2B8CA6A3005DB879 /* TypeSearchForNewObjectFlow */,
@@ -9348,6 +9351,14 @@
 				3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */,
 			);
 			path = FilePicker;
+			sourceTree = "<group>";
+		};
+		3D9348972C74A25700CD4DB8 /* SpaceHub */ = {
+			isa = PBXGroup;
+			children = (
+				3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */,
+			);
+			path = SpaceHub;
 			sourceTree = "<group>";
 		};
 		3D93851526FAF34A001C137F /* Models */ = {
@@ -12926,6 +12937,7 @@
 				C9D655E427B4D10D00E09F38 /* EditorContextualMenu.swift in Sources */,
 				3D5A413D2702CBBE00F1F6A1 /* ToastBarData.swift in Sources */,
 				3DB1CA5C272BF2C3000D2779 /* BackgroundType.swift in Sources */,
+				3D9348992C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift in Sources */,
 				3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */,
 				3DA6DBD92746569200516E75 /* PositionCatcher.swift in Sources */,
 				0A0AA74A240146B5003A2935 /* UIView+Extensions.swift in Sources */,

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import AnytypeCore
 
 struct ApplicationCoordinatorView: View {
     
@@ -39,7 +40,11 @@ struct ApplicationCoordinatorView: View {
                 DebugMenuView()
             }
         case .home:
-            HomeCoordinatorView()
+            if FeatureFlags.spaceHub {
+                SpaceHubCoordinatorView()
+            } else {
+                HomeCoordinatorView()
+            }
         case .delete:
             model.deleteAccount()
         }
