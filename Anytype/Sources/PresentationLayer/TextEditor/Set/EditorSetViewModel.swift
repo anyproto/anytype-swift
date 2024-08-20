@@ -93,7 +93,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private var isEmptyQuery: Bool {
-        setDocument.details?.setOf.first { $0.isNotEmpty } == nil
+        setDocument.details?.filteredSetOf.isEmpty ?? true
     }
     
     func groupBackgroundColor(for groupId: String) -> BlockBackgroundColor {
@@ -704,7 +704,7 @@ extension EditorSetViewModel {
     
     func showSetOfTypeSelection() {
         guard setDocument.setPermissions.canChangeQuery else { return }
-        output?.showQueries(document: setDocument, selectedObjectId: setDocument.details?.setOf.first) { [weak self] typeObjectId in
+        output?.showQueries(document: setDocument, selectedObjectId: setDocument.details?.filteredSetOf.first) { [weak self] typeObjectId in
             guard let self else { return }
             Task { @MainActor in
                 try? await self.objectActionsService.setSource(objectId: self.objectId, source: [typeObjectId])
