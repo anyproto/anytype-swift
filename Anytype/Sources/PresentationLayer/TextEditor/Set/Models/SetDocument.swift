@@ -146,7 +146,8 @@ final class SetDocument: SetDocumentProtocol {
     
     func objectOrderIds(for groupId: String) -> [String] {
         dataView.objectOrders.first { [weak self] objectOrder in
-            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == groupId
+            let sameGroup = objectOrder.groupID.isEmpty || objectOrder.groupID == groupId
+            return objectOrder.viewID == self?.activeView.id && sameGroup
         }?.objectIds ?? []
     }
     
