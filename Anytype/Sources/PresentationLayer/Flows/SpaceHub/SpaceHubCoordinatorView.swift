@@ -12,7 +12,8 @@ struct SpaceHubCoordinatorView: View {
                 }.padding()
             }
             .navigationDestination(isPresented: $showHome) {
-                HomeCoordinatorView()
+                HomeCoordinatorView(showHome: $showHome)
+                    .navigationBarBackButtonHidden()
             }
         }
     }

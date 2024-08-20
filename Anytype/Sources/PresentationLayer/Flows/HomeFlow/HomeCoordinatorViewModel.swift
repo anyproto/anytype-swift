@@ -67,6 +67,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var info: AccountInfo?
     @Published var membershipTierId: IntIdentifiable?
     
+    @Binding var showHome: Bool
+    
     private var currentSpaceId: String?
     
     var pageNavigation: PageNavigation {
@@ -83,7 +85,9 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init() {
+    init(showHome: Binding<Bool>) {
+        _showHome = showHome
+        
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
             .statusPublisher.receiveOnMain()
@@ -226,6 +230,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
     func onPickTypeForNewObjectSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
         showTypeSearchForObjectCreation.toggle()
+    }
+    
+    func onSpaceHubSelected() {
+        UISelectionFeedbackGenerator().selectionChanged()
+        showHome = false
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput

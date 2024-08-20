@@ -76,6 +76,15 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                 }
                 .frame(width: 32, height: 32)
             }
+            
+            if FeatureFlags.spaceHub {
+                Button {
+                    model.onSpaceHubTap()
+                } label: {
+                    Image(asset: .X32.vault)
+                        .foregroundColor(.Navigation.buttonActive)
+                }
+            }
         }
         .padding(.horizontal, 20)
         .padding(.vertical, 10)

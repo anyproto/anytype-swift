@@ -273,6 +273,7 @@ internal extension ImageAsset {
       static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
     }
     static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
+    static let vault = ImageAsset.bundle(name: "x32/Vault")
     static let video = ImageAsset.bundle(name: "x32/Video")
     enum View {
       static let hide = ImageAsset.bundle(name: "x32/View/Hide")
