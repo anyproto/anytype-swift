@@ -15,7 +15,12 @@ enum NetworkIconBackground: Equatable {
     }
 }
 
+struct NetworkIconData: Equatable {
+    let icon: ImageAsset
+    let color: Color
+}
+
 protocol NetworkIconProvider: Equatable {
-    var icon: ImageAsset { get }
+    var iconData: NetworkIconData { get }
     var background: NetworkIconBackground { get }
 }
