@@ -43,7 +43,7 @@ struct ApplicationCoordinatorView: View {
             if FeatureFlags.spaceHub {
                 SpaceHubCoordinatorView()
             } else {
-                HomeCoordinatorView()
+                HomeCoordinatorView(showHome: .constant(true))
             }
         case .delete:
             model.deleteAccount()
