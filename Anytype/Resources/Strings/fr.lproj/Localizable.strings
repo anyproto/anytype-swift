@@ -1185,6 +1185,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "SyncStatus.Error.UNRECOGNIZED" = "Erreur inconnue
 ";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Connection not possible";
 
 
 // MARK: - Debug

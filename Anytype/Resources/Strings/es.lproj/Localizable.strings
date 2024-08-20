@@ -1184,6 +1184,7 @@ En concreto,
 "SyncStatus.Error.networkError" = "Sin acceso al espacio";
 "SyncStatus.Error.UNRECOGNIZED" = "Error desconocido";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Connection not possible";
 
 
 // MARK: - Debug
