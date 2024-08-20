@@ -84,7 +84,7 @@ final class SetObjectCreationSettingsInteractor: SetObjectCreationSettingsIntera
         }
         
         if setDocument.isTypeSet() {
-            if let firstSetOf = setDocument.details?.setOf.first {
+            if let firstSetOf = setDocument.details?.filteredSetOf.first {
                 self.objectTypeId = firstSetOf
             } else {
                 self.objectTypeId = defaultObjectTypeID

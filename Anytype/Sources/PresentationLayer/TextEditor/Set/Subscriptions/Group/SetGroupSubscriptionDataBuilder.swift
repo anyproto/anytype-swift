@@ -21,7 +21,7 @@ final class SetGroupSubscriptionDataBuilder: SetGroupSubscriptionDataBuilderProt
             identifier: groupSubscriptionId,
             relationKey: setDocument.activeView.groupRelationKey,
             filters: setDocument.activeView.filters,
-            source: setDocument.details?.setOf,
+            source: setDocument.details?.filteredSetOf,
             collectionId: setDocument.isCollection() ? setDocument.objectId : nil
         )
     }

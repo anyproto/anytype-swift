@@ -40,7 +40,7 @@ final class SetPermissionsBuilder: SetPermissionsBuilderProtocol {
         
         // Set query validation
         // Create objects in sets by type only permitted if type is Page-like
-        guard let setOfId = details.setOf.first(where: { $0.isNotEmpty }) else {
+        guard let setOfId = details.filteredSetOf.first else {
             return false
         }
         

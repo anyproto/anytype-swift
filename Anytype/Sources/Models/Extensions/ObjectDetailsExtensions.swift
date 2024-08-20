@@ -85,4 +85,8 @@ extension BundledRelationsValueProvider {
     var isTemplateType: Bool {
         objectType.isTemplateType
     }
+    
+    var filteredSetOf: [String] {
+        setOf.filter { $0.isNotEmpty }
+    }
 }
