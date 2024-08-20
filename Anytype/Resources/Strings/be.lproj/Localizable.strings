@@ -1184,7 +1184,8 @@
 "SyncStatus.Error.incompatibleVersion" = "Несумяшчальная версія";
 "SyncStatus.Error.networkError" = "Няма доступу да прасторы";
 "SyncStatus.Error.UNRECOGNIZED" = "Невядомая памылка";
-"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.Restricted" = "Абмежаваны. Націсніце, каб адкрыць налады прылады.";
+"SyncStatus.P2P.NotConnected" = "Падключэнне немагчыма";
 
 
 // MARK: - Debug
