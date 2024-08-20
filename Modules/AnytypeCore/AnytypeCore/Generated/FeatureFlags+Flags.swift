@@ -50,6 +50,10 @@ public extension FeatureFlags {
         value(for: .versionHistory)
     }
 
+    static var spaceHub: Bool {
+        value(for: .spaceHub)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -111,6 +115,7 @@ public extension FeatureFlags {
         .addFilesToGlobalSearch,
         .discussions,
         .versionHistory,
+        .spaceHub,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
