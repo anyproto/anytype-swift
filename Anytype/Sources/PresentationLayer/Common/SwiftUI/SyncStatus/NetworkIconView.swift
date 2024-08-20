@@ -15,7 +15,9 @@ struct NetworkIconView<T: NetworkIconProvider>: View {
         ZStack {
             Circle().frame(width: 48, height: 48)
                 .foregroundStyle(color)
-            Image(asset: provider.icon).frame(width: 32, height: 32)
+            Image(asset: provider.iconData.icon)
+                .foregroundStyle(provider.iconData.color)
+                .frame(width: 32, height: 32)
         }
         .onAppear {
             updateColor()

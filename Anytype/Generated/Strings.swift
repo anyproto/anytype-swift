@@ -1726,6 +1726,7 @@ internal enum Loc {
       internal static let localOnly = Loc.tr("Localizable", "SyncStatus.Info.localOnly")
     }
     internal enum P2P {
+      internal static let notConnected = Loc.tr("Localizable", "SyncStatus.P2P.NotConnected")
       internal static let restricted = Loc.tr("Localizable", "SyncStatus.P2P.Restricted")
     }
   }

@@ -72,7 +72,7 @@ extension SyncStatusInfo {
 
 // MARK: - NetworkIconProvider
 extension SyncStatusInfo: NetworkIconProvider {
-    var icon: ImageAsset {
+    var iconData: NetworkIconData {
         switch network {
         case .anytype:
             anytypeNetworkIcon
@@ -81,7 +81,10 @@ extension SyncStatusInfo: NetworkIconProvider {
         case .localOnly:
             localOnlyIcon
         case .UNRECOGNIZED:
-            ImageAsset.SyncStatus.syncOffline
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncOffline,
+                color: .Button.active
+            )
         }
     }
     
@@ -107,29 +110,50 @@ extension SyncStatusInfo: NetworkIconProvider {
         }
     }
     
-    private var anytypeNetworkIcon: ImageAsset {
+    private var anytypeNetworkIcon: NetworkIconData {
         switch status {
         case .synced, .syncing:
-            ImageAsset.SyncStatus.syncAnytypenetworkConnected
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncAnytypenetworkConnected,
+                color: .Dark.green
+            )
         case .error:
-            ImageAsset.SyncStatus.syncAnytypenetworkError
+            NetworkIconData(
+                icon:ImageAsset.SyncStatus.syncAnytypenetworkError,
+                color: .System.red
+            )
         case .offline, .UNRECOGNIZED:
-            ImageAsset.SyncStatus.syncOffline
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncOffline,
+                color: .Button.active
+            )
         }
     }
     
-    private var selfHostIcon: ImageAsset {
+    private var selfHostIcon: NetworkIconData {
         switch self.status {
         case .synced, .syncing:
-            ImageAsset.SyncStatus.syncSelfhostConnected
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncSelfhost,
+                color: .Dark.green
+            )
         case .error:
-            ImageAsset.SyncStatus.syncSelfhostError
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncSelfhost,
+                color: .System.red
+            )
         case .offline, .UNRECOGNIZED:
-            ImageAsset.SyncStatus.syncSelfhostDefault
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncSelfhost,
+                color: .Button.active
+            )
         }
     }
     
-    private var localOnlyIcon: ImageAsset {
-        ImageAsset.SyncStatus.syncLocalonlyDefault
+    private var localOnlyIcon: NetworkIconData {
+        NetworkIconData(
+            icon: ImageAsset.SyncStatus.syncLocalonlyDefault,
+            color: .Button.active
+        )
     }
 }
