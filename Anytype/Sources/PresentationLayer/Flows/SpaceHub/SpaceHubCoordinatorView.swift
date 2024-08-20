@@ -5,16 +5,11 @@ struct SpaceHubCoordinatorView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack {
-                Color.Light.amber.ignoresSafeArea()
-                StandardButton("Goto:// home", style: .primaryLarge) {
-                    showHome.toggle()
-                }.padding()
-            }
-            .navigationDestination(isPresented: $showHome) {
-                HomeCoordinatorView(showHome: $showHome)
-                    .navigationBarBackButtonHidden()
-            }
+            SpaceHubView { showHome.toggle() }
+                .navigationDestination(isPresented: $showHome) {
+                    HomeCoordinatorView(showHome: $showHome)
+                        .navigationBarBackButtonHidden()
+                }
         }
     }
 }

@@ -1345,6 +1345,8 @@
 		3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5426317EFB00C7D1EA /* BaseFilePickerViewModel.swift */; };
 		3D932D5926317EFC00C7D1EA /* FilePickerResultInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */; };
 		3D9348992C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */; };
+		3D93489C2C74CB4200CD4DB8 /* SpaceHubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93489B2C74CB4200CD4DB8 /* SpaceHubView.swift */; };
+		3D93489E2C74D3D200CD4DB8 /* SpaceHubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93489D2C74D3D200CD4DB8 /* SpaceHubViewModel.swift */; };
 		3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9384F726F9F421001C137F /* MentionImageProcessor.swift */; };
 		3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851626FAF46E001C137F /* MentionAssembly.swift */; };
 		3D93852026FB0B74001C137F /* DefaultObjectCreationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */; };
@@ -3215,6 +3217,8 @@
 		3D932D5526317EFB00C7D1EA /* FilePickerResultInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilePickerResultInformation.swift; sourceTree = "<group>"; };
 		3D932D5C2631807800C7D1EA /* OffsetAwareScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetAwareScrollView.swift; sourceTree = "<group>"; };
 		3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubCoordinatorView.swift; sourceTree = "<group>"; };
+		3D93489B2C74CB4200CD4DB8 /* SpaceHubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubView.swift; sourceTree = "<group>"; };
+		3D93489D2C74D3D200CD4DB8 /* SpaceHubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubViewModel.swift; sourceTree = "<group>"; };
 		3D9384F726F9F421001C137F /* MentionImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionImageProcessor.swift; sourceTree = "<group>"; };
 		3D93851626FAF46E001C137F /* MentionAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MentionAssembly.swift; sourceTree = "<group>"; };
 		3D93851F26FB0B74001C137F /* DefaultObjectCreationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultObjectCreationService.swift; sourceTree = "<group>"; };
@@ -6820,6 +6824,7 @@
 		2ABAF2B62938E53A003C4730 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				3D93489A2C74CB3300CD4DB8 /* SpaceHub */,
 				2A0C4CCD2C4EA0BF000F7387 /* MessageReactionPicker */,
 				2A4191DC2C368F5600117FB8 /* Discussion */,
 				2AAEAB5B2BD93BF900E88767 /* ForceDeleteAlert */,
@@ -9361,6 +9366,15 @@
 			path = SpaceHub;
 			sourceTree = "<group>";
 		};
+		3D93489A2C74CB3300CD4DB8 /* SpaceHub */ = {
+			isa = PBXGroup;
+			children = (
+				3D93489B2C74CB4200CD4DB8 /* SpaceHubView.swift */,
+				3D93489D2C74D3D200CD4DB8 /* SpaceHubViewModel.swift */,
+			);
+			path = SpaceHub;
+			sourceTree = "<group>";
+		};
 		3D93851526FAF34A001C137F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -11468,6 +11482,7 @@
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				2A4191E32C368FD800117FB8 /* DiscussionCoordinatorView.swift in Sources */,
 				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,
+				3D93489C2C74CB4200CD4DB8 /* SpaceHubView.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,
 				2A35FF8E2AAF202E00D6006D /* CodeLanguageListView.swift in Sources */,
@@ -12742,6 +12757,7 @@
 				2E2A22F72A9E447000745D78 /* SetLayoutSettingsView.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
 				2A4E3F862BC7C81200724DBF /* BinConfirmationAlertModel.swift in Sources */,
+				3D93489E2C74D3D200CD4DB8 /* SpaceHubViewModel.swift in Sources */,
 				2E31C96B2B73DF1F006DB3E2 /* FileRelationListInteractor.swift in Sources */,
 				2EA2B29A2B3B3B5700C258E8 /* SetGroupSubscriptionDataBuilder.swift in Sources */,
 				2E0A6CD72A3773B800A28AF2 /* LoginFlowCoordinator.swift in Sources */,
