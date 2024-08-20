@@ -1,21 +1,20 @@
 import SwiftUI
 
 struct SpaceHubView: View {
-    private let onTap: () -> ()
+    @StateObject private var model: SpaceHubViewModel
     
     init(onTap: @escaping () -> Void) {
-        self.onTap = onTap
+        _model = StateObject(wrappedValue: SpaceHubViewModel(onTap: onTap))
     }
     
     var body: some View {
         VStack(spacing: 8) {
             navBar
             
-            spaceCard()
-            spaceCard()
-            spaceCard()
-            spaceCard()
-            spaceCard()
+            ForEach(model.spaces) {
+                spaceCard($0)
+            }
+            .animation(.default, value: model.spaces)
             
             Spacer()
         }
@@ -44,17 +43,16 @@ struct SpaceHubView: View {
         }
     }
     
-    private func spaceCard() -> some View {
+    private func spaceCard(_ space: ParticipantSpaceViewData) -> some View {
         Button {
-            onTap()
+            model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
         } label: {
             HStack(spacing: 16) {
-                Image(asset: .AppIconsPreview.appIconSmile)
+                IconView(icon: space.spaceView.objectIconImage)
                     .frame(width: 64, height: 64)
-                    .cornerRadius(8, style: .circular)
                 VStack(alignment: .leading, spacing: 6) {
-                    AnytypeText("Space name", style: .bodySemibold)
-                    AnytypeText("Space type", style: .relation3Regular)
+                    AnytypeText(space.spaceView.name, style: .bodySemibold)
+                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
                 }
                 Spacer()
             }
