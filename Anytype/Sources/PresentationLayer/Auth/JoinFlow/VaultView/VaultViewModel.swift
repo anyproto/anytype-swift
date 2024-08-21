@@ -24,7 +24,7 @@ final class VaultViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .vault)
     }
     
     func onNextAction() {
