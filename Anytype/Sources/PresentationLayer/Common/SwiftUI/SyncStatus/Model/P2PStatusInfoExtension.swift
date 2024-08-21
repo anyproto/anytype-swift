@@ -13,19 +13,12 @@ extension P2PStatusInfo {
 
 // Texts
 extension P2PStatusInfo {
-    var networkTitle: String {
-        switch status {
-        case .notConnected, .UNRECOGNIZED:
-            Loc.p2PConnecting
-        case .notPossible, .connected:
-            Loc.p2PConnection
-        }
-    }
+    var networkTitle: String { Loc.p2PConnection }
     
     var networkSubtitle: String {
         switch status {
         case .notConnected, .UNRECOGNIZED:
-            ""
+            Loc.SyncStatus.P2P.notConnected
         case .notPossible:
             Loc.SyncStatus.P2P.restricted
         case .connected:
@@ -36,12 +29,23 @@ extension P2PStatusInfo {
 
 // MARK: - NetworkIconProvider
 extension P2PStatusInfo: NetworkIconProvider {
-    var icon: ImageAsset {
+    var iconData: NetworkIconData {
         switch self.status {
-        case .notConnected, .notPossible, .UNRECOGNIZED:
-            ImageAsset.SyncStatus.syncP2pDefault
+        case .notPossible:
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncP2p,
+                color: .System.red
+            )
+        case .notConnected, .UNRECOGNIZED:
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncP2p,
+                color: .Button.active
+            )
         case .connected:
-            ImageAsset.SyncStatus.syncP2pConnected
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncP2p,
+                color: .Dark.green
+            )
         }
     }
     
@@ -50,9 +54,18 @@ extension P2PStatusInfo: NetworkIconProvider {
         case .notConnected:
             .animation(start: .Shape.secondary, end: .Shape.secondary.opacity(0.5))
         case .notPossible, .UNRECOGNIZED:
-            .static(.Shape.secondary)
+            .static(.Light.red)
         case .connected:
             .static(.Light.green)
+        }
+    }
+    
+    var haveTapIndicatior: Bool {
+        switch status {
+        case .notConnected, .connected, .UNRECOGNIZED:
+            return false
+        case .notPossible:
+            return true
         }
     }
 }

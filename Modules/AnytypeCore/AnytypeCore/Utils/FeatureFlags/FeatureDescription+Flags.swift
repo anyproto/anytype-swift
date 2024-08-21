@@ -24,12 +24,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let membership = FeatureDescription(
-        title: "Membership 💸",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
-        defaultValue: true
-    )
-    
     static let hideCoCreator = FeatureDescription(
         title: "Hide CoCreator tier",
         type: .feature(author: "vova@anytype.io", releaseVersion: "4.5"),
@@ -76,8 +70,14 @@ public extension FeatureDescription {
     static let versionHistory = FeatureDescription(
         title: "Version History - IOS-3058",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
+        defaultValue: true
+    )
+    
+    static let spaceHub = FeatureDescription(
+        title: "Space hub screen (aka vault) - IOS-3315",
+        type: .feature(author: "vova@anytype.io", releaseVersion: "7"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     // MARK: - Debug

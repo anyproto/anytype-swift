@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "खोजें";
 "There is no emoji named" = "नाम का कोई इमोजी नहीं है";
@@ -1182,7 +1183,8 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
-"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Connection not possible";
 
 
 // MARK: - Debug

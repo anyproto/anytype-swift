@@ -23,7 +23,7 @@ extension MessageLinkObjectViewStyle {
             )
         case .listMy:
             MessageLinkObjectViewStyleConfig(
-                borderColor: .Shape.transperent,
+                borderColor: .Shape.transperentSecondary,
                 shadowColor: .clear
             )
         case .listOther:

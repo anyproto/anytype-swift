@@ -55,7 +55,12 @@ final class ObjectSettingsCoordinatorViewModel:
     
     func showVersionHistory(document: some BaseDocumentProtocol) {
         guard let details = document.details else { return }
-        versionHistoryData = VersionHistoryData(objectId: document.objectId, spaceId: document.spaceId, isListType: details.isList)
+        versionHistoryData = VersionHistoryData(
+            objectId: document.objectId,
+            spaceId: document.spaceId,
+            isListType: details.isList,
+            canRestore: document.permissions.canRestoreVersionHistory
+        )
     }
     
     func openPageAction(screenData: EditorScreenData) {
@@ -102,7 +107,8 @@ final class ObjectSettingsCoordinatorViewModel:
     
     // MARK: - ObjectVersionModuleOutput
     
-    func versionRestored() {
+    func versionRestored(_ text: String) {
         dismiss.toggle()
+        output?.versionRestored(text)
     }
 }

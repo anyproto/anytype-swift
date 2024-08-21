@@ -176,9 +176,11 @@ final class SetContentViewDataBuilder: SetContentViewDataBuilderProtocol {
         guard activeView.type == .gallery else {
             return nil
         }
-        if activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue,
-           let documentCover = details.documentCover {
+        let showPageCover = activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue
+        if showPageCover, let documentCover = details.documentCover {
             return .cover(documentCover)
+        } else if showPageCover, details.objectType.isImageLayout {
+            return .cover(DocumentCover.imageId(details.id))
         } else {
             return relationCoverType(details, dataView: dataView, activeView: activeView, spaceId: spaceId, detailsStorage: detailsStorage)
         }

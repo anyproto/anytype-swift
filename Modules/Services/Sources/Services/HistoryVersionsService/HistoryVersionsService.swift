@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 
 public protocol HistoryVersionsServiceProtocol: Sendable {
-    func getVersions(objectId: String) async throws -> [VersionHistory]
+    func getVersions(objectId: String, lastVersionId: String) async throws -> [VersionHistory]
     func showVersion(objectId: String, versionId: String) async throws -> ObjectViewModel
     func diffVersions(
         objectId: String,
@@ -15,10 +15,11 @@ public protocol HistoryVersionsServiceProtocol: Sendable {
 
 final class HistoryVersionsService: HistoryVersionsServiceProtocol {
     
-    public func getVersions(objectId: String) async throws -> [VersionHistory] {
+    public func getVersions(objectId: String, lastVersionId: String) async throws -> [VersionHistory] {
         let response = try await ClientCommands.historyGetVersions(.with {
             $0.objectID = objectId
             $0.limit = Constants.limit
+            $0.lastVersionID = lastVersionId
         }).invoke()
         return response.versions
     }

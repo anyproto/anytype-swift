@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Гісторыя версій";
+"VersionHistory.Toast.message" = "Версія %@ была адноўлена";
 
 "Search" = "Пошук";
 "There is no emoji named" = "Няма эмодзі з такой назвай";
@@ -1183,7 +1184,8 @@
 "SyncStatus.Error.incompatibleVersion" = "Несумяшчальная версія";
 "SyncStatus.Error.networkError" = "Няма доступу да прасторы";
 "SyncStatus.Error.UNRECOGNIZED" = "Невядомая памылка";
-"SyncStatus.P2P.Restricted" = "Абмежаваны. Праверце налады прылады.";
+"SyncStatus.P2P.Restricted" = "Абмежаваны. Націсніце, каб адкрыць налады прылады.";
+"SyncStatus.P2P.NotConnected" = "Падключэнне немагчыма";
 
 
 // MARK: - Debug

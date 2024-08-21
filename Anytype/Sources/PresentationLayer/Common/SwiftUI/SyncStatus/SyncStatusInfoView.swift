@@ -54,6 +54,9 @@ struct SyncStatusInfoView: View {
                     }
                 }
                 Spacer()
+                if model.p2pStatusInfo.haveTapIndicatior {
+                    Image(asset: .arrowForward).foregroundColor(.Text.tertiary)
+                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)

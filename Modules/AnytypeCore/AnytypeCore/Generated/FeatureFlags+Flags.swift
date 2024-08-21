@@ -18,10 +18,6 @@ public extension FeatureFlags {
         value(for: .dndOnCollectionsAndSets)
     }
 
-    static var membership: Bool {
-        value(for: .membership)
-    }
-
     static var hideCoCreator: Bool {
         value(for: .hideCoCreator)
     }
@@ -52,6 +48,10 @@ public extension FeatureFlags {
 
     static var versionHistory: Bool {
         value(for: .versionHistory)
+    }
+
+    static var spaceHub: Bool {
+        value(for: .spaceHub)
     }
 
     static var rainbowViews: Bool {
@@ -107,7 +107,6 @@ public extension FeatureFlags {
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
-        .membership,
         .hideCoCreator,
         .scrollToBlockFromSearch,
         .galleryWidget,
@@ -116,6 +115,7 @@ public extension FeatureFlags {
         .addFilesToGlobalSearch,
         .discussions,
         .versionHistory,
+        .spaceHub,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

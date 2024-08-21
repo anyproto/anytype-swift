@@ -31,6 +31,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
+    @Injected(\.accountManager)
+    private var accountManager: any AccountManagerProtocol
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -65,6 +67,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var info: AccountInfo?
     @Published var membershipTierId: IntIdentifiable?
     
+    @Binding var showHome: Bool
+    
     private var currentSpaceId: String?
     
     var pageNavigation: PageNavigation {
@@ -81,7 +85,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init() {
+    init(showHome: Binding<Bool>) {
+        _showHome = showHome
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
@@ -226,6 +231,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
         UISelectionFeedbackGenerator().selectionChanged()
         showTypeSearchForObjectCreation.toggle()
     }
+    
+    func onSpaceHubSelected() {
+        UISelectionFeedbackGenerator().selectionChanged()
+        showHome = false
+    }
 
     // MARK: - SetObjectCreationCoordinatorOutput
     
@@ -312,6 +322,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
+            guard accountManager.account.isInProdNetwork else { return }
             membershipTierId = tierId.identifiable
         }
     }

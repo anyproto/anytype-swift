@@ -131,7 +131,7 @@ final class SetDocument: SetDocumentProtocol {
     }
     
     func canStartSubscription() -> Bool {
-        (details?.setOf.isNotEmpty ?? false) || isCollection()
+        (details?.filteredSetOf.isNotEmpty ?? false) || isCollection()
     }
     
     func viewRelations(viewId: String, excludeRelations: [RelationDetails]) -> [RelationDetails] {
@@ -146,7 +146,8 @@ final class SetDocument: SetDocumentProtocol {
     
     func objectOrderIds(for groupId: String) -> [String] {
         dataView.objectOrders.first { [weak self] objectOrder in
-            objectOrder.viewID == self?.activeView.id && objectOrder.groupID == groupId
+            let sameGroup = objectOrder.groupID.isEmpty || objectOrder.groupID == groupId
+            return objectOrder.viewID == self?.activeView.id && sameGroup
         }?.objectIds ?? []
     }
     
@@ -162,7 +163,7 @@ final class SetDocument: SetDocumentProtocol {
     func isBookmarksSet() -> Bool {
         guard let details,
               let bookmarkType = (try? objectTypeProvider.objectType(recommendedLayout: .bookmark, spaceId: document.spaceId)) else { return false }
-        return details.setOf.contains(bookmarkType.id)
+        return details.filteredSetOf.contains(bookmarkType.id)
     }
     
     func isSetByRelation() -> Bool {
@@ -183,7 +184,7 @@ final class SetDocument: SetDocumentProtocol {
             anytypeAssertionFailure("SetDocument: No details in isHeaderActive")
             return false
         }
-        return details.isCollection || isSetByRelation() || details.setOf.first(where: { $0.isNotEmpty }).isNotNil
+        return details.isCollection || isSetByRelation() || details.filteredSetOf.isNotEmpty
     }
     
     func defaultObjectTypeForActiveView() throws -> ObjectType {

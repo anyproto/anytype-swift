@@ -273,6 +273,7 @@ internal extension ImageAsset {
       static let undo = ImageAsset.bundle(name: "x32/Undo/Undo")
     }
     static let undoRedo = ImageAsset.bundle(name: "x32/UndoRedo")
+    static let vault = ImageAsset.bundle(name: "x32/Vault")
     static let video = ImageAsset.bundle(name: "x32/Video")
     enum View {
       static let hide = ImageAsset.bundle(name: "x32/View/Hide")
@@ -399,11 +400,8 @@ internal extension ImageAsset {
     static let syncInProgress = ImageAsset.bundle(name: "SyncStatus/sync_in_progress")
     static let syncLocalonlyDefault = ImageAsset.bundle(name: "SyncStatus/sync_localonly_default")
     static let syncOffline = ImageAsset.bundle(name: "SyncStatus/sync_offline")
-    static let syncP2pConnected = ImageAsset.bundle(name: "SyncStatus/sync_p2p_connected")
-    static let syncP2pDefault = ImageAsset.bundle(name: "SyncStatus/sync_p2p_default")
-    static let syncSelfhostConnected = ImageAsset.bundle(name: "SyncStatus/sync_selfhost_connected")
-    static let syncSelfhostDefault = ImageAsset.bundle(name: "SyncStatus/sync_selfhost_default")
-    static let syncSelfhostError = ImageAsset.bundle(name: "SyncStatus/sync_selfhost_error")
+    static let syncP2p = ImageAsset.bundle(name: "SyncStatus/sync_p2p")
+    static let syncSelfhost = ImageAsset.bundle(name: "SyncStatus/sync_selfhost")
   }
   enum TextEditor {
     enum BlocksOption {

@@ -175,11 +175,11 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     private func setup() {
-        eventsListener.onUpdatesReceive = { [weak self] updates in
+        eventsListener.setOnUpdateReceice({ [weak self] updates in
             DispatchQueue.main.async { [weak self] in
                 self?.triggerSync(updates: updates)
             }
-        }
+        })
         if mode.isHandling {
             eventsListener.startListening()
         }

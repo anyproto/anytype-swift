@@ -1726,6 +1726,7 @@ internal enum Loc {
       internal static let localOnly = Loc.tr("Localizable", "SyncStatus.Info.localOnly")
     }
     internal enum P2P {
+      internal static let notConnected = Loc.tr("Localizable", "SyncStatus.P2P.NotConnected")
       internal static let restricted = Loc.tr("Localizable", "SyncStatus.P2P.Restricted")
     }
   }
@@ -1852,6 +1853,11 @@ internal enum Loc {
   }
   internal enum VersionHistory {
     internal static let title = Loc.tr("Localizable", "VersionHistory.Title")
+    internal enum Toast {
+      internal static func message(_ p1: Any) -> String {
+        return Loc.tr("Localizable", "VersionHistory.Toast.message", String(describing: p1))
+      }
+    }
   }
   internal enum Wallet {
     internal enum Recovery {

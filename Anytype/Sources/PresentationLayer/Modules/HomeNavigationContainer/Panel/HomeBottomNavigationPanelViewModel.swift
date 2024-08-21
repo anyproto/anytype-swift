@@ -69,6 +69,10 @@ final class HomeBottomNavigationPanelViewModel: ObservableObject {
         output?.onPickTypeForNewObjectSelected()
     }
     
+    func onSpaceHubTap() {
+        output?.onSpaceHubSelected()
+    }
+    
     func onAppear() async {
         for await canEdit in accountParticipantStorage.canEditPublisher(spaceId: info.accountSpaceId).values {
             canCreateObject = canEdit

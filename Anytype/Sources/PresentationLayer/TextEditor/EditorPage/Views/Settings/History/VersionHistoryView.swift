@@ -22,7 +22,7 @@ struct VersionHistoryView: View {
         .task {
             await model.startParticipantsSubscription()
         }
-        .task {
+        .task(id: model.lastViewedVersionId) {
             await model.getVersions()
         }
     }
@@ -49,6 +49,9 @@ struct VersionHistoryView: View {
             }
         )
         .padding(.horizontal, 20)
+        .onAppear {
+            model.onAppearLastGroup(group)
+        }
     }
     
     private func content(for versions: [[VersionHistoryItem]]) -> some View {
@@ -66,9 +69,10 @@ struct VersionHistoryView: View {
                     .foregroundColor(.Text.primary)
                 AnytypeText(data.author, style: .caption1Regular)
                     .foregroundColor(.Text.secondary)
+                    .lineLimit(1)
             }
             
-            Spacer()
+            Spacer(minLength: 12)
             
             ObjectIconView(icon: data.icon)
                 .frame(width: 24, height: 24)

@@ -166,7 +166,9 @@ internal enum Asset {
     static let primary = ColorAsset(name: "Shape/primary")
     static let secondary = ColorAsset(name: "Shape/secondary")
     static let tertiary = ColorAsset(name: "Shape/tertiary")
-    static let transperent = ColorAsset(name: "Shape/transperent")
+    static let transperentPrimary = ColorAsset(name: "Shape/transperentPrimary")
+    static let transperentSecondary = ColorAsset(name: "Shape/transperentSecondary")
+    static let transperentTertiary = ColorAsset(name: "Shape/transperentTertiary")
   }
   internal enum Text {
     static let labelInversion = ColorAsset(name: "Text/labelInversion")

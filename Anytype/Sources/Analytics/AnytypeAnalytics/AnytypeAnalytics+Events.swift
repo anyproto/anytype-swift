@@ -586,12 +586,12 @@ extension AnytypeAnalytics {
         )
     }
     
-    func logScreenAuthRegistration() {
-        logEvent("ScreenAuthRegistration")
-    }
-    
     func logMainAuthScreenShow() {
         AnytypeAnalytics.instance().logEvent("ScreenIndex")
+    }
+    
+    func logStartCreateAccount() {
+        AnytypeAnalytics.instance().logEvent("StartCreateAccount")
     }
     
     func logLoginScreenShow() {

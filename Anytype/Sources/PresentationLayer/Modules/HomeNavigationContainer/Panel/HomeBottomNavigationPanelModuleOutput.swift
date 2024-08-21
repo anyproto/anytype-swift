@@ -9,4 +9,5 @@ protocol HomeBottomNavigationPanelModuleOutput: AnyObject {
     func onForwardSelected()
     func onBackwardSelected()
     func onPickTypeForNewObjectSelected()
+    func onSpaceHubSelected()
 }

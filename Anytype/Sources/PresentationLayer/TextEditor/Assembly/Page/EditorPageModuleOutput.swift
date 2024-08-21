@@ -13,6 +13,7 @@ protocol EditorPageModuleOutput: AnyObject, ObjectHeaderModuleOutput {
     func showTextIconPicker(data: TextIconPickerData)
     func showBlockObjectSearch(data: BlockObjectSearchData)
     func didUndoRedo()
+    func versionRestored(_ text: String)
     func openUrl(_ url: URL)
     func showSyncStatusInfo(spaceId: String)
     func showAddNewRelationView(document: some BaseDocumentProtocol, onSelect: @escaping (RelationDetails, _ isNew: Bool) -> Void)

@@ -28,14 +28,15 @@ final class VersionHistoryCoordinatorViewModel:
             objectId: data.objectId, 
             spaceId: data.spaceId,
             versionId: versionId,
-            isListType: data.isListType
+            isListType: data.isListType,
+            canRestore: data.canRestore
         )
     }
     
     // MARK: ObjectVersionModuleOutput
     
-    func versionRestored() {
-        output?.versionRestored()
+    func versionRestored(_ text: String) {
+        output?.versionRestored(text)
     }
 }
 

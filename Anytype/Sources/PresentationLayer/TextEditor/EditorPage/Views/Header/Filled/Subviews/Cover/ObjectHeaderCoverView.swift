@@ -1,138 +1,82 @@
 import Foundation
+import SwiftUI
+import CachedAsyncImage
 import UIKit
 
-final class ObjectHeaderCoverView: UIView {
+struct ObjectHeaderCoverView: View {
     
-    // MARK: - Views
+    let objectCover: ObjectHeaderCoverType
+    let fitImage: Bool
     
-    private let activityIndicatorView = ActivityIndicatorView()
-    private let imageView = UIImageView()
-    
-    // MARK: - Initializers
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        setupView()
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
-
-
-// MARK: - ConfigurableView
-
-extension ObjectHeaderCoverView: ConfigurableView {
-    
-    struct Model {
-        let objectCover: ObjectHeaderCoverType
-        let size: CGSize
-        let fitImage: Bool
-    }
-    
-    func configure(model: Model) {
-        imageView.image = nil
-
-        switch model.objectCover {
-        case let .cover(cover):
-            configureCoverState(cover, model.size, model.fitImage)
-        case let .preview(previewType):
-            configurePreviewState(previewType, model.size)
+    var body: some View {
+        GeometryReader { reader in
+            return Group {
+                switch objectCover {
+                case .cover(let cover):
+                    documentCover(cover, reader.size)
+                case .preview(let previewType):
+                    previewView(previewType, reader.size)
+                }
+            }
+            .frame(width: reader.size.width, height: reader.size.height)
+            .clipped()
         }
+        .id(objectCover.hashValue)
     }
-}
-
-private extension ObjectHeaderCoverView {
     
-    func configureCoverState(_ cover: DocumentCover, _ size: CGSize, _ fitImage: Bool) {
-        activityIndicatorView.hide()
-        
+    @ViewBuilder
+    private func documentCover(_ cover: DocumentCover, _ size: CGSize) -> some View {
         switch cover {
         case let .imageId(imageId):
-            showImageWithId(imageId, size, fitImage)
+            imageWithId(imageId, size, fitImage)
         case let .color(color):
-            showColor(color, size)
+            colorView(color, size)
         case let .gradient(gradientColor):
-            showGradient(gradientColor, size)
+            gradientView(gradientColor, size)
         }
     }
     
-    private func showImageWithId(_ imageId: String, _ size: CGSize, _ fitImage: Bool) {
-        let imageGuideline = ImageGuideline(size: size)
-        
-        imageView.wrapper.imageGuideline(imageGuideline).scalingType(nil).setImage(id: imageId)
-        imageView.contentMode = fitImage ? .scaleAspectFit : .scaleAspectFill
-    }
-    
-    private func showColor(_ color: UIColor, _ size: CGSize) {
-        let imageGuideline = ImageGuideline(size: size)
-        let image: UIImage? = ImageBuilder(imageGuideline)
-            .setImageColor(color)
-            .build()
-        imageView.wrapper.setImage(image)
-        imageView.contentMode = .scaleAspectFill
-    }
-    
-    private func showGradient(_ gradient: GradientColor, _ size: CGSize) {
-        let image: UIImage? = GradientImageBuilder().image(
-            size: size,
-            color: gradient,
-            point: GradientPoint(
-                start: CGPoint(x: 0.5, y: 0),
-                end: CGPoint(x: 0.5, y: 1)
-            )
-        )
-        imageView.wrapper.setImage(image)
-        imageView.contentMode = .scaleToFill
-    }
-    
-    private func configurePreviewState(_ previewType: ObjectHeaderCoverPreviewType, _ size: CGSize) {
-        switch previewType {
-        case .remote(let url):
-            imageView.wrapper
-                .imageGuideline(ImageGuideline(size: size))
-                .placeholderNeeded(false)
-                .setImage(url: url)
-        case .image(let image):
-            imageView.wrapper.setImage(image)
-        }
+    private func imageWithId(_ imageId: String, _ size: CGSize, _ fitImage: Bool) -> some View {
+        CachedAsyncImage(
+            url: ImageMetadata(id: imageId, width: .width(size.width)).contentUrl
+        ) { image in
+            image.resizable()
+                .if(fitImage) {
+                    $0.scaledToFit()
+                } else: {
+                    $0.scaledToFill()
+                }
 
-        imageView.contentMode = .scaleAspectFill
-
-        activityIndicatorView.show()
-    }
-    
-}
-
-// MARK: - Private extension
-
-private extension ObjectHeaderCoverView {
-    
-    func setupView() {
-        setupBackgroundColor()
-        
-        imageView.clipsToBounds = true
-        
-        setupLayout()
-    }
-    
-    func setupBackgroundColor() {
-        backgroundColor = .Background.primary
-        imageView.backgroundColor = .Background.primary
-    }
-    
-    func setupLayout() {
-        addSubview(imageView) {
-            $0.pinToSuperview()
-        }
-        
-        addSubview(activityIndicatorView) {
-            $0.pinToSuperview()
+        } placeholder: {
+            Image(uiImage: UIImage()) // EmptyView breaks loading
         }
     }
     
+    private func colorView(_ color: UIColor, _ size: CGSize) -> some View {
+        color.suColor
+    }
+    
+    private func gradientView(_ gradient: GradientColor, _ size: CGSize) -> some View {
+        gradient.asLinearGradient()
+    }
+
+    private func previewView(_ previewType: ObjectHeaderCoverPreviewType, _ size: CGSize) -> some View {
+        ZStack(alignment: .center) {
+            switch previewType {
+            case .remote(let url):
+                CachedAsyncImage(url: url)
+                    { image in
+                        image.resizable().scaledToFill()
+                    } placeholder: {
+                        Image(uiImage: UIImage()) // EmptyView breaks loading
+                    }
+            case .image(let image):
+                if let image {
+                    Image(uiImage: image)
+                }
+            }
+            
+            ActivityIndicator(style: .medium)
+        }
+    }
 }

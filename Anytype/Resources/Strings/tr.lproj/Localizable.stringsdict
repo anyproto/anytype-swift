@@ -5,7 +5,7 @@
     <key>Items syncing</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@item@ syncing...</string>
+      <string>%#@item@ eşitleniyor...</string>
       <key>item</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,15 +13,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld item</string>
+        <string>%ld öğe</string>
         <key>other</key>
-        <string>%ld items</string>
+        <string>%ld öğe</string>
       </dict>
     </dict>
     <key>Devices connected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@device@ connected</string>
+      <string>%#@device@ bağlı</string>
       <key>device</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -29,15 +29,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld device</string>
+        <string>%ld cihaz</string>
         <key>other</key>
-        <string>%ld devices</string>
+        <string>%ld cihaz</string>
       </dict>
     </dict>
     <key>Are you sure you want to delete</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string> %#@object@ öğesini silmek istediğinize emin misiniz?</string>
+      <string> %#@object@ nesnesini silmek istediğinizden emin misiniz?</string>
       <key>object</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -93,9 +93,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d link</string>
+        <string>%d bağlantı</string>
         <key>other</key>
-        <string>%d links</string>
+        <string>%d bağlantı</string>
       </dict>
     </dict>
     <key>Backlinks count</key>
@@ -109,15 +109,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>%d backlink</string>
+        <string>%d geri bağlantı</string>
         <key>other</key>
-        <string>%d backlinks</string>
+        <string>%d geri bağlantı</string>
       </dict>
     </dict>
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Bu hesap %#@days@ gün içinde silinecek</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -125,9 +125,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>yarın</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>%d gün içinde</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -157,9 +157,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Object</string>
+        <string>Dosya Nesnesi</string>
         <key>other</key>
-        <string>%d File Objects</string>
+        <string>%d Dosya Nesneleri</string>
       </dict>
     </dict>
     <key>Sharing.File.Block</key>
@@ -173,9 +173,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>File Block</string>
+        <string>Dosya Bloğu</string>
         <key>other</key>
-        <string>%d File Blocks</string>
+        <string>%d Dosya Blokları</string>
       </dict>
     </dict>
     <key>Membership.Upgrade.SpacesLimit</key>
@@ -189,9 +189,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You’ve reached the limit of %d space that can be shared</string>
+        <string>Paylaşılabilecek %d alan sınırına ulaştınız</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Paylaşılabilecek %d alan sınırına ulaştınız</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -205,9 +205,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Bookmark Object</string>
+        <string>Yer İşareti Nesnesi</string>
         <key>other</key>
-        <string>%d Bookmark Objects</string>
+        <string>%d Yer İşareti Nesneleri</string>
       </dict>
     </dict>
     <key>Sharing.URL.Block</key>
@@ -221,9 +221,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>Link Block</string>
+        <string>Bağlantı Bloğu</string>
         <key>other</key>
-        <string>Link %d Blocks</string>
+        <string>Bağlantı %d Blokları</string>
       </dict>
     </dict>
     <key>SpaceShare.Invite.MaxLimit</key>
@@ -233,13 +233,13 @@
       <key>object</key>
       <dict>
         <key>one</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Üye sayınız %d sınırına ulaştı. Yeni üyeler katılamayacaktır.</string>
         <key>NSStringFormatSpecTypeKey</key>
         <string>NSStringPluralRuleType</string>
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>You have reached the limit of %d members. New members will not be able to join.</string>
+        <string>Üye sayınız %d sınırına ulaştı. Yeni üyeler katılamayacaktır.</string>
       </dict>
     </dict>
     <key>Space.MembersCount</key>
@@ -253,9 +253,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d members</string>
+        <string>%d üye</string>
         <key>one</key>
-        <string>%d member</string>
+        <string>%d üye</string>
       </dict>
     </dict>
     <key>SpaceShare.RequestsCount</key>
@@ -269,15 +269,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d requests</string>
+        <string>%d istek</string>
         <key>one</key>
-        <string>%d request</string>
+        <string>%d istek</string>
       </dict>
     </dict>
     <key>Per Month</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@month@</string>
+      <string>%#@month@ ayda bir</string>
       <key>month</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -285,15 +285,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>month</string>
+        <string>ay</string>
         <key>other</key>
-        <string>%d months</string>
+        <string>%d ay</string>
       </dict>
     </dict>
     <key>Per Week</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@week@</string>
+      <string>%#@week@ haftada bir</string>
       <key>week</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -301,15 +301,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>week</string>
+        <string>hafta</string>
         <key>other</key>
-        <string>%d weeks</string>
+        <string>%d hafta</string>
       </dict>
     </dict>
     <key>Per Year</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@year@</string>
+      <string>%#@year@ yılda bir</string>
       <key>year</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -317,15 +317,15 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>yıl</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d yıl</string>
       </dict>
     </dict>
     <key>Per Day</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
+      <string>%#@day@ günde bir</string>
       <key>day</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -333,9 +333,9 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>day</string>
+        <string>gün</string>
         <key>other</key>
-        <string>%d days</string>
+        <string>%d gün</string>
       </dict>
     </dict>
   </dict>

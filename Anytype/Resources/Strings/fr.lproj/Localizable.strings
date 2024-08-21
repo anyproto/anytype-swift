@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Historique des versions";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Rechercher";
 "There is no emoji named" = "Il n'y a pas d'émoji nommé";
@@ -1176,14 +1177,15 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
+"SyncStatus.Info.localOnly" = "La sauvegarde des données est désactivée";
 "SyncStatus.Info.AnytypeNetwork" = "Chiffrement de bout en bout";
 "SyncStatus.Error.storageLimitExceed" = "Limite de stockage atteinte";
 "SyncStatus.Error.incompatibleVersion" = "Version incompatible";
-"SyncStatus.Error.networkError" = "No access to the space";
+"SyncStatus.Error.networkError" = "Pas d'accès à l'espace";
 "SyncStatus.Error.UNRECOGNIZED" = "Erreur inconnue
 ";
-"SyncStatus.P2P.Restricted" = "Restriction. Vérifiez les paramètres de l'appareil.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Connection not possible";
 
 
 // MARK: - Debug
@@ -1192,4 +1194,4 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 
 // MARK: - Messages
 "Message.Action.AddReaction" = "Add Reaction";
-"Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.Input.EmptyPlaceholder" = "Ecrire un message...";

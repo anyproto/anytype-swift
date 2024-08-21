@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Version History";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Pesquisar";
 "There is no emoji named" = "Não há nenhum emoji chamado";
@@ -1183,7 +1184,8 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.incompatibleVersion" = "Versão incompatível";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
-"SyncStatus.P2P.Restricted" = "Restricted. Check device settings.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Connection not possible";
 
 
 // MARK: - Debug

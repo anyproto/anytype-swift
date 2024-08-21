@@ -5,9 +5,13 @@ import AnytypeCore
 
 struct HomeCoordinatorView: View {
     
-    @StateObject private var model = HomeCoordinatorViewModel()
+    @StateObject private var model: HomeCoordinatorViewModel
     @Environment(\.keyboardDismiss) var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
+    
+    init(showHome: Binding<Bool>) {
+        _model = StateObject(wrappedValue: HomeCoordinatorViewModel(showHome: showHome))
+    }
     
     var body: some View {
         ZStack {
@@ -95,5 +99,5 @@ struct HomeCoordinatorView: View {
 }
 
 #Preview {
-    HomeCoordinatorView()
+    HomeCoordinatorView(showHome: .constant(true))
 }

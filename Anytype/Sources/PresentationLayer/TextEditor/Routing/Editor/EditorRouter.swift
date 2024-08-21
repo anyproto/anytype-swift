@@ -368,6 +368,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol, ObjectSettingsCoordina
     func didUndoRedo() {
         output?.didUndoRedo()
     }
+    
+    func versionRestored(_ text: String) {
+        output?.versionRestored(text)
+    }
 
     // MARK: - Private
     

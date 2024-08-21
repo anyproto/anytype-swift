@@ -28,7 +28,7 @@ struct GlobalSearchRelatedObjectsSwipeTipView: View {
     
     var body: some View {
         TipView(tip)
-            .tipBackground(Color.Shape.transperent)
+            .tipBackground(Color.Shape.transperentSecondary)
             .tipCornerRadius(0)
     }
 }

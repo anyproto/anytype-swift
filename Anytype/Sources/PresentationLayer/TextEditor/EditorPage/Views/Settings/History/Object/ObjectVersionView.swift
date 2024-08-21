@@ -14,7 +14,9 @@ struct ObjectVersionView: View {
         VStack(spacing: 0) {
             header
             content
-            buttons
+            if model.data.canRestore {
+                buttons
+            }
         }
         .onAppear {
             model.onAppear()

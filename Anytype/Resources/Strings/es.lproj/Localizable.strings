@@ -291,6 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Historial de versiones";
+"VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Buscar";
 "There is no emoji named" = "No hay ningún emoji llamado";
@@ -1182,7 +1183,8 @@ En concreto,
 "SyncStatus.Error.incompatibleVersion" = "Versión incompatible";
 "SyncStatus.Error.networkError" = "Sin acceso al espacio";
 "SyncStatus.Error.UNRECOGNIZED" = "Error desconocido";
-"SyncStatus.P2P.Restricted" = "Restringido. Comprueba los ajustes del dispositivo.";
+"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.P2P.NotConnected" = "Connection not possible";
 
 
 // MARK: - Debug

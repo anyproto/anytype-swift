@@ -9,6 +9,7 @@ final class MembershipUpgradeViewModifierModel: ObservableObject {
     
     @Injected(\.mailUrlBuilder) private var mailUrlBuilder
     @Injected(\.membershipStatusStorage) private var statusStorage
+    @Injected(\.accountManager) private var accountManager
     
     nonisolated init() { }
     
@@ -16,7 +17,7 @@ final class MembershipUpgradeViewModifierModel: ObservableObject {
         guard let reason else { return }
         guard let currentTier = statusStorage.currentStatus.tier else { return }
         
-        if currentTier.isPossibleToUpgrade(reason: reason) {
+        if accountManager.account.isInProdNetwork && currentTier.isPossibleToUpgrade(reason: reason) {
             showMembershipScreen = true
         } else {
             showMembershipEmailAlert = true

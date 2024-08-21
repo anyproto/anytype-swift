@@ -24,7 +24,7 @@ final class VaultViewModel: ObservableObject {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenOnboarding(step: .void)
+        AnytypeAnalytics.instance().logScreenOnboarding(step: .vault)
     }
     
     func onNextAction() {
@@ -39,6 +39,7 @@ final class VaultViewModel: ObservableObject {
     
     private func createAccount() {
         Task {
+            AnytypeAnalytics.instance().logStartCreateAccount()
             startLoading()
             
             do {
