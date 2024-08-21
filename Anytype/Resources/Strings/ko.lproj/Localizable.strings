@@ -224,7 +224,7 @@
 "Keychain.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";
 
 // Auth
-"Create" = "Create";
+"Create" = "생성";
 "Scan QR code" = "QR 코드 스캔";
 "Auth.CameraPermissionTitle" = "Please allow access";
 "Restore key from keychain" = "Restore Key from the keychain";
@@ -1184,7 +1184,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "연결할 수 없음";
 
 
 // MARK: - Debug
