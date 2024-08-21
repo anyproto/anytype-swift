@@ -5,10 +5,15 @@ import Combine
 
 @MainActor
 final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
-    @Published var spaces = [ParticipantSpaceViewData]()
+    @Published var spaces: [ParticipantSpaceViewData]?
     
     @Published var showSpaceCreate = false
     @Published var showSettings = false
+    
+    var showPlusInNavbar: Bool {
+        guard let spaces else { return false }
+        return spaces.count > 6
+    }
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
@@ -43,9 +48,20 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         participantSpacesStorage.activeParticipantSpacesPublisher
             .receiveOnMain()
             .sink { [weak self] spaces in
-                self?.spaces = spaces
+                guard let self else { return }
+                
+                let initialIteration = self.spaces.isNil
+                self.spaces = spaces
+                
+                if initialIteration { openScreenFromLastSessionIfNeeded() }
             }
             .store(in: &subscriptions)
+    }
+    
+    private func openScreenFromLastSessionIfNeeded() {
+        guard let spaces else { return }
+        
+        if spaces.count == 1 { showActiveSpace() }
     }
     
 }

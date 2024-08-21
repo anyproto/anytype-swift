@@ -21,18 +21,20 @@ struct SpaceHubView: View {
         VStack(spacing: 8) {
             navBar
             
-            ScrollView {
-                ForEach(model.spaces) {
-                    spaceCard($0)
+            if let spaces = model.spaces {
+                ScrollView {
+                    ForEach(spaces) {
+                        spaceCard($0)
+                    }
+                    plusButton
                 }
-                plusButton
+                .scrollIndicators(.never)
             }
-            .scrollIndicators(.never)
-            .animation(.default, value: model.spaces)
             
             Spacer()
         }
         .ignoresSafeArea(edges: .bottom)
+        .animation(.default, value: model.spaces)
     }
     
     private var plusButton: some View {
@@ -73,7 +75,7 @@ struct SpaceHubView: View {
                 }
             )
         }
-        .if(model.spaces.count > 6) {
+        .if(model.showPlusInNavbar) {
             $0.overlay(alignment: .trailing) {
                 Button(
                     action: {
