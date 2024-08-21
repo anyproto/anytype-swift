@@ -35,7 +35,7 @@ extension UserDefaultsConfig {
     
     static func cleanStateAfterLogout() {
         usersId = ""
-        lastOpenedPage = nil
+        resetLastOpenedScreens()
         showUnstableMiddlewareError = true
     }
     
@@ -44,10 +44,20 @@ extension UserDefaultsConfig {
 // MARK: - Opened Page id
 
 extension UserDefaultsConfig {
+    @UserDefault("UserData.LastOpenedScreens", defaultValue: [:])
+    private static var lastOpenedScreens: [String: EditorScreenData]
     
-    @UserDefault("UserData.LastOpenedPage", defaultValue: nil)
-    static var lastOpenedPage: EditorScreenData?
+    static func saveLastOpenedScreen(spaceId: String, screen: EditorScreenData?) {
+        lastOpenedScreens[spaceId] = screen
+    }
     
+    static func getLastOpenedScreen(spaceId: String) -> EditorScreenData? {
+        lastOpenedScreens[spaceId]
+    }
+    
+    static func resetLastOpenedScreens() {
+        lastOpenedScreens = [:]
+    }
 }
 
 // MARK: - Wallpaper

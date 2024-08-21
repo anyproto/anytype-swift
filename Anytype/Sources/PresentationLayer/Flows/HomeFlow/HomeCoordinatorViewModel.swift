@@ -57,7 +57,15 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showSpaceShareTip: Bool = false
     
     @Published var editorPath = HomePath() {
-        didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
+        didSet {
+            guard let currentSpaceId else { return }
+            
+            if let screen = editorPath.lastPathElement as? EditorScreenData {
+                UserDefaultsConfig.saveLastOpenedScreen(spaceId: currentSpaceId, screen: screen)
+            } else if editorPath.lastPathElement is HomePath || editorPath.lastPathElement is AccountInfo  {
+                UserDefaultsConfig.saveLastOpenedScreen(spaceId: currentSpaceId, screen: nil)
+            }
+        }
     }
     @Published var showTypeSearchForObjectCreation: Bool = false
     @Published var toastBarData = ToastBarData.empty
@@ -384,7 +392,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             
             do {
                 // Restore last open page
-                if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
+                if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.getLastOpenedScreen(spaceId: newInfo.accountSpaceId) {
                     if let objectId = lastOpenPage.objectId {
                         let document = documentsProvider.document(objectId: objectId, mode: .preview)
                         try await document.open()
