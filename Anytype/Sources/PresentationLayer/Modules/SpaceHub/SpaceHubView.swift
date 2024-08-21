@@ -3,11 +3,21 @@ import SwiftUI
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
     
-    init(onTap: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(onTap: onTap))
+    init(showActiveSpace: @escaping () -> Void) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(showActiveSpace: showActiveSpace))
     }
     
     var body: some View {
+        content
+            .sheet(isPresented: $model.showSpaceCreate) {
+                SpaceCreateView(output: model)
+            }
+            .sheet(isPresented: $model.showSettings) {
+                SettingsCoordinatorView()
+            }
+    }
+    
+    var content: some View {
         VStack(spacing: 8) {
             navBar
             
@@ -15,10 +25,29 @@ struct SpaceHubView: View {
                 ForEach(model.spaces) {
                     spaceCard($0)
                 }
-                .animation(.default, value: model.spaces)
-            }.scrollIndicators(.never)
+                plusButton
+            }
+            .scrollIndicators(.never)
+            .animation(.default, value: model.spaces)
             
             Spacer()
+        }
+        .ignoresSafeArea(edges: .bottom)
+    }
+    
+    private var plusButton: some View {
+        Button {
+            model.showSpaceCreate.toggle()
+        } label: {
+            HStack(alignment: .center) {
+                Spacer()
+                Image(asset: .X32.plus)
+                Spacer()
+            }
+            .padding(.vertical, 32)
+            .background(Color.Shape.tertiary)
+            .cornerRadius(20, style: .continuous)
+            .padding(.horizontal, 8)
         }
     }
     
@@ -33,7 +62,7 @@ struct SpaceHubView: View {
         .overlay(alignment: .leading) {
             Button(
                 action: {
-                    // TODO
+                    model.showSettings = true
                 },
                 label: {
                     Image(asset: .NavigationBase.settings)

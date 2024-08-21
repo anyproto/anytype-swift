@@ -4,20 +4,22 @@ import Combine
 
 
 @MainActor
-final class SpaceHubViewModel: ObservableObject {
-    private let onTap: () -> ()
+final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Published var spaces = [ParticipantSpaceViewData]()
+    
+    @Published var showSpaceCreate = false
+    @Published var showSettings = false
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
     private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     
-    
+    private let showActiveSpace: () -> ()
     private var subscriptions = [AnyCancellable]()
     
-    init(onTap: @escaping () -> Void) {
-        self.onTap = onTap
+    init(showActiveSpace: @escaping () -> Void) {
+        self.showActiveSpace = showActiveSpace
         
         Task { startSubscriptions() }
     }
@@ -27,8 +29,13 @@ final class SpaceHubViewModel: ObservableObject {
             // TODO: Show spinner ???
             try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
             UISelectionFeedbackGenerator().selectionChanged()
-            onTap()
+            showActiveSpace()
         }
+    }
+    
+    func spaceCreateWillDismiss() {
+        showSpaceCreate = false
+        showActiveSpace()
     }
     
     // MARK: - Private
