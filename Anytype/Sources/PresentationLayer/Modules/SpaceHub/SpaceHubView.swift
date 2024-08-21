@@ -73,19 +73,20 @@ struct SpaceHubView: View {
                 }
             )
         }
-        
-        .overlay(alignment: .trailing) {
-            Button(
-                action: {
-                    model.showSpaceCreate = true
-                },
-                label: {
-                    Image(asset: .X32.plus)
-                        .foregroundStyle(Color.Button.active)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 14)
-                }
-            )
+        .if(model.spaces.count > 6) {
+            $0.overlay(alignment: .trailing) {
+                Button(
+                    action: {
+                        model.showSpaceCreate = true
+                    },
+                    label: {
+                        Image(asset: .X32.plus)
+                            .foregroundStyle(Color.Button.active)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 14)
+                    }
+                )
+            }
         }
     }
     
