@@ -48,13 +48,19 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
 
-    func split(
+    func setAndSplit(
         _ string: SafeNSAttributedString,
         blockId: String,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
         range: NSRange,
         newBlockContentType: BlockText.Style
     ) async throws {
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: string.value)
+        try await textServiceHandler.setText(
+            contextId: documentId,
+            blockId: blockId,
+            middlewareString: middlewareString
+        )
         let blockId = try await textServiceHandler.split(
             contextId: documentId,
             blockId: blockId,
