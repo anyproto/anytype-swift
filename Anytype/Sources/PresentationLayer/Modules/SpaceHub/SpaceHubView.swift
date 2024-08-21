@@ -73,6 +73,20 @@ struct SpaceHubView: View {
                 }
             )
         }
+        
+        .overlay(alignment: .trailing) {
+            Button(
+                action: {
+                    model.showSpaceCreate = true
+                },
+                label: {
+                    Image(asset: .X32.plus)
+                        .foregroundStyle(Color.Button.active)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 14)
+                }
+            )
+        }
     }
     
     private func spaceCard(_ space: ParticipantSpaceViewData) -> some View {
