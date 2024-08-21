@@ -94,7 +94,6 @@ final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
     }
     
     private func resetActiveSpace() async {
-        UserDefaultsConfig.lastOpenedPage = nil
         try? await setActiveSpace(spaceId: accountManager.account.info.accountSpaceId)
     }
 }
