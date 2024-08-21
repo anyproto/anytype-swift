@@ -1,4 +1,6 @@
-import UIKit
+import SwiftUI
+
+
 struct CoverColorData: Identifiable, Codable, Equatable {
     let name: String
     let hex: String
@@ -24,6 +26,10 @@ enum CoverColor: CaseIterable, Identifiable, Codable {
     
     var uiColor: UIColor {
         UIColor(hexString: data.hex)
+    }
+    
+    var color: Color {
+        Color(hex: data.hex, opacity: 1)
     }
     
     var data: CoverColorData {

@@ -11,10 +11,12 @@ struct SpaceHubView: View {
         VStack(spacing: 8) {
             navBar
             
-            ForEach(model.spaces) {
-                spaceCard($0)
-            }
-            .animation(.default, value: model.spaces)
+            ScrollView {
+                ForEach(model.spaces) {
+                    spaceCard($0)
+                }
+                .animation(.default, value: model.spaces)
+            }.scrollIndicators(.never)
             
             Spacer()
         }
@@ -35,6 +37,7 @@ struct SpaceHubView: View {
                 },
                 label: {
                     Image(asset: .NavigationBase.settings)
+                        .foregroundStyle(Color.Button.active)
                         .frame(width: 22, height: 22)
                         .padding(.vertical, 10)
                         .padding(.horizontal, 26)
@@ -57,7 +60,7 @@ struct SpaceHubView: View {
                 Spacer()
             }
             .padding(16)
-            .background(Color.Light.amber.gradient)
+            .background(UserDefaultsConfig.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
             .cornerRadius(20, style: .continuous)
             .padding(.horizontal, 8)
         }
