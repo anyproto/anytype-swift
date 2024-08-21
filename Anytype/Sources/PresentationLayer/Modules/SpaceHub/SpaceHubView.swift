@@ -3,20 +3,51 @@ import SwiftUI
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
     
-    init(onTap: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(onTap: onTap))
+    init(showActiveSpace: @escaping () -> Void) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(showActiveSpace: showActiveSpace))
     }
     
     var body: some View {
+        content
+            .sheet(isPresented: $model.showSpaceCreate) {
+                SpaceCreateView(output: model)
+            }
+            .sheet(isPresented: $model.showSettings) {
+                SettingsCoordinatorView()
+            }
+    }
+    
+    var content: some View {
         VStack(spacing: 8) {
             navBar
             
-            ForEach(model.spaces) {
-                spaceCard($0)
+            ScrollView {
+                ForEach(model.spaces) {
+                    spaceCard($0)
+                }
+                plusButton
             }
+            .scrollIndicators(.never)
             .animation(.default, value: model.spaces)
             
             Spacer()
+        }
+        .ignoresSafeArea(edges: .bottom)
+    }
+    
+    private var plusButton: some View {
+        Button {
+            model.showSpaceCreate.toggle()
+        } label: {
+            HStack(alignment: .center) {
+                Spacer()
+                Image(asset: .X32.plus)
+                Spacer()
+            }
+            .padding(.vertical, 32)
+            .background(Color.Shape.tertiary)
+            .cornerRadius(20, style: .continuous)
+            .padding(.horizontal, 8)
         }
     }
     
@@ -31,13 +62,28 @@ struct SpaceHubView: View {
         .overlay(alignment: .leading) {
             Button(
                 action: {
-                    // TODO
+                    model.showSettings = true
                 },
                 label: {
                     Image(asset: .NavigationBase.settings)
+                        .foregroundStyle(Color.Button.active)
                         .frame(width: 22, height: 22)
                         .padding(.vertical, 10)
                         .padding(.horizontal, 26)
+                }
+            )
+        }
+        
+        .overlay(alignment: .trailing) {
+            Button(
+                action: {
+                    model.showSpaceCreate = true
+                },
+                label: {
+                    Image(asset: .X32.plus)
+                        .foregroundStyle(Color.Button.active)
+                        .padding(.vertical, 12)
+                        .padding(.horizontal, 14)
                 }
             )
         }
@@ -57,7 +103,7 @@ struct SpaceHubView: View {
                 Spacer()
             }
             .padding(16)
-            .background(Color.Light.amber.gradient)
+            .background(UserDefaultsConfig.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
             .cornerRadius(20, style: .continuous)
             .padding(.horizontal, 8)
         }
