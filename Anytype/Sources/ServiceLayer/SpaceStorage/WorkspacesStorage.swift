@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 import Services
+import AnytypeCore
+
 
 @MainActor
 protocol WorkspacesStorageProtocol: AnyObject {
@@ -77,6 +79,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     }
     
     func canCreateNewSpace() -> Bool {
+        if FeatureFlags.spaceHub { return true }
+        
         return activeWorkspaces.count < Constants.maxSpaces
     }
 }
