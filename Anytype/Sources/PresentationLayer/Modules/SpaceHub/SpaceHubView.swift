@@ -100,8 +100,8 @@ struct SpaceHubView: View {
                 IconView(icon: space.spaceView.objectIconImage)
                     .frame(width: 64, height: 64)
                 VStack(alignment: .leading, spacing: 6) {
-                    AnytypeText(space.spaceView.name, style: .bodySemibold)
-                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
+                    AnytypeText(space.spaceView.name, style: .bodySemibold).lineLimit(1)
+                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular).lineLimit(1)
                 }
                 Spacer()
             }
