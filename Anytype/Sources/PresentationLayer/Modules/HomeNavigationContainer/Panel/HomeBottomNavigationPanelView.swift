@@ -34,22 +34,23 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         HStack(alignment: .center, spacing: 40) {
             
             if FeatureFlags.spaceHub {
-                if homeMode {
-                    Button {
-                        model.onTapSearch()
-                    } label: {
-                        Image(asset: .X32.search)
-                            .foregroundColor(.Navigation.buttonActive)
-                    }
-                    .transition(.scale.combined(with: .opacity))
-                } else {
-                    Button {
+                
+                Button {
+                    if homeMode {
+                        model.onSpaceHubTap()
+                    } else {
                         model.onTapBackward()
-                    } label: {
-                        Image(asset: .X32.Arrow.left)
-                            .foregroundColor(.Navigation.buttonActive)
                     }
-                    .transition(.scale.combined(with: .opacity))
+                } label: {
+                    Image(asset: .X32.Arrow.left)
+                        .foregroundColor(.Navigation.buttonActive)
+                }
+                
+                Button {
+                    model.onTapSearch()
+                } label: {
+                    Image(asset: .X32.search)
+                        .foregroundColor(.Navigation.buttonActive)
                 }
                 
                 if model.canCreateObject {
