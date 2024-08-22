@@ -1184,7 +1184,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 "SyncStatus.Error.networkError" = "Nessun accesso allo spazio";
 "SyncStatus.Error.UNRECOGNIZED" = "Errore sconosciuto";
 "SyncStatus.P2P.Restricted" = "Limitato. Toccare per aprire le impostazioni del dispositivo.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.P2P.NotConnected" = "Connessione non possibile";
 
 
 // MARK: - Debug
