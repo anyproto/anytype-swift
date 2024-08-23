@@ -106,7 +106,7 @@ struct SpaceHubView: View {
                 Spacer()
             }
             .padding(16)
-            .background(UserDefaultsConfig.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
+            .background(model.userDefaults.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
             .cornerRadius(20, style: .continuous)
             .padding(.horizontal, 8)
         }

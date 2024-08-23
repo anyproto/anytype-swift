@@ -4,6 +4,8 @@ import SwiftUI
 private struct GlobalEnvModifier: ViewModifier {
     
     @State private var windowHolder = WindowHolder(window: nil)
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: UserDefaultsStorageProtocol
     
     func body(content: Content) -> some View {
         content
@@ -14,7 +16,7 @@ private struct GlobalEnvModifier: ViewModifier {
             // Legacy :(
             .onChange(of: windowHolder) { newValue in
                 ViewControllerProvider.shared.sceneWindow = newValue.window
-                newValue.window?.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
+                newValue.window?.overrideUserInterfaceStyle = userDefaults.userInterfaceStyle
             }
             .onAppear {
                 ToastPresenter.shared = ToastPresenter()

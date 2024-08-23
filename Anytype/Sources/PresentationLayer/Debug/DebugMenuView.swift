@@ -43,6 +43,11 @@ struct DebugMenuView: View {
         .background(Color.Background.primary)
         .navigationBarHidden(true)
         .embedInNavigation()
+        
+        .onAppear {
+            rowsPerPageInSet = "\(model.userDefaults.rowsPerPageInSet)"
+            currentVersion = model.userDefaults.currentVersionOverride
+        }
     }
     
     private var buttonsMenu: some View {
@@ -203,7 +208,7 @@ struct DebugMenuView: View {
         .cornerRadius(20, corners: .top)
     }
     
-    @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
+    @State var rowsPerPageInSet = ""
     private var setPageCounter: some View {
         DebugMenuInputSettings(
             title: "Number of rows per page in set",
@@ -212,11 +217,11 @@ struct DebugMenuView: View {
         )
         .onChange(of: rowsPerPageInSet) { count in
             guard let count = Int(count) else { return }
-            UserDefaultsConfig.rowsPerPageInSet = count
+            model.userDefaults.rowsPerPageInSet = count
         }
     }
     
-    @State var currentVersion = UserDefaultsConfig.currentVersionOverride
+    @State var currentVersion = ""
     private var currentVersionInput: some View {
         DebugMenuInputSettings(
             title: "Custom current version for update banner (ex: 0.0.1)",
@@ -224,7 +229,7 @@ struct DebugMenuView: View {
             inputText: $currentVersion
         )
         .onChange(of: currentVersion) {
-            UserDefaultsConfig.currentVersionOverride = $0
+            model.userDefaults.currentVersionOverride = $0
         }
     }
     

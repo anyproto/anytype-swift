@@ -12,6 +12,8 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     @Injected(\.objectSubscriptionService)
     private var objectSubscriptionService: any ObjectSubscriptionServiceProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: UserDefaultsStorageProtocol
     
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult {
         switch data {
@@ -27,7 +29,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
     
     func stopSubscriptions(ids: [String]) async throws {
-        guard UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard userDefaults.usersId.isNotEmpty else { return }
         try await objectSubscriptionService.stopSubscriptions(ids: ids)
     }
     

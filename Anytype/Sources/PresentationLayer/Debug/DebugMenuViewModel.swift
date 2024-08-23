@@ -30,6 +30,9 @@ final class DebugMenuViewModel: ObservableObject {
     @Published var debugRunProfilerData = DebugRunProfilerState.empty
     @UserDefault("DebugRunProfiler", defaultValue: .empty) private var debugRunProfilerDataStore: DebugRunProfilerState
     
+    @Injected(\.userDefaultsStorage)
+    var userDefaults: UserDefaultsStorageProtocol
+    
     @Injected(\.debugService)
     private var debugService: any DebugServiceProtocol
     @Injected(\.localAuthService)

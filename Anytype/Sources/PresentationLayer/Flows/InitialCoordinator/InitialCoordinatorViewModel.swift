@@ -7,6 +7,8 @@ import Services
 @MainActor
 final class InitialCoordinatorViewModel: ObservableObject {
     
+    @Injected(\.userDefaultsStorage)
+    var userDefaults: UserDefaultsStorageProtocol
     @Injected(\.middlewareConfigurationProvider)
     private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
     @Injected(\.applicationStateService)
@@ -30,18 +32,18 @@ final class InitialCoordinatorViewModel: ObservableObject {
     
     func contunueWithoutLogout() {
         showLoginOrAuth()
-        UserDefaultsConfig.showUnstableMiddlewareError = false
+        userDefaults.showUnstableMiddlewareError = false
     }
     
     func contunueWithLogout() {
-        UserDefaultsConfig.usersId = ""
+        userDefaults.usersId = ""
         showLoginOrAuth()
-        UserDefaultsConfig.showUnstableMiddlewareError = false
+        userDefaults.showUnstableMiddlewareError = false
     }
     
     func contunueWithTrust() {
         showLoginOrAuth()
-        UserDefaultsConfig.showUnstableMiddlewareError = false
+        userDefaults.showUnstableMiddlewareError = false
     }
     
     func onCopyPhrase() {
@@ -70,7 +72,7 @@ final class InitialCoordinatorViewModel: ObservableObject {
     // MARK: - Private
     
     private func showLoginOrAuth() {
-        if UserDefaultsConfig.usersId.isNotEmpty {
+        if userDefaults.usersId.isNotEmpty {
             applicationStateService.state = .login
         } else {
             applicationStateService.state = .auth
@@ -84,14 +86,14 @@ final class InitialCoordinatorViewModel: ObservableObject {
                 let version = try await middlewareConfigurationProvider.libraryVersion()
                 let isUnstableVersion = !version.hasPrefix("v")
                 if isUnstableVersion {
-                    if (UserDefaultsConfig.usersId.isEmpty || UserDefaultsConfig.showUnstableMiddlewareError) {
+                    if (userDefaults.usersId.isEmpty || userDefaults.showUnstableMiddlewareError) {
                         showWarningAlert.toggle()
                     } else {
                         showLoginOrAuth()
                     }
                 } else {
                     showLoginOrAuth()
-                    UserDefaultsConfig.showUnstableMiddlewareError = true
+                    userDefaults.showUnstableMiddlewareError = true
                 }
             } catch {
                 showLoginOrAuth()

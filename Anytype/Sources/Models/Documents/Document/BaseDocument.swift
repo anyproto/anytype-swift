@@ -43,6 +43,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private let objectTypeProvider: any ObjectTypeProviderProtocol
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let viewModelSetter: any DocumentViewModelSetterProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: UserDefaultsStorageProtocol
     
     // MARK: - Local private state
     @Atomic
@@ -91,7 +93,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        guard mode.isHandling, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
         Task.detached(priority: .userInitiated) { [objectLifecycleService, objectId] in
             try await objectLifecycleService.close(contextId: objectId)
         }
@@ -131,7 +133,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     @MainActor
     func close() async throws {
-        guard mode.isHandling, isOpened, UserDefaultsConfig.usersId.isNotEmpty else { return }
+        guard mode.isHandling, isOpened, userDefaults.usersId.isNotEmpty else { return }
         try await objectLifecycleService.close(contextId: objectId)
         isOpened = false
     }

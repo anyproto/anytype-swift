@@ -15,6 +15,9 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         return spaces.count > 6
     }
     
+    @Injected(\.userDefaultsStorage)
+    var userDefaults: UserDefaultsStorageProtocol
+    
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
