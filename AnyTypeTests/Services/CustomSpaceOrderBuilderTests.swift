@@ -4,7 +4,7 @@ import XCTest
 
 final class CustomSpaceOrderBuilderTests: XCTestCase {
     
-    var builder: CustomSpaceOrderBuilderProtocol!
+    var builder: (any CustomSpaceOrderBuilderProtocol)!
     var userDefaults: UserDefaultsStorageMock!
 
     override func setUpWithError() throws {
@@ -24,11 +24,10 @@ final class CustomSpaceOrderBuilderTests: XCTestCase {
         let two = SpaceView.mock(id: 2)
         let three = SpaceView.mock(id: 3)
         
-        builder.updateSpacesList(spaces: [one, two, three])
+        let stage1 = builder.updateSpacesList(spaces: [one, two, three])
+        let result = builder.move(space: one, after: two, allSpaces: stage1)
         
-        builder.move(space: one, after: two)
-        
-        XCTAssertEqual(builder.allWorkspaces, [two, one, three])
+        XCTAssertEqual(result, [two, one, three])
     }
     
     @MainActor
@@ -37,13 +36,13 @@ final class CustomSpaceOrderBuilderTests: XCTestCase {
         let two = SpaceView.mock(id: 2)
         let three = SpaceView.mock(id: 3)
         
-        builder.updateSpacesList(spaces: [one, two, three])
+        let stage1 = builder.updateSpacesList(spaces: [one, two, three])
         
-        builder.move(space: one, after: two)
-        builder.move(space: three, after: two)
-        builder.move(space: two, after: one)
+        let stage2 = builder.move(space: one, after: two, allSpaces: stage1)
+        let stage3 = builder.move(space: three, after: two, allSpaces: stage2)
+        let result = builder.move(space: two, after: one, allSpaces: stage3)
         
-        XCTAssertEqual(builder.allWorkspaces, [three, one, two])
+        XCTAssertEqual(result, [three, one, two])
     }
     
     @MainActor
@@ -52,11 +51,11 @@ final class CustomSpaceOrderBuilderTests: XCTestCase {
         let two = SpaceView.mock(id: 2)
         let three = SpaceView.mock(id: 3)
         
-        builder.updateSpacesList(spaces: [one, two, three])
+        let stage1 = builder.updateSpacesList(spaces: [one, two, three])
         
-        builder.move(space: two, after: two)
+        let result = builder.move(space: two, after: two, allSpaces: stage1)
         
-        XCTAssertEqual(builder.allWorkspaces, [one, two, three])
+        XCTAssertEqual(result, [one, two, three])
     }
     
     @MainActor
@@ -65,12 +64,12 @@ final class CustomSpaceOrderBuilderTests: XCTestCase {
         let two = SpaceView.mock(id: 2)
         let three = SpaceView.mock(id: 3)
         
-        builder.updateSpacesList(spaces: [one, two, three])
+        let stage1 = builder.updateSpacesList(spaces: [one, two, three])
         
-        builder.move(space: one, after: two)
-        builder.move(space: two, after: three)
+        let stage2 = builder.move(space: one, after: two, allSpaces: stage1)
+        let result = builder.move(space: two, after: three, allSpaces: stage2)
         
-        XCTAssertEqual(builder.allWorkspaces, [one, three, two])
+        XCTAssertEqual(result, [one, three, two])
     }
     
     @MainActor
@@ -79,12 +78,12 @@ final class CustomSpaceOrderBuilderTests: XCTestCase {
         let two = SpaceView.mock(id: 2)
         let three = SpaceView.mock(id: 3)
         
-        builder.updateSpacesList(spaces: [one, two, three])
+        let stage1 = builder.updateSpacesList(spaces: [one, two, three])
         
-        builder.move(space: one, after: two)
-        builder.move(space: two, after: one)
+        let stage2 = builder.move(space: one, after: two, allSpaces: stage1)
+        let result = builder.move(space: two, after: one, allSpaces: stage2)
         
-        XCTAssertEqual(builder.allWorkspaces, [one, two, three])
+        XCTAssertEqual(result, [one, two, three])
     }
     
     
@@ -94,11 +93,11 @@ final class CustomSpaceOrderBuilderTests: XCTestCase {
         let two = SpaceView.mock(id: 2)
         let three = SpaceView.mock(id: 3)
         
-        builder.updateSpacesList(spaces: [one, two])
-        builder.move(space: one, after: two)
-        builder.updateSpacesList(spaces: [one, two, three])
+        let stage1 = builder.updateSpacesList(spaces: [one, two])
+        let stage2 = builder.move(space: one, after: two, allSpaces: stage1)
+        let result = builder.updateSpacesList(spaces: [one, two, three])
         
-        XCTAssertEqual(builder.allWorkspaces, [three, two, one])
+        XCTAssertEqual(result, [three, two, one])
     }
     
     @MainActor
@@ -107,11 +106,11 @@ final class CustomSpaceOrderBuilderTests: XCTestCase {
         let two = SpaceView.mock(id: 2)
         let three = SpaceView.mock(id: 3)
         
-        builder.updateSpacesList(spaces: [one, two, three])
-        builder.move(space: one, after: two)
-        builder.updateSpacesList(spaces: [three, one])
+        let stage1 = builder.updateSpacesList(spaces: [one, two, three])
+        _ = builder.move(space: one, after: two, allSpaces: stage1)
+        let result = builder.updateSpacesList(spaces: [three, one])
         
-        XCTAssertEqual(builder.allWorkspaces, [one, three])
+        XCTAssertEqual(result, [one, three])
     }
 
 }
