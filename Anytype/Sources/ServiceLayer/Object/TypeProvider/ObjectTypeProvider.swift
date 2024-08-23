@@ -8,6 +8,8 @@ enum ObjectTypeError: Error {
 }
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
+    private var userDefaults: any UserDefaultsStorageProtocol
+    
     
     static let shared: any ObjectTypeProviderProtocol = ObjectTypeProvider(
         subscriptionBuilder: ObjectTypeSubscriptionDataBuilder(accountManager: Container.shared.accountManager.resolve())
@@ -17,9 +19,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     // MARK: - Private variables
     
-    @Published private var defaultObjectTypes: [String: String] = UserDefaultsConfig.defaultObjectTypes {
+    @Published private var defaultObjectTypes: [String: String] {
         didSet {
-            UserDefaultsConfig.defaultObjectTypes = defaultObjectTypes
+            userDefaults.defaultObjectTypes = defaultObjectTypes
         }
     }
     private let subscriptionStorage: any SubscriptionStorageProtocol
@@ -35,6 +37,10 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         subscriptionBuilder: some ObjectTypeSubscriptionDataBuilderProtocol
     ) {
         self.subscriptionBuilder = subscriptionBuilder
+        
+        let userDefaults = Container.shared.userDefaultsStorage()
+        self.userDefaults = userDefaults
+        defaultObjectTypes = userDefaults.defaultObjectTypes
        
         let storageProvider = Container.shared.subscriptionStorageProvider.resolve()
         self.subscriptionStorage = storageProvider.createSubscriptionStorage(subId: ObjectTypeProvider.subscriptionId)

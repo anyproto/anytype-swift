@@ -303,4 +303,8 @@ extension Container {
     var globalSearchSavedStatesService: Factory<any GlobalSearchSavedStatesServiceProtocol> {
         self { GlobalSearchSavedStatesService() }.shared
     }
+    
+    var userDefaultsStorage: Factory< any UserDefaultsStorageProtocol> {
+        self { UserDefaultsStorage() }.singleton
+    }
 }
