@@ -1290,6 +1290,16 @@ internal enum Loc {
     internal static let localOnly = Loc.tr("Localizable", "Server.LocalOnly")
     internal static let network = Loc.tr("Localizable", "Server.Network")
     internal static let networks = Loc.tr("Localizable", "Server.Networks")
+    internal enum LocalOnly {
+      internal enum Alert {
+        internal static let message = Loc.tr("Localizable", "Server.LocalOnly.Alert.message")
+        internal static let title = Loc.tr("Localizable", "Server.LocalOnly.Alert.title")
+        internal enum Action {
+          internal static let primary = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.primary")
+          internal static let secondary = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.secondary")
+        }
+      }
+    }
   }
   internal enum Set {
     internal enum Bookmark {

@@ -18,6 +18,7 @@ internal extension ImageAsset {
   static let localInternet = ImageAsset.bundle(name: "local-internet")
   enum BottomAlert {
     static let error = ImageAsset.bundle(name: "BottomAlert/error")
+    static let exclamation = ImageAsset.bundle(name: "BottomAlert/exclamation")
     static let mail = ImageAsset.bundle(name: "BottomAlert/mail")
     static let question = ImageAsset.bundle(name: "BottomAlert/question")
     static let sadMail = ImageAsset.bundle(name: "BottomAlert/sadMail")
