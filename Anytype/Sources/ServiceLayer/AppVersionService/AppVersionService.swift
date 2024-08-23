@@ -9,7 +9,7 @@ protocol AppVersionServiceProtocol: AnyObject {
 actor AppVersionService: AppVersionServiceProtocol {
     
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     private var vesionChecked = false
     private var needsUpdate = false

@@ -25,7 +25,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Injected(\.homeWidgetsRecentStateManager)
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     

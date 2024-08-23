@@ -13,7 +13,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     @Injected(\.objectSubscriptionService)
     private var objectSubscriptionService: any ObjectSubscriptionServiceProtocol
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     func startSubscription(data: SubscriptionData) async throws -> SubscriptionTogglerResult {
         switch data {

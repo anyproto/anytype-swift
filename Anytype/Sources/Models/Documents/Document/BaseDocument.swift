@@ -44,7 +44,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol
     private let viewModelSetter: any DocumentViewModelSetterProtocol
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     // MARK: - Local private state
     @Atomic
