@@ -3,6 +3,9 @@ import SwiftUI
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
     
+    @State private var draggedSpace: ParticipantSpaceViewData?
+    @State private var draggedInitialIndex: Int?
+    
     init(showActiveSpace: @escaping () -> Void) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(showActiveSpace: showActiveSpace))
     }
@@ -110,6 +113,19 @@ struct SpaceHubView: View {
             .cornerRadius(20, style: .continuous)
             .padding(.horizontal, 8)
         }
+        .onDrag {
+            draggedSpace = space
+            return NSItemProvider()
+        }
+        .onDrop(
+            of: [.text],
+            delegate:  SpaceHubDropDelegate(
+                destinationItem: space,
+                allSpaces: $model.spaces,
+                draggedItem: $draggedSpace,
+                initialIndex: $draggedInitialIndex
+            )
+        )
     }
 }
 
