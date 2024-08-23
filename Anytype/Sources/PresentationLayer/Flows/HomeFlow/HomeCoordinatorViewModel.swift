@@ -395,18 +395,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
             }
             
             do {
-                // Restore last open page
-                if currentSpaceId.isNil, let lastOpenPage = userDefaults.getLastOpenedScreen(spaceId: newInfo.accountSpaceId) {
-                    if let objectId = lastOpenPage.objectId {
-                        let document = documentsProvider.document(objectId: objectId, mode: .preview)
-                        try await document.open()
-                        // Check space is deleted or switched
-                        if document.spaceId == newInfo.accountSpaceId {
-                            path.push(lastOpenPage)
-                        }
-                    } else {
-                        path.push(lastOpenPage)
-                    }
+                if let screen = try await getLastOpenedScreen(newInfo: newInfo) {
+                    path.push(screen)
                 }
             }
             
@@ -414,5 +404,22 @@ final class HomeCoordinatorViewModel: ObservableObject,
             editorPath = path
             info = newInfo
         }
+    }
+    
+    private func getLastOpenedScreen(newInfo: AccountInfo) async throws -> EditorScreenData? {
+        // do NOT restore last opened screen if user have more then one space (business req.)
+        guard workspacesStorage.allWorkspaces.count == 1 else { return nil }
+        guard currentSpaceId.isNil, let lastOpenPage = userDefaults.getLastOpenedScreen(spaceId: newInfo.accountSpaceId) else { return nil }
+        
+        guard let objectId = lastOpenPage.objectId else { return lastOpenPage }
+        
+        let document = documentsProvider.document(objectId: objectId, mode: .preview)
+        try await document.open()
+        // Check space is deleted or switched
+        if document.spaceId == newInfo.accountSpaceId {
+            return lastOpenPage
+        }
+        
+        return nil
     }
 }
