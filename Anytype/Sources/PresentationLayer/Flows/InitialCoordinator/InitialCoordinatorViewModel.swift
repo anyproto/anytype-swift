@@ -8,7 +8,7 @@ import Services
 final class InitialCoordinatorViewModel: ObservableObject {
     
     @Injected(\.userDefaultsStorage)
-    var userDefaults: UserDefaultsStorageProtocol
+    var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.middlewareConfigurationProvider)
     private var middlewareConfigurationProvider: any MiddlewareConfigurationProviderProtocol
     @Injected(\.applicationStateService)

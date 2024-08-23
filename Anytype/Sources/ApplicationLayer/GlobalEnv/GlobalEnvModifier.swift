@@ -5,7 +5,7 @@ private struct GlobalEnvModifier: ViewModifier {
     
     @State private var windowHolder = WindowHolder(window: nil)
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     func body(content: Content) -> some View {
         content

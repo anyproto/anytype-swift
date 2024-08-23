@@ -20,7 +20,7 @@ final class AuthService: AuthServiceProtocol {
     @Injected(\.authMiddleService)
     private var authMiddleService: any AuthMiddleServiceProtocol
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
 
     private lazy var rootPath: String = {
         localRepoService.middlewareRepoPath
