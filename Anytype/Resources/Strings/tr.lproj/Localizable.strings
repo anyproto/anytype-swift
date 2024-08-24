@@ -1059,9 +1059,9 @@
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Sadece yerel";
 "Server.LocalOnly.Alert.title" = "Emin misiniz?";
-"Server.LocalOnly.Alert.message" = "Yalnızca yerel modu deneysel bir özelliktir ve güvenlik avantajları sağlamaz. Potansiyel veri kaybı meydana gelebileceğinden lütfen oluşabilecek potansiyel riskleri kabul ederek kullanın.";
-"Server.LocalOnly.Alert.Action.primary" = "Kendimi şanslı hissediyorum.";
-"Server.LocalOnly.Alert.Action.secondary" = "Güvende kalacağım.";
+"Server.LocalOnly.Alert.message" = "Yalnızca yerel modu deneysel bir özelliktir ve güvenlik avantajları sağlamaz. Potansiyel veri kaybı meydana gelebileceğinden lütfen oluşabilecek riskleri kabul ederek kullanın.";
+"Server.LocalOnly.Alert.Action.primary" = "Kendimi şanslı hissediyorum";
+"Server.LocalOnly.Alert.Action.secondary" = "Güvende kalacağım";
 
 // MARK: - Gallery
 "Gallery.Author" = "%@ tarafından yapıldı";
