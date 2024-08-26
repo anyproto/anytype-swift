@@ -3,14 +3,13 @@ import SwiftUI
 import Services
 import AnytypeCore
 
-struct HomeCoordinatorView: View {
+struct NewHomeCoordinatorView: View {
     
-    @StateObject private var model: HomeCoordinatorViewModel
-    @Environment(\.keyboardDismiss) var keyboardDismiss
+    @StateObject private var model: NewHomeCoordinatorViewModel
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(showHome: Binding<Bool>) {
-        _model = StateObject(wrappedValue: HomeCoordinatorViewModel(showHome: showHome))
+    init(homeSceneId: String, showHome: Binding<Bool>) {
+        _model = StateObject(wrappedValue: NewHomeCoordinatorViewModel(homeSceneId: homeSceneId, showHome: showHome))
     }
     
     var body: some View {
@@ -45,15 +44,7 @@ struct HomeCoordinatorView: View {
         .onAppear {
             model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
         }
-        .ifLet(model.info) { view, _ in
-            view.task {
-                await model.startDeepLinkTask()
-            }
-        }
         .environment(\.pageNavigation, model.pageNavigation)
-        .onChange(of: model.keyboardToggle) { _ in
-            keyboardDismiss()
-        }
         .handleSpaceShareTip()
         .handleSharingTip()
         .updateShortcuts(spaceId: model.info?.accountSpaceId)
@@ -76,35 +67,15 @@ struct HomeCoordinatorView: View {
         .sheet(item: $model.showSpaceSettingsData) {
             SpaceSettingsCoordinatorView(workspaceInfo: $0)
         }
-        .sheet(item: $model.showSharingDataSpaceId) {
-            ShareCoordinatorView(spaceId: $0.value)
-        }
         .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
             model.typeSearchForObjectCreationModule()
         }
-        .sheet(isPresented: $model.showSpaceManager) {
-            SpacesManagerView()
-        }
         .sheet(item: $model.showMembershipNameSheet) {
             MembershipNameFinalizationView(tier: $0)
-        }
-        .anytypeSheet(item: $model.spaceJoinData) {
-            SpaceJoinView(data: $0, onManageSpaces: {
-                model.onManageSpacesSelected()
-            })
-        }
-        .sheet(item: $model.showGalleryImport) { data in
-            GalleryInstallationCoordinatorView(data: data)
-        }
-        .sheet(isPresented: $model.showSpaceShareTip) {
-            SpaceShareTipView()
-        }
-        .sheet(item: $model.membershipTierId) { tierId in
-            MembershipCoordinator(initialTierId: tierId.value)
         }
     }
 }
 
 #Preview {
-    HomeCoordinatorView(showHome: .constant(true))
+    NewHomeCoordinatorView(homeSceneId: "1337", showHome: .constant(true))
 }

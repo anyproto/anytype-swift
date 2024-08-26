@@ -1261,6 +1261,9 @@
 		3D34F25427C3D16400990C49 /* KeyboardActionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F25327C3D16400990C49 /* KeyboardActionHandlerTests.swift */; };
 		3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */; };
 		3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9526D632C500E4F7BF /* ObjectHeaderViewModel.swift */; };
+		3D390AFB2C7CC4D900C50F85 /* NewHomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D390AF92C7CC4D900C50F85 /* NewHomeCoordinatorView.swift */; };
+		3D390AFC2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D390AFA2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift */; };
+		3D390AF72C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D390AF62C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift */; };
 		3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A18292733E946000D0842 /* MarkdownListener.swift */; };
 		3D3A183927340187000D0842 /* NSAttributedString+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */; };
@@ -3137,6 +3140,9 @@
 		3D34F25327C3D16400990C49 /* KeyboardActionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardActionHandlerTests.swift; sourceTree = "<group>"; };
 		3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionServiceMock.swift; sourceTree = SOURCE_ROOT; };
 		3D38CC9526D632C500E4F7BF /* ObjectHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderViewModel.swift; sourceTree = "<group>"; };
+		3D390AF92C7CC4D900C50F85 /* NewHomeCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHomeCoordinatorView.swift; sourceTree = "<group>"; };
+		3D390AFA2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHomeCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		3D390AF62C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
 		3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Convenience.swift"; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
@@ -6618,9 +6624,10 @@
 		2A9486592950A57B007A5586 /* HomeFlow */ = {
 			isa = PBXGroup;
 			children = (
+				3D390AF92C7CC4D900C50F85 /* NewHomeCoordinatorView.swift */,
+				3D390AFA2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift */,
+				3D390AF82C7CC4B700C50F85 /* Legacy */,
 				2A7B124C2B19CC4700E14578 /* Views */,
-				2AFEED152A73AE8C00D7A45B /* HomeCoordinatorView.swift */,
-				2AFEED172A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift */,
 				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
 				2A29873B2ACC087B009E8787 /* PageNavigation.swift */,
 				2A441BDC2C6E4ECE00381C4F /* UpdateShortcutsModifier.swift */,
@@ -8847,6 +8854,15 @@
 			path = ObjectSettings;
 			sourceTree = "<group>";
 		};
+		3D390AF82C7CC4B700C50F85 /* Legacy */ = {
+			isa = PBXGroup;
+			children = (
+				2AFEED152A73AE8C00D7A45B /* HomeCoordinatorView.swift */,
+				2AFEED172A73AEDB00D7A45B /* HomeCoordinatorViewModel.swift */,
+			);
+			path = Legacy;
+			sourceTree = "<group>";
+		};
 		3D3A18342733F810000D0842 /* Markdown */ = {
 			isa = PBXGroup;
 			children = (
@@ -9378,6 +9394,7 @@
 			isa = PBXGroup;
 			children = (
 				3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */,
+				3D390AF62C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift */,
 			);
 			path = SpaceHub;
 			sourceTree = "<group>";
@@ -11486,6 +11503,7 @@
 				129C54C927FC4EA200C390C7 /* NewRelationView.swift in Sources */,
 				2A62B71F2BA84336001EAD28 /* RequestToLeaveNotificationViewModel.swift in Sources */,
 				2AA0209528D3523000321A66 /* SetSubscriptionDataBuilder.swift in Sources */,
+				3D390AFC2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift in Sources */,
 				2AE85FEB2B1F491900268E9D /* ServerConfigurationCoordinatorViewModel.swift in Sources */,
 				2AE276222BD0153700E0244A /* ObjectActionsOutput.swift in Sources */,
 				12426A2A26DCFA1300693B1F /* KFScalingType.swift in Sources */,
@@ -11522,6 +11540,7 @@
 				2ABBAEDD2BF4EEBC00EBA8FA /* WidgetObjectListFilesView.swift in Sources */,
 				2ABF214929B2052900E872D9 /* DashboardClearCacheAlertModel.swift in Sources */,
 				3D1CEC2227F38871000D36BA /* DashboardAccountDeletionAlert.swift in Sources */,
+				3D390AFB2C7CC4D900C50F85 /* NewHomeCoordinatorView.swift in Sources */,
 				2A21A4022C457B89006D320E /* DiscussionModuleOutput.swift in Sources */,
 				2A28D03D297E8C4C00E55E15 /* SetsSubscriptionService.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
@@ -12276,6 +12295,7 @@
 				3D7F718127A088B7003FE893 /* EditorSetViewModel+Pagination.swift in Sources */,
 				2AB508162AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
+				3D390AF72C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift in Sources */,
 				2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */,
 				2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,
