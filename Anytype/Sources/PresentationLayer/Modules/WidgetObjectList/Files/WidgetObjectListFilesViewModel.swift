@@ -10,6 +10,8 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     @Injected(\.filesSubscriptionManager)
     private var subscriptionService: any FilesSubscriptionServiceProtocol
     private let formatter = ByteCountFormatter.fileFormatter
+    private let spaceId: String
+    
     // MARK: - State
     
     let title = Loc.FilesList.title
@@ -23,14 +25,16 @@ final class WidgetObjectListFilesViewModel: WidgetObjectListInternalViewModelPro
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init() { }
+    init(spaceId: String) {
+        self.spaceId = spaceId
+    }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     
     func onAppear() {
         AnytypeAnalytics.instance().logScreenSettingsStorageManager()
         Task {
-            await subscriptionService.startSubscription(syncStatus: .synced, objectLimit: nil, update: { [weak self] details in
+            await subscriptionService.startSubscription(syncStatus: .synced, spaceId: spaceId, objectLimit: nil, update: { [weak self] details in
                 self?.details = details
             })
         }

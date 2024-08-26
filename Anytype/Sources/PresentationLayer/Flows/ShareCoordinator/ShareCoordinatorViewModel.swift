@@ -5,14 +5,16 @@ import Services
 @MainActor
 final class ShareCoordinatorViewModel: ObservableObject, ShareOptionsModuleOutput {
     
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
-    
+    let spaceId: String
     @Published var showSearchObjectData: ObjectSearchModuleData?
     @Published var showSpaceSearchData: SpaceSearchData?
     @Published var dismiss = false
         
     // MARK: - ShareOptionsModuleOutput
+    
+    init(spaceId: String) {
+        self.spaceId = spaceId
+    }
     
     func onSpaceSelection(completion: @escaping (SpaceView) -> Void) {
         showSpaceSearchData = SpaceSearchData(onSelect: completion)

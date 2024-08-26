@@ -52,7 +52,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettings: Bool = false
-    @Published var showSharing: Bool = false
+    @Published var showSharingDataSpaceId: StringIdentifiable?
     @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var showMembershipNameSheet: MembershipTier?
@@ -319,7 +319,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            showSharing = true
+            showSharingDataSpaceId = info?.accountSpaceId.identifiable
         case .spaceSelection:
             showSpaceSwitch = true
         case let .galleryImport(type, source):
