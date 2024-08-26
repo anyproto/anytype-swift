@@ -6,9 +6,9 @@ struct TypeSearchForNewObjectCoordinatorView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var model: TypeSearchForNewObjectCoordinatorViewModel
     
-    init(openObject: @escaping (ObjectDetails)->()) {
+    init(spaceId: String, openObject: @escaping (ObjectDetails)->()) {
         _model = StateObject(
-            wrappedValue: TypeSearchForNewObjectCoordinatorViewModel(openObject: openObject)
+            wrappedValue: TypeSearchForNewObjectCoordinatorViewModel(spaceId: spaceId, openObject: openObject)
         )
     }
     
