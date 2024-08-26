@@ -23,7 +23,7 @@ final class SpaceSearchViewModel: ObservableObject {
         data.onSelect(searchData)
     }
     
-    func startParticioantTask() async {
+    func startParticipantTask() async {
         for await participantSpaces in participantSpacesStorage.activeParticipantSpacesPublisher.values {
             spaces = participantSpaces.filter(\.canEdit).map(\.spaceView)
             search(text: lastSearchText)
