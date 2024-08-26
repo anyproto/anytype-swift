@@ -1059,8 +1059,7 @@
 "Server.LocalOnly" = "Local-only";
 "Server.LocalOnly.Alert.title" = "Are you sure?";
 "Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.primary" = "I'm feeling lucky";
-"Server.LocalOnly.Alert.Action.secondary" = "I’ll stay safe";
+"Server.LocalOnly.Alert.Action.primary" = "Yes, use local-only mode";
 
 // MARK: - Gallery
 "Gallery.Author" = "Made by @%@";
