@@ -17,6 +17,9 @@ protocol UserDefaultsStorageProtocol {
     func saveLastOpenedScreen(spaceId: String, screen: EditorScreenData?)
     func getLastOpenedScreen(spaceId: String) -> EditorScreenData?
     
+    func saveSpacesOrder(accountId: String, spaces: [String])
+    func getSpacesOrder(accountId: String) -> [String]
+    
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<BackgroundType, Never>
     func wallpaper(spaceId: String) -> BackgroundType
     func setWallpaper(spaceId: String, wallpaper: BackgroundType)
@@ -97,6 +100,17 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     
     func setWallpaper(spaceId: String, wallpaper: BackgroundType) {
         _wallpapers[spaceId] = wallpaper
+    }
+    
+    // MARK: - Spaces order
+    @UserDefault("SpaceOrderStorage.CustomSpaceOrder", defaultValue: [:])
+    private var spacesOrder: [String: [String]]
+    
+    func saveSpacesOrder(accountId: String, spaces: [String]) {
+        spacesOrder[accountId] = spaces
+    }
+    func getSpacesOrder(accountId: String) -> [String] {
+        spacesOrder[accountId] ?? []
     }
     
     // MARK: - Cleanup

@@ -34,4 +34,5 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
     func spaceView(spaceViewId: String) -> SpaceView? { return nil }
     func spaceView(spaceId: String) -> SpaceView? { return nil }
     func canCreateNewSpace() -> Bool { return false }
+    func move(space: SpaceView, after: SpaceView) { fatalError()}
 }
