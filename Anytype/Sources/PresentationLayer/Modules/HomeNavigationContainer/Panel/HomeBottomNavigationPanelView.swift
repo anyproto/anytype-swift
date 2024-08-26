@@ -72,6 +72,17 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     
     @ViewBuilder
     private var newNavigation: some View {
+        Button {
+            if homeMode {
+                model.onSpaceHubTap()
+            } else {
+                model.onTapBackward()
+            }
+        } label: {
+            Image(asset: .X32.Island.back)
+                .foregroundColor(.Navigation.buttonActive)
+        }
+        
         Image(asset: .X32.Island.vault)
             .onTapGesture {
                 model.onSpaceHubTap()
@@ -100,17 +111,6 @@ private struct HomeBottomNavigationPanelViewInternal: View {
                             model.onPlusButtonLongtap()
                         }
                 )
-        }
-        
-        Button {
-            if homeMode {
-                model.onSpaceHubTap()
-            } else {
-                model.onTapBackward()
-            }
-        } label: {
-            Image(asset: .X32.Island.back)
-                .foregroundColor(.Navigation.buttonActive)
         }
     }
     

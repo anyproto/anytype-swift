@@ -42,7 +42,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     @Injected(\.networkConnectionStatusDaemon)
     private var networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     

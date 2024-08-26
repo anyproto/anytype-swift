@@ -15,25 +15,25 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
     private var favoriteSubscriptionService: any FavoriteSubscriptionServiceProtocol
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
-    @Injected(\.documentService)
-    private var documentService: any OpenedDocumentsProviderProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private let documentService: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     
     // MARK: - State
     
     let title = Loc.favorites
-    let editorScreenData: EditorScreenData = .favorites
+    let editorScreenData: EditorScreenData
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher() }
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: true)
     
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
-    lazy private var homeDocument: any BaseDocumentProtocol =
-        documentService.document(objectId: activeWorkspaceStorage.workspaceInfo.homeObjectID)
-    
+    private let homeDocument: any BaseDocumentProtocol
     
     private var details: [FavoriteBlockDetails] = [] {
         didSet { rowDetails = [WidgetObjectListDetailsData(id: Constants.sectionId, details: details.map(\.details))] }
+    }
+    
+    init(homeObjectId: String) {
+        self.homeDocument = documentService.document(objectId: homeObjectId)
+        self.editorScreenData = .favorites(homeObjectId)
     }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol

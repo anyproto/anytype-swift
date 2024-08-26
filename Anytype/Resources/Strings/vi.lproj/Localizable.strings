@@ -35,7 +35,7 @@
 "TextStyle.Bold.Title" = "In đậm";
 "TextStyle.Italic.Title" = "In nghiêng";
 "TextStyle.Strikethrough.Title" = "Gạch đè";
-"TextStyle.Underline.Title" = "Underline";
+"TextStyle.Underline.Title" = "Gạch chân";
 "TextStyle.Code.Title" = "Code";
 "TextStyle.Link.Title" = "Liên kết";
 
@@ -144,7 +144,7 @@
 "Alignment" = "Căn lề";
 "Actions" = "Các thao tác";
 "Relations" = "Các liên hệ";
-"History" = "History";
+"History" = "Lịch sử";
 "Objects" = "Các đối tượng";
 "Lists" = "Lists";
 "Pinned" = "Pinned";
@@ -197,7 +197,7 @@
 "Anytype Library" = "Thư viện Anytype";
 "Copied" = "Đã sao chép";
 "Share" = "Share";
-"Okay" = "Okay";
+"Okay" = "Được";
 "Join" = "Join";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
@@ -618,7 +618,7 @@
 "Downloading or uploading data to some node" = "Đang tải dữ liệu về hoặc lên điểm nào đó";
 "Node is not connected" = "Node is not connected";
 "Initializing sync" = "Đang khởi tạo đồng bộ";
-"Incompatible version" = "Incompatible version";
+"Incompatible version" = "Phiên bản không tương thích";
 "Connecting" = "Connecting...";
 "P2P Connecting" = "P2P Connecting...";
 "P2P Connection" = "P2P Connection";
@@ -943,7 +943,7 @@
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
 "SpaceShare.ViewRequest.EditAccess" = "Add as editor";
 "SpaceShare.ViewRequest.Reject" = "Reject";
-"SpaceShare.RemoveMember.Title" = "Remove member";
+"SpaceShare.RemoveMember.Title" = "Xóa thành viên";
 "SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
 "SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
 "SpaceShare.Join.Title" = "Join a space";
@@ -957,7 +957,7 @@
 "SpaceShare.YouSuffix" = "%@ (you)";
 "SpaceShare.ManageSpaces" = "Manage Spaces";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
-"SpaceShare.StopSharing.Action" = "Stop sharing";
+"SpaceShare.StopSharing.Action" = "Ngừng chia sẻ";
 "SpaceShare.StopSharing.Title" = "Stop sharing the space";
 "SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
@@ -967,9 +967,9 @@
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
 "SpaceShare.HowToShare.Step3" = "After approving the request, you can choose the access rights for that person.";
-"SpaceShare.Manage" = "Manage";
-"SpaceShare.AlreadyJoin.Title" = "You are already a member of this space";
-"SpaceShare.AlreadyJoin.OpenSpace" = "Open space";
+"SpaceShare.Manage" = "Quản lý";
+"SpaceShare.AlreadyJoin.Title" = "Bạn đã là một thành viên của không gian này";
+"SpaceShare.AlreadyJoin.OpenSpace" = "Không gian mở";
 
 // MARK: - Permission notification
 "PermissionChangeNotification.Text" = "Your access rights were changed to **%@** in the **%@** space.";
@@ -1057,6 +1057,10 @@
 "Server.AddButton" = "Add Self-hosted Network";
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Local-only";
+"Server.LocalOnly.Alert.title" = "Bạn chắc chưa?";
+"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
+"Server.LocalOnly.Alert.Action.primary" = "I'm feeling lucky";
+"Server.LocalOnly.Alert.Action.secondary" = "I’ll stay safe";
 
 // MARK: - Gallery
 "Gallery.Author" = "Made by @%@";
@@ -1091,10 +1095,10 @@
 "Pay by Card" = "Pay by Card";
 "Min X characters" = "Min %@ characters";
 "Pending" = "Pending...";
-"Manage payment" = "Manage payment";
+"Manage payment" = "Quản lý thanh toán";
 "Change email" = "Change email";
 "Email successfully validated" = "Email successfully validated";
-"Confirm" = "Confirm";
+"Confirm" = "Xác nhận";
 
 "StoreKitServiceError.userCancelled" = "Purchase cancelled";
 "StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
@@ -1128,20 +1132,20 @@ Please provide specific details of your needs here.";
 
 
 "Membership.Banner.Title1" = "Build the Vision Together";
-"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
-"Membership.Banner.Title2" = "Unlock Member Benefits";
+"Membership.Banner.Subtitle1" = "Là một thành viên quý giá, tiếng nói của bạn có trọng lượng! Tham dự những sự kiện dành riêng, định hình những lựa chọn chiến lược, và tạo ảnh hưởng lên bản đồ của chúng tôi.";
+"Membership.Banner.Title2" = "Mở khoá những đặc quyền hội viên";
 "Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
-"Membership.Banner.Title3" = "Support Digital Independence";
-"Membership.Banner.Subtitle3" = "Your contribution supports our team and endorses our vision of a user-owned, secure, and collaborative digital network.";
+"Membership.Banner.Title3" = "Hỗ trợ sự độc lập số";
+"Membership.Banner.Subtitle3" = "Đóng góp của bạn hỗ trợ tổ đội chúng tôi và chứng thực cho tầm nhìn của chúng tôi về một mạng mà người dùng làm chủ, an toàn và cộng tác.";
 "Membership.Banner.Title4" = "Invest in Connectivity";
-"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+"Membership.Banner.Subtitle4" = "Giá trị của mạng chúng tôi lớn hơn tổng các thành phần của nó. Tư cách hội viên của bạn giữ vững cơ sở cho sự phát triển của nó, chống trụ cho mạng lưới này.";
 
 "Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
 "Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
 "Membership.EmailValidation" = "Enter the code sent to your email";
 
 "Membership.NameForm.Title" = "Pick your unique name";
-"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Subtitle" = "Đây là biệt danh của bạn trên mạng Anytype, chứng nhận cho Tư cách hội viên của bạn. Nó có tác dụng giống một tên miền cá nhân và không thể thay đổi.";
 "Membership.NameForm.Validating" = "Wait a second...";
 "Membership.NameForm.Validated" = "This name is up for grabs";
 
@@ -1181,7 +1185,7 @@ Please provide specific details of your needs here.";
 "SyncStatus.Info.localOnly" = "Data backup is disabled";
 "SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
 "SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
-"SyncStatus.Error.incompatibleVersion" = "Incompatible version";
+"SyncStatus.Error.incompatibleVersion" = "Phiên bản không tương thích";
 "SyncStatus.Error.networkError" = "No access to the space";
 "SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
 "SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";

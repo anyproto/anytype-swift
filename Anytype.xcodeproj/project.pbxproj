@@ -1163,6 +1163,7 @@
 		2EE6160E2B6CFEBD000236A8 /* SelectRelationListStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6160D2B6CFEBD000236A8 /* SelectRelationListStyle.swift */; };
 		2EE616102B6D02FB000236A8 /* RelationSelectionOptionsMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6160F2B6D02FB000236A8 /* RelationSelectionOptionsMode.swift */; };
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
+		2EE75AEA2C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE75AE92C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift */; };
 		2EED4F562B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */; };
 		2EED4F592B6C31600076FAC6 /* RelationSelectedOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
@@ -3039,6 +3040,7 @@
 		2EE6160D2B6CFEBD000236A8 /* SelectRelationListStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationListStyle.swift; sourceTree = "<group>"; };
 		2EE6160F2B6D02FB000236A8 /* RelationSelectionOptionsMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSelectionOptionsMode.swift; sourceTree = "<group>"; };
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
+		2EE75AE92C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerLocalConfigurationAlert.swift; sourceTree = "<group>"; };
 		2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationOptionSettingsViewModel.swift; sourceTree = "<group>"; };
 		2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSelectedOptionsModel.swift; sourceTree = "<group>"; };
 		2EEE41232C11C35F000AB88B /* GlobalSearchRelatedObjectsSwipeTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchRelatedObjectsSwipeTipView.swift; sourceTree = "<group>"; };
@@ -6505,6 +6507,7 @@
 				2A7BC27C2B1DF25F00EB96EB /* NetworkServerConfig+View.swift */,
 				2A7BC2802B1E2C7100EB96EB /* ServerConfigurationRow.swift */,
 				2AE85FF42B1F4ED500268E9D /* ServerConfigurationModuleOutput.swift */,
+				2EE75AE92C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift */,
 			);
 			path = ServerConfiguration;
 			sourceTree = "<group>";
@@ -11679,6 +11682,7 @@
 				2EAA14072AA63918000A712A /* SetRelationsViewModel.swift in Sources */,
 				2A35FF902AAF203C00D6006D /* CodeLanguageListViewModel.swift in Sources */,
 				2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */,
+				2EE75AEA2C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift in Sources */,
 				C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */,
 				5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */,
 				3D5A41612703132800F1F6A1 /* SlashActionMedia.swift in Sources */,
@@ -13330,7 +13334,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -13377,7 +13381,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -13538,7 +13542,7 @@
 				CODE_SIGN_ENTITLEMENTS = Anytype/Anytype.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = J3NXTX3T5S;
 				ENABLE_BITCODE = NO;
@@ -13608,7 +13612,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13651,7 +13655,7 @@
 				CODE_SIGN_ENTITLEMENTS = AnytypeShareExtension/AnytypeShareExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13695,7 +13699,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13740,7 +13744,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13785,7 +13789,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -13830,7 +13834,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 33;
+				CURRENT_PROJECT_VERSION = 36;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J3NXTX3T5S;
 				GENERATE_INFOPLIST_FILE = YES;

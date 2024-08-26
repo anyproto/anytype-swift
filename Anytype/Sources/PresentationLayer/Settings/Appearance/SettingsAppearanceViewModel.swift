@@ -7,7 +7,7 @@ final class SettingsAppearanceViewModel: ObservableObject {
     // MARK: - Private
     
     private var appInterfaceStyle: AppInterfaceStyle?
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     // MARK: - Public
     

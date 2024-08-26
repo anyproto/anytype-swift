@@ -9,8 +9,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
-    private let info: AccountInfo
-    
+    let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
@@ -25,7 +24,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Injected(\.homeWidgetsRecentStateManager)
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     

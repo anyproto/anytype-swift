@@ -5,6 +5,10 @@ enum NetworkServerConfig: Codable, Equatable {
     case anytype
     case localOnly
     case file(_ name: String)
+    
+    var isLocalOnly: Bool {
+        self == .localOnly
+    }
 }
 
 extension NetworkServerConfig {

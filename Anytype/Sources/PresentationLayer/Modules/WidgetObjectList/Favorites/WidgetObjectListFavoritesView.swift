@@ -6,9 +6,9 @@ struct WidgetObjectListFavoritesView: View {
     
     @StateObject private var model: WidgetObjectListViewModel
     
-    init(output: (any WidgetObjectListCommonModuleOutput)?) {
+    init(homeObjectId: String, output: (any WidgetObjectListCommonModuleOutput)?) {
         self._model = StateObject(wrappedValue: WidgetObjectListViewModel(
-            internalModel: WidgetObjectListFavoritesViewModel(),
+            internalModel: WidgetObjectListFavoritesViewModel(homeObjectId: homeObjectId),
             menuBuilder: WidgetObjectListMenuBuilder(),
             output: output
         ))

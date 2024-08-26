@@ -53,7 +53,7 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
     }()
     
-    private let customOrderBuilder: CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
+    private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
     
     // MARK: - State
 

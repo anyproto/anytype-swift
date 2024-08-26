@@ -16,7 +16,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     }
     
     @Injected(\.userDefaultsStorage)
-    var userDefaults: UserDefaultsStorageProtocol
+    var userDefaults: any UserDefaultsStorageProtocol
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
