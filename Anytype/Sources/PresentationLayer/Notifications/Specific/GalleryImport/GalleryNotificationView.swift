@@ -6,8 +6,8 @@ struct GalleryNotificationView: View {
     @StateObject private var model: GalleryNotificationViewModel
     @Environment(\.notificationDismiss) private var dismiss
     
-    init(notification: NotificationGalleryImport) {
-        _model = StateObject(wrappedValue: GalleryNotificationViewModel(notification: notification))
+    init(notification: NotificationGalleryImport, homeSceneId: String) {
+        _model = StateObject(wrappedValue: GalleryNotificationViewModel(notification: notification, homeSceneId: homeSceneId))
     }
     
     var body: some View {

@@ -6,6 +6,7 @@ struct SpaceJoinModuleData: Identifiable {
     let id = UUID()
     let cid: String
     let key: String
+    let homeSceneId: String
 }
 
 enum SpaceJoinDataState {
@@ -23,8 +24,8 @@ final class SpaceJoinViewModel: ObservableObject {
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     
@@ -74,7 +75,7 @@ final class SpaceJoinViewModel: ObservableObject {
     
     func onTapGoToSpace() async throws {
         guard let inviteView else { return }
-        try await activeWorkspaceStorage.setActiveSpace(spaceId: inviteView.spaceId)
+        try await spaceSetupManager.setActiveSpace(homeSceneId: data.homeSceneId, spaceId: inviteView.spaceId)
         dismiss.toggle()
     }
     

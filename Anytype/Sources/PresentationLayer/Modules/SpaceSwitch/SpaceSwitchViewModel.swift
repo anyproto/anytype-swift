@@ -3,15 +3,24 @@ import Combine
 import Services
 import UIKit
 
+struct SpaceSwitchModuleData: Hashable, Identifiable {
+    let activeSpaceId: String
+    let homeSceneId: String
+    
+    var id: Int { hashValue }
+}
+
 @MainActor
 final class SpaceSwitchViewModel: ObservableObject {
     
     // MARK: - DI
     
+    private let data: SpaceSwitchModuleData
+    
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.singleObjectSubscriptionService)
@@ -26,7 +35,6 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private let profileSubId = "Profile-\(UUID().uuidString)"
     private var spaces: [ParticipantSpaceViewData]?
-    private var activeWorkspaceInfo: AccountInfo?
     private var subscriptions = [AnyCancellable]()
     
     @Published var rows = [SpaceRowModel]()
@@ -39,7 +47,8 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Published var spaceViewForLeave: SpaceView?
     @Published var spaceViewStopSharing: SpaceView?
     
-    init(output: (any SpaceSwitchModuleOutput)?) {
+    init(data: SpaceSwitchModuleData, output: (any SpaceSwitchModuleOutput)?) {
+        self.data = data
         self.output = output
         Task {
             await startProfileSubscriotions()
@@ -60,7 +69,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     private func startProfileSubscriotions() async {
         await subscriptionService.startSubscription(
             subId: profileSubId,
-            objectId: activeWorkspaceStorage.workspaceInfo.profileObjectID
+            objectId: accountManager.account.info.profileObjectID
         ) { [weak self] details in
             self?.updateProfile(profile: details)
         }
@@ -75,14 +84,6 @@ final class SpaceSwitchViewModel: ObservableObject {
                 self?.updateViewModel()
             }
             .store(in: &subscriptions)
-        
-        activeWorkspaceStorage.workspaceInfoPublisher
-            .receiveOnMain()
-            .sink { [weak self] activeWorkspaceInfo in
-                self?.activeWorkspaceInfo = activeWorkspaceInfo
-                self?.updateViewModel()
-            }
-            .store(in: &subscriptions)
     }
     
     private func stopSpacesSubscriotions() {
@@ -90,11 +91,11 @@ final class SpaceSwitchViewModel: ObservableObject {
     }
     
     private func updateViewModel() {
-        guard let activeWorkspaceInfo, let spaces else {
+        guard let spaces else {
             rows = []
             return
         }
-        let activeSpaceId = activeWorkspaceInfo.accountSpaceId
+        let activeSpaceId = data.activeSpaceId
         
         rows = spaces.map { participantSpaceView -> SpaceRowModel in
             let spaceView = participantSpaceView.spaceView
@@ -135,7 +136,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     private func onTapWorkspace(workspace: SpaceView) {
         Task {
             stopSpacesSubscriotions()
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: workspace.targetSpaceId)
+            try await spaceSetupManager.setActiveSpace(homeSceneId: data.homeSceneId, spaceId: workspace.targetSpaceId)
             UISelectionFeedbackGenerator().selectionChanged()
             dismiss.toggle()
         }

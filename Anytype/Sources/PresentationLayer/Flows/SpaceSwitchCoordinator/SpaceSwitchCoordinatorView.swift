@@ -3,13 +3,17 @@ import SwiftUI
 
 struct SpaceSwitchCoordinatorView: View {
     
-    @StateObject private var model = SpaceSwitchCoordinatorViewModel()
+    @StateObject private var model: SpaceSwitchCoordinatorViewModel
     @Environment(\.dismiss) private var dismiss
     
+    init(data: SpaceSwitchModuleData) {
+        self._model = StateObject(wrappedValue: SpaceSwitchCoordinatorViewModel(data: data))
+    }
+    
     var body: some View {
-        SpaceSwitchView(output: model)
+        SpaceSwitchView(data: model.data, output: model)
             .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(output: model)
+                SpaceCreateView(homeSceneId: model.data.homeSceneId, output: model)
             }
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()

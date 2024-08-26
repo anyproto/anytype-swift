@@ -15,8 +15,8 @@ struct DebugMenuView: View {
     @State private var showObjectIcons = false
     @State private var showMembershipDebug = false
     
-    init() {
-        _model = StateObject(wrappedValue: DebugMenuViewModel())
+    init(spaceId: String? = nil) {
+        _model = StateObject(wrappedValue: DebugMenuViewModel(spaceId: spaceId))
     }
     
     var body: some View {
@@ -127,11 +127,12 @@ struct DebugMenuView: View {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.getGoroutinesData()
             }
-            AsyncStandardButton("Space debug 🪐", style: .secondaryLarge) {
-                UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                try await model.onSpaceDebug()
+            if let spaceId = model.spaceId {
+                AsyncStandardButton("Space debug 🪐", style: .secondaryLarge) {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    try await model.onSpaceDebug(spaceId: spaceId)
+                }
             }
-            
             StandardButton(model.debugRunProfilerData.text, style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                 model.onDebugRunProfiler()
@@ -139,7 +140,7 @@ struct DebugMenuView: View {
     
             AsyncStandardButton("Debug stat 🫵🐭", style: .secondaryLarge) {
                 UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
-                try await model.onSpaceDebug()
+                try await model.debugStat()
             }
             
             StandardButton("Export full directory 🤐", style: .secondaryLarge) {

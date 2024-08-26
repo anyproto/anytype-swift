@@ -3,8 +3,12 @@ import SwiftUI
 
 struct NotificationCoordinatorView: View {
     
-    @StateObject private var model = NotificationCoordinatorViewModel()
+    @StateObject private var model: NotificationCoordinatorViewModel
     @Environment(\.dismissAllPresented) private var dismissAllPresented
+    
+    init(homeSceneId: String) {
+        self._model = StateObject(wrappedValue: NotificationCoordinatorViewModel(homeSceneId: homeSceneId))
+    }
     
     var body: some View {
         Color.Background.primary
