@@ -80,7 +80,7 @@ final class CollectionsWidgetInternalViewModel: ObservableObject, WidgetInternal
     // MARK: - Private func
     
     private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
-        await subscriptionService.startSubscription(objectLimit: widgetInfo.fixedLimit) { [weak self] details in
+        await subscriptionService.startSubscription(spaceId: spaceId, objectLimit: widgetInfo.fixedLimit) { [weak self] details in
             self?.details = details
         }
     }
