@@ -6,7 +6,6 @@ import AnytypeCore
 struct NewHomeCoordinatorView: View {
     
     @StateObject private var model: NewHomeCoordinatorViewModel
-    @Environment(\.keyboardDismiss) var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     init(showHome: Binding<Bool>) {
@@ -45,15 +44,7 @@ struct NewHomeCoordinatorView: View {
         .onAppear {
             model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
         }
-        .ifLet(model.info) { view, _ in
-            view.task {
-                await model.startDeepLinkTask()
-            }
-        }
         .environment(\.pageNavigation, model.pageNavigation)
-        .onChange(of: model.keyboardToggle) { _ in
-            keyboardDismiss()
-        }
         .handleSpaceShareTip()
         .handleSharingTip()
         .updateShortcuts(spaceId: model.info?.accountSpaceId)
@@ -76,31 +67,11 @@ struct NewHomeCoordinatorView: View {
         .sheet(item: $model.showSpaceSettingsData) {
             SpaceSettingsCoordinatorView(workspaceInfo: $0)
         }
-        .sheet(item: $model.showSharingDataSpaceId) {
-            ShareCoordinatorView(spaceId: $0.value)
-        }
         .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
             model.typeSearchForObjectCreationModule()
         }
-        .sheet(isPresented: $model.showSpaceManager) {
-            SpacesManagerView()
-        }
         .sheet(item: $model.showMembershipNameSheet) {
             MembershipNameFinalizationView(tier: $0)
-        }
-        .anytypeSheet(item: $model.spaceJoinData) {
-            SpaceJoinView(data: $0, onManageSpaces: {
-                model.onManageSpacesSelected()
-            })
-        }
-        .sheet(item: $model.showGalleryImport) { data in
-            GalleryInstallationCoordinatorView(data: data)
-        }
-        .sheet(isPresented: $model.showSpaceShareTip) {
-            SpaceShareTipView()
-        }
-        .sheet(item: $model.membershipTierId) { tierId in
-            MembershipCoordinator(initialTierId: tierId.value)
         }
     }
 }

@@ -17,24 +17,16 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     @Injected(\.homeActiveSpaceManager)
     private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
-    @Injected(\.objectActionsService)
-    private var objectActionsService: any ObjectActionsServiceProtocol
-    @Injected(\.defaultObjectCreationService)
-    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
     @Injected(\.pasteboardBlockService)
     private var pasteboardBlockService: any PasteboardBlockServiceProtocol
     @Injected(\.objectTypeProvider)
     private var typeProvider: any ObjectTypeProviderProtocol
-    @Injected(\.appActionStorage)
-    private var appActionsStorage:AppActionStorage
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     
@@ -53,11 +45,8 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSwitchData: SpaceSwitchModuleData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettingsData: AccountInfo?
-    @Published var showSharingDataSpaceId: StringIdentifiable?
-    @Published var showSpaceManager: Bool = false
-    @Published var showGalleryImport: GalleryInstallationData?
     @Published var showMembershipNameSheet: MembershipTier?
-    @Published var showSpaceShareTip: Bool = false
+
     
     @Published var editorPath = HomePath() {
         didSet { updateLastOpenedScreen() }
@@ -65,10 +54,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     @Published var showTypeSearchForObjectCreation: Bool = false
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
-    @Published var keyboardToggle: Bool = false
-    @Published var spaceJoinData: SpaceJoinModuleData?
     @Published var info: AccountInfo?
-    @Published var membershipTierId: IntIdentifiable?
     
     @Binding var showHome: Bool
     
@@ -109,15 +95,6 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
         await homeActiveSpaceManager.setupActiveSpace()
         for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
-        }
-    }
-    
-    func startDeepLinkTask() async {
-        for await action in appActionsStorage.$action.values {
-            if let action {
-                try? await handleAppAction(action: action)
-                appActionsStorage.action = nil
-            }
         }
     }
     
@@ -187,10 +164,6 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
         setObjectCreationCoordinator.startCreateObject(setDocument: setDocument, output: self, customAnalyticsRoute: .widget)
-    }
-    
-    func onManageSpacesSelected() {
-        showSpaceManager = true
     }
     
     // MARK: - HomeBottomNavigationPanelModuleOutput
@@ -263,89 +236,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     private func openObject(screenData: EditorScreenData) {
         pushSync(data: screenData)
     }
-    
-    private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
-        Task {
-            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId)
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
-            openObject(screenData: details.editorScreenData())
-        }
-    }
-    
-    private func createAndShowNewObject(
-        typeId: String,
-        route: AnalyticsEventsRouteKind
-    ) {
-        do {
-            let type = try typeProvider.objectType(id: typeId)
-            createAndShowNewObject(type: type, route: route)
-        } catch {
-            anytypeAssertionFailure("No object provided typeId", info: ["typeId": typeId])
-            createAndShowDefaultObject(route: route)
-        }
-    }
-
-    private func createAndShowNewObject(
-        type: ObjectType,
-        route: AnalyticsEventsRouteKind
-    ) {
-        Task {
-            let details = try await objectActionsService.createObject(
-                name: "",
-                typeUniqueKey: type.uniqueKey,
-                shouldDeleteEmptyObject: true,
-                shouldSelectType: false,
-                shouldSelectTemplate: true,
-                spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
-                origin: .none,
-                templateId: type.defaultTemplateId
-            )
-            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
-            
-            openObject(screenData: details.editorScreenData())
-        }
-    }
-    
-    private func handleAppAction(action: AppAction) async throws {
-        keyboardToggle.toggle()
-        await dismissAllPresented?()
-        switch action {
-        case .createObjectFromQuickAction(let typeId):
-            createAndShowNewObject(typeId: typeId, route: .homeScreen)
-        case .deepLink(let deepLink):
-            try await handleDeepLink(deepLink: deepLink)
-        }
-    }
-    
-    private func handleDeepLink(deepLink: DeepLink) async throws {
-        guard let info else {
-            anytypeAssertionFailure("Try handle deeplinks without info")
-            return
-        }
-        switch deepLink {
-        case .createObjectFromWidget:
-            createAndShowDefaultObject(route: .widget)
-        case .showSharingExtension:
-            showSharingDataSpaceId = info.accountSpaceId.identifiable
-        case .spaceSelection:
-            showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: info.accountSpaceId, homeSceneId: homeSceneId)
-        case let .galleryImport(type, source):
-            showGalleryImport = GalleryInstallationData(type: type, source: source)
-        case .invite(let cid, let key):
-            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, homeSceneId: info.accountSpaceId)
-        case .object(let objectId, _):
-            let document = documentsProvider.document(objectId: objectId, mode: .preview)
-            try await document.open()
-            guard let editorData = document.details?.editorScreenData() else { return }
-            try await push(data: editorData)
-        case .spaceShareTip:
-            showSpaceShareTip = true
-        case .membership(let tierId):
-            guard accountManager.account.isInProdNetwork else { return }
-            membershipTierId = tierId.identifiable
-        }
-    }
-    
+        
     private func pushSync(data: EditorScreenData) {
         Task { try await push(data: data) }
     }
