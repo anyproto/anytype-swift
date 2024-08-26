@@ -68,8 +68,8 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showSpaceSwitch) {
             SpaceSwitchCoordinatorView()
         }
-        .sheet(isPresented: $model.showSpaceSettings) {
-            SpaceSettingsCoordinatorView()
+        .sheet(item: $model.showSpaceSettingsData) {
+            SpaceSettingsCoordinatorView(workspaceInfo: $0)
         }
         .sheet(item: $model.showSharingDataSpaceId) {
             ShareCoordinatorView(spaceId: $0.value)

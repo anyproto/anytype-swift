@@ -1,7 +1,7 @@
 import Foundation
 import ProtobufMessages
 
-public struct AccountInfo: Equatable, Hashable, Sendable {
+public struct AccountInfo: Equatable, Hashable, Sendable, Identifiable {
     public let homeObjectID: String
     public let archiveObjectID: String
     public let profileObjectID: String
@@ -13,6 +13,8 @@ public struct AccountInfo: Equatable, Hashable, Sendable {
     public let deviceId: String
     public let networkId: String
     public let techSpaceId: String
+    
+    public var id: Int { hashValue }
 }
 
 public extension AccountInfo {

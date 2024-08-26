@@ -20,8 +20,6 @@ final class SpaceSettingsViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.mailUrlBuilder)
     private var mailUrlBuilder: any MailUrlBuilderProtocol
     
@@ -32,7 +30,7 @@ final class SpaceSettingsViewModel: ObservableObject {
     
     // MARK: - State
     
-    lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
+    let workspaceInfo: AccountInfo
     private var subscriptions: [AnyCancellable] = []
     private var dataLoaded = false
     private var participantSpaceView: ParticipantSpaceViewData?
@@ -54,7 +52,8 @@ final class SpaceSettingsViewModel: ObservableObject {
     @Published var shareSection: SpaceSettingsShareSection = .personal
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
-    init(output: (any SpaceSettingsModuleOutput)?) {
+    init(workspaceInfo: AccountInfo, output: (any SpaceSettingsModuleOutput)?) {
+        self.workspaceInfo = workspaceInfo
         self.output = output
     }
     

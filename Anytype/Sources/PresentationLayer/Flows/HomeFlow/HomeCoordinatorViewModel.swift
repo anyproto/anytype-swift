@@ -51,7 +51,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showGlobalSearchData: GlobalSearchModuleData?
     @Published var showSpaceSwitch: Bool = false
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
-    @Published var showSpaceSettings: Bool = false
+    @Published var showSpaceSettingsData: AccountInfo?
     @Published var showSharingDataSpaceId: StringIdentifiable?
     @Published var showSpaceManager: Bool = false
     @Published var showGalleryImport: GalleryInstallationData?
@@ -183,7 +183,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     }
     
     func onSpaceSelected() {
-        showSpaceSettings.toggle()
+        showSpaceSettingsData = activeWorkspaceStorage.workspaceInfo
     }
     
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
@@ -392,6 +392,10 @@ final class HomeCoordinatorViewModel: ObservableObject,
             var path = paths[newInfo.accountSpaceId] ?? HomePath()
             if path.count == 0 {
                 path.push(newInfo)
+            }
+            
+            if currentSpaceId.isNotNil {
+                await dismissAllPresented?()
             }
             
             do {
