@@ -9,13 +9,13 @@ struct ServerLocalConfigurationAlert: View {
             title: Loc.Server.LocalOnly.Alert.title,
             message: Loc.Server.LocalOnly.Alert.message,
             icon: .BottomAlert.exclamation,
-            style: .plain
+            style: .color(.red)
         ) {
             BottomAlertButton(text: Loc.Server.LocalOnly.Alert.Action.primary, style: .primary) {
                 actionApproved()
                 dismiss()
             }
-            BottomAlertButton(text: Loc.Server.LocalOnly.Alert.Action.secondary, style: .secondary) {
+            BottomAlertButton(text: Loc.cancel, style: .secondary) {
                 dismiss()
             }
         }
