@@ -1263,6 +1263,7 @@
 		3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9526D632C500E4F7BF /* ObjectHeaderViewModel.swift */; };
 		3D390AFB2C7CC4D900C50F85 /* NewHomeCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D390AF92C7CC4D900C50F85 /* NewHomeCoordinatorView.swift */; };
 		3D390AFC2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D390AFA2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift */; };
+		3D390AF72C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D390AF62C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift */; };
 		3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A18292733E946000D0842 /* MarkdownListener.swift */; };
 		3D3A183927340187000D0842 /* NSAttributedString+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */; };
 		3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */; };
@@ -3141,6 +3142,7 @@
 		3D38CC9526D632C500E4F7BF /* ObjectHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderViewModel.swift; sourceTree = "<group>"; };
 		3D390AF92C7CC4D900C50F85 /* NewHomeCoordinatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHomeCoordinatorView.swift; sourceTree = "<group>"; };
 		3D390AFA2C7CC4D900C50F85 /* NewHomeCoordinatorViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewHomeCoordinatorViewModel.swift; sourceTree = "<group>"; };
+		3D390AF62C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceHubCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
 		3D3A183827340187000D0842 /* NSAttributedString+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Convenience.swift"; sourceTree = "<group>"; };
 		3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+Sink.swift"; sourceTree = "<group>"; };
@@ -9392,6 +9394,7 @@
 			isa = PBXGroup;
 			children = (
 				3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */,
+				3D390AF62C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift */,
 			);
 			path = SpaceHub;
 			sourceTree = "<group>";
@@ -12292,6 +12295,7 @@
 				3D7F718127A088B7003FE893 /* EditorSetViewModel+Pagination.swift in Sources */,
 				2AB508162AE81DEA00E1C986 /* ByteCountFormatter+Extensions.swift in Sources */,
 				120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */,
+				3D390AF72C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift in Sources */,
 				2EC9425F2900351C00DE91E4 /* DataviewGroup+Filter.swift in Sources */,
 				2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */,
 				3DE0CFD926F8593D003A606A /* SlashMenuItemFilterMatch.swift in Sources */,

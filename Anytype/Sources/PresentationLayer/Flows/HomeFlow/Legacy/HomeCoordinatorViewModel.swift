@@ -70,8 +70,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var info: AccountInfo?
     @Published var membershipTierId: IntIdentifiable?
     
-    @Binding var showHome: Bool
-    
     private var currentSpaceId: String?
     
     var pageNavigation: PageNavigation {
@@ -88,9 +86,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init(showHome: Binding<Bool>) {
-        _showHome = showHome
-        
+    init() {
         Task {
             await spaceSetupManager.registryHome(homeSceneId: homeSceneId, manager: homeActiveSpaceManager)
         }
@@ -239,7 +235,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     func onSpaceHubSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
-        showHome = false
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput

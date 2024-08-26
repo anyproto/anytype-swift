@@ -9,8 +9,8 @@ struct HomeCoordinatorView: View {
     @Environment(\.keyboardDismiss) var keyboardDismiss
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(showHome: Binding<Bool>) {
-        _model = StateObject(wrappedValue: HomeCoordinatorViewModel(showHome: showHome))
+    init() {
+        _model = StateObject(wrappedValue: HomeCoordinatorViewModel())
     }
     
     var body: some View {
@@ -106,5 +106,5 @@ struct HomeCoordinatorView: View {
 }
 
 #Preview {
-    HomeCoordinatorView(showHome: .constant(true))
+    HomeCoordinatorView()
 }
