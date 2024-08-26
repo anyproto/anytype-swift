@@ -2,12 +2,12 @@ import Services
 import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable {
-    case favorites(_ homeObjectId: String)
-    case recentEdit
-    case recentOpen
-    case sets
-    case collections
-    case bin
+    case favorites(homeObjectId: String, spaceId: String)
+    case recentEdit(spaceId: String)
+    case recentOpen(spaceId: String)
+    case sets(spaceId: String)
+    case collections(spaceId: String)
+    case bin(spaceId: String)
     case page(EditorPageObject)
     case set(EditorSetObject)
     case discussion(EditorDiscussionObject)

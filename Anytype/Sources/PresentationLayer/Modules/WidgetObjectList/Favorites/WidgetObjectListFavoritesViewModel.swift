@@ -31,9 +31,9 @@ final class WidgetObjectListFavoritesViewModel: WidgetObjectListInternalViewMode
         didSet { rowDetails = [WidgetObjectListDetailsData(id: Constants.sectionId, details: details.map(\.details))] }
     }
     
-    init(homeObjectId: String) {
+    init(homeObjectId: String, spaceId: String) {
         self.homeDocument = documentService.document(objectId: homeObjectId)
-        self.editorScreenData = .favorites(homeObjectId)
+        self.editorScreenData = .favorites(homeObjectId: homeObjectId, spaceId: spaceId)
     }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol

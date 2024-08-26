@@ -18,12 +18,12 @@ extension RecentWidgetType {
         }
     }
     
-    var editorScreenData: EditorScreenData {
+    func editorScreenData(spaceId: String) -> EditorScreenData {
         switch self {
         case .recentEdit:
-            return .recentEdit
+            return .recentEdit(spaceId: spaceId)
         case .recentOpen:
-            return .recentOpen
+            return .recentOpen(spaceId: spaceId)
         }
     }
     

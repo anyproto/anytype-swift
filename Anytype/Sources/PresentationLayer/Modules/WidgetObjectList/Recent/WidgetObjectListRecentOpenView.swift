@@ -6,9 +6,10 @@ struct WidgetObjectListRecentOpenView: View {
     
     @StateObject private var model: WidgetObjectListViewModel
     
-    init(output: (any WidgetObjectListCommonModuleOutput)?) {
+    init(spaceId: String, output: (any WidgetObjectListCommonModuleOutput)?) {
         self._model = StateObject(wrappedValue: WidgetObjectListViewModel(
-            internalModel: WidgetObjectListRecentViewModel(type: .recentOpen),
+            spaceId: spaceId,
+            internalModel: WidgetObjectListRecentViewModel(spaceId: spaceId, type: .recentOpen),
             menuBuilder: WidgetObjectListMenuBuilder(),
             output: output
         ))

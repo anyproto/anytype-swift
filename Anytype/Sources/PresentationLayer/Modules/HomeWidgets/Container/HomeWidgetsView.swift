@@ -32,7 +32,7 @@ private struct HomeWidgetsInternalView: View {
                         if FeatureFlags.updateAlert {
                             HomeUpdateSubmoduleView()
                         }
-                        SpaceWidgetView {
+                        SpaceWidgetView(spaceId: model.spaceId) {
                             model.onSpaceSelected()
                         }
                         if #available(iOS 17.0, *) {

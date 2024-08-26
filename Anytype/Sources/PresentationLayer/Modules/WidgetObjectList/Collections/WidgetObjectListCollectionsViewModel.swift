@@ -7,13 +7,14 @@ final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewMo
     
     // MARK: - DI
     
+    private let spaceId: String
     @Injected(\.collectionsSubscriptionService)
     private var subscriptionService: any CollectionsSubscriptionServiceProtocol
     
     // MARK: - State
     
     let title = Loc.collections
-    let editorScreenData: EditorScreenData = .collections
+    let editorScreenData: EditorScreenData
     var rowDetailsPublisher: AnyPublisher<[WidgetObjectListDetailsData], Never> { $rowDetails.eraseToAnyPublisher()}
     let editMode: WidgetObjectListEditMode = .normal(allowDnd: false)
     
@@ -22,7 +23,10 @@ final class WidgetObjectListCollectionsViewModel: WidgetObjectListInternalViewMo
     }
     @Published private var rowDetails: [WidgetObjectListDetailsData] = []
     
-    init() { }
+    init(spaceId: String) {
+        self.spaceId = spaceId
+        self.editorScreenData = .collections(spaceId: spaceId)
+    }
     
     // MARK: - WidgetObjectListInternalViewModelProtocol
     

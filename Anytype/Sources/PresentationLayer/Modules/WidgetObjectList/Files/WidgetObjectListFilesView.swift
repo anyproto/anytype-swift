@@ -6,8 +6,9 @@ struct WidgetObjectListFilesView: View {
     
     @StateObject private var model: WidgetObjectListViewModel
     
-    init() {
+    init(spaceId: String) {
         self._model = StateObject(wrappedValue: WidgetObjectListViewModel(
+            spaceId: spaceId,
             internalModel: WidgetObjectListFilesViewModel(),
             menuBuilder: WidgetObjectListMenuBuilder(),
             output: nil,
