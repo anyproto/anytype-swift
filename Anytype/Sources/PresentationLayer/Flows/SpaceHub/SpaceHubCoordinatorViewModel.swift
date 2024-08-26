@@ -20,9 +20,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     let homeSceneId = UUID().uuidString
     
     @Injected(\.appActionStorage)
-    private var appActionsStorage:AppActionStorage
+    private var appActionsStorage: AppActionStorage
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     
     
     func startDeepLinkTask() async {
