@@ -35,7 +35,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - State
     
-    private let homeSceneId = UUID().uuidString
+    private let homeSceneId: String
     private var paths = [String: HomePath]()
     private var dismissAllPresented: DismissAllPresented?
     
@@ -74,7 +74,8 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init(showHome: Binding<Bool>) {
+    init(homeSceneId: String, showHome: Binding<Bool>) {
+        self.homeSceneId = homeSceneId
         _showHome = showHome
         
         Task {

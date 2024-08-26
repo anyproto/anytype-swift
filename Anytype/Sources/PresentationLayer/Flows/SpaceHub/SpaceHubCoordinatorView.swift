@@ -45,7 +45,7 @@ struct SpaceHubCoordinatorView: View {
     private var content: some View {
         SpaceHubView { model.showHome.toggle() }
             .navigationDestination(isPresented: $model.showHome) {
-                NewHomeCoordinatorView(showHome: $model.showHome)
+                NewHomeCoordinatorView(homeSceneId: model.homeSceneId, showHome: $model.showHome)
                     .navigationBarBackButtonHidden()
             }
     }

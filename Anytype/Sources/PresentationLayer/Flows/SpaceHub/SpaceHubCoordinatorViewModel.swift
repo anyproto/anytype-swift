@@ -17,12 +17,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     var keyboardDismiss: (() -> ())?
     var dismissAllPresented: DismissAllPresented?
     
+    let homeSceneId = UUID().uuidString
+    
     @Injected(\.appActionStorage)
     private var appActionsStorage:AppActionStorage
     @Injected(\.accountManager)
     private var accountManager: AccountManagerProtocol
     
-    private let homeSceneId = UUID().uuidString
     
     func startDeepLinkTask() async {
         for await action in appActionsStorage.$action.values {
