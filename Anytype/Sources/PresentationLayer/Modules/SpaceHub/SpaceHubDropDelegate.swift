@@ -9,7 +9,7 @@ struct SpaceHubDropDelegate: DropDelegate {
     @Binding var initialIndex: Int?
     
     @Injected(\.workspaceStorage)
-    private var workspacesStorage: WorkspacesStorageProtocol
+    private var workspacesStorage: any WorkspacesStorageProtocol
     
     func dropUpdated(info: DropInfo) -> DropProposal? {
         return DropProposal(operation: .move)

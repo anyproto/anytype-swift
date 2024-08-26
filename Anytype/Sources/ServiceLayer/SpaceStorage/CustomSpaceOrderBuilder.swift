@@ -11,9 +11,9 @@ protocol CustomSpaceOrderBuilderProtocol {
 @MainActor
 final class CustomSpaceOrderBuilder: CustomSpaceOrderBuilderProtocol {
     @Injected(\.userDefaultsStorage)
-    private var userDefaults: UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.accountManager)
-    private var accountManager: AccountManagerProtocol
+    private var accountManager: any AccountManagerProtocol
     
     private var spacesOrder: [String] {
         get { userDefaults.getSpacesOrder(accountId: accountManager.account.id) }
