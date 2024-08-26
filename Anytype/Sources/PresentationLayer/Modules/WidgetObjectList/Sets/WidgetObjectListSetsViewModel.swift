@@ -32,7 +32,7 @@ final class WidgetObjectListSetsViewModel: WidgetObjectListInternalViewModelProt
     
     func onAppear() {
         Task {
-            await setsSubscriptionService.startSubscription(objectLimit: nil) { [weak self] details in
+            await setsSubscriptionService.startSubscription(spaceId: spaceId, objectLimit: nil) { [weak self] details in
                 self?.details = details
             }
         }

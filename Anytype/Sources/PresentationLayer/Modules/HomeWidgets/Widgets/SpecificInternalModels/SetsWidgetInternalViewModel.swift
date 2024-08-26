@@ -81,6 +81,7 @@ final class SetsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMod
     
     private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
         await setsSubscriptionService.startSubscription(
+            spaceId: spaceId,
             objectLimit: widgetInfo.fixedLimit,
             update: { [weak self] details in
                 self?.details = details
