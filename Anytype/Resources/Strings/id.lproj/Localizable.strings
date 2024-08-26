@@ -1058,8 +1058,7 @@
 "Server.LocalOnly" = "Hanya Lokal";
 "Server.LocalOnly.Alert.title" = "Apakah kamu yakin?";
 "Server.LocalOnly.Alert.message" = "Mode Hanya-Lokal masih bersifat eksperimental dan tidak memberikan keuntungan keamanan apa pun. Hati-hati dalam penggunaannya karena kehilangan data dapat terjadi.";
-"Server.LocalOnly.Alert.Action.primary" = "Tidak apa, saya yakin";
-"Server.LocalOnly.Alert.Action.secondary" = "Saya cari aman saja";
+"Server.LocalOnly.Alert.Action.primary" = "Yes, use local-only mode";
 
 // MARK: - Gallery
 "Gallery.Author" = "Dibuat oleh @%@";
