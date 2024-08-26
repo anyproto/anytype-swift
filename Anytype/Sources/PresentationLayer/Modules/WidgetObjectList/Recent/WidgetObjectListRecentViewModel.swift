@@ -36,7 +36,7 @@ final class WidgetObjectListRecentViewModel: WidgetObjectListInternalViewModelPr
     
     func onAppear() {
         Task {
-            await recentSubscriptionService.startSubscription(type: type, objectLimit: nil) { [weak self] details in
+            await recentSubscriptionService.startSubscription(spaceId: spaceId, type: type, objectLimit: nil) { [weak self] details in
                 self?.details = details
                 self?.updateRows()
             }

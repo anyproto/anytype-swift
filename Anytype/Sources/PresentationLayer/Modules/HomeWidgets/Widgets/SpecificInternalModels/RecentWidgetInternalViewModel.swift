@@ -63,6 +63,7 @@ final class RecentWidgetInternalViewModel: ObservableObject, WidgetInternalViewM
     
     private func updateSubscription(widgetInfo: BlockWidgetInfo) async {
         await recentSubscriptionService.startSubscription(
+            spaceId: spaceId,
             type: type,
             objectLimit: widgetInfo.fixedLimit,
             update: { [weak self] details in
