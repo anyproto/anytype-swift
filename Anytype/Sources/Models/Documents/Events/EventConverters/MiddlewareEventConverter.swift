@@ -201,6 +201,7 @@ final class MiddlewareEventConverter {
                 .notificationSend,
                 .notificationUpdate,
                 .payloadBroadcast,
+                .importFinish,
                 .spaceSyncStatusUpdate, // Implemented in `SyncStatusStorage`
                 .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
                 .membershipUpdate: // Implemented in `MembershipStatusStorage`

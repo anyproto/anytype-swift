@@ -931,6 +931,11 @@ extension Anytype_Rpc.Object.ListExport.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
+extension Anytype_Rpc.Object.ListModifyDetailValues.Response: ResultWithError {}
+extension Anytype_Rpc.Object.ListModifyDetailValues.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
 extension Anytype_Rpc.Object.ListSetDetails.Response: ResultWithError {}
 extension Anytype_Rpc.Object.ListSetDetails.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }

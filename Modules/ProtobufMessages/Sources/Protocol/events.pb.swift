@@ -606,6 +606,14 @@ public struct Anytype_Event {
       set {value = .p2PStatusUpdate(newValue)}
     }
 
+    public var importFinish: Anytype_Event.Import.Finish {
+      get {
+        if case .importFinish(let v)? = value {return v}
+        return Anytype_Event.Import.Finish()
+      }
+      set {value = .importFinish(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -681,6 +689,7 @@ public struct Anytype_Event {
       case membershipUpdate(Anytype_Event.Membership.Update)
       case spaceSyncStatusUpdate(Anytype_Event.Space.SyncStatus.Update)
       case p2PStatusUpdate(Anytype_Event.P2PStatus.Update)
+      case importFinish(Anytype_Event.Import.Finish)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -962,6 +971,10 @@ public struct Anytype_Event {
         }()
         case (.p2PStatusUpdate, .p2PStatusUpdate): return {
           guard case .p2PStatusUpdate(let l) = lhs, case .p2PStatusUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.importFinish, .importFinish): return {
+          guard case .importFinish(let l) = lhs, case .importFinish(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         default: return false
@@ -4941,6 +4954,32 @@ public struct Anytype_Event {
     public init() {}
   }
 
+  public struct Import {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Finish {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var rootCollectionID: String = String()
+
+      public var objectsCount: Int64 = 0
+
+      public var importType: Anytype_Model_Import.TypeEnum = .notion
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _initiator: Anytype_Model_Account? = nil
@@ -4950,7 +4989,7 @@ public struct Anytype_Event {
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+  public static let allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
     .none,
     .add,
     .move,
@@ -4961,7 +5000,7 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+  public static let allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
     .unknown,
     .offline,
     .syncing,
@@ -4973,7 +5012,7 @@ extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
 
 extension Anytype_Event.Space.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Event.Space.Status] = [
+  public static let allCases: [Anytype_Event.Space.Status] = [
     .synced,
     .syncing,
     .error,
@@ -4983,7 +5022,7 @@ extension Anytype_Event.Space.Status: CaseIterable {
 
 extension Anytype_Event.Space.Network: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Event.Space.Network] = [
+  public static let allCases: [Anytype_Event.Space.Network] = [
     .anytype,
     .selfHost,
     .localOnly,
@@ -4992,7 +5031,7 @@ extension Anytype_Event.Space.Network: CaseIterable {
 
 extension Anytype_Event.Space.SyncError: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Event.Space.SyncError] = [
+  public static let allCases: [Anytype_Event.Space.SyncError] = [
     .null,
     .storageLimitExceed,
     .incompatibleVersion,
@@ -5161,7 +5200,7 @@ public struct Anytype_Model {
 
 extension Anytype_Model.Process.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Model.Process.TypeEnum] = [
+  public static let allCases: [Anytype_Model.Process.TypeEnum] = [
     .dropFiles,
     .import,
     .export,
@@ -5173,7 +5212,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
 
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Anytype_Model.Process.State] = [
+  public static let allCases: [Anytype_Model.Process.State] = [
     .none,
     .running,
     .done,
@@ -5387,6 +5426,8 @@ extension Anytype_Event.Space.SyncStatus.Update: @unchecked Sendable {}
 extension Anytype_Event.P2PStatus: @unchecked Sendable {}
 extension Anytype_Event.P2PStatus.Status: @unchecked Sendable {}
 extension Anytype_Event.P2PStatus.Update: @unchecked Sendable {}
+extension Anytype_Event.Import: @unchecked Sendable {}
+extension Anytype_Event.Import.Finish: @unchecked Sendable {}
 extension Anytype_ResponseEvent: @unchecked Sendable {}
 extension Anytype_Model: @unchecked Sendable {}
 extension Anytype_Model.Process: @unchecked Sendable {}
@@ -5525,6 +5566,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     117: .same(proto: "membershipUpdate"),
     119: .same(proto: "spaceSyncStatusUpdate"),
     120: .same(proto: "p2pStatusUpdate"),
+    121: .same(proto: "importFinish"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6313,6 +6355,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .p2PStatusUpdate(v)
         }
       }()
+      case 121: try {
+        var v: Anytype_Event.Import.Finish?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .importFinish(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .importFinish(v)
+        }
+      }()
       case 123: try {
         var v: Anytype_Event.Block.Dataview.RelationSet?
         var hadOneofValue = false
@@ -6680,6 +6735,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .p2PStatusUpdate?: try {
       guard case .p2PStatusUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 120)
+    }()
+    case .importFinish?: try {
+      guard case .importFinish(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 121)
     }()
     case .blockDataviewRelationSet?: try {
       guard case .blockDataviewRelationSet(let v)? = self.value else { preconditionFailure() }
@@ -14075,6 +14134,69 @@ extension Anytype_Event.P2PStatus.Update: SwiftProtobuf.Message, SwiftProtobuf._
     if lhs.spaceID != rhs.spaceID {return false}
     if lhs.status != rhs.status {return false}
     if lhs.devicesCounter != rhs.devicesCounter {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Import: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Import"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Import, rhs: Anytype_Event.Import) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Import.Finish: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Import.protoMessageName + ".Finish"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "rootCollectionID"),
+    2: .same(proto: "objectsCount"),
+    3: .same(proto: "importType"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.rootCollectionID) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.objectsCount) }()
+      case 3: try { try decoder.decodeSingularEnumField(value: &self.importType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.rootCollectionID.isEmpty {
+      try visitor.visitSingularStringField(value: self.rootCollectionID, fieldNumber: 1)
+    }
+    if self.objectsCount != 0 {
+      try visitor.visitSingularInt64Field(value: self.objectsCount, fieldNumber: 2)
+    }
+    if self.importType != .notion {
+      try visitor.visitSingularEnumField(value: self.importType, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Import.Finish, rhs: Anytype_Event.Import.Finish) -> Bool {
+    if lhs.rootCollectionID != rhs.rootCollectionID {return false}
+    if lhs.objectsCount != rhs.objectsCount {return false}
+    if lhs.importType != rhs.importType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -28,6 +28,6 @@ let package = Package(
                 .linkedLibrary("resolv")
             ]
         ),
-        .binaryTarget(name: "Lib", path: "../../Dependencies/Middleware/Lib.xcframework")
+        .binaryTarget(name: "Lib", path: "../../Dependencies/Middleware/dist/ios/Lib.xcframework")
     ]
 )
