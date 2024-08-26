@@ -8,7 +8,7 @@ final class SpaceWidgetViewModel: ObservableObject {
     // MARK: - DI
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     private let onSpaceSelected: () -> Void

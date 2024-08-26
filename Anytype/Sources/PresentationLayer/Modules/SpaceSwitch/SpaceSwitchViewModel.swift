@@ -11,7 +11,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     @Injected(\.workspaceStorage)
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.singleObjectSubscriptionService)

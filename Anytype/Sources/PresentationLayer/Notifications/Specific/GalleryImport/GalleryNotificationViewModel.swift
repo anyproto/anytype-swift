@@ -13,7 +13,7 @@ final class GalleryNotificationViewModel: ObservableObject {
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.notificationsService)
     private var notificationsService: any NotificationsServiceProtocol
     

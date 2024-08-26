@@ -17,7 +17,7 @@ final class TypeSearchForNewObjectCoordinatorViewModel: ObservableObject {
     @Injected(\.bookmarkService)
     private var bookmarkService: any BookmarkServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.objectTypeProvider)
     private var typeProvider: any ObjectTypeProviderProtocol
     

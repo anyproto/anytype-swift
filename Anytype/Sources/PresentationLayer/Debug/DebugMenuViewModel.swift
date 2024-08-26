@@ -44,7 +44,7 @@ final class DebugMenuViewModel: ObservableObject {
     @Injected(\.applicationStateService)
     private var applicationStateService: any ApplicationStateServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol   
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol   
     @Injected(\.seedService)
     private var seedService: any SeedServiceProtocol
     
@@ -109,7 +109,7 @@ final class DebugMenuViewModel: ObservableObject {
     }
     
     func onSpaceDebug() async throws {
-        let jsonDebug = try await debugService.exportSpaceDebug(spaceId: activeWorkpaceStorage.workspaceInfo.accountSpaceId)
+        let jsonDebug = try await debugService.exportSpaceDebug(spaceId: activeWorkspaceStorage.workspaceInfo.accountSpaceId)
         let jsonFile = FileManager.default.createTempDirectory().appendingPathComponent("spaceInfo.json")
         try jsonDebug.write(to: jsonFile, atomically: true, encoding: .utf8)
         shareUrlFile = jsonFile

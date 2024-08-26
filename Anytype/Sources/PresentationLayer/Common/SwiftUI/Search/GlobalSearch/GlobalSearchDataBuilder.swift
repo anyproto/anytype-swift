@@ -14,7 +14,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     
     private lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
     

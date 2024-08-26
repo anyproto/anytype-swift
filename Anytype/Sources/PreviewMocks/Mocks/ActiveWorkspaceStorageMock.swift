@@ -3,10 +3,10 @@ import Services
 import Combine
 
 @MainActor
-final class ActiveWorkpaceStorageMock: ActiveWorkpaceStorageProtocol {
+final class ActiveWorkspaceStorageMock: ActiveWorkspaceStorageProtocol {
     
     @MainActor
-    static let shared = ActiveWorkpaceStorageMock()
+    static let shared = ActiveWorkspaceStorageMock()
     
     init() {}
     

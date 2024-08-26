@@ -24,7 +24,7 @@ final class SpaceJoinViewModel: ObservableObject {
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
     

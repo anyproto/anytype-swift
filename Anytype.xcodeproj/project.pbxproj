@@ -577,7 +577,7 @@
 		2A785B452AFCDDB30020297E /* EditorCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */; };
 		2A785B472AFCDDED0020297E /* EditorCoordinatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */; };
 		2A78A9592B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */; };
-		2A78A95A2B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9562B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift */; };
+		2A78A95A2B9F36D300396B82 /* ActiveWorkspaceStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9562B9F36D300396B82 /* ActiveWorkspaceStorageMock.swift */; };
 		2A78A95B2B9F36D300396B82 /* WorkspacesStorageMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */; };
 		2A78A95C2B9F36D300396B82 /* MockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A78A9582B9F36D300396B82 /* MockView.swift */; };
 		2A794B422AD53D3A00BA160F /* SubscriptionStorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */; };
@@ -2431,7 +2431,7 @@
 		2A785B442AFCDDB30020297E /* EditorCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorView.swift; sourceTree = "<group>"; };
 		2A785B462AFCDDED0020297E /* EditorCoordinatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCoordinatorViewModel.swift; sourceTree = "<group>"; };
 		2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleObjectSubscriptionServiceMock.swift; sourceTree = "<group>"; };
-		2A78A9562B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveWorkpaceStorageMock.swift; sourceTree = "<group>"; };
+		2A78A9562B9F36D300396B82 /* ActiveWorkspaceStorageMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveWorkspaceStorageMock.swift; sourceTree = "<group>"; };
 		2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkspacesStorageMock.swift; sourceTree = "<group>"; };
 		2A78A9582B9F36D300396B82 /* MockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockView.swift; sourceTree = "<group>"; };
 		2A794B412AD53D3A00BA160F /* SubscriptionStorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionStorageProvider.swift; sourceTree = "<group>"; };
@@ -6388,7 +6388,7 @@
 		2A78A95E2B9F36DC00396B82 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				2A78A9562B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift */,
+				2A78A9562B9F36D300396B82 /* ActiveWorkspaceStorageMock.swift */,
 				2A78A9552B9F36D300396B82 /* SingleObjectSubscriptionServiceMock.swift */,
 				2A78A9572B9F36D300396B82 /* WorkspacesStorageMock.swift */,
 				3D6E045A2BC5598500CE48AF /* MembershipStatusStorageMock.swift */,
@@ -12952,7 +12952,7 @@
 				3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */,
 				2A35A6B12BBD834F00CCE4F4 /* WidgetTypeRowViewModel+Init.swift in Sources */,
 				12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */,
-				2A78A95A2B9F36D300396B82 /* ActiveWorkpaceStorageMock.swift in Sources */,
+				2A78A95A2B9F36D300396B82 /* ActiveWorkspaceStorageMock.swift in Sources */,
 				2A10D8492C52A6D00088BB46 /* AttributedString+Extensions.swift in Sources */,
 				2AE2761E2BCEDB8B00E0244A /* SpaceAccessType+Analytics.swift in Sources */,
 				EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */,

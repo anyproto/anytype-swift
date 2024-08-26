@@ -22,7 +22,7 @@ final class WidgetObjectListViewModel: ObservableObject, OptionsItemProvider, Wi
     @Injected(\.objectActionsService)
     private var objectActionService: any ObjectActionsServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.accountParticipantsStorage)
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     

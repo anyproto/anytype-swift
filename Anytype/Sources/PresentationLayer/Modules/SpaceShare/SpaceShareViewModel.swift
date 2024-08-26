@@ -11,7 +11,7 @@ final class SpaceShareViewModel: ObservableObject {
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.participantSpacesStorage)

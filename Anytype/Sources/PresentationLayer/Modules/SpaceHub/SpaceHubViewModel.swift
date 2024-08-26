@@ -21,7 +21,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     
     private let showActiveSpace: () -> ()
     private var subscriptions = [AnyCancellable]()

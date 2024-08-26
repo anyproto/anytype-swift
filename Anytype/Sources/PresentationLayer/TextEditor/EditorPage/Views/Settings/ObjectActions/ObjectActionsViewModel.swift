@@ -26,7 +26,7 @@ final class ObjectActionsViewModel: ObservableObject {
     @Injected(\.blockWidgetService)
     private var blockWidgetService: any BlockWidgetServiceProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.deepLinkParser)
     private var deepLinkParser: any DeepLinkParserProtocol
     @Injected(\.documentService)
@@ -127,7 +127,7 @@ final class ObjectActionsViewModel: ObservableObject {
         AnytypeAnalytics.instance().logClickAddWidget(context: .object)
         guard let details = document.details else { return }
         
-        let info = activeWorkpaceStorage.workspaceInfo
+        let info = activeWorkspaceStorage.workspaceInfo
         
         guard info.accountSpaceId == details.spaceId else {
             anytypeAssertionFailure("Spaces are not equals")

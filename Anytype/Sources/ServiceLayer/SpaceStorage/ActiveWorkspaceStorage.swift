@@ -5,7 +5,7 @@ import Services
 
 // Storage for store active space id for each screen.
 @MainActor
-protocol ActiveWorkpaceStorageProtocol: AnyObject {
+protocol ActiveWorkspaceStorageProtocol: AnyObject {
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setActiveSpace(spaceId: String) async throws
@@ -15,7 +15,7 @@ protocol ActiveWorkpaceStorageProtocol: AnyObject {
 }
 
 @MainActor
-final class ActiveWorkspaceStorage: ActiveWorkpaceStorageProtocol {
+final class ActiveWorkspaceStorage: ActiveWorkspaceStorageProtocol {
     
     // MARK: - DI
     

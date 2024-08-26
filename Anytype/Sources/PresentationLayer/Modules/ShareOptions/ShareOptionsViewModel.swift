@@ -11,7 +11,7 @@ final class ShareOptionsViewModel: ObservableObject {
     @Injected(\.shareOptionsInteractor)
     private var interactor: any ShareOptionsInteractorProtocol
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     
     private weak var output: (any ShareOptionsModuleOutput)?
     
@@ -122,7 +122,7 @@ final class ShareOptionsViewModel: ObservableObject {
         counter.textCount = content.items.filter(\.isText).count
         counter.bookmarksCount = content.items.filter(\.isUrl).count
         counter.filesCount = content.items.filter(\.isFile).count
-        spaceDetails = activeWorkpaceStorage.spaceView()
+        spaceDetails = activeWorkspaceStorage.spaceView()
         
         updateAvailableOptions()
         updateDataState()

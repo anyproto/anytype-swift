@@ -7,7 +7,7 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     private let notification: NotificationRequestToJoin
     
     @Injected(\.activeWorkspaceStorage)
-    private var activeWorkpaceStorage: any ActiveWorkpaceStorageProtocol
+    private var activeWorkspaceStorage: any ActiveWorkspaceStorageProtocol
     @Injected(\.notificationsService)
     private var notificationsService: any NotificationsServiceProtocol
     
@@ -27,7 +27,7 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     }
     
     func onTapGoToSpace() async throws {
-        try await activeWorkpaceStorage.setActiveSpace(spaceId: notification.requestToJoin.spaceID)
+        try await activeWorkspaceStorage.setActiveSpace(spaceId: notification.requestToJoin.spaceID)
         try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
         dismiss.toggle()
     }
