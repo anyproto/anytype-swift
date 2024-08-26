@@ -47,8 +47,8 @@ final class GlobalSearchViewModel: ObservableObject {
             
             updateInitialStateIfNeeded()
             
-            let objectsSearchData = result.compactMap { [weak self] result in
-                self?.globalSearchDataBuilder.buildData(with: result)
+            let objectsSearchData = result.compactMap { result in
+                globalSearchDataBuilder.buildData(with: result, spaceId: moduleData.spaceId)
             }
             
             guard objectsSearchData.isNotEmpty else {

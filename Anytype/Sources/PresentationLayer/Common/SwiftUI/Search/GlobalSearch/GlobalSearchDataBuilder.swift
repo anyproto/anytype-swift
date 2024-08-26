@@ -5,7 +5,7 @@ import AnytypeCore
 
 @MainActor
 protocol GlobalSearchDataBuilderProtocol {
-    func buildData(with searchResult: SearchResultWithMeta) -> GlobalSearchData
+    func buildData(with searchResult: SearchResultWithMeta, spaceId: String) -> GlobalSearchData
 }
 
 @MainActor
@@ -13,21 +13,17 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
     
     @Injected(\.relationDetailsStorage)
     private var relationDetailsStorage: any RelationDetailsStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
-    
-    private lazy var workspaceInfo: AccountInfo = activeWorkspaceStorage.workspaceInfo
     
     nonisolated init() { }
     
-    func buildData(with searchResult: SearchResultWithMeta) -> GlobalSearchData {
+    func buildData(with searchResult: SearchResultWithMeta, spaceId: String) -> GlobalSearchData {
         
         let details = searchResult.objectDetails
         let meta = searchResult.meta
         
         let title = buildHighlightedTitle(from: meta) ?? AttributedString(details.title)
         
-        let highlights = buildHighlightsData(with: meta)
+        let highlights = buildHighlightsData(with: meta, spaceId: spaceId)
         
         // just for debug
         var score = ""
@@ -58,25 +54,25 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
         return attributedString(for: nameMeta)
     }
     
-    private func buildHighlightsData(with meta: [SearchMeta]) -> [HighlightsData] {
+    private func buildHighlightsData(with meta: [SearchMeta], spaceId: String) -> [HighlightsData] {
         meta.compactMap { [weak self] item -> HighlightsData? in
             guard let self else { return nil }
             if item.blockID.isNotEmpty {
                 return buildTextBlockHighlights(with: item)
             } else if item.relationKey.isNotEmpty {
-                return buildRelationData(with: item)
+                return buildRelationData(with: item, spaceId: spaceId)
             } else {
                 return nil
             }
         }
     }
     
-    private func buildRelationData(with meta: SearchMeta) -> HighlightsData? {
+    private func buildRelationData(with meta: SearchMeta, spaceId: String) -> HighlightsData? {
         guard meta.relationKey != BundledRelationKey.name.rawValue else {
             return nil
         }
         
-        guard let relationDetails = try? relationDetailsStorage.relationsDetails(for: meta.relationKey, spaceId: workspaceInfo.accountSpaceId) else {
+        guard let relationDetails = try? relationDetailsStorage.relationsDetails(for: meta.relationKey, spaceId: spaceId) else {
             return nil
         }
         
