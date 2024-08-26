@@ -66,7 +66,7 @@ final class WidgetObjectListMenuBuilder: WidgetObjectListMenuBuilderProtocol {
         output: some WidgetObjectListMenuOutput
     ) -> [Action] {
         
-        let permissions = details.map { $0.permissions(particioant: participant) }
+        let permissions = details.map { $0.permissions(participant: participant) }
         
         let isFavoriteIds = details.enumerated().filter { $1.isFavorite && permissions[$0].canFavorite }.map { $1.id }
         let isUndavoriteIds = details.enumerated().filter { !$1.isFavorite && permissions[$0].canFavorite }.map { $1.id }

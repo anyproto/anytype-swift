@@ -94,8 +94,8 @@ extension ObjectPermissions {
 
 extension ObjectDetails {
     
-    func permissions(particioant: Participant?) -> ObjectPermissions {
-        permissions(participantCanEdit: particioant?.canEdit ?? false)
+    func permissions(participant: Participant?) -> ObjectPermissions {
+        permissions(participantCanEdit: participant?.canEdit ?? false)
     }
     
     func permissions(participantCanEdit: Bool) -> ObjectPermissions {

@@ -22,7 +22,7 @@ struct SpaceSearchView: View {
             }
         )
         .task {
-            await model.startParticioantTask()
+            await model.startParticipantTask()
         }
     }
 }
