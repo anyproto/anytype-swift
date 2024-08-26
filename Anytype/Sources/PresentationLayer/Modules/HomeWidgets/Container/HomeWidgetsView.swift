@@ -39,7 +39,13 @@ private struct HomeWidgetsInternalView: View {
                             WidgetSwipeTipView()
                         }
                         ForEach(model.widgetBlocks) { widgetInfo in
-                            HomeWidgetSubmoduleView(widgetInfo: widgetInfo, widgetObject: model.widgetObject, homeState: $model.homeState, output: model.output)
+                            HomeWidgetSubmoduleView(
+                                widgetInfo: widgetInfo,
+                                widgetObject: model.widgetObject, 
+                                workspaceInfo: model.info,
+                                homeState: $model.homeState,
+                                output: model.output
+                            )
                         }
                         BinLinkWidgetView(spaceId: model.spaceId, homeState: $model.homeState, output: model.submoduleOutput())
                         editButtons

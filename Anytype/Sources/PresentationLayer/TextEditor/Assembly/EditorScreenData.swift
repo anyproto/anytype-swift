@@ -2,7 +2,7 @@ import Services
 import AnytypeCore
 
 enum EditorScreenData: Hashable, Codable {
-    case favorites
+    case favorites(_ homeObjectId: String)
     case recentEdit
     case recentOpen
     case sets
