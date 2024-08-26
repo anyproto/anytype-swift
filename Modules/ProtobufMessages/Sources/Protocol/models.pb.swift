@@ -2426,7 +2426,7 @@ public struct Anytype_Model_Block {
         public var id: String = String()
 
         /// looks not applicable?
-        public var `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .and
+        public var `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator = .no
 
         public var relationKey: String = String()
 
@@ -2449,30 +2449,35 @@ public struct Anytype_Model_Block {
 
         public var includeTime: Bool = false
 
+        public var nestedFilters: [Anytype_Model_Block.Content.Dataview.Filter] = []
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum Operator: SwiftProtobuf.Enum {
           public typealias RawValue = Int
-          case and // = 0
+          case no // = 0
           case or // = 1
+          case and // = 2
           case UNRECOGNIZED(Int)
 
           public init() {
-            self = .and
+            self = .no
           }
 
           public init?(rawValue: Int) {
             switch rawValue {
-            case 0: self = .and
+            case 0: self = .no
             case 1: self = .or
+            case 2: self = .and
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
 
           public var rawValue: Int {
             switch self {
-            case .and: return 0
+            case .no: return 0
             case .or: return 1
+            case .and: return 2
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -3238,8 +3243,9 @@ extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: CaseIterable {
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static let allCases: [Anytype_Model_Block.Content.Dataview.Filter.Operator] = [
-    .and,
+    .no,
     .or,
+    .and,
   ]
 }
 
@@ -7855,6 +7861,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     6: .same(proto: "quickOption"),
     7: .same(proto: "format"),
     8: .same(proto: "includeTime"),
+    10: .same(proto: "nestedFilters"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7872,6 +7879,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
       case 7: try { try decoder.decodeSingularEnumField(value: &self.format) }()
       case 8: try { try decoder.decodeSingularBoolField(value: &self.includeTime) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 10: try { try decoder.decodeRepeatedMessageField(value: &self.nestedFilters) }()
       default: break
       }
     }
@@ -7882,7 +7890,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if self.`operator` != .and {
+    if self.`operator` != .no {
       try visitor.visitSingularEnumField(value: self.`operator`, fieldNumber: 1)
     }
     if !self.relationKey.isEmpty {
@@ -7909,6 +7917,9 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 9)
     }
+    if !self.nestedFilters.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.nestedFilters, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -7922,6 +7933,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if lhs.quickOption != rhs.quickOption {return false}
     if lhs.format != rhs.format {return false}
     if lhs.includeTime != rhs.includeTime {return false}
+    if lhs.nestedFilters != rhs.nestedFilters {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7929,8 +7941,9 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
 
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "And"),
+    0: .same(proto: "No"),
     1: .same(proto: "Or"),
+    2: .same(proto: "And"),
   ]
 }
 

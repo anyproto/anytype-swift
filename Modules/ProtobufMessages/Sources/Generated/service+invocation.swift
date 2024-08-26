@@ -744,6 +744,16 @@ public struct ClientCommands {
         }
     }
 
+    public static func objectListModifyDetailValues(
+        _ request: Anytype_Rpc.Object.ListModifyDetailValues.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Object.ListModifyDetailValues.Request, Anytype_Rpc.Object.ListModifyDetailValues.Response> {
+        return Invocation(messageName: "ObjectListModifyDetailValues", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceObjectListModifyDetailValues(requestData) ?? Data()
+            return try Anytype_Rpc.Object.ListModifyDetailValues.Response(serializedData: responseData)
+        }
+    }
+
     public static func objectApplyTemplate(
         _ request: Anytype_Rpc.Object.ApplyTemplate.Request = .init()
     ) -> Invocation<Anytype_Rpc.Object.ApplyTemplate.Request, Anytype_Rpc.Object.ApplyTemplate.Response> {
