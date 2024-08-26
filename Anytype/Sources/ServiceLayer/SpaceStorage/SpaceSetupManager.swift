@@ -10,7 +10,7 @@ protocol SpaceSetupManagerProtocol :AnyObject {
 actor SpaceSetupManager: SpaceSetupManagerProtocol {
     
     private struct WeakValue {
-        weak var manager: HomeSpaceSetupManagerProtocol?
+        weak var manager: (any HomeSpaceSetupManagerProtocol)?
     }
     
     private var cache: [String: WeakValue] = [:]

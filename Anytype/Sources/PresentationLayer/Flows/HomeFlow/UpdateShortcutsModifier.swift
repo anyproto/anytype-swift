@@ -20,7 +20,7 @@ private struct UpdateShortcutsModifier: ViewModifier {
 private final class UpdateShortcutsModifierObject: ObservableObject {
     
     @Injected(\.quickActionShortcutBuilder)
-    private var quickActionShortcutBuilder: QuickActionShortcutBuilderProtocol
+    private var quickActionShortcutBuilder: any QuickActionShortcutBuilderProtocol
     
     func updateShortcuts(spaceId: String?) {
         if let spaceId {

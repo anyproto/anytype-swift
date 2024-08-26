@@ -13,7 +13,7 @@ struct SpaceHubView: View {
     var body: some View {
         content
             .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(output: model)
+                SpaceCreateView(homeSceneId: model.homeSceneId, output: model)
             }
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()

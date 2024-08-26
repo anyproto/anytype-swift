@@ -20,8 +20,13 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
+    // TODO: create new state manager for hub
+    @Injected(\.homeActiveSpaceManager)
+    private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
+    
+    let homeSceneId = UUID().uuidString
     
     private let showActiveSpace: () -> ()
     private var subscriptions = [AnyCancellable]()
@@ -29,13 +34,17 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     init(showActiveSpace: @escaping () -> Void) {
         self.showActiveSpace = showActiveSpace
         
+        Task {
+            await spaceSetupManager.registryHome(homeSceneId: homeSceneId, manager: homeActiveSpaceManager)
+        }
+        
         Task { startSubscriptions() }
     }
     
     func onSpaceTap(spaceId: String) {
         Task {
             // TODO: Show spinner ???
-            try await activeWorkspaceStorage.setActiveSpace(spaceId: spaceId)
+            try await homeActiveSpaceManager.setActiveSpace(spaceId: spaceId)
             UISelectionFeedbackGenerator().selectionChanged()
             showActiveSpace()
         }
