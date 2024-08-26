@@ -33,6 +33,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     @Injected(\.legacySetObjectCreationCoordinator)
     private var setObjectCreationCoordinator: any SetObjectCreationCoordinatorProtocol
@@ -57,7 +59,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showSpaceShareTip: Bool = false
     
     @Published var editorPath = HomePath() {
-        didSet { UserDefaultsConfig.lastOpenedPage = editorPath.lastPathElement as? EditorScreenData }
+        didSet { updateLastOpenedScreen() }
     }
     @Published var showTypeSearchForObjectCreation: Bool = false
     @Published var toastBarData = ToastBarData.empty
@@ -245,6 +247,16 @@ final class HomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - Private
     
+    private func updateLastOpenedScreen() {
+        guard let currentSpaceId else { return }
+        
+        if let screen = editorPath.lastPathElement as? EditorScreenData {
+            userDefaults.saveLastOpenedScreen(spaceId: currentSpaceId, screen: screen)
+        } else if editorPath.lastPathElement is HomePath || editorPath.lastPathElement is AccountInfo  {
+            userDefaults.saveLastOpenedScreen(spaceId: currentSpaceId, screen: nil)
+        }
+    }
+    
     private func openObject(screenData: EditorScreenData) {
         pushSync(data: screenData)
     }
@@ -384,7 +396,7 @@ final class HomeCoordinatorViewModel: ObservableObject,
             
             do {
                 // Restore last open page
-                if currentSpaceId.isNil, let lastOpenPage = UserDefaultsConfig.lastOpenedPage {
+                if currentSpaceId.isNil, let lastOpenPage = userDefaults.getLastOpenedScreen(spaceId: newInfo.accountSpaceId) {
                     if let objectId = lastOpenPage.objectId {
                         let document = documentsProvider.document(objectId: objectId, mode: .preview)
                         try await document.open()

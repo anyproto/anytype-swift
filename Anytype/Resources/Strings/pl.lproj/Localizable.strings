@@ -1056,6 +1056,10 @@
 "Server.AddButton" = "Dodaj sieć hostowaną";
 "Server.Anytype" = "Dowolny typ";
 "Server.LocalOnly" = "Tylko lokalnie";
+"Server.LocalOnly.Alert.title" = "Jesteś pewny?";
+"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
+"Server.LocalOnly.Alert.Action.primary" = "I'm feeling lucky";
+"Server.LocalOnly.Alert.Action.secondary" = "I’ll stay safe";
 
 // MARK: - Gallery
 "Gallery.Author" = "Wykonane przez @%@";

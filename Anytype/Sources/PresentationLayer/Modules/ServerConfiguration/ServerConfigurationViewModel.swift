@@ -15,6 +15,7 @@ final class ServerConfigurationViewModel: ObservableObject {
     
     @Published var mainRows: [ServerConfigurationRow] = []
     @Published var rows: [ServerConfigurationRow] = []
+    @Published var showLocalConfigurationAlert = false
     
     private var subscriptions = [AnyCancellable]()
     
@@ -31,6 +32,12 @@ final class ServerConfigurationViewModel: ObservableObject {
         output?.onAddServerSelected()
     }
     
+    func setup(config: NetworkServerConfig) {
+        storage.setupCurrentConfiguration(config: config)
+        updateRows()
+        AnytypeAnalytics.instance().logSelectNetwork(type: config.analyticsType, route: .onboarding)
+    }
+    
     // MARK: - Private
     
     private func updateRows() {
@@ -45,10 +52,16 @@ final class ServerConfigurationViewModel: ObservableObject {
             title: config.title,
             isSelected: config == storage.currentConfiguration(),
             onTap: { [weak self] in
-                self?.storage.setupCurrentConfiguration(config: config)
-                self?.updateRows()
-                AnytypeAnalytics.instance().logSelectNetwork(type: config.analyticsType, route: .onboarding)
+                self?.handleOnTap(config: config)
             }
         )
+    }
+    
+    private func handleOnTap(config: NetworkServerConfig) {
+        if config.isLocalOnly {
+            showLocalConfigurationAlert.toggle()
+        } else {
+            setup(config: config)
+        }
     }
 }

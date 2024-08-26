@@ -32,95 +32,11 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     @ViewBuilder
     var buttons: some View {
         HStack(alignment: .center, spacing: 40) {
-            
-            if FeatureFlags.spaceHub {
-                if homeMode {
-                    Button {
-                        model.onTapSearch()
-                    } label: {
-                        Image(asset: .X32.search)
-                            .foregroundColor(.Navigation.buttonActive)
-                    }
-                    .transition(.scale.combined(with: .opacity))
+            Group {
+                if FeatureFlags.spaceHub {
+                    newNavigation
                 } else {
-                    Button {
-                        model.onTapBackward()
-                    } label: {
-                        Image(asset: .X32.Arrow.left)
-                            .foregroundColor(.Navigation.buttonActive)
-                    }
-                    .transition(.scale.combined(with: .opacity))
-                }
-                
-                if model.canCreateObject {
-                    Image(asset: .X32.addNew)
-                        .foregroundColor(.Navigation.buttonActive)
-                        .onTapGesture {
-                            model.onTapNewObject()
-                        }
-                        .simultaneousGesture(
-                            LongPressGesture(minimumDuration: 0.3)
-                                .onEnded { _ in
-                                    model.onPlusButtonLongtap()
-                                }
-                        )
-                }
-                
-                Image(asset: .X32.vault)
-                    .foregroundColor(.Navigation.buttonActive)
-                    .onTapGesture {
-                        model.onSpaceHubTap()
-                    }
-                    .simultaneousGesture(
-                        LongPressGesture(minimumDuration: 0.3)
-                            .onEnded { _ in
-                                model.onTapProfile()
-                            }
-                    )
-            } else {
-                
-                navigationButton
-                
-                if model.canCreateObject {
-                    Image(asset: .X32.addNew)
-                        .foregroundColor(.Navigation.buttonActive)
-                        .onTapGesture {
-                            model.onTapNewObject()
-                        }
-                        .simultaneousGesture(
-                            LongPressGesture(minimumDuration: 0.3)
-                                .onEnded { _ in
-                                    model.onPlusButtonLongtap()
-                                }
-                        )
-                }
-                
-                if homeMode {
-                    Button {
-                        model.onTapSearch()
-                    } label: {
-                        Image(asset: .X32.search)
-                            .foregroundColor(.Navigation.buttonActive)
-                    }
-                    .transition(.scale.combined(with: .opacity))
-                } else {
-                    Button {
-                        model.onTapHome()
-                    } label: {
-                        Image(asset: .X32.dashboard)
-                            .foregroundColor(.Navigation.buttonActive)
-                    }
-                    .transition(.scale.combined(with: .opacity))
-                }
-                
-                Button {
-                    model.onTapProfile()
-                } label: {
-                    HStack {
-                        IconView(icon: model.profileIcon)
-                            .frame(width: 28, height: 28)
-                    }
-                    .frame(width: 32, height: 32)
+                    legacyNavigation
                 }
             }
         }
@@ -151,6 +67,97 @@ private struct HomeBottomNavigationPanelViewInternal: View {
         .animation(.default, value: homeMode)
         .task {
             await model.onAppear()
+        }
+    }
+    
+    @ViewBuilder
+    private var newNavigation: some View {
+        Button {
+            if homeMode {
+                model.onSpaceHubTap()
+            } else {
+                model.onTapBackward()
+            }
+        } label: {
+            Image(asset: .X32.Island.back)
+                .foregroundColor(.Navigation.buttonActive)
+        }
+        
+        Image(asset: .X32.Island.vault)
+            .onTapGesture {
+                model.onSpaceHubTap()
+            }
+            .simultaneousGesture(
+                LongPressGesture(minimumDuration: 0.3)
+                    .onEnded { _ in
+                        model.onTapProfile()
+                    }
+            )
+        
+        Button {
+            model.onTapSearch()
+        } label: {
+            Image(asset: .X32.Island.search)
+        }
+        
+        if model.canCreateObject {
+            Image(asset: .X32.Island.add)
+                .onTapGesture {
+                    model.onTapNewObject()
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.3)
+                        .onEnded { _ in
+                            model.onPlusButtonLongtap()
+                        }
+                )
+        }
+    }
+    
+    @ViewBuilder
+    private var legacyNavigation: some View {
+        navigationButton
+        
+        if model.canCreateObject {
+            Image(asset: .X32.addNew)
+                .foregroundColor(.Navigation.buttonActive)
+                .onTapGesture {
+                    model.onTapNewObject()
+                }
+                .simultaneousGesture(
+                    LongPressGesture(minimumDuration: 0.3)
+                        .onEnded { _ in
+                            model.onPlusButtonLongtap()
+                        }
+                )
+        }
+        
+        if homeMode {
+            Button {
+                model.onTapSearch()
+            } label: {
+                Image(asset: .X32.search)
+                    .foregroundColor(.Navigation.buttonActive)
+            }
+            .transition(.scale.combined(with: .opacity))
+        } else {
+            Button {
+                model.onTapHome()
+            } label: {
+                Image(asset: .X32.dashboard)
+                    .foregroundColor(.Navigation.buttonActive)
+            }
+            .transition(.scale.combined(with: .opacity))
+        }
+        
+        Button {
+            model.onTapProfile()
+        } label: {
+            HStack {
+                IconView(icon: model.profileIcon)
+                    .frame(width: 28, height: 28)
+            }
+            .frame(width: 32, height: 32)
         }
     }
     

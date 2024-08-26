@@ -3,6 +3,9 @@ import SwiftUI
 struct SpaceHubView: View {
     @StateObject private var model: SpaceHubViewModel
     
+    @State private var draggedSpace: ParticipantSpaceViewData?
+    @State private var draggedInitialIndex: Int?
+    
     init(showActiveSpace: @escaping () -> Void) {
         _model = StateObject(wrappedValue: SpaceHubViewModel(showActiveSpace: showActiveSpace))
     }
@@ -21,18 +24,20 @@ struct SpaceHubView: View {
         VStack(spacing: 8) {
             navBar
             
-            ScrollView {
-                ForEach(model.spaces) {
-                    spaceCard($0)
+            if let spaces = model.spaces {
+                ScrollView {
+                    ForEach(spaces) {
+                        spaceCard($0)
+                    }
+                    plusButton
                 }
-                plusButton
+                .scrollIndicators(.never)
             }
-            .scrollIndicators(.never)
-            .animation(.default, value: model.spaces)
             
             Spacer()
         }
         .ignoresSafeArea(edges: .bottom)
+        .animation(.default, value: model.spaces)
     }
     
     private var plusButton: some View {
@@ -73,19 +78,20 @@ struct SpaceHubView: View {
                 }
             )
         }
-        
-        .overlay(alignment: .trailing) {
-            Button(
-                action: {
-                    model.showSpaceCreate = true
-                },
-                label: {
-                    Image(asset: .X32.plus)
-                        .foregroundStyle(Color.Button.active)
-                        .padding(.vertical, 12)
-                        .padding(.horizontal, 14)
-                }
-            )
+        .if(model.showPlusInNavbar) {
+            $0.overlay(alignment: .trailing) {
+                Button(
+                    action: {
+                        model.showSpaceCreate = true
+                    },
+                    label: {
+                        Image(asset: .X32.plus)
+                            .foregroundStyle(Color.Button.active)
+                            .padding(.vertical, 12)
+                            .padding(.horizontal, 14)
+                    }
+                )
+            }
         }
     }
     
@@ -97,16 +103,29 @@ struct SpaceHubView: View {
                 IconView(icon: space.spaceView.objectIconImage)
                     .frame(width: 64, height: 64)
                 VStack(alignment: .leading, spacing: 6) {
-                    AnytypeText(space.spaceView.name, style: .bodySemibold)
-                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
+                    AnytypeText(space.spaceView.name, style: .bodySemibold).lineLimit(1)
+                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular).lineLimit(1)
                 }
                 Spacer()
             }
             .padding(16)
-            .background(UserDefaultsConfig.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
+            .background(model.userDefaults.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
             .cornerRadius(20, style: .continuous)
             .padding(.horizontal, 8)
         }
+        .onDrag {
+            draggedSpace = space
+            return NSItemProvider()
+        }
+        .onDrop(
+            of: [.text],
+            delegate:  SpaceHubDropDelegate(
+                destinationItem: space,
+                allSpaces: $model.spaces,
+                draggedItem: $draggedSpace,
+                initialIndex: $draggedInitialIndex
+            )
+        )
     }
 }
 

@@ -18,6 +18,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var showUpdateAlert = false
     @Published var showCommonOpenError = false
     
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
+    
     private var externalActiveViewId: String?
     
     private var recordsDict: OrderedDictionary<String, [ObjectDetails]> = [:]
@@ -449,10 +452,10 @@ final class EditorSetViewModel: ObservableObject {
         let currentPage: Int
         let numberOfRowsPerPage: Int
         if activeView.type.hasGroups {
-            numberOfRowsPerPage = UserDefaultsConfig.rowsPerPageInGroupedSet * max(pagitationData.selectedPage, 1)
+            numberOfRowsPerPage = userDefaults.rowsPerPageInGroupedSet * max(pagitationData.selectedPage, 1)
             currentPage = 1
         } else {
-            numberOfRowsPerPage = UserDefaultsConfig.rowsPerPageInSet
+            numberOfRowsPerPage = userDefaults.rowsPerPageInSet
             currentPage = max(pagitationData.selectedPage, 1)
         }
         

@@ -9,8 +9,7 @@ final class HomeWidgetsViewModel: ObservableObject {
 
     // MARK: - DI
     
-    private let info: AccountInfo
-    
+    let info: AccountInfo
     let widgetObject: any BaseDocumentProtocol
     
     @Injected(\.blockWidgetService)
@@ -24,6 +23,8 @@ final class HomeWidgetsViewModel: ObservableObject {
     private var accountParticipantStorage: any AccountParticipantsStorageProtocol
     @Injected(\.homeWidgetsRecentStateManager)
     private var recentStateManager: any HomeWidgetsRecentStateManagerProtocol
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     weak var output: (any HomeWidgetsModuleOutput)?
     
@@ -116,7 +117,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     // MARK: - Private
     
     private func subscribeOnWallpaper() {
-        UserDefaultsConfig.wallpaperPublisher(spaceId: info.accountSpaceId)
+        userDefaults.wallpaperPublisher(spaceId: info.accountSpaceId)
             .receiveOnMain()
             .assign(to: &$wallpaper)
     }

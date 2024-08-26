@@ -5,7 +5,8 @@ platform :ios do
   lane :branch_build do |options| 
 
     ensure_git_status_clean(
-      show_uncommitted_changes: true
+      show_uncommitted_changes: true,
+      show_diff: true
     )
 
     xcodeproj = ENV["APP_PROJECT"]

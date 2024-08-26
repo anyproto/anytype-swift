@@ -1,6 +1,8 @@
 import Foundation
 import Combine
 import Services
+import AnytypeCore
+
 
 @MainActor
 protocol WorkspacesStorageProtocol: AnyObject {
@@ -11,6 +13,8 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
     func canCreateNewSpace() -> Bool
+    
+    func move(space: SpaceView, after: SpaceView)
 }
 
 extension WorkspacesStorageProtocol {
@@ -49,8 +53,10 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         subscriptionStorageProvider.createSubscriptionStorage(subId: subscriptionBuilder.subscriptionId)
     }()
     
-    // MARK: - State
+    private let customOrderBuilder: some CustomSpaceOrderBuilderProtocol = CustomSpaceOrderBuilder()
     
+    // MARK: - State
+
     @Published private(set) var allWorkspaces: [SpaceView] = []
     var allWorkspsacesPublisher: AnyPublisher<[SpaceView], Never> { $allWorkspaces.eraseToAnyPublisher() }
     
@@ -60,7 +66,8 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
         let data = subscriptionBuilder.build()
         try? await subscriptionStorage.startOrUpdateSubscription(data: data) { [weak self] data in
             guard let self else { return }
-            allWorkspaces = data.items.map { SpaceView(details: $0) }
+            let spaces = data.items.map { SpaceView(details: $0) }
+            allWorkspaces = customOrderBuilder.updateSpacesList(spaces: spaces)
         }
     }
     
@@ -77,6 +84,12 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     }
     
     func canCreateNewSpace() -> Bool {
+        if FeatureFlags.spaceHub { return true }
+        
         return activeWorkspaces.count < Constants.maxSpaces
+    }
+    
+    func move(space: SpaceView, after: SpaceView) {
+        allWorkspaces = customOrderBuilder.move(space: space, after: after, allSpaces: allWorkspaces)
     }
 }

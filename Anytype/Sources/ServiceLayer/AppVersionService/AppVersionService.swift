@@ -8,6 +8,9 @@ protocol AppVersionServiceProtocol: AnyObject {
 
 actor AppVersionService: AppVersionServiceProtocol {
     
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
+    
     private var vesionChecked = false
     private var needsUpdate = false
     
@@ -47,8 +50,8 @@ actor AppVersionService: AppVersionServiceProtocol {
     }
     
     private func currentVersion() -> String? {
-        if UserDefaultsConfig.currentVersionOverride.isNotEmpty {
-            return UserDefaultsConfig.currentVersionOverride
+        if userDefaults.currentVersionOverride.isNotEmpty {
+            return userDefaults.currentVersionOverride
         }
         
         return MetadataProvider.appVersion

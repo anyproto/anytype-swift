@@ -41,7 +41,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var p2pStatusStorage: any P2PStatusStorageProtocol
     @Injected(\.networkConnectionStatusDaemon)
     private var networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol
-    
+    @Injected(\.userDefaultsStorage)
+    private var userDefaults: any UserDefaultsStorageProtocol
     
     // MARK: - LoginStateServiceProtocol
     
@@ -62,7 +63,7 @@ final class LoginStateService: LoginStateServiceProtocol {
     }
     
     func cleanStateAfterLogout() async {
-        UserDefaultsConfig.cleanStateAfterLogout()
+        userDefaults.cleanStateAfterLogout()
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
         await stopSubscriptions()

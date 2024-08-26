@@ -47,6 +47,11 @@ struct ServerConfigurationView: View {
             .navigationBarHidden(true)
         }
         .preferredColorScheme(.dark)
+        .anytypeSheet(isPresented: $model.showLocalConfigurationAlert) {
+            ServerLocalConfigurationAlert {
+                model.setup(config: .localOnly)
+            }
+        }
     }
     
     private func makeRow(row: ServerConfigurationRow) -> some View {
