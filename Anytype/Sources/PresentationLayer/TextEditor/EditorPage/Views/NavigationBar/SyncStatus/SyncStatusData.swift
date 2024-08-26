@@ -29,7 +29,7 @@ struct SyncStatusData {
             )
         case .synced:
             return .image(makeIcon(color: .System.green))
-        case .offline, .UNRECOGNIZED:
+        case .offline, .UNRECOGNIZED, .networkNeedsUpdate:
             return .image(makeIcon(color: .Button.active))
         }
     }

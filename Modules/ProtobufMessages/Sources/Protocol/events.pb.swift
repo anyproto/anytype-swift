@@ -4771,6 +4771,7 @@ public struct Anytype_Event {
       case syncing // = 1
       case error // = 2
       case offline // = 3
+      case networkNeedsUpdate // = 4
       case UNRECOGNIZED(Int)
 
       public init() {
@@ -4783,6 +4784,7 @@ public struct Anytype_Event {
         case 1: self = .syncing
         case 2: self = .error
         case 3: self = .offline
+        case 4: self = .networkNeedsUpdate
         default: self = .UNRECOGNIZED(rawValue)
         }
       }
@@ -4793,6 +4795,7 @@ public struct Anytype_Event {
         case .syncing: return 1
         case .error: return 2
         case .offline: return 3
+        case .networkNeedsUpdate: return 4
         case .UNRECOGNIZED(let i): return i
         }
       }
@@ -5017,6 +5020,7 @@ extension Anytype_Event.Space.Status: CaseIterable {
     .syncing,
     .error,
     .offline,
+    .networkNeedsUpdate,
   ]
 }
 
@@ -13973,6 +13977,7 @@ extension Anytype_Event.Space.Status: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "Syncing"),
     2: .same(proto: "Error"),
     3: .same(proto: "Offline"),
+    4: .same(proto: "NetworkNeedsUpdate"),
   ]
 }
 

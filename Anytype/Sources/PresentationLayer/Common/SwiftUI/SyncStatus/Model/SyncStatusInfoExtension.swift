@@ -49,7 +49,7 @@ extension SyncStatusInfo {
             error.localizedDescription
         case .offline:
             Loc.noConnection
-        case .UNRECOGNIZED:
+        case .UNRECOGNIZED, .networkNeedsUpdate:
             Loc.connecting
         }
     }
@@ -64,7 +64,7 @@ extension SyncStatusInfo {
             error.localizedDescription
         case .offline:
             Loc.noConnection
-        case .UNRECOGNIZED:
+        case .UNRECOGNIZED, .networkNeedsUpdate:
             Loc.connecting
         }
     }
@@ -105,7 +105,7 @@ extension SyncStatusInfo: NetworkIconProvider {
             .animation(start: .Light.green, end: .Light.green.opacity(0.5))
         case .error:
             .static(.Light.red)
-        case .offline, .UNRECOGNIZED:
+        case .offline, .UNRECOGNIZED, .networkNeedsUpdate:
             .static(.Shape.secondary)
         }
     }
@@ -122,7 +122,7 @@ extension SyncStatusInfo: NetworkIconProvider {
                 icon:ImageAsset.SyncStatus.syncAnytypenetworkError,
                 color: .System.red
             )
-        case .offline, .UNRECOGNIZED:
+        case .offline, .UNRECOGNIZED, .networkNeedsUpdate:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncOffline,
                 color: .Button.active
@@ -142,7 +142,7 @@ extension SyncStatusInfo: NetworkIconProvider {
                 icon: ImageAsset.SyncStatus.syncSelfhost,
                 color: .System.red
             )
-        case .offline, .UNRECOGNIZED:
+        case .offline, .UNRECOGNIZED, .networkNeedsUpdate:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncSelfhost,
                 color: .Button.active
