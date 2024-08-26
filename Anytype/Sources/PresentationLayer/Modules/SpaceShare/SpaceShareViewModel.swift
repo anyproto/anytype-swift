@@ -10,8 +10,6 @@ final class SpaceShareViewModel: ObservableObject {
     
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
-    @Injected(\.activeWorkspaceStorage)
-    private var activeWorkspaceStorage: any ActiveWorkpaceStorageProtocol
     @Injected(\.universalLinkParser)
     private var universalLinkParser: any UniversalLinkParserProtocol
     @Injected(\.participantSpacesStorage)
@@ -28,7 +26,7 @@ final class SpaceShareViewModel: ObservableObject {
     private var participantSpaceView: ParticipantSpaceViewData?
     private var canChangeWriterToReader = false
     private var canChangeReaderToWriter = false
-    private lazy var workspaceInfo = activeWorkspaceStorage.workspaceInfo
+    private let workspaceInfo: AccountInfo
     
     var accountSpaceId: String { workspaceInfo.accountSpaceId }
     
@@ -49,7 +47,8 @@ final class SpaceShareViewModel: ObservableObject {
     @Published var upgradeTooltipData: MembershipParticipantUpgradeReason?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
-    init(onMoreInfo: @escaping () -> Void) {
+    init(workspaceInfo: AccountInfo, onMoreInfo: @escaping () -> Void) {
+        self.workspaceInfo = workspaceInfo
         self.onMoreInfo = onMoreInfo
     }
     
