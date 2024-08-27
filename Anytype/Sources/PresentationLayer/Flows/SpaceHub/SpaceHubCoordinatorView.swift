@@ -22,9 +22,9 @@ struct SpaceHubCoordinatorView: View {
         .task {
             await model.startHandleWorkspaceInfo()
         }
-//        .sheet(isPresented: $model.showSharing) {
-//            ShareCoordinatorView()
-//        }
+        .sheet(item: $model.sharingSpaceId) {
+            ShareCoordinatorView(spaceId: $0.value)
+        }
         .sheet(item: $model.showGalleryImport) { data in
             GalleryInstallationCoordinatorView(data: data)
         }
