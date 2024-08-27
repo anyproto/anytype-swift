@@ -171,10 +171,10 @@ final class ObjectActionsViewModel: ObservableObject {
     }
     
     func onTapDiscussion() {
-        guard let details = document.details, details.hasChat else { return }
+        guard let details = document.details else { return }
         output?.openPageAction(screenData: .discussion(
             EditorDiscussionObject(
-                chatId: details.chatId,
+                objectId: details.id,
                 spaceId: details.spaceId
             )
         ))

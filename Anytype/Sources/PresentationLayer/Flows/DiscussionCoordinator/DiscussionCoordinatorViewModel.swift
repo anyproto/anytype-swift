@@ -8,7 +8,7 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     @Published var showEmojiForMessageId: StringIdentifiable?
     
     init(data: EditorDiscussionObject) {
-        self.objectId = data.chatId
+        self.objectId = data.objectId
         self.spaceId = data.spaceId
     }
     

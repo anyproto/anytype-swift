@@ -62,7 +62,7 @@ struct EditorSetObject: Hashable, Codable {
 }
 
 struct EditorDiscussionObject: Hashable, Codable {
-    let chatId: String
+    let objectId: String
     let spaceId: String
 }
 
