@@ -3,14 +3,14 @@ import SwiftUI
 import Services
 import AnytypeCore
 
-struct NewHomeCoordinatorView: View {
+struct HomeCoordinatorView: View {
     
-    @StateObject private var model: NewHomeCoordinatorViewModel
+    @StateObject private var model: HomeCoordinatorViewModel
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     init(sceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
         _model = StateObject(
-            wrappedValue: NewHomeCoordinatorViewModel(sceneId: sceneId, spaceInfo: spaceInfo, showSpace: showSpace)
+            wrappedValue: HomeCoordinatorViewModel(sceneId: sceneId, spaceInfo: spaceInfo, showSpace: showSpace)
         )
     }
     
@@ -71,5 +71,5 @@ struct NewHomeCoordinatorView: View {
 }
 
 #Preview {
-    NewHomeCoordinatorView(sceneId: "1337", spaceInfo: .empty, showSpace: .constant(true))
+    HomeCoordinatorView(sceneId: "1337", spaceInfo: .empty, showSpace: .constant(true))
 }
