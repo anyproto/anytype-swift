@@ -48,9 +48,9 @@ struct SpaceHubCoordinatorView: View {
     }
     
     private var content: some View {        
-        SpaceHubView(sceneId: model.homeSceneId)
+        SpaceHubView(sceneId: model.sceneId)
             .navigationDestination(isPresented: $model.showSpace) {
-                NewHomeCoordinatorView(homeSceneId: model.homeSceneId, spaceInfo: model.spaceInfo ?? .empty, showSpace: $model.showSpace)
+                NewHomeCoordinatorView(sceneId: model.sceneId, spaceInfo: model.spaceInfo ?? .empty, showSpace: $model.showSpace)
                     .navigationBarBackButtonHidden()
                     .onChange(of: model.showSpace) {
                         if !$0 { model.spaceInfo = nil }

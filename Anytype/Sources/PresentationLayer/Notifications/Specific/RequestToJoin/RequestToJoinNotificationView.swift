@@ -8,10 +8,10 @@ struct RequestToJoinNotificationView: View {
     
     init(
         notification: NotificationRequestToJoin,
-        homeSceneId: String,
+        sceneId: String,
         onViewRequest: @escaping (_ notification: NotificationRequestToJoin) async -> Void
     ) {
-        _model = StateObject(wrappedValue: RequestToJoinNotificationViewModel(notification: notification, homeSceneId: homeSceneId, onViewRequest: onViewRequest))
+        _model = StateObject(wrappedValue: RequestToJoinNotificationViewModel(notification: notification, sceneId: sceneId, onViewRequest: onViewRequest))
     }
     
     var body: some View {

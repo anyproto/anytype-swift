@@ -5,7 +5,7 @@ import Services
 final class RequestToJoinNotificationViewModel: ObservableObject {
     
     private let notification: NotificationRequestToJoin
-    private let homeSceneId: String
+    private let sceneId: String
     
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
@@ -20,11 +20,11 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     
     init(
         notification: NotificationRequestToJoin,
-        homeSceneId: String,
+        sceneId: String,
         onViewRequest: @escaping (_ notification: NotificationRequestToJoin) async -> Void
     ) {
         self.notification = notification
-        self.homeSceneId = homeSceneId
+        self.sceneId = sceneId
         self.onViewRequest = onViewRequest
         message = Loc.RequestToJoinNotification.text(
             notification.requestToJoin.identityName.withPlaceholder.trimmingCharacters(in: .whitespaces),
@@ -33,7 +33,7 @@ final class RequestToJoinNotificationViewModel: ObservableObject {
     }
     
     func onTapGoToSpace() async throws {
-        try await spaceSetupManager.setActiveSpace(homeSceneId: homeSceneId, spaceId: notification.requestToJoin.spaceID)
+        try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: notification.requestToJoin.spaceID)
         try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
         dismiss.toggle()
     }

@@ -8,7 +8,7 @@ import AnytypeCore
 final class GalleryNotificationViewModel: ObservableObject {
     
     private var notification: NotificationGalleryImport
-    private let homeSceneId: String
+    private let sceneId: String
     
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
@@ -26,10 +26,10 @@ final class GalleryNotificationViewModel: ObservableObject {
     
     init(
         notification: NotificationGalleryImport,
-        homeSceneId: String
+        sceneId: String
     ) {
         self.notification = notification
-        self.homeSceneId = homeSceneId
+        self.sceneId = sceneId
         updateView(notification: notification)
         Task {
             await startHandle()
@@ -37,7 +37,7 @@ final class GalleryNotificationViewModel: ObservableObject {
     }
     
     func onTapSpace() async throws {
-        try await spaceSetupManager.setActiveSpace(homeSceneId: homeSceneId, spaceId: notification.galleryImport.spaceID)
+        try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: notification.galleryImport.spaceID)
         try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
         dismiss.toggle()
     }

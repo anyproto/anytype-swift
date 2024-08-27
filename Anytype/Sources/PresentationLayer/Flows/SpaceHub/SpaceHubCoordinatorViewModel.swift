@@ -18,7 +18,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     var keyboardDismiss: (() -> ())?
     var dismissAllPresented: DismissAllPresented?
     
-    let homeSceneId = UUID().uuidString
+    let sceneId = UUID().uuidString
     
     @Injected(\.appActionStorage)
     private var appActionsStorage: AppActionStorage
@@ -32,7 +32,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     init() {
         Task {
-            await spaceSetupManager.registryHome(homeSceneId: homeSceneId, manager: homeActiveSpaceManager)
+            await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager)
         }
     }
     
@@ -104,11 +104,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             // sharingSpaceId = ???
             break
         case .spaceSelection:
-            showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, homeSceneId: homeSceneId)
+            showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
-            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, homeSceneId: homeSceneId)
+            spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
         case .object(let objectId, let spaceId):
             // TODO: Open space and show object
             break

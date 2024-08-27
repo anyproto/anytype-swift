@@ -129,6 +129,6 @@ struct SpaceSwitchView: View {
 
 #Preview {
     MockView {
-        SpaceSwitchView(data: SpaceSwitchModuleData(activeSpaceId: "", homeSceneId: ""), output: nil)
+        SpaceSwitchView(data: SpaceSwitchModuleData(activeSpaceId: "", sceneId: ""), output: nil)
     }
 }
