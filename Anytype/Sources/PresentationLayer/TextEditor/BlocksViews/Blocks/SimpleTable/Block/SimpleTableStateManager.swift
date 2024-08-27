@@ -269,7 +269,7 @@ extension SimpleTableStateManager {
             return
         }
 
-        editingState = .selecting(blocks: [firstInfo.id], allSelected: false)
+        editingState = .selecting(blocks: [firstInfo.id], allSelected: editingState.allSelected)
 
         router.showStyleMenu(
             informations: [firstInfo],
