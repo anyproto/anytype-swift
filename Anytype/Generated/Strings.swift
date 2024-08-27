@@ -1927,6 +1927,9 @@ internal enum Loc {
       }
     }
     internal enum Library {
+      internal enum Chat {
+        internal static let name = Loc.tr("Localizable", "Widgets.Library.Chat.Name")
+      }
       internal enum RecentlyEdited {
         internal static let name = Loc.tr("Localizable", "Widgets.Library.RecentlyEdited.Name")
       }

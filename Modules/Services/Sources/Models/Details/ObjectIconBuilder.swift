@@ -40,14 +40,14 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
     
     private func icon(relations: BundledRelationsValueProvider) -> ObjectIcon? {
         switch relations.layoutValue {
-        case .basic, .set, .collection, .image, .objectType:
+        case .basic, .set, .collection, .image, .objectType, .chat:
             return basicIcon(iconImage: relations.iconImage, iconEmoji: relations.iconEmoji)
         case .profile, .participant:
             return profileIcon(iconImage: relations.iconImage, objectName: relations.objectName)
         case .bookmark:
             return bookmarkIcon(iconImage: relations.iconImage)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date, .chat, .chatDerived:
+                .audio, .video, .pdf, .date, .chatDerived:
             return nil
         case .space, .spaceView:
             return spaceIcon(iconImage: relations.iconImage, iconOptionValue: relations.iconOptionValue, objectName: relations.objectName)

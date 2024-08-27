@@ -92,6 +92,13 @@ private extension AnytypeWidgetId {
                 description: Loc.Widgets.Library.RecentlyOpened.description,
                 icon: .object(.emoji(Emoji("📅")!))
             )
+        case .chat:
+            return WidgetAnytypeLibrarySource(
+                type: .chat,
+                name: Loc.Widgets.Library.Chat.name,
+                description: nil,
+                icon: .object(.emoji(Emoji("💬")!))
+            )
         }
     }
 }
