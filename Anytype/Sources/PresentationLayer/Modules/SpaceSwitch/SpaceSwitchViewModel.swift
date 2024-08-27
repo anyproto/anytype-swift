@@ -124,8 +124,6 @@ final class SpaceSwitchViewModel: ObservableObject {
         if scrollToRowId.isNil, let selectedRow = rows.first(where: { $0.isSelected }) {
             scrollToRowId = selectedRow.id
         }
-        
-        createSpaceAvailable = workspacesStorage.canCreateNewSpace()
     }
     
     private func updateProfile(profile: ObjectDetails) {

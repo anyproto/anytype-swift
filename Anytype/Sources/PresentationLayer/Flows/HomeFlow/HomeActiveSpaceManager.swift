@@ -3,6 +3,8 @@ import Combine
 import AnytypeCore
 import Services
 
+// TODO: Update with optional workspace info
+
 // For other screens, for SpaceSetupManager
 @MainActor
 protocol HomeSpaceSetupManagerProtocol: AnyObject {

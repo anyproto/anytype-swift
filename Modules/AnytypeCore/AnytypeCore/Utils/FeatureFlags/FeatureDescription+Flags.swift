@@ -73,13 +73,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let spaceHub = FeatureDescription(
-        title: "Space hub screen (aka vault) - IOS-3315",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "7"),
-        defaultValue: false,
-        debugValue: true
-    )
-    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

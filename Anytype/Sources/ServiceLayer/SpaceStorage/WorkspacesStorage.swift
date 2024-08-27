@@ -12,7 +12,6 @@ protocol WorkspacesStorageProtocol: AnyObject {
     func stopSubscription() async
     func spaceView(spaceViewId: String) -> SpaceView?
     func spaceView(spaceId: String) -> SpaceView?
-    func canCreateNewSpace() -> Bool
     func move(space: SpaceView, after: SpaceView)
     func workspaceInfo(spaceId: String) -> AccountInfo?
     // TODO: Kostyl. Waiting when middleware to add method for receive account info without set active space
@@ -40,11 +39,6 @@ extension WorkspacesStorageProtocol {
 
 @MainActor
 final class WorkspacesStorage: WorkspacesStorageProtocol {
-    
-    private enum Constants {
-        static let maxSpaces = 10
-    }
-    
     // MARK: - DI
     
     @Injected(\.workspacesSubscriptionBuilder)
@@ -85,12 +79,6 @@ final class WorkspacesStorage: WorkspacesStorageProtocol {
     
     func spaceView(spaceId: String) -> SpaceView? {
         return allWorkspaces.first(where: { $0.targetSpaceId == spaceId })
-    }
-    
-    func canCreateNewSpace() -> Bool {
-        if FeatureFlags.spaceHub { return true }
-        
-        return activeWorkspaces.count < Constants.maxSpaces
     }
     
     func move(space: SpaceView, after: SpaceView) {
