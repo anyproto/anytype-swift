@@ -246,8 +246,9 @@ final class SetObjectWidgetInternalViewModel: ObservableObject {
     
     private func updateRowDetails(details: [ObjectDetails]) {
         guard let setDocument else { return }
+        let sortedDetails = sortedRowDetails(details) ?? details
         rowDetails = setContentViewDataBuilder.itemData(
-            details,
+            sortedDetails,
             dataView: setDocument.dataView,
             activeView: setDocument.activeView,
             viewRelationValueIsLocked: false, 
