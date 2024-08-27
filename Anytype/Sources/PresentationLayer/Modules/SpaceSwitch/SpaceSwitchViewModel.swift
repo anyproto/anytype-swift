@@ -51,8 +51,8 @@ final class SpaceSwitchViewModel: ObservableObject {
         self.data = data
         self.output = output
         Task {
-            await startProfileSubscriotions()
-            startSpacesSubscriotions()
+            await startProfileSubscriptions()
+            startSpacesSubscriptions()
         }
     }
     
@@ -66,7 +66,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func startProfileSubscriotions() async {
+    private func startProfileSubscriptions() async {
         await subscriptionService.startSubscription(
             subId: profileSubId,
             objectId: accountManager.account.info.profileObjectID
@@ -75,7 +75,7 @@ final class SpaceSwitchViewModel: ObservableObject {
         }
     }
     
-    private func startSpacesSubscriotions() {
+    private func startSpacesSubscriptions() {
         
         participantSpacesStorage.activeParticipantSpacesPublisher
             .receiveOnMain()
@@ -86,7 +86,7 @@ final class SpaceSwitchViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    private func stopSpacesSubscriotions() {
+    private func stopSpacesSubscriptions() {
         subscriptions.removeAll()
     }
     
@@ -135,7 +135,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private func onTapWorkspace(workspace: SpaceView) {
         Task {
-            stopSpacesSubscriotions()
+            stopSpacesSubscriptions()
             try await spaceSetupManager.setActiveSpace(homeSceneId: data.homeSceneId, spaceId: workspace.targetSpaceId)
             UISelectionFeedbackGenerator().selectionChanged()
             dismiss.toggle()
