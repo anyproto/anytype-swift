@@ -635,6 +635,8 @@
 		2A8C00F729C4AAF200309C14 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00F629C4AAF200309C14 /* SettingsView.swift */; };
 		2A8C00FB29C4ADE500309C14 /* SettingsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00FA29C4ADE500309C14 /* SettingsTextField.swift */; };
 		2A8C00FD29C4C61300309C14 /* SectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C00FC29C4C61300309C14 /* SectionHeaderView.swift */; };
+		2A8C0FDA2C7E234E00EAA977 /* WidgetObjectListChatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C0FD72C7E234E00EAA977 /* WidgetObjectListChatsView.swift */; };
+		2A8C0FDB2C7E234E00EAA977 /* WidgetObjectListChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8C0FD82C7E234E00EAA977 /* WidgetObjectListChatsViewModel.swift */; };
 		2A8DCAD228C635CE0029B914 /* RelationDetailsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A8DCAD128C635CE0029B914 /* RelationDetailsStorage.swift */; };
 		2A90C466285B5A9100B6B44E /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C465285B5A9100B6B44E /* AnytypeCore */; };
 		2A90C468285B5A9100B6B44E /* AnytypeCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C465285B5A9100B6B44E /* AnytypeCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -2498,6 +2500,8 @@
 		2A8C00F629C4AAF200309C14 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		2A8C00FA29C4ADE500309C14 /* SettingsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTextField.swift; sourceTree = "<group>"; };
 		2A8C00FC29C4C61300309C14 /* SectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeaderView.swift; sourceTree = "<group>"; };
+		2A8C0FD72C7E234E00EAA977 /* WidgetObjectListChatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListChatsView.swift; sourceTree = "<group>"; };
+		2A8C0FD82C7E234E00EAA977 /* WidgetObjectListChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListChatsViewModel.swift; sourceTree = "<group>"; };
 		2A8DCAD128C635CE0029B914 /* RelationDetailsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsStorage.swift; sourceTree = "<group>"; };
 		2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsContentProvider.swift; sourceTree = "<group>"; };
 		2A91DB792BFCD3DC00D5780A /* DragAndDropFrames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragAndDropFrames.swift; sourceTree = "<group>"; };
@@ -6612,6 +6616,15 @@
 			path = ShareCoordinator;
 			sourceTree = "<group>";
 		};
+		2A8C0FD92C7E234E00EAA977 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+				2A8C0FD72C7E234E00EAA977 /* WidgetObjectListChatsView.swift */,
+				2A8C0FD82C7E234E00EAA977 /* WidgetObjectListChatsViewModel.swift */,
+			);
+			path = Chats;
+			sourceTree = "<group>";
+		};
 		2A8DCACF28C635B90029B914 /* RelationStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -7402,6 +7415,7 @@
 		2AE7EC9E298816F30079F12B /* WidgetObjectList */ = {
 			isa = PBXGroup;
 			children = (
+				2A8C0FD92C7E234E00EAA977 /* Chats */,
 				2ABBAEDB2BF4EEA400EBA8FA /* Files */,
 				2ABBAED82BF4EE7C00EBA8FA /* Collections */,
 				2ABBAED52BF4EE4900EBA8FA /* Sets */,
@@ -12653,6 +12667,8 @@
 				EA20CDD926122CCF00DBA9FE /* VideoBlockContentViewConfiguration.swift in Sources */,
 				C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */,
 				2AA1652829D474D40093DB12 /* FeatureFlagView.swift in Sources */,
+				2A8C0FDA2C7E234E00EAA977 /* WidgetObjectListChatsView.swift in Sources */,
+				2A8C0FDB2C7E234E00EAA977 /* WidgetObjectListChatsViewModel.swift in Sources */,
 				2A5A898E29C866FF00C170D6 /* SettingsObjectHeader.swift in Sources */,
 				C99DCEC4283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift in Sources */,
 				2A6693722A7104EA007747DD /* BookmarkIconImageGuideline.swift in Sources */,

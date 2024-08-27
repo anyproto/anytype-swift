@@ -52,7 +52,7 @@ final class ChatsWidgetInternalViewModel: ObservableObject, WidgetInternalViewMo
     func startHeaderSubscription() {}
     
     func screenData() -> EditorScreenData? {
-        return nil
+        return .chats(spaceId: spaceId)
     }
     
     func analyticsSource() -> AnalyticsWidgetSource {

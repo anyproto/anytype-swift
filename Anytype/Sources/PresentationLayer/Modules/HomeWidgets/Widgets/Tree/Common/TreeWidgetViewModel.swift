@@ -186,6 +186,8 @@ private extension ObjectDetails {
             return links.isEmpty || !canBeExpanded ? .icon(asset: .X18.objectWithoutIcon) : .arrow(expanded: isExpanded)
         case .set:
             return .icon(asset: .X18.setOrCollection)
+        case .discussion:
+            return .icon(asset: .X18.objectWithoutIcon)
         }
     }
 }
