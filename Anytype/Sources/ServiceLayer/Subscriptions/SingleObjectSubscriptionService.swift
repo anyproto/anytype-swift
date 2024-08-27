@@ -25,7 +25,7 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
     @Injected(\.subscriptionStorageProvider)
     private var subscriptionStorageProvider: any SubscriptionStorageProviderProtocol
     @Injected(\.objectsCommonSubscriptionDataBuilder)
-    private var subscriotionBuilder: any ObjectsCommonSubscriptionDataBuilderProtocol
+    private var subscriptionBuilder: any ObjectsCommonSubscriptionDataBuilderProtocol
     
     private var subsctipyionStorages: [String: any SubscriptionStorageProtocol] = [:]
     
@@ -37,7 +37,7 @@ actor SingleObjectSubscriptionService: SingleObjectSubscriptionServiceProtocol {
         additionalKeys: [BundledRelationKey],
         dataHandler: @escaping (ObjectDetails) -> Void
     ) async {
-        let subData = subscriotionBuilder.build(subId: subId, objectIds: [objectId], additionalKeys: additionalKeys)
+        let subData = subscriptionBuilder.build(subId: subId, objectIds: [objectId], additionalKeys: additionalKeys)
     
         if subsctipyionStorages[subId].isNotNil {
             anytypeAssertionFailure("Subscription already started", info: ["sub id": subId])

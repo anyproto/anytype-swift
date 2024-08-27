@@ -67,7 +67,7 @@ final class HomeActiveSpaceManager: HomeActiveSpaceManagerProtocol {
         } catch {
             await resetActiveSpace()
         }
-        startSubscriotion()
+        startSubscription()
     }
     
     func spaceView() -> SpaceView? {
@@ -82,7 +82,7 @@ final class HomeActiveSpaceManager: HomeActiveSpaceManagerProtocol {
     
     // MARK: - Private
     
-    private func startSubscriotion() {
+    private func startSubscription() {
         workspaceSubscription = workspaceStorage.activeWorkspsacesPublisher
             .map { $0.map(\.targetSpaceId) }
             .receiveOnMain()

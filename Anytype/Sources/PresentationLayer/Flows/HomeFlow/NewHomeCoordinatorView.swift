@@ -8,9 +8,9 @@ struct NewHomeCoordinatorView: View {
     @StateObject private var model: NewHomeCoordinatorViewModel
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(homeSceneId: String, spaceInfo: AccountInfo, showHome: Binding<Bool>) {
+    init(homeSceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
         _model = StateObject(
-            wrappedValue: NewHomeCoordinatorViewModel(homeSceneId: homeSceneId, spaceInfo: spaceInfo, showHome: showHome)
+            wrappedValue: NewHomeCoordinatorViewModel(homeSceneId: homeSceneId, spaceInfo: spaceInfo, showSpace: showSpace)
         )
     }
     
@@ -71,5 +71,5 @@ struct NewHomeCoordinatorView: View {
 }
 
 #Preview {
-    NewHomeCoordinatorView(homeSceneId: "1337", spaceInfo: .empty, showHome: .constant(true))
+    NewHomeCoordinatorView(homeSceneId: "1337", spaceInfo: .empty, showSpace: .constant(true))
 }
