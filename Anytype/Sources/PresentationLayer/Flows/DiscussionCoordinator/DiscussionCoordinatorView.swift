@@ -20,5 +20,5 @@ struct DiscussionCoordinatorView: View {
 }
 
 #Preview {
-    DiscussionCoordinatorView(data: EditorDiscussionObject(objectId: "", spaceId: ""))
+    DiscussionCoordinatorView(data: EditorDiscussionObject(chatId: "", spaceId: ""))
 }
