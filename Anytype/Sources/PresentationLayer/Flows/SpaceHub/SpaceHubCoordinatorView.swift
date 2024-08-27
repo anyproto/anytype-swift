@@ -16,6 +16,10 @@ struct SpaceHubCoordinatorView: View {
             model.keyboardDismiss = keyboardDismiss
             model.dismissAllPresented = dismissAllPresented
         }
+        .task { await model.setup() }
+        .task { await model.startHandleAppActions() }
+        .task { await model.startHandleWorkspaceInfo() }
+        
         .sheet(item: $model.sharingSpaceId) {
             ShareCoordinatorView(spaceId: $0.value)
         }

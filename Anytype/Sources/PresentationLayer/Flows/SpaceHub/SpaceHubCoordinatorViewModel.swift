@@ -34,20 +34,35 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var membershipStatusSubscription: AnyCancellable?
     
     init() {
-        setup()
+        startSubscriptions()
     }
     
     func onManageSpacesSelected() {
         showSpaceManager = true
     }
-
-    // MARK: - Private Setup
-    private func setup() {
-        startSubscriptions()
-        startDeepLinkTask()
-        startHandleWorkspaceInfoTask()
-        Task { await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager) }
+    
+    // MARK: - Setup
+    func setup() async {
+        await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager)
     }
+    
+    func startHandleAppActions() async {
+        for await action in appActionsStorage.$action.values {
+            if let action {
+                try? await handleAppAction(action: action)
+                appActionsStorage.action = nil
+            }
+        }
+    }
+    
+    func startHandleWorkspaceInfo() async {
+        await homeActiveSpaceManager.setupActiveSpace()
+        for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
+            switchSpace(info: info)
+        }
+    }
+
+    // MARK: - Private
     
     private func startSubscriptions() {
         membershipStatusSubscription = Container.shared
@@ -58,26 +73,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 
                 self?.membershipNameFinalizationData = membership.tier
             }
-    }
-    
-    private func startDeepLinkTask() {
-        Task {
-            for await action in appActionsStorage.$action.values {
-                if let action {
-                    try? await handleAppAction(action: action)
-                    appActionsStorage.action = nil
-                }
-            }
-        }
-    }
-    
-    private func startHandleWorkspaceInfoTask() {
-        Task {
-            await homeActiveSpaceManager.setupActiveSpace()
-            for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
-                switchSpace(info: info)
-            }
-        }
     }
 
     // MARK: - Private
