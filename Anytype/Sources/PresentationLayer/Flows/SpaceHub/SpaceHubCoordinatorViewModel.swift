@@ -1,6 +1,7 @@
 import SwiftUI
 import DeepLinks
 import Services
+import Combine
 
 
 @MainActor
@@ -14,6 +15,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var membershipTierId: IntIdentifiable?
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var spaceJoinData: SpaceJoinModuleData?
+    @Published var membershipNameFinalizationData: MembershipTier?
     
     var keyboardDismiss: (() -> ())?
     var dismissAllPresented: DismissAllPresented?
@@ -26,35 +28,56 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
-    
     @Injected(\.homeActiveSpaceManager)
     private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
     
+    private var membershipStatusSubscription: AnyCancellable?
+    
     init() {
-        Task {
-            await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager)
-        }
-    }
-    
-    
-    func startDeepLinkTask() async {
-        for await action in appActionsStorage.$action.values {
-            if let action {
-                try? await handleAppAction(action: action)
-                appActionsStorage.action = nil
-            }
-        }
-    }
-    
-    func startHandleWorkspaceInfo() async {
-        await homeActiveSpaceManager.setupActiveSpace()
-        for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
-            switchSpace(info: info)
-        }
+        setup()
     }
     
     func onManageSpacesSelected() {
         showSpaceManager = true
+    }
+
+    // MARK: - Private Setup
+    private func setup() {
+        startSubscriptions()
+        startDeepLinkTask()
+        startHandleWorkspaceInfoTask()
+        Task { await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager) }
+    }
+    
+    private func startSubscriptions() {
+        membershipStatusSubscription = Container.shared
+            .membershipStatusStorage.resolve()
+            .statusPublisher.receiveOnMain()
+            .sink { [weak self] membership in
+                guard membership.status == .pendingRequiresFinalization else { return }
+                
+                self?.membershipNameFinalizationData = membership.tier
+            }
+    }
+    
+    private func startDeepLinkTask() {
+        Task {
+            for await action in appActionsStorage.$action.values {
+                if let action {
+                    try? await handleAppAction(action: action)
+                    appActionsStorage.action = nil
+                }
+            }
+        }
+    }
+    
+    private func startHandleWorkspaceInfoTask() {
+        Task {
+            await homeActiveSpaceManager.setupActiveSpace()
+            for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
+                switchSpace(info: info)
+            }
+        }
     }
 
     // MARK: - Private

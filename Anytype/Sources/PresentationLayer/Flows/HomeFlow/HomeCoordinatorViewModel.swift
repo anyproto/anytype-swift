@@ -45,7 +45,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     @Published var showSpaceSwitchData: SpaceSwitchModuleData?
     @Published var showCreateWidgetData: CreateWidgetCoordinatorModel?
     @Published var showSpaceSettingsData: AccountInfo?
-    @Published var showMembershipNameSheet: MembershipTier?
 
     
     @Published var editorPath = HomePath() {
@@ -68,22 +67,11 @@ final class HomeCoordinatorViewModel: ObservableObject,
             }
         )
     }
-    
-    private var membershipStatusSubscription: AnyCancellable?
 
     init(sceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
         self.sceneId = sceneId
         self.spaceInfo = spaceInfo
         _showSpace = showSpace
-        
-        membershipStatusSubscription = Container.shared
-            .membershipStatusStorage.resolve()
-            .statusPublisher.receiveOnMain()
-            .sink { [weak self] membership in
-                guard membership.status == .pendingRequiresFinalization else { return }
-                
-                self?.showMembershipNameSheet = membership.tier
-            }
         
         setupPath()
     }

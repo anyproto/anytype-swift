@@ -60,9 +60,6 @@ struct HomeCoordinatorView: View {
         .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
             model.typeSearchForObjectCreationModule()
         }
-        .sheet(item: $model.showMembershipNameSheet) {
-            MembershipNameFinalizationView(tier: $0)
-        }
     }
 }
 
