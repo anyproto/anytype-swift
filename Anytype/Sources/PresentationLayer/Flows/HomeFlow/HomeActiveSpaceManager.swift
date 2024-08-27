@@ -17,8 +17,6 @@ protocol HomeActiveSpaceManagerProtocol: AnyObject, HomeSpaceSetupManagerProtoco
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setupActiveSpace() async
-    func spaceView() -> SpaceView?
-    func clearActiveSpace() async
 }
 
 @MainActor
@@ -70,16 +68,6 @@ final class HomeActiveSpaceManager: HomeActiveSpaceManagerProtocol {
             await resetActiveSpace()
         }
         startSubscription()
-    }
-    
-    func spaceView() -> SpaceView? {
-        return workspaceStorage.spaceView(spaceViewId: workspaceInfo.spaceViewId)
-    }
-    
-    func clearActiveSpace() async {
-        activeSpaceId = ""
-        workspaceInfoSubject.send(.empty)
-        workspaceSubscription?.cancel()
     }
     
     // MARK: - Private
