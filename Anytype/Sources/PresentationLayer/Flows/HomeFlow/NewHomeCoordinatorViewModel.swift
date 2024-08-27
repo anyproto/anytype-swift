@@ -15,8 +15,6 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
-    @Injected(\.homeActiveSpaceManager)
-    private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
     @Injected(\.pasteboardBlockService)
@@ -35,7 +33,10 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     // MARK: - State
     
+    let spaceInfo: AccountInfo
+    private var currentSpaceId: String { spaceInfo.accountSpaceId }
     private let homeSceneId: String
+    
     private var paths = [String: HomePath]()
     private var dismissAllPresented: DismissAllPresented?
     
@@ -54,11 +55,8 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     @Published var showTypeSearchForObjectCreation: Bool = false
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
-    @Published var info: AccountInfo?
     
     @Binding var showHome: Bool
-    
-    private var currentSpaceId: String?
     
     var pageNavigation: PageNavigation {
         PageNavigation(
@@ -74,13 +72,10 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init(homeSceneId: String, showHome: Binding<Bool>) {
+    init(homeSceneId: String, spaceInfo: AccountInfo, showHome: Binding<Bool>) {
         self.homeSceneId = homeSceneId
+        self.spaceInfo = spaceInfo
         _showHome = showHome
-        
-        Task {
-            await spaceSetupManager.registryHome(homeSceneId: homeSceneId, manager: homeActiveSpaceManager)
-        }
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
@@ -90,13 +85,16 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
                 
                 self?.showMembershipNameSheet = membership.tier
             }
+        
+        setupPath()
     }
     
-    func startHandleWorkspaceInfo() async {
-        await homeActiveSpaceManager.setupActiveSpace()
-        for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
-            switchSpace(info: info)
-        }
+    private func setupPath() {
+        var path = HomePath()
+        path.push(spaceInfo)
+        // TODO: Restore state
+        
+        editorPath = path
     }
     
     func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
@@ -104,7 +102,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     }
     
     func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
-        TypeSearchForNewObjectCoordinatorView(spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId) { [weak self] details in
+        TypeSearchForNewObjectCoordinatorView(spaceId: spaceInfo.accountSpaceId) { [weak self] details in
             guard let self else { return }
             openObject(screenData: details.editorScreenData())
         }
@@ -114,8 +112,8 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     func onCreateWidgetSelected(context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
-            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
+            spaceId: spaceInfo.accountSpaceId,
+            widgetObjectId: spaceInfo.widgetsId,
             position: .end,
             context: context
         )
@@ -129,8 +127,8 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     func onChangeSource(widgetId: String, context: AnalyticsWidgetContext) {
         showChangeSourceData = WidgetChangeSourceSearchModuleModel(
-            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
-            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
+            widgetObjectId: spaceInfo.widgetsId,
+            spaceId: spaceInfo.accountSpaceId,
             widgetId: widgetId,
             context: context,
             onFinish: { [weak self] in
@@ -141,7 +139,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
 
     func onChangeWidgetType(widgetId: String, context: AnalyticsWidgetContext) {
         showChangeTypeData = WidgetTypeChangeData(
-            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
+            widgetObjectId: spaceInfo.widgetsId,
             widgetId: widgetId,
             context: context,
             onFinish: { [weak self] in
@@ -152,15 +150,15 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     func onAddBelowWidget(widgetId: String, context: AnalyticsWidgetContext) {
         showCreateWidgetData = CreateWidgetCoordinatorModel(
-            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
-            widgetObjectId: homeActiveSpaceManager.workspaceInfo.widgetsId,
+            spaceId: spaceInfo.accountSpaceId,
+            widgetObjectId: spaceInfo.widgetsId,
             position: .below(widgetId: widgetId),
             context: context
         )
     }
     
     func onSpaceSelected() {
-        showSpaceSettingsData = homeActiveSpaceManager.workspaceInfo
+        showSpaceSettingsData = spaceInfo
     }
     
     func onCreateObjectInSetDocument(setDocument: some SetDocumentProtocol) {
@@ -171,7 +169,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     func onSearchSelected() {  
         showGlobalSearchData = GlobalSearchModuleData(
-            spaceId: homeActiveSpaceManager.workspaceInfo.accountSpaceId,
+            spaceId: spaceInfo.accountSpaceId,
             onSelect: { [weak self] screenData in
                 self?.openObject(screenData: screenData)
             }
@@ -184,11 +182,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     }
 
     func onProfileSelected() {
-        guard let info else {
-            anytypeAssertionFailure("Try open without info")
-            return
-        }
-        showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: info.accountSpaceId, homeSceneId: homeSceneId)
+        showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo.accountSpaceId, homeSceneId: homeSceneId)
     }
 
     func onHomeSelected() {
@@ -225,8 +219,6 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     // MARK: - Private
     
     private func updateLastOpenedScreen() {
-        guard let currentSpaceId else { return }
-        
         if let screen = editorPath.lastPathElement as? EditorScreenData {
             userDefaults.saveLastOpenedScreen(spaceId: currentSpaceId, screen: screen)
         } else if editorPath.lastPathElement is HomePath || editorPath.lastPathElement is AccountInfo  {
@@ -261,16 +253,13 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
             // Check space Is deleted
             guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
             
-            if let currentSpaceId = currentSpaceId {
-                paths[currentSpaceId] = editorPath
-            }
+            paths[currentSpaceId] = editorPath
            
-            currentSpaceId = spaceId
-            try await homeActiveSpaceManager.setActiveSpace(spaceId: spaceId)
+            try await spaceSetupManager.setActiveSpace(homeSceneId: homeSceneId, spaceId: spaceId)
             
             var path = paths[spaceId] ?? HomePath()
             if path.count == 0 {
-                path.push(homeActiveSpaceManager.workspaceInfo)
+                path.push(spaceInfo)
             }
             
             path.push(data)
@@ -280,39 +269,10 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
         }
     }
     
-    private func switchSpace(info newInfo: AccountInfo) {
-        Task {
-            guard currentSpaceId != newInfo.accountSpaceId else { return }
-            // Backup current
-            if let currentSpaceId = currentSpaceId {
-                paths[currentSpaceId] = editorPath
-            }
-            // Restore New
-            var path = paths[newInfo.accountSpaceId] ?? HomePath()
-            if path.count == 0 {
-                path.push(newInfo)
-            }
-            
-            if currentSpaceId.isNotNil {
-                await dismissAllPresented?()
-            }
-            
-            do {
-                if let screen = try await getLastOpenedScreen(newInfo: newInfo) {
-                    path.push(screen)
-                }
-            }
-            
-            currentSpaceId = newInfo.accountSpaceId
-            editorPath = path
-            info = newInfo
-        }
-    }
-    
     private func getLastOpenedScreen(newInfo: AccountInfo) async throws -> EditorScreenData? {
         // do NOT restore last opened screen if user have more then one space (business req.)
         guard workspacesStorage.allWorkspaces.count == 1 else { return nil }
-        guard currentSpaceId.isNil, let lastOpenPage = userDefaults.getLastOpenedScreen(spaceId: newInfo.accountSpaceId) else { return nil }
+        guard let lastOpenPage = userDefaults.getLastOpenedScreen(spaceId: newInfo.accountSpaceId) else { return nil } // currentSpaceId.isNil
         
         guard let objectId = lastOpenPage.objectId else { return lastOpenPage }
         

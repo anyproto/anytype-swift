@@ -6,14 +6,14 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    init(showActiveSpace: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(showActiveSpace: showActiveSpace))
+    init(sceneId: String) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId))
     }
     
     var body: some View {
         content
             .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(homeSceneId: model.homeSceneId, output: model)
+                SpaceCreateView(homeSceneId: model.sceneId, output: model)
             }
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
@@ -130,5 +130,5 @@ struct SpaceHubView: View {
 }
 
 #Preview {
-    SpaceHubView { }
+    SpaceHubView(sceneId: "1337")
 }

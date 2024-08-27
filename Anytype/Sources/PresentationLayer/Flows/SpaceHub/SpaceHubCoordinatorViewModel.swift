@@ -9,6 +9,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSharing = false
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
+    @Published var spaceInfo: AccountInfo?
     @Published var showSpaceSwitchData: SpaceSwitchModuleData?
     @Published var membershipTierId: IntIdentifiable?
     @Published var showGalleryImport: GalleryInstallationData?
@@ -23,6 +24,17 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var appActionsStorage: AppActionStorage
     @Injected(\.accountManager)
     private var accountManager: any AccountManagerProtocol
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
+    
+    @Injected(\.homeActiveSpaceManager)
+    private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
+    
+    init() {
+        Task {
+            await spaceSetupManager.registryHome(homeSceneId: homeSceneId, manager: homeActiveSpaceManager)
+        }
+    }
     
     
     func startDeepLinkTask() async {
@@ -34,11 +46,36 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
     
+    func startHandleWorkspaceInfo() async {
+        await homeActiveSpaceManager.setupActiveSpace()
+        for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
+            switchSpace(info: info)
+        }
+    }
+    
     func onManageSpacesSelected() {
         showSpaceManager = true
     }
 
     // MARK: - Private
+    private func switchSpace(info newInfo: AccountInfo) {
+        Task {
+            // TEMP: create version of active space manager with nullable accounts
+            guard newInfo != .empty else { return }
+            
+            
+            showHome = false
+            Task {
+                try await Task.sleep(seconds:0.1)
+                spaceInfo = newInfo
+                showHome = true
+            }
+            
+            // TODO: Store paths
+            
+        }
+    }
+    
     private func handleAppAction(action: AppAction) async throws {
         keyboardDismiss?()
         await dismissAllPresented?()

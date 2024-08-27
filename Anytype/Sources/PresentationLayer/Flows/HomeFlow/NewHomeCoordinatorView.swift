@@ -8,16 +8,15 @@ struct NewHomeCoordinatorView: View {
     @StateObject private var model: NewHomeCoordinatorViewModel
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(homeSceneId: String, showHome: Binding<Bool>) {
-        _model = StateObject(wrappedValue: NewHomeCoordinatorViewModel(homeSceneId: homeSceneId, showHome: showHome))
+    init(homeSceneId: String, spaceInfo: AccountInfo, showHome: Binding<Bool>) {
+        _model = StateObject(
+            wrappedValue: NewHomeCoordinatorViewModel(homeSceneId: homeSceneId, spaceInfo: spaceInfo, showHome: showHome)
+        )
     }
     
     var body: some View {
         ZStack {
-            
-            if let info = model.info {
-                NotificationCoordinatorView(homeSceneId: info.accountSpaceId)
-            }
+            NotificationCoordinatorView(homeSceneId: model.spaceInfo.accountSpaceId)
             
             HomeBottomPanelContainer(
                 path: $model.editorPath,
@@ -32,14 +31,9 @@ struct NewHomeCoordinatorView: View {
                     }
                 },
                 bottomPanel: {
-                    if let info = model.info {
-                        HomeBottomNavigationPanelView(homePath: model.editorPath, info: info, output: model)
-                    }
+                    HomeBottomNavigationPanelView(homePath: model.editorPath, info: model.spaceInfo, output: model)
                 }
             )
-        }
-        .task {
-            await model.startHandleWorkspaceInfo()
         }
         .onAppear {
             model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
@@ -47,7 +41,7 @@ struct NewHomeCoordinatorView: View {
         .environment(\.pageNavigation, model.pageNavigation)
         .handleSpaceShareTip()
         .handleSharingTip()
-        .updateShortcuts(spaceId: model.info?.accountSpaceId)
+        .updateShortcuts(spaceId: model.spaceInfo.accountSpaceId)
         .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) {
             WidgetChangeSourceSearchView(data: $0)
@@ -77,5 +71,5 @@ struct NewHomeCoordinatorView: View {
 }
 
 #Preview {
-    NewHomeCoordinatorView(homeSceneId: "1337", showHome: .constant(true))
+    NewHomeCoordinatorView(homeSceneId: "1337", spaceInfo: .empty, showHome: .constant(true))
 }
