@@ -6,7 +6,7 @@ import AnytypeCore
 import DeepLinks
 
 @MainActor
-final class NewHomeCoordinatorViewModel: ObservableObject,
+final class HomeCoordinatorViewModel: ObservableObject,
                                              HomeWidgetsModuleOutput, CommonWidgetModuleOutput,
                                              HomeBottomNavigationPanelModuleOutput,
                                              SetObjectCreationCoordinatorOutput {
