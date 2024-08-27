@@ -104,13 +104,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 break
 //                showSharing = true
             case .spaceSelection:
-                // TODO: Support spaceSwitchModule without active space
-                break
-//                guard let info else {
-//                    anytypeAssertionFailure("Try open without info")
-//                    return
-//                }
-//                showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: info.accountSpaceId, homeSceneId: homeSceneId)
+                showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: info.accountSpaceId, homeSceneId: homeSceneId)
             case let .galleryImport(type, source):
                 showGalleryImport = GalleryInstallationData(type: type, source: source)
             case .invite(let cid, let key):
