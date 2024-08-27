@@ -4,7 +4,7 @@ import Services
 import UIKit
 
 struct SpaceSwitchModuleData: Hashable, Identifiable {
-    let activeSpaceId: String
+    let activeSpaceId: String?
     let homeSceneId: String
     
     var id: Int { hashValue }
@@ -95,7 +95,10 @@ final class SpaceSwitchViewModel: ObservableObject {
             rows = []
             return
         }
-        let activeSpaceId = data.activeSpaceId
+        let isSelected: (String) -> (Bool) = { [weak self] in
+            guard let activeSpaceId = self?.data.activeSpaceId else { return false}
+            return activeSpaceId == $0
+        }
         
         rows = spaces.map { participantSpaceView -> SpaceRowModel in
             let spaceView = participantSpaceView.spaceView
@@ -103,7 +106,7 @@ final class SpaceSwitchViewModel: ObservableObject {
                 id: spaceView.id,
                 title: spaceView.title,
                 icon: spaceView.objectIconImage,
-                isSelected: activeSpaceId == spaceView.targetSpaceId,
+                isSelected: isSelected(spaceView.targetSpaceId),
                 shared: spaceView.isShared,
                 onTap: { [weak self] in
                     self?.onTapWorkspace(workspace: spaceView)
