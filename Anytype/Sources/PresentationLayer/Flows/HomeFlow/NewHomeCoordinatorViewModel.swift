@@ -56,7 +56,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     @Published var toastBarData = ToastBarData.empty
     @Published var pathChanging: Bool = false
     
-    @Binding var showHome: Bool
+    @Binding var showSpace: Bool
     
     var pageNavigation: PageNavigation {
         PageNavigation(
@@ -72,10 +72,10 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init(homeSceneId: String, spaceInfo: AccountInfo, showHome: Binding<Bool>) {
+    init(homeSceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
         self.homeSceneId = homeSceneId
         self.spaceInfo = spaceInfo
-        _showHome = showHome
+        _showSpace = showSpace
         
         membershipStatusSubscription = Container.shared
             .membershipStatusStorage.resolve()
@@ -207,7 +207,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     func onSpaceHubSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
-        showHome = false
+        showSpace = false
     }
 
     // MARK: - SetObjectCreationCoordinatorOutput

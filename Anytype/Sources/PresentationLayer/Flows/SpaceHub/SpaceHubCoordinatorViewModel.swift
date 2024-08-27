@@ -5,7 +5,7 @@ import Services
 
 @MainActor
 final class SpaceHubCoordinatorViewModel: ObservableObject {
-    @Published var showHome = false
+    @Published var showSpace = false
     @Published var showSharing = false
     @Published var showSpaceManager = false
     @Published var showSpaceShareTip = false
@@ -64,11 +64,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             guard newInfo != .empty else { return }
             
             
-            showHome = false
+            showSpace = false
             Task {
                 try await Task.sleep(seconds:0.1)
                 spaceInfo = newInfo
-                showHome = true
+                showSpace = true
             }
             
             // TODO: Store paths
