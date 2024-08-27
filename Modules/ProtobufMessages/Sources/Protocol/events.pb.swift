@@ -614,6 +614,30 @@ public struct Anytype_Event {
       set {value = .importFinish(newValue)}
     }
 
+    public var chatAdd: Anytype_Event.Chat.Add {
+      get {
+        if case .chatAdd(let v)? = value {return v}
+        return Anytype_Event.Chat.Add()
+      }
+      set {value = .chatAdd(newValue)}
+    }
+
+    public var chatUpdate: Anytype_Event.Chat.Update {
+      get {
+        if case .chatUpdate(let v)? = value {return v}
+        return Anytype_Event.Chat.Update()
+      }
+      set {value = .chatUpdate(newValue)}
+    }
+
+    public var chatUpdateReactions: Anytype_Event.Chat.UpdateReactions {
+      get {
+        if case .chatUpdateReactions(let v)? = value {return v}
+        return Anytype_Event.Chat.UpdateReactions()
+      }
+      set {value = .chatUpdateReactions(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -690,6 +714,9 @@ public struct Anytype_Event {
       case spaceSyncStatusUpdate(Anytype_Event.Space.SyncStatus.Update)
       case p2PStatusUpdate(Anytype_Event.P2PStatus.Update)
       case importFinish(Anytype_Event.Import.Finish)
+      case chatAdd(Anytype_Event.Chat.Add)
+      case chatUpdate(Anytype_Event.Chat.Update)
+      case chatUpdateReactions(Anytype_Event.Chat.UpdateReactions)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -977,10 +1004,103 @@ public struct Anytype_Event {
           guard case .importFinish(let l) = lhs, case .importFinish(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
+        case (.chatAdd, .chatAdd): return {
+          guard case .chatAdd(let l) = lhs, case .chatAdd(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.chatUpdate, .chatUpdate): return {
+          guard case .chatUpdate(let l) = lhs, case .chatUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.chatUpdateReactions, .chatUpdateReactions): return {
+          guard case .chatUpdateReactions(let l) = lhs, case .chatUpdateReactions(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
         default: return false
         }
       }
     #endif
+    }
+
+    public init() {}
+  }
+
+  public struct Chat {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct Add {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var orderID: String = String()
+
+      public var message: Anytype_Model_ChatMessage {
+        get {return _message ?? Anytype_Model_ChatMessage()}
+        set {_message = newValue}
+      }
+      /// Returns true if `message` has been explicitly set.
+      public var hasMessage: Bool {return self._message != nil}
+      /// Clears the value of `message`. Subsequent reads from it will return its default value.
+      public mutating func clearMessage() {self._message = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _message: Anytype_Model_ChatMessage? = nil
+    }
+
+    public struct Update {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var message: Anytype_Model_ChatMessage {
+        get {return _message ?? Anytype_Model_ChatMessage()}
+        set {_message = newValue}
+      }
+      /// Returns true if `message` has been explicitly set.
+      public var hasMessage: Bool {return self._message != nil}
+      /// Clears the value of `message`. Subsequent reads from it will return its default value.
+      public mutating func clearMessage() {self._message = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _message: Anytype_Model_ChatMessage? = nil
+    }
+
+    public struct UpdateReactions {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var reactions: Anytype_Model_ChatMessage.Reactions {
+        get {return _reactions ?? Anytype_Model_ChatMessage.Reactions()}
+        set {_reactions = newValue}
+      }
+      /// Returns true if `reactions` has been explicitly set.
+      public var hasReactions: Bool {return self._reactions != nil}
+      /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
+      public mutating func clearReactions() {self._reactions = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
     }
 
     public init() {}
@@ -4992,7 +5112,7 @@ public struct Anytype_Event {
 
 extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
+  public static var allCases: [Anytype_Event.Block.Dataview.SliceOperation] = [
     .none,
     .add,
     .move,
@@ -5003,7 +5123,7 @@ extension Anytype_Event.Block.Dataview.SliceOperation: CaseIterable {
 
 extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
+  public static var allCases: [Anytype_Event.Status.Thread.SyncStatus] = [
     .unknown,
     .offline,
     .syncing,
@@ -5015,7 +5135,7 @@ extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
 
 extension Anytype_Event.Space.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Space.Status] = [
+  public static var allCases: [Anytype_Event.Space.Status] = [
     .synced,
     .syncing,
     .error,
@@ -5026,7 +5146,7 @@ extension Anytype_Event.Space.Status: CaseIterable {
 
 extension Anytype_Event.Space.Network: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Space.Network] = [
+  public static var allCases: [Anytype_Event.Space.Network] = [
     .anytype,
     .selfHost,
     .localOnly,
@@ -5035,7 +5155,7 @@ extension Anytype_Event.Space.Network: CaseIterable {
 
 extension Anytype_Event.Space.SyncError: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.Space.SyncError] = [
+  public static var allCases: [Anytype_Event.Space.SyncError] = [
     .null,
     .storageLimitExceed,
     .incompatibleVersion,
@@ -5045,7 +5165,7 @@ extension Anytype_Event.Space.SyncError: CaseIterable {
 
 extension Anytype_Event.P2PStatus.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Event.P2PStatus.Status] = [
+  public static var allCases: [Anytype_Event.P2PStatus.Status] = [
     .notConnected,
     .notPossible,
     .connected,
@@ -5204,7 +5324,7 @@ public struct Anytype_Model {
 
 extension Anytype_Model.Process.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.TypeEnum] = [
+  public static var allCases: [Anytype_Model.Process.TypeEnum] = [
     .dropFiles,
     .import,
     .export,
@@ -5216,7 +5336,7 @@ extension Anytype_Model.Process.TypeEnum: CaseIterable {
 
 extension Anytype_Model.Process.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model.Process.State] = [
+  public static var allCases: [Anytype_Model.Process.State] = [
     .none,
     .running,
     .done,
@@ -5231,6 +5351,10 @@ extension Anytype_Model.Process.State: CaseIterable {
 extension Anytype_Event: @unchecked Sendable {}
 extension Anytype_Event.Message: @unchecked Sendable {}
 extension Anytype_Event.Message.OneOf_Value: @unchecked Sendable {}
+extension Anytype_Event.Chat: @unchecked Sendable {}
+extension Anytype_Event.Chat.Add: @unchecked Sendable {}
+extension Anytype_Event.Chat.Update: @unchecked Sendable {}
+extension Anytype_Event.Chat.UpdateReactions: @unchecked Sendable {}
 extension Anytype_Event.Account: @unchecked Sendable {}
 extension Anytype_Event.Account.Show: @unchecked Sendable {}
 extension Anytype_Event.Account.Details: @unchecked Sendable {}
@@ -5571,6 +5695,9 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     119: .same(proto: "spaceSyncStatusUpdate"),
     120: .same(proto: "p2pStatusUpdate"),
     121: .same(proto: "importFinish"),
+    128: .same(proto: "chatAdd"),
+    129: .same(proto: "chatUpdate"),
+    130: .same(proto: "chatUpdateReactions"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6437,6 +6564,45 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockDataviewIsCollectionSet(v)
         }
       }()
+      case 128: try {
+        var v: Anytype_Event.Chat.Add?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .chatAdd(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .chatAdd(v)
+        }
+      }()
+      case 129: try {
+        var v: Anytype_Event.Chat.Update?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .chatUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .chatUpdate(v)
+        }
+      }()
+      case 130: try {
+        var v: Anytype_Event.Chat.UpdateReactions?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .chatUpdateReactions(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .chatUpdateReactions(v)
+        }
+      }()
       case 201: try {
         var v: Anytype_Event.Account.Details?
         var hadOneofValue = false
@@ -6764,6 +6930,18 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .blockDataviewIsCollectionSet(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 127)
     }()
+    case .chatAdd?: try {
+      guard case .chatAdd(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 128)
+    }()
+    case .chatUpdate?: try {
+      guard case .chatUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 129)
+    }()
+    case .chatUpdateReactions?: try {
+      guard case .chatUpdateReactions(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 130)
+    }()
     case .accountDetails?: try {
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 201)
@@ -6787,6 +6965,157 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
 
   public static func ==(lhs: Anytype_Event.Message, rhs: Anytype_Event.Message) -> Bool {
     if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Chat: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.protoMessageName + ".Chat"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Chat, rhs: Anytype_Event.Chat) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Chat.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".Add"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "orderId"),
+    3: .same(proto: "message"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.orderID) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.orderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.orderID, fieldNumber: 2)
+    }
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Chat.Add, rhs: Anytype_Event.Chat.Add) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.orderID != rhs.orderID {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Chat.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "message"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Chat.Update, rhs: Anytype_Event.Chat.Update) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Chat.UpdateReactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".UpdateReactions"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "reactions"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._reactions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Chat.UpdateReactions, rhs: Anytype_Event.Chat.UpdateReactions) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._reactions != rhs._reactions {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -11412,15 +11741,7 @@ extension Anytype_Event.Block.Dataview.ViewSet: SwiftProtobuf.Message, SwiftProt
     var _viewID: String = String()
     var _view: Anytype_Model_Block.Content.Dataview.View? = nil
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 

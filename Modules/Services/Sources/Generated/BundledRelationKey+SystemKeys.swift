@@ -89,5 +89,8 @@ public extension BundledRelationKey {
         .syncDate,
         .syncStatus,
         .syncError,
+        .globalName,
+        .chatId,
+        .hasChat,
     ]
 }

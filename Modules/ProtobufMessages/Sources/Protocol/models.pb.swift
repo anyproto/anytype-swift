@@ -53,6 +53,12 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
   case fileObject // = 533
   case notificationObject // = 535
   case devicesObject // = 536
+
+  /// Container for any-store based chats
+  case chatObject // = 537
+
+  /// Any-store based object for chat
+  case chatDerivedObject // = 544
   case UNRECOGNIZED(Int)
 
   public init() {
@@ -86,6 +92,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case 534: self = .participant
     case 535: self = .notificationObject
     case 536: self = .devicesObject
+    case 537: self = .chatObject
+    case 544: self = .chatDerivedObject
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -117,6 +125,8 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
     case .participant: return 534
     case .notificationObject: return 535
     case .devicesObject: return 536
+    case .chatObject: return 537
+    case .chatDerivedObject: return 544
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -127,7 +137,7 @@ public enum Anytype_Model_SmartBlockType: SwiftProtobuf.Enum {
 
 extension Anytype_Model_SmartBlockType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_SmartBlockType] = [
+  public static var allCases: [Anytype_Model_SmartBlockType] = [
     .accountOld,
     .page,
     .profilePage,
@@ -153,6 +163,8 @@ extension Anytype_Model_SmartBlockType: CaseIterable {
     .fileObject,
     .notificationObject,
     .devicesObject,
+    .chatObject,
+    .chatDerivedObject,
   ]
 }
 
@@ -255,7 +267,7 @@ public enum Anytype_Model_RelationFormat: SwiftProtobuf.Enum {
 
 extension Anytype_Model_RelationFormat: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_RelationFormat] = [
+  public static var allCases: [Anytype_Model_RelationFormat] = [
     .longtext,
     .shorttext,
     .number,
@@ -328,7 +340,7 @@ public enum Anytype_Model_ObjectOrigin: SwiftProtobuf.Enum {
 
 extension Anytype_Model_ObjectOrigin: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_ObjectOrigin] = [
+  public static var allCases: [Anytype_Model_ObjectOrigin] = [
     .none,
     .clipboard,
     .dragAndDrop,
@@ -424,7 +436,7 @@ public enum Anytype_Model_SpaceStatus: SwiftProtobuf.Enum {
 
 extension Anytype_Model_SpaceStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_SpaceStatus] = [
+  public static var allCases: [Anytype_Model_SpaceStatus] = [
     .unknown,
     .loading,
     .ok,
@@ -479,7 +491,7 @@ public enum Anytype_Model_ParticipantPermissions: SwiftProtobuf.Enum {
 
 extension Anytype_Model_ParticipantPermissions: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_ParticipantPermissions] = [
+  public static var allCases: [Anytype_Model_ParticipantPermissions] = [
     .reader,
     .writer,
     .owner,
@@ -533,7 +545,7 @@ public enum Anytype_Model_ParticipantStatus: SwiftProtobuf.Enum {
 
 extension Anytype_Model_ParticipantStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_ParticipantStatus] = [
+  public static var allCases: [Anytype_Model_ParticipantStatus] = [
     .joining,
     .active,
     .removed,
@@ -580,7 +592,7 @@ public enum Anytype_Model_SpaceAccessType: SwiftProtobuf.Enum {
 
 extension Anytype_Model_SpaceAccessType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_SpaceAccessType] = [
+  public static var allCases: [Anytype_Model_SpaceAccessType] = [
     .private,
     .personal,
     .shared,
@@ -624,7 +636,7 @@ public enum Anytype_Model_ImageKind: SwiftProtobuf.Enum {
 
 extension Anytype_Model_ImageKind: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_ImageKind] = [
+  public static var allCases: [Anytype_Model_ImageKind] = [
     .basic,
     .cover,
     .icon,
@@ -668,7 +680,7 @@ public enum Anytype_Model_FileIndexingStatus: SwiftProtobuf.Enum {
 
 extension Anytype_Model_FileIndexingStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_FileIndexingStatus] = [
+  public static var allCases: [Anytype_Model_FileIndexingStatus] = [
     .notIndexed,
     .indexed,
     .notFound,
@@ -712,7 +724,7 @@ public enum Anytype_Model_SpaceShareableStatus: SwiftProtobuf.Enum {
 
 extension Anytype_Model_SpaceShareableStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_SpaceShareableStatus] = [
+  public static var allCases: [Anytype_Model_SpaceShareableStatus] = [
     .statusUnknown,
     .statusShareable,
     .statusNotShareable,
@@ -752,7 +764,7 @@ public enum Anytype_Model_NameserviceNameType: SwiftProtobuf.Enum {
 
 extension Anytype_Model_NameserviceNameType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_NameserviceNameType] = [
+  public static var allCases: [Anytype_Model_NameserviceNameType] = [
     .anyName,
   ]
 }
@@ -794,7 +806,7 @@ public enum Anytype_Model_DeviceNetworkType: SwiftProtobuf.Enum {
 
 extension Anytype_Model_DeviceNetworkType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_DeviceNetworkType] = [
+  public static var allCases: [Anytype_Model_DeviceNetworkType] = [
     .wifi,
     .cellular,
     .notConnected,
@@ -1129,6 +1141,14 @@ public struct Anytype_Model_Block {
     set {_uniqueStorage()._content = .widget(newValue)}
   }
 
+  public var chat: Anytype_Model_Block.Content.Chat {
+    get {
+      if case .chat(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.Chat()
+    }
+    set {_uniqueStorage()._content = .chat(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Content: Equatable {
@@ -1149,6 +1169,7 @@ public struct Anytype_Model_Block {
     case tableColumn(Anytype_Model_Block.Content.TableColumn)
     case tableRow(Anytype_Model_Block.Content.TableRow)
     case widget(Anytype_Model_Block.Content.Widget)
+    case chat(Anytype_Model_Block.Content.Chat)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Block.OneOf_Content, rhs: Anytype_Model_Block.OneOf_Content) -> Bool {
@@ -1222,6 +1243,10 @@ public struct Anytype_Model_Block {
       }()
       case (.widget, .widget): return {
         guard case .widget(let l) = lhs, case .widget(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.chat, .chat): return {
+        guard case .chat(let l) = lhs, case .chat(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -3004,6 +3029,16 @@ public struct Anytype_Model_Block {
       public init() {}
     }
 
+    public struct Chat {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public init() {}
   }
 
@@ -3016,7 +3051,7 @@ public struct Anytype_Model_Block {
 
 extension Anytype_Model_Block.Position: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Position] = [
+  public static var allCases: [Anytype_Model_Block.Position] = [
     .none,
     .top,
     .bottom,
@@ -3030,7 +3065,7 @@ extension Anytype_Model_Block.Position: CaseIterable {
 
 extension Anytype_Model_Block.Align: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Align] = [
+  public static var allCases: [Anytype_Model_Block.Align] = [
     .left,
     .center,
     .right,
@@ -3040,7 +3075,7 @@ extension Anytype_Model_Block.Align: CaseIterable {
 
 extension Anytype_Model_Block.VerticalAlign: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.VerticalAlign] = [
+  public static var allCases: [Anytype_Model_Block.VerticalAlign] = [
     .top,
     .middle,
     .bottom,
@@ -3049,7 +3084,7 @@ extension Anytype_Model_Block.VerticalAlign: CaseIterable {
 
 extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Layout.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Layout.Style] = [
     .row,
     .column,
     .div,
@@ -3061,7 +3096,7 @@ extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.IconSize] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.IconSize] = [
     .sizeNone,
     .sizeSmall,
     .sizeMedium,
@@ -3070,7 +3105,7 @@ extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.Style] = [
     .page,
     .dataview,
     .dashboard,
@@ -3080,7 +3115,7 @@ extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.Description: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.Description] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.Description] = [
     .none,
     .added,
     .content,
@@ -3089,7 +3124,7 @@ extension Anytype_Model_Block.Content.Link.Description: CaseIterable {
 
 extension Anytype_Model_Block.Content.Link.CardStyle: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Link.CardStyle] = [
+  public static var allCases: [Anytype_Model_Block.Content.Link.CardStyle] = [
     .text,
     .card,
     .inline,
@@ -3098,7 +3133,7 @@ extension Anytype_Model_Block.Content.Link.CardStyle: CaseIterable {
 
 extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Div.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Div.Style] = [
     .line,
     .dots,
   ]
@@ -3106,7 +3141,7 @@ extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Bookmark.State] = [
+  public static var allCases: [Anytype_Model_Block.Content.Bookmark.State] = [
     .empty,
     .fetching,
     .done,
@@ -3116,7 +3151,7 @@ extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
 
 extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Text.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.Text.Style] = [
     .paragraph,
     .header1,
     .header2,
@@ -3136,7 +3171,7 @@ extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Text.Mark.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.Text.Mark.TypeEnum] = [
     .strikethrough,
     .keyboard,
     .italic,
@@ -3153,7 +3188,7 @@ extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.File.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.File.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.File.TypeEnum] = [
     .none,
     .file,
     .image,
@@ -3165,7 +3200,7 @@ extension Anytype_Model_Block.Content.File.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.File.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.File.Style] = [
+  public static var allCases: [Anytype_Model_Block.Content.File.Style] = [
     .auto,
     .link,
     .embed,
@@ -3174,7 +3209,7 @@ extension Anytype_Model_Block.Content.File.Style: CaseIterable {
 
 extension Anytype_Model_Block.Content.File.State: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.File.State] = [
+  public static var allCases: [Anytype_Model_Block.Content.File.State] = [
     .empty,
     .uploading,
     .done,
@@ -3184,7 +3219,7 @@ extension Anytype_Model_Block.Content.File.State: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.View.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.View.TypeEnum] = [
     .table,
     .list,
     .gallery,
@@ -3196,7 +3231,7 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.View.Size: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.View.Size] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.View.Size] = [
     .small,
     .medium,
     .large,
@@ -3205,7 +3240,7 @@ extension Anytype_Model_Block.Content.Dataview.View.Size: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Relation.DateFormat] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.DateFormat] = [
     .monthAbbrBeforeDay,
     .monthAbbrAfterDay,
     .short,
@@ -3216,7 +3251,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: CaseIterable
 
 extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Relation.TimeFormat] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Relation.TimeFormat] = [
     .format12,
     .format24,
   ]
@@ -3224,7 +3259,7 @@ extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: CaseIterable
 
 extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Sort.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Sort.TypeEnum] = [
     .asc,
     .desc,
     .custom,
@@ -3233,7 +3268,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Sort.EmptyType] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Sort.EmptyType] = [
     .notSpecified,
     .start,
     .end,
@@ -3242,7 +3277,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.EmptyType: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Filter.Operator] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.Operator] = [
     .no,
     .or,
     .and,
@@ -3251,7 +3286,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Operator: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Filter.Condition: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Filter.Condition] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.Condition] = [
     .none,
     .equal,
     .notEqual,
@@ -3275,7 +3310,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: CaseIterable {
 
 extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Dataview.Filter.QuickOption] = [
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.QuickOption] = [
     .exactDate,
     .yesterday,
     .today,
@@ -3293,7 +3328,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable 
 
 extension Anytype_Model_Block.Content.Latex.Processor: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Latex.Processor] = [
+  public static var allCases: [Anytype_Model_Block.Content.Latex.Processor] = [
     .latex,
     .mermaid,
     .chart,
@@ -3318,7 +3353,7 @@ extension Anytype_Model_Block.Content.Latex.Processor: CaseIterable {
 
 extension Anytype_Model_Block.Content.Widget.Layout: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Block.Content.Widget.Layout] = [
+  public static var allCases: [Anytype_Model_Block.Content.Widget.Layout] = [
     .link,
     .tree,
     .list,
@@ -3544,7 +3579,7 @@ public struct Anytype_Model_Account {
 
 extension Anytype_Model_Account.StatusType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Account.StatusType] = [
+  public static var allCases: [Anytype_Model_Account.StatusType] = [
     .active,
     .pendingDeletion,
     .startedDeletion,
@@ -3614,7 +3649,7 @@ public struct Anytype_Model_LinkPreview {
 
 extension Anytype_Model_LinkPreview.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_LinkPreview.TypeEnum] = [
+  public static var allCases: [Anytype_Model_LinkPreview.TypeEnum] = [
     .unknown,
     .page,
     .image,
@@ -3760,7 +3795,7 @@ public struct Anytype_Model_Restrictions {
 
 extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Restrictions.ObjectRestriction] = [
+  public static var allCases: [Anytype_Model_Restrictions.ObjectRestriction] = [
     .none,
     .delete,
     .relations,
@@ -3776,7 +3811,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
 
 extension Anytype_Model_Restrictions.DataviewRestriction: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Restrictions.DataviewRestriction] = [
+  public static var allCases: [Anytype_Model_Restrictions.DataviewRestriction] = [
     .dvnone,
     .dvrelation,
     .dvcreateObject,
@@ -3890,6 +3925,8 @@ public struct Anytype_Model_ObjectType {
     case spaceView // = 18
     case participant // = 19
     case pdf // = 20
+    case chat // = 21
+    case chatDerived // = 22
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -3919,6 +3956,8 @@ public struct Anytype_Model_ObjectType {
       case 18: self = .spaceView
       case 19: self = .participant
       case 20: self = .pdf
+      case 21: self = .chat
+      case 22: self = .chatDerived
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -3946,6 +3985,8 @@ public struct Anytype_Model_ObjectType {
       case .spaceView: return 18
       case .participant: return 19
       case .pdf: return 20
+      case .chat: return 21
+      case .chatDerived: return 22
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -3959,7 +4000,7 @@ public struct Anytype_Model_ObjectType {
 
 extension Anytype_Model_ObjectType.Layout: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_ObjectType.Layout] = [
+  public static var allCases: [Anytype_Model_ObjectType.Layout] = [
     .basic,
     .profile,
     .todo,
@@ -3981,6 +4022,8 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .spaceView,
     .participant,
     .pdf,
+    .chat,
+    .chatDerived,
   ]
 }
 
@@ -4265,7 +4308,7 @@ public struct Anytype_Model_Relation {
 
 extension Anytype_Model_Relation.Scope: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Relation.Scope] = [
+  public static var allCases: [Anytype_Model_Relation.Scope] = [
     .object,
     .type,
     .setOfTheSameType,
@@ -4276,7 +4319,7 @@ extension Anytype_Model_Relation.Scope: CaseIterable {
 
 extension Anytype_Model_Relation.DataSource: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Relation.DataSource] = [
+  public static var allCases: [Anytype_Model_Relation.DataSource] = [
     .details,
     .derived,
     .account,
@@ -4376,7 +4419,7 @@ public struct Anytype_Model_InternalFlag {
 
 extension Anytype_Model_InternalFlag.Value: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_InternalFlag.Value] = [
+  public static var allCases: [Anytype_Model_InternalFlag.Value] = [
     .editorDeleteEmpty,
     .editorSelectType,
     .editorSelectTemplate,
@@ -5016,7 +5059,7 @@ public struct Anytype_Model_Notification {
 
 extension Anytype_Model_Notification.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Notification.Status] = [
+  public static var allCases: [Anytype_Model_Notification.Status] = [
     .created,
     .shown,
     .read,
@@ -5026,14 +5069,14 @@ extension Anytype_Model_Notification.Status: CaseIterable {
 
 extension Anytype_Model_Notification.ActionType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Notification.ActionType] = [
+  public static var allCases: [Anytype_Model_Notification.ActionType] = [
     .close,
   ]
 }
 
 extension Anytype_Model_Notification.Export.Code: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Notification.Export.Code] = [
+  public static var allCases: [Anytype_Model_Notification.Export.Code] = [
     .null,
     .unknownError,
     .badInput,
@@ -5096,7 +5139,7 @@ public struct Anytype_Model_Export {
 
 extension Anytype_Model_Export.Format: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Export.Format] = [
+  public static var allCases: [Anytype_Model_Export.Format] = [
     .markdown,
     .protobuf,
     .json,
@@ -5216,7 +5259,7 @@ public struct Anytype_Model_Import {
 
 extension Anytype_Model_Import.TypeEnum: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Import.TypeEnum] = [
+  public static var allCases: [Anytype_Model_Import.TypeEnum] = [
     .notion,
     .markdown,
     .external,
@@ -5229,7 +5272,7 @@ extension Anytype_Model_Import.TypeEnum: CaseIterable {
 
 extension Anytype_Model_Import.ErrorCode: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Import.ErrorCode] = [
+  public static var allCases: [Anytype_Model_Import.ErrorCode] = [
     .null,
     .unknownError,
     .badInput,
@@ -5526,7 +5569,7 @@ public struct Anytype_Model_Membership {
 
 extension Anytype_Model_Membership.Status: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Membership.Status] = [
+  public static var allCases: [Anytype_Model_Membership.Status] = [
     .unknown,
     .pending,
     .active,
@@ -5536,7 +5579,7 @@ extension Anytype_Model_Membership.Status: CaseIterable {
 
 extension Anytype_Model_Membership.PaymentMethod: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Membership.PaymentMethod] = [
+  public static var allCases: [Anytype_Model_Membership.PaymentMethod] = [
     .methodNone,
     .methodStripe,
     .methodCrypto,
@@ -5547,7 +5590,7 @@ extension Anytype_Model_Membership.PaymentMethod: CaseIterable {
 
 extension Anytype_Model_Membership.EmailVerificationStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_Membership.EmailVerificationStatus] = [
+  public static var allCases: [Anytype_Model_Membership.EmailVerificationStatus] = [
     .statusNotVerified,
     .statusCodeSent,
     .statusVerified,
@@ -5713,7 +5756,7 @@ public struct Anytype_Model_MembershipTierData {
 
 extension Anytype_Model_MembershipTierData.PeriodType: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static let allCases: [Anytype_Model_MembershipTierData.PeriodType] = [
+  public static var allCases: [Anytype_Model_MembershipTierData.PeriodType] = [
     .unknown,
     .unlimited,
     .days,
@@ -5768,6 +5811,167 @@ public struct Anytype_Model_DeviceInfo {
 
   public init() {}
 }
+
+public struct Anytype_Model_ChatMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Unique message identifier
+  public var id: String = String()
+
+  /// Used for subscriptions
+  public var orderID: String = String()
+
+  /// Identifier for the message creator
+  public var creator: String = String()
+
+  public var createdAt: Int64 = 0
+
+  /// Identifier for the message being replied to
+  public var replyToMessageID: String = String()
+
+  /// Message content
+  public var message: Anytype_Model_ChatMessage.MessageContent {
+    get {return _message ?? Anytype_Model_ChatMessage.MessageContent()}
+    set {_message = newValue}
+  }
+  /// Returns true if `message` has been explicitly set.
+  public var hasMessage: Bool {return self._message != nil}
+  /// Clears the value of `message`. Subsequent reads from it will return its default value.
+  public mutating func clearMessage() {self._message = nil}
+
+  /// Attachments slice
+  public var attachments: [Anytype_Model_ChatMessage.Attachment] = []
+
+  /// Reactions to the message
+  public var reactions: Anytype_Model_ChatMessage.Reactions {
+    get {return _reactions ?? Anytype_Model_ChatMessage.Reactions()}
+    set {_reactions = newValue}
+  }
+  /// Returns true if `reactions` has been explicitly set.
+  public var hasReactions: Bool {return self._reactions != nil}
+  /// Clears the value of `reactions`. Subsequent reads from it will return its default value.
+  public mutating func clearReactions() {self._reactions = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public struct MessageContent {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// The text content of the message part
+    public var text: String = String()
+
+    /// The style/type of the message part
+    public var style: Anytype_Model_Block.Content.Text.Style = .paragraph
+
+    /// List of marks applied to the text
+    public var marks: [Anytype_Model_Block.Content.Text.Mark] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct Attachment {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Identifier for the attachment object
+    public var target: String = String()
+
+    /// Type of attachment
+    public var type: Anytype_Model_ChatMessage.Attachment.AttachmentType = .file
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum AttachmentType: SwiftProtobuf.Enum {
+      public typealias RawValue = Int
+
+      /// File attachment
+      case file // = 0
+
+      /// Image attachment
+      case image // = 1
+
+      /// Link attachment
+      case link // = 2
+      case UNRECOGNIZED(Int)
+
+      public init() {
+        self = .file
+      }
+
+      public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .file
+        case 1: self = .image
+        case 2: self = .link
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+      }
+
+      public var rawValue: Int {
+        switch self {
+        case .file: return 0
+        case .image: return 1
+        case .link: return 2
+        case .UNRECOGNIZED(let i): return i
+        }
+      }
+
+    }
+
+    public init() {}
+  }
+
+  public struct Reactions {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Map of emoji to list of user IDs
+    public var reactions: Dictionary<String,Anytype_Model_ChatMessage.Reactions.IdentityList> = [:]
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public struct IdentityList {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      /// List of user IDs
+      public var ids: [String] = []
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public init() {}
+  }
+
+  public init() {}
+
+  fileprivate var _message: Anytype_Model_ChatMessage.MessageContent? = nil
+  fileprivate var _reactions: Anytype_Model_ChatMessage.Reactions? = nil
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_ChatMessage.Attachment.AttachmentType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_ChatMessage.Attachment.AttachmentType] = [
+    .file,
+    .image,
+    .link,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
@@ -5848,6 +6052,7 @@ extension Anytype_Model_Block.Content.TableColumn: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.TableRow: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Widget: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Widget.Layout: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Chat: @unchecked Sendable {}
 extension Anytype_Model_BlockMetaOnly: @unchecked Sendable {}
 extension Anytype_Model_Range: @unchecked Sendable {}
 extension Anytype_Model_Account: @unchecked Sendable {}
@@ -5921,6 +6126,12 @@ extension Anytype_Model_MembershipTierData: @unchecked Sendable {}
 extension Anytype_Model_MembershipTierData.PeriodType: @unchecked Sendable {}
 extension Anytype_Model_Detail: @unchecked Sendable {}
 extension Anytype_Model_DeviceInfo: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.MessageContent: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Attachment: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Attachment.AttachmentType: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Reactions: @unchecked Sendable {}
+extension Anytype_Model_ChatMessage.Reactions.IdentityList: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -5954,6 +6165,8 @@ extension Anytype_Model_SmartBlockType: SwiftProtobuf._ProtoNameProviding {
     534: .same(proto: "Participant"),
     535: .same(proto: "NotificationObject"),
     536: .same(proto: "DevicesObject"),
+    537: .same(proto: "ChatObject"),
+    544: .same(proto: "ChatDerivedObject"),
   ]
 }
 
@@ -6322,6 +6535,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     27: .same(proto: "tableColumn"),
     28: .same(proto: "tableRow"),
     29: .same(proto: "widget"),
+    30: .same(proto: "chat"),
   ]
 
   fileprivate class _StorageClass {
@@ -6334,15 +6548,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _verticalAlign: Anytype_Model_Block.VerticalAlign = .top
     var _content: Anytype_Model_Block.OneOf_Content?
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 
@@ -6601,6 +6807,19 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
             _storage._content = .widget(v)
           }
         }()
+        case 30: try {
+          var v: Anytype_Model_Block.Content.Chat?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .chat(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .chat(v)
+          }
+        }()
         default: break
         }
       }
@@ -6702,6 +6921,10 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       case .widget?: try {
         guard case .widget(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 29)
+      }()
+      case .chat?: try {
+        guard case .chat(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 30)
       }()
       case nil: break
       }
@@ -8583,6 +8806,25 @@ extension Anytype_Model_Block.Content.Widget.Layout: SwiftProtobuf._ProtoNamePro
   ]
 }
 
+extension Anytype_Model_Block.Content.Chat: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Chat"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Chat, rhs: Anytype_Model_Block.Content.Chat) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_BlockMetaOnly: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".BlockMetaOnly"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -8678,15 +8920,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     var _status: Anytype_Model_Account.Status? = nil
     var _info: Anytype_Model_Account.Info? = nil
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 
@@ -9379,6 +9613,8 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     18: .same(proto: "spaceView"),
     19: .same(proto: "participant"),
     20: .same(proto: "pdf"),
+    21: .same(proto: "chat"),
+    22: .same(proto: "chatDerived"),
   ]
 }
 
@@ -9509,15 +9745,7 @@ extension Anytype_Model_Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     var _creator: String = String()
     var _revision: Int64 = 0
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 
@@ -11582,15 +11810,7 @@ extension Anytype_Model_MembershipTierData: SwiftProtobuf.Message, SwiftProtobuf
     var _androidProductID: String = String()
     var _androidManageURL: String = String()
 
-    #if swift(>=5.10)
-      // This property is used as the initial default value for new instances of the type.
-      // The type itself is protecting the reference to its storage via CoW semantics.
-      // This will force a copy to be made of this reference when the first mutation occurs;
-      // hence, it is safe to mark this as `nonisolated(unsafe)`.
-      static nonisolated(unsafe) let defaultInstance = _StorageClass()
-    #else
-      static let defaultInstance = _StorageClass()
-    #endif
+    static let defaultInstance = _StorageClass()
 
     private init() {}
 
@@ -11845,6 +12065,238 @@ extension Anytype_Model_DeviceInfo: SwiftProtobuf.Message, SwiftProtobuf._Messag
     if lhs.addDate != rhs.addDate {return false}
     if lhs.archived != rhs.archived {return false}
     if lhs.isConnected != rhs.isConnected {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ChatMessage"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "orderId"),
+    3: .same(proto: "creator"),
+    4: .same(proto: "createdAt"),
+    5: .same(proto: "replyToMessageId"),
+    6: .same(proto: "message"),
+    7: .same(proto: "attachments"),
+    8: .same(proto: "reactions"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.orderID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.creator) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.createdAt) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.replyToMessageID) }()
+      case 6: try { try decoder.decodeSingularMessageField(value: &self._message) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.attachments) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._reactions) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.orderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.orderID, fieldNumber: 2)
+    }
+    if !self.creator.isEmpty {
+      try visitor.visitSingularStringField(value: self.creator, fieldNumber: 3)
+    }
+    if self.createdAt != 0 {
+      try visitor.visitSingularInt64Field(value: self.createdAt, fieldNumber: 4)
+    }
+    if !self.replyToMessageID.isEmpty {
+      try visitor.visitSingularStringField(value: self.replyToMessageID, fieldNumber: 5)
+    }
+    try { if let v = self._message {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+    } }()
+    if !self.attachments.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.attachments, fieldNumber: 7)
+    }
+    try { if let v = self._reactions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage, rhs: Anytype_Model_ChatMessage) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.orderID != rhs.orderID {return false}
+    if lhs.creator != rhs.creator {return false}
+    if lhs.createdAt != rhs.createdAt {return false}
+    if lhs.replyToMessageID != rhs.replyToMessageID {return false}
+    if lhs._message != rhs._message {return false}
+    if lhs.attachments != rhs.attachments {return false}
+    if lhs._reactions != rhs._reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.MessageContent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".MessageContent"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "text"),
+    2: .same(proto: "style"),
+    3: .same(proto: "marks"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.text) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.style) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.marks) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.text.isEmpty {
+      try visitor.visitSingularStringField(value: self.text, fieldNumber: 1)
+    }
+    if self.style != .paragraph {
+      try visitor.visitSingularEnumField(value: self.style, fieldNumber: 2)
+    }
+    if !self.marks.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.marks, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.MessageContent, rhs: Anytype_Model_ChatMessage.MessageContent) -> Bool {
+    if lhs.text != rhs.text {return false}
+    if lhs.style != rhs.style {return false}
+    if lhs.marks != rhs.marks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.Attachment: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".Attachment"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "target"),
+    2: .same(proto: "type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.target) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.target.isEmpty {
+      try visitor.visitSingularStringField(value: self.target, fieldNumber: 1)
+    }
+    if self.type != .file {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.Attachment, rhs: Anytype_Model_ChatMessage.Attachment) -> Bool {
+    if lhs.target != rhs.target {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.Attachment.AttachmentType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "FILE"),
+    1: .same(proto: "IMAGE"),
+    2: .same(proto: "LINK"),
+  ]
+}
+
+extension Anytype_Model_ChatMessage.Reactions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.protoMessageName + ".Reactions"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "reactions"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: &self.reactions) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.reactions.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Anytype_Model_ChatMessage.Reactions.IdentityList>.self, value: self.reactions, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.Reactions, rhs: Anytype_Model_ChatMessage.Reactions) -> Bool {
+    if lhs.reactions != rhs.reactions {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ChatMessage.Reactions.IdentityList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ChatMessage.Reactions.protoMessageName + ".IdentityList"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ChatMessage.Reactions.IdentityList, rhs: Anytype_Model_ChatMessage.Reactions.IdentityList) -> Bool {
+    if lhs.ids != rhs.ids {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

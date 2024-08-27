@@ -34,6 +34,8 @@ extension BlockContentType {
             return "tableRow"
         case .widget:
             return "widget"
+        case .chat:
+            return "chat"
         }
     }
     
@@ -69,6 +71,8 @@ extension BlockContentType {
             return "tableRow"
         case let .widget(layout):
             return "Widget \(String(describing: layout))"
+        case .chat:
+            return "chat"
         }
     }
 }

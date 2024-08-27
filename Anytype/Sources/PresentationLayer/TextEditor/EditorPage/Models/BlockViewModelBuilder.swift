@@ -309,7 +309,7 @@ final class BlockViewModelBuilder {
                 },
                 editorCollectionController: blockCollectionController
             )
-        case .smartblock, .layout, .tableRow, .tableColumn, .widget: return nil
+        case .smartblock, .layout, .tableRow, .tableColumn, .widget,. chat: return nil
         case .table:
             return SimpleTableBlockViewModel(
                 info: info,

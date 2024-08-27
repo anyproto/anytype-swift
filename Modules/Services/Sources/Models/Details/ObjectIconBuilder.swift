@@ -47,7 +47,7 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         case .bookmark:
             return bookmarkIcon(iconImage: relations.iconImage)
         case .todo, .note, .file, .UNRECOGNIZED, .relation, .relationOption, .dashboard, .relationOptionsList,
-                .audio, .video, .pdf, .date:
+                .audio, .video, .pdf, .date, .chat, .chatDerived:
             return nil
         case .space, .spaceView:
             return spaceIcon(iconImage: relations.iconImage, iconOptionValue: relations.iconOptionValue, objectName: relations.objectName)

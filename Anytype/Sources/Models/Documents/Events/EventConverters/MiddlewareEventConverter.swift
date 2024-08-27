@@ -163,6 +163,15 @@ final class MiddlewareEventConverter {
         case .blockSetWidget(let data):
             infoContainer.setWidget(data: data)
             return .block(blockId: data.id)
+        case .chatAdd(_):
+            // TODO: support it
+            return nil
+        case .chatUpdate(_):
+            // TODO: support it
+            return nil
+        case .chatUpdateReactions(_):
+            // TODO: support it
+            return nil
         case .objectClose:
             return .close
         case .accountShow,

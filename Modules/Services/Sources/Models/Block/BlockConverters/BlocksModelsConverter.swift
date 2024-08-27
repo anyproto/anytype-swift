@@ -21,6 +21,7 @@ public enum BlocksModelsConverter: Sendable {
         case .tableColumn: return BlockContent.tableColumn
         case .tableRow(let data): return data.blockContent
         case .widget(let data): return .widget(data)
+        case .chat(let data): return .chat(data)
         case .icon, .latex:
             return .unsupported
         }
@@ -54,7 +55,9 @@ public enum BlocksModelsConverter: Sendable {
         case .widget:
             anytypeAssertionFailure("Not suppoted converter from widget to middleware")
             return nil
-            
+        case .chat:
+            anytypeAssertionFailure("Not suppoted converter from chat to middleware")
+            return nil
         }
     }
 }

@@ -2872,6 +2872,126 @@ extension Anytype_Rpc.Broadcast.PayloadEvent.Response.Error: LocalizedError {
     }
 }
 
+extension Anytype_Rpc.Chat.AddMessage.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.AddMessage.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.AddMessage.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Chat.EditMessage.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.EditMessage.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.EditMessage.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Chat.GetMessages.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.GetMessages.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.GetMessages.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.SubscribeLastMessages.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.SubscribeLastMessages.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Chat.Unsubscribe.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Chat.Unsubscribe.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Chat.Unsubscribe.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
 extension Anytype_Rpc.Debug.AccountSelectTrace.Response.Error: LocalizedError {
     public var errorDescription: String? {
         let localizeError = localizeError()
@@ -4414,6 +4534,30 @@ extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: LocalizedError {
             case .badInput:
                 return String(localized: "Object.BookmarkFetch.badInput", defaultValue: "", table: "LocalizableError")
                     .checkValue(key: "Object.BookmarkFetch.badInput")
+            case .UNRECOGNIZED:
+                return ""
+        }
+    }
+}
+
+extension Anytype_Rpc.Object.ChatAdd.Response.Error: LocalizedError {
+    public var errorDescription: String? {
+        let localizeError = localizeError()
+        if localizeError.isNotEmpty {
+            return localizeError
+        }
+        return "Error: \(description_p) (\(code))"
+    }
+
+    private func localizeError() -> String {
+        switch code {
+            case .null:
+                return ""
+            case .unknownError:
+                return ""
+            case .badInput:
+                return String(localized: "Object.ChatAdd.badInput", defaultValue: "", table: "LocalizableError")
+                    .checkValue(key: "Object.ChatAdd.badInput")
             case .UNRECOGNIZED:
                 return ""
         }
