@@ -5,7 +5,7 @@ import UIKit
 
 struct SpaceSwitchModuleData: Hashable, Identifiable {
     let activeSpaceId: String?
-    let homeSceneId: String
+    let sceneId: String
     
     var id: Int { hashValue }
 }
@@ -137,7 +137,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     private func onTapWorkspace(workspace: SpaceView) {
         Task {
             stopSpacesSubscriptions()
-            try await spaceSetupManager.setActiveSpace(homeSceneId: data.homeSceneId, spaceId: workspace.targetSpaceId)
+            try await spaceSetupManager.setActiveSpace(sceneId: data.sceneId, spaceId: workspace.targetSpaceId)
             UISelectionFeedbackGenerator().selectionChanged()
             dismiss.toggle()
         }

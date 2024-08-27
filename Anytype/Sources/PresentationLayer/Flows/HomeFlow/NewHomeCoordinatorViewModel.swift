@@ -35,7 +35,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     let spaceInfo: AccountInfo
     private var currentSpaceId: String { spaceInfo.accountSpaceId }
-    private let homeSceneId: String
+    private let sceneId: String
     
     private var paths = [String: HomePath]()
     private var dismissAllPresented: DismissAllPresented?
@@ -72,8 +72,8 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     
     private var membershipStatusSubscription: AnyCancellable?
 
-    init(homeSceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
-        self.homeSceneId = homeSceneId
+    init(sceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
+        self.sceneId = sceneId
         self.spaceInfo = spaceInfo
         _showSpace = showSpace
         
@@ -182,7 +182,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
     }
 
     func onProfileSelected() {
-        showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo.accountSpaceId, homeSceneId: homeSceneId)
+        showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo.accountSpaceId, sceneId: sceneId)
     }
 
     func onHomeSelected() {
@@ -255,7 +255,7 @@ final class NewHomeCoordinatorViewModel: ObservableObject,
             
             paths[currentSpaceId] = editorPath
            
-            try await spaceSetupManager.setActiveSpace(homeSceneId: homeSceneId, spaceId: spaceId)
+            try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             
             var path = paths[spaceId] ?? HomePath()
             if path.count == 0 {

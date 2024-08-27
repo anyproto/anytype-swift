@@ -8,15 +8,15 @@ struct NewHomeCoordinatorView: View {
     @StateObject private var model: NewHomeCoordinatorViewModel
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(homeSceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
+    init(sceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
         _model = StateObject(
-            wrappedValue: NewHomeCoordinatorViewModel(homeSceneId: homeSceneId, spaceInfo: spaceInfo, showSpace: showSpace)
+            wrappedValue: NewHomeCoordinatorViewModel(sceneId: sceneId, spaceInfo: spaceInfo, showSpace: showSpace)
         )
     }
     
     var body: some View {
         ZStack {
-            NotificationCoordinatorView(homeSceneId: model.spaceInfo.accountSpaceId)
+            NotificationCoordinatorView(sceneId: model.spaceInfo.accountSpaceId)
             
             HomeBottomPanelContainer(
                 path: $model.editorPath,
@@ -71,5 +71,5 @@ struct NewHomeCoordinatorView: View {
 }
 
 #Preview {
-    NewHomeCoordinatorView(homeSceneId: "1337", spaceInfo: .empty, showSpace: .constant(true))
+    NewHomeCoordinatorView(sceneId: "1337", spaceInfo: .empty, showSpace: .constant(true))
 }

@@ -35,7 +35,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     func onSpaceTap(spaceId: String) {
         Task {
-            try await spaceSetupManager.setActiveSpace(homeSceneId: sceneId, spaceId: spaceId)
+            try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }

@@ -6,8 +6,8 @@ struct NotificationCoordinatorView: View {
     @StateObject private var model: NotificationCoordinatorViewModel
     @Environment(\.dismissAllPresented) private var dismissAllPresented
     
-    init(homeSceneId: String) {
-        self._model = StateObject(wrappedValue: NotificationCoordinatorViewModel(homeSceneId: homeSceneId))
+    init(sceneId: String) {
+        self._model = StateObject(wrappedValue: NotificationCoordinatorViewModel(sceneId: sceneId))
     }
     
     var body: some View {

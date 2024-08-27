@@ -13,7 +13,7 @@ struct SpaceSwitchCoordinatorView: View {
     var body: some View {
         SpaceSwitchView(data: model.data, output: model)
             .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(homeSceneId: model.data.homeSceneId, output: model)
+                SpaceCreateView(sceneId: model.data.sceneId, output: model)
             }
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
