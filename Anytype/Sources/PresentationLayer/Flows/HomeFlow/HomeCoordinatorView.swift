@@ -6,7 +6,6 @@ import AnytypeCore
 struct HomeCoordinatorView: View {
     
     @StateObject private var model: HomeCoordinatorViewModel
-    @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     init(sceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
         _model = StateObject(
@@ -34,9 +33,6 @@ struct HomeCoordinatorView: View {
                     HomeBottomNavigationPanelView(homePath: model.editorPath, info: model.spaceInfo, output: model)
                 }
             )
-        }
-        .onAppear {
-            model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
         }
         .environment(\.pageNavigation, model.pageNavigation)
         .handleSpaceShareTip()

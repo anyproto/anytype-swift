@@ -38,7 +38,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
     private let sceneId: String
     
     private var paths = [String: HomePath]()
-    private var dismissAllPresented: DismissAllPresented?
     
     @Published var showChangeSourceData: WidgetChangeSourceSearchModuleModel?
     @Published var showChangeTypeData: WidgetTypeChangeData?
@@ -95,10 +94,6 @@ final class HomeCoordinatorViewModel: ObservableObject,
         // TODO: Restore state
         
         editorPath = path
-    }
-    
-    func setDismissAllPresented(dismissAllPresented: DismissAllPresented) {
-        self.dismissAllPresented = dismissAllPresented
     }
     
     func typeSearchForObjectCreationModule() -> TypeSearchForNewObjectCoordinatorView {        
