@@ -1,4 +1,6 @@
 import SwiftUI
+import AnytypeCore
+
 
 struct SpaceHubCoordinatorView: View {
     @Environment(\.keyboardDismiss) private var keyboardDismiss
@@ -16,6 +18,9 @@ struct SpaceHubCoordinatorView: View {
         }
         .task {
             await model.startDeepLinkTask()
+        }
+        .task {
+            await model.startHandleWorkspaceInfo()
         }
 //        .sheet(isPresented: $model.showSharing) {
 //            ShareCoordinatorView()
@@ -42,11 +47,14 @@ struct SpaceHubCoordinatorView: View {
         }
     }
     
-    private var content: some View {
-        SpaceHubView { model.showHome.toggle() }
+    private var content: some View {        
+        SpaceHubView(sceneId: model.homeSceneId)
             .navigationDestination(isPresented: $model.showHome) {
-                NewHomeCoordinatorView(homeSceneId: model.homeSceneId, showHome: $model.showHome)
+                NewHomeCoordinatorView(homeSceneId: model.homeSceneId, spaceInfo: model.spaceInfo ?? .empty, showHome: $model.showHome)
                     .navigationBarBackButtonHidden()
+                    .onChange(of: model.showHome) {
+                        if !$0 { model.spaceInfo = nil }
+                    }
             }
     }
 }

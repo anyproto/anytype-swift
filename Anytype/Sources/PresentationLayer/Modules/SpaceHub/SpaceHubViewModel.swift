@@ -10,6 +10,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Published var showSpaceCreate = false
     @Published var showSettings = false
     
+    let sceneId: String
+    
     var showPlusInNavbar: Bool {
         guard let spaces else { return false }
         return spaces.count > 6
@@ -20,39 +22,27 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
-    // TODO: create new state manager for hub
-    @Injected(\.homeActiveSpaceManager)
-    private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
     
-    let homeSceneId = UUID().uuidString
-    
-    private let showActiveSpace: () -> ()
     private var subscriptions = [AnyCancellable]()
     
-    init(showActiveSpace: @escaping () -> Void) {
-        self.showActiveSpace = showActiveSpace
-        
-        Task {
-            await spaceSetupManager.registryHome(homeSceneId: homeSceneId, manager: homeActiveSpaceManager)
-        }
-        
+    
+    init(sceneId: String) {
+        self.sceneId = sceneId
         Task { startSubscriptions() }
     }
     
     func onSpaceTap(spaceId: String) {
         Task {
-            // TODO: Show spinner ???
-            try await homeActiveSpaceManager.setActiveSpace(spaceId: spaceId)
+            try await spaceSetupManager.setActiveSpace(homeSceneId: sceneId, spaceId: spaceId)
             UISelectionFeedbackGenerator().selectionChanged()
-            showActiveSpace()
         }
     }
     
     func spaceCreateWillDismiss() {
         showSpaceCreate = false
-        showActiveSpace()
+
     }
     
     // MARK: - Private
@@ -73,7 +63,9 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     private func openScreenFromLastSessionIfNeeded() {
         guard let spaces else { return }
         
-        if spaces.count == 1 { showActiveSpace() }
+        if spaces.count == 1 {
+            // TODO
+        }
     }
     
 }
