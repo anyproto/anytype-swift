@@ -19,7 +19,7 @@ extension EditorScreenData {
                 mode: mode
             ))
         case .discussion:
-            self = .discussion(EditorDiscussionObject(chatId: details.id, spaceId: details.spaceId))
+            self = .discussion(EditorDiscussionObject(objectId: details.id, spaceId: details.spaceId))
         }
     }
 }

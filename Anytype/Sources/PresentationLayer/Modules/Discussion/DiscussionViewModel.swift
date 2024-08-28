@@ -12,6 +12,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
+    @Injected(\.chatService)
+    private var chatService: any ChatServiceProtocol
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
@@ -19,20 +21,19 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var message: AttributedString = ""
     @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
+    private var chatId: String?
+    
     init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
         self.document = openDocumentProvider.document(objectId: objectId)
         self.spaceId = spaceId
         self.output = output
     }
     
-    func subscribeForBlocks() async {
-        for await blocks in document.childrenPublisher.values {
-            self.mesageBlocks = blocks.enumerated().compactMap { (offset, block) in
-                guard block.isText else { return nil }
-                return MessageViewData(objectId: document.objectId, blockId: block.id, relativeIndex: offset)
-            }
-            if let last = mesageBlocks.last, scrollViewPosition == .none {
-                self.scrollViewPosition = .bottom(last.id)
+    func startHandleDetails() async {
+        for await details in document.detailsPublisher.values {
+            if chatId != details.chatId {
+                chatId = details.chatId
+                try? await updateFullChatList()
             }
         }
     }
@@ -81,5 +82,16 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func didSelectAddReaction(messageId: String) {
         output?.didSelectAddReaction(messageId: messageId)
+    }
+    
+    private func updateFullChatList() async throws {
+        guard let chatId else { return }
+        let messages = try await chatService.getMessages(chatObjectId: chatId)
+        mesageBlocks = messages.map { MessageViewData(
+            spaceId: document.spaceId,
+            objectId: document.objectId,
+            message: $0,
+            relativeIndex: 0)
+        }
     }
 }

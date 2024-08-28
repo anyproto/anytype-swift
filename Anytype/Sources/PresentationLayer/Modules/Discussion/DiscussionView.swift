@@ -23,7 +23,7 @@ struct DiscussionView: View {
             }
         }
         .task {
-            await model.subscribeForBlocks()
+            await model.startHandleDetails()
         }
     }
     

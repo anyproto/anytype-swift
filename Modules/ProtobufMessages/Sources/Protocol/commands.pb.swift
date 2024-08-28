@@ -29547,6 +29547,11 @@ public struct Anytype_Rpc {
 
         public var chatObjectID: String = String()
 
+        /// OrderId of the message before which to get messages
+        public var beforeOrderID: String = String()
+
+        public var limit: Int32 = 0
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -76659,6 +76664,8 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
   public static let protoMessageName: String = Anytype_Rpc.Chat.GetMessages.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "chatObjectId"),
+    2: .same(proto: "beforeOrderId"),
+    3: .same(proto: "limit"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -76668,6 +76675,8 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.chatObjectID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.beforeOrderID) }()
+      case 3: try { try decoder.decodeSingularInt32Field(value: &self.limit) }()
       default: break
       }
     }
@@ -76677,11 +76686,19 @@ extension Anytype_Rpc.Chat.GetMessages.Request: SwiftProtobuf.Message, SwiftProt
     if !self.chatObjectID.isEmpty {
       try visitor.visitSingularStringField(value: self.chatObjectID, fieldNumber: 1)
     }
+    if !self.beforeOrderID.isEmpty {
+      try visitor.visitSingularStringField(value: self.beforeOrderID, fieldNumber: 2)
+    }
+    if self.limit != 0 {
+      try visitor.visitSingularInt32Field(value: self.limit, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Chat.GetMessages.Request, rhs: Anytype_Rpc.Chat.GetMessages.Request) -> Bool {
     if lhs.chatObjectID != rhs.chatObjectID {return false}
+    if lhs.beforeOrderID != rhs.beforeOrderID {return false}
+    if lhs.limit != rhs.limit {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
