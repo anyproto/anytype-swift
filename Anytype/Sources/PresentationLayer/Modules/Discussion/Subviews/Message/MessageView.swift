@@ -35,6 +35,9 @@ private struct MessageInternalView: View {
         .task {
             await model.subscribeOnBlock()
         }
+        .task {
+            await model.subscribeOnAuthor()
+        }
     }
     
     private var messageBackgorundColor: Color {
