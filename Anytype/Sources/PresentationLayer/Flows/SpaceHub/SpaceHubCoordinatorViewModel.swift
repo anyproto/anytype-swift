@@ -76,16 +76,15 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
 
     // MARK: - Private
-    private func switchSpace(info newInfo: AccountInfo) {
+    private func switchSpace(info: AccountInfo?) {
         Task {
-            // TEMP: create version of active space manager with nullable accounts
-            guard newInfo != .empty else { return }
-            
-            
             showSpace = false
+            
+            guard let info else { return }
+            
             Task {
                 try await Task.sleep(seconds:0.1)
-                spaceInfo = newInfo
+                spaceInfo = info
                 showSpace = true
             }
             
