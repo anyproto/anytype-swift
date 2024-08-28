@@ -574,6 +574,7 @@
 "Select all" = "Pilih semua";
 "Unselect all" = "Batal pilih semua";
 "Deselect all" = "Batal pilih semua";
+"Deselect" = "Deselect";
 "Shared" = "Berbagi";
 "Sets" = "Set";
 "Collections" = "Koleksi";
@@ -1058,7 +1059,8 @@
 "Server.LocalOnly" = "Hanya Lokal";
 "Server.LocalOnly.Alert.title" = "Apakah kamu yakin?";
 "Server.LocalOnly.Alert.message" = "Mode Hanya-Lokal masih bersifat eksperimental dan tidak memberikan keuntungan keamanan apa pun. Hati-hati dalam penggunaannya karena kehilangan data dapat terjadi.";
-"Server.LocalOnly.Alert.Action.primary" = "Yes, use local-only mode";
+"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
+"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
 
 // MARK: - Gallery
 "Gallery.Author" = "Dibuat oleh @%@";
