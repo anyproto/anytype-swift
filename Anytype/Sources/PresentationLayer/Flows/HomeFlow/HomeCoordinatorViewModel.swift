@@ -34,8 +34,8 @@ final class HomeCoordinatorViewModel: ObservableObject,
     // MARK: - State
     
     let spaceInfo: AccountInfo
+    let sceneId: String
     private var currentSpaceId: String { spaceInfo.accountSpaceId }
-    private let sceneId: String
     
     private var paths = [String: HomePath]()
     

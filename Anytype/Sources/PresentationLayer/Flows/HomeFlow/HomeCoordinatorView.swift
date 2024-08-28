@@ -15,7 +15,7 @@ struct HomeCoordinatorView: View {
     
     var body: some View {
         ZStack {
-            NotificationCoordinatorView(sceneId: model.spaceInfo.accountSpaceId)
+            NotificationCoordinatorView(sceneId: model.sceneId)
             
             HomeBottomPanelContainer(
                 path: $model.editorPath,
