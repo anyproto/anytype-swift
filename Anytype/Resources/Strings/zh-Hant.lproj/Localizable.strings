@@ -575,6 +575,7 @@
 "Select all" = "選取全部";
 "Unselect all" = "取消全選";
 "Deselect all" = "取消全選";
+"Deselect" = "Deselect";
 "Shared" = "分享";
 "Sets" = "集合";
 "Collections" = "集錦";
@@ -1062,7 +1063,8 @@
 "Server.LocalOnly" = "僅限本機";
 "Server.LocalOnly.Alert.title" = "您確定嗎?";
 "Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.primary" = "Yes, use local-only mode";
+"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
+"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
 
 // MARK: - Gallery
 "Gallery.Author" = "@%@ 製作";
