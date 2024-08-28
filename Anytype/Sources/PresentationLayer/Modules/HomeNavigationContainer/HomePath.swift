@@ -2,12 +2,16 @@ import Foundation
 import AnytypeCore
 import SwiftUI
 
-struct HomePath {
+struct HomePath: Equatable {
     
     private(set) var forwardPath: [AnyHashable] = []
     
-    fileprivate(set) var path: [AnyHashable] = [] {
+    fileprivate(set) var path: [AnyHashable] {
         didSet { didChangePath(newPath: path, oldPath: oldValue) }
+    }
+    
+    init(initalPath: [AnyHashable] = []) {
+        path = initalPath
     }
     
     var count: Int {

@@ -15,6 +15,8 @@ struct SpaceHubCoordinatorView: View {
                 model.keyboardDismiss = keyboardDismiss
                 model.dismissAllPresented = dismissAllPresented
             }
+            .onChange(of: model.navigationPath) { _ in model.onPathChange() }
+        
             .task { await model.setup() }
             .task { await model.startHandleAppActions() }
             .task { await model.startHandleWorkspaceInfo() }
@@ -78,36 +80,28 @@ struct SpaceHubCoordinatorView: View {
             NotificationCoordinatorView(sceneId: model.sceneId)
             
             HomeBottomPanelContainer(
-                path: $model.editorPath,
+                path: $model.navigationPath,
                 content: {
-                    AnytypeNavigationView(path: $model.editorPath, pathChanging: $model.pathChanging) { builder in
+                    AnytypeNavigationView(path: $model.navigationPath, pathChanging: $model.pathChanging) { builder in
                         builder.appendBuilder(for: AccountInfo.self) { info in
                             HomeWidgetsView(info: info, output: model)
                         }
                         builder.appendBuilder(for: EditorScreenData.self) { data in
                             EditorCoordinatorView(data: data)
                         }
+                        builder.appendBuilder(for: SpaceHubNavigationItem.self) { _ in
+                            SpaceHubView(sceneId: model.sceneId)
+                        }
                     }
                 },
                 bottomPanel: {
                     if let spaceInfo = model.spaceInfo {
-                        HomeBottomNavigationPanelView(homePath: model.editorPath, info: spaceInfo, output: model)
+                        HomeBottomNavigationPanelView(homePath: model.navigationPath, info: spaceInfo, output: model)
                     }
                 }
             )
         }
         .environment(\.pageNavigation, model.pageNavigation)
-        
-        
-        // TODO: Support space hub
-//        SpaceHubView(sceneId: model.sceneId)
-//            .navigationDestination(isPresented: $model.showSpace) {
-//                HomeCoordinatorView(sceneId: model.sceneId, spaceInfo: model.spaceInfo ?? .empty, showSpace: $model.showSpace)
-//                    .navigationBarBackButtonHidden()
-//                    .onChange(of: model.showSpace) {
-//                        if !$0 { model.spaceInfo = nil }
-//                    }
-//            }
     }
 }
 

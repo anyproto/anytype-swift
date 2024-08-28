@@ -3,6 +3,8 @@ import DeepLinks
 import Services
 import Combine
 
+struct SpaceHubNavigationItem: Hashable { }
+
 
 @MainActor
 final class SpaceHubCoordinatorViewModel: ObservableObject {
@@ -26,17 +28,20 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var currentSpaceId: String? { spaceInfo?.accountSpaceId }
     
     @Published var pathChanging: Bool = false
-    @Published var editorPath = HomePath() {
-        didSet { }//updateLastOpenedScreen() }
-    }
+    @Published var navigationPath = HomePath(initalPath: [SpaceHubNavigationItem()])
     var pageNavigation: PageNavigation {
         PageNavigation(
             push: { [weak self] data in
                 self?.pushSync(data: data)
             }, pop: { [weak self] in
-                self?.editorPath.pop()
+                self?.navigationPath.pop()
             }, replace: { [weak self] data in
-                self?.editorPath.replaceLast(data)
+                guard let self else { return }
+                if navigationPath.count > 1 {
+                    navigationPath.replaceLast(data)
+                } else {
+                    navigationPath.push(data)
+                }
             }
         )
     }
@@ -74,6 +79,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         showSpaceManager = true
     }
     
+    func onPathChange() {
+        if navigationPath.count == 1 {
+            Task { try await activeSpaceManager.setActiveSpace(spaceId: nil) }
+        }
+    }
+    
     // MARK: - Setup
     func setup() async {
         await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
@@ -89,7 +100,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func startHandleWorkspaceInfo() async {
-        await activeSpaceManager.setupActiveSpace()
+        activeSpaceManager.startSubscription()
         for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
         }
@@ -128,9 +139,10 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         guard let currentSpaceId else { return } // TODO: Support push with no spaces
         
         guard let objectId = data.objectId else {
-            editorPath.push(data)
+            navigationPath.push(data)
             return
         }
+        
         let document = documentsProvider.document(objectId: objectId, mode: .preview)
         try await document.open()
         guard let details = document.details else {
@@ -145,35 +157,34 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             // Check space Is deleted
             guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
             
-            paths[currentSpaceId] = editorPath
+            paths[currentSpaceId] = navigationPath
            
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             
-            var path = paths[spaceId] ?? HomePath()
+            var path = paths[spaceId] ?? HomePath(initalPath: [SpaceHubNavigationItem()])
             if path.count == 0 {
                 path.push(spaceInfo)
             }
             
             path.push(data)
-            editorPath = path
+            navigationPath = path
         } else {
-            editorPath.push(data)
+            navigationPath.push(data)
         }
     }
     
     private func switchSpace(info: AccountInfo?) {
         Task {
-            guard let info else {
-                editorPath.popToRoot()
-                return
-            }
+            guard currentSpaceId != info?.accountSpaceId else { return }
             
-            guard currentSpaceId != info.accountSpaceId else { return }
-            
-            var newPath = HomePath()
-            newPath.push(info)
-            editorPath = newPath
             self.spaceInfo = info
+            
+            if let info {
+                let newPath = HomePath(initalPath: [SpaceHubNavigationItem(), info])
+                navigationPath = newPath
+            } else {   
+                navigationPath.popToRoot()
+            }
             
             
 //            // Backup current
@@ -341,17 +352,17 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
 
     func onHomeSelected() {
         guard !pathChanging else { return }
-        editorPath.popToRoot()
+        navigationPath.popToRoot()
     }
 
     func onForwardSelected() {
         guard !pathChanging else { return }
-        editorPath.pushFromHistory()
+        navigationPath.pushFromHistory()
     }
 
     func onBackwardSelected() {
         guard !pathChanging else { return }
-        editorPath.pop()
+        navigationPath.pop()
     }
     
     func onPickTypeForNewObjectSelected() {
@@ -363,6 +374,6 @@ extension SpaceHubCoordinatorViewModel: HomeBottomNavigationPanelModuleOutput {
     
     func onSpaceHubSelected() {
         UISelectionFeedbackGenerator().selectionChanged()
-        editorPath.popToRoot()
+        navigationPath.popToRoot()
     }
 }

@@ -6,7 +6,7 @@ import Services
 // Used in SpaceSetupManager
 @MainActor
 protocol ActiveSpaceSetterProtocol: AnyObject {
-    func setActiveSpace(spaceId: String) async throws
+    func setActiveSpace(spaceId: String?) async throws
 }
 
 // Storage for store active space id for each screen.
@@ -14,7 +14,7 @@ protocol ActiveSpaceSetterProtocol: AnyObject {
 protocol ActiveSpaceManagerProtocol: AnyObject, ActiveSpaceSetterProtocol {
     var workspaceInfo: AccountInfo? { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo?, Never> { get }
-    func setupActiveSpace() async
+    func startSubscription()
 }
 
 @MainActor
@@ -24,15 +24,12 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
     
     @Injected(\.workspaceStorage)
     private var workspaceStorage: any WorkspacesStorageProtocol
-    @Injected(\.accountManager)
-    private var accountManager: any AccountManagerProtocol
     @Injected(\.workspaceService)
     private var workspaceService: any WorkspaceServiceProtocol
     
     // MARK: - State
     private var workspaceSubscription: AnyCancellable?
-    @UserDefault("activeSpaceId", defaultValue: "")
-    private var activeSpaceId: String
+    private var activeSpaceId: String?
     lazy var workspaceInfoSubject = CurrentValueSubject<AccountInfo?, Never>(nil)
     
     nonisolated init() {}
@@ -45,32 +42,24 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
         return workspaceInfoSubject.removeDuplicates().filter { $0 != .empty }.eraseToAnyPublisher()
     }
     
-    func setActiveSpace(spaceId: String) async throws {
+    func setActiveSpace(spaceId: String?) async throws {
         guard activeSpaceId != spaceId else { return }
+        
+        guard let spaceId else {
+            workspaceInfoSubject.send(nil)
+            activeSpaceId = nil
+            return
+        }
+        
         let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
         workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
         AnytypeAnalytics.instance().logSwitchSpace()
+        
         workspaceInfoSubject.send(info)
         activeSpaceId = spaceId
     }
     
-    func setupActiveSpace() async {
-        do {
-            if activeSpaceId.isEmpty {
-                activeSpaceId = accountManager.account.info.accountSpaceId
-            }
-            let info = try await workspaceService.workspaceOpen(spaceId: activeSpaceId)
-            workspaceStorage.addWorkspaceInfo(spaceId: activeSpaceId, info: info)
-            workspaceInfoSubject.send(info)
-        } catch {
-            await resetActiveSpace()
-        }
-        startSubscription()
-    }
-    
-    // MARK: - Private
-    
-    private func startSubscription() {
+    func startSubscription() {
         workspaceSubscription = workspaceStorage.activeWorkspsacesPublisher
             .map { $0.map(\.targetSpaceId) }
             .receiveOnMain()
@@ -82,14 +71,13 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
             }
     }
     
-    private func handleSpaces(spaceIds: [String]) async {
-        if !spaceIds.contains(activeSpaceId) {
-            await resetActiveSpace()
-        }
-    }
+    // MARK: - Private
     
-    private func resetActiveSpace() async {
-        try? await setActiveSpace(spaceId: accountManager.account.info.accountSpaceId)
+    private func handleSpaces(spaceIds: [String]) async {
+        guard let activeSpaceId, spaceIds.contains(activeSpaceId) else {
+            try? await setActiveSpace(spaceId: nil)
+            return
+        }
     }
 }
 
