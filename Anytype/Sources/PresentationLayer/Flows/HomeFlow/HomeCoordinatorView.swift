@@ -6,7 +6,6 @@ import AnytypeCore
 struct HomeCoordinatorView: View {
     
     @StateObject private var model: HomeCoordinatorViewModel
-    @Environment(\.dismissAllPresented) private var dismissAllPresented
     
     init(sceneId: String, spaceInfo: AccountInfo, showSpace: Binding<Bool>) {
         _model = StateObject(
@@ -35,9 +34,6 @@ struct HomeCoordinatorView: View {
                 }
             )
         }
-        .onAppear {
-            model.setDismissAllPresented(dismissAllPresented: dismissAllPresented)
-        }
         .environment(\.pageNavigation, model.pageNavigation)
         .handleSpaceShareTip()
         .handleSharingTip()
@@ -63,9 +59,6 @@ struct HomeCoordinatorView: View {
         }
         .sheet(isPresented: $model.showTypeSearchForObjectCreation) {
             model.typeSearchForObjectCreationModule()
-        }
-        .sheet(item: $model.showMembershipNameSheet) {
-            MembershipNameFinalizationView(tier: $0)
         }
     }
 }

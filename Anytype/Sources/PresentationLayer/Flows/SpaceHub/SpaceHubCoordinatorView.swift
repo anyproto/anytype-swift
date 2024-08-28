@@ -16,12 +16,10 @@ struct SpaceHubCoordinatorView: View {
             model.keyboardDismiss = keyboardDismiss
             model.dismissAllPresented = dismissAllPresented
         }
-        .task {
-            await model.startDeepLinkTask()
-        }
-        .task {
-            await model.startHandleWorkspaceInfo()
-        }
+        .task { await model.setup() }
+        .task { await model.startHandleAppActions() }
+        .task { await model.startHandleWorkspaceInfo() }
+        
         .sheet(item: $model.sharingSpaceId) {
             ShareCoordinatorView(spaceId: $0.value)
         }
@@ -39,6 +37,9 @@ struct SpaceHubCoordinatorView: View {
         }
         .sheet(item: $model.showSpaceSwitchData) {
             SpaceSwitchCoordinatorView(data: $0)
+        }
+        .sheet(item: $model.membershipNameFinalizationData) {
+            MembershipNameFinalizationView(tier: $0)
         }
         .anytypeSheet(item: $model.spaceJoinData) {
             SpaceJoinView(data: $0, onManageSpaces: {

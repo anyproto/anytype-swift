@@ -1,6 +1,7 @@
 import SwiftUI
 import DeepLinks
 import Services
+import Combine
 
 
 @MainActor
@@ -14,6 +15,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var membershipTierId: IntIdentifiable?
     @Published var showGalleryImport: GalleryInstallationData?
     @Published var spaceJoinData: SpaceJoinModuleData?
+    @Published var membershipNameFinalizationData: MembershipTier?
     
     var keyboardDismiss: (() -> ())?
     var dismissAllPresented: DismissAllPresented?
@@ -26,18 +28,25 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
-    
     @Injected(\.homeActiveSpaceManager)
     private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
     
+    private var membershipStatusSubscription: AnyCancellable?
+    
     init() {
-        Task {
-            await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager)
-        }
+        startSubscriptions()
     }
     
+    func onManageSpacesSelected() {
+        showSpaceManager = true
+    }
     
-    func startDeepLinkTask() async {
+    // MARK: - Setup
+    func setup() async {
+        await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager)
+    }
+    
+    func startHandleAppActions() async {
         for await action in appActionsStorage.$action.values {
             if let action {
                 try? await handleAppAction(action: action)
@@ -52,9 +61,18 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             switchSpace(info: info)
         }
     }
+
+    // MARK: - Private
     
-    func onManageSpacesSelected() {
-        showSpaceManager = true
+    private func startSubscriptions() {
+        membershipStatusSubscription = Container.shared
+            .membershipStatusStorage.resolve()
+            .statusPublisher.receiveOnMain()
+            .sink { [weak self] membership in
+                guard membership.status == .pendingRequiresFinalization else { return }
+                
+                self?.membershipNameFinalizationData = membership.tier
+            }
     }
 
     // MARK: - Private
