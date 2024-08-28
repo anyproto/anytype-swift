@@ -1,5 +1,6 @@
 import Foundation
 import ProtobufMessages
+import AnytypeCore
 
 public protocol HistoryVersionsServiceProtocol: Sendable {
     func getVersions(objectId: String, lastVersionId: String) async throws -> [VersionHistory]
@@ -57,6 +58,6 @@ final class HistoryVersionsService: HistoryVersionsServiceProtocol {
 
 extension HistoryVersionsService {
     enum Constants {
-        static let limit: Int32 = 300
+        static let limit: Int32 = FeatureFlags.versionHistoryPaginationTest ? 15 : 300
     }
 }
