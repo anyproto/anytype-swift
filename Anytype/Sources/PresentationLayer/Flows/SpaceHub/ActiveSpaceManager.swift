@@ -5,22 +5,22 @@ import Services
 
 // TODO: Update with optional workspace info
 
-// For other screens, for SpaceSetupManager
+// Used in SpaceSetupManager
 @MainActor
-protocol HomeSpaceSetupManagerProtocol: AnyObject {
+protocol ActiveSpaceSetterProtocol: AnyObject {
     func setActiveSpace(spaceId: String) async throws
 }
 
 // Storage for store active space id for each screen.
 @MainActor
-protocol HomeActiveSpaceManagerProtocol: AnyObject, HomeSpaceSetupManagerProtocol {
+protocol ActiveSpaceManagerProtocol: AnyObject, ActiveSpaceSetterProtocol {
     var workspaceInfo: AccountInfo { get }
     var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
     func setupActiveSpace() async
 }
 
 @MainActor
-final class HomeActiveSpaceManager: HomeActiveSpaceManagerProtocol {
+final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
     
     // MARK: - DI
     
@@ -99,7 +99,7 @@ extension Container {
     
     // Instance for each scene
     
-    var homeActiveSpaceManager: Factory<any HomeActiveSpaceManagerProtocol> {
-        self { HomeActiveSpaceManager() }
+    var activeSpaceManager: Factory<any ActiveSpaceManagerProtocol> {
+        self { ActiveSpaceManager() }
     }
 }

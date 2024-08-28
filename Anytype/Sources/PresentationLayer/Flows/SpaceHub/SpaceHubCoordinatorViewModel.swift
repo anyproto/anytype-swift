@@ -28,8 +28,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var accountManager: any AccountManagerProtocol
     @Injected(\.spaceSetupManager)
     private var spaceSetupManager: any SpaceSetupManagerProtocol
-    @Injected(\.homeActiveSpaceManager)
-    private var homeActiveSpaceManager: any HomeActiveSpaceManagerProtocol
+    @Injected(\.activeSpaceManager)
+    private var activeSpaceManager: any ActiveSpaceManagerProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
     
@@ -43,7 +43,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     // MARK: - Setup
     func setup() async {
-        await spaceSetupManager.registryHome(sceneId: sceneId, manager: homeActiveSpaceManager)
+        await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
     }
     
     func startHandleAppActions() async {
@@ -56,8 +56,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func startHandleWorkspaceInfo() async {
-        await homeActiveSpaceManager.setupActiveSpace()
-        for await info in homeActiveSpaceManager.workspaceInfoPublisher.values {
+        await activeSpaceManager.setupActiveSpace()
+        for await info in activeSpaceManager.workspaceInfoPublisher.values {
             switchSpace(info: info)
         }
     }
