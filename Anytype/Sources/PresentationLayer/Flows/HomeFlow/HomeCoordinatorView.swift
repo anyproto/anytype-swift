@@ -35,8 +35,7 @@ struct HomeCoordinatorView: View {
             )
         }
         .environment(\.pageNavigation, model.pageNavigation)
-        .handleSpaceShareTip()
-        .handleSharingTip()
+        
         .updateShortcuts(spaceId: model.spaceInfo.accountSpaceId)
         .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) {

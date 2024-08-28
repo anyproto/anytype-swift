@@ -20,6 +20,9 @@ struct SpaceHubCoordinatorView: View {
         .task { await model.startHandleAppActions() }
         .task { await model.startHandleWorkspaceInfo() }
         
+        .handleSpaceShareTip()
+        .handleSharingTip()
+        
         .sheet(item: $model.sharingSpaceId) {
             ShareCoordinatorView(spaceId: $0.value)
         }
