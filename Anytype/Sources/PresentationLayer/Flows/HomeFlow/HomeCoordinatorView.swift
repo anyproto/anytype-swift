@@ -15,7 +15,7 @@ struct HomeCoordinatorView: View {
     
     var body: some View {
         ZStack {
-            NotificationCoordinatorView(sceneId: model.spaceInfo.accountSpaceId)
+            NotificationCoordinatorView(sceneId: model.sceneId)
             
             HomeBottomPanelContainer(
                 path: $model.editorPath,
@@ -35,8 +35,7 @@ struct HomeCoordinatorView: View {
             )
         }
         .environment(\.pageNavigation, model.pageNavigation)
-        .handleSpaceShareTip()
-        .handleSharingTip()
+        
         .updateShortcuts(spaceId: model.spaceInfo.accountSpaceId)
         .snackbar(toastBarData: $model.toastBarData)
         .sheet(item: $model.showChangeSourceData) {
