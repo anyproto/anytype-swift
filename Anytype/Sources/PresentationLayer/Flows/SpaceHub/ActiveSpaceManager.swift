@@ -3,8 +3,6 @@ import Combine
 import AnytypeCore
 import Services
 
-// TODO: Update with optional workspace info
-
 // Used in SpaceSetupManager
 @MainActor
 protocol ActiveSpaceSetterProtocol: AnyObject {
@@ -14,8 +12,8 @@ protocol ActiveSpaceSetterProtocol: AnyObject {
 // Storage for store active space id for each screen.
 @MainActor
 protocol ActiveSpaceManagerProtocol: AnyObject, ActiveSpaceSetterProtocol {
-    var workspaceInfo: AccountInfo { get }
-    var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> { get }
+    var workspaceInfo: AccountInfo? { get }
+    var workspaceInfoPublisher: AnyPublisher<AccountInfo?, Never> { get }
     func setupActiveSpace() async
 }
 
@@ -35,15 +33,15 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
     private var workspaceSubscription: AnyCancellable?
     @UserDefault("activeSpaceId", defaultValue: "")
     private var activeSpaceId: String
-    lazy var workspaceInfoSubject = CurrentValueSubject<AccountInfo, Never>(accountManager.account.info)
+    lazy var workspaceInfoSubject = CurrentValueSubject<AccountInfo?, Never>(nil)
     
     nonisolated init() {}
     
-    var workspaceInfo: AccountInfo {
+    var workspaceInfo: AccountInfo? {
         workspaceInfoSubject.value
     }
     
-    var workspaceInfoPublisher: AnyPublisher<AccountInfo, Never> {
+    var workspaceInfoPublisher: AnyPublisher<AccountInfo?, Never> {
         return workspaceInfoSubject.removeDuplicates().filter { $0 != .empty }.eraseToAnyPublisher()
     }
     
