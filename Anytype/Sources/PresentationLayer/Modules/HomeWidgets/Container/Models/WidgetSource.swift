@@ -46,6 +46,8 @@ extension ObjectDetails {
             } else {
                 return [.compactList, .list, .link]
             }
+        case .discussion:
+            return []
         }
     }
 }
