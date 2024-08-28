@@ -574,6 +574,7 @@
 "Select all" = "Select all";
 "Unselect all" = "Unselect all";
 "Deselect all" = "Deselect all";
+"Deselect" = "Deselect";
 "Shared" = "Shared";
 "Sets" = "Sets";
 "Collections" = "Samlingar";
@@ -1058,7 +1059,8 @@
 "Server.LocalOnly" = "Local-only";
 "Server.LocalOnly.Alert.title" = "Är du säker?";
 "Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.primary" = "Yes, use local-only mode";
+"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
+"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
 
 // MARK: - Gallery
 "Gallery.Author" = "Made by @%@";
