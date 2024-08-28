@@ -1296,7 +1296,8 @@ internal enum Loc {
         internal static let message = Loc.tr("Localizable", "Server.LocalOnly.Alert.message")
         internal static let title = Loc.tr("Localizable", "Server.LocalOnly.Alert.title")
         internal enum Action {
-          internal static let primary = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.primary")
+          internal static let agree = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.agree")
+          internal static let disagree = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.disagree")
         }
       }
     }
