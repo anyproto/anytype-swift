@@ -98,6 +98,10 @@ public extension FeatureFlags {
         value(for: .showGlobalSearchScore)
     }
 
+    static var versionHistoryPaginationTest: Bool {
+        value(for: .versionHistoryPaginationTest)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
@@ -122,6 +126,7 @@ public extension FeatureFlags {
         .homeTestSwipeGeature,
         .membershipTestTiers,
         .failReceiptValidation,
-        .showGlobalSearchScore
+        .showGlobalSearchScore,
+        .versionHistoryPaginationTest
     ]
 }
