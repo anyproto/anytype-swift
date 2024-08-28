@@ -106,6 +106,7 @@ internal enum Loc {
   internal static let deleted = Loc.tr("Localizable", "Deleted")
   internal static let deletionError = Loc.tr("Localizable", "Deletion error")
   internal static let description = Loc.tr("Localizable", "Description")
+  internal static let deselect = Loc.tr("Localizable", "Deselect")
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
   internal static func devicesConnected(_ p1: Int) -> String {

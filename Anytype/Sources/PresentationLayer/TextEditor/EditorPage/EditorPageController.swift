@@ -58,6 +58,9 @@ final class EditorPageController: UIViewController {
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
+        }, 
+        onSelectAllBarButtonItemTap: { [weak self] allSelected in
+            self?.handleSelectState(allSelected: allSelected)
         },
         onDoneBarButtonItemTap:  { [weak viewModel] in
             viewModel?.blocksStateManager.didSelectEditingMode()
@@ -240,6 +243,21 @@ final class EditorPageController: UIViewController {
 
         super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
+    
+    private func handleSelectState(allSelected: Bool) {
+        if allSelected {
+            let filtredIndexPaths = collectionView.allIndexPaths.filter { [weak self] indexPath in
+                return self?.canSelect(indexPath: indexPath) ?? false
+            }
+            filtredIndexPaths.forEach { [weak self] indexPath in
+                self?.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+            }
+            viewModel?.blocksStateManager.didUpdateSelectedIndexPaths(filtredIndexPaths, allSelected: allSelected)
+        } else {
+            collectionView.deselectAllSelectedItems()
+            viewModel?.blocksStateManager.didUpdateSelectedIndexPaths([], allSelected: allSelected)
+        }
+    }
 }
 
 // MARK: - EditorPageViewInput
@@ -323,9 +341,8 @@ extension EditorPageController: EditorPageViewInput {
             let indexPath = dataSource.indexPath(for: item) {
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
 
-            collectionView.indexPathsForSelectedItems.map(
-                viewModel.blocksStateManager.didUpdateSelectedIndexPaths
-            )
+            let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems ?? []
+            viewModel.blocksStateManager.didUpdateSelectedIndexPathsResetIfNeeded(indexPathsForSelectedItems, allSelected: isAllSelected())
         }
     }
     
@@ -373,6 +390,14 @@ extension EditorPageController: EditorPageViewInput {
         }
 
         handleState(state: viewModel.blocksStateManager.editingState)
+    }
+    
+    func isAllSelected() -> Bool {
+        guard let selectedItems = collectionView.indexPathsForSelectedItems else { return false }
+        let filtredIndexPaths = collectionView.allIndexPaths.filter { [weak self] indexPath in
+            return self?.canSelect(indexPath: indexPath) ?? false
+        }
+        return selectedItems.count == filtredIndexPaths.count
     }
 }
 

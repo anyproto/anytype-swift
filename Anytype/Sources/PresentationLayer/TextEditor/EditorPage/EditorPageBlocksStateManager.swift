@@ -6,11 +6,19 @@ import UIKit
 
 enum EditorEditingState {
     case editing
-    case selecting(blocks: [String])
+    case selecting(blocks: [String], allSelected: Bool)
     case moving(indexPaths: [IndexPath])
     case readonly
     case simpleTablesSelection(block: String, selectedBlocks: [String], simpleTableMenuModel: SimpleTableMenuModel)
     case loading
+    
+    var allSelected: Bool {
+        if case .selecting( _, let allSelected) = self {
+            return allSelected
+        } else {
+            return false
+        }
+    }
 }
 
 /// Blocks drag & drop protocol.
@@ -29,7 +37,8 @@ protocol EditorPageMovingManagerProtocol {
 protocol EditorPageSelectionManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
-    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
+    func didUpdateSelectedIndexPathsResetIfNeeded(_ indexPaths: [IndexPath], allSelected: Bool)
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath], allSelected: Bool)
 }
 
 @MainActor
@@ -136,13 +145,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             didSelectEditingState(info: $0.info)
         }
     }
-
-    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+    func didUpdateSelectedIndexPathsResetIfNeeded(_ indexPaths: [IndexPath], allSelected: Bool) {
         guard indexPaths.count > 0 else {
             resetToEditingMode()
             return
         }
+        didUpdateSelectedIndexPaths(indexPaths, allSelected: allSelected)
+    }
 
+    func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath], allSelected: Bool) {
         selectedBlocksIndexPaths = indexPaths
 
         blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: indexPaths.count)
@@ -153,7 +164,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         updateSelectionBarActions(selectedBlocks: blocksInformation)
 
         if case .selecting = editingState {
-            editingState = .selecting(blocks: blocksInformation.map { $0.id })
+            editingState = .selecting(blocks: blocksInformation.map { $0.id }, allSelected: allSelected)
             UISelectionFeedbackGenerator().selectionChanged()
         }
     }
@@ -227,7 +238,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         $editingState.sink { [weak self] state in
             guard let self else { return }
             switch state {
-            case .selecting(let blocks):
+            case .selecting(let blocks, _):
                 blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: blocks.count)
             case .moving:
                 blocksSelectionOverlayViewModel?.state = .moving
@@ -417,7 +428,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             router.showPage(objectId: data.targetObjectID)
         case .style:
             let elements = elements.map { $0.info }
-            editingState = .selecting(blocks: elements.map { $0.id} )
+            editingState = .selecting(blocks: elements.map { $0.id}, allSelected: editingState.allSelected)
             didSelectStyleSelection(infos: elements)
 
             return
@@ -492,7 +503,7 @@ extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
 extension EditorPageBlocksStateManager {
     
     func didSelectEditingState(info: BlockInformation) {
-        editingState = .selecting(blocks: [info.id])
+        editingState = .selecting(blocks: [info.id], allSelected: false)
         selectedBlocks = [info.id]
         updateSelectionBarActions(selectedBlocks: [info])
     }
