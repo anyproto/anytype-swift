@@ -4,13 +4,13 @@ import AnytypeCore
 
 protocol SpaceSetupManagerProtocol :AnyObject {
     func setActiveSpace(sceneId: String, spaceId: String) async throws
-    func registryHome(sceneId: String, manager: any HomeSpaceSetupManagerProtocol) async
+    func registerSpaceSetter(sceneId: String, setter: any ActiveSpaceSetterProtocol) async
 }
 
 actor SpaceSetupManager: SpaceSetupManagerProtocol {
     
     private struct WeakValue {
-        weak var manager: (any HomeSpaceSetupManagerProtocol)?
+        weak var setter: (any ActiveSpaceSetterProtocol)?
     }
     
     private var cache: [String: WeakValue] = [:]
@@ -18,18 +18,18 @@ actor SpaceSetupManager: SpaceSetupManagerProtocol {
     // MARK: - SpaceSetupManagerProtocol
     
     func setActiveSpace(sceneId: String, spaceId: String) async throws {
-        guard let manager = cache[sceneId]?.manager else {
+        guard let setter = cache[sceneId]?.setter else {
             anytypeAssertionFailure("Manager not found")
             return
         }
-        try await manager.setActiveSpace(spaceId: spaceId)
+        try await setter.setActiveSpace(spaceId: spaceId)
     }
     
-    func registryHome(sceneId: String, manager: any HomeSpaceSetupManagerProtocol) {
-        if cache[sceneId]?.manager != nil {
+    func registerSpaceSetter(sceneId: String, setter: any ActiveSpaceSetterProtocol) {
+        if cache[sceneId]?.setter != nil {
             anytypeAssertionFailure("Already cache")
         }
         
-        cache[sceneId] = WeakValue(manager: manager)
+        cache[sceneId] = WeakValue(setter: setter)
     }
 }

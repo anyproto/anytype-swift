@@ -1184,7 +1184,7 @@
 		3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */; };
 		3D0D65922C788D69001F9781 /* SpaceHubDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D65912C788D69001F9781 /* SpaceHubDropDelegate.swift */; };
 		3D0D65942C789543001F9781 /* CustomSpaceOrderBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0D65932C789543001F9781 /* CustomSpaceOrderBuilderTests.swift */; };
-		3D0F74DC2C7DE66800F070EA /* HomeActiveSpaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F74DB2C7DE66800F070EA /* HomeActiveSpaceManager.swift */; };
+		3D0F74DC2C7DE66800F070EA /* ActiveSpaceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0F74DB2C7DE66800F070EA /* ActiveSpaceManager.swift */; };
 		3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */; };
 		3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D155277264D97A100B0E976 /* View+Snackbar.swift */; };
 		3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D16843526DE8BDF008B9DFF /* Application+FirstResponder.swift */; };
@@ -3062,7 +3062,7 @@
 		3D0BFB57263C3559007CC856 /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
 		3D0D65912C788D69001F9781 /* SpaceHubDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpaceHubDropDelegate.swift; sourceTree = "<group>"; };
 		3D0D65932C789543001F9781 /* CustomSpaceOrderBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomSpaceOrderBuilderTests.swift; path = AnyTypeTests/Services/CustomSpaceOrderBuilderTests.swift; sourceTree = SOURCE_ROOT; };
-		3D0F74DB2C7DE66800F070EA /* HomeActiveSpaceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeActiveSpaceManager.swift; sourceTree = "<group>"; };
+		3D0F74DB2C7DE66800F070EA /* ActiveSpaceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveSpaceManager.swift; sourceTree = "<group>"; };
 		3D15526F264D8DB800B0E976 /* SeedPhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeedPhraseView.swift; sourceTree = "<group>"; };
 		3D155277264D97A100B0E976 /* View+Snackbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Snackbar.swift"; sourceTree = "<group>"; };
 		3D16843526DE8BDF008B9DFF /* Application+FirstResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Application+FirstResponder.swift"; sourceTree = "<group>"; };
@@ -6622,7 +6622,6 @@
 			children = (
 				3D390AF92C7CC4D900C50F85 /* HomeCoordinatorView.swift */,
 				3D390AFA2C7CC4D900C50F85 /* HomeCoordinatorViewModel.swift */,
-				3D0F74DB2C7DE66800F070EA /* HomeActiveSpaceManager.swift */,
 				2A7B124C2B19CC4700E14578 /* Views */,
 				2AD1FCC02AB8466C00CEBE1E /* SetBottomPanelHidenEnvironment.swift */,
 				2A29873B2ACC087B009E8787 /* PageNavigation.swift */,
@@ -9379,6 +9378,7 @@
 		3D9348972C74A25700CD4DB8 /* SpaceHub */ = {
 			isa = PBXGroup;
 			children = (
+				3D0F74DB2C7DE66800F070EA /* ActiveSpaceManager.swift */,
 				3D9348982C74A26900CD4DB8 /* SpaceHubCoordinatorView.swift */,
 				3D390AF62C7C95E900C50F85 /* SpaceHubCoordinatorViewModel.swift */,
 			);
@@ -11970,7 +11970,7 @@
 				2A8302B72B0758BD002D6655 /* AnytypeNavigationCoordinator.swift in Sources */,
 				EAED581C26A730E500374A46 /* MarkStyleConverter.swift in Sources */,
 				2E2D256228880C8D00E3DFD1 /* SetFiltersSelectionHeaderConfiguration.swift in Sources */,
-				3D0F74DC2C7DE66800F070EA /* HomeActiveSpaceManager.swift in Sources */,
+				3D0F74DC2C7DE66800F070EA /* ActiveSpaceManager.swift in Sources */,
 				2A2C330028919576008BC326 /* RelationMetadataFormat+Extensions.swift in Sources */,
 				125B6EC426F235F400BCD7D6 /* MentionSection.swift in Sources */,
 				2ACB79842BA9C363003A2A56 /* ParticipantSpaceViewData.swift in Sources */,
