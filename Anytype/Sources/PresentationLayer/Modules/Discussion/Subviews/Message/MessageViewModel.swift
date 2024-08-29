@@ -47,33 +47,14 @@ final class MessageViewModel: ObservableObject {
         date = chatMessage.createdAtDate.formatted(date: .omitted, time: .shortened)
         isYourMessage = chatMessage.creator == yourProfileIdentity
         
-        // TODO: Temporary data. Will be deleted in future
-//        let reactionsCount = data.relativeIndex % 5
-//        reactions = [
-//            MessageReactionModel(emoji: "😍", count: 2, selected: false),
-//            MessageReactionModel(emoji: "😗", count: 50, selected: true),
-//            MessageReactionModel(emoji: "😎", count: 150, selected: false),
-//            MessageReactionModel(emoji: "🤓", count: 4, selected: true),
-//            MessageReactionModel(emoji: "👨‍🍳", count: 24, selected: false)
-//        ].suffix(reactionsCount)
-//        
-//        let linkedObjectsCount = data.relativeIndex % 3
-//        linkedObjects = [
-//            ObjectDetails(id: "1", values: [
-//                BundledRelationKey.name.rawValue: "Mock object 1",
-//                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
-//                BundledRelationKey.iconEmoji.rawValue: "🦜"
-//            ]),
-//            ObjectDetails(id: "2", values: [
-//                BundledRelationKey.name.rawValue: "Mock object 2",
-//                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
-//                BundledRelationKey.iconEmoji.rawValue: "🐓"
-//            ]),
-//            ObjectDetails(id: "3", values: [
-//                BundledRelationKey.name.rawValue: "Mock object 3",
-//                BundledRelationKey.layout.rawValue: DetailsLayout.basic.rawValue.protobufValue,
-//                BundledRelationKey.iconEmoji.rawValue: "🦋"
-//            ])
-//        ].suffix(linkedObjectsCount)
+        reactions = chatMessage.reactions.reactions.map { (key, value) in
+            MessageReactionModel(
+                emoji: key,
+                count: value.ids.count,
+                selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false
+            )
+        }.sorted { $0.count > $1.count }
+        
+        linkedObjects = chatMessage.attachments.map { ObjectDetails(id: $0.target) }
     }
 }

@@ -11,7 +11,7 @@ struct DiscussionView: View {
     var body: some View {
         DiscussionSpacingContainer {
             DiscussionScrollView(position: $model.scrollViewPosition) {
-                VStack(spacing: 12) {
+                LazyVStack(spacing: 12) {
                     ForEach(model.mesageBlocks, id: \.id) {
                         MessageView(data: $0, output: model)
                     }
