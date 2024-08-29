@@ -311,4 +311,12 @@ extension Container {
     var spaceSetupManager: Factory<any SpaceSetupManagerProtocol> {
         self { SpaceSetupManager() }.singleton
     }
+    
+    var chatMessageStorageProvider: Factory<any ChatMessagesStorageProviderProtocol> {
+        self { ChatMessagesStorageProvider() }.singleton
+    }
+    
+    var chatMessageStorage: ParameterFactory<String, any ChatMessagesStorageProtocol> {
+        self { Container.shared.chatMessageStorageProvider().chatStorage(chatObjectId: $0) }
+    }
 }

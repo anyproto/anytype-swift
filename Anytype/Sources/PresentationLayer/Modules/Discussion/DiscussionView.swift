@@ -4,14 +4,21 @@ struct DiscussionView: View {
     
     @StateObject private var model: DiscussionViewModel
     
-    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
-        self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, output: output))
+    init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
+        self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, chatId: chatId, output: output))
     }
     
     var body: some View {
         DiscussionSpacingContainer {
             DiscussionScrollView(position: $model.scrollViewPosition) {
                 LazyVStack(spacing: 12) {
+                    // TODO: Implement pagination
+                    Button {
+                        model.loadNextPage()
+                    } label: {
+                        Text("Load next page")
+                    }
+
                     ForEach(model.mesageBlocks, id: \.id) {
                         MessageView(data: $0, output: model)
                     }
@@ -22,8 +29,8 @@ struct DiscussionView: View {
                 inputPanel
             }
         }
-        .task {
-            await model.startHandleDetails()
+        .onAppear() {
+            model.loadNextPage()
         }
     }
     
@@ -45,5 +52,5 @@ struct DiscussionView: View {
 }
 
 #Preview {
-    DiscussionView(objectId: "", spaceId: "", output: nil)
+    DiscussionView(objectId: "", spaceId: "", chatId: "", output: nil)
 }

@@ -18,9 +18,11 @@ final class MessageViewModel: ObservableObject {
     @Published var reactions: [MessageReactionModel] = []
     @Published var linkedObjects: [ObjectDetails] = []
     
-    private var chatMessage: ChatMessage?
+    @Published var chatMessage: ChatMessage?
     private var authorParticipant: Participant?
     private let yourProfileIdentity: String?
+    
+    private lazy var chatMessageStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(data.chatId)
     
     init(data: MessageViewData, output: (any MessageModuleOutput)?) {
         self.data = data
@@ -29,15 +31,15 @@ final class MessageViewModel: ObservableObject {
     }
     
     func subscribeOnBlock() async {
-        // TODO: Handle update block
-        self.chatMessage = data.message
-        updateView()
+        for await _ in await chatMessageStorage.subscibeFor(update: [.message(id: data.messageId)]).values {
+            let message = await chatMessageStorage.getMessage(id: data.messageId)
+            self.chatMessage = message
+            updateView()
+        }
     }
     
-    func subscribeOnAuthor() async {
-        let publisher = participantSubscription.participantsPublisher.map { [weak self] in
-            $0.first { $0.identity == self?.chatMessage?.creator }
-        }.removeDuplicates()
+    func subscribeOnAuthor(creator: String) async {
+        let publisher = participantSubscription.participantsPublisher.map { $0.first { $0.identity == creator } }.removeDuplicates()
         for await participant in publisher.values {
             authorParticipant = participant
             updateView()
@@ -45,7 +47,7 @@ final class MessageViewModel: ObservableObject {
     }
     
     func onTapAddReaction() {
-        output?.didSelectAddReaction(messageId: data.message.id)
+        output?.didSelectAddReaction(messageId: data.messageId)
     }
     
     func onTapReaction(_ reaction: MessageReactionModel) {

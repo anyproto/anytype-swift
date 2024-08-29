@@ -5,15 +5,16 @@ import SwiftUI
 @MainActor
 final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
-    private let document: any BaseDocumentProtocol
     private let spaceId: String
+    private let objectId: String
+    private let chatId: String
     private weak var output: (any DiscussionModuleOutput)?
     
-    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
-    @Injected(\.chatService)
-    private var chatService: any ChatServiceProtocol
+    @Injected(\.chatMessageStorageProvider)
+    private var chatMessageStorageProvider: any ChatMessagesStorageProviderProtocol
+    private lazy var chatMessageStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
@@ -21,21 +22,11 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     @Published var message: AttributedString = ""
     @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
-    private var chatId: String?
-    
-    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
-        self.document = openDocumentProvider.document(objectId: objectId)
+    init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
         self.spaceId = spaceId
+        self.objectId = objectId
+        self.chatId = chatId
         self.output = output
-    }
-    
-    func startHandleDetails() async {
-        for await details in document.detailsPublisher.values {
-            if chatId != details.chatId {
-                chatId = details.chatId
-                try? await updateFullChatList()
-            }
-        }
     }
     
     func onTapAddObjectToMessage() {
@@ -51,27 +42,19 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         output?.onLinkObjectSelected(data: data)
     }
     
-    func onTapSendMessage() {
+    func loadNextPage() {
         Task {
-            guard let lastBlock = document.children.last else { return }
-            let text = BlockText(
-                text: String(message.characters),
-                marks: .empty,
-                color: nil,
-                contentType: .text,
-                checked: false,
-                iconEmoji: "",
-                iconImage: ""
-            )
-            let blockId = try await blockService.add(
-                contextId: document.objectId,
-                targetId: lastBlock.id,
-                info: BlockInformation.empty(content: .text(text)),
-                position: .bottom
-            )
-            message = AttributedString()
-            scrollViewPosition = .bottom(blockId)
+            let newMessages = try await chatMessageStorage.getNextTopPage()
+            let newMessagesData = newMessages.map { MessageViewData(spaceId: spaceId, objectId: objectId, chatId: chatId, messageId: $0.id) }
+            mesageBlocks = mesageBlocks + newMessagesData
+            if let last = newMessages.last {
+                scrollViewPosition = .bottom(last.id)
+            }
         }
+    }
+    
+    func onTapSendMessage() {
+        // TODO: Implement
     }
     
     func onTapRemoveLinkedObject(details: ObjectDetails) {
@@ -82,16 +65,5 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func didSelectAddReaction(messageId: String) {
         output?.didSelectAddReaction(messageId: messageId)
-    }
-    
-    private func updateFullChatList() async throws {
-        guard let chatId else { return }
-        let messages = try await chatService.getMessages(chatObjectId: chatId)
-        mesageBlocks = messages.map { MessageViewData(
-            spaceId: document.spaceId,
-            objectId: document.objectId,
-            message: $0,
-            relativeIndex: 0)
-        }
     }
 }

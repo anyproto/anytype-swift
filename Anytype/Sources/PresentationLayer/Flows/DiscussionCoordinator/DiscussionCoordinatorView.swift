@@ -9,13 +9,25 @@ struct DiscussionCoordinatorView: View {
     }
     
     var body: some View {
-        DiscussionView(objectId: model.objectId, spaceId: model.spaceId, output: model)
+        chatView
             .sheet(item: $model.objectToMessageSearchData) {
                 BlockObjectSearchView(data: $0)
             }
             .sheet(item: $model.showEmojiForMessageId) {
                 MessageReactionPickerView(messageId: $0.value)
             }
+            .task {
+                await model.startHandleDetails()
+            }
+    }
+    
+    @ViewBuilder
+    private var chatView: some View {
+        if let chatId = model.chatId {
+            DiscussionView(objectId: model.objectId, spaceId: model.spaceId, chatId: chatId, output: model)
+        } else {
+            AnytypeDivider()
+        }
     }
 }
 

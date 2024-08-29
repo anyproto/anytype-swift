@@ -35,8 +35,8 @@ private struct MessageInternalView: View {
         .task {
             await model.subscribeOnBlock()
         }
-        .task {
-            await model.subscribeOnAuthor()
+        .task(item: model.chatMessage?.creator) {
+            await model.subscribeOnAuthor(creator: $0)
         }
     }
     
