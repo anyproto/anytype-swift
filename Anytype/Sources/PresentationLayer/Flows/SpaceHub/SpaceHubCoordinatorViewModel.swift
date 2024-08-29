@@ -32,7 +32,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     // TODO: Change fallback space when product team will be ready
-    var fallBackSpaceId: String {
+    var fallbackSpaceId: String {
         spaceInfo?.accountSpaceId ?? accountManager.account.info.accountSpaceId
     }
     
@@ -214,7 +214,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            sharingSpaceId = fallBackSpaceId.identifiable
+            sharingSpaceId = fallbackSpaceId.identifiable
         case .spaceSelection:
             showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
@@ -259,7 +259,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 shouldDeleteEmptyObject: true,
                 shouldSelectType: false,
                 shouldSelectTemplate: true,
-                spaceId: fallBackSpaceId,
+                spaceId: fallbackSpaceId,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
@@ -272,7 +272,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
 
      private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
         Task {
-            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallBackSpaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallbackSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
             openObject(screenData: details.editorScreenData())
         }
