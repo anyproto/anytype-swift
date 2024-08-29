@@ -82,6 +82,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
+    @Injected(\.loginStateService)
+    private var loginStateService: any LoginStateServiceProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
     
@@ -109,6 +111,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     
     func setupInitialScreen() async {
         guard workspaceStorage.allWorkspaces.count == 1 else { return }
+        guard !loginStateService.isFirstLaunchAfterRegistration else { return }
         if let lastOpenedScreen = userDefaults.lastOpenedScreen {
             openObject(screenData: lastOpenedScreen)
         } else {
