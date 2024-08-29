@@ -12,6 +12,9 @@ struct SpaceHubView: View {
     
     var body: some View {
         content
+            .onAppear {
+                model.onAppear()
+            }
             .sheet(isPresented: $model.showSpaceCreate) {
                 SpaceCreateView(sceneId: model.sceneId, output: model)
             }

@@ -1132,4 +1132,8 @@ extension AnytypeAnalytics {
     func logRestoreFromHistory() {
         logEvent("RestoreFromHistory")
     }
+    
+    func logScreenVault() {
+        logEvent("ScreenVault")
+    }
 }
