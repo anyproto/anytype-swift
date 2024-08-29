@@ -23,7 +23,7 @@ struct SpaceHubCoordinatorView: View {
             
             .handleSpaceShareTip()
             .handleSharingTip()
-            .updateShortcuts(spaceId: model.spaceInfo?.accountSpaceId)
+            .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
             
             .sheet(item: $model.sharingSpaceId) {
