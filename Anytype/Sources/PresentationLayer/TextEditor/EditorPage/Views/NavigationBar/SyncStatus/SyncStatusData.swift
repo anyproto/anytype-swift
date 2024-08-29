@@ -20,7 +20,7 @@ struct SyncStatusData {
         }
         
         switch status {
-        case .error:
+        case .error, .networkNeedsUpdate:
             return .image(makeIcon(color: .System.red))
         case .syncing:
             return .animation(
