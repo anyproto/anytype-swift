@@ -2,9 +2,10 @@ import SwiftUI
 import DeepLinks
 import Services
 import Combine
+import AnytypeCore
+
 
 struct SpaceHubNavigationItem: Hashable { }
-
 
 @MainActor
 final class SpaceHubCoordinatorViewModel: ObservableObject {
@@ -28,6 +29,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     var spaceInfo: AccountInfo? {
         guard let currentSpaceId else { return nil }
         return workspacesStorage.workspaceInfo(spaceId: currentSpaceId)
+    }
+    
+    // TODO: Change fallback space when product team will be ready
+    var fallBackSpaceId: String {
+        spaceInfo?.accountSpaceId ?? accountManager.account.info.accountSpaceId
     }
     
     @Published var pathChanging: Bool = false
@@ -70,6 +76,12 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var workspacesStorage: any WorkspacesStorageProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.objectTypeProvider)
+    private var typeProvider: any ObjectTypeProviderProtocol
+    @Injected(\.objectActionsService)
+    private var objectActionsService: any ObjectActionsServiceProtocol
+    @Injected(\.defaultObjectCreationService)
+    private var defaultObjectService: any DefaultObjectCreationServiceProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
     
@@ -196,23 +208,13 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             try await handleDeepLink(deepLink: deepLink)
         }
     }
-    
-    private func createAndShowNewObject(
-            typeId: String,
-            route: AnalyticsEventsRouteKind
-        ) {
-            // TODO: Product decision
-        }
         
     private func handleDeepLink(deepLink: DeepLink) async throws {
         switch deepLink {
         case .createObjectFromWidget:
-            // TODO: Product decision
-            break
+            createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            // TODO: Product decision
-            // sharingSpaceId = ???
-            break
+            sharingSpaceId = fallBackSpaceId.identifiable
         case .spaceSelection:
             showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
@@ -232,6 +234,49 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Object creation
+    private func createAndShowNewObject(
+            typeId: String,
+            route: AnalyticsEventsRouteKind
+    ) {
+        do {
+            let type = try typeProvider.objectType(id: typeId)
+            createAndShowNewObject(type: type, route: route)
+        } catch {
+            anytypeAssertionFailure("No object provided typeId", info: ["typeId": typeId])
+            createAndShowDefaultObject(route: route)
+        }
+    }
+    
+    private func createAndShowNewObject(
+            type: ObjectType,
+            route: AnalyticsEventsRouteKind
+    ) {
+        Task {
+            let details = try await objectActionsService.createObject(
+                name: "",
+                typeUniqueKey: type.uniqueKey,
+                shouldDeleteEmptyObject: true,
+                shouldSelectType: false,
+                shouldSelectTemplate: true,
+                spaceId: fallBackSpaceId,
+                origin: .none,
+                templateId: type.defaultTemplateId
+            )
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
+            
+            openObject(screenData: details.editorScreenData())
+        }
+    }
+
+
+     private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
+        Task {
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallBackSpaceId)
+            AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
+            openObject(screenData: details.editorScreenData())
+        }
+    }
 }
 
 extension SpaceHubCoordinatorViewModel: HomeWidgetsModuleOutput {
