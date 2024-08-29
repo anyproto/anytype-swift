@@ -67,14 +67,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     @ViewBuilder
     private var navigation: some View {
         Button {
-            if homeMode {
-                model.onSpaceHubTap()
-            } else {
-                model.onTapBackward()
-            }
+            model.onTapBackward()
         } label: {
             Image(asset: .X32.Island.back)
-                .foregroundColor(.Navigation.buttonActive)
         }
         
         Image(asset: .X32.Island.vault)

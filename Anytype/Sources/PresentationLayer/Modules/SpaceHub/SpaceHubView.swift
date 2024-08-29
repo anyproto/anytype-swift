@@ -99,19 +99,7 @@ struct SpaceHubView: View {
         Button {
             model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
         } label: {
-            HStack(spacing: 16) {
-                IconView(icon: space.spaceView.objectIconImage)
-                    .frame(width: 64, height: 64)
-                VStack(alignment: .leading, spacing: 6) {
-                    AnytypeText(space.spaceView.name, style: .bodySemibold).lineLimit(1)
-                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular).lineLimit(1)
-                }
-                Spacer()
-            }
-            .padding(16)
-            .background(model.userDefaults.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
-            .cornerRadius(20, style: .continuous)
-            .padding(.horizontal, 8)
+            spaceCardLabel(space)
         }
         .onDrag {
             draggedSpace = space
@@ -126,6 +114,33 @@ struct SpaceHubView: View {
                 initialIndex: $draggedInitialIndex
             )
         )
+    }
+    
+    private func spaceCardLabel(_ space: ParticipantSpaceViewData) -> some View {
+        HStack(spacing: 16) {
+            IconView(icon: space.spaceView.objectIconImage)
+                .frame(width: 64, height: 64)
+            VStack(alignment: .leading, spacing: 6) {
+                AnytypeText(space.spaceView.name, style: .bodySemibold).lineLimit(1)
+                AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
+                    .lineLimit(1)
+                    .opacity(0.6)
+            }
+            Spacer()
+        }
+        .padding(16)
+        .background(
+            Group {
+                if let icon = space.spaceView.objectIconImage {
+                    IconView(icon: icon).scaledToFill().blur(radius: 32).opacity(0.3)
+                } else {
+                    model.userDefaults.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3)
+                }
+            }
+        )
+        .cornerRadius(20, style: .continuous)
+        .padding(.horizontal, 8)
+
     }
 }
 
