@@ -24,8 +24,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var showSpaceSettingsData: AccountInfo?
     @Published var toastBarData = ToastBarData.empty
     
-    @Published var spaceInfo: AccountInfo?
-    private var currentSpaceId: String? { spaceInfo?.accountSpaceId }
+    @Published var currentSpaceId: String?
+    var spaceInfo: AccountInfo? {
+        guard let currentSpaceId else { return nil }
+        return workspacesStorage.workspaceInfo(spaceId: currentSpaceId)
+    }
     
     @Published var pathChanging: Bool = false
     @Published var navigationPath = HomePath(initalPath: [SpaceHubNavigationItem()])
@@ -45,7 +48,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             }
         )
     }
-    private var paths = [String: HomePath]()
 
     var keyboardDismiss: (() -> ())?
     var dismissAllPresented: DismissAllPresented?
@@ -136,8 +138,6 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     private func push(data: EditorScreenData) async throws {
-        guard let currentSpaceId else { return } // TODO: Support push with no spaces
-        
         guard let objectId = data.objectId else {
             navigationPath.push(data)
             return
@@ -145,29 +145,25 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         
         let document = documentsProvider.document(objectId: objectId, mode: .preview)
         try await document.open()
-        guard let details = document.details else {
-            return
-        }
+        guard let details = document.details else { return }
         guard details.isSupportedForEdit else {
-            toastBarData = ToastBarData(text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none)
+            toastBarData = ToastBarData(
+                text: Loc.openTypeError(details.objectType.name), showSnackBar: true, messageType: .none
+            )
             return
         }
+        
         let spaceId = document.spaceId
         if currentSpaceId != spaceId {
-            // Check space Is deleted
+            // Check if space is deleted
             guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
-            
-            paths[currentSpaceId] = navigationPath
            
+            currentSpaceId = spaceId
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
             
-            var path = paths[spaceId] ?? HomePath(initalPath: [SpaceHubNavigationItem()])
-            if path.count == 0 {
-                path.push(spaceInfo)
+            if let spaceInfo {
+                navigationPath = HomePath(initalPath: [SpaceHubNavigationItem(), spaceInfo, data])
             }
-            
-            path.push(data)
-            navigationPath = path
         } else {
             navigationPath.push(data)
         }
@@ -176,36 +172,16 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func switchSpace(info: AccountInfo?) {
         Task {
             guard currentSpaceId != info?.accountSpaceId else { return }
+            currentSpaceId = info?.accountSpaceId
             
-            self.spaceInfo = info
+            await dismissAllPresented?()
             
             if let info {
                 let newPath = HomePath(initalPath: [SpaceHubNavigationItem(), info])
                 navigationPath = newPath
-            } else {   
+            } else {
                 navigationPath.popToRoot()
             }
-            
-            
-//            // Backup current
-//            if let currentSpaceId = currentSpaceId {
-//                paths[currentSpaceId] = editorPath
-//            }
-//            // Restore New
-//            var path = paths[info.accountSpaceId] ?? HomePath()
-//            if path.count == 0 {
-//                path.push(info)
-//            }
-            
-//            if currentSpaceId.isNotNil {
-//                await dismissAllPresented?()
-//            }
-            
-//            do {
-//                if let screen = try await getLastOpenedScreen(newInfo: info) {
-//                    path.push(screen)
-//                }
-//            }
         }
     }
     
@@ -243,13 +219,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
             showGalleryImport = GalleryInstallationData(type: type, source: source)
         case .invite(let cid, let key):
             spaceJoinData = SpaceJoinModuleData(cid: cid, key: key, sceneId: sceneId)
-        case .object(let objectId, let spaceId):
-            // TODO: Open space and show object
-            break
-//                let document = documentsProvider.document(objectId: objectId, mode: .preview)
-//                try await document.open()
-//                guard let editorData = document.details?.editorScreenData() else { return }
-//                try await push(data: editorData)
+        case .object(let objectId, _):
+            let document = documentsProvider.document(objectId: objectId, mode: .preview)
+            try await document.open()
+            guard let editorData = document.details?.editorScreenData() else { return }
+            try await push(data: editorData)
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
