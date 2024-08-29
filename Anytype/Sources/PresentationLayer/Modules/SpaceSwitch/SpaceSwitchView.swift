@@ -70,6 +70,9 @@ struct SpaceSwitchView: View {
         .onChange(of: model.dismiss) { _ in
             dismiss()
         }
+        .onAppear {
+            model.onAppear()
+        }
         .anytypeSheet(item: $model.spaceViewForDelete) { space in
             SpaceDeleteAlert(spaceId: space.targetSpaceId)
         }

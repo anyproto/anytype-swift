@@ -56,6 +56,10 @@ final class SpaceSwitchViewModel: ObservableObject {
         }
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenVault(type: "Menu")
+    }
+    
     func onAddSpaceTap() {
         output?.onCreateSpaceSelected()
     }

@@ -33,7 +33,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     }
     
     func onAppear() {
-        AnytypeAnalytics.instance().logScreenVault()
+        AnytypeAnalytics.instance().logScreenVault(type: "General")
     }
     
     func onSpaceTap(spaceId: String) {
