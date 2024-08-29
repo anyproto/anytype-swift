@@ -19,7 +19,6 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     
     @Injected(\.userDefaultsStorage)
     var userDefaults: any UserDefaultsStorageProtocol
-    
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.spaceSetupManager)
@@ -52,20 +51,8 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
             .sink { [weak self] spaces in
                 guard let self else { return }
                 
-                let initialIteration = self.spaces.isNil
                 self.spaces = spaces
-                
-                if initialIteration { openScreenFromLastSessionIfNeeded() }
             }
             .store(in: &subscriptions)
-    }
-    
-    private func openScreenFromLastSessionIfNeeded() {
-        guard let spaces else { return }
-        
-        if spaces.count == 1 {
-            // TODO
-        }
-    }
-    
+    }    
 }
