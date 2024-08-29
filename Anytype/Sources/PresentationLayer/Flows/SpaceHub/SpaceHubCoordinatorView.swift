@@ -101,6 +101,7 @@ struct SpaceHubCoordinatorView: View {
                 }
             )
         }
+        .animation(.easeInOut, value: model.spaceInfo)
         .environment(\.pageNavigation, model.pageNavigation)
     }
 }
