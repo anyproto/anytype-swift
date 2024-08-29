@@ -25,7 +25,7 @@
     <key>Devices connected</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@device@ connected</string>
+      <string>%#@device@ подключен</string>
       <key>device</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -55,7 +55,7 @@
         <key>one</key>
         <string>%d объект</string>
         <key>few</key>
-        <string>%d объектов</string>
+        <string>%d объекта</string>
         <key>many</key>
         <string>%d объектов</string>
         <key>other</key>
@@ -75,7 +75,7 @@
         <key>one</key>
         <string>%d объект</string>
         <key>few</key>
-        <string>%d объектов</string>
+        <string>%d объекта</string>
         <key>many</key>
         <string>%d объектов</string>
         <key>other</key>
@@ -145,7 +145,7 @@
     <key>Days to deletion vault</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>This vault will be deleted %#@days@</string>
+      <string>Это хранилище будет удалено через %#@days@ дней</string>
       <key>days</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -153,13 +153,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>tomorrow</string>
+        <string>завтра</string>
         <key>few</key>
-        <string>in %d days</string>
+        <string>через %d дня</string>
         <key>many</key>
-        <string>in %d days</string>
+        <string>через %d дней</string>
         <key>other</key>
-        <string>in %d days</string>
+        <string>через %d дней</string>
       </dict>
     </dict>
     <key>Widgets.Actions.BinConfirm</key>
@@ -175,7 +175,7 @@
         <key>one</key>
         <string>Один объект удален</string>
         <key>few</key>
-        <string>%d objects deleted</string>
+        <string>Удалено %d объекта</string>
         <key>many</key>
         <string>Удалено %d объектов </string>
         <key>other</key>
@@ -233,13 +233,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>You’ve reached the limit of %d space that can be shared</string>
+        <string>Вы достигли лимита в %d пространство, которым можно поделиться</string>
         <key>few</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Вы достигли лимита в %d пространства, которыми можно поделиться</string>
         <key>many</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Вы достигли лимита в %d пространств, которыми можно поделиться</string>
         <key>other</key>
-        <string>You’ve reached the limit of %d spaces that can be shared</string>
+        <string>Вы достигли лимита в %d пространств, которыми можно поделиться</string>
       </dict>
     </dict>
     <key>Sharing.URL.NewObject</key>
@@ -313,13 +313,13 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>other</key>
-        <string>%d members</string>
+        <string>%d участников</string>
         <key>one</key>
-        <string>%d member</string>
+        <string>%d участник</string>
         <key>few</key>
-        <string>%d members</string>
+        <string>%d участника</string>
         <key>many</key>
-        <string>%d members</string>
+        <string>%d участников</string>
       </dict>
     </dict>
     <key>SpaceShare.RequestsCount</key>
@@ -393,19 +393,19 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>d</string>
         <key>one</key>
-        <string>year</string>
+        <string>год</string>
         <key>few</key>
-        <string>%d years</string>
+        <string>%d года</string>
         <key>many</key>
-        <string>%d years</string>
+        <string>%d лет</string>
         <key>other</key>
-        <string>%d years</string>
+        <string>%d лет</string>
       </dict>
     </dict>
     <key>Per Day</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>per %#@day@</string>
+      <string>За %#@day@</string>
       <key>day</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -415,7 +415,7 @@
         <key>one</key>
         <string>день</string>
         <key>few</key>
-        <string>%d дней</string>
+        <string>%d дня</string>
         <key>many</key>
         <string>%d дней</string>
         <key>other</key>
