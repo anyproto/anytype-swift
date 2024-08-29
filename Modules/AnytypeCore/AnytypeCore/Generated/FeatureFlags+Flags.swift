@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var scrollToBlockFromSearch: Bool {
-        value(for: .scrollToBlockFromSearch)
-    }
-
     static var galleryWidget: Bool {
         value(for: .galleryWidget)
     }
@@ -36,10 +32,6 @@ public extension FeatureFlags {
 
     static var updateAlert: Bool {
         value(for: .updateAlert)
-    }
-
-    static var addFilesToGlobalSearch: Bool {
-        value(for: .addFilesToGlobalSearch)
     }
 
     static var discussions: Bool {
@@ -108,11 +100,9 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .scrollToBlockFromSearch,
         .galleryWidget,
         .widgetCreateWithoutType,
         .updateAlert,
-        .addFilesToGlobalSearch,
         .discussions,
         .versionHistory,
         .rainbowViews,
