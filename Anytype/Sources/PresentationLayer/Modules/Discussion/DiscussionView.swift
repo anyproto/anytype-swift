@@ -11,14 +11,7 @@ struct DiscussionView: View {
     var body: some View {
         DiscussionSpacingContainer {
             DiscussionScrollView(position: $model.scrollViewPosition) {
-                LazyVStack(spacing: 12) {
-                    // TODO: Implement pagination
-                    Button {
-                        model.loadNextPage()
-                    } label: {
-                        Text("Load next page")
-                    }
-
+                VStack(spacing: 12) {
                     ForEach(model.mesageBlocks, id: \.id) {
                         MessageView(data: $0, output: model)
                     }
@@ -29,8 +22,11 @@ struct DiscussionView: View {
                 inputPanel
             }
         }
-        .onAppear() {
-            model.loadNextPage()
+        .task {
+            await model.subscribeOnParticipants()
+        }
+        .throwingTask {
+            try await model.loadMessages()
         }
     }
     

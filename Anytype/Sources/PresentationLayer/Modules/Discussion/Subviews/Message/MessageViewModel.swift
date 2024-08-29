@@ -19,35 +19,17 @@ final class MessageViewModel: ObservableObject {
     @Published var linkedObjects: [ObjectDetails] = []
     
     @Published var chatMessage: ChatMessage?
-    private var authorParticipant: Participant?
     private let yourProfileIdentity: String?
-    
-    private lazy var chatMessageStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(data.chatId)
     
     init(data: MessageViewData, output: (any MessageModuleOutput)?) {
         self.data = data
         self.output = output
         self.yourProfileIdentity = accountParticipantsStorage.participants.first?.identity
-    }
-    
-    func subscribeOnBlock() async {
-        for await _ in await chatMessageStorage.subscibeFor(update: [.message(id: data.messageId)]).values {
-            let message = await chatMessageStorage.getMessage(id: data.messageId)
-            self.chatMessage = message
-            updateView()
-        }
-    }
-    
-    func subscribeOnAuthor(creator: String) async {
-        let publisher = participantSubscription.participantsPublisher.map { $0.first { $0.identity == creator } }.removeDuplicates()
-        for await participant in publisher.values {
-            authorParticipant = participant
-            updateView()
-        }
+        updateView()
     }
     
     func onTapAddReaction() {
-        output?.didSelectAddReaction(messageId: data.messageId)
+        output?.didSelectAddReaction(messageId: data.message.id)
     }
     
     func onTapReaction(_ reaction: MessageReactionModel) {
@@ -55,7 +37,9 @@ final class MessageViewModel: ObservableObject {
     }
     
     private func updateView() {
-        guard let chatMessage else { return }
+//        guard let chatMessage else { return }
+        let chatMessage = data.message
+        let authorParticipant = data.participant
         
         message = chatMessage.message.text
         author = authorParticipant?.title ?? ""

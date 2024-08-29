@@ -32,12 +32,6 @@ private struct MessageInternalView: View {
             trailingView
         }
         .padding(.horizontal, 8)
-        .task {
-            await model.subscribeOnBlock()
-        }
-        .task(item: model.chatMessage?.creator) {
-            await model.subscribeOnAuthor(creator: $0)
-        }
     }
     
     private var messageBackgorundColor: Color {

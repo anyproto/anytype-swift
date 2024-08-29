@@ -23,12 +23,12 @@ public struct Participant: Identifiable, Equatable, Sendable {
         self.globalName = details.globalName
         self.icon = details.objectIcon
         guard let status = details.participantStatusValue else {
-            anytypeAssertionFailure("Participant status error", info: ["value": details.participantStatus?.description ?? "nil"])
+//            anytypeAssertionFailure("Participant status error", info: ["value": details.participantStatus?.description ?? "nil"])
             throw CommonError.undefined
         }
         self.status = status
         guard let permission = details.participantPermissionsValue else {
-            anytypeAssertionFailure("Participant permission error", info: ["value": details.participantPermissions?.description ?? "nil"])
+//            anytypeAssertionFailure("Participant permission error", info: ["value": details.participantPermissions?.description ?? "nil"])
             throw CommonError.undefined
         }
         self.permission = permission

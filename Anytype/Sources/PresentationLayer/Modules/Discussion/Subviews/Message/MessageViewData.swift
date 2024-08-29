@@ -5,9 +5,10 @@ struct MessageViewData: Identifiable, Equatable {
     let spaceId: String
     let objectId: String
     let chatId: String
-    let messageId: String
+    let message: ChatMessage
+    let participant: Participant?
     
     var id: String {
-        messageId
+        message.id
     }
 }
