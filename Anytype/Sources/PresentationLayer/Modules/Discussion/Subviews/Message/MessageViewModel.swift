@@ -37,7 +37,6 @@ final class MessageViewModel: ObservableObject {
     }
     
     private func updateView() {
-//        guard let chatMessage else { return }
         let chatMessage = data.message
         let authorParticipant = data.participant
         

@@ -19,7 +19,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
-//    @Published var participants: [Participant] = []
     @Published var message: AttributedString = ""
     @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
