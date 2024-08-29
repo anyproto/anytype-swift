@@ -30,12 +30,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let scrollToBlockFromSearch = FeatureDescription(
-        title: "Scroll to block from Global search - IOS-2845",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: true
-    )
-    
     static let galleryWidget = FeatureDescription(
         title: "Gallery Widget - IOS-2964",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
@@ -51,12 +45,6 @@ public extension FeatureDescription {
     static let updateAlert = FeatureDescription(
         title: "Update Alert - IOS-3054",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
-    static let addFilesToGlobalSearch = FeatureDescription(
-        title: "Add files to global search - IOS-3081",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "6"),
         defaultValue: true
     )
     
