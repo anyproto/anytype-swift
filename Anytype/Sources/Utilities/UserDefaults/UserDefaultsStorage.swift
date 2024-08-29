@@ -13,9 +13,7 @@ protocol UserDefaultsStorageProtocol {
     var rowsPerPageInSet: Int { get set }
     var rowsPerPageInGroupedSet: Int { get set }
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
-    
-    func saveLastOpenedScreen(spaceId: String, screen: EditorScreenData?)
-    func getLastOpenedScreen(spaceId: String) -> EditorScreenData?
+    var lastOpenedScreen: EditorScreenData? { get set }
     
     func saveSpacesOrder(accountId: String, spaces: [String])
     func getSpacesOrder(accountId: String) -> [String]
@@ -53,6 +51,10 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
     var rowsPerPageInGroupedSet: Int
     
+    @UserDefault("UserData.LastOpenedScreen", defaultValue: nil)
+    var lastOpenedScreen: EditorScreenData?
+    
+    
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
     private var _userInterfaceStyleRawValue: Int
@@ -64,18 +66,6 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
 
             AnytypeAnalytics.instance().logSelectTheme(userInterfaceStyle)
         }
-    }
-    
-    // MARK: - Last opened screens
-    @UserDefault("UserData.LastOpenedScreens", defaultValue: [:])
-    private var lastOpenedScreens: [String: EditorScreenData]
-    
-    func saveLastOpenedScreen(spaceId: String, screen: EditorScreenData?) {
-        lastOpenedScreens[spaceId] = screen
-    }
-    
-    func getLastOpenedScreen(spaceId: String) -> EditorScreenData? {
-        lastOpenedScreens[spaceId]
     }
     
     // MARK: - Wallpaper
@@ -117,7 +107,7 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     func cleanStateAfterLogout() {
         usersId = ""
         showUnstableMiddlewareError = true
-        lastOpenedScreens = [:]
+        lastOpenedScreen = nil
     }
     
 }

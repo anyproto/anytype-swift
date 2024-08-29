@@ -28,11 +28,11 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Published var currentSpaceId: String?
     var spaceInfo: AccountInfo? {
         guard let currentSpaceId else { return nil }
-        return workspacesStorage.workspaceInfo(spaceId: currentSpaceId)
+        return workspaceStorage.workspaceInfo(spaceId: currentSpaceId)
     }
     
     // TODO: Change fallback space when product team will be ready
-    var fallBackSpaceId: String {
+    var fallbackSpaceId: String {
         spaceInfo?.accountSpaceId ?? accountManager.account.info.accountSpaceId
     }
     
@@ -73,7 +73,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     @Injected(\.documentsProvider)
     private var documentsProvider: any DocumentsProviderProtocol
     @Injected(\.workspaceStorage)
-    private var workspacesStorage: any WorkspacesStorageProtocol
+    private var workspaceStorage: any WorkspacesStorageProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.objectTypeProvider)
@@ -82,6 +82,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private var objectActionsService: any ObjectActionsServiceProtocol
     @Injected(\.defaultObjectCreationService)
     private var defaultObjectService: any DefaultObjectCreationServiceProtocol
+    @Injected(\.loginStateService)
+    private var loginStateService: any LoginStateServiceProtocol
     
     private var membershipStatusSubscription: AnyCancellable?
     
@@ -94,6 +96,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func onPathChange() {
+        userDefaults.lastOpenedScreen = navigationPath.lastPathElement as? EditorScreenData
+        
         if navigationPath.count == 1 {
             Task { try await activeSpaceManager.setActiveSpace(spaceId: nil) }
         }
@@ -102,6 +106,17 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     // MARK: - Setup
     func setup() async {
         await spaceSetupManager.registerSpaceSetter(sceneId: sceneId, setter: activeSpaceManager)
+        await setupInitialScreen()
+    }
+    
+    func setupInitialScreen() async {
+        guard workspaceStorage.allWorkspaces.count == 1 else { return }
+        guard !loginStateService.isFirstLaunchAfterRegistration else { return }
+        if let lastOpenedScreen = userDefaults.lastOpenedScreen {
+            openObject(screenData: lastOpenedScreen)
+        } else {
+            try? await activeSpaceManager.setActiveSpace(spaceId: fallbackSpaceId)
+        }
     }
     
     func startHandleAppActions() async {
@@ -168,7 +183,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         let spaceId = document.spaceId
         if currentSpaceId != spaceId {
             // Check if space is deleted
-            guard workspacesStorage.spaceView(spaceId: spaceId).isNotNil else { return }
+            guard workspaceStorage.spaceView(spaceId: spaceId).isNotNil else { return }
            
             currentSpaceId = spaceId
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
@@ -214,7 +229,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .createObjectFromWidget:
             createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            sharingSpaceId = fallBackSpaceId.identifiable
+            sharingSpaceId = fallbackSpaceId.identifiable
         case .spaceSelection:
             showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
@@ -259,7 +274,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
                 shouldDeleteEmptyObject: true,
                 shouldSelectType: false,
                 shouldSelectTemplate: true,
-                spaceId: fallBackSpaceId,
+                spaceId: fallbackSpaceId,
                 origin: .none,
                 templateId: type.defaultTemplateId
             )
@@ -272,7 +287,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
 
      private func createAndShowDefaultObject(route: AnalyticsEventsRouteKind) {
         Task {
-            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallBackSpaceId)
+            let details = try await defaultObjectService.createDefaultObject(name: "", shouldDeleteEmptyObject: true, spaceId: fallbackSpaceId)
             AnytypeAnalytics.instance().logCreateObject(objectType: details.analyticsType, spaceId: details.spaceId, route: route)
             openObject(screenData: details.editorScreenData())
         }

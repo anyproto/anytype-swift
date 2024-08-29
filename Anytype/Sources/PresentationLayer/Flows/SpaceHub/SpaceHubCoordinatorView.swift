@@ -17,13 +17,13 @@ struct SpaceHubCoordinatorView: View {
             }
             .onChange(of: model.navigationPath) { _ in model.onPathChange() }
         
-            .task { await model.setup() }
             .task { await model.startHandleAppActions() }
             .task { await model.startHandleWorkspaceInfo() }
+            .task { await model.setup() }
             
             .handleSpaceShareTip()
             .handleSharingTip()
-            .updateShortcuts(spaceId: model.spaceInfo?.accountSpaceId)
+            .updateShortcuts(spaceId: model.fallbackSpaceId)
             .snackbar(toastBarData: $model.toastBarData)
             
             .sheet(item: $model.sharingSpaceId) {
