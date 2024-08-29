@@ -212,12 +212,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     private func handleDeepLink(deepLink: DeepLink) async throws {
         switch deepLink {
         case .createObjectFromWidget:
-            // TODO: Product decision
-            break
+            createAndShowDefaultObject(route: .widget)
         case .showSharingExtension:
-            // TODO: Product decision
-            // sharingSpaceId = ???
-            break
+            sharingSpaceId = fallBackSpaceId.identifiable
         case .spaceSelection:
             showSpaceSwitchData = SpaceSwitchModuleData(activeSpaceId: spaceInfo?.accountSpaceId, sceneId: sceneId)
         case let .galleryImport(type, source):
