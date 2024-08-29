@@ -24,14 +24,7 @@ final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
     var rowsPerPageInSet: Int { get { fatalError() } set { fatalError() } }
     var rowsPerPageInGroupedSet: Int { get { fatalError() } set { fatalError() } }
     var userInterfaceStyle: UIUserInterfaceStyle { get { fatalError() } set { fatalError() } }
-    
-    func saveLastOpenedScreen(spaceId: String, screen: Anytype.EditorScreenData?) {
-        fatalError()
-    }
-    
-    func getLastOpenedScreen(spaceId: String) -> Anytype.EditorScreenData? {
-        fatalError()
-    }
+    var lastOpenedScreen: EditorScreenData? { get { fatalError() } set { fatalError() } }
     
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<Anytype.BackgroundType, Never> {
         fatalError()
