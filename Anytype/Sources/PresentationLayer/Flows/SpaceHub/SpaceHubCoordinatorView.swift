@@ -62,9 +62,6 @@ struct SpaceHubCoordinatorView: View {
             .sheet(item: $model.showCreateWidgetData) {
                 CreateWidgetCoordinatorView(data: $0)
             }
-            .sheet(item: $model.showSpaceSwitchData) {
-                SpaceSwitchCoordinatorView(data: $0)
-            }
             .sheet(item: $model.showSpaceSettingsData) {
                 SpaceSettingsCoordinatorView(workspaceInfo: $0)
             }

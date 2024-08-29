@@ -32,6 +32,10 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
         Task { startSubscriptions() }
     }
     
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenVault(type: "General")
+    }
+    
     func onSpaceTap(spaceId: String) {
         Task {
             try await spaceSetupManager.setActiveSpace(sceneId: sceneId, spaceId: spaceId)
