@@ -1186,6 +1186,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Veri yedekleme devre dışı";
 "SyncStatus.Info.AnytypeNetwork" = "Uçtan uca şifrelenmiş";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Senkronizasyon yavaş olabilir. Uygulamayı güncelleyin.";
 "SyncStatus.Error.storageLimitExceed" = "Depolama sınırına ulaşıldı";
 "SyncStatus.Error.incompatibleVersion" = "Uyumsuz sürüm";
 "SyncStatus.Error.networkError" = "Alana erişim yok";
