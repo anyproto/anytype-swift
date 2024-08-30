@@ -38,7 +38,7 @@ final class AuthService: AuthServiceProtocol {
     func createAccount(name: String, imagePath: String) async throws -> AccountData {
         let start = CFAbsoluteTimeGetCurrent()
         
-        await loginStateService.setupStateBeboreLoginOrAuth()
+        await loginStateService.setupStateBeforeLoginOrAuth()
         
         let account = try await authMiddleService.createAccount(
             name: name,
@@ -75,7 +75,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     func selectAccount(id: String) async throws -> AccountData {
-        await loginStateService.setupStateBeboreLoginOrAuth()
+        await loginStateService.setupStateBeforeLoginOrAuth()
         
         let account = try await authMiddleService.selectAccount(
             id: id,
