@@ -53,7 +53,7 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
         
         let info = try await workspaceService.workspaceOpen(spaceId: spaceId)
         workspaceStorage.addWorkspaceInfo(spaceId: spaceId, info: info)
-        AnytypeAnalytics.instance().logSwitchSpace()
+        logSwitchSpace(spaceId: spaceId)
         
         workspaceInfoSubject.send(info)
         activeSpaceId = spaceId
@@ -77,6 +77,20 @@ final class ActiveSpaceManager: ActiveSpaceManagerProtocol {
         guard let activeSpaceId, spaceIds.contains(activeSpaceId) else {
             try? await setActiveSpace(spaceId: nil)
             return
+        }
+    }
+    
+    private var latestNonNilSpaceId: String?
+    private func logSwitchSpace(spaceId: String?) {
+        guard spaceId.isNotNil else { return }
+        guard latestNonNilSpaceId.isNotNil else {
+            latestNonNilSpaceId = spaceId
+            return
+        }
+        
+        if latestNonNilSpaceId != spaceId {
+            latestNonNilSpaceId = spaceId
+            AnytypeAnalytics.instance().logSwitchSpace()
         }
     }
 }
