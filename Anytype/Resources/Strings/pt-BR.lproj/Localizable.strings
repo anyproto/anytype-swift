@@ -1185,6 +1185,7 @@ Please provide specific details of your needs here.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Data backup is disabled";
 "SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
 "SyncStatus.Error.incompatibleVersion" = "Versão incompatível";
 "SyncStatus.Error.networkError" = "No access to the space";
