@@ -49,7 +49,9 @@ extension SyncStatusInfo {
             error.localizedDescription
         case .offline:
             Loc.noConnection
-        case .UNRECOGNIZED, .networkNeedsUpdate:
+        case .networkNeedsUpdate:
+            Loc.SyncStatus.Info.networkNeedsUpdate
+        case .UNRECOGNIZED:
             Loc.connecting
         }
     }
@@ -64,7 +66,9 @@ extension SyncStatusInfo {
             error.localizedDescription
         case .offline:
             Loc.noConnection
-        case .UNRECOGNIZED, .networkNeedsUpdate:
+        case .networkNeedsUpdate:
+            Loc.SyncStatus.Info.networkNeedsUpdate
+        case .UNRECOGNIZED:
             Loc.connecting
         }
     }
@@ -97,6 +101,15 @@ extension SyncStatusInfo: NetworkIconProvider {
         }
     }
     
+    var haveTapIndicatior: Bool {
+        switch status {
+        case .networkNeedsUpdate:
+            true
+        case .synced, .syncing, .error, .offline, .UNRECOGNIZED:
+            false
+        }
+    }
+    
     private var networkIconColorBasedOnStatus: NetworkIconBackground {
         switch status {
         case .synced:
@@ -105,7 +118,9 @@ extension SyncStatusInfo: NetworkIconProvider {
             .animation(start: .Light.green, end: .Light.green.opacity(0.5))
         case .error:
             .static(.Light.red)
-        case .offline, .UNRECOGNIZED, .networkNeedsUpdate:
+        case .networkNeedsUpdate:
+            .static(.Light.yellow)
+        case .offline, .UNRECOGNIZED:
             .static(.Shape.secondary)
         }
     }
@@ -122,7 +137,12 @@ extension SyncStatusInfo: NetworkIconProvider {
                 icon:ImageAsset.SyncStatus.syncAnytypenetworkError,
                 color: .System.red
             )
-        case .offline, .UNRECOGNIZED, .networkNeedsUpdate:
+        case .networkNeedsUpdate:
+            NetworkIconData(
+                icon:ImageAsset.SyncStatus.syncOffline,
+                color: .Dark.yellow
+            )
+        case .offline, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncOffline,
                 color: .Button.active
@@ -142,7 +162,12 @@ extension SyncStatusInfo: NetworkIconProvider {
                 icon: ImageAsset.SyncStatus.syncSelfhost,
                 color: .System.red
             )
-        case .offline, .UNRECOGNIZED, .networkNeedsUpdate:
+        case .networkNeedsUpdate:
+            NetworkIconData(
+                icon: ImageAsset.SyncStatus.syncSelfhost,
+                color: .Dark.yellow
+            )
+        case .offline, .UNRECOGNIZED:
             NetworkIconData(
                 icon: ImageAsset.SyncStatus.syncSelfhost,
                 color: .Button.active

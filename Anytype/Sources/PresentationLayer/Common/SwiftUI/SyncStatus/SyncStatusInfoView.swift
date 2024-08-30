@@ -21,21 +21,29 @@ struct SyncStatusInfoView: View {
     }
     
     var networkInfo: some View {
-        HStack(alignment: .center, spacing: 12) {
-            NetworkIconView(iconProvider: $model.syncStatusInfo)
-            VStack(alignment: .leading, spacing: 0) {
-                AnytypeText(model.syncStatusInfo.networkTitle, style: .uxTitle2Regular)
-                    .lineLimit(1)
-                if model.syncStatusInfo.networkSubtitle.isNotEmpty {
-                    AnytypeText(model.syncStatusInfo.networkSubtitle, style: .relation3Regular)
-                        .foregroundColor(.Text.secondary)
+        Button {
+            model.onNetworkInfoTap()
+        } label: {
+            HStack(alignment: .center, spacing: 12) {
+                NetworkIconView(iconProvider: $model.syncStatusInfo)
+                VStack(alignment: .leading, spacing: 0) {
+                    AnytypeText(model.syncStatusInfo.networkTitle, style: .uxTitle2Regular)
                         .lineLimit(1)
+                    if model.syncStatusInfo.networkSubtitle.isNotEmpty {
+                        AnytypeText(model.syncStatusInfo.networkSubtitle, style: .relation3Regular)
+                            .foregroundColor(.Text.secondary)
+                            .lineLimit(1)
+                    }
+                }
+                Spacer()
+                if model.syncStatusInfo.haveTapIndicatior {
+                    Image(asset: .X18.webLink).foregroundColor(.Text.tertiary)
                 }
             }
-            Spacer()
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 12)
+        .disabled(!model.syncStatusInfo.haveTapIndicatior)
     }
     
     var p2pInfo: some View {
@@ -55,12 +63,12 @@ struct SyncStatusInfoView: View {
                 }
                 Spacer()
                 if model.p2pStatusInfo.haveTapIndicatior {
-                    Image(asset: .arrowForward).foregroundColor(.Text.tertiary)
+                    Image(asset: .X18.webLink).foregroundColor(.Text.tertiary)
                 }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 12)
-        }.disabled(!model.haveP2PAction)
+        }.disabled(!model.p2pStatusInfo.haveTapIndicatior)
     }
 }
 
