@@ -1185,6 +1185,7 @@
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Рэзервовае капіраванне даных адключана";
 "SyncStatus.Info.AnytypeNetwork" = "Зашыфравана скразным метадам";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "Дасягнута мяжа захоўвання даных";
 "SyncStatus.Error.incompatibleVersion" = "Несумяшчальная версія";
 "SyncStatus.Error.networkError" = "Няма доступу да прасторы";
