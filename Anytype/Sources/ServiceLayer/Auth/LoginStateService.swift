@@ -8,7 +8,7 @@ protocol LoginStateServiceProtocol: AnyObject {
     func setupStateAfterAuth()
     func setupStateAfterRegistration(account: AccountData) async
     func cleanStateAfterLogout() async
-    func setupStateBeboreLoginOrAuth() async
+    func setupStateBeforeLoginOrAuth() async
 }
 
 final class LoginStateService: LoginStateServiceProtocol {
@@ -67,7 +67,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         await stopSubscriptions()
     }
     
-    func setupStateBeboreLoginOrAuth() async {
+    func setupStateBeforeLoginOrAuth() async {
         await syncStatusStorage.startSubscription()
         await p2pStatusStorage.startSubscription()
     }
