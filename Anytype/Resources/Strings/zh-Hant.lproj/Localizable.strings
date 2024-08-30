@@ -1188,6 +1188,7 @@
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "資料備份被禁用";
 "SyncStatus.Info.AnytypeNetwork" = "已端到端加密";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "達到儲存限制";
 "SyncStatus.Error.incompatibleVersion" = "不相容的版本";
 "SyncStatus.Error.networkError" = "無法進入這個空間";

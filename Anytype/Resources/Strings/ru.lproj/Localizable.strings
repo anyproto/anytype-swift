@@ -291,7 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "История версий";
-"VersionHistory.Toast.message" = "Version %@ was restored";
+"VersionHistory.Toast.message" = "Версия %@ восстановлена";
 
 "Search" = "Поиск";
 "There is no emoji named" = "Нет эмодзи с таким именем";
@@ -574,7 +574,7 @@
 "Select all" = "Выбрать все";
 "Unselect all" = "Отменить выбор";
 "Deselect all" = "Снять выделение";
-"Deselect" = "Deselect";
+"Deselect" = "Снять выделение";
 "Shared" = "Общие";
 "Sets" = "Наборы";
 "Collections" = "Коллекции";
@@ -620,11 +620,11 @@
 "Initializing sync" = "Инициализация синхронизации";
 "Incompatible version" = "Несовместимая версия";
 "Connecting" = "Соединение...";
-"P2P Connecting" = "P2P Connecting...";
-"P2P Connection" = "P2P Connection";
-"Anytype Network" = "Anytype Network";
-"Self Host" = "Self Host";
-"Local Only" = "Local Only";
+"P2P Connecting" = "Соединение P2P...";
+"P2P Connection" = "Соединение P2P";
+"Anytype Network" = "Сеть Anytype";
+"Self Host" = "Свой сервер";
+"Local Only" = "Локально";
 "Synced" = "Синхронизировано";
 "No connection" = "Нет соединения";
 "Deleted" = "Удалено";
@@ -687,7 +687,7 @@
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";
-"DeletionAlert.description" = "You will be logged out on all other devices. You'll have 30 days to recover your vault. Afterwards, it will be deleted permanently.";
+"DeletionAlert.description" = "Произойдет выход из вашего аккаунта на всех устройствах. У вас будет 30 дней, чтобы ваше хранилище. После этого оно будет удалено навсегда.";
 
 // MARK: - DataviewType
 "DataviewType.grid" = "Сетка";
@@ -799,30 +799,30 @@
 "Widgets.Actions.ChangeWidgetType" = "Изменить тип виджета";
 "Widgets.Actions.RemoveWidget" = "Удалить виджет";
 "Widgets.Actions.EditWidgets" = "Редактировать виджеты";
-"Widgets.Actions.AddWidget" = "Add Widget";
+"Widgets.Actions.AddWidget" = "Добавить виджет";
 "Widgets.Actions.EmptyBin" = "Очистить корзину";
 "Widgets.Actions.AddBelow" = "Добавить ниже";
 "Widgets.Actions.NewObject" = "Новый объект";
-"Widgets.Actions.SeeAllObjects" = "See all objects";
+"Widgets.Actions.SeeAllObjects" = "Показать все объекты";
 "Widgets.Layout.Screen.Title" = "Тип виджета";
 "Widgets.Layout.Link.Title" = "Ссылка";
 "Widgets.Layout.Tree.Title" = "Дерево";
 "Widgets.Layout.List.Title" = "Список";
 "Widgets.Layout.CompactList.Title" = "Компактный список";
 "Widgets.Layout.View.Title" = "Вид";
-"Widgets.Layout.Link.Description" = "Compact widget view";
-"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
-"Widgets.Layout.List.Description" = "Widget with a list view";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
-"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Layout.Link.Description" = "Компактный режим виджета";
+"Widgets.Layout.Tree.Description" = "Виджет с иерархической структурой";
+"Widgets.Layout.List.Description" = "Виджет в виде списка";
+"Widgets.Layout.View.Description" = "Виджет с макетом наборов или коллекций";
+"Widgets.Layout.CompactList.Description" = "Виджет в виде компактного списка";
+"Widgets.Empty.Title" = "Нет объектов";
+"Widgets.Empty.CreateObject" = "Создать объект";
 "Widgets.Library.RecentlyEdited.Name" = "Недавно обновлено";
 "Widgets.Library.RecentlyOpened.Name" = "Недавно открытые";
 "Widgets.Library.RecentlyOpened.Description" = "На этом устройстве";
-"Widgets.AppUpdate" = "Anytype is ready to update";
-"Widgets.Source.Library" = "Default sets";
-"Widgets.Source.Objects" = "Your objects";
+"Widgets.AppUpdate" = "Anytype готов к обновлению";
+"Widgets.Source.Library" = "Стандартные наборы";
+"Widgets.Source.Objects" = "Ваши объекты";
 
 // MARK: - About
 "About.AppVersion" = "Версия приложения: %@";
@@ -842,7 +842,7 @@
 "About.TermsOfUse" = "Условия использования";
 "About.PrivacyPolicy" = "Политика конфиденциальности";
 "About.TechInfo" = "Техническая информация";
-"About.Mail.Subject" = "Support request, Vault ID %@";
+"About.Mail.Subject" = "Запрос на поддержку, ID хранилища %@";
 "About.Mail.Body" = "\n\nТехническая информация\n%@";
 
 // MARK: - Cache
@@ -852,8 +852,8 @@
 // MARK: - Settings
 "Settings.Title" = "Настройки";
 "Settings.SpaceName" = "Название пространства";
-"Settings.SpaceType" = "Space type";
-"Settings.VaultAndAccess" = "Vault and access";
+"Settings.SpaceType" = "Тип пространства";
+"Settings.VaultAndAccess" = "Хранилище и доступ";
 
 // MARK: - File Storage
 "FileStorage.Title" = "Файловое хранилище";
@@ -918,7 +918,7 @@
 "SpaceSettings.LeaveAlert.Toast" = "Вы покинули %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Подробнее";
 
 "SpaceShare.Title" = "Совместное использование";
 "SpaceShare.Members" = "Участники";
@@ -940,8 +940,8 @@
 "SpaceShare.DeleteSharingLink.Message" = "Новые участники не смогут присоединиться к этому пространству. Вы можете создать новую ссылку Anytype";
 "SpaceShare.Approve.Toast" = "Вы приняли запрос от %@";
 "SpaceShare.ViewRequest.Title" = "%@ запросил доступ к пространству \"%@\"";
-"SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
-"SpaceShare.ViewRequest.EditAccess" = "Add as editor";
+"SpaceShare.ViewRequest.ViewAccess" = "Добавить как наблюдателя";
+"SpaceShare.ViewRequest.EditAccess" = "Добавить как редактора";
 "SpaceShare.ViewRequest.Reject" = "Отклонить";
 "SpaceShare.RemoveMember.Title" = "Remove member";
 "SpaceShare.RemoveMember.Message" = "%@ будет удален из пространства.";
@@ -951,17 +951,17 @@
 "SpaceShare.Join.Button" = "Отправить запрос на вступление";
 "SpaceShare.Join.Info" = "Как только владелец сообщества одобрит ваш запрос, вы присоединитесь к разделу с определенными правами доступа.";
 "SpaceShare.Join.Message" = "Вас пригласили присоединиться к пространству **%@**, созданному **%@**. Отправьте запрос, чтобы владелец пространства смог принять вас.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
+"SpaceShare.Join.InviteNotFound" = "Эта ссылка, похоже, не работает";
 "SpaceShare.JoinConfirmation.Title" = "Запрос отправлен";
 "SpaceShare.JoinConfirmation.Message" = "Вы получите уведомление, когда владелец сообщества одобрит ваш запрос.";
 "SpaceShare.YouSuffix" = "%@ (вы)";
 "SpaceShare.ManageSpaces" = "Управление пространствами";
-"SpaceShare.AccessChanged" = "Access rights have been changed.";
+"SpaceShare.AccessChanged" = "Права доступа были изменены.";
 "SpaceShare.StopSharing.Action" = "Закрыть доступ";
 "SpaceShare.StopSharing.Title" = "Прекратить совместное использование пространства";
 "SpaceShare.StopSharing.Message" = "Участники больше не будут синхронизироваться с этим пространством, и ссылка на общий доступ будет отключена.";
 "SpaceShare.StopSharing.Toast" = "Пространство больше не доступно для совместного использования";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
+"SpaceShare.QR.Title" = "QR-код для присоединения к пространству";
 "SpaceShare.QR.Button" = "Показать QR-код";
 "SpaceShare.HowToShare.Title" = "Как поделиться пространством?";
 "SpaceShare.HowToShare.Step1" = "Пожалуйста, предоставьте ссылку человеку, с которым хотите сотрудничать.";
@@ -1019,19 +1019,19 @@
 "Swipe.Tip.Subtitle" = "Создавайте объекты внутри виджетов, перемещая их влево.";
 
 // MARK: - Space Share Tip
-"SpaceShare.Tip.Title" = "Collaborate on spaces";
-"SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
-"SpaceShare.Tip.Steps.2" = "Open Share section";
-"SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
+"SpaceShare.Tip.Title" = "Сотрудничайте в пространствах";
+"SpaceShare.Tip.Steps.1" = "Нажмите на виджет Пространства для доступа к настройкам";
+"SpaceShare.Tip.Steps.2" = "Откройте раздел «Доступ»";
+"SpaceShare.Tip.Steps.3" = "Создайте ссылку для приглашения и поделитесь ею";
 
 // MARK: - Initial
 
 "Initial.UnstableMiddle.Title" = "Внимание";
-"Initial.UnstableMiddle.Message" = "You launch app with a unstable middleware. Don't use your production vault. Your vault may be broken.";
+"Initial.UnstableMiddle.Message" = "Вы запускайте приложение с нестабильным промежуточным ПО. Не используйте основное хранилище, оно может быть повреждено.";
 "Initial.UnstableMiddle.Title" = "Внимание";
-"Initial.UnstableMiddle.Logout" = "Logout from current vault";
-"Initial.UnstableMiddle.Continue" = "Continue with current vault";
-"Initial.UnstableMiddle.WontUseProd" = "I won't be using my production vault";
+"Initial.UnstableMiddle.Logout" = "Выйти из текущего хранилища";
+"Initial.UnstableMiddle.Continue" = "Продолжить с текущим хранилищем";
+"Initial.UnstableMiddle.WontUseProd" = "Я не буду использовать мое рабочее хранилище.";
 
 // MARK: - Create tip
 "LongTapCreateTip.Title" = "Создать объекты определенного типа";
@@ -1043,7 +1043,7 @@
 "Error.AnytypeNeedsUpgrate.Confirm" = "Обновить";
 "Error.UnableToConnect" = "Пожалуйста, подключитесь к Интернету.";
 "Error.Common.Title" = "Ой!";
-"Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
+"Error.Common.Message" = "Проверьте подключение к Интернету и повторите попытку или [отправьте отчёт на форуме](http://community.anytype.io/report-bug).";
 "Error.Common.TryAgain" = "Попробуйте еще раз";
 
 // MARK: - Relative date formatter
@@ -1058,9 +1058,9 @@
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Только локально";
 "Server.LocalOnly.Alert.title" = "Вы уверены?";
-"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
-"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
+"Server.LocalOnly.Alert.message" = "Локальный режим является экспериментальной функцией и не обеспечивает защиту. Используйте его на свой страх и риск, так как возможна потеря данных.";
+"Server.LocalOnly.Alert.Action.agree" = "Да, я принимаю риски.";
+"Server.LocalOnly.Alert.Action.disagree" = "Нет, не использовать его.";
 
 // MARK: - Gallery
 "Gallery.Author" = "Создано @%@";
@@ -1075,11 +1075,11 @@
 "Just e-mail" = "Только e-mail";
 "E-mail" = "E-mail";
 "Learn more" = "Узнать больше";
-"per" = "per";
-"unlimited" = "Unlimited";
+"per" = "за";
+"unlimited" = "Неограниченно";
 
 
-"Upgrade" = "Upgrade";
+"Upgrade" = "Обновить";
 "What’s included" = "Что включено";
 "Submit" = "Отправить";
 "Resend" = "Отправить ещё раз";
@@ -1096,100 +1096,104 @@
 "Min X characters" = "Минимум %@ символов";
 "Pending" = "Ожидание...";
 "Manage payment" = "Управление платежами";
-"Change email" = "Change email";
-"Email successfully validated" = "Email successfully validated";
+"Change email" = "Изменить email";
+"Email successfully validated" = "Email успешно подтвержден";
 "Confirm" = "Подтвердить";
 
-"StoreKitServiceError.userCancelled" = "Purchase cancelled";
-"StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
+"StoreKitServiceError.userCancelled" = "Покупка отменена";
+"StoreKitServiceError.needUserAction" = "Платеж не удался, действия пользователя на стороне Apple, необходимые для оплаты.";
 
 "Membership.Ad.Title" = "Членство";
 "Membership.Ad.Subtitle" = "Присоединение к сети Anytype означает внесение вклада в её историю";
 
-"Membership.Legal.Details" = "Membership plan details";
+"Membership.Legal.Details" = "Детали планов членства";
 "Membership.Legal.Privacy" = "Политика конфиденциальности";
 "Membership.Legal.Terms" = "Условия и положения";
 "Membership.Legal.WouldYouLike" = "Вы хотели бы использовать Anytype для бизнеса, образования и т.д.?";
 "Membership.Legal.LetUsKnow" = "Пожалуйста, дайте нам знать об этом здесь.";
-"Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
-"Membership.Legal.RestorePurchases" = "Restore purchases";
+"Membership.Legal.AlreadyPurchasedTier" = "Уже приобретен уровень?";
+"Membership.Legal.RestorePurchases" = "Восстановить Покупки";
 
-"Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
-- Extra remote storage
-- More space editors
-- Additional shared spaces
-Specifically,
-Please provide specific details of your needs here.";
+"Membership.Email.Body" = "Здравствуйте, команда Anytype!
 
-"Membership.Upgrade.Title" = "Membership upgrade";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+Я хотел(а) бы продлить свое текущее членство (пожалуйста, выберите опцию):
+- Дополнительное удаленное хранилище
+- Больше редакторов пространства
+- Дополнительные общие пространства
 
-"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+Особенно хотелось бы,
+Пожалуйста, укажите подробности ваших потребностей здесь.";
+
+"Membership.Upgrade.Title" = "Улучшение членства";
+"Membership.Upgrade.Text" = "Обращайтесь к нам за дополнительным объемом памяти хранилища, редакторами пространства или общими пространствами. Команда Anytype предоставит детали и условия в соответствии с вашими потребностями.";
+"Membership.Upgrade.Button" = "Связаться с командой Anytype";
+
+"Membership.Upgrade.MoreSpaces" = "Обновите, чтобы добавить больше пространств";
+"Membership.Upgrade.MoreMembers" = "Обновите, чтобы добавить больше участников";
+"Membership.Upgrade.NoMoreMembers" = "Вы не можете добавить больше участников";
+"Membership.Upgrade.NoMoreEditors" = "Вы не можете добавить больше редакторов";
 
 
-"Membership.Banner.Title1" = "Build the Vision Together";
-"Membership.Banner.Subtitle1" = "As a valued member your voice matters! Engage in exclusive events, shape strategic choices, and influence our roadmap.";
-"Membership.Banner.Title2" = "Unlock Member Benefits";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Title1" = "Постройте видение вместе";
+"Membership.Banner.Subtitle1" = "Как ценному участнику, ваше мнение имеет значение! Участвуйте в эксклюзивных мероприятиях, определяйте стратегические решения и влияйте на наше развитие.";
+"Membership.Banner.Title2" = "Разблокируйте преимущества для участников";
+"Membership.Banner.Subtitle2" = "Участники получают более высокие лимиты на хранение и синхронизацию резервных копий, приглашения для нескольких гостей для совместной работы в общих пространствах и уникальную идентификацию в сети Anytype.";
 "Membership.Banner.Title3" = "Поддержка Цифровой Независимости";
 "Membership.Banner.Subtitle3" = "Ваш вклад поддерживает нашу независимую команду и одобряет нашу перспективу, ориентированной на пользователя и безопасной совместной цифровой среды.";
 "Membership.Banner.Title4" = "Инвестировать в Соединение";
-"Membership.Banner.Subtitle4" = "Our network's value exceeds the sum of its parts. Your membership sustains the infrastructure for its growth which underpins this network.";
+"Membership.Banner.Subtitle4" = "Ценность нашей сети превышает сумму её частей. Ваше членство поддерживает инфраструктуру для её роста, которая лежит в основе этой сети.";
 
-"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
-"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
+"Membership.EmailForm.Title" = "Получайте обновления и пользуйтесь бесплатными преимуществами!";
+"Membership.EmailForm.Subtitle" = "Он никак не связан с вашим аккаунтом.";
 "Membership.EmailValidation" = "Введите код, отправленный на вашу электронную почту";
 
 "Membership.NameForm.Title" = "Выберите ваше уникальное имя";
-"Membership.NameForm.Subtitle" = "This is your unique name on the Anytype network, confirming your Membership. It acts as your personal domain and cannot be changed.";
+"Membership.NameForm.Subtitle" = "Это ваше уникальное имя в сети Anytype, подтверждающее ваше членство. Оно служит вашим личным доменом и не может быть изменено.";
 "Membership.NameForm.Validating" = "Подождите секундочку...";
 "Membership.NameForm.Validated" = "Это имя свободно";
 
 "Membership.Success.Title" = "Добро пожаловать в сеть, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Curiosity" = "Большое спасибо за Ваше любопытство!";
+"Membership.Success.Support" = "Большое спасибо за вашу поддержку!";
 
 "Membership.Payment.Card" = "Карточка";
 "Membership.Payment.Crypto" = "Криптовалюта";
-"Membership.Payment.Apple subscription" = "Apple subscription";
-"Membership.Payment.Google subscription" = "Google subscription";
+"Membership.Payment.Apple subscription" = "Подписка Apple";
+"Membership.Payment.Google subscription" = "Подписка Google";
 
 
-"Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
-"Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
-"Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
+"Membership.Explorer.Subtitle" = "Синхронизируйте свои устройства, получайте резервные копии и участвуйте в сотрудничестве.";
+"Membership.Builder.Subtitle" = "Разблокируйте многостороннее сотрудничество и расширение сетевого хранилища.";
+"Membership.CoCreator.Subtitle" = "Поддержите наше приключение и получите эксклюзивный доступ и привилегии.";
+"Membership.Custom.Subtitle" = "Особые условия Членства. Если у вас есть вопросы, пожалуйста, свяжитесь со службой поддержки.";
 
-"Membership.Feature.LocalName" = "Local, non-unique name";
-"Membership.Feature.UniqueName" = "Unique Network name (%@+ characters)";
-"Membership.Feature.StorageGB" = "%@ GB of backup & sync space on the Anytype network";
-"Membership.Feature.Invites" = "%@ Invitations";
-"Membership.Feature.SpaceWriters" = "%@ Editors per shared space";
-"Membership.Feature.UnlimitedViewers" = "Unlimited Viewers for shared spaces";
-"Membership.Feature.Viewers" = "%@ Viewers for shared spaces";
-"Membership.Feature.SharedSpaces" = "Up to %@ Shared spaces";
+"Membership.Feature.LocalName" = "Локальное, неуникальное имя";
+"Membership.Feature.UniqueName" = "Уникальное имя сети (%@+ символов)";
+"Membership.Feature.StorageGB" = "%@ ГБ резервного копирования и синхронизации в сети Anytype";
+"Membership.Feature.Invites" = "%@ приглашений";
+"Membership.Feature.SpaceWriters" = "%@ Редакторов на общее пространство";
+"Membership.Feature.UnlimitedViewers" = "Неограниченное количество Наблюдателей для общих сообществ";
+"Membership.Feature.Viewers" = "%@ Наблюдателей для общих сообществ";
+"Membership.Feature.SharedSpaces" = "До %@ общих пространств";
 
-"MembershipServiceError.tierNotFound" = "Not found tier data, restart app and try again";
-"MembershipServiceError.invalidBillingIdFormat" = "Internal problem with billing format, we are working on this. Try again later or contact support.";
+"MembershipServiceError.tierNotFound" = "Данные об уровне членства не найдены, перезапустите приложение и повторите попытку";
+"MembershipServiceError.invalidBillingIdFormat" = "Внутренняя проблема с форматом биллинга, мы работаем над этим. Попробуйте позже или обратитесь в службу поддержки.";
 
 
-"Membership.ManageTier.Desktop" = "You can manage tier on Desktop platform";
-"Membership.ManageTier.Android" = "You can manage tier on Android platform";
-"Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
+"Membership.ManageTier.Desktop" = "Вы можете управлять уровнями членства на платформе Desktop";
+"Membership.ManageTier.Android" = "Вы можете управлять уровнем членства на платформе Android";
+"Membership.ManageTier.AppleId" = "Вы можете управлять уровнем членства на другой учетной записи AppleId";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "Резервная копия данных отключена";
+"SyncStatus.Info.AnytypeNetwork" = "Сквозное шифрование";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Синхронизация может быть медленной. Обновите приложение.";
+"SyncStatus.Error.storageLimitExceed" = "Достигнут предел хранилища.";
 "SyncStatus.Error.incompatibleVersion" = "Несовместимая версия";
-"SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
-"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.Error.networkError" = "Нет доступа к пространству";
+"SyncStatus.Error.UNRECOGNIZED" = "Не опознанная ошибка.";
+"SyncStatus.P2P.Restricted" = "Есть ограничения. Проверьте настройки устройства.";
+"SyncStatus.P2P.NotConnected" = "Соединение невозможно";
 
 
 // MARK: - Debug
@@ -1197,5 +1201,5 @@ Please provide specific details of your needs here.";
 "Debug.Info" = "Отладочная информация";
 
 // MARK: - Messages
-"Message.Action.AddReaction" = "Add Reaction";
-"Message.Input.EmptyPlaceholder" = "Write a message...";
+"Message.Action.AddReaction" = "Добавить реакцию";
+"Message.Input.EmptyPlaceholder" = "Написать сообщение...";

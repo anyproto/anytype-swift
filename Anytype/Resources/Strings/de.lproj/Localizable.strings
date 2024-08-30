@@ -1186,6 +1186,7 @@ Please provide specific details of your needs here.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Datensicherung ist deaktiviert";
 "SyncStatus.Info.AnytypeNetwork" = "Ende-zu-Ende-verschlüsselt";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "Speicherplatzgrenze erreicht";
 "SyncStatus.Error.incompatibleVersion" = "Inkompatible Version";
 "SyncStatus.Error.networkError" = "No access to the space";

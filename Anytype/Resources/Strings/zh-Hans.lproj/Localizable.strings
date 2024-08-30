@@ -292,7 +292,7 @@
 
 // Version history
 "VersionHistory.Title" = "版本历史";
-"VersionHistory.Toast.message" = "Version %@ was restored";
+"VersionHistory.Toast.message" = "版本 %@ 已恢复";
 
 "Search" = "搜索";
 "There is no emoji named" = "没有 emoji 表情符号的命名";
@@ -575,7 +575,7 @@
 "Select all" = "全选";
 "Unselect all" = "取消全选";
 "Deselect all" = "取消全选";
-"Deselect" = "Deselect";
+"Deselect" = "取消选择";
 "Shared" = "共享";
 "Sets" = "集合";
 "Collections" = "集锦";
@@ -1060,9 +1060,9 @@
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "仅本地";
 "Server.LocalOnly.Alert.title" = "是否确定?";
-"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
-"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
+"Server.LocalOnly.Alert.message" = "仅本地模式是实验性功能，并不提供安全保障。请自行承担使用风险，可能会导致数据丢失。";
+"Server.LocalOnly.Alert.Action.agree" = "是的，我接受风险";
+"Server.LocalOnly.Alert.Action.disagree" = "我将保持谨慎";
 
 // MARK: - Gallery
 "Gallery.Author" = "作者：@%@";
@@ -1186,12 +1186,13 @@
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "数据备份已禁用";
 "SyncStatus.Info.AnytypeNetwork" = "端到端加密";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "已达到储存限制";
 "SyncStatus.Error.incompatibleVersion" = "不兼容版本";
 "SyncStatus.Error.networkError" = "没有访问空间的权限";
 "SyncStatus.Error.UNRECOGNIZED" = "未知的错误";
-"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.P2P.Restricted" = "受限制。点击打开设备设置。";
+"SyncStatus.P2P.NotConnected" = "连接不可用";
 
 
 // MARK: - Debug
