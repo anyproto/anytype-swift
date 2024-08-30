@@ -2,7 +2,7 @@ import SwiftUI
 
 struct WallpaperColorsGridView: View {
     
-    let onCoverSelect: (ObjectBackgroundType) -> ()
+    let onCoverSelect: (SpaceWallpaperType) -> ()
     
     private let columns: [GridItem] = {
         if UIDevice.isPad {

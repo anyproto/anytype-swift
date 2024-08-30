@@ -6,7 +6,7 @@ final class WallpaperPickerViewModel: ObservableObject {
     private let spaceId: String
     private let userDefaults: any UserDefaultsStorageProtocol
     
-    @Published var wallpaper: ObjectBackgroundType {
+    @Published var wallpaper: SpaceWallpaperType {
         didSet {
             userDefaults.setWallpaper(spaceId: spaceId, wallpaper: wallpaper)
         }
