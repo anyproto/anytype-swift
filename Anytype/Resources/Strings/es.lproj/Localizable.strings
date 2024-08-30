@@ -1184,6 +1184,7 @@ En concreto,
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "El respaldo de datos está deshabilitado.";
 "SyncStatus.Info.AnytypeNetwork" = "Cifrado de extremo a extremo";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "Límite de almacenamiento alcanzado";
 "SyncStatus.Error.incompatibleVersion" = "Versión incompatible";
 "SyncStatus.Error.networkError" = "Sin acceso al espacio";
