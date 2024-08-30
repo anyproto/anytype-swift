@@ -4,8 +4,8 @@ struct DiscussionView: View {
     
     @StateObject private var model: DiscussionViewModel
     
-    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
-        self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, output: output))
+    init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
+        self._model = StateObject(wrappedValue: DiscussionViewModel(objectId: objectId, spaceId: spaceId, chatId: chatId, output: output))
     }
     
     var body: some View {
@@ -23,7 +23,10 @@ struct DiscussionView: View {
             }
         }
         .task {
-            await model.startHandleDetails()
+            await model.subscribeOnParticipants()
+        }
+        .throwingTask {
+            try await model.loadMessages()
         }
     }
     
@@ -45,5 +48,5 @@ struct DiscussionView: View {
 }
 
 #Preview {
-    DiscussionView(objectId: "", spaceId: "", output: nil)
+    DiscussionView(objectId: "", spaceId: "", chatId: "", output: nil)
 }

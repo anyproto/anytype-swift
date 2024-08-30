@@ -1,12 +1,12 @@
 import Foundation
 import Services
 
-struct MessageViewData: Identifiable {
+struct MessageViewData: Identifiable, Equatable {
     let spaceId: String
     let objectId: String
+    let chatId: String
     let message: ChatMessage
-    // TODO: Temporary
-    let relativeIndex: Int
+    let participant: Participant?
     
     var id: String {
         message.id

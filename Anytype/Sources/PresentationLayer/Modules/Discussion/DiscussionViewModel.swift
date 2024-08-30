@@ -5,37 +5,31 @@ import SwiftUI
 @MainActor
 final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
-    private let document: any BaseDocumentProtocol
     private let spaceId: String
+    private let objectId: String
+    private let chatId: String
     private weak var output: (any DiscussionModuleOutput)?
     
-    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
     @Injected(\.blockService)
     private var blockService: any BlockServiceProtocol
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
     
+    private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
+    
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
-    @Published var participants: [Participant] = []
     @Published var message: AttributedString = ""
     @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
-    private var chatId: String?
+    private var messages: [ChatMessage] = []
+    private var participants: [Participant] = []
     
-    init(objectId: String, spaceId: String, output: (any DiscussionModuleOutput)?) {
-        self.document = openDocumentProvider.document(objectId: objectId)
+    init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
         self.spaceId = spaceId
+        self.objectId = objectId
+        self.chatId = chatId
         self.output = output
-    }
-    
-    func startHandleDetails() async {
-        for await details in document.detailsPublisher.values {
-            if chatId != details.chatId {
-                chatId = details.chatId
-                try? await updateFullChatList()
-            }
-        }
     }
     
     func onTapAddObjectToMessage() {
@@ -51,27 +45,20 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         output?.onLinkObjectSelected(data: data)
     }
     
-    func onTapSendMessage() {
-        Task {
-            guard let lastBlock = document.children.last else { return }
-            let text = BlockText(
-                text: String(message.characters),
-                marks: .empty,
-                color: nil,
-                contentType: .text,
-                checked: false,
-                iconEmoji: "",
-                iconImage: ""
-            )
-            let blockId = try await blockService.add(
-                contextId: document.objectId,
-                targetId: lastBlock.id,
-                info: BlockInformation.empty(content: .text(text)),
-                position: .bottom
-            )
-            message = AttributedString()
-            scrollViewPosition = .bottom(blockId)
+    func subscribeOnParticipants() async {
+        for await participants in participantSubscription.participantsPublisher.values {
+            self.participants = participants
+            updateMessages()
         }
+    }
+    
+    func loadMessages() async throws {
+        self.messages = try await chatService.getMessages(chatObjectId: chatId, beforeMessageId: nil, limit: nil)
+        updateMessages()
+    }
+    
+    func onTapSendMessage() {
+        // TODO: Implement
     }
     
     func onTapRemoveLinkedObject(details: ObjectDetails) {
@@ -84,14 +71,25 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         output?.didSelectAddReaction(messageId: messageId)
     }
     
-    private func updateFullChatList() async throws {
-        guard let chatId else { return }
-        let messages = try await chatService.getMessages(chatObjectId: chatId)
-        mesageBlocks = messages.map { MessageViewData(
-            spaceId: document.spaceId,
-            objectId: document.objectId,
-            message: $0,
-            relativeIndex: 0)
+    // MARK: - Private
+    
+    private func updateMessages() {
+        
+        let newMesageBlocks = messages.compactMap { message  in
+            MessageViewData(
+                spaceId: spaceId,
+                objectId: objectId,
+                chatId: chatId,
+                message: message,
+                participant: participants.first { $0.identity == message.creator }
+            )
+        }
+        
+        guard newMesageBlocks != mesageBlocks else { return }
+        mesageBlocks = newMesageBlocks
+        
+        if let last = messages.last, scrollViewPosition == .none {
+            scrollViewPosition = .bottom(last.id)
         }
     }
 }
