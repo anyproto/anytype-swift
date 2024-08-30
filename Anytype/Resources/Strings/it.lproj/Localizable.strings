@@ -1184,6 +1184,7 @@ Si prega di fornire dettagli specifici delle vostre esigenze qui.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Il backup dati è disabilitato";
 "SyncStatus.Info.AnytypeNetwork" = "Crittografia end-to-end";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "Limite di archiviazione raggiunto";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
 "SyncStatus.Error.networkError" = "Nessun accesso allo spazio";
