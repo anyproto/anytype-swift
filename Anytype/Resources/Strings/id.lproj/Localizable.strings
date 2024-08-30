@@ -1184,6 +1184,7 @@ Please provide specific details of your needs here.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Pencadangan data dimatikan";
 "SyncStatus.Info.AnytypeNetwork" = "Terenkripsi end-to-end";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "Batas penyimpanan tercapai";
 "SyncStatus.Error.incompatibleVersion" = "Incompatible version";
 "SyncStatus.Error.networkError" = "Tidak ada akses ke ruang";
