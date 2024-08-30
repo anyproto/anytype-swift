@@ -33,7 +33,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var widgetBlocks: [BlockWidgetInfo] = []
     @Published var homeState: HomeWidgetsState = .readonly
     @Published var dataLoaded: Bool = false
-    @Published var wallpaper: BackgroundType = .default
+    @Published var wallpaper: ObjectBackgroundType = .default
     
     var spaceId: String { info.accountSpaceId }
     

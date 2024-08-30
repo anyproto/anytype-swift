@@ -26,15 +26,15 @@ final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
     var userInterfaceStyle: UIUserInterfaceStyle { get { fatalError() } set { fatalError() } }
     var lastOpenedScreen: EditorScreenData? { get { fatalError() } set { fatalError() } }
     
-    func wallpaperPublisher(spaceId: String) -> AnyPublisher<Anytype.BackgroundType, Never> {
+    func wallpaperPublisher(spaceId: String) -> AnyPublisher<Anytype.ObjectBackgroundType, Never> {
         fatalError()
     }
     
-    func wallpaper(spaceId: String) -> Anytype.BackgroundType {
+    func wallpaper(spaceId: String) -> Anytype.ObjectBackgroundType {
         fatalError()
     }
     
-    func setWallpaper(spaceId: String, wallpaper: Anytype.BackgroundType) {
+    func setWallpaper(spaceId: String, wallpaper: Anytype.ObjectBackgroundType) {
         fatalError()
     }
     

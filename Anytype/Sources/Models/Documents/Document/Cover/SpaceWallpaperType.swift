@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum ObjectBackgroundType: Codable, Equatable {
+enum SpaceWallpaperType: Codable, Equatable {
     case gradient(CoverGradient)
     case color(CoverColor)
     
@@ -15,15 +15,15 @@ enum ObjectBackgroundType: Codable, Equatable {
         }
     }
     
-    static var allGradients: [ObjectBackgroundType] {
+    static var allGradients: [SpaceWallpaperType] {
         CoverGradient.allCases.map { .gradient($0) }
     }
     
-    static var allColors: [ObjectBackgroundType] {
+    static var allColors: [SpaceWallpaperType] {
         CoverColor.allCases.map { .color($0) }
     }
     
-    static var `default`: ObjectBackgroundType {
+    static var `default`: SpaceWallpaperType {
         .gradient(.sky)
     }
 }

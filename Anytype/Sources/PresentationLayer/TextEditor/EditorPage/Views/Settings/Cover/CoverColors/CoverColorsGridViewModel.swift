@@ -1,31 +1,31 @@
 import SwiftUI
 
 final class CoverColorsGridViewModel: GridItemViewModelProtocol {
-    typealias Item = BackgroundType
+    typealias Item = ObjectBackgroundType
     typealias Section = GridItemSection<Item>
 
     let searchAvailability: SearchAvailability = .unavailable
-    let onCoverSelect: (BackgroundType) -> ()
+    let onCoverSelect: (ObjectBackgroundType) -> ()
 
     lazy var sections: [Section] = backgroundSections()
 
-    init(onCoverSelect: @escaping (BackgroundType) -> ()) {
+    init(onCoverSelect: @escaping (ObjectBackgroundType) -> ()) {
         self.onCoverSelect = onCoverSelect
     }
 
-    func didSelectItem(item: BackgroundType) {
+    func didSelectItem(item: ObjectBackgroundType) {
         onCoverSelect(item)
     }    
 
     private func backgroundSections() -> [Section] {
         [
-            Section(title: Loc.gradients, items: BackgroundType.allGradients),
-            Section(title: Loc.solidColors, items: BackgroundType.allColors )
+            Section(title: Loc.gradients, items: ObjectBackgroundType.allGradients),
+            Section(title: Loc.solidColors, items: ObjectBackgroundType.allColors )
         ]
     }
 }
 
-extension BackgroundType: GridItemViewModel {
+extension ObjectBackgroundType: GridItemViewModel {
     var view: AnyView {
         switch self {
         case .color(let coverColor):

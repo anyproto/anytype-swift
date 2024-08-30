@@ -18,9 +18,9 @@ protocol UserDefaultsStorageProtocol {
     func saveSpacesOrder(accountId: String, spaces: [String])
     func getSpacesOrder(accountId: String) -> [String]
     
-    func wallpaperPublisher(spaceId: String) -> AnyPublisher<BackgroundType, Never>
-    func wallpaper(spaceId: String) -> BackgroundType
-    func setWallpaper(spaceId: String, wallpaper: BackgroundType)
+    func wallpaperPublisher(spaceId: String) -> AnyPublisher<ObjectBackgroundType, Never>
+    func wallpaper(spaceId: String) -> ObjectBackgroundType
+    func setWallpaper(spaceId: String, wallpaper: ObjectBackgroundType)
     
     func cleanStateAfterLogout()
 }
@@ -70,25 +70,25 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     
     // MARK: - Wallpaper
     @UserDefault("UserData.Wallpapers", defaultValue: [:])
-    private var _wallpapers: [String: BackgroundType] {
+    private var _wallpapers: [String: ObjectBackgroundType] {
         didSet { wallpapersSubject.send(_wallpapers) }
     }
     
-    private lazy var wallpapersSubject = CurrentValueSubject<[String: BackgroundType], Never>(_wallpapers)
-    func wallpaperPublisher(spaceId: String) -> AnyPublisher<BackgroundType, Never> {
+    private lazy var wallpapersSubject = CurrentValueSubject<[String: ObjectBackgroundType], Never>(_wallpapers)
+    func wallpaperPublisher(spaceId: String) -> AnyPublisher<ObjectBackgroundType, Never> {
         return wallpapersSubject
-            .compactMap { items -> BackgroundType in
+            .compactMap { items -> ObjectBackgroundType in
                 return items[spaceId] ?? .default
             }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
     
-    func wallpaper(spaceId: String) -> BackgroundType {
+    func wallpaper(spaceId: String) -> ObjectBackgroundType {
         return _wallpapers[spaceId] ?? .default
     }
     
-    func setWallpaper(spaceId: String, wallpaper: BackgroundType) {
+    func setWallpaper(spaceId: String, wallpaper: ObjectBackgroundType) {
         _wallpapers[spaceId] = wallpaper
     }
     

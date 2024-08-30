@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct DashboardWallpaper: View {
     
-    let wallpaper: BackgroundType
+    let wallpaper: ObjectBackgroundType
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
