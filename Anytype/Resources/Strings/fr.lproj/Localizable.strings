@@ -1184,7 +1184,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "La sauvegarde des données est désactivée";
 "SyncStatus.Info.AnytypeNetwork" = "Chiffrement de bout en bout";
-"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Info.NetworkNeedsUpdate" = "La synchronisation peut être lente. Mettez à jour l'application.";
 "SyncStatus.Error.storageLimitExceed" = "Limite de stockage atteinte";
 "SyncStatus.Error.incompatibleVersion" = "Version incompatible";
 "SyncStatus.Error.networkError" = "Pas d'accès à l'espace";
