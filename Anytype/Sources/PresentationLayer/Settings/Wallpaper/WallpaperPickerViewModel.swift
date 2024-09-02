@@ -13,7 +13,7 @@ final class WallpaperPickerViewModel: ObservableObject {
     
     private let userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.workspaceStorage)
-    private var spaceStorage: WorkspacesStorageProtocol
+    private var spaceStorage: any WorkspacesStorageProtocol
     
     private let spaceId: String    
     
