@@ -1,19 +1,9 @@
 import SwiftUI
 
 enum SpaceWallpaperType: Codable, Equatable {
+    case blurredIcon
     case gradient(CoverGradient)
     case color(CoverColor)
-    
-    var asView: some View {
-        Group {
-            switch self {
-            case .gradient(let coverGradient):
-                coverGradient.gradientColor.asLinearGradient()
-            case .color(let coverColor):
-                coverColor.color
-            }
-        }
-    }
     
     static var allGradients: [SpaceWallpaperType] {
         CoverGradient.allCases.map { .gradient($0) }
@@ -24,6 +14,6 @@ enum SpaceWallpaperType: Codable, Equatable {
     }
     
     static var `default`: SpaceWallpaperType {
-        .gradient(.sky)
+        .blurredIcon
     }
 }

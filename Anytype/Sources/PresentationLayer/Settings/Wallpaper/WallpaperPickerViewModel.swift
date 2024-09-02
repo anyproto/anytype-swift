@@ -2,15 +2,20 @@ import Foundation
 
 @MainActor
 final class WallpaperPickerViewModel: ObservableObject {
- 
-    private let spaceId: String
-    private let userDefaults: any UserDefaultsStorageProtocol
     
     @Published var wallpaper: SpaceWallpaperType {
         didSet {
             userDefaults.setWallpaper(spaceId: spaceId, wallpaper: wallpaper)
         }
     }
+    
+    var spaceIcon: Icon? { spaceStorage.spaceView(spaceId: spaceId)?.objectIconImage }
+    
+    private let userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.workspaceStorage)
+    private var spaceStorage: WorkspacesStorageProtocol
+    
+    private let spaceId: String    
     
     init(spaceId: String) {
         self.spaceId = spaceId

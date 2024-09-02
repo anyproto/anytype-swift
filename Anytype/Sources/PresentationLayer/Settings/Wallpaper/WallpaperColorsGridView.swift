@@ -1,7 +1,9 @@
 import SwiftUI
 
+
 struct WallpaperColorsGridView: View {
     
+    let spaceIcon: Icon?
     let onCoverSelect: (SpaceWallpaperType) -> ()
     
     private let columns: [GridItem] = {
@@ -19,6 +21,7 @@ struct WallpaperColorsGridView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 0, pinnedViews: []) {
+                blurredIconView
                 gradientsSection
                 colorsSection
             }
@@ -27,23 +30,19 @@ struct WallpaperColorsGridView: View {
     }
     
     private var colorsSection: some View {
-        Section(header: PickerSectionHeaderView(title: Loc.solidColors)) {
-            ForEach(CoverColor.allCases) { color in
-                colorView(color)
-            }
+        ForEach(CoverColor.allCases) { color in
+            colorView(color)
         }
     }
     
     private var gradientsSection: some View {
-        Section(header: PickerSectionHeaderView(title: Loc.gradients)) {
-            ForEach(CoverGradient.allCases) { gradient in
-                gradientView(gradient)
-            }
+        ForEach(CoverGradient.allCases) { gradient in
+            gradientView(gradient)
         }
     }
     
     private func colorView(_ color: CoverColor) -> some View {
-        Color(hex: color.data.hex)
+        DashboardWallpaper(wallpaper: .color(color), spaceIcon: spaceIcon)
             .сoverGridAppearance()
             .onTapGesture {
                 onCoverSelect(.color(color))
@@ -51,11 +50,35 @@ struct WallpaperColorsGridView: View {
     }
     
     private func gradientView(_ gradient: CoverGradient) -> some View {
-        gradient.data.asLinearGradient()
+        DashboardWallpaper(wallpaper: .gradient(gradient), spaceIcon: spaceIcon)
             .сoverGridAppearance()
             .onTapGesture {
                 onCoverSelect(.gradient(gradient))
             }
+    }
+    
+    private var blurredIconView: some View {
+        Group {
+            if let spaceIcon {
+                GeometryReader { geo in
+                    DashboardWallpaper(wallpaper: .blurredIcon, spaceIcon: spaceIcon)
+                        .frame(width: geo.size.width)
+                        .сoverGridAppearance()
+                        .onTapGesture {
+                            onCoverSelect(.blurredIcon)
+                        }
+                        .overlay(alignment: .center) {
+                            VStack(alignment: .center, spacing: 9) {
+                                Image(asset: .X24.privateSpace).frame(width: 24, height: 24)
+                                AnytypeText("Blurred\n icon", style: .caption2Regular)
+                                    .multilineTextAlignment(.center)
+                            }
+                        }
+                }
+            } else {
+                EmptyView()
+            }
+        }
     }
 }
 
@@ -63,6 +86,7 @@ private extension View {
     func сoverGridAppearance() -> some View {
         self
             .cornerRadius(4)
+            .clipped()
             .frame(height: 208)
             .padding(.top, 16)
     }
@@ -71,6 +95,10 @@ private extension View {
 
 struct WallpaperColorsGridView_Previews: PreviewProvider {
     static var previews: some View {
-        WallpaperColorsGridView(onCoverSelect: { _ in })
+        MockView {
+            WorkspacesStorageMock.shared.spaceView = SpaceView.mock(id: "1337")
+        } content: {
+            WallpaperColorsGridView(spaceIcon: .object(.space(.gradient(.random))), onCoverSelect: { _ in })
+        }
     }
 }
