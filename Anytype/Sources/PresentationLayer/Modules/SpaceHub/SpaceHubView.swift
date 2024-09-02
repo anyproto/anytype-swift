@@ -134,7 +134,7 @@ struct SpaceHubView: View {
         .padding(16)
         .background(
             DashboardWallpaper(
-                wallpaper: model.userDefaults.wallpaper(spaceId: space.spaceView.targetSpaceId),
+                wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
                 spaceIcon: space.spaceView.iconImage
             )
         )

@@ -19,6 +19,7 @@ protocol UserDefaultsStorageProtocol {
     func getSpacesOrder(accountId: String) -> [String]
     
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
+    func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
     func wallpaper(spaceId: String) -> SpaceWallpaperType
     func setWallpaper(spaceId: String, wallpaper: SpaceWallpaperType)
     
@@ -75,6 +76,10 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     }
     
     private lazy var wallpapersSubject = CurrentValueSubject<[String: SpaceWallpaperType], Never>(_wallpapers)
+    func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never> {
+        wallpapersSubject.eraseToAnyPublisher()
+    }
+    
     func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never> {
         return wallpapersSubject
             .compactMap { items -> SpaceWallpaperType in

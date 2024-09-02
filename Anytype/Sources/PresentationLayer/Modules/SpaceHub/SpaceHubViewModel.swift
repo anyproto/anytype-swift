@@ -6,6 +6,7 @@ import Combine
 @MainActor
 final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     @Published var spaces: [ParticipantSpaceViewData]?
+    @Published var wallpapers: [String: SpaceWallpaperType] = [:]
     
     @Published var showSpaceCreate = false
     @Published var showSettings = false
@@ -18,7 +19,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
     }
     
     @Injected(\.userDefaultsStorage)
-    var userDefaults: any UserDefaultsStorageProtocol
+    private var userDefaults: any UserDefaultsStorageProtocol
     @Injected(\.participantSpacesStorage)
     private var participantSpacesStorage: any ParticipantSpacesStorageProtocol
     @Injected(\.spaceSetupManager)
@@ -58,5 +59,7 @@ final class SpaceHubViewModel: ObservableObject, SpaceCreateModuleOutput {
                 self.spaces = spaces
             }
             .store(in: &subscriptions)
-    }    
+        
+        userDefaults.wallpapersPublisher().receiveOnMain().assign(to: &$wallpapers)
+    }
 }
