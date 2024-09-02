@@ -4,27 +4,30 @@ import AnytypeCore
 struct DashboardWallpaper: View {
     
     let wallpaper: SpaceWallpaperType
+    let spaceIcon: Icon?
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-        ZStack {
-            switch wallpaper {
-            case .color(let color):
-                Color(hex: color.data.hex)
-            case .gradient(let gradient):
-                gradient.data.asLinearGradient()
+            ZStack() {
+                switch wallpaper {
+                case .blurredIcon:
+                    IconView(icon: spaceIcon)
+                        .scaledToFill()
+                        .blur(radius: 32)
+                        .clipped()
+                        .opacity(colorScheme == .dark ? 0.5 : 0.3)
+                case .color(let color):
+                    Color(hex: color.data.hex).opacity(0.3)
+                case .gradient(let gradient):
+                    gradient.data.asLinearGradient().opacity(0.3)
+                }
             }
-            
-            if colorScheme == .dark {
-                Color.black.opacity(0.5)
-            }
-        }
-        .ignoresSafeArea()
+            .ignoresSafeArea()
     }
 }
 
 struct DashboardWallpaper_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardWallpaper(wallpaper: .default)
+        DashboardWallpaper(wallpaper: .default, spaceIcon: .object(.space(.gradient(.random))))
     }
 }

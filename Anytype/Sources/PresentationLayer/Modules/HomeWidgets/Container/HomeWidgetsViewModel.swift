@@ -36,6 +36,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     @Published var wallpaper: SpaceWallpaperType = .default
     
     var spaceId: String { info.accountSpaceId }
+    var space: SpaceView? { workspaceStorage.spaceView(spaceId: spaceId) }
     
     init(
         info: AccountInfo,
@@ -69,7 +70,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     
     func onAppear() {
         if #available(iOS 17.0, *) {
-            if workspaceStorage.spaceView(spaceId: info.accountSpaceId)?.spaceAccessType == .private {
+            if space?.spaceAccessType == .private {
                 SpaceShareTip.didOpenPrivateSpace = true
             }
         }

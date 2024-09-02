@@ -133,13 +133,10 @@ struct SpaceHubView: View {
         }
         .padding(16)
         .background(
-            Group {
-                if let icon = space.spaceView.objectIconImage {
-                    IconView(icon: icon).scaledToFill().blur(radius: 32).opacity(0.3)
-                } else {
-                    model.userDefaults.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3)
-                }
-            }
+            DashboardWallpaper(
+                wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
+                spaceIcon: space.spaceView.iconImage
+            )
         )
         .cornerRadius(20, style: .continuous)
         .padding(.horizontal, 8)

@@ -23,7 +23,12 @@ private struct HomeWidgetsInternalView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            DashboardWallpaper(wallpaper: model.wallpaper)
+            GeometryReader { geo in
+                DashboardWallpaper(wallpaper: model.wallpaper, spaceIcon: model.space?.iconImage)
+                    .frame(width: geo.size.width)
+                    .clipped()
+                    .ignoresSafeArea()
+            }
             VerticalScrollViewWithOverlayHeader {
                 HomeTopShadow()
             } content: {
