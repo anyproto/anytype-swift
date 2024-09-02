@@ -1,5 +1,6 @@
 import Services
 import SwiftUI
+import OrderedCollections
 
 @MainActor
 protocol VersionHistoryModuleOutput: AnyObject {
@@ -15,7 +16,7 @@ final class VersionHistoryViewModel: ObservableObject {
     
     private let objectId: String
     private let spaceId: String
-    private var rawVersions = [VersionHistory]()
+    private var rawVersions = OrderedSet<VersionHistory>()
     private var participantsDict = [String: Participant]()
     private weak var output: (any VersionHistoryModuleOutput)?
     
@@ -77,17 +78,17 @@ final class VersionHistoryViewModel: ObservableObject {
     }
     
     private func updateView() {
-        guard rawVersions.isNotEmpty, !participantsDict.keys.isEmpty else { return }
+        guard !rawVersions.isEmpty, !participantsDict.keys.isEmpty else { return }
         
         updateExpandedGroupsOnFirstOpen()
-        groups = versionHistoryDataBuilder.buildData(for: rawVersions, participants: participantsDict)
+        groups = versionHistoryDataBuilder.buildData(for: rawVersions.elements, participants: participantsDict)
     }
     
     private func updateExpandedGroupsOnFirstOpen() {
         guard firstOpen else { return }
         
         if let firstGroupKey = versionHistoryDataBuilder.buildFirstGroupKey(
-            for: rawVersions,
+            for: rawVersions.elements,
             participants: participantsDict
         ) {
             expandedGroups.insert(firstGroupKey)
