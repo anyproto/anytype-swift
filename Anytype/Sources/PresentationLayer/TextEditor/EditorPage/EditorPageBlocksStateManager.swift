@@ -352,7 +352,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         var objectBlocksIdsDict = [String: [String]]()
         movingBlocksIds.forEach { blockId in
             guard let info = document.infoContainer.get(id: blockId),
-                  case let .link(content) = info.content else { return }
+                  case let .link(content) = info.content,
+                  content.targetBlockID != collectionId else { return }
             objectBlocksIdsDict[content.targetBlockID, default: []].append(blockId)
         }
         
