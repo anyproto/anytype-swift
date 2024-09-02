@@ -7,6 +7,13 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
     
     nonisolated static let shared = WorkspacesStorageMock()
     
+    var spaceView: SpaceView?
+    func spaceView(spaceId: String) -> SpaceView? {
+        print(spaceView)
+        print(spaceView?.objectIconImage)
+        return spaceView
+    }
+    
     nonisolated private init() {
         self.allWorkspaces =  [
             SpaceView(
@@ -32,7 +39,6 @@ final class WorkspacesStorageMock: WorkspacesStorageProtocol {
     func startSubscription() async {}
     func stopSubscription() async {}
     func spaceView(spaceViewId: String) -> SpaceView? { return nil }
-    func spaceView(spaceId: String) -> SpaceView? { return nil }
     func move(space: SpaceView, after: SpaceView) { fatalError()}
     func workspaceInfo(spaceId: String) -> AccountInfo? { return nil }
     func addWorkspaceInfo(spaceId: String, info: AccountInfo) {}
