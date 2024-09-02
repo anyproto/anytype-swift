@@ -1060,7 +1060,7 @@
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Nur lokal";
 "Server.LocalOnly.Alert.title" = "Sind Sie sicher?";
-"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
+"Server.LocalOnly.Alert.message" = "Der Nur-Lokal-Modus ist eine experimentelle Funktion und bietet keine Sicherheitsvorteile. Die Benutzung erfolgt auf eigene Gefahr, da es zu Datenverlusten kommen kann.";
 "Server.LocalOnly.Alert.Action.agree" = "Ja, ich akzeptiere die Risiken";
 "Server.LocalOnly.Alert.Action.disagree" = "Nein, nicht verwenden";
 
@@ -1186,7 +1186,7 @@ Please provide specific details of your needs here.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Datensicherung ist deaktiviert";
 "SyncStatus.Info.AnytypeNetwork" = "Ende-zu-Ende-verschlüsselt";
-"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Synchronisation könnte langsam sein. Aktualisiere die App.";
 "SyncStatus.Error.storageLimitExceed" = "Speicherplatzgrenze erreicht";
 "SyncStatus.Error.incompatibleVersion" = "Inkompatible Version";
 "SyncStatus.Error.networkError" = "No access to the space";
