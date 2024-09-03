@@ -72,10 +72,9 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         Task {
             var chatMessage = ChatMessage()
             chatMessage.message.text = String(message.characters)
-            let newMessage = try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
-            self.messages.append(newMessage)
-            updateMessages()
-            scrollViewPosition = .bottom(newMessage.id)
+            try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+            message = AttributedString()
+//            scrollViewPosition = .bottom(newMessage.id)
         }
     }
     
@@ -91,7 +90,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func scrollToBottom() async {
         try? await chatStorage.loadNextPage()
-//        print("scroll to bottom view model")
     }
     
     // MARK: - Private
@@ -110,7 +108,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         
         guard newMesageBlocks != mesageBlocks else { return }
         mesageBlocks = newMesageBlocks
-//        print("hash \(newMesageBlocks.map(\.hashValue))")
         if let last = messages.last, scrollViewPosition == .none {
             scrollViewPosition = .bottom(last.id)
         }

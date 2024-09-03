@@ -51,27 +51,34 @@ struct DiscussionCollectionView<Item: Hashable, DataView: View>: UIViewRepresent
     func updateUIView(_ collectionView: UICollectionView, context: Context) {
         context.coordinator.scrollToBottom = scrollToBottom
         
-        var snapshot = NSDiffableDataSourceSectionSnapshot<Item>()
-        snapshot.append(items.reversed())
-//        let needsScrollToBottom = collectionView.contentOffset.y == 0
-//        let contentSize = collectionView.contentSize
-        context.coordinator.dataSource?.apply(snapshot, to: .one, animatingDifferences: false) {
-//            if needsScrollToBottom {
-//                collectionView.contentOffset = CGPoint(x: 0, y: 0)
-//            }
-        }
-//        context.coordinator.canCallScrollToBottom = true
+        let itemsForSnapshot: [Item] = items.reversed()
         
-//        let bottomOffset = collectionView.contentSize.height - collectionView.contentOffset.y
-//        context.coordinator.dataSource?.apply(snapshot, to: .one, animatingDifferences: false) {
-//            let items = collectionView.numberOfItems(inSection: 0)
-//            if items > 0 {
-//                collectionView.scrollToItem(at: IndexPath(item: items - 1, section: 0), at: .bottom, animated: false)
-//            }
-//            let newBottomOffset = collectionView.contentSize.height - collectionView.contentOffset.y - collectionView.bounds.height
-//            print("newBottomOffset \(newBottomOffset)")
-//            collectionView.setContentOffset(CGPoint(x: 0, y: newBottomOffset - bottomOffset), animated: false)
-//        }
+        guard context.coordinator.currentSnapshot?.items != itemsForSnapshot else { return }
+        
+        var snapshot = NSDiffableDataSourceSectionSnapshot<Item>()
+        snapshot.append(itemsForSnapshot)
+        
+        let needsScrollToBottom = collectionView.contentOffset.y == 0
+        let oldContentSize = collectionView.contentSize
+        
+        context.coordinator.currentSnapshot = snapshot
+        
+        CATransaction.begin()
+        
+        context.coordinator.dataSource?.apply(snapshot, to: .one, animatingDifferences: false) {
+            if needsScrollToBottom, collectionView.contentSize.height != oldContentSize.height, oldContentSize.height != 0 {
+                let offsetY = collectionView.contentSize.height - oldContentSize.height
+                collectionView.setContentOffset(CGPoint(x: 0, y: offsetY), animated: false)
+                
+                // Sometimes the collection may be rendered with an incorrect offset.
+                // Apply the update only after set the correct offset
+                CATransaction.commit()
+                
+                collectionView.setContentOffset(CGPoint.zero, animated: true)
+            } else {
+                CATransaction.commit()
+            }
+        }
     }
     
     func makeCoordinator() -> DiscussionCollectionViewCoordinator<OneSection, Item> {
@@ -86,6 +93,7 @@ final class DiscussionCollectionViewCoordinator<Section: Hashable, Item: Hashabl
     private var scrollUpdateTask: AnyCancellable?
     
     var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    var currentSnapshot: NSDiffableDataSourceSectionSnapshot<Item>?
     var scrollToBottom: (() async -> Void)?
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

@@ -2,10 +2,10 @@ import Foundation
 import Services
 import Combine
 import AnytypeCore
+import ProtobufMessages
 
 protocol ChatMessagesStorageProtocol: AnyObject {
     func startSubscription() async throws
-    func stopSubscription() async throws
     func loadNextPage() async throws
     var messagesPublisher: AnyPublisher<[ChatMessage], Never> { get async }
 }
@@ -21,6 +21,7 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
     private let chatObjectId: String
     
     private var subscriptionStarted = false
+    private var subscriptions: [AnyCancellable] = []
     @Published private var allMessages: [ChatMessage]? = nil
         
     init(chatObjectId: String) {
@@ -36,6 +37,12 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
             anytypeAssertionFailure("Subscription started")
             return
         }
+        
+        EventBunchSubscribtion.default.addHandler { [weak self] events in
+            guard events.contextId == self?.chatObjectId else { return }
+            await self?.handle(events: events)
+        }.store(in: &subscriptions)
+        
         let messages = try await chatService.subscribeLastMessages(chatObjectId: chatObjectId, limit: Constants.pageSize)
         subscriptionStarted = true
         allMessages = messages.sorted(by: { $0.orderID < $1.orderID })
@@ -56,7 +63,26 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
     }
     
-    func stopSubscription() async throws {
-        try await chatService.unsubscribeLastMessages(chatObjectId: chatObjectId)
+    // MARK: - Private
+    
+    private func handle(events: EventsBunch) async {
+        for event in events.middlewareEvents {
+            switch event.value {
+            case let .chatAdd(data):
+                allMessages = ((allMessages ?? []) + [data.message]).sorted(by: { $0.orderID < $1.orderID }).uniqued()
+            case let .chatDelete(data):
+                allMessages?.removeAll { $0.id == data.id }
+            case let .chatUpdate(data):
+                if let index = allMessages?.firstIndex(where: { $0.id == data.id }) {
+                    allMessages?[index] = data.message
+                }
+            case let .chatUpdateReactions(data):
+                if let index = allMessages?.firstIndex(where: { $0.id == data.id }) {
+                    allMessages?[index].reactions = data.reactions
+                }
+            default:
+                break
+            }
+        }
     }
 }
