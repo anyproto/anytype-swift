@@ -18,7 +18,10 @@ public final class ObjectIconBuilder: ObjectIconBuilderProtocol {
         }
         
         if DetailsLayout.fileLayouts.contains(relations.layoutValue) {
-            return fileIcon(fileMimeType: relations.fileMimeType, name: relations.name)
+            return fileIcon(
+                fileMimeType: relations.fileMimeType,
+                name: FileDetails.formattedFileName(relations.name, fileExt: relations.fileExt)
+            )
         }
         
         if relations.layoutValue == .todo {
