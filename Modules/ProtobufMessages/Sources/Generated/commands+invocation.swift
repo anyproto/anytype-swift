@@ -572,8 +572,13 @@ extension Anytype_Rpc.Chat.AddMessage.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
-extension Anytype_Rpc.Chat.EditMessage.Response: ResultWithError {}
-extension Anytype_Rpc.Chat.EditMessage.Response.Error: ResponseError {
+extension Anytype_Rpc.Chat.DeleteMessage.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.DeleteMessage.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.EditMessageContent.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.EditMessageContent.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 
@@ -584,6 +589,11 @@ extension Anytype_Rpc.Chat.GetMessages.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response: ResultWithError {}
 extension Anytype_Rpc.Chat.SubscribeLastMessages.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null && description_p.isEmpty }
+}
+
+extension Anytype_Rpc.Chat.ToggleMessageReaction.Response: ResultWithError {}
+extension Anytype_Rpc.Chat.ToggleMessageReaction.Response.Error: ResponseError {
     public var isNull: Bool { code == .null && description_p.isEmpty }
 }
 

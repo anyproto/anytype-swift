@@ -13,13 +13,18 @@ struct DiscussionScrollView<Content: View>: View {
     
     var body: some View {
         ScrollViewReader { proxy in
-            ScrollView {
-                content
-            }
-            .onChange(of: position) { newValue in
-                if case let .bottom(id) = newValue {
-                    proxy.scrollTo(id, anchor: .bottom)
+            if #available(iOS 17.0, *) {
+                ScrollView {
+                    content
                 }
+                .defaultScrollAnchor(.bottom)
+//                .onChange(of: position) { newValue in
+//                    if case let .bottom(id) = newValue {
+//                        proxy.scrollTo(id, anchor: .bottom)
+//                    }
+//                }
+            } else {
+                // Fallback on earlier versions
             }
         }
     }

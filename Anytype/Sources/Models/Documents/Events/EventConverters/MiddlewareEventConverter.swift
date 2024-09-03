@@ -163,15 +163,6 @@ final class MiddlewareEventConverter {
         case .blockSetWidget(let data):
             infoContainer.setWidget(data: data)
             return .block(blockId: data.id)
-        case .chatAdd(_):
-            // TODO: support it
-            return nil
-        case .chatUpdate(_):
-            // TODO: support it
-            return nil
-        case .chatUpdateReactions(_):
-            // TODO: support it
-            return nil
         case .objectClose:
             return .close
         case .accountShow,
@@ -213,7 +204,11 @@ final class MiddlewareEventConverter {
                 .importFinish,
                 .spaceSyncStatusUpdate, // Implemented in `SyncStatusStorage`
                 .p2PStatusUpdate, // Implemented in `P2PStatusStorage`
-                .membershipUpdate: // Implemented in `MembershipStatusStorage`
+                .membershipUpdate, // Implemented in `MembershipStatusStorage`
+                .chatAdd,
+                .chatDelete,
+                .chatUpdate,
+                .chatUpdateReactions:
             return nil
         }
     }

@@ -638,6 +638,14 @@ public struct Anytype_Event {
       set {value = .chatUpdateReactions(newValue)}
     }
 
+    public var chatDelete: Anytype_Event.Chat.Delete {
+      get {
+        if case .chatDelete(let v)? = value {return v}
+        return Anytype_Event.Chat.Delete()
+      }
+      set {value = .chatDelete(newValue)}
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Value: Equatable {
@@ -717,6 +725,7 @@ public struct Anytype_Event {
       case chatAdd(Anytype_Event.Chat.Add)
       case chatUpdate(Anytype_Event.Chat.Update)
       case chatUpdateReactions(Anytype_Event.Chat.UpdateReactions)
+      case chatDelete(Anytype_Event.Chat.Delete)
 
     #if !swift(>=4.1)
       public static func ==(lhs: Anytype_Event.Message.OneOf_Value, rhs: Anytype_Event.Message.OneOf_Value) -> Bool {
@@ -1016,6 +1025,10 @@ public struct Anytype_Event {
           guard case .chatUpdateReactions(let l) = lhs, case .chatUpdateReactions(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
+        case (.chatDelete, .chatDelete): return {
+          guard case .chatDelete(let l) = lhs, case .chatDelete(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
         default: return false
         }
       }
@@ -1055,6 +1068,18 @@ public struct Anytype_Event {
       public init() {}
 
       fileprivate var _message: Anytype_Model_ChatMessage? = nil
+    }
+
+    public struct Delete {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var id: String = String()
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
     }
 
     public struct Update {
@@ -5353,6 +5378,7 @@ extension Anytype_Event.Message: @unchecked Sendable {}
 extension Anytype_Event.Message.OneOf_Value: @unchecked Sendable {}
 extension Anytype_Event.Chat: @unchecked Sendable {}
 extension Anytype_Event.Chat.Add: @unchecked Sendable {}
+extension Anytype_Event.Chat.Delete: @unchecked Sendable {}
 extension Anytype_Event.Chat.Update: @unchecked Sendable {}
 extension Anytype_Event.Chat.UpdateReactions: @unchecked Sendable {}
 extension Anytype_Event.Account: @unchecked Sendable {}
@@ -5698,6 +5724,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     128: .same(proto: "chatAdd"),
     129: .same(proto: "chatUpdate"),
     130: .same(proto: "chatUpdateReactions"),
+    131: .same(proto: "chatDelete"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -6603,6 +6630,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .chatUpdateReactions(v)
         }
       }()
+      case 131: try {
+        var v: Anytype_Event.Chat.Delete?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .chatDelete(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .chatDelete(v)
+        }
+      }()
       case 201: try {
         var v: Anytype_Event.Account.Details?
         var hadOneofValue = false
@@ -6942,6 +6982,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .chatUpdateReactions(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 130)
     }()
+    case .chatDelete?: try {
+      guard case .chatDelete(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 131)
+    }()
     case .accountDetails?: try {
       guard case .accountDetails(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 201)
@@ -7032,6 +7076,38 @@ extension Anytype_Event.Chat.Add: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     if lhs.id != rhs.id {return false}
     if lhs.orderID != rhs.orderID {return false}
     if lhs._message != rhs._message {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Chat.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Chat.protoMessageName + ".Delete"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Chat.Delete, rhs: Anytype_Event.Chat.Delete) -> Bool {
+    if lhs.id != rhs.id {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
