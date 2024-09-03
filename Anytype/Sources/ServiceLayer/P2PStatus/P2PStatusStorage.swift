@@ -27,7 +27,6 @@ final class P2PStatusStorage: P2PStatusStorageProtocol {
     }
     
     func startSubscription() {
-        anytypeAssert(subscription.isNil, "Non nil subscription in P2PStatusStorage")
         subscription = EventBunchSubscribtion.default.addHandler { [weak self] events in
             self?.handle(events: events)
         }

@@ -25,3 +25,7 @@ struct ShareCoordinatorView: View {
         }
     }
 }
+
+#Preview {
+    ShareCoordinatorView(spaceId: "1337")
+}

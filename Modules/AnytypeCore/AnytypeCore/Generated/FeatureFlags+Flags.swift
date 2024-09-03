@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var scrollToBlockFromSearch: Bool {
-        value(for: .scrollToBlockFromSearch)
-    }
-
     static var galleryWidget: Bool {
         value(for: .galleryWidget)
     }
@@ -38,20 +34,12 @@ public extension FeatureFlags {
         value(for: .updateAlert)
     }
 
-    static var addFilesToGlobalSearch: Bool {
-        value(for: .addFilesToGlobalSearch)
-    }
-
     static var discussions: Bool {
         value(for: .discussions)
     }
 
     static var versionHistory: Bool {
         value(for: .versionHistory)
-    }
-
-    static var spaceHub: Bool {
-        value(for: .spaceHub)
     }
 
     static var rainbowViews: Bool {
@@ -102,20 +90,21 @@ public extension FeatureFlags {
         value(for: .showGlobalSearchScore)
     }
 
+    static var versionHistoryPaginationTest: Bool {
+        value(for: .versionHistoryPaginationTest)
+    }
+
     // All toggles
     static let features: [FeatureDescription] = [
         .setKanbanView,
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .scrollToBlockFromSearch,
         .galleryWidget,
         .widgetCreateWithoutType,
         .updateAlert,
-        .addFilesToGlobalSearch,
         .discussions,
         .versionHistory,
-        .spaceHub,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
@@ -127,6 +116,7 @@ public extension FeatureFlags {
         .homeTestSwipeGeature,
         .membershipTestTiers,
         .failReceiptValidation,
-        .showGlobalSearchScore
+        .showGlobalSearchScore,
+        .versionHistoryPaginationTest
     ]
 }

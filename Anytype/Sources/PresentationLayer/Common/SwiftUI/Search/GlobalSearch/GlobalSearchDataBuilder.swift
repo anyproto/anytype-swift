@@ -31,15 +31,13 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
             score = "\(scoreDouble)"
         }
         
-        let blockId = FeatureFlags.scrollToBlockFromSearch ? meta.first?.blockID : nil
-        
         return GlobalSearchData(
             iconImage: details.objectIconImage,
             title: title,
             highlights: highlights,
             objectTypeName: details.objectType.name,
             relatedLinks: details.backlinks + details.links,
-            editorScreenData: EditorScreenData(details: details, blockId: blockId),
+            editorScreenData: EditorScreenData(details: details, blockId: meta.first?.blockID),
             score: score
         )
     }

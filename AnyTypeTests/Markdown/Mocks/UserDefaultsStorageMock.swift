@@ -24,24 +24,20 @@ final class UserDefaultsStorageMock: UserDefaultsStorageProtocol {
     var rowsPerPageInSet: Int { get { fatalError() } set { fatalError() } }
     var rowsPerPageInGroupedSet: Int { get { fatalError() } set { fatalError() } }
     var userInterfaceStyle: UIUserInterfaceStyle { get { fatalError() } set { fatalError() } }
+    var lastOpenedScreen: EditorScreenData? { get { fatalError() } set { fatalError() } }
     
-    func saveLastOpenedScreen(spaceId: String, screen: Anytype.EditorScreenData?) {
+    func wallpapersPublisher() -> AnyPublisher<[String : Anytype.SpaceWallpaperType], Never> {
+        fatalError()
+    }
+    func wallpaperPublisher(spaceId: String) -> AnyPublisher<Anytype.SpaceWallpaperType, Never> {
         fatalError()
     }
     
-    func getLastOpenedScreen(spaceId: String) -> Anytype.EditorScreenData? {
+    func wallpaper(spaceId: String) -> Anytype.SpaceWallpaperType {
         fatalError()
     }
     
-    func wallpaperPublisher(spaceId: String) -> AnyPublisher<Anytype.BackgroundType, Never> {
-        fatalError()
-    }
-    
-    func wallpaper(spaceId: String) -> Anytype.BackgroundType {
-        fatalError()
-    }
-    
-    func setWallpaper(spaceId: String, wallpaper: Anytype.BackgroundType) {
+    func setWallpaper(spaceId: String, wallpaper: Anytype.SpaceWallpaperType) {
         fatalError()
     }
     

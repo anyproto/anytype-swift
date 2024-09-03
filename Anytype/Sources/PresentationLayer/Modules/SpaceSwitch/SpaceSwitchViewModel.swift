@@ -4,8 +4,8 @@ import Services
 import UIKit
 
 struct SpaceSwitchModuleData: Hashable, Identifiable {
-    let activeSpaceId: String
-    let homeSceneId: String
+    let activeSpaceId: String?
+    let sceneId: String
     
     var id: Int { hashValue }
 }
@@ -51,9 +51,13 @@ final class SpaceSwitchViewModel: ObservableObject {
         self.data = data
         self.output = output
         Task {
-            await startProfileSubscriotions()
-            startSpacesSubscriotions()
+            await startProfileSubscriptions()
+            startSpacesSubscriptions()
         }
+    }
+    
+    func onAppear() {
+        AnytypeAnalytics.instance().logScreenVault(type: "Menu")
     }
     
     func onAddSpaceTap() {
@@ -66,7 +70,7 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     // MARK: - Private
     
-    private func startProfileSubscriotions() async {
+    private func startProfileSubscriptions() async {
         await subscriptionService.startSubscription(
             subId: profileSubId,
             objectId: accountManager.account.info.profileObjectID
@@ -75,7 +79,7 @@ final class SpaceSwitchViewModel: ObservableObject {
         }
     }
     
-    private func startSpacesSubscriotions() {
+    private func startSpacesSubscriptions() {
         
         participantSpacesStorage.activeParticipantSpacesPublisher
             .receiveOnMain()
@@ -86,7 +90,7 @@ final class SpaceSwitchViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
     
-    private func stopSpacesSubscriotions() {
+    private func stopSpacesSubscriptions() {
         subscriptions.removeAll()
     }
     
@@ -95,7 +99,10 @@ final class SpaceSwitchViewModel: ObservableObject {
             rows = []
             return
         }
-        let activeSpaceId = data.activeSpaceId
+        let isSelected: (String) -> (Bool) = { [weak self] in
+            guard let activeSpaceId = self?.data.activeSpaceId else { return false}
+            return activeSpaceId == $0
+        }
         
         rows = spaces.map { participantSpaceView -> SpaceRowModel in
             let spaceView = participantSpaceView.spaceView
@@ -103,7 +110,7 @@ final class SpaceSwitchViewModel: ObservableObject {
                 id: spaceView.id,
                 title: spaceView.title,
                 icon: spaceView.objectIconImage,
-                isSelected: activeSpaceId == spaceView.targetSpaceId,
+                isSelected: isSelected(spaceView.targetSpaceId),
                 shared: spaceView.isShared,
                 onTap: { [weak self] in
                     self?.onTapWorkspace(workspace: spaceView)
@@ -124,8 +131,6 @@ final class SpaceSwitchViewModel: ObservableObject {
         if scrollToRowId.isNil, let selectedRow = rows.first(where: { $0.isSelected }) {
             scrollToRowId = selectedRow.id
         }
-        
-        createSpaceAvailable = workspacesStorage.canCreateNewSpace()
     }
     
     private func updateProfile(profile: ObjectDetails) {
@@ -135,8 +140,8 @@ final class SpaceSwitchViewModel: ObservableObject {
     
     private func onTapWorkspace(workspace: SpaceView) {
         Task {
-            stopSpacesSubscriotions()
-            try await spaceSetupManager.setActiveSpace(homeSceneId: data.homeSceneId, spaceId: workspace.targetSpaceId)
+            stopSpacesSubscriptions()
+            try await spaceSetupManager.setActiveSpace(sceneId: data.sceneId, spaceId: workspace.targetSpaceId)
             UISelectionFeedbackGenerator().selectionChanged()
             dismiss.toggle()
         }

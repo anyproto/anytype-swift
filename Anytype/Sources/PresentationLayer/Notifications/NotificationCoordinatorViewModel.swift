@@ -8,7 +8,7 @@ import SwiftUI
 @MainActor
 final class NotificationCoordinatorViewModel: ObservableObject {
     
-    private let homeSceneId: String
+    private let sceneId: String
     
     @Injected(\.notificationsSubscriptionService)
     private var notificationSubscriptionService: any NotificationsSubscriptionServiceProtocol
@@ -18,13 +18,12 @@ final class NotificationCoordinatorViewModel: ObservableObject {
     private var subscription: AnyCancellable?
     private var dismissAllPresented: DismissAllPresented?
     
-    @Published var spaceIdForDeleteAlert: StringIdentifiable?
     @Published var exportSpaceUrl: URL?
     @Published var spaceRequestAlert: SpaceRequestAlertData?
     @Published var membershipUpgradeReason: MembershipUpgradeReason?
     
-    init(homeSceneId: String) {
-        self.homeSceneId = homeSceneId
+    init(sceneId: String) {
+        self.sceneId = sceneId
     }
     
     func onAppear() {
@@ -70,7 +69,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         case .galleryImport(let data):
             let view = GalleryNotificationView(
                 notification: NotificationGalleryImport(common: notification, galleryImport: data),
-                homeSceneId: homeSceneId
+                sceneId: sceneId
             )
             show(view: view)
         case .participantPermissionsChange(let data):
@@ -88,7 +87,7 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         case .requestToJoin(let data):
             let view = RequestToJoinNotificationView(
                 notification: NotificationRequestToJoin(common: notification, requestToJoin: data), 
-                homeSceneId: homeSceneId,
+                sceneId: sceneId,
                 onViewRequest: { [weak self] notification in
                     guard let self else { return }
                     
@@ -112,10 +111,6 @@ final class NotificationCoordinatorViewModel: ObservableObject {
         case .participantRemove(let data):
             let view = ParticipantRemoveNotificationView(
                 notification: NotificationParticipantRemove(common: notification, remove: data),
-                onDelete: { [weak self] spaceId in
-                    await self?.dismissAllPresented?()
-                    self?.spaceIdForDeleteAlert = spaceId.identifiable
-                },
                 onExport: { [weak self] spaceUrl in
                     await self?.dismissAllPresented?()
                     self?.exportSpaceUrl = spaceUrl

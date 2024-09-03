@@ -574,6 +574,7 @@
 "Select all" = "Selecteer alle";
 "Unselect all" = "Deselecteer alle";
 "Deselect all" = "Deselecteer alle";
+"Deselect" = "Deselect";
 "Shared" = "Gedeeld";
 "Sets" = "Sets";
 "Collections" = "Collecties";
@@ -1059,7 +1060,8 @@
 "Server.LocalOnly" = "Alleen lokaal";
 "Server.LocalOnly.Alert.title" = "Weet je het zeker?";
 "Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.primary" = "Yes, use local-only mode";
+"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
+"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
 
 // MARK: - Gallery
 "Gallery.Author" = "Gemaakt door @%@";
@@ -1184,6 +1186,7 @@ Geef alsjeblieft specifieke details van jouw wensen hier aan. ";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Data backup is disabled";
 "SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
 "SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
 "SyncStatus.Error.incompatibleVersion" = "Niet-compatibele versie";
 "SyncStatus.Error.networkError" = "No access to the space";

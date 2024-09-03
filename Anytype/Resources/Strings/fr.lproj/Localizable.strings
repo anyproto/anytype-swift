@@ -574,6 +574,7 @@
 "Select all" = "Tout sélectionner";
 "Unselect all" = "Tout désélectionner";
 "Deselect all" = "Tout désélectionner";
+"Deselect" = "Désélectionner";
 "Shared" = "Partagé";
 "Sets" = "Sets";
 "Collections" = "Collections";
@@ -1058,7 +1059,8 @@
 "Server.LocalOnly" = "Local seulement";
 "Server.LocalOnly.Alert.title" = "Êtes-vous sûr ?";
 "Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.primary" = "Yes, use local-only mode";
+"Server.LocalOnly.Alert.Action.agree" = "Oui, j'accepte les risques";
+"Server.LocalOnly.Alert.Action.disagree" = "Non, ne pas l'utiliser";
 
 // MARK: - Gallery
 "Gallery.Author" = "Fait par @%@";
@@ -1182,6 +1184,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "La sauvegarde des données est désactivée";
 "SyncStatus.Info.AnytypeNetwork" = "Chiffrement de bout en bout";
+"SyncStatus.Info.NetworkNeedsUpdate" = "La synchronisation peut être lente. Mettez à jour l'application.";
 "SyncStatus.Error.storageLimitExceed" = "Limite de stockage atteinte";
 "SyncStatus.Error.incompatibleVersion" = "Version incompatible";
 "SyncStatus.Error.networkError" = "Pas d'accès à l'espace";

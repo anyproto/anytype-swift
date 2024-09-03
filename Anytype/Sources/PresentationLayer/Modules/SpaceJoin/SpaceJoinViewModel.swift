@@ -6,7 +6,7 @@ struct SpaceJoinModuleData: Identifiable {
     let id = UUID()
     let cid: String
     let key: String
-    let homeSceneId: String
+    let sceneId: String
 }
 
 enum SpaceJoinDataState {
@@ -75,7 +75,7 @@ final class SpaceJoinViewModel: ObservableObject {
     
     func onTapGoToSpace() async throws {
         guard let inviteView else { return }
-        try await spaceSetupManager.setActiveSpace(homeSceneId: data.homeSceneId, spaceId: inviteView.spaceId)
+        try await spaceSetupManager.setActiveSpace(sceneId: data.sceneId, spaceId: inviteView.spaceId)
         dismiss.toggle()
     }
     

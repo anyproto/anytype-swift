@@ -11,11 +11,11 @@ struct ServerLocalConfigurationAlert: View {
             icon: .BottomAlert.exclamation,
             style: .color(.red)
         ) {
-            BottomAlertButton(text: Loc.Server.LocalOnly.Alert.Action.primary, style: .primary) {
-                actionApproved()
+            BottomAlertButton(text: Loc.Server.LocalOnly.Alert.Action.disagree, style: .secondary) {
                 dismiss()
             }
-            BottomAlertButton(text: Loc.cancel, style: .secondary) {
+            BottomAlertButton(text: Loc.Server.LocalOnly.Alert.Action.agree, style: .secondary) {
+                actionApproved()
                 dismiss()
             }
         }

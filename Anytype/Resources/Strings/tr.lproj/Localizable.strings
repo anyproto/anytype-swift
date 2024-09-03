@@ -574,6 +574,7 @@
 "Select all" = "Tümünü seç";
 "Unselect all" = "Tüm seçimi kaldır";
 "Deselect all" = "Tüm seçimi kaldır";
+"Deselect" = "Seçimi kaldır";
 "Shared" = "Paylaşılan";
 "Sets" = "Küme";
 "Collections" = "Koleksiyonlar";
@@ -931,7 +932,7 @@
 "SpaceShare.Invite.Description" = "Başkalarının alanınıza katılabilmesi için bu davet bağlantısını paylaşın. Bağlantınıza tıklayıp erişim talep ettiklerinde, erişim haklarını ayarlayabilirsiniz.";
 "SpaceShare.Invite.Share" = "Davet bağlantısını paylaş";
 "SpaceShare.Invite.Generate" = "Davet bağlantısı oluştur";
-"SpaceShare.Invite.Empty" = "Alanı paylaşmak ve yeni üyeler eklemek için davet bağlantısı oluşturun";
+"SpaceShare.Invite.Empty" = "Alan paylaşmak ve yeni üyeler eklemek için davet bağlantısı oluşturun";
 "SpaceShare.JoinRequest" = "Katılma talebi";
 "SpaceShare.LeaveRequest" = "Ayrılma talebi";
 "SpaceShare.Action.ViewRequest" = "İsteği görüntüle";
@@ -958,7 +959,7 @@
 "SpaceShare.ManageSpaces" = "Alanları yönetin";
 "SpaceShare.AccessChanged" = "Erişim hakları değiştirildi.";
 "SpaceShare.StopSharing.Action" = "Paylaşımı durdur";
-"SpaceShare.StopSharing.Title" = "Alanı paylaşmayı durdurun";
+"SpaceShare.StopSharing.Title" = "Alan paylaşımını durdur";
 "SpaceShare.StopSharing.Message" = "Üyeler artık bu alanla senkronize edilmeyecek ve paylaşım bağlantısı devre dışı bırakılacaktır.";
 "SpaceShare.StopSharing.Toast" = "Alan artık paylaşılmıyor";
 "SpaceShare.QR.Title" = "Bir alana katılmak için Kare kod";
@@ -1060,7 +1061,8 @@
 "Server.LocalOnly" = "Sadece yerel";
 "Server.LocalOnly.Alert.title" = "Emin misiniz?";
 "Server.LocalOnly.Alert.message" = "Yalnızca yerel modu deneysel bir özelliktir ve güvenlik avantajları sağlamaz. Potansiyel veri kaybı meydana gelebileceğinden lütfen oluşabilecek riskleri kabul ederek kullanın.";
-"Server.LocalOnly.Alert.Action.primary" = "Evet yalnızca yerel modu kullan";
+"Server.LocalOnly.Alert.Action.agree" = "Evet riskleri kabul ediyorum";
+"Server.LocalOnly.Alert.Action.disagree" = "Hayır bunu kullanma";
 
 // MARK: - Gallery
 "Gallery.Author" = "%@ tarafından yapıldı";
@@ -1184,6 +1186,7 @@ Lütfen ihtiyaçlarınızın belirli ayrıntılarını burada belirtin.";
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Veri yedekleme devre dışı";
 "SyncStatus.Info.AnytypeNetwork" = "Uçtan uca şifrelenmiş";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Senkronizasyon yavaş olabilir. Uygulamayı güncelleyin.";
 "SyncStatus.Error.storageLimitExceed" = "Depolama sınırına ulaşıldı";
 "SyncStatus.Error.incompatibleVersion" = "Uyumsuz sürüm";
 "SyncStatus.Error.networkError" = "Alana erişim yok";

@@ -16,7 +16,7 @@ struct WallpaperPickerView: View {
             AnytypeText(Loc.changeWallpaper, style: .uxTitle1Semibold)
                 .foregroundColor(.Text.primary)
             Spacer.fixedHeight(12)
-            WallpaperColorsGridView() { background in
+            WallpaperColorsGridView(spaceIcon: model.spaceIcon) { background in
                 AnytypeAnalytics.instance().logSettingsWallpaperSet()
                 model.wallpaper = background
                 dismiss()

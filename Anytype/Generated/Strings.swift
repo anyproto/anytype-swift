@@ -106,6 +106,7 @@ internal enum Loc {
   internal static let deleted = Loc.tr("Localizable", "Deleted")
   internal static let deletionError = Loc.tr("Localizable", "Deletion error")
   internal static let description = Loc.tr("Localizable", "Description")
+  internal static let deselect = Loc.tr("Localizable", "Deselect")
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
   internal static func devicesConnected(_ p1: Int) -> String {
@@ -1295,7 +1296,8 @@ internal enum Loc {
         internal static let message = Loc.tr("Localizable", "Server.LocalOnly.Alert.message")
         internal static let title = Loc.tr("Localizable", "Server.LocalOnly.Alert.title")
         internal enum Action {
-          internal static let primary = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.primary")
+          internal static let agree = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.agree")
+          internal static let disagree = Loc.tr("Localizable", "Server.LocalOnly.Alert.Action.disagree")
         }
       }
     }
@@ -1733,6 +1735,7 @@ internal enum Loc {
     internal enum Info {
       internal static let anytypeNetwork = Loc.tr("Localizable", "SyncStatus.Info.AnytypeNetwork")
       internal static let localOnly = Loc.tr("Localizable", "SyncStatus.Info.localOnly")
+      internal static let networkNeedsUpdate = Loc.tr("Localizable", "SyncStatus.Info.NetworkNeedsUpdate")
     }
     internal enum P2P {
       internal static let notConnected = Loc.tr("Localizable", "SyncStatus.P2P.NotConnected")

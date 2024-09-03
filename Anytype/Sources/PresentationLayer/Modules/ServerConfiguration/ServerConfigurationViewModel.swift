@@ -58,6 +58,7 @@ final class ServerConfigurationViewModel: ObservableObject {
     }
     
     private func handleOnTap(config: NetworkServerConfig) {
+        guard config != storage.currentConfiguration() else { return }
         if config.isLocalOnly {
             showLocalConfigurationAlert.toggle()
         } else {

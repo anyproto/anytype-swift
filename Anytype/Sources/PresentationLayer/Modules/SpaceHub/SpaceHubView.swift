@@ -6,14 +6,17 @@ struct SpaceHubView: View {
     @State private var draggedSpace: ParticipantSpaceViewData?
     @State private var draggedInitialIndex: Int?
     
-    init(showActiveSpace: @escaping () -> Void) {
-        _model = StateObject(wrappedValue: SpaceHubViewModel(showActiveSpace: showActiveSpace))
+    init(sceneId: String) {
+        _model = StateObject(wrappedValue: SpaceHubViewModel(sceneId: sceneId))
     }
     
     var body: some View {
         content
+            .onAppear {
+                model.onAppear()
+            }
             .sheet(isPresented: $model.showSpaceCreate) {
-                SpaceCreateView(homeSceneId: model.homeSceneId, output: model)
+                SpaceCreateView(sceneId: model.sceneId, output: model)
             }
             .sheet(isPresented: $model.showSettings) {
                 SettingsCoordinatorView()
@@ -99,19 +102,7 @@ struct SpaceHubView: View {
         Button {
             model.onSpaceTap(spaceId: space.spaceView.targetSpaceId)
         } label: {
-            HStack(spacing: 16) {
-                IconView(icon: space.spaceView.objectIconImage)
-                    .frame(width: 64, height: 64)
-                VStack(alignment: .leading, spacing: 6) {
-                    AnytypeText(space.spaceView.name, style: .bodySemibold).lineLimit(1)
-                    AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular).lineLimit(1)
-                }
-                Spacer()
-            }
-            .padding(16)
-            .background(model.userDefaults.wallpaper(spaceId: space.spaceView.targetSpaceId).asView.opacity(0.3))
-            .cornerRadius(20, style: .continuous)
-            .padding(.horizontal, 8)
+            spaceCardLabel(space)
         }
         .onDrag {
             draggedSpace = space
@@ -127,8 +118,32 @@ struct SpaceHubView: View {
             )
         )
     }
+    
+    private func spaceCardLabel(_ space: ParticipantSpaceViewData) -> some View {
+        HStack(spacing: 16) {
+            IconView(icon: space.spaceView.objectIconImage)
+                .frame(width: 64, height: 64)
+            VStack(alignment: .leading, spacing: 6) {
+                AnytypeText(space.spaceView.name, style: .bodySemibold).lineLimit(1)
+                AnytypeText(space.spaceView.spaceAccessType?.name ?? "", style: .relation3Regular)
+                    .lineLimit(1)
+                    .opacity(0.6)
+            }
+            Spacer()
+        }
+        .padding(16)
+        .background(
+            DashboardWallpaper(
+                wallpaper: model.wallpapers[space.spaceView.targetSpaceId] ?? .default,
+                spaceIcon: space.spaceView.iconImage
+            )
+        )
+        .cornerRadius(20, style: .continuous)
+        .padding(.horizontal, 8)
+
+    }
 }
 
 #Preview {
-    SpaceHubView { }
+    SpaceHubView(sceneId: "1337")
 }

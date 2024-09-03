@@ -30,12 +30,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let scrollToBlockFromSearch = FeatureDescription(
-        title: "Scroll to block from Global search - IOS-2845",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "5"),
-        defaultValue: true
-    )
-    
     static let galleryWidget = FeatureDescription(
         title: "Gallery Widget - IOS-2964",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
@@ -54,12 +48,6 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
-    static let addFilesToGlobalSearch = FeatureDescription(
-        title: "Add files to global search - IOS-3081",
-        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
     static let discussions = FeatureDescription(
         title: "Discussions - IOS-3060",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
@@ -71,13 +59,6 @@ public extension FeatureDescription {
         title: "Version History - IOS-3058",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: true
-    )
-    
-    static let spaceHub = FeatureDescription(
-        title: "Space hub screen (aka vault) - IOS-3315",
-        type: .feature(author: "vova@anytype.io", releaseVersion: "7"),
-        defaultValue: false,
-        debugValue: true
     )
     
     // MARK: - Debug
@@ -159,6 +140,13 @@ public extension FeatureDescription {
     
     static let showGlobalSearchScore = FeatureDescription(
         title: "Show global search score",
+        type: .debug,
+        defaultValue: false,
+        debugValue: false
+    )
+    
+    static let versionHistoryPaginationTest = FeatureDescription(
+        title: "Version history pagination test - 15",
         type: .debug,
         defaultValue: false,
         debugValue: false

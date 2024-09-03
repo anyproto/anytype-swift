@@ -13,14 +13,12 @@ final class ParticipantRemoveNotificationViewModel: ObservableObject {
     private var notificationsService: any NotificationsServiceProtocol
     
     private let onExport: (_ path: URL) async -> Void
-    private let onDelete: (_ spaceId: String) async -> Void
     
     @Published var message: String = ""
     @Published var dismiss = false
     
-    init(notification: NotificationParticipantRemove, onDelete: @escaping (_ spaceId: String) async -> Void, onExport: @escaping (_ path: URL) async -> Void) {
+    init(notification: NotificationParticipantRemove, onExport: @escaping (_ path: URL) async -> Void) {
         self.notification = notification
-        self.onDelete = onDelete
         self.onExport = onExport
         message = Loc.ParticipantRemoveNotification.text
     }
@@ -33,12 +31,6 @@ final class ParticipantRemoveNotificationViewModel: ObservableObject {
             let exportSpaceUrl = URL(fileURLWithPath: path)
             await onExport(exportSpaceUrl)
         }
-        try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
-        dismiss.toggle()
-    }
-    
-    func onTapDelete() async throws {
-        await onDelete(notification.remove.spaceID)
         try await notificationsService.reply(ids: [notification.common.id], actionType: .close)
         dismiss.toggle()
     }

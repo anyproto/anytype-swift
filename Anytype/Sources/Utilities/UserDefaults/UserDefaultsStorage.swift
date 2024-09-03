@@ -13,16 +13,15 @@ protocol UserDefaultsStorageProtocol {
     var rowsPerPageInSet: Int { get set }
     var rowsPerPageInGroupedSet: Int { get set }
     var userInterfaceStyle: UIUserInterfaceStyle { get set }
-    
-    func saveLastOpenedScreen(spaceId: String, screen: EditorScreenData?)
-    func getLastOpenedScreen(spaceId: String) -> EditorScreenData?
+    var lastOpenedScreen: EditorScreenData? { get set }
     
     func saveSpacesOrder(accountId: String, spaces: [String])
     func getSpacesOrder(accountId: String) -> [String]
     
-    func wallpaperPublisher(spaceId: String) -> AnyPublisher<BackgroundType, Never>
-    func wallpaper(spaceId: String) -> BackgroundType
-    func setWallpaper(spaceId: String, wallpaper: BackgroundType)
+    func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never>
+    func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never>
+    func wallpaper(spaceId: String) -> SpaceWallpaperType
+    func setWallpaper(spaceId: String, wallpaper: SpaceWallpaperType)
     
     func cleanStateAfterLogout()
 }
@@ -53,6 +52,10 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     @UserDefault("UserData.RowsPerPageInGroupedSet", defaultValue: 20)
     var rowsPerPageInGroupedSet: Int
     
+    @UserDefault("UserData.LastOpenedScreen", defaultValue: nil)
+    var lastOpenedScreen: EditorScreenData?
+    
+    
     // MARK: - UserInterfaceStyle
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
     private var _userInterfaceStyleRawValue: Int
@@ -66,39 +69,31 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
         }
     }
     
-    // MARK: - Last opened screens
-    @UserDefault("UserData.LastOpenedScreens", defaultValue: [:])
-    private var lastOpenedScreens: [String: EditorScreenData]
-    
-    func saveLastOpenedScreen(spaceId: String, screen: EditorScreenData?) {
-        lastOpenedScreens[spaceId] = screen
-    }
-    
-    func getLastOpenedScreen(spaceId: String) -> EditorScreenData? {
-        lastOpenedScreens[spaceId]
-    }
-    
     // MARK: - Wallpaper
     @UserDefault("UserData.Wallpapers", defaultValue: [:])
-    private var _wallpapers: [String: BackgroundType] {
+    private var _wallpapers: [String: SpaceWallpaperType] {
         didSet { wallpapersSubject.send(_wallpapers) }
     }
     
-    private lazy var wallpapersSubject = CurrentValueSubject<[String: BackgroundType], Never>(_wallpapers)
-    func wallpaperPublisher(spaceId: String) -> AnyPublisher<BackgroundType, Never> {
+    private lazy var wallpapersSubject = CurrentValueSubject<[String: SpaceWallpaperType], Never>(_wallpapers)
+    func wallpapersPublisher() -> AnyPublisher<[String: SpaceWallpaperType], Never> {
+        wallpapersSubject.eraseToAnyPublisher()
+    }
+    
+    func wallpaperPublisher(spaceId: String) -> AnyPublisher<SpaceWallpaperType, Never> {
         return wallpapersSubject
-            .compactMap { items -> BackgroundType in
+            .compactMap { items -> SpaceWallpaperType in
                 return items[spaceId] ?? .default
             }
             .removeDuplicates()
             .eraseToAnyPublisher()
     }
     
-    func wallpaper(spaceId: String) -> BackgroundType {
+    func wallpaper(spaceId: String) -> SpaceWallpaperType {
         return _wallpapers[spaceId] ?? .default
     }
     
-    func setWallpaper(spaceId: String, wallpaper: BackgroundType) {
+    func setWallpaper(spaceId: String, wallpaper: SpaceWallpaperType) {
         _wallpapers[spaceId] = wallpaper
     }
     
@@ -117,7 +112,7 @@ final class UserDefaultsStorage: UserDefaultsStorageProtocol {
     func cleanStateAfterLogout() {
         usersId = ""
         showUnstableMiddlewareError = true
-        lastOpenedScreens = [:]
+        lastOpenedScreen = nil
     }
     
 }

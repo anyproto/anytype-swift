@@ -146,6 +146,7 @@ internal extension ImageAsset {
       static let up = ImageAsset.bundle(name: "x24/Arrow/Up")
     }
     static let attachment = ImageAsset.bundle(name: "x24/Attachment")
+    static let blur = ImageAsset.bundle(name: "x24/Blur")
     static let checkbox = ImageAsset.bundle(name: "x24/Checkbox")
     static let clipboard = ImageAsset.bundle(name: "x24/Clipboard")
     static let close = ImageAsset.bundle(name: "x24/Close")
