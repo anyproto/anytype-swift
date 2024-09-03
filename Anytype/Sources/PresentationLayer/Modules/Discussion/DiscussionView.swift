@@ -10,22 +10,8 @@ struct DiscussionView: View {
     
     var body: some View {
         DiscussionSpacingContainer {
-//            DiscussionScrollView(position: $model.scrollViewPosition) {
-//                VStack(spacing: 12) {
-//                    ForEach(model.mesageBlocks, id: \.id) {
-//                        MessageView(data: $0, output: model)
-//                    }
-//                }
-//                .padding(.vertical, 16)
-//            }
             DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
                 MessageView(data: $0, output: model)
-//                    .onAppear {
-//                        print("message view on appear")
-//                    }
-//                    .onDisappear {
-//                        print("message view on disappear")
-//                    }
             } scrollToBottom: {
                 await model.scrollToBottom()
             }

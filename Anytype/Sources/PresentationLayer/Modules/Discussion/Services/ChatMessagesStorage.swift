@@ -86,3 +86,9 @@ actor ChatMessagesStorage: ChatMessagesStorageProtocol {
         }
     }
 }
+
+extension Container {
+    var chatMessageStorage: ParameterFactory<String, any ChatMessagesStorageProtocol> {
+        self { ChatMessagesStorage(chatObjectId: $0) }
+    }
+}
