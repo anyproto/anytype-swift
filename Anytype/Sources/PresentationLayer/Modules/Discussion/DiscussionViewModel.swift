@@ -16,14 +16,16 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private var chatService: any ChatServiceProtocol
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
+    private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
+    @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
     @Published var message: AttributedString = ""
-    @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
+    private var scrollToLastForNextUpdate = false
     
     init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
         self.spaceId = spaceId
@@ -52,13 +54,29 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         }
     }
     
-    func loadMessages() async throws {
-        self.messages = try await chatService.getMessages(chatObjectId: chatId, beforeMessageId: nil, limit: nil)
-        updateMessages()
+    func loadNextPage() {
+        Task {
+            try await chatStorage.loadNextPage()
+        }
+    }
+    
+    func subscribeOnMessages() async throws {
+        try await chatStorage.startSubscription()
+        for await messages in await chatStorage.messagesPublisher.values {
+            self.messages = messages
+            updateMessages()
+            scrollToLastForNextUpdate = false
+        }
     }
     
     func onTapSendMessage() {
-        // TODO: Implement
+        Task {
+            var chatMessage = ChatMessage()
+            chatMessage.message.text = String(message.characters)
+            try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+            scrollToLastForNextUpdate = true
+            message = AttributedString()
+        }
     }
     
     func onTapRemoveLinkedObject(details: ObjectDetails) {
@@ -69,6 +87,10 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     func didSelectAddReaction(messageId: String) {
         output?.didSelectAddReaction(messageId: messageId)
+    }
+    
+    func scrollToBottom() async {
+        try? await chatStorage.loadNextPage()
     }
     
     // MARK: - Private
@@ -88,8 +110,10 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         guard newMesageBlocks != mesageBlocks else { return }
         mesageBlocks = newMesageBlocks
         
-        if let last = messages.last, scrollViewPosition == .none {
-            scrollViewPosition = .bottom(last.id)
+        if scrollToLastForNextUpdate {
+            messagesScrollUpdate = .scrollToLast
+        } else {
+            messagesScrollUpdate = .auto
         }
     }
 }

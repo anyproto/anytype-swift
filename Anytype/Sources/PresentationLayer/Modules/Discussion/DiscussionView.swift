@@ -10,13 +10,10 @@ struct DiscussionView: View {
     
     var body: some View {
         DiscussionSpacingContainer {
-            DiscussionScrollView(position: $model.scrollViewPosition) {
-                LazyVStack(spacing: 12) {
-                    ForEach(model.mesageBlocks, id: \.id) {
-                        MessageView(data: $0, output: model)
-                    }
-                }
-                .padding(.vertical, 16)
+            DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
+                MessageView(data: $0, output: model)
+            } scrollToBottom: {
+                await model.scrollToBottom()
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
                 inputPanel
@@ -26,7 +23,7 @@ struct DiscussionView: View {
             await model.subscribeOnParticipants()
         }
         .throwingTask {
-            try await model.loadMessages()
+            try await model.subscribeOnMessages()
         }
     }
     

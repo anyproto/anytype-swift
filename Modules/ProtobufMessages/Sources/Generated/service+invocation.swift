@@ -2524,13 +2524,33 @@ public struct ClientCommands {
         }
     }
 
-    public static func chatEditMessage(
-        _ request: Anytype_Rpc.Chat.EditMessage.Request = .init()
-    ) -> Invocation<Anytype_Rpc.Chat.EditMessage.Request, Anytype_Rpc.Chat.EditMessage.Response> {
-        return Invocation(messageName: "ChatEditMessage", request: request) { request in
+    public static func chatEditMessageContent(
+        _ request: Anytype_Rpc.Chat.EditMessageContent.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.EditMessageContent.Request, Anytype_Rpc.Chat.EditMessageContent.Response> {
+        return Invocation(messageName: "ChatEditMessageContent", request: request) { request in
             let requestData = try request.serializedData()
-            let responseData = Lib.ServiceChatEditMessage(requestData) ?? Data()
-            return try Anytype_Rpc.Chat.EditMessage.Response(serializedData: responseData)
+            let responseData = Lib.ServiceChatEditMessageContent(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.EditMessageContent.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatToggleMessageReaction(
+        _ request: Anytype_Rpc.Chat.ToggleMessageReaction.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.ToggleMessageReaction.Request, Anytype_Rpc.Chat.ToggleMessageReaction.Response> {
+        return Invocation(messageName: "ChatToggleMessageReaction", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatToggleMessageReaction(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.ToggleMessageReaction.Response(serializedData: responseData)
+        }
+    }
+
+    public static func chatDeleteMessage(
+        _ request: Anytype_Rpc.Chat.DeleteMessage.Request = .init()
+    ) -> Invocation<Anytype_Rpc.Chat.DeleteMessage.Request, Anytype_Rpc.Chat.DeleteMessage.Response> {
+        return Invocation(messageName: "ChatDeleteMessage", request: request) { request in
+            let requestData = try request.serializedData()
+            let responseData = Lib.ServiceChatDeleteMessage(requestData) ?? Data()
+            return try Anytype_Rpc.Chat.DeleteMessage.Response(serializedData: responseData)
         }
     }
 
