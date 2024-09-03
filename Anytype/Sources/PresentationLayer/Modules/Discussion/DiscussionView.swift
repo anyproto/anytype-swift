@@ -18,7 +18,7 @@ struct DiscussionView: View {
 //                }
 //                .padding(.vertical, 16)
 //            }
-            DiscussionCollectionView(items: model.mesageBlocks) {
+            DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
                 MessageView(data: $0, output: model)
 //                    .onAppear {
 //                        print("message view on appear")

@@ -20,11 +20,13 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
+    @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
     @Published var message: AttributedString = ""
     @Published var scrollViewPosition = DiscussionScrollViewPosition.none
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
+    private var scrollToLastForNextUpdate = false
     
     init(objectId: String, spaceId: String, chatId: String, output: (any DiscussionModuleOutput)?) {
         self.spaceId = spaceId
@@ -65,6 +67,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         for await messages in await chatStorage.messagesPublisher.values {
             self.messages = messages
             updateMessages()
+            scrollToLastForNextUpdate = false
         }
     }
     
@@ -73,6 +76,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             var chatMessage = ChatMessage()
             chatMessage.message.text = String(message.characters)
             try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
+            scrollToLastForNextUpdate = true
             message = AttributedString()
 //            scrollViewPosition = .bottom(newMessage.id)
         }
@@ -108,6 +112,13 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         
         guard newMesageBlocks != mesageBlocks else { return }
         mesageBlocks = newMesageBlocks
+        
+        if scrollToLastForNextUpdate {
+            messagesScrollUpdate = .scrollToLast
+        } else {
+            messagesScrollUpdate = .auto
+        }
+        
         if let last = messages.last, scrollViewPosition == .none {
             scrollViewPosition = .bottom(last.id)
         }
