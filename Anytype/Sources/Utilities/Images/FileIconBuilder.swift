@@ -10,15 +10,19 @@ struct FileIconBuilder {
     
     static func convert(mime: String, fileName: String) -> ImageAsset {
         var fileType = UTType(mimeType: mime.removing(in: .whitespaces))
-        let isArchive = fileType?.isSubtype(of: .archive) ?? false
+        
+        let isSubtypeOfArchive = fileType?.isSubtype(of: .archive) ?? false
+        let conformsToPdf = fileType?.conforms(to: .pdf) ?? false
+        let conformsToXls = fileType?.conforms(to: .xls) ?? false
+        let isDynamic = fileType?.isDynamic ?? false
+        let tryByExtension = fileType.isNil || isSubtypeOfArchive || conformsToPdf || conformsToXls || isDynamic
 
         let urlValidFileName = fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
 
         // Middle can return archive mime type for some files.
         // So we can try to infer mime type from file extension.
-        if let urlValidFileName = urlValidFileName,
-           let fileExtenstion = URL(string: urlValidFileName)?.pathExtension,
-            (fileType.isNil || isArchive)
+        if tryByExtension, let urlValidFileName = urlValidFileName,
+           let fileExtenstion = URL(string: urlValidFileName)?.pathExtension
         {
             fileType = UTType(filenameExtension: fileExtenstion)
         }
@@ -41,6 +45,7 @@ struct FileIconBuilder {
         .docx: FileIconConstants.text,
         .csv: FileIconConstants.text,
         .json: FileIconConstants.text,
+        .html: FileIconConstants.text,
 
         .spreadsheet: FileIconConstants.table,
         .xls: FileIconConstants.table,
@@ -79,7 +84,8 @@ struct FileIconBuilder {
         .appleProtectedMPEG4Video: FileIconConstants.video,
         .avi: FileIconConstants.video,
         
-        .archive: FileIconConstants.archive
+        .archive: FileIconConstants.archive,
+        .zip: FileIconConstants.archive
     ]
     
 }
