@@ -1,5 +1,6 @@
 import Foundation
 import Services
+import SwiftUI
 
 @MainActor
 final class MessageViewModel: ObservableObject {
@@ -7,7 +8,7 @@ final class MessageViewModel: ObservableObject {
     @Injected(\.chatService)
     private var chatService: any ChatServiceProtocol
     
-    private let data: MessageViewData
+    private var data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
     
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
@@ -58,5 +59,12 @@ final class MessageViewModel: ObservableObject {
         }.sorted { $0.count > $1.count }.sorted { $0.emoji < $1.emoji }
         
         linkedObjects = chatMessage.attachments.map { ObjectDetails(id: $0.target) }
+    }
+    
+    func update(data: MessageViewData) {
+        self.data = data
+        withAnimation {
+            updateView()
+        }
     }
 }

@@ -7,12 +7,13 @@ struct MessageView: View {
     
     var body: some View {
         MessageInternalView(data: data, output: output)
-            .id(data.hashValue)
+            .id(data.message.id)
     }
 }
 
 private struct MessageInternalView: View {
         
+    private let data: MessageViewData
     @StateObject private var model: MessageViewModel
     
     @State private var contentSize: CGSize = .zero
@@ -22,6 +23,7 @@ private struct MessageInternalView: View {
         data: MessageViewData,
         output: (any MessageModuleOutput)? = nil
     ) {
+        self.data = data
         self._model = StateObject(wrappedValue: MessageViewModel(data: data, output: output))
     }
     
@@ -32,6 +34,9 @@ private struct MessageInternalView: View {
             trailingView
         }
         .padding(.horizontal, 8)
+        .onChange(of: data) {
+            model.update(data: $0)
+        }
     }
     
     private var messageBackgorundColor: Color {
