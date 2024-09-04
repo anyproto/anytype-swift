@@ -22,18 +22,6 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var galleryWidget: Bool {
-        value(for: .galleryWidget)
-    }
-
-    static var widgetCreateWithoutType: Bool {
-        value(for: .widgetCreateWithoutType)
-    }
-
-    static var updateAlert: Bool {
-        value(for: .updateAlert)
-    }
-
     static var discussions: Bool {
         value(for: .discussions)
     }
@@ -100,9 +88,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .galleryWidget,
-        .widgetCreateWithoutType,
-        .updateAlert,
         .discussions,
         .versionHistory,
         .rainbowViews,

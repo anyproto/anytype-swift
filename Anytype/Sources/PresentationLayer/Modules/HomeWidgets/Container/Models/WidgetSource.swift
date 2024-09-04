@@ -41,11 +41,7 @@ extension ObjectDetails {
         case .page:
            return [.tree, .link]
         case .set:
-            if FeatureFlags.galleryWidget {
-                return [.view, .compactList, .list, .link]
-            } else {
-                return [.compactList, .list, .link]
-            }
+            return [.view, .compactList, .list, .link]
         }
     }
 }

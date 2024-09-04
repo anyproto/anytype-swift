@@ -14,9 +14,6 @@ struct CreateWidgetCoordinatorView: View {
         WidgetSourceSearchView(data: model.widgetSourceSearchData) {
             model.onSelectSource(source: $0)
         }
-        .sheet(item: $model.showWidgetTypeData) {
-            WidgetTypeCreateObjectView(data: $0)
-        }
         .onChange(of: model.dismiss) { _ in
             presentationMode.dismiss()
         }
