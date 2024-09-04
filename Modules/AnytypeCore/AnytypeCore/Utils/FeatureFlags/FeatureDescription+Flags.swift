@@ -30,12 +30,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let widgetCreateWithoutType = FeatureDescription(
-        title: "Create widget without type - IOS-3049",
-        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
     static let updateAlert = FeatureDescription(
         title: "Update Alert - IOS-3054",
         type: .feature(author: "m@anytype.io", releaseVersion: "6"),
