@@ -5,11 +5,11 @@ import AnytypeCore
 struct MessageReactionView: View {
     
     let model: MessageReactionModel
-    let onTap: () -> Void
+    let onTap: () async throws -> Void
     
     var body: some View {
-        Button {
-            onTap()
+        AsyncButton {
+            try await onTap()
         } label: {
             HStack(spacing: 2) {
                 Text(model.emoji)

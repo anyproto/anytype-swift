@@ -9,7 +9,7 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     let objectId: String
     let spaceId: String
     @Published var objectToMessageSearchData: BlockObjectSearchData?
-    @Published var showEmojiForMessageId: StringIdentifiable?
+    @Published var showEmojiData: MessageReactionPickerData?
     @Published var chatId: String?
     
     init(data: EditorDiscussionObject) {
@@ -31,6 +31,7 @@ final class DiscussionCoordinatorViewModel: ObservableObject, DiscussionModuleOu
     }
     
     func didSelectAddReaction(messageId: String) {
-        showEmojiForMessageId = messageId.identifiable
+        guard let chatId else { return }
+        showEmojiData = MessageReactionPickerData(chatObjectId: chatId, messageId: messageId)
     }
 }

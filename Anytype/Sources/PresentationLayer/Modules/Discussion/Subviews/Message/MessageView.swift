@@ -7,7 +7,7 @@ struct MessageView: View {
     
     var body: some View {
         MessageInternalView(data: data, output: output)
-            .id(data.id)
+            .id(data.hashValue)
     }
 }
 
@@ -68,7 +68,7 @@ private struct MessageInternalView: View {
             if model.reactions.isNotEmpty {
                 Spacer.fixedHeight(8)
                 MessageReactionList(rows: model.reactions) { reaction in
-                    model.onTapReaction(reaction)
+                    try await model.onTapReaction(reaction)
                 } onTapAdd: {
                     model.onTapAddReaction()
                 }

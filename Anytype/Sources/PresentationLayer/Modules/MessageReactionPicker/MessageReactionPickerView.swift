@@ -6,8 +6,8 @@ struct MessageReactionPickerView: View {
     @StateObject private var model: MessageReactionPickerViewModel
     @Environment(\.dismiss) private var dismiss
     
-    init(messageId: String) {
-        self._model = StateObject(wrappedValue: MessageReactionPickerViewModel(messageId: messageId))
+    init(data: MessageReactionPickerData) {
+        self._model = StateObject(wrappedValue: MessageReactionPickerViewModel(data: data))
     }
     
     var body: some View {

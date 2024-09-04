@@ -4,6 +4,9 @@ import Services
 @MainActor
 final class MessageViewModel: ObservableObject {
     
+    @Injected(\.chatService)
+    private var chatService: any ChatServiceProtocol
+    
     private let data: MessageViewData
     private weak var output: (any MessageModuleOutput)?
     
@@ -32,8 +35,8 @@ final class MessageViewModel: ObservableObject {
         output?.didSelectAddReaction(messageId: data.message.id)
     }
     
-    func onTapReaction(_ reaction: MessageReactionModel) {
-        // TODO: Integrate middleware
+    func onTapReaction(_ reaction: MessageReactionModel) async throws {
+        try await chatService.toggleMessageReaction(chatObjectId: data.chatId, messageId: data.message.id, emoji: reaction.emoji)
     }
     
     private func updateView() {
@@ -52,7 +55,7 @@ final class MessageViewModel: ObservableObject {
                 count: value.ids.count,
                 selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false
             )
-        }.sorted { $0.count > $1.count }
+        }.sorted { $0.count > $1.count }.sorted { $0.emoji < $1.emoji }
         
         linkedObjects = chatMessage.attachments.map { ObjectDetails(id: $0.target) }
     }
