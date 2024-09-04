@@ -13,6 +13,8 @@ final class MessageViewModel: ObservableObject {
     
     private let accountParticipantsStorage: any AccountParticipantsStorageProtocol = Container.shared.accountParticipantsStorage()
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(data.spaceId)
+    @Injected(\.objectIdsSubscriptionService)
+    private var objectIdsSubscriptionService: any ObjectIdsSubscriptionServiceProtocol
     
     @Published var message: String = ""
     @Published var author: String = ""
@@ -65,6 +67,29 @@ final class MessageViewModel: ObservableObject {
         self.data = data
         withAnimation {
             updateView()
+        }
+        Task {
+            await updateSubscription()
+        }
+    }
+    
+    func onAppear() {
+        Task {
+            await updateSubscription()
+        }
+    }
+    
+    func onDisappear() {
+        Task {
+            await objectIdsSubscriptionService.stopSubscription()
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func updateSubscription() async {
+        await objectIdsSubscriptionService.startSubscription(objectIds: data.message.attachments.map(\.target)) { [weak self] linkedDetails in
+            self?.linkedObjects = linkedDetails
         }
     }
 }

@@ -12,6 +12,20 @@ struct DiscussionView: View {
         DiscussionSpacingContainer {
             DiscussionCollectionView(items: model.mesageBlocks, diffApply: model.messagesScrollUpdate) {
                 MessageView(data: $0, output: model)
+//                    .task {
+//                        do {
+//                            print("start started")
+//                            try await Task.sleep(seconds: 100000)
+//                        } catch {
+//                            print("task error \(error)")
+//                        }
+//                    }
+//                    .onAppear {
+//                        model.didShowMessage(data: $0)
+//                    }
+//                    .onDisappear {
+//                        model.didHideMessage(data: $0)
+//                    }
             } scrollToBottom: {
                 await model.scrollToBottom()
             }
