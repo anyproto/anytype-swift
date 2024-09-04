@@ -13,8 +13,8 @@ struct DiscussionCoordinatorView: View {
             .sheet(item: $model.objectToMessageSearchData) {
                 BlockObjectSearchView(data: $0)
             }
-            .sheet(item: $model.showEmojiForMessageId) {
-                MessageReactionPickerView(messageId: $0.value)
+            .sheet(item: $model.showEmojiData) {
+                MessageReactionPickerView(data: $0)
             }
             .task {
                 await model.startHandleDetails()
