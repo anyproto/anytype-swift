@@ -34,9 +34,7 @@ private struct HomeWidgetsInternalView: View {
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {
-                        if FeatureFlags.updateAlert {
-                            HomeUpdateSubmoduleView()
-                        }
+                        HomeUpdateSubmoduleView()
                         SpaceWidgetView(spaceId: model.spaceId) {
                             model.onSpaceSelected()
                         }

@@ -22,10 +22,6 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var updateAlert: Bool {
-        value(for: .updateAlert)
-    }
-
     static var discussions: Bool {
         value(for: .discussions)
     }
@@ -92,7 +88,6 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .updateAlert,
         .discussions,
         .versionHistory,
         .rainbowViews,
