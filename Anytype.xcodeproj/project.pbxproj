@@ -298,7 +298,6 @@
 		2A0F403E2BADAF20002D8D37 /* StopSharingAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F403D2BADAF20002D8D37 /* StopSharingAlertModel.swift */; };
 		2A0F66262BFB98B000F34BBD /* FavoriteCommonListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66252BFB98B000F34BBD /* FavoriteCommonListWidgetSubmoduleView.swift */; };
 		2A0F66282BFB994A00F34BBD /* RecentCommonListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66272BFB994A00F34BBD /* RecentCommonListWidgetSubmoduleView.swift */; };
-		2A0F662A2BFB9A3700F34BBD /* SetObjectCommonListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66292BFB9A3700F34BBD /* SetObjectCommonListWidgetSubmoduleView.swift */; };
 		2A0F662C2BFB9B7200F34BBD /* SetsCommonListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F662B2BFB9B7200F34BBD /* SetsCommonListWidgetSubmoduleView.swift */; };
 		2A0F66392BFB9EFA00F34BBD /* CollectionsCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66382BFB9EFA00F34BBD /* CollectionsCompactListWidgetSubmoduleView.swift */; };
 		2A0F663B2BFB9F0A00F34BBD /* CollectionsListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F663A2BFB9F0A00F34BBD /* CollectionsListWidgetSubmoduleView.swift */; };
@@ -308,8 +307,6 @@
 		2A0F66452BFBA05200F34BBD /* RecentEditListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66442BFBA05200F34BBD /* RecentEditListWidgetSubmoduleView.swift */; };
 		2A0F66472BFBA06200F34BBD /* RecentOpenCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66462BFBA06200F34BBD /* RecentOpenCompactListWidgetSubmoduleView.swift */; };
 		2A0F66492BFBA07E00F34BBD /* RecentEditCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66482BFBA07E00F34BBD /* RecentEditCompactListWidgetSubmoduleView.swift */; };
-		2A0F664C2BFBA09D00F34BBD /* SetObjectListLegacyWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F664B2BFBA09D00F34BBD /* SetObjectListLegacyWidgetSubmoduleView.swift */; };
-		2A0F664E2BFBA0E000F34BBD /* SetObjectCompactListLegacyWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F664D2BFBA0E000F34BBD /* SetObjectCompactListLegacyWidgetSubmoduleView.swift */; };
 		2A0F66512BFBA11A00F34BBD /* SetsListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66502BFBA11A00F34BBD /* SetsListWidgetSubmoduleView.swift */; };
 		2A0F66532BFBA14100F34BBD /* SetsCompactListWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66522BFBA14100F34BBD /* SetsCompactListWidgetSubmoduleView.swift */; };
 		2A0F66552BFBA44800F34BBD /* RecentOpenTreeWidgetSubmoduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F66542BFBA44800F34BBD /* RecentOpenTreeWidgetSubmoduleView.swift */; };
@@ -644,7 +641,6 @@
 		2A945D3C299E2CD300C34C86 /* WidgetEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */; };
 		2A945D3E299E3E9D00C34C86 /* PlainList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A945D3D299E3E9D00C34C86 /* PlainList.swift */; };
 		2A947B372A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */; };
-		2A947B392A30CF2400119140 /* SetObjectWidgetLegacyInternalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B382A30CF2400119140 /* SetObjectWidgetLegacyInternalViewModel.swift */; };
 		2A947B3E2A30E25600119140 /* WidgetObjectListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B3D2A30E25600119140 /* WidgetObjectListRowView.swift */; };
 		2A947B422A30E3EC00119140 /* ListWidgetRowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A947B412A30E3EC00119140 /* ListWidgetRowModel.swift */; };
 		2A9486562950A41B007A5586 /* HomeWidgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9486552950A41B007A5586 /* HomeWidgetsView.swift */; };
@@ -2152,7 +2148,6 @@
 		2A0F403D2BADAF20002D8D37 /* StopSharingAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSharingAlertModel.swift; sourceTree = "<group>"; };
 		2A0F66252BFB98B000F34BBD /* FavoriteCommonListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCommonListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66272BFB994A00F34BBD /* RecentCommonListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentCommonListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
-		2A0F66292BFB9A3700F34BBD /* SetObjectCommonListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCommonListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F662B2BFB9B7200F34BBD /* SetsCommonListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsCommonListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66382BFB9EFA00F34BBD /* CollectionsCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F663A2BFB9F0A00F34BBD /* CollectionsListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
@@ -2162,8 +2157,6 @@
 		2A0F66442BFBA05200F34BBD /* RecentEditListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentEditListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66462BFBA06200F34BBD /* RecentOpenCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentOpenCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66482BFBA07E00F34BBD /* RecentEditCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentEditCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
-		2A0F664B2BFBA09D00F34BBD /* SetObjectListLegacyWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectListLegacyWidgetSubmoduleView.swift; sourceTree = "<group>"; };
-		2A0F664D2BFBA0E000F34BBD /* SetObjectCompactListLegacyWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectCompactListLegacyWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66502BFBA11A00F34BBD /* SetsListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66522BFBA14100F34BBD /* SetsCompactListWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetsCompactListWidgetSubmoduleView.swift; sourceTree = "<group>"; };
 		2A0F66542BFBA44800F34BBD /* RecentOpenTreeWidgetSubmoduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentOpenTreeWidgetSubmoduleView.swift; sourceTree = "<group>"; };
@@ -2493,7 +2486,6 @@
 		2A945D3B299E2CD300C34C86 /* WidgetEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetEmptyView.swift; sourceTree = "<group>"; };
 		2A945D3D299E3E9D00C34C86 /* PlainList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainList.swift; sourceTree = "<group>"; };
 		2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataviewInternalViewModelProtocol.swift; sourceTree = "<group>"; };
-		2A947B382A30CF2400119140 /* SetObjectWidgetLegacyInternalViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetObjectWidgetLegacyInternalViewModel.swift; sourceTree = "<group>"; };
 		2A947B3D2A30E25600119140 /* WidgetObjectListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetObjectListRowView.swift; sourceTree = "<group>"; };
 		2A947B412A30E3EC00119140 /* ListWidgetRowModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWidgetRowModel.swift; sourceTree = "<group>"; };
 		2A9486552950A41B007A5586 /* HomeWidgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeWidgetsView.swift; sourceTree = "<group>"; };
@@ -5434,9 +5426,6 @@
 		2A0F664A2BFBA08E00F34BBD /* SetObject */ = {
 			isa = PBXGroup;
 			children = (
-				2A0F66292BFB9A3700F34BBD /* SetObjectCommonListWidgetSubmoduleView.swift */,
-				2A0F664B2BFBA09D00F34BBD /* SetObjectListLegacyWidgetSubmoduleView.swift */,
-				2A0F664D2BFBA0E000F34BBD /* SetObjectCompactListLegacyWidgetSubmoduleView.swift */,
 				2A21A40D2C46662B006D320E /* SetObjectListWidgetSubmoduleView.swift */,
 				2A21A40F2C46665E006D320E /* SetObjectCompactListWidgetSubmoduleView.swift */,
 			);
@@ -7084,7 +7073,6 @@
 				2AC906CF29B61DAC00209E39 /* SetsWidgetInternalViewModel.swift */,
 				2AFCEB3629C89A7B00841E13 /* CollectionsWidgetInternalViewModel.swift */,
 				2A947B362A30CDCF00119140 /* WidgetDataviewInternalViewModelProtocol.swift */,
-				2A947B382A30CF2400119140 /* SetObjectWidgetLegacyInternalViewModel.swift */,
 				2A4BF66C2C21817100A59B40 /* SetObjectWidgetInternalViewModel.swift */,
 			);
 			path = SpecificInternalModels;
@@ -11941,7 +11929,6 @@
 				3D30417227EA689F00FFE0EB /* SetContentViewDataBuilder.swift in Sources */,
 				2A1731BA2B9A0A8200FD990D /* AudioSessionService.swift in Sources */,
 				53F7441727F4A09B005C9BB0 /* ObjectPreviewModel.swift in Sources */,
-				2A947B392A30CF2400119140 /* SetObjectWidgetLegacyInternalViewModel.swift in Sources */,
 				2ECBD18F2B14F9BF007F47FC /* RelationsInteractor.swift in Sources */,
 				2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */,
 				2A8C00FD29C4C61300309C14 /* SectionHeaderView.swift in Sources */,
@@ -12059,7 +12046,6 @@
 				125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */,
 				2A668F152BB2BC0200460C68 /* AsyncStandardButtonGroup.swift in Sources */,
 				2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */,
-				2A0F664E2BFBA0E000F34BBD /* SetObjectCompactListLegacyWidgetSubmoduleView.swift in Sources */,
 				3D2F002B2B6821D7009F3AA5 /* ObjectTypeSearchViewModel.swift in Sources */,
 				3D93D56F270C9E4E00614E29 /* EditorMainItemModelsHolder.swift in Sources */,
 				C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */,
@@ -12249,7 +12235,6 @@
 				1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */,
 				2ABBAEEF2BFB896A00EBA8FA /* ObjectTreeWidgetSubmoduleView.swift in Sources */,
 				2E010C372B8CEF5500504735 /* RelationValueViewModel.swift in Sources */,
-				2A0F662A2BFB9A3700F34BBD /* SetObjectCommonListWidgetSubmoduleView.swift in Sources */,
 				2A4F81FF2C5239F200DEE559 /* VersionHistoryData.swift in Sources */,
 				3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */,
 				2A7BD6E828D8599D008B735C /* RelationSubscriptionDataBuilderProtocol.swift in Sources */,
@@ -12260,7 +12245,6 @@
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
 				120F7D80267F8A2B00327734 /* BlockBookmarkState.swift in Sources */,
 				2A00A74029D33AA7007BE598 /* TappableArea.swift in Sources */,
-				2A0F664C2BFBA09D00F34BBD /* SetObjectListLegacyWidgetSubmoduleView.swift in Sources */,
 				127EAC0C273A353A00C731F2 /* Relation.swift in Sources */,
 				2EFFEB9629A52537002F5859 /* SetDragAndDropView.swift in Sources */,
 				2E975EC72874BB18004DE574 /* SetViewPickerViewModel.swift in Sources */,

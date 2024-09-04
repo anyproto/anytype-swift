@@ -14,11 +14,7 @@ struct HomeWidgetSubmoduleView: View {
     var body: some View {
         switch widgetInfo.source {
         case .object(let objectDetails):
-            if FeatureFlags.galleryWidget {
-                viewForObject(objectDetails)
-            } else {
-                viewForObjectLegacy(objectDetails)
-            }
+            viewForObject(objectDetails)
         case .library(let anytypeWidgetId):
             viewForAnytypeWidgetId(anytypeWidgetId)
         }
@@ -61,41 +57,7 @@ struct HomeWidgetSubmoduleView: View {
             EmptyView()
         }
     }
-    
-    @ViewBuilder
-    private func viewForObjectLegacy(_ objectDetails: ObjectDetails) -> some View {
-        if objectDetails.isNotDeletedAndVisibleForEdit {
-            switch widgetInfo.fixedLayout {
-            case .link:
-                LinkWidgetView(data: widgetData)
-            case .tree:
-                if objectDetails.editorViewType == .page {
-                    ObjectTreeWidgetSubmoduleView(data: widgetData)
-                } else {
-                    // Fallback
-                    LinkWidgetView(data: widgetData)
-                }
-            case .list, .view:
-                if objectDetails.editorViewType == .set {
-                    SetObjectListLegacyWidgetSubmoduleView(data: widgetData)
-                } else {
-                    // Fallback
-                    LinkWidgetView(data: widgetData)
-                }
-            case .compactList:
-                if objectDetails.editorViewType == .set {
-                    SetObjectCompactListLegacyWidgetSubmoduleView(data: widgetData)
-                } else {
-                    LinkWidgetView(data: widgetData)
-                }
-            case .UNRECOGNIZED:
-                EmptyView()
-            }
-        } else {
-            EmptyView()
-        }
-    }
-    
+        
     @ViewBuilder
     private func viewForObject(_ objectDetails: ObjectDetails) -> some View {
         if objectDetails.isNotDeletedAndVisibleForEdit {
