@@ -14,8 +14,8 @@ struct FileIconBuilder {
         let isSubtypeOfArchive = fileType?.isSubtype(of: .archive) ?? false
         let conformsToPdf = fileType?.conforms(to: .pdf) ?? false
         let conformsToXls = fileType?.conforms(to: .xls) ?? false
-        let isDynamic = fileType?.isDynamic ?? false
-        let tryByExtension = fileType.isNil || isSubtypeOfArchive || conformsToPdf || conformsToXls || isDynamic
+        let isDeclared = fileType?.isDeclared ?? false
+        let tryByExtension = fileType.isNil || isSubtypeOfArchive || conformsToPdf || conformsToXls || !isDeclared
 
         let urlValidFileName = fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
 
@@ -25,18 +25,25 @@ struct FileIconBuilder {
            let fileExtenstion = URL(string: urlValidFileName)?.pathExtension
         {
             fileType = UTType(filenameExtension: fileExtenstion)
+            if let fileType, !fileType.isDeclared {
+                return tryCustomConvertBy(fileExtenstion: fileExtenstion)
+            }
         }
 
-        guard let fileType = fileType else {
+        guard let fileType else {
             return FileIconConstants.other
         }
 
-        return dictionary.first { type, image in
+        return typesDictionary.first { type, image in
             type == fileType || fileType.isSubtype(of: type)
         }?.value ?? FileIconConstants.other
     }
     
-    private static let dictionary: [UTType: ImageAsset] = [
+    private static func tryCustomConvertBy(fileExtenstion: String) -> ImageAsset {
+        extensionsDictionary[fileExtenstion] ?? FileIconConstants.other
+    }
+    
+    private static let typesDictionary: [UTType: ImageAsset] = [
         .text: FileIconConstants.text,
         .plainText: FileIconConstants.text,
         .utf8PlainText: FileIconConstants.text,
@@ -88,4 +95,7 @@ struct FileIconBuilder {
         .zip: FileIconConstants.archive
     ]
     
+    private static let extensionsDictionary: [String: ImageAsset] = [
+        "dwg" : FileIconConstants.image
+    ]
 }
