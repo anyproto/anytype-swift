@@ -4438,6 +4438,7 @@ public struct Anytype_Event {
         case synced // = 3
         case failed // = 4
         case incompatibleVersion // = 5
+        case networkNeedsUpdate // = 6
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -4452,6 +4453,7 @@ public struct Anytype_Event {
           case 3: self = .synced
           case 4: self = .failed
           case 5: self = .incompatibleVersion
+          case 6: self = .networkNeedsUpdate
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -4464,6 +4466,7 @@ public struct Anytype_Event {
           case .synced: return 3
           case .failed: return 4
           case .incompatibleVersion: return 5
+          case .networkNeedsUpdate: return 6
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -4971,6 +4974,7 @@ extension Anytype_Event.Status.Thread.SyncStatus: CaseIterable {
     .synced,
     .failed,
     .incompatibleVersion,
+    .networkNeedsUpdate,
   ]
 }
 
@@ -13280,6 +13284,7 @@ extension Anytype_Event.Status.Thread.SyncStatus: SwiftProtobuf._ProtoNameProvid
     3: .same(proto: "Synced"),
     4: .same(proto: "Failed"),
     5: .same(proto: "IncompatibleVersion"),
+    6: .same(proto: "NetworkNeedsUpdate"),
   ]
 }
 
