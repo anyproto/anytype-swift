@@ -73,9 +73,16 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         Task {
             var chatMessage = ChatMessage()
             chatMessage.message.text = String(message.characters)
+            chatMessage.attachments = linkedObjects.map { details in
+                var attachment = ChatMessageAttachment()
+                attachment.target = details.id
+                attachment.type = .link
+                return attachment
+            }
             try await chatService.addMessage(chatObjectId: chatId, message: chatMessage)
             scrollToLastForNextUpdate = true
             message = AttributedString()
+            linkedObjects = []
         }
     }
     

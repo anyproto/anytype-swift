@@ -269,6 +269,7 @@
 		2A00A73529D19051007BE598 /* ReadableContentGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A73429D19051007BE598 /* ReadableContentGuide.swift */; };
 		2A00A74029D33AA7007BE598 /* TappableArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A73F29D33AA7007BE598 /* TappableArea.swift */; };
 		2A00A74229D33B25007BE598 /* EdgeInsets+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */; };
+		2A0136D42C88A07E00079F1D /* ObjectIdsSubscriptionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A0136D32C88A07500079F1D /* ObjectIdsSubscriptionService.swift */; };
 		2A01A4F62A1F9FA1002042FB /* MailUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A01A4F52A1F9FA1002042FB /* MailUrl.swift */; };
 		2A01A4F92A1FB507002042FB /* DeviceKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A01A4F82A1FB507002042FB /* DeviceKit */; };
 		2A03039828ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A03039728ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift */; };
@@ -2126,6 +2127,7 @@
 		2A00A73429D19051007BE598 /* ReadableContentGuide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadableContentGuide.swift; sourceTree = "<group>"; };
 		2A00A73F29D33AA7007BE598 /* TappableArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableArea.swift; sourceTree = "<group>"; };
 		2A00A74129D33B25007BE598 /* EdgeInsets+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EdgeInsets+Helpers.swift"; sourceTree = "<group>"; };
+		2A0136D32C88A07500079F1D /* ObjectIdsSubscriptionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIdsSubscriptionService.swift; sourceTree = "<group>"; };
 		2A01A4F52A1F9FA1002042FB /* MailUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailUrl.swift; sourceTree = "<group>"; };
 		2A03039728ABAA45002EFC46 /* TextRelationActionViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationActionViewModelProtocol.swift; sourceTree = "<group>"; };
 		2A03039928ABAA99002EFC46 /* TextRelationCopyActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationCopyActionViewModel.swift; sourceTree = "<group>"; };
@@ -5543,6 +5545,7 @@
 				2A28D03C297E8C4C00E55E15 /* SetsSubscriptionService.swift */,
 				2AFF7AC3299CDA6900B7746B /* BinSubscriptionService.swift */,
 				2AFA1112296DBBD60055422F /* ObjectsCommonSubscriptionDataBuilder.swift */,
+				2A0136D32C88A07500079F1D /* ObjectIdsSubscriptionService.swift */,
 				2AFCEB3829C8A25900841E13 /* CollectionsSubscriptionService.swift */,
 				2A6C75C329FC03D4002BD440 /* SingleObjectSubscriptionService.swift */,
 				2AA0C43E2A013EF800B9C108 /* FilesSubscriptionService.swift */,
@@ -12623,6 +12626,7 @@
 				2AE337D32B693E1200498A31 /* GalleryInstallationData.swift in Sources */,
 				2A9486582950A494007A5586 /* HomeWidgetsViewModel.swift in Sources */,
 				12DE4060264AE455007B5074 /* LayoutAnchorType.swift in Sources */,
+				2A0136D42C88A07E00079F1D /* ObjectIdsSubscriptionService.swift in Sources */,
 				3D24912B27BD271900821595 /* MentionMarkupEventProvider.swift in Sources */,
 				2E2A23042A9F746D00745D78 /* SetLayoutSettings.swift in Sources */,
 				2AFA90552C2190650003D96E /* SetObjectViewRows.swift in Sources */,

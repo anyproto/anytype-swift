@@ -24,6 +24,10 @@ extension Container {
         self { SingleObjectSubscriptionService() }
     }
     
+    var objectIdsSubscriptionService: Factory<any ObjectIdsSubscriptionServiceProtocol> {
+        self { ObjectIdsSubscriptionService() }
+    }
+    
     var loginStateService: Factory<any LoginStateServiceProtocol> {
         self { LoginStateService() }.singleton
     }

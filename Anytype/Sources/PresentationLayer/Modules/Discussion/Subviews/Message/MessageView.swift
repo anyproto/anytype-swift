@@ -37,6 +37,12 @@ private struct MessageInternalView: View {
         .onChange(of: data) {
             model.update(data: $0)
         }
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear {
+            model.onDisappear()
+        }
     }
     
     private var messageBackgorundColor: Color {
