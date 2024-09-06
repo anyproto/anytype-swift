@@ -8,6 +8,7 @@ struct MessageReactionPickerData: Identifiable, Hashable {
     var id: Int { hashValue }
 }
 
+@MainActor
 final class MessageReactionPickerViewModel: ObservableObject {
     
     @Injected(\.chatService)
