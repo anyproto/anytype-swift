@@ -52,7 +52,7 @@ public extension FeatureDescription {
         title: "Discussions - IOS-3060",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
         defaultValue: false,
-        debugValue: false
+        debugValue: true
     )
     
     static let versionHistory = FeatureDescription(

@@ -14,6 +14,7 @@ protocol TypesServiceProtocol {
         includeLists: Bool,
         includeBookmark: Bool,
         includeFiles: Bool,
+        includeChat: Bool,
         incudeNotForCreation: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails]

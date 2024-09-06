@@ -1,7 +1,7 @@
 import AnytypeCore
 
 public extension DetailsLayout {
-    static let visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts
+    static let visibleLayouts: [DetailsLayout] = pageLayouts + setLayouts + chatLayouts
     static let supportedForEditLayouts: [DetailsLayout] =  pageLayouts + fileLayouts + setLayouts
     static let supportedForCreationInSets: [DetailsLayout] = pageLayouts - [.participant]
     static let visibleLayoutsWithFiles = visibleLayouts + fileLayouts
@@ -39,6 +39,8 @@ public extension DetailsLayout {
         .collection,
         .set
     ]
+    
+    static let chatLayouts: [DetailsLayout] = FeatureFlags.discussions ? [.chat] : []
     
     static let systemLayouts: [DetailsLayout] = [
         .objectType,

@@ -58,9 +58,17 @@ struct HomeWidgetSubmoduleView: View {
         case (.collections, .compactList):
             CollectionsCompactListWidgetSubmoduleView(data: widgetData)
         case (.chat, .list):
-            ChatsListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.discussions {
+                ChatsListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case (.chat, .compactList):
-            ChatsCompactListWidgetSubmoduleView(data: widgetData)
+            if FeatureFlags.discussions {
+                ChatsCompactListWidgetSubmoduleView(data: widgetData)
+            } else {
+                EmptyView()
+            }
         case _:
             EmptyView()
         }
