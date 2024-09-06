@@ -282,6 +282,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
+                
+                let filteredBlocksIds = movingBlocksIds.filter { $0 != blockId }
                 let targetDocument = documentsProvider.document(objectId: content.targetBlockID)
             
                 Task { @MainActor [weak self] in
@@ -289,7 +291,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     guard let self, let id = targetDocument.children.last?.id,
                           let details = targetDocument.details else { return }
                     if !details.isList {
-                        try await move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
+                        try await move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id, blocksIds: filteredBlocksIds)
                         toastPresenter.showObjectCompositeAlert(
                             prefixText: Loc.Editor.Toast.movedTo,
                             objectId: targetDocument.objectId,
@@ -302,7 +304,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     }
                 }
             } else {
-                moveSync(position: .inner, targetId: document.objectId, dropTargetId: blockId)
+                moveSync(position: .inner, targetId: document.objectId, dropTargetId: blockId, blocksIds: movingBlocksIds)
             }
         case let .position(positionIndexPath):
             let position: BlockPosition
@@ -317,28 +319,33 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 anytypeAssertionFailure("Unxpected case")
                 return
             }
-            moveSync(position: position, targetId: document.objectId, dropTargetId: dropTargetId)
+            moveSync(position: position, targetId: document.objectId, dropTargetId: dropTargetId, blocksIds: movingBlocksIds)
         case .none:
             anytypeAssertionFailure("Unxpected case")
             return
         }
     }
     
-    private func moveSync(position: BlockPosition, targetId: String, dropTargetId: String) {
+    private func moveSync(position: BlockPosition, targetId: String, dropTargetId: String, blocksIds: [String]) {
         Task {
-            try await move(position: position, targetId: targetId, dropTargetId: dropTargetId)
+            try await move(position: position, targetId: targetId, dropTargetId: dropTargetId, blocksIds: blocksIds)
         }
     }
     
-    private func move(position: BlockPosition, targetId: String, dropTargetId: String) async throws {
-        guard !movingBlocksIds.contains(dropTargetId) else { return }
+    private func move(
+        position: BlockPosition,
+        targetId: String,
+        dropTargetId: String,
+        blocksIds: [String]
+    ) async throws {
+        guard blocksIds.isNotEmpty, !blocksIds.contains(dropTargetId) else { return }
 
         UISelectionFeedbackGenerator().selectionChanged()
-        AnytypeAnalytics.instance().logReorderBlock(count: movingBlocksIds.count)
+        AnytypeAnalytics.instance().logReorderBlock(count: blocksIds.count)
         
         try await blockService.move(
             contextId: document.objectId,
-            blockIds: movingBlocksIds,
+            blockIds: blocksIds,
             targetContextID: targetId,
             dropTargetID: dropTargetId,
             position: position
