@@ -291,12 +291,19 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                     guard let self, let id = targetDocument.children.last?.id,
                           let details = targetDocument.details else { return }
                     if !details.isList {
-                        try await move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id, blocksIds: filteredBlocksIds)
-                        toastPresenter.showObjectCompositeAlert(
-                            prefixText: Loc.Editor.Toast.movedTo,
-                            objectId: targetDocument.objectId,
-                            tapHandler: { [weak self] in
-                                self?.router.showEditorScreen(data: details.editorScreenData())
+                        try await move(
+                            position: .bottom,
+                            targetId: targetDocument.objectId,
+                            dropTargetId: id,
+                            blocksIds: filteredBlocksIds,
+                            completion: { [weak self] in
+                                self?.toastPresenter.showObjectCompositeAlert(
+                                    prefixText: Loc.Editor.Toast.movedTo,
+                                    objectId: targetDocument.objectId,
+                                    tapHandler: { [weak self] in
+                                        self?.router.showEditorScreen(data: details.editorScreenData())
+                                    }
+                                )
                             }
                         )
                     } else if details.isCollection {
@@ -336,7 +343,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         position: BlockPosition,
         targetId: String,
         dropTargetId: String,
-        blocksIds: [String]
+        blocksIds: [String],
+        completion: (() -> Void)? = nil
     ) async throws {
         guard blocksIds.isNotEmpty, !blocksIds.contains(dropTargetId) else { return }
 
@@ -353,6 +361,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         
         movingBlocksIds.removeAll()
         editingState = .editing
+        completion?()
     }
     
     private func moveObjectsToCollection(_ collectionId: String, details: ObjectDetails) async throws {
