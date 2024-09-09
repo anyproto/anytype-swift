@@ -1155,6 +1155,8 @@
 		2EE616102B6D02FB000236A8 /* RelationSelectionOptionsMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE6160F2B6D02FB000236A8 /* RelationSelectionOptionsMode.swift */; };
 		2EE622FC29F2F57D004DBF3E /* SetItemProviderObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */; };
 		2EE75AEA2C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE75AE92C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift */; };
+		2EE75AF92C8F53E70024B8B9 /* AllContentWidgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE75AF62C8F53E70024B8B9 /* AllContentWidgetView.swift */; };
+		2EE75AFA2C8F53E70024B8B9 /* AllContentWidgetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE75AF72C8F53E70024B8B9 /* AllContentWidgetViewModel.swift */; };
 		2EED4F562B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */; };
 		2EED4F592B6C31600076FAC6 /* RelationSelectedOptionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */; };
 		2EEE411E2C1080AD000AB88B /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 2EEE411D2C1080AD000AB88B /* CachedAsyncImage */; };
@@ -3027,6 +3029,8 @@
 		2EE6160F2B6D02FB000236A8 /* RelationSelectionOptionsMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSelectionOptionsMode.swift; sourceTree = "<group>"; };
 		2EE622FB29F2F57D004DBF3E /* SetItemProviderObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetItemProviderObject.swift; sourceTree = "<group>"; };
 		2EE75AE92C7890C90024B8B9 /* ServerLocalConfigurationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerLocalConfigurationAlert.swift; sourceTree = "<group>"; };
+		2EE75AF62C8F53E70024B8B9 /* AllContentWidgetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllContentWidgetView.swift; sourceTree = "<group>"; };
+		2EE75AF72C8F53E70024B8B9 /* AllContentWidgetViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllContentWidgetViewModel.swift; sourceTree = "<group>"; };
 		2EED4F552B6A7B640076FAC6 /* RelationOptionSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RelationOptionSettingsViewModel.swift; sourceTree = "<group>"; };
 		2EED4F582B6C31600076FAC6 /* RelationSelectedOptionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationSelectedOptionsModel.swift; sourceTree = "<group>"; };
 		2EEE41232C11C35F000AB88B /* GlobalSearchRelatedObjectsSwipeTipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchRelatedObjectsSwipeTipView.swift; sourceTree = "<group>"; };
@@ -5876,6 +5880,7 @@
 		2A4919A629530AD200FCEAC9 /* Widgets */ = {
 			isa = PBXGroup;
 			children = (
+				2EE75AF82C8F53E70024B8B9 /* AllContent */,
 				2A592A7B2C16F55C008E737F /* Gallery */,
 				2A21A4072C466472006D320E /* View */,
 				2A592A822C16F6DA008E737F /* SetCommon */,
@@ -8281,6 +8286,15 @@
 				2A4E99E72B0B5DB700C81584 /* SetObjectCreationCoordinatorOutput.swift */,
 			);
 			path = Creation;
+			sourceTree = "<group>";
+		};
+		2EE75AF82C8F53E70024B8B9 /* AllContent */ = {
+			isa = PBXGroup;
+			children = (
+				2EE75AF62C8F53E70024B8B9 /* AllContentWidgetView.swift */,
+				2EE75AF72C8F53E70024B8B9 /* AllContentWidgetViewModel.swift */,
+			);
+			path = AllContent;
 			sourceTree = "<group>";
 		};
 		2EED4F572B6C31530076FAC6 /* RelationSelectedOptions */ = {
@@ -12781,6 +12795,7 @@
 				C9D5F7BF281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift in Sources */,
 				03D1516623FB446A004027CE /* MiddlewareConfigurationProvider.swift in Sources */,
 				2AD8AFD72A851CC400F12D54 /* BlockWidgetExpandedService.swift in Sources */,
+				2EE75AF92C8F53E70024B8B9 /* AllContentWidgetView.swift in Sources */,
 				3DBC486A2BE140A9004E2A51 /* MembershipServiceError+Localisation.swift in Sources */,
 				3D30408C27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift in Sources */,
 				2ADF00932ACF0040000D01F8 /* HomePath.swift in Sources */,
@@ -12974,6 +12989,7 @@
 				2EAA13FE2AA63918000A712A /* SetViewSettingsImagePreviewRowConfiguration.swift in Sources */,
 				2A35A6BE2BBDA4C000CCE4F4 /* LinkToObjectSearchView.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
+				2EE75AFA2C8F53E70024B8B9 /* AllContentWidgetViewModel.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				3DD72C2F2C3FF04F002C5ACC /* SyncStatusStorageMock.swift in Sources */,
 				2A6693752A7104EA007747DD /* StaticImageGuideline.swift in Sources */,

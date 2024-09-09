@@ -38,6 +38,11 @@ private struct HomeWidgetsInternalView: View {
                         SpaceWidgetView(spaceId: model.spaceId) {
                             model.onSpaceSelected()
                         }
+                        if FeatureFlags.allContent {
+                            AllContentWidgetView(homeState: $model.homeState) {
+                                model.onAllContentSelected()
+                            }
+                        }
                         if #available(iOS 17.0, *) {
                             WidgetSwipeTipView()
                         }

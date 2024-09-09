@@ -43,6 +43,13 @@ public extension FeatureDescription {
         defaultValue: true
     )
     
+    static let allContent = FeatureDescription(
+        title: "All content",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
+        defaultValue: false,
+        debugValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(
