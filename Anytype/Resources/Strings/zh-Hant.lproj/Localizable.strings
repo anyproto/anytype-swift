@@ -685,6 +685,7 @@
 "Cancel deletion" = "取消刪除";
 "Logout and clear data" = "登出並清除資料";
 "New" = "新增";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "您確定要刪除您的帳戶嗎？";
