@@ -684,6 +684,7 @@
 "Cancel deletion" = "Cancelar la eliminación";
 "Logout and clear data" = "Cerrar sesión y eliminar datos";
 "New" = "Nuevo";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "¿Seguro que quieres eliminar tu arca?";
