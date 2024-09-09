@@ -684,6 +684,7 @@
 "Cancel deletion" = "Скасувати видалення";
 "Logout and clear data" = "Вийти й очистити дані";
 "New" = "Новий";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

@@ -685,6 +685,7 @@
 "Cancel deletion" = "Скасаваць выдаленне";
 "Logout and clear data" = "Выйсці і ачысціць даныя";
 "New" = "Новы";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";

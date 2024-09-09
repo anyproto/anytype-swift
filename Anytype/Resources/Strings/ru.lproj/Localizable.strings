@@ -684,6 +684,7 @@
 "Cancel deletion" = "Отменить удаление";
 "Logout and clear data" = "Выйти и очистить данные";
 "New" = "Новый";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы уверены, что хотите удалить хранилище?";

@@ -684,6 +684,7 @@
 "Cancel deletion" = "Löschung abbrechen";
 "Logout and clear data" = "Abmelden und Daten löschen";
 "New" = "Neu";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Bist du sicher, dass du deinen Tresor löschen möchtest?";
