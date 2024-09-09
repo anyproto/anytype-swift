@@ -32,6 +32,7 @@ final class GlobalSearchDataBuilder: GlobalSearchDataBuilderProtocol {
         }
         
         return GlobalSearchData(
+            id: details.id,
             iconImage: details.objectIconImage,
             title: title,
             highlights: highlights,
