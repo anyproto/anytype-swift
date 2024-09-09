@@ -684,6 +684,7 @@
 "Cancel deletion" = "Annulla eliminazione";
 "Logout and clear data" = "Esci e cancella i dati";
 "New" = "Nuovo";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Sei sicuro di voler eliminare la tua cassaforte?";
