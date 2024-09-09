@@ -54,6 +54,7 @@ internal enum Loc {
   internal static let black = Loc.tr("Localizable", "Black")
   internal static let blue = Loc.tr("Localizable", "Blue")
   internal static let blueBackground = Loc.tr("Localizable", "Blue background")
+  internal static let blurredIcon = Loc.tr("Localizable", "Blurred icon")
   internal static let bookmark = Loc.tr("Localizable", "Bookmark")
   internal static let bookmarkBlockSubtitle = Loc.tr("Localizable", "Bookmark block subtitle")
   internal static let callout = Loc.tr("Localizable", "Callout")

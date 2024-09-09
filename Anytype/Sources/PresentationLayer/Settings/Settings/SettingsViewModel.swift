@@ -25,8 +25,8 @@ final class SettingsViewModel: ObservableObject {
     private var profileDataLoaded: Bool = false
     private let subAccountId = "SettingsAccount-\(UUID().uuidString)"
     
-    private let isInProdNetwork: Bool
-    var canShowMemberhip: Bool { isInProdNetwork }
+    private let isInProdOrStagingNetwork: Bool
+    var canShowMemberhip: Bool { isInProdOrStagingNetwork }
     
     @Published var profileName: String = ""
     @Published var profileIcon: Icon?
@@ -37,7 +37,7 @@ final class SettingsViewModel: ObservableObject {
         self.output = output
         
         accountManager = Container.shared.accountManager.resolve()
-        isInProdNetwork = accountManager.account.isInProdNetwork
+        isInProdOrStagingNetwork = accountManager.account.isInProdOrStagingNetwork
         
         Task {
             await setupSubscription()
