@@ -244,7 +244,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
-            guard accountManager.account.isInProdNetwork else { return }
+            guard accountManager.account.isInProdOrStagingNetwork else { return }
             membershipTierId = tierId.identifiable
         }
     }
