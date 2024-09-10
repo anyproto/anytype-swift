@@ -283,8 +283,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
                 
-                let filteredBlocksIds = movingBlocksIds.filter { $0 != blockId }
                 let targetDocument = documentsProvider.document(objectId: content.targetBlockID)
+                let filteredBlocksIds = movingBlocksIds.filter { [weak self] movingBlockId in
+                    guard let self else { return false }
+                    if let info = document.infoContainer.get(id: movingBlockId),
+                       case let .link(content) = info.content {
+                        return content.targetBlockID != targetDocument.objectId
+                    } else {
+                        return true
+                    }
+                }
             
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()
