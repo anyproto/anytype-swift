@@ -14,7 +14,6 @@ struct SyncStatusInfoView: View {
             networkInfo.newDivider()
             p2pInfo
         }
-        .padding(8)
         .cornerRadius(16, style: .continuous)
         .background(Color.Background.secondary)
         .animation(.default, value: model.syncStatusInfo)

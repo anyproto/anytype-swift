@@ -36,7 +36,7 @@ struct SyncStatusData {
         }
     }
     
-    private func makeIcon(color: UIColor, diameter: Double = 10) -> UIImage {
+    private func makeIcon(color: UIColor, diameter: Double = 8) -> UIImage {
         ImageBuilder(
             ImageGuideline(
                 size: CGSize(width: diameter, height: diameter),
