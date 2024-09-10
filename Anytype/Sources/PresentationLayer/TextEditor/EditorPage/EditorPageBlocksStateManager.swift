@@ -296,7 +296,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                             targetId: targetDocument.objectId,
                             dropTargetId: id,
                             blocksIds: filteredBlocksIds,
-                            completion: { [weak self] in
+                            completion: { [weak self] success in
+                                guard success else { return }
                                 self?.toastPresenter.showObjectCompositeAlert(
                                     prefixText: Loc.Editor.Toast.movedTo,
                                     objectId: targetDocument.objectId,
@@ -344,9 +345,12 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         targetId: String,
         dropTargetId: String,
         blocksIds: [String],
-        completion: (() -> Void)? = nil
+        completion: ((Bool) -> Void)? = nil
     ) async throws {
-        guard blocksIds.isNotEmpty, !blocksIds.contains(dropTargetId) else { return }
+        guard blocksIds.isNotEmpty, !blocksIds.contains(dropTargetId) else {
+            completion?(false)
+            return
+        }
 
         UISelectionFeedbackGenerator().selectionChanged()
         AnytypeAnalytics.instance().logReorderBlock(count: blocksIds.count)
@@ -361,7 +365,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         
         movingBlocksIds.removeAll()
         editingState = .editing
-        completion?()
+        completion?(true)
     }
     
     private func moveObjectsToCollection(_ collectionId: String, details: ObjectDetails) async throws {
