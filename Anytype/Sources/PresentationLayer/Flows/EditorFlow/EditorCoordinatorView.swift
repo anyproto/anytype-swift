@@ -38,6 +38,8 @@ struct EditorCoordinatorView: View {
             EditorSetCoordinatorView(data: data, showHeader: true)
         case let .discussion(data):
             DiscussionCoordinatorView(data: data)
+        case let .allContent(spaceId):
+            AllContentCoordinatorView(spaceId: spaceId)
         }
     }
 }
