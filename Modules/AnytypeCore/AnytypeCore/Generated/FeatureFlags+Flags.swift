@@ -22,24 +22,16 @@ public extension FeatureFlags {
         value(for: .hideCoCreator)
     }
 
-    static var galleryWidget: Bool {
-        value(for: .galleryWidget)
-    }
-
-    static var widgetCreateWithoutType: Bool {
-        value(for: .widgetCreateWithoutType)
-    }
-
-    static var updateAlert: Bool {
-        value(for: .updateAlert)
-    }
-
     static var discussions: Bool {
         value(for: .discussions)
     }
 
     static var versionHistory: Bool {
         value(for: .versionHistory)
+    }
+
+    static var allContent: Bool {
+        value(for: .allContent)
     }
 
     static var rainbowViews: Bool {
@@ -100,11 +92,9 @@ public extension FeatureFlags {
         .fullInlineSetImpl,
         .dndOnCollectionsAndSets,
         .hideCoCreator,
-        .galleryWidget,
-        .widgetCreateWithoutType,
-        .updateAlert,
         .discussions,
         .versionHistory,
+        .allContent,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,

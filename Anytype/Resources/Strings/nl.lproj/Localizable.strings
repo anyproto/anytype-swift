@@ -684,6 +684,7 @@
 "Cancel deletion" = "Annuleer verwijdering";
 "Logout and clear data" = "Log uit en wis gegevens";
 "New" = "Nieuw";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Weet je zeker dat je jouw kluis wilt verwijderen?";

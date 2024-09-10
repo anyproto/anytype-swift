@@ -10,29 +10,40 @@ struct FileIconBuilder {
     
     static func convert(mime: String, fileName: String) -> ImageAsset {
         var fileType = UTType(mimeType: mime.removing(in: .whitespaces))
-        let isArchive = fileType?.isSubtype(of: .archive) ?? false
+        
+        let isSubtypeOfArchive = fileType?.isSubtype(of: .archive) ?? false
+        let conformsToPdf = fileType?.conforms(to: .pdf) ?? false
+        let conformsToXls = fileType?.conforms(to: .xls) ?? false
+        let isDeclared = fileType?.isDeclared ?? false
+        let tryByExtension = fileType.isNil || isSubtypeOfArchive || conformsToPdf || conformsToXls || !isDeclared
 
         let urlValidFileName = fileName.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
 
         // Middle can return archive mime type for some files.
         // So we can try to infer mime type from file extension.
-        if let urlValidFileName = urlValidFileName,
-           let fileExtenstion = URL(string: urlValidFileName)?.pathExtension,
-            (fileType.isNil || isArchive)
+        if tryByExtension, let urlValidFileName = urlValidFileName,
+           let fileExtenstion = URL(string: urlValidFileName)?.pathExtension
         {
             fileType = UTType(filenameExtension: fileExtenstion)
+            if let fileType, !fileType.isDeclared {
+                return tryCustomConvertBy(fileExtenstion: fileExtenstion)
+            }
         }
 
-        guard let fileType = fileType else {
+        guard let fileType else {
             return FileIconConstants.other
         }
 
-        return dictionary.first { type, image in
+        return typesDictionary.first { type, image in
             type == fileType || fileType.isSubtype(of: type)
         }?.value ?? FileIconConstants.other
     }
     
-    private static let dictionary: [UTType: ImageAsset] = [
+    private static func tryCustomConvertBy(fileExtenstion: String) -> ImageAsset {
+        extensionsDictionary[fileExtenstion] ?? FileIconConstants.other
+    }
+    
+    private static let typesDictionary: [UTType: ImageAsset] = [
         .text: FileIconConstants.text,
         .plainText: FileIconConstants.text,
         .utf8PlainText: FileIconConstants.text,
@@ -41,6 +52,7 @@ struct FileIconBuilder {
         .docx: FileIconConstants.text,
         .csv: FileIconConstants.text,
         .json: FileIconConstants.text,
+        .html: FileIconConstants.text,
 
         .spreadsheet: FileIconConstants.table,
         .xls: FileIconConstants.table,
@@ -79,7 +91,11 @@ struct FileIconBuilder {
         .appleProtectedMPEG4Video: FileIconConstants.video,
         .avi: FileIconConstants.video,
         
-        .archive: FileIconConstants.archive
+        .archive: FileIconConstants.archive,
+        .zip: FileIconConstants.archive
     ]
     
+    private static let extensionsDictionary: [String: ImageAsset] = [
+        "dwg" : FileIconConstants.image
+    ]
 }

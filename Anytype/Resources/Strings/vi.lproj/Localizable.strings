@@ -45,9 +45,9 @@
 "BlockText.ContentType.Title.Placeholder" = "Không tên";
 "BlockText.ContentType.Description.Placeholder" = "Thêm mô tả";
 "BlockText.ContentType.Toggle.Placeholder" = "Toggle block";
-"BlockText.ContentType.Bulleted.Placeholder" = "Bulleted list item";
+"BlockText.ContentType.Bulleted.Placeholder" = "Mục trong danh sách gạch đầu dòng";
 "BlockText.ContentType.Checkbox.Placeholder" = "Ô tick";
-"BlockText.ContentType.Numbered.Placeholder" = "Numbered list item";
+"BlockText.ContentType.Numbered.Placeholder" = "Mục trong danh sách đánh số";
 "BlockText.ContentType.Quote.Placeholder" = "Văn bản nổi bật";
 "BlockText.ContentType.Header.Placeholder" = "Tiêu đề";
 "BlockText.ContentType.Header2.Placeholder" = "Mục chính";
@@ -77,45 +77,45 @@
 "Relation.AddedToLibrary" = "Liên hệ '%@' đã được thêm vào thư viện của bạn";
 "Relation.Deleted" = "Liên hệ đã xoá";
 "Relation.From.Type" = "Của loại '%@'";
-"Relation.EmptyState.title" = "No options";
+"Relation.EmptyState.title" = "Không có lựa chọn";
 "Relation.EmptyState.description" = "Nothing found. Create first option to start.";
 "Relation.EmptyState.Blocked.title" = "The relation is empty";
-"Relation.Create.Row.title" = "Create “%@”";
-"Relation.View.Create.title" = "Create option";
-"Relation.View.Edit.title" = "Edit option";
-"Relation.Create.Textfield.placeholder" = "Enter name...";
+"Relation.Create.Row.title" = "Tạo “%@”";
+"Relation.View.Create.title" = "Tạo lựa chọn";
+"Relation.View.Edit.title" = "Sửa tùy chọn";
+"Relation.Create.Textfield.placeholder" = "Nhập tên...";
 "Relation.Edit.Button.title" = "Áp dụng";
-"Relation.Date.Locked.Alert.title" = "Relation “%@” is locked";
-"Relation.ObjectTypes.Header.title" = "Object types:";
-"Relation.ObjectType.Header.title" = "Object type:";
+"Relation.Date.Locked.Alert.title" = "Liên hệ “%@” bị khoá";
+"Relation.ObjectTypes.Header.title" = "Loại đối tượng:";
+"Relation.ObjectType.Header.title" = "Loại đối tượng:";
 
 "Relation.Delete.Alert.Title" = "Bạn chắc chưa?";
-"Relation.Delete.Alert.Description" = "The option will be permanently removed from your space.";
-"Relation.Object.Delete.Alert.Description" = "The object will be moved to Bin.";
+"Relation.Delete.Alert.Description" = "Lựa chọn này sẽ bị xoá vĩnh viễn khỏi không gian của bạn.";
+"Relation.Object.Delete.Alert.Description" = "Đối tượng này sẽ được đưa vào Thùng rác.";
 
 "Relation.Format.Object.Title" = "Đối tượng";
 "Relation.Format.Text.Title" = "Văn bản";
 "Relation.Format.Number.Title" = "Số";
-"Relation.Format.Status.Title" = "Select";
-"Relation.Format.Tag.Title" = "Multi-select";
+"Relation.Format.Status.Title" = "Chọn";
+"Relation.Format.Tag.Title" = "Chọn nhiều";
 "Relation.Format.Date.Title" = "Ngày tháng";
-"Relation.Format.FileMedia.Title" = "File & Media";
+"Relation.Format.FileMedia.Title" = "Tập tin & Đa phương tiện";
 "Relation.Format.Checkbox.Title" = "Ô tick";
 "Relation.Format.Url.Title" = "URL";
 "Relation.Format.Email.Title" = "Email";
 "Relation.Format.Phone.Title" = "Số điện thoại";
 
-"Relation.Search.View.Placeholder" = "Search or create a new relation";
+"Relation.Search.View.Placeholder" = "Tìm hoặc tạo một liên hệ mới";
 
 // Origin Relation
 
 "Relation.Origin.Clipboard" = "Clipboard";
-"Relation.Origin.DragAndDrop" = "Drag'n'Drop";
-"Relation.Origin.Import" = "Imported object";
+"Relation.Origin.DragAndDrop" = "Kéo thả";
+"Relation.Origin.Import" = "Đối tượng đã nhập";
 "Relation.Origin.WebClipper" = "Web clipper";
-"Relation.Origin.SharingExtension" = "Mobile sharing extension";
-"Relation.Origin.UseCase" = "Use case";
-"Relation.Origin.Builtin" = "Library installed";
+"Relation.Origin.SharingExtension" = "Từ ứng dụng mở rộng trên điện thoại";
+"Relation.Origin.UseCase" = "Trường hợp sử dụng";
+"Relation.Origin.Builtin" = "Cài từ thư viện";
 "Relation.Origin.Bookmark" = "Dấu trang";
 
 // MARK: - Import Type Relation
@@ -146,20 +146,20 @@
 "Relations" = "Các liên hệ";
 "History" = "Lịch sử";
 "Objects" = "Các đối tượng";
-"Lists" = "Lists";
-"Pinned" = "Pinned";
+"Lists" = "Các danh sách";
+"Pinned" = "Đã ghim";
 "Delete" = "Xoá";
-"Export" = "Export";
+"Export" = "Xuất dữ liệu";
 "Duplicate" = "Nhân đôi";
 "Copy" = "Chép";
 "Preview" = "Xem trước";
-"View" = "View";
+"View" = "Chế độ xem";
 "Paste" = "Dán";
 "Move" = "Di chuyển";
 "Move to" = "Di chuyển đến";
 "Back" = "Quay lại";
-"Unpin" = "Unpin";
-"Pin on top" = "Pin on top";
+"Unpin" = "Gỡ ghim";
+"Pin on top" = "Ghim lên trên cùng";
 "File block subtitle" = "Lưu tập tin ở trạng thái gốc";
 "Picture block subtitle" = "Tải lên và làm trang sống động bằng ảnh";
 "Video block subtitle" = "Tải lên video chạy được";
@@ -168,7 +168,7 @@
 "Align right" = "Căn phải";
 "Align left" = "Căn trái";
 "Align center" = "Căn giữa";
-"Align justify" = "Align justify";
+"Align justify" = "Căn đều";
 "Black" = "Đen";
 "Amber" = "Hổ phách";
 "Red" = "Đỏ";
@@ -187,18 +187,18 @@
 "Green background" = "Green background";
 "Create new object" = "Tạo đối tượng mới";
 "Cancel" = "Huỷ";
-"Paste or type URL" = "Paste or type URL";
+"Paste or type URL" = "Dán hoặc nhập URL";
 "No items match filter" = "Không có gì thoả bộ lọc";
 "Unsupported block" = "Khối không được hỗ trợ";
-"Unsupported" = "Unsupported";
+"Unsupported" = "Không được hỗ trợ";
 "Name" = "Tên";
 "Description" = "Mô tả";
 "Paste processing..." = "Paste processing...";
 "Anytype Library" = "Thư viện Anytype";
 "Copied" = "Đã sao chép";
-"Share" = "Share";
+"Share" = "Chia sẻ";
 "Okay" = "Được";
-"Join" = "Join";
+"Join" = "Gia nhập";
 "Agreement Disclamer" = "By continuing you agree to [Terms of Use](%@) and [Privacy Policy](%@)";
 
 // Home
@@ -259,24 +259,24 @@
 "Auth.JoinFlow.Key.ReadMore.Title" = "What is the Key?";
 "Auth.JoinFlow.Key.ReadMore.Option1.Title" = "It is represented by a recovery phrase – 12 random words from which your vault is magically generated on this device.";
 "Auth.JoinFlow.Key.ReadMore.Option2.Title" = "Whomever knows the combination of these words owns your vault. **Right now, you are the only person in the world who knows it.**";
-"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "All computational resources on Earth are not enough to break in. If you lose it, it cannot be recovered. So, store it somewhere safe!";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "How to save my key?";
-"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "The easiest way to store your key is to save it in your password manager.";
+"Auth.JoinFlow.Key.ReadMore.Option3.Title" = "Toàn bộ tài nguyên xử lý trên Trái Đất cũng sẽ không cạy két ra được. Bạn làm mất thì bạn không thể khôi phục nó. Vậy nên hãy cất giữ nó an toàn!";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Title" = "Lưu khoá của tôi như nào?";
+"Auth.JoinFlow.Key.ReadMore.Instruction.Option1.Title" = "Cách dễ nhất để cất giữ khoá của bạn là lưu vào trình quản lý mật khẩu của bạn.";
 "Auth.JoinFlow.Key.ReadMore.Instruction.Option2.Title" = "An toàn nhất là viết ra giấy và giữ nó ở một nơi kín đáo, an toàn.";
 
-"Auth.JoinFlow.Soul.Title" = "Set your name";
-"Auth.JoinFlow.Soul.Description" = "Only seen by people you share something with. There is no central registry of these names.";
+"Auth.JoinFlow.Soul.Title" = "Đặt tên của bạn";
+"Auth.JoinFlow.Soul.Description" = "Chỉ có thể thấy bởi những người mà bạn đã chia sẻ thứ gì đó cho. Không hề có một trung tâm ghi những cái tên này.";
 "Auth.JoinFlow.Soul.Placeholder" = "Không tên";
 "Auth.JoinFlow.Soul.Button" = "Get my Key";
 
-"Auth.JoinFlow.Vault.Title" = "This is your Vault";
-"Auth.JoinFlow.Vault.Description" = "Everything inside is encrypted.\nIt is local-first – everything works offline.\nOnly you have the key.";
+"Auth.JoinFlow.Vault.Title" = "Đây là Két của bạn";
+"Auth.JoinFlow.Vault.Description" = "Mọi thứ bên trong đều được mật hoá.\nNó ưu tiên tính cục bộ – dù ngoại tuyến mọi thứ vẫn chạy.\nChỉ mình bạn có khoá.";
 "Auth.JoinFlow.Vault.Button" = "Get my Key";
 
 // Auth - Login flow
-"Auth.LoginFlow.Use.Keychain.Title" = "Use keychain";
-"Auth.LoginFlow.Or" = "OR";
-"Auth.LoginFlow.Textfield.Placeholder" = "Type your key";
+"Auth.LoginFlow.Use.Keychain.Title" = "Dùng móc khoá";
+"Auth.LoginFlow.Or" = "HAY";
+"Auth.LoginFlow.Textfield.Placeholder" = "Nhập khoá của bạn";
 "Auth.LoginFlow.Enter.Title" = "Get my Key";
 "Auth.LoginFlow.Entering.Void.Title" = "Đang bước vào chốn Hư vô";
 
@@ -285,17 +285,17 @@
 "Icon" = "Biểu tượng";
 "Emoji or image for object" = "Emoji or image for object";
 "Cover" = "Ảnh bìa";
-"Background picture" = "Background picture";
+"Background picture" = "Ảnh nền";
 "Layout" = "Bố cục";
 "Arrangement of objects on a canvas" = "Arrangement of objects on a canvas";
-"ObjectSettings.History.Description" = "All versions of object";
+"ObjectSettings.History.Description" = "Tất cả phiên bản của đối tượng";
 
 // Version history
-"VersionHistory.Title" = "Version History";
+"VersionHistory.Title" = "Lịch sử phiên bản";
 "VersionHistory.Toast.message" = "Version %@ was restored";
 
 "Search" = "Tìm kiếm";
-"There is no emoji named" = "There is no emoji named";
+"There is no emoji named" = "Không có emoji tên";
 "Try to find a new one or upload your image" = "Try to find a new one or upload your image";
 
 "Emoji" = "Emoji";
@@ -307,7 +307,7 @@
 
 "Solid colors" = "Màu đơn";
 "Gradients" = "Dải màu";
-"Gallery" = "Gallery";
+"Gallery" = "Triển lãm";
 
 "Remove photo" = "Gỡ ảnh";
 "Basic" = "Cơ bản";
@@ -321,7 +321,7 @@
 "Redo" = "Làm lại thao tác";
 "Actions.LinkItself" = "Liên kết đến";
 "Actions.MakeAsTemplate" = "Biến thành mẫu";
-"Actions.TemplateMakeDefault" = "Make default";
+"Actions.TemplateMakeDefault" = "Đặt làm mặc định";
 "Actions.CreateWidget.Title" = "To widgets";
 "Actions.CreateWidget.Success" = "New widget was created";
 "Actions.CopyLink" = "Chép link";
@@ -335,21 +335,21 @@
 // MARK: - Link to search
 
 "Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
-"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
-"Editor.LinkToObject.LinkedTo" = "Linked to";
+"Editor.LinkToObject.PasteFromClipboard" = "Dán từ bộ nhớ tạm";
+"Editor.LinkToObject.LinkedTo" = "Liên kết đến";
 "Editor.LinkToObject.CopyLink" = "Chép link";
 "Editor.LinkToObject.RemoveLink" = "Gỡ link";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named %@";
-"There is no type named" = "There is no type named %@";
-"Create a new one or search for something else" = "Create a new one or search for something else";
-"Search.Links.Show.title" = "Show related objects";
-"Search.Links.Header.title" = "Related to: %@";
-"Search.Links.Swipe.title" = "Related to";
-"GlobalSearch.EmptyState.subtitle" = "Create new object or search for something else";
+"There is no object named" = "Không có đối tượng tên %@";
+"There is no type named" = "Không có loại tên %@";
+"Create a new one or search for something else" = "Tạo một cái mới hoặc tìm cái nào đấy khác";
+"Search.Links.Show.title" = "Hiện các đối tượng liên quan";
+"Search.Links.Header.title" = "Liên quan đến: %@";
+"Search.Links.Swipe.title" = "Liên quan đến";
+"GlobalSearch.EmptyState.subtitle" = "Tạo một cái mới hoặc tìm cái nào đấy khác";
 "GlobalSearch.EmptyFilteredState.title" = "No related objects found";
-"GlobalSearch.Swipe.Tip.title" = "Related objects";
+"GlobalSearch.Swipe.Tip.title" = "Đối tượng liên quan";
 "GlobalSearch.Swipe.Tip.subtitle" = "Swipe left to see related objects. Note, it works only for objects that have related objects.";
 
 // MARK: - Home
@@ -389,7 +389,7 @@
 "Templates.Popup.Default" = "The template was set as default";
 
 "To Bin" = "To Bin";
-"Set as default" = "Set as default";
+"Set as default" = "Đặt làm mặc định";
 
 // MARK: - Context Menu
 "Remove From Favorite" = "Bỏ khỏi mục Ưa thích";
@@ -407,7 +407,7 @@
 "EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
 "EditSet.Popup.Sort.Types.Ascending" = "Từ dưới lên";
 "EditSet.Popup.Sort.Types.Descending" = "Từ trên xuống";
-"EditSet.Popup.Sort.EmptyTypes.Start" = "On top";
+"EditSet.Popup.Sort.EmptyTypes.Start" = "Lên đầu";
 "EditSet.Popup.Sort.EmptyTypes.End" = "On bottom";
 "EditSet.Popup.Sort.EmptyTypes.Section.Title" = "Show empty values";
 "EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
@@ -535,10 +535,10 @@
 "Error" = "Error";
 "Unknown error" = "Lỗi không xác định";
 "Open Type Error" = "Not supported type \"%@\". You can open it via desktop.";
-"Close" = "Close";
+"Close" = "Đóng";
 "Add phone" = "Thêm số điện thoại";
-"Nothing to redo" = "Nothing to redo";
-"Nothing to undo" = "Nothing to undo";
+"Nothing to redo" = "Không có lệnh để làm lại";
+"Nothing to undo" = "Không có lệnh để hoàn tác";
 "Progress..." = "Progress...";
 "Grey" = "Xám";
 "Sky" = "Xanh da trời";
@@ -550,18 +550,18 @@
 "Enter value" = "Nhập giá trị";
 "Select object" = "Chọn đối tượng";
 "Select file" = "Chọn tập tin";
-"Select options" = "Select options";
-"Select option" = "Select option";
+"Select options" = "Chọn các lựa chọn";
+"Select option" = "Chọn lựa chọn";
 "Select date" = "Chọn ngày";
 "Add email" = "Thêm email";
 "Add link" = "Thêm link";
 "Enter number" = "Nhập số";
 "Enter text" = "Nhập văn bản";
-"Unsupported value" = "Unsupported value";
+"Unsupported value" = "Giá trị không được hỗ trợ";
 "Select relation type" = "Chọn loại liên hệ";
-"CommonOpenErrorView.Message" = "No data found";
+"CommonOpenErrorView.Message" = "Không tìm thấy dữ liệu nào";
 "AreYouSure" = "Bạn chắc chưa?";
-"Nothing found" = "Nothing found";
+"Nothing found" = "Không tìm thấy gì";
 "No type found text" = "No type “%@” found. Change your request or create new type.";
 "Create type" = "Create type";
 
@@ -612,8 +612,8 @@
 "List of related objects" = "List of related objects";
 "Lock" = "Khoá";
 "Unlock" = "Mở khoá";
-"Favorite" = "Favorite";
-"Unfavorite" = "Unfavorite";
+"Favorite" = "Ưa thích";
+"Unfavorite" = "Bỏ ưa thích";
 "Unsplash" = "Unsplash";
 "Go back" = "Quay lại";
 "Downloading or uploading data to some node" = "Đang tải dữ liệu về hoặc lên điểm nào đó";
@@ -623,17 +623,17 @@
 "Connecting" = "Connecting...";
 "P2P Connecting" = "P2P Connecting...";
 "P2P Connection" = "P2P Connection";
-"Anytype Network" = "Anytype Network";
-"Self Host" = "Self Host";
-"Local Only" = "Local Only";
+"Anytype Network" = "Mạng Anytype";
+"Self Host" = "Tự host";
+"Local Only" = "Chỉ cục bộ";
 "Synced" = "Đã đồng bộ";
 "No connection" = "Không có kết nối";
 "Deleted" = "Đã xoá";
 "Download" = "Tải về";
 "Open object" = "Mở đối tượng";
 "Open source" = "Mở nguồn";
-"Into object" = "Into object";
-"Add below" = "Add below";
+"Into object" = "Vào đối tượng";
+"Add below" = "Thêm ở phía dưới";
 "Change type" = "Đổi loại";
 "Show types" = "Show types";
 "Hide types" = "Hide types";
@@ -653,7 +653,7 @@
 "Views" = "Views";
 "Filter" = "Filter";
 "Sort" = "Sort";
-"View" = "View";
+"View" = "Chế độ xem";
 "Home" = "Trang chủ";
 "Highlight" = "Nổi bật";
 "Create object" = "Tạo đối tượng";
@@ -685,6 +685,7 @@
 "Cancel deletion" = "Huỷ xoá";
 "Logout and clear data" = "Logout and clear data";
 "New" = "Mới";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";
@@ -693,17 +694,17 @@
 // MARK: - DataviewType
 "DataviewType.grid" = "Dạng lưới";
 "DataviewType.list" = "Dạng danh sách";
-"DataviewType.gallery" = "Gallery";
+"DataviewType.gallery" = "Triển lãm";
 "DataviewType.kanban" = "Dạng Kanban";
 "DataviewType.calendar" = "Calendar";
-"DataviewType.graph" = "Graph";
+"DataviewType.graph" = "Đồ thị";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";
 "ObjectType.SearchOrInstall" = "Tìm hoặc cài một loại mới";
 "ObjectType.Search" = "Search for Type";
 "ObjectType.MyTypes" = "Các Loại của tôi";
-"ObjectType.AddedToLibrary" = "Type ‘%@’ added to your library";
+"ObjectType.AddedToLibrary" = "Loại ‘%@’ đã được thêm vào thư viện của bạn";
 "ObjectType.DeletedName" = "Loại đã xoá";
 
 // MARK: - QuickAction
@@ -759,24 +760,24 @@
 "RelationAction.OpenLink" = "Mở link";
 
 // MARK: Edit view type
-"SetViewTypesPicker.Title" = "Edit view";
-"SetViewTypesPicker.New.Title" = "New view";
-"SetViewTypesPicker.Section.Types.Title" = "View as";
+"SetViewTypesPicker.Title" = "Chỉnh sửa chế độ xem";
+"SetViewTypesPicker.New.Title" = "Chế độ xem mới";
+"SetViewTypesPicker.Section.Types.Title" = "Xem dưới dạng";
 "SetViewTypesPicker.Settings.Duplicate.View" = "Nhân đôi";
-"SetViewTypesPicker.Settings.Delete.View" = "Delete view";
-"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "New view";
+"SetViewTypesPicker.Settings.Delete.View" = "Xoá chế độ xem";
+"SetViewTypesPicker.Settings.Textfield.Placeholder.New.View" = "Chế độ xem mới";
 "SetViewTypesPicker.Settings.Textfield.Placeholder.Untitled" = "Không tên";
 
 // MARK: Select view
-"EditorSet.View.Not.Supported.Title" = "Unsupported";
+"EditorSet.View.Not.Supported.Title" = "Không được hỗ trợ";
 
 // BlockContent
-"Content.File.Upload" = "Upload a file";
-"Content.Audio.Upload" = "Upload audio";
-"Content.Video.Upload" = "Upload a video";
-"Content.Picture.Upload" = "Upload a picture";
-"Content.Common.Uploading" = "Uploading...";
-"Content.Common.Error" = "Something went wrong, try again";
+"Content.File.Upload" = "Tải lên một tệp";
+"Content.Audio.Upload" = "Tải lên âm thanh";
+"Content.Video.Upload" = "Tải lên một video";
+"Content.Picture.Upload" = "Tải lên một ảnh";
+"Content.Common.Uploading" = "Đang tải lên...";
+"Content.Common.Error" = "Đã xảy ra lỗi, vui lòng thử lại";
 "Content.Bookmark.Add" = "Add a web bookmark";
 "Content.Bookmark.Loading" = "Đang tải, vui lòng đợi...";
 "Content.DataView.InlineSet.Subtitle" = "Tập trong hàng";
@@ -810,23 +811,23 @@
 "Widgets.Layout.Tree.Title" = "Cây ";
 "Widgets.Layout.List.Title" = "Dạng danh sách";
 "Widgets.Layout.CompactList.Title" = "Danh sách thu gọn";
-"Widgets.Layout.View.Title" = "View";
+"Widgets.Layout.View.Title" = "Chế độ xem";
 "Widgets.Layout.Link.Description" = "Compact widget view";
-"Widgets.Layout.Tree.Description" = "Widget with a hierarchical structure";
-"Widgets.Layout.List.Description" = "Widget with a list view";
-"Widgets.Layout.View.Description" = "Widget with a Set or Collection layout";
-"Widgets.Layout.CompactList.Description" = "Widget with a compact list view";
-"Widgets.Empty.Title" = "There are no objects here";
-"Widgets.Empty.CreateObject" = "Create Object";
+"Widgets.Layout.Tree.Description" = "Widget có cấu trúc thứ bậc";
+"Widgets.Layout.List.Description" = "Widget có hiện danh sách";
+"Widgets.Layout.View.Description" = "Widget có bố cục Tập hoặc Bộ";
+"Widgets.Layout.CompactList.Description" = "Widget có hiện danh sách thu gọn";
+"Widgets.Empty.Title" = "Ở đây không có đối tượng nào";
+"Widgets.Empty.CreateObject" = "Tạo Đối tượng";
 "Widgets.Library.RecentlyEdited.Name" = "Được sửa gần đây";
 "Widgets.Library.RecentlyOpened.Name" = "Được mở gần đây";
 "Widgets.Library.RecentlyOpened.Description" = "Trên thiết bị này";
 "Widgets.AppUpdate" = "Anytype is ready to update";
-"Widgets.Source.Library" = "Default sets";
+"Widgets.Source.Library" = "Các tập mặc định";
 "Widgets.Source.Objects" = "Your objects";
 
 // MARK: - About
-"About.AppVersion" = "App version: %@";
+"About.AppVersion" = "Phiên bản ứng dụng: %@";
 "About.BuildNumber" = "Build number: %@";
 "About.Library" = "Library version: %@";
 "About.anytypeId" = "Anytype ID: %@";
@@ -905,65 +906,65 @@
 "Space.Status.SpaceRemoving" = "Removing";
 
 // MARK: - Space Settings
-"SpaceSettings.Title" = "Space settings";
+"SpaceSettings.Title" = "Cài đặt không gian";
 "SpaceSettings.RemoteStorage" = "Bộ nhớ ngoài";
 "SpaceSettings.Info" = "Space info";
-"SpaceSettings.NetworkId" = "Network ID";
+"SpaceSettings.NetworkId" = "ID Mạng";
 "SpaceSettings.DeleteAlert.Title" = "Delete ‘%@’ space";
-"SpaceSettings.DeleteAlert.Message" = "This space will be deleted irrevocably. You can’t undo this action.";
-"SpaceSettings.DeleteButton" = "Delete space";
-"SpaceSettings.Share" = "Share";
-"SpaceSettings.LeaveButton" = "Leave";
-"SpaceSettings.LeaveAlert.Title" = "Leave a space";
-"SpaceSettings.LeaveAlert.Message" = "%@ space will be removed from your devices and you will no longer have access to it";
+"SpaceSettings.DeleteAlert.Message" = "Không gian này sẽ bị xoá mà không hoàn lại được. Bạn không thể hoàn tác thao tác này.";
+"SpaceSettings.DeleteButton" = "Xoá không gian";
+"SpaceSettings.Share" = "Chia sẻ";
+"SpaceSettings.LeaveButton" = "Rời khỏi";
+"SpaceSettings.LeaveAlert.Title" = "Rời một không gian";
+"SpaceSettings.LeaveAlert.Message" = "Không gian %@ sẽ bị xoá khỏi các thiết bị của bạn và bạn sẽ không còn truy cập được nó";
 "SpaceSettings.LeaveAlert.Toast" = "You left the %@.";
 
 // MARK: - Space Share
-"MoreInfo" = "More info";
+"MoreInfo" = "Thêm thông tin";
 
-"SpaceShare.Title" = "Sharing";
-"SpaceShare.Members" = "Members";
-"SpaceShare.Permissions.Owner" = "Owner";
-"SpaceShare.Permissions.Reader" = "Viewer";
-"SpaceShare.Permissions.Writer" = "Editor";
+"SpaceShare.Title" = "Chia sẻ";
+"SpaceShare.Members" = "Thành viên";
+"SpaceShare.Permissions.Owner" = "Chủ";
+"SpaceShare.Permissions.Reader" = "Người xem";
+"SpaceShare.Permissions.Writer" = "Biên tập viên";
 "SpaceShare.Permissions.Grand.Edit" = "Chỉnh sửa";
-"SpaceShare.Permissions.Grand.View" = "View";
-"SpaceShare.Invite.Title" = "Invite link";
+"SpaceShare.Permissions.Grand.View" = "Chế độ xem";
+"SpaceShare.Invite.Title" = "Link mời";
 "SpaceShare.Invite.Description" = "Share this invite link so that others can join your Space. Once they click your link and request access, you can set their access rights.";
-"SpaceShare.Invite.Share" = "Share invite link";
-"SpaceShare.Invite.Generate" = "Generate invite link";
+"SpaceShare.Invite.Share" = "Chia sẻ link mời";
+"SpaceShare.Invite.Generate" = "Tạo link mời";
 "SpaceShare.Invite.Empty" = "Create invite link to share space and add new members";
 "SpaceShare.JoinRequest" = "Join request";
 "SpaceShare.LeaveRequest" = "Leave request";
 "SpaceShare.Action.ViewRequest" = "View request";
-"SpaceShare.Action.Approve" = "Approve";
-"SpaceShare.DeleteSharingLink.Title" = "Delete link";
+"SpaceShare.Action.Approve" = "Phê duyệt";
+"SpaceShare.DeleteSharingLink.Title" = "Xóa link";
 "SpaceShare.DeleteSharingLink.Message" = "New members won’t be able to join the space. You can generate a new link anytype";
 "SpaceShare.Approve.Toast" = "You approved %@'s request.";
-"SpaceShare.ViewRequest.Title" = "%@ requested to join %@ space";
+"SpaceShare.ViewRequest.Title" = "%@ yêu cầu gia nhập không gian %@";
 "SpaceShare.ViewRequest.ViewAccess" = "Add as viewer";
 "SpaceShare.ViewRequest.EditAccess" = "Add as editor";
-"SpaceShare.ViewRequest.Reject" = "Reject";
+"SpaceShare.ViewRequest.Reject" = "Từ chối";
 "SpaceShare.RemoveMember.Title" = "Xóa thành viên";
-"SpaceShare.RemoveMember.Message" = "%@ will be removed from the space.";
-"SpaceShare.ChangePermissions" = "%@ access to the space would become %@.";
-"SpaceShare.Join.Title" = "Join a space";
-"SpaceShare.Join.CommentPlaceholder" = "Leave a private comment for a space owner";
-"SpaceShare.Join.Button" = "Request to join";
-"SpaceShare.Join.Info" = "Once the space owner approves your request, you'll join the space with the access rights owner determined.";
-"SpaceShare.Join.Message" = "You’ve been invited to join **%@** space, created by **%@**. Send a request so space owner can let you in.";
-"SpaceShare.Join.InviteNotFound" = "This link doesn’t seem to work";
-"SpaceShare.JoinConfirmation.Title" = "Request sent";
-"SpaceShare.JoinConfirmation.Message" = "You will receive a notification when the space owner will approve your request.";
-"SpaceShare.YouSuffix" = "%@ (you)";
-"SpaceShare.ManageSpaces" = "Manage Spaces";
+"SpaceShare.RemoveMember.Message" = "%@ sẽ bị đuổi khỏi không gian.";
+"SpaceShare.ChangePermissions" = "Quyền truy cập %@ cho không gian sẽ thành %@.";
+"SpaceShare.Join.Title" = "Gia nhập một không gian";
+"SpaceShare.Join.CommentPlaceholder" = "Để lại một lời nhắn riêng tư cho một người chủ không gian";
+"SpaceShare.Join.Button" = "Yêu cầu gia nhập";
+"SpaceShare.Join.Info" = "Một khi chủ không gian chấp thuận yêu cầu, bạn sẽ gia nhập không gian với các quyền truy cập do chủ không gian đặt cho.";
+"SpaceShare.Join.Message" = "Bạn được mời vào không gian **%@**, do **%@** tạo. Gửi yêu cầu để chủ không gian cho bạn vào.";
+"SpaceShare.Join.InviteNotFound" = "Link này có vẻ như không hoạt động";
+"SpaceShare.JoinConfirmation.Title" = "Đã gửi yêu cầu";
+"SpaceShare.JoinConfirmation.Message" = "Bạn sẽ nhận được thông báo khi chủ không gian chấp thuận yêu cầu của bạn.";
+"SpaceShare.YouSuffix" = "%@ (bạn)";
+"SpaceShare.ManageSpaces" = "Quản lý các Không gian";
 "SpaceShare.AccessChanged" = "Access rights have been changed.";
 "SpaceShare.StopSharing.Action" = "Ngừng chia sẻ";
-"SpaceShare.StopSharing.Title" = "Stop sharing the space";
-"SpaceShare.StopSharing.Message" = "Members will no longer sync to this space and the share link will be deactivated.";
+"SpaceShare.StopSharing.Title" = "Ngừng chia sẻ không gian";
+"SpaceShare.StopSharing.Message" = "Các thành viên sẽ không thể đồng bộ vào không gian và link chia sẻ sẽ bị vô hiệu hoá.";
 "SpaceShare.StopSharing.Toast" = "The space is no longer shared";
-"SpaceShare.QR.Title" = "QR code for joining a Space";
-"SpaceShare.QR.Button" = "Show QR code";
+"SpaceShare.QR.Title" = "Mã QR để gia nhập Không gian";
+"SpaceShare.QR.Button" = "Hiện mã QR";
 "SpaceShare.HowToShare.Title" = "How to share a space?";
 "SpaceShare.HowToShare.Step1" = "Please provide the link to the person you'd like to collaborate with.";
 "SpaceShare.HowToShare.Step2" = "By clicking the link, a person requests to join the space.";
@@ -1020,7 +1021,7 @@
 "Swipe.Tip.Subtitle" = "Create objects inside widgets by easily swiping them left.";
 
 // MARK: - Space Share Tip
-"SpaceShare.Tip.Title" = "Collaborate on spaces";
+"SpaceShare.Tip.Title" = "Cộng tác trong các không gian";
 "SpaceShare.Tip.Steps.1" = "Tap the Space widget to access settings";
 "SpaceShare.Tip.Steps.2" = "Open Share section";
 "SpaceShare.Tip.Steps.3" = "Generate an invite link and share it";
@@ -1041,79 +1042,79 @@
 // MARK: - Error
 "Error.AnytypeNeedsUpgrate.Title" = "Update Your App";
 "Error.AnytypeNeedsUpgrate.Message" = "This object was modified in a newer version of Anytype. Please update the app to open it on this device";
-"Error.AnytypeNeedsUpgrate.Confirm" = "Update";
-"Error.UnableToConnect" = "Please connect to the internet";
-"Error.Common.Title" = "Oops!";
+"Error.AnytypeNeedsUpgrate.Confirm" = "Cập nhật";
+"Error.UnableToConnect" = "Vui lòng kết nối internet";
+"Error.Common.Title" = "Ối giời!";
 "Error.Common.Message" = "Please check your internet connection and try again or [post a report on forum](http://community.anytype.io/report-bug).";
-"Error.Common.TryAgain" = "Try again";
+"Error.Common.TryAgain" = "Thử lại";
 
 // MARK: - Relative date formatter
-"RelativeFormatter.days7" = "Previous 7 days";
-"RelativeFormatter.days30" = "Previous 30 days";
-"RelativeFormatter.older" = "Older";
+"RelativeFormatter.days7" = "Trong 7 ngày trước";
+"RelativeFormatter.days30" = "Trong 30 ngày trước";
+"RelativeFormatter.older" = "Cũ hơn";
 
 // MARK: - Server
-"Server.Network" = "Network";
+"Server.Network" = "Mạng";
 "Server.Networks" = "Networks";
-"Server.AddButton" = "Add Self-hosted Network";
+"Server.AddButton" = "Thêm Mạng tự quản";
 "Server.Anytype" = "Anytype";
-"Server.LocalOnly" = "Local-only";
+"Server.LocalOnly" = "Chỉ cục bộ";
 "Server.LocalOnly.Alert.title" = "Bạn chắc chưa?";
-"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
-"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
+"Server.LocalOnly.Alert.message" = "Chế độ chỉ cục bộ là một tính năng còn đang thử nghiệm và không hề cung cấp lợi ích về mặt bảo mật. Có thể sẽ xảy ra mất dữ liệu, và mọi rủi ro bạn tự chịu.";
+"Server.LocalOnly.Alert.Action.agree" = "Ừ, tôi chấp nhận rủi ro";
+"Server.LocalOnly.Alert.Action.disagree" = "Không, đừng dùng";
 
 // MARK: - Gallery
-"Gallery.Author" = "Made by @%@";
-"Gallery.Install" = "Install";
-"Gallery.InstallToNew" = "Install to new space";
-"Gallery.Notification.Success" = "Experience was successfully installed to the \"%@\" space. You can now open and start using it.";
-"Gallery.Notification.Button" = "Go to space";
-"Gallery.Notification.Error" = "Oops! \"%@\" wasn't installed. Please check your internet connection and try again or post a report on forum.";
+"Gallery.Author" = "Tạo bởi @%@";
+"Gallery.Install" = "Cài";
+"Gallery.InstallToNew" = "Cài vào không gian mới";
+"Gallery.Notification.Success" = "Trải nghiệm đã được cài đặt thành công vào không gian \"%@\". Giờ bạn có thể mở rồi bắt đầu sử dụng luôn.";
+"Gallery.Notification.Button" = "Đến không gian";
+"Gallery.Notification.Error" = "Chết dở. \"%@\" chưa cài đặt được. Kiểm tra kết nối internet của bạn rồi thử lại hoặc đăng một báo cáo lên diễn đàn.";
 
 // MARK: - Membership
-"Membership" = "Membership";
-"Just e-mail" = "Just e-mail";
+"Membership" = "Tư cách hội viên";
+"Just e-mail" = "Chỉ e-mail";
 "E-mail" = "E-mail";
-"Learn more" = "Learn more";
-"per" = "per";
-"unlimited" = "Unlimited";
+"Learn more" = "Tìm hiểu thêm";
+"per" = "trên";
+"unlimited" = "Không giới hạn";
 
 
-"Upgrade" = "Upgrade";
-"What’s included" = "What’s included";
-"Submit" = "Submit";
-"Resend" = "Resend";
-"Resend in" = "Resend in %@ sec";
-"Current" = "Current";
-"Forever free" = "Forever free";
-"Forever" = "Forever";
-"Valid until date" = "Valid until %@";
-"Your current status" = "Your current status:";
-"Valid until" = "Valid until:";
-"Paid by" = "Paid by %@";
-"Myself" = "Myself";
-"Pay by Card" = "Pay by Card";
-"Min X characters" = "Min %@ characters";
-"Pending" = "Pending...";
+"Upgrade" = "Nâng cấp";
+"What’s included" = "Bao gồm những gì";
+"Submit" = "Gửi";
+"Resend" = "Gửi lại";
+"Resend in" = "Gửi lại trong %@ giây";
+"Current" = "Hiện tại";
+"Forever free" = "Mãi mãi miễn phí";
+"Forever" = "Mãi mãi";
+"Valid until date" = "Có hiệu lực đến %@";
+"Your current status" = "Trạng thái hiện tại của bạn:";
+"Valid until" = "Có hiệu lực đến:";
+"Paid by" = "Đã trả bằng %@";
+"Myself" = "Bản thân";
+"Pay by Card" = "Thanh toán bằng thẻ";
+"Min X characters" = "Tối thiểu %@ ký tự";
+"Pending" = "Đang chờ...";
 "Manage payment" = "Quản lý thanh toán";
-"Change email" = "Change email";
+"Change email" = "Thay đổi email";
 "Email successfully validated" = "Email successfully validated";
 "Confirm" = "Xác nhận";
 
-"StoreKitServiceError.userCancelled" = "Purchase cancelled";
+"StoreKitServiceError.userCancelled" = "Đã hủy giao dịch mua";
 "StoreKitServiceError.needUserAction" = "Payment unsuccessfull, User Actions on Apple side required to pay.";
 
-"Membership.Ad.Title" = "Membership";
-"Membership.Ad.Subtitle" = "Joining Anytype network means contributing to its story";
+"Membership.Ad.Title" = "Tư cách hội viên";
+"Membership.Ad.Subtitle" = "Tham gia vào mạng Anytype tức là đóng góp vào câu chuyện của nó";
 
-"Membership.Legal.Details" = "Membership plan details";
-"Membership.Legal.Privacy" = "Privacy policy";
-"Membership.Legal.Terms" = "Terms and conditions";
+"Membership.Legal.Details" = "Chi tiết các bậc hội viên";
+"Membership.Legal.Privacy" = "Chính sách quyền riêng tư";
+"Membership.Legal.Terms" = "Điều khoản và điều kiện";
 "Membership.Legal.WouldYouLike" = "Would you like to use Anytype for business, education, etc.?";
 "Membership.Legal.LetUsKnow" = "Please let us know here.";
 "Membership.Legal.AlreadyPurchasedTier" = "Already purchased tier?";
-"Membership.Legal.RestorePurchases" = "Restore purchases";
+"Membership.Legal.RestorePurchases" = "Khôi phục các gói đã mua";
 
 "Membership.Email.Body" = "Hello Anytype team! I would like to extend my current membership for more (please choose an option):
 - Extra remote storage
@@ -1122,47 +1123,47 @@
 Specifically,
 Please provide specific details of your needs here.";
 
-"Membership.Upgrade.Title" = "Membership upgrade";
-"Membership.Upgrade.Text" = "Reach us for extra storage, space editors, or more shared spaces. Anytype team will provide details and conditions tailored to your needs.";
-"Membership.Upgrade.Button" = "Contact Anytype Team";
+"Membership.Upgrade.Title" = "Nâng cấp tư cách hội viên";
+"Membership.Upgrade.Text" = "Liên lạc chúng tôi để có thêm dung lượng, biên tập viên không gian, hoặc nhiều không gian chung hơn. Đội ngũ Anytype sẽ cung cấp cho chi tiết và điều kiện phù hợp với nhu cầu của bạn.";
+"Membership.Upgrade.Button" = "Liên hệ đội ngũ Anytype";
 
-"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
-"Membership.Upgrade.MoreMembers" = "Upgrade to add more members";
-"Membership.Upgrade.NoMoreMembers" = "You can’t add more members";
-"Membership.Upgrade.NoMoreEditors" = "You can’t add more editors";
+"Membership.Upgrade.MoreSpaces" = "Nâng cấp để thêm nhiều không gian";
+"Membership.Upgrade.MoreMembers" = "Nâng cấp để thêm nhiều thành viên";
+"Membership.Upgrade.NoMoreMembers" = "Bạn không thể thêm thành viên";
+"Membership.Upgrade.NoMoreEditors" = "Bạn không thể thêm biên tập viên";
 
 
-"Membership.Banner.Title1" = "Build the Vision Together";
+"Membership.Banner.Title1" = "Xây dựng tầm nhìn cùng nhau";
 "Membership.Banner.Subtitle1" = "Là một thành viên quý giá, tiếng nói của bạn có trọng lượng! Tham dự những sự kiện dành riêng, định hình những lựa chọn chiến lược, và tạo ảnh hưởng lên bản đồ của chúng tôi.";
 "Membership.Banner.Title2" = "Mở khoá những đặc quyền hội viên";
-"Membership.Banner.Subtitle2" = "Members enjoy higher backup storage & sync limits, invitations for multiple guests to collaborate in shared spaces, and a unique identity on the Anytype Network.";
+"Membership.Banner.Subtitle2" = "Hội viên có nhiều bộ nhớ sao lưu & giới hạn đồng bộ, lời mời cho nhiều người cùng hợp tác trong các không gian chung hơn, và một danh tính độc nhất trên Mạng Anytype.";
 "Membership.Banner.Title3" = "Hỗ trợ sự độc lập số";
 "Membership.Banner.Subtitle3" = "Đóng góp của bạn hỗ trợ tổ đội chúng tôi và chứng thực cho tầm nhìn của chúng tôi về một mạng mà người dùng làm chủ, an toàn và cộng tác.";
-"Membership.Banner.Title4" = "Invest in Connectivity";
+"Membership.Banner.Title4" = "Đầu tư vào sự kết nối";
 "Membership.Banner.Subtitle4" = "Giá trị của mạng chúng tôi lớn hơn tổng các thành phần của nó. Tư cách hội viên của bạn giữ vững cơ sở cho sự phát triển của nó, chống trụ cho mạng lưới này.";
 
-"Membership.EmailForm.Title" = "Get updates and enjoy free perks!";
-"Membership.EmailForm.Subtitle" = "It is not linked to your account in any way.";
-"Membership.EmailValidation" = "Enter the code sent to your email";
+"Membership.EmailForm.Title" = "Nhận cập nhật và tận hưởng những đặc quyền miễn phí!";
+"Membership.EmailForm.Subtitle" = "Nó không hề được liên kết với tài khoản của bạn theo bất kỳ cách gì.";
+"Membership.EmailValidation" = "Nhập mã được gửi về email của bạn";
 
-"Membership.NameForm.Title" = "Pick your unique name";
+"Membership.NameForm.Title" = "Chọn biệt danh của bạn";
 "Membership.NameForm.Subtitle" = "Đây là biệt danh của bạn trên mạng Anytype, chứng nhận cho Tư cách hội viên của bạn. Nó có tác dụng giống một tên miền cá nhân và không thể thay đổi.";
-"Membership.NameForm.Validating" = "Wait a second...";
-"Membership.NameForm.Validated" = "This name is up for grabs";
+"Membership.NameForm.Validating" = "Chờ một chút...";
+"Membership.NameForm.Validated" = "Tên này còn để lấy";
 
-"Membership.Success.Title" = "Welcome to the network, %@";
-"Membership.Success.Curiosity" = "Big cheers for your curiosity!";
-"Membership.Success.Support" = "Big cheers for your support!";
+"Membership.Success.Title" = "Chào mừng đến với mạng, %@";
+"Membership.Success.Curiosity" = "Ăn mừng cho sự tò mò của bạn thôi!";
+"Membership.Success.Support" = "Ăn mừng cho sự hỗ trợ của bạn thôi!";
 
 "Membership.Payment.Card" = "Thẻ";
-"Membership.Payment.Crypto" = "Crypto";
+"Membership.Payment.Crypto" = "Tiền ảo";
 "Membership.Payment.Apple subscription" = "Apple subscription";
 "Membership.Payment.Google subscription" = "Google subscription";
 
 
 "Membership.Explorer.Subtitle" = "Sync your devices, get backup storage, and engage in collaboration.";
 "Membership.Builder.Subtitle" = "Unlock multiparty collaboration and extend your network storage.";
-"Membership.CoCreator.Subtitle" = "Support our adventure and unlock exclusive access and perks.";
+"Membership.CoCreator.Subtitle" = "Hỗ trợ cuộc phiêu lưu của chúng tôi và mở khoá quyền truy cập và đặc quyền riêng.";
 "Membership.Custom.Subtitle" = "Custom conditions of Membership. If you have any questions, please contact support.";
 
 "Membership.Feature.LocalName" = "Local, non-unique name";
@@ -1183,14 +1184,14 @@ Please provide specific details of your needs here.";
 "Membership.ManageTier.AppleId" = "You can manage tier on another AppleId account";
 
 // MARK: - Sync status
-"SyncStatus.Info.localOnly" = "Data backup is disabled";
-"SyncStatus.Info.AnytypeNetwork" = "End-to-end encrypted";
-"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
-"SyncStatus.Error.storageLimitExceed" = "Storage limit reached";
+"SyncStatus.Info.localOnly" = "Sao lưu dữ liệu bị vô hiệu";
+"SyncStatus.Info.AnytypeNetwork" = "Mật hóa đầu cuối";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Đồng bộ có thể chậm. Hãy cập nhật ứng dụng.";
+"SyncStatus.Error.storageLimitExceed" = "Đã đạt giới hạn chứa";
 "SyncStatus.Error.incompatibleVersion" = "Phiên bản không tương thích";
-"SyncStatus.Error.networkError" = "No access to the space";
-"SyncStatus.Error.UNRECOGNIZED" = "Unrecognized error";
-"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
+"SyncStatus.Error.networkError" = "Không có quyền truy cập không gian";
+"SyncStatus.Error.UNRECOGNIZED" = "Lỗi không xác định";
+"SyncStatus.P2P.Restricted" = "Bị giới hạn. Chạm để kiểm tra cài đặt thiết bị.";
 "SyncStatus.P2P.NotConnected" = "Connection not possible";
 
 

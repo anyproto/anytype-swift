@@ -2,9 +2,11 @@ import Foundation
 import SwiftUI
 import AnytypeCore
 
-protocol SpaceSetupManagerProtocol :AnyObject {
+protocol SpaceSetupManagerProtocol: AnyObject {
     func setActiveSpace(sceneId: String, spaceId: String) async throws
     func registerSpaceSetter(sceneId: String, setter: any ActiveSpaceSetterProtocol) async
+    
+    func cleanupState() async
 }
 
 actor SpaceSetupManager: SpaceSetupManagerProtocol {
@@ -27,9 +29,13 @@ actor SpaceSetupManager: SpaceSetupManagerProtocol {
     
     func registerSpaceSetter(sceneId: String, setter: any ActiveSpaceSetterProtocol) {
         if cache[sceneId]?.setter != nil {
-            anytypeAssertionFailure("Already cache")
+            anytypeAssertionFailure("Already cached")
         }
         
         cache[sceneId] = WeakValue(setter: setter)
+    }
+    
+    func cleanupState() {
+        cache = [:]
     }
 }

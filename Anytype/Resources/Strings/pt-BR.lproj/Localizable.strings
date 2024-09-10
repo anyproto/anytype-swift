@@ -684,6 +684,7 @@
 "Cancel deletion" = "Cancelar exclusão";
 "Logout and clear data" = "Desconectar e limpar dados";
 "New" = "Novo";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Are you sure you want to delete your vault?";

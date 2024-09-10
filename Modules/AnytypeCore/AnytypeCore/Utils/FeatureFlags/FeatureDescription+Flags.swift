@@ -30,24 +30,6 @@ public extension FeatureDescription {
         defaultValue: false
     )
     
-    static let galleryWidget = FeatureDescription(
-        title: "Gallery Widget - IOS-2964",
-        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
-    static let widgetCreateWithoutType = FeatureDescription(
-        title: "Create widget without type - IOS-3049",
-        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
-    static let updateAlert = FeatureDescription(
-        title: "Update Alert - IOS-3054",
-        type: .feature(author: "m@anytype.io", releaseVersion: "6"),
-        defaultValue: true
-    )
-    
     static let discussions = FeatureDescription(
         title: "Discussions - IOS-3060",
         type: .feature(author: "m@anytype.io", releaseVersion: "?"),
@@ -59,6 +41,13 @@ public extension FeatureDescription {
         title: "Version History - IOS-3058",
         type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
         defaultValue: true
+    )
+    
+    static let allContent = FeatureDescription(
+        title: "All content",
+        type: .feature(author: "joe_pusya@anytype.io", releaseVersion: "7"),
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

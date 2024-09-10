@@ -574,7 +574,7 @@
 "Select all" = "Выбраць усё";
 "Unselect all" = "Скасаваць выбар";
 "Deselect all" = "Зняць вылучэнне";
-"Deselect" = "Deselect";
+"Deselect" = "Зняць вылучэнне";
 "Shared" = "Абагуленае";
 "Sets" = "Наборы";
 "Collections" = "Калекцыі";
@@ -685,6 +685,7 @@
 "Cancel deletion" = "Скасаваць выдаленне";
 "Logout and clear data" = "Выйсці і ачысціць даныя";
 "New" = "Новы";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Вы ўпэўнены, што хочаце выдаліць сваё сховішча?";
@@ -1059,9 +1060,9 @@
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Толькі лакальна";
 "Server.LocalOnly.Alert.title" = "Вы ўпэўнены?";
-"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
-"Server.LocalOnly.Alert.Action.agree" = "Yes, I accept risks";
-"Server.LocalOnly.Alert.Action.disagree" = "No, don’t use it";
+"Server.LocalOnly.Alert.message" = "Толькі лакальны рэжым з'яўляецца эксперыментальнай функцыяй і не дае пераваг бяспекі. Выкарыстоўвайце яго на свой страх і рызыку, бо можа адбыцца страта даных.";
+"Server.LocalOnly.Alert.Action.agree" = "Так, я прымаю рызыку";
+"Server.LocalOnly.Alert.Action.disagree" = "Не, не выкарыстоўваць";
 
 // MARK: - Gallery
 "Gallery.Author" = "Зроблена @%@";
@@ -1185,7 +1186,7 @@
 // MARK: - Sync status
 "SyncStatus.Info.localOnly" = "Рэзервовае капіраванне даных адключана";
 "SyncStatus.Info.AnytypeNetwork" = "Зашыфравана скразным метадам";
-"SyncStatus.Info.NetworkNeedsUpdate" = "Sync might be slow. Update the app.";
+"SyncStatus.Info.NetworkNeedsUpdate" = "Сінхранізацыя можа быць павольнай. Абнавіце праграму.";
 "SyncStatus.Error.storageLimitExceed" = "Дасягнута мяжа захоўвання даных";
 "SyncStatus.Error.incompatibleVersion" = "Несумяшчальная версія";
 "SyncStatus.Error.networkError" = "Няма доступу да прасторы";

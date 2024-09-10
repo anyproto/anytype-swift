@@ -31,9 +31,8 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         return workspaceStorage.workspaceInfo(spaceId: currentSpaceId)
     }
     
-    // TODO: Change fallback space when product team will be ready
     var fallbackSpaceId: String {
-        spaceInfo?.accountSpaceId ?? accountManager.account.info.accountSpaceId
+        userDefaults.lastOpenedScreen?.spaceId ?? accountManager.account.info.accountSpaceId
     }
     
     @Published var pathChanging: Bool = false
@@ -110,12 +109,9 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
     }
     
     func setupInitialScreen() async {
-        guard workspaceStorage.allWorkspaces.count == 1 else { return }
         guard !loginStateService.isFirstLaunchAfterRegistration else { return }
         if let lastOpenedScreen = userDefaults.lastOpenedScreen {
             openObject(screenData: lastOpenedScreen)
-        } else {
-            try? await activeSpaceManager.setActiveSpace(spaceId: fallbackSpaceId)
         }
     }
     
@@ -244,7 +240,7 @@ final class SpaceHubCoordinatorViewModel: ObservableObject {
         case .spaceShareTip:
             showSpaceShareTip = true
         case .membership(let tierId):
-            guard accountManager.account.isInProdNetwork else { return }
+            guard accountManager.account.isInProdOrStagingNetwork else { return }
             membershipTierId = tierId.identifiable
         }
     }

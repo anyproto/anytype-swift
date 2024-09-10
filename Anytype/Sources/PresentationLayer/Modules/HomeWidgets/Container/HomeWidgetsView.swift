@@ -34,11 +34,14 @@ private struct HomeWidgetsInternalView: View {
             } content: {
                 VStack(spacing: 12) {
                     if model.dataLoaded {
-                        if FeatureFlags.updateAlert {
-                            HomeUpdateSubmoduleView()
-                        }
+                        HomeUpdateSubmoduleView()
                         SpaceWidgetView(spaceId: model.spaceId) {
                             model.onSpaceSelected()
+                        }
+                        if FeatureFlags.allContent {
+                            AllContentWidgetView(homeState: $model.homeState) {
+                                model.onAllContentSelected()
+                            }
                         }
                         if #available(iOS 17.0, *) {
                             WidgetSwipeTipView()

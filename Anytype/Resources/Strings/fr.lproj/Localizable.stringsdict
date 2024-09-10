@@ -5,7 +5,7 @@
     <key>Items syncing</key>
     <dict>
       <key>NSStringLocalizedFormatKey</key>
-      <string>%#@item@ syncing...</string>
+      <string>Synchronisation  %#@item@ en cours...</string>
       <key>item</key>
       <dict>
         <key>NSStringFormatSpecTypeKey</key>
@@ -13,7 +13,7 @@
         <key>NSStringFormatValueTypeKey</key>
         <string>ld</string>
         <key>one</key>
-        <string>%ld item</string>
+        <string>Élément %ld</string>
         <key>other</key>
         <string>%ld items</string>
       </dict>

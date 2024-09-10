@@ -66,15 +66,9 @@ private struct HomeBottomNavigationPanelViewInternal: View {
     
     @ViewBuilder
     private var navigation: some View {
-        Button {
-            model.onTapBackward()
-        } label: {
-            Image(asset: .X32.Island.back)
-        }
-        
-        Image(asset: .X32.Island.vault)
+        Image(asset: .X32.Island.back)
             .onTapGesture {
-                model.onSpaceHubTap()
+                model.onTapBackward()
             }
             .simultaneousGesture(
                 LongPressGesture(minimumDuration: 0.3)

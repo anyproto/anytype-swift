@@ -684,6 +684,7 @@
 "Cancel deletion" = "Silme işlemini iptal et";
 "Logout and clear data" = "Oturumu kapat ve verileri temizle";
 "New" = "Yeni";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";

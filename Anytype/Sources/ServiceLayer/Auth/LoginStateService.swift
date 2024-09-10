@@ -41,6 +41,8 @@ final class LoginStateService: LoginStateServiceProtocol {
     private var networkConnectionStatusDaemon: any NetworkConnectionStatusDaemonProtocol
     @Injected(\.userDefaultsStorage)
     private var userDefaults: any UserDefaultsStorageProtocol
+    @Injected(\.spaceSetupManager)
+    private var spaceSetupManager: any SpaceSetupManagerProtocol
     
     // MARK: - LoginStateServiceProtocol
     
@@ -64,6 +66,7 @@ final class LoginStateService: LoginStateServiceProtocol {
         userDefaults.cleanStateAfterLogout()
         blockWidgetExpandedService.clearData()
         middlewareConfigurationProvider.removeCachedConfiguration()
+        await spaceSetupManager.cleanupState()
         await stopSubscriptions()
     }
     

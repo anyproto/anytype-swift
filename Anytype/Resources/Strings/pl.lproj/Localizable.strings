@@ -684,6 +684,7 @@
 "Cancel deletion" = "Anuluj usuwanie";
 "Logout and clear data" = "Wyloguj i wyczyść dane";
 "New" = "Nowy";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Czy na pewno chcesz usunąć swój sejf?";

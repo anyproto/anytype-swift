@@ -291,7 +291,7 @@
 
 // Version history
 "VersionHistory.Title" = "Historique des versions";
-"VersionHistory.Toast.message" = "Version %@ was restored";
+"VersionHistory.Toast.message" = "La version %@ a été restaurée";
 
 "Search" = "Rechercher";
 "There is no emoji named" = "Il n'y a pas d'émoji nommé";
@@ -684,6 +684,7 @@
 "Cancel deletion" = "Annuler la suppression";
 "Logout and clear data" = "Se déconnecter et effacer les données";
 "New" = "Nouveau";
+"Blurred icon" = "Blurred\n icon";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Voulez-vous vraiment supprimer votre coffre ?";
@@ -1058,7 +1059,7 @@
 "Server.Anytype" = "Anytype";
 "Server.LocalOnly" = "Local seulement";
 "Server.LocalOnly.Alert.title" = "Êtes-vous sûr ?";
-"Server.LocalOnly.Alert.message" = "Local-only mode is an experimental feature and does not provide security benefits. Please use it at your own risk, as data loss may occur.";
+"Server.LocalOnly.Alert.message" = "Le mode local uniquement est une fonctionnalité expérimentale et n’offre aucun avantage en matière de sécurité. Veuillez l'utiliser à vos propres risques, car une perte de données peut survenir.";
 "Server.LocalOnly.Alert.Action.agree" = "Oui, j'accepte les risques";
 "Server.LocalOnly.Alert.Action.disagree" = "Non, ne pas l'utiliser";
 
@@ -1125,7 +1126,7 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Membership.Upgrade.Text" = "Contactez-nous pour obtenir du stockage supplémentaire, plus de rédacteurs, ou davantage d'espaces partagés. L'équipe d'Anytype vous fournira l'offre adaptée à vos besoins.";
 "Membership.Upgrade.Button" = "Contacter l'équipe d'Anytype";
 
-"Membership.Upgrade.MoreSpaces" = "Upgrade to add more spaces";
+"Membership.Upgrade.MoreSpaces" = "Mettre à niveau pour ajouter plus d’espaces";
 "Membership.Upgrade.MoreMembers" = "Mettre à niveau pour ajouter plus de membres";
 "Membership.Upgrade.NoMoreMembers" = "Vous ne pouvez plus ajouter de membres";
 "Membership.Upgrade.NoMoreEditors" = "Vous ne pouvez pas ajouter plus d'éditeurs";
@@ -1190,8 +1191,8 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "SyncStatus.Error.networkError" = "Pas d'accès à l'espace";
 "SyncStatus.Error.UNRECOGNIZED" = "Erreur inconnue
 ";
-"SyncStatus.P2P.Restricted" = "Restricted. Tap to open device settings.";
-"SyncStatus.P2P.NotConnected" = "Connection not possible";
+"SyncStatus.P2P.Restricted" = "Limité. Appuyez pour ouvrir les paramètres de l'appareil.";
+"SyncStatus.P2P.NotConnected" = "Connexion impossible";
 
 
 // MARK: - Debug
@@ -1199,5 +1200,5 @@ Merci de fournir ici des détails plus précis de vos besoins.";
 "Debug.Info" = "Infos de débogage";
 
 // MARK: - Messages
-"Message.Action.AddReaction" = "Add Reaction";
+"Message.Action.AddReaction" = "Ajouter une Réaction";
 "Message.Input.EmptyPlaceholder" = "Ecrire un message...";

@@ -20,18 +20,16 @@ final class WidgetSourceSearchSelectInternalViewModel: WidgetSourceSearchInterna
     func onSelect(source: WidgetSource) {
         AnytypeAnalytics.instance().logChangeWidgetSource(source: source.analyticsSource, route: .addWidget, context: data.context)
         
-        if FeatureFlags.widgetCreateWithoutType {
-            let layout = source.availableWidgetLayout.first ?? .link
-            Task { @MainActor in
-                try await blockWidgetService.createWidgetBlock(
-                    contextId: data.widgetObjectId,
-                    sourceId: source.sourceId,
-                    layout: layout,
-                    limit: layout.limits.first ?? 0,
-                    position: data.position
-                )
-                AnytypeAnalytics.instance().logAddWidget(context: data.context)
-            }
+        let layout = source.availableWidgetLayout.first ?? .link
+        Task { @MainActor in
+            try await blockWidgetService.createWidgetBlock(
+                contextId: data.widgetObjectId,
+                sourceId: source.sourceId,
+                layout: layout,
+                limit: layout.limits.first ?? 0,
+                position: data.position
+            )
+            AnytypeAnalytics.instance().logAddWidget(context: data.context)
         }
         
         onSelectClosure(source)
