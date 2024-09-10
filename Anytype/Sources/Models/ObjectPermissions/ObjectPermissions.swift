@@ -21,6 +21,7 @@ struct ObjectPermissions: Equatable {
     var canApplyTemplates: Bool = false
     var canShare: Bool = false
     var canEditBlocks: Bool = false
+    var canEditMessages: Bool = false
     var canShowVersionHistory: Bool = false
     var canRestoreVersionHistory: Bool = false
     var editBlocks: EditBlocksPermission = .readonly(.restrictions)
@@ -71,6 +72,7 @@ extension ObjectPermissions {
         self.canEditRelationsList = canEdit && !objectRestrictions.contains(.relations)
         self.canShare = !isTemplateType
         self.canApplyTemplates = canEdit && !isTemplateType
+        self.canEditMessages = canEdit && details.objectType.isChatType
         
         if isLocked || isVersionMode {
             self.editBlocks = .readonly(.locked)

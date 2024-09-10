@@ -16,8 +16,13 @@ struct DiscussionView: View {
                 await model.scrollToBottom()
             }
             .safeAreaInset(edge: .bottom, spacing: 0) {
-                inputPanel
+                if model.canEdit {
+                    inputPanel
+                }
             }
+        }
+        .task {
+            await model.startHandlePermissions()
         }
         .task {
             await model.subscribeOnParticipants()

@@ -5,6 +5,8 @@ import SwiftUI
 @MainActor
 final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
+    // MARK: - DI
+    
     private let spaceId: String
     private let objectId: String
     private let chatId: String
@@ -19,11 +21,17 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
+    private let openDocumentProvider: any OpenedDocumentsProviderProtocol = Container.shared.documentService()
+    
+    // MARK: - State
+    
+    private let document: any BaseDocumentProtocol
     
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
     @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
     @Published var message: AttributedString = ""
+    @Published var canEdit = false
     
     private var messages: [ChatMessage] = []
     private var participants: [Participant] = []
@@ -34,6 +42,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         self.objectId = objectId
         self.chatId = chatId
         self.output = output
+        self.document = openDocumentProvider.document(objectId: objectId)
     }
     
     func onTapAddObjectToMessage() {
@@ -53,6 +62,12 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         for await participants in participantSubscription.participantsPublisher.values {
             self.participants = participants
             updateMessages()
+        }
+    }
+    
+    func startHandlePermissions() async {
+        for await permissions in document.permissionsPublisher.values {
+            canEdit = permissions.canEditMessages
         }
     }
     
