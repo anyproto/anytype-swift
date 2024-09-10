@@ -2,6 +2,7 @@ struct ObjectTypeSearchViewSettings {
     let showPins: Bool
     let showLists: Bool
     let showFiles: Bool
+    let showChat: Bool
     let incudeNotForCreation: Bool
     let allowPaste: Bool
 }
@@ -11,6 +12,7 @@ extension ObjectTypeSearchViewSettings {
         showPins: true,
         showLists: true,
         showFiles: false,
+        showChat: true,
         incudeNotForCreation: false,
         allowPaste: true
     )
@@ -19,6 +21,7 @@ extension ObjectTypeSearchViewSettings {
         showPins: false,
         showLists: false,
         showFiles: true,
+        showChat: false,
         incudeNotForCreation: true,
         allowPaste: false
     )
@@ -27,6 +30,7 @@ extension ObjectTypeSearchViewSettings {
         showPins: false,
         showLists: true,
         showFiles: false,
+        showChat: false,
         incudeNotForCreation: false,
         allowPaste: false
     )
@@ -35,6 +39,7 @@ extension ObjectTypeSearchViewSettings {
         showPins: false,
         showLists: false,
         showFiles: false,
+        showChat: false,
         incudeNotForCreation: false,
         allowPaste: false
     )
@@ -43,6 +48,7 @@ extension ObjectTypeSearchViewSettings {
         showPins: false,
         showLists: false,
         showFiles: false,
+        showChat: false,
         incudeNotForCreation: false,
         allowPaste: false
     )

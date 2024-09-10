@@ -71,6 +71,7 @@ final class ObjectTypeSearchViewModel: ObservableObject {
                 includeLists: false,
                 includeBookmark: true, 
                 includeFiles: settings.showFiles,
+                includeChat: settings.showChat,
                 incudeNotForCreation: settings.incudeNotForCreation,
                 spaceId: spaceId
             ).map { ObjectType(details: $0) }

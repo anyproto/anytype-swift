@@ -43,6 +43,7 @@ final class TypesService: TypesServiceProtocol {
         includeLists: Bool,
         includeBookmark: Bool,
         includeFiles: Bool,
+        includeChat: Bool,
         incudeNotForCreation: Bool,
         spaceId: String
     ) async throws -> [ObjectDetails] {
@@ -62,6 +63,10 @@ final class TypesService: TypesServiceProtocol {
         
         if !includeBookmark {
             layouts.removeAll(where: { $0 == .bookmark })
+        }
+        
+        if !includeChat {
+            layouts.removeAll(where: { $0 == .chat })
         }
         
         let filters: [DataviewFilter] = .builder {
