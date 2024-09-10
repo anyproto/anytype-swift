@@ -102,6 +102,10 @@ final class HomeWidgetsViewModel: ObservableObject {
         output?.onSpaceSelected()
     }
     
+    func onAllContentSelected() {
+        
+    }
+    
     func submoduleOutput() -> (any CommonWidgetModuleOutput)? {
         output
     }

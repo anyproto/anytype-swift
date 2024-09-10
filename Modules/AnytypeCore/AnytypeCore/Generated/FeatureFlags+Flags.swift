@@ -30,6 +30,10 @@ public extension FeatureFlags {
         value(for: .versionHistory)
     }
 
+    static var allContent: Bool {
+        value(for: .allContent)
+    }
+
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
     }
@@ -90,6 +94,7 @@ public extension FeatureFlags {
         .hideCoCreator,
         .discussions,
         .versionHistory,
+        .allContent,
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
