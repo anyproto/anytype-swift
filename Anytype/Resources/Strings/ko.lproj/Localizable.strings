@@ -114,7 +114,7 @@
 "Relation.Origin.Import" = "가져온 오브젝트";
 "Relation.Origin.WebClipper" = "웹 클리퍼";
 "Relation.Origin.SharingExtension" = "모바일 공유 확장";
-"Relation.Origin.UseCase" = "Use case";
+"Relation.Origin.UseCase" = "활용 예시";
 "Relation.Origin.Builtin" = "라이브러리 설치됨";
 "Relation.Origin.Bookmark" = "Bookmark";
 
@@ -204,6 +204,7 @@
 "Favorites" = "즐겨찾기";
 "Recent" = "최근";
 "Bin" = "휴지통";
+"All content" = "All content";
 
 // Settings
 "Wallpaper" = "배경화면";
