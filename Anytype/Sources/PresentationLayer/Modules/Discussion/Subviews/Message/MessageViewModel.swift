@@ -51,14 +51,7 @@ final class MessageViewModel: ObservableObject {
         authorIcon = authorParticipant?.icon.map { .object($0) }
         date = chatMessage.createdAtDate.formatted(date: .omitted, time: .shortened)
         isYourMessage = chatMessage.creator == yourProfileIdentity
-        
-        reactions = chatMessage.reactions.reactions.map { (key, value) in
-            MessageReactionModel(
-                emoji: key,
-                count: value.ids.count,
-                selected: yourProfileIdentity.map { value.ids.contains($0) } ?? false
-            )
-        }.sorted { $0.count > $1.count }.sorted { $0.emoji < $1.emoji }
+        reactions = data.reactions
         
         linkedObjects = chatMessage.attachments.map { ObjectDetails(id: $0.target) }
     }

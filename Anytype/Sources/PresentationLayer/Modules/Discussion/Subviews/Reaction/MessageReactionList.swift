@@ -23,9 +23,9 @@ struct MessageReactionList: View {
 #Preview {
     MessageReactionList(
         rows: [
-            MessageReactionModel(emoji: "😍", count: 2, selected: false),
-            MessageReactionModel(emoji: "😗", count: 50, selected: true),
-            MessageReactionModel(emoji: "😎", count: 150, selected: false)
+            MessageReactionModel(emoji: "😍", content: .count(2), selected: false),
+            MessageReactionModel(emoji: "😗", content: .count(100), selected: true),
+            MessageReactionModel(emoji: "😎", content: .icon(.asset(.X18.delete)), selected: false)
         ],
         onTapRow: { _ in },
         onTapAdd: {}
