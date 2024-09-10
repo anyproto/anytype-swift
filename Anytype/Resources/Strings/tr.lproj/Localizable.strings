@@ -204,6 +204,7 @@
 "Favorites" = "Favoriler";
 "Recent" = "En son";
 "Bin" = "Çöp kutusu";
+"All content" = "All content";
 
 // Settings
 "Wallpaper" = "Duvar kağıdı";
@@ -684,7 +685,7 @@
 "Cancel deletion" = "Silme işlemini iptal et";
 "Logout and clear data" = "Oturumu kapat ve verileri temizle";
 "New" = "Yeni";
-"Blurred icon" = "Blurred\n icon";
+"Blurred icon" = "Bulanık\n simge";
 
 // MARK: - DeletionAlert
 "DeletionAlert.title" = "Kasanızı silmek istediğinizden emin misiniz?";
