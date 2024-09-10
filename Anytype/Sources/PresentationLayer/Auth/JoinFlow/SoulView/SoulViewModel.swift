@@ -60,10 +60,6 @@ final class SoulViewModel: ObservableObject {
             startLoading()
             
             do {
-                try await workspaceService.workspaceSetDetails(
-                    spaceId: accountManager.account.info.accountSpaceId,
-                    details: [.name(state.soul)]
-                )
                 try await objectActionsService.updateBundledDetails(
                     contextID: accountManager.account.info.profileObjectID,
                     details: [.name(state.soul)]
