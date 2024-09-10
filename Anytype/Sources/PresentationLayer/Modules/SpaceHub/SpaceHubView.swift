@@ -104,6 +104,7 @@ struct SpaceHubView: View {
         } label: {
             spaceCardLabel(space)
         }
+        .disabled(space.spaceView.isLoading)
         .onDrag {
             draggedSpace = space
             return NSItemProvider()
@@ -140,7 +141,7 @@ struct SpaceHubView: View {
         )
         .cornerRadius(20, style: .continuous)
         .padding(.horizontal, 8)
-
+        .if(space.spaceView.isLoading) { $0.redacted(reason: .placeholder) }
     }
 }
 
