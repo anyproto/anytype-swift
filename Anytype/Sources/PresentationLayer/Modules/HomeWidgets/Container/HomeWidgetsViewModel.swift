@@ -69,6 +69,7 @@ final class HomeWidgetsViewModel: ObservableObject {
     }
     
     func onAppear() {
+        AnytypeAnalytics.instance().logScreenWidget()
         if #available(iOS 17.0, *) {
             if space?.spaceAccessType == .private {
                 SpaceShareTip.didOpenPrivateSpace = true

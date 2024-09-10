@@ -587,15 +587,15 @@ extension AnytypeAnalytics {
     }
     
     func logMainAuthScreenShow() {
-        AnytypeAnalytics.instance().logEvent("ScreenIndex")
+        logEvent("ScreenIndex")
     }
     
     func logStartCreateAccount() {
-        AnytypeAnalytics.instance().logEvent("StartCreateAccount")
+        logEvent("StartCreateAccount")
     }
     
     func logLoginScreenShow() {
-        AnytypeAnalytics.instance().logEvent("ScreenLogin")
+        logEvent("ScreenLogin")
     }
     
     func logScreenSettingsPersonal() {
@@ -1137,4 +1137,11 @@ extension AnytypeAnalytics {
         logEvent("ScreenVault", withEventProperties: [AnalyticsEventsPropertiesKey.type:  type])
     }
     
+    func logHistoryBack() {
+        logEvent("HistoryBack")
+    }
+    
+    func logScreenWidget() {
+        logEvent("ScreenWidget")
+    }
 }
