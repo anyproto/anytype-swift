@@ -12,6 +12,8 @@ final class GlobalSearchViewModel: ObservableObject {
     private var defaultObjectCreationService: any DefaultObjectCreationServiceProtocol
     @Injected(\.globalSearchSavedStatesService)
     private var globalSearchSavedStatesService: any GlobalSearchSavedStatesServiceProtocol
+    @Injected(\.searchService)
+    private var searchService: any SearchServiceProtocol
     
     private let moduleData: GlobalSearchModuleData
     
@@ -41,8 +43,8 @@ final class GlobalSearchViewModel: ObservableObject {
             switch state.mode {
             case .default:
                 result = try await searchWithMetaService.search(text: state.searchText, spaceId: moduleData.spaceId)
-            case .filtered(_, let limitObjectIds):
-                result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: limitObjectIds)
+            case .filtered(let data):
+                result = try await searchWithMetaService.search(text: state.searchText, limitObjectIds: data.limitObjectIds)
             }
             
             updateInitialStateIfNeeded()
@@ -90,7 +92,7 @@ final class GlobalSearchViewModel: ObservableObject {
         let name = String(data.title.characters)
         state = GlobalSearchState(
             searchText: "",
-            mode: .filtered(name: name, limitObjectIds: data.relatedLinks)
+            mode: .filtered(FilteredData(id: data.id, name: name, limitObjectIds: data.relatedLinks))
         )
         storeState()
         modeChanged = true
@@ -127,9 +129,9 @@ final class GlobalSearchViewModel: ObservableObject {
         switch state.mode {
         case .default:
             return nil
-        case .filtered(let name, _):
+        case .filtered(let data):
             return GlobalSearchDataSection.SectionConfig(
-                title: Loc.Search.Links.Header.title(name),
+                title: Loc.Search.Links.Header.title(data.name),
                 buttonTitle: Loc.clear
             )
         }
@@ -149,7 +151,23 @@ final class GlobalSearchViewModel: ObservableObject {
     private func restoreState() {
         let restoredState = globalSearchSavedStatesService.restoreState(for: moduleData.spaceId)
         guard let restoredState else { return }
-        state = restoredState
+        switch restoredState.mode {
+        case .default:
+            state = restoredState
+        case .filtered(let data):
+            Task {
+                let details = try await searchService.search(text: "", limitObjectIds: [data.id]).first
+                guard let details else { return }
+                state = GlobalSearchState(
+                    searchText: restoredState.searchText,
+                    mode: .filtered(FilteredData(
+                        id: details.id,
+                        name: details.title,
+                        limitObjectIds: details.backlinks + details.links
+                    ))
+                )
+            }
+        }
     }
     
     private func storeState() {
