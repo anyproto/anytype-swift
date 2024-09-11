@@ -123,4 +123,8 @@ extension ObjectType {
     public var isImageLayout: Bool {
         recommendedLayout == .image
     }
+    
+    public var isChatType: Bool {
+        uniqueKey == .chat
+    }
 }
