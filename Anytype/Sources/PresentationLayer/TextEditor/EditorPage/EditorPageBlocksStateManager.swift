@@ -284,15 +284,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                case let .link(content) = info.content {
                 
                 let targetDocument = documentsProvider.document(objectId: content.targetBlockID)
-                let filteredBlocksIds = movingBlocksIds.filter { [weak self] movingBlockId in
-                    guard let self else { return false }
-                    if let info = document.infoContainer.get(id: movingBlockId),
-                       case let .link(content) = info.content {
-                        return content.targetBlockID != targetDocument.objectId
-                    } else {
-                        return true
-                    }
-                }
+                let filteredBlocksIds = filteredMovingBlocksWith(excludedObjectId: targetDocument.objectId)
             
                 Task { @MainActor [weak self] in
                     try? await targetDocument.open()
@@ -342,6 +334,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         }
     }
     
+    private func filteredMovingBlocksWith(excludedObjectId: String) -> [String] {
+        movingBlocksIds.filter { [weak self] movingBlockId in
+            guard let targetLinkObjectId = self?.document.targetLinkObjectIdFor(blockId: movingBlockId) else {
+                return true
+            }
+            return targetLinkObjectId != excludedObjectId
+        }
+    }
+    
     private func moveSync(position: BlockPosition, targetId: String, dropTargetId: String, blocksIds: [String]) {
         Task {
             try await move(position: position, targetId: targetId, dropTargetId: dropTargetId, blocksIds: blocksIds)
@@ -379,10 +380,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private func moveObjectsToCollection(_ collectionId: String, details: ObjectDetails) async throws {
         var objectBlocksIdsDict = [String: [String]]()
         movingBlocksIds.forEach { blockId in
-            guard let info = document.infoContainer.get(id: blockId),
-                  case let .link(content) = info.content,
-                  content.targetBlockID != collectionId else { return }
-            objectBlocksIdsDict[content.targetBlockID, default: []].append(blockId)
+            guard let targetLinkObjectId = document.targetLinkObjectIdFor(blockId: blockId),
+                  targetLinkObjectId != collectionId else { return }
+            objectBlocksIdsDict[targetLinkObjectId, default: []].append(blockId)
         }
         
         guard objectBlocksIdsDict.keys.count > 0 else { return }
