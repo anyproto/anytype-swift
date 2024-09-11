@@ -192,6 +192,7 @@ internal enum Loc {
   internal static let move = Loc.tr("Localizable", "Move")
   internal static let moveTo = Loc.tr("Localizable", "Move to")
   internal static let moveToBin = Loc.tr("Localizable", "Move To Bin")
+  internal static let myFirstSpace = Loc.tr("Localizable", "My First Space")
   internal static let myself = Loc.tr("Localizable", "Myself")
   internal static let name = Loc.tr("Localizable", "Name")
   internal static let new = Loc.tr("Localizable", "New")
