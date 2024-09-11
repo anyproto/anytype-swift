@@ -1,7 +1,5 @@
 import Foundation
 import Services
-import Combine
-import AnytypeCore
 
 @MainActor
 protocol AllContentSubscriptionServiceProtocol: AnyObject {
