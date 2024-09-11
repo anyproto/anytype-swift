@@ -9,7 +9,29 @@ struct AllContentView: View {
     }
     
     var body: some View {
-        Text("This is AllContentView")
+        VStack(spacing: 0) {
+            TitleView(title: Loc.allContent)
+            content
+        }
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear() {
+            model.onDisappear()
+        }
+    }
+    
+    private var content: some View {
+        PlainList {
+            ForEach(model.rows, id: \.id) { row in
+                SearchObjectRowView(
+                    viewModel: row,
+                    selectionIndicatorViewModel: nil
+                )
+            }
+        }
+        .scrollIndicators(.never)
+        .scrollDismissesKeyboard(.immediately)
     }
 }
 
