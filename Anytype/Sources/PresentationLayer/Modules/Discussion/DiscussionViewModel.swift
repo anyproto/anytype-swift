@@ -20,8 +20,6 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
     private lazy var participantSubscription: any ParticipantsSubscriptionProtocol = Container.shared.participantSubscription(spaceId)
     private lazy var chatStorage: any ChatMessagesStorageProtocol = Container.shared.chatMessageStorage(chatId)
     
-    
-    
     @Published var linkedObjects: [ObjectDetails] = []
     @Published var mesageBlocks: [MessageViewData] = []
     @Published var messagesScrollUpdate: DiscussionCollectionDiffApply = .auto
@@ -110,7 +108,7 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
         
         let yourProfileIdentity = accountParticipantsStorage.participants.first?.identity
         
-        let newMesageBlocks = messages.compactMap { message -> MessageViewData in
+        let newMessageBlocks = messages.compactMap { message -> MessageViewData in
             
             let reactions = message.reactions.reactions.map { (key, value) -> MessageReactionModel in
                 
@@ -141,8 +139,8 @@ final class DiscussionViewModel: ObservableObject, MessageModuleOutput {
             )
         }
         
-        guard newMesageBlocks != mesageBlocks else { return }
-        mesageBlocks = newMesageBlocks
+        guard newMessageBlocks != mesageBlocks else { return }
+        mesageBlocks = newMessageBlocks
         
         if scrollToLastForNextUpdate {
             messagesScrollUpdate = .scrollToLast
