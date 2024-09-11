@@ -41,13 +41,13 @@ final class MembershipCoordinatorModel: ObservableObject {
         }
     }
     
-    func loadTiers() {
-        Task { await loadTiers() }
+    func loadTiers(noCache: Bool = false) {
+        Task { await loadTiers(noCache: noCache) }
     }
     
-    private func loadTiers() async {
+    private func loadTiers(noCache: Bool) async {
         do {
-            tiers = try await membershipService.getTiers()
+            tiers = try await membershipService.getTiers(noCache: noCache)
             showTiersLoadingError = false
         } catch {
             showTiersLoadingError = true
@@ -64,7 +64,7 @@ final class MembershipCoordinatorModel: ObservableObject {
     
     private func showSuccessScreen(tier: MembershipTier) {
         showTier = nil
-        loadTiers()
+        loadTiers(noCache: true)
         
         Task {
             // https://linear.app/anytype/issue/IOS-2434/bottom-sheet-nesting
