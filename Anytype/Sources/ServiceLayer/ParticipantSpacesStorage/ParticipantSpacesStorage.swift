@@ -25,6 +25,14 @@ extension ParticipantSpacesStorageProtocol {
             .eraseToAnyPublisher()
     }
     
+    var activeOrLoadingParticipantSpacesPublisher: AnyPublisher<[ParticipantSpaceViewData], Never> {
+        allParticipantSpacesPublisher.map {
+            $0.filter { $0.spaceView.isActive || $0.spaceView.isLoading }
+        }
+        .removeDuplicates()
+        .eraseToAnyPublisher()
+    }
+    
     func participantSpaceView(spaceId: String) -> ParticipantSpaceViewData? {
         allParticipantSpaces.first { $0.spaceView.targetSpaceId == spaceId }
     }
